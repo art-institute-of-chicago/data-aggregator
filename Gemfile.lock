@@ -61,11 +61,15 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    domain_name (0.5.20170404)
+      unf (>= 0.0.5, < 1.0.0)
     erubi (1.6.0)
     execjs (2.7.0)
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     i18n (0.8.1)
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
@@ -86,6 +90,7 @@ GEM
     minitest (5.10.1)
     multi_json (1.12.1)
     mysql2 (0.4.5)
+    netrc (0.11.0)
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
@@ -121,6 +126,10 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.4.23)
@@ -156,6 +165,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.4)
     web-console (3.5.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -180,6 +192,7 @@ DEPENDENCIES
   mysql2 (>= 0.3.18, < 0.5)
   puma (~> 3.7)
   rails (~> 5.1.0)
+  rest-client
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
