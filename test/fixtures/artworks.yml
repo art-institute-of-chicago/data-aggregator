@@ -1,0 +1,63 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  api_id: 1
+  title: MyString
+  citi_id: 1
+  main_id: MyString
+  lake_uid: MyString
+  lake_guid: MyString
+  lake_uri: MyString
+  title_raw: MyString
+  title_display: MyString
+  date_start: 1
+  date_end: 1
+  date_display: MyString
+  creator_lake_uid: MyString
+  cerator_raw: MyString
+  creator_display: MyString
+  department_lake_uid: MyString
+  department_display: MyString
+  dimensions: MyString
+  medium_raw: MyString
+  medium_display: MyString
+  inscriptions: MyString
+  credit_line: MyString
+  history_publications: MyText
+  history_exhibitions: MyText
+  history_provenance: MyText
+  api_created_at: 2017-05-01 12:48:38
+  api_created_by: MyString
+  api_modified_at: 2017-05-01 12:48:38
+  api_modified_by: MyString
+
+two:
+  api_id: 1
+  title: MyString
+  citi_id: 1
+  main_id: MyString
+  lake_uid: MyString
+  lake_guid: MyString
+  lake_uri: MyString
+  title_raw: MyString
+  title_display: MyString
+  date_start: 1
+  date_end: 1
+  date_display: MyString
+  creator_lake_uid: MyString
+  cerator_raw: MyString
+  creator_display: MyString
+  department_lake_uid: MyString
+  department_display: MyString
+  dimensions: MyString
+  medium_raw: MyString
+  medium_display: MyString
+  inscriptions: MyString
+  credit_line: MyString
+  history_publications: MyText
+  history_exhibitions: MyText
+  history_provenance: MyText
+  api_created_at: 2017-05-01 12:48:38
+  api_created_by: MyString
+  api_modified_at: 2017-05-01 12:48:38
+  api_modified_by: MyString

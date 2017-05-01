@@ -1,0 +1,162 @@
+<%= form_with(model: artwork, local: true) do |form| %>
+  <% if artwork.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(artwork.errors.count, "error") %> prohibited this artwork from being saved:</h2>
+
+      <ul>
+      <% artwork.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :api_id %>
+    <%= form.number_field :api_id, id: :artwork_api_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :artwork_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :citi_id %>
+    <%= form.number_field :citi_id, id: :artwork_citi_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :main_id %>
+    <%= form.text_field :main_id, id: :artwork_main_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lake_uid %>
+    <%= form.text_field :lake_uid, id: :artwork_lake_uid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lake_guid %>
+    <%= form.text_field :lake_guid, id: :artwork_lake_guid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lake_uri %>
+    <%= form.text_field :lake_uri, id: :artwork_lake_uri %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title_raw %>
+    <%= form.text_field :title_raw, id: :artwork_title_raw %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title_display %>
+    <%= form.text_field :title_display, id: :artwork_title_display %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_start %>
+    <%= form.number_field :date_start, id: :artwork_date_start %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_end %>
+    <%= form.number_field :date_end, id: :artwork_date_end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_display %>
+    <%= form.text_field :date_display, id: :artwork_date_display %>
+  </div>
+
+  <div class="field">
+    <%= form.label :creator_lake_uid %>
+    <%= form.text_field :creator_lake_uid, id: :artwork_creator_lake_uid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cerator_raw %>
+    <%= form.text_field :cerator_raw, id: :artwork_cerator_raw %>
+  </div>
+
+  <div class="field">
+    <%= form.label :creator_display %>
+    <%= form.text_field :creator_display, id: :artwork_creator_display %>
+  </div>
+
+  <div class="field">
+    <%= form.label :department_lake_uid %>
+    <%= form.text_field :department_lake_uid, id: :artwork_department_lake_uid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :department_display %>
+    <%= form.text_field :department_display, id: :artwork_department_display %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dimensions %>
+    <%= form.text_field :dimensions, id: :artwork_dimensions %>
+  </div>
+
+  <div class="field">
+    <%= form.label :medium_raw %>
+    <%= form.text_field :medium_raw, id: :artwork_medium_raw %>
+  </div>
+
+  <div class="field">
+    <%= form.label :medium_display %>
+    <%= form.text_field :medium_display, id: :artwork_medium_display %>
+  </div>
+
+  <div class="field">
+    <%= form.label :inscriptions %>
+    <%= form.text_field :inscriptions, id: :artwork_inscriptions %>
+  </div>
+
+  <div class="field">
+    <%= form.label :credit_line %>
+    <%= form.text_field :credit_line, id: :artwork_credit_line %>
+  </div>
+
+  <div class="field">
+    <%= form.label :history_publications %>
+    <%= form.text_area :history_publications, id: :artwork_history_publications %>
+  </div>
+
+  <div class="field">
+    <%= form.label :history_exhibitions %>
+    <%= form.text_area :history_exhibitions, id: :artwork_history_exhibitions %>
+  </div>
+
+  <div class="field">
+    <%= form.label :history_provenance %>
+    <%= form.text_area :history_provenance, id: :artwork_history_provenance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :api_created_at %>
+    <%= form.datetime_select :api_created_at, id: :artwork_api_created_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :api_created_by %>
+    <%= form.text_field :api_created_by, id: :artwork_api_created_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :api_modified_at %>
+    <%= form.datetime_select :api_modified_at, id: :artwork_api_modified_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :api_modified_by %>
+    <%= form.text_field :api_modified_by, id: :artwork_api_modified_by %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

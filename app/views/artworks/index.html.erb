@@ -1,0 +1,83 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Artworks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Api</th>
+      <th>Title</th>
+      <th>Citi</th>
+      <th>Main</th>
+      <th>Lake uid</th>
+      <th>Lake guid</th>
+      <th>Lake uri</th>
+      <th>Title raw</th>
+      <th>Title display</th>
+      <th>Date start</th>
+      <th>Date end</th>
+      <th>Date display</th>
+      <th>Creator lake uid</th>
+      <th>Cerator raw</th>
+      <th>Creator display</th>
+      <th>Department lake uid</th>
+      <th>Department display</th>
+      <th>Dimensions</th>
+      <th>Medium raw</th>
+      <th>Medium display</th>
+      <th>Inscriptions</th>
+      <th>Credit line</th>
+      <th>History publications</th>
+      <th>History exhibitions</th>
+      <th>History provenance</th>
+      <th>Api created at</th>
+      <th>Api created by</th>
+      <th>Api modified at</th>
+      <th>Api modified by</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @artworks.each do |artwork| %>
+      <tr>
+        <td><%= artwork.api_id %></td>
+        <td><%= artwork.title %></td>
+        <td><%= artwork.citi_id %></td>
+        <td><%= artwork.main_id %></td>
+        <td><%= artwork.lake_uid %></td>
+        <td><%= artwork.lake_guid %></td>
+        <td><%= artwork.lake_uri %></td>
+        <td><%= artwork.title_raw %></td>
+        <td><%= artwork.title_display %></td>
+        <td><%= artwork.date_start %></td>
+        <td><%= artwork.date_end %></td>
+        <td><%= artwork.date_display %></td>
+        <td><%= artwork.creator_lake_uid %></td>
+        <td><%= artwork.cerator_raw %></td>
+        <td><%= artwork.creator_display %></td>
+        <td><%= artwork.department_lake_uid %></td>
+        <td><%= artwork.department_display %></td>
+        <td><%= artwork.dimensions %></td>
+        <td><%= artwork.medium_raw %></td>
+        <td><%= artwork.medium_display %></td>
+        <td><%= artwork.inscriptions %></td>
+        <td><%= artwork.credit_line %></td>
+        <td><%= artwork.history_publications %></td>
+        <td><%= artwork.history_exhibitions %></td>
+        <td><%= artwork.history_provenance %></td>
+        <td><%= artwork.api_created_at %></td>
+        <td><%= artwork.api_created_by %></td>
+        <td><%= artwork.api_modified_at %></td>
+        <td><%= artwork.api_modified_by %></td>
+        <td><%= link_to 'Show', artwork %></td>
+        <td><%= link_to 'Edit', edit_artwork_path(artwork) %></td>
+        <td><%= link_to 'Destroy', artwork, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Artwork', new_artwork_path %>

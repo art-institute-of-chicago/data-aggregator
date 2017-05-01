@@ -1,0 +1,2 @@
+json.extract! artwork, :id, :api_id, :title, :citi_id, :main_id, :lake_uid, :lake_guid, :lake_uri, :title_raw, :title_display, :date_start, :date_end, :date_display, :creator_lake_uid, :cerator_raw, :creator_display, :department_lake_uid, :department_display, :dimensions, :medium_raw, :medium_display, :inscriptions, :credit_line, :history_publications, :history_exhibitions, :history_provenance, :api_created_at, :api_created_by, :api_modified_at, :api_modified_by, :created_at, :updated_at
+json.url artwork_url(artwork, format: :json)
