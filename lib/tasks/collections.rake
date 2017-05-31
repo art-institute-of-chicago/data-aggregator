@@ -4,7 +4,7 @@ namespace :collections do
   task import_all: :environment do
 
     # RestClient::Response objects are a subclass of String
-    response = RestClient.get(ENV['collections_data_service_url'] + '/artworks?per_page=1000&page=45')
+    response = RestClient.get(ENV['collections_data_service_url'] + '/artworks?per_page=1000') # &page=77')
 
     # Parse into JSON
     json = JSON.parse(response, symbolize_names: true )
