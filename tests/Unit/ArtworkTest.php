@@ -18,7 +18,7 @@ class ArtworkTest extends ApiTestCase
     /** @test */
     public function it_fetches_artworks()
     {
-        $this->_make(Artwork::class);
+        $this->make(Artwork::class);
         
         $response = $this->getJson('api/v1/artworks');
         
@@ -29,7 +29,7 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_a_single_artwork()
     {
 
-        $this->_make(Artwork::class);
+        $this->make(Artwork::class);
 
         $response = $this->getJson('api/v1/artworks/' .$this->ids[0]);
         $response->assertSuccessful();
@@ -39,14 +39,56 @@ class ArtworkTest extends ApiTestCase
     }
 
     /** @test */
+    public function it_fetches_multiple_artworks()
+    {
+
+        $this->times(5)->make(Artwork::class);
+
+        $response = $this->getJson('api/v1/artworks?ids=' .implode(',',array_slice($this->ids, 0, 3)));
+        $response->assertSuccessful();
+
+        $artworks = $response->json()['data'];
+        $this->assertCount(3, $artworks);
+
+        foreach ($artworks as $artwork)
+        {
+            $this->assertArrayHasKeys($artwork, ['id', 'title', 'main_reference_number']);
+        }
+    }
+
+    /** @test */
     public function it_404s_if_an_artwork_is_not_found()
     {
 
-        $this->_make(Artwork::class);
+        $this->make(Artwork::class);
         
         $response = $this->getJson('api/v1/artworks/' .$this->faker->unique()->randomNumber(6));
 
         $response->assertStatus(404);
+
+    }
+
+    /** @test */
+    public function it_400s_if_an_alpha_id_is_passed()
+    {
+
+        $this->make(Artwork::class);
+        
+        $response = $this->getJson('api/v1/artworks/fsdfdfs');
+
+        $response->assertStatus(400);
+
+    }
+
+    /** @test */
+    public function it_405s_if_a_request_is_posted()
+    {
+
+        $this->make(Artwork::class);
+        
+        $response = $this->postJson('api/v1/artworks');
+
+        $response->assertStatus(405);
 
     }
 

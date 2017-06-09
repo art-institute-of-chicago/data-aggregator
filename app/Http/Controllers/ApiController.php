@@ -9,6 +9,8 @@ use Illuminate\Http\Response;
 class ApiController extends Controller
 {
 
+    const LIMIT_MAX = 1000;
+    
     public function respondNotFound($message = 'Not found', $detail = 'The item you requested cannot be found.')
     {
         return response()->error($message, $detail, Response::HTTP_NOT_FOUND);
@@ -22,6 +24,11 @@ class ApiController extends Controller
     public function respondFailure($message = 'Failed request', $detail = 'The request failed.')
     {
         return response()->error($message, $detail, Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    public function respondForbidden($message = 'Forbidden', $detail = 'This request is forbidden.')
+    {
+        return response()->error($message, $detail, Response::HTTP_FORBIDDEN);
     }
 
     public function respondMethodNotAllowed($message = 'Method not allowed', $detail = 'Method not allowed.')

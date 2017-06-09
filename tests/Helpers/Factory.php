@@ -16,7 +16,7 @@ trait Factory
     }
     
 
-    protected function _make($type, $fields = [])
+    protected function make($type, $fields = [])
     {
 
         while ($this->times--) {

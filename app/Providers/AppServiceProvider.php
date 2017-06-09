@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,21 +29,30 @@ class AppServiceProvider extends ServiceProvider
         response()->macro('collection', function ($collection, \League\Fractal\TransformerAbstract $transformer, $status = 200, array $headers = []) use ($fractal) {
             $resource = new \League\Fractal\Resource\Collection($collection, $transformer);
 
-            $paginator = [
-                'total' => $collection->total(),
-                'limit' => (int) $collection->perPage(),
-                'offset' => $collection->currentPage() - 1,
-                'total_pages' => $collection->lastPage(),
-                'current_page' => $collection->currentPage(),
-            ];
-            if ($collection->previousPageUrl()) {
-                $paginator['prev_url'] = $collection->previousPageUrl() .'&limit=' .$collection->perPage();
-            }
-            if ($collection->hasMorePages()) {
-                $paginator['next_url'] = $collection->nextPageUrl() .'&limit=' .$collection->perPage();
+            $data = $fractal->createData($resource)->toArray();
+
+            if ($collection instanceof LengthAwarePaginator)
+            {
+
+                $paginator = [
+                    'total' => $collection->total(),
+                    'limit' => (int) $collection->perPage(),
+                    'offset' => $collection->currentPage() - 1,
+                    'total_pages' => $collection->lastPage(),
+                    'current_page' => $collection->currentPage(),
+                ];
+                if ($collection->previousPageUrl()) {
+                    $paginator['prev_url'] = $collection->previousPageUrl() .'&limit=' .$collection->perPage();
+                }
+                if ($collection->hasMorePages()) {
+                    $paginator['next_url'] = $collection->nextPageUrl() .'&limit=' .$collection->perPage();
+                }
+
+                $data = array_merge(['pagination' => $paginator], $data);
+
             }
             return response()->json(
-                array_merge(['pagination' => $paginator], $fractal->createData($resource)->toArray()),
+                $data,
                 $status,
                 $headers
             );
