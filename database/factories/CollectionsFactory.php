@@ -59,7 +59,7 @@ $factory->define(App\Collections\Gallery::class, function (Faker\Generator $fake
     $lake_id = $faker->uuid;
     return [
         'citi_id' => $faker->unique()->randomNumber(6),
-        'title' => ucwords($faker->lastName .', ' .$faker->firstName),
+        'title' => $faker->randomElement(['Gallery ' .$faker->unique()->randomNumber(3), $faker->lastName .' ' .$faker->randomElement(['Hall', 'Building', 'Memorial Garden', 'Reading Room', 'Study Room'])]),
         'lake_guid' => $lake_id,
         'lake_uri' => 'https://lakemichigan.artic.edu/fcrepo/rest/prod/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
         'closed' => $faker->boolean(25),
