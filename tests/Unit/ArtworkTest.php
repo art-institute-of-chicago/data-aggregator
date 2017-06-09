@@ -92,6 +92,18 @@ class ArtworkTest extends ApiTestCase
 
     }
 
+    /** @test */
+    public function it_403s_if_limit_is_too_high()
+    {
+
+        $this->make(Artwork::class);
+        
+        $response = $this->getJson('api/v1/artworks?limit=2000');
+
+        $response->assertStatus(403);
+
+    }
+
 
     
     protected function _getStub()
