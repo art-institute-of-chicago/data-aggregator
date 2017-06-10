@@ -13,8 +13,7 @@
 $factory->define(App\Collections\Artwork::class, function (Faker\Generator $faker) {
     $lake_id = $faker->uuid;
     $date_end = $faker->year;
-    $artist = App\Collections\Artist::where('lake_guid', '=', $faker->randomElement(App\Collections\Artist::all()->pluck('lake_guid')->all()))->firstOrFail();
-    $department = App\Collections\Department::where('lake_guid', '=', $faker->randomElement(App\Collections\Department::all()->pluck('lake_guid')->all()))->firstOrFail();
+    $artist = App\Collections\Artist::find($faker->randomElement(App\Collections\Artist::all()->pluck('citi_id')->all()));
     return [
         'citi_id' => $faker->unique()->randomNumber(6),
         'title' => ucwords($faker->words(4, true)),
@@ -26,7 +25,7 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
         'date_end' => $date_end,
         'artist_citi_id' => $artist->citi_id,
         'artist_display' => $artist->title_raw ."\n" .$faker->country .', ' .$faker->year .'–' .$faker->year,
-        'department_citi_id' => $department->citi_id,
+        'department_citi_id' => $faker->randomElement(App\Collections\Department::all()->pluck('citi_id')->all()),
         'dimensions' => $faker->randomFloat(1, 0, 200) .' x ' .$faker->randomFloat(1, 0, 200) .' (' .$faker->randomNumber(2) .$faker->randomElement(['', ' 1/8', ' 1/4', ' 3/8', ' 1/2', ' 5/8', ' 3/4', ' 7/8']) .' x ' .$faker->randomNumber(2) .$faker->randomElement(['', ' 1/8', ' 1/4', ' 3/8', ' 1/2', ' 5/8', ' 3/4', ' 7/8']) .' in.)',
         'medium' => ucfirst($faker->word) .' on ' .$faker->word,
         'credit_line' => $faker->randomElement(['', 'Friends of ', 'Gift of ', 'Bequest of ']) .$faker->words(3, true),
@@ -103,14 +102,14 @@ $factory->define(App\Collections\Theme::class, function (Faker\Generator $faker)
 
 $factory->define(App\Collections\Video::class, function (Faker\Generator $faker) {
     $lake_id = $faker->uuid;
-    $artist = App\Collections\Artist::where('lake_guid', '=', $faker->randomElement(App\Collections\Artist::all()->pluck('lake_guid')->all()))->firstOrFail();
+
     return [
         'citi_id' => $faker->unique()->randomNumber(6),
         'title' => ucwords($faker->words(3, true)),
         'lake_guid' => $lake_id,
         'lake_uri' => 'https://lakemichigan.artic.edu/fcrepo/rest/prod/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
         'description' => $faker->paragraph(3),
-        'artist_citi_id' => $artist->citi_id,
+        'artist_citi_id' => $faker->randomElement(App\Collections\Artist::all()->pluck('citi_id')->all()),
         'asset_type' => $faker->randomElement(['Video','Animation/Flash']),
         'asset_url' => $faker->url,
         'curriculum' => implode(',', $faker->randomElements(['Fine Arts', 'Science', 'Social Science/History', 'Language Arts'], $faker->numberBetween(1,3))),

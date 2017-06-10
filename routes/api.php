@@ -16,19 +16,25 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'v1'], function()
 {
 
-    Route::any('/artworks', 'ArtworksController@respondMethodNotAllowed');
-    Route::get('/artworks', 'ArtworksController@index');
+    Route::any('artworks', 'ApiController@respondMethodNotAllowed');
+    Route::get('artworks', 'ArtworksController@index');
 
-    Route::any('/artworks/{artwork}', 'ArtworksController@respondMethodNotAllowed');
-    Route::get('/artworks/{artwork}', 'ArtworksController@show');
+    Route::any('artworks/{artwork}', 'ApiController@respondMethodNotAllowed');
+    Route::get('artworks/{artwork}', 'ArtworksController@show');
 
-    Route::any('/artworks/{artwork}/artist', 'ArtworksController@respondMethodNotAllowed');
-    Route::get('/artworks/{artwork}/artist', 'ArtistsController@index');
+    Route::any('artworks/{artwork}/artist', 'ApiController@respondMethodNotAllowed');
+    Route::get('artworks/{artwork}/artist', 'ArtistsController@index');
 
-    Route::any('/artworks/{artwork}/department', 'ArtworksController@respondMethodNotAllowed');
-    Route::get('/artworks/{artwork}/department', 'DepartmentsController@index');
+    Route::any('artworks/{artwork}/department', 'ApiController@respondMethodNotAllowed');
+    Route::get('artworks/{artwork}/department', 'DepartmentsController@index');
 
-    Route::resource('/artists', 'ArtistsController', ['only' => ['index', 'show']]);
-    Route::resource('/departments', 'DepartmentsController', ['only' => ['index', 'show']]);
+
+
+    Route::any('artists', 'ApiController@respondMethodNotAllowed');
+    Route::get('artists', 'ArtistsController@index');
+
+
+    Route::any('departments', 'ApiController@respondMethodNotAllowed');
+    Route::get('departments', 'DepartmentsController@index');
 
 });

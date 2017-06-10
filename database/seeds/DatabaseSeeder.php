@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
         $this->_cleanDatabase();
         
         // Models referenced in the Artwork seeder
@@ -38,17 +39,22 @@ class DatabaseSeeder extends Seeder
     }
 
     private function _cleanDatabase() {
+
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        Artist::truncate();
-        Department::truncate();
-        
-        Artwork::truncate();
-        Gallery::truncate();
-        Theme::truncate();
-        Video::truncate();
-        Sound::truncate();
-        Text::truncate();
+
+        Category::truncate();
         Image::truncate();
+        Text::truncate();
+        Sound::truncate();
+        Video::truncate();
+        Theme::truncate();
+        Gallery::truncate();
+        Artwork::truncate();
+        
+        Department::truncate();
+        Artist::truncate();
+        
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
     }
 }
