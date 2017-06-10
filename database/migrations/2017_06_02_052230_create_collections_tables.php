@@ -161,7 +161,34 @@ class CreateCollectionsTables extends Migration
             $table->timestamp('api_indexed_at')->nullable()->useCurrent();
             $table->timestamps();
         });
-}
+
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('citi_id')->unique();
+            $table->string('title');
+            $table->string('lake_guid')->unique()->nullable();
+            $table->string('lake_uri')->unique()->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('is_in_nav')->nullable();
+            $table->integer('parent_id')->nullable();
+            $table->integer('sort')->nullable();
+            $table->integer('type')->nullable();
+            $table->timestamp('api_created_at')->nullable()->useCurrent();
+            $table->timestamp('api_modified_at')->nullable()->useCurrent();
+            $table->timestamp('api_indexed_at')->nullable()->useCurrent();
+            $table->timestamps();
+        });
+
+        Schema::create('artwork_category', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('artwork_citi_id');
+            $table->integer('category_citi_id');
+
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
+        });
+        
+    }
 
     /**
      * Reverse the migrations.
@@ -170,6 +197,9 @@ class CreateCollectionsTables extends Migration
      */
     public function down()
     {
+
+        Schema::dropIfExists('artwork_category');
+        Schema::dropIfExists('categories');
         Schema::dropIfExists('images');
         Schema::dropIfExists('texts');
         Schema::dropIfExists('sounds');
@@ -179,5 +209,6 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('artworks');
         Schema::dropIfExists('departments');
         Schema::dropIfExists('artists');
+
     }
 }

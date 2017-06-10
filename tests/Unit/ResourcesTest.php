@@ -113,13 +113,13 @@ class ResourceTest extends ApiTestCase
 
 
     /** @test */
-    public function it_fetches_publish_categories_for_a_resource()
+    public function it_fetches_categories_for_a_resource()
     {
 
         $this->make(Resource::class);
-        $this->times(4)->make(PublishCategory::class, ['resource_citi_uid' => $this->ids[0]]);
+        $this->times(4)->make(Category::class, ['resource_citi_uid' => $this->ids[0]]);
 
-        $response = $this->getJson('api/v1/resources/' .$this->ids[0] .'/publish-categories');
+        $response = $this->getJson('api/v1/resources/' .$this->ids[0] .'/categories');
         $response->assertSuccessful();
 
         $pubcats = $response->json()['data'];
@@ -132,13 +132,13 @@ class ResourceTest extends ApiTestCase
     }
 
     /** @test */
-    public function it_fetches_a_single_publish_category_for_a_resource()
+    public function it_fetches_a_single_category_for_a_resource()
     {
 
         $this->make(Resource::class);
-        $this->make(PublishCategory::class, ['resource_citi_uid' => $this->ids[0]]);
+        $this->make(PCategory::class, ['resource_citi_uid' => $this->ids[0]]);
 
-        $response = $this->getJson('api/v1/resources/' .$this->ids[0] .'/publish-categories/' .$this->ids[1]);
+        $response = $this->getJson('api/v1/resources/' .$this->ids[0] .'/categories/' .$this->ids[1]);
         $response->assertSuccessful();
 
         $pubcat = $response->json()['data'];
@@ -146,13 +146,13 @@ class ResourceTest extends ApiTestCase
     }
 
     /** @test */
-    public function it_fetches_multiple_publish_categorys_for_a_resource()
+    public function it_fetches_multiple_categorys_for_a_resource()
     {
 
         $this->make(Resource::class);
-        $this->times(5)->make(PublishCategory::class, ['resource_citi_uid' => $this->ids[0]]);
+        $this->times(5)->make(Category::class, ['resource_citi_uid' => $this->ids[0]]);
 
-        $response = $this->getJson('api/v1/resources/' .$this->ids[0] .'/publish-categories?ids=' .implode(',',array_slice($this->ids, 1, 3)));
+        $response = $this->getJson('api/v1/resources/' .$this->ids[0] .'/categories?ids=' .implode(',',array_slice($this->ids, 1, 3)));
         $response->assertSuccessful();
 
         $pubcats = $response->json()['data'];

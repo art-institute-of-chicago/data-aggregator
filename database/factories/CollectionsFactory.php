@@ -167,3 +167,22 @@ $factory->define(App\Collections\Image::class, function (Faker\Generator $faker)
      ];
 });
 
+$factory->define(App\Collections\Category::class, function (Faker\Generator $faker) {
+    $lake_id = $faker->uuid;
+    return [
+        'citi_id' => $faker->unique()->randomNumber(3),
+        'title' => ucwords($faker->words(3, true)),
+        'lake_guid' => $lake_id,
+        'lake_uri' => 'https://lakemichigan.artic.edu/fcrepo/rest/prod/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
+        'description' => $faker->paragraph(3),
+        'is_in_nav' => $faker->boolean,
+        'parent_id' => $faker->unique()->randomNumber(3),
+        'sort' => $faker->randomDigit * 5,
+        'type' => $faker->randomDigit,
+        'api_created_at' => $faker->dateTimeThisYear,
+        'api_modified_at' => $faker->dateTimeThisYear,
+        'api_indexed_at' => $faker->dateTimeThisYear,
+     ];
+});
+
+

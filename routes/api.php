@@ -28,6 +28,8 @@ Route::group(['prefix' => 'v1'], function()
     Route::any('artworks/{artwork}/department', 'ApiController@respondMethodNotAllowed');
     Route::get('artworks/{artwork}/department', 'DepartmentsController@index');
 
+    Route::any('artworks/{artwork}/categories', 'ApiController@respondMethodNotAllowed');
+    Route::get('artworks/{artwork}/categories', 'CategoriesController@index');
 
 
     Route::any('artists', 'ApiController@respondMethodNotAllowed');
@@ -36,5 +38,9 @@ Route::group(['prefix' => 'v1'], function()
 
     Route::any('departments', 'ApiController@respondMethodNotAllowed');
     Route::get('departments', 'DepartmentsController@index');
+
+
+    Route::any('categories', 'ApiController@respondMethodNotAllowed');
+    Route::get('categories', 'CategoriesController@index');
 
 });

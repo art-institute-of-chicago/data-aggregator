@@ -11,6 +11,7 @@ use App\Collections\Video;
 use App\Collections\Sound;
 use App\Collections\Text;
 use App\Collections\Image;
+use App\Collections\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,6 +37,9 @@ class DatabaseSeeder extends Seeder
         $this->call(SoundsTableSeeder::class);
         $this->call(TextsTableSeeder::class);
         $this->call(ImagesTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(ArtworkCategoriesTableSeeder::class);
+
     }
 
     private function _cleanDatabase() {
