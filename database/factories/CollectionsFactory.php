@@ -185,4 +185,17 @@ $factory->define(App\Collections\Category::class, function (Faker\Generator $fak
      ];
 });
 
+$factory->define(App\Collections\Image::class, function (Faker\Generator $faker) {
+    $lake_id = $faker->uuid;
+    return [
+        'title' => $faker->randomElement(['A', 'D', 'G', 'PD_', 'PH_', 'AS_', 'IM00']) .$faker->randomNumber(5, true),
+        'lake_guid' => $lake_id,
+        'lake_uri' => env(LAKE_URL, 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
+        'iiif_url' => env(LAKE_URL, 'https://localhost/iiif') .'/' .$lake_id .'/info.json',
+        'api_created_at' => $faker->dateTimeThisYear,
+        'api_modified_at' => $faker->dateTimeThisYear,
+        'api_indexed_at' => $faker->dateTimeThisYear,
+     ];
+});
+
 
