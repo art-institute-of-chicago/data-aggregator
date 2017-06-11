@@ -189,7 +189,7 @@ class ImageTest extends ApiTestCase
             'citi_id' => $this->faker->unique()->randomNumber(4),
             'title' => $this->faker->words(4, true),
             'lake_guid' => $lake_id,
-            'lake_uri' => 'https://lakemichigan.artic.edu/fcrepo/rest/prod/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
+            'lake_uri' => env(LAKE_URL, 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
         ];
     }
     
