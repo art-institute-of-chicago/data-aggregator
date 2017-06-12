@@ -37,7 +37,7 @@ class ArtworkTransformer extends TransformerAbstract
             'main_reference_number' => $item->main_id,
             'date_start' => $item->date_start,
             'date_end' => $item->date_end,
-            'date' => $item->date_display,
+            'date_display' => $item->date_display,
             'artist_id' => $item->artist_citi_id,
             'artist_display' => $item->artist_display,
             'department_id' => $item->department_citi_id,

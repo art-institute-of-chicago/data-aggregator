@@ -150,12 +150,12 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('citi_id')->unique();
             $table->string('title');
             $table->string('lake_guid')->unique()->nullable();
             $table->string('lake_uri')->unique()->nullable();
             $table->string('imaging_uid')->nullable();
             $table->string('type')->nullable();
+            $table->string('iiif_url')->unique();
             $table->timestamp('api_created_at')->nullable()->useCurrent();
             $table->timestamp('api_modified_at')->nullable()->useCurrent();
             $table->timestamp('api_indexed_at')->nullable()->useCurrent();
@@ -173,18 +173,6 @@ class CreateCollectionsTables extends Migration
             $table->integer('parent_id')->nullable();
             $table->integer('sort')->nullable();
             $table->integer('type')->nullable();
-            $table->timestamp('api_created_at')->nullable()->useCurrent();
-            $table->timestamp('api_modified_at')->nullable()->useCurrent();
-            $table->timestamp('api_indexed_at')->nullable()->useCurrent();
-            $table->timestamps();
-        });
-
-        Schema::create('images', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->string('lake_guid')->unique();
-            $table->string('lake_uri')->unique();
-            $table->string('iiif_url')->unique();
             $table->timestamp('api_created_at')->nullable()->useCurrent();
             $table->timestamp('api_modified_at')->nullable()->useCurrent();
             $table->timestamp('api_indexed_at')->nullable()->useCurrent();
@@ -211,7 +199,6 @@ class CreateCollectionsTables extends Migration
     {
 
         Schema::dropIfExists('artwork_category');
-        Schema::dropIfExists('images');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('images');
         Schema::dropIfExists('texts');
