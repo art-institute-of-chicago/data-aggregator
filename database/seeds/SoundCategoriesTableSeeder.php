@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ArtworkCategoriesTableSeeder extends Seeder
+class SoundCategoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,13 +12,13 @@ class ArtworkCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Collections\Artwork::all()->all();
+        $sounds = App\Collections\Sound::all()->all();
         $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
 
-        foreach ($artworks as $artwork) {
+        foreach ($sounds as $sound) {
 
             for ($i = 0; $i < rand(2,8); $i++) {
-                $artwork->categories()->attach($categoryIds[array_rand($categoryIds)]);
+                $sound->categories()->attach($categoryIds[array_rand($categoryIds)]);
             }
 
         }

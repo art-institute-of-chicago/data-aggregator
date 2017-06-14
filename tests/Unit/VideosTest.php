@@ -18,72 +18,49 @@ class VideoTest extends ApiTestCase
     /** @test */
     public function it_fetches_all_videos()
     {
-        $this->times(5)->make(Video::class);
+
+        $this->it_fetches_all(Video::class, 'videos');
         
-        $response = $this->getJson('api/v1/videos');
-        $response->assertSuccessful();
-
-        $videos = $response->json()['data'];
-        $this->assertCount(5, $videos);
-
-        foreach ($videos as $video)
-        {
-            $this->assertArrayHasKeys($video, ['id', 'title']);
-        }
     }
 
     /** @test */
     public function it_fetches_a_single_video()
     {
 
-        $this->make(Video::class);
+        $this->it_fetches_a_single(Video::class, 'videos');
 
-        $response = $this->getJson('api/v1/videos/' .$this->ids[0]);
-        $response->assertSuccessful();
-
-        $video = $response->json()['data'];
-        $this->assertArrayHasKeys($video, ['id', 'title']);
     }
 
     /** @test */
     public function it_fetches_multiple_videos()
     {
 
-        $this->times(5)->make(Video::class);
+        $this->it_fetches_mutliple(Video::class, 'videos');
 
-        $response = $this->getJson('api/v1/videos?ids=' .implode(',',array_slice($this->ids, 0, 3)));
-        $response->assertSuccessful();
+    }
 
-        $videos = $response->json()['data'];
-        $this->assertCount(3, $videos);
 
-        foreach ($videos as $video)
-        {
-            $this->assertArrayHasKeys($video, ['id', 'title']);
-        }
+    /** @test */
+    public function it_400s_if_nonnumerid_nonuuid_is_passed()
+    {
+
+        $this->it_400s(Video::class, 'videos');
+        
     }
 
     /** @test */
-    public function it_404s_if_a_video_is_not_found()
+    public function it_403s_if_limit_is_too_high()
     {
 
-        $this->make(Video::class);
-        
-        $response = $this->getJson('api/v1/videos/' .$this->faker->unique()->randomNumber(5));
-
-        $response->assertStatus(404);
+        $this->it_403s(Video::class, 'videos');
 
     }
 
     /** @test */
-    public function it_400s_if_an_alpha_id_is_passed()
+    public function it_404s_if_not_found()
     {
 
-        $this->make(Video::class);
-        
-        $response = $this->getJson('api/v1/videos/fsdfdfs');
-
-        $response->assertStatus(400);
+        $this->it_404s(Video::class, 'videos');
 
     }
 
@@ -91,24 +68,8 @@ class VideoTest extends ApiTestCase
     public function it_405s_if_a_request_is_posted()
     {
 
-        $this->make(Video::class);
+        $this->it_405s(Video::class, 'videos');
         
-        $response = $this->postJson('api/v1/videos');
-
-        $response->assertStatus(405);
-
-    }
-
-    /** @test */
-    public function it_403s_if_limit_is_too_high()
-    {
-
-        $this->make(Video::class);
-        
-        $response = $this->getJson('api/v1/videos?limit=2000');
-
-        $response->assertStatus(403);
-
     }
 
 

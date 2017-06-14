@@ -18,72 +18,48 @@ class ArtistTest extends ApiTestCase
     /** @test */
     public function it_fetches_all_artists()
     {
-        $this->times(5)->make(Artist::class);
+
+        $this->it_fetches_all(Artist::class, 'artists');
         
-        $response = $this->getJson('api/v1/artists');
-        $response->assertSuccessful();
-
-        $artists = $response->json()['data'];
-        $this->assertCount(5, $artists);
-
-        foreach ($artists as $artist)
-        {
-            $this->assertArrayHasKeys($artist, ['id', 'title']);
-        }
     }
 
     /** @test */
     public function it_fetches_a_single_artist()
     {
 
-        $this->make(Artist::class);
+        $this->it_fetches_a_single(Artist::class, 'artists');
 
-        $response = $this->getJson('api/v1/artists/' .$this->ids[0]);
-        $response->assertSuccessful();
-
-        $artist = $response->json()['data'];
-        $this->assertArrayHasKeys($artist, ['id', 'title']);
     }
 
     /** @test */
     public function it_fetches_multiple_artists()
     {
 
-        $this->times(5)->make(Artist::class);
-
-        $response = $this->getJson('api/v1/artists?ids=' .implode(',',array_slice($this->ids, 0, 3)));
-        $response->assertSuccessful();
-
-        $artists = $response->json()['data'];
-        $this->assertCount(3, $artists);
-
-        foreach ($artists as $artist)
-        {
-            $this->assertArrayHasKeys($artist, ['id', 'title']);
-        }
-    }
-
-    /** @test */
-    public function it_404s_if_an_artist_is_not_found()
-    {
-
-        $this->make(Artist::class);
-        
-        $response = $this->getJson('api/v1/artists/' .$this->faker->unique()->randomNumber(5));
-
-        $response->assertStatus(404);
+        $this->it_fetches_mutliple(Artist::class, 'artists');
 
     }
 
     /** @test */
-    public function it_400s_if_an_alpha_id_is_passed()
+    public function it_400s_if_nonnumerid_nonuuid_is_passed()
     {
 
-        $this->make(Artist::class);
+        $this->it_400s(Artist::class, 'artists');
         
-        $response = $this->getJson('api/v1/artists/fsdfdfs');
+    }
 
-        $response->assertStatus(400);
+    /** @test */
+    public function it_403s_if_limit_is_too_high()
+    {
+
+        $this->it_403s(Artist::class, 'artists');
+
+    }
+
+    /** @test */
+    public function it_404s_if_not_found()
+    {
+
+        $this->it_404s(Artist::class, 'artists');
 
     }
 
@@ -91,81 +67,9 @@ class ArtistTest extends ApiTestCase
     public function it_405s_if_a_request_is_posted()
     {
 
-        $this->make(Artist::class);
+        $this->it_405s(Artist::class, 'artists');
         
-        $response = $this->postJson('api/v1/artists');
-
-        $response->assertStatus(405);
-
     }
-
-    /** @test */
-    public function it_403s_if_limit_is_too_high()
-    {
-
-        $this->make(Artist::class);
-        
-        $response = $this->getJson('api/v1/artists?limit=2000');
-
-        $response->assertStatus(403);
-
-    }
-
-
-    /** @test */
-    public function it_fetches_agent_types_for_an_artist()
-    {
-
-        $this->make(Artist::class);
-        $this->times(4)->make(AgentType::class, ['artist_citi_uid' => $this->ids[0]]);
-
-        $response = $this->getJson('api/v1/artists/' .$this->ids[0] .'/agent-types');
-        $response->assertSuccessful();
-
-        $types = $response->json()['data'];
-        $this->assertCount(4, $types);
-        
-        foreach ($types as $type)
-        {
-            $this->assertArrayHasKeys($type, ['id', 'title']);
-        }
-    }
-
-    /** @test */
-    public function it_fetches_a_single_agent_type_for_an_artist()
-    {
-
-        $this->make(Artist::class);
-        $this->make(AgentType::class, ['artist_citi_uid' => $this->ids[0]]);
-
-        $response = $this->getJson('api/v1/artists/' .$this->ids[0] .'/agent-types/' .$this->ids[1]);
-        $response->assertSuccessful();
-
-        $type = $response->json()['data'];
-        $this->assertArrayHasKeys($type, ['id', 'title']);
-    }
-
-    /** @test */
-    public function it_fetches_multiple_agent_types_for_an_artist()
-    {
-
-        $this->make(Artist::class);
-        $this->times(5)->make(AgentType::class, ['artist_citi_uid' => $this->ids[0]]);
-
-        $response = $this->getJson('api/v1/artists/' .$this->ids[0] .'/agent-types?ids=' .implode(',',array_slice($this->ids, 1, 3)));
-        $response->assertSuccessful();
-
-        $types = $response->json()['data'];
-        $this->assertCount(3, $types);
-        
-        foreach ($types as $type)
-        {
-            $this->assertArrayHasKeys($type, ['id', 'title', 'url']);
-        }
-    }
-
-    
-
 
     protected function _getStub()
     {

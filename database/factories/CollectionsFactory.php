@@ -10,6 +10,55 @@
 |
 */
 
+$factory->define(App\Collections\Artist::class, function (Faker\Generator $faker) {
+    $lake_id = $faker->uuid;
+    return [
+        'citi_id' => $faker->unique()->randomNumber(5),
+        'title' => ucwords($faker->lastName .', ' .$faker->firstName),
+        'lake_guid' => $lake_id,
+        'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
+        'date_birth' => $faker->year,
+        'date_death' => $faker->year,
+        'api_created_at' => $faker->dateTimeThisYear,
+        'api_modified_at' => $faker->dateTimeThisYear,
+        'api_indexed_at' => $faker->dateTimeThisYear,
+     ];
+});
+
+
+$factory->define(App\Collections\Department::class, function (Faker\Generator $faker) {
+    $lake_id = $faker->uuid;
+    return [
+        'citi_id' => $faker->unique()->randomNumber(6),
+        'title' => ucfirst($faker->word) .' Art',
+        'lake_guid' => $lake_id,
+        'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
+        'api_created_at' => $faker->dateTimeThisYear,
+        'api_modified_at' => $faker->dateTimeThisYear,
+        'api_indexed_at' => $faker->dateTimeThisYear,
+     ];
+});
+
+
+$factory->define(App\Collections\Category::class, function (Faker\Generator $faker) {
+    $lake_id = $faker->uuid;
+    return [
+        'citi_id' => $faker->unique()->randomNumber(3),
+        'title' => ucwords($faker->words(3, true)),
+        'lake_guid' => $lake_id,
+        'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
+        'description' => $faker->paragraph(3),
+        'is_in_nav' => $faker->boolean,
+        'parent_id' => $faker->unique()->randomNumber(3),
+        'sort' => $faker->randomDigit * 5,
+        'type' => $faker->randomDigit,
+        'api_created_at' => $faker->dateTimeThisYear,
+        'api_modified_at' => $faker->dateTimeThisYear,
+        'api_indexed_at' => $faker->dateTimeThisYear,
+     ];
+});
+
+
 $factory->define(App\Collections\Artwork::class, function (Faker\Generator $faker) {
     $lake_id = $faker->uuid;
     $date_end = $faker->year;
@@ -39,20 +88,6 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
      ];
 });
 
-$factory->define(App\Collections\Artist::class, function (Faker\Generator $faker) {
-    $lake_id = $faker->uuid;
-    return [
-        'citi_id' => $faker->unique()->randomNumber(5),
-        'title' => ucwords($faker->lastName .', ' .$faker->firstName),
-        'lake_guid' => $lake_id,
-        'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        'date_birth' => $faker->year,
-        'date_death' => $faker->year,
-        'api_created_at' => $faker->dateTimeThisYear,
-        'api_modified_at' => $faker->dateTimeThisYear,
-        'api_indexed_at' => $faker->dateTimeThisYear,
-     ];
-});
 
 $factory->define(App\Collections\Gallery::class, function (Faker\Generator $faker) {
     $lake_id = $faker->uuid;
@@ -64,25 +99,14 @@ $factory->define(App\Collections\Gallery::class, function (Faker\Generator $fake
         'closed' => $faker->boolean(25),
         'number' => $faker->randomNumber(3),
         'floor' => $faker->randomElement([1,2,3]), 
-        'category' => ucfirst($faker->word) .' Art ' .$faker->randomElement(['before', 'after']) .$faker->year,
+        'latitude' => $faker->latitude,
+        'longitude' => $faker->longitude,
         'api_created_at' => $faker->dateTimeThisYear,
         'api_modified_at' => $faker->dateTimeThisYear,
         'api_indexed_at' => $faker->dateTimeThisYear,
      ];
 });
 
-$factory->define(App\Collections\Department::class, function (Faker\Generator $faker) {
-    $lake_id = $faker->uuid;
-    return [
-        'citi_id' => $faker->unique()->randomNumber(6),
-        'title' => ucfirst($faker->word) .' Art',
-        'lake_guid' => $lake_id,
-        'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        'api_created_at' => $faker->dateTimeThisYear,
-        'api_modified_at' => $faker->dateTimeThisYear,
-        'api_indexed_at' => $faker->dateTimeThisYear,
-     ];
-});
 
 $factory->define(App\Collections\Theme::class, function (Faker\Generator $faker) {
     $lake_id = $faker->uuid;
@@ -100,90 +124,78 @@ $factory->define(App\Collections\Theme::class, function (Faker\Generator $faker)
      ];
 });
 
+
+$factory->define(App\Collections\Link::class, function (Faker\Generator $faker) {
+    $lake_id = $faker->uuid;
+
+    return [
+        'title' => ucwords($faker->words(3, true)),
+        'lake_guid' => $lake_id,
+        'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
+        'description' => $faker->paragraph(3),
+        'content' => $faker->url,
+        'published' => $faker->boolean,
+        'artist_citi_id' => $faker->randomElement(App\Collections\Artist::all()->pluck('citi_id')->all()),
+        'api_created_at' => $faker->dateTimeThisYear,
+        'api_modified_at' => $faker->dateTimeThisYear,
+        'api_indexed_at' => $faker->dateTimeThisYear,
+     ];
+});
+
+
+$factory->define(App\Collections\Sound::class, function (Faker\Generator $faker) {
+    $lake_id = $faker->uuid;
+
+    return [
+        'title' => ucwords($faker->words(3, true)),
+        'lake_guid' => $lake_id,
+        'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
+        'description' => $faker->paragraph(3),
+        'content' => $faker->url,
+        'published' => $faker->boolean,
+        'artist_citi_id' => $faker->randomElement(App\Collections\Artist::all()->pluck('citi_id')->all()),
+        'api_created_at' => $faker->dateTimeThisYear,
+        'api_modified_at' => $faker->dateTimeThisYear,
+        'api_indexed_at' => $faker->dateTimeThisYear,
+     ];
+});
+
+
 $factory->define(App\Collections\Video::class, function (Faker\Generator $faker) {
     $lake_id = $faker->uuid;
 
     return [
-        'citi_id' => $faker->unique()->randomNumber(6),
         'title' => ucwords($faker->words(3, true)),
         'lake_guid' => $lake_id,
         'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
         'description' => $faker->paragraph(3),
+        'content' => $faker->url,
+        'published' => $faker->boolean,
         'artist_citi_id' => $faker->randomElement(App\Collections\Artist::all()->pluck('citi_id')->all()),
-        'asset_type' => $faker->randomElement(['Video','Animation/Flash']),
-        'asset_url' => $faker->url,
-        'curriculum' => implode(',', $faker->randomElements(['Fine Arts', 'Science', 'Social Science/History', 'Language Arts'], $faker->numberBetween(1,3))),
-        'grade_level' => implode(',', $faker->randomElements(['High School', 'Middle School', 'Elementary', 'Early Childhood'], $faker->numberBetween(1,3))),
-        'resource_type' => implode(',', $faker->randomElements(['Video', "Artists' Tools and Techniques", 'Online Game or Interactive', 'Artwork and Artist Information', 'Orientation and Education', 'Historical or Contextual Information', 'Gallery Panorama', 'Modern Wing Focus', 'Conservation Information'], $faker->numberBetween(1,2))),
         'api_created_at' => $faker->dateTimeThisYear,
         'api_modified_at' => $faker->dateTimeThisYear,
         'api_indexed_at' => $faker->dateTimeThisYear,
      ];
 });
 
-$factory->define(App\Collections\Sound::class, function (Faker\Generator $faker) {
-    $lake_id = $faker->uuid;
-    return [
-        'citi_id' => $faker->unique()->randomNumber(6),
-        'title' => ucwords($faker->words(3, true)),
-        'lake_guid' => $lake_id,
-        'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        'type' => 'http://definitions.artic.edu/doctypes/' .$faker->randomElement(['DESound', 'General']),
-        'api_created_at' => $faker->dateTimeThisYear,
-        'api_modified_at' => $faker->dateTimeThisYear,
-        'api_indexed_at' => $faker->dateTimeThisYear,
-     ];
-});
 
 $factory->define(App\Collections\Text::class, function (Faker\Generator $faker) {
     $lake_id = $faker->uuid;
-    return [
-        'citi_id' => $faker->unique()->randomNumber(6),
-        'title' => ucwords($faker->words(3, true)),
-        'lake_guid' => $lake_id,
-        'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        'title_alt' => ucwords($faker->words(3, true)),
-        'curriculum' => implode(',', $faker->randomElements(['Fine Arts', 'Science', 'Social Science/History', 'Language Arts'], $faker->numberBetween(1,3))),
-        'grade_level' => implode(',', $faker->randomElements(['High School', 'Middle School', 'Elementary', 'Early Childhood'], $faker->numberBetween(1,3))),
-        'resource_type' => implode(',', $faker->randomElements(['Video', "Artists' Tools and Techniques", 'Online Game or Interactive', 'Artwork and Artist Information', 'Orientation and Education', 'Historical or Contextual Information', 'Gallery Panorama', 'Modern Wing Focus', 'Conservation Information'], $faker->numberBetween(1,2))),
-        'api_created_at' => $faker->dateTimeThisYear,
-        'api_modified_at' => $faker->dateTimeThisYear,
-        'api_indexed_at' => $faker->dateTimeThisYear,
-     ];
-});
 
-$factory->define(App\Collections\Image::class, function (Faker\Generator $faker) {
-    $lake_id = $faker->uuid;
     return [
-        'citi_id' => $faker->unique()->randomNumber(6),
-        'title' => ucwords($faker->words(3, true)),
-        'lake_guid' => $lake_id,
-        'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        'imaging_uid' => $faker->randomElement(['A', 'D', 'E', 'G', 'PD_', 'PH_', 'AS_']) .$faker->randomNumber(5),
-        'type' => 'http://definitions.artic.edu/doctypes/' .$faker->randomElement(['Imaging', 'CuratorialStillImage']),
-        'api_created_at' => $faker->dateTimeThisYear,
-        'api_modified_at' => $faker->dateTimeThisYear,
-        'api_indexed_at' => $faker->dateTimeThisYear,
-     ];
-});
-
-$factory->define(App\Collections\Category::class, function (Faker\Generator $faker) {
-    $lake_id = $faker->uuid;
-    return [
-        'citi_id' => $faker->unique()->randomNumber(3),
         'title' => ucwords($faker->words(3, true)),
         'lake_guid' => $lake_id,
         'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
         'description' => $faker->paragraph(3),
-        'is_in_nav' => $faker->boolean,
-        'parent_id' => $faker->unique()->randomNumber(3),
-        'sort' => $faker->randomDigit * 5,
-        'type' => $faker->randomDigit,
+        'content' => $faker->url,
+        'published' => $faker->boolean,
+        'artist_citi_id' => $faker->randomElement(App\Collections\Artist::all()->pluck('citi_id')->all()),
         'api_created_at' => $faker->dateTimeThisYear,
         'api_modified_at' => $faker->dateTimeThisYear,
         'api_indexed_at' => $faker->dateTimeThisYear,
      ];
 });
+
 
 $factory->define(App\Collections\Image::class, function (Faker\Generator $faker) {
     $lake_id = $faker->uuid;
@@ -191,6 +203,8 @@ $factory->define(App\Collections\Image::class, function (Faker\Generator $faker)
         'title' => $faker->randomElement(['A', 'D', 'G', 'PD_', 'PH_', 'AS_', 'IM00']) .$faker->randomNumber(5, true),
         'lake_guid' => $lake_id,
         'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
+        'imaging_uid' => $faker->randomElement(['A', 'D', 'E', 'G', 'PD_', 'PH_', 'AS_']) .$faker->randomNumber(5),
+        'type' => 'http://definitions.artic.edu/doctypes/' .$faker->randomElement(['Imaging', 'CuratorialStillImage']),
         'iiif_url' => env('LAKE_URL', 'https://localhost/iiif') .'/' .$lake_id .'/info.json',
         'api_created_at' => $faker->dateTimeThisYear,
         'api_modified_at' => $faker->dateTimeThisYear,

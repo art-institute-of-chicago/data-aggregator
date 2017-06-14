@@ -18,72 +18,49 @@ class CategoryTest extends ApiTestCase
     /** @test */
     public function it_fetches_all_categories()
     {
-        $this->times(5)->make(Category::class);
+
+        $this->it_fetches_all(Category::class, 'categories');
         
-        $response = $this->getJson('api/v1/categories');
-        $response->assertSuccessful();
-
-        $categories = $response->json()['data'];
-        $this->assertCount(5, $categories);
-
-        foreach ($categories as $category)
-        {
-            $this->assertArrayHasKeys($category, ['id', 'title']);
-        }
     }
 
     /** @test */
     public function it_fetches_a_single_category()
     {
 
-        $this->make(Category::class);
+        $this->it_fetches_a_single(Category::class, 'categories');
 
-        $response = $this->getJson('api/v1/categories/' .$this->ids[0]);
-        $response->assertSuccessful();
-
-        $category = $response->json()['data'];
-        $this->assertArrayHasKeys($category, ['id', 'title']);
     }
 
     /** @test */
     public function it_fetches_multiple_categories()
     {
 
-        $this->times(5)->make(Category::class);
+        $this->it_fetches_mutliple(Category::class, 'categories');
 
-        $response = $this->getJson('api/v1/categories?ids=' .implode(',',array_slice($this->ids, 0, 3)));
-        $response->assertSuccessful();
+    }
 
-        $categories = $response->json()['data'];
-        $this->assertCount(3, $categories);
 
-        foreach ($categories as $category)
-        {
-            $this->assertArrayHasKeys($category, ['id', 'title']);
-        }
+    /** @test */
+    public function it_400s_if_nonnumerid_nonuuid_is_passed()
+    {
+
+        $this->it_400s(Category::class, 'categories');
+        
     }
 
     /** @test */
-    public function it_404s_if_a_category_is_not_found()
+    public function it_403s_if_limit_is_too_high()
     {
 
-        $this->make(Category::class);
-        
-        $response = $this->getJson('api/v1/categories/' .$this->faker->unique()->randomNumber(5));
-
-        $response->assertStatus(404);
+        $this->it_403s(Category::class, 'categories');
 
     }
 
     /** @test */
-    public function it_400s_if_an_alpha_id_is_passed()
+    public function it_404s_if_not_found()
     {
 
-        $this->make(Category::class);
-        
-        $response = $this->getJson('api/v1/categories/fsdfdfs');
-
-        $response->assertStatus(400);
+        $this->it_404s(Category::class, 'categories');
 
     }
 
@@ -91,28 +68,11 @@ class CategoryTest extends ApiTestCase
     public function it_405s_if_a_request_is_posted()
     {
 
-        $this->make(Category::class);
+        $this->it_405s(Category::class, 'categories');
         
-        $response = $this->postJson('api/v1/categories');
-
-        $response->assertStatus(405);
-
-    }
-
-    /** @test */
-    public function it_403s_if_limit_is_too_high()
-    {
-
-        $this->make(Category::class);
-        
-        $response = $this->getJson('api/v1/categories?limit=2000');
-
-        $response->assertStatus(403);
-
     }
 
 
-    
 
 
     protected function _getStub()

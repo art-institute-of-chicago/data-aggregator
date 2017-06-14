@@ -7,6 +7,7 @@ use App\Collections\Department;
 use App\Collections\Artwork;
 use App\Collections\Gallery;
 use App\Collections\Theme;
+use App\Collections\Link;
 use App\Collections\Video;
 use App\Collections\Sound;
 use App\Collections\Text;
@@ -26,19 +27,22 @@ class DatabaseSeeder extends Seeder
 
         $this->_cleanDatabase();
         
-        // Models referenced in the Artwork seeder
         $this->call(ArtistsTableSeeder::class);
         $this->call(DepartmentsTableSeeder::class);
-
+        $this->call(CategoriesTableSeeder::class);
         $this->call(ArtworksTableSeeder::class);
+        $this->call(ArtworkCategoriesTableSeeder::class);
         $this->call(GalleriesTableSeeder::class);
         $this->call(ThemesTableSeeder::class);
-        $this->call(VideosTableSeeder::class);
+        $this->call(LinksTableSeeder::class);
+        $this->call(LinkCategoriesTableSeeder::class);
         $this->call(SoundsTableSeeder::class);
+        $this->call(SoundCategoriesTableSeeder::class);
+        $this->call(VideosTableSeeder::class);
+        $this->call(VideoCategoriesTableSeeder::class);
         $this->call(TextsTableSeeder::class);
+        $this->call(TextCategoriesTableSeeder::class);
         $this->call(ImagesTableSeeder::class);
-        $this->call(CategoriesTableSeeder::class);
-        $this->call(ArtworkCategoriesTableSeeder::class);
 
     }
 
@@ -46,15 +50,15 @@ class DatabaseSeeder extends Seeder
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        Category::truncate();
         Image::truncate();
         Text::truncate();
-        Sound::truncate();
         Video::truncate();
+        Sound::truncate();
+        Link::truncate();
         Theme::truncate();
         Gallery::truncate();
         Artwork::truncate();
-        
+        Category::truncate();        
         Department::truncate();
         Artist::truncate();
         

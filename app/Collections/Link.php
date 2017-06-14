@@ -4,7 +4,7 @@ namespace App\Collections;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sound extends Model
+class Link extends Model
 {
 
     protected $primaryKey = 'lake_guid';
@@ -16,8 +16,8 @@ class Sound extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'lake_guid', 'lake_uri'];
-
+    protected $fillable = ['title', 'lake_guid', 'lake_uri', 'main_id'];
+    
     public function artist()
     {
 

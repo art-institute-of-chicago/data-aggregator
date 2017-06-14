@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
 
-    protected $primaryKey = 'citi_id';
+    protected $primaryKey = 'lake_guid';
+    protected $keyType = 'string';
     protected $dates = ['api_created_at', 'api_modified_at', 'api_indexed_at'];
 
     /**

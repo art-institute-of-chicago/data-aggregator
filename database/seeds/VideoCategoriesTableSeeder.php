@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ArtworkCategoriesTableSeeder extends Seeder
+class VideoCategoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,13 +12,13 @@ class ArtworkCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Collections\Artwork::all()->all();
+        $videos = App\Collections\Video::all()->all();
         $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
 
-        foreach ($artworks as $artwork) {
+        foreach ($videos as $video) {
 
             for ($i = 0; $i < rand(2,8); $i++) {
-                $artwork->categories()->attach($categoryIds[array_rand($categoryIds)]);
+                $video->categories()->attach($categoryIds[array_rand($categoryIds)]);
             }
 
         }

@@ -18,72 +18,49 @@ class DepartmentTest extends ApiTestCase
     /** @test */
     public function it_fetches_all_departments()
     {
-        $this->times(5)->make(Department::class);
+
+        $this->it_fetches_all(Department::class, 'departments');
         
-        $response = $this->getJson('api/v1/departments');
-        $response->assertSuccessful();
-
-        $departments = $response->json()['data'];
-        $this->assertCount(5, $departments);
-
-        foreach ($departments as $department)
-        {
-            $this->assertArrayHasKeys($department, ['id', 'title']);
-        }
     }
 
     /** @test */
     public function it_fetches_a_single_department()
     {
 
-        $this->make(Department::class);
+        $this->it_fetches_a_single(Department::class, 'departments');
 
-        $response = $this->getJson('api/v1/departments/' .$this->ids[0]);
-        $response->assertSuccessful();
-
-        $department = $response->json()['data'];
-        $this->assertArrayHasKeys($department, ['id', 'title']);
     }
 
     /** @test */
     public function it_fetches_multiple_departments()
     {
 
-        $this->times(5)->make(Department::class);
+        $this->it_fetches_mutliple(Department::class, 'departments');
 
-        $response = $this->getJson('api/v1/departments?ids=' .implode(',',array_slice($this->ids, 0, 3)));
-        $response->assertSuccessful();
+    }
 
-        $departments = $response->json()['data'];
-        $this->assertCount(3, $departments);
 
-        foreach ($departments as $department)
-        {
-            $this->assertArrayHasKeys($department, ['id', 'title']);
-        }
+    /** @test */
+    public function it_400s_if_nonnumerid_nonuuid_is_passed()
+    {
+
+        $this->it_400s(Department::class, 'departments');
+        
     }
 
     /** @test */
-    public function it_404s_if_a_department_is_not_found()
+    public function it_403s_if_limit_is_too_high()
     {
 
-        $this->make(Department::class);
-        
-        $response = $this->getJson('api/v1/departments/' .$this->faker->unique()->randomNumber(5));
-
-        $response->assertStatus(404);
+        $this->it_403s(Department::class, 'departments');
 
     }
 
     /** @test */
-    public function it_400s_if_an_alpha_id_is_passed()
+    public function it_404s_if_not_found()
     {
 
-        $this->make(Department::class);
-        
-        $response = $this->getJson('api/v1/departments/fsdfdfs');
-
-        $response->assertStatus(400);
+        $this->it_404s(Department::class, 'departments');
 
     }
 
@@ -91,26 +68,9 @@ class DepartmentTest extends ApiTestCase
     public function it_405s_if_a_request_is_posted()
     {
 
-        $this->make(Department::class);
+        $this->it_405s(Department::class, 'departments');
         
-        $response = $this->postJson('api/v1/departments');
-
-        $response->assertStatus(405);
-
     }
-
-    /** @test */
-    public function it_403s_if_limit_is_too_high()
-    {
-
-        $this->make(Department::class);
-        
-        $response = $this->getJson('api/v1/departments?limit=2000');
-
-        $response->assertStatus(403);
-
-    }
-
 
     
 
