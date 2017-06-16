@@ -409,4 +409,57 @@ Route::group(['prefix' => 'v1'], function()
      */
     Route::any('categories/{category}', 'ApiController@respondMethodNotAllowed');
     Route::get('categories/{category}', 'CategoriesController@show');
+
+
+    /**
+     * @SWG\Get(
+     *     path="/api/v1/agent-types?ids={ids}&limit={limit}&page={page}",
+     *     summary="A list of all agent types sorted by last updated date in descending order",
+     *     tags={"agentTypes"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/ids"),
+     *     @SWG\Parameter(ref="#/parameters/limit"),
+     *     @SWG\Parameter(ref="#/parameters/page"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/AgentType")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('agent-types', 'ApiController@respondMethodNotAllowed');
+    Route::get('agent-types', 'AgentTypesController@index');
+
+    /**
+     * @SWG\Get(
+     *     path="/api/v1/agent-types/{id}",
+     *     summary="A single agent type by the given identifier",
+     *     tags={"agentTypes"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/id"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             @SWG\Items(ref="#/definitions/AgentType")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('agent-types/{agentType}', 'ApiController@respondMethodNotAllowed');
+    Route::get('agent-types/{agentType}', 'AgentTypesController@show');
+
 });

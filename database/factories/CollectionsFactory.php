@@ -10,39 +10,43 @@
 |
 */
 
-function idsAndTitle($faker, $title, $citiField = false, $idLength = 6)
+if (!function_exists('idsAndTitle'))
 {
-    
-    $lake_id = $faker->uuid;
-    $ret = [];
-    
-    if ($citiField)
+    function idsAndTitle($faker, $title, $citiField = false, $idLength = 6)
     {
-        $ret = [
-            'citi_id' => $faker->unique()->randomNumber($idLength),
-        ];
+    
+        $lake_id = $faker->uuid;
+        $ret = [];
+    
+        if ($citiField)
+        {
+            $ret = [
+                'citi_id' => $faker->unique()->randomNumber($idLength),
+            ];
+        }
+
+        return array_merge(
+            $ret,
+            [
+                'title' => $title,
+                'lake_guid' => $lake_id,
+                'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
+            ]
+        );
+    
     }
 
-    return array_merge(
-        $ret,
-        [
-            'title' => $title,
-            'lake_guid' => $lake_id,
-            'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        ]
-    );
-    
-}
+    function dates($faker)
+    {
+                                                        
+        return [
+            'api_created_at' => $faker->dateTimeThisYear,
+            'api_modified_at' => $faker->dateTimeThisYear,
+            'api_indexed_at' => $faker->dateTimeThisYear,
+        ];
 
-function dates($faker)
-{
-
-    return [
-        'api_created_at' => $faker->dateTimeThisYear,
-        'api_modified_at' => $faker->dateTimeThisYear,
-        'api_indexed_at' => $faker->dateTimeThisYear,
-    ];
-
+    }
+                                                    
 }
 
 

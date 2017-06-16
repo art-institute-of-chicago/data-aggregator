@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Collections\AgentType;
 use App\Collections\Artist;
 use App\Collections\Department;
 use App\Collections\Artwork;
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
 
         $this->_cleanDatabase();
         
+        $this->call(AgentTypesTableSeeder::class);
         $this->call(ArtistsTableSeeder::class);
         $this->call(DepartmentsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
@@ -61,6 +63,7 @@ class DatabaseSeeder extends Seeder
         Category::truncate();        
         Department::truncate();
         Artist::truncate();
+        AgentType::truncate();
         
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 

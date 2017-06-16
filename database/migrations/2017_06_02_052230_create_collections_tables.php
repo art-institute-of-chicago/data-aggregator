@@ -13,10 +13,18 @@ class CreateCollectionsTables extends Migration
      */
     public function up()
     {
+
+        Schema::create('agent_types', function (Blueprint $table) {
+            $table = $this->_addIdsAndTitle($table);
+            $table = $this->_addDates($table);
+        });
+
         Schema::create('artists', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->integer('date_birth')->nullable();
             $table->integer('date_death')->nullable();
+            $table->integer('agent_type_citi_id')->nullable();
+            $table->foreign('agent_type_citi_id')->references('citi_id')->on('agent_types');
             $table = $this->_addDates($table);
         });
 
