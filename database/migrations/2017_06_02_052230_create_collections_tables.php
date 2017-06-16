@@ -33,6 +33,11 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
+        Schema::create('object_types', function (Blueprint $table) {
+            $table = $this->_addIdsAndTitle($table);
+            $table = $this->_addDates($table);
+        });
+
         Schema::create('categories', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->text('description')->nullable();
@@ -54,6 +59,8 @@ class CreateCollectionsTables extends Migration
             $table->string('artist_display')->nullable();
             $table->integer('department_citi_id')->nullable();
             $table->foreign('department_citi_id')->references('citi_id')->on('departments');
+            $table->integer('object_type_citi_id')->nullable();
+            $table->foreign('object_type_citi_id')->references('citi_id')->on('object_types');
             $table->string('dimensions')->nullable();
             $table->string('medium')->nullable();
             $table->string('credit_line')->nullable();
@@ -246,6 +253,7 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('artwork_category');
         Schema::dropIfExists('artworks');
         Schema::dropIfExists('categories');
+        Schema::dropIfExists('object_types');
         Schema::dropIfExists('departments');
         Schema::dropIfExists('artists');
         Schema::dropIfExists('agent_types');

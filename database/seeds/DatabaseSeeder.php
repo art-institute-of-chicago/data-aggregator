@@ -10,6 +10,7 @@ use App\Collections\Gallery;
 use App\Collections\Theme;
 use App\Collections\Link;
 use App\Collections\Video;
+use App\Collections\ObjectType;
 use App\Collections\Sound;
 use App\Collections\Text;
 use App\Collections\Image;
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AgentTypesTableSeeder::class);
         $this->call(ArtistsTableSeeder::class);
         $this->call(DepartmentsTableSeeder::class);
+        $this->call(ObjectTypesTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(ArtworksTableSeeder::class);
         $this->call(ArtworkCategoriesTableSeeder::class);
@@ -62,6 +64,7 @@ class DatabaseSeeder extends Seeder
         Gallery::truncate();
         Artwork::truncate();
         Category::truncate();        
+        ObjectType::truncate();        
         Department::truncate();
         Artist::truncate();
         AgentType::truncate();

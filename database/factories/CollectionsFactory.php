@@ -77,6 +77,13 @@ $factory->define(App\Collections\Department::class, function (Faker\Generator $f
     );
 });
 
+$factory->define(App\Collections\ObjectType::class, function (Faker\Generator $faker) {
+    return array_merge(
+        idsAndTitle($faker, $faker->randomElement(['Painting', 'Design', 'Drawing and ' .ucfirst($faker->word), ucfirst($faker->word) .' Arts', 'Sculpture']), true, 2),
+        dates($faker)
+    );
+});
+
 
 $factory->define(App\Collections\Category::class, function (Faker\Generator $faker) {
     return array_merge(
@@ -106,6 +113,7 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
             'artist_citi_id' => $artist->citi_id,
             'artist_display' => $artist->title_raw ."\n" .$faker->country .', ' .$faker->year .'–' .$faker->year,
             'department_citi_id' => $faker->randomElement(App\Collections\Department::all()->pluck('citi_id')->all()),
+            'object_type_citi_id' => $faker->randomElement(App\Collections\ObjectType::all()->pluck('citi_id')->all()),
             'dimensions' => $faker->randomFloat(1, 0, 200) .' x ' .$faker->randomFloat(1, 0, 200) .' (' .$faker->randomNumber(2) .$faker->randomElement(['', ' 1/8', ' 1/4', ' 3/8', ' 1/2', ' 5/8', ' 3/4', ' 7/8']) .' x ' .$faker->randomNumber(2) .$faker->randomElement(['', ' 1/8', ' 1/4', ' 3/8', ' 1/2', ' 5/8', ' 3/4', ' 7/8']) .' in.)',
             'medium' => ucfirst($faker->word) .' on ' .$faker->word,
             'credit_line' => $faker->randomElement(['', 'Friends of ', 'Gift of ', 'Bequest of ']) .$faker->words(3, true),

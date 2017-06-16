@@ -11,7 +11,6 @@ use App\Collections\ArtworkDate;
 use App\Collections\Image;
 use App\Collections\Category;
 use App\Collections\Artist;
-use App\Collections\Department;
 
 use Tests\Helpers\Factory;
 
@@ -142,20 +141,6 @@ class ArtworkTest extends ApiTestCase
 
         $artist = $response->json()['data'];
         $this->assertArrayHasKeys($artist, ['id', 'title']);
-    }
-
-    /** @test */
-    public function it_fetches_the_department_for_an_artwork()
-    {
-
-        $artworkKey = $this->attach(Department::class, 1, 'department')->make(Artwork::class);
-
-        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/department');
-
-        $response->assertSuccessful();
-
-        $department = $response->json()['data'];
-        $this->assertArrayHasKeys($department, ['id', 'title']);
     }
 
     /** @test */

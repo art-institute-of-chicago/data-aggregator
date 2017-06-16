@@ -181,30 +181,6 @@ Route::group(['prefix' => 'v1'], function()
 
     /**
      * @SWG\Get(
-     *     path="/api/v1/artworks/{id}/department",
-     *     summary="The department for a given artwork",
-     *     tags={"artworks"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter(ref="#/parameters/id"),
-     *     @SWG\Response(
-     *         response=200,
-     *         description="Successful operation",
-     *         @SWG\Schema(
-     *             @SWG\Items(ref="#/definitions/Department")
-     *         ),
-     *     ),
-	 * 	   @SWG\Response(
-	 * 		   response="default",
-	 * 		   description="error",
-	 * 		   @SWG\Schema(ref="#/definitions/Error"),
-	 * 	   ),
-     * )
-     */
-    Route::any('artworks/{artwork}/department', 'ApiController@respondMethodNotAllowed');
-    Route::get('artworks/{artwork}/department', 'DepartmentsController@index');
-
-    /**
-     * @SWG\Get(
      *     path="/api/v1/artworks/{id}/categories",
      *     summary="A list of all publish categories for a given artwork",
      *     tags={"artworks"},
@@ -333,7 +309,6 @@ Route::group(['prefix' => 'v1'], function()
     Route::any('departments', 'ApiController@respondMethodNotAllowed');
     Route::get('departments', 'DepartmentsController@index');
 
-
     /**
      * @SWG\Get(
      *     path="/api/v1/departments/{id}",
@@ -357,6 +332,58 @@ Route::group(['prefix' => 'v1'], function()
      */
     Route::any('departments/{department}', 'ApiController@respondMethodNotAllowed');
     Route::get('departments/{department}', 'DepartmentsController@show');
+
+    /**
+     * @SWG\Get(
+     *     path="/api/v1/object0types?ids={ids}&limit={limit}&page={page}",
+     *     summary="A list of all object types sorted by last updated date in descending order",
+     *     tags={"objectTypes"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/ids"),
+     *     @SWG\Parameter(ref="#/parameters/limit"),
+     *     @SWG\Parameter(ref="#/parameters/page"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/ObjectType")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('object-types', 'ApiController@respondMethodNotAllowed');
+    Route::get('object-types', 'ObjectTypesController@index');
+
+
+    /**
+     * @SWG\Get(
+     *     path="/api/v1/object-types/{id}",
+     *     summary="A single object type by the given identifier",
+     *     tags={"objectTypes"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/id"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             @SWG\Items(ref="#/definitions/ObjectType")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('object-types/{objectType}', 'ApiController@respondMethodNotAllowed');
+    Route::get('object-types/{objectType}', 'ObjectTypesController@show');
 
 
     /**

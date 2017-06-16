@@ -32,6 +32,13 @@ class Artwork extends Model
 
     }
 
+    public function objectType()
+    {
+
+        return $this->belongsTo('App\Collections\ObjectType');
+
+    }
+
     public function categories()
     {
 
