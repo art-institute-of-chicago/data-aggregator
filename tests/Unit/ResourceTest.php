@@ -35,7 +35,7 @@ class ResourceTest extends ApiTestCase
     public function it_fetches_multiple_resources()
     {
 
-        $this->it_fetches_mutliple(Resource::class, 'resources');
+        $this->it_fetches_multiple(Resource::class, 'resources');
 
     }
 
@@ -77,8 +77,7 @@ class ResourceTest extends ApiTestCase
     public function it_fetches_categories_for_a_resource()
     {
 
-        $this->make(Resource::class);
-        $this->times(4)->make(Category::class, ['resource_citi_uid' => $this->ids[0]]);
+        $this->attach(Category::class, 4)->make(Resource::class);
 
         $response = $this->getJson('api/v1/resources/' .$this->ids[0] .'/categories');
         $response->assertSuccessful();
@@ -92,19 +91,4 @@ class ResourceTest extends ApiTestCase
         }
     }
 
-    
-
-
-    protected function _getStub()
-    {
-
-        $lake_id = $this->faker->uuid;
-
-        return [
-            'title' => $this->faker->words(4, true),
-            'lake_guid' => $lake_id,
-            'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        ];
-    }
-    
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
 
+    public $incrementing = false;
     protected $primaryKey = 'lake_guid';
     protected $keyType = 'string';
     protected $dates = ['api_created_at', 'api_modified_at', 'api_indexed_at'];
@@ -16,6 +17,6 @@ class Image extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'lake_guid', 'lake_uri'];
+    protected $fillable = ['title', 'lake_guid', 'lake_uri', 'iiif_url'];
 
 }

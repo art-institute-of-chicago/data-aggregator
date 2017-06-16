@@ -7,6 +7,10 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Collections\Artwork;
+use App\Collections\Image;
+use App\Collections\Category;
+use App\Collections\Artist;
+use App\Collections\Department;
 
 use Tests\Helpers\Factory;
 
@@ -35,7 +39,7 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_multiple_artworks()
     {
 
-        $this->it_fetches_mutliple(Artwork::class, 'artworks');
+        $this->it_fetches_multiple(Artwork::class, 'artworks');
 
     }
 
@@ -77,10 +81,9 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_images_for_an_artwork()
     {
 
-        $this->make(Artwork::class);
-        $this->times(4)->make(Image::class, ['artwork_citi_uid' => $this->ids[0]]);
+        $artworkKey = $this->attach(Image::class, 4)->make(Artwork::class);
 
-        $response = $this->getJson('api/v1/artworks/' .$this->ids[0] .'/images');
+        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/images');
         $response->assertSuccessful();
 
         $images = $response->json()['data'];
@@ -96,49 +99,44 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_categories_for_an_artwork()
     {
 
-        $this->make(Artwork::class);
-        $this->times(4)->make(Catagory::class, ['artwork_citi_uid' => $this->ids[0]]);
+        $artworkKey = $this->attach(Category::class, 4)->make(Artwork::class);
 
-        $response = $this->getJson('api/v1/artworks/' .$this->ids[0] .'/categories');
+        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/categories');
         $response->assertSuccessful();
-
+        
         $pubcats = $response->json()['data'];
         $this->assertCount(4, $pubcats);
         
         foreach ($pubcats as $pubcat)
         {
-            $this->assertArrayHasKeys($pubcat, ['id', 'title', 'parent_title']);
+            $this->assertArrayHasKeys($pubcat, ['id', 'title', 'parent_id']);
         }
     }
 
-    /** @test */
     public function it_fetches_resources_for_an_artwork()
     {
 
-        $this->make(Artwork::class);
-        $this->times(4)->make(InterpretiveResource::class, ['artwork_citi_uid' => $this->ids[0]]);
-
-        $response = $this->getJson('api/v1/artworks/' .$this->ids[0] .'/resources');
+        $artworkKey = $this->attach([Sound::class, Video::class, Text::class, Link::class], 4)->make(Artwork::class);
+        
+        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/resources');
         $response->assertSuccessful();
 
-        $intresources = $response->json()['data'];
-        $this->assertCount(4, $intresources);
+        $resources = $response->json()['data'];
+        $this->assertCount(16, $resources);
         
-        foreach ($intresources as $intresource)
+        foreach ($resources as $resource)
         {
-            $this->assertArrayHasKeys($intresource, ['id', 'title']);
+            $this->assertArrayHasKeys($resource, ['id', 'title']);
         }
     }
-    
 
     /** @test */
     public function it_fetches_the_artist_for_an_artwork()
     {
 
-        $this->make(Artwork::class);
-        $this->make(Artist::class, ['artwork_citi_uid' => $this->ids[0]]);
+        $artworkKey = $this->attach(Artist::class, 1, 'artist')->make(Artwork::class);
 
-        $response = $this->getJson('api/v1/artworks/' .$this->ids[0] .'/artist');
+        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/artist');
         $response->assertSuccessful();
 
         $artist = $response->json()['data'];
@@ -149,30 +147,13 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_the_department_for_an_artwork()
     {
 
-        $this->make(Artwork::class);
-        $this->make(Department::class, ['artwork_citi_uid' => $this->ids[0]]);
-
-        $response = $this->getJson('api/v1/artworks/' .$this->ids[0] .'/department');
+        $artworkKey = $this->attach(Department::class, 1, 'department')->make(Artwork::class);
+        print 'api/v1/artworks/' .$artworkKey .'/department';
+        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/department');
         $response->assertSuccessful();
 
         $department = $response->json()['data'];
         $this->assertArrayHasKeys($department, ['id', 'title']);
     }
 
-    
-
-
-    protected function _getStub()
-    {
-
-        $lake_id = $this->faker->uuid;
-
-        return [
-            'citi_id' => $this->faker->unique()->randomNumber(6),
-            'title' => ucwords($this->faker->words(4, true)),
-            'lake_guid' => $lake_id,
-            'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        ];
-    }
-    
 }

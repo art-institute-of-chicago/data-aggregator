@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Artist extends Model
 {
 
+    public $incrementing = false;
     protected $primaryKey = 'citi_id';
     protected $dates = ['api_created_at', 'api_modified_at', 'api_indexed_at'];
 

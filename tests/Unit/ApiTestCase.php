@@ -59,9 +59,9 @@ abstract class ApiTestCase extends TestCase
     public function it_fetches_a_single($class, $endpoint)
     {
 
-        $this->make($class);
+        $id = $this->make($class);
 
-        $response = $this->getJson('api/v1/' .$endpoint .'/' .$this->ids[0]);
+        $response = $this->getJson('api/v1/' .$endpoint .'/' .$id);
         $response->assertSuccessful();
 
         $resource = $response->json()['data'];
@@ -85,7 +85,7 @@ abstract class ApiTestCase extends TestCase
         }
     }
 
-    public function it_400s_if_nonnumerid_nonuuid_is_passed($class, $endpoint)
+    public function it_400s($class, $endpoint)
     {
 
         $this->make($class);
@@ -96,7 +96,7 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-    public function it_403s_if_limit_is_too_high($class, $endpoint)
+    public function it_403s($class, $endpoint)
     {
 
         $this->make($class);
@@ -107,7 +107,7 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-    public function it_404s_if_not_found($class, $endpoint)
+    public function it_404s($class, $endpoint)
     {
 
         $this->make($class);
@@ -118,7 +118,7 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-    public function it_405s_if_a_request_is_posted($class, $endpoint)
+    public function it_405s($class, $endpoint)
     {
 
         $this->make($class);

@@ -35,7 +35,7 @@ class ArtistTest extends ApiTestCase
     public function it_fetches_multiple_artists()
     {
 
-        $this->it_fetches_mutliple(Artist::class, 'artists');
+        $this->it_fetches_multiple(Artist::class, 'artists');
 
     }
 
@@ -69,19 +69,6 @@ class ArtistTest extends ApiTestCase
 
         $this->it_405s(Artist::class, 'artists');
         
-    }
-
-    protected function _getStub()
-    {
-
-        $lake_id = $this->faker->uuid;
-
-        return [
-            'citi_id' => $this->faker->unique()->randomNumber(5),
-            'title' => ucwords($this->faker->lastName .', ' .$this->faker->firstName),
-            'lake_guid' => $lake_id,
-            'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        ];
     }
     
 }

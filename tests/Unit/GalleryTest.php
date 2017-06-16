@@ -35,7 +35,7 @@ class GalleryTest extends ApiTestCase
     public function it_fetches_multiple_galleries()
     {
 
-        $this->it_fetches_mutliple(Gallery::class, 'galleries');
+        $this->it_fetches_multiple(Gallery::class, 'galleries');
 
     }
 
@@ -77,8 +77,7 @@ class GalleryTest extends ApiTestCase
     public function it_fetches_location_types_for_a_gallery()
     {
 
-        $this->make(Gallery::class);
-        $this->times(4)->make(LocationType::class, ['gallery_citi_uid' => $this->ids[0]]);
+        $this->attach(LocationType::class, 4)->make(Gallery::class);
 
         $response = $this->getJson('api/v1/galleries/' .$this->ids[0] .'/location-types');
         $response->assertSuccessful();
@@ -92,20 +91,4 @@ class GalleryTest extends ApiTestCase
         }
     }
 
-    
-
-
-    protected function _getStub()
-    {
-
-        $lake_id = $this->faker->uuid;
-
-        return [
-            'citi_id' => $this->faker->unique()->randomNumber(5),
-            'title' => $this->faker->randomElement(['Gallery ' .$this->faker->unique()->randomNumber(3), $this->faker->lastName .' ' .$this->faker->randomElement(['Hall', 'Building', 'Memorial Garden', 'Reading Room', 'Study Room'])]),
-            'lake_guid' => $lake_id,
-            'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        ];
-    }
-    
 }

@@ -17,8 +17,13 @@ class CategoryTransformer extends TransformerAbstract
     public function transform(Category $item)
     {
         return [
-            'id' => $item->citi_id,
+            'id' => $item->lake_guid,
             'title' => $item->title,
+            'parent_id' => $item->parent_id,
+            'is_in_nav' => $item->is_in_nav,
+            'description' => $item->description,
+            'sort' => $item->sort,
+            'type' => $item->type,
             'last_updated_lpm_fedora' => $item->api_modified_at->toDateTimeString(),
             'last_updated_lpm_solr' => $item->api_indexed_at->toDateTimeString(),
             'last_updated' => $item->updated_at->toDateTimeString(),

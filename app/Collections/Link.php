@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Link extends Model
 {
 
+    public $incrementing = false;
     protected $primaryKey = 'lake_guid';
     protected $keyType = 'string';
     protected $dates = ['api_created_at', 'api_modified_at', 'api_indexed_at'];
@@ -16,7 +17,7 @@ class Link extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'lake_guid', 'lake_uri', 'main_id'];
+    protected $fillable = ['title', 'lake_guid', 'lake_uri'];
     
     public function artist()
     {

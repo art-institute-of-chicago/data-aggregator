@@ -35,7 +35,7 @@ class CategoryTest extends ApiTestCase
     public function it_fetches_multiple_categories()
     {
 
-        $this->it_fetches_mutliple(Category::class, 'categories');
+        $this->it_fetches_multiple(Category::class, 'categories');
 
     }
 
@@ -70,22 +70,6 @@ class CategoryTest extends ApiTestCase
 
         $this->it_405s(Category::class, 'categories');
         
-    }
-
-
-
-
-    protected function _getStub()
-    {
-
-        $lake_id = $this->faker->uuid;
-
-        return [
-            'citi_id' => $this->faker->unique()->randomNumber(4),
-            'title' => $this->faker->words(4, true),
-            'lake_guid' => $lake_id,
-            'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        ];
     }
     
 }

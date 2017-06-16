@@ -75,4 +75,5 @@ class ArtworksController extends ApiController
         return response()->collection($all, new \App\Http\Transformers\ArtworkTransformer);
         
     }
+
 }

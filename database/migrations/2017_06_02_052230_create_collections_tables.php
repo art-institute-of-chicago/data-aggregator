@@ -1,4 +1,4 @@
-sl<?php
+<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -59,7 +59,7 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_category', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id');
-            $table->string('category_lake_guid');
+            $table->uuid('category_lake_guid');
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
         });
@@ -95,8 +95,8 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('category_link', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('link_lake_guid');
-            $table->string('category_lake_guid');
+            $table->uuid('link_lake_guid');
+            $table->uuid('category_lake_guid');
             $table->foreign('link_lake_guid')->references('lake_guid')->on('links')->onDelete('cascade');
             $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
         });
@@ -113,8 +113,8 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('category_sound', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('sound_lake_guid');
-            $table->string('category_lake_guid');
+            $table->uuid('sound_lake_guid');
+            $table->uuid('category_lake_guid');
             $table->foreign('sound_lake_guid')->references('lake_guid')->on('sounds')->onDelete('cascade');
             $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
         });
@@ -131,8 +131,8 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('category_video', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('video_lake_guid');
-            $table->string('category_lake_guid');
+            $table->uuid('video_lake_guid');
+            $table->uuid('category_lake_guid');
             $table->foreign('video_lake_guid')->references('lake_guid')->on('videos')->onDelete('cascade');
             $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
         });
@@ -149,8 +149,8 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('category_text', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('text_lake_guid');
-            $table->string('category_lake_guid');
+            $table->uuid('text_lake_guid');
+            $table->uuid('category_lake_guid');
             $table->foreign('text_lake_guid')->references('lake_guid')->on('texts')->onDelete('cascade');
             $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
         });
@@ -160,14 +160,50 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('images', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
+            $table->text('description')->nullable();
             $table->string('imaging_uid')->nullable();
             $table->string('type')->nullable();
-            $table->string('iiif_url')->unique();
+            $table->string('content')->nullable();
+            $table->string('published')->nullable();
+            $table->integer('artwork_citi_id')->nullable();
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks');
+            $table->string('iiif_url')->unique()->nullable();
             $table = $this->_addDates($table);
         });
 
 
         
+    }
+
+    private function _addIdsAndTitle($table, $citiField = true)
+    {
+
+        if ($citiField)
+        {
+
+            $table->integer('citi_id')->unique()->primary();
+            $table->uuid('lake_guid')->unique()->nullable();
+
+        }
+        else
+        {
+
+            $table->uuid('lake_guid')->unique()->primary();
+
+        }
+            
+        $table->string('title');
+        $table->string('lake_uri')->unique()->nullable();
+        return $table;
+    }
+
+    private function _addDates($table)
+    {
+        $table->timestamp('api_created_at')->nullable()->useCurrent();
+        $table->timestamp('api_modified_at')->nullable()->useCurrent();
+        $table->timestamp('api_indexed_at')->nullable()->useCurrent();
+        $table->timestamps();
+        return $table;
     }
 
     /**
@@ -194,31 +230,8 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('categories');
         Schema::dropIfExists('departments');
         Schema::dropIfExists('artists');
+        Schema::dropIfExists('agent_types');
 
-    }
-
-    private function _addIdsAndTitle($table, $citiField = true)
-    {
-        $table->increments('id');
-        if ($citiField)
-        {
-
-            $table->integer('citi_id')->unique();
-
-        }
-        $table->string('title');
-        $table->string('lake_guid')->unique()->nullable();
-        $table->string('lake_uri')->unique()->nullable();
-        return $table;
-    }
-
-    private function _addDates($table)
-    {
-        $table->timestamp('api_created_at')->nullable()->useCurrent();
-        $table->timestamp('api_modified_at')->nullable()->useCurrent();
-        $table->timestamp('api_indexed_at')->nullable()->useCurrent();
-        $table->timestamps();
-        return $table;
     }
 
 }

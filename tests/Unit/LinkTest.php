@@ -35,7 +35,7 @@ class LinkTest extends ApiTestCase
     public function it_fetches_multiple_links()
     {
 
-        $this->it_fetches_mutliple(Link::class, 'links');
+        $this->it_fetches_multiple(Link::class, 'links');
 
     }
 
@@ -70,22 +70,6 @@ class LinkTest extends ApiTestCase
 
         $this->it_405s(Link::class, 'links');
         
-    }
-
-
-    
-
-
-    protected function _getStub()
-    {
-
-        $lake_id = $this->faker->uuid;
-
-        return [
-            'content' => $this->faker->url,
-            'lake_guid' => $lake_id,
-            'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
-        ];
     }
     
 }
