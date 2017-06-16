@@ -153,7 +153,8 @@ class ArtworkTest extends ApiTestCase
         $response->assertSuccessful();
 
         $artwork = $response->json()['data'];
-        $this->assertNotEmpty($artwork->dates);
+
+        $this->assertNotEmpty($artwork['dates']);
 
     }
 
