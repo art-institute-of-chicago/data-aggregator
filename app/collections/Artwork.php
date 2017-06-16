@@ -39,4 +39,11 @@ class Artwork extends Model
 
     }
 
+    public function dates()
+    {
+
+        return $this->hasMany('App\Collections\ArtworkDate');
+
+    }
+
 }

@@ -31,6 +31,7 @@ class ArtworkTransformer extends TransformerAbstract
      */
     public function transform(Artwork $item)
     {
+
         return [
             'id' => $item->citi_id,
             'title' => $item->title,
@@ -48,6 +49,14 @@ class ArtworkTransformer extends TransformerAbstract
             'publication_history' => $item->publications,
             'exhibition_history' => $item->exhibitions,
             'provenance_text' => $item->provenance,
+            // Doing it this way so we don't get an extra 'data' block
+            'dates' => $item->dates()->getResults()->transform(function ($item, $key) {
+                return [
+                    'date' => $item->date->toDateString(),
+                    'qualifier' => $item->qualifier,
+                    'preferred' => (bool) $item->preferred,
+                ];
+            }),
             'last_updated_lpm_fedora' => $item->api_modified_at->toDateTimeString(),
             'last_updated_lpm_solr' => $item->api_indexed_at->toDateTimeString(),
             'last_updated' => $item->updated_at->toDateTimeString(),
@@ -64,4 +73,5 @@ class ArtworkTransformer extends TransformerAbstract
     {
         return $this->item(Artist::where('lake_uid', '=', $artwork->creator_lake_uid)->first(), new ArtistTransformer);
     }
+
 }

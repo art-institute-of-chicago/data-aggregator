@@ -52,22 +52,18 @@ trait Factory
                     {
                         $class = $this->classFrom($attachType);
 
-                        $relation = $this->attachRelation ? $this->attachRelation : strtolower(str_plural($class));
+                        $relation = $this->attachRelation ? $this->attachRelation : lcfirst(str_plural($class));
 
-                        $attachedModel = factory($attachType)->create();
-
+                        $add = 'save';
+                        
                         if ($model->$relation() instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo)
                         {
+
+                            $add = 'associate';
+
+                        }
                             
-                            $model->$relation()->associate($attachedModel->getAttributeValue($attachedModel->getKeyName()));
-
-                        }
-                        else
-                        {
-
-                            $model->$relation()->attach($attachedModel->getAttributeValue($attachedModel->getKeyName()));
-
-                        }
+                        $model->$relation()->$add(factory($attachType)->create());
                         
                     }
 

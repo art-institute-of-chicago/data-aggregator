@@ -119,6 +119,16 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
 });
 
 
+$factory->define(App\Collections\ArtworkDate::class, function (Faker\Generator $faker) {
+    return [
+        'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
+        'date' => $faker->dateTimeAd,
+        'qualifier' => ucfirst($faker->word) .' date',
+        'preferred' => $faker->boolean,
+    ];
+});
+
+
 $factory->define(App\Collections\Gallery::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, $faker->randomElement(['Gallery ' .$faker->unique()->randomNumber(3), $faker->lastName .' ' .$faker->randomElement(['Hall', 'Building', 'Memorial Garden', 'Reading Room', 'Study Room'])]), true, 6),

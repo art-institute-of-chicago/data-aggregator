@@ -72,6 +72,15 @@ class CreateCollectionsTables extends Migration
             $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
         });
 
+        Schema::create('artwork_dates', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('artwork_citi_id');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->date('date')->nullable();
+            $table->string('qualifier')->nullable();
+            $table->boolean('preferred')->nullable();
+            $table->timestamps();
+        });
 
         Schema::create('galleries', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
@@ -104,8 +113,8 @@ class CreateCollectionsTables extends Migration
         Schema::create('category_link', function(Blueprint $table) {
             $table->increments('id');
             $table->uuid('link_lake_guid');
-            $table->uuid('category_lake_guid');
             $table->foreign('link_lake_guid')->references('lake_guid')->on('links')->onDelete('cascade');
+            $table->uuid('category_lake_guid');
             $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
         });
 
@@ -122,8 +131,8 @@ class CreateCollectionsTables extends Migration
         Schema::create('category_sound', function(Blueprint $table) {
             $table->increments('id');
             $table->uuid('sound_lake_guid');
-            $table->uuid('category_lake_guid');
             $table->foreign('sound_lake_guid')->references('lake_guid')->on('sounds')->onDelete('cascade');
+            $table->uuid('category_lake_guid');
             $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
         });
 
@@ -140,8 +149,8 @@ class CreateCollectionsTables extends Migration
         Schema::create('category_video', function(Blueprint $table) {
             $table->increments('id');
             $table->uuid('video_lake_guid');
-            $table->uuid('category_lake_guid');
             $table->foreign('video_lake_guid')->references('lake_guid')->on('videos')->onDelete('cascade');
+            $table->uuid('category_lake_guid');
             $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
         });
 
@@ -158,8 +167,8 @@ class CreateCollectionsTables extends Migration
         Schema::create('category_text', function(Blueprint $table) {
             $table->increments('id');
             $table->uuid('text_lake_guid');
-            $table->uuid('category_lake_guid');
             $table->foreign('text_lake_guid')->references('lake_guid')->on('texts')->onDelete('cascade');
+            $table->uuid('category_lake_guid');
             $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
         });
 
@@ -233,6 +242,7 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('links');
         Schema::dropIfExists('themes');
         Schema::dropIfExists('galleries');
+        Schema::dropIfExists('artwork_dates');
         Schema::dropIfExists('artwork_category');
         Schema::dropIfExists('artworks');
         Schema::dropIfExists('categories');
