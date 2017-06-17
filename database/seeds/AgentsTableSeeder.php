@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ArtistsTableSeeder extends Seeder
+class AgentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class ArtistsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Collections\Artist::class, 100)->create();
+        factory(App\Collections\Agent::class, 100)->create();
     }
 }

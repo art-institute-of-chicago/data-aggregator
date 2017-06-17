@@ -10,6 +10,7 @@ use App\Collections\Artwork;
 use App\Collections\ArtworkDate;
 use App\Collections\Image;
 use App\Collections\Category;
+use App\Collections\Agent;
 use App\Collections\Artist;
 
 use Tests\Helpers\Factory;
@@ -134,13 +135,13 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_the_artist_for_an_artwork()
     {
 
-        $artworkKey = $this->attach(Artist::class, 1, 'artist')->make(Artwork::class);
+        $artworkKey = $this->attach(Agent::class, 1, 'artist')->make(Artwork::class);
 
         $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/artist');
         $response->assertSuccessful();
 
-        $artist = $response->json()['data'];
-        $this->assertArrayHasKeys($artist, ['id', 'title']);
+        $agent = $response->json()['data'];
+        $this->assertArrayHasKeys($agent, ['id', 'title']);
     }
 
     /** @test */

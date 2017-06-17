@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Collections\AgentType;
-use App\Collections\Artist;
+use App\Collections\Agent;
 use Illuminate\Http\Request;
 
 class AgentTypesController extends ApiController
@@ -14,7 +14,7 @@ class AgentTypesController extends ApiController
      * @param null $id
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $artistId = null)
+    public function index(Request $request)
     {
 
         $ids = $request->input('ids');
@@ -28,15 +28,9 @@ class AgentTypesController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many agent types. Please set a smaller limit.');
 
-        if ($artistId)
-        {
-            return response()->item(Artist::findOrFail($artistId)->agentType, new \App\Http\Transformers\AgentTypeTransformer);
-        }
-        else
-        {
-            $all = AgentType::paginate();
-            return response()->collection($all, new \App\Http\Transformers\AgentTypeTransformer);
-        }
+        $all = AgentType::paginate();
+        return response()->collection($all, new \App\Http\Transformers\AgentTypeTransformer);
+
     }
 
     /**

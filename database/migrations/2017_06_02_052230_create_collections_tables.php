@@ -19,7 +19,7 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('artists', function (Blueprint $table) {
+        Schema::create('agents', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->integer('date_birth')->nullable();
             $table->integer('date_death')->nullable();
@@ -55,7 +55,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('date_start')->nullable();
             $table->integer('date_end')->nullable();
             $table->integer('artist_citi_id')->nullable();
-            $table->foreign('artist_citi_id')->references('citi_id')->on('artists');
+            $table->foreign('artist_citi_id')->references('citi_id')->on('agents');
             $table->string('artist_display')->nullable();
             $table->integer('department_citi_id')->nullable();
             $table->foreign('department_citi_id')->references('citi_id')->on('departments');
@@ -112,8 +112,8 @@ class CreateCollectionsTables extends Migration
             $table->text('description')->nullable();
             $table->string('content')->nullable();
             $table->string('published')->nullable();
-            $table->integer('artist_citi_id')->nullable();
-            $table->foreign('artist_citi_id')->references('citi_id')->on('artists');
+            $table->integer('agent_citi_id')->nullable();
+            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
             $table = $this->_addDates($table);
         });
 
@@ -130,8 +130,8 @@ class CreateCollectionsTables extends Migration
             $table->text('description')->nullable();
             $table->string('content')->nullable();
             $table->string('published')->nullable();
-            $table->integer('artist_citi_id')->nullable();
-            $table->foreign('artist_citi_id')->references('citi_id')->on('artists');
+            $table->integer('agent_citi_id')->nullable();
+            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
             $table = $this->_addDates($table);
         });
 
@@ -148,8 +148,8 @@ class CreateCollectionsTables extends Migration
             $table->text('description')->nullable();
             $table->string('content')->nullable();
             $table->string('published')->nullable();
-            $table->integer('artist_citi_id')->nullable();
-            $table->foreign('artist_citi_id')->references('citi_id')->on('artists');
+            $table->integer('agent_citi_id')->nullable();
+            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
             $table = $this->_addDates($table);
         });
 
@@ -166,8 +166,8 @@ class CreateCollectionsTables extends Migration
             $table->text('description')->nullable();
             $table->string('content')->nullable();
             $table->string('published')->nullable();
-            $table->integer('artist_citi_id')->nullable();
-            $table->foreign('artist_citi_id')->references('citi_id')->on('artists');
+            $table->integer('agent_citi_id')->nullable();
+            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
             $table = $this->_addDates($table);
         });
 
@@ -255,7 +255,7 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('categories');
         Schema::dropIfExists('object_types');
         Schema::dropIfExists('departments');
-        Schema::dropIfExists('artists');
+        Schema::dropIfExists('agents');
         Schema::dropIfExists('agent_types');
 
     }

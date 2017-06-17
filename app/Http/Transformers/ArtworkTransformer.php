@@ -3,7 +3,7 @@
 namespace App\Http\Transformers;
 
 use App\Collections\Artwork;
-use App\Collections\Artist;
+use App\Collections\Agent;
 use League\Fractal\TransformerAbstract;
 
 class ArtworkTransformer extends TransformerAbstract
@@ -39,8 +39,8 @@ class ArtworkTransformer extends TransformerAbstract
             'date_start' => $item->date_start,
             'date_end' => $item->date_end,
             'date_display' => $item->date_display,
-            'artist_id' => $item->artist_citi_id,
-            'artist_display' => $item->artist_display,
+            'agent_id' => $item->agent_citi_id,
+            'agent_display' => $item->agent_display,
             'department' => $item->department()->getResults() ? $item->department()->getResults()->title : '',
             'department_id' => $item->department_citi_id,
             'dimensions' => $item->dimensions,
@@ -74,7 +74,7 @@ class ArtworkTransformer extends TransformerAbstract
      */
     public function includeCreator(Artwork $artwork)
     {
-        return $this->item(Artist::where('lake_uid', '=', $artwork->creator_lake_uid)->first(), new ArtistTransformer);
+        return $this->item(Agent::where('lake_uid', '=', $artwork->creator_lake_uid)->first(), new AgentTransformer);
     }
 
 }

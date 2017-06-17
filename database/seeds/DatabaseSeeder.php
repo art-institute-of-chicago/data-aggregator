@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 
 use App\Collections\AgentType;
-use App\Collections\Artist;
+use App\Collections\Agent;
 use App\Collections\Department;
 use App\Collections\Artwork;
 use App\Collections\Gallery;
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->_cleanDatabase();
         
         $this->call(AgentTypesTableSeeder::class);
-        $this->call(ArtistsTableSeeder::class);
+        $this->call(AgentsTableSeeder::class);
         $this->call(DepartmentsTableSeeder::class);
         $this->call(ObjectTypesTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
         Category::truncate();        
         ObjectType::truncate();        
         Department::truncate();
-        Artist::truncate();
+        Agent::truncate();
         AgentType::truncate();
         
         DB::statement('SET FOREIGN_KEY_CHECKS=1');

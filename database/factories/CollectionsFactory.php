@@ -52,12 +52,12 @@ if (!function_exists('idsAndTitle'))
 
 $factory->define(App\Collections\AgentType::class, function (Faker\Generator $faker) {
     return array_merge(
-        idsAndTitle($faker, $faker->words(2, true), true, 2),
+        idsAndTitle($faker, $faker->unique()->randomElement(['Artist', $faker->words(2, true)]), true, 2),
         dates($faker)
     );
 });
 
-$factory->define(App\Collections\Artist::class, function (Faker\Generator $faker) {
+$factory->define(App\Collections\Agent::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, ucwords($faker->lastName .', ' .$faker->firstName), true, 5),
         [
@@ -102,7 +102,7 @@ $factory->define(App\Collections\Category::class, function (Faker\Generator $fak
 
 $factory->define(App\Collections\Artwork::class, function (Faker\Generator $faker) {
     $date_end = $faker->year;
-    $artist = factory(App\Collections\Artist::Class)->create();
+    $artist = factory(App\Collections\Agent::Class)->create();
     return array_merge(
         idsAndTitle($faker, ucwords($faker->words(4, true)), true, 6),
         [
@@ -172,7 +172,7 @@ $factory->define(App\Collections\Link::class, function (Faker\Generator $faker) 
             'description' => $faker->paragraph(3),
             'content' => $faker->url,
             'published' => $faker->boolean,
-            'artist_citi_id' => $faker->randomElement(App\Collections\Artist::all()->pluck('citi_id')->all()),
+            'agent_citi_id' => $faker->randomElement(App\Collections\Agent::all()->pluck('citi_id')->all()),
         ],
         dates($faker)
     );
@@ -186,7 +186,7 @@ $factory->define(App\Collections\Sound::class, function (Faker\Generator $faker)
             'description' => $faker->paragraph(3),
             'content' => $faker->url,
             'published' => $faker->boolean,
-            'artist_citi_id' => $faker->randomElement(App\Collections\Artist::all()->pluck('citi_id')->all()),
+            'agent_citi_id' => $faker->randomElement(App\Collections\Agent::all()->pluck('citi_id')->all()),
         ],
         dates($faker)
     );
@@ -200,7 +200,7 @@ $factory->define(App\Collections\Video::class, function (Faker\Generator $faker)
             'description' => $faker->paragraph(3),
             'content' => $faker->url,
             'published' => $faker->boolean,
-            'artist_citi_id' => $faker->randomElement(App\Collections\Artist::all()->pluck('citi_id')->all()),
+            'agent_citi_id' => $faker->randomElement(App\Collections\Agent::all()->pluck('citi_id')->all()),
         ],
         dates($faker)
     );
@@ -214,7 +214,7 @@ $factory->define(App\Collections\Text::class, function (Faker\Generator $faker) 
             'description' => $faker->paragraph(3),
             'content' => $faker->url,
             'published' => $faker->boolean,
-            'artist_citi_id' => $faker->randomElement(App\Collections\Artist::all()->pluck('citi_id')->all()),
+            'agent_citi_id' => $faker->randomElement(App\Collections\Agent::all()->pluck('citi_id')->all()),
         ],
         dates($faker)
     );

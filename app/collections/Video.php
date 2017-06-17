@@ -19,7 +19,7 @@ class Video extends Model
      */
     protected $fillable = ['title', 'lake_guid', 'lake_uri'];
 
-    public function artist()
+    public function Artist()
     {
 
         return $this->belongsTo('App\Collections\Artist');

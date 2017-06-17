@@ -57,8 +57,8 @@ Route::group(['prefix' => 'v1'], function()
      *         @SWG\Property(property="date_start", description="Earliest creation date"),
      *         @SWG\Property(property="date_end", description="Latest creation date"),
      *         @SWG\Property(property="date_display", description="Date information to display"),
-     *         @SWG\Property(property="artist_id", description="Unique identifier of the artist"),
-     *         @SWG\Property(property="artist_display", description="Artist information to display"),
+     *         @SWG\Property(property="agent_id", description="Unique identifier of the agent"),
+     *         @SWG\Property(property="agent_display", description="Agent information to display"),
      *         @SWG\Property(property="deparment_id", description="Uniqie identifier of the department"),
      *         @SWG\Property(property="dimension"),
      *         @SWG\Property(property="medium"),
@@ -72,10 +72,10 @@ Route::group(['prefix' => 'v1'], function()
      *         @SWG\Property(property="last_updated"),
      * 	   ),
      *     @SWG\Definition(
-     *         definition="Artist", 
+     *         definition="Agent", 
      *         type="object",
      *         @SWG\Property(property="id", description="Unique identifier"),
-     *         @SWG\Property(property="title", description="Name of the artist"),
+     *         @SWG\Property(property="title", description="Name of the agent"),
      *         @SWG\Property(property="birth_date"),
      *         @SWG\Property(property="death_date"),
      *         @SWG\Property(property="last_updated_lpm_fedora"),
@@ -207,6 +207,58 @@ Route::group(['prefix' => 'v1'], function()
 
     /**
      * @SWG\Get(
+     *     path="/api/v1/agents?ids={ids}&limit={limit}&page={page}",
+     *     summary="A list of all agents sorted by last updated date in descending order",
+     *     tags={"agents"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/ids"),
+     *     @SWG\Parameter(ref="#/parameters/limit"),
+     *     @SWG\Parameter(ref="#/parameters/page"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/Agent")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('agents', 'ApiController@respondMethodNotAllowed');
+    Route::get('agents', 'AgentsController@index');
+
+
+    /**
+     * @SWG\Get(
+     *     path="/api/v1/agents/{id}",
+     *     summary="A single agent by the given identifier",
+     *     tags={"agents"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/id"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             @SWG\Items(ref="#/definitions/Agent")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('agents/{agent}', 'ApiController@respondMethodNotAllowed');
+    Route::get('agents/{agent}', 'AgentsController@show');
+
+    /**
+     * @SWG\Get(
      *     path="/api/v1/artists?ids={ids}&limit={limit}&page={page}",
      *     summary="A list of all artists sorted by last updated date in descending order",
      *     tags={"artists"},
@@ -256,30 +308,6 @@ Route::group(['prefix' => 'v1'], function()
      */
     Route::any('artists/{artist}', 'ApiController@respondMethodNotAllowed');
     Route::get('artists/{artist}', 'ArtistsController@show');
-
-    /**
-     * @SWG\Get(
-     *     path="/api/v1/artists/{id}/agent-type",
-     *     summary="The agent type for a given artist",
-     *     tags={"artists"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter(ref="#/parameters/id"),
-     *     @SWG\Response(
-     *         response=200,
-     *         description="Successful operation",
-     *         @SWG\Schema(
-     *             @SWG\Items(ref="#/definitions/AgentType")
-     *         ),
-     *     ),
-	 * 	   @SWG\Response(
-	 * 		   response="default",
-	 * 		   description="error",
-	 * 		   @SWG\Schema(ref="#/definitions/Error"),
-	 * 	   ),
-     * )
-     */
-    Route::any('artists/{artist}/agent-type', 'ApiController@respondMethodNotAllowed');
-    Route::get('artists/{artist}/agent-type', 'AgentTypesController@index');
 
     
     /**
