@@ -30,14 +30,19 @@ class AgentsController extends ApiController
 
         if ($artworkId)
         {
-            return response()->item(Artwork::findOrFail($artworkId)->artist, new \App\Http\Transformers\AgentTransformer);
+
+            $all = Artwork::findOrFail($artworkId)->artists;
+
         }
         else
         {
 
             $all = Agent::whereHas('agentType', function ($query) { $this->whereHas($query); })->paginate($limit);
-            return response()->collection($all, new \App\Http\Transformers\AgentTransformer);
+
         }
+
+        return response()->collection($all, new \App\Http\Transformers\AgentTransformer);
+
     }
 
     /**

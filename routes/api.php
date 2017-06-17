@@ -157,8 +157,8 @@ Route::group(['prefix' => 'v1'], function()
 
     /**
      * @SWG\Get(
-     *     path="/api/v1/artworks/{id}/artist",
-     *     summary="The artist for a given artwork",
+     *     path="/api/v1/artworks/{id}/artists",
+     *     summary="The artists for a given artwork",
      *     tags={"artworks"},
      *     produces={"application/json"},
      *     @SWG\Parameter(ref="#/parameters/id"),
@@ -176,8 +176,8 @@ Route::group(['prefix' => 'v1'], function()
 	 * 	   ),
      * )
      */
-    Route::any('artworks/{artwork}/artist', 'ApiController@respondMethodNotAllowed');
-    Route::get('artworks/{artwork}/artist', 'ArtistsController@index');
+    Route::any('artworks/{artwork}/artists', 'ApiController@respondMethodNotAllowed');
+    Route::get('artworks/{artwork}/artists', 'ArtistsController@index');
 
     /**
      * @SWG\Get(

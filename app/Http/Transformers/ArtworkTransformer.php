@@ -14,14 +14,14 @@ class ArtworkTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = ['creator']; // also 'department'
+    protected $availableIncludes = ['artists']; // also 'department'
 
     /**
      * List of resources to automatically include.
      *
      * @var array
      */
-    protected $defaultIncludes = []; // 'creator' or 'department'
+    protected $defaultIncludes = ['artists']; // 'department'
 
     /**
      * Turn this item object into a generic array.
@@ -39,7 +39,6 @@ class ArtworkTransformer extends TransformerAbstract
             'date_start' => $item->date_start,
             'date_end' => $item->date_end,
             'date_display' => $item->date_display,
-            'agent_id' => $item->agent_citi_id,
             'agent_display' => $item->agent_display,
             'department' => $item->department()->getResults() ? $item->department()->getResults()->title : '',
             'department_id' => $item->department_citi_id,
@@ -67,14 +66,14 @@ class ArtworkTransformer extends TransformerAbstract
     }
 
     /**
-     * Include creator.
+     * Include artists.
      *
      * @param  \App\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
-    public function includeCreator(Artwork $artwork)
+    public function includeArtists(Artwork $artwork)
     {
-        return $this->item(Agent::where('lake_uid', '=', $artwork->creator_lake_uid)->first(), new AgentTransformer);
+        return $this->collection($artwork->artists()->getResults(), new AgentTransformer);
     }
 
 }

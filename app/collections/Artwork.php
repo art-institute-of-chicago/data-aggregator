@@ -18,10 +18,10 @@ class Artwork extends Model
      */
     protected $fillable = ['citi_id', 'title', 'lake_guid', 'lake_uri', 'main_id'];
     
-    public function artist()
+    public function artists()
     {
 
-        return $this->belongsTo('App\Collections\Artist');
+        return $this->belongsToMany('App\Collections\Artist', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
 
     }
 
