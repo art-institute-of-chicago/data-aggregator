@@ -58,6 +58,14 @@ class ArtworkTransformer extends TransformerAbstract
                     'preferred' => (bool) $item->preferred,
                 ];
             }),
+            'catalogues' => $item->catalogues()->getResults()->transform(function ($item, $key) {
+                return [
+                    'preferred' => (bool) $item->preferred,
+                    'catalogue' => $item->catalogue,
+                    'number' => $item->number,
+                    'state_edition' => $item->state_edition,
+                ];
+            }),
             'last_updated_lpm_fedora' => $item->api_modified_at->toDateTimeString(),
             'last_updated_lpm_solr' => $item->api_indexed_at->toDateTimeString(),
             'last_updated' => $item->updated_at->toDateTimeString(),

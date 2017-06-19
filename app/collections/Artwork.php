@@ -53,6 +53,13 @@ class Artwork extends Model
 
     }
 
+    public function catalogues()
+    {
+
+        return $this->hasMany('App\Collections\ArtworkCatalogue');
+
+    }
+
     public function galleries()
     {
 

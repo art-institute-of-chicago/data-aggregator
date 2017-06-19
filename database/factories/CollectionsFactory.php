@@ -135,6 +135,16 @@ $factory->define(App\Collections\ArtworkDate::class, function (Faker\Generator $
     ];
 });
 
+$factory->define(App\Collections\ArtworkCatalogue::class, function (Faker\Generator $faker) {
+    return [
+        'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
+        'preferred' => $faker->boolean,
+        'catalogue' => ucfirst($faker->words(2, true)),
+        'number' => $faker->randomNumber(2),
+        'state_edition' => $faker->words(2, true),
+    ];
+});
+
 
 $factory->define(App\Collections\Gallery::class, function (Faker\Generator $faker) {
     return array_merge(
