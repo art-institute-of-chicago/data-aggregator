@@ -13,14 +13,14 @@ class ArtworkTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = ['artists', 'galleries'];
+    protected $availableIncludes = ['artists', 'galleries', 'categories'];
 
     /**
      * List of resources to automatically include.
      *
      * @var array
      */
-    protected $defaultIncludes = ['artists', 'galleries'];
+    protected $defaultIncludes = ['artists', 'galleries', 'categories'];
 
     /**
      * Turn this item object into a generic array.
@@ -92,6 +92,17 @@ class ArtworkTransformer extends TransformerAbstract
     public function includeGalleries(Artwork $artwork)
     {
         return $this->collection($artwork->galleries()->getResults(), new GalleryTransformer);
+    }
+
+    /**
+     * Include categories.
+     *
+     * @param  \App\Collections\Artwork  $artwork
+     * @return League\Fractal\ItemResource
+     */
+    public function includeCategories(Artwork $artwork)
+    {
+        return $this->collection($artwork->categories()->getResults(), new CategoryTransformer);
     }
 
 }
