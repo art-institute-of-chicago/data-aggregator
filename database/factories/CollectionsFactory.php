@@ -122,6 +122,8 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
             'exhibitions' => $faker->paragraph(5),
             'provenance' => $faker->paragraph(5),
             'publishing_verification_level' => $faker->randomElement(['Web Basic', 'Web Cataloged']),
+            'is_public_domain' => $faker->boolean,
+            'copyright_notice' => '© ' .$faker->year .' ' .ucfirst($faker->words(3, true)),
         ],
         dates($faker)
     );

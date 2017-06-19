@@ -78,6 +78,8 @@ class CreateCollectionsTables extends Migration
             $table->text('exhibitions')->nullable();
             $table->text('provenance')->nullable();
             $table->string('publishing_verification_level')->nullable();
+            $table->boolean('is_public_domain')->nullable();
+            $table->string('copyright_notice')->nullable();
             $table = $this->_addDates($table);
         });
 
