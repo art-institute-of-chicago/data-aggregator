@@ -12,9 +12,9 @@ class ArtworksController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $artworkId = null)
     {
-        
+
         $ids = $request->input('ids');
         if ($ids)
         {
@@ -26,8 +26,27 @@ class ArtworksController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many artworks. Please set a smaller limit.');
         
-        $all = Artwork::paginate($limit);
+        if ($artworkId && $request->segment(5) == 'sets')
+        {
+
+            $all = Artwork::findOrFail($artworkId)->sets;
+
+        }
+        elseif ($artworkId && $request->segment(5) == 'parts')
+        {
+
+            $all = Artwork::findOrFail($artworkId)->parts;
+
+        }
+        else
+        {
+
+            $all = Artwork::paginate($limit);
+
+        }
+
         return response()->collection($all, new \App\Http\Transformers\ArtworkTransformer);
+
     }
 
     /**

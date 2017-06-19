@@ -66,4 +66,19 @@ class Artwork extends Model
         return $this->belongsToMany('App\Collections\Gallery');
 
     }
+
+    public function parts()
+    {
+
+        return $this->belongsToMany('App\Collections\Artwork', 'artwork_artwork', 'set_citi_id', 'part_citi_id');
+
+    }
+
+    public function sets()
+    {
+
+        return $this->belongsToMany('App\Collections\Artwork', 'artwork_artwork', 'part_citi_id', 'set_citi_id');
+
+    }
+
 }

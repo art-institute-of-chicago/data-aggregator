@@ -231,6 +231,58 @@ Route::group(['prefix' => 'v1'], function()
 
     /**
      * @SWG\Get(
+     *     path="/api/v1/artworks/{setId}/parts",
+     *     summary="A list of all parts for a given artwork",
+     *     tags={"artworks"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/id"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/Artwork")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('artworks/{setId}/parts', 'ApiController@respondMethodNotAllowed');
+    Route::get('artworks/{setId}/parts', 'ArtworksController@index');
+
+
+    /**
+     * @SWG\Get(
+     *     path="/api/v1/artworks/{partId}/sets",
+     *     summary="A list of all sets for a given artwork",
+     *     tags={"artworks"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/id"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/Artwork")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('artworks/{partId}/sets', 'ApiController@respondMethodNotAllowed');
+    Route::get('artworks/{partId}/sets', 'ArtworksController@index');
+
+
+    /**
+     * @SWG\Get(
      *     path="/api/v1/agents?ids={ids}&limit={limit}&page={page}",
      *     summary="A list of all agents sorted by last updated date in descending order",
      *     tags={"agents"},

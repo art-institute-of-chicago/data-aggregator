@@ -198,4 +198,44 @@ class ArtworkTest extends ApiTestCase
 
     }
 
+    /** @test */
+    public function it_fetches_the_parts_for_an_artwork()
+    {
+
+        $this->make(AgentType::class, ['title' => 'Artist']);
+        $artworkKey = $this->attach(Artwork::class, 2, 'parts')->make(Artwork::class);
+
+        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/parts');
+        $response->assertSuccessful();
+
+        $parts = $response->json()['data'];
+        $this->assertCount(2, $parts);
+        
+        foreach ($parts as $part)
+        {
+            $this->assertArrayHasKeys($part, ['id', 'title']);
+        }
+
+    }
+
+    /** @test */
+    public function it_fetches_the_sets_for_an_artwork()
+    {
+
+        $this->make(AgentType::class, ['title' => 'Artist']);
+        $artworkKey = $this->attach(Artwork::class, 2, 'sets')->make(Artwork::class);
+
+        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/sets');
+        $response->assertSuccessful();
+
+        $sets = $response->json()['data'];
+        $this->assertCount(2, $sets);
+        
+        foreach ($sets as $set)
+        {
+            $this->assertArrayHasKeys($set, ['id', 'title']);
+        }
+
+    }
+
 }
