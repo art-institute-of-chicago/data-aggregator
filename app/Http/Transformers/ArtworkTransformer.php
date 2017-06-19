@@ -38,6 +38,7 @@ class ArtworkTransformer extends TransformerAbstract
             'date_start' => $item->date_start,
             'date_end' => $item->date_end,
             'date_display' => $item->date_display,
+            'description' => $item->description,
             'agent_display' => $item->agent_display,
             'department' => $item->department()->getResults() ? $item->department()->getResults()->title : '',
             'department_id' => $item->department_citi_id,

@@ -64,6 +64,7 @@ class CreateCollectionsTables extends Migration
             $table->string('date_display')->nullable();
             $table->integer('date_start')->nullable();
             $table->integer('date_end')->nullable();
+            $table->text('description')->nullable();
             $table->string('artist_display')->nullable();
             $table->integer('department_citi_id')->nullable();
             $table->foreign('department_citi_id')->references('citi_id')->on('departments');

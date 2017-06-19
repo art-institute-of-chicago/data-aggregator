@@ -110,6 +110,7 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
             'date_display' => '' .$date_end,
             'date_start' => $faker->year,
             'date_end' => $date_end,
+            'description' => $faker->paragraph(5),
             'artist_display' => $artist->title_raw ."\n" .$faker->country .', ' .$faker->year .'–' .$faker->year,
             'department_citi_id' => $faker->randomElement(App\Collections\Department::all()->pluck('citi_id')->all()),
             'object_type_citi_id' => $faker->randomElement(App\Collections\ObjectType::all()->pluck('citi_id')->all()),
