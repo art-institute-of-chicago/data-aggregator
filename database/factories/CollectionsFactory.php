@@ -120,6 +120,7 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
             'publications' => $faker->paragraph(5),
             'exhibitions' => $faker->paragraph(5),
             'provenance' => $faker->paragraph(5),
+            'publishing_verification_level' => $faker->randomElement(['Web Basic', 'Web Cataloged']),
         ],
         dates($faker)
     );

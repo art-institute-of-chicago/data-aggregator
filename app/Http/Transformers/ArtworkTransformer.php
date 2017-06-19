@@ -50,6 +50,10 @@ class ArtworkTransformer extends TransformerAbstract
             'publication_history' => $item->publications,
             'exhibition_history' => $item->exhibitions,
             'provenance_text' => $item->provenance,
+            'publishing_verification_level' => $item->publishing_verification_level,
+            'last_updated_lpm_fedora' => $item->api_modified_at->toDateTimeString(),
+            'last_updated_lpm_solr' => $item->api_indexed_at->toDateTimeString(),
+            'last_updated' => $item->updated_at->toDateTimeString(),
             // Doing it this way so we don't get an extra 'data' block
             'dates' => $item->dates()->getResults()->transform(function ($item, $key) {
                 return [
@@ -66,9 +70,6 @@ class ArtworkTransformer extends TransformerAbstract
                     'state_edition' => $item->state_edition,
                 ];
             }),
-            'last_updated_lpm_fedora' => $item->api_modified_at->toDateTimeString(),
-            'last_updated_lpm_solr' => $item->api_indexed_at->toDateTimeString(),
-            'last_updated' => $item->updated_at->toDateTimeString(),
         ];
     }
 

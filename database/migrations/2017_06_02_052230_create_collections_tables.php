@@ -76,6 +76,7 @@ class CreateCollectionsTables extends Migration
             $table->text('publications')->nullable();
             $table->text('exhibitions')->nullable();
             $table->text('provenance')->nullable();
+            $table->string('publishing_verification_level')->nullable();
             $table = $this->_addDates($table);
         });
 
@@ -130,8 +131,6 @@ class CreateCollectionsTables extends Migration
             $table->foreign('set_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->integer('part_citi_id');
             $table->foreign('part_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
-            $table->boolean('master')->nullable();
-            $table->boolean('same_physical_piece')->nullable();
             $table->timestamps();
         });
 
