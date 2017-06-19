@@ -48,6 +48,16 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
+        Schema::create('galleries', function (Blueprint $table) {
+            $table = $this->_addIdsAndTitle($table);
+            $table->string('closed')->nullable();
+            $table->string('number')->nullable();
+            $table->integer('floor')->nullable();
+            $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
+            $table = $this->_addDates($table);
+        });
+
         Schema::create('artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('main_id')->nullable();
@@ -85,6 +95,14 @@ class CreateCollectionsTables extends Migration
             $table->foreign('agent_citi_id')->references('citi_id')->on('agents')->onDelete('cascade');
         });
 
+        Schema::create('artwork_gallery', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('artwork_citi_id');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->integer('gallery_citi_id');
+            $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
+        });
+
         Schema::create('artwork_dates', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id');
@@ -95,14 +113,6 @@ class CreateCollectionsTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('galleries', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
-            $table->string('closed')->nullable();
-            $table->string('number')->nullable();
-            $table->integer('floor')->nullable();
-            $table->float('latitude')->nullable();
-            $table->float('longitude')->nullable();
-            $table = $this->_addDates($table);
         });
 
         Schema::create('themes', function (Blueprint $table) {
@@ -254,11 +264,12 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('category_link');
         Schema::dropIfExists('links');
         Schema::dropIfExists('themes');
-        Schema::dropIfExists('galleries');
         Schema::dropIfExists('artwork_dates');
+        Schema::dropIfExists('artwork_gallery');
         Schema::dropIfExists('agent_artwork');
         Schema::dropIfExists('artwork_category');
         Schema::dropIfExists('artworks');
+        Schema::dropIfExists('galleries');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('object_types');
         Schema::dropIfExists('departments');

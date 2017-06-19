@@ -3,7 +3,6 @@
 namespace App\Http\Transformers;
 
 use App\Collections\Artwork;
-use App\Collections\Agent;
 use League\Fractal\TransformerAbstract;
 
 class ArtworkTransformer extends TransformerAbstract
@@ -14,14 +13,14 @@ class ArtworkTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = ['artists']; // also 'department'
+    protected $availableIncludes = ['artists', 'galleries'];
 
     /**
      * List of resources to automatically include.
      *
      * @var array
      */
-    protected $defaultIncludes = ['artists']; // 'department'
+    protected $defaultIncludes = ['artists', 'galleries'];
 
     /**
      * Turn this item object into a generic array.
@@ -74,6 +73,17 @@ class ArtworkTransformer extends TransformerAbstract
     public function includeArtists(Artwork $artwork)
     {
         return $this->collection($artwork->artists()->getResults(), new AgentTransformer);
+    }
+
+    /**
+     * Include galleries.
+     *
+     * @param  \App\Collections\Artwork  $artwork
+     * @return League\Fractal\ItemResource
+     */
+    public function includeGalleries(Artwork $artwork)
+    {
+        return $this->collection($artwork->galleries()->getResults(), new GalleryTransformer);
     }
 
 }

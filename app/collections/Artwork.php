@@ -53,4 +53,10 @@ class Artwork extends Model
 
     }
 
+    public function galleries()
+    {
+
+        return $this->belongsToMany('App\Collections\Gallery');
+
+    }
 }
