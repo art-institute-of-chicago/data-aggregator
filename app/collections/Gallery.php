@@ -18,4 +18,11 @@ class Gallery extends Model
      */
     protected $fillable = ['citi_id', 'title', 'lake_guid', 'lake_uri'];
 
+    public function categories()
+    {
+
+        return $this->belongsToMany('App\Collections\Category');
+
+    }
+
 }

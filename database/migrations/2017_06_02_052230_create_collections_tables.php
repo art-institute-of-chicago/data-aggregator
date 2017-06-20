@@ -59,6 +59,14 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
+        Schema::create('category_gallery', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('gallery_citi_id');
+            $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
+            $table->uuid('category_lake_guid');
+            $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
+        });
+
         Schema::create('artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('main_id')->nullable();
