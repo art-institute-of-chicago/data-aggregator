@@ -5,8 +5,10 @@ namespace App\Http\Transformers;
 use App\Collections\Department;
 use League\Fractal\TransformerAbstract;
 
-class DepartmentTransformer extends TransformerAbstract
+class DepartmentTransformer extends ApiTransformer
 {
+
+    public $citiObject = true;
 
     /**
      * Turn this item object into a generic array.
@@ -14,14 +16,9 @@ class DepartmentTransformer extends TransformerAbstract
      * @param  \App\Department  $item
      * @return array
      */
-    public function transform(Department $item)
+    public function transformFields(Department $item)
     {
         return [
-            'id' => $item->citi_id,
-            'title' => $item->title,
-            'last_updated_lpm_fedora' => $item->api_modified_at->toDateTimeString(),
-            'last_updated_lpm_solr' => $item->api_indexed_at->toDateTimeString(),
-            'last_updated' => $item->updated_at->toDateTimeString(),
         ];
     }
 }

@@ -5,8 +5,10 @@ namespace App\Http\Transformers;
 use App\Collections\Artwork;
 use League\Fractal\TransformerAbstract;
 
-class ArtworkTransformer extends TransformerAbstract
+class ArtworkTransformer extends ApiTransformer
 {
+
+    public $citiObject = true;
 
     /**
      * List of resources possible to include
@@ -22,18 +24,10 @@ class ArtworkTransformer extends TransformerAbstract
      */
     protected $defaultIncludes = ['artists', 'categories', 'copyrightRepresentatives']; //, 'parts', 'sets'];
 
-    /**
-     * Turn this item object into a generic array.
-     *
-     * @param  \App\Artwork  $item
-     * @return array
-     */
-    public function transform(Artwork $item)
+    protected function transformFields(Artwork $item)
     {
 
         return [
-            'id' => $item->citi_id,
-            'title' => $item->title,
             'main_reference_number' => $item->main_id,
             'date_start' => $item->date_start,
             'date_end' => $item->date_end,
@@ -58,9 +52,7 @@ class ArtworkTransformer extends TransformerAbstract
             'collection_status' => $item->collection_status,
             'gallery' => $item->gallery()->getResults() ? $item->gallery()->getResults()->title : '',
             'gallery_id' => $item->gallery_citi_id,
-            'last_updated_lpm_fedora' => $item->api_modified_at->toDateTimeString(),
-            'last_updated_lpm_solr' => $item->api_indexed_at->toDateTimeString(),
-            'last_updated' => $item->updated_at->toDateTimeString(),
+
             // Doing it this way so we don't get an extra 'data' block
             'dates' => $item->dates()->getResults()->transform(function ($item, $key) {
                 return [
@@ -78,7 +70,9 @@ class ArtworkTransformer extends TransformerAbstract
                 ];
             }),
         ];
+
     }
+
 
     /**
      * Include artists.

@@ -5,8 +5,11 @@ namespace App\Http\Transformers;
 use App\Collections\ArtworkDate;
 use League\Fractal\TransformerAbstract;
 
-class ArtworkDateTransformer extends TransformerAbstract
+class ArtworkDateTransformer extends ApiTransformer
 {
+
+    public $excludeIdsAndTitle = true;
+    public $excludeDates = true;
 
     /**
      * Turn this item object into a generic array.
@@ -14,7 +17,7 @@ class ArtworkDateTransformer extends TransformerAbstract
      * @param  \App\ArtworkDate  $item
      * @return array
      */
-    public function transform(ArtworkDate $item)
+    public function transformFields(ArtworkDate $item)
     {
         return [
             'date' => $item->date->toDateString(),

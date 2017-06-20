@@ -5,8 +5,10 @@ namespace App\Http\Transformers;
 use App\Collections\Gallery;
 use League\Fractal\TransformerAbstract;
 
-class GalleryTransformer extends TransformerAbstract
+class GalleryTransformer extends ApiTransformer
 {
+
+    public $citiObject = true;
 
     /**
      * Turn this item object into a generic array.
@@ -14,19 +16,14 @@ class GalleryTransformer extends TransformerAbstract
      * @param  \App\Gallery  $item
      * @return array
      */
-    public function transform(Gallery $item)
+    public function transformFields(Gallery $item)
     {
         return [
-            'id' => $item->citi_id,
-            'title' => $item->title,
             'closed' => $item->closed,
             'number' => $item->number,
             'floor' => $item->floor,
             'latitude' => $item->latitude,
             'longitude' => $item->longitude,
-            'last_updated_lpm_fedora' => $item->api_modified_at->toDateTimeString(),
-            'last_updated_lpm_solr' => $item->api_indexed_at->toDateTimeString(),
-            'last_updated' => $item->updated_at->toDateTimeString(),
         ];
     }
 }
