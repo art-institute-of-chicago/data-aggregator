@@ -254,6 +254,26 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table, false);
         });
 
+        Schema::create('exhibitions', function (Blueprint $table) {
+            $table = $this->_addIdsAndTitle($table);
+            $table->text('description')->nullable();
+            $table->string('type')->nullable();
+            $table->integer('department_citi_id')->nullable();
+            $table->foreign('department_citi_id')->references('citi_id')->on('departments');
+            $table->integer('gallery_citi_id');
+            $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
+            $table->string('dates')->nullable();
+            $table->boolean('active')->nullable();
+            $table = $this->_addDates($table);
+        });
+
+        Schema::create('artwork_exhibition', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('artwork_citi_id');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->integer('exhibition_citi_id');
+            $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
+        });
 
         
     }
@@ -306,6 +326,8 @@ class CreateCollectionsTables extends Migration
     public function down()
     {
 
+        Schema::dropIfExists('artwork_exhibition');
+        Schema::dropIfExists('exhibitions');
         Schema::dropIfExists('images');
         Schema::dropIfExists('category_text');
         Schema::dropIfExists('texts');

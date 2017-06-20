@@ -287,3 +287,20 @@ $factory->define(App\Collections\Image::class, function (Faker\Generator $faker)
 });
 
 
+$factory->define(App\Collections\Exhibition::class, function (Faker\Generator $faker) {
+    $lake_id = $faker->uuid;
+    return array_merge(
+        idsAndTitle($faker, ucwords($faker->words(3, true)), true),
+        [
+            'description' => $faker->paragraph(3),
+            'type' => $faker->randomElement(['AIC Only', 'AIC & Other Venues', 'Mini Exhibition', 'Permanent Collection Special Project', 'Rotation']),
+            'department_citi_id' => $faker->randomElement(App\Collections\Department::all()->pluck('citi_id')->all()),
+            'gallery_citi_id' => $faker->randomElement(App\Collections\Gallery::all()->pluck('citi_id')->all()),
+            'dates' => $faker->date($format = 'm/d/Y') .'–' .$faker->date($format = 'm/d/Y'),
+            'active' => $faker->boolean
+        ],
+        dates($faker, true)
+    );
+});
+
+

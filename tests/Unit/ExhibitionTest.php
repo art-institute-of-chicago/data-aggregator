@@ -7,10 +7,21 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Collections\Exhibition;
+use App\Collections\Gallery;
+use App\Collections\Department;
+use App\Collections\Artwork;
 
 class ExhibitionTest extends ApiTestCase
 {
 
+    public function setUp()
+    {
+
+        parent::setUp();
+        $this->make(Gallery::class);
+        $this->make(Department::class);
+
+    }
     
     /** @test */
     public function it_fetches_all_exhibitions()
@@ -71,20 +82,20 @@ class ExhibitionTest extends ApiTestCase
 
 
     /** @test */
-    public function it_fetches_exhibition_types_for_an_exhibition()
+    public function it_fetches_artworks_for_an_exhibition()
     {
 
-        $this->attach(ExhibitionType::class, 4)->make(Exhibition::class);
+        $this->attach(Artwork::class, 4)->make(Exhibition::class);
 
-        $response = $this->getJson('api/v1/exhibitions/' .$this->ids[0] .'/exhibition-types');
+        $response = $this->getJson('api/v1/exhibitions/' .$this->ids[0] .'/artworks');
         $response->assertSuccessful();
 
-        $types = $response->json()['data'];
-        $this->assertCount(4, $types);
+        $artworks = $response->json()['data'];
+        $this->assertCount(4, $artworks);
         
-        foreach ($types as $type)
+        foreach ($artworks as $artwork)
         {
-            $this->assertArrayHasKeys($type, ['id', 'title']);
+            $this->assertArrayHasKeys($artwork, ['id', 'title']);
         }
     }
 
