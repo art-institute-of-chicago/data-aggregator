@@ -55,6 +55,7 @@ class ArtworkTransformer extends TransformerAbstract
             'is_public_domain' => (bool) $item->is_public_domain,
             'copyright_notice' => $item->copyright_notice,
             'place_of_origin' => $item->place_of_origin,
+            'collection_status' => $item->collection_status,
             'gallery' => $item->gallery()->getResults() ? $item->gallery()->getResults()->title : '',
             'gallery_id' => $item->gallery_citi_id,
             'last_updated_lpm_fedora' => $item->api_modified_at->toDateTimeString(),

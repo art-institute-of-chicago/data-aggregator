@@ -77,6 +77,7 @@ class CreateCollectionsTables extends Migration
             $table->boolean('is_public_domain')->nullable();
             $table->string('copyright_notice')->nullable();
             $table->string('place_of_origin')->nullable();
+            $table->string('collection_status')->nullable();
             $table->integer('department_citi_id')->nullable();
             $table->foreign('department_citi_id')->references('citi_id')->on('departments');
             $table->integer('object_type_citi_id')->nullable();
