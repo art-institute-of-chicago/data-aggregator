@@ -64,6 +64,12 @@ trait Factory
                             $model->$relation()->associate($attach);
 
                         }
+                        elseif ($model->$relation() instanceof \Illuminate\Database\Eloquent\Relations\HasMany)
+                        {
+
+                            $model->$relation()->save($attach);
+
+                        }
                         else
                         {
                             
