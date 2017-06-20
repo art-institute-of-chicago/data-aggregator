@@ -154,6 +154,17 @@ $factory->define(App\Collections\ArtworkDate::class, function (Faker\Generator $
     ];
 });
 
+
+$factory->define(App\Collections\ArtworkCommittee::class, function (Faker\Generator $faker) {
+    return [
+        'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
+        'committee' => $faker->randomElement(['Board of ' .$faker->word, 'Year End ' .$faker->word, 'Deaccession']),
+        'date' => $faker->dateTimeAd,
+        'action' => $faker->randomElement(['Acquisition', 'Deaccession', 'Transfer to', 'Transfer from', 'Referenced']),
+    ];
+});
+
+
 $factory->define(App\Collections\ArtworkCatalogue::class, function (Faker\Generator $faker) {
     return [
         'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),

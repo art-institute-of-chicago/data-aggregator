@@ -60,6 +60,13 @@ class Artwork extends Model
 
     }
 
+    public function committees()
+    {
+
+        return $this->hasMany('App\Collections\ArtworkCommittee');
+
+    }
+
     public function catalogues()
     {
 

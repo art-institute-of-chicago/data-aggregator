@@ -70,6 +70,15 @@ class ArtworkTransformer extends ApiTransformer
                     'state_edition' => $item->state_edition,
                 ];
             }),
+
+            'committees' => $item->committees()->getResults()->transform(function ($item, $key) {
+                return [
+                    'committee' => $item->committee,
+                    'date' => $item->date->toDateString(),
+                    'action' => $item->action,
+                ];
+            }),
+
         ];
 
     }

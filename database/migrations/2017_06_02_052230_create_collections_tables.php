@@ -113,6 +113,16 @@ class CreateCollectionsTables extends Migration
             $table->timestamps();
         });
 
+        Schema::create('artwork_committees', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('artwork_citi_id');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->string('committee')->nullable();
+            $table->date('date')->nullable();
+            $table->string('action')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('artwork_catalogues', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id');
@@ -292,6 +302,7 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('links');
         Schema::dropIfExists('themes');
         Schema::dropIfExists('artwork_artwork');
+        Schema::dropIfExists('artwork_committees');
         Schema::dropIfExists('artwork_dates');
         Schema::dropIfExists('artwork_catalogues');
         Schema::dropIfExists('agent_artwork');
