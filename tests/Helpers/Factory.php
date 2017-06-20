@@ -11,6 +11,7 @@ trait Factory
     protected $attachTypes = [];
     protected $attachTimes = 1;
     protected $attachRelation = '';
+    protected $attachFields = [];
     
     protected function times($count)
     {
@@ -18,7 +19,7 @@ trait Factory
         return $this;
     }
     
-    protected function attach($types, $times = 1, $relation = '') {
+    protected function attach($types, $times = 1, $relation = '', $fields = []) {
         
         if (is_array($types))
         {
@@ -30,6 +31,7 @@ trait Factory
         }
         $this->attachTimes = $times;
         $this->attachRelation = $relation;
+        $this->attachFields = $fields;
         return $this;
 
     }
@@ -50,26 +52,31 @@ trait Factory
                     
                     foreach ($this->attachTypes as $attachType)
                     {
+
                         $class = $this->classFrom($attachType);
 
                         $relation = $this->attachRelation ? $this->attachRelation : lcfirst(str_plural($class));
-
-                        $add = 'save';
                         
+                        $attach = factory($attachType)->create($this->attachFields);
                         if ($model->$relation() instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo)
                         {
 
-                            $add = 'associate';
+                            $model->$relation()->associate($attach);
 
                         }
+                        else
+                        {
                             
-                        $model->$relation()->$add(factory($attachType)->create());
+                            $model->$relation()->attach($attach->getKey());
+
+                        }
                         
                     }
 
                 }
 
             }
+
             $this->ids[] = $model->getAttributeValue($model->getKeyName());
             
         }
@@ -93,6 +100,7 @@ trait Factory
         $this->attachTypes = [];
         $this->attachTimes = 1;
         $this->attachRelation = '';
+        $this->attachFields = [];
         
     }    
 

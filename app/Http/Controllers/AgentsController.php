@@ -31,7 +31,22 @@ class AgentsController extends ApiController
         if ($artworkId)
         {
 
-            $all = Artwork::findOrFail($artworkId)->artists;
+            if ($request->segment(5) == 'artists')
+            {
+
+                $all = Artwork::findOrFail($artworkId)->artists;
+
+            }
+            elseif ($request->segment(5) == 'copyrightRepresentatives') {
+
+                $all = Artwork::findOrFail($artworkId)->copyrightRepresentatives;
+
+            }
+            else {
+
+                return $this->respondNotFound('Sub-resource not found', "The sub-resource on this artwork you're requesting cannot be found. Please check your URL and try again.");
+                
+            }
 
         }
         else

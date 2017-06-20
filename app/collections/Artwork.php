@@ -25,6 +25,13 @@ class Artwork extends Model
 
     }
 
+    public function copyrightRepresentatives()
+    {
+
+        return $this->belongsToMany('App\Collections\CopyrightRepresentative', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
+
+    }
+
     public function department()
     {
 
