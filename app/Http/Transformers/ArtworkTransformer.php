@@ -52,6 +52,7 @@ class ArtworkTransformer extends ApiTransformer
             'collection_status' => $item->collection_status,
             'gallery' => $item->gallery()->getResults() ? $item->gallery()->getResults()->title : '',
             'gallery_id' => $item->gallery_citi_id,
+            'is_in_gallery' => $item->gallery_citi_id ? true : false,
 
             // Doing it this way so we don't get an extra 'data' block
             'dates' => $item->dates()->getResults()->transform(function ($item, $key) {
