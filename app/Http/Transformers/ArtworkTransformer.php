@@ -24,7 +24,7 @@ class ArtworkTransformer extends ApiTransformer
      */
     protected $defaultIncludes = ['artists', 'categories', 'copyrightRepresentatives']; //, 'parts', 'sets'];
 
-    protected function transformFields(Artwork $item)
+    protected function transformFields($item)
     {
 
         return [
@@ -61,6 +61,7 @@ class ArtworkTransformer extends ApiTransformer
                     'preferred' => (bool) $item->preferred,
                 ];
             }),
+
             'catalogues' => $item->catalogues()->getResults()->transform(function ($item, $key) {
                 return [
                     'preferred' => (bool) $item->preferred,

@@ -16,7 +16,7 @@ class ObjectTypeTransformer extends ApiTransformer
      * @param  \App\ObjectType  $item
      * @return array
      */
-    public function transformFields(ObjectType $item)
+    public function transformFields($item)
     {
         return [
         ];

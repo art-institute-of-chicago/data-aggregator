@@ -16,7 +16,7 @@ class DepartmentTransformer extends ApiTransformer
      * @param  \App\Department  $item
      * @return array
      */
-    public function transformFields(Department $item)
+    public function transformFields($item)
     {
         return [
         ];

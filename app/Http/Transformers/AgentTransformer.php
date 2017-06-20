@@ -16,7 +16,7 @@ class AgentTransformer extends ApiTransformer
      * @param  \App\Agent  $item
      * @return array
      */
-    public function transformFields(Agent $item)
+    public function transformFields($item)
     {
         return [
             'birth_date' => $item->date_birth,

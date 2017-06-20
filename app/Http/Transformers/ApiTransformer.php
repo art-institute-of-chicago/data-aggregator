@@ -2,10 +2,9 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Artwork;
 use League\Fractal\TransformerAbstract;
 
-class ApiTransformer extends ApiTransformer
+class ApiTransformer extends TransformerAbstract
 {
 
     public $citiObject = false;
@@ -15,21 +14,21 @@ class ApiTransformer extends ApiTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Artwork  $item
+     * @param  Illuminate\Database\Eloquent\Model  $item
      * @return array
      */
-    public function transform(mixed $item)
+    public function transform($item)
     {
 
         return array_merge(
-            $this->transformIdsAndTitle(),
-            $this->transformFields(),
-            $this->transformDates()
+            $this->transformIdsAndTitle($item),
+            $this->transformFields($item),
+            $this->transformDates($item)
         );
 
     }
 
-    protected function transformFields(mixed $item)
+    protected function transformFields($item)
     {
 
         return [];
@@ -37,10 +36,10 @@ class ApiTransformer extends ApiTransformer
     }
 
 
-    protected function transformIdsAndTitle(mixed $item)
+    protected function transformIdsAndTitle($item)
     {
 
-        if ($excludeIdsAndTitle)
+        if ($this->excludeIdsAndTitle)
         {
 
             return [];
@@ -54,10 +53,10 @@ class ApiTransformer extends ApiTransformer
         
     }
 
-    protected function transformDates(mixed $item)
+    protected function transformDates($item)
     {
 
-        if ($excludeDates)
+        if ($this->excludeDates)
         {
 
             return [];
@@ -66,7 +65,7 @@ class ApiTransformer extends ApiTransformer
 
         $ret = [];
 
-        if ($citiObject)
+        if ($this->citiObject)
         {
 
             $ret = [
@@ -85,62 +84,6 @@ class ApiTransformer extends ApiTransformer
             ]
         );
 
-    }
-
-    
-    /**
-     * Include artists.
-     *
-     * @param  \App\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeArtists(Artwork $artwork)
-    {
-        return $this->collection($artwork->artists()->getResults(), new AgentTransformer);
-    }
-
-    /**
-     * Include copyright representatives.
-     *
-     * @param  \App\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeCopyrightRepresentatives(Artwork $artwork)
-    {
-        return $this->collection($artwork->copyrightRepresentatives()->getResults(), new AgentTransformer);
-    }
-
-    /**
-     * Include categories.
-     *
-     * @param  \App\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeCategories(Artwork $artwork)
-    {
-        return $this->collection($artwork->categories()->getResults(), new CategoryTransformer);
-    }
-
-    /**
-     * Include parts.
-     *
-     * @param  \App\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeParts(Artwork $artwork)
-    {
-        return $this->collection($artwork->parts()->getResults(), new ArtworkTransformer);
-    }
-
-    /**
-     * Include sets.
-     *
-     * @param  \App\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeSets(Artwork $artwork)
-    {
-        return $this->collection($artwork->sets()->getResults(), new ArtworkTransformer);
-    }
+    }   
 
 }

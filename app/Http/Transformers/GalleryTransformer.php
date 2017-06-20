@@ -16,7 +16,7 @@ class GalleryTransformer extends ApiTransformer
      * @param  \App\Gallery  $item
      * @return array
      */
-    public function transformFields(Gallery $item)
+    public function transformFields($item)
     {
         return [
             'closed' => $item->closed,

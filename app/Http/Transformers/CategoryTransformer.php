@@ -14,7 +14,7 @@ class CategoryTransformer extends ApiTransformer
      * @param  \App\Category  $item
      * @return array
      */
-    public function transformFields(Category $item)
+    public function transformFields($item)
     {
         return [
             'parent_id' => $item->parent_id,
