@@ -73,8 +73,10 @@ $factory->define(App\Collections\Agent::class, function (Faker\Generator $faker)
     return array_merge(
         idsAndTitle($faker, ucwords($faker->lastName .', ' .$faker->firstName), true, 5),
         [
-            'date_birth' => $faker->year,
-            'date_death' => $faker->year,
+            'birth_date' => $faker->year,
+            'death_date' => $faker->year,
+            'birth_place' => $faker->country,
+            'death_place' => $faker->country,
             'licensing_restricted' => $faker->boolean,
             'agent_type_citi_id' => $faker->randomElement(App\Collections\AgentType::all()->pluck('citi_id')->all()),
         ],

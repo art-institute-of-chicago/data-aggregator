@@ -21,8 +21,10 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('agents', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->integer('date_birth')->nullable();
-            $table->integer('date_death')->nullable();
+            $table->integer('birth_date')->nullable();
+            $table->string('birth_place')->nullable();
+            $table->integer('death_date')->nullable();
+            $table->string('death_place')->nullable();
             $table->boolean('licensing_restricted')->nullable();
             $table->integer('agent_type_citi_id')->nullable();
             $table->foreign('agent_type_citi_id')->references('citi_id')->on('agent_types');
@@ -325,6 +327,7 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('agent_artwork');
         Schema::dropIfExists('artwork_category');
         Schema::dropIfExists('artworks');
+        Schema::dropIfExists('category_gallery');
         Schema::dropIfExists('galleries');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('object_types');
