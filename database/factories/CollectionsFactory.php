@@ -275,10 +275,7 @@ $factory->define(App\Collections\Image::class, function (Faker\Generator $faker)
         idsAndTitle($faker, ucwords($faker->words(3, true))),
         [
             'description' => $faker->paragraph(3),
-            'content' => $faker->url,
-            'published' => $faker->boolean,
             'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
-            'imaging_uid' => $faker->randomElement(['A', 'D', 'E', 'G', 'PD_', 'PH_', 'AS_']) .$faker->randomNumber(5),
             'type' => 'http://definitions.artic.edu/doctypes/' .$faker->randomElement(['Imaging', 'CuratorialStillImage']),
             'iiif_url' => env('LAKE_URL', 'https://localhost/iiif') .'/' .$lake_id .'/info.json',
         ],

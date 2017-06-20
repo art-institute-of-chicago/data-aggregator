@@ -237,14 +237,12 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('images', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
-            $table->text('description')->nullable();
-            $table->string('imaging_uid')->nullable();
-            $table->string('type')->nullable();
-            $table->string('content')->nullable();
-            $table->string('published')->nullable();
             $table->integer('artwork_citi_id')->nullable();
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks');
+            $table->text('description')->nullable();
+            $table->string('type')->nullable();
             $table->string('iiif_url')->unique()->nullable();
+            $table->boolean('preferred')->nullable();
             $table = $this->_addDates($table, false);
         });
 

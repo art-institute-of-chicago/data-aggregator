@@ -102,4 +102,11 @@ class Artwork extends Model
 
     }
 
+    public function images()
+    {
+
+        return $this->hasMany('App\Collections\Image');
+
+    }
+
 }

@@ -11,6 +11,32 @@ class ImagesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Collections\Image::class, 100)->create();
+
+        $faker = Faker\Factory::create();
+
+        $artworks = App\Collections\Artwork::all()->all();
+
+        foreach ($artworks as $artwork) {
+
+            $hasPreferred = false;
+            
+            for ($i = 0; $i < rand(2,8); $i++) {
+                
+                $preferred = $hasPreferred ? false : $faker->boolean;
+                
+                $image = factory(App\Collections\Image::class)->make([
+                    'artwork_citi_id' => $artwork->getAttribute($artwork->getKeyName()),
+                    'preferred' => $preferred,
+                ]);
+
+                $artwork->images()->save($image);
+
+                if ($preferred || $hasPreferred) $hasPreferred = true;
+
+            }
+
+        }
+
     }
+
 }

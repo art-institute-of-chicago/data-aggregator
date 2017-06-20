@@ -22,12 +22,12 @@ class ArtworkDatesTableSeeder extends Seeder
             
             for ($i = 0; $i < rand(2,8); $i++) {
                 
-                $preferred = $faker->boolean;
+                $preferred = $hasPreferred ? false : $faker->boolean;
                 
                 $artwork->dates()->create([
                     'date' => $faker->dateTimeAD,
                     'qualifier' => ucfirst($faker->word) .' date',
-                    'preferred' => $hasPreferred ? false : $faker->boolean,
+                    'preferred' => $preferred,
                 ]);
 
                 if ($preferred || $hasPreferred) $hasPreferred = true;
