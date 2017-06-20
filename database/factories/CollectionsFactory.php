@@ -122,6 +122,7 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
             'publishing_verification_level' => $faker->randomElement(['Web Basic', 'Web Cataloged']),
             'is_public_domain' => $faker->boolean,
             'copyright_notice' => '© ' .$faker->year .' ' .ucfirst($faker->words(3, true)),
+            'place_of_origin' => $faker->country,
             'department_citi_id' => $faker->randomElement(App\Collections\Department::all()->pluck('citi_id')->all()),
             'object_type_citi_id' => $faker->randomElement(App\Collections\ObjectType::all()->pluck('citi_id')->all()),
             'gallery_citi_id' => $faker->randomElement(App\Collections\Gallery::all()->pluck('citi_id')->all()),
