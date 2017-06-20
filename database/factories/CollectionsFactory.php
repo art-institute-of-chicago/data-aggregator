@@ -36,14 +36,26 @@ if (!function_exists('idsAndTitle'))
     
     }
 
-    function dates($faker)
+    function dates($faker, $citiField = false)
     {
                                                         
-        return [
+        $ret = [
             'api_created_at' => $faker->dateTimeThisYear,
             'api_modified_at' => $faker->dateTimeThisYear,
             'api_indexed_at' => $faker->dateTimeThisYear,
         ];
+
+        if ($citiField)
+        {
+            $ret = array_merge(
+                $ret,
+                [
+                    'citi_created_at' => $faker->dateTimeThisYear,
+                    'citi_modified_at' => $faker->dateTimeThisYear,
+                ]
+            );
+        }
+        return $ret;
 
     }
                                                     
@@ -53,7 +65,7 @@ if (!function_exists('idsAndTitle'))
 $factory->define(App\Collections\AgentType::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, $faker->unique()->randomElement(['Artist', 'Copyright Representative', $faker->words(2, true)]), true, 2),
-        dates($faker)
+        dates($faker, true)
     );
 });
 
@@ -65,7 +77,7 @@ $factory->define(App\Collections\Agent::class, function (Faker\Generator $faker)
             'date_death' => $faker->year,
             'agent_type_citi_id' => $faker->randomElement(App\Collections\AgentType::all()->pluck('citi_id')->all()),
         ],
-        dates($faker)
+        dates($faker, true)
     );
 });
 
@@ -73,14 +85,14 @@ $factory->define(App\Collections\Agent::class, function (Faker\Generator $faker)
 $factory->define(App\Collections\Department::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, ucfirst($faker->word) .' Art', true, 6),
-        dates($faker)
+        dates($faker, true)
     );
 });
 
 $factory->define(App\Collections\ObjectType::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, $faker->randomElement(['Painting', 'Design', 'Drawing and ' .ucfirst($faker->word), ucfirst($faker->word) .' Arts', 'Sculpture']), true, 2),
-        dates($faker)
+        dates($faker, true)
     );
 });
 
@@ -95,7 +107,7 @@ $factory->define(App\Collections\Category::class, function (Faker\Generator $fak
             'sort' => $faker->randomDigit * 5,
             'type' => $faker->randomDigit,
         ],
-        dates($faker)
+        dates($faker, true)
     );
 });
 
@@ -128,7 +140,7 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
             'object_type_citi_id' => $faker->randomElement(App\Collections\ObjectType::all()->pluck('citi_id')->all()),
             'gallery_citi_id' => $faker->randomElement(App\Collections\Gallery::all()->pluck('citi_id')->all()),
         ],
-        dates($faker)
+        dates($faker, true)
     );
 });
 
@@ -163,7 +175,7 @@ $factory->define(App\Collections\Gallery::class, function (Faker\Generator $fake
             'latitude' => $faker->latitude,
             'longitude' => $faker->longitude,
         ],
-        dates($faker)
+        dates($faker, true)
     );
 });
 
@@ -176,7 +188,7 @@ $factory->define(App\Collections\Theme::class, function (Faker\Generator $faker)
             'is_in_navigation' => ucfirst($faker->boolean),
             'sort' => $faker->randomDigit * 10,
         ],
-        dates($faker)
+        dates($faker, true)
     );
 });
 

@@ -148,7 +148,7 @@ class CreateCollectionsTables extends Migration
             $table->string('published')->nullable();
             $table->integer('agent_citi_id')->nullable();
             $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
-            $table = $this->_addDates($table);
+            $table = $this->_addDates($table, false);
         });
 
         Schema::create('category_link', function(Blueprint $table) {
@@ -166,7 +166,7 @@ class CreateCollectionsTables extends Migration
             $table->string('published')->nullable();
             $table->integer('agent_citi_id')->nullable();
             $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
-            $table = $this->_addDates($table);
+            $table = $this->_addDates($table, false);
         });
 
         Schema::create('category_sound', function(Blueprint $table) {
@@ -184,7 +184,7 @@ class CreateCollectionsTables extends Migration
             $table->string('published')->nullable();
             $table->integer('agent_citi_id')->nullable();
             $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
-            $table = $this->_addDates($table);
+            $table = $this->_addDates($table, false);
         });
 
         Schema::create('category_video', function(Blueprint $table) {
@@ -202,7 +202,7 @@ class CreateCollectionsTables extends Migration
             $table->string('published')->nullable();
             $table->integer('agent_citi_id')->nullable();
             $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
-            $table = $this->_addDates($table);
+            $table = $this->_addDates($table, false);
         });
 
         Schema::create('category_text', function(Blueprint $table) {
@@ -226,7 +226,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('artwork_citi_id')->nullable();
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks');
             $table->string('iiif_url')->unique()->nullable();
-            $table = $this->_addDates($table);
+            $table = $this->_addDates($table, false);
         });
 
 
@@ -255,11 +255,20 @@ class CreateCollectionsTables extends Migration
         return $table;
     }
 
-    private function _addDates($table)
+    private function _addDates($table, $citiField = true)
     {
         $table->timestamp('api_created_at')->nullable()->useCurrent();
         $table->timestamp('api_modified_at')->nullable()->useCurrent();
         $table->timestamp('api_indexed_at')->nullable()->useCurrent();
+
+        if ($citiField)
+        {
+
+            $table->timestamp('citi_created_at')->nullable()->useCurrent();
+            $table->timestamp('citi_modified_at')->nullable()->useCurrent();
+
+        }
+
         $table->timestamps();
         return $table;
     }
