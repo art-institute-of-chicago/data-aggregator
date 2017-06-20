@@ -21,6 +21,7 @@ class AgentTransformer extends ApiTransformer
         return [
             'birth_date' => $item->date_birth,
             'death_date' => $item->date_death,
+            'licensing_restricted' => (bool) $item->licensing_restricted,
             'agent_type' => $item->agentType()->getResults() ? $item->agentType()->getResults()->title : '',
             'agent_type_id' => $item->agent_type_citi_id,
         ];

@@ -75,6 +75,7 @@ $factory->define(App\Collections\Agent::class, function (Faker\Generator $faker)
         [
             'date_birth' => $faker->year,
             'date_death' => $faker->year,
+            'licensing_restricted' => $faker->boolean,
             'agent_type_citi_id' => $faker->randomElement(App\Collections\AgentType::all()->pluck('citi_id')->all()),
         ],
         dates($faker, true)
