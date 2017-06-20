@@ -165,6 +165,15 @@ $factory->define(App\Collections\ArtworkCommittee::class, function (Faker\Genera
 });
 
 
+$factory->define(App\Collections\ArtworkTerm::class, function (Faker\Generator $faker) {
+    return [
+        'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
+        'term' => $faker->words(2, true),
+        'type' => ucfirst($faker->word)
+    ];
+});
+
+
 $factory->define(App\Collections\ArtworkCatalogue::class, function (Faker\Generator $faker) {
     return [
         'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),

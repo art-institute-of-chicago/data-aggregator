@@ -67,6 +67,13 @@ class Artwork extends Model
 
     }
 
+    public function terms()
+    {
+
+        return $this->hasMany('App\Collections\ArtworkTerm');
+
+    }
+
     public function catalogues()
     {
 

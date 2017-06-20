@@ -79,6 +79,13 @@ class ArtworkTransformer extends ApiTransformer
                 ];
             }),
 
+            'terms' => $item->terms()->getResults()->transform(function ($item, $key) {
+                return [
+                    'term' => $item->term,
+                    'type' => $item->type,
+                ];
+            }),
+
         ];
 
     }
