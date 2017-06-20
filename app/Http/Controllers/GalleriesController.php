@@ -14,7 +14,7 @@ class GalleriesController extends ApiController
      * @param null $id
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $artworkId = null)
+    public function index(Request $request)
     {
 
         $ids = $request->input('ids');
@@ -28,18 +28,7 @@ class GalleriesController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many galleries. Please set a smaller limit.');
 
-        if ($artworkId)
-        {
-
-            $all = Artwork::findOrFail($artworkId)->galleries;
-
-        }
-        else
-        {
-
-            $all = Gallery::paginate($limit);
-
-        }
+        $all = Gallery::paginate($limit);
 
         return response()->collection($all, new \App\Http\Transformers\GalleryTransformer);
 

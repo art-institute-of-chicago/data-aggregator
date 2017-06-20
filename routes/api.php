@@ -203,30 +203,7 @@ Route::group(['prefix' => 'v1'], function()
     Route::any('artworks/{artwork}/copyrightRepresentatives', 'ApiController@respondMethodNotAllowed');
     Route::get('artworks/{artwork}/copyrightRepresentatives', 'CopyrightRepresentativesController@index');
 
-    /**
-     * @SWG\Get(
-     *     path="/api/v1/artworks/{id}/galleries",
-     *     summary="The galleries for a given artwork",
-     *     tags={"artworks"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter(ref="#/parameters/id"),
-     *     @SWG\Response(
-     *         response=200,
-     *         description="Successful operation",
-     *         @SWG\Schema(
-     *             @SWG\Items(ref="#/definitions/Gallery")
-     *         ),
-     *     ),
-	 * 	   @SWG\Response(
-	 * 		   response="default",
-	 * 		   description="error",
-	 * 		   @SWG\Schema(ref="#/definitions/Error"),
-	 * 	   ),
-     * )
-     */
-    Route::any('artworks/{artwork}/galleries', 'ApiController@respondMethodNotAllowed');
-    Route::get('artworks/{artwork}/galleries', 'GalleriesController@index');
-
+    
     /**
      * @SWG\Get(
      *     path="/api/v1/artworks/{id}/categories",

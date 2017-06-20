@@ -112,8 +112,6 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
             'date_end' => $date_end,
             'description' => $faker->paragraph(5),
             'artist_display' => $artist->title_raw ."\n" .$faker->country .', ' .$faker->year .'–' .$faker->year,
-            'department_citi_id' => $faker->randomElement(App\Collections\Department::all()->pluck('citi_id')->all()),
-            'object_type_citi_id' => $faker->randomElement(App\Collections\ObjectType::all()->pluck('citi_id')->all()),
             'dimensions' => $faker->randomFloat(1, 0, 200) .' x ' .$faker->randomFloat(1, 0, 200) .' (' .$faker->randomNumber(2) .$faker->randomElement(['', ' 1/8', ' 1/4', ' 3/8', ' 1/2', ' 5/8', ' 3/4', ' 7/8']) .' x ' .$faker->randomNumber(2) .$faker->randomElement(['', ' 1/8', ' 1/4', ' 3/8', ' 1/2', ' 5/8', ' 3/4', ' 7/8']) .' in.)',
             'medium' => ucfirst($faker->word) .' on ' .$faker->word,
             'credit_line' => $faker->randomElement(['', 'Friends of ', 'Gift of ', 'Bequest of ']) .$faker->words(3, true),
@@ -124,6 +122,9 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
             'publishing_verification_level' => $faker->randomElement(['Web Basic', 'Web Cataloged']),
             'is_public_domain' => $faker->boolean,
             'copyright_notice' => '© ' .$faker->year .' ' .ucfirst($faker->words(3, true)),
+            'department_citi_id' => $faker->randomElement(App\Collections\Department::all()->pluck('citi_id')->all()),
+            'object_type_citi_id' => $faker->randomElement(App\Collections\ObjectType::all()->pluck('citi_id')->all()),
+            'gallery_citi_id' => $faker->randomElement(App\Collections\Gallery::all()->pluck('citi_id')->all()),
         ],
         dates($faker)
     );

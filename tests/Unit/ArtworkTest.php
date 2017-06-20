@@ -183,25 +183,6 @@ class ArtworkTest extends ApiTestCase
 
     }
 
-    /** @test */
-    public function it_fetches_the_galleries_for_an_artwork()
-    {
-
-        $this->make(AgentType::class, ['title' => 'Artist']);
-        $artworkKey = $this->attach(Gallery::class, 2, 'galleries')->make(Artwork::class);
-
-        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/galleries');
-        $response->assertSuccessful();
-
-        $galleries = $response->json()['data'];
-        $this->assertCount(2, $galleries);
-        
-        foreach ($galleries as $gallery)
-        {
-            $this->assertArrayHasKeys($gallery, ['id', 'title']);
-        }
-
-    }
 
     /** @test */
     public function it_fetches_dates_for_an_artwork()

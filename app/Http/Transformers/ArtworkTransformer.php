@@ -13,14 +13,14 @@ class ArtworkTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = ['artists', 'galleries', 'categories', 'copyrightRepresentatives', 'parts', 'sets',];
+    protected $availableIncludes = ['artists', 'categories', 'copyrightRepresentatives', 'parts', 'sets',];
 
     /**
      * List of resources to automatically include.
      *
      * @var array
      */
-    protected $defaultIncludes = ['artists', 'galleries', 'categories', 'copyrightRepresentatives']; //, 'parts', 'sets'];
+    protected $defaultIncludes = ['artists', 'categories', 'copyrightRepresentatives']; //, 'parts', 'sets'];
 
     /**
      * Turn this item object into a generic array.
@@ -54,6 +54,8 @@ class ArtworkTransformer extends TransformerAbstract
             'publishing_verification_level' => $item->publishing_verification_level,
             'is_public_domain' => (bool) $item->is_public_domain,
             'copyright_notice' => $item->copyright_notice,
+            'gallery' => $item->gallery()->getResults() ? $item->gallery()->getResults()->title : '',
+            'gallery_id' => $item->gallery_citi_id,
             'last_updated_lpm_fedora' => $item->api_modified_at->toDateTimeString(),
             'last_updated_lpm_solr' => $item->api_indexed_at->toDateTimeString(),
             'last_updated' => $item->updated_at->toDateTimeString(),
@@ -96,17 +98,6 @@ class ArtworkTransformer extends TransformerAbstract
     public function includeCopyrightRepresentatives(Artwork $artwork)
     {
         return $this->collection($artwork->copyrightRepresentatives()->getResults(), new AgentTransformer);
-    }
-
-    /**
-     * Include galleries.
-     *
-     * @param  \App\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeGalleries(Artwork $artwork)
-    {
-        return $this->collection($artwork->galleries()->getResults(), new GalleryTransformer);
     }
 
     /**
