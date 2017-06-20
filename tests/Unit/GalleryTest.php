@@ -8,13 +8,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Collections\Gallery;
 
-use Tests\Helpers\Factory;
-
 class GalleryTest extends ApiTestCase
 {
 
-    use Factory;
-    
     /** @test */
     public function it_fetches_all_galleries()
     {

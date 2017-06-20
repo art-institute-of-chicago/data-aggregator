@@ -8,13 +8,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Collections\Link;
 
-use Tests\Helpers\Factory;
-
 class LinkTest extends ApiTestCase
 {
 
-    use Factory;
-    
     /** @test */
     public function it_fetches_all_links()
     {

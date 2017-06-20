@@ -8,13 +8,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Collections\ObjectType;
 
-use Tests\Helpers\Factory;
-
 class ObjectTypeTest extends ApiTestCase
 {
 
-    use Factory;
-    
     /** @test */
     public function it_fetches_all_object_types()
     {

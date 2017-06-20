@@ -8,12 +8,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Collections\Exhibition;
 
-use Tests\Helpers\Factory;
-
 class ExhibitionTest extends ApiTestCase
 {
 
-    use Factory;
     
     /** @test */
     public function it_fetches_all_exhibitions()

@@ -243,9 +243,6 @@ class CreateCollectionsTables extends Migration
             $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
         });
 
-
-
-
         Schema::create('images', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
             $table->integer('artwork_citi_id')->nullable();

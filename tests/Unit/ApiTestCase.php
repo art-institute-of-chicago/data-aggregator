@@ -8,8 +8,14 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use Faker\Factory as Faker;
 
+use Tests\Helpers\Factory;
+
+use App\Collections\AgentType;
+
 abstract class ApiTestCase extends TestCase
 {
+
+    use Factory;
 
     protected $faker;
     
@@ -26,6 +32,8 @@ abstract class ApiTestCase extends TestCase
 
         parent::setUp();
         \Artisan::call('migrate');
+        $this->make(AgentType::class, ['title' => 'Artist']);
+
     }
 
     protected function assertArrayHasKeys($array = [], $keys = [])

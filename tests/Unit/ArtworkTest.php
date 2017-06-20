@@ -15,18 +15,13 @@ use App\Collections\AgentType;
 use App\Collections\Artist;
 use App\Collections\Gallery;
 
-use Tests\Helpers\Factory;
-
 class ArtworkTest extends ApiTestCase
 {
 
-    use Factory;
-    
     /** @test */
     public function it_fetches_all_artworks()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $this->it_fetches_all(Artwork::class, 'artworks');
         
     }
@@ -35,7 +30,6 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_a_single_artwork()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $this->it_fetches_a_single(Artwork::class, 'artworks');
 
     }
@@ -44,7 +38,6 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_multiple_artworks()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $this->it_fetches_multiple(Artwork::class, 'artworks');
 
     }
@@ -54,7 +47,6 @@ class ArtworkTest extends ApiTestCase
     public function it_400s_if_nonnumerid_nonuuid_is_passed()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $this->it_400s(Artwork::class, 'artworks');
         
     }
@@ -63,7 +55,6 @@ class ArtworkTest extends ApiTestCase
     public function it_403s_if_limit_is_too_high()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $this->it_403s(Artwork::class, 'artworks');
 
     }
@@ -72,7 +63,6 @@ class ArtworkTest extends ApiTestCase
     public function it_404s_if_not_found()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $this->it_404s(Artwork::class, 'artworks');
 
     }
@@ -81,7 +71,6 @@ class ArtworkTest extends ApiTestCase
     public function it_405s_if_a_request_is_posted()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $this->it_405s(Artwork::class, 'artworks');
         
     }
@@ -91,7 +80,6 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_images_for_an_artwork()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $artworkKey = $this->attach(Image::class, 4)->make(Artwork::class);
 
         $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/images');
@@ -110,7 +98,6 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_categories_for_an_artwork()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $artworkKey = $this->attach(Category::class, 4)->make(Artwork::class);
 
         $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/categories');
@@ -146,7 +133,6 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_the_artists_for_an_artwork()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $artworkKey = $this->attach(Agent::class, 2, 'artists')->make(Artwork::class);
 
         $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/artists');
@@ -166,7 +152,6 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_the_copyright_representatives_for_an_artwork()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $copyRepAgentType = $this->make(AgentType::class, ['title' => 'Copyright Representative']);
         $artworkKey = $this->attach(Agent::class, 2, 'copyrightRepresentatives', ['agent_type_citi_id' => $copyRepAgentType])->make(Artwork::class);
 
@@ -188,7 +173,6 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_dates_for_an_artwork()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $artworkKey = $this->attach(ArtworkDate::class, 4, 'dates')->make(Artwork::class);
         
         $response = $this->getJson('api/v1/artworks/' .$artworkKey);
@@ -204,7 +188,6 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_the_parts_for_an_artwork()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $artworkKey = $this->attach(Artwork::class, 2, 'parts')->make(Artwork::class);
 
         $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/parts');
@@ -224,7 +207,6 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_the_sets_for_an_artwork()
     {
 
-        $this->make(AgentType::class, ['title' => 'Artist']);
         $artworkKey = $this->attach(Artwork::class, 2, 'sets')->make(Artwork::class);
 
         $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/sets');

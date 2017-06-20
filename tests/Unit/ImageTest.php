@@ -8,12 +8,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Collections\Image;
 
-use Tests\Helpers\Factory;
-
 class ImageTest extends ApiTestCase
 {
-
-    use Factory;
 
     /** @test */
     public function it_fetches_all_images()
