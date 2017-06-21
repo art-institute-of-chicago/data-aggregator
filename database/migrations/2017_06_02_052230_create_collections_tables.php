@@ -14,12 +14,12 @@ class CreateCollectionsTables extends Migration
     public function up()
     {
 
-        Schema::create('agent_types', function (Blueprint $table) {
+        Schema::create('citilake_agent_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table = $this->_addDates($table);
         });
 
-        Schema::create('agents', function (Blueprint $table) {
+        Schema::create('citilake_agents', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->integer('birth_date')->nullable();
             $table->string('birth_place')->nullable();
@@ -27,21 +27,21 @@ class CreateCollectionsTables extends Migration
             $table->string('death_place')->nullable();
             $table->boolean('licensing_restricted')->nullable();
             $table->integer('agent_type_citi_id')->nullable();
-            $table->foreign('agent_type_citi_id')->references('citi_id')->on('agent_types');
+            $table->foreign('agent_type_citi_id')->references('citi_id')->on('citilake_agent_types');
             $table = $this->_addDates($table);
         });
 
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('citilake_departments', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table = $this->_addDates($table);
         });
 
-        Schema::create('object_types', function (Blueprint $table) {
+        Schema::create('citilake_object_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table = $this->_addDates($table);
         });
 
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('citilake_categories', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->text('description')->nullable();
             $table->boolean('is_in_nav')->nullable();
@@ -51,7 +51,7 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('galleries', function (Blueprint $table) {
+        Schema::create('citilake_galleries', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('closed')->nullable();
             $table->string('number')->nullable();
@@ -61,15 +61,15 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('category_gallery', function(Blueprint $table) {
+        Schema::create('citilake_category_gallery', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('gallery_citi_id');
-            $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
+            $table->foreign('gallery_citi_id')->references('citi_id')->on('citilake_galleries')->onDelete('cascade');
             $table->uuid('category_lake_guid');
-            $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
+            $table->foreign('category_lake_guid')->references('lake_guid')->on('citilake_categories')->onDelete('cascade');
         });
 
-        Schema::create('artworks', function (Blueprint $table) {
+        Schema::create('citilake_artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('main_id')->nullable();
             $table->string('date_display')->nullable();
@@ -90,63 +90,63 @@ class CreateCollectionsTables extends Migration
             $table->string('place_of_origin')->nullable();
             $table->string('collection_status')->nullable();
             $table->integer('department_citi_id')->nullable();
-            $table->foreign('department_citi_id')->references('citi_id')->on('departments');
+            $table->foreign('department_citi_id')->references('citi_id')->on('citilake_departments');
             $table->integer('object_type_citi_id')->nullable();
-            $table->foreign('object_type_citi_id')->references('citi_id')->on('object_types');
+            $table->foreign('object_type_citi_id')->references('citi_id')->on('citilake_object_types');
             $table->integer('gallery_citi_id')->nullable();
-            $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries');
+            $table->foreign('gallery_citi_id')->references('citi_id')->on('citilake_galleries');
             $table = $this->_addDates($table);
         });
 
-        Schema::create('artwork_category', function(Blueprint $table) {
+        Schema::create('citilake_artwork_category', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id');
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('citilake_artworks')->onDelete('cascade');
             $table->uuid('category_lake_guid');
-            $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
+            $table->foreign('category_lake_guid')->references('lake_guid')->on('citilake_categories')->onDelete('cascade');
         });
 
-        Schema::create('agent_artwork', function(Blueprint $table) {
+        Schema::create('citilake_agent_artwork', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id');
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('citilake_artworks')->onDelete('cascade');
             $table->integer('agent_citi_id');
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents')->onDelete('cascade');
+            $table->foreign('agent_citi_id')->references('citi_id')->on('citilake_agents')->onDelete('cascade');
         });
 
-        Schema::create('artwork_dates', function(Blueprint $table) {
+        Schema::create('citilake_artwork_dates', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id');
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('citilake_artworks')->onDelete('cascade');
             $table->date('date')->nullable();
             $table->string('qualifier')->nullable();
             $table->boolean('preferred')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('artwork_committees', function(Blueprint $table) {
+        Schema::create('citilake_artwork_committees', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id');
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('citilake_artworks')->onDelete('cascade');
             $table->string('committee')->nullable();
             $table->date('date')->nullable();
             $table->string('action')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('artwork_terms', function(Blueprint $table) {
+        Schema::create('citilake_artwork_terms', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id');
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('citilake_artworks')->onDelete('cascade');
             $table->string('term')->nullable();
             $table->string('type')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('artwork_catalogues', function(Blueprint $table) {
+        Schema::create('citilake_artwork_catalogues', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id');
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('citilake_artworks')->onDelete('cascade');
             $table->boolean('preferred')->nullable();
             $table->string('catalogue')->nullable();
             $table->integer('number')->nullable();
@@ -154,16 +154,16 @@ class CreateCollectionsTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('artwork_artwork', function(Blueprint $table) {
+        Schema::create('citilake_artwork_artwork', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('set_citi_id');
-            $table->foreign('set_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->foreign('set_citi_id')->references('citi_id')->on('citilake_artworks')->onDelete('cascade');
             $table->integer('part_citi_id');
-            $table->foreign('part_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->foreign('part_citi_id')->references('citi_id')->on('citilake_artworks')->onDelete('cascade');
             $table->timestamps();
         });
 
-        Schema::create('themes', function (Blueprint $table) {
+        Schema::create('citilake_themes', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->text('description')->nullable();
             $table->string('is_in_navigation')->nullable();
@@ -171,134 +171,134 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('links', function (Blueprint $table) {
+        Schema::create('citilake_links', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
             $table->text('description')->nullable();
             $table->string('content')->nullable();
             $table->string('published')->nullable();
             $table->integer('agent_citi_id')->nullable();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
+            $table->foreign('agent_citi_id')->references('citi_id')->on('citilake_agents');
             $table = $this->_addDates($table, false);
         });
 
-        Schema::create('category_link', function(Blueprint $table) {
+        Schema::create('citilake_category_link', function(Blueprint $table) {
             $table->increments('id');
             $table->uuid('link_lake_guid');
-            $table->foreign('link_lake_guid')->references('lake_guid')->on('links')->onDelete('cascade');
+            $table->foreign('link_lake_guid')->references('lake_guid')->on('citilake_links')->onDelete('cascade');
             $table->uuid('category_lake_guid');
-            $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
+            $table->foreign('category_lake_guid')->references('lake_guid')->on('citilake_categories')->onDelete('cascade');
         });
 
-        Schema::create('sounds', function (Blueprint $table) {
+        Schema::create('citilake_sounds', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
             $table->text('description')->nullable();
             $table->string('content')->nullable();
             $table->string('published')->nullable();
             $table->integer('agent_citi_id')->nullable();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
+            $table->foreign('agent_citi_id')->references('citi_id')->on('citilake_agents');
             $table = $this->_addDates($table, false);
         });
 
-        Schema::create('category_sound', function(Blueprint $table) {
+        Schema::create('citilake_category_sound', function(Blueprint $table) {
             $table->increments('id');
             $table->uuid('sound_lake_guid');
-            $table->foreign('sound_lake_guid')->references('lake_guid')->on('sounds')->onDelete('cascade');
+            $table->foreign('sound_lake_guid')->references('lake_guid')->on('citilake_sounds')->onDelete('cascade');
             $table->uuid('category_lake_guid');
-            $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
+            $table->foreign('category_lake_guid')->references('lake_guid')->on('citilake_categories')->onDelete('cascade');
         });
 
-        Schema::create('videos', function (Blueprint $table) {
+        Schema::create('citilake_videos', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
             $table->text('description')->nullable();
             $table->string('content')->nullable();
             $table->string('published')->nullable();
             $table->integer('agent_citi_id')->nullable();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
+            $table->foreign('agent_citi_id')->references('citi_id')->on('citilake_agents');
             $table = $this->_addDates($table, false);
         });
 
-        Schema::create('category_video', function(Blueprint $table) {
+        Schema::create('citilake_category_video', function(Blueprint $table) {
             $table->increments('id');
             $table->uuid('video_lake_guid');
-            $table->foreign('video_lake_guid')->references('lake_guid')->on('videos')->onDelete('cascade');
+            $table->foreign('video_lake_guid')->references('lake_guid')->on('citilake_videos')->onDelete('cascade');
             $table->uuid('category_lake_guid');
-            $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
+            $table->foreign('category_lake_guid')->references('lake_guid')->on('citilake_categories')->onDelete('cascade');
         });
 
-        Schema::create('texts', function (Blueprint $table) {
+        Schema::create('citilake_texts', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
             $table->text('description')->nullable();
             $table->string('content')->nullable();
             $table->string('published')->nullable();
             $table->integer('agent_citi_id')->nullable();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
+            $table->foreign('agent_citi_id')->references('citi_id')->on('citilake_agents');
             $table = $this->_addDates($table, false);
         });
 
-        Schema::create('category_text', function(Blueprint $table) {
+        Schema::create('citilake_category_text', function(Blueprint $table) {
             $table->increments('id');
             $table->uuid('text_lake_guid');
-            $table->foreign('text_lake_guid')->references('lake_guid')->on('texts')->onDelete('cascade');
+            $table->foreign('text_lake_guid')->references('lake_guid')->on('citilake_texts')->onDelete('cascade');
             $table->uuid('category_lake_guid');
-            $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
+            $table->foreign('category_lake_guid')->references('lake_guid')->on('citilake_categories')->onDelete('cascade');
         });
 
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('citilake_images', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
             $table->text('description')->nullable();
             $table->string('content')->nullable();
             $table->string('published')->nullable();
             $table->integer('agent_citi_id')->nullable();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
+            $table->foreign('agent_citi_id')->references('citi_id')->on('citilake_agents');
             $table->string('type')->nullable();
             $table->string('iiif_url')->unique()->nullable();
             $table->boolean('preferred')->nullable();
             $table = $this->_addDates($table, false);
         });
 
-        Schema::create('category_image', function(Blueprint $table) {
+        Schema::create('citilake_category_image', function(Blueprint $table) {
             $table->increments('id');
             $table->uuid('image_lake_guid');
-            $table->foreign('image_lake_guid')->references('lake_guid')->on('images')->onDelete('cascade');
+            $table->foreign('image_lake_guid')->references('lake_guid')->on('citilake_images')->onDelete('cascade');
             $table->uuid('category_lake_guid');
-            $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
+            $table->foreign('category_lake_guid')->references('lake_guid')->on('citilake_categories')->onDelete('cascade');
         });
 
-        Schema::create('artwork_image', function(Blueprint $table) {
+        Schema::create('citilake_artwork_image', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id');
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('citilake_artworks')->onDelete('cascade');
             $table->uuid('image_lake_guid');
-            $table->foreign('image_lake_guid')->references('lake_guid')->on('images')->onDelete('cascade');
+            $table->foreign('image_lake_guid')->references('lake_guid')->on('citilake_images')->onDelete('cascade');
         });
 
-        Schema::create('exhibitions', function (Blueprint $table) {
+        Schema::create('citilake_exhibitions', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->text('description')->nullable();
             $table->string('type')->nullable();
             $table->integer('department_citi_id')->nullable();
-            $table->foreign('department_citi_id')->references('citi_id')->on('departments');
+            $table->foreign('department_citi_id')->references('citi_id')->on('citilake_departments');
             $table->integer('gallery_citi_id');
-            $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
+            $table->foreign('gallery_citi_id')->references('citi_id')->on('citilake_galleries')->onDelete('cascade');
             $table->string('dates')->nullable();
             $table->boolean('active')->nullable();
             $table = $this->_addDates($table);
         });
 
-        Schema::create('artwork_exhibition', function(Blueprint $table) {
+        Schema::create('citilake_artwork_exhibition', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id');
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('citilake_artworks')->onDelete('cascade');
             $table->integer('exhibition_citi_id');
-            $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
+            $table->foreign('exhibition_citi_id')->references('citi_id')->on('citilake_exhibitions')->onDelete('cascade');
         });
 
-        Schema::create('agent_exhibition', function(Blueprint $table) {
+        Schema::create('citilake_agent_exhibition', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('agent_citi_id');
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents')->onDelete('cascade');
+            $table->foreign('agent_citi_id')->references('citi_id')->on('citilake_agents')->onDelete('cascade');
             $table->integer('exhibition_citi_id');
-            $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
+            $table->foreign('exhibition_citi_id')->references('citi_id')->on('citilake_exhibitions')->onDelete('cascade');
         });
 
         
@@ -352,36 +352,36 @@ class CreateCollectionsTables extends Migration
     public function down()
     {
 
-        Schema::dropIfExists('agent_exhibition');
-        Schema::dropIfExists('artwork_exhibition');
-        Schema::dropIfExists('exhibitions');
-        Schema::dropIfExists('artwork_image');
-        Schema::dropIfExists('category_image');
-        Schema::dropIfExists('images');
-        Schema::dropIfExists('category_text');
-        Schema::dropIfExists('texts');
-        Schema::dropIfExists('category_video');
-        Schema::dropIfExists('videos');
-        Schema::dropIfExists('category_sound');
-        Schema::dropIfExists('sounds');
-        Schema::dropIfExists('category_link');
-        Schema::dropIfExists('links');
-        Schema::dropIfExists('themes');
-        Schema::dropIfExists('artwork_artwork');
-        Schema::dropIfExists('artwork_committees');
-        Schema::dropIfExists('artwork_dates');
-        Schema::dropIfExists('artwork_terms');
-        Schema::dropIfExists('artwork_catalogues');
-        Schema::dropIfExists('agent_artwork');
-        Schema::dropIfExists('artwork_category');
-        Schema::dropIfExists('artworks');
-        Schema::dropIfExists('category_gallery');
-        Schema::dropIfExists('galleries');
-        Schema::dropIfExists('categories');
-        Schema::dropIfExists('object_types');
-        Schema::dropIfExists('departments');
-        Schema::dropIfExists('agents');
-        Schema::dropIfExists('agent_types');
+        Schema::dropIfExists('citilake_agent_exhibition');
+        Schema::dropIfExists('citilake_artwork_exhibition');
+        Schema::dropIfExists('citilake_exhibitions');
+        Schema::dropIfExists('citilake_artwork_image');
+        Schema::dropIfExists('citilake_category_image');
+        Schema::dropIfExists('citilake_images');
+        Schema::dropIfExists('citilake_category_text');
+        Schema::dropIfExists('citilake_texts');
+        Schema::dropIfExists('citilake_category_video');
+        Schema::dropIfExists('citilake_videos');
+        Schema::dropIfExists('citilake_category_sound');
+        Schema::dropIfExists('citilake_sounds');
+        Schema::dropIfExists('citilake_category_link');
+        Schema::dropIfExists('citilake_links');
+        Schema::dropIfExists('citilake_themes');
+        Schema::dropIfExists('citilake_artwork_artwork');
+        Schema::dropIfExists('citilake_artwork_committees');
+        Schema::dropIfExists('citilake_artwork_dates');
+        Schema::dropIfExists('citilake_artwork_terms');
+        Schema::dropIfExists('citilake_artwork_catalogues');
+        Schema::dropIfExists('citilake_agent_artwork');
+        Schema::dropIfExists('citilake_artwork_category');
+        Schema::dropIfExists('citilake_artworks');
+        Schema::dropIfExists('citilake_category_gallery');
+        Schema::dropIfExists('citilake_galleries');
+        Schema::dropIfExists('citilake_categories');
+        Schema::dropIfExists('citilake_object_types');
+        Schema::dropIfExists('citilake_departments');
+        Schema::dropIfExists('citilake_agents');
+        Schema::dropIfExists('citilake_agent_types');
 
     }
 

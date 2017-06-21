@@ -2,9 +2,7 @@
 
 namespace App\Collections;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Department extends Model
+class Department extends CollectionsModel
 {
 
     public $incrementing = false;

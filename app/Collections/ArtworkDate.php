@@ -2,9 +2,7 @@
 
 namespace App\Collections;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ArtworkDate extends Model
+class ArtworkDate extends CollectionsModel
 {
 
     protected $dates = ['date', 'api_created_at', 'api_modified_at', 'api_indexed_at'];

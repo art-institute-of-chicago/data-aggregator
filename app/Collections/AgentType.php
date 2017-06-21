@@ -2,9 +2,7 @@
 
 namespace App\Collections;
 
-use Illuminate\Database\Eloquent\Model;
-
-class AgentType extends Model
+class AgentType extends CollectionsModel
 {
 
     public $incrementing = false;

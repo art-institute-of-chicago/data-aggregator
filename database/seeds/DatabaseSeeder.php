@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
 
     private function _cleanDatabase() {
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::connection('mysql_for_citilake_data')->statement('SET FOREIGN_KEY_CHECKS=0');
 
         Exhibition::truncate();
         Image::truncate();
@@ -80,7 +80,7 @@ class DatabaseSeeder extends Seeder
         Agent::truncate();
         AgentType::truncate();
         
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        DB::connection('mysql_for_citilake_data')->statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 }
