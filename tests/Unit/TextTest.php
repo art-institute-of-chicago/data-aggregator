@@ -56,7 +56,7 @@ class TextTest extends ApiTestCase
     public function it_404s_if_not_found()
     {
 
-        $this->it_404s(Text::class, 'texts');
+        $this->it_404s(Text::class, 'texts', true);
 
     }
 

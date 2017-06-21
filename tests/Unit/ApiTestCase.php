@@ -32,7 +32,13 @@ abstract class ApiTestCase extends TestCase
 
         parent::setUp();
         \Artisan::call('migrate');
-        $this->make(AgentType::class, ['title' => 'Artist']);
+
+        if (get_class($this) != 'Tests\Unit\AgentTypeTest')
+        {
+
+            $this->make(AgentType::class, ['title' => 'Artist']);
+
+        }
 
     }
 
@@ -115,12 +121,12 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-    public function it_404s($class, $endpoint)
+    public function it_404s($class, $endpoint, $useUuid = false)
     {
 
         $this->make($class);
         
-        $response = $this->getJson('api/v1/' .$endpoint .'/' .$this->faker->unique()->randomNumber(5));
+        $response = $this->getJson('api/v1/' .$endpoint .'/' .$useUuid ? $this->faker->unique()->uuid : $this->faker->unique()->randomNumber(5));
 
         $response->assertStatus(404);
 

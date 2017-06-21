@@ -48,6 +48,14 @@ class AssetsController extends ApiController
     {
         try
         {
+
+            $uuidv3 = '/^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i';
+
+            if (!preg_match($uuidv3, $assetId))
+            {
+                return $this->respondInvalidSyntax('Invalid identifier', "The " .strtolower($this->type) ." identifier should be a universally unique identifier. Please ensure you're passing the correct source identifier and try again.");
+            }
+
             $item = $this->model()::find($assetId);
 
             if (!$item)
