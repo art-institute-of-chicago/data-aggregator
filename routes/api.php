@@ -284,6 +284,32 @@ Route::group(['prefix' => 'v1'], function()
 
     /**
      * @SWG\Get(
+     *     path="/api/v1/artworks/{partId}/images",
+     *     summary="A list of all images for a given artwork",
+     *     tags={"artworks"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/id"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/Image")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('artworks/{partId}/images', 'ApiController@respondMethodNotAllowed');
+    Route::get('artworks/{partId}/images', 'ImagesController@index');
+
+
+    /**
+     * @SWG\Get(
      *     path="/api/v1/agents?ids={ids}&limit={limit}&page={page}",
      *     summary="A list of all agents sorted by last updated date in descending order",
      *     tags={"agents"},

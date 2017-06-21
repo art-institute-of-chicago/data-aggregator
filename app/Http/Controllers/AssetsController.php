@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Collections\Asset;
 use App\Collections\Artwork;
+use App\Collections\Category;
+use App\Collections\Image;
+use App\Collections\Video;
+use App\Collections\Sound;
+use App\Collections\Text;
+use App\Collections\Link;
 use Illuminate\Http\Request;
 
 class AssetsController extends ApiController
@@ -17,7 +23,7 @@ class AssetsController extends ApiController
      * @param null $id
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $artworkId = null)
     {
 
         $ids = $request->input('ids');
@@ -31,7 +37,9 @@ class AssetsController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many ' .strtolower($this->type) .'s. Please set a smaller limit.');
 
-        $all = $this->model()::paginate($limit);
+        $attr = str_plural(strtolower($this->type));
+        $type = 'App\Collections\\' .$this->type;
+        $all = $artworkId ? Artwork::findOrFail($artworkId)->$attr : $type::paginate();
 
         $transformer = $this->transformer();
         return response()->collection($all, new $transformer);
