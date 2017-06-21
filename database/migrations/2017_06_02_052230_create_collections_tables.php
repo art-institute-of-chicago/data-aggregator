@@ -275,6 +275,14 @@ class CreateCollectionsTables extends Migration
             $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
         });
 
+        Schema::create('agent_exhibition', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('agent_citi_id');
+            $table->foreign('agent_citi_id')->references('citi_id')->on('agents')->onDelete('cascade');
+            $table->integer('exhibition_citi_id');
+            $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
+        });
+
         
     }
 
@@ -326,6 +334,7 @@ class CreateCollectionsTables extends Migration
     public function down()
     {
 
+        Schema::dropIfExists('agent_exhibition');
         Schema::dropIfExists('artwork_exhibition');
         Schema::dropIfExists('exhibitions');
         Schema::dropIfExists('images');

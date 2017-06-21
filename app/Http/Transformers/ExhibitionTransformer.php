@@ -15,14 +15,14 @@ class ExhibitionTransformer extends ApiTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['artworks',];
+    protected $availableIncludes = ['artworks', 'venues'];
 
     /**
      * List of resources to automatically include.
      *
      * @var array
      */
-    protected $defaultIncludes = ['artworks'];
+    protected $defaultIncludes = ['artworks', 'venues'];
 
     protected function transformFields($item)
     {
@@ -50,6 +50,17 @@ class ExhibitionTransformer extends ApiTransformer
     public function includeArtworks(Exhibition $exhibition)
     {
         return $this->collection($exhibition->artworks()->getResults(), new ArtworkTransformer);
+    }
+
+    /**
+     * Include venues.
+     *
+     * @param  \App\Collections\Exhibition  $exhibition
+     * @return League\Fractal\ItemResource
+     */
+    public function includeVenues(Exhibition $exhibition)
+    {
+        return $this->collection($exhibition->venues()->getResults(), new AgentTransformer);
     }
 
 }

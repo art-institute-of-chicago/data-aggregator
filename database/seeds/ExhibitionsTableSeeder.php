@@ -16,6 +16,7 @@ class ExhibitionsTableSeeder extends Seeder
 
         $exhibitions = App\Collections\Exhibition::all()->all();
         $artworkIds = App\Collections\Artwork::all()->pluck('citi_id')->all();
+        $agentIds = App\Collections\CorporateBody::all()->pluck('citi_id')->all();
 
         foreach ($exhibitions as $exhibition) {
             
@@ -24,6 +25,14 @@ class ExhibitionsTableSeeder extends Seeder
                 $artworkId = $artworkIds[array_rand($artworkIds)];
 
                 $exhibition->artworks()->attach($artworkId);
+
+            }
+
+            for ($i = 0; $i < rand(1,3); $i++) {
+
+                $agentId = $agentIds[array_rand($agentIds)];
+
+                $exhibition->venues()->attach($agentId);
 
             }
 

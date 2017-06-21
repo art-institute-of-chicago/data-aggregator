@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Collections\Agent;
 use App\Collections\Artwork;
+use App\Collections\Exhibition;
 use Illuminate\Http\Request;
 
 class AgentsController extends ApiController
@@ -14,7 +15,7 @@ class AgentsController extends ApiController
      * @param null $id
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $artworkId = null)
+    public function index(Request $request, $id = null)
     {
 
         $ids = $request->input('ids');
@@ -28,18 +29,23 @@ class AgentsController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many artworks. Please set a smaller limit.');
 
-        if ($artworkId)
+        if ($id)
         {
 
             if ($request->segment(5) == 'artists')
             {
 
-                $all = Artwork::findOrFail($artworkId)->artists;
+                $all = Artwork::findOrFail($id)->artists;
 
             }
             elseif ($request->segment(5) == 'copyrightRepresentatives') {
 
-                $all = Artwork::findOrFail($artworkId)->copyrightRepresentatives;
+                $all = Artwork::findOrFail($id)->copyrightRepresentatives;
+
+            }
+            elseif ($request->segment(5) == 'venues') {
+
+                $all = Exhibition::findOrFail($id)->venues;
 
             }
             else {

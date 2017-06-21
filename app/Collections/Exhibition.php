@@ -25,6 +25,13 @@ class Exhibition extends Model
 
     }
 
+    public function venues()
+    {
+
+        return $this->belongsToMany('App\Collections\CorporateBody', 'agent_exhibition', 'exhibition_citi_id', 'agent_citi_id');
+
+    }
+
     public function department()
     {
 

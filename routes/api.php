@@ -719,4 +719,29 @@ Route::group(['prefix' => 'v1'], function()
      */
     Route::any('exhibitions/{exhibition}/artworks', 'ApiController@respondMethodNotAllowed');
     Route::get('exhibitions/{exhibition}/artworks', 'ArtworksController@index');
+
+    /**
+     * @SWG\Get(
+     *     path="/api/v1/exhibitions/{id}/venues",
+     *     summary="The venues for a given exhibition",
+     *     tags={"exhibitions"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/id"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             @SWG\Items(ref="#/definitions/Agent")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('exhibitions/{exhibition}/venues', 'ApiController@respondMethodNotAllowed');
+    Route::get('exhibitions/{exhibition}/venues', 'AgentsController@index');
+
 });
