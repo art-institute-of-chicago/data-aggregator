@@ -669,6 +669,7 @@ Route::group(['prefix' => 'v1'], function()
 	 * 	   ),
      * )
      */
+
     Route::any('exhibitions', 'ApiController@respondMethodNotAllowed');
     Route::get('exhibitions', 'ExhibitionsController@index');
 
@@ -743,5 +744,56 @@ Route::group(['prefix' => 'v1'], function()
      */
     Route::any('exhibitions/{exhibition}/venues', 'ApiController@respondMethodNotAllowed');
     Route::get('exhibitions/{exhibition}/venues', 'AgentsController@index');
+
+    /**
+     * @SWG\Get(
+     *     path="/api/v1/images?ids={ids}&limit={limit}&page={page}",
+     *     summary="A list of all images sorted by last updated date in descending order",
+     *     tags={"images"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/ids"),
+     *     @SWG\Parameter(ref="#/parameters/limit"),
+     *     @SWG\Parameter(ref="#/parameters/page"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/Image")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('images', 'ApiController@respondMethodNotAllowed');
+    Route::get('images', 'ImagesController@index');
+
+    /**
+     * @SWG\Get(
+     *     path="/api/v1/images/{id}",
+     *     summary="A single image by the given identifier",
+     *     tags={"images"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/id"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             @SWG\Items(ref="#/definitions/Image")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('images/{image}', 'ApiController@respondMethodNotAllowed');
+    Route::get('images/{image}', 'ImagesController@show');
 
 });

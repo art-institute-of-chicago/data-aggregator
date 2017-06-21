@@ -25,7 +25,6 @@ class ImagesTableSeeder extends Seeder
                 $preferred = $hasPreferred ? false : $faker->boolean;
                 
                 $image = factory(App\Collections\Image::class)->make([
-                    'artwork_citi_id' => $artwork->getAttribute($artwork->getKeyName()),
                     'preferred' => $preferred,
                 ]);
 

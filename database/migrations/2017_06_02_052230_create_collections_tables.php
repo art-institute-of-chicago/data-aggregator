@@ -245,13 +245,31 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('images', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
-            $table->integer('artwork_citi_id')->nullable();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks');
             $table->text('description')->nullable();
+            $table->string('content')->nullable();
+            $table->string('published')->nullable();
+            $table->integer('agent_citi_id')->nullable();
+            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
             $table->string('type')->nullable();
             $table->string('iiif_url')->unique()->nullable();
             $table->boolean('preferred')->nullable();
             $table = $this->_addDates($table, false);
+        });
+
+        Schema::create('category_image', function(Blueprint $table) {
+            $table->increments('id');
+            $table->uuid('image_lake_guid');
+            $table->foreign('image_lake_guid')->references('lake_guid')->on('images')->onDelete('cascade');
+            $table->uuid('category_lake_guid');
+            $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
+        });
+
+        Schema::create('artwork_image', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('artwork_citi_id');
+            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->uuid('image_lake_guid');
+            $table->foreign('image_lake_guid')->references('lake_guid')->on('images')->onDelete('cascade');
         });
 
         Schema::create('exhibitions', function (Blueprint $table) {
@@ -337,6 +355,8 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('agent_exhibition');
         Schema::dropIfExists('artwork_exhibition');
         Schema::dropIfExists('exhibitions');
+        Schema::dropIfExists('artwork_image');
+        Schema::dropIfExists('category_image');
         Schema::dropIfExists('images');
         Schema::dropIfExists('category_text');
         Schema::dropIfExists('texts');

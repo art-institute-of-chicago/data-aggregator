@@ -4,13 +4,8 @@ namespace App\Collections;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Image extends Asset
 {
-
-    public $incrementing = false;
-    protected $primaryKey = 'lake_guid';
-    protected $keyType = 'string';
-    protected $dates = ['api_created_at', 'api_modified_at', 'api_indexed_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -18,5 +13,12 @@ class Image extends Model
      * @var array
      */
     protected $fillable = ['title', 'lake_guid', 'lake_uri', 'iiif_url'];
+
+    public function artworks()
+    {
+
+        return $this->belongsToMany('App\Collections\Artwork');
+
+    }
 
 }

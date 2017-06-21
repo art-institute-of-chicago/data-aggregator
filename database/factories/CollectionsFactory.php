@@ -64,7 +64,7 @@ if (!function_exists('idsAndTitle'))
 
 $factory->define(App\Collections\AgentType::class, function (Faker\Generator $faker) {
     return array_merge(
-        idsAndTitle($faker, $faker->unique()->randomElement(['Artist', 'Copyright Representative', $faker->words(2, true)]), true, 2),
+        idsAndTitle($faker, $faker->unique()->randomElement(['Artist', 'Copyright Representative', 'Corporate Body', $faker->words(2, true)]), true, 2),
         dates($faker, true)
     );
 });
@@ -278,9 +278,9 @@ $factory->define(App\Collections\Image::class, function (Faker\Generator $faker)
         idsAndTitle($faker, ucwords($faker->words(3, true))),
         [
             'description' => $faker->paragraph(3),
-            'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
             'type' => 'http://definitions.artic.edu/doctypes/' .$faker->randomElement(['Imaging', 'CuratorialStillImage']),
             'iiif_url' => env('LAKE_URL', 'https://localhost/iiif') .'/' .$lake_id .'/info.json',
+            'agent_citi_id' => $faker->randomElement(App\Collections\Agent::all()->pluck('citi_id')->all()),
         ],
         dates($faker)
     );
