@@ -56,6 +56,7 @@ abstract class ApiTestCase extends TestCase
 
     public function it_fetches_all($class, $endpoint)
     {
+
         $this->times(5)->make($class);
         
         $response = $this->getJson('api/v1/' .$endpoint);
@@ -68,6 +69,7 @@ abstract class ApiTestCase extends TestCase
         {
             $this->assertArrayHasKeys($resource, ['id', 'title']);
         }
+
     }
 
     public function it_fetches_a_single($class, $endpoint)
