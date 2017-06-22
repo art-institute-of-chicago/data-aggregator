@@ -3,9 +3,8 @@
 namespace App\Http\Transformers;
 
 use App\Collections\Category;
-use League\Fractal\TransformerAbstract;
 
-class CategoryTransformer extends ApiTransformer
+class CategoryTransformer extends CollectionsTransformer
 {
 
     /**

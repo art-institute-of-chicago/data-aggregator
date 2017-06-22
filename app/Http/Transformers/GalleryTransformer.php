@@ -3,9 +3,8 @@
 namespace App\Http\Transformers;
 
 use App\Collections\Gallery;
-use League\Fractal\TransformerAbstract;
 
-class GalleryTransformer extends ApiTransformer
+class GalleryTransformer extends CollectionsTransformer
 {
 
     public $citiObject = true;

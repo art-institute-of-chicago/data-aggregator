@@ -3,7 +3,6 @@
 namespace App\Http\Transformers;
 
 use App\Collections\Image;
-use League\Fractal\TransformerAbstract;
 
 class ImageTransformer extends AssetTransformer
 {

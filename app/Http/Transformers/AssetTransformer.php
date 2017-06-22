@@ -3,9 +3,8 @@
 namespace App\Http\Transformers;
 
 use App\Collections\Asset;
-use League\Fractal\TransformerAbstract;
 
-class AssetTransformer extends ApiTransformer
+class AssetTransformer extends CollectionsTransformer
 {
 
     /**

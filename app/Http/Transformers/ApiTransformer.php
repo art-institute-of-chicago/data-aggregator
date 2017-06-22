@@ -7,7 +7,6 @@ use League\Fractal\TransformerAbstract;
 class ApiTransformer extends TransformerAbstract
 {
 
-    public $citiObject = false;
     public $excludeIdsAndTitle = false;
     public $excludeDates = false;
 
@@ -63,26 +62,10 @@ class ApiTransformer extends TransformerAbstract
 
         }
 
-        $ret = [];
-
-        if ($this->citiObject)
-        {
-
-            $ret = [
-                'created_citi' => $item->citi_created_at->toDateTimeString(),
-                'last_updated_citi' => $item->citi_modified_at->toDateTimeString(),
-            ];
-
-        }
-
-        return array_merge(
-            $ret,
-            [
-                'last_updated_lpm_fedora' => $item->api_modified_at->toDateTimeString(),
-                'last_updated_lpm_solr' => $item->api_indexed_at->toDateTimeString(),
-                'last_updated' => $item->updated_at->toDateTimeString(),
-            ]
-        );
+        return [
+            'last_updated_source' => $item->api_modified_at->toDateTimeString(),
+            'last_updated' => $item->updated_at->toDateTimeString(),
+        ];
 
     }   
 

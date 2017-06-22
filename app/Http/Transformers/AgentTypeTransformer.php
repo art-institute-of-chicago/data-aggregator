@@ -3,9 +3,8 @@
 namespace App\Http\Transformers;
 
 use App\Collections\AgentType;
-use League\Fractal\TransformerAbstract;
 
-class AgentTypeTransformer extends ApiTransformer
+class AgentTypeTransformer extends CollectionsTransformer
 {
 
     public $citiObject = true;
