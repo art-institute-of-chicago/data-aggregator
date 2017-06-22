@@ -21,14 +21,14 @@ class Category extends ShopModel
     public function parent()
     {
 
-        return $this->belongsTo('Category', 'parent_category_shop_id');
+        return $this->belongsTo('App\Shop\Category', 'parent_category_shop_id');
 
     }
 
     public function children()
     {
 
-        return $this->hasMany('Category', 'parent_category_shop_id');
+        return $this->hasMany('App\Shop\Category', 'parent_category_shop_id');
 
     }
 
