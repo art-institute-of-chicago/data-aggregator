@@ -29,6 +29,24 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->_cleanDatabase();
+        $this->_seedCollectionsData();
+        $this->_seedShopData();
+
+    }
+
+    private function _cleanDatabase() {
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+        $this->_cleanCollectionsData();
+        $this->_cleanShopData();
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
+    }
+
+    private function _seedCollectionsData()
+    {
         
         $this->call(AgentTypesTableSeeder::class);
         $this->call(AgentsTableSeeder::class);
@@ -61,9 +79,8 @@ class DatabaseSeeder extends Seeder
 
     }
 
-    private function _cleanDatabase() {
-
-        DB::connection('mysql_for_citilake_data')->statement('SET FOREIGN_KEY_CHECKS=0');
+    private function _cleanCollectionsData()
+    {
 
         Exhibition::truncate();
         Image::truncate();
@@ -79,8 +96,21 @@ class DatabaseSeeder extends Seeder
         Department::truncate();
         Agent::truncate();
         AgentType::truncate();
-        
-        DB::connection('mysql_for_citilake_data')->statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
+
+    private function _seedShopData()
+    {
+        
+        $this->call(ShopCategoriesTableSeeder::class);
+
+    }
+
+    private function _cleanShopData()
+    {
+
+        App\Shop\Category::truncate();
+
+    }
+
 }
