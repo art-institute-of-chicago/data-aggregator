@@ -103,13 +103,14 @@ class DatabaseSeeder extends Seeder
     {
         
         $this->call(ShopCategoriesTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
 
     }
 
     private function _cleanShopData()
     {
 
-        App\Shop\Category::truncate();
+        App\Shop\Product::truncate();
 
     }
 

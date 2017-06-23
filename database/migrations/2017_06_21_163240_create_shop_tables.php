@@ -17,15 +17,39 @@ class CreateShopTables extends Migration
 
         Schema::create('shop_categories', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->string('link');
+            $table->string('link')->nullable();
             $table->integer('parent_category_shop_id')->nullable();
-            $table->string('type');
-            $table->integer('source_id');
+            $table->string('type')->nullable();
+            $table->integer('source_id')->nullable();
             $table = $this->_addDates($table);
         });
 
         Schema::table('shop_categories', function($table) {
             $table->foreign('parent_category_shop_id')->references('shop_id')->on('shop_categories');
+        });
+
+        Schema::create('products', function (Blueprint $table) {
+            $table = $this->_addIdsAndTitle($table);
+            $table->string('sku')->nullable();
+            $table->string('title_display')->nullable();
+            $table->string('link')->nullable();
+            $table->string('image')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('on_sale')->nullable();
+            $table->integer('priority')->nullable();
+            $table->float('price')->nullable();
+            $table->integer('review_count')->nullable();
+            $table->integer('items_sold')->nullable();
+            $table->float('rating')->nullable();
+            $table = $this->_addDates($table);
+        });
+
+        Schema::create('product_shop_category', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_shop_id');
+            $table->foreign('product_shop_id')->references('shop_id')->on('products')->onDelete('cascade');
+            $table->integer('category_shop_id');
+            $table->foreign('category_shop_id')->references('shop_id')->on('shop_categories')->onDelete('cascade');
         });
 
     }
@@ -54,6 +78,8 @@ class CreateShopTables extends Migration
     public function down()
     {
 
+        Schema::dropIfExists('product_shop_category');
+        Schema::dropIfExists('products');
         Schema::dropIfExists('shop_categories');
 
     }
