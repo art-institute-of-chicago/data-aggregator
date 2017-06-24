@@ -21,7 +21,7 @@ class GalleryTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $defaultIncludes = ['categories'];
+    protected $defaultIncludes = [];
 
     /**
      * Turn this item object into a generic array.

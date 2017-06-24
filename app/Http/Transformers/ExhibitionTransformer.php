@@ -21,7 +21,7 @@ class ExhibitionTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $defaultIncludes = ['artworks', 'venues'];
+    protected $defaultIncludes = [];
 
     protected function transformFields($item)
     {

@@ -19,7 +19,7 @@ class ProductTransformer extends ApiTransformer
      *
      * @var array
      */
-    protected $defaultIncludes = ['categories'];
+    protected $defaultIncludes = [];
 
     /**
      * Turn this item object into a generic array.

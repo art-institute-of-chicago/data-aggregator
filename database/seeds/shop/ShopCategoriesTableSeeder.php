@@ -11,6 +11,7 @@ class ShopCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
+
         factory(App\Shop\Category::class, 100)->create();
 
         $categories = App\Shop\Category::all()->all();
@@ -18,17 +19,14 @@ class ShopCategoriesTableSeeder extends Seeder
 
         foreach ($categories as $category) {
 
-            for ($i = 0; $i < rand(2,8); $i++) {
+            $child = $categories[array_rand($categories)];
 
-                $categoryId = $categoryIds[array_rand($categoryIds)];
-
-                if ($categoryId != $category->getKey()) {
-                    $category->children()->save(App\Shop\Category::find($categoryId));
-                }
-                
+            if ($child != $category) {
+                $category->children()->save($child);
             }
 
         }
 
     }
+
 }

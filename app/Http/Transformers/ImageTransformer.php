@@ -19,7 +19,7 @@ class ImageTransformer extends AssetTransformer
      *
      * @var array
      */
-    protected $defaultIncludes = ['categories', 'artworks'];
+    protected $defaultIncludes = [];
 
     /**
      * Add fields to the transformation.

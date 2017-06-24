@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Http\Transformers\ApiSerializer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $fractal = $this->app->make('League\Fractal\Manager');
+
+        $fractal->setSerializer(new ApiSerializer);
+
+        if (isset($_GET['include'])) {
+            $fractal->parseIncludes($_GET['include']);
+        }
 
         response()->macro('item', function ($item, \League\Fractal\TransformerAbstract $transformer, $status = 200, array $headers = []) use ($fractal) {
             $resource = new \League\Fractal\Resource\Item($item, $transformer);

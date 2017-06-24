@@ -2,6 +2,8 @@
 
 namespace App\Http\Transformers;
 
+use Illuminate\Support\Facades\Log;
+
 use League\Fractal\TransformerAbstract;
 
 class ApiTransformer extends TransformerAbstract

@@ -17,7 +17,6 @@ class DepartmentTransformer extends CollectionsTransformer
      */
     public function transformFields($item)
     {
-        return [
-        ];
+        return [];
     }
 }

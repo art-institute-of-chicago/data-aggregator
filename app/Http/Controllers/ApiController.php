@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Collections\Artwork;
+use App\Http\Transformers\ApiSerializer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use League\Fractal\Manager;
 
 class ApiController extends Controller
 {
+
+    public $manager;
 
     const LIMIT_MAX = 1000;
     

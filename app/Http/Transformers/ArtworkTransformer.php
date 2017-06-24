@@ -14,14 +14,14 @@ class ArtworkTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['artists', 'categories', 'copyrightRepresentatives', 'parts', 'sets',];
+    protected $availableIncludes = ['artists', 'categories', 'copyrightRepresentatives', 'parts', 'sets', 'dates', 'catalogues', 'committees', 'terms', 'images'];
 
     /**
      * List of resources to automatically include.
      *
      * @var array
      */
-    protected $defaultIncludes = ['artists', 'categories', 'copyrightRepresentatives']; //, 'parts', 'sets'];
+    protected $defaultIncludes = [];
 
     protected function transformFields($item)
     {
@@ -52,50 +52,6 @@ class ArtworkTransformer extends CollectionsTransformer
             'gallery' => $item->gallery()->getResults() ? $item->gallery()->getResults()->title : '',
             'gallery_id' => $item->gallery_citi_id,
             'is_in_gallery' => $item->gallery_citi_id ? true : false,
-
-            // Doing it this way so we don't get an extra 'data' block
-            'dates' => $item->dates()->getResults()->transform(function ($item, $key) {
-                return [
-                    'date' => $item->date->toDateString(),
-                    'qualifier' => $item->qualifier,
-                    'preferred' => (bool) $item->preferred,
-                ];
-            }),
-
-            'catalogues' => $item->catalogues()->getResults()->transform(function ($item, $key) {
-                return [
-                    'preferred' => (bool) $item->preferred,
-                    'catalogue' => $item->catalogue,
-                    'number' => $item->number,
-                    'state_edition' => $item->state_edition,
-                ];
-            }),
-
-            'committees' => $item->committees()->getResults()->transform(function ($item, $key) {
-                return [
-                    'committee' => $item->committee,
-                    'date' => $item->date->toDateString(),
-                    'action' => $item->action,
-                ];
-            }),
-
-            'terms' => $item->terms()->getResults()->transform(function ($item, $key) {
-                return [
-                    'term' => $item->term,
-                    'type' => $item->type,
-                ];
-            }),
-
-            'images' => $item->images()->getResults()->transform(function ($item, $key) {
-                return [
-                    'title' => $item->title,
-                    'description' => $item->description,
-                    'type' => $item->type,
-                    'iiif_url' => $item->iiif_url,
-                    'preferred' => (bool) $item->preferred,
-                ];
-            }),
-
         ];
 
     }
@@ -109,7 +65,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeArtists(Artwork $artwork)
     {
-        return $this->collection($artwork->artists()->getResults(), new AgentTransformer);
+        return $this->collection($artwork->artists()->getResults(), new AgentTransformer, false);
     }
 
     /**
@@ -120,7 +76,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCopyrightRepresentatives(Artwork $artwork)
     {
-        return $this->collection($artwork->copyrightRepresentatives()->getResults(), new AgentTransformer);
+        return $this->collection($artwork->copyrightRepresentatives()->getResults(), new AgentTransformer, false);
     }
 
     /**
@@ -131,7 +87,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCategories(Artwork $artwork)
     {
-        return $this->collection($artwork->categories()->getResults(), new CategoryTransformer);
+        return $this->collection($artwork->categories()->getResults(), new CategoryTransformer, false);
     }
 
     /**
@@ -142,7 +98,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeParts(Artwork $artwork)
     {
-        return $this->collection($artwork->parts()->getResults(), new ArtworkTransformer);
+        return $this->collection($artwork->parts()->getResults(), new ArtworkTransformer, false);
     }
 
     /**
@@ -153,7 +109,62 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeSets(Artwork $artwork)
     {
-        return $this->collection($artwork->sets()->getResults(), new ArtworkTransformer);
+        return $this->collection($artwork->sets()->getResults(), new ArtworkTransformer, false);
+    }
+
+    /**
+     * Include dates.
+     *
+     * @param  \App\Collections\Artwork  $artwork
+     * @return League\Fractal\ItemResource
+     */
+    public function includeDates(Artwork $artwork)
+    {
+        return $this->collection($artwork->dates()->getResults(), new ArtworkDateTransformer, false);
+    }
+
+    /**
+     * Include catalogues.
+     *
+     * @param  \App\Collections\Artwork  $artwork
+     * @return League\Fractal\ItemResource
+     */
+    public function includeCatalogues(Artwork $artwork)
+    {
+        return $this->collection($artwork->catalogues()->getResults(), new ArtworkCatalogueTransformer, false);
+    }
+
+    /**
+     * Include committees.
+     *
+     * @param  \App\Collections\Artwork  $artwork
+     * @return League\Fractal\ItemResource
+     */
+    public function includeCommittees(Artwork $artwork)
+    {
+        return $this->collection($artwork->committees()->getResults(), new ArtworkCommitteeTransformer, false);
+    }
+
+    /**
+     * Include terms.
+     *
+     * @param  \App\Collections\Artwork  $artwork
+     * @return League\Fractal\ItemResource
+     */
+    public function includeTerms(Artwork $artwork)
+    {
+        return $this->collection($artwork->terms()->getResults(), new ArtworkTermTransformer, false);
+    }
+
+    /**
+     * Include images.
+     *
+     * @param  \App\Collections\Artwork  $artwork
+     * @return League\Fractal\ItemResource
+     */
+    public function includeImages(Artwork $artwork)
+    {
+        return $this->collection($artwork->images()->getResults(), new ImageTransformer, false);
     }
 
 }
