@@ -52,6 +52,18 @@ class ArtworkTransformer extends CollectionsTransformer
             'gallery' => $item->gallery()->getResults() ? $item->gallery()->getResults()->title : '',
             'gallery_id' => $item->gallery_citi_id,
             'is_in_gallery' => $item->gallery_citi_id ? true : false,
+            'artist_ids' => $item->artists->pluck('citi_id')->all(),
+            'category_ids' => $item->categories->pluck('lake_guid')->all(),
+            'copyright_representative_ids' => $item->copyrightRepresentatives->pluck('citi_id')->all(),
+            'part_ids' => $item->parts->pluck('citi_id')->all(),
+            'set_ids' => $item->sets->pluck('citi_id')->all(),
+            'date_dates' => $item->dates->pluck('date')->transform(function ($item, $key) {
+                return $item->toDateString();
+            })->all(),
+            'catalogue_titles' => $item->catalogues->pluck('catalogue')->all(),
+            'committee_titles' => $item->committees->pluck('committee')->all(),
+            'term_titles' => $item->terms->pluck('term')->all(),
+            'image_urls' => $item->images->pluck('iiif_url')->all(),
         ];
 
     }

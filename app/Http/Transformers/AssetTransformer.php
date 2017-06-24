@@ -35,6 +35,7 @@ class AssetTransformer extends CollectionsTransformer
                 'content' => $item->content,
                 'artist' => $item->artist()->getResults() ? $item->artist()->getResults()->title : '',
                 'artist_id' => $item->agent_citi_id,
+                'category_ids' => $item->categories->pluck('lake_guid')->all(),
             ],
             $this->assetFields($item)
         );

@@ -34,6 +34,7 @@ class ShopCategoryTransformer extends ApiTransformer
             'parent_id' => $item->parent_category_shop_id,
             'type' => $item->type,
             'source_id' => $item->source_id,
+            'child_ids' => $item->children->pluck('shop_id')->all(),
         ];
     }
 

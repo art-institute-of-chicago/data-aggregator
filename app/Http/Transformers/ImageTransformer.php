@@ -34,6 +34,7 @@ class ImageTransformer extends AssetTransformer
             'type' => $item->type,
             'iiif_url' => $item->iiif_url,
             'preferred' => (bool) $item->preferred,
+            'artwork_ids' => $item->artworks->pluck('citi_id')->all(),
         ];
 
     }

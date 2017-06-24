@@ -35,6 +35,8 @@ class ExhibitionTransformer extends CollectionsTransformer
             'gallery_id' => $item->gallery_citi_id,
             'dates' => $item->dates,
             'active' => (bool) $item->active,
+            'artwork_ids' => $item->artworks->pluck('citi_id')->all(),
+            'venue_ids' => $item->venues->pluck('citi_id')->all(),
         ];
 
     }

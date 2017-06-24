@@ -42,6 +42,7 @@ class ProductTransformer extends ApiTransformer
             'review_count' => $item->review_count,
             'item_sold' => $item->item_sold,
             'rating' => $item->rating,
+            'category_ids' => $item->categories->pluck('shop_id')->all(),
         ];
 
     }
