@@ -170,21 +170,6 @@ class ArtworkTest extends ApiTestCase
 
 
     /** @test */
-    public function it_fetches_dates_for_an_artwork()
-    {
-
-        $artworkKey = $this->attach(ArtworkDate::class, 4, 'dates')->make(Artwork::class);
-        
-        $response = $this->getJson('api/v1/artworks/' .$artworkKey);
-        $response->assertSuccessful();
-
-        $artwork = $response->json()['data'];
-
-        $this->assertNotEmpty($artwork['dates']);
-
-    }
-
-    /** @test */
     public function it_fetches_the_parts_for_an_artwork()
     {
 

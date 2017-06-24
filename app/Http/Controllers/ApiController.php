@@ -40,4 +40,16 @@ class ApiController extends Controller
         return response()->error($message, $detail, Response::HTTP_METHOD_NOT_ALLOWED);
     }
 
+    public function isUuid($id)
+    {
+
+        $uuidv3 = '/^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i';
+
+        if (preg_match($uuidv3, $id))
+        {
+            return true;
+        }
+        return false;
+    }
+
 }

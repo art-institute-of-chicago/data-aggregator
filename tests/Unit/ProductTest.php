@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Shop\Product;
+use App\Shop\Category;
 
 class ProductTest extends ApiTestCase
 {
@@ -67,5 +68,5 @@ class ProductTest extends ApiTestCase
         $this->it_405s(Product::class, 'products');
         
     }
-    
+
 }

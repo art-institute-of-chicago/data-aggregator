@@ -54,7 +54,7 @@ class ProductTransformer extends ApiTransformer
      */
     public function includeCategories(Product $product)
     {
-        return $this->collection($product->categories()->getResults(), new ShopCategoryTransformer);
+        return $this->collection($product->categories()->getResults(), new ShopCategoryTransformer, false);
     }
 
 }

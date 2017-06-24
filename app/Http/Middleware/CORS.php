@@ -17,6 +17,12 @@ class CORS
     public function handle($request, Closure $next)
     {
 
+        if (\App::environment('testing')) {
+            
+            return $next($request);
+
+        }
+
         header("Access-Control-Allow-Origin: *");
 
         // ALLOW OPTIONS METHOD

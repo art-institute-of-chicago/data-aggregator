@@ -46,7 +46,7 @@ class ImageTransformer extends AssetTransformer
      */
     public function includeArtworks(Image $image)
     {
-        return $this->collection($image->artworks()->getResults(), new ArtworkTransformer);
+        return $this->collection($image->artworks()->getResults(), new ArtworkTransformer, false);
     }
 
 }
