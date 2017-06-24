@@ -412,6 +412,58 @@ Route::group(['prefix' => 'v1'], function()
     Route::any('artists/{artist}', 'ApiController@respondMethodNotAllowed');
     Route::get('artists/{artist}', 'ArtistsController@show');
 
+    /**
+     * @SWG\Get(
+     *     path="/api/v1/venues?ids={ids}&limit={limit}&page={page}",
+     *     summary="A list of all venues sorted by last updated date in descending order",
+     *     tags={"venues"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/ids"),
+     *     @SWG\Parameter(ref="#/parameters/limit"),
+     *     @SWG\Parameter(ref="#/parameters/page"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/Venue")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('venues', 'ApiController@respondMethodNotAllowed');
+    Route::get('venues', 'VenuesController@index');
+
+
+    /**
+     * @SWG\Get(
+     *     path="/api/v1/venues/{id}",
+     *     summary="A single venue by the given identifier",
+     *     tags={"venues"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(ref="#/parameters/id"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(
+     *             @SWG\Items(ref="#/definitions/Venue")
+     *         ),
+     *     ),
+	 * 	   @SWG\Response(
+	 * 		   response="default",
+	 * 		   description="error",
+	 * 		   @SWG\Schema(ref="#/definitions/Error"),
+	 * 	   ),
+     * )
+     */
+    Route::any('venues/{venue}', 'ApiController@respondMethodNotAllowed');
+    Route::get('venues/{venue}', 'VenuesController@show');
+
     
     /**
      * @SWG\Get(
