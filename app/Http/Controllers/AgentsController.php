@@ -18,6 +18,13 @@ class AgentsController extends ApiController
     public function index(Request $request, $id = null)
     {
 
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         $ids = $request->input('ids');
         if ($ids)
         {
@@ -72,8 +79,16 @@ class AgentsController extends ApiController
      * @param  \App\Collections\Agent  $agent
      * @return \Illuminate\Http\Response
      */
-    public function show($agentId)
+    public function show(Request $request, $agentId)
     {
+
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         try
         {
             if (intval($agentId) <= 0)

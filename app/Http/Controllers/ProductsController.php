@@ -17,6 +17,13 @@ class ProductsController extends ApiController
     public function index(Request $request)
     {
 
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         $ids = $request->input('ids');
         if ($ids)
         {
@@ -39,8 +46,16 @@ class ProductsController extends ApiController
      * @param  \App\Collections\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show($productId)
+    public function show(Request $request, $productId)
     {
+
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         try
         {
             if (intval($productId) <= 0)

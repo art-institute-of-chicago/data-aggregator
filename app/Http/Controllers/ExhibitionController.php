@@ -15,6 +15,13 @@ class ExhibitionsController extends ApiController
     public function index(Request $request)
     {
 
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         $ids = $request->input('ids');
         if ($ids)
         {
@@ -38,8 +45,16 @@ class ExhibitionsController extends ApiController
      * @param  \App\Collections\Exhibition  $exhibition
      * @return \Illuminate\Http\Response
      */
-    public function show($exhibitionId)
+    public function show(Request $request, $exhibitionId)
     {
+
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         try
         {
             if (intval($exhibitionId) <= 0)

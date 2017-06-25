@@ -17,6 +17,13 @@ class ObjectTypesController extends ApiController
     public function index(Request $request, $artworkId = null)
     {
 
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         $ids = $request->input('ids');
         if ($ids)
         {
@@ -45,8 +52,16 @@ class ObjectTypesController extends ApiController
      * @param  \App\Collections\ObjectType  $objectType
      * @return \Illuminate\Http\Response
      */
-    public function show($objectTypeId)
+    public function show(Request $request, $objectTypeId)
     {
+
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         try
         {
             if (intval($objectTypeId) <= 0)

@@ -17,6 +17,13 @@ class DepartmentsController extends ApiController
     public function index(Request $request, $artworkId = null)
     {
 
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         $ids = $request->input('ids');
         if ($ids)
         {
@@ -45,8 +52,16 @@ class DepartmentsController extends ApiController
      * @param  \App\Collections\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show($departmentId)
+    public function show(Request $request, $departmentId)
     {
+
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         try
         {
             if (intval($departmentId) <= 0)

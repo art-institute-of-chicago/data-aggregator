@@ -17,6 +17,13 @@ class ShopCategoriesController extends ApiController
     public function index(Request $request)
     {
 
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         $ids = $request->input('ids');
         if ($ids)
         {
@@ -39,8 +46,16 @@ class ShopCategoriesController extends ApiController
      * @param  \App\Collections\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($categoryId)
+    public function show(Request $request, $categoryId)
     {
+
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         try
         {
             if (intval($categoryId) <= 0)

@@ -15,6 +15,13 @@ class ArtworksController extends ApiController
     public function index(Request $request, $artworkId = null)
     {
 
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         $ids = $request->input('ids');
         if ($ids)
         {
@@ -55,8 +62,16 @@ class ArtworksController extends ApiController
      * @param  \App\Collections\Artwork  $artwork
      * @return \Illuminate\Http\Response
      */
-    public function show($artworkId)
+    public function show(Request $request, $artworkId)
     {
+
+        if ($request->method() != 'GET')
+        {
+
+            $this->respondMethodNotAllowed();
+
+        }
+
         try
         {
             if (intval($artworkId) <= 0)
