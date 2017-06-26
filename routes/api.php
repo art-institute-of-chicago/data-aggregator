@@ -21,56 +21,56 @@ Route::group(['prefix' => 'v1'], function()
     });
 
     Route::get('artworks', 'ArtworksController@index');
-    Route::get('artworks/{artwork}', 'ArtworksController@show');
-    Route::get('artworks/{artwork}/artists', 'ArtistsController@index');
-    Route::get('artworks/{artwork}/copyrightRepresentatives', 'CopyrightRepresentativesController@index');
-    Route::get('artworks/{artwork}/categories', 'CategoriesController@index');
-    Route::get('artworks/{setId}/parts', 'ArtworksController@index');
-    Route::get('artworks/{partId}/sets', 'ArtworksController@index');
-    Route::get('artworks/{partId}/images', 'ImagesController@index');
+    Route::get('artworks/{id}', 'ArtworksController@show');
+    Route::get('artworks/{id}/artists', 'ArtistsController@index');
+    Route::get('artworks/{id}/copyrightRepresentatives', 'CopyrightRepresentativesController@index');
+    Route::get('artworks/{id}/categories', 'CategoriesController@index');
+    Route::get('artworks/{id}/parts', 'ArtworksController@index');
+    Route::get('artworks/{id}/sets', 'ArtworksController@index');
+    Route::get('artworks/{id}/images', 'ImagesController@index');
 
     Route::get('agents', 'AgentsController@index');
-    Route::get('agents/{agent}', 'AgentsController@show');
+    Route::get('agents/{id}', 'AgentsController@show');
     Route::get('artists', 'ArtistsController@index');
-    Route::get('artists/{artist}', 'ArtistsController@show');
+    Route::get('artists/{id}', 'ArtistsController@show');
     Route::get('venues', 'VenuesController@index');
-    Route::get('venues/{venue}', 'VenuesController@show');
+    Route::get('venues/{id}', 'VenuesController@show');
 
     Route::get('departments', 'DepartmentsController@index');
-    Route::get('departments/{department}', 'DepartmentsController@show');
+    Route::get('departments/{id}', 'DepartmentsController@show');
 
     Route::get('object-types', 'ObjectTypesController@index');
-    Route::get('object-types/{objectType}', 'ObjectTypesController@show');
+    Route::get('object-types/{id}', 'ObjectTypesController@show');
 
     Route::get('categories', 'CategoriesController@index');
-    Route::get('categories/{category}', 'CategoriesController@show');
+    Route::get('categories/{id}', 'CategoriesController@show');
 
     Route::get('agent-types', 'AgentTypesController@index');
-    Route::get('agent-types/{agentType}', 'AgentTypesController@show');
+    Route::get('agent-types/{id}', 'AgentTypesController@show');
 
     Route::get('galleries', 'GalleriesController@index');
-    Route::get('galleries/{gallery}', 'GalleriesController@show');
+    Route::get('galleries/{id}', 'GalleriesController@show');
 
     Route::get('exhibitions', 'ExhibitionsController@index');
-    Route::get('exhibitions/{exhibition}', 'ExhibitionsController@show');
-    Route::get('exhibitions/{exhibition}/artworks', 'ArtworksController@index');
-    Route::get('exhibitions/{exhibition}/venues', 'AgentsController@index');
+    Route::get('exhibitions/{id}', 'ExhibitionsController@show');
+    Route::get('exhibitions/{id}/artworks', 'ArtworksController@index');
+    Route::get('exhibitions/{id}/venues', 'AgentsController@index');
 
     Route::get('images', 'ImagesController@index');
-    Route::get('images/{image}', 'ImagesController@show');
+    Route::get('images/{id}', 'ImagesController@show');
     Route::get('videos', 'VideosController@index');
-    Route::get('videos/{video}', 'VideosController@show');
+    Route::get('videos/{id}', 'VideosController@show');
     Route::get('links', 'LinksController@index');
-    Route::get('links/{link}', 'LinksController@show');
+    Route::get('links/{id}', 'LinksController@show');
     Route::get('sounds', 'SoundsController@index');
-    Route::get('sounds/{sound}', 'SoundsController@show');
+    Route::get('sounds/{id}', 'SoundsController@show');
     Route::get('texts', 'TextsController@index');
-    Route::get('texts/{text}', 'TextsController@show');
+    Route::get('texts/{id}', 'TextsController@show');
 
     Route::get('shop-categories', 'ShopCategoriesController@index');
-    Route::get('shop-categories/{shopCategory}', 'ShopCategoriesController@show');
+    Route::get('shop-categories/{id}', 'ShopCategoriesController@show');
 
     Route::get('products', 'ProductsController@index');
-    Route::get('products/{product}', 'ProductsController@show');
+    Route::get('products/{id}', 'ProductsController@show');
 
 });
