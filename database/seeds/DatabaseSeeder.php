@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->_cleanDatabase();
         $this->_seedCollectionsData();
         $this->_seedShopData();
+        $this->_seedMembershipData();
 
     }
 
@@ -40,6 +41,7 @@ class DatabaseSeeder extends Seeder
 
         $this->_cleanCollectionsData();
         $this->_cleanShopData();
+        $this->_cleanMembershipData();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
@@ -111,6 +113,20 @@ class DatabaseSeeder extends Seeder
     {
 
         App\Shop\Product::truncate();
+
+    }
+
+    private function _seedMembershipData()
+    {
+        
+        $this->call(EventsTableSeeder::class);
+
+    }
+
+    private function _cleanMembershipData()
+    {
+
+        App\Membership\Event::truncate();
 
     }
 

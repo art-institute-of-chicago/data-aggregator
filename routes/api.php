@@ -73,4 +73,7 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('products', 'ProductsController@index');
     Route::get('products/{id}', 'ProductsController@show');
 
+    Route::get('events', 'EventsController@index');
+    Route::get('events/{id}', 'EventsController@show');
+
 });

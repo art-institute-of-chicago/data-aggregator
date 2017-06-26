@@ -1484,6 +1484,77 @@
           }
         }
       }
+    },
+    "/api/v1/events": {
+      "get": {
+        "tags": [
+          "events"
+        ],
+        "summary": "A list of all events sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Event"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/events/{id}": {
+      "get": {
+        "tags": [
+          "events"
+        ],
+        "summary": "A single event by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Event"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1581,7 +1652,7 @@
           "description": "Unique identifier"
         },
         "title": {
-          "description": "Name of the publish category"
+          "description": "Name of the image"
         },
         "last_updated_lpm_fedora": {},
         "last_updated_lpm_solr": {},
@@ -1679,7 +1750,7 @@
           "description": "Unique identifier"
         },
         "title": {
-          "description": "Name of the publish category"
+          "description": "Name of the shop category"
         },
         "last_updated": {}
       },
@@ -1691,7 +1762,25 @@
           "description": "Unique identifier"
         },
         "title": {
-          "description": "Name of the publish category"
+          "description": "Name of the product"
+        },
+        "last_updated": {}
+      },
+      "type": "object"
+    },
+    "Event": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "title": {
+          "description": "Name of the event"
+        },
+        "start": {
+          "description": "Start date and time"
+        },
+        "end": {
+          "description": "End date and time"
         },
         "last_updated": {}
       },
