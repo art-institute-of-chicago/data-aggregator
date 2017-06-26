@@ -279,7 +279,7 @@ $factory->define(App\Collections\Image::class, function (Faker\Generator $faker)
         [
             'description' => $faker->paragraph(3),
             'type' => 'http://definitions.artic.edu/doctypes/' .$faker->randomElement(['Imaging', 'CuratorialStillImage']),
-            'iiif_url' => env('LAKE_URL', 'https://localhost/iiif') .'/' .$lake_id .'/info.json',
+            'iiif_url' => $faker->imageUrl(), //env('LAKE_URL', 'https://localhost/iiif') .'/' .$lake_id .'/info.json',
             'agent_citi_id' => $faker->randomElement(App\Collections\Agent::all()->pluck('citi_id')->all()),
         ],
         dates($faker)
