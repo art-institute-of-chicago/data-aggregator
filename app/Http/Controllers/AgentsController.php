@@ -107,7 +107,7 @@ class AgentsController extends ApiController
         }
         catch(\Exception $e)
         {
-            return $this->respondFailure($e->getMessage());
+            return $this->respondFailure();
         }
         
     }
