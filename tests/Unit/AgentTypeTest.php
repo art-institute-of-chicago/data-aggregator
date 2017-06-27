@@ -19,15 +19,19 @@ class AgentTypeTest extends ApiTestCase
     public function it_fetches_all_agent_types()
     {
 
-        $this->it_fetches_all(AgentType::class, 'agent-types');
+        $resources = $this->it_fetches_all(AgentType::class, 'agent-types');
         
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
+
     }
 
     /** @test */
     public function it_fetches_a_single_agent_type()
     {
 
-        $this->it_fetches_a_single(AgentType::class, 'agent-types');
+        $resource = $this->it_fetches_a_single(AgentType::class, 'agent-types');
+
+        $this->assertArrayHasKeys($resource, ['lake_guid']);
 
     }
 
@@ -35,7 +39,9 @@ class AgentTypeTest extends ApiTestCase
     public function it_fetches_multiple_agent_types()
     {
 
-        $this->it_fetches_multiple(AgentType::class, 'agent-types');
+        $resources = $this->it_fetches_multiple(AgentType::class, 'agent-types');
+
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
 

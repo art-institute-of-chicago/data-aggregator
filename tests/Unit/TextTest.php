@@ -15,15 +15,15 @@ class TextTest extends ApiTestCase
     public function it_fetches_all_texts()
     {
 
-        $this->it_fetches_all(Text::class, 'texts');
-        
+        $resources = $this->it_fetches_all(Text::class, 'texts');
+
     }
 
     /** @test */
     public function it_fetches_a_single_text()
     {
 
-        $this->it_fetches_a_single(Text::class, 'texts');
+        $resource = $this->it_fetches_a_single(Text::class, 'texts');
 
     }
 
@@ -31,7 +31,7 @@ class TextTest extends ApiTestCase
     public function it_fetches_multiple_texts()
     {
 
-        $this->it_fetches_multiple(Text::class, 'texts');
+        $resources = $this->it_fetches_multiple(Text::class, 'texts');
 
     }
 

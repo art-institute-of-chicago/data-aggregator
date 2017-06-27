@@ -15,15 +15,19 @@ class ObjectTypeTest extends ApiTestCase
     public function it_fetches_all_object_types()
     {
 
-        $this->it_fetches_all(ObjectType::class, 'object-types');
+        $resources = $this->it_fetches_all(ObjectType::class, 'object-types');
         
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
+
     }
 
     /** @test */
     public function it_fetches_a_single_object_type()
     {
 
-        $this->it_fetches_a_single(ObjectType::class, 'object-types');
+        $resource = $this->it_fetches_a_single(ObjectType::class, 'object-types');
+ 
+        $this->assertArrayHasKeys($resource, ['lake_guid']);
 
     }
 
@@ -31,7 +35,9 @@ class ObjectTypeTest extends ApiTestCase
     public function it_fetches_multiple_object_types()
     {
 
-        $this->it_fetches_multiple(ObjectType::class, 'object-types');
+        $resources = $this->it_fetches_multiple(ObjectType::class, 'object-types');
+
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
 

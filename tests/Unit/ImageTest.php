@@ -15,15 +15,15 @@ class ImageTest extends ApiTestCase
     public function it_fetches_all_images()
     {
 
-        $this->it_fetches_all(Image::class, 'images');
-        
+        $resources = $this->it_fetches_all(Image::class, 'images');
+
     }
 
     /** @test */
     public function it_fetches_a_single_image()
     {
 
-        $this->it_fetches_a_single(Image::class, 'images');
+        $resource = $this->it_fetches_a_single(Image::class, 'images');
 
     }
 
@@ -31,7 +31,7 @@ class ImageTest extends ApiTestCase
     public function it_fetches_multiple_images()
     {
 
-        $this->it_fetches_multiple(Image::class, 'images');
+        $resources = $this->it_fetches_multiple(Image::class, 'images');
 
     }
 

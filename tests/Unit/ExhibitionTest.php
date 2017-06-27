@@ -29,7 +29,9 @@ class ExhibitionTest extends ApiTestCase
     public function it_fetches_all_exhibitions()
     {
 
-        $this->it_fetches_all(Exhibition::class, 'exhibitions');
+        $resources = $this->it_fetches_all(Exhibition::class, 'exhibitions');
+
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
         
     }
 
@@ -37,7 +39,9 @@ class ExhibitionTest extends ApiTestCase
     public function it_fetches_a_single_exhibition()
     {
 
-        $this->it_fetches_a_single(Exhibition::class, 'exhibitions');
+        $resource = $this->it_fetches_a_single(Exhibition::class, 'exhibitions');
+
+        $this->assertArrayHasKeys($resource, ['lake_guid']);
 
     }
 
@@ -45,7 +49,9 @@ class ExhibitionTest extends ApiTestCase
     public function it_fetches_multiple_exhibitions()
     {
 
-        $this->it_fetches_multiple(Exhibition::class, 'exhibitions');
+        $resources = $this->it_fetches_multiple(Exhibition::class, 'exhibitions');
+
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
 

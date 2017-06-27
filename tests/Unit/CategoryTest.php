@@ -15,15 +15,15 @@ class CategoryTest extends ApiTestCase
     public function it_fetches_all_categories()
     {
 
-        $this->it_fetches_all(Category::class, 'categories');
-        
+        $resources = $this->it_fetches_all(Category::class, 'categories');
+
     }
 
     /** @test */
     public function it_fetches_a_single_category()
     {
 
-        $this->it_fetches_a_single(Category::class, 'categories');
+        $resource = $this->it_fetches_a_single(Category::class, 'categories');
 
     }
 
@@ -31,7 +31,7 @@ class CategoryTest extends ApiTestCase
     public function it_fetches_multiple_categories()
     {
 
-        $this->it_fetches_multiple(Category::class, 'categories');
+        $resources = $this->it_fetches_multiple(Category::class, 'categories');
 
     }
 

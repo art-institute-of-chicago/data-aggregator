@@ -15,15 +15,15 @@ class LinkTest extends ApiTestCase
     public function it_fetches_all_links()
     {
 
-        $this->it_fetches_all(Link::class, 'links');
-        
+        $resources = $this->it_fetches_all(Link::class, 'links');
+
     }
 
     /** @test */
     public function it_fetches_a_single_link()
     {
 
-        $this->it_fetches_a_single(Link::class, 'links');
+        $resource = $this->it_fetches_a_single(Link::class, 'links');
 
     }
 
@@ -31,7 +31,7 @@ class LinkTest extends ApiTestCase
     public function it_fetches_multiple_links()
     {
 
-        $this->it_fetches_multiple(Link::class, 'links');
+        $resources = $this->it_fetches_multiple(Link::class, 'links');
 
     }
 

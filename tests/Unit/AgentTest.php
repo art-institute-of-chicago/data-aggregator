@@ -15,7 +15,9 @@ class AgentTest extends ApiTestCase
     public function it_fetches_all_agents()
     {
 
-        $this->it_fetches_all(Agent::class, 'agents');
+        $resources = $this->it_fetches_all(Agent::class, 'agents');
+
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
         
     }
 
@@ -23,7 +25,9 @@ class AgentTest extends ApiTestCase
     public function it_fetches_a_single_agent()
     {
 
-        $this->it_fetches_a_single(Agent::class, 'agents');
+        $resource = $this->it_fetches_a_single(Agent::class, 'agents');
+
+        $this->assertArrayHasKeys($resource, ['lake_guid']);
 
     }
 
@@ -31,7 +35,9 @@ class AgentTest extends ApiTestCase
     public function it_fetches_multiple_agents()
     {
 
-        $this->it_fetches_multiple(Agent::class, 'agents');
+        $resources = $this->it_fetches_multiple(Agent::class, 'agents');
+
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
 

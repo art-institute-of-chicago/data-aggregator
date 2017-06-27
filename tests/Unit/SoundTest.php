@@ -15,15 +15,15 @@ class SoundTest extends ApiTestCase
     public function it_fetches_all_sounds()
     {
 
-        $this->it_fetches_all(Sound::class, 'sounds');
-        
+        $resources = $this->it_fetches_all(Sound::class, 'sounds');
+
     }
 
     /** @test */
     public function it_fetches_a_single_sound()
     {
 
-        $this->it_fetches_a_single(Sound::class, 'sounds');
+        $resource = $this->it_fetches_a_single(Sound::class, 'sounds');
 
     }
 
@@ -31,7 +31,7 @@ class SoundTest extends ApiTestCase
     public function it_fetches_multiple_sounds()
     {
 
-        $this->it_fetches_multiple(Sound::class, 'sounds');
+        $resources = $this->it_fetches_multiple(Sound::class, 'sounds');
 
     }
 

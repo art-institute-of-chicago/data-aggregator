@@ -15,15 +15,19 @@ class DepartmentTest extends ApiTestCase
     public function it_fetches_all_departments()
     {
 
-        $this->it_fetches_all(Department::class, 'departments');
+        $resources = $this->it_fetches_all(Department::class, 'departments');
         
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
+
     }
 
     /** @test */
     public function it_fetches_a_single_department()
     {
 
-        $this->it_fetches_a_single(Department::class, 'departments');
+        $resource = $this->it_fetches_a_single(Department::class, 'departments');
+
+        $this->assertArrayHasKeys($resource, ['lake_guid']);
 
     }
 
@@ -31,7 +35,9 @@ class DepartmentTest extends ApiTestCase
     public function it_fetches_multiple_departments()
     {
 
-        $this->it_fetches_multiple(Department::class, 'departments');
+        $resources = $this->it_fetches_multiple(Department::class, 'departments');
+
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
 

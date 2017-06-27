@@ -7,6 +7,40 @@ class CollectionsTransformer extends ApiTransformer
 
     public $citiObject = false;
 
+    protected function transformIdsAndTitle($item)
+    {
+
+        if ($this->excludeIdsAndTitle)
+        {
+
+            return [];
+
+        }
+
+        $ret = [
+            'id' => $item->getAttributeValue($item->getKeyName()),
+        ];
+
+        $ret = array_merge($ret,
+                           [
+                               'title' => $item->title,
+                           ]
+        );
+
+        if ($this->citiObject)
+        {
+
+            $ret = array_merge($ret,
+                               [
+                                   'lake_guid' => $item->lake_guid,
+                               ]
+            );
+        }
+
+        return $ret;
+
+    }
+
     protected function transformDates($item)
     {
 

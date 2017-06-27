@@ -15,15 +15,19 @@ class GalleryTest extends ApiTestCase
     public function it_fetches_all_galleries()
     {
 
-        $this->it_fetches_all(Gallery::class, 'galleries');
+        $resources = $this->it_fetches_all(Gallery::class, 'galleries');
         
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
+
     }
 
     /** @test */
     public function it_fetches_a_single_gallery()
     {
 
-        $this->it_fetches_a_single(Gallery::class, 'galleries');
+        $resource = $this->it_fetches_a_single(Gallery::class, 'galleries');
+
+        $this->assertArrayHasKeys($resource, ['lake_guid']);
 
     }
 
@@ -31,7 +35,9 @@ class GalleryTest extends ApiTestCase
     public function it_fetches_multiple_galleries()
     {
 
-        $this->it_fetches_multiple(Gallery::class, 'galleries');
+        $resources = $this->it_fetches_multiple(Gallery::class, 'galleries');
+
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
 

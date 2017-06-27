@@ -22,15 +22,19 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_all_artworks()
     {
 
-        $this->it_fetches_all(Artwork::class, 'artworks');
+        $resources = $this->it_fetches_all(Artwork::class, 'artworks');
         
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
+
     }
 
     /** @test */
     public function it_fetches_a_single_artwork()
     {
 
-        $this->it_fetches_a_single(Artwork::class, 'artworks');
+        $resource = $this->it_fetches_a_single(Artwork::class, 'artworks');
+
+        $this->assertArrayHasKeys($resource, ['lake_guid']);
 
     }
 
@@ -38,7 +42,9 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_multiple_artworks()
     {
 
-        $this->it_fetches_multiple(Artwork::class, 'artworks');
+        $resources = $this->it_fetches_multiple(Artwork::class, 'artworks');
+
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
 

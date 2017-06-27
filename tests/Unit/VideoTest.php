@@ -15,15 +15,15 @@ class VideoTest extends ApiTestCase
     public function it_fetches_all_videos()
     {
 
-        $this->it_fetches_all(Video::class, 'videos');
-        
+        $resources = $this->it_fetches_all(Video::class, 'videos');
+
     }
 
     /** @test */
     public function it_fetches_a_single_video()
     {
 
-        $this->it_fetches_a_single(Video::class, 'videos');
+        $resource = $this->it_fetches_a_single(Video::class, 'videos');
 
     }
 
@@ -31,7 +31,7 @@ class VideoTest extends ApiTestCase
     public function it_fetches_multiple_videos()
     {
 
-        $this->it_fetches_multiple(Video::class, 'videos');
+        $resources = $this->it_fetches_multiple(Video::class, 'videos');
 
     }
 

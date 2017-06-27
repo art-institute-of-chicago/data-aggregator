@@ -42,13 +42,28 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-    protected function assertArrayHasKeys($array = [], $keys = [])
+    protected function assertArrayHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
     {
 
         foreach ($keys as $key)
         {
 
-            $this->assertArrayHasKey($key, $array);
+            if ($arrayIsMultipleObjects) {
+
+                foreach ($resources as $resource)
+                {
+
+                    $this->assertArrayHasKey($key, $resource);
+
+                }
+
+            }
+            else
+            {
+
+                $this->assertArrayHasKey($key, $resources);
+
+            }
 
         }
 
@@ -70,6 +85,7 @@ abstract class ApiTestCase extends TestCase
             $this->assertArrayHasKeys($resource, ['id', 'title']);
         }
 
+        return $resources;
     }
 
     public function it_fetches_a_single($class, $endpoint)
@@ -82,6 +98,8 @@ abstract class ApiTestCase extends TestCase
 
         $resource = $response->json()['data'];
         $this->assertArrayHasKeys($resource, ['id', 'title']);
+
+        return $resource;
     }
 
     public function it_fetches_multiple($class, $endpoint)
@@ -99,6 +117,8 @@ abstract class ApiTestCase extends TestCase
         {
             $this->assertArrayHasKeys($resource, ['id', 'title']);
         }
+
+        return $resources;
     }
 
     public function it_400s($class, $endpoint)
