@@ -58,3 +58,26 @@ $factory->define(App\Membership\Event::class, function (Faker\Generator $faker) 
     );
 });
 
+$factory->define(App\Membership\Member::class, function (Faker\Generator $faker) {
+    $first = $faker->firstName;
+    $last = $faker->lastName;
+    return array_merge(
+        membershipIdsAndTitle($faker, $first .' ' .$last),
+        [
+            'first_name' => $first,
+            'last_name' => $last,
+            'street_1' => $faker->streetAddress,
+            'street_2' => $faker->secondaryAddress,
+            'city' => $faker->city,
+            'state' => $faker->state,
+            'zip' => $faker->postcode,
+            'email' => $faker->safeEmail,
+            'phone' => $faker->phoneNumber,
+            'membership_level' => $faker->randomElement(['Premium Member', 'Member Plus', 'Lions Council', 'Sustaining Fellow', 'Student']),
+            'opened_at' => $faker->dateTimeThisYear,
+            'used_at' => $faker->dateTimeThisYear,
+            'expires_at' => $faker->dateTimeThisYear,
+        ]
+    );
+});
+

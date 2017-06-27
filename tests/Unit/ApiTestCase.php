@@ -93,7 +93,7 @@ abstract class ApiTestCase extends TestCase
 
         $id = $this->make($class);
 
-        $response = $this->getJson('api/v1/' .$endpoint .'/' .$id);
+        $response = $this->getJson('api/v1/' .$endpoint .'/' .$id .'/60647');
         $response->assertSuccessful();
 
         $resource = $response->json()['data'];

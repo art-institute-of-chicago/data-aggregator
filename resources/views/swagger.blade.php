@@ -1555,6 +1555,44 @@
           }
         }
       }
+    },
+    "/api/v1/members/{id}/{zip}": {
+      "get": {
+        "tags": [
+          "members"
+        ],
+        "summary": "A single member by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id",
+            "id": {
+              "name": "zip",
+              "in": "path",
+              "type": "string",
+              "required": true
+            },
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Member"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1783,6 +1821,56 @@
           "description": "End date and time"
         },
         "last_updated": {}
+      },
+      "type": "object"
+    },
+    "Member": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "title": {
+          "description": "Name of the member"
+        },
+        "first_name": {
+          "description": "Member's first name"
+        },
+        "last_name": {
+          "description": "Member's last name"
+        },
+        "stree_1": {
+          "description": "Member's street address"
+        },
+        "street_2": {
+          "description": "Member's secondary street address"
+        },
+        "city": {
+          "description": "Member's city"
+        },
+        "state": {
+          "description": "Member's state"
+        },
+        "zip": {
+          "description": "Member's postal code"
+        },
+        "email": {
+          "description": "Member's email address"
+        },
+        "phone": {
+          "description": "Member's phone number"
+        },
+        "membership_level": {
+          "description": "Member's membership level"
+        },
+        "opened": {
+          "description": "Date the membership was created"
+        },
+        "used": {
+          "description": "Date the membership was last used"
+        },
+        "expires": {
+          "description": "Date the membership expires"
+        },
       },
       "type": "object"
     }

@@ -33,6 +33,23 @@ class CreateMembershipTables extends Migration
             $table = $this->_addDates($table);
         });
 
+        Schema::create('members', function (Blueprint $table) {
+            $table = $this->_addIdsAndTitle($table);
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('street_1')->nullable();
+            $table->string('street_2')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('zip')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('membership_level')->nullable();
+            $table->timestamp('opened_at')->nullable();
+            $table->timestamp('used_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
+        });
+
     }
 
     private function _addIdsAndTitle($table)
@@ -60,6 +77,7 @@ class CreateMembershipTables extends Migration
     {
 
         Schema::dropIfExists('events');
+        Schema::dropIfExists('members');
 
     }
 }
