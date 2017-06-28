@@ -15,10 +15,10 @@
   "host": "{{ $host }}",
   "basePath": "/api/v1",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
-    "/api/v1/artworks": {
+    "/artworks": {
       "get": {
         "tags": [
           "artworks"
@@ -57,7 +57,7 @@
         }
       }
     },
-    "/api/v1/artworks/{id}": {
+    "/artworks/{id}": {
       "get": {
         "tags": [
           "artworks"
@@ -89,7 +89,7 @@
         }
       }
     },
-    "/api/v1/artworks/{id}/artists": {
+    "/artworks/{id}/artists": {
       "get": {
         "tags": [
           "artworks"
@@ -121,7 +121,7 @@
         }
       }
     },
-    "/api/v1/artworks/{id}/copyrightRepresentatives": {
+    "/artworks/{id}/copyrightRepresentatives": {
       "get": {
         "tags": [
           "artworks"
@@ -153,7 +153,7 @@
         }
       }
     },
-    "/api/v1/artworks/{id}/categories": {
+    "/artworks/{id}/categories": {
       "get": {
         "tags": [
           "artworks"
@@ -186,7 +186,7 @@
         }
       }
     },
-    "/api/v1/artworks/{id}/parts": {
+    "/artworks/{id}/parts": {
       "get": {
         "tags": [
           "artworks"
@@ -219,7 +219,7 @@
         }
       }
     },
-    "/api/v1/artworks/{id}/sets": {
+    "/artworks/{id}/sets": {
       "get": {
         "tags": [
           "artworks"
@@ -252,7 +252,7 @@
         }
       }
     },
-    "/api/v1/artworks/{id}/images": {
+    "/artworks/{id}/images": {
       "get": {
         "tags": [
           "artworks"
@@ -285,7 +285,7 @@
         }
       }
     },
-    "/api/v1/agents": {
+    "/agents": {
       "get": {
         "tags": [
           "agents"
@@ -324,7 +324,7 @@
         }
       }
     },
-    "/api/v1/agents/{id}": {
+    "/agents/{id}": {
       "get": {
         "tags": [
           "agents"
@@ -356,7 +356,7 @@
         }
       }
     },
-    "/api/v1/artists": {
+    "/artists": {
       "get": {
         "tags": [
           "artists"
@@ -395,7 +395,7 @@
         }
       }
     },
-    "/api/v1/artists/{id}": {
+    "/artists/{id}": {
       "get": {
         "tags": [
           "artists"
@@ -427,7 +427,7 @@
         }
       }
     },
-    "/api/v1/venues": {
+    "/venues": {
       "get": {
         "tags": [
           "venues"
@@ -466,7 +466,7 @@
         }
       }
     },
-    "/api/v1/venues/{id}": {
+    "/venues/{id}": {
       "get": {
         "tags": [
           "venues"
@@ -498,7 +498,7 @@
         }
       }
     },
-    "/api/v1/departments": {
+    "/departments": {
       "get": {
         "tags": [
           "departments"
@@ -537,7 +537,7 @@
         }
       }
     },
-    "/api/v1/departments/{id}": {
+    "/departments/{id}": {
       "get": {
         "tags": [
           "departments"
@@ -569,7 +569,7 @@
         }
       }
     },
-    "/api/v1/object-types": {
+    "/object-types": {
       "get": {
         "tags": [
           "objectTypes"
@@ -608,7 +608,7 @@
         }
       }
     },
-    "/api/v1/object-types/{id}": {
+    "/object-types/{id}": {
       "get": {
         "tags": [
           "objectTypes"
@@ -640,7 +640,7 @@
         }
       }
     },
-    "/api/v1/categories": {
+    "/categories": {
       "get": {
         "tags": [
           "categories"
@@ -679,7 +679,7 @@
         }
       }
     },
-    "/api/v1/categories/{id}": {
+    "/categories/{id}": {
       "get": {
         "tags": [
           "categories"
@@ -711,7 +711,7 @@
         }
       }
     },
-    "/api/v1/agent-types": {
+    "/agent-types": {
       "get": {
         "tags": [
           "agentTypes"
@@ -750,7 +750,7 @@
         }
       }
     },
-    "/api/v1/agent-types/{id}": {
+    "/agent-types/{id}": {
       "get": {
         "tags": [
           "agentTypes"
@@ -782,7 +782,7 @@
         }
       }
     },
-    "/api/v1/galleries": {
+    "/galleries": {
       "get": {
         "tags": [
           "galleries"
@@ -821,7 +821,7 @@
         }
       }
     },
-    "/api/v1/galleries/{id}": {
+    "/galleries/{id}": {
       "get": {
         "tags": [
           "galleries"
@@ -853,7 +853,7 @@
         }
       }
     },
-    "/api/v1/exhibitions": {
+    "/exhibitions": {
       "get": {
         "tags": [
           "exhibitions"
@@ -892,7 +892,7 @@
         }
       }
     },
-    "/api/v1/exhibitions/{id}": {
+    "/exhibitions/{id}": {
       "get": {
         "tags": [
           "exhibitions"
@@ -924,7 +924,7 @@
         }
       }
     },
-    "/api/v1/exhibitions/{id}/artworks": {
+    "/exhibitions/{id}/artworks": {
       "get": {
         "tags": [
           "exhibitions"
@@ -956,7 +956,7 @@
         }
       }
     },
-    "/api/v1/exhibitions/{id}/venues": {
+    "/exhibitions/{id}/venues": {
       "get": {
         "tags": [
           "exhibitions"
@@ -988,7 +988,7 @@
         }
       }
     },
-    "/api/v1/images": {
+    "/images": {
       "get": {
         "tags": [
           "images"
@@ -1027,7 +1027,7 @@
         }
       }
     },
-    "/api/v1/images/{id}": {
+    "/images/{id}": {
       "get": {
         "tags": [
           "images"
@@ -1059,7 +1059,7 @@
         }
       }
     },
-    "/api/v1/videos": {
+    "/videos": {
       "get": {
         "tags": [
           "videos"
@@ -1098,7 +1098,7 @@
         }
       }
     },
-    "/api/v1/videos/{id}": {
+    "/videos/{id}": {
       "get": {
         "tags": [
           "videos"
@@ -1130,7 +1130,7 @@
         }
       }
     },
-    "/api/v1/links": {
+    "/links": {
       "get": {
         "tags": [
           "links"
@@ -1169,7 +1169,7 @@
         }
       }
     },
-    "/api/v1/links/{id}": {
+    "/links/{id}": {
       "get": {
         "tags": [
           "links"
@@ -1201,7 +1201,7 @@
         }
       }
     },
-    "/api/v1/sounds": {
+    "/sounds": {
       "get": {
         "tags": [
           "sounds"
@@ -1240,7 +1240,7 @@
         }
       }
     },
-    "/api/v1/sounds/{id}": {
+    "/sounds/{id}": {
       "get": {
         "tags": [
           "sounds"
@@ -1272,7 +1272,7 @@
         }
       }
     },
-    "/api/v1/texts": {
+    "/texts": {
       "get": {
         "tags": [
           "texts"
@@ -1311,7 +1311,7 @@
         }
       }
     },
-    "/api/v1/texts/{id}": {
+    "/texts/{id}": {
       "get": {
         "tags": [
           "texts"
@@ -1343,7 +1343,7 @@
         }
       }
     },
-    "/api/v1/shop-categories": {
+    "/shop-categories": {
       "get": {
         "tags": [
           "shopCategories"
@@ -1382,7 +1382,7 @@
         }
       }
     },
-    "/api/v1/shop-categories/{id}": {
+    "/shop-categories/{id}": {
       "get": {
         "tags": [
           "shopCategories"
@@ -1414,7 +1414,7 @@
         }
       }
     },
-    "/api/v1/products": {
+    "/products": {
       "get": {
         "tags": [
           "products"
@@ -1453,7 +1453,7 @@
         }
       }
     },
-    "/api/v1/products/{id}": {
+    "/products/{id}": {
       "get": {
         "tags": [
           "products"
@@ -1485,7 +1485,7 @@
         }
       }
     },
-    "/api/v1/events": {
+    "/events": {
       "get": {
         "tags": [
           "events"
@@ -1524,7 +1524,7 @@
         }
       }
     },
-    "/api/v1/events/{id}": {
+    "/events/{id}": {
       "get": {
         "tags": [
           "events"
@@ -1556,7 +1556,7 @@
         }
       }
     },
-    "/api/v1/members/{id}/{zip}": {
+    "/members/{id}/{zip}": {
       "get": {
         "tags": [
           "members"
@@ -1718,7 +1718,7 @@
           "description": "Unique identifier"
         },
         "title": {
-          "description": "Name of the department"
+          "description": "Name of the gallery"
         },
         "last_updated_lpm_fedora": {},
         "last_updated_lpm_solr": {},
@@ -1732,7 +1732,7 @@
           "description": "Unique identifier"
         },
         "title": {
-          "description": "Name of the department"
+          "description": "Name of the exhibition"
         },
         "last_updated_lpm_fedora": {},
         "last_updated_lpm_solr": {},
@@ -1746,7 +1746,7 @@
           "description": "Unique identifier"
         },
         "title": {
-          "description": "Name of the department"
+          "description": "Name of the object type"
         },
         "last_updated_lpm_fedora": {},
         "last_updated_lpm_solr": {},
@@ -1760,7 +1760,7 @@
           "description": "Unique identifier"
         },
         "title": {
-          "description": "Name of the department"
+          "description": "Name of the agent type"
         },
         "last_updated_lpm_fedora": {},
         "last_updated_lpm_solr": {},
@@ -1774,7 +1774,7 @@
           "description": "Unique identifier"
         },
         "title": {
-          "description": "Name of the department"
+          "description": "Name of the asset"
         },
         "last_updated_lpm_fedora": {},
         "last_updated_lpm_solr": {},
