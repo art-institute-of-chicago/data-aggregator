@@ -88,12 +88,12 @@ abstract class ApiTestCase extends TestCase
         return $resources;
     }
 
-    public function it_fetches_a_single($class, $endpoint)
+    public function it_fetches_a_single($class, $endpoint, $extraValue = '')
     {
 
         $id = $this->make($class);
 
-        $response = $this->getJson('api/v1/' .$endpoint .'/' .$id .'/60647');
+        $response = $this->getJson('api/v1/' .$endpoint .'/' .$id .($extraValue ? '/' .$extraValue : ''));
         $response->assertSuccessful();
 
         $resource = $response->json()['data'];

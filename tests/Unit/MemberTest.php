@@ -15,7 +15,7 @@ class MemberTest extends ApiTestCase
     public function it_fetches_a_single_member()
     {
 
-        $this->it_fetches_a_single(Member::class, 'members');
+        $this->it_fetches_a_single(Member::class, 'members', '60647');
 
     }
 
