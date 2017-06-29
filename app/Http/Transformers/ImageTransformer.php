@@ -15,13 +15,6 @@ class ImageTransformer extends AssetTransformer
     protected $availableIncludes = ['categories', 'artworks'];
 
     /**
-     * List of resources to automatically include.
-     *
-     * @var array
-     */
-    protected $defaultIncludes = [];
-
-    /**
      * Add fields to the transformation.
      *
      * @param \App\Image  $item

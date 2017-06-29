@@ -15,13 +15,6 @@ class ProductTransformer extends ApiTransformer
     protected $availableIncludes = ['categories'];
 
     /**
-     * List of resources to automatically include.
-     *
-     * @var array
-     */
-    protected $defaultIncludes = [];
-
-    /**
      * Turn this item object into a generic array.
      *
      * @param  \App\Shop\Product  $item

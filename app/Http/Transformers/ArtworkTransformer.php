@@ -16,13 +16,6 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     protected $availableIncludes = ['artists', 'categories', 'copyrightRepresentatives', 'parts', 'sets', 'dates', 'catalogues', 'committees', 'terms', 'images'];
 
-    /**
-     * List of resources to automatically include.
-     *
-     * @var array
-     */
-    protected $defaultIncludes = [];
-
     protected function transformFields($item)
     {
 

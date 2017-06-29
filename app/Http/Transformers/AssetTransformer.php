@@ -15,13 +15,6 @@ class AssetTransformer extends CollectionsTransformer
     protected $availableIncludes = ['categories'];
 
     /**
-     * List of resources to automatically include.
-     *
-     * @var array
-     */
-    protected $defaultIncludes = [];
-
-    /**
      * Turn this item object into a generic array.
      *
      * @param  \App\Asset  $item

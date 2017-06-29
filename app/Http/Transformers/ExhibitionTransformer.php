@@ -16,13 +16,6 @@ class ExhibitionTransformer extends CollectionsTransformer
      */
     protected $availableIncludes = ['artworks', 'venues'];
 
-    /**
-     * List of resources to automatically include.
-     *
-     * @var array
-     */
-    protected $defaultIncludes = [];
-
     protected function transformFields($item)
     {
 

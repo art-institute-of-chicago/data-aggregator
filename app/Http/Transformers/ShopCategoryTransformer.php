@@ -15,13 +15,6 @@ class ShopCategoryTransformer extends ApiTransformer
     protected $availableIncludes = ['children'];
 
     /**
-     * List of resources to automatically include.
-     *
-     * @var array
-     */
-    protected $defaultIncludes = [];
-
-    /**
      * Turn this item object into a generic array.
      *
      * @param  \App\Shop\ShopCategory  $item
