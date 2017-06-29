@@ -81,6 +81,7 @@ $factory->define(App\Mobile\TourStop::class, function (Faker\Generator $faker) {
             'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
             'sound_mobile_id' => $faker->randomElement(App\Mobile\Sound::all()->pluck('mobile_id')->all()),
             'weight' => $faker->randomDigit,
+            'description' => $faker->paragraph(5),
         ]
     );
 });

@@ -57,6 +57,7 @@
         }
       }
     },
+            
     "/artworks/{id}": {
       "get": {
         "tags": [
@@ -89,6 +90,7 @@
         }
       }
     },
+            
     "/artworks/{id}/artists": {
       "get": {
         "tags": [
@@ -121,6 +123,7 @@
         }
       }
     },
+            
     "/artworks/{id}/copyrightRepresentatives": {
       "get": {
         "tags": [
@@ -153,6 +156,7 @@
         }
       }
     },
+            
     "/artworks/{id}/categories": {
       "get": {
         "tags": [
@@ -186,6 +190,7 @@
         }
       }
     },
+            
     "/artworks/{id}/parts": {
       "get": {
         "tags": [
@@ -219,6 +224,7 @@
         }
       }
     },
+            
     "/artworks/{id}/sets": {
       "get": {
         "tags": [
@@ -252,6 +258,7 @@
         }
       }
     },
+            
     "/artworks/{id}/images": {
       "get": {
         "tags": [
@@ -285,6 +292,7 @@
         }
       }
     },
+            
     "/agents": {
       "get": {
         "tags": [
@@ -324,6 +332,7 @@
         }
       }
     },
+            
     "/agents/{id}": {
       "get": {
         "tags": [
@@ -356,6 +365,7 @@
         }
       }
     },
+            
     "/artists": {
       "get": {
         "tags": [
@@ -395,6 +405,7 @@
         }
       }
     },
+            
     "/artists/{id}": {
       "get": {
         "tags": [
@@ -427,6 +438,7 @@
         }
       }
     },
+            
     "/venues": {
       "get": {
         "tags": [
@@ -466,6 +478,7 @@
         }
       }
     },
+            
     "/venues/{id}": {
       "get": {
         "tags": [
@@ -498,6 +511,7 @@
         }
       }
     },
+            
     "/departments": {
       "get": {
         "tags": [
@@ -537,6 +551,7 @@
         }
       }
     },
+            
     "/departments/{id}": {
       "get": {
         "tags": [
@@ -569,6 +584,7 @@
         }
       }
     },
+            
     "/object-types": {
       "get": {
         "tags": [
@@ -608,6 +624,7 @@
         }
       }
     },
+            
     "/object-types/{id}": {
       "get": {
         "tags": [
@@ -640,6 +657,7 @@
         }
       }
     },
+
     "/categories": {
       "get": {
         "tags": [
@@ -679,6 +697,7 @@
         }
       }
     },
+            
     "/categories/{id}": {
       "get": {
         "tags": [
@@ -711,6 +730,7 @@
         }
       }
     },
+            
     "/agent-types": {
       "get": {
         "tags": [
@@ -750,6 +770,7 @@
         }
       }
     },
+            
     "/agent-types/{id}": {
       "get": {
         "tags": [
@@ -782,6 +803,7 @@
         }
       }
     },
+            
     "/galleries": {
       "get": {
         "tags": [
@@ -821,6 +843,7 @@
         }
       }
     },
+            
     "/galleries/{id}": {
       "get": {
         "tags": [
@@ -853,6 +876,7 @@
         }
       }
     },
+            
     "/exhibitions": {
       "get": {
         "tags": [
@@ -892,6 +916,7 @@
         }
       }
     },
+            
     "/exhibitions/{id}": {
       "get": {
         "tags": [
@@ -924,6 +949,7 @@
         }
       }
     },
+            
     "/exhibitions/{id}/artworks": {
       "get": {
         "tags": [
@@ -956,6 +982,7 @@
         }
       }
     },
+            
     "/exhibitions/{id}/venues": {
       "get": {
         "tags": [
@@ -988,6 +1015,7 @@
         }
       }
     },
+            
     "/images": {
       "get": {
         "tags": [
@@ -1027,6 +1055,7 @@
         }
       }
     },
+            
     "/images/{id}": {
       "get": {
         "tags": [
@@ -1059,6 +1088,7 @@
         }
       }
     },
+            
     "/videos": {
       "get": {
         "tags": [
@@ -1098,6 +1128,7 @@
         }
       }
     },
+            
     "/videos/{id}": {
       "get": {
         "tags": [
@@ -1130,6 +1161,7 @@
         }
       }
     },
+            
     "/links": {
       "get": {
         "tags": [
@@ -1169,6 +1201,7 @@
         }
       }
     },
+            
     "/links/{id}": {
       "get": {
         "tags": [
@@ -1201,6 +1234,7 @@
         }
       }
     },
+            
     "/sounds": {
       "get": {
         "tags": [
@@ -1240,6 +1274,7 @@
         }
       }
     },
+            
     "/sounds/{id}": {
       "get": {
         "tags": [
@@ -1272,6 +1307,7 @@
         }
       }
     },
+            
     "/texts": {
       "get": {
         "tags": [
@@ -1311,6 +1347,7 @@
         }
       }
     },
+            
     "/texts/{id}": {
       "get": {
         "tags": [
@@ -1343,6 +1380,7 @@
         }
       }
     },
+            
     "/shop-categories": {
       "get": {
         "tags": [
@@ -1382,6 +1420,7 @@
         }
       }
     },
+            
     "/shop-categories/{id}": {
       "get": {
         "tags": [
@@ -1414,6 +1453,7 @@
         }
       }
     },
+            
     "/products": {
       "get": {
         "tags": [
@@ -1453,6 +1493,7 @@
         }
       }
     },
+            
     "/products/{id}": {
       "get": {
         "tags": [
@@ -1485,6 +1526,7 @@
         }
       }
     },
+            
     "/events": {
       "get": {
         "tags": [
@@ -1524,6 +1566,7 @@
         }
       }
     },
+            
     "/events/{id}": {
       "get": {
         "tags": [
@@ -1556,6 +1599,7 @@
         }
       }
     },
+            
     "/members/{id}/{zip}": {
       "get": {
         "tags": [
@@ -1594,6 +1638,153 @@
         }
       }
     }
+
+    "/tours": {
+      "get": {
+        "tags": [
+          "events"
+        ],
+        "summary": "A list of all tours sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Tour"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+            
+    "/tours/{id}": {
+      "get": {
+        "tags": [
+          "tours"
+        ],
+        "summary": "A single tour by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Tour"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/mobile-sounds": {
+      "get": {
+        "tags": [
+          "mobileSounds"
+        ],
+        "summary": "A list of all mobile sounds sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MobileSound"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+            
+    "/mobile-sounds/{id}": {
+      "get": {
+        "tags": [
+          "mobileSounds"
+        ],
+        "summary": "A single mobile sounds by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/MobileSound"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
   },
   "definitions": {
     "Error": {
@@ -1614,6 +1805,7 @@
         }
       }
     },
+            
     "Artwork": {
       "properties": {
         "id": {
@@ -1654,6 +1846,7 @@
       },
       "type": "object"
     },
+
     "Agent": {
       "properties": {
         "id": {
@@ -1670,6 +1863,7 @@
       },
       "type": "object"
     },
+            
     "Category": {
       "properties": {
         "id": {
@@ -1684,6 +1878,7 @@
       },
       "type": "object"
     },
+            
     "Image": {
       "properties": {
         "id": {
@@ -1698,6 +1893,7 @@
       },
       "type": "object"
     },
+            
     "Department": {
       "properties": {
         "id": {
@@ -1712,6 +1908,7 @@
       },
       "type": "object"
     },
+            
     "Gallery": {
       "properties": {
         "id": {
@@ -1726,6 +1923,7 @@
       },
       "type": "object"
     },
+            
     "Exhibition": {
       "properties": {
         "id": {
@@ -1740,6 +1938,7 @@
       },
       "type": "object"
     },
+            
     "ObjectType": {
       "properties": {
         "id": {
@@ -1754,6 +1953,7 @@
       },
       "type": "object"
     },
+            
     "AgentType": {
       "properties": {
         "id": {
@@ -1768,6 +1968,7 @@
       },
       "type": "object"
     },
+            
     "Asset": {
       "properties": {
         "id": {
@@ -1782,6 +1983,7 @@
       },
       "type": "object"
     },
+            
     "ShopCategory": {
       "properties": {
         "id": {
@@ -1794,6 +1996,7 @@
       },
       "type": "object"
     },
+            
     "Product": {
       "properties": {
         "id": {
@@ -1806,6 +2009,7 @@
       },
       "type": "object"
     },
+            
     "Event": {
       "properties": {
         "id": {
@@ -1824,6 +2028,7 @@
       },
       "type": "object"
     },
+            
     "Member": {
       "properties": {
         "id": {
@@ -1838,7 +2043,7 @@
         "last_name": {
           "description": "Member's last name"
         },
-        "stree_1": {
+        "street_1": {
           "description": "Member's street address"
         },
         "street_2": {
@@ -1873,7 +2078,56 @@
         },
       },
       "type": "object"
+    },
+
+    "Tour": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "title": {
+          "description": "Name of the tour"
+        },
+        "image": {
+          "description": "URL to an image representing this tour"
+        },
+        "description": {
+          "description": "Description of the tour"
+        },
+        "intro": {
+          "description": "Text of the introduction to the tour"
+        },
+        "weight": {
+          "description": "Sort order for the tour in a list"
+        },
+        "intro_link": {
+          "description": "URL to the audio for the introduction"
+        },
+        "intro_transcript": {
+          "description": "Transcript of the intro audio"
+        }
+      },
+      "type": "object"
+    },
+
+    "MobileSound": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "title": {
+          "description": "Name of the mobile tour audio"
+        },
+        "transcript": {
+          "description": "Transcript of the intro audio"
+        },
+        "link": {
+          "description": "URL to the audio of the this tour stop"
+        }
+      },
+      "type": "object"
     }
+
   },
   "parameters": {
     "id": {

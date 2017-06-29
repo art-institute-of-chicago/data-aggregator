@@ -61,6 +61,7 @@ class CreateMobileAppTables extends Migration
             $table->integer('sound_mobile_id');
             $table->foreign('sound_mobile_id')->references('mobile_id')->on('mobile_app_sounds')->onDelete('cascade');
             $table->integer('weight')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
 
