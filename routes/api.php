@@ -78,4 +78,10 @@ Route::group(['prefix' => 'v1'], function()
 
     Route::get('members/{id}/{zip}', 'MembersController@show');
 
+    Route::get('tours', 'ToursController@index');
+    Route::get('tours/{id}', 'ToursController@show');
+
+    Route::get('mobile-sounds', 'MobileSoundsController@index');
+    Route::get('mobile-sounds/{id}', 'MobileSoundsController@show');
+
 });

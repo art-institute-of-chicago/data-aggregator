@@ -107,4 +107,25 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function mobileArtwork()
+    {
+
+        return $this->hasOne('App\Mobile\Artwork');
+
+    }
+
+    public function mobileSounds()
+    {
+
+        return $this->belongsToMany('App\Mobile\Sound', 'artwork_mobile_app_sound', 'artwork_citi_id', 'mobile_app_sound_mobile_id');
+
+    }
+
+    public function tourStops()
+    {
+
+        return $this->hasMany('App\Mobile\TourStop');
+
+    }
+
 }

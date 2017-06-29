@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Shop;
+namespace App\Mobile;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ShopModel extends Model
+class MobileModel extends Model
 {
 
     public $incrementing = false;
-    protected $primaryKey = 'shop_id';
+    protected $primaryKey = 'mobile_id';
     protected $dates = ['api_created_at', 'api_modified_at'];
 
 }

@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->_seedCollectionsData();
         $this->_seedShopData();
         $this->_seedMembershipData();
+        $this->_seedMobileData();
 
     }
 
@@ -42,6 +43,7 @@ class DatabaseSeeder extends Seeder
         $this->_cleanCollectionsData();
         $this->_cleanShopData();
         $this->_cleanMembershipData();
+        $this->_cleanMobileData();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
@@ -127,6 +129,24 @@ class DatabaseSeeder extends Seeder
     {
 
         App\Membership\Event::truncate();
+
+    }
+
+    private function _seedMobileData()
+    {
+        
+        $this->call(MobileArtworksTableSeeder::class);
+        $this->call(MobileSoundsTableSeeder::class);
+        $this->call(ToursTableSeeder::class);
+
+    }
+
+    private function _cleanMobileData()
+    {
+
+        App\Mobile\Artwork::truncate();
+        App\Mobile\Sound::truncate();
+        App\Mobile\Tour::truncate();
 
     }
 

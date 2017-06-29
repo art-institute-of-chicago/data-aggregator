@@ -26,45 +26,70 @@ class ArtworkTransformer extends CollectionsTransformer
     protected function transformFields($item)
     {
 
-        return [
-            'main_reference_number' => $item->main_id,
-            'date_start' => $item->date_start,
-            'date_end' => $item->date_end,
-            'date_display' => $item->date_display,
-            'description' => $item->description,
-            'agent_display' => $item->agent_display,
-            'department' => $item->department()->getResults() ? $item->department()->getResults()->title : '',
-            'department_id' => $item->department_citi_id,
-            'dimensions' => $item->dimensions,
-            'medium' => $item->medium_display,
-            'inscriptions' => $item->inscriptions,
-            'object_type' => $item->objectType()->getResults() ? $item->objectType()->getResults()->title : '',
-            'object_type_id' => $item->object_type_citi_id,
-            'credit_line' => $item->credit_line,
-            'publication_history' => $item->publications,
-            'exhibition_history' => $item->exhibitions,
-            'provenance_text' => $item->provenance,
-            'publishing_verification_level' => $item->publishing_verification_level,
-            'is_public_domain' => (bool) $item->is_public_domain,
-            'copyright_notice' => $item->copyright_notice,
-            'place_of_origin' => $item->place_of_origin,
-            'collection_status' => $item->collection_status,
-            'gallery' => $item->gallery()->getResults() ? $item->gallery()->getResults()->title : '',
-            'gallery_id' => $item->gallery_citi_id,
-            'is_in_gallery' => $item->gallery_citi_id ? true : false,
-            'artist_ids' => $item->artists->pluck('citi_id')->all(),
-            'category_ids' => $item->categories->pluck('lake_guid')->all(),
-            'copyright_representative_ids' => $item->copyrightRepresentatives->pluck('citi_id')->all(),
-            'part_ids' => $item->parts->pluck('citi_id')->all(),
-            'set_ids' => $item->sets->pluck('citi_id')->all(),
-            'date_dates' => $item->dates->pluck('date')->transform(function ($item, $key) {
-                return $item->toDateString();
-            })->all(),
-            'catalogue_titles' => $item->catalogues->pluck('catalogue')->all(),
-            'committee_titles' => $item->committees->pluck('committee')->all(),
-            'term_titles' => $item->terms->pluck('term')->all(),
-            'image_urls' => $item->images->pluck('iiif_url')->all(),
-        ];
+        return array_merge(
+            [
+                'main_reference_number' => $item->main_id,
+                'date_start' => $item->date_start,
+                'date_end' => $item->date_end,
+                'date_display' => $item->date_display,
+                'description' => $item->description,
+                'agent_display' => $item->agent_display,
+                'department' => $item->department ? $item->department->title : NULL,
+                'department_id' => $item->department_citi_id,
+                'dimensions' => $item->dimensions,
+                'medium' => $item->medium_display,
+                'inscriptions' => $item->inscriptions,
+                'object_type' => $item->objectType ? $item->objectType->title : NULL,
+                'object_type_id' => $item->object_type_citi_id,
+                'credit_line' => $item->credit_line,
+                'publication_history' => $item->publications,
+                'exhibition_history' => $item->exhibitions,
+                'provenance_text' => $item->provenance,
+                'publishing_verification_level' => $item->publishing_verification_level,
+                'is_public_domain' => (bool) $item->is_public_domain,
+                'copyright_notice' => $item->copyright_notice,
+                'place_of_origin' => $item->place_of_origin,
+                'collection_status' => $item->collection_status,
+                'gallery' => $item->gallery ? $item->gallery->title : '',
+                'gallery_id' => $item->gallery_citi_id,
+                'is_in_gallery' => $item->gallery_citi_id ? true : false,
+            ],
+            $this->_addMobileArtworkFields($item),
+            [
+                'artist_ids' => $item->artists->pluck('citi_id')->all(),
+                'category_ids' => $item->categories->pluck('lake_guid')->all(),
+                'copyright_representative_ids' => $item->copyrightRepresentatives->pluck('citi_id')->all(),
+                'part_ids' => $item->parts->pluck('citi_id')->all(),
+                'set_ids' => $item->sets->pluck('citi_id')->all(),
+                'date_dates' => $item->dates->pluck('date')->transform(function ($item, $key) {
+                    return $item->toDateString();
+                })->all(),
+                'catalogue_titles' => $item->catalogues->pluck('catalogue')->all(),
+                'committee_titles' => $item->committees->pluck('committee')->all(),
+                'term_titles' => $item->terms->pluck('term')->all(),
+                'image_urls' => $item->images->pluck('iiif_url')->all(),
+            ]
+        );
+
+    }
+
+    private function _addMobileArtworkFields($item)
+    {
+
+        if ($item->mobileArtwork) {
+
+            return [
+
+                'latitude' => $item->mobileArtwork->latitude,
+                'longitude' => $item->mobileArtwork->longitude,
+                'hightlight_in_mobile' => (bool) $item->mobileArtwork->highlighted,
+                'selector_number' => $item->mobileArtwork->selector_number,
+
+            ];
+
+        }
+
+        return [];
 
     }
 
