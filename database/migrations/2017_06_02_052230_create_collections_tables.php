@@ -45,7 +45,7 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addIdsAndTitle($table);
             $table->text('description')->nullable();
             $table->boolean('is_in_nav')->nullable();
-            $table->integer('parent_id')->nullable();
+            $table->string('parent_id')->nullable();
             $table->integer('sort')->nullable();
             $table->integer('type')->nullable();
             $table = $this->_addDates($table);

@@ -106,7 +106,7 @@ $factory->define(App\Collections\Category::class, function (Faker\Generator $fak
         [
             'description' => $faker->paragraph(3),
             'is_in_nav' => $faker->boolean,
-            'parent_id' => $faker->unique()->randomNumber(3),
+            'parent_id' => $faker->randomElement(App\Collections\Category::all()->pluck('lake_guid')->all()),
             'sort' => $faker->randomDigit * 5,
             'type' => $faker->randomDigit,
         ],
