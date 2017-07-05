@@ -52,4 +52,16 @@ class ApiController extends Controller
         return false;
     }
 
+    public function isDscId($id)
+    {
+
+        $dscFormat = '/^[a-z]{2,3}-[0-9]+-[0-9]+$/i';
+
+        if (preg_match($dscFormat, $id))
+        {
+            return true;
+        }
+        return false;
+    }
+
 }

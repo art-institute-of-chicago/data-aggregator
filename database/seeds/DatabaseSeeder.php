@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->_seedShopData();
         $this->_seedMembershipData();
         $this->_seedMobileData();
+        $this->_seedDscData();
 
     }
 
@@ -44,6 +45,7 @@ class DatabaseSeeder extends Seeder
         $this->_cleanShopData();
         $this->_cleanMembershipData();
         $this->_cleanMobileData();
+        $this->_cleanDscData();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
@@ -147,6 +149,32 @@ class DatabaseSeeder extends Seeder
         App\Mobile\Artwork::truncate();
         App\Mobile\Sound::truncate();
         App\Mobile\Tour::truncate();
+
+    }
+
+    private function _seedDscData()
+    {
+        
+        $this->call(PublicationsTableSeeder::class);
+        $this->call(TitlePagesTableSeeder::class);
+        $this->call(SectionsTableSeeder::class);
+        $this->call(WorkOfArtsTableSeeder::class);
+        $this->call(FootnotesTableSeeder::class);
+        $this->call(FiguresTableSeeder::class);
+        $this->call(CollectorsTableSeeder::class);
+
+    }
+
+    private function _cleanDscData()
+    {
+
+        App\Dsc\Publication::truncate();
+        App\Dsc\TitlePage::truncate();
+        App\Dsc\Section::truncate();
+        App\Dsc\WorkOfArt::truncate();
+        App\Dsc\Footnote::truncate();
+        App\Dsc\Figure::truncate();
+        App\Dsc\Collector::truncate();
 
     }
 

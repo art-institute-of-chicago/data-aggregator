@@ -21,7 +21,8 @@
     "/artworks": {
       "get": {
         "tags": [
-          "artworks"
+            "artworks",
+            "collections"
         ],
         "summary": "A list of all artworks sorted by last updated date in descending order",
         "produces": [
@@ -61,7 +62,8 @@
     "/artworks/{id}": {
       "get": {
         "tags": [
-          "artworks"
+            "artworks",
+            "collections"
         ],
         "summary": "A single artwork by the given identifier",
         "produces": [
@@ -94,7 +96,8 @@
     "/artworks/{id}/artists": {
       "get": {
         "tags": [
-          "artworks"
+            "artworks",
+            "collections"
         ],
         "summary": "The artists for a given artwork",
         "produces": [
@@ -127,7 +130,8 @@
     "/artworks/{id}/copyrightRepresentatives": {
       "get": {
         "tags": [
-          "artworks"
+            "artworks",
+            "collections"
         ],
         "summary": "The copyright representatives for a given artwork",
         "produces": [
@@ -160,7 +164,8 @@
     "/artworks/{id}/categories": {
       "get": {
         "tags": [
-          "artworks"
+            "artworks",
+            "collections"
         ],
         "summary": "A list of all publish categories for a given artwork",
         "produces": [
@@ -194,7 +199,8 @@
     "/artworks/{id}/parts": {
       "get": {
         "tags": [
-          "artworks"
+            "artworks",
+            "collections"
         ],
         "summary": "A list of all parts for a given artwork",
         "produces": [
@@ -228,7 +234,8 @@
     "/artworks/{id}/sets": {
       "get": {
         "tags": [
-          "artworks"
+            "artworks",
+            "collections"
         ],
         "summary": "A list of all sets for a given artwork",
         "produces": [
@@ -262,7 +269,8 @@
     "/artworks/{id}/images": {
       "get": {
         "tags": [
-          "artworks"
+            "artworks",
+            "collections"
         ],
         "summary": "A list of all images for a given artwork",
         "produces": [
@@ -296,7 +304,8 @@
     "/agents": {
       "get": {
         "tags": [
-          "agents"
+            "agents",
+            "collections"
         ],
         "summary": "A list of all agents sorted by last updated date in descending order",
         "produces": [
@@ -336,7 +345,8 @@
     "/agents/{id}": {
       "get": {
         "tags": [
-          "agents"
+            "agents",
+            "collections"
         ],
         "summary": "A single agent by the given identifier",
         "produces": [
@@ -369,7 +379,8 @@
     "/artists": {
       "get": {
         "tags": [
-          "artists"
+            "artists",
+            "collections"
         ],
         "summary": "A list of all artists sorted by last updated date in descending order",
         "produces": [
@@ -409,7 +420,8 @@
     "/artists/{id}": {
       "get": {
         "tags": [
-          "artists"
+            "artists",
+            "collections"
         ],
         "summary": "A single artist by the given identifier",
         "produces": [
@@ -442,7 +454,8 @@
     "/venues": {
       "get": {
         "tags": [
-          "venues"
+            "venues",
+            "collections"
         ],
         "summary": "A list of all venues sorted by last updated date in descending order",
         "produces": [
@@ -482,7 +495,8 @@
     "/venues/{id}": {
       "get": {
         "tags": [
-          "venues"
+            "venues",
+            "collections"
         ],
         "summary": "A single venue by the given identifier",
         "produces": [
@@ -515,7 +529,8 @@
     "/departments": {
       "get": {
         "tags": [
-          "departments"
+            "departments",
+            "collections"
         ],
         "summary": "A list of all departments sorted by last updated date in descending order",
         "produces": [
@@ -555,7 +570,8 @@
     "/departments/{id}": {
       "get": {
         "tags": [
-          "departments"
+            "departments",
+            "collections"
         ],
         "summary": "A single department by the given identifier",
         "produces": [
@@ -588,7 +604,8 @@
     "/object-types": {
       "get": {
         "tags": [
-          "objectTypes"
+            "objectTypes",
+            "collections"
         ],
         "summary": "A list of all object types sorted by last updated date in descending order",
         "produces": [
@@ -628,7 +645,8 @@
     "/object-types/{id}": {
       "get": {
         "tags": [
-          "objectTypes"
+            "objectTypes",
+            "collections"
         ],
         "summary": "A single object type by the given identifier",
         "produces": [
@@ -661,7 +679,8 @@
     "/categories": {
       "get": {
         "tags": [
-          "categories"
+            "categories",
+            "collections"
         ],
         "summary": "A list of all publish categories sorted by last updated date in descending order",
         "produces": [
@@ -701,7 +720,8 @@
     "/categories/{id}": {
       "get": {
         "tags": [
-          "categories"
+            "categories",
+            "collections"
         ],
         "summary": "A single category by the given identifier",
         "produces": [
@@ -734,7 +754,8 @@
     "/agent-types": {
       "get": {
         "tags": [
-          "agentTypes"
+            "agentTypes",
+            "collections"
         ],
         "summary": "A list of all agent types sorted by last updated date in descending order",
         "produces": [
@@ -774,7 +795,8 @@
     "/agent-types/{id}": {
       "get": {
         "tags": [
-          "agentTypes"
+            "agentTypes",
+            "collections"
         ],
         "summary": "A single agent type by the given identifier",
         "produces": [
@@ -807,7 +829,8 @@
     "/galleries": {
       "get": {
         "tags": [
-          "galleries"
+            "galleries",
+            "collections"
         ],
         "summary": "A list of all galleries sorted by last updated date in descending order",
         "produces": [
@@ -847,7 +870,8 @@
     "/galleries/{id}": {
       "get": {
         "tags": [
-          "galleries"
+            "galleries",
+            "collections"
         ],
         "summary": "A single gallery by the given identifier",
         "produces": [
@@ -880,7 +904,8 @@
     "/exhibitions": {
       "get": {
         "tags": [
-          "exhibitions"
+            "exhibitions",
+            "collections"
         ],
         "summary": "A list of all exhibitions sorted by last updated date in descending order",
         "produces": [
@@ -920,7 +945,8 @@
     "/exhibitions/{id}": {
       "get": {
         "tags": [
-          "exhibitions"
+            "exhibitions",
+            "collections"
         ],
         "summary": "A single exhibition by the given identifier",
         "produces": [
@@ -953,7 +979,8 @@
     "/exhibitions/{id}/artworks": {
       "get": {
         "tags": [
-          "exhibitions"
+            "exhibitions",
+            "collections"
         ],
         "summary": "The artworks for a given exhibition",
         "produces": [
@@ -986,7 +1013,8 @@
     "/exhibitions/{id}/venues": {
       "get": {
         "tags": [
-          "exhibitions"
+            "exhibitions",
+            "collections"
         ],
         "summary": "The venues for a given exhibition",
         "produces": [
@@ -1019,7 +1047,8 @@
     "/images": {
       "get": {
         "tags": [
-          "images"
+            "images",
+            "collections"
         ],
         "summary": "A list of all images sorted by last updated date in descending order",
         "produces": [
@@ -1059,7 +1088,8 @@
     "/images/{id}": {
       "get": {
         "tags": [
-          "images"
+            "images",
+            "collections"
         ],
         "summary": "A single image by the given identifier",
         "produces": [
@@ -1092,7 +1122,8 @@
     "/videos": {
       "get": {
         "tags": [
-          "videos"
+            "videos",
+            "collections"
         ],
         "summary": "A list of all videos sorted by last updated date in descending order",
         "produces": [
@@ -1132,7 +1163,8 @@
     "/videos/{id}": {
       "get": {
         "tags": [
-          "videos"
+            "videos",
+            "collections"
         ],
         "summary": "A single video by the given identifier",
         "produces": [
@@ -1165,7 +1197,8 @@
     "/links": {
       "get": {
         "tags": [
-          "links"
+            "links",
+            "collections"
         ],
         "summary": "A list of all links sorted by last updated date in descending order",
         "produces": [
@@ -1205,7 +1238,8 @@
     "/links/{id}": {
       "get": {
         "tags": [
-          "links"
+            "links",
+            "collections"
         ],
         "summary": "A single link by the given identifier",
         "produces": [
@@ -1238,7 +1272,8 @@
     "/sounds": {
       "get": {
         "tags": [
-          "sounds"
+            "sounds",
+            "collections"
         ],
         "summary": "A list of all sounds sorted by last updated date in descending order",
         "produces": [
@@ -1278,7 +1313,8 @@
     "/sounds/{id}": {
       "get": {
         "tags": [
-          "sounds"
+            "sounds",
+            "collections"
         ],
         "summary": "A single sound by the given identifier",
         "produces": [
@@ -1311,7 +1347,8 @@
     "/texts": {
       "get": {
         "tags": [
-          "texts"
+            "texts",
+            "collections"
         ],
         "summary": "A list of all texts sorted by last updated date in descending order",
         "produces": [
@@ -1351,7 +1388,8 @@
     "/texts/{id}": {
       "get": {
         "tags": [
-          "texts"
+            "texts",
+            "collections"
         ],
         "summary": "A single text by the given identifier",
         "produces": [
@@ -1384,7 +1422,8 @@
     "/shop-categories": {
       "get": {
         "tags": [
-          "shopCategories"
+            "shopCategories",
+            "shop"
         ],
         "summary": "A list of all shop categories sorted by last updated date in descending order",
         "produces": [
@@ -1424,7 +1463,8 @@
     "/shop-categories/{id}": {
       "get": {
         "tags": [
-          "shopCategories"
+            "shopCategories",
+            "shop"
         ],
         "summary": "A single shop category by the given identifier",
         "produces": [
@@ -1457,7 +1497,8 @@
     "/products": {
       "get": {
         "tags": [
-          "products"
+            "products",
+            "shop"
         ],
         "summary": "A list of all products sorted by last updated date in descending order",
         "produces": [
@@ -1497,7 +1538,8 @@
     "/products/{id}": {
       "get": {
         "tags": [
-          "products"
+            "products",
+            "shop"
         ],
         "summary": "A single product by the given identifier",
         "produces": [
@@ -1530,7 +1572,8 @@
     "/events": {
       "get": {
         "tags": [
-          "events"
+            "events",
+            "members-event"
         ],
         "summary": "A list of all events sorted by last updated date in descending order",
         "produces": [
@@ -1570,7 +1613,8 @@
     "/events/{id}": {
       "get": {
         "tags": [
-          "events"
+            "events",
+            "members-event"
         ],
         "summary": "A single event by the given identifier",
         "produces": [
@@ -1603,7 +1647,8 @@
     "/members/{id}/{zip}": {
       "get": {
         "tags": [
-          "members"
+            "members",
+            "members-event"
         ],
         "summary": "A single member by the given identifier",
         "produces": [
@@ -1642,7 +1687,8 @@
     "/tours": {
       "get": {
         "tags": [
-          "events"
+            "tours",
+            "mobile-app"
         ],
         "summary": "A list of all tours sorted by last updated date in descending order",
         "produces": [
@@ -1682,7 +1728,8 @@
     "/tours/{id}": {
       "get": {
         "tags": [
-          "tours"
+            "tours",
+            "mobile-app"
         ],
         "summary": "A single tour by the given identifier",
         "produces": [
@@ -1715,7 +1762,8 @@
     "/mobile-sounds": {
       "get": {
         "tags": [
-          "mobileSounds"
+            "mobileSounds",
+            "mobile-app"
         ],
         "summary": "A list of all mobile sounds sorted by last updated date in descending order",
         "produces": [
@@ -1755,7 +1803,8 @@
     "/mobile-sounds/{id}": {
       "get": {
         "tags": [
-          "mobileSounds"
+            "mobileSounds",
+            "mobile-app"
         ],
         "summary": "A single mobile sounds by the given identifier",
         "produces": [
@@ -1784,6 +1833,531 @@
         }
       }
     },
+
+    "/publications": {
+      "get": {
+        "tags": [
+            "publications",
+            "dsc"
+        ],
+        "summary": "A list of all publications sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Publication"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+            
+    "/publications/{id}": {
+      "get": {
+        "tags": [
+            "publications",
+            "dsc"
+        ],
+        "summary": "A single publication by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Publication"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/title-pages": {
+      "get": {
+        "tags": [
+            "title-pages",
+            "dsc"
+        ],
+        "summary": "A list of all title pages sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TitlePage"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+            
+    "/title-pages/{id}": {
+      "get": {
+        "tags": [
+            "title-pages",
+            "dsc"
+        ],
+        "summary": "A single title page by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/TitlePage"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/sections": {
+      "get": {
+        "tags": [
+            "section",
+            "dsc"
+        ],
+        "summary": "A list of all sections sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Section"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+            
+    "/sections/{id}": {
+      "get": {
+        "tags": [
+            "sections",
+            "dsc"
+        ],
+        "summary": "A single section by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Section"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/works-of-art": {
+      "get": {
+        "tags": [
+            "works-of-art",
+            "dsc"
+        ],
+        "summary": "A list of all works of art sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WorkOfArt"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+            
+    "/works-of-art/{id}": {
+      "get": {
+        "tags": [
+            "works-of-art",
+            "dsc"
+        ],
+        "summary": "A single work of art by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/WorkOfArt"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/footnotes": {
+      "get": {
+        "tags": [
+            "footnotes",
+            "dsc"
+        ],
+        "summary": "A list of all footnotes sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Footnote"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+            
+    "/footnotes/{id}": {
+      "get": {
+        "tags": [
+            "footnote",
+            "dsc"
+        ],
+        "summary": "A single footnote by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Footnote"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/figures": {
+      "get": {
+        "tags": [
+            "figures",
+            "dsc"
+        ],
+        "summary": "A list of all figures sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Figure"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+            
+    "/figures/{id}": {
+      "get": {
+        "tags": [
+            "figure",
+            "dsc"
+        ],
+        "summary": "A single figure by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Figure"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/collectors": {
+      "get": {
+        "tags": [
+            "collectors",
+            "dsc"
+        ],
+        "summary": "A list of all collectors sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Collector"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+            
+    "/collectors/{id}": {
+      "get": {
+        "tags": [
+            "collector",
+            "dsc"
+        ],
+        "summary": "A single collector by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Collector"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
 
   },
   "definitions": {
@@ -2124,6 +2698,153 @@
         "link": {
           "description": "URL to the audio of the this tour stop"
         }
+      },
+      "type": "object"
+    },
+
+    "Publication": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "title": {
+          "description": "Name of the publication"
+        },
+        "link": {
+          "description": "URL to the publication"
+        },
+      },
+      "type": "object"
+    },
+
+    "TitlePage": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "content": {
+          "description": "Page content"
+        },
+        "publication": {
+          "description": "Name of the publication this page belongs to"
+        },
+        "publication_id": {
+          "description": "Unique identifier of the publication this page belongs to"
+        },
+      },
+      "type": "object"
+    },
+
+    "Section": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "content": {
+          "description": "Section content"
+        },
+        "weight": {
+          "description": "Sort order of this section"
+        },
+        "depth": {
+          "description": "How far below the previous section this on sits. Used for creating hierarchy."
+        },
+        "publication": {
+          "description": "Name of the publication this page belongs to"
+        },
+        "publication_id": {
+          "description": "Unique identifier of the publication this page belongs to"
+        },
+      },
+      "type": "object"
+    },
+
+    "WorkOfArt": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "content": {
+          "description": "Text content about this work of art"
+        },
+        "weight": {
+          "description": "Sort order of this section"
+        },
+        "depth": {
+          "description": "How far below the previous section this on sits. Used for creating hierarchy."
+        },
+        "publication": {
+          "description": "Name of the publication this page belongs to"
+        },
+        "publication_id": {
+          "description": "Unique identifier of the publication this page belongs to"
+        },
+        "artwork": {
+          "description": "Name of the artwork this section describes"
+        },
+        "artwork_id": {
+          "description": "Unique identifier of the artwork this section describes"
+        },
+      },
+      "type": "object"
+    },
+
+    "Footnote": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "content": {
+          "description": "Text content about this footnote"
+        },
+        "section": {
+          "description": "Name of the section this footnote belongs to"
+        },
+        "section_id": {
+          "description": "Unique identifier of the section this footnote belongs to"
+        },
+      },
+      "type": "object"
+    },
+
+    "Figure": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "content": {
+          "description": "Text content of this figure"
+        },
+        "section": {
+          "description": "Name of the section this figure belongs to"
+        },
+        "section_id": {
+          "description": "Unique identifier of the section this figure belongs to"
+        },
+      },
+      "type": "object"
+    },
+
+    "Collector": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "content": {
+          "description": "Text content about this collector"
+        },
+        "weight": {
+          "description": "Sort order of this section"
+        },
+        "depth": {
+          "description": "How far below the previous section this one sits. Used for creating hierarchy."
+        },
+        "publication": {
+          "description": "Name of the publication this section belongs to"
+        },
+        "publication_id": {
+          "description": "Unique identifier of the publication this section belongs to"
+        },
       },
       "type": "object"
     }

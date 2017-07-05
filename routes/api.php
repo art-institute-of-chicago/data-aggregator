@@ -20,6 +20,7 @@ Route::group(['prefix' => 'v1'], function()
         return response(view('swagger', ['host' => parse_url(config('app.url'), PHP_URL_HOST)]), 200, ['Content-Type' => 'application/json']);
     });
 
+    // Collections
     Route::get('artworks', 'ArtworksController@index');
     Route::get('artworks/{id}', 'ArtworksController@show');
     Route::get('artworks/{id}/artists', 'ArtistsController@index');
@@ -67,21 +68,46 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('texts', 'TextsController@index');
     Route::get('texts/{id}', 'TextsController@show');
 
+    // Shop
     Route::get('shop-categories', 'ShopCategoriesController@index');
     Route::get('shop-categories/{id}', 'ShopCategoriesController@show');
 
     Route::get('products', 'ProductsController@index');
     Route::get('products/{id}', 'ProductsController@show');
 
+    // Membership/Events
     Route::get('events', 'EventsController@index');
     Route::get('events/{id}', 'EventsController@show');
 
     Route::get('members/{id}/{zip}', 'MembersController@show');
 
+    // Mobile App
     Route::get('tours', 'ToursController@index');
     Route::get('tours/{id}', 'ToursController@show');
 
     Route::get('mobile-sounds', 'MobileSoundsController@index');
     Route::get('mobile-sounds/{id}', 'MobileSoundsController@show');
+
+    //DSC
+    Route::get('publications', 'PublicationsController@index');
+    Route::get('publications/{id}', 'PublicationsController@show');
+
+    Route::get('title-pages', 'TitlePagesController@index');
+    Route::get('title-pages/{id}', 'TitlePagesController@show');
+
+    Route::get('sections', 'SectionsController@index');
+    Route::get('sections/{id}', 'SectionsController@show');
+
+    Route::get('works-of-art', 'WorksOfArtController@index');
+    Route::get('works-of-art/{id}', 'WorksOfArtController@show');
+
+    Route::get('footnotes', 'FootnotesController@index');
+    Route::get('footnotes/{id}', 'FootnotesController@show');
+
+    Route::get('figures', 'FiguresController@index');
+    Route::get('figures/{id}', 'FiguresController@show');
+
+    Route::get('collectors', 'CollectorsController@index');
+    Route::get('collectors/{id}', 'CollectorsController@show');
 
 });
