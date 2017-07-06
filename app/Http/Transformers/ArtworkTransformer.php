@@ -14,7 +14,7 @@ class ArtworkTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['artists', 'categories', 'copyrightRepresentatives', 'parts', 'sets', 'dates', 'catalogues', 'committees', 'terms', 'images'];
+    protected $availableIncludes = ['artists', 'categories', 'copyrightRepresentatives', 'parts', 'sets', 'dates', 'catalogues', 'committees', 'terms', 'images', 'publications', 'tours'];
 
     protected function transformFields($item)
     {
@@ -35,8 +35,8 @@ class ArtworkTransformer extends CollectionsTransformer
                 'object_type' => $item->objectType ? $item->objectType->title : NULL,
                 'object_type_id' => $item->object_type_citi_id,
                 'credit_line' => $item->credit_line,
-                'publication_history' => $item->publications,
-                'exhibition_history' => $item->exhibitions,
+                'publication_history' => $item->publication_history,
+                'exhibition_history' => $item->exhibition_history,
                 'provenance_text' => $item->provenance,
                 'publishing_verification_level' => $item->publishing_verification_level,
                 'is_public_domain' => (bool) $item->is_public_domain,
@@ -61,6 +61,8 @@ class ArtworkTransformer extends CollectionsTransformer
                 'committee_titles' => $item->committees->pluck('committee')->all(),
                 'term_titles' => $item->terms->pluck('term')->all(),
                 'image_urls' => $item->images->pluck('iiif_url')->all(),
+                'publication_ids' => $item->publications->pluck('dsc_id')->all(),
+                'tour_ids' => $item->tours->pluck('mobile_id')->all(),
             ]
         );
 
@@ -195,6 +197,27 @@ class ArtworkTransformer extends CollectionsTransformer
     public function includeImages(Artwork $artwork)
     {
         return $this->collection($artwork->images()->getResults(), new ImageTransformer, false);
+    }
+
+    /**
+     * Include publications.
+     *
+     * @param  \App\Collections\Artwork  $artwork
+     * @return League\Fractal\ItemResource
+     */
+    public function includePublications(Artwork $artwork)
+    {
+        return $this->collection($artwork->publications()->getResults(), new PublicationTransformer, false);
+    }
+    /**
+     * Include tours.
+     *
+     * @param  \App\Collections\Artwork  $artwork
+     * @return League\Fractal\ItemResource
+     */
+    public function includeTours(Artwork $artwork)
+    {
+        return $this->collection($artwork->tours()->getResults(), new TourTransformer, false);
     }
 
 }

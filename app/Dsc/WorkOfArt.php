@@ -5,6 +5,8 @@ namespace App\Dsc;
 class WorkOfArt extends DscModel
 {
 
+    public $table = 'works_of_art';
+
     /**
      * The attributes that are mass assignable.
      *

@@ -81,8 +81,8 @@ class CreateCollectionsTables extends Migration
             $table->string('medium')->nullable();
             $table->string('credit_line')->nullable();
             $table->string('inscriptions')->nullable();
-            $table->text('publications')->nullable();
-            $table->text('exhibitions')->nullable();
+            $table->text('publication_history')->nullable();
+            $table->text('exhibition_history')->nullable();
             $table->text('provenance')->nullable();
             $table->string('publishing_verification_level')->nullable();
             $table->boolean('is_public_domain')->nullable();

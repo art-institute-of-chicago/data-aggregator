@@ -38,7 +38,7 @@ class CreateDscTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('work_of_arts', function (Blueprint $table) {
+        Schema::create('works_of_art', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->text('content');
             $table->integer('publication_dsc_id');
@@ -125,7 +125,7 @@ class CreateDscTables extends Migration
         Schema::dropIfExists('figure_vectors');
         Schema::dropIfExists('figures');
         Schema::dropIfExists('footnotes');
-        Schema::dropIfExists('work_of_arts');
+        Schema::dropIfExists('works_of_art');
         Schema::dropIfExists('title_pages');
         Schema::dropIfExists('sections');
         Schema::dropIfExists('publications');

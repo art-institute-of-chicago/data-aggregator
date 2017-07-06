@@ -128,4 +128,18 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function tours()
+    {
+
+        return $this->belongsToMany('App\Mobile\Tour', 'tour_stops');
+
+    }
+
+    public function publications()
+    {
+
+        return $this->belongsToMany('App\Dsc\Publication', 'works_of_art');
+
+    }
+
 }
