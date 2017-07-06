@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->_seedMembershipData();
         $this->_seedMobileData();
         $this->_seedDscData();
+        $this->_seedStaticArchiveData();
 
     }
 
@@ -46,6 +47,7 @@ class DatabaseSeeder extends Seeder
         $this->_cleanMembershipData();
         $this->_cleanMobileData();
         $this->_cleanDscData();
+        $this->_cleanStaticArchiveData();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
@@ -175,6 +177,20 @@ class DatabaseSeeder extends Seeder
         App\Dsc\Footnote::truncate();
         App\Dsc\Figure::truncate();
         App\Dsc\Collector::truncate();
+
+    }
+
+    private function _seedStaticArchiveData()
+    {
+        
+        $this->call(SitesTableSeeder::class);
+
+    }
+
+    private function _cleanStaticArchiveData()
+    {
+
+        App\StaticArchive\Site::truncate();
 
     }
 
