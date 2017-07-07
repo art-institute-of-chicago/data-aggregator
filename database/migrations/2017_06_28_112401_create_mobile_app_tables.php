@@ -77,8 +77,8 @@ class CreateMobileAppTables extends Migration
 
     private function _addDates($table, $citiField = true)
     {
-        $table->timestamp('api_created_at')->nullable()->useCurrent();
-        $table->timestamp('api_modified_at')->nullable()->useCurrent();
+        $table->timestamp('source_created_at')->nullable()->useCurrent();
+        $table->timestamp('source_modified_at')->nullable()->useCurrent();
         $table->timestamps();
         return $table;
     }

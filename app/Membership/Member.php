@@ -5,7 +5,7 @@ namespace App\Membership;
 class Member extends MembershipModel
 {
 
-    protected $dates = ['api_created_at', 'api_modified_at', 'api_indexed_at', 'opened_at', 'used_at', 'expires_at'];
+    protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'opened_at', 'used_at', 'expires_at'];
 
     /**
      * Indicates if the model should be timestamped.

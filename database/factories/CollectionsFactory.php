@@ -40,9 +40,9 @@ if (!function_exists('idsAndTitle'))
     {
                                                         
         $ret = [
-            'api_created_at' => $faker->dateTimeThisYear,
-            'api_modified_at' => $faker->dateTimeThisYear,
-            'api_indexed_at' => $faker->dateTimeThisYear,
+            'source_created_at' => $faker->dateTimeThisYear,
+            'source_modified_at' => $faker->dateTimeThisYear,
+            'source_indexed_at' => $faker->dateTimeThisYear,
         ];
 
         if ($citiField)

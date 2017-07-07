@@ -8,7 +8,7 @@ class Site extends Model
 {
 
     protected $primaryKey = 'site_id';
-    protected $dates = ['api_created_at', 'api_modified_at'];
+    protected $dates = ['source_created_at', 'source_modified_at'];
 
     /**
      * The attributes that are mass assignable.

@@ -5,7 +5,7 @@ namespace App\Collections;
 class ArtworkCatalogue extends CollectionsModel
 {
 
-    protected $dates = ['api_created_at', 'api_modified_at', 'api_indexed_at'];
+    protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
 
     /**
      * The attributes that are mass assignable.

@@ -21,8 +21,8 @@ class CreateStaticArchiveTables extends Migration
             $table->string('link')->nullable();
             $table->integer('exhibition_citi_id');
             $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
-            $table->timestamp('api_created_at')->nullable()->useCurrent();
-            $table->timestamp('api_modified_at')->nullable()->useCurrent();
+            $table->timestamp('source_created_at')->nullable()->useCurrent();
+            $table->timestamp('source_modified_at')->nullable()->useCurrent();
             $table->timestamps();
         });
 

@@ -328,9 +328,9 @@ class CreateCollectionsTables extends Migration
 
     private function _addDates($table, $citiField = true)
     {
-        $table->timestamp('api_created_at')->nullable()->useCurrent();
-        $table->timestamp('api_modified_at')->nullable()->useCurrent();
-        $table->timestamp('api_indexed_at')->nullable()->useCurrent();
+        $table->timestamp('source_created_at')->nullable()->useCurrent();
+        $table->timestamp('source_modified_at')->nullable()->useCurrent();
+        $table->timestamp('source_indexed_at')->nullable()->useCurrent();
 
         if ($citiField)
         {

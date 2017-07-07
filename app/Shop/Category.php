@@ -7,7 +7,7 @@ class Category extends ShopModel
 
     public $incrementing = false;
     protected $primaryKey = 'shop_id';
-    protected $dates = ['api_created_at', 'api_modified_at', 'api_indexed_at'];
+    protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
     public $table = 'shop_categories';
 
     /**

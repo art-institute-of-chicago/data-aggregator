@@ -33,7 +33,7 @@ class DscTransformer extends ApiTransformer
         }
 
         return [
-            'last_updated_source' => $item->api_modified_at->toDateTimeString(),
+            'last_updated_source' => $item->source_modified_at->toDateTimeString(),
             'last_updated' => $item->updated_at->toDateTimeString(),
         ];
 

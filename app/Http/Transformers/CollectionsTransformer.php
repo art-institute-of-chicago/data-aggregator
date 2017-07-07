@@ -65,8 +65,8 @@ class CollectionsTransformer extends ApiTransformer
         return array_merge(
             $ret,
             [
-                'last_updated_fedora' => $item->api_modified_at->toDateTimeString(),
-                'last_updated_source' => $item->api_indexed_at->toDateTimeString(),
+                'last_updated_fedora' => $item->source_modified_at->toDateTimeString(),
+                'last_updated_source' => $item->source_indexed_at->toDateTimeString(),
                 'last_updated' => $item->updated_at->toDateTimeString(),
             ]
         );

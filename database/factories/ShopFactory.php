@@ -26,8 +26,8 @@ if (!function_exists('shopIdsAndTitle'))
     {
                                                         
         return [
-            'api_created_at' => $faker->dateTimeThisYear,
-            'api_modified_at' => $faker->dateTimeThisYear,
+            'source_created_at' => $faker->dateTimeThisYear,
+            'source_modified_at' => $faker->dateTimeThisYear,
         ];
 
     }
