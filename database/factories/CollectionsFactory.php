@@ -117,7 +117,7 @@ $factory->define(App\Collections\Category::class, function (Faker\Generator $fak
 
 $factory->define(App\Collections\Artwork::class, function (Faker\Generator $faker) {
     $date_end = $faker->year;
-    $artist = factory(App\Collections\Agent::Class)->create(['agent_type_citi_id' => App\Collections\AgentType::where('title', '=', 'Artist')->first()->citi_id]);
+    $artist = $faker->randomElement(App\Collections\Artist::all()->all());
     return array_merge(
         idsAndTitle($faker, ucwords($faker->words(4, true)), true, 6),
         [

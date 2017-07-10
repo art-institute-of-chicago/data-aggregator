@@ -70,17 +70,17 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('artworks', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+            $table = $this->_addIdsAndTitle($table, true, 'text');
             $table->string('main_id')->nullable();
             $table->string('date_display')->nullable();
             $table->integer('date_start')->nullable();
             $table->integer('date_end')->nullable();
             $table->text('description')->nullable();
-            $table->string('artist_display')->nullable();
-            $table->string('dimensions')->nullable();
-            $table->string('medium')->nullable();
-            $table->string('credit_line')->nullable();
-            $table->string('inscriptions')->nullable();
+            $table->text('artist_display')->nullable();
+            $table->text('dimensions')->nullable();
+            $table->text('medium')->nullable();
+            $table->text('credit_line')->nullable();
+            $table->text('inscriptions')->nullable();
             $table->text('publication_history')->nullable();
             $table->text('exhibition_history')->nullable();
             $table->text('provenance')->nullable();
@@ -304,7 +304,7 @@ class CreateCollectionsTables extends Migration
         
     }
 
-    private function _addIdsAndTitle($table, $citiField = true)
+    private function _addIdsAndTitle($table, $citiField = true, $titleField = 'string')
     {
 
         if ($citiField)
@@ -321,7 +321,7 @@ class CreateCollectionsTables extends Migration
 
         }
             
-        $table->string('title');
+        $table->{$titleField}('title');
         $table->string('lake_uri')->unique()->nullable();
         return $table;
     }

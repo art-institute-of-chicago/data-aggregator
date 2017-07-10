@@ -15,7 +15,7 @@ class Artwork extends CollectionsModel
      * @var array
      */
     protected $fillable = ['citi_id', 'title', 'lake_guid', 'lake_uri', 'main_id'];
-    
+
     public function artists()
     {
 
