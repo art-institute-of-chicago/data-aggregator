@@ -58,7 +58,7 @@
         }
       }
     },
-            
+
     "/artworks/{id}": {
       "get": {
         "tags": [
@@ -92,7 +92,7 @@
         }
       }
     },
-            
+
     "/artworks/{id}/artists": {
       "get": {
         "tags": [
@@ -126,7 +126,7 @@
         }
       }
     },
-            
+
     "/artworks/{id}/copyrightRepresentatives": {
       "get": {
         "tags": [
@@ -160,7 +160,7 @@
         }
       }
     },
-            
+
     "/artworks/{id}/categories": {
       "get": {
         "tags": [
@@ -195,7 +195,7 @@
         }
       }
     },
-            
+
     "/artworks/{id}/parts": {
       "get": {
         "tags": [
@@ -230,7 +230,7 @@
         }
       }
     },
-            
+
     "/artworks/{id}/sets": {
       "get": {
         "tags": [
@@ -265,7 +265,7 @@
         }
       }
     },
-            
+
     "/artworks/{id}/images": {
       "get": {
         "tags": [
@@ -300,7 +300,7 @@
         }
       }
     },
-            
+
     "/agents": {
       "get": {
         "tags": [
@@ -341,7 +341,7 @@
         }
       }
     },
-            
+
     "/agents/{id}": {
       "get": {
         "tags": [
@@ -375,7 +375,7 @@
         }
       }
     },
-            
+
     "/artists": {
       "get": {
         "tags": [
@@ -416,7 +416,7 @@
         }
       }
     },
-            
+
     "/artists/{id}": {
       "get": {
         "tags": [
@@ -450,7 +450,7 @@
         }
       }
     },
-            
+
     "/venues": {
       "get": {
         "tags": [
@@ -491,7 +491,7 @@
         }
       }
     },
-            
+
     "/venues/{id}": {
       "get": {
         "tags": [
@@ -525,7 +525,7 @@
         }
       }
     },
-            
+
     "/departments": {
       "get": {
         "tags": [
@@ -566,7 +566,7 @@
         }
       }
     },
-            
+
     "/departments/{id}": {
       "get": {
         "tags": [
@@ -600,7 +600,7 @@
         }
       }
     },
-            
+
     "/object-types": {
       "get": {
         "tags": [
@@ -641,7 +641,7 @@
         }
       }
     },
-            
+
     "/object-types/{id}": {
       "get": {
         "tags": [
@@ -716,7 +716,7 @@
         }
       }
     },
-            
+
     "/categories/{id}": {
       "get": {
         "tags": [
@@ -750,7 +750,7 @@
         }
       }
     },
-            
+
     "/agent-types": {
       "get": {
         "tags": [
@@ -791,7 +791,7 @@
         }
       }
     },
-            
+
     "/agent-types/{id}": {
       "get": {
         "tags": [
@@ -825,7 +825,7 @@
         }
       }
     },
-            
+
     "/galleries": {
       "get": {
         "tags": [
@@ -866,7 +866,7 @@
         }
       }
     },
-            
+
     "/galleries/{id}": {
       "get": {
         "tags": [
@@ -900,7 +900,7 @@
         }
       }
     },
-            
+
     "/exhibitions": {
       "get": {
         "tags": [
@@ -941,7 +941,7 @@
         }
       }
     },
-            
+
     "/exhibitions/{id}": {
       "get": {
         "tags": [
@@ -975,7 +975,7 @@
         }
       }
     },
-            
+
     "/exhibitions/{id}/artworks": {
       "get": {
         "tags": [
@@ -1009,7 +1009,7 @@
         }
       }
     },
-            
+
     "/exhibitions/{id}/venues": {
       "get": {
         "tags": [
@@ -1043,7 +1043,7 @@
         }
       }
     },
-            
+
     "/images": {
       "get": {
         "tags": [
@@ -1084,7 +1084,7 @@
         }
       }
     },
-            
+
     "/images/{id}": {
       "get": {
         "tags": [
@@ -1118,7 +1118,7 @@
         }
       }
     },
-            
+
     "/videos": {
       "get": {
         "tags": [
@@ -1159,7 +1159,7 @@
         }
       }
     },
-            
+
     "/videos/{id}": {
       "get": {
         "tags": [
@@ -1193,7 +1193,7 @@
         }
       }
     },
-            
+
     "/links": {
       "get": {
         "tags": [
@@ -1234,7 +1234,7 @@
         }
       }
     },
-            
+
     "/links/{id}": {
       "get": {
         "tags": [
@@ -1268,7 +1268,7 @@
         }
       }
     },
-            
+
     "/sounds": {
       "get": {
         "tags": [
@@ -1309,7 +1309,7 @@
         }
       }
     },
-            
+
     "/sounds/{id}": {
       "get": {
         "tags": [
@@ -1343,7 +1343,7 @@
         }
       }
     },
-            
+
     "/texts": {
       "get": {
         "tags": [
@@ -1384,7 +1384,7 @@
         }
       }
     },
-            
+
     "/texts/{id}": {
       "get": {
         "tags": [
@@ -1418,7 +1418,7 @@
         }
       }
     },
-            
+
     "/shop-categories": {
       "get": {
         "tags": [
@@ -1459,7 +1459,7 @@
         }
       }
     },
-            
+
     "/shop-categories/{id}": {
       "get": {
         "tags": [
@@ -1493,7 +1493,7 @@
         }
       }
     },
-            
+
     "/products": {
       "get": {
         "tags": [
@@ -1534,7 +1534,7 @@
         }
       }
     },
-            
+
     "/products/{id}": {
       "get": {
         "tags": [
@@ -1568,7 +1568,7 @@
         }
       }
     },
-            
+
     "/events": {
       "get": {
         "tags": [
@@ -1609,7 +1609,7 @@
         }
       }
     },
-            
+
     "/events/{id}": {
       "get": {
         "tags": [
@@ -1643,7 +1643,7 @@
         }
       }
     },
-            
+
     "/members/{id}/{zip}": {
       "get": {
         "tags": [
@@ -1662,7 +1662,7 @@
               "in": "path",
               "type": "string",
               "required": true
-            },
+            }
           }
         ],
         "responses": {
@@ -1682,7 +1682,7 @@
           }
         }
       }
-    }
+    },
 
     "/tours": {
       "get": {
@@ -1724,7 +1724,7 @@
         }
       }
     },
-            
+
     "/tours/{id}": {
       "get": {
         "tags": [
@@ -1799,7 +1799,7 @@
         }
       }
     },
-            
+
     "/mobile-sounds/{id}": {
       "get": {
         "tags": [
@@ -1874,7 +1874,7 @@
         }
       }
     },
-            
+
     "/publications/{id}": {
       "get": {
         "tags": [
@@ -1949,7 +1949,7 @@
         }
       }
     },
-            
+
     "/title-pages/{id}": {
       "get": {
         "tags": [
@@ -2024,7 +2024,7 @@
         }
       }
     },
-            
+
     "/sections/{id}": {
       "get": {
         "tags": [
@@ -2099,7 +2099,7 @@
         }
       }
     },
-            
+
     "/works-of-art/{id}": {
       "get": {
         "tags": [
@@ -2174,7 +2174,7 @@
         }
       }
     },
-            
+
     "/footnotes/{id}": {
       "get": {
         "tags": [
@@ -2249,7 +2249,7 @@
         }
       }
     },
-            
+
     "/figures/{id}": {
       "get": {
         "tags": [
@@ -2324,7 +2324,7 @@
         }
       }
     },
-            
+
     "/collectors/{id}": {
       "get": {
         "tags": [
@@ -2379,7 +2379,7 @@
         }
       }
     },
-            
+
     "Artwork": {
       "properties": {
         "id": {
@@ -2437,7 +2437,7 @@
       },
       "type": "object"
     },
-            
+
     "Category": {
       "properties": {
         "id": {
@@ -2452,7 +2452,7 @@
       },
       "type": "object"
     },
-            
+
     "Image": {
       "properties": {
         "id": {
@@ -2467,7 +2467,7 @@
       },
       "type": "object"
     },
-            
+
     "Department": {
       "properties": {
         "id": {
@@ -2482,7 +2482,7 @@
       },
       "type": "object"
     },
-            
+
     "Gallery": {
       "properties": {
         "id": {
@@ -2497,7 +2497,7 @@
       },
       "type": "object"
     },
-            
+
     "Exhibition": {
       "properties": {
         "id": {
@@ -2512,7 +2512,7 @@
       },
       "type": "object"
     },
-            
+
     "ObjectType": {
       "properties": {
         "id": {
@@ -2527,7 +2527,7 @@
       },
       "type": "object"
     },
-            
+
     "AgentType": {
       "properties": {
         "id": {
@@ -2542,7 +2542,7 @@
       },
       "type": "object"
     },
-            
+
     "Asset": {
       "properties": {
         "id": {
@@ -2557,7 +2557,7 @@
       },
       "type": "object"
     },
-            
+
     "ShopCategory": {
       "properties": {
         "id": {
@@ -2570,7 +2570,7 @@
       },
       "type": "object"
     },
-            
+
     "Product": {
       "properties": {
         "id": {
@@ -2583,7 +2583,7 @@
       },
       "type": "object"
     },
-            
+
     "Event": {
       "properties": {
         "id": {
@@ -2602,7 +2602,7 @@
       },
       "type": "object"
     },
-            
+
     "Member": {
       "properties": {
         "id": {
@@ -2649,7 +2649,7 @@
         },
         "expires": {
           "description": "Date the membership expires"
-        },
+        }
       },
       "type": "object"
     },
@@ -2712,7 +2712,7 @@
         },
         "link": {
           "description": "URL to the publication"
-        },
+        }
       },
       "type": "object"
     },
@@ -2730,7 +2730,7 @@
         },
         "publication_id": {
           "description": "Unique identifier of the publication this page belongs to"
-        },
+        }
       },
       "type": "object"
     },
@@ -2754,7 +2754,7 @@
         },
         "publication_id": {
           "description": "Unique identifier of the publication this page belongs to"
-        },
+        }
       },
       "type": "object"
     },
@@ -2784,7 +2784,7 @@
         },
         "artwork_id": {
           "description": "Unique identifier of the artwork this section describes"
-        },
+        }
       },
       "type": "object"
     },
@@ -2802,7 +2802,7 @@
         },
         "section_id": {
           "description": "Unique identifier of the section this footnote belongs to"
-        },
+        }
       },
       "type": "object"
     },
@@ -2820,7 +2820,7 @@
         },
         "section_id": {
           "description": "Unique identifier of the section this figure belongs to"
-        },
+        }
       },
       "type": "object"
     },
@@ -2844,7 +2844,7 @@
         },
         "publication_id": {
           "description": "Unique identifier of the publication this section belongs to"
-        },
+        }
       },
       "type": "object"
     }
