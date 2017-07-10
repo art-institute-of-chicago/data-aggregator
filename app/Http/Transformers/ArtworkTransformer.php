@@ -77,7 +77,7 @@ class ArtworkTransformer extends CollectionsTransformer
 
                 'latitude' => $item->mobileArtwork->latitude,
                 'longitude' => $item->mobileArtwork->longitude,
-                'hightlight_in_mobile' => (bool) $item->mobileArtwork->highlighted,
+                'highlight_in_mobile' => (bool) $item->mobileArtwork->highlighted,
                 'selector_number' => $item->mobileArtwork->selector_number,
 
             ];
