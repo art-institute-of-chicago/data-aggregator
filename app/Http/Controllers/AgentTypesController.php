@@ -35,7 +35,7 @@ class AgentTypesController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many agent types. Please set a smaller limit.');
 
-        $all = AgentType::paginate();
+        $all = AgentType::paginate($limit);
         return response()->collection($all, new \App\Http\Transformers\AgentTypeTransformer);
 
     }

@@ -41,7 +41,7 @@ class ObjectTypesController extends ApiController
         }
         else
         {
-            $all = ObjectType::paginate();
+            $all = ObjectType::paginate($limit);
             return response()->collection($all, new \App\Http\Transformers\ObjectTypeTransformer);
         }
     }

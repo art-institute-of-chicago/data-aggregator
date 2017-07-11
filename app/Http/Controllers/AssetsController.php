@@ -46,7 +46,7 @@ class AssetsController extends ApiController
 
         $attr = str_plural(strtolower($this->type));
         $type = 'App\Collections\\' .$this->type;
-        $all = $artworkId ? Artwork::findOrFail($artworkId)->$attr : $type::paginate();
+        $all = $artworkId ? Artwork::findOrFail($artworkId)->$attr : $type::paginate($limit);
 
         $transformer = $this->transformer();
         return response()->collection($all, new $transformer);

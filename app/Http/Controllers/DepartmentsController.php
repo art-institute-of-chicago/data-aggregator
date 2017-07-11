@@ -41,7 +41,7 @@ class DepartmentsController extends ApiController
         }
         else
         {
-            $all = Department::paginate();
+            $all = Department::paginate($limit);
             return response()->collection($all, new \App\Http\Transformers\DepartmentTransformer);
         }
     }

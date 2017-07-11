@@ -35,7 +35,7 @@ class ShopCategoriesController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many artworks. Please set a smaller limit.');
         
-        $all = Category::paginate();
+        $all = Category::paginate($limit);
         return response()->collection($all, new \App\Http\Transformers\ShopCategoryTransformer);
 
     }

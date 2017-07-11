@@ -35,7 +35,7 @@ class SitesController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many sites. Please set a smaller limit.');
         
-        $all = Site::paginate();
+        $all = Site::paginate($limit);
         return response()->collection($all, new \App\Http\Transformers\SiteTransformer);
 
     }

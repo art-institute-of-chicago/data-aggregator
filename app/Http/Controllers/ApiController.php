@@ -14,7 +14,7 @@ class ApiController extends Controller
     public $manager;
 
     const LIMIT_MAX = 1000;
-    
+
     public function respondNotFound($message = 'Not found', $detail = 'The item you requested cannot be found.')
     {
         return response()->error($message, $detail, Response::HTTP_NOT_FOUND);

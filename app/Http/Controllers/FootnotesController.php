@@ -34,7 +34,7 @@ class FootnotesController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many footnotes. Please set a smaller limit.');
 
-        $all = Footnote::paginate();
+        $all = Footnote::paginate($limit);
         return response()->collection($all, new \App\Http\Transformers\FootnoteTransformer);
 
     }

@@ -35,7 +35,7 @@ class MobileSoundsController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many sounds. Please set a smaller limit.');
         
-        $all = Sound::paginate();
+        $all = Sound::paginate($limit);
         return response()->collection($all, new \App\Http\Transformers\MobileSoundTransformer);
 
     }

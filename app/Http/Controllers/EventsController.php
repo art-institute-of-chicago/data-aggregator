@@ -35,7 +35,7 @@ class EventsController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many events. Please set a smaller limit.');
         
-        $all = Event::paginate();
+        $all = Event::paginate($limit);
         return response()->collection($all, new \App\Http\Transformers\EventTransformer);
 
     }
