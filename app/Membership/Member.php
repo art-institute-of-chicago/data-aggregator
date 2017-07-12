@@ -15,13 +15,6 @@ class Member extends MembershipModel
     public $timestamps = false;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['membership_id', 'title'];
-
-    /**
      * Override `find` method
      */
     public function __call($method, $parameters)

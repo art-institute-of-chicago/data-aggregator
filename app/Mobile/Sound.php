@@ -12,13 +12,6 @@ class Sound extends MobileModel
      */
     protected $table = 'mobile_app_sounds';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['mobile_id', 'title'];
-
     public function artworks()
     {
 

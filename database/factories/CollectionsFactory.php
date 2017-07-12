@@ -117,7 +117,7 @@ $factory->define(App\Collections\Category::class, function (Faker\Generator $fak
 
 $factory->define(App\Collections\Artwork::class, function (Faker\Generator $faker) {
     $date_end = $faker->year;
-    $artist = $faker->randomElement(App\Collections\Artist::all()->all());
+    $artist = App\Collections\Agent::where('agent_type_citi_id', App\Collections\AgentType::where('title', 'Artist')->first()->citi_id)->get()->random();
     return array_merge(
         idsAndTitle($faker, ucwords($faker->words(4, true)), true, 6),
         [
@@ -134,7 +134,7 @@ $factory->define(App\Collections\Artwork::class, function (Faker\Generator $fake
             'publication_history' => $faker->paragraph(5),
             'exhibition_history' => $faker->paragraph(5),
             'provenance' => $faker->paragraph(5),
-            'publishing_verification_level' => $faker->randomElement(['Web Basic', 'Web Cataloged']),
+            'publishing_verification_level' => $faker->randomElement(['Web Basic', 'Web Cataloged', 'Web Everything']),
             'is_public_domain' => $faker->boolean,
             'copyright_notice' => '© ' .$faker->year .' ' .ucfirst($faker->words(3, true)),
             'place_of_origin' => $faker->country,

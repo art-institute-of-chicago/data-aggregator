@@ -7,13 +7,6 @@ class WorkOfArt extends DscModel
 
     public $table = 'works_of_art';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['dsc_id', 'title'];
-
     public function publication()
     {
 

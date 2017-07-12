@@ -15,11 +15,11 @@ class CreateStaticArchiveTables extends Migration
     {
 
         Schema::create('sites', function (Blueprint $table) {
-            $table->integer('site_id')->unique()->primary();
+            $table->integer('site_id')->unsigned()->unique()->primary();
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('link')->nullable();
-            $table->integer('exhibition_citi_id');
+            $table->integer('exhibition_citi_id')->unsigned()->index();
             $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
             $table->timestamp('source_created_at')->nullable()->useCurrent();
             $table->timestamp('source_modified_at')->nullable()->useCurrent();
@@ -28,9 +28,9 @@ class CreateStaticArchiveTables extends Migration
 
         Schema::create('artwork_site', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('artwork_citi_id');
+            $table->integer('artwork_citi_id')->unsigned()->index();
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
-            $table->integer('site_site_id');
+            $table->integer('site_site_id')->unsigned()->index();
             $table->foreign('site_site_id')->references('site_id')->on('sites')->onDelete('cascade');
         });
 

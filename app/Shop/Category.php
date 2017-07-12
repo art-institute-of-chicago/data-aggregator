@@ -9,13 +9,6 @@ class Category extends ShopModel
     protected $primaryKey = 'shop_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
     public $table = 'shop_categories';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['shop_id', 'title', 'link', 'type', 'source_id'];
     
 
     public function parent()

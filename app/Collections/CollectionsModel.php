@@ -7,10 +7,43 @@ use Illuminate\Database\Eloquent\Model;
 class CollectionsModel extends Model
 {
 
+    public static $staticInstance;
+
+    public $faker;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    public static function instance()
+    {
+
+        if ( is_null( self::$staticInstance ) )
+        {
+
+            self::$staticInstance = new static;
+
+        }
+        return self::$staticInstance;
+
+    }
+
+    function __construct($attributes = array())
+    {
+        parent::__construct($attributes);
+
+        $this->faker = \Faker\Factory::create();
+
+    }
+
     public static function findOrCreate($id)
     {
 
-        return static::firstOrCreate([(new static)->getKeyName() => $id], factory(static::class)->make()->getAttributes());
+        $model = static::find($id);
+        return $model ?: static::create([static::instance()->getKeyName() => $id]);
 
     }
 
@@ -21,14 +54,78 @@ class CollectionsModel extends Model
         case 'artists':
             return \App\Collections\Agent::class;
             break;
-        case 'departments':
-            return \App\Collections\Department::class;
+        case 'venues':
+            return \App\Collections\Agent::class;
             break;
-        case 'artworks':
-            return \App\Collections\Artwork::class;
+        default:
+            return '\App\Collections\\' .studly_case(str_singular($endpoint));
             break;
         }
 
     }
 
+    private function fillIdsAndTitleFrom($source)
+    {
+
+        $fill = [];
+        
+        if ($this->getKeyName() == 'citi_id')
+        {
+
+            $fill['citi_id'] = $source->id;
+            $fill['lake_guid'] = $source->lake_guid;
+
+        }
+        else
+        {
+
+            $fill['lake_guid'] = $source->id;
+
+        }
+            
+        $fill['title'] = $source->title;
+        $fill['lake_uri'] = $source->lake_uri;
+
+        $this->fill($fill);
+
+        return $this;
+
+    }
+
+    private function fillDatesFrom($source)
+    {
+
+        $fill = [];
+
+        $fill['source_created_at'] = strtotime($source->created_at);
+        $fill['source_modified_at'] = strtotime($source->modified_at);
+        $fill['source_indexed_at'] = strtotime($source->indexed_at);
+
+        if ($this->getKeyName() == 'citi_id')
+        {
+
+            //$fill['citi_created_at'] = ;
+            //$fill['citi_modified_at'] = ;
+
+        }
+
+        $this->fill($fill);
+
+        return $this;
+
+    }
+
+    public function fillFrom($source)
+    {
+        $this->fillIdsAndTitleFrom($source)
+            ->fill($this->getFillFieldsFrom($source))
+            ->fillDatesFrom($source);
+    }
+
+    public function getFillFieldsFrom($source)
+    {
+
+        return [];
+
+    }
 }

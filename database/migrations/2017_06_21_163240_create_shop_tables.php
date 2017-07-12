@@ -18,9 +18,9 @@ class CreateShopTables extends Migration
         Schema::create('shop_categories', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('link')->nullable();
-            $table->integer('parent_category_shop_id')->nullable();
+            $table->integer('parent_category_shop_id')->unsigned()->index()->nullable();
             $table->string('type')->nullable();
-            $table->integer('source_id')->nullable();
+            $table->integer('source_id')->nullable()->unsigned()->index();
             $table = $this->_addDates($table);
         });
 
@@ -46,9 +46,9 @@ class CreateShopTables extends Migration
 
         Schema::create('product_shop_category', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_shop_id');
+            $table->integer('product_shop_id')->unsigned()->index();
             $table->foreign('product_shop_id')->references('shop_id')->on('products')->onDelete('cascade');
-            $table->integer('category_shop_id');
+            $table->integer('category_shop_id')->unsigned()->index();
             $table->foreign('category_shop_id')->references('shop_id')->on('shop_categories')->onDelete('cascade');
         });
 
@@ -57,7 +57,7 @@ class CreateShopTables extends Migration
     private function _addIdsAndTitle($table)
     {
 
-        $table->integer('shop_id')->unique()->primary();
+        $table->integer('shop_id')->unsigned()->unique()->primary();
         $table->string('title');
         return $table;
     }

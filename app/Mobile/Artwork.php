@@ -12,13 +12,6 @@ class Artwork extends MobileModel
      */
     protected $table = 'mobile_app_artworks';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['mobile_id', 'title'];
-
     public function artwork()
     {
 

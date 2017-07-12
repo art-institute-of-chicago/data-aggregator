@@ -55,7 +55,7 @@ class CreateMembershipTables extends Migration
     private function _addIdsAndTitle($table)
     {
 
-        $table->integer('membership_id')->unique()->primary();
+        $table->integer('membership_id')->unsigned()->unique()->primary();
         $table->string('title');
         return $table;
     }

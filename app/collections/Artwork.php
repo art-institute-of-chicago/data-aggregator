@@ -9,13 +9,6 @@ class Artwork extends CollectionsModel
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['citi_id', 'title', 'lake_guid', 'lake_uri', 'main_id'];
-
     public function artists()
     {
 
@@ -139,6 +132,40 @@ class Artwork extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Dsc\Publication', 'works_of_art');
+
+    }
+
+    public function getFillFieldsFrom($source)
+    {
+
+        return [
+            'citi_id' => $source->id,
+            'lake_guid' => $source->lake_guid,
+            'main_id' => $source->main_id,
+            'date_display' => $source->date_display,
+            'date_start' => $source->date_start,
+            'date_end' => $source->date_end,
+            'artist_display' => $source->creator_display,
+            'dimensions' => $source->dimensions,
+            'medium' => $source->medium,
+            'credit_line' => $source->credit_line,
+            'inscriptions' => $source->inscriptions,
+            'publication_history' => $source->publications,
+            'exhibition_history' => $source->exhibitions,
+            'provenance' => $source->provenance,
+            'description' => 'fake ' .$this->faker->paragraphs(5, true),
+            'publishing_verification_level' => 'fake ' .$this->faker->randomElement(['Web Basic', 'Web Cataloged', 'Web Everything']),
+            'is_public_domain' => $this->faker->boolean,
+            'copyright_notice' => $source->copyright,
+            'place_of_origin' => 'fake ' .$this->faker->country,
+            'collection_status' => 'fake ' .$this->faker->randomElement(['Permanent Collection', 'Long-term Loan']),
+            'department_citi_id' => $source->department_id,
+            //'object_type_citi_id' => ,
+            //'gallery_citi_id' => ,
+            'source_created_at' => strtotime($source->created_at),
+            'source_modified_at' => strtotime($source->modified_at),
+            'source_indexed_at' => strtotime($source->indexed_at),
+        ];
 
     }
 

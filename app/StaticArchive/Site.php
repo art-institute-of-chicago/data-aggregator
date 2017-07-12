@@ -11,11 +11,11 @@ class Site extends Model
     protected $dates = ['source_created_at', 'source_modified_at'];
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['title', 'link'];
+    protected $guarded = [];
 
     public function exhibition()
     {

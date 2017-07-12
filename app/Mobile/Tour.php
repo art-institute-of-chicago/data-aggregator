@@ -5,13 +5,6 @@ namespace App\Mobile;
 class Tour extends MobileModel
 {
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['mobile_id', 'title'];
-
     public function intro()
     {
 

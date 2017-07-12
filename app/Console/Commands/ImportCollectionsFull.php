@@ -11,7 +11,7 @@ class ImportCollectionsFull extends Command
      *
      * @var string
      */
-    protected $signature = 'import:collections-full {endpoint?}';
+    protected $signature = 'import:collections-full {endpoint?} {page?}';
 
     /**
      * The console command description.
@@ -20,6 +20,8 @@ class ImportCollectionsFull extends Command
      */
     protected $description = 'Import all collections data';
 
+    protected $faker;
+
     /**
      * Create a new command instance.
      *
@@ -27,6 +29,7 @@ class ImportCollectionsFull extends Command
      */
     public function __construct()
     {
+        $this->faker = \Faker\Factory::create();
         parent::__construct();
     }
 
@@ -38,37 +41,10 @@ class ImportCollectionsFull extends Command
     public function handle()
     {
 
-        /*
-        $this->call(ObjectTypesTableSeeder::class);
-        $this->call(CategoriesTableSeeder::class);
-        $this->call(GalleriesTableSeeder::class);
-        $this->call(GalleryCategoriesTableSeeder::class);
-        $this->call(ArtworksTableSeeder::class);
-        $this->call(ArtistArtworksTableSeeder::class);
-        $this->call(ArtworkCopyrightRepresentativesTableSeeder::class);
-        $this->call(ArtworkCategoriesTableSeeder::class);
-        $this->call(ArtworkCommitteesTableSeeder::class);
-        $this->call(ArtworkTermsTableSeeder::class);
-        $this->call(ArtworkDatesTableSeeder::class);
-        $this->call(ArtworkCataloguesTableSeeder::class);
-        $this->call(ArtworkArtworksTableSeeder::class);
-        $this->call(ThemesTableSeeder::class);
-        $this->call(LinksTableSeeder::class);
-        $this->call(LinkCategoriesTableSeeder::class);
-        $this->call(SoundsTableSeeder::class);
-        $this->call(SoundCategoriesTableSeeder::class);
-        $this->call(VideosTableSeeder::class);
-        $this->call(VideoCategoriesTableSeeder::class);
-        $this->call(TextsTableSeeder::class);
-        $this->call(TextCategoriesTableSeeder::class);
-        $this->call(ImagesTableSeeder::class);
-        $this->call(ImageCategoriesTableSeeder::class);
-        $this->call(ExhibitionsTableSeeder::class);
-        */
-
         if ($this->argument('endpoint'))
         {
-            $this->import($this->argument('endpoint'));
+            $page = $this->argument('page') ?: 1;
+            $this->import($this->argument('endpoint'), $page);
         }
         else
         {
@@ -83,27 +59,40 @@ class ImportCollectionsFull extends Command
             // agents
             $this->import('artists');
             $this->import('departments');
-
+            // object-types
+            $this->import('categories');
+            $this->import('galleries');
+            
             $this->import('artworks');
+            // artists_artworks
+            // artwork-copyright-representative
+            // artwork-categories
+            // artwork-committees            
+            // artwork-terms
+            // artwork-dates
+            // artwork-catalogues
+            // artwork-artworks
+
+            // themes
+
+            // links
+            // sounds
+            // videos
+            // texts
+            // images
 
             //$this->import('exhibitions');
+
+            // update artworks with gallery id and object type id 
         }
         
     }
 
-    private function query($type = 'artworks', $page = 1)
+    private function import($endpoint, $current = 1)
     {
 
-        return json_decode(file_get_contents(env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost') .'/' .$type .'?page=' .$page .'&per_page=1000'));
-
-    }
-
-    private function import($endpoint)
-    {
-
-        $json = $this->query($endpoint);
+        $json = $this->query($endpoint, $current);
         $pages = $json->pagination->pages->total;
-        $current = 1;
 
         while ($current <= $pages)
         {
@@ -114,111 +103,38 @@ class ImportCollectionsFull extends Command
                 $class = \App\Collections\CollectionsModel::classFor($endpoint);
                 $resource = call_user_func($class .'::findOrCreate', $source->id);
 
-                $this->{'update_' .$endpoint}($resource, $source);
-                
+                $resource->fillFrom($source);
                 $resource->save();
+
             }
 
             $current++;
             $json = $this->query($endpoint, $current);
-        }         
-
-    }
-
-    private function update_artists($resource, $source)
-    {
-
-        $resource = $this->updateIdsAndTitle($resource, $source, $citiField = true);
-        $resource->birth_date = $source->date_birth;
-        //$resource->birth_place = ;
-        $resource->death_date = $source->date_death;
-        //$resource->death_place = ;
-        //$resource->licensing_restricted = 
-        $resource->agent_type_citi_id = \App\Collections\AgentType::where('title', 'Artist')->first()->citi_id;
-        $resource = $this->updateDates($resource, $source, $citiField = true);
-
-        return $resource;
-
-    }
-
-    private function update_departments($resource, $source)
-    {
-
-        $resource = $this->updateIdsAndTitle($resource, $source, $citiField = true);
-        $resource = $this->updateDates($resource, $source, $citiField = true);
-
-        return $resource;
-
-    }
-
-    private function update_artworks($resource, $source)
-    {
-
-        $resource = $this->updateIdsAndTitle($resource, $source, $citiField = true);
-        $resource->main_id = $source->main_id;
-        $resource->date_display = $source->date_display;
-        $resource->date_start = $source->date_start;
-        $resource->date_end = $source->date_end;
-        //$resource->description = ;
-        $resource->artist_display = $source->creator_display;
-        $resource->dimensions = $source->dimensions;
-        $resource->medium = $source->medium;
-        $resource->credit_line = $source->credit_line;
-        $resource->inscriptions = $source->inscriptions;
-        $resource->publication_history = $source->publications;
-        $resource->exhibition_history = $source->exhibitions;
-        $resource->provenance = $source->provenance;
-        //$resource->publishing_verification_level = ;
-        //$resource->is_public_domain = ;
-        $resource->copyright_notice = $source->copyright;
-        //$resource->place_of_origin = ;
-        //$resource->collection_status = ;
-        $resource->department_citi_id = $source->department_id;
-        //$resource->object_type_citi_id = ;
-        //$resource->gallery_citi_id = ;
-        $resource = $this->updateDates($resource, $source, $citiField = true);
-
-        return $resource;
-    }
-
-    private function updateIdsAndTitle($resource, $source, $citiField = true)
-    {
-
-        if ($citiField)
-        {
-
-            $resource->citi_id = $source->id;
-            $resource->lake_guid = $source->lake_guid;
-
-        }
-        else
-        {
-
-            $resource->lake_guid = $source->id;
-
-        }
-            
-        $resource->title = $source->title;
-        $resource->lake_uri = $source->lake_uri;
-        return $resource;
-    }
-
-    private function updateDates($resource, $source, $citiField = true)
-    {
-
-        $resource->source_created_at = strtotime($source->created_at);
-        $resource->source_modified_at = strtotime($source->modified_at);
-        $resource->source_indexed_at = strtotime($source->indexed_at);
-
-        if ($citiField)
-        {
-
-            //$resource->citi_created_at = ;
-            //$resource->citi_modified_at = ;
-
         }
 
-        return $resource;
+        $json = null;
+
+    }
+
+    private function query($type = 'artworks', $page = 1)
+    {
+
+        $ch = curl_init();
+
+        curl_setopt ($ch, CURLOPT_URL, env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost') .'/' .$type .'?page=' .$page .'&per_page=100');
+        curl_setopt ($ch, CURLOPT_HEADER, 0);
+
+        ob_start();
+
+        curl_exec ($ch);
+        curl_close ($ch);
+        $string = ob_get_contents();
+
+        ob_end_clean();
+        $ch = null;
+
+        return json_decode($string);
+
     }
 
 }

@@ -16,7 +16,7 @@ class CreateMobileAppTables extends Migration
 
         Schema::create('mobile_app_artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->integer('artwork_citi_id');
+            $table->integer('artwork_citi_id')->unsigned()->index();
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
@@ -34,9 +34,9 @@ class CreateMobileAppTables extends Migration
 
         Schema::create('artwork_mobile_app_sound', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('artwork_citi_id');
+            $table->integer('artwork_citi_id')->unsigned()->index();
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
-            $table->integer('mobile_app_sound_mobile_id');
+            $table->integer('mobile_app_sound_mobile_id')->unsigned()->index();
             $table->foreign('mobile_app_sound_mobile_id')->references('mobile_id')->on('mobile_app_sounds')->onDelete('cascade');
             $table->timestamps();
         });
@@ -47,18 +47,18 @@ class CreateMobileAppTables extends Migration
             $table->text('description')->nullable();
             $table->text('intro_text')->nullable();
             $table->integer('weight')->nullable();
-            $table->integer('intro_mobile_id');
+            $table->integer('intro_mobile_id')->unsigned()->index();
             $table->foreign('intro_mobile_id')->references('mobile_id')->on('mobile_app_sounds')->onDelete('cascade');
             $table = $this->_addDates($table);
         });
 
         Schema::create('tour_stops', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('tour_mobile_id');
+            $table->integer('tour_mobile_id')->unsigned()->index();
             $table->foreign('tour_mobile_id')->references('mobile_id')->on('tours')->onDelete('cascade');
-            $table->integer('artwork_citi_id');
+            $table->integer('artwork_citi_id')->unsigned()->index();
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
-            $table->integer('sound_mobile_id');
+            $table->integer('sound_mobile_id')->unsigned()->index();
             $table->foreign('sound_mobile_id')->references('mobile_id')->on('mobile_app_sounds')->onDelete('cascade');
             $table->integer('weight')->nullable();
             $table->text('description')->nullable();
@@ -70,7 +70,7 @@ class CreateMobileAppTables extends Migration
     private function _addIdsAndTitle($table)
     {
 
-        $table->integer('mobile_id')->unique()->primary();
+        $table->integer('mobile_id')->unsigned()->unique()->primary();
         $table->string('title');
         return $table;
     }
