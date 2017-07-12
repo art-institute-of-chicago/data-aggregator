@@ -102,8 +102,8 @@ class CreateCollectionsTables extends Migration
             $table->increments('id');
             $table->integer('artwork_citi_id')->unsigned()->index();
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
-            $table->uuid('category_lake_guid');
-            $table->foreign('category_lake_guid')->references('lake_guid')->on('categories')->onDelete('cascade');
+            $table->integer('category_citi_id')->unsigned()->index();
+            $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
         Schema::create('agent_artwork', function(Blueprint $table) {
@@ -228,7 +228,7 @@ class CreateCollectionsTables extends Migration
         Schema::create('texts', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
             $table->text('description')->nullable();
-            $table->string('content')->nullable();
+            $table->text('content')->nullable();
             $table->string('published')->nullable();
             $table->integer('agent_citi_id')->nullable()->unsigned()->index();
             $table->foreign('agent_citi_id')->references('citi_id')->on('agents');

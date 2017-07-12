@@ -19,6 +19,22 @@ class CorporateBody extends Agent
 
     }
     
+    /**
+     * Create a new instance of the given model.
+     *
+     * @param  array  $attributes
+     * @param  bool  $exists
+     * @return static
+     */
+    public function newInstance($attributes = [], $exists = false)
+    {
+
+        $model = parent::newInstance($attributes, $exists);
+        $model->agentType()->associate(App\Collections\AgentType::where('title', 'Corporate Body')->first());
+        return $model;
+
+    }
+
     public function getAgentTypeAttribute()
     {
 

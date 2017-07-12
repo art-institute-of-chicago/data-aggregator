@@ -61,7 +61,7 @@ class ImportCollectionsFull extends Command
             $this->import('departments');
             // object-types
             $this->import('categories');
-            $this->import('galleries');
+            //$this->import('galleries');
             
             $this->import('artworks');
             // artists_artworks
@@ -75,10 +75,10 @@ class ImportCollectionsFull extends Command
 
             // themes
 
-            // links
-            // sounds
-            // videos
-            // texts
+            $this->import('links');
+            $this->import('sounds');
+            $this->import('videos');
+            $this->import('texts');
             // images
 
             //$this->import('exhibitions');
@@ -101,9 +101,11 @@ class ImportCollectionsFull extends Command
             {
 
                 $class = \App\Collections\CollectionsModel::classFor($endpoint);
+                print_r($source); print "\n";
                 $resource = call_user_func($class .'::findOrCreate', $source->id);
 
                 $resource->fillFrom($source);
+                $resource->attachFrom($source);
                 $resource->save();
 
             }

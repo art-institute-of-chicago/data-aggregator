@@ -13,7 +13,7 @@ class Asset extends CollectionsModel
     public function artist()
     {
 
-        return $this->belongsTo('App\Collections\Artist');
+        return $this->belongsTo('App\Collections\Artist', 'agent_citi_id');
 
     }
 
@@ -21,6 +21,32 @@ class Asset extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Collections\Category');
+
+    }
+
+    public function getFillFieldsFrom($source)
+    {
+
+        return [
+            'description' => $source->description,
+            'content' => $source->content,
+            'published' => $source->published,
+        ];
+
+    }
+
+    public function attachFrom($source)
+    {
+
+        if ($source->artist_id)
+        {
+
+            $artist = Artist::findOrCreate($source->artist_id);
+            $this->artist()->associate($artist);
+
+        }
+
+        return $this;
 
     }
 

@@ -120,6 +120,8 @@ class CollectionsModel extends Model
         $this->fillIdsAndTitleFrom($source)
             ->fill($this->getFillFieldsFrom($source))
             ->fillDatesFrom($source);
+
+        return $this;
     }
 
     public function getFillFieldsFrom($source)
@@ -128,4 +130,12 @@ class CollectionsModel extends Model
         return [];
 
     }
+
+    public function attachFrom($source)
+    {
+
+        return $this;
+
+    }
+
 }

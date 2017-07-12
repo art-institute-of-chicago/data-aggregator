@@ -18,7 +18,23 @@ class Artist extends Agent
         return parent::newQuery()->whereHas('agentType', function ($query) { $query->where('title', '=', 'Artist'); });
 
     }
-    
+
+    /**
+     * Create a new instance of the given model.
+     *
+     * @param  array  $attributes
+     * @param  bool  $exists
+     * @return static
+     */
+    public function newInstance($attributes = [], $exists = false)
+    {
+
+        $model = parent::newInstance($attributes, $exists);
+        $model->agentType()->associate(\App\Collections\AgentType::where('title', 'Artist')->first());
+        return $model;
+
+    }
+
     public function getAgentTypeAttribute()
     {
 

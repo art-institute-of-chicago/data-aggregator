@@ -169,4 +169,47 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function attachFrom($source)
+    {
+
+        if ($source->creator_id)
+        {
+
+            Artist::findOrCreate($source->creator_id);
+            $this->artists()->attach($source->creator_id);
+
+        }
+
+        // $source->image_guid
+
+        if ($source->department_id)
+        {
+
+            $department = Department::findOrCreate($source->department_id);
+            $this->department()->associate($department);
+
+        }
+
+        if ($source->category_guids)
+        {
+            foreach ($source->category_guids as $guid)
+            {
+
+                $cat = Category::where('lake_guid', $guid)->first();
+                if ($cat)
+                {
+
+                    $this->categories()->attach($cat->citi_id);
+
+                }
+
+            }
+
+        }
+        // $source->document_guids
+
+        return $this;
+
+    }
+
 }
