@@ -30,7 +30,7 @@ class CopyrightRepresentative extends Agent
     {
 
         $model = parent::newInstance($attributes, $exists);
-        $model->agentType()->associate(App\Collections\AgentType::where('title', 'Copyright Representative')->first());
+        $model->agentType()->associate(\App\Collections\AgentType::where('title', 'Copyright Representative')->first());
         return $model;
 
     }

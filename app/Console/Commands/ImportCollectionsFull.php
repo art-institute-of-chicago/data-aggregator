@@ -49,41 +49,117 @@ class ImportCollectionsFull extends Command
         else
         {
 
-            // agent-types
+            // Until Agent Types are available as an endpoint in the Collections Data Service
+            // generate fake data.
             if (\App\Collections\AgentType::all()->isEmpty())
             {
 
                 factory(\App\Collections\AgentType::class, 10)->create();
                 
             }
-            // agents
+
+            // Until all Agents are available as an endpoint in the Collections Data Service
+            // import artists and generate fake data for other agent types
             $this->import('artists');
+            if (\App\Collections\CopyrightRepresentative::all()->isEmpty())
+            {
+
+                factory(\App\Collections\Agent::class, 25)->create(['agent_type_citi_id' => \App\Collections\AgentType::where('title', 'Copyright Representative')->first()->citi_id]);
+                
+            }
+            if (\App\Collections\CorporateBody::all()->isEmpty())
+            {
+
+                factory(\App\Collections\Agent::class, 25)->create(['agent_type_citi_id' => \App\Collections\AgentType::where('title', 'Corporate Body')->first()->citi_id]);
+                
+            }
+
             $this->import('departments');
-            // object-types
-            $this->import('categories');
+
+            // Until Object Types are available as an endpoint in the Collections Data Service
+            // generate fake data.
+            if (\App\Collections\ObjectType::all()->isEmpty())
+            {
+
+                factory(\App\Collections\ObjectType::class, 25)->create();
+
+            }
+
+            // The categories endpoint in the Collections Data Service currently breaks on the last page of results.
+            // So let's only try to import this once for now.
+            if (\App\Collections\Category::all()->isEmpty())
+            {
+
+                $this->import('categories');
+
+            }
+
+            // Galleries are available, but break due to Redmine bug #1911 - Gallery Floor isn't always a number
             //$this->import('galleries');
             
             $this->import('artworks');
-            // artists_artworks
-            // artwork-copyright-representative
-            // artwork-categories
-            // artwork-committees            
-            // artwork-terms
-            // artwork-dates
-            // artwork-catalogues
-            // artwork-artworks
-
-            // themes
 
             $this->import('links');
-            $this->import('sounds');
             $this->import('videos');
             $this->import('texts');
-            // images
+            $this->import('sounds');
 
-            //$this->import('exhibitions');
+            // Until Images are available as an endpoint in the Collections Data Service
+            // generate fake data.
+            $artworks = \App\Collections\Artwork::all()->all();
 
-            // update artworks with gallery id and object type id 
+            foreach ($artworks as $artwork) {
+
+                $hasPreferred = false;
+            
+                for ($i = 0; $i < rand(2,8); $i++) {
+                
+                    $preferred = $hasPreferred ? false : $this->faker->boolean;
+                
+                    $image = factory(\App\Collections\Image::class)->make([
+                        'preferred' => $preferred,
+                    ]);
+
+                    $artwork->images()->save($image);
+
+                    if ($preferred || $hasPreferred) $hasPreferred = true;
+
+                }
+
+            }
+
+            // Until Exhibitions are available as an endpoint in the Collections Data Service
+            // generate fake data.
+            if (\App\Collections\Exhibition::all()->isEmpty())
+            {
+                factory(\App\Collections\Exhibition::class, 100)->create();
+
+                $exhibitions = \App\Collections\Exhibition::all()->all();
+                $artworkIds = \App\Collections\Artwork::all()->pluck('citi_id')->all();
+                $agentIds = \App\Collections\CorporateBody::all()->pluck('citi_id')->all();
+
+                foreach ($exhibitions as $exhibition) {
+            
+                    for ($i = 0; $i < rand(2,8); $i++) {
+
+                        $artworkId = $artworkIds[array_rand($artworkIds)];
+
+                        $exhibition->artworks()->attach($artworkId);
+
+                    }
+
+                    for ($i = 0; $i < rand(1,3); $i++) {
+
+                        $agentId = $agentIds[array_rand($agentIds)];
+
+                        $exhibition->venues()->attach($agentId);
+
+                    }
+
+                }
+
+            }
+
         }
         
     }
@@ -101,7 +177,6 @@ class ImportCollectionsFull extends Command
             {
 
                 $class = \App\Collections\CollectionsModel::classFor($endpoint);
-                print_r($source); print "\n";
                 $resource = call_user_func($class .'::findOrCreate', $source->id);
 
                 $resource->fillFrom($source);

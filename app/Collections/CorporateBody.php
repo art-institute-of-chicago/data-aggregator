@@ -30,7 +30,7 @@ class CorporateBody extends Agent
     {
 
         $model = parent::newInstance($attributes, $exists);
-        $model->agentType()->associate(App\Collections\AgentType::where('title', 'Corporate Body')->first());
+        $model->agentType()->associate(\App\Collections\AgentType::where('title', 'Corporate Body')->first());
         return $model;
 
     }

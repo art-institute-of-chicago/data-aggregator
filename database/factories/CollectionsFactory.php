@@ -71,7 +71,7 @@ $factory->define(App\Collections\AgentType::class, function (Faker\Generator $fa
 
 $factory->define(App\Collections\Agent::class, function (Faker\Generator $faker) {
     return array_merge(
-        idsAndTitle($faker, ucwords($faker->lastName .', ' .$faker->firstName), true, 5),
+        idsAndTitle($faker, ucwords($faker->lastName .', ' .$faker->firstName), true, 6),
         [
             'birth_date' => $faker->year,
             'death_date' => $faker->year,
@@ -160,7 +160,6 @@ $factory->define(App\Collections\ArtworkDate::class, function (Faker\Generator $
 
 $factory->define(App\Collections\ArtworkCommittee::class, function (Faker\Generator $faker) {
     return [
-        'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
         'committee' => $faker->randomElement(['Board of ' .$faker->word, 'Year End ' .$faker->word, 'Deaccession']),
         'date' => $faker->dateTimeAd,
         'action' => $faker->randomElement(['Acquisition', 'Deaccession', 'Transfer to', 'Transfer from', 'Referenced']),
@@ -170,7 +169,6 @@ $factory->define(App\Collections\ArtworkCommittee::class, function (Faker\Genera
 
 $factory->define(App\Collections\ArtworkTerm::class, function (Faker\Generator $faker) {
     return [
-        'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
         'term' => $faker->words(2, true),
         'type' => ucfirst($faker->word)
     ];

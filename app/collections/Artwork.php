@@ -208,6 +208,135 @@ class Artwork extends CollectionsModel
         }
         // $source->document_guids
 
+        // Until Copyright Representatives are available in the Collections Data Service
+        // generate fake data.
+        $this->seedCopyrightRepresentatives();
+
+        // Until Committees are available in the Collections Data Service
+        // generate fake data.
+        $this->seedCommittees();
+
+        // Until Terms are available in the Collections Data Service
+        // generate fake data.
+        $this->seedTerms();
+
+        // Until Dates are available in the Collections Data Service
+        // generate fake data.
+        $this->seedDates();
+
+        // Until Catalogue Raisonne are available in the Collections Data Service
+        // generate fake data.
+        $this->seedCatalogues();
+
+        // Until Parts and Sets are available in the Collections Data Service
+        // generate fake data.
+        //$this->seedParts();
+        
+        // update artworks with gallery id and object type id 
+
+        return $this;
+
+    }
+
+    public function seedCopyrightRepresentatives()
+    {
+
+        $agentIds = CopyrightRepresentative::all()->pluck('citi_id')->all();
+
+        $ids = [];
+            
+        for ($i = 0; $i < rand(2,8); $i++) {
+
+            $id = $agentIds[array_rand($agentIds)];
+
+            if (!in_array($id, $ids)) {
+                $this->copyrightRepresentatives()->attach($id);
+                $ids[] = $id;
+            }
+
+        }
+
+        return $this;
+
+    }
+
+    public function seedCommittees()
+    {
+
+        for ($i = 0; $i < rand(2,8); $i++) {
+                
+            $committee = factory(ArtworkCommittee::class)->make([
+                'artwork_citi_id' => $this->citi_id,
+            ]);
+
+            $this->committees()->save($committee);
+
+        }
+
+        return $this;
+
+    }
+
+    public function seedTerms()
+    {
+
+        for ($i = 0; $i < rand(2,8); $i++) {
+                
+            $term = factory(ArtworkTerm::class)->make([
+                'artwork_citi_id' => $this->citi_id,
+            ]);
+
+            $this->terms()->save($term);
+
+        }
+
+        return $this;
+
+    }
+
+    public function seedDates()
+    {
+
+        $hasPreferred = false;
+            
+        for ($i = 0; $i < rand(2,8); $i++) {
+                
+            $preferred = $hasPreferred ? false : $this->faker->boolean;
+                
+            $this->dates()->create([
+                'date' => $this->faker->dateTimeAD,
+                'qualifier' => ucfirst($this->faker->word) .' date',
+                'preferred' => $preferred,
+            ]);
+
+            if ($preferred || $hasPreferred) $hasPreferred = true;
+
+        }
+
+        return $this;
+
+    }
+
+    public function seedCatalogues()
+    {
+
+        $hasPreferred = false;
+            
+        for ($i = 0; $i < rand(2,8); $i++) {
+                
+            $preferred = $this->faker->boolean;
+                
+            $this->catalogues()->create([
+                'preferred' => $hasPreferred ? false : $this->faker->boolean,
+                'catalogue' => ucwords($this->faker->words(2, true)),
+                'number' => $this->faker->randomNumber(3),
+                'state_edition' => $this->faker->words(2, true),
+            ]);
+
+            if ($preferred || $hasPreferred) $hasPreferred = true;
+
+        }
+
         return $this;
 
     }
