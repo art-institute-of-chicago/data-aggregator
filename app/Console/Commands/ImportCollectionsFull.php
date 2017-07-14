@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+use Carbon\Carbon;
+
 class ImportCollectionsFull extends Command
 {
     /**
@@ -54,6 +56,8 @@ class ImportCollectionsFull extends Command
         }
         else
         {
+
+            $startTime = Carbon::now();
 
             // @TODO Replace with real endpoint when it becomes available
             if (\App\Collections\AgentType::all()->isEmpty())
@@ -110,6 +114,10 @@ class ImportCollectionsFull extends Command
                 Artisan::call("db:seed", ['class' => 'ExhibitionsTableSeeder']);
 
             }
+
+            $command = \App\Command::firstOrCreate(['command' => 'import-collections']);
+            $command->last_ran_at = $startTime;
+            $command->save();
 
         }
         

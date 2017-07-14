@@ -71,6 +71,15 @@ This will create all the tables and relationships, and fill the tables with data
 [Faker](https://github.com/fzaninotto/Faker) PHP library.
 
 
+### Importing real data
+
+We'll be creating a series of `artisan` tasks to import data from source systems. You can see all the available
+imports like so:
+
+```shell
+php artisan list import
+```
+
 ### Adding new data sources
 
 When adding new data sources to the Aggregator, the following steps should be taken.

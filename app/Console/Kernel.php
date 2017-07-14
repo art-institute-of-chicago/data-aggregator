@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\ImportCollectionsFull::class,
+        Commands\ImportCollections::class,
     ];
 
     /**
@@ -24,8 +25,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('import:collections')
+            ->everyFiveMinutes()
+            ->withoutOverlapping();;
     }
 
     /**

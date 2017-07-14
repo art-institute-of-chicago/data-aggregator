@@ -156,7 +156,7 @@ class Artwork extends CollectionsModel
             'description' => 'fake ' .$this->faker->paragraphs(5, true),
             'publishing_verification_level' => 'fake ' .$this->faker->randomElement(['Web Basic', 'Web Cataloged', 'Web Everything']),
             'is_public_domain' => $this->faker->boolean,
-            'copyright_notice' => $source->copyright,
+            'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
             'place_of_origin' => 'fake ' .$this->faker->country,
             'collection_status' => 'fake ' .$this->faker->randomElement(['Permanent Collection', 'Long-term Loan']),
             'department_citi_id' => $source->department_id,
