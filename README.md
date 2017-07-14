@@ -64,11 +64,102 @@ php artisan key:generate
 Then, to create the database tables and seed them with fake data, run:
 
 ```shell
-php artisan migrate:refresh --seed
+php artisan migrate --seed
 ```
 
 This will create all the tables and relationships, and fill the tables with data from the 
 [Faker](https://github.com/fzaninotto/Faker) PHP library.
+
+
+### Adding new data sources
+
+When adding new data sources to the Aggregator, the following steps should be taken.
+
+#### 1. Create database tables
+
+You can use a migration to create the tables. This way the application's schema is saved in version control,
+and other developers can recreate the database environment easily:
+
+```shell
+php artisan make:migration create_source_tables
+```
+
+Replace `source` with the name of the source system you're working with. Your new file will be generated
+in the [migrations](database/migrations) folder. In this file, add your create table commands using [Schema::create](https://laravel.com/docs/5.4/migrations#creating-tables).
+
+#### 2. Create a factory to generate fake data
+
+We create a single [factory](database/factories) per source system, and define a factory for each model.
+
+#### 3. Create a model
+
+We store each source's models in a separate directory under [app](app)
+
+#### 4. Create a seeder
+
+Create a seeder for your model in the [seeds](database/seeds) folder. We organize all our seeders in subdirectories
+by source system. Once you create your seeder, add references to it in [DatabaseSeeder.php](database/seeds/DatabaseSeeder.php). 
+In this file we group the calls to the individual seeders by source system, to help organize what can easily
+be a long list of similar calls.
+
+At this point you can recreate your database and seed it with fake data to see your new tables:
+
+```shell
+php artisan migrate --seed
+```
+
+This will run your new migration and seed the tables with fake data. After this point, if you make changes to your migration 
+you'll have to rerun all your migrations:
+
+```shell
+php artisan migrate:refresh --seed
+```
+
+Be aware that if you've imported real data into into any of your tables they will be truncated and replaced with fake data.
+
+#### 5. Create unit tests
+
+Now that you've got your data structured and some test data to play with, you can begin wiring together the API
+calls to the data. First, create a set of [unit tests](test/Unit) for your new model. At a basic level, test whether you can 
+retrieve a single resource, a list of all resources, multiple resources, and test for expected errors. Create 
+the tests now. It's super-satisfying to see your tests pass when you're done with these steps!
+
+#### 6. Create a controller
+
+It's probably easiest to copy an existing [controller](app/Http/Controller) as a starting point.
+
+#### 7. Create a transformer
+
+Transformers take the model data and turns it into an array ready for output. Using the [Fractal](http://fractal.thephpleague.com/)
+library, we've created a [foundation](app/Http/Transformers/ApiTransformer.php) to make creating transformers in the Aggregator
+fairly straightforward. Ids, titles and dates will be added automatically unless you exclude them by setting the `$excludeIdsAndTitle`
+or `$excludeDates` properties to `false`. Then create a `transformFields` function to return an array of the fields 
+that are unique to your model.
+
+#### 8. Create routes for your endpoints
+
+[Routes](https://laravel.com/docs/5.4/routing) are registered in [routes/api.php](routes/api.php).
+
+#### 9. Make your tests pass
+
+You can run the following to only test one set of unit tests:
+
+```shell
+phpunit --filter ResourceTest
+```
+
+Keep going until all your tests pass. You can use the following to run all tests:
+
+```shell
+phpunit
+```
+
+#### 10. Add Swagger documentation
+
+Add your new source data to our [Swagger](resource/views/swagger.blade.php) documentation. This file is not parsed or generated at all.
+It contains one big JSON object that gets output as swagger.json.
+
+That's it!
 
 
 ## Contributing
