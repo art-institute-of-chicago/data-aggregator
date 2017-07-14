@@ -34,7 +34,19 @@ class ArtworksController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many artworks. Please set a smaller limit.');
         
-        if ($artworkId && $request->segment(5) == 'sets')
+        if ($artworkId && $request->segment(3) == 'exhibitions')
+        {
+
+            $all = Exhibition::findOrFail($artworkId)->artworks;
+
+        }
+        elseif ($request->segment(4) == 'essentials')
+        {
+
+            $all = Artwork::essentials()->paginate($limit);
+
+        }
+        elseif ($artworkId && $request->segment(5) == 'sets')
         {
 
             $all = Artwork::findOrFail($artworkId)->sets;
@@ -44,12 +56,6 @@ class ArtworksController extends ApiController
         {
 
             $all = Artwork::findOrFail($artworkId)->parts;
-
-        }
-        elseif ($artworkId && $request->segment(3) == 'exhibitions')
-        {
-
-            $all = Exhibition::findOrFail($artworkId)->artworks;
 
         }
         else

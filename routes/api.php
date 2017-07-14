@@ -22,6 +22,7 @@ Route::group(['prefix' => 'v1'], function()
 
     // Collections
     Route::get('artworks', 'ArtworksController@index');
+    Route::get('artworks/essentials', 'ArtworksController@index');
     Route::get('artworks/{id}', 'ArtworksController@show');
     Route::get('artworks/{id}/artists', 'ArtistsController@index');
     Route::get('artworks/{id}/copyrightRepresentatives', 'CopyrightRepresentativesController@index');

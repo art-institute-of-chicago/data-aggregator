@@ -59,6 +59,47 @@
       }
     },
 
+    "/artworks/essentials": {
+      "get": {
+        "tags": [
+            "artworks",
+            "collections"
+        ],
+        "summary": "A list of essential artworks sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Artwork"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/artworks/{id}": {
       "get": {
         "tags": [

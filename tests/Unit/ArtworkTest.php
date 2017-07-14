@@ -48,6 +48,20 @@ class ArtworkTest extends ApiTestCase
 
     }
 
+    /** @test */
+    public function it_fetches_essential_artworks()
+    {
+
+        $this->make(Artwork::class, ['citi_id' => 185651]);
+        $this->make(Artwork::class, ['citi_id' => 183077]);
+        $this->make(Artwork::class, ['citi_id' => 151358]);
+        $this->make(Artwork::class, ['citi_id' => 99539]);
+        $this->make(Artwork::class, ['citi_id' => 189595]);
+        $resources = $this->it_fetches_multiple(Artwork::class, 'artworks/essentials');
+        
+        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
+
+    }
 
     /** @test */
     public function it_400s_if_nonnumerid_nonuuid_is_passed()
