@@ -208,28 +208,12 @@ class Artwork extends CollectionsModel
         }
         // $source->document_guids
 
-        // Until Copyright Representatives are available in the Collections Data Service
-        // generate fake data.
+        // @TODO Replace with real endpoints when they become available
         $this->seedCopyrightRepresentatives();
-
-        // Until Committees are available in the Collections Data Service
-        // generate fake data.
         $this->seedCommittees();
-
-        // Until Terms are available in the Collections Data Service
-        // generate fake data.
         $this->seedTerms();
-
-        // Until Dates are available in the Collections Data Service
-        // generate fake data.
         $this->seedDates();
-
-        // Until Catalogue Raisonne are available in the Collections Data Service
-        // generate fake data.
         $this->seedCatalogues();
-
-        // Until Parts and Sets are available in the Collections Data Service
-        // generate fake data.
         //$this->seedParts();
         
         // update artworks with gallery id and object type id 
@@ -332,6 +316,29 @@ class Artwork extends CollectionsModel
                 'number' => $this->faker->randomNumber(3),
                 'state_edition' => $this->faker->words(2, true),
             ]);
+
+            if ($preferred || $hasPreferred) $hasPreferred = true;
+
+        }
+
+        return $this;
+
+    }
+
+    public function seedImages()
+    {
+
+        $hasPreferred = false;
+            
+        for ($i = 0; $i < rand(2,8); $i++) {
+                
+            $preferred = $hasPreferred ? false : $this->faker->boolean;
+                
+            $image = factory(\App\Collections\Image::class)->make([
+                'preferred' => $preferred,
+            ]);
+
+            $artwork->images()->save($image);
 
             if ($preferred || $hasPreferred) $hasPreferred = true;
 

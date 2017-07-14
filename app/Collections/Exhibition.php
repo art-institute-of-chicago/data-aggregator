@@ -37,4 +37,38 @@ class Exhibition extends CollectionsModel
 
     }
 
+    public function seedArtworks()
+    {
+
+        $artworkIds = \App\Collections\Artwork::all()->pluck('citi_id')->all();
+
+        for ($i = 0; $i < rand(2,8); $i++) {
+
+            $artworkId = $artworkIds[array_rand($artworkIds)];
+
+            $exhibition->artworks()->attach($artworkId);
+
+        }
+
+        return $this;
+
+    }
+
+    public function seedVenues()
+    {
+
+        $agentIds = \App\Collections\CorporateBody::all()->pluck('citi_id')->all();
+
+        for ($i = 0; $i < rand(1,3); $i++) {
+
+            $agentId = $agentIds[array_rand($agentIds)];
+
+            $exhibition->venues()->attach($agentId);
+
+        }
+
+        return $this;
+
+    }
+
 }

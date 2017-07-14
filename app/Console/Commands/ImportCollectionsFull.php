@@ -11,14 +11,20 @@ class ImportCollectionsFull extends Command
      *
      * @var string
      */
-    protected $signature = 'import:collections-full {endpoint?} {page?}';
+    protected $signature = 'import:collections-full 
+                            {endpoint? : That last portion of the URL path naming the resource to import, for example "artists"} 
+                            {page? : The page to begin importing from}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import all collections data';
+    protected $description =
+                           "Import all collections data\n\n"
+                           
+                           ."If no options are passes all Collections data will be imported. Results are paged through 100 records \n"
+                           ."at a time. If the Collections Data Service doesn't provide an endpoint fake data will be generated.";
 
     protected $faker;
 
@@ -49,114 +55,59 @@ class ImportCollectionsFull extends Command
         else
         {
 
-            // Until Agent Types are available as an endpoint in the Collections Data Service
-            // generate fake data.
+            // @TODO Replace with real endpoint when it becomes available
             if (\App\Collections\AgentType::all()->isEmpty())
             {
 
-                factory(\App\Collections\AgentType::class, 10)->create();
+                Artisan::call("db:seed", ['class' => 'AgentTypesTableSeeder']);
                 
             }
 
-            // Until all Agents are available as an endpoint in the Collections Data Service
-            // import artists and generate fake data for other agent types
-            $this->import('artists');
-            if (\App\Collections\CopyrightRepresentative::all()->isEmpty())
+            // @TODO Replace with agent endpoint when it becomes available
+            if (\App\Collections\Agent::all()->isEmpty())
             {
 
-                factory(\App\Collections\Agent::class, 25)->create(['agent_type_citi_id' => \App\Collections\AgentType::where('title', 'Copyright Representative')->first()->citi_id]);
-                
-            }
-            if (\App\Collections\CorporateBody::all()->isEmpty())
-            {
-
-                factory(\App\Collections\Agent::class, 25)->create(['agent_type_citi_id' => \App\Collections\AgentType::where('title', 'Corporate Body')->first()->citi_id]);
+                $this->import('artists');
+                Artisan::call("db:seed", ['class' => 'AgentsTableSeeder']);
                 
             }
 
             $this->import('departments');
 
-            // Until Object Types are available as an endpoint in the Collections Data Service
-            // generate fake data.
+            // @TODO Replace with real endpoint when it becomes available
             if (\App\Collections\ObjectType::all()->isEmpty())
             {
 
-                factory(\App\Collections\ObjectType::class, 25)->create();
+                Artisan::call("db:seed", ['class' => 'ObjectTypesTableSeeder']);
 
             }
 
-            // The categories endpoint in the Collections Data Service currently breaks on the last page of results.
-            // So let's only try to import this once for now.
-            if (\App\Collections\Category::all()->isEmpty())
-            {
+            // @TODO The categories endpoint in the Collections Data Service currently breaks on the last page of results.
+            $this->import('categories');
 
-                $this->import('categories');
-
-            }
-
-            // Galleries are available, but break due to Redmine bug #1911 - Gallery Floor isn't always a number
+            // @TODO Galleries are available, but break due to Redmine bug #1911 - Gallery Floor isn't always a number
             //$this->import('galleries');
-            
-            $this->import('artworks');
 
+            $this->import('artworks');
             $this->import('links');
             $this->import('videos');
             $this->import('texts');
             $this->import('sounds');
 
-            // Until Images are available as an endpoint in the Collections Data Service
-            // generate fake data.
+            // @TODO Replace with real endpoint when it becomes available
             $artworks = \App\Collections\Artwork::all()->all();
 
             foreach ($artworks as $artwork) {
 
-                $hasPreferred = false;
-            
-                for ($i = 0; $i < rand(2,8); $i++) {
-                
-                    $preferred = $hasPreferred ? false : $this->faker->boolean;
-                
-                    $image = factory(\App\Collections\Image::class)->make([
-                        'preferred' => $preferred,
-                    ]);
-
-                    $artwork->images()->save($image);
-
-                    if ($preferred || $hasPreferred) $hasPreferred = true;
-
-                }
+                $artwork->seedImages();
 
             }
 
-            // Until Exhibitions are available as an endpoint in the Collections Data Service
-            // generate fake data.
+            // @TODO Replace with real endpoint when it becomes available
             if (\App\Collections\Exhibition::all()->isEmpty())
             {
-                factory(\App\Collections\Exhibition::class, 100)->create();
 
-                $exhibitions = \App\Collections\Exhibition::all()->all();
-                $artworkIds = \App\Collections\Artwork::all()->pluck('citi_id')->all();
-                $agentIds = \App\Collections\CorporateBody::all()->pluck('citi_id')->all();
-
-                foreach ($exhibitions as $exhibition) {
-            
-                    for ($i = 0; $i < rand(2,8); $i++) {
-
-                        $artworkId = $artworkIds[array_rand($artworkIds)];
-
-                        $exhibition->artworks()->attach($artworkId);
-
-                    }
-
-                    for ($i = 0; $i < rand(1,3); $i++) {
-
-                        $agentId = $agentIds[array_rand($agentIds)];
-
-                        $exhibition->venues()->attach($agentId);
-
-                    }
-
-                }
+                Artisan::call("db:seed", ['class' => 'ExhibitionsTableSeeder']);
 
             }
 
@@ -167,29 +118,34 @@ class ImportCollectionsFull extends Command
     private function import($endpoint, $current = 1)
     {
 
-        $json = $this->query($endpoint, $current);
-        $pages = $json->pagination->pages->total;
+        $class = \App\Collections\CollectionsModel::classFor($endpoint);
 
-        while ($current <= $pages)
+        $resources = call_user_func($class .'::all');
+        if ($resources->isEmpty())
         {
+            $json = $this->query($endpoint, $current);
+            $pages = $json->pagination->pages->total;
 
-            foreach ($json->data as $source)
+            while ($current <= $pages)
             {
 
-                $class = \App\Collections\CollectionsModel::classFor($endpoint);
-                $resource = call_user_func($class .'::findOrCreate', $source->id);
+                foreach ($json->data as $source)
+                {
 
-                $resource->fillFrom($source);
-                $resource->attachFrom($source);
-                $resource->save();
+                    $resource = call_user_func($class .'::findOrCreate', $source->id);
+
+                    $resource->fillFrom($source);
+                    $resource->attachFrom($source);
+                    $resource->save();
+
+                }
+
+                $current++;
+                $json = $this->query($endpoint, $current);
 
             }
 
-            $current++;
-            $json = $this->query($endpoint, $current);
         }
-
-        $json = null;
 
     }
 
@@ -208,7 +164,6 @@ class ImportCollectionsFull extends Command
         $string = ob_get_contents();
 
         ob_end_clean();
-        $ch = null;
 
         return json_decode($string);
 
