@@ -21,7 +21,8 @@ class ExhibitionTest extends ApiTestCase
 
         parent::setUp();
         $this->make(Gallery::class);
-        $this->make(Department::class);
+        $this->make(Department::class); 
+        $this->times(5)->make(Agent::class);
 
     }
     

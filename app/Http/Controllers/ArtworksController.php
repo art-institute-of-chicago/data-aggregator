@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Collections\Artwork;
+use App\Collections\Exhibition;
 use Illuminate\Http\Request;
 
 class ArtworksController extends ApiController
@@ -43,6 +44,12 @@ class ArtworksController extends ApiController
         {
 
             $all = Artwork::findOrFail($artworkId)->parts;
+
+        }
+        elseif ($artworkId && $request->segment(3) == 'exhibitions')
+        {
+
+            $all = Exhibition::findOrFail($artworkId)->artworks;
 
         }
         else

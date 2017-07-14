@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Dsc\WorkOfArt;
 use App\Dsc\Publication;
 use App\Collections\Artwork;
+use App\Collections\Agent;
 
 class WorkOfArtTest extends ApiTestCase
 {
@@ -18,7 +19,8 @@ class WorkOfArtTest extends ApiTestCase
 
         parent::setUp();
         $this->make(Publication::class);
-        $this->times(5)->make(Artwork::class);
+        $this->times(5)->make(Agent::class);
+        $this->times(5)->attach(Agent::class, 2, 'artists')->make(Artwork::class);
 
     }
 

@@ -11,6 +11,7 @@ use Faker\Factory as Faker;
 use Tests\Helpers\Factory;
 
 use App\Collections\AgentType;
+use App\Collections\Agent;
 
 abstract class ApiTestCase extends TestCase
 {
@@ -36,7 +37,14 @@ abstract class ApiTestCase extends TestCase
         if (get_class($this) != 'Tests\Unit\AgentTypeTest')
         {
 
-            $this->make(AgentType::class, ['title' => 'Artist']);
+            $agentTypeId = $this->make(AgentType::class, ['title' => 'Artist']);
+
+            if (get_class($this) != 'Tests\Unit\AgentTest')
+            {
+
+                $this->times(1)->make(Agent::class, ['agent_type_citi_id' => $agentTypeId]);
+
+            }
 
         }
 

@@ -60,9 +60,9 @@ class CategoriesController extends ApiController
         try
         {
 
-            if (!$this->isUuid($categoryId))
+            if (intval($categoryId) <= 0)
             {
-                return $this->respondInvalidSyntax('Invalid identifier', "The category identifier should be a universally unique identifier. Please ensure you're passing the correct source identifier and try again.");
+                return $this->respondInvalidSyntax('Invalid identifier', "The category identifier should be number. Please ensure you're passing the correct source identifier and try again.");
             }
 
             $item = Category::find($categoryId);
