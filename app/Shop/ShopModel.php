@@ -4,6 +4,8 @@ namespace App\Shop;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Scopes\SortByLastUpdatedScope;
+
 class ShopModel extends Model
 {
 
@@ -17,5 +19,13 @@ class ShopModel extends Model
      * @var array
      */
     protected $guarded = [];
+
+    protected static function boot()
+    {
+
+        parent::boot();
+        static::addGlobalScope(new SortByLastUpdatedScope());
+
+    }
 
 }

@@ -4,6 +4,8 @@ namespace App\Mobile;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Scopes\SortByLastUpdatedScope;
+
 class MobileModel extends Model
 {
 
@@ -17,5 +19,13 @@ class MobileModel extends Model
      * @var array
      */
     protected $guarded = [];
+
+    protected static function boot()
+    {
+
+        parent::boot();
+        static::addGlobalScope(new SortByLastUpdatedScope());
+
+    }
 
 }

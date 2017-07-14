@@ -4,6 +4,8 @@ namespace App\Collections;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Scopes\SortByLastUpdatedScope;
+
 class CollectionsModel extends Model
 {
 
@@ -36,6 +38,14 @@ class CollectionsModel extends Model
         parent::__construct($attributes);
 
         $this->faker = \Faker\Factory::create();
+
+    }
+
+    protected static function boot()
+    {
+
+        parent::boot();
+        static::addGlobalScope(new SortByLastUpdatedScope());
 
     }
 

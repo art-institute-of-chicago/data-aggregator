@@ -4,6 +4,8 @@ namespace App\Membership;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Scopes\SortByLastUpdatedScope;
+
 class MembershipModel extends Model
 {
 
@@ -17,5 +19,13 @@ class MembershipModel extends Model
      * @var array
      */
     protected $guarded = [];
+
+    protected static function boot()
+    {
+
+        parent::boot();
+        static::addGlobalScope(new SortByLastUpdatedScope());
+
+    }
 
 }
