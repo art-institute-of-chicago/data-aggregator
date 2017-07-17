@@ -6,8 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Scopes\SortByLastUpdatedScope;
 
+use Laravel\Scout\Searchable;
+
 class ShopModel extends Model
 {
+
+    use Searchable;
 
     public $incrementing = false;
     protected $primaryKey = 'shop_id';
@@ -25,6 +29,27 @@ class ShopModel extends Model
 
         parent::boot();
         static::addGlobalScope(new SortByLastUpdatedScope());
+
+    }
+
+    protected function searchableModel()
+    {
+
+        return kebab_case(class_basename(static::class));
+
+    }
+
+    protected function searchableSource()
+    {
+
+        return 'shop';
+
+    }
+
+    protected function searchableId()
+    {
+
+        return $this->searchableSource() .'-' .$this->searchableModel() .'-' .$this->shop_id;
 
     }
 

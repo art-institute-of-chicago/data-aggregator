@@ -12,4 +12,22 @@ class Product extends ShopModel
 
     }
 
+    public function toSearchableArray()
+    {
+
+        $array = [
+            'id' => $this->searchableId(),
+            'source' => $this->searchableSource(),
+            'model' => $this->searchableModel(),
+            'source_id' => $this->shop_id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'image' => $this->image,
+            'link' => $this->link,
+        ];
+
+        return $array;
+
+    }
+
 }
