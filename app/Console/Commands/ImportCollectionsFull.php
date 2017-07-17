@@ -63,7 +63,7 @@ class ImportCollectionsFull extends Command
             if (\App\Collections\AgentType::all()->isEmpty())
             {
 
-                Artisan::call("db:seed", ['class' => 'AgentTypesTableSeeder']);
+                \Artisan::call("db:seed", ['--class' => 'AgentTypesTableSeeder']);
                 
             }
 
@@ -72,7 +72,7 @@ class ImportCollectionsFull extends Command
             {
 
                 $this->import('artists');
-                Artisan::call("db:seed", ['class' => 'AgentsTableSeeder']);
+                \Artisan::call("db:seed", ['--class' => 'AgentsTableSeeder']);
                 
             }
 
@@ -82,7 +82,7 @@ class ImportCollectionsFull extends Command
             if (\App\Collections\ObjectType::all()->isEmpty())
             {
 
-                Artisan::call("db:seed", ['class' => 'ObjectTypesTableSeeder']);
+                \Artisan::call("db:seed", ['--class' => 'ObjectTypesTableSeeder']);
 
             }
 
@@ -96,7 +96,6 @@ class ImportCollectionsFull extends Command
             $this->import('links');
             $this->import('videos');
             $this->import('texts');
-            $this->import('sounds');
 
             // @TODO Replace with real endpoint when it becomes available
             $artworks = \App\Collections\Artwork::all()->all();
@@ -111,9 +110,11 @@ class ImportCollectionsFull extends Command
             if (\App\Collections\Exhibition::all()->isEmpty())
             {
 
-                Artisan::call("db:seed", ['class' => 'ExhibitionsTableSeeder']);
+                \Artisan::call("db:seed", ['--class' => 'ExhibitionsTableSeeder']);
 
             }
+
+            $this->import('sounds');
 
             $command = \App\Command::firstOrCreate(['command' => 'import-collections']);
             $command->last_ran_at = $startTime;

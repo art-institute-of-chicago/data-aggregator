@@ -338,7 +338,7 @@ class Artwork extends CollectionsModel
                 'preferred' => $preferred,
             ]);
 
-            $artwork->images()->save($image);
+            $this->images()->save($image);
 
             if ($preferred || $hasPreferred) $hasPreferred = true;
 

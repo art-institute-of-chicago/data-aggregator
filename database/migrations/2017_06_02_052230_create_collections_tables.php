@@ -65,7 +65,7 @@ class CreateCollectionsTables extends Migration
             $table->increments('id');
             $table->integer('gallery_citi_id')->unsigned()->index();
             $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
-            $table->uuid('category_citi_id');
+            $table->integer('category_citi_id')->unsigned()->index();
             $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
@@ -185,7 +185,7 @@ class CreateCollectionsTables extends Migration
             $table->increments('id');
             $table->uuid('link_lake_guid');
             $table->foreign('link_lake_guid')->references('lake_guid')->on('links')->onDelete('cascade');
-            $table->uuid('category_citi_id');
+            $table->integer('category_citi_id')->unsigned()->index();
             $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
@@ -203,7 +203,7 @@ class CreateCollectionsTables extends Migration
             $table->increments('id');
             $table->uuid('sound_lake_guid');
             $table->foreign('sound_lake_guid')->references('lake_guid')->on('sounds')->onDelete('cascade');
-            $table->uuid('category_citi_id');
+            $table->integer('category_citi_id')->unsigned()->index();
             $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
@@ -221,7 +221,7 @@ class CreateCollectionsTables extends Migration
             $table->increments('id');
             $table->uuid('video_lake_guid');
             $table->foreign('video_lake_guid')->references('lake_guid')->on('videos')->onDelete('cascade');
-            $table->uuid('category_citi_id');
+            $table->integer('category_citi_id')->unsigned()->index();
             $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
@@ -239,7 +239,7 @@ class CreateCollectionsTables extends Migration
             $table->increments('id');
             $table->uuid('text_lake_guid');
             $table->foreign('text_lake_guid')->references('lake_guid')->on('texts')->onDelete('cascade');
-            $table->uuid('category_citi_id');
+            $table->integer('category_citi_id')->unsigned()->index();
             $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
@@ -251,7 +251,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('agent_citi_id')->nullable()->unsigned()->index();
             $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
             $table->string('type')->nullable();
-            $table->string('iiif_url')->unique()->nullable();
+            $table->string('iiif_url')->nullable();
             $table->boolean('preferred')->nullable();
             $table = $this->_addDates($table, false);
         });
@@ -260,7 +260,7 @@ class CreateCollectionsTables extends Migration
             $table->increments('id');
             $table->uuid('image_lake_guid');
             $table->foreign('image_lake_guid')->references('lake_guid')->on('images')->onDelete('cascade');
-            $table->uuid('category_citi_id');
+            $table->integer('category_citi_id')->unsigned()->index();
             $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
