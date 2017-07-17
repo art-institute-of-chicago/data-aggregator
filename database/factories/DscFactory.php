@@ -68,12 +68,19 @@ $factory->define(App\Dsc\Section::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Dsc\WorkOfArt::class, function (Faker\Generator $faker) {
+    static $artworks;
+
+    if (!$artworks)
+    {
+        $artworks = App\Collections\Artwork::all()->pluck('citi_id')->all();
+    }
+
     return array_merge(
         dscIdsAndTitle($faker),
         [
             'content' => $faker->paragraphs(10, true),
             'publication_dsc_id' => $faker->randomElement(App\Dsc\Publication::all()->pluck('dsc_id')->all()),
-            'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
+            'artwork_citi_id' => $faker->randomElement($artworks),
             'weight' => $faker->randomNumber(2),
             'depth' => $faker->randomDigit,
         ]

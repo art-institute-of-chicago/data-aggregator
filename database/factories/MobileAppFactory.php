@@ -36,10 +36,17 @@ if (!function_exists('mobileAppIdsAndTitle'))
 
 
 $factory->define(App\Mobile\Artwork::class, function (Faker\Generator $faker) {
+    static $artworks;
+
+    if (!$artworks)
+    {
+        $artworks = App\Collections\Artwork::all()->pluck('citi_id')->all();
+    }
+
     return array_merge(
         mobileAppIdsAndTitle($faker),
         [
-            'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
+            'artwork_citi_id' => $faker->randomElement($artworks),
             'latitude' => $faker->latitude,
             'longitude' => $faker->longitude,
             'highlighted' => $faker->boolean,
@@ -75,10 +82,17 @@ $factory->define(App\Mobile\Tour::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Mobile\TourStop::class, function (Faker\Generator $faker) {
+    static $artworks;
+
+    if (!$artworks)
+    {
+        $artworks = App\Collections\Artwork::all()->pluck('citi_id')->all();
+    }
+
     return array_merge(
         [
             'tour_mobile_id' => $faker->randomElement(App\Mobile\Sound::all()->pluck('mobile_id')->all()),
-            'artwork_citi_id' => $faker->randomElement(App\Collections\Artwork::all()->pluck('citi_id')->all()),
+            'artwork_citi_id' => $faker->randomElement($artworks),
             'sound_mobile_id' => $faker->randomElement(App\Mobile\Sound::all()->pluck('mobile_id')->all()),
             'weight' => $faker->randomDigit,
             'description' => $faker->paragraph(5),
