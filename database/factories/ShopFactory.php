@@ -14,7 +14,7 @@ if (!function_exists('shopIdsAndTitle'))
 {
     function shopIdsAndTitle($faker, $title = '')
     {
-    
+
         return [
             'shop_id' => $faker->unique()->randomNumber(3),
             'title' => $title ? $title : ucfirst($faker->words(5, true)),
@@ -24,14 +24,14 @@ if (!function_exists('shopIdsAndTitle'))
 
     function shopDates($faker)
     {
-                                                        
+
         return [
             'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
 
     }
-                                                    
+
 }
 
 

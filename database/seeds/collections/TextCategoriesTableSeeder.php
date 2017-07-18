@@ -22,7 +22,7 @@ class TextCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

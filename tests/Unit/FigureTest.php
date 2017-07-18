@@ -27,7 +27,7 @@ class FigureTest extends ApiTestCase
     {
 
         $this->it_fetches_all(Figure::class, 'figures');
-        
+
     }
 
     /** @test */
@@ -52,7 +52,7 @@ class FigureTest extends ApiTestCase
     {
 
         $this->it_400s(Figure::class, 'figures');
-        
+
     }
 
     /** @test */
@@ -76,7 +76,7 @@ class FigureTest extends ApiTestCase
     {
 
         $this->it_405s(Figure::class, 'figures');
-        
+
     }
 
 }

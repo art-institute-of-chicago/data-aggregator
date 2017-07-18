@@ -14,13 +14,13 @@ class AgentTypeTest extends ApiTestCase
 {
 
     use Factory;
-    
+
     /** @test */
     public function it_fetches_all_agent_types()
     {
 
         $resources = $this->it_fetches_all(AgentType::class, 'agent-types');
-        
+
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
@@ -51,7 +51,7 @@ class AgentTypeTest extends ApiTestCase
     {
 
         $this->it_400s(AgentType::class, 'agent-types');
-        
+
     }
 
     /** @test */
@@ -75,7 +75,7 @@ class AgentTypeTest extends ApiTestCase
     {
 
         $this->it_405s(AgentType::class, 'agent-types');
-        
+
     }
-    
+
 }

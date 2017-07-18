@@ -25,7 +25,7 @@ class TitlePageTest extends ApiTestCase
     {
 
         $this->it_fetches_all(TitlePage::class, 'title-pages');
-        
+
     }
 
     /** @test */
@@ -50,7 +50,7 @@ class TitlePageTest extends ApiTestCase
     {
 
         $this->it_400s(TitlePage::class, 'title-pages');
-        
+
     }
 
     /** @test */
@@ -74,7 +74,7 @@ class TitlePageTest extends ApiTestCase
     {
 
         $this->it_405s(TitlePage::class, 'title-pages');
-        
+
     }
 
 }

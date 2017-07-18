@@ -22,7 +22,7 @@ class ImageCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

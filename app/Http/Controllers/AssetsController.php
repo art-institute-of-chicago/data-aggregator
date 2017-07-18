@@ -16,7 +16,7 @@ class AssetsController extends ApiController
 {
 
     public $type = 'Asset';
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -76,7 +76,7 @@ class AssetsController extends ApiController
             {
                 return $this->respondInvalidSyntax('Invalid identifier', "The " .strtolower($this->type) ." identifier should be a universally unique identifier. Please ensure you're passing the correct source identifier and try again.");
             }
-            
+
             $item = $this->model()::find($assetId);
 
             if (!$item)
@@ -91,7 +91,7 @@ class AssetsController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -100,14 +100,14 @@ class AssetsController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = $this->model()::find($ids);
         $transformer = $this->transformer();
         return response()->collection($all, new $transformer);
-        
+
     }
 
     public function model()

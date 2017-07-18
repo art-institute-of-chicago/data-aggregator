@@ -16,7 +16,7 @@ class EventTest extends ApiTestCase
     {
 
         $this->it_fetches_all(Event::class, 'events');
-        
+
     }
 
     /** @test */
@@ -41,7 +41,7 @@ class EventTest extends ApiTestCase
     {
 
         $this->it_400s(Event::class, 'events');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class EventTest extends ApiTestCase
     {
 
         $this->it_405s(Event::class, 'events');
-        
+
     }
 
 }

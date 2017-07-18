@@ -39,7 +39,7 @@ class CopyrightRepresentative extends Agent
     {
 
         App\Collections\AgentType::where('title', 'Copyright Representative')->first();
-        
+
     }
 
     /**

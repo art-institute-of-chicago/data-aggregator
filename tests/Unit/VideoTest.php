@@ -41,7 +41,7 @@ class VideoTest extends ApiTestCase
     {
 
         $this->it_400s(Video::class, 'videos');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class VideoTest extends ApiTestCase
     {
 
         $this->it_405s(Video::class, 'videos');
-        
+
     }
-    
+
 }

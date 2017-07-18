@@ -13,8 +13,8 @@ class ImportCollectionsFull extends Command
      *
      * @var string
      */
-    protected $signature = 'import:collections-full 
-                            {endpoint? : That last portion of the URL path naming the resource to import, for example "artists"} 
+    protected $signature = 'import:collections-full
+                            {endpoint? : That last portion of the URL path naming the resource to import, for example "artists"}
                             {page? : The page to begin importing from}';
 
     /**
@@ -24,7 +24,7 @@ class ImportCollectionsFull extends Command
      */
     protected $description =
                            "Import all collections data\n\n"
-                           
+
                            ."If no options are passes all Collections data will be imported. Results are paged through 100 records \n"
                            ."at a time. If the Collections Data Service doesn't provide an endpoint fake data will be generated.";
 
@@ -64,7 +64,7 @@ class ImportCollectionsFull extends Command
             {
 
                 \Artisan::call("db:seed", ['--class' => 'AgentTypesTableSeeder']);
-                
+
             }
 
             // @TODO Replace with agent endpoint when it becomes available
@@ -73,7 +73,7 @@ class ImportCollectionsFull extends Command
 
                 $this->import('artists');
                 \Artisan::call("db:seed", ['--class' => 'AgentsTableSeeder']);
-                
+
             }
 
             $this->import('departments');
@@ -121,7 +121,7 @@ class ImportCollectionsFull extends Command
             $command->save();
 
         }
-        
+
     }
 
     private function import($endpoint, $current = 1)

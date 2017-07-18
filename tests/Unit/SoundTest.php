@@ -41,7 +41,7 @@ class SoundTest extends ApiTestCase
     {
 
         $this->it_400s(Sound::class, 'sounds');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class SoundTest extends ApiTestCase
     {
 
         $this->it_405s(Sound::class, 'sounds');
-        
+
     }
-    
+
 }

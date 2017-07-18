@@ -18,7 +18,7 @@ class AgentTest extends ApiTestCase
         $resources = $this->it_fetches_all(Agent::class, 'agents');
 
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
-        
+
     }
 
     /** @test */
@@ -46,7 +46,7 @@ class AgentTest extends ApiTestCase
     {
 
         $this->it_400s(Agent::class, 'agents');
-        
+
     }
 
     /** @test */
@@ -70,7 +70,7 @@ class AgentTest extends ApiTestCase
     {
 
         $this->it_405s(Agent::class, 'agents');
-        
+
     }
-    
+
 }

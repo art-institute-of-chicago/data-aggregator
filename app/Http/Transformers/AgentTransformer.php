@@ -8,7 +8,7 @@ class AgentTransformer extends CollectionsTransformer
 {
 
     public $citiObject = true;
-    
+
     /**
      * Turn this item object into a generic array.
      *

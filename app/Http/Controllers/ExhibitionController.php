@@ -32,7 +32,7 @@ class ExhibitionsController extends ApiController
 
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many exhibitions. Please set a smaller limit.');
-        
+
         $all = Exhibition::paginate($limit);
 
         return response()->collection($all, new \App\Http\Transformers\ExhibitionTransformer);
@@ -75,7 +75,7 @@ class ExhibitionsController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -84,13 +84,13 @@ class ExhibitionsController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = Exhibition::find($ids);
         return response()->collection($all, new \App\Http\Transformers\ExhibitionTransformer);
-        
+
     }
 
 }

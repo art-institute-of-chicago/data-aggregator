@@ -71,6 +71,6 @@ class CollectionsTransformer extends ApiTransformer
             ]
         );
 
-    }   
+    }
 
 }

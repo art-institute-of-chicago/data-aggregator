@@ -9,7 +9,7 @@ class CopyrightRepresentativesController extends AgentsController
     {
 
         return 'Copyright Representative';
-        
+
     }
 
 }

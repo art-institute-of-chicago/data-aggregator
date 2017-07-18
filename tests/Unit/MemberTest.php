@@ -24,7 +24,7 @@ class MemberTest extends ApiTestCase
     {
 
         $this->it_400s(Member::class, 'events');
-        
+
     }
 
     /** @test */
@@ -48,7 +48,7 @@ class MemberTest extends ApiTestCase
     {
 
         $this->it_405s(Member::class, 'events');
-        
+
     }
 
 }

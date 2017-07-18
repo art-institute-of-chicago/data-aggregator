@@ -50,7 +50,7 @@ class TourTest extends ApiTestCase
     {
 
         $this->it_400s(Tour::class, 'tours');
-        
+
     }
 
     /** @test */
@@ -74,7 +74,7 @@ class TourTest extends ApiTestCase
     {
 
         $this->it_405s(Tour::class, 'tours');
-        
+
     }
-    
+
 }

@@ -16,7 +16,7 @@ class ShopCategoryTest extends ApiTestCase
     {
 
         $this->it_fetches_all(Category::class, 'shop-categories');
-        
+
     }
 
     /** @test */
@@ -41,7 +41,7 @@ class ShopCategoryTest extends ApiTestCase
     {
 
         $this->it_400s(Category::class, 'shop-categories');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class ShopCategoryTest extends ApiTestCase
     {
 
         $this->it_405s(Category::class, 'shop-categories');
-        
+
     }
-    
+
 }

@@ -9,7 +9,7 @@ class ArtistsController extends AgentsController
     {
 
         return 'Artist';
-        
+
     }
 
 }

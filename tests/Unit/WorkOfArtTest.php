@@ -29,7 +29,7 @@ class WorkOfArtTest extends ApiTestCase
     {
 
         $this->it_fetches_all(WorkOfArt::class, 'works-of-art');
-        
+
     }
 
     /** @test */
@@ -54,7 +54,7 @@ class WorkOfArtTest extends ApiTestCase
     {
 
         $this->it_400s(WorkOfArt::class, 'works-of-art');
-        
+
     }
 
     /** @test */
@@ -78,7 +78,7 @@ class WorkOfArtTest extends ApiTestCase
     {
 
         $this->it_405s(WorkOfArt::class, 'works-of-art');
-        
+
     }
 
 }

@@ -16,7 +16,7 @@ class DepartmentTest extends ApiTestCase
     {
 
         $resources = $this->it_fetches_all(Department::class, 'departments');
-        
+
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
@@ -47,7 +47,7 @@ class DepartmentTest extends ApiTestCase
     {
 
         $this->it_400s(Department::class, 'departments');
-        
+
     }
 
     /** @test */
@@ -71,7 +71,7 @@ class DepartmentTest extends ApiTestCase
     {
 
         $this->it_405s(Department::class, 'departments');
-        
+
     }
-    
+
 }

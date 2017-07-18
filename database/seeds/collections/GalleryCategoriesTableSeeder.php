@@ -22,7 +22,7 @@ class GalleryCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

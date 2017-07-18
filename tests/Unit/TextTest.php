@@ -41,7 +41,7 @@ class TextTest extends ApiTestCase
     {
 
         $this->it_400s(Text::class, 'texts');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class TextTest extends ApiTestCase
     {
 
         $this->it_405s(Text::class, 'texts');
-        
+
     }
-    
+
 }

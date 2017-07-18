@@ -19,13 +19,13 @@ abstract class ApiTestCase extends TestCase
     use Factory;
 
     protected $faker;
-    
+
 
     function __construct()
     {
 
         $this->faker = Faker::create();
-        
+
     }
 
     public function setUp()
@@ -81,7 +81,7 @@ abstract class ApiTestCase extends TestCase
     {
 
         $this->times(5)->make($class);
-        
+
         $response = $this->getJson('api/v1/' .$endpoint);
         $response->assertSuccessful();
 
@@ -133,7 +133,7 @@ abstract class ApiTestCase extends TestCase
     {
 
         $this->make($class);
-        
+
         $response = $this->getJson('api/v1/' .$endpoint .'/fsdfdfs');
 
         $response->assertStatus(400);
@@ -144,7 +144,7 @@ abstract class ApiTestCase extends TestCase
     {
 
         $this->make($class);
-        
+
         $response = $this->getJson('api/v1/' .$endpoint .'?limit=2000');
 
         $response->assertStatus(403);
@@ -155,7 +155,7 @@ abstract class ApiTestCase extends TestCase
     {
 
         $this->make($class);
-        
+
         $response = $this->getJson('api/v1/' .$endpoint .'/' .$useUuid ? $this->faker->unique()->uuid : $this->faker->unique()->randomNumber(5));
 
         $response->assertStatus(404);
@@ -166,7 +166,7 @@ abstract class ApiTestCase extends TestCase
     {
 
         $this->make($class);
-        
+
         $response = $this->postJson('api/v1/' .$endpoint);
 
         $response->assertStatus(405);

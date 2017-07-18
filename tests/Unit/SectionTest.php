@@ -25,7 +25,7 @@ class SectionTest extends ApiTestCase
     {
 
         $this->it_fetches_all(Section::class, 'sections');
-        
+
     }
 
     /** @test */
@@ -50,7 +50,7 @@ class SectionTest extends ApiTestCase
     {
 
         $this->it_400s(Section::class, 'sections');
-        
+
     }
 
     /** @test */
@@ -74,7 +74,7 @@ class SectionTest extends ApiTestCase
     {
 
         $this->it_405s(Section::class, 'sections');
-        
+
     }
 
 }

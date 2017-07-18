@@ -18,7 +18,7 @@ class CorporateBody extends Agent
         return parent::newQuery()->whereHas('agentType', function ($query) { $query->where('title', '=', 'Corporate Body'); });
 
     }
-    
+
     /**
      * Create a new instance of the given model.
      *
@@ -39,7 +39,7 @@ class CorporateBody extends Agent
     {
 
         App\Collections\AgentType::where('title', 'Corporate Body')->first();
-        
+
     }
 
     /**

@@ -75,7 +75,7 @@ class WorksOfArtController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -84,13 +84,13 @@ class WorksOfArtController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = WorkOfArt::find($ids);
         return response()->collection($all, new \App\Http\Transformers\WorkOfArtTransformer);
-        
+
     }
 
 }

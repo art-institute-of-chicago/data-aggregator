@@ -22,7 +22,7 @@ class SoundCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

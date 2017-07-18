@@ -19,7 +19,7 @@ class ArtworkCopyrightRepresentativesTableSeeder extends Seeder
             $artwork->seedCopyrightRepresentatives();
 
         }
-        
+
     }
-    
+
 }

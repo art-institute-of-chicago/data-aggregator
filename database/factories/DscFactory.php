@@ -14,7 +14,7 @@ if (!function_exists('dscIdsAndTitle'))
 {
     function dscIdsAndTitle($faker, $id = '')
     {
-    
+
         return [
             'dsc_id' => $id ?: $faker->unique()->randomNumber(4),
             'title' => ucfirst($faker->words(3, true)),
@@ -24,14 +24,14 @@ if (!function_exists('dscIdsAndTitle'))
 
     function dscDates($faker)
     {
-                                                        
+
         return [
             'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
 
     }
-                                                    
+
 }
 
 

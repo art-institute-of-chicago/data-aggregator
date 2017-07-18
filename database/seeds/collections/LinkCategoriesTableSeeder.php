@@ -22,7 +22,7 @@ class LinkCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

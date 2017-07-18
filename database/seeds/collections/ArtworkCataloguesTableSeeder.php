@@ -19,7 +19,7 @@ class ArtworkCataloguesTableSeeder extends Seeder
             $artwork->seedCatalogues();
 
         }
-        
+
     }
-    
+
 }

@@ -24,11 +24,11 @@ class ArtworkArtworksTableSeeder extends Seeder
                 if ($artworkId != $artwork->getKey()) {
                     $artwork->parts()->attach($artworkId);
                 }
-                
+
             }
 
         }
-        
+
     }
-    
+
 }

@@ -17,7 +17,7 @@ class ProductTest extends ApiTestCase
     {
 
         $this->it_fetches_all(Product::class, 'products');
-        
+
     }
 
     /** @test */
@@ -42,7 +42,7 @@ class ProductTest extends ApiTestCase
     {
 
         $this->it_400s(Product::class, 'products');
-        
+
     }
 
     /** @test */
@@ -66,7 +66,7 @@ class ProductTest extends ApiTestCase
     {
 
         $this->it_405s(Product::class, 'products');
-        
+
     }
 
 }

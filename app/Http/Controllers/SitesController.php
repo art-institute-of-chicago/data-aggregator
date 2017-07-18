@@ -34,7 +34,7 @@ class SitesController extends ApiController
 
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many sites. Please set a smaller limit.');
-        
+
         $all = Site::paginate($limit);
         return response()->collection($all, new \App\Http\Transformers\SiteTransformer);
 
@@ -76,7 +76,7 @@ class SitesController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -85,13 +85,13 @@ class SitesController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = Site::find($ids);
         return response()->collection($all, new \App\Http\Transformers\SiteTransformer);
-        
+
     }
 
 }

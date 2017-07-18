@@ -41,7 +41,7 @@ class LinkTest extends ApiTestCase
     {
 
         $this->it_400s(Link::class, 'links');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class LinkTest extends ApiTestCase
     {
 
         $this->it_405s(Link::class, 'links');
-        
+
     }
-    
+
 }

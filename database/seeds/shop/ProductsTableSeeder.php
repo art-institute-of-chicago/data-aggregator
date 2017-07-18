@@ -20,7 +20,7 @@ class ProductsTableSeeder extends Seeder
 
     private function _addCategoriesToProducts()
     {
-    
+
         $products = App\Shop\Product::all()->all();
         $categoryIds = App\Shop\Category::all()->pluck('shop_id')->all();
 
@@ -36,11 +36,11 @@ class ProductsTableSeeder extends Seeder
                     $product->categories()->attach($id);
                     $ids[] = $id;
                 }
-                
+
             }
 
         }
-    
+
     }
-    
+
 }

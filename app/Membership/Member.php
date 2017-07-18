@@ -20,7 +20,7 @@ class Member extends MembershipModel
     public function __call($method, $parameters)
     {
         if ($method == 'find') {
-            
+
             return factory(get_class())->make();
 
         }

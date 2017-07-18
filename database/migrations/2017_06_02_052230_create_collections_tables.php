@@ -301,7 +301,7 @@ class CreateCollectionsTables extends Migration
             $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
         });
 
-        
+
     }
 
     private function _addIdsAndTitle($table, $citiField = true, $titleField = 'string')
@@ -320,7 +320,7 @@ class CreateCollectionsTables extends Migration
             $table->uuid('lake_guid')->unique()->primary();
 
         }
-            
+
         $table->{$titleField}('title')->nullable();
         $table->string('lake_uri')->unique()->nullable();
         return $table;

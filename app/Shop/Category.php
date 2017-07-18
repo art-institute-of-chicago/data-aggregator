@@ -9,7 +9,7 @@ class Category extends ShopModel
     protected $primaryKey = 'shop_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
     public $table = 'shop_categories';
-    
+
 
     public function parent()
     {

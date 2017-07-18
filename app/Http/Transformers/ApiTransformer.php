@@ -51,7 +51,7 @@ class ApiTransformer extends TransformerAbstract
             'id' => $item->getAttributeValue($item->getKeyName()),
             'title' => $item->title,
         ];
-        
+
     }
 
     protected function transformDates($item)
@@ -69,6 +69,6 @@ class ApiTransformer extends TransformerAbstract
             'last_updated' => $item->updated_at->toDateTimeString(),
         ];
 
-    }   
+    }
 
 }

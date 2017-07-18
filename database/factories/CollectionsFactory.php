@@ -14,10 +14,10 @@ if (!function_exists('idsAndTitle'))
 {
     function idsAndTitle($faker, $title, $citiField = false, $idLength = 6)
     {
-    
+
         $lake_id = $faker->uuid;
         $ret = [];
-    
+
         if ($citiField)
         {
             $ret = [
@@ -33,12 +33,12 @@ if (!function_exists('idsAndTitle'))
                 'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
             ]
         );
-    
+
     }
 
     function dates($faker, $citiField = false)
     {
-                                                        
+
         $ret = [
             'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
@@ -58,7 +58,7 @@ if (!function_exists('idsAndTitle'))
         return $ret;
 
     }
-                                                    
+
 }
 
 
@@ -192,7 +192,7 @@ $factory->define(App\Collections\Gallery::class, function (Faker\Generator $fake
         [
             'closed' => $faker->boolean(25),
             'number' => $faker->randomNumber(3),
-            'floor' => $faker->randomElement([1,2,3]), 
+            'floor' => $faker->randomElement([1,2,3]),
             'latitude' => $faker->latitude,
             'longitude' => $faker->longitude,
         ],

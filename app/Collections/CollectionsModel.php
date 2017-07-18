@@ -78,7 +78,7 @@ class CollectionsModel extends Model
     {
 
         $fill = [];
-        
+
         if ($this->getKeyName() == 'citi_id')
         {
 
@@ -92,7 +92,7 @@ class CollectionsModel extends Model
             $fill['lake_guid'] = $source->id;
 
         }
-            
+
         $fill['title'] = $source->title;
         $fill['lake_uri'] = $source->lake_uri;
 

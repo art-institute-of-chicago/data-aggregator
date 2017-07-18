@@ -14,7 +14,7 @@ if (!function_exists('membershipIdsAndTitle'))
 {
     function membershipIdsAndTitle($faker, $title = '')
     {
-    
+
         return [
             'membership_id' => $faker->unique()->randomNumber(5),
             'title' => $title ? $title : ucfirst($faker->words(3, true)),
@@ -24,14 +24,14 @@ if (!function_exists('membershipIdsAndTitle'))
 
     function membershipDates($faker)
     {
-                                                        
+
         return [
             'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
 
     }
-                                                    
+
 }
 
 

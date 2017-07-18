@@ -41,7 +41,7 @@ class MobileSoundTest extends ApiTestCase
     {
 
         $this->it_400s(Sound::class, 'mobile-sounds');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class MobileSoundTest extends ApiTestCase
     {
 
         $this->it_405s(Sound::class, 'mobile-sounds');
-        
+
     }
-    
+
 }

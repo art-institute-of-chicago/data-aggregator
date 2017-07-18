@@ -75,8 +75,8 @@ class CollectionsDatabaseSeeder extends Seeder
         Theme::truncate();
         Artwork::truncate();
         Gallery::truncate();
-        Category::truncate();        
-        ObjectType::truncate();        
+        Category::truncate();
+        ObjectType::truncate();
         Department::truncate();
         Agent::truncate();
         AgentType::truncate();

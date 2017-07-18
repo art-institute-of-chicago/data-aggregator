@@ -39,7 +39,7 @@ class Artist extends Agent
     {
 
         App\Collections\AgentType::where('title', 'Artist')->first();
-        
+
     }
 
     /**

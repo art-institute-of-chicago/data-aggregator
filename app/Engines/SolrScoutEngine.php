@@ -19,7 +19,7 @@ class SolrScoutEngine extends Engine
         $this->solrClient = $solrClient;
 
     }
-    
+
     public function update($models)
     {
 
@@ -33,7 +33,7 @@ class SolrScoutEngine extends Engine
                 if (empty($array)) {
                     return;
                 }
-                
+
                 return $update->createDocument($array);
             })->filter()->values()->all()
         );
@@ -121,7 +121,7 @@ class SolrScoutEngine extends Engine
         return collect($results)->pluck('text_id')->values();
 
     }
-    
+
     public function getTotalCount($results)
     {
     }

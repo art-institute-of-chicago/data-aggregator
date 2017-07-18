@@ -23,7 +23,7 @@ class ArtworkTest extends ApiTestCase
     {
 
         $resources = $this->it_fetches_all(Artwork::class, 'artworks');
-        
+
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
@@ -58,7 +58,7 @@ class ArtworkTest extends ApiTestCase
         $this->make(Artwork::class, ['citi_id' => 99539]);
         $this->make(Artwork::class, ['citi_id' => 189595]);
         $resources = $this->it_fetches_multiple(Artwork::class, 'artworks/essentials');
-        
+
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
@@ -68,7 +68,7 @@ class ArtworkTest extends ApiTestCase
     {
 
         $this->it_400s(Artwork::class, 'artworks');
-        
+
     }
 
     /** @test */
@@ -92,7 +92,7 @@ class ArtworkTest extends ApiTestCase
     {
 
         $this->it_405s(Artwork::class, 'artworks');
-        
+
     }
 
 
@@ -107,13 +107,13 @@ class ArtworkTest extends ApiTestCase
 
         $images = $response->json()['data'];
         $this->assertCount(4, $images);
-        
+
         foreach ($images as $image)
         {
             $this->assertArrayHasKeys($image, ['id', 'title', 'iiif_url']);
         }
     }
-    
+
     /** @test */
     public function it_fetches_categories_for_an_artwork()
     {
@@ -122,10 +122,10 @@ class ArtworkTest extends ApiTestCase
 
         $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/categories');
         $response->assertSuccessful();
-        
+
         $pubcats = $response->json()['data'];
         $this->assertCount(4, $pubcats);
-        
+
         foreach ($pubcats as $pubcat)
         {
             $this->assertArrayHasKeys($pubcat, ['id', 'title', 'parent_id']);
@@ -136,13 +136,13 @@ class ArtworkTest extends ApiTestCase
     {
 
         $artworkKey = $this->attach([Sound::class, Video::class, Text::class, Link::class], 4)->make(Artwork::class);
-        
+
         $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/resources');
         $response->assertSuccessful();
 
         $resources = $response->json()['data'];
         $this->assertCount(16, $resources);
-        
+
         foreach ($resources as $resource)
         {
             $this->assertArrayHasKeys($resource, ['id', 'title']);
@@ -160,7 +160,7 @@ class ArtworkTest extends ApiTestCase
 
         $artists = $response->json()['data'];
         $this->assertCount(2, $artists);
-        
+
         foreach ($artists as $artist)
         {
             $this->assertArrayHasKeys($artist, ['id', 'title']);
@@ -180,7 +180,7 @@ class ArtworkTest extends ApiTestCase
 
         $copyrightRepresentatives = $response->json()['data'];
         $this->assertCount(2, $copyrightRepresentatives);
-        
+
         foreach ($copyrightRepresentatives as $copyrightRepresentative)
         {
             $this->assertArrayHasKeys($copyrightRepresentative, ['id', 'title']);
@@ -200,7 +200,7 @@ class ArtworkTest extends ApiTestCase
 
         $parts = $response->json()['data'];
         $this->assertCount(2, $parts);
-        
+
         foreach ($parts as $part)
         {
             $this->assertArrayHasKeys($part, ['id', 'title']);
@@ -219,7 +219,7 @@ class ArtworkTest extends ApiTestCase
 
         $sets = $response->json()['data'];
         $this->assertCount(2, $sets);
-        
+
         foreach ($sets as $set)
         {
             $this->assertArrayHasKeys($set, ['id', 'title']);

@@ -19,7 +19,7 @@ class ArtworkDatesTableSeeder extends Seeder
             $artwork->seedDates();
 
         }
-        
+
     }
-    
+
 }

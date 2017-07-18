@@ -41,5 +41,5 @@ class ShopCategoryTransformer extends ApiTransformer
     {
         return $this->collection($category->children()->getResults(), new ShopCategoryTransformer, false);
     }
-    
+
 }

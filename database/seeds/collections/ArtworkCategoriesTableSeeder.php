@@ -22,7 +22,7 @@ class ArtworkCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

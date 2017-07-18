@@ -19,7 +19,7 @@ class ArtworkTermsTableSeeder extends Seeder
             $artwork->seedTerms();
 
         }
-        
+
     }
-    
+
 }

@@ -25,7 +25,7 @@ class CollectorTest extends ApiTestCase
     {
 
         $this->it_fetches_all(Collector::class, 'collectors');
-        
+
     }
 
     /** @test */
@@ -50,7 +50,7 @@ class CollectorTest extends ApiTestCase
     {
 
         $this->it_400s(Collector::class, 'collectors');
-        
+
     }
 
     /** @test */
@@ -74,7 +74,7 @@ class CollectorTest extends ApiTestCase
     {
 
         $this->it_405s(Collector::class, 'collectors');
-        
+
     }
 
 }

@@ -16,7 +16,7 @@ class GalleryTest extends ApiTestCase
     {
 
         $resources = $this->it_fetches_all(Gallery::class, 'galleries');
-        
+
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
@@ -47,7 +47,7 @@ class GalleryTest extends ApiTestCase
     {
 
         $this->it_400s(Gallery::class, 'galleries');
-        
+
     }
 
     /** @test */
@@ -71,7 +71,7 @@ class GalleryTest extends ApiTestCase
     {
 
         $this->it_405s(Gallery::class, 'galleries');
-        
+
     }
 
 }

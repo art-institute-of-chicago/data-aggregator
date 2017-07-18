@@ -17,7 +17,7 @@ class ExhibitionsTableSeeder extends Seeder
         $exhibitions = App\Collections\Exhibition::all()->all();
 
         foreach ($exhibitions as $exhibition) {
-            
+
             $exhibition->seedArtworks();
 
             $exhibition->seedVenues();

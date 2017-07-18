@@ -37,6 +37,6 @@ class DscTransformer extends ApiTransformer
             'last_updated' => $item->updated_at->toDateTimeString(),
         ];
 
-    }   
+    }
 
 }

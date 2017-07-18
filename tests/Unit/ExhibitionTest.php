@@ -21,11 +21,11 @@ class ExhibitionTest extends ApiTestCase
 
         parent::setUp();
         $this->make(Gallery::class);
-        $this->make(Department::class); 
+        $this->make(Department::class);
         $this->times(5)->make(Agent::class);
 
     }
-    
+
     /** @test */
     public function it_fetches_all_exhibitions()
     {
@@ -33,7 +33,7 @@ class ExhibitionTest extends ApiTestCase
         $resources = $this->it_fetches_all(Exhibition::class, 'exhibitions');
 
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
-        
+
     }
 
     /** @test */
@@ -62,7 +62,7 @@ class ExhibitionTest extends ApiTestCase
     {
 
         $this->it_400s(Exhibition::class, 'exhibitions');
-        
+
     }
 
     /** @test */
@@ -86,7 +86,7 @@ class ExhibitionTest extends ApiTestCase
     {
 
         $this->it_405s(Exhibition::class, 'exhibitions');
-        
+
     }
 
 
@@ -101,7 +101,7 @@ class ExhibitionTest extends ApiTestCase
 
         $artworks = $response->json()['data'];
         $this->assertCount(4, $artworks);
-        
+
         foreach ($artworks as $artwork)
         {
             $this->assertArrayHasKeys($artwork, ['id', 'title']);
@@ -121,7 +121,7 @@ class ExhibitionTest extends ApiTestCase
 
         $venues = $response->json()['data'];
         $this->assertCount(4, $venues);
-        
+
         foreach ($venues as $venue)
         {
             $this->assertArrayHasKeys($venue, ['id', 'title']);

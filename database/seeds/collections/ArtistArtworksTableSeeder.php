@@ -27,11 +27,11 @@ class ArtistArtworksTableSeeder extends Seeder
                     $artwork->artists()->attach($id);
                     $ids[] = $id;
                 }
-                
+
             }
 
         }
-        
+
     }
-    
+
 }

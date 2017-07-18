@@ -215,8 +215,8 @@ class Artwork extends CollectionsModel
         $this->seedDates();
         $this->seedCatalogues();
         //$this->seedParts();
-        
-        // update artworks with gallery id and object type id 
+
+        // update artworks with gallery id and object type id
 
         return $this;
 
@@ -228,7 +228,7 @@ class Artwork extends CollectionsModel
         $agentIds = CopyrightRepresentative::all()->pluck('citi_id')->all();
 
         $ids = [];
-            
+
         for ($i = 0; $i < rand(2,8); $i++) {
 
             $id = $agentIds[array_rand($agentIds)];
@@ -248,7 +248,7 @@ class Artwork extends CollectionsModel
     {
 
         for ($i = 0; $i < rand(2,8); $i++) {
-                
+
             $committee = factory(ArtworkCommittee::class)->make([
                 'artwork_citi_id' => $this->citi_id,
             ]);
@@ -265,7 +265,7 @@ class Artwork extends CollectionsModel
     {
 
         for ($i = 0; $i < rand(2,8); $i++) {
-                
+
             $term = factory(ArtworkTerm::class)->make([
                 'artwork_citi_id' => $this->citi_id,
             ]);
@@ -282,11 +282,11 @@ class Artwork extends CollectionsModel
     {
 
         $hasPreferred = false;
-            
+
         for ($i = 0; $i < rand(2,8); $i++) {
-                
+
             $preferred = $hasPreferred ? false : $this->faker->boolean;
-                
+
             $this->dates()->create([
                 'date' => $this->faker->dateTimeAD,
                 'qualifier' => ucfirst($this->faker->word) .' date',
@@ -305,11 +305,11 @@ class Artwork extends CollectionsModel
     {
 
         $hasPreferred = false;
-            
+
         for ($i = 0; $i < rand(2,8); $i++) {
-                
+
             $preferred = $this->faker->boolean;
-                
+
             $this->catalogues()->create([
                 'preferred' => $hasPreferred ? false : $this->faker->boolean,
                 'catalogue' => ucwords($this->faker->words(2, true)),
@@ -329,11 +329,11 @@ class Artwork extends CollectionsModel
     {
 
         $hasPreferred = false;
-            
+
         for ($i = 0; $i < rand(2,8); $i++) {
-                
+
             $preferred = $hasPreferred ? false : $this->faker->boolean;
-                
+
             $image = factory(\App\Collections\Image::class)->make([
                 'preferred' => $preferred,
             ]);

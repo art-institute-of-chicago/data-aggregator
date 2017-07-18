@@ -14,7 +14,7 @@ if (!function_exists('mobileAppIdsAndTitle'))
 {
     function mobileAppIdsAndTitle($faker, $title = '')
     {
-    
+
         return [
             'mobile_id' => $faker->unique()->randomNumber(4),
             'title' => $title ? $title : ucfirst($faker->words(3, true)),
@@ -24,14 +24,14 @@ if (!function_exists('mobileAppIdsAndTitle'))
 
     function mobileAppDates($faker)
     {
-                                                        
+
         return [
             'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
 
     }
-                                                    
+
 }
 
 

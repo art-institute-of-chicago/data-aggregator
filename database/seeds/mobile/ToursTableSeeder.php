@@ -20,7 +20,7 @@ class ToursTableSeeder extends Seeder
 
     private function _addStopsToTours()
     {
-    
+
         $tours = App\Mobile\Tour::all()->all();
 
         foreach ($tours as $tour) {
@@ -28,9 +28,9 @@ class ToursTableSeeder extends Seeder
             for ($i = 0; $i < rand(4,12); $i++) {
 
                 factory(App\Mobile\TourStop::class)->create(['tour_mobile_id' => $tour->mobile_id]);
-                
+
             }
-            
+
         }
 
     }

@@ -87,7 +87,7 @@ class ImageTest extends ApiTestCase
     {
 
         $this->it_400s(Image::class, 'images');
-        
+
     }
 
     /** @test */
@@ -111,7 +111,7 @@ class ImageTest extends ApiTestCase
     {
 
         $this->it_405s(Image::class, 'images');
-        
+
     }
 
 }

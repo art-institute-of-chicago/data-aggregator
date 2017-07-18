@@ -19,7 +19,7 @@ class ArtworkCommitteesTableSeeder extends Seeder
             $artwork->seedCommittees();
 
         }
-        
+
     }
-    
+
 }

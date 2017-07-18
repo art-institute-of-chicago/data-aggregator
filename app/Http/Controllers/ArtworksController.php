@@ -33,7 +33,7 @@ class ArtworksController extends ApiController
 
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many artworks. Please set a smaller limit.');
-        
+
         if ($artworkId && $request->segment(3) == 'exhibitions')
         {
 
@@ -105,7 +105,7 @@ class ArtworksController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -114,13 +114,13 @@ class ArtworksController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = Artwork::find($ids);
         return response()->collection($all, new \App\Http\Transformers\ArtworkTransformer);
-        
+
     }
 
 }
