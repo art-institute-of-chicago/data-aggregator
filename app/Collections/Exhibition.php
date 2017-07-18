@@ -46,7 +46,7 @@ class Exhibition extends CollectionsModel
 
             $artworkId = $artworkIds[array_rand($artworkIds)];
 
-            $exhibition->artworks()->attach($artworkId);
+            $this->artworks()->attach($artworkId);
 
         }
 
@@ -63,7 +63,7 @@ class Exhibition extends CollectionsModel
 
             $agentId = $agentIds[array_rand($agentIds)];
 
-            $exhibition->venues()->attach($agentId);
+            $this->venues()->attach($agentId);
 
         }
 
