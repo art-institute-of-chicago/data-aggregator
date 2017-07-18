@@ -13,7 +13,7 @@ class SoundCategoriesTableSeeder extends Seeder
     {
 
         $sounds = App\Collections\Sound::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $categoryIds = App\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($sounds as $sound) {
 

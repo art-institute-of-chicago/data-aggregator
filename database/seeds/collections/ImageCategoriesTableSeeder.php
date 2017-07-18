@@ -13,7 +13,7 @@ class ImageCategoriesTableSeeder extends Seeder
     {
 
         $images = App\Collections\Image::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $categoryIds = App\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($images as $image) {
 

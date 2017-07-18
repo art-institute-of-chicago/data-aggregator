@@ -13,7 +13,7 @@ class GalleryCategoriesTableSeeder extends Seeder
     {
 
         $galleries = App\Collections\Gallery::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $categoryIds = App\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($galleries as $gallery) {
 

@@ -13,7 +13,7 @@ class TextCategoriesTableSeeder extends Seeder
     {
 
         $texts = App\Collections\Text::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $categoryIds = App\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($texts as $text) {
 

@@ -13,7 +13,7 @@ class ArtworkCategoriesTableSeeder extends Seeder
     {
 
         $artworks = App\Collections\Artwork::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $categoryIds = App\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($artworks as $artwork) {
 

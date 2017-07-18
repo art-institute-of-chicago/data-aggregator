@@ -13,7 +13,7 @@ class VideoCategoriesTableSeeder extends Seeder
     {
 
         $videos = App\Collections\Video::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $categoryIds = App\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($videos as $video) {
 

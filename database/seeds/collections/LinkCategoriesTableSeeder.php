@@ -13,7 +13,7 @@ class LinkCategoriesTableSeeder extends Seeder
     {
 
         $links = App\Collections\Link::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $categoryIds = App\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($links as $link) {
 

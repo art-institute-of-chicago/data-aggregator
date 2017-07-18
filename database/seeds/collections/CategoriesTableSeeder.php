@@ -14,7 +14,7 @@ class CategoriesTableSeeder extends Seeder
         factory(App\Collections\Category::class, 100)->create();
 
         $categories = App\Collections\Category::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $categoryIds = App\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($categories as $category) {
 
