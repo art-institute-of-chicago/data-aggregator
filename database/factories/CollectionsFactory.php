@@ -271,6 +271,14 @@ $factory->define(App\Collections\Text::class, function (Faker\Generator $faker) 
 
 
 $factory->define(App\Collections\Image::class, function (Faker\Generator $faker) {
+    static $agents;
+
+    if (!$agents)
+    {
+
+        $agents = App\Collections\Agent::all()->pluck('citi_id')->all();
+
+    }
     $lake_id = $faker->uuid;
     return array_merge(
         idsAndTitle($faker, ucwords($faker->words(3, true))),
@@ -278,7 +286,7 @@ $factory->define(App\Collections\Image::class, function (Faker\Generator $faker)
             'description' => $faker->paragraph(3),
             'type' => 'http://definitions.artic.edu/doctypes/' .$faker->randomElement(['Imaging', 'CuratorialStillImage']),
             'iiif_url' => $faker->unique()->imageUrl(), //env('LAKE_URL', 'https://localhost/iiif') .'/' .$lake_id .'/info.json',
-            'agent_citi_id' => $faker->randomElement(App\Collections\Agent::all()->pluck('citi_id')->all()),
+            'agent_citi_id' => $faker->randomElement($agents),
         ],
         dates($faker)
     );

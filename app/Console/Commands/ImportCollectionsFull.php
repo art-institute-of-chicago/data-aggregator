@@ -91,20 +91,18 @@ class ImportCollectionsFull extends Command
 
             // @TODO Galleries are available, but break due to Redmine bug #1911 - Gallery Floor isn't always a number
             //$this->import('galleries');
+            // @TODO Replace with real endpoint when it becomes available
+            if (\App\Collections\Gallery::all()->isEmpty())
+            {
+
+                \Artisan::call("db:seed", ['--class' => 'GalleriesTableSeeder']);
+
+            }
 
             $this->import('artworks');
             $this->import('links');
             $this->import('videos');
             $this->import('texts');
-
-            // @TODO Replace with real endpoint when it becomes available
-            $artworks = \App\Collections\Artwork::all()->all();
-
-            foreach ($artworks as $artwork) {
-
-                $artwork->seedImages();
-
-            }
 
             // @TODO Replace with real endpoint when it becomes available
             if (\App\Collections\Exhibition::all()->isEmpty())

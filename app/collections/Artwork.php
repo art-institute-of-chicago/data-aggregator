@@ -214,6 +214,7 @@ class Artwork extends CollectionsModel
         $this->seedTerms();
         $this->seedDates();
         $this->seedCatalogues();
+        $this->seedImages();
         //$this->seedParts();
 
         // update artworks with gallery id and object type id
@@ -330,14 +331,13 @@ class Artwork extends CollectionsModel
 
         $hasPreferred = false;
 
-        for ($i = 0; $i < rand(2,8); $i++) {
+        for ($i = 0; $i < rand(2,4); $i++) {
 
             $preferred = $hasPreferred ? false : $this->faker->boolean;
 
             $image = factory(\App\Collections\Image::class)->make([
                 'preferred' => $preferred,
             ]);
-
             $this->images()->save($image);
 
             if ($preferred || $hasPreferred) $hasPreferred = true;

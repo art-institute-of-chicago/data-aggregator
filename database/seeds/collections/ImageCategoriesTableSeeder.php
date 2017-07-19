@@ -12,16 +12,16 @@ class ImageCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $images = App\Collections\Image::all()->all();
+        $images = App\Collections\Image::all();
         $categoryIds = App\Collections\Category::all()->pluck('citi_id')->all();
 
-        foreach ($images as $image) {
+        $images->each(function ($image, $key) {
 
-            for ($i = 0; $i < rand(2,8); $i++) {
+            for ($i = 0; $i < rand(2,4); $i++) {
                 $image->categories()->attach($categoryIds[array_rand($categoryIds)]);
             }
 
-        }
+        });
 
     }
 
