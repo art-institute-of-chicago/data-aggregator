@@ -49,7 +49,7 @@ class ShopModel extends Model
     protected function searchableId()
     {
 
-        return $this->searchableSource() .'-' .$this->searchableModel() .'-' .$this->shop_id;
+        return $this->searchableSource() .'/' .$this->searchableModel() .'/' .$this->shop_id;
 
     }
 
