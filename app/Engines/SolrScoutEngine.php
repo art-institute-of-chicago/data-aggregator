@@ -3,7 +3,6 @@
 namespace App\Services\Solr;
 
 use Laravel\Scout\Builder;
-use AlgoliaSearch\Client as Algolia;
 use Illuminate\Database\Eloquent\Collection;
 use Laravel\Scout\Engines\Engine;
 use Solarium\Client;
