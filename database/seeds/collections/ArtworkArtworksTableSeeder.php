@@ -15,7 +15,7 @@ class ArtworkArtworksTableSeeder extends Seeder
         $artworks = App\Models\Collections\Artwork::all();
         $artworkIds = App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
 
-        $artworks->each(function($artwork, $key) {
+        $artworks->each(function($artwork, $key) use ($artworkIds) {
 
             for ($i = 0; $i < rand(2,4); $i++) {
 
