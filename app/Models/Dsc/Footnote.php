@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dsc;
+namespace App\Models\Dsc;
 
 class Footnote extends DscModel
 {
@@ -10,7 +10,7 @@ class Footnote extends DscModel
     public function section()
     {
 
-        return $this->belongsTo('App\Dsc\Section');
+        return $this->belongsTo('App\Models\Dsc\Section');
 
     }
 

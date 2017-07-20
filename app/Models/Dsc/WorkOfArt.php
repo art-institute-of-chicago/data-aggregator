@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dsc;
+namespace App\Models\Dsc;
 
 class WorkOfArt extends DscModel
 {
@@ -10,7 +10,7 @@ class WorkOfArt extends DscModel
     public function publication()
     {
 
-        return $this->belongsTo('App\Dsc\Publication');
+        return $this->belongsTo('App\Models\Dsc\Publication');
 
     }
 

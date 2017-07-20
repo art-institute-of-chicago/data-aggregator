@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dsc\TitlePage;
+use App\Models\Dsc\TitlePage;
 use Illuminate\Http\Request;
 
 class TitlePagesController extends ApiController
@@ -42,7 +42,7 @@ class TitlePagesController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dsc\TitlePage  $dscId
+     * @param  \App\Models\Dsc\TitlePage  $dscId
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $dscId)

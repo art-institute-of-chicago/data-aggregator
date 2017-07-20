@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dsc;
+namespace App\Models\Dsc;
 
 class Figure extends DscModel
 {
@@ -10,21 +10,21 @@ class Figure extends DscModel
     public function section()
     {
 
-        return $this->belongsTo('App\Dsc\Section');
+        return $this->belongsTo('App\Models\Dsc\Section');
 
     }
 
     public function images()
     {
 
-        return $this->hasMany('App\Dsc\FigureImage');
+        return $this->hasMany('App\Models\Dsc\FigureImage');
 
     }
 
     public function vectors()
     {
 
-        return $this->hasMany('App\Dsc\FigureVector');
+        return $this->hasMany('App\Models\Dsc\FigureVector');
 
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dsc\Publication;
+use App\Models\Dsc\Publication;
 use Illuminate\Http\Request;
 
 class PublicationsController extends ApiController
@@ -42,7 +42,7 @@ class PublicationsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dsc\Publication  $dscId
+     * @param  \App\Models\Dsc\Publication  $dscId
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $dscId)

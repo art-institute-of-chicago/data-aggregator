@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dsc\Footnote;
+use App\Models\Dsc\Footnote;
 use Illuminate\Http\Request;
 
 class FootnotesController extends ApiController
@@ -42,7 +42,7 @@ class FootnotesController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dsc\Footnote  $dscId
+     * @param  \App\Models\Dsc\Footnote  $dscId
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $dscId)

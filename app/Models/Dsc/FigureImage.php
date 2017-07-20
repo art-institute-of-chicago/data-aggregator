@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dsc;
+namespace App\Models\Dsc;
 
 class FigureImage extends DscModel
 {

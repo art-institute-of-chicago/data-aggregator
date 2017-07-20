@@ -11,6 +11,6 @@ class TitlePagesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Dsc\TitlePage::class, 50)->create();
+        factory(App\Models\Dsc\TitlePage::class, 50)->create();
     }
 }

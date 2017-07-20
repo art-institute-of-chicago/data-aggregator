@@ -11,7 +11,7 @@ class FigureImageTransformer extends DscTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Dsc\Figure  $item
+     * @param  \App\Models\Dsc\Figure  $item
      * @return array
      */
     public function transformFields($item)

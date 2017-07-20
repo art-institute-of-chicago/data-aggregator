@@ -131,7 +131,7 @@ class Artwork extends CollectionsModel
     public function publications()
     {
 
-        return $this->belongsToMany('App\Dsc\Publication', 'works_of_art');
+        return $this->belongsToMany('App\Models\Dsc\Publication', 'works_of_art');
 
     }
 

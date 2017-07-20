@@ -35,7 +35,7 @@ if (!function_exists('dscIdsAndTitle'))
 }
 
 
-$factory->define(App\Dsc\Publication::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Dsc\Publication::class, function (Faker\Generator $faker) {
     return array_merge(
         dscIdsAndTitle($faker),
         [
@@ -45,29 +45,29 @@ $factory->define(App\Dsc\Publication::class, function (Faker\Generator $faker) {
     );
 });
 
-$factory->define(App\Dsc\TitlePage::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Dsc\TitlePage::class, function (Faker\Generator $faker) {
     return array_merge(
         dscIdsAndTitle($faker),
         [
             'content' => '<img src="' .$faker->imageUrl .'" />',
-            'publication_dsc_id' => $faker->randomElement(App\Dsc\Publication::all()->pluck('dsc_id')->all()),
+            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::all()->pluck('dsc_id')->all()),
         ]
     );
 });
 
-$factory->define(App\Dsc\Section::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Dsc\Section::class, function (Faker\Generator $faker) {
     return array_merge(
         dscIdsAndTitle($faker),
         [
             'content' => $faker->paragraphs(10, true),
-            'publication_dsc_id' => $faker->randomElement(App\Dsc\Publication::all()->pluck('dsc_id')->all()),
+            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::all()->pluck('dsc_id')->all()),
             'weight' => $faker->randomNumber(2),
             'depth' => $faker->randomDigit,
         ]
     );
 });
 
-$factory->define(App\Dsc\WorkOfArt::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Dsc\WorkOfArt::class, function (Faker\Generator $faker) {
     static $artworks;
 
     if (!$artworks)
@@ -79,7 +79,7 @@ $factory->define(App\Dsc\WorkOfArt::class, function (Faker\Generator $faker) {
         dscIdsAndTitle($faker),
         [
             'content' => $faker->paragraphs(10, true),
-            'publication_dsc_id' => $faker->randomElement(App\Dsc\Publication::all()->pluck('dsc_id')->all()),
+            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::all()->pluck('dsc_id')->all()),
             'artwork_citi_id' => $faker->randomElement($artworks),
             'weight' => $faker->randomNumber(2),
             'depth' => $faker->randomDigit,
@@ -87,8 +87,8 @@ $factory->define(App\Dsc\WorkOfArt::class, function (Faker\Generator $faker) {
     );
 });
 
-$factory->define(App\Dsc\Footnote::class, function (Faker\Generator $faker) {
-    $section_id = $faker->randomElement(App\Dsc\Section::all()->pluck('dsc_id')->all());
+$factory->define(App\Models\Dsc\Footnote::class, function (Faker\Generator $faker) {
+    $section_id = $faker->randomElement(App\Models\Dsc\Section::all()->pluck('dsc_id')->all());
     $id = 'fn-' .$section_id .'-' .$faker->randomNumber(3);
     return array_merge(
         dscIdsAndTitle($faker, $id),
@@ -99,8 +99,8 @@ $factory->define(App\Dsc\Footnote::class, function (Faker\Generator $faker) {
     );
 });
 
-$factory->define(App\Dsc\Figure::class, function (Faker\Generator $faker) {
-    $section_id = $faker->randomElement(App\Dsc\Section::all()->pluck('dsc_id')->all());
+$factory->define(App\Models\Dsc\Figure::class, function (Faker\Generator $faker) {
+    $section_id = $faker->randomElement(App\Models\Dsc\Section::all()->pluck('dsc_id')->all());
     $id = 'fig-' .$section_id .'-' .$faker->randomNumber(3);
     return array_merge(
         dscIdsAndTitle($faker, $id),
@@ -111,33 +111,33 @@ $factory->define(App\Dsc\Figure::class, function (Faker\Generator $faker) {
     );
 });
 
-$factory->define(App\Dsc\FigureImage::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Dsc\FigureImage::class, function (Faker\Generator $faker) {
     return array_merge(
         [
             'title' => ucfirst($faker->words(3, true)),
-            'figure_dsc_id' => $faker->randomElement(App\Dsc\Figure::all()->pluck('dsc_id')->all()),
+            'figure_dsc_id' => $faker->randomElement(App\Models\Dsc\Figure::all()->pluck('dsc_id')->all()),
             'link' => $faker->url,
         ]
     );
 });
 
-$factory->define(App\Dsc\FigureVector::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Dsc\FigureVector::class, function (Faker\Generator $faker) {
     return array_merge(
         [
             'title' => ucfirst($faker->words(3, true)),
-            'figure_dsc_id' => $faker->randomElement(App\Dsc\Figure::all()->pluck('dsc_id')->all()),
+            'figure_dsc_id' => $faker->randomElement(App\Models\Dsc\Figure::all()->pluck('dsc_id')->all()),
             'link' => $faker->url,
         ]
     );
 });
 
 
-$factory->define(App\Dsc\Collector::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Dsc\Collector::class, function (Faker\Generator $faker) {
     return array_merge(
         dscIdsAndTitle($faker),
         [
             'content' => $faker->paragraph(3),
-            'publication_dsc_id' => $faker->randomElement(App\Dsc\Publication::all()->pluck('dsc_id')->all()),
+            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::all()->pluck('dsc_id')->all()),
             'weight' => $faker->randomNumber(2),
             'depth' => $faker->randomDigit,
         ]

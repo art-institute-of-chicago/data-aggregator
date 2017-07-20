@@ -30,13 +30,13 @@ class DscDatabaseSeeder extends Seeder
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        App\Dsc\Publication::truncate();
-        App\Dsc\TitlePage::truncate();
-        App\Dsc\Section::truncate();
-        App\Dsc\WorkOfArt::truncate();
-        App\Dsc\Footnote::truncate();
-        App\Dsc\Figure::truncate();
-        App\Dsc\Collector::truncate();
+        App\Models\Dsc\Publication::truncate();
+        App\Models\Dsc\TitlePage::truncate();
+        App\Models\Dsc\Section::truncate();
+        App\Models\Dsc\WorkOfArt::truncate();
+        App\Models\Dsc\Footnote::truncate();
+        App\Models\Dsc\Figure::truncate();
+        App\Models\Dsc\Collector::truncate();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 

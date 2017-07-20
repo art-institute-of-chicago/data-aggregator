@@ -11,7 +11,7 @@ class FiguresTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Dsc\Figure::class, 300)->create();
+        factory(App\Models\Dsc\Figure::class, 300)->create();
 
         $this->_addToFigures();
 
@@ -22,13 +22,13 @@ class FiguresTableSeeder extends Seeder
 
         $faker = Faker\Factory::create();
 
-        $figures = App\Dsc\Figure::all()->all();
+        $figures = App\Models\Dsc\Figure::all()->all();
 
         foreach ($figures as $figure) {
 
             for ($i = 0; $i < rand(2,8); $i++) {
 
-                $attach = factory(App\Dsc\FigureImage::class)->create(['figure_dsc_id' => $figure->dsc_id]);
+                $attach = factory(App\Models\Dsc\FigureImage::class)->create(['figure_dsc_id' => $figure->dsc_id]);
 
                 $figure->images()->save($attach);
 
@@ -36,7 +36,7 @@ class FiguresTableSeeder extends Seeder
 
             for ($i = 0; $i < rand(2,8); $i++) {
 
-                $attach = factory(App\Dsc\FigureVector::class)->create(['figure_dsc_id' => $figure->dsc_id]);
+                $attach = factory(App\Models\Dsc\FigureVector::class)->create(['figure_dsc_id' => $figure->dsc_id]);
 
                 $figure->vectors()->save($attach);
 

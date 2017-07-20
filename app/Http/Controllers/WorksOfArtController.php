@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dsc\WorkOfArt;
+use App\Models\Dsc\WorkOfArt;
 use Illuminate\Http\Request;
 
 class WorksOfArtController extends ApiController
@@ -42,7 +42,7 @@ class WorksOfArtController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dsc\WorkOfArt  $dscId
+     * @param  \App\Models\Dsc\WorkOfArt  $dscId
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $dscId)
