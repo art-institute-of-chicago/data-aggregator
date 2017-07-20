@@ -30,6 +30,7 @@ class GalleryTransformer extends CollectionsTransformer
             'floor' => $item->floor,
             'latitude' => $item->latitude,
             'longitude' => $item->longitude,
+            'latlon' => $item->longitude .',' .$item->longitude,
             'category_ids' => $item->categories->pluck('lake_guid')->all(),
         ];
     }
