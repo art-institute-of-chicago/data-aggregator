@@ -53,7 +53,7 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('galleries', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->string('closed')->nullable();
+            $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
             $table->integer('floor')->nullable();
             $table->float('latitude')->nullable();
