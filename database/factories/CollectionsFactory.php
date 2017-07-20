@@ -191,8 +191,8 @@ $factory->define(App\Collections\Gallery::class, function (Faker\Generator $fake
         idsAndTitle($faker, $faker->randomElement(['Gallery ' .$faker->unique()->randomNumber(3), $faker->lastName .' ' .$faker->randomElement(['Hall', 'Building', 'Memorial Garden', 'Reading Room', 'Study Room'])]), true, 6),
         [
             'closed' => $faker->boolean(25),
-            'number' => $faker->randomNumber(3),
-            'floor' => $faker->randomElement([1,2,3]),
+            'number' => $faker->randomNumber(3) .($faker->boolean(25) ? 'A' : ''),
+            'floor' => $faker->randomElement([1,2,3, 'LL']),
             'latitude' => $faker->latitude,
             'longitude' => $faker->longitude,
         ],

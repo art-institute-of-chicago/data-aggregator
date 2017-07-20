@@ -55,7 +55,7 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addIdsAndTitle($table);
             $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
-            $table->integer('floor')->nullable();
+            $table->string('floor')->nullable();
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table = $this->_addDates($table);
