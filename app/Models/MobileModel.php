@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 use App\Scopes\SortByLastUpdatedScope;
 
-class MobileModel extends Model
+class MobileModel extends BaseModel
 {
 
     public $incrementing = false;

@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 use App\Scopes\SortByLastUpdatedScope;
 
-class CollectionsModel extends Model
+class CollectionsModel extends BaseModel
 {
 
     public static $staticInstance;

@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 use App\Scopes\SortByLastUpdatedScope;
 
 use Laravel\Scout\Searchable;
 
-class ShopModel extends Model
+class ShopModel extends BaseModel
 {
 
     use Searchable;
