@@ -2,6 +2,8 @@
 
 namespace App\Models\Shop;
 
+use App\Models\ShopModel;
+
 class Category extends ShopModel
 {
 

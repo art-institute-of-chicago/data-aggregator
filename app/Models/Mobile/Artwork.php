@@ -2,6 +2,8 @@
 
 namespace App\Models\Mobile;
 
+use App\Models\MobileModel;
+
 class Artwork extends MobileModel
 {
 

@@ -2,6 +2,8 @@
 
 namespace App\Models\Membership;
 
+use App\Models\MembershipModel;
+
 class Member extends MembershipModel
 {
 

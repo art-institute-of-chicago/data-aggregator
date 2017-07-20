@@ -2,6 +2,8 @@
 
 namespace App\Models\Collections;
 
+use App\Models\CollectionsModel;
+
 class Theme extends CollectionsModel
 {
 

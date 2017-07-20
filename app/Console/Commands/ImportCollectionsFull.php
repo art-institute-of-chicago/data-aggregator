@@ -125,7 +125,7 @@ class ImportCollectionsFull extends Command
     private function import($endpoint, $current = 1)
     {
 
-        $class = \App\Models\Collections\CollectionsModel::classFor($endpoint);
+        $class = \App\Models\CollectionsModel::classFor($endpoint);
 
         $resources = call_user_func($class .'::all');
         if ($resources->isEmpty())

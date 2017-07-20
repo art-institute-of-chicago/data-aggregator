@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Models\Mobile;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 use App\Scopes\SortByLastUpdatedScope;
 
-class MobileModel extends Model
+class DscModel extends Model
 {
 
     public $incrementing = false;
-    protected $primaryKey = 'mobile_id';
+    protected $primaryKey = 'dsc_id';
     protected $dates = ['source_created_at', 'source_modified_at'];
 
     /**
