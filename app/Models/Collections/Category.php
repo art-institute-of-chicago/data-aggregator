@@ -14,7 +14,7 @@ class Category extends CollectionsModel
      */
     public function artworks()
     {
-        return $this->belongsToMany('App\Collection\Artwork');
+        return $this->belongsToMany('App\Models\Collections\Artwork');
     }
 
     public function getFillFieldsFrom($source)

@@ -48,7 +48,7 @@ class CopyrightRepresentative extends Agent
     public function artworks()
     {
 
-        return $this->belongsToMany('App\Collection\Artwork');
+        return $this->belongsToMany('App\Models\Collections\Artwork');
 
     }
 
