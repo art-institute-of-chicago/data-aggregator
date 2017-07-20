@@ -11,13 +11,6 @@ class CollectionsModel extends BaseModel
 
     public $faker;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
     public static function instance()
     {
 

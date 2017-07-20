@@ -16,13 +16,6 @@ class ShopModel extends BaseModel
 
     protected $apiCtrl;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
     public function __construct(array $attributes = array()) {
 
         parent::__construct($attributes);
