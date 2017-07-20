@@ -4,8 +4,6 @@ namespace App\Models\StaticArchive;
 
 use App\Models\BaseModel;
 
-use App\Scopes\SortByLastUpdatedScope;
-
 class Site extends BaseModel
 {
 
@@ -18,14 +16,6 @@ class Site extends BaseModel
      * @var array
      */
     protected $guarded = [];
-
-    protected static function boot()
-    {
-
-        parent::boot();
-        static::addGlobalScope(new SortByLastUpdatedScope());
-
-    }
 
     public function exhibition()
     {

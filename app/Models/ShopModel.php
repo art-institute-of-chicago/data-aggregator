@@ -4,8 +4,6 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 
-use App\Scopes\SortByLastUpdatedScope;
-
 use Laravel\Scout\Searchable;
 
 class ShopModel extends BaseModel
@@ -31,14 +29,6 @@ class ShopModel extends BaseModel
         parent::__construct($attributes);
 
         $this->apiCtrl = $this->apiCtrl ?: str_plural( class_basename(static::class) ) . 'Controller';
-
-    }
-
-    protected static function boot()
-    {
-
-        parent::boot();
-        static::addGlobalScope(new SortByLastUpdatedScope());
 
     }
 

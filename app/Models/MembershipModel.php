@@ -4,8 +4,6 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 
-use App\Scopes\SortByLastUpdatedScope;
-
 class MembershipModel extends BaseModel
 {
 
@@ -19,13 +17,5 @@ class MembershipModel extends BaseModel
      * @var array
      */
     protected $guarded = [];
-
-    protected static function boot()
-    {
-
-        parent::boot();
-        static::addGlobalScope(new SortByLastUpdatedScope());
-
-    }
 
 }
