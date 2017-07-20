@@ -21,7 +21,7 @@ class ArtworkDateTransformer extends CollectionsTransformer
         return [
             'date' => $item->date->toDateString(),
             'qualifier' => $item->qualifier,
-            'preferred' => (bool) $item->preferred,
+            'is_preferred' => (bool) $item->preferred,
         ];
     }
 }

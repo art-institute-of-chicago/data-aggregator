@@ -29,7 +29,7 @@ class EventTransformer extends ApiTransformer
             'status' => $item->status,
             'rs_event_seat_map_id' => $item->rs_event_seat_map_id,
             'has_roster' => (bool) $item->has_roster,
-            'private_event' => (bool) $item->private_event,
+            'is_private_event' => (bool) $item->private_event,
             'has_holds' => (bool) $item->has_holds,
         ];
 

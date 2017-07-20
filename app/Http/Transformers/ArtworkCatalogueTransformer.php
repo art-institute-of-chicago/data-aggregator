@@ -19,7 +19,7 @@ class ArtworkCatalogueTransformer extends CollectionsTransformer
     public function transformFields($item)
     {
         return [
-            'preferred' => (bool) $item->preferred,
+            'is_preferred' => (bool) $item->preferred,
             'catalogue' => $item->catalogue,
             'number' => $item->number,
             'state_edition' => $item->state_edition,

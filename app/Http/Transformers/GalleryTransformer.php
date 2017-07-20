@@ -25,7 +25,7 @@ class GalleryTransformer extends CollectionsTransformer
     public function transformFields($item)
     {
         return [
-            'closed' => (bool) $item->closed,
+            'is_closed' => (bool) $item->closed,
             'number' => $item->number,
             'floor' => $item->floor,
             'latitude' => $item->latitude,

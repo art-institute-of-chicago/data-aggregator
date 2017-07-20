@@ -29,7 +29,7 @@ class ProductTransformer extends ApiTransformer
             'link' => $item->link,
             'image' => $item->image,
             'description' => $item->description,
-            'on_sale' => (bool) $item->on_sale,
+            'is_on_sale' => (bool) $item->on_sale,
             'priority' => $item->priority,
             'price' => $item->price,
             'review_count' => $item->review_count,
