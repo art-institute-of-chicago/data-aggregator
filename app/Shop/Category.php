@@ -10,6 +10,7 @@ class Category extends ShopModel
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
     public $table = 'shop_categories';
 
+    protected $apiCtrl = 'ShopCategoriesController';
 
     public function parent()
     {
@@ -25,6 +26,13 @@ class Category extends ShopModel
 
     }
 
+    protected function searchableModel()
+    {
+
+        return 'shop-categories';
+
+    }
+
     public function toSearchableArray()
     {
 
@@ -32,6 +40,7 @@ class Category extends ShopModel
             'id' => $this->searchableId(),
             'api_id' => $this->getKey(),
             'api_model' => $this->searchableModel(),
+            'api_link' => $this->searchableLink(),
             'title' => $this->title,
         ];
 

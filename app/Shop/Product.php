@@ -19,6 +19,7 @@ class Product extends ShopModel
             'id' => $this->searchableId(),
             'api_id' => $this->getKey(),
             'api_model' => $this->searchableModel(),
+            'api_link' => $this->searchableLink(),
             'title' => $this->title,
         ];
 
