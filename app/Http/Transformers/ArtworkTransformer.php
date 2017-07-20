@@ -26,7 +26,7 @@ class ArtworkTransformer extends CollectionsTransformer
                 'date_end' => $item->date_end,
                 'date_display' => $item->date_display,
                 'description' => $item->description,
-                'agent_display' => $item->agent_display,
+                'artist_display' => $item->artist_display,
                 'department' => $item->department ? $item->department->title : NULL,
                 'department_id' => $item->department_citi_id,
                 'dimensions' => $item->dimensions,
