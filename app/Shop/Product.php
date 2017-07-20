@@ -17,13 +17,10 @@ class Product extends ShopModel
 
         $array = [
             'id' => $this->searchableId(),
-            'source' => $this->searchableSource(),
-            'model' => $this->searchableModel(),
-            'source_id' => $this->shop_id,
+            'api_id' => $this->getKey(),
+            'api_model' => $this->searchableModel(),
+            'api_link' => $this->searchableLink(),
             'title' => $this->title,
-            'description' => $this->description,
-            'image' => $this->image,
-            'link' => $this->link,
         ];
 
         return $array;

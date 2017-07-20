@@ -3,7 +3,6 @@
 namespace App\Services\Solr;
 
 use Laravel\Scout\Builder;
-use AlgoliaSearch\Client as Algolia;
 use Illuminate\Database\Eloquent\Collection;
 use Laravel\Scout\Engines\Engine;
 use Solarium\Client;
@@ -23,7 +22,6 @@ class SolrScoutEngine extends Engine
     public function update($models)
     {
 
-        $endpoint = $models->first()->searchableAs();
         $update = $this->solrClient->createUpdate();
 
         $update->addDocuments(
@@ -40,14 +38,13 @@ class SolrScoutEngine extends Engine
 
         $update->addCommit();
 
-        $result = $this->solrClient->update($update, $endpoint);
+        $result = $this->solrClient->update($update);
 
     }
 
     public function delete($models)
     {
 
-        $endpoint = $models->first()->searchableAs();
         $update = $this->solrClient->createUpdate();
 
         dd($models->pluck('id')->all());
@@ -55,14 +52,12 @@ class SolrScoutEngine extends Engine
         $update->addDeleteByIds($models->pluck('id')->all());
         $update->addCommit();
 
-        $result = $this->solrClient->update($update, $endpoint);
+        $result = $this->solrClient->update($update);
 
     }
 
     public function search(Builder $builder)
     {
-
-        $endpoint = $builder->model->searchableAs();
 
         $select = $this->solrClient->createSelect();
 
@@ -83,7 +78,7 @@ class SolrScoutEngine extends Engine
             $select->addsort($order['column'], $order['direction']);
         }
 
-        $result = $this->solrClient->select($select, $endpoint);
+        $result = $this->solrClient->select($select);
         $documents = $result->getDocuments();
 
         return $documents;

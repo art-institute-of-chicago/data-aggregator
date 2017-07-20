@@ -10,6 +10,7 @@ class Category extends ShopModel
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
     public $table = 'shop_categories';
 
+    protected $apiCtrl = 'ShopCategoriesController';
 
     public function parent()
     {
@@ -22,6 +23,28 @@ class Category extends ShopModel
     {
 
         return $this->hasMany('App\Shop\Category', 'parent_category_shop_id');
+
+    }
+
+    protected function searchableModel()
+    {
+
+        return 'shop-categories';
+
+    }
+
+    public function toSearchableArray()
+    {
+
+        $array = [
+            'id' => $this->searchableId(),
+            'api_id' => $this->getKey(),
+            'api_model' => $this->searchableModel(),
+            'api_link' => $this->searchableLink(),
+            'title' => $this->title,
+        ];
+
+        return $array;
 
     }
 

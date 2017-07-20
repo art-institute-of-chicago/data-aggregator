@@ -17,6 +17,8 @@ class ShopModel extends Model
     protected $primaryKey = 'shop_id';
     protected $dates = ['source_created_at', 'source_modified_at'];
 
+    protected $apiCtrl;
+
     /**
      * The attributes that aren't mass assignable.
      *
@@ -24,11 +26,26 @@ class ShopModel extends Model
      */
     protected $guarded = [];
 
+    public function __construct(array $attributes = array()) {
+
+        parent::__construct($attributes);
+
+        $this->apiCtrl = $this->apiCtrl ?: str_plural( class_basename(static::class) ) . 'Controller';
+
+    }
+
     protected static function boot()
     {
 
         parent::boot();
         static::addGlobalScope(new SortByLastUpdatedScope());
+
+    }
+
+    protected function searchableLink()
+    {
+
+        return action($this->apiCtrl . '@show', ['id' => $this->getKey()]);
 
     }
 
@@ -49,7 +66,7 @@ class ShopModel extends Model
     protected function searchableId()
     {
 
-        return $this->searchableSource() .'-' .$this->searchableModel() .'-' .$this->shop_id;
+        return $this->searchableSource() .'/' .$this->searchableModel() .'/' .$this->shop_id;
 
     }
 
