@@ -2,11 +2,11 @@
 
 namespace App\Models\StaticArchive;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 use App\Scopes\SortByLastUpdatedScope;
 
-class Site extends Model
+class Site extends BaseModel
 {
 
     protected $primaryKey = 'site_id';
