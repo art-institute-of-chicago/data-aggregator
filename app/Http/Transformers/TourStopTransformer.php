@@ -2,8 +2,8 @@
 
 namespace App\Http\Transformers;
 
-use App\Mobile\TourStop;
-use App\Mobile\Sound;
+use App\Models\Mobile\TourStop;
+use App\Models\Mobile\Sound;
 
 class TourStopTransformer extends ApiTransformer
 {
@@ -28,7 +28,7 @@ class TourStopTransformer extends ApiTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Mobile\Tour  $item
+     * @param  \App\Models\Mobile\Tour  $item
      * @return array
      */
     public function transformFields($item)
@@ -48,7 +48,7 @@ class TourStopTransformer extends ApiTransformer
     /**
      * Include sound.
      *
-     * @param  \App\Mobile\Sound  $sound
+     * @param  \App\Models\Mobile\Sound  $sound
      * @return League\Fractal\ItemResource
      */
     public function includeSound(TourStop $tourStop)

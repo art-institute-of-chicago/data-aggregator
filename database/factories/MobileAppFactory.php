@@ -35,7 +35,7 @@ if (!function_exists('mobileAppIdsAndTitle'))
 }
 
 
-$factory->define(App\Mobile\Artwork::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Mobile\Artwork::class, function (Faker\Generator $faker) {
     static $artworks;
 
     if (!$artworks)
@@ -56,7 +56,7 @@ $factory->define(App\Mobile\Artwork::class, function (Faker\Generator $faker) {
     );
 });
 
-$factory->define(App\Mobile\Sound::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Mobile\Sound::class, function (Faker\Generator $faker) {
     return array_merge(
         mobileAppIdsAndTitle($faker),
         [
@@ -67,21 +67,21 @@ $factory->define(App\Mobile\Sound::class, function (Faker\Generator $faker) {
     );
 });
 
-$factory->define(App\Mobile\Tour::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Mobile\Tour::class, function (Faker\Generator $faker) {
     return array_merge(
         mobileAppIdsAndTitle($faker),
         [
             'image' => $faker->imageUrl(),
             'description' => $faker->paragraph(5),
             'intro_text' => $faker->paragraph(3),
-            'intro_mobile_id' => $faker->randomElement(App\Mobile\Sound::all()->pluck('mobile_id')->all()),
+            'intro_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::all()->pluck('mobile_id')->all()),
             'weight' => $faker->randomDigit,
         ],
         mobileAppDates($faker)
     );
 });
 
-$factory->define(App\Mobile\TourStop::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Mobile\TourStop::class, function (Faker\Generator $faker) {
     static $artworks;
 
     if (!$artworks)
@@ -91,9 +91,9 @@ $factory->define(App\Mobile\TourStop::class, function (Faker\Generator $faker) {
 
     return array_merge(
         [
-            'tour_mobile_id' => $faker->randomElement(App\Mobile\Sound::all()->pluck('mobile_id')->all()),
+            'tour_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::all()->pluck('mobile_id')->all()),
             'artwork_citi_id' => $faker->randomElement($artworks),
-            'sound_mobile_id' => $faker->randomElement(App\Mobile\Sound::all()->pluck('mobile_id')->all()),
+            'sound_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::all()->pluck('mobile_id')->all()),
             'weight' => $faker->randomDigit,
             'description' => $faker->paragraph(5),
         ]

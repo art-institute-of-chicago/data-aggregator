@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Mobile\Sound;
+use App\Models\Mobile\Sound;
 
 class MobileSoundTest extends ApiTestCase
 {

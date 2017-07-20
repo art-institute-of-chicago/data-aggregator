@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Mobile\Sound;
+use App\Models\Mobile\Sound;
 
 class MobileSoundTransformer extends ApiTransformer
 {
@@ -10,7 +10,7 @@ class MobileSoundTransformer extends ApiTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Mobile\Tour  $item
+     * @param  \App\Models\Mobile\Tour  $item
      * @return array
      */
     public function transformFields($item)

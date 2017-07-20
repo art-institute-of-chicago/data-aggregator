@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Mobile;
+// @TODO Fix App\Mobile to App\Models\Mobile in model methods
+namespace App\Models\Mobile;
 
 class Tour extends MobileModel
 {

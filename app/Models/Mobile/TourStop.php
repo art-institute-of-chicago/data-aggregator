@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mobile;
+namespace App\Models\Mobile;
 
 class TourStop extends MobileModel
 {
@@ -8,7 +8,7 @@ class TourStop extends MobileModel
     public function tour()
     {
 
-        return $this->belongsTo('App\Mobile\Tour');
+        return $this->belongsTo('App\Models\Mobile\Tour');
 
     }
 
@@ -22,7 +22,7 @@ class TourStop extends MobileModel
     public function sound()
     {
 
-        return $this->belongsTo('App\Mobile\Sound');
+        return $this->belongsTo('App\Models\Mobile\Sound');
 
     }
 

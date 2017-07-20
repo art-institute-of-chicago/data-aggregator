@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mobile;
+namespace App\Models\Mobile;
 
 class Sound extends MobileModel
 {

@@ -103,28 +103,28 @@ class Artwork extends CollectionsModel
     public function mobileArtwork()
     {
 
-        return $this->hasOne('App\Mobile\Artwork');
+        return $this->hasOne('App\Models\Mobile\Artwork');
 
     }
 
     public function mobileSounds()
     {
 
-        return $this->belongsToMany('App\Mobile\Sound', 'artwork_mobile_app_sound', 'artwork_citi_id', 'mobile_app_sound_mobile_id');
+        return $this->belongsToMany('App\Models\Mobile\Sound', 'artwork_mobile_app_sound', 'artwork_citi_id', 'mobile_app_sound_mobile_id');
 
     }
 
     public function tourStops()
     {
 
-        return $this->hasMany('App\Mobile\TourStop');
+        return $this->hasMany('App\Models\Mobile\TourStop');
 
     }
 
     public function tours()
     {
 
-        return $this->belongsToMany('App\Mobile\Tour', 'tour_stops');
+        return $this->belongsToMany('App\Models\Mobile\Tour', 'tour_stops');
 
     }
 
