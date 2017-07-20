@@ -12,7 +12,7 @@ class EventsTableSeeder extends Seeder
     public function run()
     {
 
-        factory(App\Membership\Event::class, 100)->create();
+        factory(App\Models\Membership\Event::class, 100)->create();
 
     }
 

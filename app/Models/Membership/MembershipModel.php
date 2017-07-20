@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Membership;
+namespace App\Models\Membership;
 
 use Illuminate\Database\Eloquent\Model;
 

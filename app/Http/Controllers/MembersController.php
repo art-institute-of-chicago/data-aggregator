@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Membership\Member;
+use App\Models\Membership\Member;
 use Illuminate\Http\Request;
 
 class MembersController extends ApiController

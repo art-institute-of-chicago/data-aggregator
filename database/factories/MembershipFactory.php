@@ -35,7 +35,7 @@ if (!function_exists('membershipIdsAndTitle'))
 }
 
 
-$factory->define(App\Membership\Event::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Membership\Event::class, function (Faker\Generator $faker) {
     return array_merge(
         membershipIdsAndTitle($faker),
         [
@@ -58,7 +58,7 @@ $factory->define(App\Membership\Event::class, function (Faker\Generator $faker) 
     );
 });
 
-$factory->define(App\Membership\Member::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Membership\Member::class, function (Faker\Generator $faker) {
     $first = $faker->firstName;
     $last = $faker->lastName;
     return array_merge(

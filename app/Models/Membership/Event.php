@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Membership;
+namespace App\Models\Membership;
 
 class Event extends MembershipModel
 {

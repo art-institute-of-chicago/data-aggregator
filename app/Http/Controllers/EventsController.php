@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Membership\Event;
+use App\Models\Membership\Event;
 use Illuminate\Http\Request;
 
 class EventsController extends ApiController
