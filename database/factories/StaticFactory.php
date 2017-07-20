@@ -10,7 +10,7 @@
 |
 */
 
-$factory->define(App\StaticArchive\Site::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\StaticArchive\Site::class, function (Faker\Generator $faker) {
     return [
         'site_id' => $faker->unique()->randomNumber(4),
         'title' => ucfirst($faker->words(3, true)),

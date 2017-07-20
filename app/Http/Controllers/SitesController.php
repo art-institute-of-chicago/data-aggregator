@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\StaticArchive\Site;
+use App\Models\StaticArchive\Site;
 use Illuminate\Http\Request;
 
 class SitesController extends ApiController
@@ -43,7 +43,7 @@ class SitesController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\StaticArchive\Site  $site
+     * @param  \App\Models\StaticArchive\Site  $site
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $siteId)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\StaticArchive;
+namespace App\Models\StaticArchive;
 
 use Illuminate\Database\Eloquent\Model;
 
