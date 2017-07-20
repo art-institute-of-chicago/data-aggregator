@@ -72,7 +72,7 @@ $factory->define(App\Models\Dsc\WorkOfArt::class, function (Faker\Generator $fak
 
     if (!$artworks)
     {
-        $artworks = App\Collections\Artwork::all()->pluck('citi_id')->all();
+        $artworks = App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
     }
 
     return array_merge(

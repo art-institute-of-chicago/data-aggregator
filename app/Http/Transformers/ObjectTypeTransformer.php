@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\ObjectType;
+use App\Models\Collections\ObjectType;
 
 class ObjectTypeTransformer extends CollectionsTransformer
 {

@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\AgentType;
+use App\Models\Collections\AgentType;
 
 use Tests\Helpers\Factory;
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Asset;
+use App\Models\Collections\Asset;
 
 class AssetTransformer extends CollectionsTransformer
 {
@@ -50,7 +50,7 @@ class AssetTransformer extends CollectionsTransformer
     /**
      * Include categories.
      *
-     * @param  \App\Collections\Asset  $asset
+     * @param  \App\Models\Collections\Asset  $asset
      * @return League\Fractal\ItemResource
      */
     public function includeCategories(Asset $asset)

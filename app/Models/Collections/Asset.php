@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Collections;
+namespace App\Models\Collections;
 
 class Asset extends CollectionsModel
 {
@@ -13,14 +13,14 @@ class Asset extends CollectionsModel
     public function artist()
     {
 
-        return $this->belongsTo('App\Collections\Artist', 'agent_citi_id');
+        return $this->belongsTo('App\Models\Collections\Artist', 'agent_citi_id');
 
     }
 
     public function categories()
     {
 
-        return $this->belongsToMany('App\Collections\Category');
+        return $this->belongsToMany('App\Models\Collections\Category');
 
     }
 

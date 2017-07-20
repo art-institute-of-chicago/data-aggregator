@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Collections;
+namespace App\Models\Collections;
 
 class Category extends CollectionsModel
 {

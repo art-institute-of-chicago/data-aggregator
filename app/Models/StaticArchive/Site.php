@@ -30,14 +30,14 @@ class Site extends Model
     public function exhibition()
     {
 
-        return $this->belongsTo('App\Collections\Exhibition');
+        return $this->belongsTo('App\Models\Collections\Exhibition');
 
     }
 
     public function artworks()
     {
 
-        return $this->belongsToMany('App\Collections\Artwork');
+        return $this->belongsToMany('App\Models\Collections\Artwork');
 
     }
 

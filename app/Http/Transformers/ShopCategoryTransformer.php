@@ -34,7 +34,7 @@ class ShopCategoryTransformer extends ApiTransformer
     /**
      * Include categories.
      *
-     * @param  \App\Collections\Category  $category
+     * @param  \App\Models\Collections\Category  $category
      * @return League\Fractal\ItemResource
      */
     public function includeChildren(Category $category)

@@ -15,7 +15,7 @@ class TourStop extends MobileModel
     public function artwork()
     {
 
-        return $this->belongsTo('App\Collections\Artwork');
+        return $this->belongsTo('App\Models\Collections\Artwork');
 
     }
 

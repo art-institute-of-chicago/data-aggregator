@@ -10,8 +10,8 @@ use Faker\Factory as Faker;
 
 use Tests\Helpers\Factory;
 
-use App\Collections\AgentType;
-use App\Collections\Agent;
+use App\Models\Collections\AgentType;
+use App\Models\Collections\Agent;
 
 abstract class ApiTestCase extends TestCase
 {

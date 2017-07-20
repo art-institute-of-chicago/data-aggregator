@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\ArtworkCatalogue;
+use App\Models\Collections\ArtworkCatalogue;
 
 class ArtworkCatalogueTransformer extends CollectionsTransformer
 {

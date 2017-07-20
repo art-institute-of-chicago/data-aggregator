@@ -15,8 +15,8 @@ class SitesTableSeeder extends Seeder
         factory(App\Models\StaticArchive\Site::class, 50)->create();
 
         $sites = App\Models\StaticArchive\Site::all()->all();
-        $artworkIds = App\Collections\Artwork::all()->pluck('citi_id')->all();
-        $exhibitionIds = App\Collections\Exhibition::all()->pluck('citi_id')->all();
+        $artworkIds = App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
+        $exhibitionIds = App\Models\Collections\Exhibition::all()->pluck('citi_id')->all();
 
         foreach ($sites as $site) {
 

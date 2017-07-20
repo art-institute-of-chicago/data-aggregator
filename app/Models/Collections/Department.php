@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Collections;
+namespace App\Models\Collections;
 
-class Theme extends CollectionsModel
+class Department extends CollectionsModel
 {
 
     public $incrementing = false;

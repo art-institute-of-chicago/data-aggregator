@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\Gallery;
+use App\Models\Collections\Gallery;
 
 class GalleryTest extends ApiTestCase
 {

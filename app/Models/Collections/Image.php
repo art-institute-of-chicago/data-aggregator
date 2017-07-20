@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Collections;
+// @TODO Fix App\Collections to App\Models\Collections in model methods
+namespace App\Models\Collections;
 
 class Image extends Asset
 {

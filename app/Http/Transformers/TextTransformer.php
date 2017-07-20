@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Text;
+use App\Models\Collections\Text;
 
 class TextTransformer extends AssetTransformer
 {

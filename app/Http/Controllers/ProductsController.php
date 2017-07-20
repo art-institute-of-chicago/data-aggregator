@@ -43,7 +43,7 @@ class ProductsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Product  $product
+     * @param  \App\Models\Collections\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $productId)

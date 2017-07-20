@@ -64,7 +64,7 @@ class ImportCollections extends Command
     private function import($endpoint, $current = 1)
     {
 
-        $class = \App\Collections\CollectionsModel::classFor($endpoint);
+        $class = \App\Models\Collections\CollectionsModel::classFor($endpoint);
 
         $json = $this->query($endpoint, $current);
         $pages = $json->pagination->pages->total;

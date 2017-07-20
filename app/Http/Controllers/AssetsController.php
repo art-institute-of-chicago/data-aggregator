@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Asset;
-use App\Collections\Artwork;
-use App\Collections\Category;
-use App\Collections\Image;
-use App\Collections\Video;
-use App\Collections\Sound;
-use App\Collections\Text;
-use App\Collections\Link;
+use App\Models\Collections\Asset;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\Category;
+use App\Models\Collections\Image;
+use App\Models\Collections\Video;
+use App\Models\Collections\Sound;
+use App\Models\Collections\Text;
+use App\Models\Collections\Link;
 use Illuminate\Http\Request;
 
 class AssetsController extends ApiController
@@ -45,7 +45,7 @@ class AssetsController extends ApiController
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many ' .strtolower($this->type) .'s. Please set a smaller limit.');
 
         $attr = str_plural(strtolower($this->type));
-        $type = 'App\Collections\\' .$this->type;
+        $type = 'App\Models\Collections\\' .$this->type;
         $all = $artworkId ? Artwork::findOrFail($artworkId)->$attr : $type::paginate($limit);
 
         $transformer = $this->transformer();
@@ -56,7 +56,7 @@ class AssetsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Asset  $asset
+     * @param  \App\Models\Collections\Asset  $asset
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $assetId)
@@ -113,7 +113,7 @@ class AssetsController extends ApiController
     public function model()
     {
 
-        return 'App\Collections\\' .$this->type;
+        return 'App\Models\Collections\\' .$this->type;
 
     }
 

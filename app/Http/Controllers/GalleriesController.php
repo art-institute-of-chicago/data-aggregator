@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Gallery;
-use App\Collections\Artwork;
+use App\Models\Collections\Gallery;
+use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
 class GalleriesController extends ApiController
@@ -44,7 +44,7 @@ class GalleriesController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Gallery  $gallery
+     * @param  \App\Models\Collections\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $galleryId)

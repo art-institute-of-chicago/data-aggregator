@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Collections;
+namespace App\Models\Collections;
 
 class Gallery extends CollectionsModel
 {
@@ -12,7 +12,7 @@ class Gallery extends CollectionsModel
     public function categories()
     {
 
-        return $this->belongsToMany('App\Collections\Category');
+        return $this->belongsToMany('App\Models\Collections\Category');
 
     }
 

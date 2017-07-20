@@ -60,7 +60,7 @@ class ImportCollectionsFull extends Command
             $startTime = Carbon::now();
 
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Collections\AgentType::all()->isEmpty())
+            if (\App\Models\Collections\AgentType::all()->isEmpty())
             {
 
                 \Artisan::call("db:seed", ['--class' => 'AgentTypesTableSeeder']);
@@ -68,7 +68,7 @@ class ImportCollectionsFull extends Command
             }
 
             // @TODO Replace with agent endpoint when it becomes available
-            if (\App\Collections\Agent::all()->isEmpty())
+            if (\App\Models\Collections\Agent::all()->isEmpty())
             {
 
                 $this->import('artists');
@@ -79,7 +79,7 @@ class ImportCollectionsFull extends Command
             $this->import('departments');
 
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Collections\ObjectType::all()->isEmpty())
+            if (\App\Models\Collections\ObjectType::all()->isEmpty())
             {
 
                 \Artisan::call("db:seed", ['--class' => 'ObjectTypesTableSeeder']);
@@ -92,7 +92,7 @@ class ImportCollectionsFull extends Command
             // @TODO Galleries are available, but break due to Redmine bug #1911 - Gallery Floor isn't always a number
             //$this->import('galleries');
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Collections\Gallery::all()->isEmpty())
+            if (\App\Models\Collections\Gallery::all()->isEmpty())
             {
 
                 \Artisan::call("db:seed", ['--class' => 'GalleriesTableSeeder']);
@@ -105,7 +105,7 @@ class ImportCollectionsFull extends Command
             $this->import('texts');
 
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Collections\Exhibition::all()->isEmpty())
+            if (\App\Models\Collections\Exhibition::all()->isEmpty())
             {
 
                 \Artisan::call("db:seed", ['--class' => 'ExhibitionsTableSeeder']);
@@ -125,7 +125,7 @@ class ImportCollectionsFull extends Command
     private function import($endpoint, $current = 1)
     {
 
-        $class = \App\Collections\CollectionsModel::classFor($endpoint);
+        $class = \App\Models\Collections\CollectionsModel::classFor($endpoint);
 
         $resources = call_user_func($class .'::all');
         if ($resources->isEmpty())

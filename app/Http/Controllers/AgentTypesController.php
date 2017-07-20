@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\AgentType;
-use App\Collections\Agent;
+use App\Models\Collections\AgentType;
+use App\Models\Collections\Agent;
 use Illuminate\Http\Request;
 
 class AgentTypesController extends ApiController
@@ -43,7 +43,7 @@ class AgentTypesController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\AgentType  $agentType
+     * @param  \App\Models\Collections\AgentType  $agentType
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $agentTypeId)

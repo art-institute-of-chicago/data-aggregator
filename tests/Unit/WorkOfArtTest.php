@@ -8,8 +8,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\Dsc\WorkOfArt;
 use App\Models\Dsc\Publication;
-use App\Collections\Artwork;
-use App\Collections\Agent;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\Agent;
 
 class WorkOfArtTest extends ApiTestCase
 {

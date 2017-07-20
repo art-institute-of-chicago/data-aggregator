@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Gallery;
+use App\Models\Collections\Gallery;
 
 class GalleryTransformer extends CollectionsTransformer
 {
@@ -38,7 +38,7 @@ class GalleryTransformer extends CollectionsTransformer
     /**
      * Include categories.
      *
-     * @param  \App\Collections\Gallery  $gallery
+     * @param  \App\Models\Collections\Gallery  $gallery
      * @return League\Fractal\ItemResource
      */
     public function includeCategories(Gallery $gallery)

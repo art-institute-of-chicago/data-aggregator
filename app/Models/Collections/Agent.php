@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Collections;
+namespace App\Models\Collections;
 
 class Agent extends CollectionsModel
 {
@@ -11,13 +11,13 @@ class Agent extends CollectionsModel
 
     public function artworks()
     {
-        return $this->hasMany('App\Collections\Artwork');
+        return $this->hasMany('App\Models\Collections\Artwork');
     }
 
     public function agentType()
     {
 
-        return $this->belongsTo('App\Collections\AgentType');
+        return $this->belongsTo('App\Models\Collections\AgentType');
 
     }
 
@@ -30,7 +30,7 @@ class Agent extends CollectionsModel
             'death_date' => $source->date_death,
             //'death_place' => ,
             //'licensing_restricted' => ,
-            'agent_type_citi_id' => \App\Collections\AgentType::where('title', 'Artist')->first()->citi_id,
+            'agent_type_citi_id' => \App\Models\Collections\AgentType::where('title', 'Artist')->first()->citi_id,
         ];
 
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Collections;
+namespace App\Models\Collections;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -62,13 +62,13 @@ class CollectionsModel extends Model
 
         switch ($endpoint) {
         case 'artists':
-            return \App\Collections\Agent::class;
+            return \App\Models\Collections\Agent::class;
             break;
         case 'venues':
-            return \App\Collections\Agent::class;
+            return \App\Models\Collections\Agent::class;
             break;
         default:
-            return '\App\Collections\\' .studly_case(str_singular($endpoint));
+            return '\App\Models\Collections\\' .studly_case(str_singular($endpoint));
             break;
         }
 

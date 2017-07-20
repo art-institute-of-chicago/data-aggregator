@@ -21,7 +21,7 @@ class MobileSoundsTableSeeder extends Seeder
     private function _addSoundsToArtworks()
     {
 
-        $artworks = App\Collections\Artwork::all()->all();
+        $artworks = App\Models\Collections\Artwork::all()->all();
         $soundIds = App\Models\Mobile\Sound::all()->pluck('mobile_id')->all();
 
         foreach ($artworks as $artwork) {

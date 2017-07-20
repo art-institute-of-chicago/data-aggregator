@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\ArtworkTerm;
+use App\Models\Collections\ArtworkTerm;
 
 class ArtworkTermTransformer extends CollectionsTransformer
 {

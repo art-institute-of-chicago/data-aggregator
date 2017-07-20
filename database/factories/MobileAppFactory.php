@@ -40,7 +40,7 @@ $factory->define(App\Models\Mobile\Artwork::class, function (Faker\Generator $fa
 
     if (!$artworks)
     {
-        $artworks = App\Collections\Artwork::all()->pluck('citi_id')->all();
+        $artworks = App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
     }
 
     return array_merge(
@@ -86,7 +86,7 @@ $factory->define(App\Models\Mobile\TourStop::class, function (Faker\Generator $f
 
     if (!$artworks)
     {
-        $artworks = App\Collections\Artwork::all()->pluck('citi_id')->all();
+        $artworks = App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
     }
 
     return array_merge(

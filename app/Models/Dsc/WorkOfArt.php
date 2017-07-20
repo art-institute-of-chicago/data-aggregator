@@ -17,7 +17,7 @@ class WorkOfArt extends DscModel
     public function artwork()
     {
 
-        return $this->belongsTo('App\Collections\Artwork');
+        return $this->belongsTo('App\Models\Collections\Artwork');
 
     }
 

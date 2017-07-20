@@ -12,8 +12,8 @@ class ArtistArtworksTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Collections\Artwork::all()->all();
-        $artistsIds = App\Collections\Artist::all()->pluck('citi_id')->all();
+        $artworks = App\Models\Collections\Artwork::all()->all();
+        $artistsIds = App\Models\Collections\Artist::all()->pluck('citi_id')->all();
 
         foreach ($artworks as $artwork) {
 

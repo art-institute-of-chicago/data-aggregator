@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Category;
+use App\Models\Collections\Category;
 
 class CategoryTransformer extends CollectionsTransformer
 {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Artwork;
+use App\Models\Collections\Artwork;
 
 class ArtworkTransformer extends CollectionsTransformer
 {
@@ -93,7 +93,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include artists.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeArtists(Artwork $artwork)
@@ -104,7 +104,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include copyright representatives.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeCopyrightRepresentatives(Artwork $artwork)
@@ -115,7 +115,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include categories.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeCategories(Artwork $artwork)
@@ -126,7 +126,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include parts.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeParts(Artwork $artwork)
@@ -137,7 +137,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include sets.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeSets(Artwork $artwork)
@@ -148,7 +148,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include dates.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeDates(Artwork $artwork)
@@ -159,7 +159,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include catalogues.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeCatalogues(Artwork $artwork)
@@ -170,7 +170,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include committees.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeCommittees(Artwork $artwork)
@@ -181,7 +181,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include terms.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeTerms(Artwork $artwork)
@@ -192,7 +192,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include images.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeImages(Artwork $artwork)
@@ -203,7 +203,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include publications.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includePublications(Artwork $artwork)
@@ -213,7 +213,7 @@ class ArtworkTransformer extends CollectionsTransformer
     /**
      * Include tours.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeTours(Artwork $artwork)

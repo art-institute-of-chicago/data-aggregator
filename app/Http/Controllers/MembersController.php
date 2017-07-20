@@ -11,7 +11,7 @@ class MembersController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Member  $member
+     * @param  \App\Models\Collections\Member  $member
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $memberId, $zip)

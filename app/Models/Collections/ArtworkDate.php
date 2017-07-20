@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Collections;
+namespace App\Models\Collections;
 
-class ArtworkTerm extends CollectionsModel
+class ArtworkDate extends CollectionsModel
 {
 
     protected $dates = ['date', 'source_created_at', 'source_modified_at', 'source_indexed_at'];

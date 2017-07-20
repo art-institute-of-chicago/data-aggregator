@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Collections;
+namespace App\Models\Collections;
 
 class Artwork extends CollectionsModel
 {
@@ -12,91 +12,91 @@ class Artwork extends CollectionsModel
     public function artists()
     {
 
-        return $this->belongsToMany('App\Collections\Artist', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Artist', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
 
     }
 
     public function copyrightRepresentatives()
     {
 
-        return $this->belongsToMany('App\Collections\CopyrightRepresentative', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
+        return $this->belongsToMany('App\Models\Collections\CopyrightRepresentative', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
 
     }
 
     public function department()
     {
 
-        return $this->belongsTo('App\Collections\Department');
+        return $this->belongsTo('App\Models\Collections\Department');
 
     }
 
     public function objectType()
     {
 
-        return $this->belongsTo('App\Collections\ObjectType');
+        return $this->belongsTo('App\Models\Collections\ObjectType');
 
     }
 
     public function categories()
     {
 
-        return $this->belongsToMany('App\Collections\Category');
+        return $this->belongsToMany('App\Models\Collections\Category');
 
     }
 
     public function dates()
     {
 
-        return $this->hasMany('App\Collections\ArtworkDate');
+        return $this->hasMany('App\Models\Collections\ArtworkDate');
 
     }
 
     public function committees()
     {
 
-        return $this->hasMany('App\Collections\ArtworkCommittee');
+        return $this->hasMany('App\Models\Collections\ArtworkCommittee');
 
     }
 
     public function terms()
     {
 
-        return $this->hasMany('App\Collections\ArtworkTerm');
+        return $this->hasMany('App\Models\Collections\ArtworkTerm');
 
     }
 
     public function catalogues()
     {
 
-        return $this->hasMany('App\Collections\ArtworkCatalogue');
+        return $this->hasMany('App\Models\Collections\ArtworkCatalogue');
 
     }
 
     public function gallery()
     {
 
-        return $this->belongsTo('App\Collections\Gallery');
+        return $this->belongsTo('App\Models\Collections\Gallery');
 
     }
 
     public function parts()
     {
 
-        return $this->belongsToMany('App\Collections\Artwork', 'artwork_artwork', 'set_citi_id', 'part_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artwork', 'set_citi_id', 'part_citi_id');
 
     }
 
     public function sets()
     {
 
-        return $this->belongsToMany('App\Collections\Artwork', 'artwork_artwork', 'part_citi_id', 'set_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artwork', 'part_citi_id', 'set_citi_id');
 
     }
 
     public function images()
     {
 
-        return $this->belongsToMany('App\Collections\Image');
+        return $this->belongsToMany('App\Models\Collections\Image');
 
     }
 
@@ -335,7 +335,7 @@ class Artwork extends CollectionsModel
 
             $preferred = $hasPreferred ? false : $this->faker->boolean;
 
-            $image = factory(\App\Collections\Image::class)->make([
+            $image = factory(\App\Models\Collections\Image::class)->make([
                 'preferred' => $preferred,
             ]);
             $this->images()->save($image);

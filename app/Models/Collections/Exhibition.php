@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Collections;
+namespace App\Models\Collections;
 
 class Exhibition extends CollectionsModel
 {
@@ -12,35 +12,35 @@ class Exhibition extends CollectionsModel
     public function artworks()
     {
 
-        return $this->belongsToMany('App\Collections\Artwork');
+        return $this->belongsToMany('App\Models\Collections\Artwork');
 
     }
 
     public function venues()
     {
 
-        return $this->belongsToMany('App\Collections\CorporateBody', 'agent_exhibition', 'exhibition_citi_id', 'agent_citi_id');
+        return $this->belongsToMany('App\Models\Collections\CorporateBody', 'agent_exhibition', 'exhibition_citi_id', 'agent_citi_id');
 
     }
 
     public function department()
     {
 
-        return $this->belongsTo('App\Collections\Department');
+        return $this->belongsTo('App\Models\Collections\Department');
 
     }
 
     public function gallery()
     {
 
-        return $this->belongsTo('App\Collections\Gallery');
+        return $this->belongsTo('App\Models\Collections\Gallery');
 
     }
 
     public function seedArtworks()
     {
 
-        $artworkIds = \App\Collections\Artwork::all()->pluck('citi_id')->all();
+        $artworkIds = \App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
 
         for ($i = 0; $i < rand(2,8); $i++) {
 
@@ -57,7 +57,7 @@ class Exhibition extends CollectionsModel
     public function seedVenues()
     {
 
-        $agentIds = \App\Collections\CorporateBody::all()->pluck('citi_id')->all();
+        $agentIds = \App\Models\Collections\CorporateBody::all()->pluck('citi_id')->all();
 
         for ($i = 0; $i < rand(1,3); $i++) {
 

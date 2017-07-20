@@ -15,7 +15,7 @@ class Sound extends MobileModel
     public function artworks()
     {
 
-        return $this->belongsToMany('App\Collections\Artwork', 'artwork_mobile_app_sound');
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_mobile_app_sound');
 
     }
 

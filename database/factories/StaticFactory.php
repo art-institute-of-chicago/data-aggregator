@@ -16,7 +16,7 @@ $factory->define(App\Models\StaticArchive\Site::class, function (Faker\Generator
         'title' => ucfirst($faker->words(3, true)),
         'description' => $faker->paragraph(5),
         'link' => $faker->url,
-        'exhibition_citi_id' => $faker->randomElement(App\Collections\Exhibition::all()->pluck('citi_id')->all()),
+        'exhibition_citi_id' => $faker->randomElement(App\Models\Collections\Exhibition::all()->pluck('citi_id')->all()),
         'source_created_at' => $faker->dateTimeThisYear,
         'source_modified_at' => $faker->dateTimeThisYear,
     ];

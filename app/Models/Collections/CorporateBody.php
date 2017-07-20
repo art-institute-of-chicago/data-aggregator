@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Collections;
+namespace App\Models\Collections;
 
-class Artist extends Agent
+class CorporateBody extends Agent
 {
 
     /**
@@ -15,7 +15,7 @@ class Artist extends Agent
     public function newQuery($excludeDeleted = true)
     {
 
-        return parent::newQuery()->whereHas('agentType', function ($query) { $query->where('title', '=', 'Artist'); });
+        return parent::newQuery()->whereHas('agentType', function ($query) { $query->where('title', '=', 'Corporate Body'); });
 
     }
 
@@ -30,7 +30,7 @@ class Artist extends Agent
     {
 
         $model = parent::newInstance($attributes, $exists);
-        $model->agentType()->associate(\App\Collections\AgentType::where('title', 'Artist')->first());
+        $model->agentType()->associate(\App\Models\Collections\AgentType::where('title', 'Corporate Body')->first());
         return $model;
 
     }
@@ -38,7 +38,7 @@ class Artist extends Agent
     public function getAgentTypeAttribute()
     {
 
-        App\Collections\AgentType::where('title', 'Artist')->first();
+        App\Models\Collections\AgentType::where('title', 'Corporate Body')->first();
 
     }
 

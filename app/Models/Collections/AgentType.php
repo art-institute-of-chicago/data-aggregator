@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Collections;
+namespace App\Models\Collections;
 
-class Department extends CollectionsModel
+class AgentType extends CollectionsModel
 {
 
     public $incrementing = false;
