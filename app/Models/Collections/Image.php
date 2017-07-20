@@ -1,6 +1,5 @@
 <?php
 
-// @TODO Fix App\Collections to App\Models\Collections in model methods
 namespace App\Models\Collections;
 
 class Image extends Asset
@@ -9,7 +8,7 @@ class Image extends Asset
     public function artworks()
     {
 
-        return $this->belongsToMany('App\Collections\Artwork');
+        return $this->belongsToMany('App\Models\Collections\Artwork');
 
     }
 
