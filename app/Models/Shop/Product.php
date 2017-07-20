@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shop;
+namespace App\Models\Shop;
 
 class Product extends ShopModel
 {
@@ -8,7 +8,7 @@ class Product extends ShopModel
     public function categories()
     {
 
-        return $this->belongsToMany('App\Shop\Category', 'product_shop_category');
+        return $this->belongsToMany('App\Models\Shop\Category', 'product_shop_category');
 
     }
 

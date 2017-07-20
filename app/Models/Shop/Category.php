@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shop;
+namespace App\Models\Shop;
 
 class Category extends ShopModel
 {
@@ -15,14 +15,14 @@ class Category extends ShopModel
     public function parent()
     {
 
-        return $this->belongsTo('App\Shop\Category', 'parent_category_shop_id');
+        return $this->belongsTo('App\Models\Shop\Category', 'parent_category_shop_id');
 
     }
 
     public function children()
     {
 
-        return $this->hasMany('App\Shop\Category', 'parent_category_shop_id');
+        return $this->hasMany('App\Models\Shop\Category', 'parent_category_shop_id');
 
     }
 

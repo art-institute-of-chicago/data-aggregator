@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Shop\Product;
+use App\Models\Shop\Product;
 use Illuminate\Http\Request;
 
 class ProductsController extends ApiController

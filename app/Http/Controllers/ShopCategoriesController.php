@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Shop\Category;
+use App\Models\Shop\Category;
 use Illuminate\Http\Request;
 
 class ShopCategoriesController extends ApiController

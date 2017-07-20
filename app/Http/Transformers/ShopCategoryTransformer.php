@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Shop\Category;
+use App\Models\Shop\Category;
 
 class ShopCategoryTransformer extends ApiTransformer
 {
@@ -17,7 +17,7 @@ class ShopCategoryTransformer extends ApiTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Shop\ShopCategory  $item
+     * @param  \App\Models\Shop\ShopCategory  $item
      * @return array
      */
     public function transformFields($item)
