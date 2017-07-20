@@ -11,7 +11,6 @@ class ShopModel extends BaseModel
 
     use Searchable;
 
-    public $incrementing = false;
     protected $primaryKey = 'shop_id';
     protected $dates = ['source_created_at', 'source_modified_at'];
 

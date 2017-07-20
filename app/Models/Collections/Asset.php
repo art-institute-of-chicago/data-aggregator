@@ -7,7 +7,6 @@ use App\Models\CollectionsModel;
 class Asset extends CollectionsModel
 {
 
-    public $incrementing = false;
     protected $primaryKey = 'lake_guid';
     protected $keyType = 'string';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];

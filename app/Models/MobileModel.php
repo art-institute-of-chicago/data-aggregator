@@ -7,7 +7,6 @@ use App\Models\BaseModel;
 class MobileModel extends BaseModel
 {
 
-    public $incrementing = false;
     protected $primaryKey = 'mobile_id';
     protected $dates = ['source_created_at', 'source_modified_at'];
 
