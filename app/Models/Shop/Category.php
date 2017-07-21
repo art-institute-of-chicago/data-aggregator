@@ -34,19 +34,4 @@ class Category extends ShopModel
 
     }
 
-    public function toSearchableArray()
-    {
-
-        $array = [
-            'id' => $this->searchableId(),
-            'api_id' => $this->getKey(),
-            'api_model' => $this->searchableModel(),
-            'api_link' => $this->searchableLink(),
-            'title' => $this->title,
-        ];
-
-        return $array;
-
-    }
-
 }
