@@ -58,6 +58,13 @@ class SeedSearch extends Command
         $class = $this->argument('seeder');
         $seeder = new $class();
 
+        if( method_exists( $seeder, 'clean' ) ) {
+            $seeder->clean();
+            $this->info( 'Cleaned seeder data...' );
+        } else {
+            $this->warn( 'No public clean() method available on seeder!' );
+        }
+
         $seeder->run();
 
         $this->info( 'Seeded: ' . $class );
