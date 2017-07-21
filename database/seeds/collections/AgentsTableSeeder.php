@@ -11,6 +11,6 @@ class AgentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Collections\Agent::class, 100)->create();
+        factory(App\Models\Collections\Agent::class, 100)->create();
     }
 }

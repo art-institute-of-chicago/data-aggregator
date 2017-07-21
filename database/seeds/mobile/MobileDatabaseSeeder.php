@@ -26,9 +26,9 @@ class MobileDatabaseSeeder extends Seeder
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        App\Mobile\Artwork::truncate();
-        App\Mobile\Sound::truncate();
-        App\Mobile\Tour::truncate();
+        App\Models\Mobile\Artwork::truncate();
+        App\Models\Mobile\Sound::truncate();
+        App\Models\Mobile\Tour::truncate();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 

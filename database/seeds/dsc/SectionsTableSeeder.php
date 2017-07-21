@@ -11,6 +11,6 @@ class SectionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Dsc\Section::class, 250)->create();
+        factory(App\Models\Dsc\Section::class, 250)->create();
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\ObjectType;
-use App\Collections\Artwork;
+use App\Models\Collections\ObjectType;
+use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
 class ObjectTypesController extends ApiController
@@ -49,7 +49,7 @@ class ObjectTypesController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\ObjectType  $objectType
+     * @param  \App\Models\Collections\ObjectType  $objectType
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $objectTypeId)

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Artwork;
+use App\Models\Collections\Artwork;
 use App\Http\Transformers\ApiSerializer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

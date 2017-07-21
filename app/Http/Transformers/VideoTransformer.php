@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Video;
+use App\Models\Collections\Video;
 
 class VideoTransformer extends AssetTransformer
 {

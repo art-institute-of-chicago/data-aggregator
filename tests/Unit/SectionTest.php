@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Dsc\Section;
-use App\Dsc\Publication;
+use App\Models\Dsc\Section;
+use App\Models\Dsc\Publication;
 
 class SectionTest extends ApiTestCase
 {

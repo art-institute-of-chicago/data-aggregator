@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\AgentType;
+use App\Models\Collections\AgentType;
 
 class AgentTypeTransformer extends CollectionsTransformer
 {

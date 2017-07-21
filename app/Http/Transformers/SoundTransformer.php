@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Sound;
+use App\Models\Collections\Sound;
 
 class SoundTransformer extends AssetTransformer
 {

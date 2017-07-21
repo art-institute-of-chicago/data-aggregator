@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Shop\Category;
+use App\Models\Shop\Category;
 
 class ShopCategoryTransformer extends ApiTransformer
 {
@@ -17,7 +17,7 @@ class ShopCategoryTransformer extends ApiTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Shop\ShopCategory  $item
+     * @param  \App\Models\Shop\ShopCategory  $item
      * @return array
      */
     public function transformFields($item)
@@ -34,7 +34,7 @@ class ShopCategoryTransformer extends ApiTransformer
     /**
      * Include categories.
      *
-     * @param  \App\Collections\Category  $category
+     * @param  \App\Models\Collections\Category  $category
      * @return League\Fractal\ItemResource
      */
     public function includeChildren(Category $category)

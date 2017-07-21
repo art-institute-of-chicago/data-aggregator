@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Membership\Event;
+use App\Models\Membership\Event;
 use Illuminate\Http\Request;
 
 class EventsController extends ApiController
@@ -43,7 +43,7 @@ class EventsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Event  $event
+     * @param  \App\Models\Collections\Event  $event
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $eventId)

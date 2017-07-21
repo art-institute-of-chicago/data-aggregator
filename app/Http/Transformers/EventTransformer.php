@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Membership\Event;
+use App\Models\Membership\Event;
 
 class EventTransformer extends ApiTransformer
 {
@@ -10,7 +10,7 @@ class EventTransformer extends ApiTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Membership\Event  $item
+     * @param  \App\Models\Membership\Event  $item
      * @return array
      */
     public function transformFields($item)

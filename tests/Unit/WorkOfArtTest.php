@@ -6,10 +6,10 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Dsc\WorkOfArt;
-use App\Dsc\Publication;
-use App\Collections\Artwork;
-use App\Collections\Agent;
+use App\Models\Dsc\WorkOfArt;
+use App\Models\Dsc\Publication;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\Agent;
 
 class WorkOfArtTest extends ApiTestCase
 {

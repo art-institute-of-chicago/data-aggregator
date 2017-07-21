@@ -12,10 +12,10 @@ class ShopCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        factory(App\Shop\Category::class, 100)->create();
+        factory(App\Models\Shop\Category::class, 100)->create();
 
-        $categories = App\Shop\Category::all()->all();
-        $categoryIds = App\Shop\Category::all()->pluck('shop_id')->all();
+        $categories = App\Models\Shop\Category::all()->all();
+        $categoryIds = App\Models\Shop\Category::all()->pluck('shop_id')->all();
 
         foreach ($categories as $category) {
 

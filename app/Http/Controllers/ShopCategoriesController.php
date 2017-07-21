@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Shop\Category;
+use App\Models\Shop\Category;
 use Illuminate\Http\Request;
 
 class ShopCategoriesController extends ApiController
@@ -43,7 +43,7 @@ class ShopCategoriesController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Category  $category
+     * @param  \App\Models\Collections\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $categoryId)

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dsc\Collector;
+use App\Models\Dsc\Collector;
 use Illuminate\Http\Request;
 
 class CollectorsController extends ApiController
@@ -42,7 +42,7 @@ class CollectorsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dsc\Collector  $dscId
+     * @param  \App\Models\Dsc\Collector  $dscId
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $dscId)

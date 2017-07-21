@@ -12,7 +12,7 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
 
-        factory(App\Shop\Product::class, 100)->create();
+        factory(App\Models\Shop\Product::class, 100)->create();
 
         $this->_addCategoriesToProducts();
 
@@ -21,8 +21,8 @@ class ProductsTableSeeder extends Seeder
     private function _addCategoriesToProducts()
     {
 
-        $products = App\Shop\Product::all()->all();
-        $categoryIds = App\Shop\Category::all()->pluck('shop_id')->all();
+        $products = App\Models\Shop\Product::all()->all();
+        $categoryIds = App\Models\Shop\Category::all()->pluck('shop_id')->all();
 
         foreach ($products as $product) {
 

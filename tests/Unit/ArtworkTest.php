@@ -6,14 +6,14 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\Artwork;
-use App\Collections\ArtworkDate;
-use App\Collections\Image;
-use App\Collections\Category;
-use App\Collections\Agent;
-use App\Collections\AgentType;
-use App\Collections\Artist;
-use App\Collections\Gallery;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\ArtworkDate;
+use App\Models\Collections\Image;
+use App\Models\Collections\Category;
+use App\Models\Collections\Agent;
+use App\Models\Collections\AgentType;
+use App\Models\Collections\Artist;
+use App\Models\Collections\Gallery;
 
 class ArtworkTest extends ApiTestCase
 {

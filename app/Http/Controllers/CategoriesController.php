@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Category;
-use App\Collections\Artwork;
+use App\Models\Collections\Category;
+use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
 class CategoriesController extends ApiController
@@ -44,7 +44,7 @@ class CategoriesController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Category  $category
+     * @param  \App\Models\Collections\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $categoryId)

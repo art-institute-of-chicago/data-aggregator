@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dsc\Figure;
+use App\Models\Dsc\Figure;
 use Illuminate\Http\Request;
 
 class FiguresController extends ApiController
@@ -42,7 +42,7 @@ class FiguresController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dsc\Figure  $dscId
+     * @param  \App\Models\Dsc\Figure  $dscId
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $dscId)

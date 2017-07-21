@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mobile\Sound;
+use App\Models\Mobile\Sound;
 use Illuminate\Http\Request;
 
 class MobileSoundsController extends ApiController
@@ -43,7 +43,7 @@ class MobileSoundsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Mobile\Sound  $sound
+     * @param  \App\Models\Mobile\Sound  $sound
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $soundId)

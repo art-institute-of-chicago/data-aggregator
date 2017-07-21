@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Image;
+use App\Models\Collections\Image;
 
 class ImageTransformer extends AssetTransformer
 {
@@ -35,7 +35,7 @@ class ImageTransformer extends AssetTransformer
     /**
      * Include artworks.
      *
-     * @param  \App\Collections\Image  $image
+     * @param  \App\Models\Collections\Image  $image
      * @return League\Fractal\ItemResource
      */
     public function includeArtworks(Image $image)

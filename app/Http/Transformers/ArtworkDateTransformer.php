@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\ArtworkDate;
+use App\Models\Collections\ArtworkDate;
 
 class ArtworkDateTransformer extends CollectionsTransformer
 {

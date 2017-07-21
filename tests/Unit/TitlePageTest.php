@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Dsc\TitlePage;
-use App\Dsc\Publication;
+use App\Models\Dsc\TitlePage;
+use App\Models\Dsc\Publication;
 
 class TitlePageTest extends ApiTestCase
 {

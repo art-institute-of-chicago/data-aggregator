@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Video;
-use App\Collections\Artwork;
+use App\Models\Collections\Video;
+use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
 class VideosController extends AssetsController

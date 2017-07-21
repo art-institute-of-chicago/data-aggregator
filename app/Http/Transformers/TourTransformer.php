@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Mobile\Tour;
+use App\Models\Mobile\Tour;
 
 class TourTransformer extends ApiTransformer
 {
@@ -17,7 +17,7 @@ class TourTransformer extends ApiTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Mobile\Tour  $item
+     * @param  \App\Models\Mobile\Tour  $item
      * @return array
      */
     public function transformFields($item)
@@ -37,7 +37,7 @@ class TourTransformer extends ApiTransformer
     /**
      * Include stops.
      *
-     * @param  \App\Mobile\TourStop  $artwork
+     * @param  \App\Models\Mobile\TourStop  $artwork
      * @return League\Fractal\ItemResource
      */
     public function includeStops(Tour $tour)

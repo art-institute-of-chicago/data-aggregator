@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Dsc\Figure;
+use App\Models\Dsc\Figure;
 
 class FigureTransformer extends DscTransformer
 {
@@ -19,7 +19,7 @@ class FigureTransformer extends DscTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Dsc\Figure  $item
+     * @param  \App\Models\Dsc\Figure  $item
      * @return array
      */
     public function transformFields($item)
@@ -34,7 +34,7 @@ class FigureTransformer extends DscTransformer
     /**
      * Include images.
      *
-     * @param  \App\Dsc\Fgiure  $figure
+     * @param  \App\Models\Dsc\Fgiure  $figure
      * @return League\Fractal\ItemResource
      */
     public function includeImages(Figure $figure)
@@ -45,7 +45,7 @@ class FigureTransformer extends DscTransformer
     /**
      * Include vectors.
      *
-     * @param  \App\Dsc\Figure  $figure
+     * @param  \App\Models\Dsc\Figure  $figure
      * @return League\Fractal\ItemResource
      */
     public function includeVectors(Figure $figure)

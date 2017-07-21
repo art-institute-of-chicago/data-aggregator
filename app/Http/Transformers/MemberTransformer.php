@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Membership\Member;
+use App\Models\Membership\Member;
 
 class MemberTransformer extends ApiTransformer
 {
@@ -12,7 +12,7 @@ class MemberTransformer extends ApiTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Membership\Member  $item
+     * @param  \App\Models\Membership\Member  $item
      * @return array
      */
     public function transformFields($item)

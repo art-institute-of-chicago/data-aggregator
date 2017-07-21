@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Dsc\Publication;
+use App\Models\Dsc\Publication;
 
 class TitlePageTransformer extends DscTransformer
 {
@@ -10,7 +10,7 @@ class TitlePageTransformer extends DscTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Dsc\Publication  $item
+     * @param  \App\Models\Dsc\Publication  $item
      * @return array
      */
     public function transformFields($item)

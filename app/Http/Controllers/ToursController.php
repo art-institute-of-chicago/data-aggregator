@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mobile\Tour;
+use App\Models\Mobile\Tour;
 use Illuminate\Http\Request;
 
 class ToursController extends ApiController
@@ -43,7 +43,7 @@ class ToursController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Mobile\Tour  $tour
+     * @param  \App\Models\Mobile\Tour  $tour
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $tourId)

@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Link;
+use App\Models\Collections\Link;
 
 class LinkTransformer extends AssetTransformer
 {

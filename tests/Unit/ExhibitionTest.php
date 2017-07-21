@@ -6,12 +6,12 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\Exhibition;
-use App\Collections\Gallery;
-use App\Collections\Department;
-use App\Collections\Artwork;
-use App\Collections\AgentType;
-use App\Collections\Agent;
+use App\Models\Collections\Exhibition;
+use App\Models\Collections\Gallery;
+use App\Models\Collections\Department;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\AgentType;
+use App\Models\Collections\Agent;
 
 class ExhibitionTest extends ApiTestCase
 {

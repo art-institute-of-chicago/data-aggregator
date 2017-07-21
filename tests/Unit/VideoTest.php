@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\Video;
+use App\Models\Collections\Video;
 
 class VideoTest extends ApiTestCase
 {

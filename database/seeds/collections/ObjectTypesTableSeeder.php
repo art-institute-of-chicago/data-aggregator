@@ -11,6 +11,6 @@ class ObjectTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Collections\ObjectType::class, 25)->create();
+        factory(App\Models\Collections\ObjectType::class, 25)->create();
     }
 }

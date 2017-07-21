@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Models;
+
+use App\Models\BaseModel;
+
+use Laravel\Scout\Searchable;
+
+class ShopModel extends BaseModel
+{
+
+    use Searchable;
+
+    protected $primaryKey = 'shop_id';
+    protected $dates = ['source_created_at', 'source_modified_at'];
+
+    protected $apiCtrl;
+
+    public function __construct(array $attributes = array()) {
+
+        parent::__construct($attributes);
+
+        $this->apiCtrl = $this->apiCtrl ?: str_plural( class_basename(static::class) ) . 'Controller';
+
+    }
+
+    protected function searchableLink()
+    {
+
+        return action($this->apiCtrl . '@show', ['id' => $this->getKey()]);
+
+    }
+
+    protected function searchableModel()
+    {
+
+        return kebab_case(class_basename(static::class));
+
+    }
+
+    protected function searchableSource()
+    {
+
+        return 'shop';
+
+    }
+
+    protected function searchableId()
+    {
+
+        return $this->searchableSource() .'/' .$this->searchableModel() .'/' .$this->shop_id;
+
+    }
+
+}

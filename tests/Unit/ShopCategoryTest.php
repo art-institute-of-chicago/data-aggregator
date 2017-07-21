@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Shop\Category;
+use App\Models\Shop\Category;
 
 class ShopCategoryTest extends ApiTestCase
 {

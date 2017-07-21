@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Dsc\Collector;
-use App\Dsc\Publication;
+use App\Models\Dsc\Collector;
+use App\Models\Dsc\Publication;
 
 class CollectorTest extends ApiTestCase
 {

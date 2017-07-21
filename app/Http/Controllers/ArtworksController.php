@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Artwork;
-use App\Collections\Exhibition;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\Exhibition;
 use Illuminate\Http\Request;
 
 class ArtworksController extends ApiController
@@ -72,7 +72,7 @@ class ArtworksController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Artwork  $artwork
+     * @param  \App\Models\Collections\Artwork  $artwork
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $artworkId)

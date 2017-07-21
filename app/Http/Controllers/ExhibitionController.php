@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Exhibition;
+use App\Models\Collections\Exhibition;
 use Illuminate\Http\Request;
 
 class ExhibitionsController extends ApiController
@@ -42,7 +42,7 @@ class ExhibitionsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Exhibition  $exhibition
+     * @param  \App\Models\Collections\Exhibition  $exhibition
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $exhibitionId)

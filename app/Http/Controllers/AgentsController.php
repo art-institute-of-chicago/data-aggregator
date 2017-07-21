@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Agent;
-use App\Collections\Artwork;
-use App\Collections\Exhibition;
+use App\Models\Collections\Agent;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\Exhibition;
 use Illuminate\Http\Request;
 
 class AgentsController extends ApiController
@@ -76,7 +76,7 @@ class AgentsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Agent  $agent
+     * @param  \App\Models\Collections\Agent  $agent
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $agentId)

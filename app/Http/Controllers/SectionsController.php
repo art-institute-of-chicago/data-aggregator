@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dsc\Section;
+use App\Models\Dsc\Section;
 use Illuminate\Http\Request;
 
 class SectionsController extends ApiController
@@ -42,7 +42,7 @@ class SectionsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dsc\Section  $dscId
+     * @param  \App\Models\Dsc\Section  $dscId
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $dscId)

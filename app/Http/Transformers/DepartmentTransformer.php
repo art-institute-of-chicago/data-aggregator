@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Department;
+use App\Models\Collections\Department;
 
 class DepartmentTransformer extends CollectionsTransformer
 {

@@ -11,6 +11,6 @@ class ArtworksTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Collections\Artwork::class, 100)->create();
+        factory(App\Models\Collections\Artwork::class, 100)->create();
     }
 }

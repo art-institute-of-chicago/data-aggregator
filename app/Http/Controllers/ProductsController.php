@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Shop\Product;
+use App\Models\Shop\Product;
 use Illuminate\Http\Request;
 
 class ProductsController extends ApiController
@@ -43,7 +43,7 @@ class ProductsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Product  $product
+     * @param  \App\Models\Collections\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $productId)

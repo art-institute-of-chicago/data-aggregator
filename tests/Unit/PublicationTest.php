@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Dsc\Publication;
+use App\Models\Dsc\Publication;
 
 class PublicationTest extends ApiTestCase
 {

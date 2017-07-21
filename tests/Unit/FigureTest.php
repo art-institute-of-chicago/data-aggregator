@@ -6,9 +6,9 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Dsc\Figure;
-use App\Dsc\Publication;
-use App\Dsc\Section;
+use App\Models\Dsc\Figure;
+use App\Models\Dsc\Publication;
+use App\Models\Dsc\Section;
 
 class FigureTest extends ApiTestCase
 {

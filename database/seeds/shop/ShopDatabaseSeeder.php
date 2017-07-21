@@ -25,8 +25,8 @@ class ShopDatabaseSeeder extends Seeder
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        App\Shop\Product::truncate();
-        App\Shop\Category::truncate();
+        App\Models\Shop\Product::truncate();
+        App\Models\Shop\Category::truncate();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Exhibition;
+use App\Models\Collections\Exhibition;
 
 class ExhibitionTransformer extends CollectionsTransformer
 {
@@ -38,7 +38,7 @@ class ExhibitionTransformer extends CollectionsTransformer
     /**
      * Include artworks.
      *
-     * @param  \App\Collections\Exhibition  $exhibition
+     * @param  \App\Models\Collections\Exhibition  $exhibition
      * @return League\Fractal\ItemResource
      */
     public function includeArtworks(Exhibition $exhibition)
@@ -49,7 +49,7 @@ class ExhibitionTransformer extends CollectionsTransformer
     /**
      * Include venues.
      *
-     * @param  \App\Collections\Exhibition  $exhibition
+     * @param  \App\Models\Collections\Exhibition  $exhibition
      * @return League\Fractal\ItemResource
      */
     public function includeVenues(Exhibition $exhibition)
