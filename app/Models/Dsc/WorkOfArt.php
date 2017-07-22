@@ -3,9 +3,12 @@
 namespace App\Models\Dsc;
 
 use App\Models\DscModel;
+use App\Models\SolrSearchable;
 
 class WorkOfArt extends DscModel
 {
+
+    use SolrSearchable;
 
     public $table = 'works_of_art';
 

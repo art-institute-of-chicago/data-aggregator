@@ -3,9 +3,12 @@
 namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
+use App\Models\SolrSearchable;
 
 class TourStop extends MobileModel
 {
+
+    use SolrSearchable;
 
     public function tour()
     {

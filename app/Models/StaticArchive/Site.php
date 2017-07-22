@@ -3,9 +3,12 @@
 namespace App\Models\StaticArchive;
 
 use App\Models\BaseModel;
+use App\Models\SolrSearchable;
 
 class Site extends BaseModel
 {
+
+    use SolrSearchable;
 
     protected $primaryKey = 'site_id';
     protected $dates = ['source_created_at', 'source_modified_at'];
