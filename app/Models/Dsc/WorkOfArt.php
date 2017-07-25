@@ -12,6 +12,16 @@ class WorkOfArt extends DscModel
 
     public $table = 'works_of_art';
 
+    // @TODO: Because WorkOfArt uses SolrSearchable directly, we error out on $apiCtrl
+    // protected $apiCtrl = 'WorksOfArt';
+
+    protected function searchableLink()
+    {
+
+        return action('WorksOfArtController@show', ['id' => $this->getKey()]);
+
+    }
+
     public function publication()
     {
 
