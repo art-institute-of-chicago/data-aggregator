@@ -86,6 +86,9 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('tours', 'ToursController@index');
     Route::get('tours/{id}', 'ToursController@show');
 
+    Route::get('tour-stops', 'TourStopsController@index');
+    Route::get('tour-stops/{id}', 'TourStopsController@show');
+
     Route::get('mobile-sounds', 'MobileSoundsController@index');
     Route::get('mobile-sounds/{id}', 'MobileSoundsController@show');
 
