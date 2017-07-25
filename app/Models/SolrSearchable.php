@@ -50,17 +50,17 @@ trait SolrSearchable
     public function toSearchableArray()
     {
 
-        // @TODO Also send all attributes
-        // @TODO Transform attributes as in API
-        // @TODO Inject titles etc. from related models
-
-        $array = [
+        $array = array_merge([
             'id' => $this->searchableId(),
             'api_id' => $this->getKey(),
             'api_model' => $this->searchableModel(),
             'api_link' => $this->searchableLink(),
             'title' => $this->title,
-        ];
+        ], $this->transform());
+
+        // @TODO Also send all attributes
+        // @TODO Transform attributes as in API
+        // @TODO Inject titles etc. from related models
 
         return $array;
 

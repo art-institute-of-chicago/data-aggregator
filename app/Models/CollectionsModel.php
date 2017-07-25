@@ -7,10 +7,27 @@ use App\Models\BaseModel;
 class CollectionsModel extends BaseModel
 {
 
+    /**
+     * Cached static instance of the model
+     *
+     * @var \App\Models\CollecitonsModel
+     */
     public static $staticInstance;
 
+
+    /**
+     * A Faker instance for the model.
+     *
+     * @var \Faker\Generator
+     */
     public $faker;
 
+
+    /**
+     * Return the cached instance or create a new instance of this model.
+     *
+     * @return static
+     */
     public static function instance()
     {
 
@@ -24,6 +41,13 @@ class CollectionsModel extends BaseModel
 
     }
 
+
+    /**
+     * Create a new model instance. Also instantiates a $faker class. 
+     *
+     * @param  array  $attributes
+     * @return void
+     */
     function __construct($attributes = array())
     {
         parent::__construct($attributes);
@@ -32,6 +56,13 @@ class CollectionsModel extends BaseModel
 
     }
 
+
+    /**
+     * Find the record matching the given id or create it.
+     *
+     * @param  int    $id
+     * @return \App\Models\CollectionsModel
+     */
     public static function findOrCreate($id)
     {
 
@@ -40,6 +71,13 @@ class CollectionsModel extends BaseModel
 
     }
 
+
+    /**
+     * Get the class name for a given API endpoint
+     *
+     * @param  string  $endpoint
+     * @return string
+     */
     public static function classFor($endpoint)
     {
 
@@ -57,6 +95,15 @@ class CollectionsModel extends BaseModel
 
     }
 
+
+    /**
+     * Fill in this model's IDs and title from the given resource, or fill it in with fake data.
+     * This method is used primarily when the given resource is provided by the source
+     * system.
+     *
+     * @param  \App\Models\CollecitonsModel  $source
+     * @return $this
+     */
     private function fillIdsAndTitleFrom($source)
     {
 
@@ -85,6 +132,15 @@ class CollectionsModel extends BaseModel
 
     }
 
+
+    /**
+     * Fill in this model's dates from the given resource, or fill it in with fake data.
+     * This method is used primarily when the given resource is provided by the source
+     * system.
+     *
+     * @param  \App\Models\CollectionsModel  $source
+     * @return $this
+     */
     private function fillDatesFrom($source)
     {
 
@@ -108,6 +164,15 @@ class CollectionsModel extends BaseModel
 
     }
 
+
+    /**
+     * Fill in this model's fields from the given resource, or fill it in with fake data.
+     * This method is used primarily when the given resource is provided by the source
+     * system.
+     *
+     * @param  \App\Models\CollectionsModel  $source
+     * @return $this
+     */
     public function fillFrom($source)
     {
         $this->fillIdsAndTitleFrom($source)
@@ -117,6 +182,14 @@ class CollectionsModel extends BaseModel
         return $this;
     }
 
+
+    /**
+     * Method to allow child classes to define how `fill` methods should treat fields that are
+     * specific to each model.
+     *
+     * @param  \App\Models\CollectionsModel  $source
+     * @return $this
+     */
     public function getFillFieldsFrom($source)
     {
 
@@ -124,6 +197,14 @@ class CollectionsModel extends BaseModel
 
     }
 
+
+    /**
+     * Method to allow child classes to define how `fill` methods should treat related models
+     * for each model.
+     *
+     * @param  \App\Models\CollectionsModel  $source
+     * @return $this
+     */
     public function attachFrom($source)
     {
 

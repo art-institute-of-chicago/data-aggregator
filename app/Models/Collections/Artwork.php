@@ -394,4 +394,121 @@ class Artwork extends CollectionsModel
 
     }
 
+
+    /**
+     * Turn this model object into a generic array.
+     *
+     * @param boolean  $withTitles
+     * @return array
+     */
+    public function transform($withTitles = false)
+    {
+
+        $ret = array_merge(
+            [
+                'main_reference_number' => $this->main_id,
+                'date_start' => $this->date_start,
+                'date_end' => $this->date_end,
+                'date_display' => $this->date_display,
+                'description' => $this->description,
+                'artist_display' => $this->artist_display,
+                'department' => $this->department ? $this->department->title : NULL,
+                'department_id' => $this->department_citi_id,
+                'dimensions' => $this->dimensions,
+                'medium' => $this->medium_display,
+                'inscriptions' => $this->inscriptions,
+                'object_type' => $this->objectType ? $this->objectType->title : NULL,
+                'object_type_id' => $this->object_type_citi_id,
+                'credit_line' => $this->credit_line,
+                'publication_history' => $this->publication_history,
+                'exhibition_history' => $this->exhibition_history,
+                'provenance_text' => $this->provenance,
+                'publishing_verification_level' => $this->publishing_verification_level,
+                'is_public_domain' => (bool) $this->is_public_domain,
+                'copyright_notice' => $this->copyright_notice,
+                'place_of_origin' => $this->place_of_origin,
+                'collection_status' => $this->collection_status,
+                'gallery' => $this->gallery ? $this->gallery->title : '',
+                'gallery_id' => $this->gallery_citi_id,
+                'is_in_gallery' => $this->gallery_citi_id ? true : false,
+            ],
+            $this->transformMobileArtwork(),
+            [
+                'artist_ids' => $this->artists->pluck('citi_id')->all(),
+                'category_ids' => $this->categories->pluck('lake_guid')->all(),
+                'copyright_representative_ids' => $this->copyrightRepresentatives->pluck('citi_id')->all(),
+                'part_ids' => $this->parts->pluck('citi_id')->all(),
+                'set_ids' => $this->sets->pluck('citi_id')->all(),
+                'date_dates' => $this->dates()->pluck('date')->transform(function ($item, $key) {
+                    return solr_date($item);
+                })->all(),
+                'catalogue_titles' => $this->catalogues->pluck('catalogue')->all(),
+                'committee_titles' => $this->committees->pluck('committee')->all(),
+                'term_titles' => $this->terms->pluck('term')->all(),
+                'image_urls' => $this->images->pluck('iiif_url')->all(),
+                'publication_ids' => $this->publications->pluck('dsc_id')->all(),
+                'tour_ids' => $this->tours->pluck('mobile_id')->all(),
+            ]
+        );
+
+        if ($withTitles)
+        {
+
+            $ret = array_merge($ret, $this->transformTitles());
+
+        }
+
+        return $ret;
+
+    }
+
+
+    /**
+     * Turn the titles for related models into a generic array
+     *
+     * @return array
+     */
+    private function transformTitles()
+    {
+
+        return [
+
+            'artist_titles' => $this->artists->pluck('title')->all(),
+            'copyright_representative_titles' => $this->copyrightRepresentatives->pluck('title')->all(),
+            'part_titles' => $this->parts->pluck('title')->all(),
+            'set_titles' => $this->sets->pluck('title')->all(),
+            'publication_titles' => $this->publications->pluck('title')->all(),
+            'tour_titles' => $this->tours->pluck('title')->all(),
+
+        ];
+
+    }
+
+
+    /**
+     * Turn the relevant fields from the related mobile artwork model into a generic array
+     *
+     * @return array
+     */
+    private function transformMobileArtwork()
+    {
+
+        if ($this->mobileArtwork) {
+
+            return [
+
+                'latitude' => $this->mobileArtwork->latitude,
+                'longitude' => $this->mobileArtwork->longitude,
+                'latlon' => $this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude,
+                'is_highlighted_in_mobile' => (bool) $this->mobileArtwork->highlighted,
+                'selector_number' => $this->mobileArtwork->selector_number,
+
+            ];
+
+        }
+
+        return [];
+
+    }
+
 }
