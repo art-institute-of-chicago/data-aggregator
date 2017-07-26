@@ -40,10 +40,10 @@ class Gallery extends CollectionsModel
      * @param boolean  $withTitles
      * @return array
      */
-    public function transform($withTitles = false)
+    public function transformFields()
     {
 
-        $ret = [
+        return  [
             'is_closed' => (bool) $this->closed,
             'number' => $this->number,
             'floor' => $this->floor,
@@ -53,14 +53,6 @@ class Gallery extends CollectionsModel
             'category_ids' => $this->categories->pluck('lake_guid')->all(),
         ];
 
-        if ($withTitles)
-        {
-
-            $ret = array_merge($ret, $this->transformTitles());
-
-        }
-
-        return $ret;
     }
 
 

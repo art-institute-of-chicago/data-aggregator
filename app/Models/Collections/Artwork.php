@@ -401,10 +401,10 @@ class Artwork extends CollectionsModel
      * @param boolean  $withTitles
      * @return array
      */
-    public function transform($withTitles = false)
+    public function transformFields()
     {
 
-        $ret = array_merge(
+        return array_merge(
             [
                 'main_reference_number' => $this->main_id,
                 'date_start' => $this->date_start,
@@ -450,15 +450,6 @@ class Artwork extends CollectionsModel
                 'tour_ids' => $this->tours->pluck('mobile_id')->all(),
             ]
         );
-
-        if ($withTitles)
-        {
-
-            $ret = array_merge($ret, $this->transformTitles());
-
-        }
-
-        return $ret;
 
     }
 

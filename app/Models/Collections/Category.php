@@ -40,7 +40,7 @@ class Category extends CollectionsModel
      * @param boolean  $withTitles
      * @return array
      */
-    public function transform($withTitles = false)
+    public function transformFields()
     {
 
         return [

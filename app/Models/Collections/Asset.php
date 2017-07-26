@@ -57,10 +57,10 @@ class Asset extends CollectionsModel
      * @param boolean  $withTitles
      * @return array
      */
-    public function transform($withTitles = false)
+    public function transformFields()
     {
 
-        $ret = array_merge(
+        return array_merge(
             [
                 'description' => $this->description,
                 'content' => $this->content,
@@ -71,14 +71,6 @@ class Asset extends CollectionsModel
             $this->transformAsset()
         );
 
-        if ($withTitles)
-        {
-
-            $ret = array_merge($ret, $this->transformTitles());
-
-        }
-
-        return $ret;
     }
 
     /**

@@ -50,7 +50,16 @@ class BaseModel extends Model
     public function transform($withTitles = false)
     {
 
-        return [];
+        $ret = $this->transformFields();
+
+        if ($withTitles)
+        {
+
+            $ret = array_merge($ret, $this->transformTitles());
+
+        }
+
+        return $ret;
 
     }
 
