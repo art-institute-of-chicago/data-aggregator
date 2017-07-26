@@ -16,24 +16,6 @@ class GalleryTransformer extends CollectionsTransformer
      */
     protected $availableIncludes = ['categories'];
 
-    /**
-     * Turn this item object into a generic array.
-     *
-     * @param  \App\Gallery  $item
-     * @return array
-     */
-    public function transformFields($item)
-    {
-        return [
-            'is_closed' => (bool) $item->closed,
-            'number' => $item->number,
-            'floor' => $item->floor,
-            'latitude' => $item->latitude,
-            'longitude' => $item->longitude,
-            'latlon' => $item->longitude .',' .$item->longitude,
-            'category_ids' => $item->categories->pluck('lake_guid')->all(),
-        ];
-    }
 
     /**
      * Include categories.

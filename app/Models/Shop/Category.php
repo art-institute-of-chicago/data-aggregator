@@ -34,18 +34,41 @@ class Category extends ShopModel
 
     }
 
-    public function toSearchableArray()
+
+    /**
+     * Turn this model object into a generic array.
+     *
+     * @param boolean  $withTitles
+     * @return array
+     */
+    public function transformFields()
     {
 
-        $array = [
-            'id' => $this->searchableId(),
-            'api_id' => $this->getKey(),
-            'api_model' => $this->searchableModel(),
-            'api_link' => $this->searchableLink(),
-            'title' => $this->title,
+        return [
+            'link' => $this->link,
+            'parent_id' => $this->parent_category_shop_id,
+            'type' => $this->type,
+            'source_id' => $this->source_id,
+            'child_ids' => $this->children->pluck('shop_id')->all(),
         ];
 
-        return $array;
+    }
+
+
+    /**
+     * Turn the titles for related models into a generic array
+     *
+     * @return array
+     */
+    protected function transformTitles()
+    {
+
+        return [
+
+            'parent_title' => $this->parent ? $this->parent->title : NULL,
+            'child_titles' => $this->children->pluck('title')->all(),
+
+        ];
 
     }
 

@@ -47,8 +47,6 @@ class SolrScoutEngine extends Engine
 
         $update = $this->solrClient->createUpdate();
 
-        dd($models->pluck('id')->all());
-
         $update->addDeleteByIds($models->pluck('id')->all());
         $update->addCommit();
 

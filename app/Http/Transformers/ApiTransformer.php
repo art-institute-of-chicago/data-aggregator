@@ -32,7 +32,7 @@ class ApiTransformer extends TransformerAbstract
     protected function transformFields($item)
     {
 
-        return [];
+        return $item->transform();
 
     }
 

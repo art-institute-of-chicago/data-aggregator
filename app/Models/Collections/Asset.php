@@ -51,4 +51,53 @@ class Asset extends CollectionsModel
 
     }
 
+    /**
+     * Turn this model object into a generic array.
+     *
+     * @return array
+     */
+    public function transformFields()
+    {
+
+        return array_merge(
+            [
+                'description' => $this->description,
+                'content' => $this->content,
+                'artist' => $this->artist()->getResults() ? $this->artist()->getResults()->title : '',
+                'artist_id' => $this->agent_citi_id,
+                'category_ids' => $this->categories->pluck('lake_guid')->all(),
+            ],
+            $this->transformAsset()
+        );
+
+    }
+
+    /**
+     * Provide a way for child classes add fields to the transformation.
+     *
+     * @return array
+     */
+    public function transformAsset()
+    {
+
+        return [];
+
+    }
+
+    /**
+     * Turn the titles for related models into a generic array
+     *
+     * @return array
+     */
+    protected function transformTitles()
+    {
+
+        return [
+
+            'category_titles' => $this->categories->pluck('title')->all(),
+
+        ];
+
+    }
+
 }

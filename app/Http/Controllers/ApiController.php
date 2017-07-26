@@ -35,6 +35,11 @@ class ApiController extends Controller
         return response()->error($message, $detail, Response::HTTP_FORBIDDEN);
     }
 
+    public function respondTooManyIds($message = 'Invalid number of ids', $detail = 'You have requested too many ids. Please send a smaller amount.')
+    {
+        return response()->error($message, $detail, Response::HTTP_FORBIDDEN);
+    }
+
     public function respondMethodNotAllowed($message = 'Method not allowed', $detail = 'Method not allowed.')
     {
         return response()->error($message, $detail, Response::HTTP_METHOD_NOT_ALLOWED);

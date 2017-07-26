@@ -3,9 +3,12 @@
 namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
+use App\Models\SolrSearchable;
 
 class Artwork extends CollectionsModel
 {
+
+    use SolrSearchable;
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
@@ -388,6 +391,113 @@ class Artwork extends CollectionsModel
                                                    92975,234781,76816,76869,210511,193664,210482,16551,11393,7021,207293,156474,234972,49686,105800,
                                                    118661,217201,191556,198809,34299,15563,220272,229354,229351,229406,223309,129884,234004,227420,24836,
                                                    234433,218612,199002,229510,189932,230189,225016,221885,229866]);
+
+    }
+
+
+    /**
+     * Turn this model object into a generic array.
+     *
+     * @return array
+     */
+    public function transformFields()
+    {
+
+        return array_merge(
+            [
+                'main_reference_number' => $this->main_id,
+                'date_start' => $this->date_start,
+                'date_end' => $this->date_end,
+                'date_display' => $this->date_display,
+                'description' => $this->description,
+                'artist_display' => $this->artist_display,
+                'department' => $this->department ? $this->department->title : NULL,
+                'department_id' => $this->department_citi_id,
+                'dimensions' => $this->dimensions,
+                'medium' => $this->medium_display,
+                'inscriptions' => $this->inscriptions,
+                'object_type' => $this->objectType ? $this->objectType->title : NULL,
+                'object_type_id' => $this->object_type_citi_id,
+                'credit_line' => $this->credit_line,
+                'publication_history' => $this->publication_history,
+                'exhibition_history' => $this->exhibition_history,
+                'provenance_text' => $this->provenance,
+                'publishing_verification_level' => $this->publishing_verification_level,
+                'is_public_domain' => (bool) $this->is_public_domain,
+                'copyright_notice' => $this->copyright_notice,
+                'place_of_origin' => $this->place_of_origin,
+                'collection_status' => $this->collection_status,
+                'gallery' => $this->gallery ? $this->gallery->title : '',
+                'gallery_id' => $this->gallery_citi_id,
+                'is_in_gallery' => $this->gallery_citi_id ? true : false,
+            ],
+            $this->transformMobileArtwork(),
+            [
+                'artist_ids' => $this->artists->pluck('citi_id')->all(),
+                'category_ids' => $this->categories->pluck('lake_guid')->all(),
+                'copyright_representative_ids' => $this->copyrightRepresentatives->pluck('citi_id')->all(),
+                'part_ids' => $this->parts->pluck('citi_id')->all(),
+                'set_ids' => $this->sets->pluck('citi_id')->all(),
+                'date_dates' => $this->dates()->pluck('date')->transform(function ($item, $key) {
+                    return solr_date($item);
+                })->all(),
+                'catalogue_titles' => $this->catalogues->pluck('catalogue')->all(),
+                'committee_titles' => $this->committees->pluck('committee')->all(),
+                'term_titles' => $this->terms->pluck('term')->all(),
+                'image_urls' => $this->images->pluck('iiif_url')->all(),
+                'publication_ids' => $this->publications->pluck('dsc_id')->all(),
+                'tour_ids' => $this->tours->pluck('mobile_id')->all(),
+            ]
+        );
+
+    }
+
+
+    /**
+     * Turn the titles for related models into a generic array
+     *
+     * @return array
+     */
+    protected function transformTitles()
+    {
+
+        return [
+
+            'artist_titles' => $this->artists->pluck('title')->all(),
+            'copyright_representative_titles' => $this->copyrightRepresentatives->pluck('title')->all(),
+            'part_titles' => $this->parts->pluck('title')->all(),
+            'set_titles' => $this->sets->pluck('title')->all(),
+            'publication_titles' => $this->publications->pluck('title')->all(),
+            'tour_titles' => $this->tours->pluck('title')->all(),
+
+        ];
+
+    }
+
+
+    /**
+     * Turn the relevant fields from the related mobile artwork model into a generic array
+     *
+     * @return array
+     */
+    protected function transformMobileArtwork()
+    {
+
+        if ($this->mobileArtwork) {
+
+            return [
+
+                'latitude' => $this->mobileArtwork->latitude,
+                'longitude' => $this->mobileArtwork->longitude,
+                'latlon' => $this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude,
+                'is_highlighted_in_mobile' => (bool) $this->mobileArtwork->highlighted,
+                'selector_number' => $this->mobileArtwork->selector_number,
+
+            ];
+
+        }
+
+        return [];
 
     }
 
