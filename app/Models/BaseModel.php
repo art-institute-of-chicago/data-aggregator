@@ -63,6 +63,20 @@ class BaseModel extends Model
 
     }
 
+
+    /**
+     * Turn this model object into a generic array.
+     *
+     * @return array
+     */
+    public function transformFields()
+    {
+
+        return [];
+
+    }
+
+
     /**
      * Turn the titles for related models into a generic array
      *

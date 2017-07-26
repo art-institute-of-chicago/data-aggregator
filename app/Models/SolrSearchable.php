@@ -43,7 +43,7 @@ trait SolrSearchable
     protected function searchableId()
     {
 
-        return $this->searchableSource() . '/' .$this->searchableModel() . '/' . $this->getKey();
+        return $this->searchableSource() . '.' .$this->searchableModel() . '.' . $this->getKey();
 
     }
 
@@ -52,15 +52,11 @@ trait SolrSearchable
 
         $array = array_merge([
             'id' => $this->searchableId(),
-            'api_id' => $this->getKey(),
+            'api_id' => "" .$this->getKey(),
             'api_model' => $this->searchableModel(),
             'api_link' => $this->searchableLink(),
             'title' => $this->title,
-        ], $this->transform());
-
-        // @TODO Also send all attributes
-        // @TODO Transform attributes as in API
-        // @TODO Inject titles etc. from related models
+        ], $this->transform($withTitles = true));
 
         return $array;
 
