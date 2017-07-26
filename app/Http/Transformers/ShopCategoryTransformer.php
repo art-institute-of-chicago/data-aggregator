@@ -14,22 +14,6 @@ class ShopCategoryTransformer extends ApiTransformer
      */
     protected $availableIncludes = ['children'];
 
-    /**
-     * Turn this item object into a generic array.
-     *
-     * @param  \App\Models\Shop\ShopCategory  $item
-     * @return array
-     */
-    public function transformFields($item)
-    {
-        return [
-            'link' => $item->link,
-            'parent_id' => $item->parent_category_shop_id,
-            'type' => $item->type,
-            'source_id' => $item->source_id,
-            'child_ids' => $item->children->pluck('shop_id')->all(),
-        ];
-    }
 
     /**
      * Include categories.
