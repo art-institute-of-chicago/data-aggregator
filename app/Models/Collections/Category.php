@@ -34,4 +34,23 @@ class Category extends CollectionsModel
 
     }
 
+    /**
+     * Turn this model object into a generic array.
+     *
+     * @param boolean  $withTitles
+     * @return array
+     */
+    public function transform($withTitles = false)
+    {
+
+        return [
+            'parent_id' => $this->parent_id,
+            'is_in_nav' => $this->is_in_nav,
+            'description' => $this->description,
+            'sort' => $this->sort,
+            'type' => $this->type,
+        ];
+
+    }
+
 }
