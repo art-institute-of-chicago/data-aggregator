@@ -24,4 +24,25 @@ class Tour extends MobileModel
 
     }
 
+
+    /**
+     * Turn this model object into a generic array.
+     *
+     * @param boolean  $withTitles
+     * @return array
+     */
+    public function transformFields()
+    {
+
+        return [
+            'image' => $this->image,
+            'description' => $this->description,
+            'intro' => $this->intro_text,
+            'weight' => $this->weight,
+            'intro_link' => $this->intro->link,
+            'intro_transcript' => $this->intro->transcript,
+        ];
+
+    }
+
 }

@@ -14,25 +14,6 @@ class TourTransformer extends ApiTransformer
      */
     protected $availableIncludes = ['stops'];
 
-    /**
-     * Turn this item object into a generic array.
-     *
-     * @param  \App\Models\Mobile\Tour  $item
-     * @return array
-     */
-    public function transformFields($item)
-    {
-
-        return [
-            'image' => $item->image,
-            'description' => $item->description,
-            'intro' => $item->intro_text,
-            'weight' => $item->weight,
-            'intro_link' => $item->intro->link,
-            'intro_transcript' => $item->intro->transcript,
-        ];
-
-    }
 
     /**
      * Include stops.
