@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\ImportCollectionsFull::class,
         Commands\ImportCollections::class,
         Commands\SeedSearch::class,
+        Commands\ScoutImportAll::class,
     ];
 
     /**
