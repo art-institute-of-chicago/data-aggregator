@@ -40,7 +40,7 @@ trait SolrSearchable
 
     }
 
-    protected function searchableId()
+    public function searchableId()
     {
 
         return $this->searchableSource() . '.' .$this->searchableModel() . '.' . $this->getKey();

@@ -47,7 +47,12 @@ class SolrScoutEngine extends Engine
 
         $update = $this->solrClient->createUpdate();
 
-        $update->addDeleteByIds($models->pluck('id')->all());
+        // @TODO More elegant + shared way to get the id?
+        $ids = $models->map( function($model) {
+            return $model->searchableId();
+        })->all();
+
+        $update->addDeleteByIds( $ids );
         $update->addCommit();
 
         $result = $this->solrClient->update($update);
