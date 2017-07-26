@@ -280,7 +280,7 @@ class CreateCollectionsTables extends Migration
             $table->foreign('department_citi_id')->references('citi_id')->on('departments');
             $table->integer('gallery_citi_id')->unsigned()->index();
             $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
-            $table->string('dates')->nullable();
+            $table->string('exhibition_dates')->nullable();
             $table->boolean('active')->nullable();
             $table = $this->_addDates($table);
         });

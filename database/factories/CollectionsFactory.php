@@ -302,7 +302,7 @@ $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Gener
             'type' => $faker->randomElement(['AIC Only', 'AIC & Other Venues', 'Mini Exhibition', 'Permanent Collection Special Project', 'Rotation']),
             'department_citi_id' => $faker->randomElement(App\Models\Collections\Department::all()->pluck('citi_id')->all()),
             'gallery_citi_id' => $faker->randomElement(App\Models\Collections\Gallery::all()->pluck('citi_id')->all()),
-            'dates' => $faker->date($format = 'm/d/Y') .'–' .$faker->date($format = 'm/d/Y'),
+            'exhibition_dates' => $faker->date($format = 'm/d/Y') .'–' .$faker->date($format = 'm/d/Y'),
             'active' => $faker->boolean
         ],
         dates($faker, true)
