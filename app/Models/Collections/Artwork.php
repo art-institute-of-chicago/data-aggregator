@@ -481,7 +481,7 @@ class Artwork extends CollectionsModel
      *
      * @return array
      */
-    private function transformMobileArtwork()
+    protected function transformMobileArtwork()
     {
 
         if ($this->mobileArtwork) {

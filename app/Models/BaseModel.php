@@ -63,4 +63,16 @@ class BaseModel extends Model
 
     }
 
+    /**
+     * Turn the titles for related models into a generic array
+     *
+     * @return array
+     */
+    protected function transformTitles()
+    {
+
+        return [];
+
+    }
+
 }

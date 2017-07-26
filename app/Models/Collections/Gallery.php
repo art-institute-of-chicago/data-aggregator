@@ -61,7 +61,7 @@ class Gallery extends CollectionsModel
      *
      * @return array
      */
-    private function transformTitles()
+    protected function transformTitles()
     {
 
         return [
