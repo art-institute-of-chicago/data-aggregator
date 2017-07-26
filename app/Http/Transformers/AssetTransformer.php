@@ -14,38 +14,6 @@ class AssetTransformer extends CollectionsTransformer
      */
     protected $availableIncludes = ['categories'];
 
-    /**
-     * Turn this item object into a generic array.
-     *
-     * @param  \App\Asset  $item
-     * @return array
-     */
-    public function transformFields($item)
-    {
-        return array_merge(
-            [
-                'description' => $item->description,
-                'content' => $item->content,
-                'artist' => $item->artist()->getResults() ? $item->artist()->getResults()->title : '',
-                'artist_id' => $item->agent_citi_id,
-                'category_ids' => $item->categories->pluck('lake_guid')->all(),
-            ],
-            $this->assetFields($item)
-        );
-    }
-
-    /**
-     * Provide a way for child classes add fields to the transformation.
-     *
-     * @param \App\Asset  $item
-     * @return array
-     */
-    public function assetFields($item)
-    {
-
-        return [];
-
-    }
 
     /**
      * Include categories.
