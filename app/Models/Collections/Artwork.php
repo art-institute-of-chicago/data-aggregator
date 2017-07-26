@@ -398,7 +398,6 @@ class Artwork extends CollectionsModel
     /**
      * Turn this model object into a generic array.
      *
-     * @param boolean  $withTitles
      * @return array
      */
     public function transformFields()
