@@ -17,4 +17,24 @@ class Collector extends DscModel
 
     }
 
+
+    /**
+     * Turn this model object into a generic array.
+     *
+     * @param boolean  $withTitles
+     * @return array
+     */
+    public function transformFields()
+    {
+
+        return [
+            'content' => $this->content,
+            'weight' => $this->weight,
+            'depth' => $this->depth,
+            'publication' => $this->publication ? $this->publication->title : '',
+            'publication_id' => $this->publication_dsc_id,
+        ];
+
+    }
+
 }
