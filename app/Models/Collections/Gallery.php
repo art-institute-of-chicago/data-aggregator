@@ -33,4 +33,51 @@ class Gallery extends CollectionsModel
 
     }
 
+
+    /**
+     * Turn this model object into a generic array.
+     *
+     * @param boolean  $withTitles
+     * @return array
+     */
+    public function transform($withTitles = false)
+    {
+
+        $ret = [
+            'is_closed' => (bool) $this->closed,
+            'number' => $this->number,
+            'floor' => $this->floor,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            'latlon' => $this->latitude .',' .$this->longitude,
+            'category_ids' => $this->categories->pluck('lake_guid')->all(),
+        ];
+
+        if ($withTitles)
+        {
+
+            $ret = array_merge($ret, $this->transformTitles());
+
+        }
+
+        return $ret;
+    }
+
+
+    /**
+     * Turn the titles for related models into a generic array
+     *
+     * @return array
+     */
+    private function transformTitles()
+    {
+
+        return [
+
+            'category_titles' => $this->categories->pluck('title')->all(),
+
+        ];
+
+    }
+
 }
