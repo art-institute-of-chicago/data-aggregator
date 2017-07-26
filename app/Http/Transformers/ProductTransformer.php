@@ -14,31 +14,6 @@ class ProductTransformer extends ApiTransformer
      */
     protected $availableIncludes = ['categories'];
 
-    /**
-     * Turn this item object into a generic array.
-     *
-     * @param  \App\Models\Shop\Product  $item
-     * @return array
-     */
-    public function transformFields($item)
-    {
-
-        return [
-            'title_display' => $item->title_display,
-            'sku' => $item->sku,
-            'link' => $item->link,
-            'image' => $item->image,
-            'description' => $item->description,
-            'is_on_sale' => (bool) $item->on_sale,
-            'priority' => $item->priority,
-            'price' => $item->price,
-            'review_count' => $item->review_count,
-            'item_sold' => $item->item_sold,
-            'rating' => $item->rating,
-            'category_ids' => $item->categories->pluck('shop_id')->all(),
-        ];
-
-    }
 
     /**
      * Include categories.

@@ -34,6 +34,7 @@ class Category extends ShopModel
 
     }
 
+
     /**
      * Turn this model object into a generic array.
      *
