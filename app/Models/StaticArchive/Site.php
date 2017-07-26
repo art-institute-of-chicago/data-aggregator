@@ -27,4 +27,41 @@ class Site extends BaseModel
 
     }
 
+
+    /**
+     * Turn this model object into a generic array.
+     *
+     * @param boolean  $withTitles
+     * @return array
+     */
+    public function transformFields()
+    {
+
+        return [
+            'description' => $this->description,
+            'link' => $this->link,
+            'exhibition' => $this->exhibition ? $this->exhibition->title : "",
+            'exhibition_id' => $this->exhibition_citi_id,
+            'artwork_ids' => $this->artworks->pluck('citi_id')->all(),
+        ];
+
+    }
+
+
+    /**
+     * Turn the titles for related models into a generic array
+     *
+     * @return array
+     */
+    protected function transformTitles()
+    {
+
+        return [
+
+            'artwork_titles' => $this->artworks->pluck('title')->all(),
+
+        ];
+
+    }
+
 }
