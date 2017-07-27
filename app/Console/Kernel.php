@@ -16,7 +16,9 @@ class Kernel extends ConsoleKernel
         Commands\ImportCollectionsFull::class,
         Commands\ImportCollections::class,
         Commands\ScoutImportAll::class,
+        Commands\ScoutFlushAll::class,
         Commands\ScoutRefresh::class,
+        Commands\ScoutRefreshAll::class,
     ];
 
     /**
