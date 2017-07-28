@@ -44,7 +44,7 @@ class Category extends CollectionsModel
 
         return [
             'parent_id' => $this->parent_id,
-            'is_in_nav' => $this->is_in_nav,
+            'is_in_nav' => (bool) $this->is_in_nav,
             'description' => $this->description,
             'sort' => $this->sort,
             'type' => $this->type,

@@ -464,6 +464,7 @@ class Artwork extends CollectionsModel
         return [
 
             'artist_titles' => $this->artists->pluck('title')->all(),
+            // @TODO category_titles?
             'copyright_representative_titles' => $this->copyrightRepresentatives->pluck('title')->all(),
             'part_titles' => $this->parts->pluck('title')->all(),
             'set_titles' => $this->sets->pluck('title')->all(),
@@ -489,7 +490,8 @@ class Artwork extends CollectionsModel
 
                 'latitude' => $this->mobileArtwork->latitude,
                 'longitude' => $this->mobileArtwork->longitude,
-                'latlon' => $this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude,
+                // @TODO: This causes java.lang.NullPointerException
+                // 'latlon' => $this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude,
                 'is_highlighted_in_mobile' => (bool) $this->mobileArtwork->highlighted,
                 'selector_number' => $this->mobileArtwork->selector_number,
 

@@ -48,7 +48,8 @@ class Gallery extends CollectionsModel
             'floor' => $this->floor,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'latlon' => $this->latitude .',' .$this->longitude,
+            // @TODO: This causes java.lang.NullPointerException
+            // 'latlon' => $this->latitude .',' .$this->longitude,
             'category_ids' => $this->categories->pluck('lake_guid')->all(),
         ];
 
