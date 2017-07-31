@@ -194,12 +194,12 @@ class Artwork extends CollectionsModel
 
         }
 
-        if ($source->category_guids)
+        if ($source->category_ids)
         {
-            foreach ($source->category_guids as $guid)
+            foreach ($source->category_ids as $id)
             {
 
-                $cat = Category::where('lake_guid', $guid)->first();
+                $cat = Category::where('citi_id', $id)->first();
                 if ($cat)
                 {
 
@@ -434,7 +434,7 @@ class Artwork extends CollectionsModel
             $this->transformMobileArtwork(),
             [
                 'artist_ids' => $this->artists->pluck('citi_id')->all(),
-                'category_ids' => $this->categories->pluck('lake_guid')->all(),
+                'category_ids' => $this->categories->pluck('citi_id')->all(),
                 'copyright_representative_ids' => $this->copyrightRepresentatives->pluck('citi_id')->all(),
                 'part_ids' => $this->parts->pluck('citi_id')->all(),
                 'set_ids' => $this->sets->pluck('citi_id')->all(),
