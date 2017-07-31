@@ -221,7 +221,7 @@ $factory->define(App\Models\Collections\Link::class, function (Faker\Generator $
             'description' => $faker->paragraph(3),
             'content' => $faker->url,
             'published' => $faker->boolean,
-            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Agent::all()->pluck('citi_id')->all()),
+            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::all()->pluck('citi_id')->all()),
         ],
         dates($faker)
     );
@@ -235,7 +235,7 @@ $factory->define(App\Models\Collections\Sound::class, function (Faker\Generator 
             'description' => $faker->paragraph(3),
             'content' => $faker->url,
             'published' => $faker->boolean,
-            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Agent::all()->pluck('citi_id')->all()),
+            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::all()->pluck('citi_id')->all()),
         ],
         dates($faker)
     );
@@ -249,7 +249,7 @@ $factory->define(App\Models\Collections\Video::class, function (Faker\Generator 
             'description' => $faker->paragraph(3),
             'content' => $faker->url,
             'published' => $faker->boolean,
-            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Agent::all()->pluck('citi_id')->all()),
+            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::all()->pluck('citi_id')->all()),
         ],
         dates($faker)
     );
@@ -263,7 +263,7 @@ $factory->define(App\Models\Collections\Text::class, function (Faker\Generator $
             'description' => $faker->paragraph(3),
             'content' => $faker->url,
             'published' => $faker->boolean,
-            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Agent::all()->pluck('citi_id')->all()),
+            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::all()->pluck('citi_id')->all()),
         ],
         dates($faker)
     );
@@ -276,7 +276,7 @@ $factory->define(App\Models\Collections\Image::class, function (Faker\Generator 
     if (!$agents)
     {
 
-        $agents = App\Models\Collections\Agent::all()->pluck('citi_id')->all();
+        $agents = App\Models\Collections\Artist::all()->pluck('citi_id')->all();
 
     }
     $lake_id = $faker->uuid;
