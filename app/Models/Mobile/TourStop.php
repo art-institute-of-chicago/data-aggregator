@@ -44,6 +44,8 @@ class TourStop extends MobileModel
     {
 
         return [
+            // TODO: Determine if tour stops have dedicated titles?
+            'title' => $this->artwork->title,
             'artwork' => $this->artwork->title,
             'artwork_id' => $this->artwork_citi_id,
             'mobile_sound' => $this->sound->link,
