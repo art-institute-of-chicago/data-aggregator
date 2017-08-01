@@ -60,9 +60,9 @@ class InstallSearch extends Command
                 array_merge(
                     \App\Models\Collections\Agent::instance()->elasticsearchMapping(),
                     \App\Models\Collections\Department::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Category::instance()->elasticsearchMapping()
+                    \App\Models\Collections\Category::instance()->elasticsearchMapping(),
+                    \App\Models\Collections\Gallery::instance()->elasticsearchMapping()
                     /*
-galleries
 artworks
 links
 sounds
