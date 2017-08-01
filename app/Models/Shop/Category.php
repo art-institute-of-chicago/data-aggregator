@@ -72,4 +72,40 @@ class Category extends ShopModel
 
     }
 
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'link' => [
+                    'type' => 'keyword',
+                ],
+                'parent_id' => [
+                    'type' => 'integer',
+                ],
+                'parent_title' => [
+                    'type' => 'text',
+                ],
+                'type' => [
+                    'type' => 'keyword',
+                ],
+                'source_id' => [
+                    'type' => 'integer',
+                ],
+                'child_ids' => [
+                    'type' => 'integer',
+                ],
+                'child_titles' => [
+                    'type' => 'text',
+                ],
+            ];
+
+    }
+
 }
