@@ -75,7 +75,7 @@ class Category extends CollectionsModel
                     'type' => 'integer',
                 ],
                 'type' => [
-                    'type' => 'string',
+                    'type' => 'keyword',
                 ],
             ];
 
