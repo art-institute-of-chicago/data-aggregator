@@ -75,12 +75,13 @@ class InstallSearch extends Command
                     \App\Models\Membership\Event::instance()->elasticsearchMapping(),
 
                     \App\Models\Mobile\Tour::instance()->elasticsearchMapping(),
-                    \App\Models\Mobile\TourStop::instance()->elasticsearchMapping()
+                    \App\Models\Mobile\TourStop::instance()->elasticsearchMapping(),
+
+                    \App\Models\Dsc\Publication::instance()->elasticsearchMapping(),
+                    \App\Models\Dsc\Section::instance()->elasticsearchMapping(),
+                    \App\Models\Dsc\WorkOfArt::instance()->elasticsearchMapping(),
+                    \App\Models\Dsc\Collector::instance()->elasticsearchMapping()
 /*
-publications
-sections
-works_of_art
-collectors
 sites
                     */
                 )

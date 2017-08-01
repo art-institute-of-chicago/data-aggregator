@@ -3,12 +3,12 @@
 namespace App\Models\Dsc;
 
 use App\Models\DscModel;
-use App\Models\SolrSearchable;
+use App\Models\ElasticSearchable;
 
 class WorkOfArt extends DscModel
 {
 
-    use SolrSearchable;
+    use ElasticSearchable;
 
     public $table = 'works_of_art';
 
@@ -55,6 +55,42 @@ class WorkOfArt extends DscModel
             'artwork' => $this->artwork ? $this->artwork->title : '',
             'artwork_id' => $this->artwork_citi_id,
         ];
+
+    }
+
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'content' => [
+                    'type' => 'text',
+                ],
+                'weight' => [
+                    'type' => 'integer',
+                ],
+                'depth' => [
+                    'type' => 'integer',
+                ],
+                'publication' => [
+                    'type' => 'text',
+                ],
+                'publication_id' => [
+                    'type' => 'integer',
+                ],
+                'artwork' => [
+                    'type' => 'text',
+                ],
+                'artwork_id' => [
+                    'type' => 'integer',
+                ],
+            ];
 
     }
 
