@@ -8,38 +8,11 @@ class CollectionsModel extends BaseModel
 {
 
     /**
-     * Cached static instance of the model
-     *
-     * @var \App\Models\CollecitonsModel
-     */
-    public static $staticInstance;
-
-
-    /**
      * A Faker instance for the model.
      *
      * @var \Faker\Generator
      */
     public $faker;
-
-
-    /**
-     * Return the cached instance or create a new instance of this model.
-     *
-     * @return static
-     */
-    public static function instance()
-    {
-
-        if ( is_null( self::$staticInstance ) )
-        {
-
-            self::$staticInstance = new static;
-
-        }
-        return self::$staticInstance;
-
-    }
 
 
     /**

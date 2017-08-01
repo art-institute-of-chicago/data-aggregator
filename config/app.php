@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
 
+        Cviebrock\LaravelElasticsearch\ServiceProvider::class,
+
     ],
 
     /*
@@ -226,6 +228,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'Elasticsearch' => Cviebrock\LaravelElasticsearch\Facade::class,
 
     ],
 

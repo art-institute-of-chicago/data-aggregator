@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         Commands\ScoutFlushAll::class,
         Commands\ScoutRefresh::class,
         Commands\ScoutRefreshAll::class,
+        Commands\InstallSearch::class,
     ];
 
     /**
