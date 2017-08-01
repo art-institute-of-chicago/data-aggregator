@@ -28,14 +28,6 @@ class BaseModel extends Model
 
 
     /**
-     * Cached static instance of the model
-     *
-     * @var \App\Models\CollecitonsModel
-     */
-    public static $staticInstance;
-
-
-    /**
      * The "booting" method of the model.
      *
      * @return void
@@ -51,19 +43,26 @@ class BaseModel extends Model
 
     /**
      * Return the cached instance or create a new instance of this model.
+     * Uses an array to accomodate for multiple inherited models calling
+     * this same method.
      *
      * @return static
      */
     public static function instance()
     {
 
-        if ( is_null( self::$staticInstance ) )
+        static $instances = array();
+
+        $calledClass = get_called_class();
+
+        if (!isset($instances[$calledClass]))
         {
 
-            self::$staticInstance = new static;
+            $instances[$calledClass] = new $calledClass();
 
         }
-        return self::$staticInstance;
+
+        return $instances[$calledClass];
 
     }
 
