@@ -59,6 +59,12 @@ class Agent extends CollectionsModel
 
     }
 
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
     public function elasticsearchMappingFields()
     {
 

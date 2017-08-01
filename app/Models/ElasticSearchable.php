@@ -19,6 +19,12 @@ trait ElasticSearchable
 
     }
 
+
+    /**
+     * Generate a link to the API for this model resource.
+     *
+     * @return string
+     */
     protected function searchableLink()
     {
 
@@ -26,6 +32,12 @@ trait ElasticSearchable
 
     }
 
+
+    /**
+     * Generate a string to use in the seach index to identify this model
+     *
+     * @return string
+     */
     protected function searchableModel()
     {
 
@@ -33,6 +45,12 @@ trait ElasticSearchable
 
     }
 
+
+    /**
+     * Generate a string identifying this model's data source.
+     *
+     * @return string
+     */
     protected function searchableSource()
     {
 
@@ -40,6 +58,12 @@ trait ElasticSearchable
 
     }
 
+
+    /**
+     * Generate a unique string identifying this model resource.
+     *
+     * @return string
+     */
     public function searchableId()
     {
 
@@ -47,6 +71,12 @@ trait ElasticSearchable
 
     }
 
+
+    /**
+     * Generate an array of model data to send to the search index.
+     *
+     * @return array
+     */
     public function toSearchableArray()
     {
 
@@ -65,6 +95,12 @@ trait ElasticSearchable
 
     }
 
+    
+    /**
+     * Generate an array representing the schema for this object.
+     *
+     * @return array
+     */
     public function elasticsearchMapping()
     {
 

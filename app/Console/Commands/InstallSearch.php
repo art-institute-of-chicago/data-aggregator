@@ -7,12 +7,14 @@ use Elasticsearch;
 
 class InstallSearch extends Command
 {
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'search:install';
+
 
     /**
      * The console command description.
@@ -21,7 +23,14 @@ class InstallSearch extends Command
      */
     protected $description = 'Set up the Search Service with data types and fields';
 
+
+    /**
+     * The name of the index to create.
+     *
+     * @var string
+     */
     protected $index = 'data_aggregator';
+
 
     /**
      * Create a new command instance.
@@ -32,6 +41,7 @@ class InstallSearch extends Command
     {
         parent::__construct();
     }
+
 
     /**
      * Execute the console command.
@@ -68,6 +78,10 @@ class InstallSearch extends Command
 
     }
 
+
+    /**
+     * Check if the index already exists. If it exists, the user is prompted to delete it.
+     */
     protected function check()
     {
 
