@@ -57,25 +57,36 @@ class InstallSearch extends Command
             'index' => $this->index,
             'body' => [
                 'mappings' =>
-                \App\Models\Collections\Agent::instance()->elasticsearchMapping(),
+                array_merge(
+                    \App\Models\Collections\Agent::instance()->elasticsearchMapping(),
+                    \App\Models\Collections\Department::instance()->elasticsearchMapping(),
+                    \App\Models\Collections\Category::instance()->elasticsearchMapping()
+                    /*
+galleries
+artworks
+links
+sounds
+videos
+texts
+exhibitions
+shop_categories
+products
+events
+tours
+tour_stops
+publications
+sections
+works_of_art
+collectors
+sites
+                    */
+                )
             ]
         ];
 
         $return = Elasticsearch::indices()->create($params);
         
-        if ($return['acknowledged'])
-        {
-
-            $this->info('Done!');
-
-        }
-        else
-        {
-
-            $this->info("There was an error: " .print_r($return, true));
-
-        }
-
+        $this->info($this->done($return));
     }
 
 
@@ -92,13 +103,33 @@ class InstallSearch extends Command
         if (Elasticsearch::indices()->exists($params))
         {
 
-            if ($this->confirm("The " .$this->index ." index already exists. Do you wish to delete and recreate it?")) {
+            if ($this->confirm("The " .$this->index ." index already exists. Do you wish to delete it?")) {
 
                 $return = Elasticsearch::indices()->delete($params);
 
             }
 
         }
+
+    }
+
+
+    /**
+     * Determine message to output after the index is created.
+     *
+     * @param array  $return
+     */
+    protected function done($return = [])
+    {
+
+        if ($return['acknowledged'])
+        {
+
+            return 'Done!';
+
+        }
+
+        return "There was an error: " .print_r($return, true);
 
     }
 

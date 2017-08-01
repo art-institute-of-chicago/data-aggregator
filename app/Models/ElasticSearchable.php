@@ -136,4 +136,17 @@ trait ElasticSearchable
 
     }
 
+
+    /**
+     * Pluggable function to generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return [];
+
+    }
+
 }
