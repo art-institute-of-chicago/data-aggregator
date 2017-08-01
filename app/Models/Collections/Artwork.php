@@ -3,12 +3,12 @@
 namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
-use App\Models\SolrSearchable;
+use App\Models\ElasticSearchable;
 
 class Artwork extends CollectionsModel
 {
 
-    use SolrSearchable;
+    use ElasticSearchable;
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
@@ -500,6 +500,168 @@ class Artwork extends CollectionsModel
         }
 
         return [];
+
+    }
+
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'main_reference_number' => [
+                    'type' => 'keyword',
+                ],
+                'date_display' => [
+                    'type' => 'keyword',
+                ],
+                'date_start' => [
+                    'type' => 'integer',
+                ],
+                'date_end' => [
+                    'type' => 'integer',
+                ],
+                'artist_display' => [
+                    'type' => 'text',
+                ],
+                'department' => [
+                    'type' => 'text',
+                ],
+                'department_id' => [
+                    'type' => 'integer',
+                ],
+                'dimensions' => [
+                    'type' => 'keyword',
+                ],
+                'medium' => [
+                    'type' => 'text',
+                ],
+                'inscriptions' => [
+                    'type' => 'text',
+                ],
+                'object_type' => [
+                    'type' => 'text',
+                ],
+                'object_type_id' => [
+                    'type' => 'integer',
+                ],
+                'credit_line' => [
+                    'type' => 'text',
+                ],
+                'publication_history' => [
+                    'type' => 'text',
+                ],
+                'exhibition_history' => [
+                    'type' => 'text',
+                ],
+                'provenance_text' => [
+                    'type' => 'text',
+                ],
+                'publishing_verification_level' => [
+                    'type' => 'keyword',
+                ],
+                'is_public_domain' => [
+                    'type' => 'boolean',
+                ],
+                'copyright_notice' => [
+                    'type' => 'text',
+                ],
+                'place_of_origin' => [
+                    'type' => 'text',
+                ],
+                'collection_status' => [
+                    'type' => 'text',
+                ],
+                'gallery' => [
+                    'type' => 'text',
+                ],
+                'gallery_id' => [
+                    'type' => 'integer',
+                ],
+                'is_in_gallery' => [
+                    'type' => 'boolean',
+                ],
+                'latitude' => [
+                    'type' => 'float',
+                ],
+                'longitude' => [
+                    'type' => 'float',
+                ],
+                'latlon' => [
+                    'type' => 'geo_point',
+                ],
+                'is_highlighted_in_mobile' => [
+                    'type' => 'boolean',
+                ],
+                'selector_number' => [
+                    'type' => 'integer',
+                ],
+                'artist_ids' => [
+                    'type' => 'integer',
+                ],
+                'artist_titles' => [
+                    'type' => 'text',
+                ],
+                'category_ids' => [
+                    'type' => 'integer',
+                ],
+                'category_titles' => [
+                    'type' => 'text',
+                ],
+                'copyright_representative_ids' => [
+                    'type' => 'integer',
+                ],
+                'copyright_representative_titles' => [
+                    'type' => 'text',
+                ],
+                'part_ids' => [
+                    'type' => 'integer',
+                ],
+                'part_titles' => [
+                    'type' => 'text',
+                ],
+                'set_ids' => [
+                    'type' => 'integer',
+                ],
+                'set_titles' => [
+                    'type' => 'text',
+                ],
+                'date_dates' => [
+                    'type' => 'date',
+                ],
+                'catalogue_titles' => [
+                    'type' => 'text',
+                ],
+                'committee_titles' => [
+                    'type' => 'text',
+                ],
+                'term_titles' => [
+                    'type' => 'text',
+                ],
+                'image_urls' => [
+                    'type' => 'keyword',
+                ],
+                'publication_id' => [
+                    'type' => 'integer',
+                ],
+                'publication_ids' => [
+                    'type' => 'integer',
+                ],
+                'publication_titles' => [
+                    'type' => 'text',
+                ],
+                'tour_ids' => [
+                    'type' => 'integer',
+                ],
+                'tour_titles' => [
+                    'type' => 'text',
+                ],
+            ];
 
     }
 

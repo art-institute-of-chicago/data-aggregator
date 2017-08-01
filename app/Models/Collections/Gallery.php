@@ -72,6 +72,7 @@ class Gallery extends CollectionsModel
 
     }
 
+
     /**
      * Generate model-specific fields for an array representing the schema for this object.
      *
