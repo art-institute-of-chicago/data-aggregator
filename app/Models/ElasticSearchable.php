@@ -15,7 +15,9 @@ trait ElasticSearchable
 
         parent::__construct($attributes);
 
-        $this->apiCtrl = $this->apiCtrl ?: str_plural( class_basename(static::class) ) . 'Controller';
+        $calledClass = get_called_class();
+
+        $this->apiCtrl = $this->apiCtrl ?: str_plural( class_basename($calledClass) ) . 'Controller';
 
     }
 
@@ -41,7 +43,9 @@ trait ElasticSearchable
     protected function searchableModel()
     {
 
-        return kebab_case(class_basename(static::class));
+        $calledClass = get_called_class();
+
+        return kebab_case(class_basename($calledClass));
 
     }
 
@@ -54,7 +58,9 @@ trait ElasticSearchable
     protected function searchableSource()
     {
 
-        return kebab_case( array_slice( explode('\\', static::class), -2, 1)[0] );
+        $calledClass = get_called_class();
+
+        return kebab_case( array_slice( explode('\\', $calledClass), -2, 1)[0] );
 
     }
 

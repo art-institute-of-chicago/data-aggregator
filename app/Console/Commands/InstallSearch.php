@@ -62,12 +62,12 @@ class InstallSearch extends Command
                     \App\Models\Collections\Department::instance()->elasticsearchMapping(),
                     \App\Models\Collections\Category::instance()->elasticsearchMapping(),
                     \App\Models\Collections\Gallery::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Artwork::instance()->elasticsearchMapping()
+                    \App\Models\Collections\Artwork::instance()->elasticsearchMapping(),
+                    \App\Models\Collections\Link::instance()->elasticsearchMapping(),
+                    \App\Models\Collections\Sound::instance()->elasticsearchMapping(),
+                    \App\Models\Collections\Video::instance()->elasticsearchMapping(),
+                    \App\Models\Collections\Text::instance()->elasticsearchMapping()
                     /*
-links
-sounds
-videos
-texts
 exhibitions
 shop_categories
 products
