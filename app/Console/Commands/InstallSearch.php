@@ -69,9 +69,9 @@ class InstallSearch extends Command
                     \App\Models\Collections\Text::instance()->elasticsearchMapping(),
                     \App\Models\Collections\Exhibition::instance()->elasticsearchMapping(),
                     \App\Models\Shop\Category::instance()->elasticsearchMapping(),
-                    \App\Models\Shop\Product::instance()->elasticsearchMapping()
+                    \App\Models\Shop\Product::instance()->elasticsearchMapping(),
+                    \App\Models\Membership\Event::instance()->elasticsearchMapping()
                     /*
-events
 tours
 tour_stops
 publications
