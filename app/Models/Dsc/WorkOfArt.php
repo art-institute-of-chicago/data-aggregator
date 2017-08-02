@@ -12,7 +12,7 @@ class WorkOfArt extends DscModel
 
     public $table = 'works_of_art';
 
-    // @TODO: Because WorkOfArt uses SolrSearchable directly, we error out on $apiCtrl
+    // @TODO: Because WorkOfArt uses ElasitcSearchable directly, we error out on $apiCtrl
     // protected $apiCtrl = 'WorksOfArt';
 
     protected function searchableLink()
