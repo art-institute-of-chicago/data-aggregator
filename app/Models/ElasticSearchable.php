@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Laravel\Scout\Searchable;
 
+use Carbon\Carbon;
+
 trait ElasticSearchable
 {
 
@@ -93,6 +95,7 @@ trait ElasticSearchable
                 'api_model' => $this->searchableModel(),
                 'api_link' => $this->searchableLink(),
                 'title' => $this->title,
+                'timestamp' => Carbon::now()->toIso8601String(),
             ],
             $this->transform($withTitles = true)
         );
@@ -133,6 +136,9 @@ trait ElasticSearchable
                             ],
                             'description' => [
                                 'type' => 'text',
+                            ],
+                            'timestamp' => [
+                                'type' => 'date',
                             ],
                         ],
                         $this->elasticsearchMappingFields()

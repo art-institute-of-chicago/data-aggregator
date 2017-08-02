@@ -29,7 +29,7 @@ class InstallSearch extends Command
      *
      * @var string
      */
-    protected $index = 'data_aggregator';
+    protected $index;
 
 
     /**
@@ -40,6 +40,7 @@ class InstallSearch extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator:v1');
     }
 
 
