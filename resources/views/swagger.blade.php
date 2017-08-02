@@ -2398,6 +2398,79 @@
           }
         }
       }
+    },
+
+    "/sites": {
+      "get": {
+        "tags": [
+            "site"
+        ],
+        "summary": "A list of all sites sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Site"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/sites/{id}": {
+      "get": {
+        "tags": [
+            "site"
+        ],
+        "summary": "A single site by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Site"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
 
   },
@@ -2886,6 +2959,33 @@
         "publication_id": {
           "description": "Unique identifier of the publication this section belongs to"
         }
+      },
+      "type": "object"
+    },
+
+    "Site": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "title": {
+          "description": "Name of the site"
+        },
+        "description": {
+          "description": "Description of the site"
+        },
+        "link": {
+          "description": "Link the site"
+        },
+        "exhibition": {
+          "description": "Name of the exhibition this site is associated with"
+        },
+        "exhibition_id": {
+          "description": "Unique identifier of the exhibition this site is associated with"
+        },
+        "artwork_ids": {
+          "description": "Array of unique identifier of artwork this site is associated with"
+        },
       },
       "type": "object"
     }
