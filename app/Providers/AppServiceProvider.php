@@ -81,12 +81,6 @@ class AppServiceProvider extends ServiceProvider
         // MySQL compatibility
         Schema::defaultStringLength(191);
 
-        /*
-        // Automatically populate Elasticsearch
-        resolve(EngineManager::class)->extend('elasticsearch', function () {
-            return resolve(ElasticsearchEngine::class);
-        });
-        */
     }
 
     /**

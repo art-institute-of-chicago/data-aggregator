@@ -21,7 +21,7 @@ class InstallSearch extends Command
      *
      * @var string
      */
-    protected $description = 'Set up the Search Service with data types and fields';
+    protected $description = 'Set up the Search Service index with data types and fields';
 
 
     /**
