@@ -439,7 +439,7 @@ class Artwork extends CollectionsModel
                 'part_ids' => $this->parts->pluck('citi_id')->all(),
                 'set_ids' => $this->sets->pluck('citi_id')->all(),
                 'date_dates' => $this->dates()->pluck('date')->transform(function ($item, $key) {
-                    return solr_date($item);
+                    return $item->toDateTimeString();
                 })->all(),
                 'catalogue_titles' => $this->catalogues->pluck('catalogue')->all(),
                 'committee_titles' => $this->committees->pluck('committee')->all(),
