@@ -3,12 +3,12 @@
 namespace App\Models\StaticArchive;
 
 use App\Models\BaseModel;
-use App\Models\SolrSearchable;
+use App\Models\ElasticSearchable;
 
 class Site extends BaseModel
 {
 
-    use SolrSearchable;
+    use ElasticSearchable;
 
     protected $primaryKey = 'site_id';
     protected $dates = ['source_created_at', 'source_modified_at'];
@@ -61,6 +61,36 @@ class Site extends BaseModel
             'artwork_titles' => $this->artworks->pluck('title')->all(),
 
         ];
+
+    }
+
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'link' => [
+                    'type' => 'keyword',
+                ],
+                'exhibition' => [
+                    'type' => 'text',
+                ],
+                'exhibition_id' => [
+                    'type' => 'integer',
+                ],
+                'artwork_ids' => [
+                    'type' => 'integer',
+                ],
+                'artwork_titles' => [
+                    'type' => 'text',
+                ],
+            ];
 
     }
 

@@ -58,4 +58,55 @@ class Product extends ShopModel
 
     }
 
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'title_display' => [
+                    'type' => 'text',
+                ],
+                'sku' => [
+                    'type' => 'keyword',
+                ],
+                'link' => [
+                    'type' => 'keyword',
+                ],
+                'image' => [
+                    'type' => 'keyword',
+                ],
+                'is_on_sale' => [
+                    'type' => 'boolean',
+                ],
+                'priority' => [
+                    'type' => 'integer',
+                ],
+                'price' => [
+                    'type' => 'float',
+                ],
+                'review_count' => [
+                    'type' => 'integer',
+                ],
+                'item_sold' => [
+                    'type' => 'integer',
+                ],
+                'rating' => [
+                    'type' => 'float',
+                ],
+                'category_ids' => [
+                    'type' => 'integer',
+                ],
+                'category_titles' => [
+                    'type' => 'text',
+                ],
+            ];
+
+    }
+
 }

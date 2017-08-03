@@ -32,6 +32,9 @@ abstract class ApiTestCase extends TestCase
     {
 
         parent::setUp();
+
+        config(['elasticsearch.defaultConnection' => 'testing']);
+
         \Artisan::call('migrate');
 
         if (get_class($this) != 'Tests\Unit\AgentTypeTest')

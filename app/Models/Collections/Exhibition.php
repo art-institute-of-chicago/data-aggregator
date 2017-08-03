@@ -3,12 +3,12 @@
 namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
-use App\Models\SolrSearchable;
+use App\Models\ElasticSearchable;
 
 class Exhibition extends CollectionsModel
 {
 
-    use SolrSearchable;
+    use ElasticSearchable;
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
@@ -114,6 +114,57 @@ class Exhibition extends CollectionsModel
             'venue_titles' => $this->venues->pluck('title')->all(),
 
         ];
+
+    }
+
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'type' => [
+                    'type' => 'keyword',
+                ],
+                'department' => [
+                    'type' => 'text',
+                ],
+                'department_id' => [
+                    'type' => 'integer',
+                ],
+                'gallery' => [
+                    'type' => 'text',
+                ],
+                'gallery_id' => [
+                    'type' => 'integer',
+                ],
+                'dates' => [
+                    'type' => 'text',
+                ],
+                'is_active' => [
+                    'type' => 'boolean',
+                ],
+                'artwork_id' => [
+                    'type' => 'integer',
+                ],
+                'artwork_ids' => [
+                    'type' => 'integer',
+                ],
+                'artwork_titles' => [
+                    'type' => 'text',
+                ],
+                'venue_ids' => [
+                    'type' => 'integer',
+                ],
+                'venue_titles' => [
+                    'type' => 'text',
+                ],
+            ];
 
     }
 

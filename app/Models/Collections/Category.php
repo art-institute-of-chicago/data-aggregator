@@ -3,12 +3,12 @@
 namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
-use App\Models\SolrSearchable;
+use App\Models\ElasticSearchable;
 
 class Category extends CollectionsModel
 {
 
-    use SolrSearchable;
+    use ElasticSearchable;
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
@@ -49,6 +49,35 @@ class Category extends CollectionsModel
             'sort' => $this->sort,
             'type' => $this->type,
         ];
+
+    }
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'is_in_nav' => [
+                    'type' => 'boolean',
+                ],
+                'parent_id' => [
+                    'type' => 'integer',
+                ],
+                'parent_title' => [
+                    'type' => 'text',
+                ],
+                'sort' => [
+                    'type' => 'integer',
+                ],
+                'type' => [
+                    'type' => 'keyword',
+                ],
+            ];
 
     }
 

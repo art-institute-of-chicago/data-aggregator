@@ -3,12 +3,12 @@
 namespace App\Models\Dsc;
 
 use App\Models\DscModel;
-use App\Models\SolrSearchable;
+use App\Models\ElasticSearchable;
 
 class Publication extends DscModel
 {
 
-    use SolrSearchable;
+    use ElasticSearchable;
 
 
     /**
@@ -23,6 +23,24 @@ class Publication extends DscModel
         return [
             'link' => $this->link,
         ];
+
+    }
+
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'link' => [
+                    'type' => 'keyword',
+                ],
+            ];
 
     }
 

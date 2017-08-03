@@ -30,4 +30,22 @@ class Figure extends DscModel
 
     }
 
+
+    /**
+     * Turn this item object into a generic array.
+     *
+     * @param  \App\Models\Dsc\Figure  $item
+     * @return array
+     */
+    public function transformFields($item)
+    {
+
+        return [
+            'content' => $item->content,
+            'section' => $item->section ? $item->section->title : '',
+            'section_id' => $item->section_dsc_id,
+        ];
+
+    }
+
 }

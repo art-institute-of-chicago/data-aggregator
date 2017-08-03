@@ -3,12 +3,12 @@
 namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
-use App\Models\SolrSearchable;
+use App\Models\ElasticSearchable;
 
 class Gallery extends CollectionsModel
 {
 
-    use SolrSearchable;
+    use ElasticSearchable;
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
@@ -48,8 +48,7 @@ class Gallery extends CollectionsModel
             'floor' => $this->floor,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            // @TODO: This causes java.lang.NullPointerException
-            // 'latlon' => $this->latitude .',' .$this->longitude,
+            'latlon' => $this->latitude .',' .$this->longitude,
             'category_ids' => $this->categories->pluck('citi_id')->all(),
         ];
 
@@ -69,6 +68,45 @@ class Gallery extends CollectionsModel
             'category_titles' => $this->categories->pluck('title')->all(),
 
         ];
+
+    }
+
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'is_closed' => [
+                    'type' => 'boolean',
+                ],
+                'number' => [
+                    'type' => 'keyword',
+                ],
+                'floor' => [
+                    'type' => 'keyword',
+                ],
+                'latitude' => [
+                    'type' => 'float',
+                ],
+                'longitude' => [
+                    'type' => 'float',
+                ],
+                'latlon' => [
+                    'type' => 'geo_point',
+                ],
+                'category_ids' => [
+                    'type' => 'integer',
+                ],
+                'category_titles' => [
+                    'type' => 'text',
+                ],
+            ];
 
     }
 

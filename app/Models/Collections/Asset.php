@@ -3,9 +3,12 @@
 namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
+use App\Models\ElasticSearchable;
 
 class Asset extends CollectionsModel
 {
+
+    use ElasticSearchable;
 
     protected $primaryKey = 'lake_guid';
     protected $keyType = 'string';
@@ -98,6 +101,35 @@ class Asset extends CollectionsModel
             'category_titles' => $this->categories->pluck('title')->all(),
 
         ];
+
+    }
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'content' => [
+                    'type' => 'text',
+                ],
+                'artist' => [
+                    'type' => 'text',
+                ],
+                'artist_id' => [
+                    'type' => 'integer',
+                ],
+                'category_ids' => [
+                    'type' => 'integer',
+                ],
+                'category_titles' => [
+                    'type' => 'text',
+                ],
+            ];
 
     }
 

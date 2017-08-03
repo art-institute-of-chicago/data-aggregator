@@ -3,12 +3,12 @@
 namespace App\Models\Dsc;
 
 use App\Models\DscModel;
-use App\Models\SolrSearchable;
+use App\Models\ElasticSearchable;
 
 class Collector extends DscModel
 {
 
-    use SolrSearchable;
+    use ElasticSearchable;
 
     public function publication()
     {
@@ -34,6 +34,36 @@ class Collector extends DscModel
             'publication' => $this->publication ? $this->publication->title : '',
             'publication_id' => $this->publication_dsc_id,
         ];
+
+    }
+
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'content' => [
+                    'type' => 'text',
+                ],
+                'weight' => [
+                    'type' => 'integer',
+                ],
+                'depth' => [
+                    'type' => 'integer',
+                ],
+                'publication' => [
+                    'type' => 'text',
+                ],
+                'publication_id' => [
+                    'type' => 'integer',
+                ],
+            ];
 
     }
 

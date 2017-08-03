@@ -3,12 +3,12 @@
 namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
-use App\Models\SolrSearchable;
+use App\Models\ElasticSearchable;
 
 class TourStop extends MobileModel
 {
 
-    use SolrSearchable;
+    use ElasticSearchable;
 
     protected $primaryKey = 'id';
 
@@ -53,6 +53,36 @@ class TourStop extends MobileModel
             'weight' => $this->weight,
             'description' => $this->description,
         ];
+
+    }
+
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'artwork' => [
+                    'type' => 'text',
+                ],
+                'artwork_id' => [
+                    'type' => 'integer',
+                ],
+                'mobile_sound' => [
+                    'type' => 'keyword',
+                ],
+                'mobile_sound_id' => [
+                    'type' => 'integer',
+                ],
+                'weight' => [
+                    'type' => 'integer',
+                ],
+            ];
 
     }
 

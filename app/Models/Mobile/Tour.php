@@ -3,12 +3,12 @@
 namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
-use App\Models\SolrSearchable;
+use App\Models\ElasticSearchable;
 
 class Tour extends MobileModel
 {
 
-    use SolrSearchable;
+    use ElasticSearchable;
 
     public function intro()
     {
@@ -42,6 +42,36 @@ class Tour extends MobileModel
             'intro_link' => $this->intro->link,
             'intro_transcript' => $this->intro->transcript,
         ];
+
+    }
+
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return
+            [
+                'image' => [
+                    'type' => 'keyword',
+                ],
+                'intro' => [
+                    'type' => 'text',
+                ],
+                'weight' => [
+                    'type' => 'integer',
+                ],
+                'intro_link' => [
+                    'type' => 'keyword',
+                ],
+                'intro_transcript' => [
+                    'type' => 'text',
+                ],
+            ];
 
     }
 

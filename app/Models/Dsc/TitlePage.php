@@ -14,4 +14,22 @@ class TitlePage extends DscModel
 
     }
 
+
+    /**
+     * Turn this item object into a generic array.
+     *
+     * @param  \App\Models\Dsc\Publication  $item
+     * @return array
+     */
+    public function transformFields()
+    {
+
+        return [
+            'content' => $this->content,
+            'publication' => $this->publication ? $this->publication->title : '',
+            'publication_id' => $this->publication_dsc_id,
+        ];
+
+    }
+
 }

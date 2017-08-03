@@ -6,11 +6,15 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "cviebrock/laravel-elasticsearch": "^2.0",
+        "elasticsearch/elasticsearch": "^5.3",
+        "jsq/amazon-es-php": "^0.2.0",
         "laravel/framework": "5.4.*",
         "laravel/scout": "^3.0",
         "laravel/tinker": "~1.0",
         "league/fractal": "^0.16.0",
-        "solarium/solarium": "^3.8"
+        "solarium/solarium": "^3.8",
+        "tamayo/laravel-scout-elastic": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
