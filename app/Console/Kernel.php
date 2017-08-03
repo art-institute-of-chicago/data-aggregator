@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
         Commands\ScoutRefresh::class,
         Commands\ScoutRefreshAll::class,
         Commands\InstallSearch::class,
+        Commands\UninstallSearch::class,
     ];
 
     /**
