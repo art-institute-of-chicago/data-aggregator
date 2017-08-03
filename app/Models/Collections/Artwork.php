@@ -490,8 +490,7 @@ class Artwork extends CollectionsModel
 
                 'latitude' => $this->mobileArtwork->latitude,
                 'longitude' => $this->mobileArtwork->longitude,
-                // @TODO: This causes java.lang.NullPointerException
-                // 'latlon' => $this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude,
+                'latlon' => $this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude,
                 'is_highlighted_in_mobile' => (bool) $this->mobileArtwork->highlighted,
                 'selector_number' => $this->mobileArtwork->selector_number,
 

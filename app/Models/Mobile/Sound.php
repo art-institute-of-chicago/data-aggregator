@@ -21,4 +21,20 @@ class Sound extends MobileModel
 
     }
 
+    /**
+     * Turn this item object into a generic array.
+     *
+     * @param  \App\Models\Mobile\Tour  $item
+     * @return array
+     */
+    public function transformFields()
+    {
+
+        return [
+            'link' => $this->link,
+            'transcript' => $this->transcript,
+        ];
+
+    }
+
 }
