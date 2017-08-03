@@ -175,6 +175,57 @@ return [
 
         ],
 
+        'testing' => [
+
+            'hosts' => [
+                [
+                    'host'   => 'localhost',
+                    'port'   => 9200,
+                    'scheme' => null,
+                    'user'   => null,
+                    'pass'   => null,
+                ],
+            ],
+
+            'sslVerification' => null,
+
+            'logging' => false,
+
+            'logPath' => storage_path('logs/elasticsearch.log'),
+
+            'logLevel' => Monolog\Logger::INFO,
+
+            'retries' => null,
+
+            /**
+             * The remainder of the configuration options can almost always be left
+             * as-is unless you have specific reasons to change them.  Refer to the
+             * appropriate sections in the Elasticsearch documentation for what each option
+             * does and what values it expects.
+             */
+
+            'sniffOnStart' => false,
+
+            'httpHandler' => new GuzzleHttp\Ring\Client\MockHandler([
+                'status' => 200,
+                'transfer_stats' => [
+                    'total_time' => 100
+                ],
+                'body' => fopen(base_path('tests/Unit/mockelasticsearch.json'), 'r')
+            ]),
+
+            'connectionPool' => null,
+
+            'connectionSelector' => null,
+
+            'serializer' => null,
+
+            'connectionFactory' => null,
+
+            'endpoint' => null,
+
+        ],
+
     ],
 
 ];

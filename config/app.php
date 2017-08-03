@@ -179,7 +179,7 @@ return [
 
         Laravel\Scout\ScoutServiceProvider::class,
         Cviebrock\LaravelElasticsearch\ServiceProvider::class, // To interface with ES--create index, add schema, query, etc.
-        ScoutEngines\Elasticsearch\ElasticsearchProvider::class // Elasticsearch Scout Engine, to keep ES in sync with Laravel
+        App\Providers\ElasticsearchProvider::class // Elasticsearch Scout Engine, to keep ES in sync with Laravel
 
     ],
 
