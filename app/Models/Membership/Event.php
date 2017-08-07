@@ -23,11 +23,11 @@ class Event extends MembershipModel
     {
 
         return [
-            'start' => $this->start->toDateTimeString(),
-            'end' => $this->end->toDateTimeString(),
+            'start' => $this->start->toIso8601String(),
+            'end' => $this->end->toIso8601String(),
             'type' => $this->type,
-            'on_sale' => $this->on_sale->toDateTimeString(),
-            'off_sale' => $this->off_sale->toDateTimeString(),
+            'on_sale' => $this->on_sale->toIso8601String(),
+            'off_sale' => $this->off_sale->toIso8601String(),
             'resource' => $this->resource,
             'user_event_number' => $this->user_event_number,
             'available' => $this->available,
