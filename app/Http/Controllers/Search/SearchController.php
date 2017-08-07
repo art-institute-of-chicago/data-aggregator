@@ -56,10 +56,10 @@ class SearchController extends Controller
                     'bool' => [
                         'must' => [
                             [
-                                'match' => [
-                                    // TODO: Target specific fields, not _all
-                                    '_all' => [
-                                        'query' => Input::get('q', '')
+                                'multi_match' => [
+                                    'query' => Input::get('q', ''),
+                                    'fields' => [
+                                        '_all',
                                     ]
                                 ]
                             ],
