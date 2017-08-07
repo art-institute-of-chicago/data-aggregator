@@ -228,4 +228,73 @@ return [
 
     ],
 
+    'indexParams' => [
+        'index' => env('ELASTICSEARCH_INDEX', 'data_aggregator'),
+        'body' => [
+            'settings' => [
+                'analysis' => [
+                    'filter' => [
+                        'english_stop' => [
+                            'type' => 'stop',
+                            'stopwords' =>  '_english_',
+                        ],
+                        /* This filter should be removed unless there are words which should be excluded from stemming.
+                        'english_keywords' => [
+                            'type' => 'keyword_marker',
+                            'keywords' => ['example'],
+                        ],
+                        */
+                        'english_stemmer' => [
+                            'type' => 'stemmer',
+                            'language' => 'english',
+                        ],
+                        'english_possessive_stemmer' => [
+                            'type' => 'stemmer',
+                            'language' => 'possessive_english'
+                        ],
+                    ],
+                    'analyzer' => [
+                        'default' => [
+                            'tokenizer' => 'standard',
+                            'filter' => [
+                                'english_possessive_stemmer',
+                                'lowercase',
+                                'english_stop',
+                                'english_stemmer'
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'mappings' =>
+            array_merge(
+                \App\Models\Collections\Agent::instance()->elasticsearchMapping(),
+                \App\Models\Collections\Department::instance()->elasticsearchMapping(),
+                \App\Models\Collections\Category::instance()->elasticsearchMapping(),
+                \App\Models\Collections\Gallery::instance()->elasticsearchMapping(),
+                \App\Models\Collections\Artwork::instance()->elasticsearchMapping(),
+                \App\Models\Collections\Link::instance()->elasticsearchMapping(),
+                \App\Models\Collections\Sound::instance()->elasticsearchMapping(),
+                \App\Models\Collections\Video::instance()->elasticsearchMapping(),
+                \App\Models\Collections\Text::instance()->elasticsearchMapping(),
+                \App\Models\Collections\Exhibition::instance()->elasticsearchMapping(),
+
+                \App\Models\Shop\Category::instance()->elasticsearchMapping(),
+                \App\Models\Shop\Product::instance()->elasticsearchMapping(),
+
+                \App\Models\Membership\Event::instance()->elasticsearchMapping(),
+
+                \App\Models\Mobile\Tour::instance()->elasticsearchMapping(),
+                \App\Models\Mobile\TourStop::instance()->elasticsearchMapping(),
+
+                \App\Models\Dsc\Publication::instance()->elasticsearchMapping(),
+                \App\Models\Dsc\Section::instance()->elasticsearchMapping(),
+                \App\Models\Dsc\WorkOfArt::instance()->elasticsearchMapping(),
+                \App\Models\Dsc\Collector::instance()->elasticsearchMapping(),
+
+                \App\Models\StaticArchive\Site::instance()->elasticsearchMapping()
+            )
+        ]
+    ],
+
 ];

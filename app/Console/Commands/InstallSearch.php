@@ -54,43 +54,10 @@ class InstallSearch extends Command
 
         $this->check();
 
-        $params = [
-            'index' => $this->index,
-            'body' => [
-                'mappings' =>
-                array_merge(
-                    \App\Models\Collections\Agent::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Department::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Category::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Gallery::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Artwork::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Link::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Sound::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Video::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Text::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Exhibition::instance()->elasticsearchMapping(),
-
-                    \App\Models\Shop\Category::instance()->elasticsearchMapping(),
-                    \App\Models\Shop\Product::instance()->elasticsearchMapping(),
-
-                    \App\Models\Membership\Event::instance()->elasticsearchMapping(),
-
-                    \App\Models\Mobile\Tour::instance()->elasticsearchMapping(),
-                    \App\Models\Mobile\TourStop::instance()->elasticsearchMapping(),
-
-                    \App\Models\Dsc\Publication::instance()->elasticsearchMapping(),
-                    \App\Models\Dsc\Section::instance()->elasticsearchMapping(),
-                    \App\Models\Dsc\WorkOfArt::instance()->elasticsearchMapping(),
-                    \App\Models\Dsc\Collector::instance()->elasticsearchMapping(),
-
-                    \App\Models\StaticArchive\Site::instance()->elasticsearchMapping()
-
-                )
-            ]
-        ];
+        $params = config('elasticsearch.indexParams');
 
         $return = Elasticsearch::indices()->create($params);
-        
+
         $this->info($this->done($return));
     }
 
