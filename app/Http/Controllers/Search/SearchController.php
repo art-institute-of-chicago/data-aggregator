@@ -54,7 +54,7 @@ class SearchController extends Controller
             'body' => [
                 'query' => [
                     'bool' => [
-                        'should' => [
+                        'must' => [
                             [
                                 'match' => [
                                     // TODO: Target specific fields, not _all
@@ -63,6 +63,8 @@ class SearchController extends Controller
                                     ]
                                 ]
                             ],
+                        ],
+                        'should' => [
                             [
                                 // Boost essential works
                                 'terms' => [
