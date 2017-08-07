@@ -20,6 +20,10 @@ Route::group(['prefix' => 'v1'], function()
         return response(view('swagger', ['host' => parse_url(config('app.url'), PHP_URL_HOST)]), 200, ['Content-Type' => 'application/json']);
     });
 
+    // Elasticsearch
+    // TODO: Namespace the route? e.g. es/search
+    Route::get('search', 'Search\SearchController@search');
+
     // Collections
     Route::get('artworks', 'ArtworksController@index');
     Route::get('artworks/essentials', 'ArtworksController@index');
