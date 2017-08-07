@@ -76,7 +76,25 @@ class SearchController extends Controller
 
         ];
 
-        return Elasticsearch::search( $params );
+        $response = Elasticsearch::search( $params );
+
+        // Reduce to just the _source objects
+        $hits = $response['hits']['hits'];
+        $results = [];
+
+        foreach( $hits as $hit ) {
+            $results[] = array_merge(
+                [
+                    '_score' => $hit['_score'],
+                ],
+                $hit['_source']
+            );
+        }
+
+        return [
+            'total' => $response['hits']['total'],
+            'data' => $results
+        ];
 
     }
 
