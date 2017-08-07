@@ -71,7 +71,8 @@ class SearchController extends Controller
                                     'id' => Artwork::getEssentialIds()
                                 ]
                             ]
-                        ]
+                        ],
+                        'filter' => Input::get('filter', null),
                     ]
                 ]
             ]
@@ -99,6 +100,5 @@ class SearchController extends Controller
         ];
 
     }
-
 
 }
