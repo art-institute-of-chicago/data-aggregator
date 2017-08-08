@@ -36,7 +36,7 @@ class SearchController extends Controller
      */
     public function __construct()
     {
-        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator:v1');
+        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
     }
 
 

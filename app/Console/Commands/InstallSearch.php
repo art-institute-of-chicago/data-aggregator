@@ -5,15 +5,20 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Elasticsearch;
 
+use App\Console\Helpers\Indexer;
+
 class InstallSearch extends Command
 {
+
+    use Indexer;
+
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'search:install';
+    protected $signature = 'search:install {index? : The name of the index to create}';
 
 
     /**
@@ -39,8 +44,10 @@ class InstallSearch extends Command
      */
     public function __construct()
     {
+
         parent::__construct();
-        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator:v1');
+        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
+
     }
 
 
@@ -52,56 +59,13 @@ class InstallSearch extends Command
     public function handle()
     {
 
-        $this->check();
+        $this->destroy($this->index);
 
         $params = config('elasticsearch.indexParams');
 
         $return = Elasticsearch::indices()->create($params);
 
         $this->info($this->done($return));
-    }
-
-
-    /**
-     * Check if the index already exists. If it exists, the user is prompted to delete it.
-     */
-    protected function check()
-    {
-
-        $params = [
-            'index' => $this->index,
-        ];        
-
-        if (Elasticsearch::indices()->exists($params))
-        {
-
-            if ($this->confirm("The " .$this->index ." index already exists. Do you wish to delete it?")) {
-
-                $return = Elasticsearch::indices()->delete($params);
-
-            }
-
-        }
-
-    }
-
-
-    /**
-     * Determine message to output after the index is created.
-     *
-     * @param array  $return
-     */
-    protected function done($return = [])
-    {
-
-        if ($return['acknowledged'])
-        {
-
-            return 'Done!';
-
-        }
-
-        return "There was an error: " .print_r($return, true);
 
     }
 

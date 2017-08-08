@@ -25,7 +25,7 @@ class UninstallSearch extends Command
 
 
     /**
-     * The name of the index to create.
+     * The name of the index to delete.
      *
      * @var string
      */
@@ -40,7 +40,7 @@ class UninstallSearch extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator:v1');
+        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
 
     }
 
