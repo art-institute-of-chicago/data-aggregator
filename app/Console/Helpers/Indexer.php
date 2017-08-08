@@ -22,18 +22,24 @@ trait Indexer
 
         $params = [
             'index' => $index,
-        ];        
+        ];
 
-        if (Elasticsearch::indices()->exists($params))
+        // No need to do anything if the index doesn't exist
+        if (!Elasticsearch::indices()->exists($params))
         {
-
-            if ($this->confirm("The " .$index ." index already exists. Do you wish to delete it?")) {
-
-                $return = Elasticsearch::indices()->delete($params);
-
-            }
-
+            return true;
         }
+
+        // Return false if the user bails out
+        if (!$this->confirm("The " .$index ." index already exists. Do you wish to delete it?"))
+        {
+            return false;
+        }
+
+        // @TODO: Catch exceptions?
+        Elasticsearch::indices()->delete($params);
+
+        return true;
 
     }
 

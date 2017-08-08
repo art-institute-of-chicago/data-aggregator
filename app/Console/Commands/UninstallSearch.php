@@ -39,6 +39,7 @@ class UninstallSearch extends Command
      */
     public function __construct()
     {
+
         parent::__construct();
         $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
 
@@ -62,7 +63,7 @@ class UninstallSearch extends Command
 
         $params = [
             'index' => $this->index,
-        ];        
+        ];
 
         if (Elasticsearch::indices()->exists($params))
         {

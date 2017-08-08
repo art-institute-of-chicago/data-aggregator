@@ -59,7 +59,21 @@ class InstallSearch extends Command
     public function handle()
     {
 
-        $this->destroy($this->index);
+        if ($this->argument('index'))
+        {
+
+            $this->index = $this->argument('index');
+
+        }
+
+        if (!$this->destroy($this->index))
+        {
+
+            $this->warn('Could not destroy index. Exiting.');
+
+            return 0;
+
+        }
 
         $params = config('elasticsearch.indexParams');
 
