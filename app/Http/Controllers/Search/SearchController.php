@@ -58,6 +58,8 @@ class SearchController extends Controller
                             [
                                 'multi_match' => [
                                     'query' => Input::get('q', ''),
+                                    'fuzziness' => 3,
+                                    'prefix_length' => 1,
                                     'fields' => [
                                         '_all',
                                     ]
