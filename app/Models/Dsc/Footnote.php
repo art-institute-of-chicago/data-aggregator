@@ -20,16 +20,15 @@ class Footnote extends DscModel
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Models\Dsc\Publication  $item
      * @return array
      */
-    public function transformFields($item)
+    public function transformFields()
     {
 
         return [
-            'content' => $item->content,
-            'section' => $item->section ? $item->section->title : '',
-            'section_id' => $item->section_dsc_id,
+            'content' => $this->content,
+            'section' => $this->section ? $this->section->title : '',
+            'section_id' => $this->section_dsc_id,
         ];
 
     }
