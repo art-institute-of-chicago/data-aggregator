@@ -96,6 +96,7 @@ trait ElasticSearchable
                 'api_link' => $this->searchableLink(),
                 'title' => $this->title,
                 'timestamp' => Carbon::now()->toIso8601String(),
+                'suggest' => [$this->title]
             ],
             $this->transform($withTitles = true)
         );
@@ -149,6 +150,9 @@ trait ElasticSearchable
                             ],
                             'timestamp' => [
                                 'type' => 'date',
+                            ],
+                            'suggest' => [
+                                'type' => 'completion',
                             ],
                         ],
                         $this->elasticsearchMappingFields()

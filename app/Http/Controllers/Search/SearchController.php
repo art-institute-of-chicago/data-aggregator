@@ -80,7 +80,15 @@ class SearchController extends Controller
                 ],
                 'suggest' => [
                     'text' => Input::get('q', ''),
-                    'simple_phrase' => [
+                    'autocomplete' =>[
+                        'prefix' => Input::get('q', ''),
+                        'completion' => [
+                            'field' => 'suggest',
+                        ],
+                    ],
+
+                    // This is currently not working
+                    'phrase-suggest' => [
                         'phrase' => [
                             'field' => 'title.trigram',
                             'gram_size' => 3,
@@ -102,6 +110,8 @@ class SearchController extends Controller
                             ],
                         ],
                     ],
+
+                    // This works, but is not very usable for API consumers
                     'term-suggest' => [
                         'term' => [
                             'field' => 'title'
@@ -113,13 +123,33 @@ class SearchController extends Controller
 
         $response = Elasticsearch::search( $params );
 
-        // Debugging the sugggest responses
-        dd($response);
+        $ret = [];
+        $ret = $this->addTotal($ret, $response);
+        $ret = $this->addData($ret, $response);
+        $ret = $this->addSuggest($ret, $response);
+
+        return $ret;
+
+    }
+
+
+    private function addTotal($ret, $response)
+    {
+
+        return array_merge($ret,
+                           [
+                               'total' => $response['hits']['total'],
+                           ]);
+
+    }
+
+
+    private function addData($ret, $response)
+    {
 
         // Reduce to just the _source objects
         $hits = $response['hits']['hits'];
         $results = [];
-        $suggest = $response['suggest']['did-you-mean'][0]['options'];
 
         foreach( $hits as $hit ) {
             $results[] = array_merge(
@@ -130,17 +160,29 @@ class SearchController extends Controller
             );
         }
 
-        $ret = [
-            'total' => $response['hits']['total'],
-            'data' => $results
-        ];
+        return array_merge($ret,
+                           [
+                               'data' => $results
+                           ]);
+
+    }
+
+
+    private function addSuggest($ret, $response)
+    {
+
+        $suggest = [];
+        $autocompleteOptions = array_get($response, 'suggest.autocomplete.0.options');
+        if ($autocompleteOptions) {
+            $suggest['autocomplete'] = array_pluck($autocompleteOptions, 'text');
+        }
 
         if ($suggest)
         {
 
-            // Once we figure it out, add suggestions to response
-            //$ret = array_merge($ret, [
-            //  'suggest' => ]);
+            $ret = array_merge($ret, [
+                'suggest' => $suggest]);
+
         }
 
         return $ret;
