@@ -130,6 +130,16 @@ trait ElasticSearchable
                             ],
                             'title' => [
                                 'type' => 'text',
+                                'fields' => [
+                                    'trigram' => [
+                                        'type' => 'text',
+                                        'analyzer' => 'trigram'
+                                    ],
+                                    'reverse' => [
+                                        'type' => 'text',
+                                        'analyzer' => 'reverse'
+                                    ],
+                                ],
                             ],
                             'image' => [
                                 'type' => 'keyword',

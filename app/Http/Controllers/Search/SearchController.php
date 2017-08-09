@@ -47,6 +47,7 @@ class SearchController extends Controller
      */
     public function search()
     {
+
         $params = [
             'index' => $this->index,
             'type' => null, // search all types
@@ -76,16 +77,49 @@ class SearchController extends Controller
                         ],
                         'filter' => Input::get('filter', null),
                     ]
-                ]
-            ]
-
+                ],
+                'suggest' => [
+                    'text' => Input::get('q', ''),
+                    'simple_phrase' => [
+                        'phrase' => [
+                            'field' => 'title.trigram',
+                            'gram_size' => 3,
+                            'direct_generator' => [
+                                [
+                                    'field' => 'title.trigram',
+                                    'suggest_mode' => 'always'
+                                ],
+                                [
+                                    'field' => 'title.reverse',
+                                    'suggest_mode' => 'always',
+                                    'pre_filter' => 'reverse',
+                                    'post_filter' => 'reverse'
+                                ],
+                            ],
+                            'highlight' => [
+                                'pre_tag' => '<em>',
+                                'post_tag' => '</em>'
+                            ],
+                        ],
+                    ],
+                    'term-suggest' => [
+                        'term' => [
+                            'field' => 'title'
+                        ],
+                    ],
+                ],
+            ],
         ];
 
         $response = Elasticsearch::search( $params );
 
+        // Debugging the sugggest responses
+        dd($response);
+
         // Reduce to just the _source objects
         $hits = $response['hits']['hits'];
         $results = [];
+        $suggest = $response['suggest']['did-you-mean'][0]['options'];
 
         foreach( $hits as $hit ) {
             $results[] = array_merge(
@@ -96,10 +130,20 @@ class SearchController extends Controller
             );
         }
 
-        return [
+        $ret = [
             'total' => $response['hits']['total'],
             'data' => $results
         ];
+
+        if ($suggest)
+        {
+
+            // Once we figure it out, add suggestions to response
+            //$ret = array_merge($ret, [
+            //  'suggest' => ]);
+        }
+
+        return $ret;
 
     }
 

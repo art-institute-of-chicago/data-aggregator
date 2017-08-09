@@ -252,6 +252,11 @@ return [
                             'type' => 'stemmer',
                             'language' => 'possessive_english'
                         ],
+                        'shingle' => [
+                            'type' => 'shingle',
+                            'min_shingle_size' => 2,
+                            'max_shingle_size' => 3
+                        ],
                     ],
                     'analyzer' => [
                         'default' => [
@@ -262,6 +267,16 @@ return [
                                 'english_stop',
                                 'english_stemmer'
                             ],
+                        ],
+                        'trigram' => [
+                            'type' => 'custom',
+                            'tokenizer' => 'standard',
+                            'filter' => ['standard', 'shingle']
+                        ],
+                        'reverse' => [
+                            'type' => 'custom',
+                            'tokenizer' => 'standard',
+                            'filter' => ['standard', 'reverse'],
                         ],
                     ],
                 ],
