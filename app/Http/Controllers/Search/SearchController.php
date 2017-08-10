@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Search;
 
 use App\Http\Controllers\Controller;
-use App\Models\Collections\Artwork;
+use App\Models\Search\Request as SearchRequest;
+use App\Models\Search\Response as SearchResponse;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request as HttpRequest;
 use Elasticsearch;
 
 class SearchController extends Controller
@@ -23,62 +24,6 @@ class SearchController extends Controller
 
 
     /**
-     * The name of the index we will be querying.
-     *
-     * @var string
-     */
-    protected $index;
-
-
-    /**
-     * List of allowed Input params for querying.
-     *
-     * @var array
-     */
-    private $allowed = [
-
-        // TODO: `type` handling
-
-        // Required: we must know the core search string
-        // We use `q` b/c it won't cause UnexpectedValueException, if the user uses an official ES Client
-        'q',
-
-        // Complex query mode
-        'query',
-        'sort',
-
-        // Pagination-related stuff
-        // TODO: Match Laravel's pagination conventions?
-        'from',
-        'size',
-
-        // Currently unsupported by the official ES PHP Client
-        // 'search_after',
-
-        // Choose which fields to return
-        '_source',
-
-        // TODO: Hide implementation by combining _source w/ other fields?
-        // Note that _source supports wildcards, while the others do not
-        // 'fields', // old convention
-        // 'stored_fields',
-        // 'docvalue_fields',
-
-    ];
-
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
-    }
-
-
-    /**
      * General entry point for search. There are three modes:
      *
      * 1. Don't pass any params to view all works, magically sorted.
@@ -89,272 +34,89 @@ class SearchController extends Controller
      *
      * @return void
      */
-    public function search(Request $request)
+    public function search(HttpRequest $httpRequest)
     {
 
-        $type = null; // search all types
-        if ($request->segment(3) != 'search')
-        {
-
-            $type = $request->segment(3);
-
-        }
-
-        // Strip down the (top-level) params to what our thin client supports
-        $input = $this->getValidInput();
-
-        // Build the basic scaffolding used by all ES queries
-        $params = [
-
-            'index' => $this->index,
-            'type' => $type,
-
-            'from' => $input['from'],
-            'size' => $input['size'],
-
-            // TODO: Re-enable this once the official ES PHP Client supports it
-            // 'search_after' => $input['search_after'],
-
-            'body' => [
-
-                'query' => [
-                    'bool' => [
-                        'must' => [], // user-specified queries go here
-                        'should' => [], // our custom boosting queries go here
-                    ]
-                ],
-
-            ],
-
-        ];
-
-        if( is_null( $input['q'] ) ) {
-
-            // Empy search requires special handling, e.g. no suggestions
-            $params = $this->getEmptySearchParams( $params );
-
-        } else {
-
-            if( is_null( $input['query'] ) ) {
-
-                $params = $this->getSimpleSearchParams( $params, $input );
-
-            } else {
-
-                $params = $this->getFullSearchParams( $params, $input );
-
-            }
-
-            // Both `query` and `q`-only searches support suggestions
-            $params = $this->getSuggestSearchParams( $params, $input );
-
-        }
-
-        // Boost essential works
-        // TODO: Move this to separate function once additional boosts are required
-        $params['body']['query']['bool']['should'][] = [
-            'terms' => [
-                'id' => Artwork::getEssentialIds()
-            ]
-        ];
-
-        // Keeping this here for debug purposes:
-        // return response()->json( $params );
-
+        $response = [];
         try {
-            $response = Elasticsearch::search( $params );
+            $response = $this->request($httpRequest);
         } catch (\Exception $e) {
             return response( $e->getMessage(), $e->getCode() )->header('Content-Type', 'application/json');
         }
 
-        // This is the actual query sent by the official ES PHP client
-        // return response()->json( json_decode( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'] ) );
+        // return $this->jsonQuery();
 
-        $ret = [];
-        $ret = $this->addTotal($ret, $response);
-        $ret = $this->addData($ret, $response);
+        return $this->response($response, $this->simple($httpRequest));
 
+    }
+
+
+    /**
+     * Perform the search against ES enpoint
+     *
+     * @param HttpRequest  The incoming request to this controller
+     * @return array  The Elasticsearch response
+     */
+    private function request(HttpRequest $httpRequest)
+    {
+
+        $searchRequest = new SearchRequest($httpRequest);
+        $type = $searchRequest->type();
+        
+        $params = $searchRequest->params();
+
+        // Keeping this here for debug purposes:
+        // return response()->json( $params );
+
+        return Elasticsearch::search( $params );
+    }
+
+
+    /**
+     * Parse the response from the search against ES enpoint
+     *
+     * @param array  The response as it came back from Elasitcsearch
+     * @return array  An API-friendly response array
+     */
+    private function response(array $response, $simple = false)
+    {
+
+        $resp = new SearchResponse($response);
+
+        $resp->simple = $simple;
+
+        return $resp->response();
+
+    }
+
+
+    /**
+     * Decide if the incoming request is a simple query
+     *
+     * @param HttpRequest  The incoming request to this controller
+     * @return boolean
+     */
+    private function simple($httpRequest)
+    {
+
+        $searchRequest = new SearchRequest($httpRequest);
+        $input = $searchRequest->validInput();
         if( !is_null( $input['q'] ) ) {
-            $ret = $this->addSuggest($ret, $response);
+            return false;
         }
-
-        return $ret;
-
+        return true;
     }
 
 
-    private function getValidInput( ) {
-
-        // List of allowed user-specified params
-        $allowed = $this->allowed;
-
-        // `null` will be the default value for all params
-        $defaults = array_fill_keys( $allowed, null );
-
-        // Grab all user input (query string params or json)
-        $input = Input::all();
-
-        // Reduce the input set to the params we allow
-        $input = array_intersect_key($input, array_flip( $allowed ) );
-
-        // Combine $defaults and $input: we won't have to use is_set, only is_null
-        $input = array_merge( $defaults, $input );
-
-        return $input;
-
-    }
-
-
-    private function getEmptySearchParams( $params ) {
-
-        // PHP JSON-encodes empty array as [], not {}
-        $params['body']['query']['bool']['must'][] = [
-            'match_all' => new \stdClass()
-        ];
-
-        return $params;
-
-    }
-
-
-    private function getSimpleSearchParams( $params, $input ) {
-
-        // TODO: Determine if defaults for `fuzziness` and `prefix_length` are sufficient
-        // https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.htm
-
-        // TODO: Determine which fields to query w/ is_numeric()?
-        // See also `lenient` param
-
-        $params['body']['query']['bool']['must'][] = [
-            'multi_match' => [
-                'query' => $input['q'],
-                'fuzziness' => 3,
-                'prefix_length' => 1,
-                'fields' => [
-                    '_all',
-                ]
-            ]
-        ];
-
-        return $params;
-
-    }
-
-
-    private function getFullSearchParams( $params, $input ) {
-
-        // TODO: Validate `query` input to reduce shenanigans
-        $params['body']['query']['bool']['must'][] = $input['query'];
-
-        // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
-
-        return $params;
-
-    }
-
-
-    private function getSuggestSearchParams( $params, $input ) {
-
-        $params['body']['suggest'] = [
-
-            'text' => $input['q'],
-
-            'autocomplete' =>[
-                'prefix' =>  $input['q'],
-                'completion' => [
-                    'field' => 'suggest_autocomplete',
-                ],
-            ],
-
-            // This is currently not working
-            'phrase-suggest' => [
-                'phrase' => [
-                    'field' => 'suggest_phrase.trigram',
-                    'gram_size' => 3,
-                    'direct_generator' => [
-                        [
-                            'field' => 'suggest_phrase.trigram',
-                            'suggest_mode' => 'always'
-                        ],
-                        [
-                            'field' => 'suggest_phrase.reverse',
-                            'suggest_mode' => 'always',
-                            'pre_filter' => 'reverse',
-                            'post_filter' => 'reverse'
-                        ],
-                    ],
-                    'highlight' => [
-                        'pre_tag' => '<em>',
-                        'post_tag' => '</em>'
-                    ],
-                ],
-            ],
-
-        ];
-
-        return $params;
-
-    }
-
-
-    private function addTotal($ret, $response)
+    /**
+     * The actual query sent by the official ES PHP client
+     *
+     * @return string  Json string
+     */
+    private function jsonQuery()
     {
 
-        return array_merge($ret,
-                           [
-                               'total' => $response['hits']['total'],
-                           ]);
-
-    }
-
-
-    private function addData($ret, $response)
-    {
-
-        // Reduce to just the _source objects
-        $hits = $response['hits']['hits'];
-        $results = [];
-
-        foreach( $hits as $hit ) {
-            $results[] = array_merge(
-                [
-                    '_score' => $hit['_score'],
-                ],
-                $hit['_source']
-            );
-        }
-
-        return array_merge($ret,
-                           [
-                               'data' => $results
-                           ]);
-
-    }
-
-
-    private function addSuggest($ret, $response)
-    {
-
-        $suggest = [];
-        $autocompleteOptions = array_get($response, 'suggest.autocomplete.0.options');
-        if ($autocompleteOptions) {
-            $suggest['autocomplete'] = array_pluck($autocompleteOptions, 'text');
-        }
-
-        $phraseOptions = array_get($response, 'suggest.phrase-suggest.0.options');
-        if ($phraseOptions) {
-            $suggest['phrase'] = array_pluck($phraseOptions, 'highlighted');
-        }
-
-        if ($suggest)
-        {
-
-            $ret = array_merge($ret, [
-                'suggest' => $suggest]);
-
-        }
-
-        return $ret;
+        return response()->json( json_decode( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'] ) );
 
     }
 
