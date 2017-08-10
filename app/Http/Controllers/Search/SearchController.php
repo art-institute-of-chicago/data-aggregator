@@ -52,18 +52,45 @@ class SearchController extends Controller
 
 
     /**
+     * Autocomplete entry point for search.
+     *
+     * @return void
+     */
+    public function autocomplete(HttpRequest $httpRequest)
+    {
+
+        $response = [];
+        try {
+            $response = $this->request($httpRequest); //, $searchRequest->autocompleteParams());
+        } catch (\Exception $e) {
+            return response( $e->getMessage(), $e->getCode() )->header('Content-Type', 'application/json');
+        }
+
+        //return $this->jsonQuery();
+
+        return $this->response($response, $this->simple($httpRequest));
+
+    }
+
+
+    /**
      * Perform the search against ES enpoint
      *
      * @param HttpRequest  The incoming request to this controller
      * @return array  The Elasticsearch response
      */
-    private function request(HttpRequest $httpRequest)
+    private function request(HttpRequest $httpRequest, $params = [])
     {
 
         $searchRequest = new SearchRequest($httpRequest);
         $type = $searchRequest->type();
         
-        $params = $searchRequest->params();
+        if (empty($params))
+        {
+
+            $params = $searchRequest->params();
+
+        }
 
         // Keeping this here for debug purposes:
         // return response()->json( $params );

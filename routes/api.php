@@ -23,6 +23,7 @@ Route::group(['prefix' => 'v1'], function()
     // Elasticsearch
     // TODO: Namespace the route? e.g. es/search
     Route::get('search', 'Search\SearchController@search');
+    Route::get('autocomplete', 'Search\SearchController@autocomplete');
 
     // Collections
     Route::get('artworks', 'ArtworksController@index');

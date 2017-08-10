@@ -98,7 +98,7 @@ class Request
         if ($this->httpRequest->segment(3) != 'search')
         {
 
-            return $httpRequest->segment(3);
+            return $this->httpRequest->segment(3);
 
         }
 
@@ -151,9 +151,36 @@ class Request
         $input = $this->validInput();
 
         $params = $this->baseParams($input);
-        $params['body']['query']['bool']['must'] = $this->must($input);
-        $params['body']['query']['bool']['should'] = $this->should($input);
-        $params['body']['suggest'] = $this->suggest($input);
+
+        $params['body'] = [
+            'query' => [
+                'bool' => [
+                    'must' => $this->must($input),
+                    'should' => $this->should($input),
+                ],
+            ],
+            'suggest' => $this->suggest($input),
+        ];
+
+        return $params;
+
+    }
+
+
+    /**
+     * Build the basic scaffolding used by all ES queries.
+     *
+     * @return array  An Elasticsearch query params array
+     */
+    public function autocompleteParams() {
+
+        $input = $this->validInput();
+
+        $params = $this->baseParams($input);
+
+        $params['body'] = [
+            'suggest' => $this->autocompleteSuggest($input),
+        ];
 
         return $params;
 
@@ -186,6 +213,8 @@ class Request
             }
 
         }
+
+        return $must;
 
     }
 
@@ -255,17 +284,6 @@ class Request
 
             // TODO: Re-enable this once the official ES PHP Client supports it
             // 'search_after' => $input['search_after'],
-
-            'body' => [
-
-                'query' => [
-                    'bool' => [
-                        'must' => [], //
-                        'should' => [], // our custom boosting queries go here
-                    ]
-                ],
-
-            ],
 
         ];
 
@@ -338,6 +356,7 @@ class Request
     private function autocompleteSuggest(array $input)
     {
         return [
+            'text' => $input['q'],
             'autocomplete' =>[
                 'prefix' =>  $input['q'],
                 'completion' => [
