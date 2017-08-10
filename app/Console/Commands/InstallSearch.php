@@ -76,6 +76,7 @@ class InstallSearch extends Command
         }
 
         $params = config('elasticsearch.indexParams');
+        $params['index'] = $this->index;
 
         $return = Elasticsearch::indices()->create($params);
 

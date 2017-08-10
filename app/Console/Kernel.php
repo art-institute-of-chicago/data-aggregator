@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
         Commands\InstallSearch::class,
         Commands\UninstallSearch::class,
         Commands\ReindexSearch::class,
+        Commands\AliasSearch::class,
     ];
 
     /**
