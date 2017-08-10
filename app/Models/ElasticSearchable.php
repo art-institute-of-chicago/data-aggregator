@@ -96,7 +96,8 @@ trait ElasticSearchable
                 'api_link' => $this->searchableLink(),
                 'title' => $this->title,
                 'timestamp' => Carbon::now()->toIso8601String(),
-                'suggest' => [$this->title]
+                'suggest_autocomplete' => [$this->title],
+                'suggest_phrase' => $this->title,
             ],
             $this->transform($withTitles = true)
         );
@@ -131,16 +132,6 @@ trait ElasticSearchable
                             ],
                             'title' => [
                                 'type' => 'text',
-                                'fields' => [
-                                    'trigram' => [
-                                        'type' => 'text',
-                                        'analyzer' => 'trigram'
-                                    ],
-                                    'reverse' => [
-                                        'type' => 'text',
-                                        'analyzer' => 'reverse'
-                                    ],
-                                ],
                             ],
                             'image' => [
                                 'type' => 'keyword',
@@ -151,8 +142,21 @@ trait ElasticSearchable
                             'timestamp' => [
                                 'type' => 'date',
                             ],
-                            'suggest' => [
+                            'suggest_autocomplete' => [
                                 'type' => 'completion',
+                            ],
+                            'suggest_phrase' => [
+                                'type' => 'keyword',
+                                'fields' => [
+                                    'trigram' => [
+                                        'type' => 'text',
+                                        'analyzer' => 'trigram'
+                                    ],
+                                    'reverse' => [
+                                        'type' => 'text',
+                                        'analyzer' => 'reverse'
+                                    ],
+                                ],
                             ],
                         ],
                         $this->elasticsearchMappingFields()

@@ -253,22 +253,22 @@ class SearchController extends Controller
             'autocomplete' =>[
                 'prefix' =>  $input['q'],
                 'completion' => [
-                    'field' => 'suggest',
+                    'field' => 'suggest_autocomplete',
                 ],
             ],
 
             // This is currently not working
             'phrase-suggest' => [
                 'phrase' => [
-                    'field' => 'title.trigram',
+                    'field' => 'suggest_phrase.trigram',
                     'gram_size' => 3,
                     'direct_generator' => [
                         [
-                            'field' => 'title.trigram',
+                            'field' => 'suggest_phrase.trigram',
                             'suggest_mode' => 'always'
                         ],
                         [
-                            'field' => 'title.reverse',
+                            'field' => 'suggest_phrase.reverse',
                             'suggest_mode' => 'always',
                             'pre_filter' => 'reverse',
                             'post_filter' => 'reverse'
@@ -278,13 +278,6 @@ class SearchController extends Controller
                         'pre_tag' => '<em>',
                         'post_tag' => '</em>'
                     ],
-                ],
-            ],
-
-            // This works, but is not very usable for API consumers
-            'term-suggest' => [
-                'term' => [
-                    'field' => 'title'
                 ],
             ],
 
