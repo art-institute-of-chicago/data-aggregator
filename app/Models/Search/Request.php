@@ -25,7 +25,7 @@ class Request
      */
     public $input;
 
-    
+
     /**
      * The name of the index we will be querying.
      *
@@ -150,7 +150,102 @@ class Request
 
         $input = $this->validInput();
 
-        $params = [
+        $params = $this->baseParams($input);
+        $params['body']['query']['bool']['must'] = $this->must($input);
+        $params['body']['query']['bool']['should'] = $this->should($input);
+        $params['body']['suggest'] = $this->suggest($input);
+
+        return $params;
+
+    }
+
+
+    /**
+     * Construct user-specified queries
+     *
+     * @param $input array Parsed out user input
+     */
+    public function must(array $input)
+    {
+
+        $must = [];
+        if( is_null( $input['q'] ) ) {
+
+            $must = array_merge($must, $this->emptyParams());
+
+        } else {
+
+            if( is_null( $input['query'] ) ) {
+
+                $must = array_merge($must, $this->simpleParams( $input ));
+
+            } else {
+
+                $must = array_merge($must, $this->fullParams( $input ));
+
+            }
+
+        }
+
+    }
+
+
+    /**
+     * Boost essential works
+     *
+     * @param $input array Parsed out user input
+     */
+    public function should(array $input)
+    {
+
+        return [
+            'terms' => [
+                'id' => Artwork::getEssentialIds()
+            ]
+        ];
+
+    }
+
+
+    /**
+     * Construct suggest parameters.
+     * Both `query` and `q`-only searches support suggestions.
+     *
+     * @param $input array Parsed out user input
+     */
+    public function suggest(array $input)
+    {
+
+        $suggest = [];
+
+        if( !is_null( $input['q'] ) ) {
+
+            $suggest = array_merge(
+                [
+
+                    'text' => $input['q'],
+
+                ],
+                $this->autocompleteSuggest($input),
+                $this->phraseSuggest()
+            );
+
+        }
+
+        return $suggest;
+
+    }
+
+
+    /**
+     * Get the base search params that are shared across all queries
+     *
+     * @return array  An Elasticsearch query params array
+     */
+    private function baseParams($input)
+    {
+
+        return [
 
             'index' => $this->index,
             'type' => $this->type(),
@@ -165,7 +260,7 @@ class Request
 
                 'query' => [
                     'bool' => [
-                        'must' => [], // user-specified queries go here
+                        'must' => [], //
                         'should' => [], // our custom boosting queries go here
                     ]
                 ],
@@ -174,54 +269,21 @@ class Request
 
         ];
 
-        if( is_null( $input['q'] ) ) {
-            
-            // Empy search requires special handling, e.g. no suggestions
-            $params = $this->getEmptySearchParams( $params );
-
-        } else {
-
-            if( is_null( $input['query'] ) ) {
-
-                $params = $this->getSimpleSearchParams( $params, $input );
-
-            } else {
-
-                $params = $this->getFullSearchParams( $params, $input );
-
-            }
-
-            // Both `query` and `q`-only searches support suggestions
-            $params = $this->getSuggestSearchParams( $params, $input );
-
-        }
-
-        // Boost essential works
-        // TODO: Move this to separate function once additional boosts are required
-        $params['body']['query']['bool']['should'][] = [
-            'terms' => [
-                'id' => Artwork::getEssentialIds()
-            ]
-        ];
-
-        return $params;
-
     }
 
 
     /**
-     * Get the search params for an empty string search
+     * Get the search params for an empty string search.
+     * Empy search requires special handling, e.g. no suggestions.
      *
      * @return array  An Elasticsearch query params array
      */
-    private function getEmptySearchParams( $params ) {
+    private function emptyParams() {
 
         // PHP JSON-encodes empty array as [], not {}
-        $params['body']['query']['bool']['must'][] = [
+        return [
             'match_all' => new \stdClass()
         ];
-
-        return $params;
 
     }
 
@@ -231,7 +293,7 @@ class Request
      *
      * @return array  An Elasticsearch query params array
      */
-    private function getSimpleSearchParams( $params, $input ) {
+    private function simpleParams( $input ) {
 
         // TODO: Determine if defaults for `fuzziness` and `prefix_length` are sufficient
         // https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.htm
@@ -239,7 +301,7 @@ class Request
         // TODO: Determine which fields to query w/ is_numeric()?
         // See also `lenient` param
 
-        $params['body']['query']['bool']['must'][] = [
+        return [
             'multi_match' => [
                 'query' => $input['q'],
                 'fuzziness' => 3,
@@ -250,8 +312,6 @@ class Request
             ]
         ];
 
-        return $params;
-
     }
 
 
@@ -260,37 +320,42 @@ class Request
      *
      * @return array  An Elasticsearch query params array
      */
-    private function getFullSearchParams( $params, $input ) {
+    private function fullParams( $input ) {
 
         // TODO: Validate `query` input to reduce shenanigans
-        $params['body']['query']['bool']['must'][] = $input['query'];
-
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
 
-        return $params;
+        return $input['query'];
 
     }
 
 
     /**
-     * Get the suggest params for a search query
+     * Get the autocomplete suggest params
      *
-     * @return array  An Elasticsearch suggest params array
+     * @return array  One element of an Elasticsearch suggest params array
      */
-    private function getSuggestSearchParams( $params, $input ) {
-
-        $params['body']['suggest'] = [
-
-            'text' => $input['q'],
-
+    private function autocompleteSuggest(array $input)
+    {
+        return [
             'autocomplete' =>[
                 'prefix' =>  $input['q'],
                 'completion' => [
                     'field' => 'suggest_autocomplete',
                 ],
             ],
+        ];
+    }
 
-            // This is currently not working
+    /**
+     * Get the phrase suggest params
+     *
+     * @return array  One element of an Elasticsearch suggest params array
+     */
+    private function phraseSuggest()
+    {
+
+        return [
             'phrase-suggest' => [
                 'phrase' => [
                     'field' => 'suggest_phrase.trigram',
@@ -313,10 +378,7 @@ class Request
                     ],
                 ],
             ],
-
         ];
-
-        return $params;
 
     }
 
