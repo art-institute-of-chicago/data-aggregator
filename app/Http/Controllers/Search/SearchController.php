@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Search;
 use App\Http\Controllers\Controller;
 use App\Models\Collections\Artwork;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 use Elasticsearch;
 
 class SearchController extends Controller
@@ -88,8 +89,16 @@ class SearchController extends Controller
      *
      * @return void
      */
-    public function search()
+    public function search(Request $request)
     {
+
+        $type = null; // search all types
+        if ($request->segment(3) != 'search')
+        {
+
+            $type = $request->segment(3);
+
+        }
 
         // Strip down the (top-level) params to what our thin client supports
         $input = $this->getValidInput();
@@ -98,7 +107,7 @@ class SearchController extends Controller
         $params = [
 
             'index' => $this->index,
-            'type' => null, // search all types
+            'type' => $type,
 
             'from' => $input['from'],
             'size' => $input['size'],
