@@ -23,7 +23,7 @@ class ReindexSearch extends Command
      */
     protected $signature = 'search:reindex
                             {source : The name of the index to copy documents from}
-                            {dest : The name of the index to copy documents to}';
+                            {dest? : The name of the index to copy documents to}';
 
 
     /**
@@ -54,7 +54,14 @@ class ReindexSearch extends Command
     {
 
         $source = $this->argument('source');
-        $dest = $this->argument('dest');
+        $dest = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
+
+        if ($this->argument('dest'))
+        {
+
+            $dest = $this->argument('dest');
+
+        }
 
         $params = [
             'wait_for_completion' => false,
