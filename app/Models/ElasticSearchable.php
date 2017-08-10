@@ -47,7 +47,7 @@ trait ElasticSearchable
 
         $calledClass = get_called_class();
 
-        return kebab_case(class_basename($calledClass));
+        return str_plural(kebab_case(class_basename($calledClass)));
 
     }
 

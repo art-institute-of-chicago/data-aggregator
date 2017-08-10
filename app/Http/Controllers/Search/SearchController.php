@@ -339,6 +339,11 @@ class SearchController extends Controller
             $suggest['autocomplete'] = array_pluck($autocompleteOptions, 'text');
         }
 
+        $phraseOptions = array_get($response, 'suggest.phrase-suggest.0.options');
+        if ($phraseOptions) {
+            $suggest['phrase'] = array_pluck($phraseOptions, 'highlighted');
+        }
+
         if ($suggest)
         {
 

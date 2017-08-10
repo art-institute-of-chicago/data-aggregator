@@ -269,14 +269,18 @@ return [
                             ],
                         ],
                         'trigram' => [
-                            'type' => 'custom',
                             'tokenizer' => 'standard',
-                            'filter' => ['standard', 'shingle']
+                            'filter' => [
+                                'standard',
+                                'shingle'
+                            ],
                         ],
                         'reverse' => [
-                            'type' => 'custom',
                             'tokenizer' => 'standard',
-                            'filter' => ['standard', 'reverse'],
+                            'filter' => [
+                                'standard',
+                                'reverse'
+                            ],
                         ],
                     ],
                 ],
