@@ -77,6 +77,9 @@ class Request
             // Choose which fields to return
             '_source',
 
+            // Fields to use for aggregations
+            'facets',
+
             // TODO: Hide implementation by combining _source w/ other fields?
             // Note that _source supports wildcards, while the others do not
             // 'fields', // old convention
@@ -110,33 +113,11 @@ class Request
     /**
      * Strip down the (top-level) params to what our thin client supports.
      *
-     * @param array  All user input (query string params or json). I.e., Input::all()
      * @return array  Parsed out input values
      */
     public function validInput() {
 
-        if (!$this->input)
-        {
-
-            $input = Input::all();
-
-            // List of allowed user-specified params
-            $allowed = $this->allowed();
-
-            // `null` will be the default value for all params
-            $defaults = array_fill_keys( $allowed, null );
-
-            // Reduce the input set to the params we allow
-            $input = array_intersect_key($input, array_flip( $allowed ) );
-
-            // Combine $defaults and $input: we won't have to use is_set, only is_null
-            $input = array_merge( $defaults, $input );
-
-            $this->input = $input;
-
-        }
-
-        return $this->input;
+        return $this->httpRequest->only($this->allowed());
 
     }
 
@@ -160,6 +141,7 @@ class Request
                 ],
             ],
             'suggest' => $this->suggest($input),
+            'aggregations' => $this->aggregations($input),
         ];
 
         return $params;
@@ -191,6 +173,7 @@ class Request
      * Construct user-specified queries
      *
      * @param $input array Parsed out user input
+     * @return array  An Elasticsearch must query params array
      */
     public function must(array $input)
     {
@@ -223,6 +206,7 @@ class Request
      * Boost essential works
      *
      * @param $input array Parsed out user input
+     * @return array  An Elasticsearch should query params array
      */
     public function should(array $input)
     {
@@ -241,6 +225,7 @@ class Request
      * Both `query` and `q`-only searches support suggestions.
      *
      * @param $input array Parsed out user input
+     * @return array  An Elasticsearch suggest params array
      */
     public function suggest(array $input)
     {
@@ -262,6 +247,41 @@ class Request
         }
 
         return $suggest;
+
+    }
+
+
+    /**
+     * Construct aggregation parameters.
+     *
+     * @return array  An Elasticsearch aggregations params array
+     */
+    public function aggregations(array $input)
+    {
+
+        $facets = ['api_model'];
+        if ($input['facets'])
+        {
+
+            $facets = explode(',',$input['facets']);
+
+        }
+
+        $aggs = [];
+
+        foreach ($facets as $f)
+        {
+
+            $aggs['count_' .$f] = [
+                'terms' => [
+                    'field' => $f
+                ]
+            ];
+
+        }
+
+
+        return $aggs;
 
     }
 

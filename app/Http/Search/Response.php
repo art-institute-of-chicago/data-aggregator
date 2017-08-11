@@ -35,6 +35,9 @@ class Response
 
         }
 
+        $response = array_merge($response,
+                                $this->aggregate());
+
         return $response;
 
     }
@@ -80,14 +83,14 @@ class Response
     {
 
         $suggest = [];
-        $autocompleteOptions = array_get($this->httpResponse, 'suggest.autocomplete.0.options');
-        if ($autocompleteOptions) {
-            $suggest['autocomplete'] = array_pluck($autocompleteOptions, 'text');
+        $options = array_get($this->httpResponse, 'suggest.autocomplete.0.options');
+        if ($options) {
+            $suggest['autocomplete'] = array_pluck($options, 'text');
         }
 
-        $phraseOptions = array_get($this->httpResponse, 'suggest.phrase-suggest.0.options');
-        if ($phraseOptions) {
-            $suggest['phrase'] = array_pluck($phraseOptions, 'highlighted');
+        $options = array_get($this->httpResponse, 'suggest.phrase-suggest.0.options');
+        if ($options) {
+            $suggest['phrase'] = array_pluck($options, 'highlighted');
         }
 
         if ($suggest)
@@ -100,4 +103,28 @@ class Response
         return [];
 
     }
+
+    public function aggregate()
+    {
+
+        $aggs = [];
+
+        foreach (array_get($this->httpResponse, 'aggregations') as $count => $data)
+        {
+
+            $aggs[$count] = $data['buckets'];
+
+        }
+
+        if ($aggs)
+        {
+
+            return ['aggregations' => $aggs];
+
+        }
+
+        return [];
+
+    }
+
 }

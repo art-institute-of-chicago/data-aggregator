@@ -113,7 +113,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -431,7 +432,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -691,7 +693,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -876,7 +879,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -1061,7 +1065,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -1171,7 +1176,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -1424,7 +1430,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -1534,7 +1541,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -1644,7 +1652,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -1754,7 +1763,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -1864,7 +1874,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -1974,7 +1985,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -2084,7 +2096,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -2234,7 +2247,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -2344,7 +2358,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -2529,7 +2544,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -2714,7 +2730,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -2824,7 +2841,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -3084,7 +3102,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -3192,7 +3211,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
@@ -3258,7 +3278,8 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q"
+            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/facets"
           }
         ],
         "responses": {
