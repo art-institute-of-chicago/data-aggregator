@@ -65,8 +65,8 @@ class ApiTransformer extends TransformerAbstract
         }
 
         return [
-            'last_updated_source' => $item->source_modified_at->toDateTimeString(),
-            'last_updated' => $item->updated_at->toDateTimeString(),
+            'last_updated_source' => $item->source_modified_at->toIso8601String(),
+            'last_updated' => $item->updated_at->toIso8601String(),
         ];
 
     }

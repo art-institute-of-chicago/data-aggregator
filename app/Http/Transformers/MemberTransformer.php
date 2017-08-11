@@ -29,9 +29,9 @@ class MemberTransformer extends ApiTransformer
             'email' => $item->email,
             'phone' => $item->phone,
             'membership_level' => $item->membership_level,
-            'opened' => $item->opened_at->toDateTimeString(),
-            'used' => $item->used_at->toDateTimeString(),
-            'expires' => $item->expires_at->toDateTimeString(),
+            'opened' => $item->opened_at->toIso8601String(),
+            'used' => $item->used_at->toIso8601String(),
+            'expires' => $item->expires_at->toIso8601String(),
         ];
 
     }

@@ -85,7 +85,7 @@ return [
     */
 
     'elasticsearch' => [
-        'index' => env('ELASTICSEARCH_INDEX', 'data_aggregator:v1'),
+        'index' => env('ELASTICSEARCH_INDEX', 'data_aggregator_test'),
         'hosts' => [
             [
                 'host'   => env('ELASTICSEARCH_HOST', 'localhost'),

@@ -47,7 +47,7 @@ trait ElasticSearchable
 
         $calledClass = get_called_class();
 
-        return kebab_case(class_basename($calledClass));
+        return str_plural(kebab_case(class_basename($calledClass)));
 
     }
 
@@ -96,6 +96,8 @@ trait ElasticSearchable
                 'api_link' => $this->searchableLink(),
                 'title' => $this->title,
                 'timestamp' => Carbon::now()->toIso8601String(),
+                'suggest_autocomplete' => [$this->title],
+                'suggest_phrase' => $this->title,
             ],
             $this->transform($withTitles = true)
         );
@@ -139,6 +141,22 @@ trait ElasticSearchable
                             ],
                             'timestamp' => [
                                 'type' => 'date',
+                            ],
+                            'suggest_autocomplete' => [
+                                'type' => 'completion',
+                            ],
+                            'suggest_phrase' => [
+                                'type' => 'keyword',
+                                'fields' => [
+                                    'trigram' => [
+                                        'type' => 'text',
+                                        'analyzer' => 'trigram'
+                                    ],
+                                    'reverse' => [
+                                        'type' => 'text',
+                                        'analyzer' => 'reverse'
+                                    ],
+                                ],
                             ],
                         ],
                         $this->elasticsearchMappingFields()

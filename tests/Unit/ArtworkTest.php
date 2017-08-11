@@ -110,7 +110,7 @@ class ArtworkTest extends ApiTestCase
 
         foreach ($images as $image)
         {
-            $this->assertArrayHasKeys($image, ['id', 'title', 'iiif_url']);
+            $this->assertArrayHasKeys($image, ['id', 'title', 'content']);
         }
     }
 

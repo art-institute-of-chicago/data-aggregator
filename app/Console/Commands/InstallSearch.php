@@ -5,15 +5,20 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Elasticsearch;
 
+use App\Console\Helpers\Indexer;
+
 class InstallSearch extends Command
 {
+
+    use Indexer;
+
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'search:install';
+    protected $signature = 'search:install {index? : The name of the index to create}';
 
 
     /**
@@ -39,8 +44,10 @@ class InstallSearch extends Command
      */
     public function __construct()
     {
+
         parent::__construct();
-        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator:v1');
+        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
+
     }
 
 
@@ -52,89 +59,28 @@ class InstallSearch extends Command
     public function handle()
     {
 
-        $this->check();
+        if ($this->argument('index'))
+        {
 
-        $params = [
-            'index' => $this->index,
-            'body' => [
-                'mappings' =>
-                array_merge(
-                    \App\Models\Collections\Agent::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Department::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Category::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Gallery::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Artwork::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Link::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Sound::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Video::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Text::instance()->elasticsearchMapping(),
-                    \App\Models\Collections\Exhibition::instance()->elasticsearchMapping(),
+            $this->index = $this->argument('index');
 
-                    \App\Models\Shop\Category::instance()->elasticsearchMapping(),
-                    \App\Models\Shop\Product::instance()->elasticsearchMapping(),
+        }
 
-                    \App\Models\Membership\Event::instance()->elasticsearchMapping(),
+        if (!$this->destroy($this->index))
+        {
 
-                    \App\Models\Mobile\Tour::instance()->elasticsearchMapping(),
-                    \App\Models\Mobile\TourStop::instance()->elasticsearchMapping(),
+            $this->warn('Could not destroy index. Exiting.');
 
-                    \App\Models\Dsc\Publication::instance()->elasticsearchMapping(),
-                    \App\Models\Dsc\Section::instance()->elasticsearchMapping(),
-                    \App\Models\Dsc\WorkOfArt::instance()->elasticsearchMapping(),
-                    \App\Models\Dsc\Collector::instance()->elasticsearchMapping(),
+            return 0;
 
-                    \App\Models\StaticArchive\Site::instance()->elasticsearchMapping()
+        }
 
-                )
-            ]
-        ];
+        $params = config('elasticsearch.indexParams');
+        $params['index'] = $this->index;
 
         $return = Elasticsearch::indices()->create($params);
-        
+
         $this->info($this->done($return));
-    }
-
-
-    /**
-     * Check if the index already exists. If it exists, the user is prompted to delete it.
-     */
-    protected function check()
-    {
-
-        $params = [
-            'index' => $this->index,
-        ];        
-
-        if (Elasticsearch::indices()->exists($params))
-        {
-
-            if ($this->confirm("The " .$this->index ." index already exists. Do you wish to delete it?")) {
-
-                $return = Elasticsearch::indices()->delete($params);
-
-            }
-
-        }
-
-    }
-
-
-    /**
-     * Determine message to output after the index is created.
-     *
-     * @param array  $return
-     */
-    protected function done($return = [])
-    {
-
-        if ($return['acknowledged'])
-        {
-
-            return 'Done!';
-
-        }
-
-        return "There was an error: " .print_r($return, true);
 
     }
 
