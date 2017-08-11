@@ -57,12 +57,16 @@ class Response
         $results = [];
 
         foreach( $hits as $hit ) {
-            $results[] = array_merge(
-                [
-                    '_score' => $hit['_score'],
-                ],
-                $hit['_source']
-            );
+            $results[] = [
+                '_score' => $hit['_score'],
+                'id' => $hit['_source']['id'],
+                'api_id' => $hit['_source']['api_id'],
+                'api_model' =>$hit['_source']['api_model'],
+                'api_link' => $hit['_source']['api_link'],
+                'title' => $hit['_source']['title'],
+                'timestamp' => $hit['_source']['timestamp'],
+            ];
+
         }
 
         return [
