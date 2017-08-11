@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Search;
+namespace App\Http\Search;
 
 use Illuminate\Support\Facades\Input;
 

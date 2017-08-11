@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Search;
 
 use App\Http\Controllers\Controller;
-use App\Models\Search\Request as SearchRequest;
-use App\Models\Search\Response as SearchResponse;
+use App\Http\Search\Request as SearchRequest;
+use App\Http\Search\Response as SearchResponse;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request as HttpRequest;
 use Elasticsearch;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Search;
+namespace App\Http\Search;
 
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Input;
