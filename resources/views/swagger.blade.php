@@ -100,6 +100,41 @@
       }
     },
 
+    "/artworks/search": {
+      "get": {
+        "tags": [
+            "artworks",
+            "collections",
+            "search"
+        ],
+        "summary": "Search artwork data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/artworks/{id}": {
       "get": {
         "tags": [
@@ -383,6 +418,41 @@
       }
     },
 
+    "/agents/search": {
+      "get": {
+        "tags": [
+            "agents",
+            "collections",
+            "search"
+        ],
+        "summary": "Search agent data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/agents/{id}": {
       "get": {
         "tags": [
@@ -608,6 +678,41 @@
       }
     },
 
+    "/departments/search": {
+      "get": {
+        "tags": [
+            "departments",
+            "collections",
+            "search"
+        ],
+        "summary": "Search department data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/departments/{id}": {
       "get": {
         "tags": [
@@ -745,6 +850,41 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Category"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/categories/search": {
+      "get": {
+        "tags": [
+            "categories",
+            "collections",
+            "search"
+        ],
+        "summary": "Search category data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
               }
             }
           },
@@ -908,6 +1048,41 @@
       }
     },
 
+    "/galleries/search": {
+      "get": {
+        "tags": [
+            "galleries",
+            "collections",
+            "search"
+        ],
+        "summary": "Search gallery data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/galleries/{id}": {
       "get": {
         "tags": [
@@ -970,6 +1145,41 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Exhibition"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/exhibitions/search": {
+      "get": {
+        "tags": [
+            "exhibitions",
+            "collections",
+            "search"
+        ],
+        "summary": "Search exhibition data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
               }
             }
           },
@@ -1201,6 +1411,41 @@
       }
     },
 
+    "/videos/search": {
+      "get": {
+        "tags": [
+            "videos",
+            "collections",
+            "search"
+        ],
+        "summary": "Search video data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/videos/{id}": {
       "get": {
         "tags": [
@@ -1263,6 +1508,41 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Asset"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/links/search": {
+      "get": {
+        "tags": [
+            "links",
+            "collections",
+            "search"
+        ],
+        "summary": "Search link data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
               }
             }
           },
@@ -1351,6 +1631,41 @@
       }
     },
 
+    "/sounds/search": {
+      "get": {
+        "tags": [
+            "sounds",
+            "collections",
+            "search"
+        ],
+        "summary": "Search sound data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/sounds/{id}": {
       "get": {
         "tags": [
@@ -1413,6 +1728,41 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Asset"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/texts/search": {
+      "get": {
+        "tags": [
+            "texts",
+            "collections",
+            "search"
+        ],
+        "summary": "Search text data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
               }
             }
           },
@@ -1501,6 +1851,41 @@
       }
     },
 
+    "/shop-categories/search": {
+      "get": {
+        "tags": [
+            "shopCategories",
+            "shop",
+            "search"
+        ],
+        "summary": "Search shop category data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/shop-categories/{id}": {
       "get": {
         "tags": [
@@ -1576,6 +1961,41 @@
       }
     },
 
+    "/products/search": {
+      "get": {
+        "tags": [
+            "products",
+            "shop",
+            "search"
+        ],
+        "summary": "Search product data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/products/{id}": {
       "get": {
         "tags": [
@@ -1638,6 +2058,41 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Event"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/events/search": {
+      "get": {
+        "tags": [
+            "events",
+            "members-event",
+            "search"
+        ],
+        "summary": "Search event data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
               }
             }
           },
@@ -1766,6 +2221,41 @@
       }
     },
 
+    "/tours/search": {
+      "get": {
+        "tags": [
+            "tours",
+            "mobile-app",
+            "search"
+        ],
+        "summary": "Search tour data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/tours/{id}": {
       "get": {
         "tags": [
@@ -1787,6 +2277,116 @@
             "schema": {
               "items": {
                 "$ref": "#/definitions/Tour"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tour-stopss": {
+      "get": {
+        "tags": [
+            "tour-stops",
+            "mobile-app"
+        ],
+        "summary": "A list of all tour stops sorted by last updated date in descending order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/ids"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TourStop"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tour-stops/search": {
+      "get": {
+        "tags": [
+            "tour-stops",
+            "mobile-app",
+            "search"
+        ],
+        "summary": "Search tour stop data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tour-stops/{id}": {
+      "get": {
+        "tags": [
+            "tour-stops",
+            "mobile-app"
+        ],
+        "summary": "A single tour stop by the given identifier",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/TourStop"
               }
             }
           },
@@ -1903,6 +2503,41 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Publication"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/publications/search": {
+      "get": {
+        "tags": [
+            "publications",
+            "dsc",
+            "search"
+        ],
+        "summary": "Search publication data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
               }
             }
           },
@@ -2066,6 +2701,41 @@
       }
     },
 
+    "/sections/search": {
+      "get": {
+        "tags": [
+            "sections",
+            "dsc",
+            "search"
+        ],
+        "summary": "Search section data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/sections/{id}": {
       "get": {
         "tags": [
@@ -2128,6 +2798,41 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/WorkOfArt"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
+    "/works-of-art/search": {
+      "get": {
+        "tags": [
+            "works-of-art",
+            "dsc",
+            "search"
+        ],
+        "summary": "Search work of art data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
               }
             }
           },
@@ -2366,6 +3071,41 @@
       }
     },
 
+    "/collectors/search": {
+      "get": {
+        "tags": [
+            "collectors",
+            "dsc",
+            "search"
+        ],
+        "summary": "Search collector data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/collectors/{id}": {
       "get": {
         "tags": [
@@ -2440,6 +3180,40 @@
       }
     },
 
+    "/sites/search": {
+      "get": {
+        "tags": [
+            "site",
+            "search"
+        ],
+        "summary": "Search site data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+
     "/sites/{id}": {
       "get": {
         "tags": [
@@ -2471,9 +3245,43 @@
           }
         }
       }
+    },
+
+    "/search": {
+      "get": {
+        "tags": [
+            "search"
+        ],
+        "summary": "Search all data in the aggregator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
 
   },
+
   "definitions": {
     "Error": {
       "required": [
@@ -2969,19 +3777,19 @@
         },
         "link": {
 	  "description": "URL to the page for this shop category"
-	}
+	},
         "parent_id": {
 	  "description": "Unique identifier of the category that is this record's parent"
-	}
+	},
         "type": {
 	  "description": "Name of this category's type"
-	}
+	},
         "source_id": {
 	  "description": "The identifier of this category in the source system. These are not unique, as they are relative to the category type in the source system."
-	}
+	},
         "child_ids": {
 	  "description": "Unique identifiers of this category's children"
-	}
+	},
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3002,40 +3810,40 @@
         },
         "title_display": {
 	  "description": "Web-friendly name of the product"
-	}
+	},
         "sku": {
 	  "description": "Inventory identification code of the product"
-	}
+	},
         "link": {
 	  "description": "URL to the shop page of this product"
-	}
+	},
         "image": {
 	  "description": "URL to the image of this product"
-	}
+	},
         "description": {
 	  "description": "Description of this product"
-	}
+	},
         "is_on_sale": {
 	  "description": "Boolean flag indicating if this product is on sale"
-	}
+	},
         "priority": {
 	  "description": "Number indicating the priority of this product"
-	}
+	},
         "price": {
 	  "description": "Price of this product"
-	}
+	},
         "review_count": {
 	  "description": "Number of reviews this product has received"
-	}
+	},
         "item_sold": {
 	  "description": "Number of items this product has sold"
-	}
+	},
         "rating": {
 	  "description": "Decimal number of this product's average rating"
-	}
+	},
         "category_ids": {
 	  "description": "Unique identifiers of categories this product is associated with"
-	}
+	},
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3062,38 +3870,38 @@
         },
         "type": {
 	  "description": "Name of the type of event"
-	}
+	},
         "on_sale": {
 	  "description": "Date and time that this product goes on sale"
-	}
+	},
         "off_sale": {
 	  "description": "Date and time that this product goes off sale"
-	}
+	},
         "resource": {
 	  "description": "Number identifying this event's resource"
-	}
+	},
         "user_event_number": {
 	  "description": "Number identifying this event's user event"
-	}
+	},
         "available": {
 	  "description": "Number identifying the number of tickets available for this event"
-	}
+	},
         "total_capacity": {
 	  "description": "Number identifying this event's total capacity"
-	}
+	},
         "status": {
 	  "description": "Number identifying this event's status"
-	}
-        "rs_event_seat_map_id": {}
+	},
+        "rs_event_seat_map_id": {},
         "has_roster": {
 	  "description": "Boolean flag indicating if this event has a roster"
-	}
+	},
         "is_private_event": {
 	  "description": "Boolean flag indicating if this event is a private event"
-	}
+	},
         "has_holds": {
 	  "description": "Boolean flag indicating if this event has any holds"
-	}
+	},
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3150,10 +3958,10 @@
         },
         "expires": {
           "description": "Date the membership expires"
-        }
+        },
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
-	},
+	}
       },
       "type": "object"
     },
@@ -3183,7 +3991,7 @@
         },
         "intro_transcript": {
           "description": "Transcript of the intro audio"
-        }
+        },
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3207,7 +4015,7 @@
         },
         "link": {
           "description": "URL to the audio of the this tour stop"
-        }
+        },
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3228,7 +4036,7 @@
         },
         "link": {
           "description": "URL to the publication"
-        }
+        },
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3255,7 +4063,7 @@
         },
         "publication_id": {
           "description": "Unique identifier of the publication this page belongs to"
-        }
+        },
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3288,7 +4096,7 @@
         },
         "publication_id": {
           "description": "Unique identifier of the publication this page belongs to"
-        }
+        },
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3327,7 +4135,7 @@
         },
         "artwork_id": {
           "description": "Unique identifier of the artwork this section describes"
-        }
+        },
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3354,7 +4162,7 @@
         },
         "section_id": {
           "description": "Unique identifier of the section this footnote belongs to"
-        }
+        },
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3381,7 +4189,7 @@
         },
         "section_id": {
           "description": "Unique identifier of the section this figure belongs to"
-        }
+        },
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3414,7 +4222,7 @@
         },
         "publication_id": {
           "description": "Unique identifier of the publication this section belongs to"
-        }
+        },
         "last_updated_source": {
 	  "description": "Date the work was last updated in the source system"
 	},
@@ -3449,11 +4257,38 @@
           "description": "Array of unique identifier of artwork this site is associated with"
         },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
+ 	      "description": "Date the work was last updated in the source system"
 	},
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
+	      "description": "Date the work was last updated in the Data Aggregator"
 	}
+      },
+      "type": "object"
+    },
+
+    "SearchResult": {
+      "properties": {
+        "_score": {
+          "description": "Search index ranking of the result"
+        },
+        "id": {
+          "description": "Unique identifier within the search index"
+        },
+        "api_id": {
+          "description": "API unique identifier"
+        },
+        "api_model": {
+          "description": "Name of the model the resource represents"
+        },
+        "api_link": {
+          "description": "URL to this recource in the API"
+        },
+        "title": {
+          "description": "Name of this resource"
+        },
+        "timestamp": {
+          "description": "Date this record was last updated in the API"
+        }
       },
       "type": "object"
     }
