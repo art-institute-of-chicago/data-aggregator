@@ -5,22 +5,22 @@ namespace Tests\Helpers;
 trait Factory
 {
 
-    
+
     protected $times = 1;
     protected $ids = [];
     protected $attachTypes = [];
     protected $attachTimes = 1;
     protected $attachRelation = '';
     protected $attachFields = [];
-    
+
     protected function times($count)
     {
         $this->times = $count;
         return $this;
     }
-    
+
     protected function attach($types, $times = 1, $relation = '', $fields = []) {
-        
+
         if (is_array($types))
         {
             $this->attachTypes = $types;
@@ -35,7 +35,7 @@ trait Factory
         return $this;
 
     }
-    
+
     protected function make($type, $fields = [])
     {
 
@@ -49,14 +49,14 @@ trait Factory
 
                 while ($this->attachTimes-- > 0)
                 {
-                    
+
                     foreach ($this->attachTypes as $attachType)
                     {
 
                         $class = $this->classFrom($attachType);
 
                         $relation = $this->attachRelation ? $this->attachRelation : lcfirst(str_plural($class));
-                        
+
                         $attach = factory($attachType)->create($this->attachFields);
                         if ($model->$relation() instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo)
                         {
@@ -72,11 +72,11 @@ trait Factory
                         }
                         else
                         {
-                            
+
                             $model->$relation()->attach($attach->getKey());
 
                         }
-                        
+
                     }
 
                 }
@@ -84,7 +84,7 @@ trait Factory
             }
 
             $this->ids[] = $model->getAttributeValue($model->getKeyName());
-            
+
         }
         $this->reset();
 
@@ -98,7 +98,7 @@ trait Factory
         return array_pop($path);
 
     }
-    
+
     protected function reset()
     {
 
@@ -107,7 +107,7 @@ trait Factory
         $this->attachTimes = 1;
         $this->attachRelation = '';
         $this->attachFields = [];
-        
-    }    
+
+    }
 
 }

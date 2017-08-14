@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Department;
-use App\Collections\Artwork;
+use App\Models\Collections\Department;
+use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
 class DepartmentsController extends ApiController
@@ -49,7 +49,7 @@ class DepartmentsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Department  $department
+     * @param  \App\Models\Collections\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $departmentId)
@@ -82,7 +82,7 @@ class DepartmentsController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -91,13 +91,13 @@ class DepartmentsController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = Department::find($ids);
         return response()->collection($all, new \App\Http\Transformers\DepartmentTransformer);
-        
+
     }
 
 }

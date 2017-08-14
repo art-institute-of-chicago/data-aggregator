@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Link;
-use App\Collections\Artwork;
+use App\Models\Collections\Link;
+use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
 class LinksController extends AssetsController

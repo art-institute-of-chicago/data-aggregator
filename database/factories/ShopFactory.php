@@ -14,7 +14,7 @@ if (!function_exists('shopIdsAndTitle'))
 {
     function shopIdsAndTitle($faker, $title = '')
     {
-    
+
         return [
             'shop_id' => $faker->unique()->randomNumber(3),
             'title' => $title ? $title : ucfirst($faker->words(5, true)),
@@ -24,18 +24,18 @@ if (!function_exists('shopIdsAndTitle'))
 
     function shopDates($faker)
     {
-                                                        
+
         return [
             'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
 
     }
-                                                    
+
 }
 
 
-$factory->define(App\Shop\Category::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Shop\Category::class, function (Faker\Generator $faker) {
     return array_merge(
         shopIdsAndTitle($faker),
         [
@@ -47,7 +47,7 @@ $factory->define(App\Shop\Category::class, function (Faker\Generator $faker) {
     );
 });
 
-$factory->define(App\Shop\Product::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Shop\Product::class, function (Faker\Generator $faker) {
     $part1 = ucwords($faker->words(2, true));
     $part2 = ucwords($faker->words(2, true));
     $part3 = ucwords($faker->words(2, true));

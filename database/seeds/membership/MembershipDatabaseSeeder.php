@@ -24,7 +24,7 @@ class MembershipDatabaseSeeder extends Seeder
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        App\Membership\Event::truncate();
+        App\Models\Membership\Event::truncate();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 

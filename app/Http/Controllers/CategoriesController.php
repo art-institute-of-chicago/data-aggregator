@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Category;
-use App\Collections\Artwork;
+use App\Models\Collections\Category;
+use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
 class CategoriesController extends ApiController
@@ -35,7 +35,7 @@ class CategoriesController extends ApiController
 
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many artworks. Please set a smaller limit.');
-        
+
         $all = $artworkId ? Artwork::findOrFail($artworkId)->categories : Category::paginate($limit);
         return response()->collection($all, new \App\Http\Transformers\CategoryTransformer);
 
@@ -44,7 +44,7 @@ class CategoriesController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Category  $category
+     * @param  \App\Models\Collections\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $categoryId)
@@ -78,7 +78,7 @@ class CategoriesController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -87,13 +87,13 @@ class CategoriesController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = Category::find($ids);
         return response()->collection($all, new \App\Http\Transformers\CategoryTransformer);
-        
+
     }
 
 }

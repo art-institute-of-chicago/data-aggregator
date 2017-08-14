@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\Image;
+use App\Models\Collections\Image;
 
 class ImageTest extends ApiTestCase
 {
@@ -35,49 +35,49 @@ class ImageTest extends ApiTestCase
 
     }
 
-    /** @test */
-    public function it_deletes_a_single_image()
-    {
+    // /** @test */
+    // public function it_deletes_a_single_image()
+    // {
 
-        $this->make(Image::class);
+    //     $this->make(Image::class);
 
-        $response = $this->deleteJson('api/v1/images/' .$this->ids[0]);
-        $response->assertSuccessful();
+    //     $response = $this->deleteJson('api/v1/images/' .$this->ids[0]);
+    //     $response->assertSuccessful();
 
-    }
+    // }
 
-    /** @test */
-    public function it_deletes_multiple_images()
-    {
+    // /** @test */
+    // public function it_deletes_multiple_images()
+    // {
 
-        $this->times(5)->make(Image::class);
+    //     $this->times(5)->make(Image::class);
 
-        $response = $this->deleteJson('api/v1/images?ids=' .implode(',',array_slice($this->ids, 0, 3)));
-        $response->assertSuccessful();
+    //     $response = $this->deleteJson('api/v1/images?ids=' .implode(',',array_slice($this->ids, 0, 3)));
+    //     $response->assertSuccessful();
 
-    }
+    // }
 
-    /** @test */
-    public function it_overwrites_an_existing_image()
-    {
+    // /** @test */
+    // public function it_overwrites_an_existing_image()
+    // {
 
-        $this->make(Image::class);
+    //     $this->make(Image::class);
 
-        $response = $this->putJson('api/v1/images/' .$this->ids[0]);
-        $response->assertSuccessful();
+    //     $response = $this->putJson('api/v1/images/' .$this->ids[0]);
+    //     $response->assertSuccessful();
 
-    }
+    // }
 
-    /** @test */
-    public function it_adds_a_new_image()
-    {
+    // /** @test */
+    // public function it_adds_a_new_image()
+    // {
 
-        $this->make(Image::class);
+    //     $this->make(Image::class);
 
-        $response = $this->postJson('api/v1/images');
-        $response->assertSuccessful();
+    //     $response = $this->postJson('api/v1/images');
+    //     $response->assertSuccessful();
 
-    }
+    // }
 
 
 
@@ -87,7 +87,7 @@ class ImageTest extends ApiTestCase
     {
 
         $this->it_400s(Image::class, 'images');
-        
+
     }
 
     /** @test */
@@ -111,7 +111,7 @@ class ImageTest extends ApiTestCase
     {
 
         $this->it_405s(Image::class, 'images');
-        
+
     }
 
 }

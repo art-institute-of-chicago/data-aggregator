@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Agent;
-use App\Collections\Artwork;
-use App\Collections\Exhibition;
+use App\Models\Collections\Agent;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\Exhibition;
 use Illuminate\Http\Request;
 
 class AgentsController extends ApiController
@@ -58,7 +58,7 @@ class AgentsController extends ApiController
             else {
 
                 return $this->respondNotFound('Sub-resource not found', "The sub-resource on this artwork you're requesting cannot be found. Please check your URL and try again.");
-                
+
             }
 
         }
@@ -76,7 +76,7 @@ class AgentsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Agent  $agent
+     * @param  \App\Models\Collections\Agent  $agent
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $agentId)
@@ -109,7 +109,7 @@ class AgentsController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -118,22 +118,22 @@ class AgentsController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
 
         $all = Agent::whereHas('agentType', function ($query) { $this->whereHas($query); })->find($ids);
-        
+
         return response()->collection($all, new \App\Http\Transformers\AgentTransformer);
-        
+
     }
 
     protected function agentTypeFilter()
     {
 
         return '%';
-        
+
     }
 
     protected function whereHas($query)

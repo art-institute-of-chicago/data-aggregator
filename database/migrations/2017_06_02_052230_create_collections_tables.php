@@ -53,9 +53,9 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('galleries', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->string('closed')->nullable();
+            $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
-            $table->integer('floor')->nullable();
+            $table->string('floor')->nullable();
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table = $this->_addDates($table);
@@ -280,7 +280,7 @@ class CreateCollectionsTables extends Migration
             $table->foreign('department_citi_id')->references('citi_id')->on('departments');
             $table->integer('gallery_citi_id')->unsigned()->index();
             $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
-            $table->string('dates')->nullable();
+            $table->string('exhibition_dates')->nullable();
             $table->boolean('active')->nullable();
             $table = $this->_addDates($table);
         });
@@ -301,7 +301,7 @@ class CreateCollectionsTables extends Migration
             $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
         });
 
-        
+
     }
 
     private function _addIdsAndTitle($table, $citiField = true, $titleField = 'string')
@@ -320,7 +320,7 @@ class CreateCollectionsTables extends Migration
             $table->uuid('lake_guid')->unique()->primary();
 
         }
-            
+
         $table->{$titleField}('title')->nullable();
         $table->string('lake_uri')->unique()->nullable();
         return $table;

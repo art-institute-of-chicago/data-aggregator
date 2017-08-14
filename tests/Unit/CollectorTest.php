@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Dsc\Collector;
-use App\Dsc\Publication;
+use App\Models\Dsc\Collector;
+use App\Models\Dsc\Publication;
 
 class CollectorTest extends ApiTestCase
 {
@@ -25,7 +25,7 @@ class CollectorTest extends ApiTestCase
     {
 
         $this->it_fetches_all(Collector::class, 'collectors');
-        
+
     }
 
     /** @test */
@@ -50,7 +50,7 @@ class CollectorTest extends ApiTestCase
     {
 
         $this->it_400s(Collector::class, 'collectors');
-        
+
     }
 
     /** @test */
@@ -74,7 +74,7 @@ class CollectorTest extends ApiTestCase
     {
 
         $this->it_405s(Collector::class, 'collectors');
-        
+
     }
 
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Sound;
-use App\Collections\Artwork;
+use App\Models\Collections\Sound;
+use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
 class SoundsController extends AssetsController

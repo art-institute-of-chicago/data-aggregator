@@ -13,8 +13,8 @@ class ImportCollectionsFull extends Command
      *
      * @var string
      */
-    protected $signature = 'import:collections-full 
-                            {endpoint? : That last portion of the URL path naming the resource to import, for example "artists"} 
+    protected $signature = 'import:collections-full
+                            {endpoint? : That last portion of the URL path naming the resource to import, for example "artists"}
                             {page? : The page to begin importing from}';
 
     /**
@@ -24,7 +24,7 @@ class ImportCollectionsFull extends Command
      */
     protected $description =
                            "Import all collections data\n\n"
-                           
+
                            ."If no options are passes all Collections data will be imported. Results are paged through 100 records \n"
                            ."at a time. If the Collections Data Service doesn't provide an endpoint fake data will be generated.";
 
@@ -60,26 +60,26 @@ class ImportCollectionsFull extends Command
             $startTime = Carbon::now();
 
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Collections\AgentType::all()->isEmpty())
+            if (\App\Models\Collections\AgentType::all()->isEmpty())
             {
 
                 \Artisan::call("db:seed", ['--class' => 'AgentTypesTableSeeder']);
-                
+
             }
 
             // @TODO Replace with agent endpoint when it becomes available
-            if (\App\Collections\Agent::all()->isEmpty())
+            if (\App\Models\Collections\Agent::all()->isEmpty())
             {
 
                 $this->import('artists');
                 \Artisan::call("db:seed", ['--class' => 'AgentsTableSeeder']);
-                
+
             }
 
             $this->import('departments');
 
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Collections\ObjectType::all()->isEmpty())
+            if (\App\Models\Collections\ObjectType::all()->isEmpty())
             {
 
                 \Artisan::call("db:seed", ['--class' => 'ObjectTypesTableSeeder']);
@@ -91,6 +91,13 @@ class ImportCollectionsFull extends Command
 
             // @TODO Galleries are available, but break due to Redmine bug #1911 - Gallery Floor isn't always a number
             //$this->import('galleries');
+            // @TODO Replace with real endpoint when it becomes available
+            if (\App\Models\Collections\Gallery::all()->isEmpty())
+            {
+
+                \Artisan::call("db:seed", ['--class' => 'GalleriesTableSeeder']);
+
+            }
 
             $this->import('artworks');
             $this->import('links');
@@ -98,16 +105,7 @@ class ImportCollectionsFull extends Command
             $this->import('texts');
 
             // @TODO Replace with real endpoint when it becomes available
-            $artworks = \App\Collections\Artwork::all()->all();
-
-            foreach ($artworks as $artwork) {
-
-                $artwork->seedImages();
-
-            }
-
-            // @TODO Replace with real endpoint when it becomes available
-            if (\App\Collections\Exhibition::all()->isEmpty())
+            if (\App\Models\Collections\Exhibition::all()->isEmpty())
             {
 
                 \Artisan::call("db:seed", ['--class' => 'ExhibitionsTableSeeder']);
@@ -121,13 +119,13 @@ class ImportCollectionsFull extends Command
             $command->save();
 
         }
-        
+
     }
 
     private function import($endpoint, $current = 1)
     {
 
-        $class = \App\Collections\CollectionsModel::classFor($endpoint);
+        $class = \App\Models\CollectionsModel::classFor($endpoint);
 
         $resources = call_user_func($class .'::all');
         if ($resources->isEmpty())

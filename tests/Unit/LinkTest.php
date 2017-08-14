@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\Link;
+use App\Models\Collections\Link;
 
 class LinkTest extends ApiTestCase
 {
@@ -41,7 +41,7 @@ class LinkTest extends ApiTestCase
     {
 
         $this->it_400s(Link::class, 'links');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class LinkTest extends ApiTestCase
     {
 
         $this->it_405s(Link::class, 'links');
-        
+
     }
-    
+
 }

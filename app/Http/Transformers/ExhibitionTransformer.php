@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\Exhibition;
+use App\Models\Collections\Exhibition;
 
 class ExhibitionTransformer extends CollectionsTransformer
 {
@@ -16,29 +16,11 @@ class ExhibitionTransformer extends CollectionsTransformer
      */
     protected $availableIncludes = ['artworks', 'venues'];
 
-    protected function transformFields($item)
-    {
-
-        return [
-            'description' => $item->description,
-            'type' => $item->type,
-            'department' => $item->department()->getResults() ? $item->department()->getResults()->title : '',
-            'department_id' => $item->department_citi_id,
-            'gallery' => $item->gallery()->getResults() ? $item->gallery()->getResults()->title : '',
-            'gallery_id' => $item->gallery_citi_id,
-            'dates' => $item->dates,
-            'active' => (bool) $item->active,
-            'artwork_ids' => $item->artworks->pluck('citi_id')->all(),
-            'venue_ids' => $item->venues->pluck('citi_id')->all(),
-        ];
-
-    }
-
 
     /**
      * Include artworks.
      *
-     * @param  \App\Collections\Exhibition  $exhibition
+     * @param  \App\Models\Collections\Exhibition  $exhibition
      * @return League\Fractal\ItemResource
      */
     public function includeArtworks(Exhibition $exhibition)
@@ -46,10 +28,11 @@ class ExhibitionTransformer extends CollectionsTransformer
         return $this->collection($exhibition->artworks()->getResults(), new ArtworkTransformer, false);
     }
 
+    
     /**
      * Include venues.
      *
-     * @param  \App\Collections\Exhibition  $exhibition
+     * @param  \App\Models\Collections\Exhibition  $exhibition
      * @return League\Fractal\ItemResource
      */
     public function includeVenues(Exhibition $exhibition)

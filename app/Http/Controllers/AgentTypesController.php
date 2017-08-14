@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\AgentType;
-use App\Collections\Agent;
+use App\Models\Collections\AgentType;
+use App\Models\Collections\Agent;
 use Illuminate\Http\Request;
 
 class AgentTypesController extends ApiController
@@ -43,7 +43,7 @@ class AgentTypesController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\AgentType  $agentType
+     * @param  \App\Models\Collections\AgentType  $agentType
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $agentTypeId)
@@ -76,7 +76,7 @@ class AgentTypesController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -85,13 +85,13 @@ class AgentTypesController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = AgentType::find($ids);
         return response()->collection($all, new \App\Http\Transformers\AgentTypeTransformer);
-        
+
     }
 
 }

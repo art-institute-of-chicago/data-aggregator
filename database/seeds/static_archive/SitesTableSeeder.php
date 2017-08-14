@@ -12,11 +12,11 @@ class SitesTableSeeder extends Seeder
     public function run()
     {
 
-        factory(App\StaticArchive\Site::class, 50)->create();
+        factory(App\Models\StaticArchive\Site::class, 50)->create();
 
-        $sites = App\StaticArchive\Site::all()->all();
-        $artworkIds = App\Collections\Artwork::all()->pluck('citi_id')->all();
-        $exhibitionIds = App\Collections\Exhibition::all()->pluck('citi_id')->all();
+        $sites = App\Models\StaticArchive\Site::all()->all();
+        $artworkIds = App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
+        $exhibitionIds = App\Models\Collections\Exhibition::all()->pluck('citi_id')->all();
 
         foreach ($sites as $site) {
 

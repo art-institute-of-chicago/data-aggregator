@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Dsc\Publication;
+use App\Models\Dsc\Publication;
 
 class PublicationTest extends ApiTestCase
 {
@@ -16,7 +16,7 @@ class PublicationTest extends ApiTestCase
     {
 
         $this->it_fetches_all(Publication::class, 'publications');
-        
+
     }
 
     /** @test */
@@ -41,7 +41,7 @@ class PublicationTest extends ApiTestCase
     {
 
         $this->it_400s(Publication::class, 'publications');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class PublicationTest extends ApiTestCase
     {
 
         $this->it_405s(Publication::class, 'publications');
-        
+
     }
 
 }

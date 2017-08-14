@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Artwork;
+use App\Models\Collections\Artwork;
 use App\Http\Transformers\ApiSerializer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -31,6 +31,11 @@ class ApiController extends Controller
     }
 
     public function respondForbidden($message = 'Forbidden', $detail = 'This request is forbidden.')
+    {
+        return response()->error($message, $detail, Response::HTTP_FORBIDDEN);
+    }
+
+    public function respondTooManyIds($message = 'Invalid number of ids', $detail = 'You have requested too many ids. Please send a smaller amount.')
     {
         return response()->error($message, $detail, Response::HTTP_FORBIDDEN);
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dsc\WorkOfArt;
+use App\Models\Dsc\WorkOfArt;
 use Illuminate\Http\Request;
 
 class WorksOfArtController extends ApiController
@@ -42,7 +42,7 @@ class WorksOfArtController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dsc\WorkOfArt  $dscId
+     * @param  \App\Models\Dsc\WorkOfArt  $dscId
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $dscId)
@@ -75,7 +75,7 @@ class WorksOfArtController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -84,13 +84,13 @@ class WorksOfArtController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = WorkOfArt::find($ids);
         return response()->collection($all, new \App\Http\Transformers\WorkOfArtTransformer);
-        
+
     }
 
 }

@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Mobile\Sound;
+use App\Models\Mobile\Sound;
 
 class MobileSoundTest extends ApiTestCase
 {
@@ -41,7 +41,7 @@ class MobileSoundTest extends ApiTestCase
     {
 
         $this->it_400s(Sound::class, 'mobile-sounds');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class MobileSoundTest extends ApiTestCase
     {
 
         $this->it_405s(Sound::class, 'mobile-sounds');
-        
+
     }
-    
+
 }

@@ -12,8 +12,8 @@ class GalleryCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $galleries = App\Collections\Gallery::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $galleries = App\Models\Collections\Gallery::all()->all();
+        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($galleries as $gallery) {
 
@@ -22,7 +22,7 @@ class GalleryCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

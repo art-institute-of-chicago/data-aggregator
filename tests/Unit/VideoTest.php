@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\Video;
+use App\Models\Collections\Video;
 
 class VideoTest extends ApiTestCase
 {
@@ -41,7 +41,7 @@ class VideoTest extends ApiTestCase
     {
 
         $this->it_400s(Video::class, 'videos');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class VideoTest extends ApiTestCase
     {
 
         $this->it_405s(Video::class, 'videos');
-        
+
     }
-    
+
 }

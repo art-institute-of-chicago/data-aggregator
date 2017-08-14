@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\ObjectType;
+use App\Models\Collections\ObjectType;
 
 class ObjectTypeTest extends ApiTestCase
 {
@@ -16,7 +16,7 @@ class ObjectTypeTest extends ApiTestCase
     {
 
         $resources = $this->it_fetches_all(ObjectType::class, 'object-types');
-        
+
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
@@ -26,7 +26,7 @@ class ObjectTypeTest extends ApiTestCase
     {
 
         $resource = $this->it_fetches_a_single(ObjectType::class, 'object-types');
- 
+
         $this->assertArrayHasKeys($resource, ['lake_guid']);
 
     }
@@ -47,7 +47,7 @@ class ObjectTypeTest extends ApiTestCase
     {
 
         $this->it_400s(ObjectType::class, 'object-types');
-        
+
     }
 
     /** @test */
@@ -71,7 +71,7 @@ class ObjectTypeTest extends ApiTestCase
     {
 
         $this->it_405s(ObjectType::class, 'object-types');
-        
+
     }
-    
+
 }

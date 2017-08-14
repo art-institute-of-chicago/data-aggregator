@@ -12,8 +12,8 @@ class ArtworkCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Collections\Artwork::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $artworks = App\Models\Collections\Artwork::all()->all();
+        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($artworks as $artwork) {
 
@@ -22,7 +22,7 @@ class ArtworkCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

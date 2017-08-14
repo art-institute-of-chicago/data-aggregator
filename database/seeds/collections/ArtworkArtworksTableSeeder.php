@@ -12,23 +12,23 @@ class ArtworkArtworksTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Collections\Artwork::all()->all();
-        $artworkIds = App\Collections\Artwork::all()->pluck('citi_id')->all();
+        $artworks = App\Models\Collections\Artwork::all();
+        $artworkIds = App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
 
-        foreach ($artworks as $artwork) {
+        $artworks->each(function($artwork, $key) use ($artworkIds) {
 
-            for ($i = 0; $i < rand(2,8); $i++) {
+            for ($i = 0; $i < rand(2,4); $i++) {
 
                 $artworkId = $artworkIds[array_rand($artworkIds)];
 
                 if ($artworkId != $artwork->getKey()) {
                     $artwork->parts()->attach($artworkId);
                 }
-                
+
             }
 
-        }
-        
+        });
+
     }
-    
+
 }

@@ -12,7 +12,7 @@ class MobileSoundsTableSeeder extends Seeder
     public function run()
     {
 
-        factory(App\Mobile\Sound::class, 100)->create();
+        factory(App\Models\Mobile\Sound::class, 100)->create();
 
         $this->_addSoundsToArtworks();
 
@@ -20,9 +20,9 @@ class MobileSoundsTableSeeder extends Seeder
 
     private function _addSoundsToArtworks()
     {
-    
-        $artworks = App\Collections\Artwork::all()->all();
-        $soundIds = App\Mobile\Sound::all()->pluck('mobile_id')->all();
+
+        $artworks = App\Models\Collections\Artwork::all()->all();
+        $soundIds = App\Models\Mobile\Sound::all()->pluck('mobile_id')->all();
 
         foreach ($artworks as $artwork) {
 
@@ -36,9 +36,9 @@ class MobileSoundsTableSeeder extends Seeder
                     $artwork->mobileSounds()->attach($id);
                     $ids[] = $id;
                 }
-                
+
             }
-            
+
         }
 
     }

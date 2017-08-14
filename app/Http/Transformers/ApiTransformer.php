@@ -32,7 +32,7 @@ class ApiTransformer extends TransformerAbstract
     protected function transformFields($item)
     {
 
-        return [];
+        return $item->transform();
 
     }
 
@@ -51,7 +51,7 @@ class ApiTransformer extends TransformerAbstract
             'id' => $item->getAttributeValue($item->getKeyName()),
             'title' => $item->title,
         ];
-        
+
     }
 
     protected function transformDates($item)
@@ -65,10 +65,10 @@ class ApiTransformer extends TransformerAbstract
         }
 
         return [
-            'last_updated_source' => $item->source_modified_at->toDateTimeString(),
-            'last_updated' => $item->updated_at->toDateTimeString(),
+            'last_updated_source' => $item->source_modified_at->toIso8601String(),
+            'last_updated' => $item->updated_at->toIso8601String(),
         ];
 
-    }   
+    }
 
 }

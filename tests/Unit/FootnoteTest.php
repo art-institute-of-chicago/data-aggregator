@@ -6,9 +6,9 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Dsc\Footnote;
-use App\Dsc\Publication;
-use App\Dsc\Section;
+use App\Models\Dsc\Footnote;
+use App\Models\Dsc\Publication;
+use App\Models\Dsc\Section;
 
 class FootnoteTest extends ApiTestCase
 {
@@ -27,7 +27,7 @@ class FootnoteTest extends ApiTestCase
     {
 
         $this->it_fetches_all(Footnote::class, 'footnotes');
-        
+
     }
 
     /** @test */
@@ -52,7 +52,7 @@ class FootnoteTest extends ApiTestCase
     {
 
         $this->it_400s(Footnote::class, 'footnotes');
-        
+
     }
 
     /** @test */
@@ -76,7 +76,7 @@ class FootnoteTest extends ApiTestCase
     {
 
         $this->it_405s(Footnote::class, 'footnotes');
-        
+
     }
 
 }

@@ -12,8 +12,8 @@ class SoundCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $sounds = App\Collections\Sound::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $sounds = App\Models\Collections\Sound::all()->all();
+        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($sounds as $sound) {
 
@@ -22,7 +22,7 @@ class SoundCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

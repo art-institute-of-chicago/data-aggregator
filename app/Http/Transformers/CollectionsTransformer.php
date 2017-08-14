@@ -57,7 +57,7 @@ class CollectionsTransformer extends ApiTransformer
         {
 
             $ret = [
-                'last_updated_citi' => $item->citi_modified_at->toDateTimeString(),
+                'last_updated_citi' => $item->citi_modified_at->toIso8601String(),
             ];
 
         }
@@ -65,12 +65,12 @@ class CollectionsTransformer extends ApiTransformer
         return array_merge(
             $ret,
             [
-                'last_updated_fedora' => $item->source_modified_at->toDateTimeString(),
-                'last_updated_source' => $item->source_indexed_at->toDateTimeString(),
-                'last_updated' => $item->updated_at->toDateTimeString(),
+                'last_updated_fedora' => $item->source_modified_at->toIso8601String(),
+                'last_updated_source' => $item->source_indexed_at->toIso8601String(),
+                'last_updated' => $item->updated_at->toIso8601String(),
             ]
         );
 
-    }   
+    }
 
 }

@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Shop\Category;
+use App\Models\Shop\Category;
 
 class ShopCategoryTest extends ApiTestCase
 {
@@ -16,7 +16,7 @@ class ShopCategoryTest extends ApiTestCase
     {
 
         $this->it_fetches_all(Category::class, 'shop-categories');
-        
+
     }
 
     /** @test */
@@ -41,7 +41,7 @@ class ShopCategoryTest extends ApiTestCase
     {
 
         $this->it_400s(Category::class, 'shop-categories');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class ShopCategoryTest extends ApiTestCase
     {
 
         $this->it_405s(Category::class, 'shop-categories');
-        
+
     }
-    
+
 }

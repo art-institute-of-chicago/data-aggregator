@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Shop\Product;
+use App\Models\Shop\Product;
 use Illuminate\Http\Request;
 
 class ProductsController extends ApiController
@@ -34,7 +34,7 @@ class ProductsController extends ApiController
 
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many products. Please set a smaller limit.');
-        
+
         $all = Product::paginate($limit);
         return response()->collection($all, new \App\Http\Transformers\ProductTransformer);
 
@@ -43,7 +43,7 @@ class ProductsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Product  $product
+     * @param  \App\Models\Collections\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $productId)
@@ -76,7 +76,7 @@ class ProductsController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -85,13 +85,13 @@ class ProductsController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = Product::find($ids);
         return response()->collection($all, new \App\Http\Transformers\ProductTransformer);
-        
+
     }
 
 }

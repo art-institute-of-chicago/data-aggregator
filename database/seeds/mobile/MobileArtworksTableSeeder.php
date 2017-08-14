@@ -11,6 +11,6 @@ class MobileArtworksTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Mobile\Artwork::class, 100)->create();
+        factory(App\Models\Mobile\Artwork::class, 100)->create();
     }
 }

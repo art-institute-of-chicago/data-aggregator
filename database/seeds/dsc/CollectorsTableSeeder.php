@@ -11,6 +11,6 @@ class CollectorsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Dsc\Collector::class, 50)->create();
+        factory(App\Models\Dsc\Collector::class, 50)->create();
     }
 }

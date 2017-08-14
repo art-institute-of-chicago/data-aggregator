@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Collections\Gallery;
-use App\Collections\Artwork;
+use App\Models\Collections\Gallery;
+use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
 class GalleriesController extends ApiController
@@ -44,7 +44,7 @@ class GalleriesController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Gallery  $gallery
+     * @param  \App\Models\Collections\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $galleryId)
@@ -77,7 +77,7 @@ class GalleriesController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -86,13 +86,13 @@ class GalleriesController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = Gallery::find($ids);
         return response()->collection($all, new \App\Http\Transformers\GalleryTransformer);
-        
+
     }
 
 }

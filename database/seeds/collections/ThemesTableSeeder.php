@@ -11,6 +11,6 @@ class ThemesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Collections\Theme::class, 15)->create();
+        factory(App\Models\Collections\Theme::class, 15)->create();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Transformers;
 
-use App\Collections\ArtworkCommittee;
+use App\Models\Collections\ArtworkCommittee;
 
 class ArtworkCommitteeTransformer extends CollectionsTransformer
 {

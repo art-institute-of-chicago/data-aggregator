@@ -24,7 +24,7 @@ class StaticArchiveDatabaseSeeder extends Seeder
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        App\StaticArchive\Site::truncate();
+        App\Models\StaticArchive\Site::truncate();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 

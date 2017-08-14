@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\Agent;
+use App\Models\Collections\Agent;
 
 class AgentTest extends ApiTestCase
 {
@@ -18,7 +18,7 @@ class AgentTest extends ApiTestCase
         $resources = $this->it_fetches_all(Agent::class, 'agents');
 
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
-        
+
     }
 
     /** @test */
@@ -46,7 +46,7 @@ class AgentTest extends ApiTestCase
     {
 
         $this->it_400s(Agent::class, 'agents');
-        
+
     }
 
     /** @test */
@@ -70,7 +70,7 @@ class AgentTest extends ApiTestCase
     {
 
         $this->it_405s(Agent::class, 'agents');
-        
+
     }
-    
+
 }

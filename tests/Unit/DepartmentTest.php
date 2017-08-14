@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\Department;
+use App\Models\Collections\Department;
 
 class DepartmentTest extends ApiTestCase
 {
@@ -16,7 +16,7 @@ class DepartmentTest extends ApiTestCase
     {
 
         $resources = $this->it_fetches_all(Department::class, 'departments');
-        
+
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
@@ -47,7 +47,7 @@ class DepartmentTest extends ApiTestCase
     {
 
         $this->it_400s(Department::class, 'departments');
-        
+
     }
 
     /** @test */
@@ -71,7 +71,7 @@ class DepartmentTest extends ApiTestCase
     {
 
         $this->it_405s(Department::class, 'departments');
-        
+
     }
-    
+
 }

@@ -12,8 +12,8 @@ class VideoCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $videos = App\Collections\Video::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $videos = App\Models\Collections\Video::all()->all();
+        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($videos as $video) {
 
@@ -22,7 +22,7 @@ class VideoCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

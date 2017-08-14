@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Membership\Member;
+use App\Models\Membership\Member;
 
 class MemberTest extends ApiTestCase
 {
@@ -24,7 +24,7 @@ class MemberTest extends ApiTestCase
     {
 
         $this->it_400s(Member::class, 'events');
-        
+
     }
 
     /** @test */
@@ -48,7 +48,7 @@ class MemberTest extends ApiTestCase
     {
 
         $this->it_405s(Member::class, 'events');
-        
+
     }
 
 }

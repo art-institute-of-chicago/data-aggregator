@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Schema;
 use App\Http\Transformers\ApiSerializer;
-use App\Services\Solr\SolrScoutEngine;
+use ScoutEngines\Elasticsearch\ElasticsearchEngine;
 use Laravel\Scout\EngineManager;
 
 class AppServiceProvider extends ServiceProvider
@@ -81,11 +81,6 @@ class AppServiceProvider extends ServiceProvider
         // MySQL compatibility
         Schema::defaultStringLength(191);
 
-        // Automatically populate Solr
-        resolve(EngineManager::class)->extend('solr', function () {
-            return resolve(SolrScoutEngine::class);
-        });
-
     }
 
     /**
@@ -98,9 +93,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(\Solarium\Client::class, function ($app) {
             // First endpoint is used by default
-            return new \Solarium\Client([
-                'endpoint' => config('solarium.endpoints'),
-            ]);
+            return new \Solarium\Client( config('solarium') );
         });
 
     }

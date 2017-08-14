@@ -9,7 +9,7 @@ class VenuesController extends AgentsController
     {
 
         return 'Corporate Body';
-        
+
     }
 
 }

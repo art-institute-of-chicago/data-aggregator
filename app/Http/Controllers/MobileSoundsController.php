@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mobile\Sound;
+use App\Models\Mobile\Sound;
 use Illuminate\Http\Request;
 
 class MobileSoundsController extends ApiController
@@ -34,7 +34,7 @@ class MobileSoundsController extends ApiController
 
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many sounds. Please set a smaller limit.');
-        
+
         $all = Sound::paginate($limit);
         return response()->collection($all, new \App\Http\Transformers\MobileSoundTransformer);
 
@@ -43,7 +43,7 @@ class MobileSoundsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Mobile\Sound  $sound
+     * @param  \App\Models\Mobile\Sound  $sound
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $soundId)
@@ -76,7 +76,7 @@ class MobileSoundsController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -85,13 +85,13 @@ class MobileSoundsController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = Sound::find($ids);
         return response()->collection($all, new \App\Http\Transformers\MobileSoundTransformer);
-        
+
     }
 
 }

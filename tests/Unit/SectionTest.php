@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Dsc\Section;
-use App\Dsc\Publication;
+use App\Models\Dsc\Section;
+use App\Models\Dsc\Publication;
 
 class SectionTest extends ApiTestCase
 {
@@ -25,7 +25,7 @@ class SectionTest extends ApiTestCase
     {
 
         $this->it_fetches_all(Section::class, 'sections');
-        
+
     }
 
     /** @test */
@@ -50,7 +50,7 @@ class SectionTest extends ApiTestCase
     {
 
         $this->it_400s(Section::class, 'sections');
-        
+
     }
 
     /** @test */
@@ -74,7 +74,7 @@ class SectionTest extends ApiTestCase
     {
 
         $this->it_405s(Section::class, 'sections');
-        
+
     }
 
 }

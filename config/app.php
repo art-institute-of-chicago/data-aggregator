@@ -176,7 +176,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
         Laravel\Scout\ScoutServiceProvider::class,
+        Cviebrock\LaravelElasticsearch\ServiceProvider::class, // To interface with ES--create index, add schema, query, etc.
+        App\Providers\ElasticsearchProvider::class // Elasticsearch Scout Engine, to keep ES in sync with Laravel
 
     ],
 
@@ -226,6 +229,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'Elasticsearch' => Cviebrock\LaravelElasticsearch\Facade::class,
 
     ],
 

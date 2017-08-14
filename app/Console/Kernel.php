@@ -15,6 +15,15 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\ImportCollectionsFull::class,
         Commands\ImportCollections::class,
+        Commands\ScoutImportOne::class,
+        Commands\ScoutImportAll::class,
+        Commands\ScoutFlushAll::class,
+        Commands\ScoutRefresh::class,
+        Commands\ScoutRefreshAll::class,
+        Commands\InstallSearch::class,
+        Commands\UninstallSearch::class,
+        Commands\ReindexSearch::class,
+        Commands\AliasSearch::class,
     ];
 
     /**

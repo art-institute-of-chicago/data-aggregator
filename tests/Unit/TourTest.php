@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Mobile\Tour;
-use App\Mobile\Sound;
+use App\Models\Mobile\Tour;
+use App\Models\Mobile\Sound;
 
 class TourTest extends ApiTestCase
 {
@@ -50,7 +50,7 @@ class TourTest extends ApiTestCase
     {
 
         $this->it_400s(Tour::class, 'tours');
-        
+
     }
 
     /** @test */
@@ -74,7 +74,7 @@ class TourTest extends ApiTestCase
     {
 
         $this->it_405s(Tour::class, 'tours');
-        
+
     }
-    
+
 }

@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Collections\Text;
+use App\Models\Collections\Text;
 
 class TextTest extends ApiTestCase
 {
@@ -41,7 +41,7 @@ class TextTest extends ApiTestCase
     {
 
         $this->it_400s(Text::class, 'texts');
-        
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class TextTest extends ApiTestCase
     {
 
         $this->it_405s(Text::class, 'texts');
-        
+
     }
-    
+
 }

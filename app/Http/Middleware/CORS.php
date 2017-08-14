@@ -18,7 +18,7 @@ class CORS
     {
 
         if (\App::environment('testing')) {
-            
+
             return $next($request);
 
         }

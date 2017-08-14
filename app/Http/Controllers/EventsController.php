@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Membership\Event;
+use App\Models\Membership\Event;
 use Illuminate\Http\Request;
 
 class EventsController extends ApiController
@@ -34,7 +34,7 @@ class EventsController extends ApiController
 
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many events. Please set a smaller limit.');
-        
+
         $all = Event::paginate($limit);
         return response()->collection($all, new \App\Http\Transformers\EventTransformer);
 
@@ -43,7 +43,7 @@ class EventsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Event  $event
+     * @param  \App\Models\Collections\Event  $event
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $eventId)
@@ -76,7 +76,7 @@ class EventsController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -85,13 +85,13 @@ class EventsController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = Event::find($ids);
         return response()->collection($all, new \App\Http\Transformers\EventTransformer);
-        
+
     }
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dsc\Section;
+use App\Models\Dsc\Section;
 use Illuminate\Http\Request;
 
 class SectionsController extends ApiController
@@ -42,7 +42,7 @@ class SectionsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dsc\Section  $dscId
+     * @param  \App\Models\Dsc\Section  $dscId
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $dscId)
@@ -75,7 +75,7 @@ class SectionsController extends ApiController
         {
             return $this->respondFailure();
         }
-        
+
     }
 
     public function showMutliple($ids = '')
@@ -84,13 +84,13 @@ class SectionsController extends ApiController
         $ids = explode(',',$ids);
         if (count($ids) > static::LIMIT_MAX)
         {
-            
+
             return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-            
+
         }
         $all = Section::find($ids);
         return response()->collection($all, new \App\Http\Transformers\SectionTransformer);
-        
+
     }
 
 }

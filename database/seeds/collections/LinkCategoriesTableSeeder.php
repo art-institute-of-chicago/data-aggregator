@@ -12,8 +12,8 @@ class LinkCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $links = App\Collections\Link::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $links = App\Models\Collections\Link::all()->all();
+        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($links as $link) {
 
@@ -22,7 +22,7 @@ class LinkCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

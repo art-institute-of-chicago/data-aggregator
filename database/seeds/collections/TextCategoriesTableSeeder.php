@@ -12,8 +12,8 @@ class TextCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $texts = App\Collections\Text::all()->all();
-        $categoryIds = App\Collections\Category::all()->pluck('lake_guid')->all();
+        $texts = App\Models\Collections\Text::all()->all();
+        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
 
         foreach ($texts as $text) {
 
@@ -22,7 +22,7 @@ class TextCategoriesTableSeeder extends Seeder
             }
 
         }
-        
+
     }
-    
+
 }

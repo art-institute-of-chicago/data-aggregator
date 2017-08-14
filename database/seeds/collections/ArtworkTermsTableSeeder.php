@@ -12,14 +12,14 @@ class ArtworkTermsTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Collections\Artwork::all()->all();
+        $artworks = App\Models\Collections\Artwork::all()->all();
 
         foreach ($artworks as $artwork) {
 
             $artwork->seedTerms();
 
         }
-        
+
     }
-    
+
 }

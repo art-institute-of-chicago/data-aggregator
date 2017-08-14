@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Membership\Member;
+use App\Models\Membership\Member;
 use Illuminate\Http\Request;
 
 class MembersController extends ApiController
@@ -11,7 +11,7 @@ class MembersController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Collections\Member  $member
+     * @param  \App\Models\Collections\Member  $member
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $memberId, $zip)
@@ -49,7 +49,7 @@ class MembersController extends ApiController
         {
             return $this->respondFailure($e->getMessage());
         }
-        
+
     }
 
 }
