@@ -48,9 +48,10 @@ class ApiController extends Controller
     public function isUuid($id)
     {
 
-        $uuidv3 = '/^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i';
+        // We must not be using UUIDv3, since the typical regex wasn't matching
+        $uuid = '/^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i';
 
-        if (preg_match($uuidv3, $id))
+        if (preg_match($uuid, $id))
         {
             return true;
         }
