@@ -29,6 +29,8 @@ class Artist extends Agent
     public function newInstance($attributes = [], $exists = false)
     {
 
+        // TODO: This fails if there's no AgentType w/ title of Artist
+        // TODO: LPM doesn't have an "Artist" AgentType. Artists are Agents who have Artwork.creator_id assoc.
         $model = parent::newInstance($attributes, $exists);
         $model->agentType()->associate(\App\Models\Collections\AgentType::where('title', 'Artist')->first());
         return $model;
