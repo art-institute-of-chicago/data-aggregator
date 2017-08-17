@@ -139,7 +139,7 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function getFillFieldsFrom($source)
+    public function getFillFieldsFrom($source, $fake = true)
     {
 
         return [
@@ -157,12 +157,12 @@ class Artwork extends CollectionsModel
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
             'provenance' => $source->provenance,
-            'description' => 'fake ' .$this->faker->paragraphs(5, true),
-            'publishing_verification_level' => 'fake ' .$this->faker->randomElement(['Web Basic', 'Web Cataloged', 'Web Everything']),
-            'is_public_domain' => $this->faker->boolean,
+            'description' => $fake ? 'fake ' .$this->faker->paragraphs(5, true) : null,
+            'publishing_verification_level' => $fake ? 'fake ' .$this->faker->randomElement(['Web Basic', 'Web Cataloged', 'Web Everything']) : null,
+            'is_public_domain' => $fake ? $this->faker->boolean : null,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
-            'place_of_origin' => 'fake ' .$this->faker->country,
-            'collection_status' => 'fake ' .$this->faker->randomElement(['Permanent Collection', 'Long-term Loan']),
+            'place_of_origin' => $fake ? 'fake ' .$this->faker->country : null,
+            'collection_status' => $fake ? 'fake ' .$this->faker->randomElement(['Permanent Collection', 'Long-term Loan']) : null,
             'department_citi_id' => $source->department_id,
             //'object_type_citi_id' => ,
             //'gallery_citi_id' => ,
@@ -173,7 +173,7 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function attachFrom($source)
+    public function attachFrom($source, $fake = true)
     {
 
         if ($source->creator_id)
@@ -213,13 +213,15 @@ class Artwork extends CollectionsModel
         // $source->document_guids
 
         // @TODO Replace with real endpoints when they become available
-        $this->seedCopyrightRepresentatives();
-        $this->seedCommittees();
-        $this->seedTerms();
-        $this->seedDates();
-        $this->seedCatalogues();
-        $this->seedImages();
-        //$this->seedParts();
+        if( $fake ) {
+            $this->seedCopyrightRepresentatives();
+            $this->seedCommittees();
+            $this->seedTerms();
+            $this->seedDates();
+            $this->seedCatalogues();
+            $this->seedImages();
+            //$this->seedParts();
+        }
 
         // update artworks with gallery id and object type id
 

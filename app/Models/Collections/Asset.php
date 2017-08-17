@@ -39,7 +39,7 @@ class Asset extends CollectionsModel
 
     }
 
-    public function attachFrom($source)
+    public function attachFrom($source, $fake = true)
     {
 
         if ($source->artist_id)
