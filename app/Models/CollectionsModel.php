@@ -16,7 +16,7 @@ class CollectionsModel extends BaseModel
 
 
     /**
-     * Create a new model instance. Also instantiates a $faker class. 
+     * Create a new model instance. Also instantiates a $faker class.
      *
      * @param  array  $attributes
      * @return void
@@ -144,12 +144,13 @@ class CollectionsModel extends BaseModel
      * system.
      *
      * @param  \App\Models\CollectionsModel  $source
+     * @param  bool  $fake
      * @return $this
      */
-    public function fillFrom($source)
+    public function fillFrom($source, $fake = true)
     {
         $this->fillIdsAndTitleFrom($source)
-            ->fill($this->getFillFieldsFrom($source))
+            ->fill($this->getFillFieldsFrom($source, $fake))
             ->fillDatesFrom($source);
 
         return $this;
@@ -178,7 +179,7 @@ class CollectionsModel extends BaseModel
      * @param  \App\Models\CollectionsModel  $source
      * @return $this
      */
-    public function attachFrom($source)
+    public function attachFrom($source, $fake = true)
     {
 
         return $this;

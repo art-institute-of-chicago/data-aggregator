@@ -127,30 +127,33 @@ class ImportCollectionsFull extends Command
 
         $class = \App\Models\CollectionsModel::classFor($endpoint);
 
+        // Abort if the table is already filled
         $resources = call_user_func($class .'::all');
-        if ($resources->isEmpty())
+        if (!$resources->isEmpty())
         {
-            $json = $this->query($endpoint, $current);
-            $pages = $json->pagination->pages->total;
+            return false;
+        }
 
-            while ($current <= $pages)
+        // Query for the first page + get page count
+        $json = $this->query($endpoint, $current);
+        $pages = $json->pagination->pages->total;
+
+        while ($current <= $pages)
+        {
+
+            foreach ($json->data as $source)
             {
 
-                foreach ($json->data as $source)
-                {
+                $resource = call_user_func($class .'::findOrCreate', $source->id);
 
-                    $resource = call_user_func($class .'::findOrCreate', $source->id);
-
-                    $resource->fillFrom($source);
-                    $resource->attachFrom($source);
-                    $resource->save();
-
-                }
-
-                $current++;
-                $json = $this->query($endpoint, $current);
+                $resource->fillFrom($source);
+                $resource->attachFrom($source);
+                $resource->save();
 
             }
+
+            $current++;
+            $json = $this->query($endpoint, $current);
 
         }
 
