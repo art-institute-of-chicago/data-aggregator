@@ -184,7 +184,13 @@ class Artwork extends CollectionsModel
 
         }
 
-        // $source->image_guid
+        if ($source->image_guid)
+        {
+            $image = Image::findOrCreate($source->image_guid);
+            $image->preferred = true;
+            $this->images()->save($image);
+        }
+
 
         if ($source->department_id)
         {
@@ -341,6 +347,10 @@ class Artwork extends CollectionsModel
 
             $preferred = $hasPreferred ? false : $this->faker->boolean;
 
+            // TODO: Problem! What if the image depicts multiple artworks?
+            // This architecture means it would have to be the preferred one for all of them!
+            // Potentially consider specifying `preferred` column on the pivot table?
+            // https://laravel.com/docs/5.4/eloquent-relationships#many-to-many
             $image = factory(\App\Models\Collections\Image::class)->make([
                 'preferred' => $preferred,
             ]);

@@ -64,6 +64,13 @@ class Asset extends CollectionsModel
 
         return array_merge(
             [
+                // @TODO Make Images non-assets on CDS and DA? Currently, these transformations aren't defensive,
+                // i.e. if these fields are missing from the CDS response, this will throw an error.
+
+                // Potential defensive approach:
+                // 'description' => isset( $this->description ) ? $this->description : null,
+                // 'content' => isset( $this->content ) ? $this->content : null,
+
                 'description' => $this->description,
                 'content' => $this->content,
                 // @TODO Review whether to default to empty string or null. Solr indexes null as empty string!
