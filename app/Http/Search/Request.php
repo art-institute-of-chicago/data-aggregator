@@ -2,29 +2,11 @@
 
 namespace App\Http\Search;
 
-use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Input;
 use App\Models\Collections\Artwork;
 
 class Request
 {
-
-
-    /**
-     * Incoming HTTP request
-     *
-     * @var HttpRequest
-     */
-    public $httpRequest;
-
-
-    /**
-     * Submitted input values
-     *
-     * @var array
-     */
-    public $input;
-
 
     /**
      * The name of the index we will be querying.
@@ -35,75 +17,154 @@ class Request
 
 
     /**
+     * List of allowed Input params for querying.
+     *
+     * @var array
+     */
+    private static $allowed = [
+
+        // TODO: `type` handling
+
+        // Required: we must know the core search string
+        // We use `q` b/c it won't cause UnexpectedValueException, if the user uses an official ES Client
+        'q',
+
+        // Complex query mode
+        'query',
+        'sort',
+
+        // Pagination-related stuff
+        // TODO: Match Laravel's pagination conventions?
+        'from',
+        'size',
+
+        // Currently unsupported by the official ES PHP Client
+        // 'search_after',
+
+        // Choose which fields to return
+        '_source',
+
+        // Fields to use for aggregations
+        'facets',
+
+        // TODO: Hide implementation by combining _source w/ other fields?
+        // Note that _source supports wildcards, while the others do not
+        // 'fields', // old convention
+        // 'stored_fields',
+        // 'docvalue_fields',
+
+    ];
+
+
+    /**
+     * List of valid, indexed types.
+     *
+     * @var array
+     */
+    private static $types = [
+        'artworks',
+        'agents',
+        'departments',
+
+    ];
+
+
+    /**
      * Create a new request instance.
      *
      * @return void
      */
-    public function __construct(HttpRequest $httpRequest)
+    public function __construct()
     {
-        $this->httpRequest = $httpRequest;
         $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
     }
 
 
     /**
-     * List of allowed Input params for querying.
+     * These params will be applied to all queries.
      *
      * @return array
      */
-    public function allowed()
-    {
+    public function getBaseParams( ) {
 
         return [
+            'index' => $this->index,
+            'type' => $this->getType(),
+        ];
 
-            // TODO: `type` handling
+    }
 
-            // Required: we must know the core search string
-            // We use `q` b/c it won't cause UnexpectedValueException, if the user uses an official ES Client
-            'q',
+    /**
+     * Build the basic scaffolding used by all ES queries.
+     *
+     * @return array
+     */
+    public function getSearchParams(  ) {
 
-            // Complex query mode
-            'query',
-            'sort',
+        // Strip down the (top-level) params to what our thin client supports
+        $input = self::getValidInput();
 
-            // Pagination-related stuff
-            // TODO: Match Laravel's pagination conventions?
-            'from',
-            'size',
+        $params = array_merge(
+            $this->getBaseParams(),
+            $this->getPaginationParams( $input )
+        );
 
-            // Currently unsupported by the official ES PHP Client
-            // 'search_after',
+        // This is the canonical body structure. It is required.
+        // Various
+        $params['body'] = [
 
-            // Choose which fields to return
-            '_source',
-
-            // Fields to use for aggregations
-            'facets',
-
-            // TODO: Hide implementation by combining _source w/ other fields?
-            // Note that _source supports wildcards, while the others do not
-            // 'fields', // old convention
-            // 'stored_fields',
-            // 'docvalue_fields',
+            // TODO: Don't send a query for autocomplete search
+            'query' => [
+                'bool' => [
+                    'must' => [],
+                    'should' => [],
+                ],
+            ],
 
         ];
+
+
+        if( is_null( $input['q'] ) ) {
+
+            // Empy search requires special handling, e.g. no suggestions
+            $params = $this->addEmptySearchParams( $params );
+
+        } else {
+
+            if( is_null( $input['query'] ) ) {
+
+                $params = $this->addSimpleSearchParams( $params, $input );
+
+            } else {
+
+                $params = $this->addFullSearchParams( $params, $input );
+
+            }
+
+            // Both `query` and `q`-only searches support suggestions
+            $params = $this->addSuggestParams( $params, $input );
+
+        }
+
+        // Add Aggregations (facets)
+        $params = $this->addAggregationParams( $params, $input );
+
+
+        return $params;
 
     }
 
 
     /**
-     * The type of Elasticsearch search
+     * Determine which `type` to search (e.g. `artworks`).
+     *
+     * If type is `null`, search will include all types.
      *
      * @return string
      */
-    public function type() {
+    public function getType() {
 
-        if ($this->httpRequest->segment(3) != 'search')
-        {
-
-            return $this->httpRequest->segment(3);
-
-        }
+        dd(action('Search\SearchController@search'));
 
         return null;
 
@@ -113,192 +174,39 @@ class Request
     /**
      * Strip down the (top-level) params to what our thin client supports.
      *
+     * Allowed-but-omitted params are added as `null`
+     *
      * @return array  Parsed out input values
      */
-    public function validInput() {
+    public static function getValidInput(  ) {
 
-        return $this->httpRequest->only($this->allowed());
+        // List of allowed user-specified params
+        $allowed = self::$allowed;
 
-    }
+        // `null` will be the default value for all params
+        $defaults = array_fill_keys( $allowed, null );
 
+        // Grab all user input (query string params or json)
+        $input = Input::all();
 
-    /**
-     * Build the basic scaffolding used by all ES queries.
-     *
-     * @return array  An Elasticsearch query params array
-     */
-    public function params() {
+        // Reduce the input set to the params we allow
+        $input = array_intersect_key( $input, array_flip( $allowed ) );
 
-        $input = $this->validInput();
+        // Combine $defaults and $input: we won't have to use is_set, only is_null
+        $input = array_merge( $defaults, $input );
 
-        $params = $this->baseParams($input);
-
-        $params['body'] = [
-            'query' => [
-                'bool' => [
-                    'must' => $this->must($input),
-                    'should' => $this->should($input),
-                ],
-            ],
-            'suggest' => $this->suggest($input),
-            'aggregations' => $this->aggregations($input),
-        ];
-
-        return $params;
+        return $input;
 
     }
 
 
-    /**
-     * Build the basic scaffolding used by all ES queries.
-     *
-     * @return array  An Elasticsearch query params array
-     */
-    public function autocompleteParams() {
+    private function getPaginationParams( $input ) {
 
-        $input = $this->validInput();
-
-        $params = $this->baseParams($input);
-
-        $params['body'] = [
-            'suggest' => $this->autocompleteSuggest($input),
-        ];
-
-        return $params;
-
-    }
-
-
-    /**
-     * Construct user-specified queries
-     *
-     * @param $input array Parsed out user input
-     * @return array  An Elasticsearch must query params array
-     */
-    public function must(array $input)
-    {
-
-        $must = [];
-        if( is_null( $input['q'] ) ) {
-
-            $must = array_merge($must, $this->emptyParams());
-
-        } else {
-
-            if( is_null( $input['query'] ) ) {
-
-                $must = array_merge($must, $this->simpleParams( $input ));
-
-            } else {
-
-                $must = array_merge($must, $this->fullParams( $input ));
-
-            }
-
-        }
-
-        return $must;
-
-    }
-
-
-    /**
-     * Boost essential works
-     *
-     * @param $input array Parsed out user input
-     * @return array  An Elasticsearch should query params array
-     */
-    public function should(array $input)
-    {
-
-        return [
-            'terms' => [
-                'id' => Artwork::getEssentialIds()
-            ]
-        ];
-
-    }
-
-
-    /**
-     * Construct suggest parameters.
-     * Both `query` and `q`-only searches support suggestions.
-     *
-     * @param $input array Parsed out user input
-     * @return array  An Elasticsearch suggest params array
-     */
-    public function suggest(array $input)
-    {
-
-        $suggest = [];
-
-        if( !is_null( $input['q'] ) ) {
-
-            $suggest = array_merge(
-                [
-
-                    'text' => $input['q'],
-
-                ],
-                $this->autocompleteSuggest($input),
-                $this->phraseSuggest()
-            );
-
-        }
-
-        return $suggest;
-
-    }
-
-
-    /**
-     * Construct aggregation parameters.
-     *
-     * @return array  An Elasticsearch aggregations params array
-     */
-    public function aggregations(array $input)
-    {
-
-        $facets = ['api_model'];
-        if ($input['facets'])
-        {
-
-            $facets = explode(',',$input['facets']);
-
-        }
-
-        $aggs = [];
-
-        foreach ($facets as $f)
-        {
-
-            $aggs['count_' .$f] = [
-                'terms' => [
-                    'field' => $f
-                ]
-            ];
-
-        }
-
-
-        return $aggs;
-
-    }
-
-
-    /**
-     * Get the base search params that are shared across all queries
-     *
-     * @return array  An Elasticsearch query params array
-     */
-    private function baseParams($input)
-    {
+        // TODO: Convert Laravel's pagination into ES params
 
         return [
 
-            'index' => $this->index,
-            'type' => $this->type(),
-
+            // TODO: Determine if this interferes w/ an autocomplete-only search
             'from' => $input['from'],
             'size' => $input['size'],
 
@@ -316,22 +224,24 @@ class Request
      *
      * @return array  An Elasticsearch query params array
      */
-    private function emptyParams() {
+    private function addEmptySearchParams( $params ) {
 
         // PHP JSON-encodes empty array as [], not {}
-        return [
+        $params['body']['query']['bool']['must'][] = [
             'match_all' => new \stdClass()
         ];
+
+        return $params;
 
     }
 
 
     /**
-     * Get the search params for a simple search
+     * Append the search params for a simple search
      *
      * @return array  An Elasticsearch query params array
      */
-    private function simpleParams( $input ) {
+    private function addSimpleSearchParams( $params, $input ) {
 
         // TODO: Determine if defaults for `fuzziness` and `prefix_length` are sufficient
         // https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.htm
@@ -339,7 +249,7 @@ class Request
         // TODO: Determine which fields to query w/ is_numeric()?
         // See also `lenient` param
 
-        return [
+        $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
                 'query' => $input['q'],
                 'fuzziness' => 3,
@@ -350,6 +260,8 @@ class Request
             ]
         ];
 
+        return $params;
+
     }
 
 
@@ -358,12 +270,59 @@ class Request
      *
      * @return array  An Elasticsearch query params array
      */
-    private function fullParams( $input ) {
+    private function addFullSearchParams( $params, $input ) {
 
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
+        $params['body']['query']['bool']['must'][] = [
+            $input['query'],
+        ];
 
-        return $input['query'];
+        return $params;
+
+    }
+
+
+    /**
+     * Boost essential works
+     *
+     * @param $input array Parsed out user input
+     * @return array  An Elasticsearch should query params array
+     */
+    public function addRelevancyParams( array $input )
+    {
+
+        $params['body']['query']['bool']['should'][] = [
+            'terms' => [
+                'id' => Artwork::getEssentialIds()
+            ]
+        ];
+
+        return $params;
+
+    }
+
+
+    /**
+     * Construct suggest parameters.
+     *
+     * Both `query` and `q`-only searches support suggestions.
+     * Empty searches do not support suggestions.
+     *
+     * @param $input array Parsed out user input
+     * @return array  An Elasticsearch suggest params array
+     */
+    public function addSuggestParams( array $params, array $input )
+    {
+
+        $params['body']['suggest'] = [
+            'text' => $input['q'],
+        ];
+
+        $params = $this->addAutocompleteSuggestParams( $params, $input );
+        $params = $this->addPhraseSuggestParams( $params, $input );
+
+        return $params;
 
     }
 
@@ -373,52 +332,91 @@ class Request
      *
      * @return array  One element of an Elasticsearch suggest params array
      */
-    private function autocompleteSuggest(array $input)
+    private function addAutocompleteSuggestParams( $params, array $input)
     {
-        return [
+
+        $params['body']['suggest']['autocomplete'] = [
             'text' => $input['q'],
-            'autocomplete' =>[
-                'prefix' =>  $input['q'],
-                'completion' => [
-                    'field' => 'suggest_autocomplete',
-                ],
+            'prefix' =>  $input['q'],
+            'completion' => [
+                'field' => 'suggest_autocomplete',
             ],
         ];
+
+        return $params;
+
     }
+
 
     /**
      * Get the phrase suggest params
      *
      * @return array  One element of an Elasticsearch suggest params array
      */
-    private function phraseSuggest()
+    private function addPhraseSuggestParams( $params )
     {
 
-        return [
-            'phrase-suggest' => [
-                'phrase' => [
-                    'field' => 'suggest_phrase.trigram',
-                    'gram_size' => 3,
-                    'direct_generator' => [
-                        [
-                            'field' => 'suggest_phrase.trigram',
-                            'suggest_mode' => 'always'
-                        ],
-                        [
-                            'field' => 'suggest_phrase.reverse',
-                            'suggest_mode' => 'always',
-                            'pre_filter' => 'reverse',
-                            'post_filter' => 'reverse'
-                        ],
+        $params['body']['suggest']['phrase-suggest'] = [
+            'phrase' => [
+                'field' => 'suggest_phrase.trigram',
+                'gram_size' => 3,
+                'direct_generator' => [
+                    [
+                        'field' => 'suggest_phrase.trigram',
+                        'suggest_mode' => 'always'
                     ],
-                    'highlight' => [
-                        'pre_tag' => '<em>',
-                        'post_tag' => '</em>'
+                    [
+                        'field' => 'suggest_phrase.reverse',
+                        'suggest_mode' => 'always',
+                        'pre_filter' => 'reverse',
+                        'post_filter' => 'reverse'
                     ],
+                ],
+                'highlight' => [
+                    'pre_tag' => '<em>',
+                    'post_tag' => '</em>'
                 ],
             ],
         ];
 
+        return $params;
+
     }
+
+
+    /**
+     * Construct aggregation parameters.
+     *
+     * @return array  An Elasticsearch aggregations params array
+     */
+    public function addAggregationParams( $params, array $input )
+    {
+
+        // If the user did not specify a facet parameter, facet by model
+        $facets = $input['facets'] ? explode(',', $input['facets']) : ['api_model'];
+
+        $aggregations = [];
+
+        foreach ($facets as $facet)
+        {
+
+            $aggregations['count_' . $facet] = [
+                'terms' => [
+                    'field' => $facet
+                ]
+            ];
+
+        }
+
+        // Official ES PHP Client is behind the times
+        // https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/_per_request_configuration.html#_providing_custom_query_parameters
+        // $params['client']['custom']['aggregations'] = $aggregations;
+
+        $params['body']['aggregations'] = $aggregations;
+
+        return $params;
+
+    }
+
 
 }

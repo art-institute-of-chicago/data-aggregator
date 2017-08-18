@@ -7,46 +7,45 @@ use Illuminate\Support\Facades\Input;
 class Response
 {
 
-    public $httpResponse;
-    public $simple = true;
+    public $searchResponse;
 
     /**
      * Create a new request instance.
      *
      * @return void
      */
-    public function __construct(array $httpResponse)
+    public function __construct(array $searchResponse)
     {
-        $this->httpResponse = $httpResponse;
+        $this->searchResponse = $searchResponse;
     }
 
     public function response()
     {
 
-        $response = array_merge([],
-                                $this->total(),
-                                $this->data());
+        $response = array_merge(
+            $this->total(),
+            $this->data()
+        );
 
-        if (!$this->simple)
-        {
+        $response = array_merge(
+            $response,
+            $this->suggest()
+        );
 
-            $response = array_merge($response,
-                                    $this->suggest());
-
-        }
-
-        $response = array_merge($response,
-                                $this->aggregate());
+        $response = array_merge(
+            $response,
+            $this->aggregate()
+        );
 
         return $response;
 
     }
-    
+
     public function total()
     {
 
         return [
-            'total' => $this->httpResponse['hits']['total'],
+            'total' => $this->searchResponse['hits']['total'],
         ];
 
     }
@@ -56,7 +55,7 @@ class Response
     {
 
         // Reduce to just the _source objects
-        $hits = $this->httpResponse['hits']['hits'];
+        $hits = $this->searchResponse['hits']['hits'];
         $results = [];
 
         foreach( $hits as $hit ) {
@@ -83,12 +82,15 @@ class Response
     {
 
         $suggest = [];
-        $options = array_get($this->httpResponse, 'suggest.autocomplete.0.options');
+
+        $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
+
         if ($options) {
             $suggest['autocomplete'] = array_pluck($options, 'text');
         }
 
-        $options = array_get($this->httpResponse, 'suggest.phrase-suggest.0.options');
+        $options = array_get($this->searchResponse, 'suggest.phrase-suggest.0.options');
+
         if ($options) {
             $suggest['phrase'] = array_pluck($options, 'highlighted');
         }
@@ -109,7 +111,7 @@ class Response
 
         $aggs = [];
 
-        foreach (array_get($this->httpResponse, 'aggregations') as $count => $data)
+        foreach (array_get($this->searchResponse, 'aggregations') as $count => $data)
         {
 
             $aggs[$count] = $data['buckets'];
