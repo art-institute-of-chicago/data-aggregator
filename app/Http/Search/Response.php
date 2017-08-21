@@ -3,27 +3,34 @@
 namespace App\Http\Search;
 
 use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Response
 {
 
     public $searchResponse;
 
+    public $searchParams;
+
     /**
      * Create a new request instance.
      *
+     * @param array $searchResponse Response as it came back from Elasitcsearch
+     * @param array $searchParams Params passed to Elasticsearch
+     *
      * @return void
      */
-    public function __construct(array $searchResponse)
+    public function __construct(array $searchResponse, array $searchParams)
     {
         $this->searchResponse = $searchResponse;
+        $this->searchParams = $searchParams;
     }
 
     public function response()
     {
 
         $response = array_merge(
-            $this->total(),
+            $this->paginate(),
             $this->data()
         );
 
@@ -41,11 +48,28 @@ class Response
 
     }
 
-    public function total()
+    // TODO: Implement actual pagination?
+    // TODO: (Probably) move this to controller or pass `from` and `size` to here
+    public function paginate()
     {
 
+        $paginator = new LengthAwarePaginator(
+            $this->searchResponse['hits']['hits'],
+            $this->searchResponse['hits']['total'],
+            $this->searchParams['size'] ?: 10
+
+        );
+
+        $pagination = [
+            'total' => $paginator->total(),
+            'limit' => (int) $paginator->perPage(),
+            'offset' => (int) $paginator->perPage() * ( $paginator->currentPage() - 1 ),
+            'total_pages' => $paginator->lastPage(),
+            'current_page' => $paginator->currentPage(),
+        ];
+
         return [
-            'total' => $this->searchResponse['hits']['total'],
+            'pagination' => $pagination
         ];
 
     }
@@ -54,20 +78,24 @@ class Response
     public function data()
     {
 
-        // Reduce to just the _source objects
         $hits = $this->searchResponse['hits']['hits'];
         $results = [];
 
+        // Reduce to just the _source objects
         foreach( $hits as $hit ) {
-            $results[] = [
-                '_score' => $hit['_score'],
-                'id' => $hit['_source']['id'],
-                'api_id' => $hit['_source']['api_id'],
-                'api_model' =>$hit['_source']['api_model'],
-                'api_link' => $hit['_source']['api_link'],
-                'title' => $hit['_source']['title'],
-                'timestamp' => $hit['_source']['timestamp'],
+
+            $result = [
+                '_score' => $hit['_score']
             ];
+
+            // Avoid filtering fields here: filter fields via `_source` in Request instead
+            // This will reduce AWS ES load - it won't need to return as much data
+            // Note that `_source` might be undefined if `_source` was set to false in Request
+            if( isset( $hit['_source'] ) ) {
+                $result = array_merge( $result, $hit['_source'] );
+            }
+
+            $results[] = $result;
 
         }
 
@@ -109,9 +137,16 @@ class Response
     public function aggregate()
     {
 
+        $results = array_get($this->searchResponse, 'aggregations');
+
+        // Exit out of there are no aggregations returned
+        if( is_null( $results ) ) {
+            return [];
+        }
+
         $aggs = [];
 
-        foreach (array_get($this->searchResponse, 'aggregations') as $count => $data)
+        foreach ( $results as $count => $data)
         {
 
             $aggs[$count] = $data['buckets'];

@@ -40,12 +40,42 @@ class SearchController extends Controller
      *
      * @return void
      */
-    public function search(HttpRequest $httpRequest)
+    public function search(HttpRequest $httpRequest, $type = null)
     {
 
-        $searchRequest = new SearchRequest( $httpRequest );
+        $searchRequest = new SearchRequest( $type );
 
         $params = $searchRequest->getSearchParams();
+
+        $searchResponse = $this->query( $params );
+
+        return $this->respond( $searchResponse, $params );
+
+    }
+
+
+    public function autocomplete(HttpRequest $httpRequest, $type = null)
+    {
+
+        $searchRequest = new SearchRequest( $type );
+
+        $params = $searchRequest->getAutocompleteParams();
+
+        $searchResponse = $this->query( $params );
+
+        return $this->respond( $searchResponse, $params );
+
+    }
+
+
+    /**
+     * Perform the query against Elasticsearch endpoint
+     *
+     * @param array $params
+     * @return array  The Elasticsearch response
+     */
+    private function query( array $params )
+    {
 
         try {
 
@@ -57,21 +87,7 @@ class SearchController extends Controller
 
         }
 
-        return $this->response($searchResponse);
-
-    }
-
-
-    /**
-     * Perform the search against ES endpoint
-     *
-     * @param HttpRequest  The incoming request to this controller
-     * @return array  The Elasticsearch response
-     */
-    private function request(HttpRequest $httpRequest, $params = [])
-    {
-
-        return response()->json( $params );
+        return $searchResponse;
 
     }
 
@@ -79,36 +95,16 @@ class SearchController extends Controller
     /**
      * Parse the response from the search against ES enpoint
      *
-     * @param array  The response as it came back from Elasitcsearch
+     * @param array $searchResponse The response as it came back from Elasitcsearch
      * @return array  An API-friendly response array
      */
-    private function response(array $response, $is_empty = false)
+    private function respond( array $searchResponse, array $params )
     {
 
-        $resp = new SearchResponse($response);
+        $data = ( new SearchResponse( $searchResponse, $params ) )->response();
 
-        return $resp->response();
+        return $data;
 
-    }
-
-
-    /**
-     * Decide if the incoming request is an empty search
-     *
-     * @param HttpRequest  The incoming request to this controller
-     * @return boolean
-     */
-    private function isEmptySearch($httpRequest)
-    {
-
-        $input = SearchRequest::getValidInput( $httpRequest );
-
-        if( !is_null( $input['q'] ) )
-        {
-            return false;
-        }
-
-        return true;
     }
 
 

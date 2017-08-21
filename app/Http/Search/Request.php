@@ -15,6 +15,12 @@ class Request
      */
     protected $index;
 
+    /**
+     * The Elasticsearch type (model) we will be querying.
+     *
+     * @var string
+     */
+    protected $type = null;
 
     /**
      * List of allowed Input params for querying.
@@ -33,10 +39,13 @@ class Request
         'query',
         'sort',
 
-        // Pagination-related stuff
-        // TODO: Match Laravel's pagination conventions?
+        // Pagination via Elasticsearch conventions
         'from',
         'size',
+
+        // Pagination via Laravel conventions
+        'page',
+        'limit',
 
         // Currently unsupported by the official ES PHP Client
         // 'search_after',
@@ -57,15 +66,17 @@ class Request
 
 
     /**
-     * List of valid, indexed types.
+     * Default fields to return.
      *
      * @var array
      */
-    private static $types = [
-        'artworks',
-        'agents',
-        'departments',
-
+    private static $defaultFields = [
+        'id',
+        'api_id',
+        'api_model',
+        'api_link',
+        'title',
+        'timestamp',
     ];
 
 
@@ -74,9 +85,10 @@ class Request
      *
      * @return void
      */
-    public function __construct()
+    public function __construct( $type = null )
     {
         $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
+        $this->type = $type;
     }
 
 
@@ -89,10 +101,38 @@ class Request
 
         return [
             'index' => $this->index,
-            'type' => $this->getType(),
+            'type' => $this->type,
         ];
 
     }
+
+
+    /**
+     * Build the basic scaffolding used by all ES queries.
+     *
+     * @return array
+     */
+    public function getAutocompleteParams( ) {
+
+        // Strip down the (top-level) params to what our thin client supports
+        $input = self::getValidInput();
+
+        // TODO: Handle case where no `q` param is present?
+        if( is_null( $input['q'] ) ) {
+            return [];
+        }
+
+        $params = array_merge(
+            $this->getBaseParams()
+        );
+
+        // Both `query` and `q`-only searches support suggestions
+        $params = $this->addSuggestParams( $params, $input );
+
+        return $params;
+
+    }
+
 
     /**
      * Build the basic scaffolding used by all ES queries.
@@ -106,6 +146,7 @@ class Request
 
         $params = array_merge(
             $this->getBaseParams(),
+            $this->getFieldParams( $input ),
             $this->getPaginationParams( $input )
         );
 
@@ -113,7 +154,6 @@ class Request
         // Various
         $params['body'] = [
 
-            // TODO: Don't send a query for autocomplete search
             'query' => [
                 'bool' => [
                     'must' => [],
@@ -156,38 +196,22 @@ class Request
 
 
     /**
-     * Determine which `type` to search (e.g. `artworks`).
-     *
-     * If type is `null`, search will include all types.
-     *
-     * @return string
-     */
-    public function getType() {
-
-        dd(action('Search\SearchController@search'));
-
-        return null;
-
-    }
-
-
-    /**
      * Strip down the (top-level) params to what our thin client supports.
      *
      * Allowed-but-omitted params are added as `null`
      *
      * @return array  Parsed out input values
      */
-    public static function getValidInput(  ) {
+    public static function getValidInput( array $input = null ) {
+
+        // Grab all user input (query string params or json)
+        $input = $input ?: Input::all();
 
         // List of allowed user-specified params
         $allowed = self::$allowed;
 
         // `null` will be the default value for all params
         $defaults = array_fill_keys( $allowed, null );
-
-        // Grab all user input (query string params or json)
-        $input = Input::all();
 
         // Reduce the input set to the params we allow
         $input = array_intersect_key( $input, array_flip( $allowed ) );
@@ -203,16 +227,32 @@ class Request
     private function getPaginationParams( $input ) {
 
         // TODO: Convert Laravel's pagination into ES params
+        $size = $input['size'] ?: $input['limit'] ?: null;
+        $from = $input['from'] ?: $input['page'] ? $input['page'] * $size : null;
 
         return [
 
             // TODO: Determine if this interferes w/ an autocomplete-only search
-            'from' => $input['from'],
-            'size' => $input['size'],
+            'from' => $from,
+            'size' => $size,
 
             // TODO: Re-enable this once the official ES PHP Client supports it
             // 'search_after' => $input['search_after'],
 
+        ];
+
+    }
+
+
+    /**
+     * Determine which fields to return. Set `_source` to `true` to return all.
+     *
+     * @return array  An Elasticsearch query params array
+     */
+    private function getFieldParams( $input ) {
+
+        return [
+            '_source' => $input['_source'] ?: self::$defaultFields,
         ];
 
     }
