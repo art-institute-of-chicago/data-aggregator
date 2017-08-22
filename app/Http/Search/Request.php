@@ -230,13 +230,21 @@ class Request
 
     private function getPaginationParams( $input ) {
 
-        // TODO: Convert Laravel's pagination into ES params
-        $size = $input['size'] ?: ( $input['limit'] ?: null );
-        $from = $input['from'] ?: ( $input['page'] ? $input['page'] * $size : null );
+        // Elasticsearch params take precedence
+        $size = isset( $input['size'] ) ? $input['size'] : null;
+        $from = isset( $input['from'] ) ? $input['from'] : null;
+
+        // If that doesn't work, attempt to convert Laravel's pagination into ES params
+        isset( $size ) ?: $size = isset( $input['limit'] ) ? $input['size'] : null;
+        isset( $from ) ?: $from = isset( $input['page'] ) ? $input['page'] * $size : null;
 
         // If not null, cast these params to int
         if( isset( $size ) ) { $size = (int) $size; }
         if( isset( $from ) ) { $from = (int) $from; }
+
+        // We are using isset() instead of normal ternary to avoid catching `0` as falsey
+        // PHP 7 allows the "null coalescing operator"  - `??` - which serves the same role
+        // https://stackoverflow.com/questions/18603250/php-shorthand-for-isset
 
         return [
 
