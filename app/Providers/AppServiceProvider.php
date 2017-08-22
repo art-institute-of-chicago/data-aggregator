@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
                 $paginator = [
                     'total' => $collection->total(),
                     'limit' => (int) $collection->perPage(),
-                    'offset' => $collection->currentPage() - 1,
+                    'offset' => (int) $collection->perPage() * ( $collection->currentPage() - 1 ),
                     'total_pages' => $collection->lastPage(),
                     'current_page' => $collection->currentPage(),
                 ];
