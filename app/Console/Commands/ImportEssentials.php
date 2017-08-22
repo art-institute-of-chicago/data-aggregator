@@ -39,13 +39,17 @@ class ImportEssentials extends Command
     {
 
         // Return false if the user bails out
-        if (!$this->confirm("WARNING: Running this will reset your database! Are you sure?"))
+        if (!$this->confirm("DANGER: Running this will reset your database and search index! Are you sure?"))
         {
             return false;
         }
 
         // Truncate all tables
         $this->call("migrate:refresh");
+
+        // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
+        $this->call("search:uninstall");
+        $this->call("search:install");
 
         // These hold parsed responses from the server
         $images = [];

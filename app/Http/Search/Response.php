@@ -7,46 +7,76 @@ use Illuminate\Support\Facades\Input;
 class Response
 {
 
-    public $httpResponse;
-    public $simple = true;
+    public $searchResponse;
+
+    public $searchParams;
 
     /**
      * Create a new request instance.
      *
+     * @param array $searchResponse Response as it came back from Elasitcsearch
+     * @param array $searchParams Params passed to Elasticsearch
+     *
      * @return void
      */
-    public function __construct(array $httpResponse)
+    public function __construct(array $searchResponse, array $searchParams)
     {
-        $this->httpResponse = $httpResponse;
+        $this->searchResponse = $searchResponse;
+        $this->searchParams = $searchParams;
     }
+
 
     public function response()
     {
 
-        $response = array_merge([],
-                                $this->total(),
-                                $this->data());
+        $response = array_merge(
+            $this->paginate(),
+            $this->data()
+        );
 
-        if (!$this->simple)
-        {
+        $response = array_merge(
+            $response,
+            $this->suggest()
+        );
 
-            $response = array_merge($response,
-                                    $this->suggest());
+        $response = array_merge(
+            $response,
+            $this->aggregate()
+        );
 
-        }
-
-        $response = array_merge($response,
-                                $this->aggregate());
+        $response = array_merge(
+            [
+                'preference' => $this->searchParams['preference'],
+            ],
+            $response
+        );
 
         return $response;
 
     }
-    
-    public function total()
+
+
+    public function paginate()
     {
 
+        // LengthAwarePaginator has trouble here
+        $total = $this->searchResponse['hits']['total'];
+        $limit = $this->searchParams['size'] ?: 10;
+        $offset = $this->searchParams['from'] ?: 0;
+
+        $total_pages = ceil( $total / $limit );
+        $current_page = floor( $offset / $limit ) + 1;
+
+        $pagination = [
+            'total' => $total,
+            'limit' => $limit,
+            'offset' => $offset,
+            'total_pages' => $total_pages,
+            'current_page' => $current_page,
+        ];
+
         return [
-            'total' => $this->httpResponse['hits']['total'],
+            'pagination' => $pagination
         ];
 
     }
@@ -55,20 +85,24 @@ class Response
     public function data()
     {
 
-        // Reduce to just the _source objects
-        $hits = $this->httpResponse['hits']['hits'];
+        $hits = $this->searchResponse['hits']['hits'];
         $results = [];
 
+        // Reduce to just the _source objects
         foreach( $hits as $hit ) {
-            $results[] = [
-                '_score' => $hit['_score'],
-                'id' => $hit['_source']['id'],
-                'api_id' => $hit['_source']['api_id'],
-                'api_model' =>$hit['_source']['api_model'],
-                'api_link' => $hit['_source']['api_link'],
-                'title' => $hit['_source']['title'],
-                'timestamp' => $hit['_source']['timestamp'],
+
+            $result = [
+                '_score' => $hit['_score']
             ];
+
+            // Avoid filtering fields here: filter fields via `_source` in Request instead
+            // This will reduce AWS ES load - it won't need to return as much data
+            // Note that `_source` might be undefined if `_source` was set to false in Request
+            if( isset( $hit['_source'] ) ) {
+                $result = array_merge( $result, $hit['_source'] );
+            }
+
+            $results[] = $result;
 
         }
 
@@ -83,12 +117,15 @@ class Response
     {
 
         $suggest = [];
-        $options = array_get($this->httpResponse, 'suggest.autocomplete.0.options');
+
+        $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
+
         if ($options) {
             $suggest['autocomplete'] = array_pluck($options, 'text');
         }
 
-        $options = array_get($this->httpResponse, 'suggest.phrase-suggest.0.options');
+        $options = array_get($this->searchResponse, 'suggest.phrase-suggest.0.options');
+
         if ($options) {
             $suggest['phrase'] = array_pluck($options, 'highlighted');
         }
@@ -104,12 +141,20 @@ class Response
 
     }
 
+
     public function aggregate()
     {
 
+        $results = array_get($this->searchResponse, 'aggregations');
+
+        // Exit out of there are no aggregations returned
+        if( is_null( $results ) ) {
+            return [];
+        }
+
         $aggs = [];
 
-        foreach (array_get($this->httpResponse, 'aggregations') as $count => $data)
+        foreach ( $results as $count => $data)
         {
 
             $aggs[$count] = $data['buckets'];

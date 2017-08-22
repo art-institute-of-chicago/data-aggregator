@@ -11,14 +11,16 @@ use Elasticsearch;
 
 class SearchController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Search Controller
     |--------------------------------------------------------------------------
     |
-    | This controller is responsible for handling password reset emails and
-    | includes a trait which assists in sending these notifications from
-    | your application to your users. Feel free to explore this trait.
+    | This controller provides a thin API on top of Elasticsearch. It follows ES
+    | conventions, but limits what kind of queries can be performed, for
+    | security and performance reasons. Additionally, it applies our own
+    | business logic to tweak relevancy.
     |
     */
 
@@ -30,108 +32,79 @@ class SearchController extends Controller
      * 2. Pass `q` param w/ string for a simple, optimized search.
      * 3. Pass `q` param *and* subset of ES Request Body params.
      *
+     * The most important distinction is between "empty" and "non-empty" queries.
+     *
+     * Autocomplete uses this method as well.
+     *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html
      *
      * @return void
      */
-    public function search(HttpRequest $httpRequest)
+    public function search(HttpRequest $httpRequest, $type = null)
     {
 
-        $response = [];
-        try {
-            $response = $this->request($httpRequest);
-        } catch (\Exception $e) {
-            return response( $e->getMessage(), $e->getCode() )->header('Content-Type', 'application/json');
-        }
+        $searchRequest = new SearchRequest( $type );
 
-        // return $this->jsonQuery();
+        $params = $searchRequest->getSearchParams();
 
-        return $this->response($response, $this->simple($httpRequest));
+        $searchResponse = $this->query( $params );
+
+        return $this->respond( $searchResponse, $params );
+
+    }
+
+
+    public function autocomplete(HttpRequest $httpRequest, $type = null)
+    {
+
+        $searchRequest = new SearchRequest( $type );
+
+        $params = $searchRequest->getAutocompleteParams();
+
+        $searchResponse = $this->query( $params );
+
+        return $this->respond( $searchResponse, $params );
 
     }
 
 
     /**
-     * Autocomplete entry point for search.
+     * Perform the query against Elasticsearch endpoint
      *
-     * @return void
-     */
-    public function autocomplete(HttpRequest $httpRequest)
-    {
-
-        $response = [];
-        try {
-            $response = $this->request($httpRequest); //, $searchRequest->autocompleteParams());
-        } catch (\Exception $e) {
-            return response( $e->getMessage(), $e->getCode() )->header('Content-Type', 'application/json');
-        }
-
-        //return $this->jsonQuery();
-
-        return $this->response($response, $this->simple($httpRequest));
-
-    }
-
-
-    /**
-     * Perform the search against ES enpoint
-     *
-     * @param HttpRequest  The incoming request to this controller
+     * @param array $params
      * @return array  The Elasticsearch response
      */
-    private function request(HttpRequest $httpRequest, $params = [])
+    private function query( array $params )
     {
 
-        $searchRequest = new SearchRequest($httpRequest);
-        $type = $searchRequest->type();
-        
-        if (empty($params))
-        {
+        try {
 
-            $params = $searchRequest->params();
+            $searchResponse = Elasticsearch::search( $params );
+
+        } catch (\Exception $e) {
+
+            return response( $e->getMessage(), $e->getCode() )->header('Content-Type', 'application/json');
 
         }
 
-        // Keeping this here for debug purposes:
-        // return response()->json( $params );
+        return $searchResponse;
 
-        return Elasticsearch::search( $params );
     }
 
 
     /**
      * Parse the response from the search against ES enpoint
      *
-     * @param array  The response as it came back from Elasitcsearch
+     * @param array $searchResponse The response as it came back from Elasitcsearch
      * @return array  An API-friendly response array
      */
-    private function response(array $response, $simple = false)
+    private function respond( array $searchResponse, array $params )
     {
 
-        $resp = new SearchResponse($response);
+        $data = ( new SearchResponse( $searchResponse, $params ) )->response();
 
-        $resp->simple = $simple;
+        return $data;
 
-        return $resp->response();
-
-    }
-
-
-    /**
-     * Decide if the incoming request is a simple query
-     *
-     * @param HttpRequest  The incoming request to this controller
-     * @return boolean
-     */
-    private function simple($httpRequest)
-    {
-
-        $searchRequest = new SearchRequest($httpRequest);
-        $input = $searchRequest->validInput();
-        if( !is_null( $input['q'] ) ) {
-            return false;
-        }
-        return true;
     }
 
 
@@ -143,7 +116,7 @@ class SearchController extends Controller
     private function jsonQuery()
     {
 
-        return response()->json( json_decode( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'] ) );
+        return response( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'] )->header('Content-Type', 'application/json');
 
     }
 
