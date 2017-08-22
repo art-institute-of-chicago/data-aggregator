@@ -3360,10 +3360,10 @@
         },
         "medium": {
           "description": "Mediums which the work was created"
-	},
+        },
         "inscriptions": {
           "description": "Text of inscriptions found in the work"
-	},
+        },
         "object_type": {
           "description": "Name of the type of object"
         },
@@ -3372,31 +3372,31 @@
         },
         "credit_line": {
           "description": "Credit attribution of the work"
-	},
+        },
         "publication_history": {
           "description": "Full list of where this work has ever been published"
-	},
+        },
         "exhibition_history": {
-	  "description": "Full list of where this work has ever been exhibited"
-	},
+          "description": "Full list of where this work has ever been exhibited"
+        },
         "provenance_text": {
-	  "description": "Ownership history of the work"
-	},
+          "description": "Ownership history of the work"
+        },
         "publishing_verification_level": {
-	  "description": "The level which the works images can be published"
-	},
+          "description": "The level which the works images can be published"
+        },
         "is_public_domain": {
-	  "description": "Boolean flag indicating if the work is in the public domain"
-	},
+          "description": "Boolean flag indicating if the work is in the public domain"
+        },
         "copyright_notice": {
-	  "description": "Legal text of copyright"
-	},
+          "description": "Legal text of copyright"
+        },
         "place_of_origin": {
-	  "description": "Location where the work was created"
-	},
+          "description": "Location where the work was created"
+        },
         "collection_status": {
-	  "description": "Level of the Art Institutes holding of the work"
-	},
+          "description": "Level of the Art Institutes holding of the work"
+        },
         "gallery": {
           "description": "Name of the gallery"
         },
@@ -3404,8 +3404,8 @@
           "description": "Unique identifier of the gallery"
         },
         "is_in_gallery": {
-	  "description": "Boolean flag indicating if the work is in currently in the galleries"
-	},
+          "description": "Boolean flag indicating if the work is in currently in the galleries"
+        },
         "latitude": {
           "description": "For works in the mobile app, this will represent the exact position that the work sits within a gallery. For all other objects these coordinates are the center point of the gallery which they reside."
         },
@@ -3416,59 +3416,59 @@
           "description": "For works in the mobile app, this will represent the exact position that the work sits within a gallery. For all other objects these coordinates are the center point of the gallery which they reside."
         },
         "is_highlighted_in_mobile": {
-	  "description": "Boolean flag indicating if the work is highlighted in the mobile app"
-	},
+          "description": "Boolean flag indicating if the work is highlighted in the mobile app"
+        },
         "selector_number": {
           "description": "The three-digit number to enter into our audioguide to pull up this work"
         },
         "artist_ids": {
-	  "description": "Unique identifiers of the artists t who created this work"
-	},
+          "description": "Unique identifiers of the artists t who created this work"
+        },
         "category_ids": {
-	  "description": "Unique identifiers of the categories associated with this work"
-	},
+          "description": "Unique identifiers of the categories associated with this work"
+        },
         "copyright_representative_ids": {
-	  "description": "Unique identifiers of the agents who have the type 'Copyright Representative' associated with this work"
-	},
+          "description": "Unique identifiers of the agents who have the type 'Copyright Representative' associated with this work"
+        },
         "part_ids": {
-	  "description": "Unique identifiers of the artworks that are parts of this work"
-	},
+          "description": "Unique identifiers of the artworks that are parts of this work"
+        },
         "set_ids": {
-	  "description": "Unique identifiers of the sets this work is a part of"
-	},
+          "description": "Unique identifiers of the sets this work is a part of"
+        },
         "date_dates": {
-	  "description": "All dates associated with this work"
-	},
+          "description": "All dates associated with this work"
+        },
         "catalogue_titles": {
-	  "description": "Names of the catalogue raisonné this work in included in"
-	},
+          "description": "Names of the catalogue raisonné this work in included in"
+        },
         "committee_titles": {
-	  "description": "Names of the committees associated with this work"
-	},
+          "description": "Names of the committees associated with this work"
+        },
         "term_titles": {
-	  "description": "Names of the terms associated with this work"
-	},
+          "description": "Names of the terms associated with this work"
+        },
         "image_urls": {
-	  "description": "URLs of images of this work"
-	},
+          "description": "URLs of images of this work"
+        },
         "publication_ids": {
-	  "description": "Unique identifiers of the publications this work is included in"
-	},
+          "description": "Unique identifiers of the publications this work is included in"
+        },
         "tour_ids": {
-	  "description": "Unique identifiers of the mobile tours this work is included in"
-	},
+          "description": "Unique identifiers of the mobile tours this work is included in"
+        },
         "last_updated_citi": {
-	  "description": "Date the work was last updated in CITI"
-	},
+          "description": "Date the work was last updated in CITI"
+        },
         "last_updated_fedora": {
-	  "description": "Date the work was last updated in LAKE's Fedora"
-	},
+          "description": "Date the work was last updated in LAKE's Fedora"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in LAKE's LPM Solr index"
-	},
+          "description": "Date the work was last updated in LAKE's LPM Solr index"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3482,38 +3482,38 @@
           "description": "Name of the agent"
         },
         "birth_date": {
-	  "description": "Year the agent was born"
-	},
+          "description": "Year the agent was born"
+        },
         "birth_place": {
-	  "description": "Name of the location the agent was born"
-	},
+          "description": "Name of the location the agent was born"
+        },
         "death_date": {
-	  "description": "Year the agent was died"
-	},
+          "description": "Year the agent was died"
+        },
         "death_place": {
-  	  "description": "Name of the location the agent died "
-	},
+          "description": "Name of the location the agent died "
+        },
         "is_licensing_restricted": {
-	  "description": "Boolean flag indicating if the agent has licensing restrictions"
-	},
+          "description": "Boolean flag indicating if the agent has licensing restrictions"
+        },
         "agent_type": {
-	  "description": "Name of the type of this agent"
-	},
+          "description": "Name of the type of this agent"
+        },
         "agent_type_id": {
-	  "description": "Unique identifier of the type of this agent"
-	},
+          "description": "Unique identifier of the type of this agent"
+        },
         "last_updated_citi": {
-	  "description": "Date the work was last updated in CITI"
-	},
+          "description": "Date the work was last updated in CITI"
+        },
         "last_updated_fedora": {
-	  "description": "Date the work was last updated in LAKE's Fedora"
-	},
+          "description": "Date the work was last updated in LAKE's Fedora"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in LAKE's LPM Solr index"
-	},
+          "description": "Date the work was last updated in LAKE's LPM Solr index"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3527,32 +3527,32 @@
           "description": "Name of the publish category"
         },
         "parent_id": {
-	  "description": "Unique identifier of the parent of this category"
-	},
+          "description": "Unique identifier of the parent of this category"
+        },
         "is_in_nav": {
           "description": "Whether this category is included in the departmental navigation on the legacy Collections website"
         },
         "description": {
-	  "description": "Web description"
-	},
+          "description": "Web description"
+        },
         "sort": {
-	  "description": "Number indicating sort order"
-	},
+          "description": "Number indicating sort order"
+        },
         "type": {
           "description": "The type of category. 1 is Departmental, 2 is Subject, 3 is Theme and 5 is Multimedia."
         },
         "last_updated_citi": {
-	  "description": "Date the work was last updated in CITI"
-	},
+          "description": "Date the work was last updated in CITI"
+        },
         "last_updated_fedora": {
-	  "description": "Date the work was last updated in LAKE's Fedora"
-	},
+          "description": "Date the work was last updated in LAKE's Fedora"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in LAKE's LPM Solr index"
-	},
+          "description": "Date the work was last updated in LAKE's LPM Solr index"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3566,17 +3566,17 @@
           "description": "Name of the image"
         },
         "last_updated_citi": {
-	  "description": "Date the work was last updated in CITI"
-	},
+          "description": "Date the work was last updated in CITI"
+        },
         "last_updated_fedora": {
-	  "description": "Date the work was last updated in LAKE's Fedora"
-	},
+          "description": "Date the work was last updated in LAKE's Fedora"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in LAKE's LPM Solr index"
-	},
+          "description": "Date the work was last updated in LAKE's LPM Solr index"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3590,17 +3590,17 @@
           "description": "Name of the department"
         },
         "last_updated_citi": {
-	  "description": "Date the work was last updated in CITI"
-	},
+          "description": "Date the work was last updated in CITI"
+        },
         "last_updated_fedora": {
-	  "description": "Date the work was last updated in LAKE's Fedora"
-	},
+          "description": "Date the work was last updated in LAKE's Fedora"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in LAKE's LPM Solr index"
-	},
+          "description": "Date the work was last updated in LAKE's LPM Solr index"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3632,20 +3632,20 @@
           "description": "For works in the mobile app, this will represent the exact position that the work sits within a gallery. For all other objects these coordinates are the center point of the gallery which they reside."
         },
         "category_ids": {
-	  "description": "Unique identifiers of categories this gallery is associated with"
-	},
+          "description": "Unique identifiers of categories this gallery is associated with"
+        },
         "last_updated_citi": {
-	  "description": "Date the work was last updated in CITI"
-	},
+          "description": "Date the work was last updated in CITI"
+        },
         "last_updated_fedora": {
-	  "description": "Date the work was last updated in LAKE's Fedora"
-	},
+          "description": "Date the work was last updated in LAKE's Fedora"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in LAKE's LPM Solr index"
-	},
+          "description": "Date the work was last updated in LAKE's LPM Solr index"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3659,11 +3659,11 @@
           "description": "Name of the exhibition"
         },
         "description": {
-	  "description": "Description of this exhibition"
-	},
+          "description": "Description of this exhibition"
+        },
         "type": {
-	  "description": "Name of the type of this exhibition"
-	},
+          "description": "Name of the type of this exhibition"
+        },
         "department": {
           "description": "Name of the department associated with this exhibition"
         },
@@ -3680,26 +3680,26 @@
           "description": "The dates which this exhibition ran at the Art Institute of Chicago"
         },
         "is_active": {
-	  "description": "Boolean flag indicating if this exhibition is active"
-	},
+          "description": "Boolean flag indicating if this exhibition is active"
+        },
         "artwork_ids": {
-	  "description": "Unique identifiers of the artworks included in this exhibition"
-	},
+          "description": "Unique identifiers of the artworks included in this exhibition"
+        },
         "venue_ids": {
           "description": "Agent IDs of other venues that hosted this exhibition"
         },
         "last_updated_citi": {
-	  "description": "Date the work was last updated in CITI"
-	},
+          "description": "Date the work was last updated in CITI"
+        },
         "last_updated_fedora": {
-	  "description": "Date the work was last updated in LAKE's Fedora"
-	},
+          "description": "Date the work was last updated in LAKE's Fedora"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in LAKE's LPM Solr index"
-	},
+          "description": "Date the work was last updated in LAKE's LPM Solr index"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3713,17 +3713,17 @@
           "description": "Name of the object type"
         },
         "last_updated_citi": {
-	  "description": "Date the work was last updated in CITI"
-	},
+          "description": "Date the work was last updated in CITI"
+        },
         "last_updated_fedora": {
-	  "description": "Date the work was last updated in LAKE's Fedora"
-	},
+          "description": "Date the work was last updated in LAKE's Fedora"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in LAKE's LPM Solr index"
-	},
+          "description": "Date the work was last updated in LAKE's LPM Solr index"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3737,17 +3737,17 @@
           "description": "Name of the agent type"
         },
         "last_updated_citi": {
-	  "description": "Date the work was last updated in CITI"
-	},
+          "description": "Date the work was last updated in CITI"
+        },
         "last_updated_fedora": {
-	  "description": "Date the work was last updated in LAKE's Fedora"
-	},
+          "description": "Date the work was last updated in LAKE's Fedora"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in LAKE's LPM Solr index"
-	},
+          "description": "Date the work was last updated in LAKE's LPM Solr index"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3761,29 +3761,29 @@
           "description": "Name of the asset"
         },
         "description": {
-	  "description": "Description of the asset"
-	},
+          "description": "Description of the asset"
+        },
         "content": {
-	  "description": "Asset content"
-	},
+          "description": "Asset content"
+        },
         "artist": {
-	  "description": "Name of the artist this asset is associated with"
-	},
+          "description": "Name of the artist this asset is associated with"
+        },
         "artist_id": {
-	  "description": "Unique identifier of the artist this asset is associated with"
-	},
+          "description": "Unique identifier of the artist this asset is associated with"
+        },
         "category_ids": {
-	  "description": "Unique identifiers of the categories this asset is associated with"
-	},
+          "description": "Unique identifiers of the categories this asset is associated with"
+        },
         "last_updated_fedora": {
-	  "description": "Date the work was last updated in LAKE's Fedora"
-	},
+          "description": "Date the work was last updated in LAKE's Fedora"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in LAKE's LPM Solr index"
-	},
+          "description": "Date the work was last updated in LAKE's LPM Solr index"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3797,26 +3797,26 @@
           "description": "Name of the shop category"
         },
         "link": {
-	  "description": "URL to the page for this shop category"
-	},
+          "description": "URL to the page for this shop category"
+        },
         "parent_id": {
-	  "description": "Unique identifier of the category that is this record's parent"
-	},
+          "description": "Unique identifier of the category that is this record's parent"
+        },
         "type": {
-	  "description": "Name of this category's type"
-	},
+          "description": "Name of this category's type"
+        },
         "source_id": {
-	  "description": "The identifier of this category in the source system. These are not unique, as they are relative to the category type in the source system."
-	},
+          "description": "The identifier of this category in the source system. These are not unique, as they are relative to the category type in the source system."
+        },
         "child_ids": {
-	  "description": "Unique identifiers of this category's children"
-	},
+          "description": "Unique identifiers of this category's children"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3830,47 +3830,47 @@
           "description": "Name of the product"
         },
         "title_display": {
-	  "description": "Web-friendly name of the product"
-	},
+          "description": "Web-friendly name of the product"
+        },
         "sku": {
-	  "description": "Inventory identification code of the product"
-	},
+          "description": "Inventory identification code of the product"
+        },
         "link": {
-	  "description": "URL to the shop page of this product"
-	},
+          "description": "URL to the shop page of this product"
+        },
         "image": {
-	  "description": "URL to the image of this product"
-	},
+          "description": "URL to the image of this product"
+        },
         "description": {
-	  "description": "Description of this product"
-	},
+          "description": "Description of this product"
+        },
         "is_on_sale": {
-	  "description": "Boolean flag indicating if this product is on sale"
-	},
+          "description": "Boolean flag indicating if this product is on sale"
+        },
         "priority": {
-	  "description": "Number indicating the priority of this product"
-	},
+          "description": "Number indicating the priority of this product"
+        },
         "price": {
-	  "description": "Price of this product"
-	},
+          "description": "Price of this product"
+        },
         "review_count": {
-	  "description": "Number of reviews this product has received"
-	},
+          "description": "Number of reviews this product has received"
+        },
         "item_sold": {
-	  "description": "Number of items this product has sold"
-	},
+          "description": "Number of items this product has sold"
+        },
         "rating": {
-	  "description": "Decimal number of this product's average rating"
-	},
+          "description": "Decimal number of this product's average rating"
+        },
         "category_ids": {
-	  "description": "Unique identifiers of categories this product is associated with"
-	},
+          "description": "Unique identifiers of categories this product is associated with"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3890,45 +3890,45 @@
           "description": "End date and time"
         },
         "type": {
-	  "description": "Name of the type of event"
-	},
+          "description": "Name of the type of event"
+        },
         "on_sale": {
-	  "description": "Date and time that this product goes on sale"
-	},
+          "description": "Date and time that this product goes on sale"
+        },
         "off_sale": {
-	  "description": "Date and time that this product goes off sale"
-	},
+          "description": "Date and time that this product goes off sale"
+        },
         "resource": {
-	  "description": "Number identifying this event's resource"
-	},
+          "description": "Number identifying this event's resource"
+        },
         "user_event_number": {
-	  "description": "Number identifying this event's user event"
-	},
+          "description": "Number identifying this event's user event"
+        },
         "available": {
-	  "description": "Number identifying the number of tickets available for this event"
-	},
+          "description": "Number identifying the number of tickets available for this event"
+        },
         "total_capacity": {
-	  "description": "Number identifying this event's total capacity"
-	},
+          "description": "Number identifying this event's total capacity"
+        },
         "status": {
-	  "description": "Number identifying this event's status"
-	},
+          "description": "Number identifying this event's status"
+        },
         "rs_event_seat_map_id": {},
         "has_roster": {
-	  "description": "Boolean flag indicating if this event has a roster"
-	},
+          "description": "Boolean flag indicating if this event has a roster"
+        },
         "is_private_event": {
-	  "description": "Boolean flag indicating if this event is a private event"
-	},
+          "description": "Boolean flag indicating if this event is a private event"
+        },
         "has_holds": {
-	  "description": "Boolean flag indicating if this event has any holds"
-	},
+          "description": "Boolean flag indicating if this event has any holds"
+        },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -3981,8 +3981,8 @@
           "description": "Date the membership expires"
         },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	}
+          "description": "Date the work was last updated in the source system"
+        }
       },
       "type": "object"
     },
@@ -4014,11 +4014,11 @@
           "description": "Transcript of the intro audio"
         },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -4038,11 +4038,11 @@
           "description": "URL to the audio of the this tour stop"
         },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -4059,11 +4059,11 @@
           "description": "URL to the publication"
         },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -4086,11 +4086,11 @@
           "description": "Unique identifier of the publication this page belongs to"
         },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -4119,11 +4119,11 @@
           "description": "Unique identifier of the publication this page belongs to"
         },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -4158,11 +4158,11 @@
           "description": "Unique identifier of the artwork this section describes"
         },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -4185,11 +4185,11 @@
           "description": "Unique identifier of the section this footnote belongs to"
         },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -4212,11 +4212,11 @@
           "description": "Unique identifier of the section this figure belongs to"
         },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -4245,11 +4245,11 @@
           "description": "Unique identifier of the publication this section belongs to"
         },
         "last_updated_source": {
-	  "description": "Date the work was last updated in the source system"
-	},
+          "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	  "description": "Date the work was last updated in the Data Aggregator"
-	}
+          "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
@@ -4278,11 +4278,11 @@
           "description": "Array of unique identifier of artwork this site is associated with"
         },
         "last_updated_source": {
- 	      "description": "Date the work was last updated in the source system"
-	},
+              "description": "Date the work was last updated in the source system"
+        },
         "last_updated": {
-	      "description": "Date the work was last updated in the Data Aggregator"
-	}
+              "description": "Date the work was last updated in the Data Aggregator"
+        }
       },
       "type": "object"
     },
