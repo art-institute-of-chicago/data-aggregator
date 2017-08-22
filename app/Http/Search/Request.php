@@ -62,6 +62,9 @@ class Request
         // 'stored_fields',
         // 'docvalue_fields',
 
+        // Determines which shards to use, ensures consistent result order
+        'preference',
+
     ];
 
 
@@ -97,11 +100,12 @@ class Request
      *
      * @return array
      */
-    public function getBaseParams( ) {
+    public function getBaseParams( $input ) {
 
         return [
             'index' => $this->index,
             'type' => $this->type,
+            'preference' => $input['preference'],
         ];
 
     }
@@ -145,7 +149,7 @@ class Request
         $input = self::getValidInput();
 
         $params = array_merge(
-            $this->getBaseParams(),
+            $this->getBaseParams( $input ),
             $this->getFieldParams( $input ),
             $this->getPaginationParams( $input )
         );

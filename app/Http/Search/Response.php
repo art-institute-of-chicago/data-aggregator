@@ -44,6 +44,13 @@ class Response
             $this->aggregate()
         );
 
+        $response = array_merge(
+            [
+                'preference' => $this->searchParams['preference'],
+            ],
+            $response
+        );
+
         return $response;
 
     }
