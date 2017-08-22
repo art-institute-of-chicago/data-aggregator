@@ -227,8 +227,12 @@ class Request
     private function getPaginationParams( $input ) {
 
         // TODO: Convert Laravel's pagination into ES params
-        $size = $input['size'] ?: $input['limit'] ?: null;
-        $from = $input['from'] ?: $input['page'] ? $input['page'] * $size : null;
+        $size = $input['size'] ?: ( $input['limit'] ?: null );
+        $from = $input['from'] ?: ( $input['page'] ? $input['page'] * $size : null );
+
+        // If not null, cast these params to int
+        if( isset( $size ) ) { $size = (int) $size; }
+        if( isset( $from ) ) { $from = (int) $from; }
 
         return [
 

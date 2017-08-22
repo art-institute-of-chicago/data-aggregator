@@ -3,7 +3,6 @@
 namespace App\Http\Search;
 
 use Illuminate\Support\Facades\Input;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class Response
 {
@@ -25,6 +24,7 @@ class Response
         $this->searchResponse = $searchResponse;
         $this->searchParams = $searchParams;
     }
+
 
     public function response()
     {
@@ -48,24 +48,24 @@ class Response
 
     }
 
-    // TODO: Implement actual pagination?
-    // TODO: (Probably) move this to controller or pass `from` and `size` to here
+
     public function paginate()
     {
 
-        $paginator = new LengthAwarePaginator(
-            $this->searchResponse['hits']['hits'],
-            $this->searchResponse['hits']['total'],
-            $this->searchParams['size'] ?: 10
+        // LengthAwarePaginator has trouble here
+        $total = $this->searchResponse['hits']['total'];
+        $limit = $this->searchParams['size'] ?: 10;
+        $offset = $this->searchParams['from'] ?: 0;
 
-        );
+        $total_pages = ceil( $total / $limit );
+        $current_page = floor( $offset / $limit ) + 1;
 
         $pagination = [
-            'total' => $paginator->total(),
-            'limit' => (int) $paginator->perPage(),
-            'offset' => (int) $paginator->perPage() * ( $paginator->currentPage() - 1 ),
-            'total_pages' => $paginator->lastPage(),
-            'current_page' => $paginator->currentPage(),
+            'total' => $total,
+            'limit' => $limit,
+            'offset' => $offset,
+            'total_pages' => $total_pages,
+            'current_page' => $current_page,
         ];
 
         return [
@@ -133,6 +133,7 @@ class Response
         return [];
 
     }
+
 
     public function aggregate()
     {
