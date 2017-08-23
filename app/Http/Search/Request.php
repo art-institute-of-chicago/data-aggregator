@@ -170,6 +170,8 @@ class Request
 
         ];
 
+        // Add our custom relevancy tweaks into `should`
+        $params = $this->addRelevancyParams( $params, $input );
 
         if( is_null( $input['q'] ) ) {
 
@@ -349,12 +351,13 @@ class Request
      * @param $input array Parsed out user input
      * @return array  An Elasticsearch should query params array
      */
-    public function addRelevancyParams( array $input )
+    public function addRelevancyParams( array $params, array $input )
     {
 
+        // Boost essential artworks
         $params['body']['query']['bool']['should'][] = [
             'terms' => [
-                'id' => Artwork::getEssentialIds()
+                'api_id' => Artwork::getEssentialIds()
             ]
         ];
 
