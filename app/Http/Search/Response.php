@@ -2,19 +2,29 @@
 
 namespace App\Http\Search;
 
-use Illuminate\Support\Facades\Input;
-
 class Response
 {
 
+    /**
+     * Response as it came back from Elasticsearch
+     *
+     * @var array
+     */
     public $searchResponse;
 
+
+    /**
+     * Params passed to Elasticsearch
+     *
+     * @var array
+     */
     public $searchParams;
+
 
     /**
      * Create a new request instance.
      *
-     * @param array $searchResponse Response as it came back from Elasitcsearch
+     * @param array $searchResponse Response as it came back from Elasticsearch
      * @param array $searchParams Params passed to Elasticsearch
      *
      * @return void
@@ -26,7 +36,12 @@ class Response
     }
 
 
-    public function response()
+    /**
+     * Transform response for search queries.
+     *
+     * @return array
+     */
+    public function getSearchResponse()
     {
 
         $response = array_merge(
@@ -56,8 +71,30 @@ class Response
     }
 
 
+    /**
+     * Transform response for autocomplete queries.
+     *
+     * @return array
+     */
+    public function getAutocompleteResponse() {
+
+        return $this->searchResponse;
+
+        return $this->suggest();
+
+    }
+
+
+    /**
+     * Add pagination to response.
+     *
+     * @return array
+     */
     public function paginate()
     {
+
+        // We assume that `size` and `from` have been set via getPaginationParams()
+        // This method should not be used for endpoints that return no results
 
         // LengthAwarePaginator has trouble here
         $total = $this->searchResponse['hits']['total'];
@@ -82,6 +119,11 @@ class Response
     }
 
 
+    /**
+     * Add data (i.e. hits, results) to response.
+     *
+     * @return array
+     */
     public function data()
     {
 
@@ -113,11 +155,20 @@ class Response
     }
 
 
+    /**
+     * Add suggestions (i.e. completion, phrases) to response.
+     *
+     * @return array
+     */
     public function suggest()
     {
 
         $suggest = [];
 
+        // For debugging purposes, use this to see the original response:
+        // return array_get($this->searchResponse, 'suggest' );
+
+        // Autocomplete suggestions
         $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
 
         if ($options) {
@@ -132,9 +183,7 @@ class Response
 
         if ($suggest)
         {
-
             return ['suggest' => $suggest];
-
         }
 
         return [];
@@ -142,6 +191,11 @@ class Response
     }
 
 
+    /**
+     * Add aggregations (i.e. facets) to response.
+     *
+     * @return array
+     */
     public function aggregate()
     {
 
