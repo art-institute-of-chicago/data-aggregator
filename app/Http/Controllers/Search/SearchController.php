@@ -47,9 +47,11 @@ class SearchController extends Controller
 
         $params = $searchRequest->getSearchParams();
 
-        $searchResponse = $this->query( $params );
+        $query = $this->query( $params );
 
-        return $this->respond( $searchResponse, $params );
+        $searchResponse = new SearchResponse( $query, $params );
+
+        return $searchResponse->getSearchResponse();
 
     }
 
@@ -61,9 +63,11 @@ class SearchController extends Controller
 
         $params = $searchRequest->getAutocompleteParams();
 
-        $searchResponse = $this->query( $params );
+        $query = $this->query( $params );
 
-        return $this->respond( $searchResponse, $params );
+        $searchResponse = new SearchResponse( $query, $params );
+
+        return $searchResponse->getAutocompleteResponse();
 
     }
 
@@ -88,22 +92,6 @@ class SearchController extends Controller
         }
 
         return $searchResponse;
-
-    }
-
-
-    /**
-     * Parse the response from the search against ES enpoint
-     *
-     * @param array $searchResponse The response as it came back from Elasitcsearch
-     * @return array  An API-friendly response array
-     */
-    private function respond( array $searchResponse, array $params )
-    {
-
-        $data = ( new SearchResponse( $searchResponse, $params ) )->response();
-
-        return $data;
 
     }
 

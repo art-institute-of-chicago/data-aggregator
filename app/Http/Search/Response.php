@@ -26,7 +26,7 @@ class Response
     }
 
 
-    public function response()
+    public function getSearchResponse()
     {
 
         $response = array_merge(
@@ -55,9 +55,20 @@ class Response
 
     }
 
+    public function getAutocompleteResponse() {
+
+        return $this->searchResponse;
+
+        return $this->suggest();
+
+    }
+
 
     public function paginate()
     {
+
+        // We assume that `size` and `from` have been set via getPaginationParams()
+        // This method should not be used for endpoints that return no results
 
         // LengthAwarePaginator has trouble here
         $total = $this->searchResponse['hits']['total'];
@@ -118,6 +129,10 @@ class Response
 
         $suggest = [];
 
+        // For debugging purposes, use this to see the original response:
+        // return array_get($this->searchResponse, 'suggest' );
+
+        // Autocomplete suggestions
         $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
 
         if ($options) {
@@ -132,9 +147,7 @@ class Response
 
         if ($suggest)
         {
-
             return ['suggest' => $suggest];
-
         }
 
         return [];

@@ -126,11 +126,13 @@ class Request
             return [];
         }
 
+        // Suggest also returns `_source`, which we can disable to reduce server load
         $params = array_merge(
-            $this->getBaseParams()
+            $this->getBaseParams( $input ) ,
+            $this->getFieldParams( $input, false )
         );
 
-        // Both `query` and `q`-only searches support suggestions
+        // `q` is required here, but we won't send an actual `query`
         $params = $this->addSuggestParams( $params, $input );
 
         return $params;
@@ -265,10 +267,11 @@ class Request
      *
      * @return array  An Elasticsearch query params array
      */
-    private function getFieldParams( $input ) {
+    private function getFieldParams( $input, $default = null ) {
 
         return [
-            '_source' => $input['_source'] ?: self::$defaultFields,
+            // '_source' => $input['_source'] ?? ( $default ?? self::$defaultFields ), // PHP 7
+            '_source' => isset( $input['_source'] ) ? $input['_source'] : ( isset( $default ) ? $default : self::$defaultFields ),
         ];
 
     }
@@ -392,7 +395,6 @@ class Request
     {
 
         $params['body']['suggest']['autocomplete'] = [
-            'text' => $input['q'],
             'prefix' =>  $input['q'],
             'completion' => [
                 'field' => 'suggest_autocomplete',
