@@ -17,10 +17,10 @@ class SearchController extends Controller
     | Search Controller
     |--------------------------------------------------------------------------
     |
-    | This controller provides a thin API on top of Elasticsearch. It follows ES
-    | conventions, but limits what kind of queries can be performed, for
-    | security and performance reasons. Additionally, it applies our own
-    | business logic to tweak relevancy.
+    | This controller provides a thin API on top of Elasticsearch. It largely
+    | follows ES Request Body conventions, but limits what kind of queries can
+    | be performed, for security and performance reasons. Additionally, it
+    | applies our own business logic to tweak relevancy.
     |
     */
 
@@ -28,13 +28,11 @@ class SearchController extends Controller
     /**
      * General entry point for search. There are three modes:
      *
-     * 1. Don't pass any params to view all works, magically sorted.
+     * 1. Don't pass `q` to view all works, magically sorted.
      * 2. Pass `q` param w/ string for a simple, optimized search.
-     * 3. Pass `q` param *and* subset of ES Request Body params.
+     * 3. Pass `q` param *and* `query` param, which follows ES Request Body conventions.
      *
      * The most important distinction is between "empty" and "non-empty" queries.
-     *
-     * Autocomplete uses this method as well.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html
      *
@@ -47,15 +45,25 @@ class SearchController extends Controller
 
         $params = $searchRequest->getSearchParams();
 
-        $query = $this->query( $params );
+        $results = $this->query( $params );
 
-        $searchResponse = new SearchResponse( $query, $params );
+        $searchResponse = new SearchResponse( $results, $params );
 
         return $searchResponse->getSearchResponse();
 
     }
 
 
+    /**
+     * Return only the `suggest` field of search. This method optimizes both our request
+     * to Elasticsearch and the outgoing results for the minimum required to provide
+     * autocomplete suggestions. It accepts the same params as the `search` method,
+     * though most of them will not be used.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-completion.html
+     *
+     * @return void
+     */
     public function autocomplete(HttpRequest $httpRequest, $type = null)
     {
 
@@ -63,9 +71,9 @@ class SearchController extends Controller
 
         $params = $searchRequest->getAutocompleteParams();
 
-        $query = $this->query( $params );
+        $results = $this->query( $params );
 
-        $searchResponse = new SearchResponse( $query, $params );
+        $searchResponse = new SearchResponse( $results, $params );
 
         return $searchResponse->getAutocompleteResponse();
 
@@ -73,10 +81,11 @@ class SearchController extends Controller
 
 
     /**
-     * Perform the query against Elasticsearch endpoint
+     * Perform a query against Elasticsearch endpoint
      *
      * @param array $params
-     * @return array  The Elasticsearch response
+     *
+     * @return array
      */
     private function query( array $params )
     {
@@ -97,11 +106,11 @@ class SearchController extends Controller
 
 
     /**
-     * The actual query sent by the official ES PHP client
+     * Respond with the actual JSON query sent by the official ES PHP client
      *
-     * @return string  Json string
+     * @return string
      */
-    private function jsonQuery()
+    private function showQuery()
     {
 
         return response( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'] )->header('Content-Type', 'application/json');

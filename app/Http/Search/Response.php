@@ -2,19 +2,29 @@
 
 namespace App\Http\Search;
 
-use Illuminate\Support\Facades\Input;
-
 class Response
 {
 
+    /**
+     * Response as it came back from Elasticsearch
+     *
+     * @var array
+     */
     public $searchResponse;
 
+
+    /**
+     * Params passed to Elasticsearch
+     *
+     * @var array
+     */
     public $searchParams;
+
 
     /**
      * Create a new request instance.
      *
-     * @param array $searchResponse Response as it came back from Elasitcsearch
+     * @param array $searchResponse Response as it came back from Elasticsearch
      * @param array $searchParams Params passed to Elasticsearch
      *
      * @return void
@@ -26,6 +36,11 @@ class Response
     }
 
 
+    /**
+     * Transform response for search queries.
+     *
+     * @return array
+     */
     public function getSearchResponse()
     {
 
@@ -55,6 +70,12 @@ class Response
 
     }
 
+
+    /**
+     * Transform response for autocomplete queries.
+     *
+     * @return array
+     */
     public function getAutocompleteResponse() {
 
         return $this->searchResponse;
@@ -64,6 +85,11 @@ class Response
     }
 
 
+    /**
+     * Add pagination to response.
+     *
+     * @return array
+     */
     public function paginate()
     {
 
@@ -93,6 +119,11 @@ class Response
     }
 
 
+    /**
+     * Add data (i.e. hits, results) to response.
+     *
+     * @return array
+     */
     public function data()
     {
 
@@ -124,6 +155,11 @@ class Response
     }
 
 
+    /**
+     * Add suggestions (i.e. completion, phrases) to response.
+     *
+     * @return array
+     */
     public function suggest()
     {
 
@@ -155,6 +191,11 @@ class Response
     }
 
 
+    /**
+     * Add aggregations (i.e. facets) to response.
+     *
+     * @return array
+     */
     public function aggregate()
     {
 

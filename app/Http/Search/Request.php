@@ -97,11 +97,11 @@ class Request
 
 
     /**
-     * These params will be applied to all queries.
+     * Get params that should be applied to all queries.
      *
      * @return array
      */
-    public function getBaseParams( $input ) {
+    public function getBaseParams( array $input ) {
 
         return [
             'index' => $this->index,
@@ -113,7 +113,7 @@ class Request
 
 
     /**
-     * Build the basic scaffolding used by all ES queries.
+     * Build full param set (request body) for autocomplete queries.
      *
      * @return array
      */
@@ -142,11 +142,11 @@ class Request
 
 
     /**
-     * Build the basic scaffolding used by all ES queries.
+     * Build full param set (request body) for search queries.
      *
      * @return array
      */
-    public function getSearchParams(  ) {
+    public function getSearchParams( ) {
 
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput();
@@ -198,18 +198,18 @@ class Request
         // Add Aggregations (facets)
         $params = $this->addAggregationParams( $params, $input );
 
-
         return $params;
 
     }
 
 
     /**
-     * Strip down the (top-level) params to what our thin client supports.
-     *
+     * Strip down the (top-level) user-input to what our thin client supports.
      * Allowed-but-omitted params are added as `null`
      *
-     * @return array  Parsed out input values
+     * @param $input array
+     *
+     * @return array
      */
     public static function getValidInput( array $input = null ) {
 
@@ -233,7 +233,14 @@ class Request
     }
 
 
-    private function getPaginationParams( $input ) {
+    /**
+     * Get pagination params.
+     *
+     * @param $input array
+     *
+     * @return array
+     */
+    private function getPaginationParams( array $input ) {
 
         // Elasticsearch params take precedence
         $size = isset( $input['size'] ) ? $input['size'] : null;
@@ -268,9 +275,12 @@ class Request
     /**
      * Determine which fields to return. Set `_source` to `true` to return all.
      *
-     * @return array  An Elasticsearch query params array
+     * @param $input array
+     * @param $default mixed Valid `_source` is array, string, null, or bool
+     *
+     * @return array
      */
-    private function getFieldParams( $input, $default = null ) {
+    private function getFieldParams( array $input, $default = null ) {
 
         return [
             // '_source' => $input['_source'] ?? ( $default ?? self::$defaultFields ), // PHP 7
@@ -284,9 +294,11 @@ class Request
      * Get the search params for an empty string search.
      * Empy search requires special handling, e.g. no suggestions.
      *
-     * @return array  An Elasticsearch query params array
+     * @param $params array
+     *
+     * @return array
      */
-    private function addEmptySearchParams( $params ) {
+    private function addEmptySearchParams( array $params ) {
 
         // PHP JSON-encodes empty array as [], not {}
         $params['body']['query']['bool']['must'][] = [
@@ -299,11 +311,14 @@ class Request
 
 
     /**
-     * Append the search params for a simple search
+     * Append the query params for a simple search
      *
-     * @return array  An Elasticsearch query params array
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
      */
-    private function addSimpleSearchParams( $params, $input ) {
+    private function addSimpleSearchParams( array $params, array $input ) {
 
         // TODO: Determine if defaults for `fuzziness` and `prefix_length` are sufficient
         // https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.htm
@@ -330,9 +345,12 @@ class Request
     /**
      * Get the search params for a complex search
      *
-     * @return array  An Elasticsearch query params array
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
      */
-    private function addFullSearchParams( $params, $input ) {
+    private function addFullSearchParams( array $params, array $input ) {
 
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
@@ -346,10 +364,12 @@ class Request
 
 
     /**
-     * Boost essential works
+     * Append our own custom queries to tweak relevancy.
      *
-     * @param $input array Parsed out user input
-     * @return array  An Elasticsearch should query params array
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
      */
     public function addRelevancyParams( array $params, array $input )
     {
@@ -367,13 +387,15 @@ class Request
 
 
     /**
-     * Construct suggest parameters.
+     * Append suggest params to query.
      *
      * Both `query` and `q`-only searches support suggestions.
      * Empty searches do not support suggestions.
      *
-     * @param $input array Parsed out user input
-     * @return array  An Elasticsearch suggest params array
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
      */
     public function addSuggestParams( array $params, array $input )
     {
@@ -391,11 +413,14 @@ class Request
 
 
     /**
-     * Get the autocomplete suggest params
+     * Append autocomplete suggest params.
      *
-     * @return array  One element of an Elasticsearch suggest params array
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
      */
-    private function addAutocompleteSuggestParams( $params, array $input)
+    private function addAutocompleteSuggestParams( array $params, array $input)
     {
 
         $params['body']['suggest']['autocomplete'] = [
@@ -411,11 +436,13 @@ class Request
 
 
     /**
-     * Get the phrase suggest params
+     * Append phrase suggest parameters.
      *
-     * @return array  One element of an Elasticsearch suggest params array
+     * @param $params array
+     *
+     * @return array
      */
-    private function addPhraseSuggestParams( $params )
+    private function addPhraseSuggestParams( array $params )
     {
 
         $params['body']['suggest']['phrase-suggest'] = [
@@ -447,11 +474,14 @@ class Request
 
 
     /**
-     * Construct aggregation parameters.
+     * Append aggregation parameters.
      *
-     * @return array  An Elasticsearch aggregations params array
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
      */
-    public function addAggregationParams( $params, array $input )
+    public function addAggregationParams( array $params, array $input )
     {
 
         // If the user did not specify a facet parameter, facet by model
@@ -469,10 +499,6 @@ class Request
             ];
 
         }
-
-        // Official ES PHP Client is behind the times
-        // https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/_per_request_configuration.html#_providing_custom_query_parameters
-        // $params['client']['custom']['aggregations'] = $aggregations;
 
         $params['body']['aggregations'] = $aggregations;
 
