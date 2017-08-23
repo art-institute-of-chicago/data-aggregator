@@ -29,7 +29,8 @@ class Request
      */
     private static $allowed = [
 
-        // TODO: `type` handling
+        // Type can be passed via route, or via query params
+        'type',
 
         // Required: we must know the core search string
         // We use `q` b/c it won't cause UnexpectedValueException, if the user uses an official ES Client
@@ -104,7 +105,7 @@ class Request
 
         return [
             'index' => $this->index,
-            'type' => $this->type,
+            'type' => $input['type'] ?: $this->type,
             'preference' => $input['preference'],
         ];
 
