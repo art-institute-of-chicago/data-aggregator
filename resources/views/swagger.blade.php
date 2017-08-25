@@ -2332,7 +2332,7 @@
       }
     },
 
-    "/tour-stopss": {
+    "/tour-stops": {
       "get": {
         "tags": [
             "tour-stops",
@@ -4060,6 +4060,36 @@
         },
         "last_updated": {
           "description": "Date the work was last updated in the Data Aggregator"
+        }
+      },
+      "type": "object"
+    },
+
+    "TourStop": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "title": {
+          "description": "Name of the tour stop"
+        },
+        "artwork": {
+          "description": "Title of the artwork"
+        },
+        "artwork_id": {
+          "description": "Unique identifier of the artwork"
+        },
+        "mobile_sound": {
+          "description": "URL to the tour audio"
+        },
+        "mobile_sound_id": {
+          "description": "Unique identifier of the tour audio"
+        },
+        "weight": {
+          "description": "Sort order for the tour stop in a list"
+        },
+        "description": {
+          "description": "Description of the tour"
         }
       },
       "type": "object"
