@@ -4378,6 +4378,16 @@
       "name": "page",
       "in": "query",
       "type": "integer"
+    },
+    "q": {
+      "name": "query",
+      "in": "query",
+      "type": "string"
+    },
+    "facets": {
+      "name": "facets",
+      "in": "query",
+      "type": "string"
     }
   },
   "externalDocs": {
