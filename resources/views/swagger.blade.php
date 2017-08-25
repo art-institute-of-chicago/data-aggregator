@@ -113,7 +113,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
