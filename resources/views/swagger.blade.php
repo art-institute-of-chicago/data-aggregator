@@ -113,7 +113,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -432,7 +434,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -693,7 +697,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -879,7 +885,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -1065,7 +1073,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -1176,7 +1186,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -1430,7 +1442,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -1541,7 +1555,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -1652,7 +1668,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -1763,7 +1781,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -1874,7 +1894,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -1985,7 +2007,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -2096,7 +2120,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -2247,7 +2273,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -2304,7 +2332,7 @@
       }
     },
 
-    "/tour-stopss": {
+    "/tour-stops": {
       "get": {
         "tags": [
             "tour-stops",
@@ -2358,7 +2386,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -2544,7 +2574,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -2730,7 +2762,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -2841,7 +2875,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -3102,7 +3138,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -3211,7 +3249,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -3278,7 +3318,9 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/q",
+            "$ref": "#/parameters/q"
+          },
+          {
             "$ref": "#/parameters/facets"
           }
         ],
@@ -4023,6 +4065,36 @@
       "type": "object"
     },
 
+    "TourStop": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier"
+        },
+        "title": {
+          "description": "Name of the tour stop"
+        },
+        "artwork": {
+          "description": "Title of the artwork"
+        },
+        "artwork_id": {
+          "description": "Unique identifier of the artwork"
+        },
+        "mobile_sound": {
+          "description": "URL to the tour audio"
+        },
+        "mobile_sound_id": {
+          "description": "Unique identifier of the tour audio"
+        },
+        "weight": {
+          "description": "Sort order for the tour stop in a list"
+        },
+        "description": {
+          "description": "Description of the tour"
+        }
+      },
+      "type": "object"
+    },
+
     "MobileSound": {
       "properties": {
         "id": {
@@ -4336,6 +4408,16 @@
       "name": "page",
       "in": "query",
       "type": "integer"
+    },
+    "q": {
+      "name": "query",
+      "in": "query",
+      "type": "string"
+    },
+    "facets": {
+      "name": "facets",
+      "in": "query",
+      "type": "string"
     }
   },
   "externalDocs": {
