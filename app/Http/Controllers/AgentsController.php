@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Collections\Agent;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Exhibition;
 use Illuminate\Http\Request;
 
 class AgentsController extends ApiController
 {
+
+    protected $model = \App\Models\Collections\Agent::class;
+
+    protected $transformer = \App\Http\Transformers\AgentTransformer::class;
+
     /**
      * Display a listing of the resource.
      *
@@ -65,11 +69,11 @@ class AgentsController extends ApiController
         else
         {
 
-            $all = Agent::whereHas('agentType', function ($query) { $this->whereHas($query); })->paginate($limit);
+            $all = ($this->model)::whereHas('agentType', function ($query) { $this->whereHas($query); })->paginate($limit);
 
         }
 
-        return response()->collection($all, new \App\Http\Transformers\AgentTransformer);
+        return response()->collection($all, new $this->transformer);
 
     }
 
@@ -96,14 +100,14 @@ class AgentsController extends ApiController
                 return $this->respondInvalidSyntax('Invalid identifier', "The agent identifier should be a number. Please ensure you're passing the correct source identifier and try again.");
             }
 
-            $item = Agent::whereHas('agentType', function ($query) { $this->whereHas($query); })->find($agentId);
+            $item = ($this->model)::whereHas('agentType', function ($query) { $this->whereHas($query); })->find($agentId);
 
             if (!$item)
             {
                 return $this->respondNotFound('Agent not found', "The agent you requested cannot be found. Please ensure you're passing the source identifier and try again.");
             }
 
-            return response()->item($item, new \App\Http\Transformers\AgentTransformer);
+            return response()->item($item, new $this->transformer);
         }
         catch(\Exception $e)
         {
@@ -123,9 +127,9 @@ class AgentsController extends ApiController
 
         }
 
-        $all = Agent::whereHas('agentType', function ($query) { $this->whereHas($query); })->find($ids);
+        $all = ($this->model)::whereHas('agentType', function ($query) { $this->whereHas($query); })->find($ids);
 
-        return response()->collection($all, new \App\Http\Transformers\AgentTransformer);
+        return response()->collection($all, new $this->transformer);
 
     }
 

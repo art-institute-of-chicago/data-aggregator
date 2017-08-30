@@ -18,7 +18,7 @@ abstract class ApiNewController extends ApiController
      * @param  \App\Models\Collections\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $eventId)
+    public function show(Request $request, $id)
     {
 
         // Technically this will never be called, b/c we only bind Route.get
