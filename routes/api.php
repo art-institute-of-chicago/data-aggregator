@@ -35,14 +35,15 @@ Route::group(['prefix' => 'v1'], function()
 
     // Collections
     Route::get('artworks', 'ArtworksController@index');
-    Route::get('artworks/essentials', 'ArtworksController@index');
     Route::get('artworks/{id}', 'ArtworksController@show');
-    Route::get('artworks/{id}/artists', 'ArtistsController@index');
-    Route::get('artworks/{id}/copyrightRepresentatives', 'CopyrightRepresentativesController@index');
-    Route::get('artworks/{id}/categories', 'CategoriesController@index');
     Route::get('artworks/{id}/parts', 'ArtworksController@index');
     Route::get('artworks/{id}/sets', 'ArtworksController@index');
     Route::get('artworks/{id}/images', 'ImagesController@index');
+    Route::get('artworks/{id}/artists', 'ArtistsController@index');
+    Route::get('artworks/{id}/copyrightRepresentatives', 'CopyrightRepresentativesController@index');
+    Route::get('artworks/{id}/categories', 'CategoriesController@index');
+    Route::get('artworks/{id}/departments', 'DepartmentsController@index');
+    Route::get('artworks/essentials', 'ArtworksController@index');
 
     Route::get('agents', 'AgentsController@index');
     Route::get('agents/{id}', 'AgentsController@show');

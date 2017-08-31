@@ -6,8 +6,13 @@ use App\Models\Collections\Department;
 use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
-class DepartmentsController extends ApiController
+class DepartmentsController extends ApiNewController
 {
+
+    protected $model = \App\Models\Collections\Department::class;
+
+    protected $transformer = \App\Http\Transformers\DepartmentTransformer::class;
+
     /**
      * Display a listing of the resource.
      *
@@ -37,67 +42,13 @@ class DepartmentsController extends ApiController
 
         if ($artworkId)
         {
-            return response()->item(Artwork::findOrFail($artworkId)->department, new \App\Http\Transformers\DepartmentTransformer);
+            return response()->item(Artwork::findOrFail($artworkId)->department, new $this->transformer);
         }
         else
         {
             $all = Department::paginate($limit);
-            return response()->collection($all, new \App\Http\Transformers\DepartmentTransformer);
+            return response()->collection($all, new $this->transformer);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Collections\Department  $department
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, $departmentId)
-    {
-
-        if ($request->method() != 'GET')
-        {
-
-            $this->respondMethodNotAllowed();
-
-        }
-
-        try
-        {
-            if (intval($departmentId) <= 0)
-            {
-                return $this->respondInvalidSyntax('Invalid identifier', "The department identifier should be a number. Please ensure you're passing the correct source identifier and try again.");
-            }
-
-            $item = Department::find($departmentId);
-
-            if (!$item)
-            {
-                return $this->respondNotFound('Department not found', "The department you requested cannot be found. Please ensure you're passing the source identifier and try again.");
-            }
-
-            return response()->item($item, new \App\Http\Transformers\DepartmentTransformer);
-        }
-        catch(\Exception $e)
-        {
-            return $this->respondFailure();
-        }
-
-    }
-
-    public function showMutliple($ids = '')
-    {
-
-        $ids = explode(',',$ids);
-        if (count($ids) > static::LIMIT_MAX)
-        {
-
-            return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-
-        }
-        $all = Department::find($ids);
-        return response()->collection($all, new \App\Http\Transformers\DepartmentTransformer);
-
     }
 
 }

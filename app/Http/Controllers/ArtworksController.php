@@ -6,8 +6,12 @@ use App\Models\Collections\Artwork;
 use App\Models\Collections\Exhibition;
 use Illuminate\Http\Request;
 
-class ArtworksController extends ApiController
+class ArtworksController extends ApiNewController
 {
+
+    protected $model = \App\Models\Collections\Artwork::class;
+
+    protected $transformer = \App\Http\Transformers\ArtworkTransformer::class;
 
     /**
      * Display a listing of the resource.
@@ -35,24 +39,28 @@ class ArtworksController extends ApiController
         $limit = $request->input('limit') ?: 12;
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many artworks. Please set a smaller limit.');
 
+        // exhibitions/{id}/artworks
         if ($artworkId && $request->segment(3) == 'exhibitions')
         {
 
             $all = Exhibition::findOrFail($artworkId)->artworks;
 
         }
+        // artworks/essentials
         elseif ($request->segment(4) == 'essentials')
         {
 
             $all = Artwork::essentials()->paginate($limit);
 
         }
+        // artworks/{id}/sets
         elseif ($artworkId && $request->segment(5) == 'sets')
         {
 
             $all = Artwork::findOrFail($artworkId)->sets;
 
         }
+        // artworks/{id}/parts
         elseif ($artworkId && $request->segment(5) == 'parts')
         {
 
@@ -66,61 +74,7 @@ class ArtworksController extends ApiController
 
         }
 
-        return response()->collection($all, new \App\Http\Transformers\ArtworkTransformer);
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Collections\Artwork  $artwork
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, $artworkId)
-    {
-
-        if ($request->method() != 'GET')
-        {
-
-            $this->respondMethodNotAllowed();
-
-        }
-
-        try
-        {
-            if (intval($artworkId) <= 0)
-            {
-                return $this->respondInvalidSyntax('Invalid identifier', "The artwork identifier should be a number. Please ensure you're passing the correct source identifier and try again.");
-            }
-
-            $item = Artwork::find($artworkId);
-
-            if (!$item)
-            {
-                return $this->respondNotFound('Artwork not found', "The artwork you requested cannot be found. Please ensure you're passing the source identifier and try again.");
-            }
-
-            return response()->item($item, new \App\Http\Transformers\ArtworkTransformer);
-        }
-        catch(\Exception $e)
-        {
-            return $this->respondFailure();
-        }
-
-    }
-
-    public function showMutliple($ids = '')
-    {
-
-        $ids = explode(',',$ids);
-        if (count($ids) > static::LIMIT_MAX)
-        {
-
-            return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-
-        }
-        $all = Artwork::find($ids);
-        return response()->collection($all, new \App\Http\Transformers\ArtworkTransformer);
+        return response()->collection($all, new $this->transformer);
 
     }
 

@@ -6,8 +6,12 @@ use App\Models\Collections\Category;
 use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
-class CategoriesController extends ApiController
+class CategoriesController extends ApiNewController
 {
+
+    protected $model = \App\Models\Collections\Category::class;
+
+    protected $transformer = \App\Http\Transformers\CategoryTransformer::class;
 
     /**
      * Display a listing of the resource.
@@ -37,62 +41,7 @@ class CategoriesController extends ApiController
         if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many artworks. Please set a smaller limit.');
 
         $all = $artworkId ? Artwork::findOrFail($artworkId)->categories : Category::paginate($limit);
-        return response()->collection($all, new \App\Http\Transformers\CategoryTransformer);
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Collections\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, $categoryId)
-    {
-
-        if ($request->method() != 'GET')
-        {
-
-            $this->respondMethodNotAllowed();
-
-        }
-
-        try
-        {
-
-            if (intval($categoryId) <= 0)
-            {
-                return $this->respondInvalidSyntax('Invalid identifier', "The category identifier should be number. Please ensure you're passing the correct source identifier and try again.");
-            }
-
-            $item = Category::find($categoryId);
-
-            if (!$item)
-            {
-                return $this->respondNotFound('Category not found', "The category you requested cannot be found. Please ensure you're passing the source identifier and try again.");
-            }
-
-            return response()->item($item, new \App\Http\Transformers\CategoryTransformer);
-        }
-        catch(\Exception $e)
-        {
-            return $this->respondFailure();
-        }
-
-    }
-
-    public function showMutliple($ids = '')
-    {
-
-        $ids = explode(',',$ids);
-        if (count($ids) > static::LIMIT_MAX)
-        {
-
-            return $this->respondForbidden('Invalid number of ids', 'You have requested too many ids. Please send a smaller amount.');
-
-        }
-        $all = Category::find($ids);
-        return response()->collection($all, new \App\Http\Transformers\CategoryTransformer);
+        return response()->collection($all, new $this->transformer);
 
     }
 
