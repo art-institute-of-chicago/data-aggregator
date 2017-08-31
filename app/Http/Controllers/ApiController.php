@@ -10,7 +10,7 @@ abstract class ApiController extends Controller
     const LIMIT_MAX = 1000;
 
 
-    private function isUuid($id)
+    protected function isUuid($id)
     {
 
         // We must not be using UUIDv3, since the typical regex wasn't matching
@@ -20,7 +20,8 @@ abstract class ApiController extends Controller
 
     }
 
-    private function isDscId($id)
+    // TODO: Currently unused?
+    protected function isDscId($id)
     {
 
         $dscFormat = '/^[a-z]{2,3}-[0-9]+-[0-9]+$/i';
@@ -32,37 +33,37 @@ abstract class ApiController extends Controller
     // See boot() in App\Providers\AppServiceProvider for the error() macro
     // TODO: Move these into Exceptions?
 
-    private function respondNotFound($message = 'Not found', $detail = 'The item you requested cannot be found.')
+    protected function respondNotFound($message = 'Not found', $detail = 'The item you requested cannot be found.')
     {
         return response()->error($message, $detail, Response::HTTP_NOT_FOUND);
     }
 
-    private function respondInvalidSyntax($message = 'Invalid syntax', $detail = 'The identifier is invalid.')
+    protected function respondInvalidSyntax($message = 'Invalid syntax', $detail = 'The identifier is invalid.')
     {
         return response()->error($message, $detail, Response::HTTP_BAD_REQUEST);
     }
 
-    private function respondFailure($message = 'Failed request', $detail = 'The request failed.')
+    protected function respondFailure($message = 'Failed request', $detail = 'The request failed.')
     {
         return response()->error($message, $detail, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
-    private function respondForbidden($message = 'Forbidden', $detail = 'This request is forbidden.')
+    protected function respondForbidden($message = 'Forbidden', $detail = 'This request is forbidden.')
     {
         return response()->error($message, $detail, Response::HTTP_FORBIDDEN);
     }
 
-    private function respondTooManyIds($message = 'Invalid number of ids', $detail = 'You have requested too many ids. Please send a smaller amount.')
+    protected function respondTooManyIds($message = 'Invalid number of ids', $detail = 'You have requested too many ids. Please send a smaller amount.')
     {
         return response()->error($message, $detail, Response::HTTP_FORBIDDEN);
     }
 
-    private function respondBigLimit($message = 'Invalid limit', $detail = 'You have requested too many resources. Please set a smaller limit.')
+    protected function respondBigLimit($message = 'Invalid limit', $detail = 'You have requested too many resources. Please set a smaller limit.')
     {
         return $this->error($message, $detail, Response::HTTP_FORBIDDEN);
     }
 
-    private function respondMethodNotAllowed($message = 'Method not allowed', $detail = 'Method not allowed.')
+    protected function respondMethodNotAllowed($message = 'Method not allowed', $detail = 'Method not allowed.')
     {
         return response()->error($message, $detail, Response::HTTP_METHOD_NOT_ALLOWED);
     }

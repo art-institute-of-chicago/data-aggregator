@@ -91,7 +91,7 @@ abstract class ApiNewController extends ApiController
      * @param string $ids
      * @return \Illuminate\Http\Response
      */
-    private function showMutliple($ids = '')
+    protected function showMutliple($ids = '')
     {
 
         $ids = explode(',',$ids);
