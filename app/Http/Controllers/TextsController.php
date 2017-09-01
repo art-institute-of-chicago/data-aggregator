@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 class TextsController extends AssetsController
 {
 
-    public $type = 'Text';
+    protected $model = \App\Models\Collections\Text::class;
+
+    protected $transformer = \App\Http\Transformers\TextTransformer::class;
 
 }

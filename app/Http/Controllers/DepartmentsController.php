@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Collections\Department;
 use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
@@ -13,42 +12,15 @@ class DepartmentsController extends ApiNewController
 
     protected $transformer = \App\Http\Transformers\DepartmentTransformer::class;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @param null $id
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request, $artworkId = null)
-    {
+    // artworks/{id}/department
+    // TODO: Is this actually necessary? There's only ever one department per artwork, and there's no extra fields it offers.
+    public function forArtwork(Request $request, $id) {
 
-        if ($request->method() != 'GET')
-        {
+        return $this->collect( $request, function( $limit, $id ) {
 
-            $this->respondMethodNotAllowed();
+            return Artwork::findOrFail($id)->department;
 
-        }
+        });
 
-        $ids = $request->input('ids');
-        if ($ids)
-        {
-
-            return $this->showMutliple($ids);
-
-        }
-
-        $limit = $request->input('limit') ?: 12;
-        if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many artworks. Please set a smaller limit.');
-
-        if ($artworkId)
-        {
-            return response()->item(Artwork::findOrFail($artworkId)->department, new $this->transformer);
-        }
-        else
-        {
-            $all = Department::paginate($limit);
-            return response()->collection($all, new $this->transformer);
-        }
     }
-
 }

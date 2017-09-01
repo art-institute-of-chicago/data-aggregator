@@ -21,20 +21,85 @@ abstract class ApiNewController extends ApiController
     public function show(Request $request, $id)
     {
 
+        return $this->select( $request, function( $id ) {
+
+            return $this->find($id);
+
+        });
+
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param null $id
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+
+        return $this->collect( $request, function( $limit ) {
+
+            return $this->paginate( $limit );
+
+        });
+
+    }
+
+
+    /**
+     * Call to find specific id(s). Override this method when logic to get
+     * a model is more complex than a simple `$model::find($id)` call.
+     *
+     * @param mixed $ids
+     */
+    protected function find($ids)
+    {
+
+        return ($this->model)::instance()->find($ids);
+
+    }
+
+
+    /**
+     * Call to get a model list. Override this method when logic to get
+     * models is more complex than a simple `$model::paginate($limit)` call.
+     *
+     * @param int $limit
+     */
+    protected function paginate($limit)
+    {
+
+        return ($this->model)::paginate($limit);
+
+    }
+
+
+    /**
+     * Return a single resource. Not meant to be called directly in routes.
+     *
+     * @param  \App\Models\Collections\Event  $event
+     * @return \Illuminate\Http\Response
+     */
+    protected function select( Request $request, $callback )
+    {
+
         // Technically this will never be called, b/c we only bind Route.get
         if ($request->method() != 'GET')
         {
             return $this->respondMethodNotAllowed();
         }
 
-        // Only allow numeric ids
-        if (intval($id) <= 0)
+        $id = $request->route('id');
+
+        if (!$this->validateId( $id ))
         {
             return $this->respondInvalidSyntax();
         }
 
         // TODO: Improve exception handling via Handler
-        $item = ($this->model)::find($id);
+        $item = $callback( $id );
 
         if (!$item)
         {
@@ -47,12 +112,12 @@ abstract class ApiNewController extends ApiController
 
 
     /**
-     * Display a listing of the resource.
+     * Return a list of resources. Not meant to be called directly in routes.
      *
-     * @param null $id
+     * @param  \App\Models\Collections\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    protected function collect( Request $request, $callback )
     {
 
         // Technically this will never be called, b/c we only bind Route.get
@@ -77,13 +142,16 @@ abstract class ApiNewController extends ApiController
             return $this->respondBigLimit();
         }
 
+        // This would happen for subresources
+        $id = $request->route('id');
+
         // Assumes the inheriting class set model and transformer
-        $all = ($this->model)::paginate($limit);
+        $all = $callback( $limit, $id );
 
         return response()->collection($all, new $this->transformer);
 
-
     }
+
 
     /**
      * Display multiple resources.
@@ -94,16 +162,46 @@ abstract class ApiNewController extends ApiController
     protected function showMutliple($ids = '')
     {
 
-        $ids = explode(',',$ids);
+        $ids = explode(',', $ids);
 
         if (count($ids) > static::LIMIT_MAX)
         {
             return $this->respondTooManyIds();
         }
 
-        $all = ($this->model)::find($ids);
+        // Validate the syntax for each $id
+        foreach( $ids as $id )
+        {
+
+            if (!$this->validateId( $id ))
+            {
+                return $this->respondInvalidSyntax();
+            }
+
+        }
+
+        $all = $this->find($ids);
 
         return response()->collection($all, new $this->transformer);
+
+    }
+
+
+    /**
+     * Validate `id` route or query string param format. By default, only
+     * numeric ids greater than zero are accepted. Override this method in
+     * child classes to implement different validation rules (e.g. UUID).
+     *
+     * @TODO Move this logic to the base model classes?
+     *
+     * @param string $id
+     * @return boolean
+     */
+    protected function validateId( $id )
+    {
+
+        // By default, only allow numeric ids greater than 0
+        return intval($id) > 0;
 
     }
 

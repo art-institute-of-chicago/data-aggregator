@@ -4,77 +4,58 @@ namespace App\Http\Controllers;
 
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Exhibition;
+
 use Illuminate\Http\Request;
 
 class ArtworksController extends ApiNewController
 {
 
-    protected $model = \App\Models\Collections\Artwork::class;
+    protected $model = Artwork::class;
 
     protected $transformer = \App\Http\Transformers\ArtworkTransformer::class;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request, $artworkId = null)
-    {
 
-        if ($request->method() != 'GET')
-        {
+    // artworks/essentials
+    public function essentials(Request $request) {
 
-            $this->respondMethodNotAllowed();
+        return $this->collect( $request, function( $limit ) {
 
-        }
+            return Artwork::essentials()->paginate($limit);
 
-        $ids = $request->input('ids');
-        if ($ids)
-        {
+        });
 
-            return $this->showMutliple($ids);
+    }
 
-        }
+    // artworks/{id}/sets
+    public function sets(Request $request, $id) {
 
-        $limit = $request->input('limit') ?: 12;
-        if ($limit > static::LIMIT_MAX) return $this->respondForbidden('Invalid limit', 'You have requested too many artworks. Please set a smaller limit.');
+        return $this->collect( $request, function( $limit, $id ) {
 
-        // exhibitions/{id}/artworks
-        if ($artworkId && $request->segment(3) == 'exhibitions')
-        {
+            return Artwork::findOrFail( $id )->sets()->paginate( $limit );
 
-            $all = Exhibition::findOrFail($artworkId)->artworks;
+        });
 
-        }
-        // artworks/essentials
-        elseif ($request->segment(4) == 'essentials')
-        {
+    }
 
-            $all = Artwork::essentials()->paginate($limit);
+    // artworks/{id}/parts
+    public function parts(Request $request, $id) {
 
-        }
-        // artworks/{id}/sets
-        elseif ($artworkId && $request->segment(5) == 'sets')
-        {
+        return $this->collect( $request, function( $limit, $id ) {
 
-            $all = Artwork::findOrFail($artworkId)->sets;
+            return Artwork::findOrFail( $id )->parts()->paginate( $limit );
 
-        }
-        // artworks/{id}/parts
-        elseif ($artworkId && $request->segment(5) == 'parts')
-        {
+        });
 
-            $all = Artwork::findOrFail($artworkId)->parts;
+    }
 
-        }
-        else
-        {
+    // exhibitions/{id}/artworks
+    public function forExhibition(Request $request, $id) {
 
-            $all = Artwork::paginate($limit);
+        return $this->collect( $request, function( $limit, $id ) {
 
-        }
+            return Exhibition::findOrFail($id)->artworks;
 
-        return response()->collection($all, new $this->transformer);
+        });
 
     }
 

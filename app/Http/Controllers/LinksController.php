@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 class LinksController extends AssetsController
 {
 
-    public $type = 'Link';
+    protected $model = \App\Models\Collections\Link::class;
+
+    protected $transformer = \App\Http\Transformers\LinkTransformer::class;
 
 }

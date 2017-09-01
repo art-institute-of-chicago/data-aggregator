@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collections\Exhibition;
+use Illuminate\Http\Request;
+
 class VenuesController extends AgentsController
 {
 
-    protected function agentTypeFilter()
-    {
+    protected $agentType = 'Corporate Body';
 
-        return 'Corporate Body';
+    // exhibitions/{id}/venues
+    public function forExhibition(Request $request, $id) {
+
+        return $this->collect( $request, function( $limit, $id ) {
+
+            return Exhibition::findOrFail($id)->venues;
+
+        });
 
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 class SoundsController extends AssetsController
 {
 
-    public $type = 'Sound';
+    protected $model = \App\Models\Collections\Sound::class;
+
+    protected $transformer = \App\Http\Transformers\Sound::class;
 
 }

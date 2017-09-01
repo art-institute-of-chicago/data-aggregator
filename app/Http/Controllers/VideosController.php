@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 class VideosController extends AssetsController
 {
 
-    public $type = 'Video';
+    protected $model = \App\Models\Collections\Video::class;
+
+    protected $transformer = \App\Http\Transformers\VideoTransformer::class;
 
 }
