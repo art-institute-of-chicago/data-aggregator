@@ -30,20 +30,6 @@ class CollectionsModel extends BaseModel
     }
 
 
-    /**
-     * Find the record matching the given id or create it.
-     *
-     * @param  int    $id
-     * @return \App\Models\CollectionsModel
-     */
-    public static function findOrCreate($id)
-    {
-
-        $model = static::find($id);
-        return $model ?: static::create([static::instance()->getKeyName() => $id]);
-
-    }
-
 
     /**
      * Get the class name for a given API endpoint

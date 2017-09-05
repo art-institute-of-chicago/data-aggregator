@@ -68,6 +68,21 @@ class BaseModel extends Model
 
 
     /**
+     * Find the record matching the given id or create it.
+     *
+     * @param  int    $id
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public static function findOrCreate($id)
+    {
+
+        $model = static::find($id);
+        return $model ?: static::create([static::instance()->getKeyName() => $id]);
+
+    }
+
+
+    /**
      * Turn this model object into a generic array.
      *
      * @param boolean  withTitles
