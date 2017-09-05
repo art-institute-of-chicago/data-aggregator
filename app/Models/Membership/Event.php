@@ -34,6 +34,9 @@ class Event extends MembershipModel
             'is_private_event' => $source->is_private_event,
             'is_admission_required' => $source->is_admission_required,
 
+            'available' => $source->available,
+            'total_capacity' => $source->total_capacity,
+
         ];
 
     }
@@ -62,6 +65,9 @@ class Event extends MembershipModel
             'is_after_hours' => (bool) $this->is_after_hours,
             'is_private_event' => (bool) $this->is_private_event,
             'is_admission_required' => (bool) $this->is_admission_required,
+
+            'available' => $this->available,
+            'total_capacity' => $this->total_capacity,
 
         ];
 
@@ -101,6 +107,12 @@ class Event extends MembershipModel
             ],
             'is_admission_required' => [
                 'type' => 'boolean',
+            ],
+            'available' => [
+                'type' => 'integer',
+            ],
+            'total_capacity' => [
+                'type' => 'integer',
             ],
 
         ];

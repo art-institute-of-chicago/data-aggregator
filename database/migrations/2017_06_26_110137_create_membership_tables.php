@@ -26,7 +26,9 @@ class CreateMembershipTables extends Migration
             $table->boolean('is_admission_required')->nullable();
             $table->string('image_url')->nullable();
             $table->text('description')->nullable(); // Description
-            // TODO: Add capacity information
+            $table->integer('available')->nullable();
+            $table->integer('total_capacity')->nullable();
+
             $table = $this->_addDates($table);
         });
 
