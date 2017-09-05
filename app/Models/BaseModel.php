@@ -9,6 +9,8 @@ use App\Scopes\SortByLastUpdatedScope;
 class BaseModel extends Model
 {
 
+    use Transformable;
+
     /**
      * Indicates if the IDs are auto-incrementing.
      *
@@ -81,53 +83,5 @@ class BaseModel extends Model
 
     }
 
-
-    /**
-     * Turn this model object into a generic array.
-     *
-     * @param boolean  withTitles
-     * @return array
-     */
-    public function transform($withTitles = false)
-    {
-
-        $ret = $this->transformFields();
-
-        if ($withTitles)
-        {
-
-            $ret = array_merge($ret, $this->transformTitles());
-
-        }
-
-        return $ret;
-
-    }
-
-
-    /**
-     * Turn this model object into a generic array.
-     *
-     * @return array
-     */
-    public function transformFields()
-    {
-
-        return [];
-
-    }
-
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [];
-
-    }
 
 }
