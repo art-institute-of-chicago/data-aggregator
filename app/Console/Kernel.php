@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\ImportCollections::class,
         Commands\ImportEssentials::class,
         Commands\ImportEventsFull::class,
+        Commands\ImportEvents::class,
         Commands\ScoutImportOne::class,
         Commands\ScoutImportAll::class,
         Commands\ScoutFlushAll::class,
