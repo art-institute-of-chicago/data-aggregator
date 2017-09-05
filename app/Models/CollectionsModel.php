@@ -32,14 +32,14 @@ class CollectionsModel extends BaseModel
 
 
     /**
-     * Fill in this model's IDs and title from the given resource, or fill it in with fake data.
+     * Fill in this model's IDs from the given resource, or fill it in with fake data.
      * This method is used primarily when the given resource is provided by the source
      * system.
      *
      * @param  object  $source
      * @return $this
      */
-    protected function fillIdsAndTitleFrom($source)
+    protected function fillIdsFrom($source)
     {
 
         $fill = [];
@@ -58,7 +58,6 @@ class CollectionsModel extends BaseModel
 
         }
 
-        $fill['title'] = $source->title;
         $fill['lake_uri'] = $source->lake_uri;
 
         $this->fill($fill);
