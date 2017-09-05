@@ -9,6 +9,34 @@ use App\Scopes\SortByLastUpdatedScope;
 class BaseModel extends Model
 {
 
+    use Transformable, Fillable;
+
+    /**
+     * A Faker instance for the model.
+     *
+     * @TODO This sorta belongs in Fillable, but it should likely be a Provider, not tied to model(s).
+     *
+     * @var \Faker\Generator
+     */
+    public $faker;
+
+
+    /**
+     * Create a new model instance. Also instantiates a $faker class.
+     *
+     * @param  array  $attributes
+     * @return void
+     */
+    function __construct($attributes = array())
+    {
+        parent::__construct($attributes);
+
+        // We are putting the faker definition here to avoid __construct conflicts
+        $this->faker = \Faker\Factory::create();
+
+    }
+
+
     /**
      * Indicates if the IDs are auto-incrementing.
      *
@@ -68,51 +96,18 @@ class BaseModel extends Model
 
 
     /**
-     * Turn this model object into a generic array.
+     * Find the record matching the given id or create it.
      *
-     * @param boolean  withTitles
-     * @return array
+     * @param  int    $id
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function transform($withTitles = false)
+    public static function findOrCreate($id)
     {
 
-        $ret = $this->transformFields();
-
-        if ($withTitles)
-        {
-
-            $ret = array_merge($ret, $this->transformTitles());
-
-        }
-
-        return $ret;
+        $model = static::find($id);
+        return $model ?: static::create([static::instance()->getKeyName() => $id]);
 
     }
 
-
-    /**
-     * Turn this model object into a generic array.
-     *
-     * @return array
-     */
-    public function transformFields()
-    {
-
-        return [];
-
-    }
-
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [];
-
-    }
 
 }
