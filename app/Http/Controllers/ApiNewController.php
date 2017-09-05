@@ -15,7 +15,8 @@ abstract class ApiNewController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Collections\Event  $event
+     * @param  \Illuminate\Http\Request $request
+     * @param  mixed $id
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id)
@@ -33,7 +34,7 @@ abstract class ApiNewController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param null $id
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -53,6 +54,7 @@ abstract class ApiNewController extends ApiController
      * a model is more complex than a simple `$model::find($id)` call.
      *
      * @param mixed $ids
+     * @return \Illuminate\Database\Eloquent\Model
      */
     protected function find($ids)
     {
@@ -67,6 +69,7 @@ abstract class ApiNewController extends ApiController
      * models is more complex than a simple `$model::paginate($limit)` call.
      *
      * @param int $limit
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     protected function paginate($limit)
     {
@@ -78,8 +81,10 @@ abstract class ApiNewController extends ApiController
 
     /**
      * Return a single resource. Not meant to be called directly in routes.
+     * `$callback` should return an Eloquent Model.
      *
-     * @param  \App\Models\Collections\Event  $event
+     * @param  \Illuminate\Http\Request $request
+     * @param  callable $callback
      * @return \Illuminate\Http\Response
      */
     protected function select( Request $request, $callback )
@@ -113,8 +118,10 @@ abstract class ApiNewController extends ApiController
 
     /**
      * Return a list of resources. Not meant to be called directly in routes.
+     * `$callback` should return an Eloquent Collection.
      *
-     * @param  \App\Models\Collections\Event  $event
+     * @param  \Illuminate\Http\Request $request
+     * @param  callable $callback
      * @return \Illuminate\Http\Response
      */
     protected function collect( Request $request, $callback )
@@ -194,7 +201,7 @@ abstract class ApiNewController extends ApiController
      *
      * @TODO Move this logic to the base model classes?
      *
-     * @param string $id
+     * @param mixed $id
      * @return boolean
      */
     protected function validateId( $id )
