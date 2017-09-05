@@ -36,10 +36,10 @@ class CollectionsModel extends BaseModel
      * This method is used primarily when the given resource is provided by the source
      * system.
      *
-     * @param  \App\Models\CollecitonsModel  $source
+     * @param  object  $source
      * @return $this
      */
-    private function fillIdsAndTitleFrom($source)
+    protected function fillIdsAndTitleFrom($source)
     {
 
         $fill = [];
@@ -73,10 +73,10 @@ class CollectionsModel extends BaseModel
      * This method is used primarily when the given resource is provided by the source
      * system.
      *
-     * @param  \App\Models\CollectionsModel  $source
+     * @param  object  $source
      * @return $this
      */
-    private function fillDatesFrom($source)
+    protected function fillDatesFrom($source)
     {
 
         $fill = [];
@@ -85,64 +85,7 @@ class CollectionsModel extends BaseModel
         $fill['source_modified_at'] = strtotime($source->modified_at);
         $fill['source_indexed_at'] = strtotime($source->indexed_at);
 
-        if ($this->getKeyName() == 'citi_id')
-        {
-
-            //$fill['citi_created_at'] = ;
-            //$fill['citi_modified_at'] = ;
-
-        }
-
         $this->fill($fill);
-
-        return $this;
-
-    }
-
-
-    /**
-     * Fill in this model's fields from the given resource, or fill it in with fake data.
-     * This method is used primarily when the given resource is provided by the source
-     * system.
-     *
-     * @param  \App\Models\CollectionsModel  $source
-     * @param  bool  $fake
-     * @return $this
-     */
-    public function fillFrom($source, $fake = true)
-    {
-        $this->fillIdsAndTitleFrom($source)
-            ->fill($this->getFillFieldsFrom($source, $fake))
-            ->fillDatesFrom($source);
-
-        return $this;
-    }
-
-
-    /**
-     * Method to allow child classes to define how `fill` methods should treat fields that are
-     * specific to each model.
-     *
-     * @param  \App\Models\CollectionsModel  $source
-     * @return $this
-     */
-    public function getFillFieldsFrom($source)
-    {
-
-        return [];
-
-    }
-
-
-    /**
-     * Method to allow child classes to define how `fill` methods should treat related models
-     * for each model.
-     *
-     * @param  \App\Models\CollectionsModel  $source
-     * @return $this
-     */
-    public function attachFrom($source, $fake = true)
-    {
 
         return $this;
 

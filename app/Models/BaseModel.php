@@ -9,7 +9,7 @@ use App\Scopes\SortByLastUpdatedScope;
 class BaseModel extends Model
 {
 
-    use Transformable;
+    use Transformable, Fillable;
 
     /**
      * A Faker instance for the model.
