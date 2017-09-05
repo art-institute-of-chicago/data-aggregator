@@ -33,17 +33,21 @@ Route::group(['prefix' => 'v1'], function()
     Route::match( array('GET', 'POST'), '{type}/_search', 'Search\SearchController@search');
 
 
-    // Collections
+    // Artwork related stuff
     Route::get('artworks', 'ArtworksController@index');
-    Route::get('artworks/essentials', 'ArtworksController@index');
-    Route::get('artworks/{id}', 'ArtworksController@show');
-    Route::get('artworks/{id}/artists', 'ArtistsController@index');
-    Route::get('artworks/{id}/copyrightRepresentatives', 'CopyrightRepresentativesController@index');
-    Route::get('artworks/{id}/categories', 'CategoriesController@index');
-    Route::get('artworks/{id}/parts', 'ArtworksController@index');
-    Route::get('artworks/{id}/sets', 'ArtworksController@index');
-    Route::get('artworks/{id}/images', 'ImagesController@index');
+    Route::get('artworks/essentials', 'ArtworksController@essentials');
 
+    Route::get('artworks/{id}', 'ArtworksController@show');
+    Route::get('artworks/{id}/parts', 'ArtworksController@parts');
+    Route::get('artworks/{id}/sets', 'ArtworksController@sets');
+
+    Route::get('artworks/{id}/images', 'ImagesController@forArtwork');
+    Route::get('artworks/{id}/artists', 'ArtistsController@forArtwork');
+    Route::get('artworks/{id}/categories', 'CategoriesController@forArtwork');
+    Route::get('artworks/{id}/departments', 'DepartmentsController@forArtwork'); // TODO: Unknown formatter "getKeyName"
+    Route::get('artworks/{id}/copyrightRepresentatives', 'CopyrightRepresentativesController@forArtwork');
+
+    // Collections
     Route::get('agents', 'AgentsController@index');
     Route::get('agents/{id}', 'AgentsController@show');
     Route::get('artists', 'ArtistsController@index');
@@ -68,8 +72,8 @@ Route::group(['prefix' => 'v1'], function()
 
     Route::get('exhibitions', 'ExhibitionsController@index');
     Route::get('exhibitions/{id}', 'ExhibitionsController@show');
-    Route::get('exhibitions/{id}/artworks', 'ArtworksController@index');
-    Route::get('exhibitions/{id}/venues', 'AgentsController@index');
+    Route::get('exhibitions/{id}/artworks', 'ArtworksController@forExhibition');
+    Route::get('exhibitions/{id}/venues', 'VenuesController@forExhibition');
 
     Route::get('images', 'ImagesController@index');
     Route::get('images/{id}', 'ImagesController@show');

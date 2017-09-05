@@ -8,48 +8,47 @@ use Illuminate\Http\Request;
 class MembersController extends ApiController
 {
 
+    protected $model = \App\Models\Membership\Member::class;
+
+    protected $transformer = \App\Http\Transformers\MemberTransformer::class;
+
+
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Collections\Member  $member
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @param  int $zip
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $memberId, $zip)
+    public function show(Request $request, $id, $zip)
     {
-
-        if ($request->method() != 'GET')
+        if (!$zip)
         {
-
-            $this->respondMethodNotAllowed();
-
+            return $this->respondInvalidSyntax('Invalid postal code', "The member's postal code must be passed. Please provide the postal code and try again.");
         }
 
-        try
-        {
-            if (intval($memberId) <= 0)
-            {
-                return $this->respondInvalidSyntax('Invalid identifier', "The member identifier should be a number. Please ensure you're passing the correct source identifier and try again.");
-            }
+        // We could also call the parent method we're overriding
+        return $this->select( $request, function( $id ) {
 
-            if (!$zip)
-            {
-                return $this->respondInvalidSyntax('Invalid postal code', "The member's postal code must be passed. Please provide the postal code and try again.");
-            }
+            return $this->find($id);
 
-            $item = Member::find($memberId);
+        });
 
-            if (!$item)
-            {
-                return $this->respondNotFound('Member not found', "The member you requested cannot be found. Please ensure you're passing the source identifier and try again.");
-            }
+    }
 
-            return response()->item($item, new \App\Http\Transformers\MemberTransformer);
-        }
-        catch(\Exception $e)
-        {
-            return $this->respondFailure($e->getMessage());
-        }
-
+    /**
+     * Retrieving a list of members is forbidden.
+     *
+     * @TODO We haven't actually defined this route, but I thought it best to
+     * override the inherited method. We should handle the `NotFoundHttpException`
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        return $this->respondForbidden();
     }
 
 }

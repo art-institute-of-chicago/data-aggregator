@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Collections\Text;
-use App\Models\Collections\Artwork;
-use Illuminate\Http\Request;
-
 class TextsController extends AssetsController
 {
 
-    public $type = 'Text';
+    protected $model = \App\Models\Collections\Text::class;
+
+    protected $transformer = \App\Http\Transformers\TextTransformer::class;
 
 }
