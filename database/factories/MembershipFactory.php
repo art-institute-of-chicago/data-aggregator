@@ -36,23 +36,22 @@ if (!function_exists('membershipIdsAndTitle'))
 
 
 $factory->define(App\Models\Membership\Event::class, function (Faker\Generator $faker) {
+
+    $has_capacity = rand(0,1) == 1;
+
     return array_merge(
         membershipIdsAndTitle($faker),
         [
-            'start' => $faker->dateTimeThisYear,
-            'end' => $faker->dateTimeThisYear,
-            'type' => $faker->randomNumber(2),
-            'on_sale' => $faker->dateTimeThisYear,
-            'off_sale' => $faker->dateTimeThisYear,
-            'resource' => $faker->randomNumber(2),
-            'user_event_number' => $faker->randomNumber(3),
-            'available' => $faker->randomDigit * 10,
-            'total_capacity' => $faker->randomDigit * 10,
-            'status' => $faker->randomDigit,
-            'has_roster' => $faker->boolean,
-            'rs_event_seat_map_id' => $faker->randomDigit,
-            'private_event' => $faker->boolean,
-            'has_holds' => $faker->boolean,
+            'type_id' => $faker->randomNumber(2),
+            'start_at' => $faker->dateTimeThisYear,
+            'end_at' => $faker->dateTimeThisYear,
+            'resource_id' => $faker->randomNumber(2),
+            'resource_title' => ucfirst($faker->words(3, true)),
+            'is_after_hours' => $faker->boolean,
+            'is_private_event' => $faker->boolean,
+            'is_admission_required' => $faker->boolean,
+            'available' => $has_capacity ? $faker->randomDigit * 10 : null,
+            'total_capacity' => $has_capacity ? $faker->randomDigit * 100 : null,
         ],
         membershipDates($faker)
     );
