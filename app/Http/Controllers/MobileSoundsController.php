@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class MobileSoundsController extends ApiNewController
+class MobileSoundsController extends ApiController
 {
 
     protected $model = \App\Models\Mobile\Sound::class;

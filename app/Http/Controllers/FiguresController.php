@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class FiguresController extends ApiNewController
+class FiguresController extends ApiController
 {
 
     protected $model = \App\Models\Dsc\Figure::class;

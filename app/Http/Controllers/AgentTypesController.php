@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class AgentTypesController extends ApiNewController
+class AgentTypesController extends ApiController
 {
 
     protected $model = \App\Models\Collections\AgentType::class;

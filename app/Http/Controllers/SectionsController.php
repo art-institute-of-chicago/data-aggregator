@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class SectionsController extends ApiNewController
+class SectionsController extends ApiController
 {
 
     protected $model = \App\Models\Dsc\Section::class;

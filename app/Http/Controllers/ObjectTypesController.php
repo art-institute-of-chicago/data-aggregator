@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class ObjectTypesController extends ApiNewController
+class ObjectTypesController extends ApiController
 {
 
     protected $model = \App\Models\Collections\ObjectType::class;

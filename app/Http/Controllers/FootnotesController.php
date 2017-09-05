@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class FootnotesController extends ApiNewController
+class FootnotesController extends ApiController
 {
 
     protected $model = \App\Models\Dsc\Footnote::class;

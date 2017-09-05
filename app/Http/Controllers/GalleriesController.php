@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class GalleriesController extends ApiNewController
+class GalleriesController extends ApiController
 {
 
     protected $model = \App\Models\Collections\Gallery::class;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class EventsController extends ApiNewController
+class EventsController extends ApiController
 {
 
     protected $model = \App\Models\Membership\Event::class;

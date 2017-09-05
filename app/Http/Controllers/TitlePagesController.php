@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class TitlePagesController extends ApiNewController
+class TitlePagesController extends ApiController
 {
 
     protected $model = \App\Models\Dsc\TitlePage::class;

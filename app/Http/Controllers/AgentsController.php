@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AgentsController extends ApiNewController
+class AgentsController extends ApiController
 {
 
     protected $model = \App\Models\Collections\Agent::class;

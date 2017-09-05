@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class ToursController extends ApiNewController
+class ToursController extends ApiController
 {
 
     protected $model = \App\Models\Mobile\Tour::class;

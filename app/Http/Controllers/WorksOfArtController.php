@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class WorksOfArtController extends ApiNewController
+class WorksOfArtController extends ApiController
 {
 
     protected $model = \App\Models\Dsc\WorkOfArt::class;

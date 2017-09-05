@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class ProductsController extends ApiNewController
+class ProductsController extends ApiController
 {
 
     protected $model = \App\Models\Shop\Product::class;

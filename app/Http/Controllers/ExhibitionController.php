@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class ExhibitionsController extends ApiNewController
+class ExhibitionsController extends ApiController
 {
 
     protected $model = \App\Models\Collections\Exhibition::class;

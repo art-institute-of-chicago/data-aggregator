@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Membership\Member;
 use Illuminate\Http\Request;
 
-class MembersController extends ApiNewController
+class MembersController extends ApiController
 {
 
     protected $model = \App\Models\Membership\Member::class;

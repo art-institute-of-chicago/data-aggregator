@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Response;
 
-abstract class AssetsController extends ApiNewController
+abstract class AssetsController extends ApiController
 {
 
     // TODO: Had to be disabled due to a faulty import (id was citi_id). Please re-enable once that's fixed.

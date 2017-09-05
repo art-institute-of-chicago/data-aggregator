@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class PublicationsController extends ApiNewController
+class PublicationsController extends ApiController
 {
 
     protected $model = \App\Models\Dsc\Publication::class;
