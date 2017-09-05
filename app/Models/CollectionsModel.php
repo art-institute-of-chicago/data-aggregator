@@ -8,30 +8,6 @@ class CollectionsModel extends BaseModel
 {
 
     /**
-     * A Faker instance for the model.
-     *
-     * @var \Faker\Generator
-     */
-    public $faker;
-
-
-    /**
-     * Create a new model instance. Also instantiates a $faker class.
-     *
-     * @param  array  $attributes
-     * @return void
-     */
-    function __construct($attributes = array())
-    {
-        parent::__construct($attributes);
-
-        $this->faker = \Faker\Factory::create();
-
-    }
-
-
-
-    /**
      * Get the class name for a given API endpoint
      *
      * @param  string  $endpoint
