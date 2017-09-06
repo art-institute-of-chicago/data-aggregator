@@ -6,6 +6,8 @@ namespace App\Models\Collections;
 class Image extends Asset
 {
 
+    protected $appends = ['iiif_url'];
+
     // Note: Not all Images are meant to be associated w/ Artworks
     public function artworks()
     {
@@ -30,12 +32,27 @@ class Image extends Asset
         return [
 
             // 'type' => $item->type,
-            'iiif_url' =>  env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->lake_guid . '/info.json',
+            'iiif_url' =>  $this->iiif_url,
             'is_preferred' => (bool) $this->preferred,
             'artwork_ids' => $this->artworks->pluck('citi_id')->all(),
             'artwork_titles' => $this->artworks()->pluck('title'),
 
         ];
+
+    }
+
+    /**
+     * Get the IIIF URL.
+     *
+     * @TODO Change this link from info.json into just the `@id` attribute, i.e. strip `/info.json'
+     * We need to wait for the LAKE team to fix a redirect bug before we can implement that change.
+     *
+     * @return string
+     */
+    public function getIiifUrlAttribute()
+    {
+
+        return env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->lake_guid . '/info.json';
 
     }
 
