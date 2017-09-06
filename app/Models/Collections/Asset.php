@@ -73,7 +73,7 @@ class Asset extends CollectionsModel
 
                 'description' => $this->description,
                 'content' => $this->content,
-                // @TODO Review whether to default to empty string or null. Solr indexes null as empty string!
+                // @TODO Review whether to default to empty string or null.
                 'artist' => $this->artist()->getResults() ? $this->artist()->getResults()->title : '',
                 'artist_id' => $this->agent_citi_id,
                 'category_ids' => $this->categories->pluck('citi_id')->all(),

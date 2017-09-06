@@ -126,8 +126,6 @@ php artisan migrate:refresh --seed
 
 Be aware that if you've imported real data into into any of your tables they will be truncated and replaced with fake data.
 
-If you recieve an `Solarium\Exception\OutOfBoundsException`, ensure that your Solr instance is reachable.
-
 #### 5. Create unit tests
 
 Now that you've got your data structured and some test data to play with, you can begin wiring together the API

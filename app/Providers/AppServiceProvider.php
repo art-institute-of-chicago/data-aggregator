@@ -91,10 +91,5 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->singleton(\Solarium\Client::class, function ($app) {
-            // First endpoint is used by default
-            return new \Solarium\Client( config('solarium') );
-        });
-
     }
 }
