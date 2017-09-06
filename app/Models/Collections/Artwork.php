@@ -475,7 +475,8 @@ class Artwork extends CollectionsModel
                 'committee_titles' => $this->committees->pluck('committee')->all(),
                 'term_titles' => $this->terms->pluck('term')->all(),
                 // TODO: Fix me! Using map callback?
-                // 'image_urls' => $this->images->pluck('iiif_url')->all(),
+                'image_ids' => $this->images->pluck('lake_guid')->all(),
+                'image_urls' => $this->images->pluck('iiif_url')->all(),
                 'publication_ids' => $this->publications->pluck('dsc_id')->all(),
                 'tour_ids' => $this->tours->pluck('mobile_id')->all(),
             ]
