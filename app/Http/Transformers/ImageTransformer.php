@@ -25,7 +25,7 @@ class ImageTransformer extends AssetTransformer
 
         return [
             'type' => $item->type,
-            'iiif_url' => $item->iiif_url,
+            'iiif_url' =>  env('IIIF_URL', 'https://localhost/iiif') . '/' . $item->lake_guid . '/info.json',
             'is_preferred' => (bool) $item->preferred,
             'artwork_ids' => $item->artworks->pluck('citi_id')->all(),
         ];

@@ -231,7 +231,6 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addIdsAndTitle($table, false);
             $table = $this->_addInterpretiveResourceFileds($table);
             $table->string('type')->nullable();
-            $table->string('iiif_url')->nullable();
             $table->boolean('preferred')->nullable();
             $table = $this->_addDates($table, false);
         });

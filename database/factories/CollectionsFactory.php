@@ -285,7 +285,6 @@ $factory->define(App\Models\Collections\Image::class, function (Faker\Generator 
         [
             'description' => $faker->paragraph(3),
             'type' => 'http://definitions.artic.edu/doctypes/' .$faker->randomElement(['Imaging', 'CuratorialStillImage']),
-            'iiif_url' => $faker->unique()->imageUrl(), //env('LAKE_URL', 'https://localhost/iiif') .'/' .$lake_id .'/info.json',
             'agent_citi_id' => $faker->randomElement($agents),
         ],
         dates($faker)
