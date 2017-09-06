@@ -15,24 +15,6 @@ class ImageTransformer extends AssetTransformer
     protected $availableIncludes = ['categories', 'artworks'];
 
     /**
-     * Add fields to the transformation.
-     *
-     * @param \App\Image  $item
-     * @return array
-     */
-    public function assetFields($item)
-    {
-
-        return [
-            'type' => $item->type,
-            'iiif_url' =>  env('IIIF_URL', 'https://localhost/iiif') . '/' . $item->lake_guid . '/info.json',
-            'is_preferred' => (bool) $item->preferred,
-            'artwork_ids' => $item->artworks->pluck('citi_id')->all(),
-        ];
-
-    }
-
-    /**
      * Include artworks.
      *
      * @param  \App\Models\Collections\Image  $image

@@ -14,29 +14,29 @@ class Image extends Asset
 
     }
 
-    // TODO: Attach artworks' titles to the Image for search
-
     /**
      * Turn this model object into a generic array.
      *
+     * @TODO Image currently extends Asset, which means it contains IR fields.
+     * However, only 1547 of 103518 images are interpretive resources.
+     * We need to think more about abstracting away these shared fields.
+     * Maybe think of Interpretive Resource as a container..?
+     *
      * @return array
      */
-    public function transformFields()
+    public function transformAsset()
     {
 
-        // Image currently extends Asset, so it contains the following fields:
-        // description, content, artist, artist_id
+        return [
 
-        // However, these fields are "legacy" leftovers from Interpretive Resource
-        // They will likely *not* be filled during the upcoming LPM Enhancements work
+            // 'type' => $item->type,
+            'iiif_url' =>  env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->lake_guid . '/info.json',
+            'is_preferred' => (bool) $this->preferred,
+            'artwork_ids' => $this->artworks->pluck('citi_id')->all(),
+            'artwork_titles' => $this->artworks()->pluck('title'),
 
-        // THerefore, we exclude them from this transformation
+        ];
 
-        return array_merge(
-            [
-                'artwork_titles' => $this->artworks()->pluck('title'),
-            ]
-        );
     }
 
 }
