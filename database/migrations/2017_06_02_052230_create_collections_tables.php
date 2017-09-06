@@ -173,11 +173,7 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('links', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
-            $table->text('description')->nullable();
-            $table->string('content')->nullable();
-            $table->string('published')->nullable();
-            $table->integer('agent_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
+            $table = $this->_addInterpretiveResourceFileds($table);
             $table = $this->_addDates($table, false);
         });
 
@@ -191,11 +187,7 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('sounds', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
-            $table->text('description')->nullable();
-            $table->string('content')->nullable();
-            $table->string('published')->nullable();
-            $table->integer('agent_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
+            $table = $this->_addInterpretiveResourceFileds($table);
             $table = $this->_addDates($table, false);
         });
 
@@ -209,11 +201,7 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('videos', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
-            $table->text('description')->nullable();
-            $table->string('content')->nullable();
-            $table->string('published')->nullable();
-            $table->integer('agent_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
+            $table = $this->_addInterpretiveResourceFileds($table);
             $table = $this->_addDates($table, false);
         });
 
@@ -227,11 +215,7 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('texts', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
-            $table->text('description')->nullable();
-            $table->text('content')->nullable();
-            $table->string('published')->nullable();
-            $table->integer('agent_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
+            $table = $this->_addInterpretiveResourceFileds($table);
             $table = $this->_addDates($table, false);
         });
 
@@ -245,11 +229,7 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('images', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false);
-            $table->text('description')->nullable();
-            $table->string('content')->nullable();
-            $table->string('published')->nullable();
-            $table->integer('agent_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
+            $table = $this->_addInterpretiveResourceFileds($table);
             $table->string('type')->nullable();
             $table->string('iiif_url')->nullable();
             $table->boolean('preferred')->nullable();
@@ -302,6 +282,18 @@ class CreateCollectionsTables extends Migration
         });
 
 
+    }
+
+    private function _addInterpretiveResourceFileds($table)
+    {
+
+        $table->text('description')->nullable();
+        $table->string('content')->nullable();
+        $table->string('published')->nullable();
+        $table->integer('agent_citi_id')->nullable()->unsigned()->index();
+        $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
+
+        return $table;
     }
 
     private function _addIdsAndTitle($table, $citiField = true, $titleField = 'string')
