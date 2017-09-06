@@ -474,9 +474,9 @@ class Artwork extends CollectionsModel
                 'catalogue_titles' => $this->catalogues->pluck('catalogue')->all(),
                 'committee_titles' => $this->committees->pluck('committee')->all(),
                 'term_titles' => $this->terms->pluck('term')->all(),
-                // TODO: Fix me! Using map callback?
-                'image_ids' => $this->images->pluck('lake_guid')->all(),
-                'image_urls' => $this->images->pluck('iiif_url')->all(),
+            ],
+            $this->transformArtworkImages(),
+            [
                 'publication_ids' => $this->publications->pluck('dsc_id')->all(),
                 'tour_ids' => $this->tours->pluck('mobile_id')->all(),
             ]
@@ -531,6 +531,31 @@ class Artwork extends CollectionsModel
         }
 
         return [];
+
+    }
+
+
+    /**
+     * Helper function for collecting all image-related fields.
+     *
+     * @return array
+     */
+    protected function transformArtworkImages()
+    {
+
+        $preferred_image = $this->images->first( function( $image ) {
+            return $image->preferred;
+        });
+
+        return [
+
+            'preferred_image_id' => $preferred_image ? $preferred_image->lake_guid : null,
+            'preferred_image_iiif_url' => $preferred_image ? $preferred_image->iiif_url : null,
+
+            'image_ids' => $this->images->pluck('lake_guid')->all(),
+            'image_iiif_urls' => $this->images->pluck('iiif_url')->all(),
+
+        ];
 
     }
 

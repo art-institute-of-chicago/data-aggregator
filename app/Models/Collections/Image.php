@@ -42,17 +42,17 @@ class Image extends Asset
     }
 
     /**
-     * Get the IIIF URL.
+     * Get the IIIF URL. Corresponds to the `@id` attribute in the image's `/info.json`
      *
-     * @TODO Change this link from info.json into just the `@id` attribute, i.e. strip `/info.json'
-     * We need to wait for the LAKE team to fix a redirect bug before we can implement that change.
+     * @TODO Currently, this redirects to a non-existent `info.json'
      *
      * @return string
      */
     public function getIiifUrlAttribute()
     {
 
-        return env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->lake_guid . '/info.json';
+        // return env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->lake_guid . '/info.json';
+        return env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->lake_guid;
 
     }
 
