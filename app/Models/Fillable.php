@@ -17,7 +17,8 @@ trait Fillable
     public function fillFrom($source, $fake = true)
     {
         $this
-            ->fillIdsAndTitleFrom($source)
+            ->fillIdsFrom($source)
+            ->fillTitleFrom($source)
             ->fill( $this->getFillFieldsFrom($source, $fake) )
             ->fillDatesFrom($source);
 
@@ -56,21 +57,33 @@ trait Fillable
 
 
     /**
-     * Fill in this model's IDs and title from the given resource, or fill it in with fake data.
-     * This method is used primarily when the given resource is provided by the source
-     * system.
+     * Fill in this model's identifiers from source data.
+     * Meant to be overridden, especially by CollectionsModel, etc.
      *
      * @param  object  $source
      * @return $this
      */
-    protected function fillIdsAndTitleFrom($source)
+    protected function fillIdsFrom($source)
     {
 
-        $fill = [];
+        $this->id = $source->id;
 
-        $fill['title'] = $source->title;
+        return $this;
 
-        $this->fill($fill);
+    }
+
+
+    /**
+     * Fill in this model's title from source data.
+     * Meant to be overridden for more complex cases.
+     *
+     * @param  object  $source
+     * @return $this
+     */
+    protected function fillTitleFrom($source)
+    {
+
+        $this->title = $source->title;
 
         return $this;
 

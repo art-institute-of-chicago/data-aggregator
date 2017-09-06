@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Closure;
 
 abstract class ApiController extends Controller
 {
@@ -86,10 +87,10 @@ abstract class ApiController extends Controller
      * `$callback` should return an Eloquent Model.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  callable $callback
+     * @param  \Closure $callback
      * @return \Illuminate\Http\Response
      */
-    protected function select( Request $request, $callback )
+    protected function select( Request $request, Closure $callback )
     {
 
         // Technically this will never be called, b/c we only bind Route.get
@@ -123,10 +124,10 @@ abstract class ApiController extends Controller
      * `$callback` should return an Eloquent Collection.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  callable $callback
+     * @param  \Closure $callback
      * @return \Illuminate\Http\Response
      */
-    protected function collect( Request $request, $callback )
+    protected function collect( Request $request, Closure $callback )
     {
 
         // Technically this will never be called, b/c we only bind Route.get
