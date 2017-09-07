@@ -2,12 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-
 use Carbon\Carbon;
 
-class ImportEventsFull extends Command
+class ImportEventsFull extends AbstractImportCommand
 {
+
     /**
      * The name and signature of the console command.
      *

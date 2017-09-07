@@ -2,11 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-
 use Carbon\Carbon;
 
-class ImportEvents extends Command
+class ImportEvents extends AbstractImportCommand
 {
 
     /**

@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-
-class ImportEssentials extends Command
+class ImportEssentials extends AbstractImportCommand
 {
     /**
      * The name and signature of the console command.
