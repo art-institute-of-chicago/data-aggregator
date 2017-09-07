@@ -54,7 +54,7 @@ class ImportCollections extends AbstractImportCommand
 
         $class = \App\Models\CollectionsModel::classFor($endpoint);
 
-        $json = $this->query($endpoint, $current);
+        $json = $this->queryService($endpoint, $current);
         $pages = $json->pagination->pages->total;
 
         while ($current <= $pages)
@@ -85,30 +85,15 @@ class ImportCollections extends AbstractImportCommand
             }
 
             $current++;
-            $json = $this->query($endpoint, $current);
+            $json = $this->queryService($endpoint, $current);
 
         }
 
     }
 
-    private function query($type = 'artworks', $page = 1)
+    private function queryService($type = 'artworks', $page = 1)
     {
-
-        $ch = curl_init();
-
-        curl_setopt ($ch, CURLOPT_URL, env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost') .'/' .$type .'?page=' .$page .'&per_page=100');
-        curl_setopt ($ch, CURLOPT_HEADER, 0);
-
-        ob_start();
-
-        curl_exec ($ch);
-        curl_close ($ch);
-        $string = ob_get_contents();
-
-        ob_end_clean();
-
-        return json_decode($string);
-
+        return $this->query( env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost') .'/' .$type .'?page=' .$page .'&per_page=100' );
     }
 
 }

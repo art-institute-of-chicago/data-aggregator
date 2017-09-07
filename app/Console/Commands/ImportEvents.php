@@ -57,7 +57,7 @@ class ImportEvents extends AbstractImportCommand
 
         $class = \App\Models\Membership\Event::class;
 
-        $json = $this->query($endpoint, $current);
+        $json = $this->queryService($endpoint, $current);
         $pages = $json->pagination->total_pages;
 
         while ($current <= $pages)
@@ -91,7 +91,7 @@ class ImportEvents extends AbstractImportCommand
             }
 
             $current++;
-            $json = $this->query($endpoint, $current);
+            $json = $this->queryService($endpoint, $current);
 
         }
 
@@ -99,24 +99,9 @@ class ImportEvents extends AbstractImportCommand
 
     }
 
-    private function query($type = 'events', $page = 1)
+    private function queryService($type = 'artworks', $page = 1)
     {
-
-        $ch = curl_init();
-
-        curl_setopt ($ch, CURLOPT_URL, env('EVENTS_DATA_SERVICE_URL', 'http://localhost') .'/' .$type .'?page=' .$page .'&limit=100');
-        curl_setopt ($ch, CURLOPT_HEADER, 0);
-
-        ob_start();
-
-        curl_exec ($ch);
-        curl_close ($ch);
-        $string = ob_get_contents();
-
-        ob_end_clean();
-
-        return json_decode($string);
-
+        return $this->query( env('EVENTS_DATA_SERVICE_URL', 'http://localhost') .'/' .$type .'?page=' .$page .'&limit=100' );
     }
 
 }
