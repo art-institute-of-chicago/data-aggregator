@@ -17,7 +17,8 @@ class CreateCommandTable extends Migration
         Schema::create('commands', function (Blueprint $table) {
             $table->increments('id');
             $table->string('command')->nullable();
-            $table->timestamp('last_ran_at')->nullable()->useCurrent();
+            $table->timestamp('last_attempt_at')->nullable()->useCurrent();
+            $table->timestamp('last_success_at')->nullable();
             $table->timestamps();
         });
 

@@ -56,7 +56,7 @@ class ImportCollections extends AbstractImportCommand
                 $sourceIndexedTime = new Carbon($source->indexed_at);
                 $sourceIndexedTime->timezone = config('app.timezone');
 
-                if ($this->command->last_ran_at->lte($sourceIndexedTime))
+                if ($this->command->last_success_at->lte($sourceIndexedTime))
                 {
 
                     $resource = call_user_func($class .'::findOrCreate', $source->id);

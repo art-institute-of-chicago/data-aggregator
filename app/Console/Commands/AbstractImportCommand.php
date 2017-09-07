@@ -52,19 +52,18 @@ abstract class AbstractImportCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
-        $startTime = Carbon::now();
-        $this->command = \App\Command::firstOrCreate(['command' => $this->getName()]);
-        $this->command->last_ran_at = new Carbon($this->command->last_ran_at) ?: Carbon::now(); //->subDays(3);
+        $this->command = \App\Command::firstOrNew(['command' => $this->getName()]);
+        $this->command->last_attempt_at = Carbon::now();
+        $this->command->save();
 
         // Call Illuminate\Console\Command::execute
         $result = parent::execute( $input, $output );
 
         // If the $result is falsey (e.g. 0 or null), command was successful.
         // https://stackoverflow.com/questions/22485513/get-response-from-artisan-call
-        // For now, we only update the last_ran_at field when command is successful.
         if( !$result )
         {
-            $this->command->last_ran_at = $startTime;
+            $this->command->last_success_at = $this->command->last_attempt_at;
             $this->command->save();
         }
 

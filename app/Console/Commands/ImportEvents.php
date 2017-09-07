@@ -37,9 +37,9 @@ class ImportEvents extends AbstractImportCommand
     {
 
         // For debugging...
-        // $this->command->last_ran_at = $this->command->last_ran_at->subDays(10);
+        // $this->command->last_success_at = $this->command->last_success_at->subDays(10);
 
-        $this->info("Looking for events since " . $this->command->last_ran_at);
+        $this->info("Looking for events since " . $this->command->last_success_at);
 
         $this->import('events');
 
@@ -61,7 +61,7 @@ class ImportEvents extends AbstractImportCommand
                 $sourceTime = new Carbon($source->modified_at);
                 $sourceTime->timezone = config('app.timezone');
 
-                if ($this->command->last_ran_at->lte($sourceTime))
+                if ($this->command->last_success_at->lte($sourceTime))
                 {
 
                     // Don't use findOrCreate here, since it causes errors due to Searchable
