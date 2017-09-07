@@ -26,19 +26,6 @@ class ImportCollectionsFull extends AbstractImportCommand
                            ."If no options are passes all Collections data will be imported. Results are paged through 100 records \n"
                            ."at a time. If the Collections Data Service doesn't provide an endpoint fake data will be generated.";
 
-    protected $faker;
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->faker = \Faker\Factory::create();
-        parent::__construct();
-    }
-
     /**
      * Execute the console command.
      *
