@@ -29,15 +29,7 @@ class ImportEventsFull extends AbstractImportCommand
     public function handle()
     {
 
-        $startTime = Carbon::now();
-
         $this->import('events', 1);
-
-        // TODO: Change the naming convention of the command log to match signature
-        // Note that the `command` must match that of ImportEvents in order for incremental updates to work.
-        $command = \App\Command::firstOrCreate(['command' => 'import-events']);
-        $command->last_ran_at = $startTime;
-        $command->save();
 
     }
 

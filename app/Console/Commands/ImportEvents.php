@@ -36,19 +36,12 @@ class ImportEvents extends AbstractImportCommand
     public function handle()
     {
 
-        $startTime = Carbon::now();
-        $this->command = \App\Command::firstOrCreate(['command' => 'import-events']);
-        $this->command->last_ran_at = new Carbon($this->command->last_ran_at) ?: Carbon::now();
-
         // For debugging...
         // $this->command->last_ran_at = $this->command->last_ran_at->subDays(10);
 
         $this->info("Looking for events since " . $this->command->last_ran_at);
 
         $this->import('events');
-
-        $this->command->last_ran_at = $startTime;
-        $this->command->save();
 
     }
 

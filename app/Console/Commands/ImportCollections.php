@@ -20,8 +20,6 @@ class ImportCollections extends AbstractImportCommand
      */
     protected $description = "Import collections data that has been updated since the last import";
 
-    protected $command;
-
     /**
      * Execute the console command.
      *
@@ -29,10 +27,6 @@ class ImportCollections extends AbstractImportCommand
      */
     public function handle()
     {
-
-        $startTime = Carbon::now();
-        $this->command = \App\Command::firstOrCreate(['command' => 'import-collections']);
-        $this->command->last_ran_at = new Carbon($this->command->last_ran_at) ?: Carbon::now(); //->subDays(3);
 
         $this->import('artists');
         $this->import('departments');
@@ -43,9 +37,6 @@ class ImportCollections extends AbstractImportCommand
         $this->import('videos');
         $this->import('texts');
         $this->import('sounds');
-
-        $this->command->last_ran_at = $startTime;
-        $this->command->save();
 
     }
 

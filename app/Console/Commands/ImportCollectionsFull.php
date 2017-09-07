@@ -42,8 +42,6 @@ class ImportCollectionsFull extends AbstractImportCommand
         else
         {
 
-            $startTime = Carbon::now();
-
             // @TODO Replace with real endpoint when it becomes available
             if (\App\Models\Collections\AgentType::all()->isEmpty())
             {
@@ -98,10 +96,6 @@ class ImportCollectionsFull extends AbstractImportCommand
             }
 
             $this->import('sounds');
-
-            $command = \App\Command::firstOrCreate(['command' => 'import-collections']);
-            $command->last_ran_at = $startTime;
-            $command->save();
 
         }
 
