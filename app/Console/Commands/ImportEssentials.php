@@ -21,16 +21,6 @@ class ImportEssentials extends Command
     protected $description = 'Import all collections data related to Essential Works';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed

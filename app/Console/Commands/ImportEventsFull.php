@@ -23,16 +23,6 @@ class ImportEventsFull extends Command
     protected $description = "Import all events data";
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
