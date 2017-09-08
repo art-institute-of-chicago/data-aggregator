@@ -30,7 +30,7 @@ class ImportCollections extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
-        $class = \App\Models\CollectionsModel::classFor($endpoint);
+        $model = \App\Models\CollectionsModel::classFor($endpoint);
 
         $json = $this->queryService($endpoint, $current);
         $pages = $json->pagination->pages->total;
@@ -48,7 +48,7 @@ class ImportCollections extends AbstractImportCommand
                     break 2;
                 }
 
-                $resource = call_user_func($class .'::findOrCreate', $source->id);
+                $resource = $model::findOrCreate( $source->id );
 
                 $resource->fillFrom($source);
                 $resource->attachFrom($source);

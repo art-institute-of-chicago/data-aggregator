@@ -93,11 +93,10 @@ class ImportCollectionsFull extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
-        $class = \App\Models\CollectionsModel::classFor($endpoint);
+        $model = \App\Models\CollectionsModel::classFor($endpoint);
 
         // Abort if the table is already filled
-        $resources = call_user_func($class .'::all');
-        if (!$resources->isEmpty())
+        if( $model::count() > 0 )
         {
             return false;
         }
@@ -112,7 +111,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             foreach ($json->data as $source)
             {
 
-                $resource = call_user_func($class .'::findOrCreate', $source->id);
+                $resource = $model::findOrCreate( $source->id );
 
                 $resource->fillFrom($source);
                 $resource->attachFrom($source);

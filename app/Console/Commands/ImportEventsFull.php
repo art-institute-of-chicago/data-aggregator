@@ -47,11 +47,10 @@ class ImportEventsFull extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
-        $class = \App\Models\Membership\Event::class;
+        $model = \App\Models\Membership\Event::class;
 
         // Abort if the table is already filled
-        $resources = call_user_func($class .'::all');
-        if (!$resources->isEmpty())
+        if( $model::count() > 0 )
         {
             return false;
         }
@@ -67,7 +66,7 @@ class ImportEventsFull extends AbstractImportCommand
             {
 
                 // Don't use findOrCreate here, since it causes errors due to Searchable
-                $resource = call_user_func($class .'::findOrNew', $source->id);
+                $resource = $model::findOrNew( $source->id );
 
                 $resource->fillFrom($source);
                 $resource->attachFrom($source);

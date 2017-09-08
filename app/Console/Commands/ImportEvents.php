@@ -27,7 +27,7 @@ class ImportEvents extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
-        $class = \App\Models\Membership\Event::class;
+        $model = \App\Models\Membership\Event::class;
 
         $json = $this->queryService($endpoint, $current);
         $pages = $json->pagination->total_pages;
@@ -46,7 +46,7 @@ class ImportEvents extends AbstractImportCommand
                 }
 
                 // Don't use findOrCreate here, since it causes errors due to Searchable
-                $resource = call_user_func($class .'::findOrNew', $source->id);
+                $resource = $model::findOrNew( $source->id );
 
                 $resource->fillFrom($source);
                 $resource->attachFrom($source);

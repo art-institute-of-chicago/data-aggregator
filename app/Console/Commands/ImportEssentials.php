@@ -143,12 +143,12 @@ class ImportEssentials extends AbstractImportCommand
 
         $resources = [];
 
-        $class = \App\Models\CollectionsModel::classFor($type);
+        $model = \App\Models\CollectionsModel::classFor($type);
 
         foreach ($data as $datum)
         {
 
-            $resource = call_user_func($class .'::findOrCreate', $datum->id);
+            $resource = $model::findOrCreate( $datum->id );
 
             $resource->fillFrom($datum, false);
             $resource->attachFrom($datum, false);
