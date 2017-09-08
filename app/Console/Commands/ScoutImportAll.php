@@ -11,15 +11,6 @@ class ScoutImportAll extends Command
 
     protected $description = 'Import all models into the search index';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function handle()
     {

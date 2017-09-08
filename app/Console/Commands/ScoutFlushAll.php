@@ -11,15 +11,6 @@ class ScoutFlushAll extends Command
 
     protected $description = 'Remove all models from search index';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function handle()
     {

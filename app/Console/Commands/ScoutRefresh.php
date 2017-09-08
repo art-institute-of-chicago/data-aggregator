@@ -12,17 +12,6 @@ class ScoutRefresh extends Command
 
     protected $description = 'Flush and re-import the given model into the search index';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-        parent::__construct();
-
-    }
 
     public function handle()
     {

@@ -22,17 +22,6 @@ class ReindexSearch extends Command
     protected $description = 'Copy documents from one index to another';
 
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
     public function handle()
     {
 

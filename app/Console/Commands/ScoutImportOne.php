@@ -13,15 +13,6 @@ class ScoutImportOne extends Command
 
     protected $description = 'Import one instance of a model into the search index';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function handle()
     {

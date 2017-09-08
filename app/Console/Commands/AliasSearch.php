@@ -22,17 +22,6 @@ class AliasSearch extends Command
     protected $description = 'Create an alias for an index';
 
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
     public function handle()
     {
 
