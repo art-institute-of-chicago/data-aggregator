@@ -41,6 +41,8 @@ class ImportEventsFull extends AbstractImportCommand
 
         $this->import('events', 1);
 
+        $this->info("Imported all events from data service!");
+
     }
 
 
@@ -78,8 +80,6 @@ class ImportEventsFull extends AbstractImportCommand
             $json = $this->queryService($endpoint, $current);
 
         }
-
-        $this->info("Imported all events from data service!");
 
     }
 

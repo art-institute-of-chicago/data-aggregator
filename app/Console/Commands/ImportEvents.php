@@ -22,6 +22,8 @@ class ImportEvents extends AbstractImportCommand
 
         $this->import('events');
 
+        $this->info("Ran out of events to import!");
+
     }
 
     private function import($endpoint, $current = 1)
@@ -60,8 +62,6 @@ class ImportEvents extends AbstractImportCommand
             $json = $this->queryService($endpoint, $current);
 
         }
-
-        $this->info("Ran out of events to import!");
 
     }
 
