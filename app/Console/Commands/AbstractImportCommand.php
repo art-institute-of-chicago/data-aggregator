@@ -81,6 +81,33 @@ abstract class AbstractImportCommand extends Command
 
     }
 
+
+    /**
+     * Save a new model instance given an object retrieved from an external source.
+     *
+     * @param object  $datum
+     * @param string  $model
+     * @param boolean $fake  Whether or not to fill missing fields w/ fake data.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function saveDatum( $datum, $model, $fake = true )
+    {
+
+        $this->warn("Importing #{$datum->id}: {$datum->title}");
+
+        // Don't use findOrCreate here, since it can cause errors due to Searchable
+        $resource = $model::findOrNew( $datum->id );
+
+        $resource->fillFrom($datum, $fake);
+        $resource->attachFrom($datum, $fake);
+        $resource->save();
+
+        return $resource;
+
+    }
+
+
     /**
      * Convenience curl wrapper. Accepts `GET` URL. Returns decoded JSON.
      *

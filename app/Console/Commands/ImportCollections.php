@@ -48,11 +48,7 @@ class ImportCollections extends AbstractImportCommand
                     break 2;
                 }
 
-                $resource = $model::findOrCreate( $source->id );
-
-                $resource->fillFrom($source);
-                $resource->attachFrom($source);
-                $resource->save();
+                $this->saveDatum( $source, $model );
 
             }
 

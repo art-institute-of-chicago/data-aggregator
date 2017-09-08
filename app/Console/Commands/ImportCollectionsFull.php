@@ -111,11 +111,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             foreach ($json->data as $source)
             {
 
-                $resource = $model::findOrCreate( $source->id );
-
-                $resource->fillFrom($source);
-                $resource->attachFrom($source);
-                $resource->save();
+                $this->saveDatum( $source, $model );
 
             }
 

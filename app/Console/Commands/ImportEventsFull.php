@@ -67,12 +67,7 @@ class ImportEventsFull extends AbstractImportCommand
             foreach ($json->data as $source)
             {
 
-                // Don't use findOrCreate here, since it causes errors due to Searchable
-                $resource = $model::findOrNew( $source->id );
-
-                $resource->fillFrom($source);
-                $resource->attachFrom($source);
-                $resource->save();
+                $this->saveDatum( $source, $model );
 
             }
 

@@ -47,14 +47,7 @@ class ImportEvents extends AbstractImportCommand
                     break 2;
                 }
 
-                // Don't use findOrCreate here, since it causes errors due to Searchable
-                $resource = $model::findOrNew( $source->id );
-
-                $resource->fillFrom($source);
-                $resource->attachFrom($source);
-                $resource->save();
-
-                $this->warn("Importing #" . $resource->membership_id . ": " . $resource->title);
+                $this->saveDatum( $source, $model );
 
             }
 
