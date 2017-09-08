@@ -4,25 +4,12 @@ namespace App\Console\Commands;
 
 class ImportEssentials extends AbstractImportCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'import:essentials';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Import all collections data related to Essential Works';
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
+
     public function handle()
     {
 

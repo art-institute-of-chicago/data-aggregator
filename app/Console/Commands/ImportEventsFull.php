@@ -7,31 +7,18 @@ use Carbon\Carbon;
 class ImportEventsFull extends AbstractImportCommand
 {
 
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'import:events-full';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = "Import all events data";
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
+
     public function handle()
     {
 
         $this->import('events', 1);
 
     }
+
 
     private function import($endpoint, $current = 1)
     {

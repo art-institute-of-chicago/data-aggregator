@@ -12,22 +12,9 @@ class InstallSearch extends Command
 
     use Indexer;
 
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'search:install {index? : The name of the index to create}';
 
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Set up the Search Service index with data types and fields';
-
 
     /**
      * The name of the index to create.
@@ -37,11 +24,6 @@ class InstallSearch extends Command
     protected $index;
 
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
 
@@ -51,11 +33,6 @@ class InstallSearch extends Command
     }
 
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
 

@@ -8,21 +8,9 @@ use Elasticsearch;
 class UninstallSearch extends Command
 {
 
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'search:uninstall {index? : The name of the index to delete}';
 
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Tear down the Search Service index';
-
 
     /**
      * The name of the index to delete.
@@ -32,11 +20,6 @@ class UninstallSearch extends Command
     protected $index;
 
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
 
@@ -46,11 +29,6 @@ class UninstallSearch extends Command
     }
 
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
 

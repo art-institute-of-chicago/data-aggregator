@@ -7,32 +7,11 @@ use Carbon\Carbon;
 class ImportEvents extends AbstractImportCommand
 {
 
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'import:events';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = "Import events data that has been updated since the last import";
 
-    /**
-     * An instance of the \App\Command model for logging.
-     *
-     * @var \App\Command
-     */
-    protected $command;
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
 

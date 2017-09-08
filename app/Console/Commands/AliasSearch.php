@@ -15,22 +15,10 @@ class AliasSearch extends Command
 
     use Indexer;
 
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'search:alias
                             {source : The name of the index to create an alias for}
                             {alias : The name of alias}';
 
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Create an alias for an index';
 
 
@@ -45,11 +33,6 @@ class AliasSearch extends Command
     }
 
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
 

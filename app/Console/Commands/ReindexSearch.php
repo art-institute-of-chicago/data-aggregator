@@ -15,22 +15,10 @@ class ReindexSearch extends Command
 
     use Indexer;
 
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'search:reindex
                             {source : The name of the index to copy documents from}
                             {dest? : The name of the index to copy documents to}';
 
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Copy documents from one index to another';
 
 
@@ -45,11 +33,6 @@ class ReindexSearch extends Command
     }
 
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
 

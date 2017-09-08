@@ -24,6 +24,7 @@ abstract class AbstractImportCommand extends Command
      */
     protected $faker;
 
+
     /**
      * Create a new command instance.
      *
@@ -37,6 +38,15 @@ abstract class AbstractImportCommand extends Command
         parent::__construct();
 
     }
+
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    abstract public function handle();
+
 
     /**
      * Here, we've extended the inherited execute method, which allows us to log times

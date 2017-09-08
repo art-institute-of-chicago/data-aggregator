@@ -6,25 +6,12 @@ use Carbon\Carbon;
 
 class ImportCollections extends AbstractImportCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'import:collections';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = "Import collections data that has been updated since the last import";
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
+
     public function handle()
     {
 

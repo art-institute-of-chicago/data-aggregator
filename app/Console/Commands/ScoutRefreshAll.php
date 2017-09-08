@@ -7,18 +7,8 @@ use Illuminate\Console\Command;
 class ScoutRefreshAll extends Command
 {
 
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'scout:refresh-all';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Flush and re-import all models into the search index';
 
     /**
@@ -33,11 +23,6 @@ class ScoutRefreshAll extends Command
 
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
 

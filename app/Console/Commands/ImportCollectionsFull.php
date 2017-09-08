@@ -6,31 +6,18 @@ use Carbon\Carbon;
 
 class ImportCollectionsFull extends AbstractImportCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'import:collections-full
                             {endpoint? : That last portion of the URL path naming the resource to import, for example "artists"}
                             {page? : The page to begin importing from}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description =
                            "Import all collections data\n\n"
 
                            ."If no options are passes all Collections data will be imported. Results are paged through 100 records \n"
                            ."at a time. If the Collections Data Service doesn't provide an endpoint fake data will be generated.";
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
+
     public function handle()
     {
 
