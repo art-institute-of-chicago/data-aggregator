@@ -75,17 +75,17 @@ class ImportCollectionsFull extends AbstractImportCommand
     private function seed( $model, $seeder, $endpoint = null )
     {
 
-        if ($model::count() < 1)
+        if ($model::count() > 0)
         {
-
-            if( $endpoint )
-            {
-                $this->import( $endpoint );
-            }
-
-            \Artisan::call("db:seed", ['--class' => $seeder]);
-
+            return false;
         }
+
+        if( $endpoint )
+        {
+            $this->import( $endpoint );
+        }
+
+        \Artisan::call("db:seed", ['--class' => $seeder]);
 
     }
 

@@ -40,25 +40,19 @@ class ImportEvents extends AbstractImportCommand
                 $sourceTime = new Carbon($source->modified_at);
                 $sourceTime->timezone = config('app.timezone');
 
-                if ($this->command->last_success_at->lte($sourceTime))
+                if ($this->command->last_success_at->gt($sourceTime))
                 {
-
-                    // Don't use findOrCreate here, since it causes errors due to Searchable
-                    $resource = call_user_func($class .'::findOrNew', $source->id);
-
-                    $resource->fillFrom($source);
-                    $resource->attachFrom($source);
-                    $resource->save();
-
-                    $this->warn("Importing #" . $resource->membership_id . ": " . $resource->title);
-
-                }
-                else
-                {
-
                     break 2;
-
                 }
+
+                // Don't use findOrCreate here, since it causes errors due to Searchable
+                $resource = call_user_func($class .'::findOrNew', $source->id);
+
+                $resource->fillFrom($source);
+                $resource->attachFrom($source);
+                $resource->save();
+
+                $this->warn("Importing #" . $resource->membership_id . ": " . $resource->title);
 
             }
 
