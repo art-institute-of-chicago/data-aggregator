@@ -15,14 +15,6 @@ class ImportEventsFull extends AbstractImportCommand
     public function handle()
     {
 
-        $this->import('events', 1);
-
-    }
-
-
-    private function import($endpoint, $current = 1)
-    {
-
         // Return false if the user bails out
         if (!$this->confirm("Running this will delete all existing events from your database! Are you sure?"))
         {
@@ -46,6 +38,14 @@ class ImportEventsFull extends AbstractImportCommand
         $this->warn("Please manually ensure that your search index mappings are up-to-date.");
         // $this->call("search:uninstall");
         // $this->call("search:install");
+
+        $this->import('events', 1);
+
+    }
+
+
+    private function import($endpoint, $current = 1)
+    {
 
         $class = \App\Models\Membership\Event::class;
 
