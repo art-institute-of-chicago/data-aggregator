@@ -30,7 +30,7 @@ class ImportCollectionsFull extends AbstractImportCommand
         {
 
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Models\Collections\AgentType::all()->isEmpty())
+            if (\App\Models\Collections\AgentType::count() < 1)
             {
 
                 \Artisan::call("db:seed", ['--class' => 'AgentTypesTableSeeder']);
@@ -38,7 +38,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             }
 
             // @TODO Replace with agent endpoint when it becomes available
-            if (\App\Models\Collections\Agent::all()->isEmpty())
+            if (\App\Models\Collections\Agent::count() < 1)
             {
 
                 $this->import('artists');
@@ -49,7 +49,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             $this->import('departments');
 
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Models\Collections\ObjectType::all()->isEmpty())
+            if (\App\Models\Collections\ObjectType::count() < 1)
             {
 
                 \Artisan::call("db:seed", ['--class' => 'ObjectTypesTableSeeder']);
@@ -62,7 +62,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             // @TODO Galleries are available, but break due to Redmine bug #1911 - Gallery Floor isn't always a number
             //$this->import('galleries');
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Models\Collections\Gallery::all()->isEmpty())
+            if (\App\Models\Collections\Gallery::count() < 1)
             {
 
                 \Artisan::call("db:seed", ['--class' => 'GalleriesTableSeeder']);
@@ -75,7 +75,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             $this->import('texts');
 
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Models\Collections\Exhibition::all()->isEmpty())
+            if (\App\Models\Collections\Exhibition::count() < 1)
             {
 
                 \Artisan::call("db:seed", ['--class' => 'ExhibitionsTableSeeder']);
