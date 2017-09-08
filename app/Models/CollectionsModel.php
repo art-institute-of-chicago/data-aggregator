@@ -7,6 +7,8 @@ use App\Models\BaseModel;
 class CollectionsModel extends BaseModel
 {
 
+    protected $source = 'Collections';
+
     /**
      * Get the class name for a given API endpoint
      *
@@ -17,16 +19,15 @@ class CollectionsModel extends BaseModel
     {
 
         switch ($endpoint) {
-        case 'artists':
-            return \App\Models\Collections\Agent::class;
+            case 'artists':
+                return \App\Models\Collections\Agent::class;
             break;
-        case 'venues':
-            return \App\Models\Collections\Agent::class;
-            break;
-        default:
-            return '\App\Models\Collections\\' .studly_case(str_singular($endpoint));
+            case 'venues':
+                return \App\Models\Collections\Agent::class;
             break;
         }
+
+        return parent::classFor($endpoint);
 
     }
 
