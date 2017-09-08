@@ -88,6 +88,32 @@ class ImportCollectionsFull extends AbstractImportCommand
 
     }
 
+
+    /**
+     * Seed data for a given model.
+     *
+     * @param string $model     Classname.
+     * @param string $seeder    Param for db:seed
+     * @param string $endpoint  (optional) If given, will import before seeding.
+     */
+    private function seed( $model, $seeder, $endpoint = null )
+    {
+
+        if ($model::count() < 1)
+        {
+
+            if( $endpoint )
+            {
+                $this->import( $endpoint );
+            }
+
+            \Artisan::call("db:seed", ['--class' => $seeder]);
+
+        }
+
+    }
+
+
     private function import($endpoint, $current = 1)
     {
 
