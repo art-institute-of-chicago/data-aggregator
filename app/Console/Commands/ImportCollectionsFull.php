@@ -127,9 +127,9 @@ class ImportCollectionsFull extends AbstractImportCommand
 
     }
 
-    private function queryService($type = 'artworks', $page = 1)
+    private function queryService($endpoint, $page = 1, $limit = 100)
     {
-        return $this->query( env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost') .'/' .$type .'?page=' .$page .'&per_page=100' );
+        return $this->query( env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&per_page=' . $limit );
     }
 
 }

@@ -84,9 +84,9 @@ class ImportEventsFull extends AbstractImportCommand
 
     }
 
-    private function queryService($type = 'artworks', $page = 1)
+    private function queryService($endpoint, $page = 1, $limit = 100)
     {
-        return $this->query( env('EVENTS_DATA_SERVICE_URL', 'http://localhost') .'/' .$type .'?page=' .$page .'&limit=100' );
+        return $this->query( env('EVENTS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit );
     }
 
 }
