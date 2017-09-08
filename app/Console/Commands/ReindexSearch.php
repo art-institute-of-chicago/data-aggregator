@@ -7,9 +7,6 @@ use Elasticsearch;
 
 use App\Console\Helpers\Indexer;
 
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-
 class ReindexSearch extends Command
 {
 
