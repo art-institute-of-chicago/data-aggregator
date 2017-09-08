@@ -7,7 +7,10 @@ use App\Models\BaseModel;
 class MembershipModel extends BaseModel
 {
 
+    protected $source = 'Membership';
+
     protected $primaryKey = 'membership_id';
+
     protected $dates = ['source_created_at', 'source_modified_at'];
 
     protected function fillIdsFrom($source)

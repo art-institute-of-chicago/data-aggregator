@@ -12,6 +12,14 @@ class BaseModel extends Model
     use Transformable, Fillable;
 
     /**
+     * String that indicates the sub-namespace of the child models. Used for dynamic model retrieval.
+     *
+     * @var string
+     */
+    protected $source;
+
+
+    /**
      * A Faker instance for the model.
      *
      * @TODO This sorta belongs in Fillable, but it should likely be a Provider, not tied to model(s).
@@ -98,6 +106,8 @@ class BaseModel extends Model
     /**
      * Find the record matching the given id or create it.
      *
+     * @TODO Remove this in favor of Laravel's built-in findOrCreate.
+     *
      * @param  int    $id
      * @return \Illuminate\Database\Eloquent\Model
      */
@@ -106,6 +116,20 @@ class BaseModel extends Model
 
         $model = static::find($id);
         return $model ?: static::create([static::instance()->getKeyName() => $id]);
+
+    }
+
+
+    /**
+     * Get the class name for a given API endpoint
+     *
+     * @param  string  $endpoint
+     * @return string
+     */
+    public static function classFor($endpoint)
+    {
+
+        return '\App\Models\\' . $this->source . '\\' . studly_case(str_singular($endpoint));
 
     }
 

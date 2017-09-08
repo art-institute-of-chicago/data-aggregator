@@ -2,57 +2,17 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-
 use Carbon\Carbon;
 
-class ImportEventsFull extends Command
+class ImportEventsFull extends AbstractImportCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'import:events-full';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = "Import all events data";
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
-    {
-
-        $startTime = Carbon::now();
-
-        $this->import('events', 1);
-
-        // TODO: Change the naming convention of the command log to match signature
-        // Note that the `command` must match that of ImportEvents in order for incremental updates to work.
-        $command = \App\Command::firstOrCreate(['command' => 'import-events']);
-        $command->last_ran_at = $startTime;
-        $command->save();
-
-    }
-
-    private function import($endpoint, $current = 1)
     {
 
         // Return false if the user bails out
@@ -79,17 +39,26 @@ class ImportEventsFull extends Command
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
-        $class = \App\Models\Membership\Event::class;
+        $this->import('events', 1);
+
+        $this->info("Imported all events from data service!");
+
+    }
+
+
+    private function import($endpoint, $current = 1)
+    {
+
+        $model = \App\Models\Membership\Event::class;
 
         // Abort if the table is already filled
-        $resources = call_user_func($class .'::all');
-        if (!$resources->isEmpty())
+        if( $model::count() > 0 )
         {
             return false;
         }
 
         // Query for the first page + get page count
-        $json = $this->query($endpoint, $current);
+        $json = $this->queryService($endpoint, $current);
         $pages = $json->pagination->total_pages;
 
         while ($current <= $pages)
@@ -98,42 +67,20 @@ class ImportEventsFull extends Command
             foreach ($json->data as $source)
             {
 
-                // Don't use findOrCreate here, since it causes errors due to Searchable
-                $resource = call_user_func($class .'::findOrNew', $source->id);
-
-                $resource->fillFrom($source);
-                $resource->attachFrom($source);
-                $resource->save();
+                $this->saveDatum( $source, $model );
 
             }
 
             $current++;
-            $json = $this->query($endpoint, $current);
+            $json = $this->queryService($endpoint, $current);
 
         }
 
-        $this->info("Imported all events from data service!");
-
     }
 
-    private function query($type = 'events', $page = 1)
+    private function queryService($endpoint, $page = 1, $limit = 100)
     {
-
-        $ch = curl_init();
-
-        curl_setopt ($ch, CURLOPT_URL, env('EVENTS_DATA_SERVICE_URL', 'http://localhost') .'/' .$type .'?page=' .$page .'&limit=100');
-        curl_setopt ($ch, CURLOPT_HEADER, 0);
-
-        ob_start();
-
-        curl_exec ($ch);
-        curl_close ($ch);
-        $string = ob_get_contents();
-
-        ob_end_clean();
-
-        return json_decode($string);
-
+        return $this->query( env('EVENTS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit );
     }
 
 }

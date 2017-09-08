@@ -2,39 +2,14 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-
-class ImportEssentials extends Command
+class ImportEssentials extends AbstractImportCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'import:essentials';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Import all collections data related to Essential Works';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
 
@@ -168,16 +143,12 @@ class ImportEssentials extends Command
 
         $resources = [];
 
-        $class = \App\Models\CollectionsModel::classFor($type);
+        $model = \App\Models\CollectionsModel::classFor($type);
 
         foreach ($data as $datum)
         {
 
-            $resource = call_user_func($class .'::findOrCreate', $datum->id);
-
-            $resource->fillFrom($datum, false);
-            $resource->attachFrom($datum, false);
-            $resource->save();
+            $this->saveDatum( $source, $model, false );
 
             $resources[] = $resource;
 
@@ -297,33 +268,6 @@ class ImportEssentials extends Command
 
     }
 
-
-    /**
-     * Convenience curl wrapper. Accepts `GET` URL. Returns decoded JSON.
-     *
-     * @param string $url
-     *
-     * @return string
-     */
-    private function query($url)
-    {
-
-        $ch = curl_init();
-
-        curl_setopt ($ch, CURLOPT_URL, $url);
-        curl_setopt ($ch, CURLOPT_HEADER, 0);
-
-        ob_start();
-
-        curl_exec ($ch);
-        curl_close ($ch);
-        $string = ob_get_contents();
-
-        ob_end_clean();
-
-        return json_decode($string);
-
-    }
 
     /**
      *
