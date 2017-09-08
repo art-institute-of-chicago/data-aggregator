@@ -23,51 +23,32 @@ class ImportCollectionsFull extends AbstractImportCommand
 
         if ($this->argument('endpoint'))
         {
+
             $page = $this->argument('page') ?: 1;
             $this->import($this->argument('endpoint'), $page);
+
         }
         else
         {
 
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Models\Collections\AgentType::count() < 1)
-            {
-
-                \Artisan::call("db:seed", ['--class' => 'AgentTypesTableSeeder']);
-
-            }
+            $this->seed( \App\Models\Collections\AgentType::class, 'AgentTypesTableSeeder' );
 
             // @TODO Replace with agent endpoint when it becomes available
-            if (\App\Models\Collections\Agent::count() < 1)
-            {
-
-                $this->import('artists');
-                \Artisan::call("db:seed", ['--class' => 'AgentsTableSeeder']);
-
-            }
+            $this->seed( \App\Models\Collections\Agent::class, 'AgentsTableSeeder', 'artists' );
 
             $this->import('departments');
 
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Models\Collections\ObjectType::count() < 1)
-            {
+            $this->seed( \App\Models\Collections\ObjectType::class, 'ObjectTypesTableSeeder' );
 
-                \Artisan::call("db:seed", ['--class' => 'ObjectTypesTableSeeder']);
-
-            }
-
-            // @TODO The categories endpoint in the Collections Data Service currently breaks on the last page of results.
             $this->import('categories');
 
             // @TODO Galleries are available, but break due to Redmine bug #1911 - Gallery Floor isn't always a number
             //$this->import('galleries');
+
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Models\Collections\Gallery::count() < 1)
-            {
-
-                \Artisan::call("db:seed", ['--class' => 'GalleriesTableSeeder']);
-
-            }
+            $this->seed( \App\Models\Collections\Gallery::class, 'GalleriesTableSeeder' );
 
             $this->import('artworks');
             $this->import('links');
@@ -75,12 +56,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             $this->import('texts');
 
             // @TODO Replace with real endpoint when it becomes available
-            if (\App\Models\Collections\Exhibition::count() < 1)
-            {
-
-                \Artisan::call("db:seed", ['--class' => 'ExhibitionsTableSeeder']);
-
-            }
+            $this->seed( \App\Models\Collections\Exhibition::class, 'ExhibitionsTableSeeder' );
 
             $this->import('sounds');
 
