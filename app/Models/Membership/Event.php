@@ -17,6 +17,33 @@ class Event extends MembershipModel
         'source_modified_at',
     ];
 
+    public function resource2gallery( $resource_id )
+    {
+
+        $locations = [
+            '3' => 26131, // Rubloff Auditorium
+            '4' => 28277, // Price Auditorium
+            '5' => 28276, // Morton Auditorium
+            '10' => 24000, // Griffin Court
+            '11' => 2147475902, // Regenstein Hall
+            '22' => 23998, // Abbott Galleries (Galleries 182-184, this is Gallery 183)
+            '23' => 2147483599, // Fullerton Hall
+            '49' => 23965, // Cafe Moderno
+            '50' => 25563, // Terzo Piano
+            '77' => 2147475902, // Regenstein Hall Thursday
+            '80' => 25237, // Pritzker Garden
+            '81' => 346, // Stock Exchange Trading Room
+            '82' => 2147477257, // Gallery 11
+            '83' => 2147472011, // Grand Staircase
+            '86' => 27946, // South Garden
+            '87' => 2147477076, // North Garden
+        ];
+
+        $resource_id = (string) $resource_id;
+
+        return $locations[ $resource_id ] ?? null;
+    }
+
     protected function getFillFieldsFrom($source)
     {
 
