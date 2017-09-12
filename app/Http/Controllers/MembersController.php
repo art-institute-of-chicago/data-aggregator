@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Membership\Member;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class MembersController extends ApiController
 {
@@ -21,21 +22,25 @@ class MembersController extends ApiController
      * @param  int $zip
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id, $zip)
+    public function show(Request $request, $id)
     {
-        if (!$zip)
+
+        $zip = $request->input('zip');
+        $email = $request->input('email');
+        $phone = $request->input('phone');
+
+        if( !( $zip || $email || $phone ) )
         {
-            return $this->respondInvalidSyntax('Invalid postal code', "The member's postal code must be passed. Please provide the postal code and try again.");
+            return $this->respondInvalidSyntax('Missing parameters', "Please provide at least one of the following: zip, email, or phone.");
         }
 
-        // We could also call the parent method we're overriding
-        return $this->select( $request, function( $id ) {
+        $url = env('EVENTS_DATA_SERVICE_URL', 'http://localhost');
+        $url .= "/members/{$id}?zip={$zip}&email={$email}&phone={$phone}";
 
-            return $this->find($id);
-
-        });
+        return response()->json( $this->query( $url ) );
 
     }
+
 
     /**
      * Retrieving a list of members is forbidden.
@@ -50,5 +55,27 @@ class MembersController extends ApiController
     {
         return $this->respondForbidden();
     }
+
+
+    private function query($url)
+    {
+
+        $ch = curl_init();
+
+        curl_setopt ($ch, CURLOPT_URL, $url);
+        curl_setopt ($ch, CURLOPT_HEADER, 0);
+
+        ob_start();
+
+        curl_exec ($ch);
+        curl_close ($ch);
+        $string = ob_get_contents();
+
+        ob_end_clean();
+
+        return json_decode($string);
+
+    }
+
 
 }
