@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Membership\Member;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class MembersController extends ApiController
 {
@@ -36,7 +37,7 @@ class MembersController extends ApiController
         $url = env('EVENTS_DATA_SERVICE_URL', 'http://localhost');
         $url .= "/members/{$id}?zip={$zip}&email={$email}&phone={$phone}";
 
-        return $this->query( $url );
+        return response()->json( $this->query( $url ) );
 
     }
 
