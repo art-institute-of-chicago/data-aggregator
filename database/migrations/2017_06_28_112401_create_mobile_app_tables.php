@@ -17,11 +17,17 @@ class CreateMobileAppTables extends Migration
         Schema::create('mobile_app_artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->integer('artwork_citi_id')->unsigned()->index();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
-            $table->float('latitude')->nullable();
-            $table->float('longitude')->nullable();
+
+            // Disabling foreign key checks in order to decouple mobile import from collections import
+            // $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+
+            // https://laracasts.com/discuss/channels/laravel/schema-float-function-generated-a-double-type
+            $table->double('latitude', 15, 13)->nullable();
+            $table->double('longitude', 15, 13)->nullable();
+
             $table->boolean('highlighted')->nullable();
-            $table->integer('selector_number');
+            $table->integer('selector_number')->nullable();
+
             $table = $this->_addDates($table);
         });
 
