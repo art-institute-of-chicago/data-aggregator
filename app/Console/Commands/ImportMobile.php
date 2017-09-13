@@ -77,4 +77,54 @@ class ImportMobile extends AbstractImportCommand
 
     }
 
+
+    // They are.
+    private function checkIfObjectsAndAudioFilesAreM2M( $results )
+    {
+
+        $audios = collect( $results->objects )->pluck('audio');
+
+        $combined = collect([]);
+
+        foreach( $audios as $audio ) {
+            $combined = $combined->merge( $audio );
+        }
+
+        $counts = array_count_values( $combined->toArray() );
+
+        $files = collect( $results->audio_files );
+
+        $one = [];
+        $none = [];
+        $many = [];
+
+        foreach( $files as $file ) {
+
+            if( !isset( $counts[ $file->nid ] ) ) {
+                array_push( $none, $file->nid );
+                continue;
+            }
+
+            switch( $counts[ $file->nid ] ) {
+                case 1:
+                    array_push( $one, $file->nid );
+                break;
+                default:
+                    array_push( $many, $file->nid );
+                break;
+            }
+
+        }
+
+        $results = [
+            'many' => $many,
+            'none' => $none,
+            'one' => $one,
+        ];
+
+
+        dd( $results );
+
+    }
+
 }
