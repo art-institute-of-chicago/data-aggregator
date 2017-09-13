@@ -30,10 +30,22 @@ class ImportMobile extends AbstractImportCommand
 
         // There's no unique data coming re: galleries from the mobile app AFAICT
 
+        $this->importArtworks( $results );
+        // $this->importSounds( $results );
+        // $this->importTours( $results );
+        // $this->importTourStops( $results );
+
+    }
+
+    private function importArtworks( $results )
+    {
+
+        $this->info("Importing mobile artworks...");
+
         foreach( $results->objects as $datum )
         {
 
-            $this->info("Importing artwork #{$datum->nid}: {$datum->title}");
+            $this->warn("Importing artwork #{$datum->nid}: {$datum->title}");
 
             // Ex: 41.8794289180879, -87.6236425536961
             $location = explode(', ', $datum->location);
