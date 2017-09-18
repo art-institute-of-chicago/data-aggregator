@@ -12,7 +12,7 @@ class Artwork extends MobileModel
      *
      * @var string
      */
-    protected $table = 'mobile_app_artworks';
+    protected $table = 'mobile_artworks';
 
     public function artwork()
     {

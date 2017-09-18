@@ -12,12 +12,13 @@ class Sound extends MobileModel
      *
      * @var string
      */
-    protected $table = 'mobile_app_sounds';
+    protected $table = 'mobile_sounds';
 
     public function artworks()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_mobile_app_sound');
+        // This is also on the Artwork side... we should consider relating it to mobile artwork instead..?
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_mobile_sound');
 
     }
 
