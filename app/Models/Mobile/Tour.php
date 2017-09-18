@@ -10,6 +10,7 @@ class Tour extends MobileModel
 
     use ElasticSearchable;
 
+
     public function intro()
     {
 
@@ -20,7 +21,7 @@ class Tour extends MobileModel
     public function stops()
     {
 
-        return $this->hasMany('App\Models\Mobile\TourStop');
+        return $this->hasMany('App\Models\Mobile\TourStop', 'tour_mobile_id');
 
     }
 

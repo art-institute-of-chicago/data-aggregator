@@ -50,9 +50,9 @@ class CreateMobileTables extends Migration
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->text('intro_text')->nullable();
-            $table->integer('weight')->nullable();
             $table->integer('intro_mobile_id')->unsigned()->index();
             $table->foreign('intro_mobile_id')->references('mobile_id')->on('mobile_sounds')->onDelete('cascade');
+            $table->integer('weight')->nullable();
             $table->timestamps();
         });
 
@@ -60,12 +60,12 @@ class CreateMobileTables extends Migration
             $table->increments('id');
             $table->integer('tour_mobile_id')->unsigned()->index();
             $table->foreign('tour_mobile_id')->references('mobile_id')->on('tours')->onDelete('cascade');
-            $table->integer('artwork_citi_id')->unsigned()->index();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
-            $table->integer('sound_mobile_id')->unsigned()->index();
-            $table->foreign('sound_mobile_id')->references('mobile_id')->on('mobile_sounds')->onDelete('cascade');
-            $table->integer('weight')->nullable();
-            $table->text('description')->nullable();
+            $table->integer('mobile_artwork_mobile_id')->unsigned()->index();
+            $table->foreign('mobile_artwork_mobile_id')->references('mobile_id')->on('mobile_artworks')->onDelete('cascade');
+            $table->integer('mobile_sound_mobile_id')->unsigned()->index();
+            $table->foreign('mobile_sound_mobile_id')->references('mobile_id')->on('mobile_sounds')->onDelete('cascade');
+            $table->integer('weight')->unsigned()->nullable();
+            // A TourStop's description is its Sound's transcription
             $table->timestamps();
         });
 

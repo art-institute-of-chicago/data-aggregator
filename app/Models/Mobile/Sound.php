@@ -21,6 +21,13 @@ class Sound extends MobileModel
 
     }
 
+    public function stops()
+    {
+
+        return $this->hasMany('App\Models\Mobile\TourStop', 'mobile_sound_mobile_id');
+
+    }
+
     /**
      * Turn this item object into a generic array.
      *

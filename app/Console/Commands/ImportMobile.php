@@ -36,12 +36,13 @@ class ImportMobile extends AbstractImportCommand
 
         $this->importArtworks( $results );
         $this->importSounds( $results );
-        // $this->importTours( $results );
-        // $this->importTourStops( $results );
+        $this->importTours( $results );
+        // TourStops are imported inside importTours()
 
         \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
+
 
     private function importArtworks( $results )
     {
@@ -86,6 +87,7 @@ class ImportMobile extends AbstractImportCommand
 
     }
 
+
     private function importSounds( $results )
     {
 
@@ -107,6 +109,65 @@ class ImportMobile extends AbstractImportCommand
             $sound->save();
 
             // Sounds are attached to Artworks on the Artwork side
+
+        }
+
+    }
+
+
+    private function importTours( $results )
+    {
+
+        $this->info("Importing mobile tours and tour stops...");
+
+        foreach( $results->tours as $datum )
+        {
+
+            $this->warn("Importing tour #{$datum->nid}: {$datum->title}");
+
+            $tour = Tour::findOrNew( (int) $datum->nid );
+
+            $tour->mobile_id = (int) $datum->nid;
+            $tour->title = $datum->title;
+
+            $tour->image = $datum->image_url;
+            $tour->intro_text = $datum->intro;
+            $tour->description = $datum->description;
+
+            $tour->intro()->associate( $datum->tour_audio );
+
+            $tour->save();
+
+            $this->importTourStops( $datum->stops, $tour );
+
+        }
+
+    }
+
+
+    private function importTourStops( $data, $tour )
+    {
+
+        $this->info("Flushing tour stops for tour #{$tour->mobile_id}...");
+
+        TourStop::where('tour_mobile_id', $tour->mobile_id)->delete();
+
+        $this->info("Importing tour stops for tour #{$tour->mobile_id}...");
+
+        foreach( $data as $datum )
+        {
+
+            $this->warn("Importing tour stop [ {$tour->mobile_id} / {$datum->object} / {$datum->audio} ]");
+
+            $stop = new TourStop();
+
+            $stop->tour()->associate( $tour->mobile_id );
+            $stop->artwork()->associate( $datum->object );
+            $stop->sound()->associate( $datum->audio );
+
+            $stop->weight = $datum->sort;
+
+            $stop->save();
 
         }
 

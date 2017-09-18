@@ -28,5 +28,12 @@ class Artwork extends MobileModel
 
     }
 
+    public function stops()
+    {
+
+        return $this->hasMany('App\Models\Mobile\TourStop', 'mobile_artwork_mobile_id');
+
+    }
+
 
 }
