@@ -71,7 +71,8 @@ class ImportMobile extends AbstractImportCommand
             // Pull in an actual model
             // $artwork->artwork_citi_id = (int) $datum->object_id,
 
-            $artwork->sounds()->attach( $datum->audio );
+            // https://stackoverflow.com/questions/17472128/preventing-laravel-adding-multiple-records-to-a-pivot-table
+            $artwork->sounds()->sync( $datum->audio, false );
 
             $artwork->latitude = (float) $location[0];
             $artwork->longitude = (float) $location[1];
