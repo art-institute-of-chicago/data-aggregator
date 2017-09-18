@@ -21,7 +21,7 @@ class MobileSoundsTableSeeder extends Seeder
     private function _addSoundsToArtworks()
     {
 
-        $artworks = App\Models\Collections\Artwork::all()->all();
+        $artworks = App\Models\Mobile\Artwork::all()->all();
         $soundIds = App\Models\Mobile\Sound::all()->pluck('mobile_id')->all();
 
         foreach ($artworks as $artwork) {
@@ -33,7 +33,7 @@ class MobileSoundsTableSeeder extends Seeder
                 $id = $soundIds[array_rand($soundIds)];
 
                 if (!in_array($id, $ids)) {
-                    $artwork->mobileSounds()->attach($id);
+                    $artwork->sounds()->attach($id);
                     $ids[] = $id;
                 }
 

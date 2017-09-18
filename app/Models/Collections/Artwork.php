@@ -111,13 +111,6 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function mobileSounds()
-    {
-
-        return $this->belongsToMany('App\Models\Mobile\Sound', 'artwork_mobile_sound', 'artwork_citi_id', 'mobile_sound_mobile_id');
-
-    }
-
     public function tourStops()
     {
 

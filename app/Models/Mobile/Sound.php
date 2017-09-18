@@ -17,8 +17,7 @@ class Sound extends MobileModel
     public function artworks()
     {
 
-        // This is also on the Artwork side... we should consider relating it to mobile artwork instead..?
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_mobile_sound');
+        return $this->belongsToMany('App\Models\Mobile\Artwork', 'mobile_artwork_mobile_sound', 'mobile_sound_mobile_id', 'mobile_artwork_mobile_id');
 
     }
 

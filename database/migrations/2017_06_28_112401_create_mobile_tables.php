@@ -38,10 +38,10 @@ class CreateMobileTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('artwork_mobile_sound', function(Blueprint $table) {
+        Schema::create('mobile_artwork_mobile_sound', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('artwork_citi_id')->unsigned()->index();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->integer('mobile_artwork_mobile_id')->unsigned()->index();
+            $table->foreign('mobile_artwork_mobile_id')->references('mobile_id')->on('mobile_artworks')->onDelete('cascade');
             $table->integer('mobile_sound_mobile_id')->unsigned()->index();
             $table->foreign('mobile_sound_mobile_id')->references('mobile_id')->on('mobile_sounds')->onDelete('cascade');
             $table->timestamps();
@@ -98,7 +98,7 @@ class CreateMobileTables extends Migration
     {
         Schema::dropIfExists('tour_stops');
         Schema::dropIfExists('tours');
-        Schema::dropIfExists('artwork_mobile_sound');
+        Schema::dropIfExists('mobile_artwork_mobile_sound');
         Schema::dropIfExists('mobile_sounds');
         Schema::dropIfExists('mobile_artworks');
     }
