@@ -35,7 +35,7 @@ class ImportMobile extends AbstractImportCommand
         // There's no unique data coming re: galleries from the mobile app AFAICT
 
         $this->importArtworks( $results );
-        // $this->importSounds( $results );
+        $this->importSounds( $results );
         // $this->importTours( $results );
         // $this->importTourStops( $results );
 
@@ -81,6 +81,32 @@ class ImportMobile extends AbstractImportCommand
             $artwork->selector_number = isset( $datum->object_selector_number ) ? (bool) $datum->object_selector_number : null;
 
             $artwork->save();
+
+        }
+
+    }
+
+    private function importSounds( $results )
+    {
+
+        $this->info("Importing mobile sounds...");
+
+        foreach( $results->audio_files as $datum )
+        {
+
+            $this->warn("Importing audio #{$datum->nid}: {$datum->title}");
+
+            $sound = Sound::findOrNew( (int) $datum->nid );
+
+            $sound->mobile_id = (int) $datum->nid;
+            $sound->title = $datum->title;
+
+            $sound->link = $datum->audio_file_url;
+            $sound->transcript = $datum->audio_transcript;
+
+            $sound->save();
+
+            // Sounds are attached to Artworks on the Artwork side
 
         }
 
