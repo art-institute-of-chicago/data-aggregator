@@ -27,15 +27,14 @@ class CreateMobileTables extends Migration
 
             $table->boolean('highlighted')->nullable();
             $table->integer('selector_number')->nullable();
-
-            $table = $this->_addDates($table);
+            $table->timestamps();
         });
 
         Schema::create('mobile_sounds', function(Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('link');
             $table->text('transcript')->nullable();
-            $table = $this->_addDates($table);
+            $table->timestamps();
         });
 
         Schema::create('mobile_artwork_mobile_sound', function(Blueprint $table) {
@@ -44,7 +43,6 @@ class CreateMobileTables extends Migration
             $table->foreign('mobile_artwork_mobile_id')->references('mobile_id')->on('mobile_artworks')->onDelete('cascade');
             $table->integer('mobile_sound_mobile_id')->unsigned()->index();
             $table->foreign('mobile_sound_mobile_id')->references('mobile_id')->on('mobile_sounds')->onDelete('cascade');
-            $table->timestamps();
         });
 
         Schema::create('tours', function(Blueprint $table) {
@@ -55,7 +53,7 @@ class CreateMobileTables extends Migration
             $table->integer('weight')->nullable();
             $table->integer('intro_mobile_id')->unsigned()->index();
             $table->foreign('intro_mobile_id')->references('mobile_id')->on('mobile_sounds')->onDelete('cascade');
-            $table = $this->_addDates($table);
+            $table->timestamps();
         });
 
         Schema::create('tour_stops', function(Blueprint $table) {
@@ -81,14 +79,6 @@ class CreateMobileTables extends Migration
         return $table;
     }
 
-    private function _addDates($table, $citiField = true)
-    {
-        $table->timestamp('source_created_at')->nullable()->useCurrent();
-        $table->timestamp('source_modified_at')->nullable()->useCurrent();
-        $table->timestamps();
-        return $table;
-    }
-
     /**
      * Reverse the migrations.
      *
@@ -96,10 +86,16 @@ class CreateMobileTables extends Migration
      */
     public function down()
     {
+
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
         Schema::dropIfExists('tour_stops');
         Schema::dropIfExists('tours');
         Schema::dropIfExists('mobile_artwork_mobile_sound');
         Schema::dropIfExists('mobile_sounds');
         Schema::dropIfExists('mobile_artworks');
+
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
     }
 }
