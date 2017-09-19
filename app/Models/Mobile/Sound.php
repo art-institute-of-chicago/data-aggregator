@@ -12,12 +12,19 @@ class Sound extends MobileModel
      *
      * @var string
      */
-    protected $table = 'mobile_app_sounds';
+    protected $table = 'mobile_sounds';
 
     public function artworks()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_mobile_app_sound');
+        return $this->belongsToMany('App\Models\Mobile\Artwork', 'mobile_artwork_mobile_sound', 'mobile_sound_mobile_id', 'mobile_artwork_mobile_id');
+
+    }
+
+    public function stops()
+    {
+
+        return $this->hasMany('App\Models\Mobile\TourStop', 'mobile_sound_mobile_id');
 
     }
 

@@ -12,7 +12,7 @@ class Artwork extends MobileModel
      *
      * @var string
      */
-    protected $table = 'mobile_app_artworks';
+    protected $table = 'mobile_artworks';
 
     public function artwork()
     {
@@ -20,5 +20,20 @@ class Artwork extends MobileModel
         return $this->belongsTo('App\Models\Collections\Artwork');
 
     }
+
+    public function sounds()
+    {
+
+        return $this->belongsToMany('App\Models\Mobile\Sound', 'mobile_artwork_mobile_sound', 'mobile_artwork_mobile_id', 'mobile_sound_mobile_id');
+
+    }
+
+    public function stops()
+    {
+
+        return $this->hasMany('App\Models\Mobile\TourStop', 'mobile_artwork_mobile_id');
+
+    }
+
 
 }

@@ -15,21 +15,21 @@ class TourStop extends MobileModel
     public function tour()
     {
 
-        return $this->belongsTo('App\Models\Mobile\Tour');
+        return $this->belongsTo('App\Models\Mobile\Tour', 'tour_mobile_id');
 
     }
 
     public function artwork()
     {
 
-        return $this->belongsTo('App\Models\Collections\Artwork');
+        return $this->belongsTo('App\Models\Mobile\Artwork', 'mobile_artwork_mobile_id');
 
     }
 
     public function sound()
     {
 
-        return $this->belongsTo('App\Models\Mobile\Sound');
+        return $this->belongsTo('App\Models\Mobile\Sound', 'mobile_sound_mobile_id');
 
     }
 
@@ -47,9 +47,9 @@ class TourStop extends MobileModel
             // TODO: Determine if tour stops have dedicated titles?
             'title' => $this->artwork->title,
             'artwork' => $this->artwork->title,
-            'artwork_id' => $this->artwork_citi_id,
+            'artwork_id' => $this->artwork->artwork->id,
             'mobile_sound' => $this->sound->link,
-            'mobile_sound_id' => $this->sound_mobile_id,
+            'mobile_sound_id' => $this->sound->id,
             'weight' => $this->weight,
             'description' => $this->description,
         ];

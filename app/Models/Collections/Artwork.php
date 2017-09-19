@@ -111,27 +111,6 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function mobileSounds()
-    {
-
-        return $this->belongsToMany('App\Models\Mobile\Sound', 'artwork_mobile_app_sound', 'artwork_citi_id', 'mobile_app_sound_mobile_id');
-
-    }
-
-    public function tourStops()
-    {
-
-        return $this->hasMany('App\Models\Mobile\TourStop');
-
-    }
-
-    public function tours()
-    {
-
-        return $this->belongsToMany('App\Models\Mobile\Tour', 'tour_stops');
-
-    }
-
     public function publications()
     {
 
@@ -478,7 +457,7 @@ class Artwork extends CollectionsModel
             $this->transformArtworkImages(),
             [
                 'publication_ids' => $this->publications->pluck('dsc_id')->all(),
-                'tour_ids' => $this->tours->pluck('mobile_id')->all(),
+                'tour_ids' => $this->mobileArtwork->tours->pluck('mobile_id')->all(),
             ]
         );
 
@@ -501,7 +480,7 @@ class Artwork extends CollectionsModel
             'part_titles' => $this->parts->pluck('title')->all(),
             'set_titles' => $this->sets->pluck('title')->all(),
             'publication_titles' => $this->publications->pluck('title')->all(),
-            'tour_titles' => $this->tours->pluck('title')->all(),
+            'tour_titles' => $this->mobileArtwork->tours->pluck('title')->all(),
 
         ];
 
@@ -642,6 +621,7 @@ class Artwork extends CollectionsModel
                 'is_in_gallery' => [
                     'type' => 'boolean',
                 ],
+                // TODO: Move these to Mobile\Artwork
                 'latitude' => [
                     'type' => 'float',
                 ],
@@ -657,6 +637,7 @@ class Artwork extends CollectionsModel
                 'selector_number' => [
                     'type' => 'integer',
                 ],
+                // EOF TODO Mobile\Artwork
                 'artist_ids' => [
                     'type' => 'integer',
                 ],
@@ -702,6 +683,7 @@ class Artwork extends CollectionsModel
                 'image_urls' => [
                     'type' => 'keyword',
                 ],
+                // TODO: Move these to Dsc\WorkOfArt
                 'publication_id' => [
                     'type' => 'integer',
                 ],
@@ -711,6 +693,7 @@ class Artwork extends CollectionsModel
                 'publication_titles' => [
                     'type' => 'text',
                 ],
+                // TODO: Move these to Mobile\Artwork
                 'tour_ids' => [
                     'type' => 'integer',
                 ],
