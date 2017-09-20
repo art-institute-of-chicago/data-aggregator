@@ -457,7 +457,7 @@ class Artwork extends CollectionsModel
             $this->transformArtworkImages(),
             [
                 'publication_ids' => $this->publications->pluck('dsc_id')->all(),
-                'tour_ids' => $this->mobileArtwork->tours->pluck('mobile_id')->all(),
+                'tour_ids' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('mobile_id')->all() : [],
             ]
         );
 
@@ -480,7 +480,7 @@ class Artwork extends CollectionsModel
             'part_titles' => $this->parts->pluck('title')->all(),
             'set_titles' => $this->sets->pluck('title')->all(),
             'publication_titles' => $this->publications->pluck('title')->all(),
-            'tour_titles' => $this->mobileArtwork->tours->pluck('title')->all(),
+            'tour_titles' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('title')->all() : [],
 
         ];
 
