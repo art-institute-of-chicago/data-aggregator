@@ -10,7 +10,7 @@ class ShopModel extends BaseModel
 
     use ElasticSearchable;
 
-    protected $source = 'Shop';
+    protected static $source = 'Shop';
 
     protected $primaryKey = 'shop_id';
 
