@@ -228,7 +228,7 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('images', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table, false);
+            $table = $this->_addIdsAndTitle($table, false, 'text');
             $table = $this->_addInterpretiveResourceFileds($table);
             $table->string('type')->nullable();
             $table->boolean('preferred')->nullable();
