@@ -21,6 +21,8 @@ class ImportCollectionsFull extends AbstractImportCommand
     public function handle()
     {
 
+        ini_set("memory_limit", "-1");
+
         if ($this->argument('endpoint'))
         {
 
@@ -93,10 +95,14 @@ class ImportCollectionsFull extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
         $model = \App\Models\CollectionsModel::classFor($endpoint);
 
-        // Abort if the table is already filled
-        if( $model::count() > 0 )
+        // Abort if the table is already filled in production.
+        // In test we want to update existing records. Once we verify this
+        // functionality we may want to take this condition completely out.
+        if( $model::count() > 0 && config('app.env') == 'production')
         {
             return false;
         }
@@ -119,6 +125,8 @@ class ImportCollectionsFull extends AbstractImportCommand
             $json = $this->queryService($endpoint, $current);
 
         }
+
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 

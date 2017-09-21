@@ -16,7 +16,7 @@ class BaseModel extends Model
      *
      * @var string
      */
-    protected $source;
+    protected static $source;
 
 
     /**
@@ -129,7 +129,7 @@ class BaseModel extends Model
     public static function classFor($endpoint)
     {
 
-        return '\App\Models\\' . $this->source . '\\' . studly_case(str_singular($endpoint));
+        return '\App\Models\\' . static::$source . '\\' . studly_case(str_singular($endpoint));
 
     }
 

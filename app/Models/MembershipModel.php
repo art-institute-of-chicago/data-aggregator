@@ -7,7 +7,7 @@ use App\Models\BaseModel;
 class MembershipModel extends BaseModel
 {
 
-    protected $source = 'Membership';
+    protected static $source = 'Membership';
 
     protected $primaryKey = 'membership_id';
 

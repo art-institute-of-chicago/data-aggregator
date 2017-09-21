@@ -158,41 +158,62 @@ class Artwork extends CollectionsModel
         if ($source->creator_id)
         {
 
-            Artist::findOrCreate($source->creator_id);
-            $this->artists()->attach($source->creator_id);
+            // Artist::findOrCreate($source->creator_id);
+            // $this->artists()->attach($source->creator_id);
+
+            $this->artists()->sync([$source->creator_id], false);
 
         }
 
         if ($source->image_guid)
         {
-            $image = Image::findOrCreate($source->image_guid);
-            $image->preferred = true;
-            $this->images()->save($image);
+
+            // $image = Image::findOrCreate($source->image_guid);
+            // $image->preferred = true;
+            // $this->images()->save($image);
+
+            $this->images()->sync([$source->image_guid], false);
+
+            // https://stackoverflow.com/questions/27230672/laravel-sync-how-to-sync-an-array-and-also-pass-additional-pivot-fields
+            // This is how we sync w/ an additional attribute on the pivot table
+            // $this->images()->sync([
+            //     $source->image_guid => [
+            //         'preferred' => true
+            //     ]
+            // ], false);
+
         }
 
 
         if ($source->department_id)
         {
 
-            $department = Department::findOrCreate($source->department_id);
-            $this->department()->associate($department);
+            // $department = Department::findOrCreate($source->department_id);
+            // $this->department()->associate($department);
+
+            $this->department_citi_id = $source->department_id;
+
+            // Sync is unnecessary here, since it's just a column on this table
+            // $this->department()->sync([$source->department_id], false);
 
         }
 
         if ($source->category_ids)
         {
+            $cats = [];
+
             foreach ($source->category_ids as $id)
             {
 
                 $cat = Category::where('citi_id', $id)->first();
                 if ($cat)
                 {
-
-                    $this->categories()->attach($cat->citi_id);
-
+                    $cats[] = $cat->citi_id;
                 }
 
             }
+
+            $this->categories()->sync($cats, false);
 
         }
         // $source->document_guids
@@ -204,8 +225,9 @@ class Artwork extends CollectionsModel
             $this->seedTerms();
             $this->seedDates();
             $this->seedCatalogues();
-            $this->seedImages();
-            //$this->seedParts();
+            // TODO: Remove this...? Might be unnecessary.
+            // $this->seedImages();
+            // $this->seedParts();
         }
 
         // update artworks with gallery id and object type id
@@ -457,7 +479,7 @@ class Artwork extends CollectionsModel
             $this->transformArtworkImages(),
             [
                 'publication_ids' => $this->publications->pluck('dsc_id')->all(),
-                'tour_ids' => $this->mobileArtwork->tours->pluck('mobile_id')->all(),
+                'tour_ids' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('mobile_id')->all() : [],
             ]
         );
 
@@ -480,7 +502,7 @@ class Artwork extends CollectionsModel
             'part_titles' => $this->parts->pluck('title')->all(),
             'set_titles' => $this->sets->pluck('title')->all(),
             'publication_titles' => $this->publications->pluck('title')->all(),
-            'tour_titles' => $this->mobileArtwork->tours->pluck('title')->all(),
+            'tour_titles' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('title')->all() : [],
 
         ];
 

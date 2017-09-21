@@ -7,7 +7,7 @@ use App\Models\BaseModel;
 class CollectionsModel extends BaseModel
 {
 
-    protected $source = 'Collections';
+    protected static $source = 'Collections';
 
     /**
      * Get the class name for a given API endpoint

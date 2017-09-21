@@ -7,7 +7,7 @@ use App\Models\BaseModel;
 class MobileModel extends BaseModel
 {
 
-    protected $source = 'Mobile';
+    protected static $source = 'Mobile';
 
     protected $primaryKey = 'mobile_id';
 

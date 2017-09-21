@@ -7,7 +7,7 @@ use App\Models\BaseModel;
 class DscModel extends BaseModel
 {
 
-    protected $source = 'Dsc';
+    protected static $source = 'Dsc';
 
     protected $primaryKey = 'dsc_id';
 
