@@ -21,6 +21,8 @@ class ImportCollectionsFull extends AbstractImportCommand
     public function handle()
     {
 
+        ini_set("memory_limit", "-1");
+
         if ($this->argument('endpoint'))
         {
 
