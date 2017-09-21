@@ -95,6 +95,8 @@ class ImportCollectionsFull extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
         $model = \App\Models\CollectionsModel::classFor($endpoint);
 
         // Abort if the table is already filled in production.
@@ -123,6 +125,8 @@ class ImportCollectionsFull extends AbstractImportCommand
             $json = $this->queryService($endpoint, $current);
 
         }
+
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 
