@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Closure;
@@ -114,7 +115,9 @@ abstract class ApiController extends Controller
             return $this->respondNotFound();
         }
 
-        return response()->item($item, new $this->transformer);
+        $fields = Input::get('fields');
+
+        return response()->item($item, new $this->transformer($fields) );
 
     }
 
@@ -158,7 +161,9 @@ abstract class ApiController extends Controller
         // Assumes the inheriting class set model and transformer
         $all = $callback( $limit, $id );
 
-        return response()->collection($all, new $this->transformer);
+        $fields = Input::get('fields');
+
+        return response()->collection($all, new $this->transformer($fields) );
 
     }
 
@@ -192,7 +197,9 @@ abstract class ApiController extends Controller
 
         $all = $this->find($ids);
 
-        return response()->collection($all, new $this->transformer);
+        $fields = Input::get('fields');
+
+        return response()->collection($all, new $this->transformer($fields) );
 
     }
 

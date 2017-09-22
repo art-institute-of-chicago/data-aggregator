@@ -12,6 +12,22 @@ class ApiTransformer extends TransformerAbstract
     public $excludeIdsAndTitle = false;
     public $excludeDates = false;
 
+
+    /**
+     * Used for only returning a subset of fields.
+     * Expects a comma-separated string.
+     *
+     * @link https://github.com/thephpleague/fractal/issues/226
+     *
+     * @var string
+     */
+    protected $fields;
+
+    public function __construct($fields = null)
+    {
+        $this->fields = $fields ? explode(',', $fields) : null;
+    }
+
     /**
      * Turn this item object into a generic array.
      *
@@ -21,11 +37,13 @@ class ApiTransformer extends TransformerAbstract
     public function transform($item)
     {
 
-        return array_merge(
+        $data = array_merge(
             $this->transformIdsAndTitle($item),
             $this->transformFields($item),
             $this->transformDates($item)
         );
+
+        return $this->filterFields( $data );
 
     }
 
@@ -76,6 +94,15 @@ class ApiTransformer extends TransformerAbstract
 
         return $dates;
 
+    }
+
+    protected function filterFields($data)
+    {
+        if (is_null($this->fields)) {
+            return $data;
+        }
+
+        return array_intersect_key($data, array_flip((array) $this->fields));
     }
 
 }
