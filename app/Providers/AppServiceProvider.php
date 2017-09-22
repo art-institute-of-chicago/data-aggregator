@@ -3,11 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Http\Transformers\ApiSerializer;
-use ScoutEngines\Elasticsearch\ElasticsearchEngine;
-use Laravel\Scout\EngineManager;
 
 class AppServiceProvider extends ServiceProvider
 {
