@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        Nwidart\Modules\LaravelModulesServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -230,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Elasticsearch' => Cviebrock\LaravelElasticsearch\Facade::class,
+        'Module' => Nwidart\Modules\Facades\Module::class,
 
     ],
 

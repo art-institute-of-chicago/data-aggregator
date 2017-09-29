@@ -14,7 +14,8 @@
         "laravel/tinker": "~1.0",
         "league/fractal": "^0.16.0",
         "tamayo/laravel-scout-elastic": "^3.0",
-        "zendframework/zend-code": "^3.2"
+        "zendframework/zend-code": "^3.2",
+        "nwidart/laravel-modules": "^2.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
