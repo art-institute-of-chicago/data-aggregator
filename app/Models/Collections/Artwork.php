@@ -479,7 +479,7 @@ class Artwork extends CollectionsModel
             $this->transformArtworkImages(),
             [
                 'publication_ids' => $this->publications->pluck('dsc_id')->all(),
-                'tour_ids' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('mobile_id')->all() : [],
+                // 'tour_ids' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('mobile_id')->all() : [],
             ]
         );
 
