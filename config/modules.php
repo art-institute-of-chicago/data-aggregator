@@ -26,11 +26,12 @@ return [
         'enabled' => false,
         'path' => base_path() . '/vendor/nwidart/laravel-modules/src/Commands/stubs',
         'files' => [
+            // Start simply registers the routes...
             'start' => 'start.php',
             'routes' => 'Http/routes.php',
-            'views/index' => 'Resources/views/index.blade.php',
-            'views/master' => 'Resources/views/layouts/master.blade.php',
-            'scaffold/config' => 'Config/config.php',
+            // 'views/index' => 'Resources/views/index.blade.php',
+            // 'views/master' => 'Resources/views/layouts/master.blade.php',
+            // 'scaffold/config' => 'Config/config.php',
             'composer' => 'composer.json',
         ],
         'replacements' => [
@@ -91,27 +92,29 @@ return [
         | Set the value to false to not generate a folder.
         */
         'generator' => [
-            'assets' => 'Assets',
-            'config' => 'Config',
+            'assets' => false, //'Assets',
+            // Unfortunately config gets generated even if this is disabled
+            'config' => false, //'Config',
             'command' => 'Console',
-            'event' => 'Events',
-            'listener' => 'Listeners',
+            'event' => false, //'Events',
+            'listener' => false, //'Listeners',
             'migration' => 'Database/Migrations',
-            'model' => 'Entities',
-            'repository' => 'Repositories',
-            'seeder' => 'Database/Seeders',
+            'model' => false, //'Entities',
+            'repository' => false, //'Repositories',
+            'seeder' => 'Database/Seeders', //'Database/Seeders',
+            // TODO: Upgrade to newest version of laravel-modules and use factories
             'controller' => 'Http/Controllers',
-            'filter' => 'Http/Middleware',
-            'request' => 'Http/Requests',
+            'filter' => false, //'Http/Middleware',
+            'request' => false, //'Http/Requests',
             'provider' => 'Providers',
-            'lang' => 'Resources/lang',
-            'views' => 'Resources/views',
+            'lang' => false, //'Resources/lang',
+            'views' => false, //'Resources/views',
             'policies' => false,
             'rules' => false,
             'test' => 'Tests',
-            'jobs' => 'Jobs',
-            'emails' => 'Emails',
-            'notifications' => 'Notifications',
+            'jobs' => false, //'Jobs',
+            'emails' => false, //'Emails',
+            'notifications' => false, //'Notifications',
             'resource' => false,
         ],
     ],
@@ -141,10 +144,11 @@ return [
     */
 
     'composer' => [
-        'vendor' => 'nwidart',
+        'vendor' => 'aic',
         'author' => [
-            'name' => 'Nicolas Widart',
-            'email' => 'n.widart@gmail.com',
+            'name' => 'Art Institute of Chicago',
+            // TODO: Replace this w/ more generic email address
+            'email' => 'imoskvin@artic.edu',
         ],
     ],
     /*
@@ -168,6 +172,6 @@ return [
     |--------------------------------------------------------------------------
     */
     'register' => [
-        'translations' => true,
+        'translations' => false,
     ],
 ];
