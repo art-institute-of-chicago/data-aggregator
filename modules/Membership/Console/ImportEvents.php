@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Modules\Membership\Console;
 
 use Carbon\Carbon;
+use Modules\Membership\Models\Event;
+use App\Console\Commands\AbstractImportCommand;
 
 class ImportEvents extends AbstractImportCommand
 {
@@ -29,7 +31,7 @@ class ImportEvents extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
-        $model = \App\Models\Membership\Event::class;
+        $model = Event::class;
 
         $json = $this->queryService($endpoint, $current);
         $pages = $json->pagination->total_pages;

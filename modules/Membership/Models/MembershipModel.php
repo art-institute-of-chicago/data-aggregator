@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Membership\Models;
 
 use App\Models\BaseModel;
 

@@ -1,0 +1,19 @@
+{
+    "name": "aic/membership",
+    "description": "",
+    "authors": [
+        {
+            "name": "Illya Moskvin",
+            "email": "imoskvin@artic.edu"
+        },
+        {
+            "name": "Nikhil Trivedi",
+            "email": "ntrive@artic.edu"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Modules\\Membership\\": ""
+        }
+    }
+}

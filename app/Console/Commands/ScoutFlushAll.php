@@ -30,7 +30,7 @@ class ScoutFlushAll extends Command
         $this->call("scout:flush", ['model' => \App\Models\Shop\Category::class]);
         $this->call("scout:flush", ['model' => \App\Models\Shop\Product::class]);
 
-        $this->call("scout:flush", ['model' => \App\Models\Membership\Event::class]);
+        $this->call("scout:flush", ['model' => \Modules\Membership\Models\Event::class]);
 
         $this->call("scout:flush", ['model' => \App\Models\Mobile\Tour::class]);
         $this->call("scout:flush", ['model' => \App\Models\Mobile\TourStop::class]);

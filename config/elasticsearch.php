@@ -285,8 +285,8 @@ return [
                     ],
                 ],
             ],
-            'mappings' =>
-            array_merge(
+            'mappings' => array_merge(
+
                 \App\Models\Collections\Agent::instance()->elasticsearchMapping(),
                 \App\Models\Collections\Department::instance()->elasticsearchMapping(),
                 \App\Models\Collections\Category::instance()->elasticsearchMapping(),
@@ -301,7 +301,7 @@ return [
                 \App\Models\Shop\Category::instance()->elasticsearchMapping(),
                 \App\Models\Shop\Product::instance()->elasticsearchMapping(),
 
-                \App\Models\Membership\Event::instance()->elasticsearchMapping(),
+                \Modules\Membership\Models\Event::instance()->elasticsearchMapping(),
 
                 \App\Models\Mobile\Tour::instance()->elasticsearchMapping(),
                 \App\Models\Mobile\TourStop::instance()->elasticsearchMapping(),

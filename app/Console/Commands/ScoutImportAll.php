@@ -30,7 +30,7 @@ class ScoutImportAll extends Command
         $this->call("scout:import", ['model' => \App\Models\Shop\Category::class]);
         $this->call("scout:import", ['model' => \App\Models\Shop\Product::class]);
 
-        $this->call("scout:import", ['model' => \App\Models\Membership\Event::class]);
+        $this->call("scout:import", ['model' => \Modules\Membership\Models\Event::class]);
 
         $this->call("scout:import", ['model' => \App\Models\Mobile\Tour::class]);
         $this->call("scout:import", ['model' => \App\Models\Mobile\TourStop::class]);

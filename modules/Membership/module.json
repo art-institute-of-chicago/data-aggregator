@@ -1,0 +1,16 @@
+{
+    "name": "Membership",
+    "alias": "membership",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Membership\\Providers\\MembershipServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Models\Membership\Event;
+use Modules\Membership\Models\Event;
 
 class EventTest extends ApiTestCase
 {

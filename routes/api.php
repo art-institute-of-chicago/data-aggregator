@@ -102,12 +102,6 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('products', 'ProductsController@index');
     Route::get('products/{id}', 'ProductsController@show');
 
-    // Membership/Events
-    Route::get('events', 'EventsController@index');
-    Route::get('events/{id}', 'EventsController@show');
-
-    Route::get('members/{id}', 'MembersController@show');
-
     // Mobile App
     Route::get('tours', 'ToursController@index');
     Route::get('tours/{id}', 'ToursController@show');

@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Modules\Membership\Console;
 
 use Carbon\Carbon;
+use Modules\Membership\Models\Event;
+use App\Console\Commands\AbstractImportCommand;
 
 class ImportEventsFull extends AbstractImportCommand
 {
@@ -22,17 +24,17 @@ class ImportEventsFull extends AbstractImportCommand
         }
 
         // Remove all events from the search index
-        $this->call("scout:flush", ['model' => \App\Models\Membership\Event::class]);
+        $this->call("scout:flush", ['model' => Event::class]);
 
         // Truncate all tables
         // $this->call("migrate:refresh");
 
         // Pseduo-refresh this specific migration...
-        $migration = new \CreateMembershipTables();
-        $migration->down();
-        $migration->up();
+        // $migration = new \CreateMembershipTables();
+        // $migration->down();
+        // $migration->up();
 
-        $this->info("Refreshed CreateMembershipTables migration.");
+        // $this->info("Refreshed CreateMembershipTables migration.");
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
         $this->warn("Please manually ensure that your search index mappings are up-to-date.");
@@ -49,7 +51,7 @@ class ImportEventsFull extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
-        $model = \App\Models\Membership\Event::class;
+        $model = Event::class;
 
         // Abort if the table is already filled
         if( $model::count() > 0 )

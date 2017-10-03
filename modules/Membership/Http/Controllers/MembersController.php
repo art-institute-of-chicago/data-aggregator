@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Modules\Membership\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+
+use App\Http\Controllers\ApiController;
 
 class MembersController extends ApiController
 {

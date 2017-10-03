@@ -35,7 +35,7 @@ if (!function_exists('membershipIdsAndTitle'))
 }
 
 
-$factory->define(App\Models\Membership\Event::class, function (Faker\Generator $faker) {
+$factory->define(Modules\Membership\Models\Event::class, function (Faker\Generator $faker) {
 
     $has_capacity = rand(0,1) == 1;
 

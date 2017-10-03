@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models\Membership;
+namespace Modules\Membership\Models;
 
-use App\Models\MembershipModel;
+use Modules\Membership\Models\MembershipModel;
+
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
