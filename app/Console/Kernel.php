@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        Commands\ImagesDownload::class,
         Commands\ImportCollectionsFull::class,
         Commands\ImportCollections::class,
         Commands\ImportEssentials::class,
