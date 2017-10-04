@@ -218,7 +218,7 @@ abstract class ApiController extends Controller
     {
 
         // By default, only allow numeric ids greater than 0
-        return intval($id) > 0;
+        return is_numeric($id) && intval($id) > 0;
 
     }
 
@@ -285,7 +285,7 @@ abstract class ApiController extends Controller
 
     protected function respondBigLimit($message = 'Invalid limit', $detail = 'You have requested too many resources. Please set a smaller limit.')
     {
-        return $this->error($message, $detail, Response::HTTP_FORBIDDEN);
+        return response()->error($message, $detail, Response::HTTP_FORBIDDEN);
     }
 
     protected function respondMethodNotAllowed($message = 'Method not allowed', $detail = 'Method not allowed.')
