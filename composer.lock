@@ -1441,23 +1441,23 @@
         },
         {
             "name": "nwidart/laravel-modules",
-            "version": "2.4.1",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nWidart/laravel-modules.git",
-                "reference": "33c4940d80a0e46c423f67206f5b0361d7859d59"
+                "reference": "f9144a085020b0e7e029001718405a131a49ed99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/33c4940d80a0e46c423f67206f5b0361d7859d59",
-                "reference": "33c4940d80a0e46c423f67206f5b0361d7859d59",
+                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/f9144a085020b0e7e029001718405a131a49ed99",
+                "reference": "f9144a085020b0e7e029001718405a131a49ed99",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.6",
+                "friendsofphp/php-cs-fixer": "^2.7",
                 "laravel/framework": "5.5.*",
                 "mockery/mockery": "~0.9",
                 "orchestra/testbench": "^3.5",
@@ -1506,7 +1506,7 @@
                 "nwidart",
                 "rad"
             ],
-            "time": "2017-09-27T13:47:44+00:00"
+            "time": "2017-10-03T12:00:52+00:00"
         },
         {
             "name": "paragonie/random_compat",
