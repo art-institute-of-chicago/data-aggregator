@@ -218,7 +218,7 @@ abstract class ApiController extends Controller
     {
 
         // By default, only allow numeric ids greater than 0
-        return intval($id) > 0;
+        return is_numeric($id) && intval($id) > 0;
 
     }
 
