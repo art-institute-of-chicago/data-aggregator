@@ -22,16 +22,6 @@ if (!function_exists('mobileAppIdsAndTitle'))
 
     }
 
-    function mobileAppDates($faker)
-    {
-
-        return [
-            'source_created_at' => $faker->dateTimeThisYear,
-            'source_modified_at' => $faker->dateTimeThisYear,
-        ];
-
-    }
-
 }
 
 
@@ -51,8 +41,7 @@ $factory->define(App\Models\Mobile\Artwork::class, function (Faker\Generator $fa
             'longitude' => $faker->longitude,
             'highlighted' => $faker->boolean,
             'selector_number' => $faker->randomNumber(3),
-        ],
-        mobileAppDates($faker)
+        ]
     );
 });
 
@@ -62,8 +51,7 @@ $factory->define(App\Models\Mobile\Sound::class, function (Faker\Generator $fake
         [
             'link' => $faker->url,
             'transcript' => $faker->paragraph(3),
-        ],
-        mobileAppDates($faker)
+        ]
     );
 });
 
@@ -76,8 +64,7 @@ $factory->define(App\Models\Mobile\Tour::class, function (Faker\Generator $faker
             'intro_text' => $faker->paragraph(3),
             'intro_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::all()->pluck('mobile_id')->all()),
             'weight' => $faker->randomDigit,
-        ],
-        mobileAppDates($faker)
+        ]
     );
 });
 
