@@ -21,13 +21,6 @@ abstract class ApiTestCase extends TestCase
     protected $faker;
 
 
-    function __construct()
-    {
-
-        $this->faker = Faker::create();
-
-    }
-
     public function setUp()
     {
 
@@ -156,6 +149,8 @@ abstract class ApiTestCase extends TestCase
 
     public function it_404s($class, $endpoint, $useUuid = false)
     {
+
+        $this->faker = Faker::create();
 
         $this->make($class);
 
