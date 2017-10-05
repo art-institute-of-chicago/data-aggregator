@@ -625,4 +625,54 @@ class Artwork extends CollectionsModel
         return 'q=monet';
     }
 
+
+    /**
+     * Return a parsed array of dimensions values in millimeters
+     *
+     * @return array
+     */
+    public function dimensions()
+    {
+
+        $dims;
+        $unit;
+
+        if (preg_match('/[a-zA-Z():. ]*([0-9.]+) x ([0-9.]+) x ([0-9.]+) ([cm]m).*/', $this->dimensions, $matches)) {
+
+            $dims = array_slice($matches, 1, 3);
+            $unit = $matches[4];
+
+        }
+        elseif (preg_match('/[a-zA-Z():. ]*([0-9.]+) x ([0-9.]+) ([cm]m).*/', $this->dimensions, $matches)) {
+
+            $dims = array_slice($matches, 1, 2);
+            $unit = $matches[3];
+
+        }
+        elseif (preg_match('/[a-zA-Z():. ]*([0-9.]+) ([cm]m) [()\/0-9a-z.; ]+ ([0-9.]+) [cm]m.*/', $this->dimensions, $matches)) {
+
+            $dims[] = $matches[1];
+            $dims[] = $matches[3];
+            $unit = $matches[2];
+
+        }
+
+        return $this->_dimensionsInMillimeters($dims, $unit);
+
+    }
+
+    private function _dimensionsInMillimeters($dims, $unit)
+    {
+
+        switch ($unit) {
+        case 'mm':
+            return $dims;
+            break;
+        case 'cm':
+            return array_map(function($dim) { return $dim * 10; }, $dims);
+            break;
+        }
+
+    }
+
 }
