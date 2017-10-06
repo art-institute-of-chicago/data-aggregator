@@ -2,7 +2,7 @@
 
 ### `/artworks`
 
-A list of all artworks sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#artworks)
+A list of all artworks sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#artworks).
 
 #### Available parameters:
 
@@ -24,7 +24,7 @@ A list of all artworks sorted by last updated date in descending order. For a de
   * `publications`
   * `tours`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks  
 Example output:
 
 ```
@@ -76,7 +76,7 @@ A list of essential artworks sorted by last updated date in descending order. Th
   * `publications`
   * `tours`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/essentials
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/essentials  
 Example output:
 
 ```
@@ -106,18 +106,18 @@ Example output:
 
 ### `/artworks/search`
 
-Search artwork data in the aggregator. Artworks in the groups of essentials are boosted so they'll show up higher in resuts.
+Search artwork data in the aggregator. Artworks in the groups of essentials are boosted so they'll show up higher in results.
 
 #### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
-* `sort` - Used in conjunection with `query`
+* `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/search?q=monet
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/search?q=monet  
 Example output:
 
 ```
@@ -190,7 +190,7 @@ Example output:
 
 A single artwork by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628  
 Example output:
 
 ```
@@ -212,8 +212,8 @@ Example output:
 
 The artists and copyright representatives for a given artwork. Both artists and copyright representatives are service from the API as a type of `agent`, so their output schema is the same.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/artists
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/copyrightRepresentatives
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/artists  
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/copyrightRepresentatives  
 Example output:
 
 ```
@@ -243,7 +243,7 @@ Example output:
 
 A list of all publish categories for a given artwork.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/categories
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/categories  
 Example output:
 
 ```
@@ -305,7 +305,7 @@ Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/pa
 
 A list of all images for a given artwork.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/images
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/images  
 Example output:
 
 ```
@@ -334,3 +334,159 @@ Example output:
   ]
 }
 ```
+
+
+## Agents
+
+### `/agents`
+
+A list of all agents sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#agents).
+
+#### Available parameters:
+
+* `ids` - A comma-separated list of agent ids to retrieve
+* `limit` - The number of records to return per page
+* `page` - The page of records to retrieve
+* `fields` - A comma-separated list of fields to return per record
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/agents  
+Example output:
+
+```
+{
+  "pagination": {
+    "total": 11309,
+    "limit": 12,
+    "offset": 0,
+    "total_pages": 943,
+    "current_page": 1,
+    "next_url": "http://aggregator-data-test.artic.edu/api/v1/agents?page=2&limit=12"
+  },
+  "data": [
+    {
+      "id": 68565,
+      "title": "Huys, Franz",
+      "lake_guid": "dc30f7f9-a86b-4c30-db5f-4d790184a851",
+      "birth_date": 1522,
+      "birth_place": null,
+      "death_date": 1562,
+      "death_place": null,
+      "is_licensing_restricted": false,
+      "agent_type": "Artist",
+      "agent_type_id": 36,
+      "last_updated_citi": "2017-10-05T21:00:01-05:00",
+      "last_updated_fedora": "2017-10-05T16:55:24-05:00",
+      "last_updated_source": "2017-10-05T16:55:25-05:00",
+      "last_updated": "2017-10-05T17:00:02-05:00"
+    },
+    {
+      "id": 36022,
+      "title": "Nilsson, Gladys",
+      "lake_guid": "6ff4fc85-5c15-e096-b4f1-ec666c205769",
+      "birth_date": 1940,
+      "birth_place": null,
+      "death_date": null,
+      "death_place": null,
+      "is_licensing_restricted": false,
+      "agent_type": "Artist",
+      "agent_type_id": 36,
+      "last_updated_citi": "2017-09-05T16:40:46-05:00",
+      "last_updated_fedora": "2017-10-05T12:15:27-05:00",
+      "last_updated_source": "2017-10-05T12:15:28-05:00",
+      "last_updated": "2017-10-05T12:20:02-05:00"
+    },
+    ...
+  ]
+}
+```
+
+### `/agents/search`
+
+Search agent data in the aggregator.
+
+#### Available parameters:
+
+* `q` - Your search query
+* `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
+* `sort` - Used in conjunction with `query`
+* `from` - Starting point of results. Pagination via Elasticsearch conventions
+* `size` - Number of results to return. Pagination via Elasticsearch conventions
+* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/agents/search?q=raushenbreg  
+Example output:
+
+```
+{
+  "preference": null,
+  "pagination": {
+    "total": 1,
+    "limit": 10,
+    "offset": 0,
+    "total_pages": 1,
+    "current_page": 1
+  },
+  "data": [
+    {
+      "_score": 9.910224,
+      "api_id": "36326",
+      "api_model": "agents",
+      "api_link": "http://aggregator-data-test.artic.edu/api/v1/agents/36326",
+      "id": "collections.agents.36326",
+      "title": "Rauschenberg, Robert",
+      "timestamp": "2017-09-25T15:01:58-05:00"
+    }
+  ],
+  "aggregations": {
+    "count_api_model": [
+      {
+        "key": "agents",
+        "doc_count": 1
+      }
+    ]
+  }
+}
+```
+
+### `/agents/{id}`
+
+A single agent by the given identifier. {id} is the identifier from our collections managements system.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/agents/36326  
+Example output:
+
+```
+{
+  "data": {
+    "id": 36326,
+    "title": "Rauschenberg, Robert",
+    "lake_guid": "f2b75a42-96e8-ac9b-89d1-62c66fac4123",
+    "birth_date": 1925,
+    "birth_place": null,
+    "death_date": 2008,
+    "death_place": null,
+    "is_licensing_restricted": false,
+    "agent_type": "Artist",
+    "agent_type_id": 36,
+    "last_updated_citi": "2017-09-05T16:41:14-05:00",
+    "last_updated_fedora": "2017-09-22T14:41:10-05:00",
+    "last_updated_source": "2017-09-22T14:41:10-05:00",
+    "last_updated": "2017-09-25T15:01:58-05:00"
+  }
+}
+```
+
+## Artists
+
+Artists are a subset of agents filtered by `agent_type` with values `Artist`. The following endpoints are available with the same parameters and output as their corresponding `/agents` endpoints:
+
+* `/artists`
+* `/artists/{id}`
+
+## Venues
+
+Artists are a subset of agents filtered by `agent_type` with values `Corporate Body`. The following endpoints are available with the same parameters and output as their corresponding `/agents` endpoints:
+
+* `/venues`
+* `/venues/{id}`
+
