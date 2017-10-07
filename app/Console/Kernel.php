@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         Commands\UninstallSearch::class,
         Commands\ReindexSearch::class,
         Commands\AliasSearch::class,
+        Commands\CreateEndpointDocs::class,
     ];
 
     /**
