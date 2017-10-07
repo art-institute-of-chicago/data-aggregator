@@ -476,6 +476,7 @@ Example output:
 }
 ```
 
+
 ## Artists
 
 Artists are a subset of agents filtered by `agent_type` with values `Artist`. The following endpoints are available with the same parameters and output as their corresponding `/agents` endpoints:
@@ -483,10 +484,602 @@ Artists are a subset of agents filtered by `agent_type` with values `Artist`. Th
 * `/artists`
 * `/artists/{id}`
 
+
 ## Venues
 
 Artists are a subset of agents filtered by `agent_type` with values `Corporate Body`. The following endpoints are available with the same parameters and output as their corresponding `/agents` endpoints:
 
 * `/venues`
 * `/venues/{id}`
+
+
+## Departments
+
+### `/departments`
+
+A list of all departments sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#departments).
+
+#### Available parameters:
+
+* `ids` - A comma-separated list of department ids to retrieve
+* `limit` - The number of records to return per page
+* `page` - The page of records to retrieve
+* `fields` - A comma-separated list of fields to return per record
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/departments  
+Example output:
+
+```
+{
+  "pagination": {
+    "total": 32,
+    "limit": 12,
+    "offset": 0,
+    "total_pages": 3,
+    "current_page": 1,
+    "next_url": "http://aggregator-data-test.artic.edu/api/v1/departments?page=2&limit=12"
+  },
+  "data": [
+    {
+      "id": 1,
+      "title": "Unknown",
+      "lake_guid": "a6295a34-c3a9-b51f-d9dc-c2d13be2aa75",
+      "last_updated_citi": "2017-09-05T16:47:55-05:00",
+      "last_updated_fedora": "2017-10-04T13:36:33-05:00",
+      "last_updated_source": "2017-10-04T13:36:33-05:00",
+      "last_updated": "2017-10-04T13:40:41-05:00"
+    },
+    {
+      "id": 3,
+      "title": "Prints and Drawings",
+      "lake_guid": "922e5173-2c3d-b6c1-f223-bb591cafbb79",
+      "last_updated_citi": "2017-09-05T16:47:55-05:00",
+      "last_updated_fedora": "2017-05-17T14:40:40-05:00",
+      "last_updated_source": "2017-10-04T13:36:32-05:00",
+      "last_updated": "2017-10-04T13:40:41-05:00"
+    },
+	...
+  ]
+}
+```
+
+### `/departments/search`
+
+Search department data in the aggregator.
+
+#### Available parameters:
+
+* `q` - Your search query
+* `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
+* `sort` - Used in conjunction with `query`
+* `from` - Starting point of results. Pagination via Elasticsearch conventions
+* `size` - Number of results to return. Pagination via Elasticsearch conventions
+* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/departments/search?q=print  
+Example output:
+
+```
+{
+  "preference": null,
+  "pagination": {
+    "total": 2,
+    "limit": 10,
+    "offset": 0,
+    "total_pages": 1,
+    "current_page": 1
+  },
+  "data": [
+    {
+      "_score": 3.4345741,
+      "api_id": "3",
+      "api_model": "departments",
+      "api_link": "http://aggregator-data-test.artic.edu/api/v1/departments/3",
+      "id": "collections.departments.3",
+      "title": "Prints and Drawings",
+      "timestamp": "2017-10-04T13:40:41-05:00"
+    },
+    {
+      "_score": 2.6400175,
+      "api_id": "14",
+      "api_model": "departments",
+      "api_link": "http://aggregator-data-test.artic.edu/api/v1/departments/14",
+      "id": "collections.departments.14",
+      "title": "European Painting and Sculpture",
+      "timestamp": "2017-10-04T13:40:41-05:00"
+    }
+  ],
+  "suggest": {
+    "autocomplete": [
+      "Print Catalog of Figures Included in the Gallery D",
+      "Print Catalog of Figures Included in the Gallery D",
+      "Print Fanciers",
+      "Print Gallery",
+      "Print for Chicago 8, from Conspiracy, The Artist a"
+    ],
+    "phrase": [
+      "<em>Saint</em>",
+      "<em>Point</em>",
+      "<em>Front</em>",
+      "<em>Print</em>",
+      "<em>prints</em>"
+    ]
+  },
+  "aggregations": {
+    "count_api_model": [
+      {
+        "key": "departments",
+        "doc_count": 2
+      }
+    ]
+  }
+}
+```
+
+### `/departments/{id}`
+
+A single department by the given identifier. {id} is the identifier from our collections managements system.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/departments/3  
+Example output:
+
+```
+{
+  "data": {
+    "id": 3,
+    "title": "Prints and Drawings",
+    "lake_guid": "922e5173-2c3d-b6c1-f223-bb591cafbb79",
+    "last_updated_citi": "2017-09-05T16:47:55-05:00",
+    "last_updated_fedora": "2017-05-17T14:40:40-05:00",
+    "last_updated_source": "2017-10-04T13:36:32-05:00",
+    "last_updated": "2017-10-04T13:40:41-05:00"
+  }
+}
+```
+
+
+## Object Types
+
+### `/object-types`
+
+A list of all object types sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#object-types).
+
+#### Available parameters:
+
+* `ids` - A comma-separated list of object type ids to retrieve
+* `limit` - The number of records to return per page
+* `page` - The page of records to retrieve
+* `fields` - A comma-separated list of fields to return per record
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/object-types  
+Example output:
+
+```
+{
+  "pagination": {
+    "total": 25,
+    "limit": 12,
+    "offset": 0,
+    "total_pages": 3,
+    "current_page": 1,
+    "next_url": "http://aggregator-data-test.artic.edu/api/v1/object-types?page=2&limit=12"
+  },
+  "data": [
+    {
+      "id": 2,
+      "title": "Sculpture",
+      "lake_guid": "47d48584-6c98-3d10-9efd-25db337a470e",
+      "last_updated_citi": "2016-10-11T07:59:44-05:00",
+      "last_updated_fedora": "2017-03-08T18:24:39-06:00",
+      "last_updated_source": "2017-05-27T15:44:27-05:00",
+      "last_updated": "2017-09-05T16:47:56-05:00"
+    },
+    {
+      "id": 3,
+      "title": "Painting",
+      "lake_guid": "fca7d2b6-3583-3ffb-a491-54326a5715bc",
+      "last_updated_citi": "2017-02-14T01:22:25-06:00",
+      "last_updated_fedora": "2017-02-23T21:32:35-06:00",
+      "last_updated_source": "2017-03-28T01:38:08-05:00",
+      "last_updated": "2017-09-05T16:47:56-05:00"
+    },
+	...
+  ]
+}
+```
+
+### `/object-types/{id}`
+
+A single object type by the given identifier. {id} is the identifier from our collections managements system.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/object-types/3  
+Example output:
+
+```
+{
+  "data": {
+    "id": 28,
+    "title": "Design",
+    "lake_guid": "71ae1eda-0f26-3041-a6a3-28a072be6c20",
+    "last_updated_citi": "2017-05-28T14:01:29-05:00",
+    "last_updated_fedora": "2017-02-02T08:50:07-06:00",
+    "last_updated_source": "2017-04-04T09:04:06-05:00",
+    "last_updated": "2017-09-05T16:47:56-05:00"
+  }
+}
+```
+
+
+## Categories
+
+### `/categories`
+
+A list of all categories sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#categories).
+
+#### Available parameters:
+
+* `ids` - A comma-separated list of category ids to retrieve
+* `limit` - The number of records to return per page
+* `page` - The page of records to retrieve
+* `fields` - A comma-separated list of fields to return per record
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/categories  
+Example output:
+
+```
+{
+  "pagination": {
+    "total": 32,
+    "limit": 12,
+    "offset": 0,
+    "total_pages": 3,
+    "current_page": 1,
+    "next_url": "http://aggregator-data-test.artic.edu/api/v1/categories?page=2&limit=12"
+  },
+  "data": [
+    {
+      "id": 1,
+      "title": "Unknown",
+      "lake_guid": "a6295a34-c3a9-b51f-d9dc-c2d13be2aa75",
+      "last_updated_citi": "2017-09-05T16:47:55-05:00",
+      "last_updated_fedora": "2017-10-04T13:36:33-05:00",
+      "last_updated_source": "2017-10-04T13:36:33-05:00",
+      "last_updated": "2017-10-04T13:40:41-05:00"
+    },
+    {
+      "id": 3,
+      "title": "Prints and Drawings",
+      "lake_guid": "922e5173-2c3d-b6c1-f223-bb591cafbb79",
+      "last_updated_citi": "2017-09-05T16:47:55-05:00",
+      "last_updated_fedora": "2017-05-17T14:40:40-05:00",
+      "last_updated_source": "2017-10-04T13:36:32-05:00",
+      "last_updated": "2017-10-04T13:40:41-05:00"
+    },
+	...
+  ]
+}
+```
+
+### `/categories/search`
+
+Search category data in the aggregator.
+
+#### Available parameters:
+
+* `q` - Your search query
+* `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
+* `sort` - Used in conjunction with `query`
+* `from` - Starting point of results. Pagination via Elasticsearch conventions
+* `size` - Number of results to return. Pagination via Elasticsearch conventions
+* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/categories/search?q=print  
+Example output:
+
+```
+{
+  "preference": null,
+  "pagination": {
+    "total": 2,
+    "limit": 10,
+    "offset": 0,
+    "total_pages": 1,
+    "current_page": 1
+  },
+  "data": [
+    {
+      "_score": 3.4345741,
+      "api_id": "3",
+      "api_model": "categories",
+      "api_link": "http://aggregator-data-test.artic.edu/api/v1/categories/3",
+      "id": "collections.categories.3",
+      "title": "Prints and Drawings",
+      "timestamp": "2017-10-04T13:40:41-05:00"
+    },
+    {
+      "_score": 2.6400175,
+      "api_id": "14",
+      "api_model": "categories",
+      "api_link": "http://aggregator-data-test.artic.edu/api/v1/categories/14",
+      "id": "collections.categories.14",
+      "title": "European Painting and Sculpture",
+      "timestamp": "2017-10-04T13:40:41-05:00"
+    }
+  ],
+  "suggest": {
+    "autocomplete": [
+      "Print Catalog of Figures Included in the Gallery D",
+      "Print Catalog of Figures Included in the Gallery D",
+      "Print Fanciers",
+      "Print Gallery",
+      "Print for Chicago 8, from Conspiracy, The Artist a"
+    ],
+    "phrase": [
+      "<em>Saint</em>",
+      "<em>Point</em>",
+      "<em>Front</em>",
+      "<em>Print</em>",
+      "<em>prints</em>"
+    ]
+  },
+  "aggregations": {
+    "count_api_model": [
+      {
+        "key": "categories",
+        "doc_count": 2
+      }
+    ]
+  }
+}
+```
+
+### `/categories/{id}`
+
+A single category by the given identifier. {id} is the identifier from our collections managements system.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/categories/3  
+Example output:
+
+```
+{
+  "data": {
+    "id": 3,
+    "title": "Prints and Drawings",
+    "lake_guid": "922e5173-2c3d-b6c1-f223-bb591cafbb79",
+    "last_updated_citi": "2017-09-05T16:47:55-05:00",
+    "last_updated_fedora": "2017-05-17T14:40:40-05:00",
+    "last_updated_source": "2017-10-04T13:36:32-05:00",
+    "last_updated": "2017-10-04T13:40:41-05:00"
+  }
+}
+```
+
+
+## Agent Types
+
+### `/agent-types`
+
+A list of all agent types sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#agent-types).
+
+#### Available parameters:
+
+* `ids` - A comma-separated list of agent type ids to retrieve
+* `limit` - The number of records to return per page
+* `page` - The page of records to retrieve
+* `fields` - A comma-separated list of fields to return per record
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/agent-types  
+Example output:
+
+```
+{
+  "pagination": {
+    "total": 25,
+    "limit": 12,
+    "offset": 0,
+    "total_pages": 3,
+    "current_page": 1,
+    "next_url": "http://aggregator-data-test.artic.edu/api/v1/agent-types?page=2&limit=12"
+  },
+  "data": [
+    {
+      "id": 29,
+      "title": "Copyright Representative",
+      "lake_guid": "799208c3-264a-33c3-8644-80ba5b63848d",
+      "last_updated_citi": "2016-09-25T23:11:41-05:00",
+      "last_updated_fedora": "2016-12-19T02:27:03-06:00",
+      "last_updated_source": "2017-01-29T08:51:34-06:00",
+      "last_updated": "2017-09-05T16:32:48-05:00"
+    },
+    {
+      "id": 36,
+      "title": "Artist",
+      "lake_guid": "3f952f4e-1164-3656-877c-9d195faba4b9",
+      "last_updated_citi": "2016-11-22T00:31:50-06:00",
+      "last_updated_fedora": "2017-08-07T04:44:13-05:00",
+      "last_updated_source": "2017-08-31T20:18:26-05:00",
+      "last_updated": "2017-09-05T16:32:48-05:00"
+    },
+	...
+  ]
+}
+```
+
+### `/agent-types/{id}`
+
+A single agent type by the given identifier. {id} is the identifier from our collections managements system.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/agent-types/36  
+Example output:
+
+```
+{
+  "data": {
+    "id": 36,
+    "title": "Artist",
+    "lake_guid": "3f952f4e-1164-3656-877c-9d195faba4b9",
+    "last_updated_citi": "2016-11-22T00:31:50-06:00",
+    "last_updated_fedora": "2017-08-07T04:44:13-05:00",
+    "last_updated_source": "2017-08-31T20:18:26-05:00",
+    "last_updated": "2017-09-05T16:32:48-05:00"
+  }
+}
+```
+
+
+## Galleries
+
+### `/galleries`
+
+A list of all galleries sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#galleries).
+
+#### Available parameters:
+
+* `ids` - A comma-separated list of gallery ids to retrieve
+* `limit` - The number of records to return per page
+* `page` - The page of records to retrieve
+* `fields` - A comma-separated list of fields to return per record
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/galleries  
+Example output:
+
+```
+{
+  "pagination": {
+    "total": 116,
+    "limit": 12,
+    "offset": 0,
+    "total_pages": 10,
+    "current_page": 1,
+    "next_url": "http://aggregator-data-test.artic.edu/api/v1/galleries?page=2&limit=12"
+  },
+  "data": [
+    {
+      "id": 28498,
+      "title": "Gallery 239",
+      "lake_guid": "86cc9e3e-b494-3930-a492-ec82baa70f4e",
+      "is_closed": false,
+      "number": "239",
+      "floor": "2",
+      "latitude": 41.88,
+      "longitude": -87.62,
+      "latlon": "41.88,-87.62",
+      "category_ids": [],
+      "last_updated_citi": "2017-10-06T16:27:07-05:00",
+      "last_updated_fedora": "2017-09-27T17:27:33-05:00",
+      "last_updated_source": "2017-09-27T17:27:33-05:00",
+      "last_updated": "2017-10-06T16:27:07-05:00"
+    },
+    {
+      "id": 27946,
+      "title": "South Stanley McCormick Memorial Garden",
+      "lake_guid": "13ef4c3f-2c46-dfc2-3d97-922e74df4eeb",
+      "is_closed": false,
+      "number": null,
+      "floor": "1",
+      "latitude": 41.88,
+      "longitude": -87.62,
+      "latlon": "41.88,-87.62",
+      "category_ids": [],
+      "last_updated_citi": "2017-10-06T16:27:10-05:00",
+      "last_updated_fedora": "2017-08-11T16:38:04-05:00",
+      "last_updated_source": "2017-08-11T16:38:04-05:00",
+      "last_updated": "2017-10-06T16:27:10-05:00"
+    },
+	...
+  ]
+}
+```
+
+### `/galleries/search`
+
+Search gallery data in the aggregator.
+
+#### Available parameters:
+
+* `q` - Your search query
+* `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
+* `sort` - Used in conjunction with `query`
+* `from` - Starting point of results. Pagination via Elasticsearch conventions
+* `size` - Number of results to return. Pagination via Elasticsearch conventions
+* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/galleries/search?q=modern  
+Example output:
+
+```
+{
+  "preference": null,
+  "pagination": {
+    "total": 1,
+    "limit": 10,
+    "offset": 0,
+    "total_pages": 1,
+    "current_page": 1
+  },
+  "data": [
+    {
+      "_score": 8.302454,
+      "api_id": "28275",
+      "api_model": "galleries",
+      "api_link": "http://aggregator-data-test.artic.edu/api/v1/galleries/28275",
+      "id": "collections.galleries.28275",
+      "title": "Modern Wing Entrance",
+      "timestamp": "2017-10-06T16:27:10-05:00"
+    }
+  ],
+  "suggest": {
+    "autocomplete": [
+      "02. Modern Homes No. 104 and 109",
+      "05. \"Modern Sanitation,\" Vol. X, No.4. Standard Sa",
+      "Modern",
+      "Modern",
+      "Modern (Modern Wing)"
+    ],
+    "phrase": [
+      "<em>Modern</em>",
+      "<em>mode</em>",
+      "<em>model</em>",
+      "<em>models</em>"
+    ]
+  },
+  "aggregations": {
+    "count_api_model": [
+      {
+        "key": "galleries",
+        "doc_count": 1
+	  }
+    ]
+  }
+}
+```
+
+### `/galleries/{id}`
+
+A single gallery by the given identifier. {id} is the identifier from our collections managements system.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/galleries/3  
+Example output:
+
+```
+{
+  "data": {
+    "id": 27946,
+    "title": "South Stanley McCormick Memorial Garden",
+    "lake_guid": "13ef4c3f-2c46-dfc2-3d97-922e74df4eeb",
+    "is_closed": false,
+    "number": null,
+    "floor": "1",
+    "latitude": 41.88,
+    "longitude": -87.62,
+    "latlon": "41.88,-87.62",
+    "category_ids": [],
+    "last_updated_citi": "2017-10-06T16:27:10-05:00",
+    "last_updated_fedora": "2017-08-11T16:38:04-05:00",
+    "last_updated_source": "2017-08-11T16:38:04-05:00",
+    "last_updated": "2017-10-06T16:27:10-05:00"
+  }
+}
+```
+
 
