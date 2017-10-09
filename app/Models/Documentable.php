@@ -6,16 +6,44 @@ trait Documentable
 {
 
     /**
-     * Generate a documentation title
+     * Generate all documentationa for this model
      *
      * @return string
      */
-    protected static function docTitle()
+    public function doc($appUrl)
     {
 
-        $calledClass = get_called_class();
+        if (!$appUrl)
+        {
 
-        return '## ' .title_case( str_plural( class_basename($calledClass) ) );
+            $appUrl = config("app.url");
+
+        }
+
+        $doc = '';
+        $doc .= $this->docTitle() ."\n\n";
+        $doc .= $this->docList($appUrl) ."\n";
+
+        if (get_called_class() == Collections\Artwork::class)
+        {
+
+            $doc .= $this->docEssentials($appUrl) ."\n";
+
+        }
+
+        return $doc;
+
+    }
+
+    /**
+     * Generate a title for all endpoonts for this class
+     *
+     * @return string
+     */
+    public function docTitle()
+    {
+
+        return '## ' .title_case( $this->_endpoint() );
 
     }
 
@@ -24,34 +52,90 @@ trait Documentable
      *
      * @return string
      */
-    protected static function docList($appUrl)
+    public function docList($appUrl)
     {
 
         $calledClass = get_called_class();
-        $endpoint = strtolower( str_plural( class_basename($calledClass) ) );
+        $endpoint = $this->_endpoint();
+        $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `/' .$endpoint ."`\n\n";
+        $doc = '### `' .$this->_endpointPath() ."`\n\n";
 
-        $doc .= "A list of all artworks sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#" .$endpoint .").\n\n";
+        $doc .= "A list of all " .$endpointAsCopyText ." sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#" .$endpoint .").\n\n";
+
+        $doc .= $this->docListParameters();
+
+        $doc .= $this->docExampleOutput($appUrl);
+
+        return $doc;
+
+    }
 
 
-        // Parameters
+    /**
+     * Generate documentation for essentials endpoint
+     *
+     * @return string
+     */
+    public function docEssentials($appUrl)
+    {
+
+        $calledClass = get_called_class();
+        $endpoint = $this->_endpoint();
+        $endpointAsCopyText = $this->_endpointAsCopyText();
+
+        // Title
+        $doc = '### `' .$this->_endpointPath('essentials') ."`\n\n";
+
+        $doc .= "A list of essential " .$endpointAsCopyText ." sorted by last updated date in descending order. This is a subset of the `" .$endpoint ."/` endpoint that represents approximately 400 of our most well-known works. This can be used to get a shorter list of " .$endpoint ." that will have most of its metadata filled out for testing purposes.\n\n";
+
+        $doc .= $this->docListParameters();
+
+        $doc .= $this->docExampleOutput($appUrl, 'essentials');
+
+        return $doc;
+    }
+
+
+
+    /**
+     * Generate documentation for parameters for list endpoints
+     *
+     * @return string
+     */
+    public function docListParameters()
+    {
+
+        $doc = '';
         $doc .= "#### Available parameters:\n\n";
 
-        $doc .= "* `ids` - A comma-separated list of artwork ids to retrieve\n";
-        $doc .= "* `limit` - The number of records to return per page\n";
-        $doc .= "* `page` - The page of records to retrieve\n";
-        $doc .= "* `fields` - A comma-separated list of fields to return per record\n";
+        $doc .= "* `ids` - A comma-separated list of resource ids to retrieve\n";
+        $doc .= "* `limit` - The number of resources to return per page\n";
+        $doc .= "* `page` - The page of resources to retrieve\n";
+        $doc .= "* `fields` - A comma-separated list of fields to return per resource\n";
 
+        $doc .= $this->docIncludeParameters();
 
-        // Include parameters
-        $transformerClass = "\\App\\Http\\Transformers\\" .title_case( str_singular($endpoint) ) ."Transformer";
+        return $doc;
+
+    }
+
+    /**
+     * Generate documentation for the `include` parameters for list endpoints
+     *
+     * @return string
+     */
+    public function docIncludeParameters()
+    {
+
+        $doc = '';
+        $transformerClass = "\\App\\Http\\Transformers\\" .title_case( str_singular($this->_endpoint()) ) ."Transformer";
         $transformer = new $transformerClass;
         if ($transformer->getAvailableIncludes())
         {
 
-            $doc .= "* `include` - A comma-separated list of subresource to embed in the returned records. Available options are:\n";
+            $doc .= "* `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:\n";
             foreach ($transformer->getAvailableIncludes() as $include)
             {
 
@@ -62,15 +146,36 @@ trait Documentable
         }
         $doc .= "\n";
 
+        return $doc;
 
-        // Example output
-        $doc .= "Example request: " .$appUrl ."/api/v1/artworks  \n"; 
+    }
+
+    /**
+     * Generate documentation for example query and response
+     *
+     * @return string
+     */
+    public function docExampleOutput($appUrl, $extra = '')
+    {
+
+        $doc = '';
+        $doc .= "Example request: " .$appUrl .$this->_endpointPath($extra) ."  \n"; 
         $doc .= "Example output:\n\n";
 
-        $doc .= "```\n";
-        $controllerClass = "\\App\\Http\\Controllers\\" .title_case( $endpoint ) ."Controller";
+        // Mimic a controller response
+        $controllerClass = "\\App\\Http\\Controllers\\" .title_case( $this->_endpoint() ) ."Controller";
         $controller = new $controllerClass;
+        $transformerClass = "\\App\\Http\\Transformers\\" .title_case( str_singular($this->_endpoint()) ) ."Transformer";
+        $transformer = new $transformerClass;
         $response = response()->collection(static::paginate(2), $transformer, 200, [])->original;
+        if ($extra)
+        {
+
+            $response = response()->collection(static::$extra()->paginate(2), $transformer, 200, [])->original;
+
+        }
+
+        // For brevity, only show the first fiew fields in the results
         foreach ($response['data'] as $index => $datum)
         {
             $keys = array_keys($response['data'][$index]);
@@ -90,31 +195,61 @@ trait Documentable
             $response['data'][$index]['...'] = null;
 
         }
-
         $json = print_r(json_encode($response, JSON_PRETTY_PRINT), true);
         $json = str_replace('"...": null', '...', $json);
+
+        // Output
+        $doc .= "```\n";
         $doc .= $json ."\n";
         $doc .= "```\n";
 
         return $doc;
-
     }
 
-    protected static function doc($appUrl)
+
+
+    /**
+     * Generate an endpoint name
+     *
+     * @return string
+     */
+    private function _endpoint()
     {
 
-        if (!$appUrl)
-        {
-
-            $appUrl = config("app.url");
-
-        }
-
-        $doc = '';
-        $doc .= static::docTitle() ."\n\n";
-        $doc .= static::docList($appUrl) ."\n";
-
-        return $doc;
+        $calledClass = get_called_class();
+        return kebab_case( str_plural( class_basename($calledClass) ) );
 
     }
+
+    /**
+     * Generate an endpoint name as copy text
+     *
+     * @return string
+     */
+    private function _endpointAsCopyText()
+    {
+
+        return strtolower( title_case( $this->_endpoint() ) );
+
+    }
+
+    /**
+     * Generate an endpoint path
+     *
+     * @return string
+     */
+    private function _endpointPath($extra = '')
+    {
+
+        $path = '/' .$this->_endpoint();
+
+        if ($extra)
+        {
+            $path .= '/' .$extra;
+        }
+
+        return $path;
+
+    }
+
 }

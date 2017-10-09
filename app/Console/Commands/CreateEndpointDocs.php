@@ -51,7 +51,7 @@ class CreateEndpointDocs extends Command
 
         }
 
-        $doc = \App\Models\Collections\Artwork::doc($this->appUrl);
+        $doc = \App\Models\Collections\Artwork::instance()->doc($this->appUrl);
 
         $this->info($doc);
 
