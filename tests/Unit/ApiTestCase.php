@@ -41,6 +41,19 @@ abstract class ApiTestCase extends TestCase
      */
     protected $keys = [];
 
+    /**
+     * Return an id that is valid, yet has a negligent likelihood of pointing at an actual object.
+     * Must pass the relevant controller's `validateId` check.
+     * Meant to be overwritten. Defaults to numeric id.
+     *
+     * @var mixed
+     */
+    protected function getRandomId()
+    {
+        return $this->faker->unique()->randomNumber(5);
+    }
+
+
     public function setUp()
     {
 
@@ -67,6 +80,7 @@ abstract class ApiTestCase extends TestCase
         }
 
     }
+
 
     /** @test */
     public function it_fetches_all_entities()
@@ -207,14 +221,12 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-    public function it_404s($class, $endpoint, $useUuid = false)
+    public function it_404s($class, $endpoint)
     {
-
-        $this->faker = Faker::create();
 
         $this->make($class);
 
-        $response = $this->getJson('api/v1/' .$endpoint .'/' .$useUuid ? $this->faker->unique()->uuid : $this->faker->unique()->randomNumber(5));
+        $response = $this->getJson('api/v1/' . $endpoint . '/' . $this->getRandomId());
 
         $response->assertStatus(404);
 

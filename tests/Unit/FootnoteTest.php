@@ -22,4 +22,15 @@ class FootnoteTest extends ApiTestCase
 
     }
 
+    /**
+     * Return an id that is valid, yet has a negligent likelihood of pointing at an actual object.
+     * Must pass the FootnotesController's `validateId` check.
+     *
+     * @var string
+     */
+    protected function getRandomId()
+    {
+        return 'fn-' . $this->faker->unique()->randomNumber(3) . '-' . $this->faker->unique()->randomNumber(3);
+    }
+
 }

@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\Collections\Image;
 
-class ImageTest extends ApiTestCase
+class ImageTest extends AssetTestCase
 {
 
     protected $model = Image::class;
@@ -55,13 +55,5 @@ class ImageTest extends ApiTestCase
     //     $response->assertSuccessful();
 
     // }
-
-    /** @test */
-    public function it_404s_if_not_found()
-    {
-
-        $this->it_404s(Image::class, 'images', true);
-
-    }
 
 }
