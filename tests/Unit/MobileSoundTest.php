@@ -11,12 +11,4 @@ class MobileSoundTest extends ApiTestCase
 
     protected $route = 'mobile-sounds';
 
-    /** @test */
-    public function it_404s_if_not_found()
-    {
-
-        $this->it_404s(Sound::class, 'mobile-sounds', true);
-
-    }
-
 }

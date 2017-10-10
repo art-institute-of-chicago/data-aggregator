@@ -20,12 +20,4 @@ class TourTest extends ApiTestCase
 
     }
 
-    /** @test */
-    public function it_404s_if_not_found()
-    {
-
-        $this->it_404s(Tour::class, 'tours', true);
-
-    }
-
 }
