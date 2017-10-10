@@ -59,6 +59,8 @@ abstract class ApiTestCase extends TestCase
 
         parent::setUp();
 
+        ini_set('memory_limit', '-1');
+
         $this->faker = Faker::create();
 
         config(['elasticsearch.defaultConnection' => 'testing']);
