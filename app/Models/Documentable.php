@@ -31,6 +31,8 @@ trait Documentable
 
         }
 
+        $doc .= $this->docSearch($appUrl) ."\n";
+
         return $doc;
 
     }
@@ -97,6 +99,30 @@ trait Documentable
         return $doc;
     }
 
+    /**
+     * Generate documentation for search endpoint
+     *
+     * @return string
+     */
+    public function docSearch($appUrl)
+    {
+
+        $calledClass = get_called_class();
+        $endpoint = $this->_endpoint();
+        $endpointAsCopyText = $this->_endpointAsCopyText();
+
+        // Title
+        $doc = '### `' .$this->_endpointPath('search') ."`\n\n";
+
+        $doc .= "Search " .$endpointAsCopyText ." data in the aggregator.\n\n";
+
+        $doc .= $this->docSearchParameters();
+
+        $doc .= $this->docExampleSearchOutput($appUrl, 'q=monet');
+
+        return $doc;
+    }
+
 
 
     /**
@@ -116,6 +142,30 @@ trait Documentable
         $doc .= "* `fields` - A comma-separated list of fields to return per resource\n";
 
         $doc .= $this->docIncludeParameters();
+
+        return $doc;
+
+    }
+
+    /**
+     * Generate documentation for parameters for search endpoints
+     *
+     * @return string
+     */
+    public function docSearchParameters()
+    {
+
+        $doc = '';
+
+        $doc .= "#### Available parameters:\n\n";
+
+        $doc .= "* `q` - Your search query\n";
+        $doc .= "* `query` - For complex queries, you can pass Elasticsearch domain syntax queries here\n";
+        $doc .= "* `sort` - Used in conjunction with `query`\n";
+        $doc .= "* `from` - Starting point of results. Pagination via Elasticsearch conventions\n";
+        $doc .= "* `size` - Number of results to return. Pagination via Elasticsearch conventions\n";
+        $doc .= "* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.\n";
+        $doc .= "\n";
 
         return $doc;
 
@@ -155,11 +205,11 @@ trait Documentable
      *
      * @return string
      */
-    public function docExampleOutput($appUrl, $extra = '')
+    public function docExampleOutput($appUrl, $extraPath = '', $getParams = '')
     {
 
         $doc = '';
-        $doc .= "Example request: " .$appUrl .$this->_endpointPath($extra) ."  \n"; 
+        $doc .= "Example request: " .$appUrl .$this->_endpointPath($extraPath) .($getParams ? "?" .$getParams : "") ."  \n"; 
         $doc .= "Example output:\n\n";
 
         // Mimic a controller response
@@ -168,10 +218,10 @@ trait Documentable
         $transformerClass = "\\App\\Http\\Transformers\\" .title_case( str_singular($this->_endpoint()) ) ."Transformer";
         $transformer = new $transformerClass;
         $response = response()->collection(static::paginate(2), $transformer, 200, [])->original;
-        if ($extra)
+        if ($extraPath)
         {
 
-            $response = response()->collection(static::$extra()->paginate(2), $transformer, 200, [])->original;
+            $response = response()->collection(static::$extraPath()->paginate(2), $transformer, 200, [])->original;
 
         }
 
@@ -197,6 +247,51 @@ trait Documentable
         }
         $json = print_r(json_encode($response, JSON_PRETTY_PRINT), true);
         $json = str_replace('"...": null', '...', $json);
+
+        // Output
+        $doc .= "```\n";
+        $doc .= $json ."\n";
+        $doc .= "```\n";
+
+        return $doc;
+    }
+
+    /**
+     * Generate documentation for example search query and response
+     *
+     * @return string
+     */
+    public function docExampleSearchOutput($appUrl, $getParams = '')
+    {
+
+        $doc = '';
+        $doc .= "Example request: " .$appUrl .$this->_endpointPath() .'/search' .($getParams ? "?" .$getParams : "") ."  \n"; 
+        $doc .= "Example output:\n\n";
+
+        // Mimic a controller response
+        $controllerClass = "\\App\\Http\\Controllers\\Search\\SearchController";
+        $controller = new $controllerClass;
+        if ($getParams)
+        {
+
+            parse_str($getParams, $params);
+
+        }
+        $response = $controller->search($this->_endpoint(), $params);
+
+        // For brevity, only show the first few results
+        foreach ($response['data'] as $index => $datum)
+        {
+
+            if ($index > 2)
+            {
+
+                unset($response['data'][$index]);
+
+            }
+
+        }
+        $json = print_r(json_encode($response, JSON_PRETTY_PRINT), true);
 
         // Output
         $doc .= "```\n";

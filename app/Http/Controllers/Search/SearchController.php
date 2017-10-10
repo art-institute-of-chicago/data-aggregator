@@ -38,12 +38,12 @@ class SearchController extends Controller
      *
      * @return void
      */
-    public function search(HttpRequest $httpRequest, $type = null)
+    public function search($type = null, $input = [])
     {
 
         $searchRequest = new SearchRequest( $type );
 
-        $params = $searchRequest->getSearchParams();
+        $params = $searchRequest->getSearchParams($input);
 
         $results = $this->query( $params );
 
@@ -64,7 +64,7 @@ class SearchController extends Controller
      *
      * @return void
      */
-    public function autocomplete(HttpRequest $httpRequest, $type = null)
+    public function autocomplete($type = null)
     {
 
         $searchRequest = new SearchRequest( $type );
