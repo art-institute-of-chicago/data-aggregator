@@ -18,35 +18,11 @@ use App\Models\Collections\Gallery;
 class ArtworkTest extends ApiTestCase
 {
 
-    /** @test */
-    public function it_fetches_all_artworks()
-    {
+    protected $model = Artwork::class;
 
-        $resources = $this->it_fetches_all(Artwork::class, 'artworks');
+    protected $route = 'artworks';
 
-        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
-
-    }
-
-    /** @test */
-    public function it_fetches_a_single_artwork()
-    {
-
-        $resource = $this->it_fetches_a_single(Artwork::class, 'artworks');
-
-        $this->assertArrayHasKeys($resource, ['lake_guid']);
-
-    }
-
-    /** @test */
-    public function it_fetches_multiple_artworks()
-    {
-
-        $resources = $this->it_fetches_multiple(Artwork::class, 'artworks');
-
-        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
-
-    }
+    protected $keys = ['lake_guid'];
 
     /** @test */
     public function it_fetches_essential_artworks()
@@ -62,39 +38,6 @@ class ArtworkTest extends ApiTestCase
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 
     }
-
-    /** @test */
-    public function it_400s_if_nonnumerid_nonuuid_is_passed()
-    {
-
-        $this->it_400s(Artwork::class, 'artworks');
-
-    }
-
-    /** @test */
-    public function it_403s_if_limit_is_too_high()
-    {
-
-        $this->it_403s(Artwork::class, 'artworks');
-
-    }
-
-    /** @test */
-    public function it_404s_if_not_found()
-    {
-
-        $this->it_404s(Artwork::class, 'artworks');
-
-    }
-
-    /** @test */
-    public function it_405s_if_a_request_is_posted()
-    {
-
-        $this->it_405s(Artwork::class, 'artworks');
-
-    }
-
 
     /** @test */
     public function it_fetches_images_for_an_artwork()

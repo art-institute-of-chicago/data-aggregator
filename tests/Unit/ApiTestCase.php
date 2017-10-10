@@ -20,11 +20,33 @@ abstract class ApiTestCase extends TestCase
 
     protected $faker;
 
+    /**
+     * Reference to the classname of the model being tested.
+     *
+     * @var string
+     */
+    protected $model;
+
+    /**
+     * Route for the model being tested.
+     *
+     * @var string
+     */
+    protected $route;
+
+    /**
+     * Any additional fields that should typically test as being present.
+     *
+     * @var array
+     */
+    protected $keys = [];
 
     public function setUp()
     {
 
         parent::setUp();
+
+        $this->faker = Faker::create();
 
         config(['elasticsearch.defaultConnection' => 'testing']);
 
@@ -45,6 +67,71 @@ abstract class ApiTestCase extends TestCase
         }
 
     }
+
+    /** @test */
+    public function it_fetches_all_entities()
+    {
+
+        $resources = $this->it_fetches_all($this->model, $this->route);
+
+        $this->assertArrayHasKeys($resources, $this->keys, true);
+
+    }
+
+    /** @test */
+    public function it_fetches_a_single_entity()
+    {
+
+        $resource = $this->it_fetches_a_single($this->model, $this->route);
+
+        $this->assertArrayHasKeys($resource, $this->keys);
+
+    }
+
+    /** @test */
+    public function it_fetches_multiple_entities()
+    {
+
+        $resources = $this->it_fetches_multiple($this->model, $this->route);
+
+        $this->assertArrayHasKeys($resources, $this->keys, true);
+
+    }
+
+    /** @test */
+    public function it_400s_if_nonnumerid_nonuuid_is_passed()
+    {
+
+        $this->it_400s($this->model, $this->route);
+
+    }
+
+    /** @test */
+    public function it_403s_if_limit_is_too_high()
+    {
+
+        $this->it_403s($this->model, $this->route);
+
+    }
+
+    // @TODO: Fix 404s tests w/ regards to id format
+
+    /** @test */
+    public function it_404s_if_not_found()
+    {
+
+        $this->it_404s($this->model, $this->route);
+
+    }
+
+    /** @test */
+    public function it_405s_if_a_request_is_posted()
+    {
+
+        $this->it_405s($this->model, $this->route);
+
+    }
+
 
     public function it_fetches_all($class, $endpoint)
     {
