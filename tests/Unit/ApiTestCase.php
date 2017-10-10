@@ -46,33 +46,6 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-    protected function assertArrayHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
-    {
-
-        foreach ($keys as $key)
-        {
-
-            if ($arrayIsMultipleObjects) {
-
-                foreach ($resources as $resource)
-                {
-
-                    $this->assertArrayHasKey($key, $resource);
-
-                }
-
-            }
-            else
-            {
-
-                $this->assertArrayHasKey($key, $resources);
-
-            }
-
-        }
-
-    }
-
     public function it_fetches_all($class, $endpoint)
     {
 
@@ -168,6 +141,33 @@ abstract class ApiTestCase extends TestCase
         $response = $this->postJson('api/v1/' .$endpoint);
 
         $response->assertStatus(405);
+
+    }
+
+    protected function assertArrayHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
+    {
+
+        foreach ($keys as $key)
+        {
+
+            if ($arrayIsMultipleObjects) {
+
+                foreach ($resources as $resource)
+                {
+
+                    $this->assertArrayHasKey($key, $resource);
+
+                }
+
+            }
+            else
+            {
+
+                $this->assertArrayHasKey($key, $resources);
+
+            }
+
+        }
 
     }
 
