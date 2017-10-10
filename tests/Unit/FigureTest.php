@@ -2,16 +2,16 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 use App\Models\Dsc\Figure;
 use App\Models\Dsc\Publication;
 use App\Models\Dsc\Section;
 
 class FigureTest extends ApiTestCase
 {
+
+    protected $model = Figure::class;
+
+    protected $route = 'figures';
 
     public function setUp()
     {
@@ -22,61 +22,15 @@ class FigureTest extends ApiTestCase
 
     }
 
-    /** @test */
-    public function it_fetches_all_figures()
+    /**
+     * Return an id that is valid, yet has a negligent likelihood of pointing at an actual object.
+     * Must pass the FiguresController's `validateId` check.
+     *
+     * @var string
+     */
+    protected function getRandomId()
     {
-
-        $this->it_fetches_all(Figure::class, 'figures');
-
-    }
-
-    /** @test */
-    public function it_fetches_a_single_figure()
-    {
-
-        $this->it_fetches_a_single(Figure::class, 'figures');
-
-    }
-
-    /** @test */
-    public function it_fetches_multiple_figures()
-    {
-
-        $this->it_fetches_multiple(Figure::class, 'figures');
-
-    }
-
-
-    /** @test */
-    public function it_400s_if_nonnumerid_nonuuid_is_passed()
-    {
-
-        $this->it_400s(Figure::class, 'figures');
-
-    }
-
-    /** @test */
-    public function it_403s_if_limit_is_too_high()
-    {
-
-        $this->it_403s(Figure::class, 'figures');
-
-    }
-
-    /** @test */
-    public function it_404s_if_not_found()
-    {
-
-        $this->it_404s(Figure::class, 'figures');
-
-    }
-
-    /** @test */
-    public function it_405s_if_a_request_is_posted()
-    {
-
-        $this->it_405s(Figure::class, 'figures');
-
+        return 'fig-' . $this->faker->unique()->randomNumber(3) . '-' . $this->faker->unique()->randomNumber(3);
     }
 
 }
