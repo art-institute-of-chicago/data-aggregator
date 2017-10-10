@@ -33,6 +33,8 @@ trait Documentable
 
         $doc .= $this->docSearch($appUrl) ."\n";
         $doc .= $this->docSingle($appUrl) ."\n";
+        $doc .= $this->docSubresource($appUrl, 'artists') ."\n";
+        $doc .= $this->docSubresource($appUrl, 'copyrightRepresentatives') ."\n";
 
         return $doc;
 
@@ -154,6 +156,37 @@ trait Documentable
 
     }
 
+    /**
+     * Generate documentation for subresource endpoint
+     *
+     * @return string
+     */
+    public function docSubresource($appUrl, $subEndpoint)
+    {
+
+        $calledClass = get_called_class();
+        $endpoint = $this->_endpoint();
+        $endpointAsCopyText = $this->_endpointAsCopyText();
+
+        // Title
+        $doc = '### `' .$this->_endpointPath(['extraPath' => '{id}/' .$subEndpoint]) ."`\n\n";
+
+        $doc .= "The " .$this->_endpointAsCopyText($subEndpoint) ." for a given " .$endpointAsCopyText;
+        $doc .= "A single " .$endpointAsCopyText ." by the given identifier.";
+        if ($subEndpoint == 'artists' || $subEndpoint == 'copyrightRepresentatives')
+        {
+
+            $doc .= " Served from the API as a type of `agent`, so their output schema is the same.";
+
+        }
+        $doc .= "\n\n";
+
+        $doc .= $this->docExampleOutput($appUrl, ['id' => '111628', 'subresource' => $subEndpoint]);
+
+        return $doc;
+
+    }
+
 
 
     /**
@@ -211,7 +244,9 @@ trait Documentable
     {
 
         $doc = '';
-        $transformerClass = "\\App\\Http\\Transformers\\" .title_case( str_singular($this->_endpoint()) ) ."Transformer";
+        $controllerClass = "\\App\\Http\\Controllers\\" .title_case( $this->_endpoint() ) ."Controller";
+        $controller = new $controllerClass;
+        $transformerClass = $controller->transformer();
         $transformer = new $transformerClass;
         if ($transformer->getAvailableIncludes())
         {
@@ -242,7 +277,8 @@ trait Documentable
         $defaults = [
             'extraPath' => '',
             'getParams' => '',
-            'id' => ''
+            'id' => '',
+            'subresource' => ''
         ];
 
         $options = array_merge($defaults, $options);
@@ -254,13 +290,20 @@ trait Documentable
         // Mimic a controller response
         $controllerClass = "\\App\\Http\\Controllers\\" .title_case( $this->_endpoint() ) ."Controller";
         $controller = new $controllerClass;
-        $transformerClass = "\\App\\Http\\Transformers\\" .title_case( str_singular($this->_endpoint()) ) ."Transformer";
+        $transformerClass = $controller->transformer();
         $transformer = new $transformerClass;
         $response = response()->collection(static::paginate(2), $transformer, 200, [])->original;
         if ($options['extraPath'])
         {
 
             $response = response()->collection(static::{$options['extraPath']}()->paginate(2), $transformer, 200, [])->original;
+
+        }
+        elseif ($options['subresource'])
+        {
+
+            $subresourceClass = static::instance()->classFor($options['subresource']);
+            $response = response()->collection($subresourceClass::paginate(2), $transformer, 200, [])->original;
 
         }
         elseif ($options['id'])
@@ -362,10 +405,16 @@ trait Documentable
      *
      * @return string
      */
-    private function _endpointAsCopyText()
+    private function _endpointAsCopyText($endpoint = '')
     {
 
-        return strtolower( title_case( $this->_endpoint() ) );
+        if (!$endpoint)
+        {
+
+            $endpoint = $this->_endpoint();
+        }
+
+        return strtolower( title_case( $endpoint ) );
 
     }
 
