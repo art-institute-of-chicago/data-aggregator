@@ -32,6 +32,7 @@ trait Documentable
         }
 
         $doc .= $this->docSearch($appUrl) ."\n";
+        $doc .= $this->docSingle($appUrl) ."\n";
 
         return $doc;
 
@@ -88,13 +89,13 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `' .$this->_endpointPath('essentials') ."`\n\n";
+        $doc = '### `' .$this->_endpointPath(['extraPath' => 'essentials']) ."`\n\n";
 
         $doc .= "A list of essential " .$endpointAsCopyText ." sorted by last updated date in descending order. This is a subset of the `" .$endpoint ."/` endpoint that represents approximately 400 of our most well-known works. This can be used to get a shorter list of " .$endpoint ." that will have most of its metadata filled out for testing purposes.\n\n";
 
         $doc .= $this->docListParameters();
 
-        $doc .= $this->docExampleOutput($appUrl, 'essentials');
+        $doc .= $this->docExampleOutput($appUrl, ['extraPath' => 'essentials']);
 
         return $doc;
     }
@@ -112,7 +113,7 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `' .$this->_endpointPath('search') ."`\n\n";
+        $doc = '### `' .$this->_endpointPath(['extraPath' => 'search']) ."`\n\n";
 
         $doc .= "Search " .$endpointAsCopyText ." data in the aggregator.\n\n";
 
@@ -121,6 +122,36 @@ trait Documentable
         $doc .= $this->docExampleSearchOutput($appUrl, 'q=monet');
 
         return $doc;
+    }
+
+    /**
+     * Generate documentation for single resource endpoint
+     *
+     * @return string
+     */
+    public function docSingle($appUrl)
+    {
+
+        $calledClass = get_called_class();
+        $endpoint = $this->_endpoint();
+        $endpointAsCopyText = $this->_endpointAsCopyText();
+
+        // Title
+        $doc = '### `' .$this->_endpointPath(['extraPath' => '{id}']) ."`\n\n";
+
+        $doc .= "A single " .$endpointAsCopyText ." by the given identifier.";
+        if (static::$source == 'collections')
+        {
+
+            $doc .= " {id} is the identifier from our collections managements system.";
+
+        }
+        $doc .= "\n\n";
+
+        $doc .= $this->docExampleOutput($appUrl, ['id' => '111628']);
+
+        return $doc;
+
     }
 
 
@@ -205,11 +236,19 @@ trait Documentable
      *
      * @return string
      */
-    public function docExampleOutput($appUrl, $extraPath = '', $getParams = '')
+    public function docExampleOutput($appUrl, $options = [])
     {
 
+        $defaults = [
+            'extraPath' => '',
+            'getParams' => '',
+            'id' => ''
+        ];
+
+        $options = array_merge($defaults, $options);
+
         $doc = '';
-        $doc .= "Example request: " .$appUrl .$this->_endpointPath($extraPath) .($getParams ? "?" .$getParams : "") ."  \n"; 
+        $doc .= "Example request: " .$appUrl .$this->_endpointPath($options) .($options['getParams'] ? "?" .$options['getParams'] : "") ."  \n"; 
         $doc .= "Example output:\n\n";
 
         // Mimic a controller response
@@ -218,31 +257,33 @@ trait Documentable
         $transformerClass = "\\App\\Http\\Transformers\\" .title_case( str_singular($this->_endpoint()) ) ."Transformer";
         $transformer = new $transformerClass;
         $response = response()->collection(static::paginate(2), $transformer, 200, [])->original;
-        if ($extraPath)
+        if ($options['extraPath'])
         {
 
-            $response = response()->collection(static::$extraPath()->paginate(2), $transformer, 200, [])->original;
+            $response = response()->collection(static::{$options['extraPath']}()->paginate(2), $transformer, 200, [])->original;
+
+        }
+        elseif ($options['id'])
+        {
+
+            $response = response()->item(static::find($options['id']), $transformer, 200, [])->original;
 
         }
 
         // For brevity, only show the first fiew fields in the results
-        foreach ($response['data'] as $index => $datum)
+        if (array_keys($response['data']) === range(0, count($response['data']) - 1))
         {
-            $keys = array_keys($response['data'][$index]);
-            $addEllipsis = false;
-            foreach ($keys as $keyIndex => $key)
+            foreach ($response['data'] as $index => $datum)
             {
 
-                if ($keyIndex > 6)
-                {
-
-                    unset($response['data'][$index][$key]);
-                    $addEllipsis = true;
-
-                }
+                $response['data'][$index] = $this->_addEllipsis($response['data'][$index]);
 
             }
-            $response['data'][$index]['...'] = null;
+
+        }
+        else {
+
+            $response['data'] = $this->_addEllipsis($response['data']);
 
         }
         $json = print_r(json_encode($response, JSON_PRETTY_PRINT), true);
@@ -333,18 +374,51 @@ trait Documentable
      *
      * @return string
      */
-    private function _endpointPath($extra = '')
+    private function _endpointPath($options = [])
     {
+
+        $defaults = [
+            'extraPath' => '',
+            'id' => ''
+        ];
+
+        $options = array_merge($defaults, $options);
 
         $path = '/' .$this->_endpoint();
 
-        if ($extra)
+        if ($options['extraPath'])
         {
-            $path .= '/' .$extra;
+            $path .= '/' .$options['extraPath'];
+        }
+        if ($options['id'])
+        {
+            $path .= '/' .$options['id'];
         }
 
         return $path;
 
     }
 
+    private function _addEllipsis($array = [])
+    {
+
+        $keys = array_keys($array);
+        $addEllipsis = false;
+        foreach ($keys as $keyIndex => $key)
+        {
+
+            if ($keyIndex > 6)
+            {
+
+                unset($array[$key]);
+                $addEllipsis = true;
+
+            }
+
+        }
+        $array['...'] = null;
+
+        return $array;
+
+    }
 }
