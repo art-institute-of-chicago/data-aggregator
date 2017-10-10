@@ -2,18 +2,11 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 use App\Models\Collections\Artwork;
-use App\Models\Collections\ArtworkDate;
 use App\Models\Collections\Image;
 use App\Models\Collections\Category;
 use App\Models\Collections\Agent;
 use App\Models\Collections\AgentType;
-use App\Models\Collections\Artist;
-use App\Models\Collections\Gallery;
 
 class ArtworkTest extends ApiTestCase
 {

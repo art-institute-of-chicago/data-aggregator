@@ -2,10 +2,6 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 use App\Models\Dsc\WorkOfArt;
 use App\Models\Dsc\Publication;
 use App\Models\Collections\Artwork;
