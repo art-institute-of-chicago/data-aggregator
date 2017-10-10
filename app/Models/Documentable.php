@@ -35,6 +35,10 @@ trait Documentable
         $doc .= $this->docSingle($appUrl) ."\n";
         $doc .= $this->docSubresource($appUrl, 'artists') ."\n";
         $doc .= $this->docSubresource($appUrl, 'copyrightRepresentatives') ."\n";
+        $doc .= $this->docSubresource($appUrl, 'categories') ."\n";
+        $doc .= $this->docSubresource($appUrl, 'images') ."\n";
+        $doc .= $this->docSubresource($appUrl, 'parts', false) ."\n";
+        $doc .= $this->docSubresource($appUrl, 'sets', false) ."\n";
 
         return $doc;
 
@@ -161,7 +165,7 @@ trait Documentable
      *
      * @return string
      */
-    public function docSubresource($appUrl, $subEndpoint)
+    public function docSubresource($appUrl, $subEndpoint, $includeExampleOutput = true)
     {
 
         $calledClass = get_called_class();
@@ -171,8 +175,7 @@ trait Documentable
         // Title
         $doc = '### `' .$this->_endpointPath(['extraPath' => '{id}/' .$subEndpoint]) ."`\n\n";
 
-        $doc .= "The " .$this->_endpointAsCopyText($subEndpoint) ." for a given " .$endpointAsCopyText;
-        $doc .= "A single " .$endpointAsCopyText ." by the given identifier.";
+        $doc .= "The " .$this->_endpointAsCopyText($subEndpoint) ." for a given " .$endpointAsCopyText .".";
         if ($subEndpoint == 'artists' || $subEndpoint == 'copyrightRepresentatives')
         {
 
@@ -181,7 +184,7 @@ trait Documentable
         }
         $doc .= "\n\n";
 
-        $doc .= $this->docExampleOutput($appUrl, ['id' => '111628', 'subresource' => $subEndpoint]);
+        $doc .= $this->docExampleOutput($appUrl, ['id' => '111628', 'subresource' => $subEndpoint, 'includeExampleOutput' => $includeExampleOutput]);
 
         return $doc;
 
@@ -278,64 +281,74 @@ trait Documentable
             'extraPath' => '',
             'getParams' => '',
             'id' => '',
-            'subresource' => ''
+            'subresource' => '',
+            'includeExampleOutput' => true,
         ];
 
         $options = array_merge($defaults, $options);
 
         $doc = '';
         $doc .= "Example request: " .$appUrl .$this->_endpointPath($options) .($options['getParams'] ? "?" .$options['getParams'] : "") ."  \n"; 
-        $doc .= "Example output:\n\n";
 
-        // Mimic a controller response
-        $controllerClass = "\\App\\Http\\Controllers\\" .title_case( $this->_endpoint() ) ."Controller";
-        $controller = new $controllerClass;
-        $transformerClass = $controller->transformer();
-        $transformer = new $transformerClass;
-        $response = response()->collection(static::paginate(2), $transformer, 200, [])->original;
-        if ($options['extraPath'])
+        if ($options['includeExampleOutput'])
         {
+            $doc .= "Example output:\n\n";
 
-            $response = response()->collection(static::{$options['extraPath']}()->paginate(2), $transformer, 200, [])->original;
-
-        }
-        elseif ($options['subresource'])
-        {
-
-            $subresourceClass = static::instance()->classFor($options['subresource']);
-            $response = response()->collection($subresourceClass::paginate(2), $transformer, 200, [])->original;
-
-        }
-        elseif ($options['id'])
-        {
-
-            $response = response()->item(static::find($options['id']), $transformer, 200, [])->original;
-
-        }
-
-        // For brevity, only show the first fiew fields in the results
-        if (array_keys($response['data']) === range(0, count($response['data']) - 1))
-        {
-            foreach ($response['data'] as $index => $datum)
+            // Mimic a controller response
+            $controllerClass = "\\App\\Http\\Controllers\\" .title_case( $this->_endpoint() ) ."Controller";
+            $controller = new $controllerClass;
+            $transformerClass = $controller->transformer();
+            $transformer = new $transformerClass;
+            $response = response()->collection(static::paginate(2), $transformer, 200, [])->original;
+            if ($options['extraPath'])
             {
 
-                $response['data'][$index] = $this->_addEllipsis($response['data'][$index]);
+                $response = response()->collection(static::{$options['extraPath']}()->paginate(2), $transformer, 200, [])->original;
+
+            }
+            elseif ($options['subresource'])
+            {
+
+                $subresourceClass = static::instance()->classFor($options['subresource']);
+                $controllerClass = "\\App\\Http\\Controllers\\" .camel_case( $this->_endpoint( $subresourceClass ) ) ."Controller";
+                $controller = new $controllerClass;
+                $transformerClass = $controller->transformer();
+                $transformer = new $transformerClass;
+                $response = response()->collection($subresourceClass::paginate(2), $transformer, 200, [])->original;
+
+            }
+            elseif ($options['id'])
+            {
+
+                $response = response()->item(static::find($options['id']), $transformer, 200, [])->original;
 
             }
 
+            // For brevity, only show the first fiew fields in the results
+            if (array_keys($response['data']) === range(0, count($response['data']) - 1))
+            {
+                foreach ($response['data'] as $index => $datum)
+                {
+
+                    $response['data'][$index] = $this->_addEllipsis($response['data'][$index]);
+
+                }
+
+            }
+            else {
+
+                $response['data'] = $this->_addEllipsis($response['data']);
+
+            }
+            $json = print_r(json_encode($response, JSON_PRETTY_PRINT), true);
+            $json = str_replace('"...": null', '...', $json);
+
+            // Output
+            $doc .= "```\n";
+            $doc .= $json ."\n";
+            $doc .= "```\n";
+
         }
-        else {
-
-            $response['data'] = $this->_addEllipsis($response['data']);
-
-        }
-        $json = print_r(json_encode($response, JSON_PRETTY_PRINT), true);
-        $json = str_replace('"...": null', '...', $json);
-
-        // Output
-        $doc .= "```\n";
-        $doc .= $json ."\n";
-        $doc .= "```\n";
 
         return $doc;
     }
@@ -392,11 +405,17 @@ trait Documentable
      *
      * @return string
      */
-    private function _endpoint()
+    private function _endpoint($modelClass = '')
     {
 
-        $calledClass = get_called_class();
-        return kebab_case( str_plural( class_basename($calledClass) ) );
+        if (!$modelClass)
+        {
+
+            $modelClass = get_called_class();
+
+        }
+
+        return kebab_case( str_plural( class_basename($modelClass) ) );
 
     }
 
@@ -428,7 +447,8 @@ trait Documentable
 
         $defaults = [
             'extraPath' => '',
-            'id' => ''
+            'id' => '',
+            'subresource' => '',
         ];
 
         $options = array_merge($defaults, $options);
@@ -442,6 +462,10 @@ trait Documentable
         if ($options['id'])
         {
             $path .= '/' .$options['id'];
+        }
+        if ($options['subresource'])
+        {
+            $path .= '/' .$options['subresource'];
         }
 
         return $path;
