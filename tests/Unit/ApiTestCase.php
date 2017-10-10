@@ -247,6 +247,100 @@ abstract class ApiTestCase extends TestCase
 
     }
 
+    /** @test */
+    public function it_fetches_all_with_fields()
+    {
+
+        $validFields = $this->getValidFields();
+        $retrievedFields = $validFields->slice(0, 2);
+        $discardedFields = $validFields->slice(2);
+
+        $this->times(5)->make($this->model);
+
+        $response = $this->getJson('api/v1/' . $this->route . '?fields=' . $retrievedFields->implode(',') );
+        $response->assertSuccessful();
+
+        $resources = $response->json()['data'];
+        $this->assertCount(5, $resources);
+
+        foreach ($resources as $resource)
+        {
+            $this->assertArrayHasKeys($resource, $retrievedFields);
+            $this->assertArrayNotHasKeys($resource, $discardedFields);
+        }
+
+        return $resources;
+    }
+
+    /** @test */
+    public function it_fetches_a_single_with_fields()
+    {
+
+        $validFields = $this->getValidFields();
+        $retrievedFields = $validFields->slice(0, 2);
+        $discardedFields = $validFields->slice(2);
+
+        $id = $this->make($this->model);
+
+        $response = $this->getJson('api/v1/' . $this->route . '/' . $id . '?fields=' . $retrievedFields->implode(',') );
+        $response->assertSuccessful();
+
+        $resource = $response->json()['data'];
+
+        $this->assertArrayHasKeys($resource, $retrievedFields);
+        $this->assertArrayNotHasKeys($resource, $discardedFields);
+
+        return $resource;
+    }
+
+    /** @test */
+    public function it_fetches_multiple_with_fields()
+    {
+
+        $validFields = $this->getValidFields();
+        $retrievedFields = $validFields->slice(0, 2);
+        $discardedFields = $validFields->slice(2);
+
+        $this->times(5)->make($this->model);
+
+        $response = $this->getJson('api/v1/' . $this->route . '?ids=' . implode(',',array_slice($this->ids, -3, 3)) . '&fields=' . $retrievedFields->implode(',') );
+        $response->assertSuccessful();
+
+        $resources = $response->json()['data'];
+        $this->assertCount(3, $resources);
+
+        foreach ($resources as $resource)
+        {
+            $this->assertArrayHasKeys($resource, $retrievedFields);
+            $this->assertArrayNotHasKeys($resource, $discardedFields);
+        }
+
+        return $resources;
+    }
+
+
+    /**
+     * Helper to retrieve the full list of fields for a resource as it appears in the API.
+     * Meant to account for any weird transformations. Does not discriminate w/ includes.
+     *
+     * @TODO Determine if the `$extraValue` approach is needed here.
+     *
+     * @var string
+     */
+    protected function getValidFields()
+    {
+
+        $id = $this->make($this->model);
+
+        $response = $this->getJson('api/v1/' . $this->route . '/' . $id);
+
+        $this->model::findOrFail( $id )->delete();
+
+        return collect( $response->json()['data'] )->keys();
+
+    }
+
+
     protected function assertArrayHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
     {
 
