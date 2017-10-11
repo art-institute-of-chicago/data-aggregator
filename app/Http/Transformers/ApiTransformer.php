@@ -129,6 +129,11 @@ class ApiTransformer extends TransformerAbstract
             return $data;
         }
 
+        // Unset default includes not present in fields param
+        // https://github.com/thephpleague/fractal/issues/143
+        $this->setDefaultIncludes( array_intersect($this->defaultIncludes, $this->fields) );
+
+        // Filter $data to only provide keys specified in fields param
         return array_intersect_key($data, array_flip((array) $this->fields));
     }
 
