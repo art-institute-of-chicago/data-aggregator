@@ -4,11 +4,13 @@ namespace App\Models\Dsc;
 
 use App\Models\DscModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
 class Publication extends DscModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
 
     /**
@@ -41,6 +43,18 @@ class Publication extends DscModel
                     'type' => 'keyword',
                 ],
             ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "6566";
 
     }
 

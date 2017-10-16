@@ -84,6 +84,15 @@ class CreateEndpointDocs extends Command
         $doc .= \App\Models\Mobile\TourStop::instance()->doc($this->appUrl);
         $doc .= \App\Models\Mobile\Sound::instance()->doc($this->appUrl);
 
+        $doc .= "# Digital Scholarly Catalogs\n\n";
+        $doc .= \App\Models\Dsc\Publication::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Dsc\TitlePage::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Dsc\Section::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Dsc\WorkOfArt::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Dsc\Footnote::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Dsc\Figure::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Dsc\Collector::instance()->doc($this->appUrl);
+
         $this->info($doc);
         Storage::disk('local')->put('ENDPOINTS.md', $doc);
 

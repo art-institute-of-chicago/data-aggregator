@@ -4,11 +4,13 @@ namespace App\Models\Dsc;
 
 use App\Models\DscModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
 class WorkOfArt extends DscModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
     public $table = 'works_of_art';
 
@@ -91,6 +93,18 @@ class WorkOfArt extends DscModel
                     'type' => 'integer',
                 ],
             ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "5400";
 
     }
 

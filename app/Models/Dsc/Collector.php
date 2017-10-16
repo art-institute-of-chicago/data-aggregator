@@ -4,11 +4,13 @@ namespace App\Models\Dsc;
 
 use App\Models\DscModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
 class Collector extends DscModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
     public function publication()
     {
@@ -64,6 +66,18 @@ class Collector extends DscModel
                     'type' => 'integer',
                 ],
             ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "4972";
 
     }
 
