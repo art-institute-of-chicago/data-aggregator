@@ -93,6 +93,9 @@ class CreateEndpointDocs extends Command
         $doc .= \App\Models\Dsc\Figure::instance()->doc($this->appUrl);
         $doc .= \App\Models\Dsc\Collector::instance()->doc($this->appUrl);
 
+        $doc .= "# Static Archive\n\n";
+        $doc .= \App\Models\StaticArchive\Site::instance()->doc($this->appUrl);
+
         $this->info($doc);
         Storage::disk('local')->put('ENDPOINTS.md', $doc);
 

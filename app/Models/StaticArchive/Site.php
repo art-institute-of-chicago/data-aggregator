@@ -4,11 +4,13 @@ namespace App\Models\StaticArchive;
 
 use App\Models\BaseModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
 class Site extends BaseModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
     protected $primaryKey = 'site_id';
     protected $dates = ['source_created_at', 'source_modified_at'];
@@ -91,6 +93,18 @@ class Site extends BaseModel
                     'type' => 'text',
                 ],
             ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "2842";
 
     }
 
