@@ -16,7 +16,7 @@ trait Documentable
         if (!$appUrl)
         {
 
-            $appUrl = config("app.url");
+            $appUrl = config("app.url") ."/api/v1";
 
         }
 
@@ -283,7 +283,7 @@ trait Documentable
 
         $defaults = [
             'extraPath' => '',
-            'getParams' => '',
+            'getParams' => 'limit=2',
             'id' => '',
             'subresource' => '',
             'includeExampleOutput' => true,
@@ -291,57 +291,31 @@ trait Documentable
 
         $options = array_merge($defaults, $options);
 
+        $requestUrl = $appUrl .$this->_endpointPath($options) .($options['getParams'] ? "?" .$options['getParams'] : "");
+
         $doc = '';
-        $doc .= "Example request: " .$appUrl .$this->_endpointPath($options) .($options['getParams'] ? "?" .$options['getParams'] : "") ."  \n"; 
+        $doc .= "Example request: " .$requestUrl ."  \n";
 
         if ($options['includeExampleOutput'])
         {
             $doc .= "Example output:\n\n";
 
-            // Mimic a controller response
-            $controllerClass = "\\App\\Http\\Controllers\\" .title_case( $this->_endpoint() ) ."Controller";
-            $controller = new $controllerClass;
-            $transformerClass = $controller->transformer();
-            $transformer = new $transformerClass;
-            $response = response()->collection(static::paginate(2), $transformer, 200, [])->original;
-            if ($options['extraPath'])
-            {
-
-                $response = response()->collection(static::{$options['extraPath']}()->paginate(2), $transformer, 200, [])->original;
-
-            }
-            elseif ($options['subresource'])
-            {
-
-                $subresourceClass = static::instance()->classFor($options['subresource']);
-                $controllerClass = "\\App\\Http\\Controllers\\" .camel_case( $this->_endpoint( $subresourceClass ) ) ."Controller";
-                $controller = new $controllerClass;
-                $transformerClass = $controller->transformer();
-                $transformer = new $transformerClass;
-                $response = response()->collection($subresourceClass::paginate(2), $transformer, 200, [])->original;
-
-            }
-            elseif ($options['id'])
-            {
-
-                $response = response()->item(static::find($options['id']), $transformer, 200, [])->original;
-
-            }
+            $response = json_decode(file_get_contents($requestUrl));
 
             // For brevity, only show the first fiew fields in the results
-            if (array_keys($response['data']) === range(0, count($response['data']) - 1))
+            if (is_array($response->data))
             {
-                foreach ($response['data'] as $index => $datum)
+                foreach ($response->data as $index => $datum)
                 {
 
-                    $response['data'][$index] = $this->_addEllipsis($response['data'][$index]);
+                    $response->data[$index] = $this->_addEllipsis($response->data[$index]);
 
                 }
 
             }
             else {
 
-                $response['data'] = $this->_addEllipsis($response['data']);
+                $response->data = $this->_addEllipsis($response->data);
 
             }
             $json = print_r(json_encode($response, JSON_PRETTY_PRINT), true);
@@ -365,29 +339,22 @@ trait Documentable
     public function docExampleSearchOutput($appUrl, $getParams = '')
     {
 
+        $requestUrl = $appUrl .$this->_endpointPath() .'/search' .($getParams ? "?" .$getParams : "");
+
         $doc = '';
-        $doc .= "Example request: " .$appUrl .$this->_endpointPath() .'/search' .($getParams ? "?" .$getParams : "") ."  \n"; 
+        $doc .= "Example request: " .$requestUrl ."  \n";
         $doc .= "Example output:\n\n";
 
-        // Mimic a controller response
-        $controllerClass = "\\App\\Http\\Controllers\\Search\\SearchController";
-        $controller = new $controllerClass;
-        if ($getParams)
-        {
-
-            parse_str($getParams, $params);
-
-        }
-        $response = $controller->search($this->_endpoint(), $params);
+        $response = json_decode(file_get_contents($requestUrl));
 
         // For brevity, only show the first few results
-        foreach ($response['data'] as $index => $datum)
+        foreach ($response->data as $index => $datum)
         {
 
             if ($index > 2)
             {
 
-                unset($response['data'][$index]);
+                unset($response->data[$index]);
 
             }
 
@@ -476,26 +443,27 @@ trait Documentable
 
     }
 
-    private function _addEllipsis($array = [])
+    private function _addEllipsis(\stdClass $obj)
     {
 
-        $keys = array_keys($array);
+        $keys = get_object_vars($obj);
         $addEllipsis = false;
+        $i = 0;
         foreach ($keys as $keyIndex => $key)
         {
 
-            if ($keyIndex > 6)
+            if ($i > 5)
             {
 
-                unset($array[$key]);
+                unset($obj->$keyIndex);
                 $addEllipsis = true;
 
             }
-
+            $i++;
         }
-        $array['...'] = null;
+        $obj->{"..."} = null;
 
-        return $array;
+        return $obj;
 
     }
 
