@@ -4,11 +4,13 @@ namespace App\Models\Membership;
 
 use App\Models\MembershipModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
 class Event extends MembershipModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
     protected $dates = [
         'start_at',
@@ -143,6 +145,18 @@ class Event extends MembershipModel
             ],
 
         ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "14156";
 
     }
 

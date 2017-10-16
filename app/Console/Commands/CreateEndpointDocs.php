@@ -75,6 +75,10 @@ class CreateEndpointDocs extends Command
         $doc .= \App\Models\Shop\Category::instance()->doc($this->appUrl);
         $doc .= \App\Models\Shop\Product::instance()->doc($this->appUrl);
 
+        $doc .= "# Events and Membership\n\n";
+        $doc .= \App\Models\Membership\Event::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Membership\Event::instance()->docMembershipEndpoint($this->appUrl);
+
         $this->info($doc);
         Storage::disk('local')->put('ENDPOINTS.md', $doc);
 
