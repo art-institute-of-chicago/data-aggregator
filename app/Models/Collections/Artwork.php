@@ -729,4 +729,65 @@ class Artwork extends CollectionsModel
 
     }
 
+
+    /**
+     * Get the subresources for the resource.
+     *
+     * @return array
+     */
+    public function subresources()
+    {
+
+        return ['artists', 'copyrightRepresentatives', 'categories', 'images', 'parts', 'sets'];
+
+    }
+
+    /**
+     * Get the subresources to skip the example output for.
+     *
+     * @return array
+     */
+    public function subresourcesToSkipExampleOutput()
+    {
+
+        return ['parts', 'sets'];
+
+    }
+
+    /**
+     * Get any extra descriptions of the search endpoint for this resource
+     *
+     * @return string
+     */
+    public function extraSearchDescription()
+    {
+
+        return "Artworks in the groups of essentials are boosted so they'll show up higher in results.";
+
+    }
+
+    /**
+     * Get an example search query for documentation generation
+     *
+     * @return string
+     */
+    public function exampleSearchQuery()
+    {
+
+        return 'q=monet';
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "111628";
+
+    }
+
 }

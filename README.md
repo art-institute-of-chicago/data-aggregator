@@ -45,6 +45,9 @@ cd data-aggregator
 
 # Install PHP dependencies
 composer install
+
+# Create a symlink for generated files
+php artisan storage:link
 ```
 
 

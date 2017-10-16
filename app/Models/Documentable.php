@@ -33,12 +33,13 @@ trait Documentable
 
         $doc .= $this->docSearch($appUrl) ."\n";
         $doc .= $this->docSingle($appUrl) ."\n";
-        $doc .= $this->docSubresource($appUrl, 'artists') ."\n";
-        $doc .= $this->docSubresource($appUrl, 'copyrightRepresentatives') ."\n";
-        $doc .= $this->docSubresource($appUrl, 'categories') ."\n";
-        $doc .= $this->docSubresource($appUrl, 'images') ."\n";
-        $doc .= $this->docSubresource($appUrl, 'parts', false) ."\n";
-        $doc .= $this->docSubresource($appUrl, 'sets', false) ."\n";
+
+        foreach ($this->subresources() as $subresource)
+        {
+
+            $doc .= $this->docSubresource($appUrl, $subresource, !in_array($subresource, $this->subresourcesToSkipExampleOutput())) ."\n";
+
+        }
 
         return $doc;
 
@@ -121,11 +122,11 @@ trait Documentable
         // Title
         $doc = '### `' .$this->_endpointPath(['extraPath' => 'search']) ."`\n\n";
 
-        $doc .= "Search " .$endpointAsCopyText ." data in the aggregator.\n\n";
+        $doc .= "Search " .$endpointAsCopyText ." data in the aggregator. " .$this->extraSearchDescription() ."\n\n";
 
         $doc .= $this->docSearchParameters();
 
-        $doc .= $this->docExampleSearchOutput($appUrl, 'q=monet');
+        $doc .= $this->docExampleSearchOutput($appUrl, $this->exampleSearchQuery());
 
         return $doc;
     }
@@ -146,7 +147,8 @@ trait Documentable
         $doc = '### `' .$this->_endpointPath(['extraPath' => '{id}']) ."`\n\n";
 
         $doc .= "A single " .$endpointAsCopyText ." by the given identifier.";
-        if (static::$source == 'collections')
+
+        if (static::$source == 'Collections')
         {
 
             $doc .= " {id} is the identifier from our collections managements system.";
@@ -154,7 +156,7 @@ trait Documentable
         }
         $doc .= "\n\n";
 
-        $doc .= $this->docExampleOutput($appUrl, ['id' => '111628']);
+        $doc .= $this->docExampleOutput($appUrl, ['id' => $this->exampleId()]);
 
         return $doc;
 
@@ -184,7 +186,9 @@ trait Documentable
         }
         $doc .= "\n\n";
 
-        $doc .= $this->docExampleOutput($appUrl, ['id' => '111628', 'subresource' => $subEndpoint, 'includeExampleOutput' => $includeExampleOutput]);
+        $doc .= $this->docExampleOutput($appUrl, ['id' => $this->exampleId(),
+                                                  'subresource' => $subEndpoint,
+                                                  'includeExampleOutput' => $includeExampleOutput]);
 
         return $doc;
 
@@ -494,4 +498,65 @@ trait Documentable
         return $array;
 
     }
+
+    /**
+     * Get the subresources for the resource.
+     *
+     * @return array
+     */
+    public function subresources()
+    {
+
+        return [];
+
+    }
+
+    /**
+     * Get the subresources to skip the example output for.
+     *
+     * @return array
+     */
+    public function subresourcesToSkipExampleOutput()
+    {
+
+        return [];
+
+    }
+
+    /**
+     * Get any extra descriptions of the search endpoint for this resource
+     *
+     * @return string
+     */
+    public function extraSearchDescription()
+    {
+
+        return "";
+
+    }
+
+    /**
+     * Get an example search query for documentation generation
+     *
+     * @return string
+     */
+    public function exampleSearchQuery()
+    {
+
+        return "";
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "";
+
+    }
+
 }

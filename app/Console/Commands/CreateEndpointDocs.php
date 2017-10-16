@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 
 class CreateEndpointDocs extends Command
 {
@@ -54,6 +55,8 @@ class CreateEndpointDocs extends Command
         $doc = \App\Models\Collections\Artwork::instance()->doc($this->appUrl);
 
         $this->info($doc);
+        Storage::disk('local')->put('ENDPOINTS.md', $doc);
 
     }
+
 }
