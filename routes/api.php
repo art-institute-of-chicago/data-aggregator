@@ -134,9 +134,6 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('publications', 'PublicationsController@index');
     Route::get('publications/{id}', 'PublicationsController@show');
 
-    Route::get('title-pages', 'TitlePagesController@index');
-    Route::get('title-pages/{id}', 'TitlePagesController@show');
-
     Route::get('sections', 'SectionsController@index');
     Route::get('sections/{id}', 'SectionsController@show');
 

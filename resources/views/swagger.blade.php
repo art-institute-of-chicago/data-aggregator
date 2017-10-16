@@ -2633,81 +2633,6 @@
       }
     },
 
-    "/title-pages": {
-      "get": {
-        "tags": [
-            "title-pages",
-            "dsc"
-        ],
-        "summary": "A list of all title pages sorted by last updated date in descending order",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/ids"
-          },
-          {
-            "$ref": "#/parameters/limit"
-          },
-          {
-            "$ref": "#/parameters/page"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/TitlePage"
-              }
-            }
-          },
-          "default": {
-            "description": "error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-
-    "/title-pages/{id}": {
-      "get": {
-        "tags": [
-            "title-pages",
-            "dsc"
-        ],
-        "summary": "A single title page by the given identifier",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/id"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "items": {
-                "$ref": "#/definitions/TitlePage"
-              }
-            }
-          },
-          "default": {
-            "description": "error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-
     "/sections": {
       "get": {
         "tags": [
@@ -4054,33 +3979,6 @@
         },
         "link": {
           "description": "URL to the publication"
-        },
-        "last_updated_source": {
-          "description": "Date the work was last updated in the source system"
-        },
-        "last_updated": {
-          "description": "Date the work was last updated in the Data Aggregator"
-        }
-      },
-      "type": "object"
-    },
-
-    "TitlePage": {
-      "properties": {
-        "id": {
-          "description": "Unique identifier"
-        },
-        "title": {
-          "description": "Name of the page"
-        },
-        "content": {
-          "description": "Page content"
-        },
-        "publication": {
-          "description": "Name of the publication this page belongs to"
-        },
-        "publication_id": {
-          "description": "Unique identifier of the publication this page belongs to"
         },
         "last_updated_source": {
           "description": "Date the work was last updated in the source system"

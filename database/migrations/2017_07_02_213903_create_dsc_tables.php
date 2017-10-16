@@ -20,14 +20,6 @@ class CreateDscTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('title_pages', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
-            $table->text('content');
-            $table->integer('publication_dsc_id')->unsigned()->index();
-            $table->foreign('publication_dsc_id')->references('dsc_id')->on('publications')->onDelete('cascade');
-            $table = $this->_addDates($table);
-        });
-
         Schema::create('sections', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->text('content');
@@ -124,7 +116,6 @@ class CreateDscTables extends Migration
         Schema::dropIfExists('figure_vectors');
         Schema::dropIfExists('figures');
         Schema::dropIfExists('works_of_art');
-        Schema::dropIfExists('title_pages');
         Schema::dropIfExists('sections');
         Schema::dropIfExists('publications');
 

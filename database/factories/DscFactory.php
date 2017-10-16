@@ -45,16 +45,6 @@ $factory->define(App\Models\Dsc\Publication::class, function (Faker\Generator $f
     );
 });
 
-$factory->define(App\Models\Dsc\TitlePage::class, function (Faker\Generator $faker) {
-    return array_merge(
-        dscIdsAndTitle($faker),
-        [
-            'content' => '<img src="' .$faker->imageUrl .'" />',
-            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::fake()->pluck('dsc_id')->all()),
-        ]
-    );
-});
-
 $factory->define(App\Models\Dsc\Section::class, function (Faker\Generator $faker) {
     return array_merge(
         dscIdsAndTitle($faker),
