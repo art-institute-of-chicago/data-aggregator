@@ -81,7 +81,7 @@ class CreateEndpointDocs extends Command
 
         $doc .= "# Mobile\n\n";
         $doc .= \App\Models\Mobile\Tour::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Mobile\TourStop::instance()->doc($this->appUrl);
+        //$doc .= \App\Models\Mobile\TourStop::instance()->doc($this->appUrl);
         $doc .= \App\Models\Mobile\Sound::instance()->doc($this->appUrl);
 
         $doc .= "# Digital Scholarly Catalogs\n\n";
@@ -96,7 +96,6 @@ class CreateEndpointDocs extends Command
         $doc .= "# Static Archive\n\n";
         $doc .= \App\Models\StaticArchive\Site::instance()->doc($this->appUrl);
 
-        $this->info($doc);
         Storage::disk('local')->put('ENDPOINTS.md', $doc);
 
     }
