@@ -13,6 +13,13 @@ trait Documentable
     public function doc($appUrl)
     {
 
+        if ($this->docOnly())
+        {
+
+            return $this->docOnly();
+
+        }
+
         if (!$appUrl)
         {
 
@@ -31,7 +38,13 @@ trait Documentable
 
         }
 
-        $doc .= $this->docSearch($appUrl) ."\n";
+        if ($this->hasSearchEndpoint())
+        {
+
+            $doc .= $this->docSearch($appUrl) ."\n";
+
+        }
+
         $doc .= $this->docSingle($appUrl) ."\n";
 
         foreach ($this->subresources() as $subresource)
@@ -251,7 +264,7 @@ trait Documentable
     {
 
         $doc = '';
-        $controllerClass = "\\App\\Http\\Controllers\\" .title_case( $this->_endpoint() ) ."Controller";
+        $controllerClass = "\\App\\Http\\Controllers\\" .ucfirst( camel_case( $this->_endpoint() ) ) ."Controller";
         $controller = new $controllerClass;
         $transformerClass = $controller->transformer();
         $transformer = new $transformerClass;
@@ -386,7 +399,16 @@ trait Documentable
 
         }
 
-        return kebab_case( str_plural( class_basename($modelClass) ) );
+        $baseName = class_basename($modelClass);
+
+        if ($baseName == "CorporateBody")
+        {
+
+            $baseName = "Venue";
+
+        }
+
+        return kebab_case( str_plural( $baseName ) );
 
     }
 
@@ -524,6 +546,30 @@ trait Documentable
     {
 
         return "";
+
+    }
+
+    /**
+     * For this resource, use this as the full documentation.
+     *
+     * @return string
+     */
+    public function docOnly()
+    {
+
+        return "";
+
+    }
+
+    /**
+     * Whether this resource has a `/search` endpoint
+     *
+     * @return boolean
+     */
+    public function hasSearchEndpoint()
+    {
+
+        return true;
 
     }
 

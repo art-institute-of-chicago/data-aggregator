@@ -56,4 +56,16 @@ class Image extends Asset
 
     }
 
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "0d6cca51-bbe1-350b-87df-bb2b4c0c9720";
+
+    }
+
 }

@@ -52,5 +52,21 @@ class CorporateBody extends Agent
 
     }
 
+    /**
+     * For this resource, use this as the full documentation.
+     *
+     * @return string
+     */
+    public function docOnly()
+    {
+
+        $doc = "Venues are a subset of agents filtered by `agent_type` with values `Corporate Body`. ";
+        $doc .= "The following endpoints are available with the same parameters and output as their corresponding `/agents` endpoints:\n\n";
+
+        $doc .= "* `/venues`\n";
+        $doc .= "* `/venues/{id}`\n";
+
+        return $doc;
+    }
 
 }

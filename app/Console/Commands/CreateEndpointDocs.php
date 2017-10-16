@@ -51,8 +51,22 @@ class CreateEndpointDocs extends Command
             $this->appUrl = $this->argument('appUrl');
 
         }
-
-        $doc = \App\Models\Collections\Artwork::instance()->doc($this->appUrl);
+        $doc = '';
+        $doc .= \App\Models\Collections\Artwork::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Agent::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Artist::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\CorporateBody::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Department::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\ObjectType::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Category::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\AgentType::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Gallery::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Exhibition::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Image::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Video::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Link::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Sound::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Text::instance()->doc($this->appUrl);
 
         $this->info($doc);
         Storage::disk('local')->put('ENDPOINTS.md', $doc);

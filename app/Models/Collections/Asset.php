@@ -4,11 +4,13 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
 class Asset extends CollectionsModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
     protected $primaryKey = 'lake_guid';
     protected $keyType = 'string';
