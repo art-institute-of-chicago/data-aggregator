@@ -3,9 +3,12 @@
 namespace App\Models\Shop;
 
 use App\Models\ShopModel;
+use App\Models\Documentable;
 
 class Product extends ShopModel
 {
+
+    use Documentable;
 
     public function categories()
     {
@@ -106,6 +109,18 @@ class Product extends ShopModel
                     'type' => 'text',
                 ],
             ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "797";
 
     }
 

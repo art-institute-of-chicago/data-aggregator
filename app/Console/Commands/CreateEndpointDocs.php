@@ -51,7 +51,10 @@ class CreateEndpointDocs extends Command
             $this->appUrl = $this->argument('appUrl');
 
         }
+
         $doc = '';
+
+        $doc .= "# Collections\n\n";
         $doc .= \App\Models\Collections\Artwork::instance()->doc($this->appUrl);
         $doc .= \App\Models\Collections\Agent::instance()->doc($this->appUrl);
         $doc .= \App\Models\Collections\Artist::instance()->doc($this->appUrl);
@@ -67,6 +70,10 @@ class CreateEndpointDocs extends Command
         $doc .= \App\Models\Collections\Link::instance()->doc($this->appUrl);
         $doc .= \App\Models\Collections\Sound::instance()->doc($this->appUrl);
         $doc .= \App\Models\Collections\Text::instance()->doc($this->appUrl);
+
+        $doc .= "# Shop\n\n";
+        $doc .= \App\Models\Shop\Category::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Shop\Product::instance()->doc($this->appUrl);
 
         $this->info($doc);
         Storage::disk('local')->put('ENDPOINTS.md', $doc);

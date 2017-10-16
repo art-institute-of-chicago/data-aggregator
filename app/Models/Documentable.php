@@ -401,10 +401,18 @@ trait Documentable
 
         $baseName = class_basename($modelClass);
 
+        // Use the user-friendly endpoint names for the following resources:
         if ($baseName == "CorporateBody")
         {
 
             $baseName = "Venue";
+
+        }
+
+        if ($baseName == "Category" && static::$source == 'Shop')
+        {
+
+            $baseName = "ShopCategory";
 
         }
 

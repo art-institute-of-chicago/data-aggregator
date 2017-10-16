@@ -3,9 +3,12 @@
 namespace App\Models\Shop;
 
 use App\Models\ShopModel;
+use App\Models\Documentable;
 
 class Category extends ShopModel
 {
+
+    use Documentable;
 
     protected $primaryKey = 'shop_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
@@ -105,6 +108,18 @@ class Category extends ShopModel
                     'type' => 'text',
                 ],
             ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "377";
 
     }
 
