@@ -416,6 +416,13 @@ trait Documentable
 
         }
 
+        if ($baseName == "Sound" && static::$source == 'Mobile')
+        {
+
+            $baseName = "MobileSound";
+
+        }
+
         return kebab_case( str_plural( $baseName ) );
 
     }

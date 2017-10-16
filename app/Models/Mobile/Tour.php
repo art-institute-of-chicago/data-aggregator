@@ -4,12 +4,13 @@ namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
 class Tour extends MobileModel
 {
 
     use ElasticSearchable;
-
+    use Documentable;
 
     public function intro()
     {
@@ -73,6 +74,18 @@ class Tour extends MobileModel
                     'type' => 'text',
                 ],
             ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "2280";
 
     }
 

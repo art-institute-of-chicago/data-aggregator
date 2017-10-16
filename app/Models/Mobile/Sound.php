@@ -3,9 +3,12 @@
 namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
+use App\Models\Documentable;
 
 class Sound extends MobileModel
 {
+
+    use Documentable;
 
     /**
      * The table associated with the model.
@@ -41,6 +44,18 @@ class Sound extends MobileModel
             'link' => $this->link,
             'transcript' => $this->transcript,
         ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "1545";
 
     }
 

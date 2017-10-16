@@ -4,11 +4,13 @@ namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
 class TourStop extends MobileModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
     protected $primaryKey = 'id';
 
@@ -83,6 +85,18 @@ class TourStop extends MobileModel
                     'type' => 'integer',
                 ],
             ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "2320";
 
     }
 
