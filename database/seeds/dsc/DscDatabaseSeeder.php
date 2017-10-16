@@ -17,7 +17,6 @@ class DscDatabaseSeeder extends Seeder
         $this->call(TitlePagesTableSeeder::class);
         $this->call(SectionsTableSeeder::class);
         $this->call(WorkOfArtsTableSeeder::class);
-        $this->call(FootnotesTableSeeder::class);
         $this->call(FiguresTableSeeder::class);
         $this->call(CollectorsTableSeeder::class);
 
@@ -30,7 +29,6 @@ class DscDatabaseSeeder extends Seeder
         App\Models\Dsc\TitlePage::fake()->delete();
         App\Models\Dsc\Section::fake()->delete();
         App\Models\Dsc\WorkOfArt::fake()->delete();
-        App\Models\Dsc\Footnote::fake()->delete();
         App\Models\Dsc\Figure::fake()->delete();
         App\Models\Dsc\Collector::fake()->delete();
 

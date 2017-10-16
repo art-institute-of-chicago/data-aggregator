@@ -143,9 +143,6 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('works-of-art', 'WorksOfArtController@index');
     Route::get('works-of-art/{id}', 'WorksOfArtController@show');
 
-    Route::get('footnotes', 'FootnotesController@index');
-    Route::get('footnotes/{id}', 'FootnotesController@show');
-
     Route::get('figures', 'FiguresController@index');
     Route::get('figures/{id}', 'FiguresController@show');
 

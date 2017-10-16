@@ -87,18 +87,6 @@ $factory->define(App\Models\Dsc\WorkOfArt::class, function (Faker\Generator $fak
     );
 });
 
-$factory->define(App\Models\Dsc\Footnote::class, function (Faker\Generator $faker) {
-    $section_id = $faker->randomElement(App\Models\Dsc\Section::fake()->pluck('dsc_id')->all());
-    $id = 'fn-' .$section_id .'-' .$faker->randomNumber(3);
-    return array_merge(
-        dscIdsAndTitle($faker, $id),
-        [
-            'content' => $faker->paragraph(3),
-            'section_dsc_id' => $section_id,
-        ]
-    );
-});
-
 $factory->define(App\Models\Dsc\Figure::class, function (Faker\Generator $faker) {
     $section_id = $faker->randomElement(App\Models\Dsc\Section::fake()->pluck('dsc_id')->all());
     $id = 'fig-' .$section_id .'-' .$faker->randomNumber(3);

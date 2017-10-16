@@ -2934,81 +2934,6 @@
       }
     },
 
-    "/footnotes": {
-      "get": {
-        "tags": [
-            "footnotes",
-            "dsc"
-        ],
-        "summary": "A list of all footnotes sorted by last updated date in descending order",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/ids"
-          },
-          {
-            "$ref": "#/parameters/limit"
-          },
-          {
-            "$ref": "#/parameters/page"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Footnote"
-              }
-            }
-          },
-          "default": {
-            "description": "error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-
-    "/footnotes/{id}": {
-      "get": {
-        "tags": [
-            "footnote",
-            "dsc"
-        ],
-        "summary": "A single footnote by the given identifier",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/id"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "items": {
-                "$ref": "#/definitions/Footnote"
-              }
-            }
-          },
-          "default": {
-            "description": "error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-
     "/figures": {
       "get": {
         "tags": [
@@ -4228,33 +4153,6 @@
         },
         "artwork_id": {
           "description": "Unique identifier of the artwork this section describes"
-        },
-        "last_updated_source": {
-          "description": "Date the work was last updated in the source system"
-        },
-        "last_updated": {
-          "description": "Date the work was last updated in the Data Aggregator"
-        }
-      },
-      "type": "object"
-    },
-
-    "Footnote": {
-      "properties": {
-        "id": {
-          "description": "Unique identifier"
-        },
-        "title": {
-          "description": "Name of the footnote"
-        },
-        "content": {
-          "description": "Text content about this footnote"
-        },
-        "section": {
-          "description": "Name of the section this footnote belongs to"
-        },
-        "section_id": {
-          "description": "Unique identifier of the section this footnote belongs to"
         },
         "last_updated_source": {
           "description": "Date the work was last updated in the source system"
