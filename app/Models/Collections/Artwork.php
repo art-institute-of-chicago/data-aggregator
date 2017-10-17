@@ -436,55 +436,219 @@ class Artwork extends CollectionsModel
     public function transformFields()
     {
 
-        return array_merge(
-            [
-                'main_reference_number' => $this->main_id,
-                'date_start' => $this->date_start,
-                'date_end' => $this->date_end,
-                'date_display' => $this->date_display,
-                'description' => $this->description,
-                'artist_display' => $this->artist_display,
-                'department' => $this->department ? $this->department->title : NULL,
-                'department_id' => $this->department_citi_id,
-                'dimensions' => $this->dimensions,
-                'medium' => $this->medium_display,
-                'inscriptions' => $this->inscriptions,
-                'object_type' => $this->objectType ? $this->objectType->title : NULL,
-                'object_type_id' => $this->object_type_citi_id,
-                'credit_line' => $this->credit_line,
-                'publication_history' => $this->publication_history,
-                'exhibition_history' => $this->exhibition_history,
-                'provenance_text' => $this->provenance,
-                'publishing_verification_level' => $this->publishing_verification_level,
-                'is_public_domain' => (bool) $this->is_public_domain,
-                'copyright_notice' => $this->copyright_notice,
-                'place_of_origin' => $this->place_of_origin,
-                'collection_status' => $this->collection_status,
-                'gallery' => $this->gallery ? $this->gallery->title : '',
-                'gallery_id' => $this->gallery_citi_id,
-                'is_in_gallery' => $this->gallery_citi_id ? true : false,
-            ],
-            $this->transformMobileArtwork(),
-            [
-                'artist_ids' => $this->artists->pluck('citi_id')->all(),
-                'category_ids' => $this->categories->pluck('citi_id')->all(),
-                'copyright_representative_ids' => $this->copyrightRepresentatives->pluck('citi_id')->all(),
-                'part_ids' => $this->parts->pluck('citi_id')->all(),
-                'set_ids' => $this->sets->pluck('citi_id')->all(),
-                'date_dates' => $this->dates()->pluck('date')->transform(function ($item, $key) {
-                    return $item->toIso8601String();
-                })->all(),
-                'catalogue_titles' => $this->catalogues->pluck('catalogue')->all(),
-                'committee_titles' => $this->committees->pluck('committee')->all(),
-                'term_titles' => $this->terms->pluck('term')->all(),
-            ],
-            $this->transformArtworkImages(),
-            [
-                'publication_ids' => $this->publications->pluck('dsc_id')->all(),
-                'tour_ids' => $this->mobileArtwork ? ( $this->mobileArtwork->stops->map( function( $stop ) {  return $stop->tour; })->pluck('mobile_id')->all() ) : [],
-            ]
+        $fields = [];
 
-        );
+        foreach ($this->transformMapping() as $key => $array)
+        {
+
+            $fields[$key] = call_user_func($array["value"]);
+
+        }
+
+        return $fields;
+
+    }
+
+    /**
+     * Define how the fields in the API are mapped to model properties
+     *
+     * @return array
+     */
+    protected function transformMapping()
+    {
+
+        return [
+            'main_reference_number' => [
+                "doc" => "Unique identifier assigned to the artwork upon acquisition",
+                "value" => function() { return $this->main_id; },
+            ],
+            'date_start' => [
+                "doc" => "",
+                "value" => function() { return $this->date_start; },
+            ],
+            'date_end' => [
+                "doc" => "",
+                "value" => function() { return $this->date_end; },
+            ],
+            'date_display' => [
+                "doc" => "",
+                "value" => function() { return $this->date_display; },
+            ],
+            'description' => [
+                "doc" => "",
+                "value" => function() { return $this->description; },
+            ],
+            'artist_display' => [
+                "doc" => "",
+                "value" => function() { return $this->artist_display; },
+            ],
+            'department' => [
+                "doc" => "",
+                "value" => function() { return $this->department ? $this->department->title : NULL; },
+            ],
+            'department_id' => [
+                "doc" => "",
+                "value" => function() { return $this->department_citi_id; },
+            ],
+            'dimensions' => [
+                "doc" => "",
+                "value" => function() { return $this->dimensions; },
+            ],
+            'medium' => [
+                "doc" => "",
+                "value" => function() { return $this->medium_display; },
+            ],
+            'inscriptions' => [
+                "doc" => "",
+                "value" => function() { return $this->inscriptions; },
+            ],
+            'object_type' => [
+                "doc" => "",
+                "value" => function() { return $this->objectType ? $this->objectType->title : NULL; },
+            ],
+            'object_type_id' => [
+                "doc" => "",
+                "value" => function() { return $this->object_type_citi_id; },
+            ],
+            'credit_line' => [
+                "doc" => "",
+                "value" => function() { return $this->credit_line; },
+            ],
+            'publication_history' => [
+                "doc" => "",
+                "value" => function() { return $this->publication_history; },
+            ],
+            'exhibition_history' => [
+                "doc" => "",
+                "value" => function() { return $this->exhibition_history; },
+            ],
+            'provenance_text' => [
+                "doc" => "",
+                "value" => function() { return $this->provenance; },
+            ],
+            'publishing_verification_level' => [
+                "doc" => "",
+                "value" => function() { return $this->publishing_verification_level; },
+            ],
+            'is_public_domain' => [
+                "doc" => "",
+                "value" => function() { return (bool) $this->is_public_domain; },
+            ],
+            'copyright_notice' => [
+                "doc" => "",
+                "value" => function() { return $this->copyright_notice; },
+            ],
+            'place_of_origin' => [
+                "doc" => "",
+                "value" => function() { return $this->place_of_origin; },
+            ],
+            'collection_status' => [
+                "doc" => "",
+                "value" => function() { return $this->collection_status; },
+            ],
+            'gallery' => [
+                "doc" => "",
+                "value" => function() { return $this->gallery ? $this->gallery->title : ''; },
+            ],
+            'gallery_id' => [
+                "doc" => "",
+                "value" => function() { return $this->gallery_citi_id; },
+            ],
+            'is_in_gallery' => [
+                "doc" => "",
+                "value" => function() { return $this->gallery_citi_id ? true : false; },
+            ],
+            'latitude' => [
+                "doc" => "",
+                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->latitude : NULL; },
+            ],
+            'longitude' => [
+                "doc" => "",
+                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->longitude : NULL; },
+            ],
+            'latlon' => [
+                "doc" => "",
+                "value" => function() { return $this->mobileArtwork ? ($this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude) : NULL; },
+            ],
+            'is_highlighted_in_mobile' => [
+                "doc" => "",
+                "value" => function() { return (bool) $this->mobileArtwork ? $this->mobileArtwork->highlighted : NULL; },
+            ],
+            'selector_number' => [
+                "doc" => "",
+                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->selector_number : NULL; },
+            ],
+            'artist_ids' => [
+                "doc" => "",
+                "value" => function() { return $this->artists->pluck('citi_id')->all(); },
+            ],
+            'category_ids' => [
+                "doc" => "",
+                "value" => function() { return $this->categories->pluck('citi_id')->all(); },
+            ],
+            'copyright_representative_ids' => [
+                "doc" => "",
+                "value" => function() { return $this->copyrightRepresentatives->pluck('citi_id')->all(); },
+            ],
+            'part_ids' => [
+                "doc" => "",
+                "value" => function() { return $this->parts->pluck('citi_id')->all(); },
+            ],
+            'set_ids' => [
+                "doc" => "",
+                "value" => function() { return $this->sets->pluck('citi_id')->all(); },
+            ],
+            'date_dates' => [
+                "doc" => "",
+                "value" => function() { return $this->dates()->pluck('date')->transform(function ($item, $key) { 
+                    return $item->toIso8601String();
+                })->all(); },
+            ],
+            'catalogue_titles' => [
+                "doc" => "",
+                "value" => function() { return $this->catalogues->pluck('catalogue')->all(); },
+            ],
+            'committee_titles' => [
+                "doc" => "",
+                "value" => function() { return $this->committees->pluck('committee')->all(); },
+            ],
+            'term_titles' => [
+                "doc" => "",
+                "value" => function() { return $this->terms->pluck('term')->all(); },
+            ],
+            'preferred_image_id' => [
+                "doc" => "",
+                "value" => function() {
+                    $preferred_image = $this->images->first( function( $image ) {
+                        return $image->preferred;
+                    });
+                    return $preferred_image ? $preferred_image->lake_guid : null; },
+            ],
+            'preferred_image_iiif_url' => [
+                "doc" => "",
+                "value" => function() {
+                    $preferred_image = $this->images->first( function( $image ) {
+                        return $image->preferred;
+                    });
+                    return $preferred_image ? $preferred_image->iiif_url : null; },
+            ],
+            'image_ids' => [
+                "doc" => "",
+                "value" => function() { return $this->images->pluck('lake_guid')->all(); },
+            ],
+            'image_iiif_urls' => [
+                "doc" => "",
+                "value" => function() { return $this->images->pluck('iiif_url')->all(); },
+            ],
+            'publication_ids' => [
+                "doc" => "",
+                "value" => function() { return $this->publications->pluck('dsc_id')->all(); },
+            ],
+            'tour_ids' => [
+                "doc" => "",
+                "value" => function() { return $this->mobileArtwork ? ( $this->mobileArtwork->stops->map( function( $stop ) {  return $stop->tour; })->pluck('mobile_id')->all() ) : []; },
+            ],
+        ];
 
     }
 
@@ -506,58 +670,6 @@ class Artwork extends CollectionsModel
             'set_titles' => $this->sets->pluck('title')->all(),
             'publication_titles' => $this->publications->pluck('title')->all(),
             'tour_titles' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('title')->all() : [],
-
-        ];
-
-    }
-
-
-    /**
-     * Turn the relevant fields from the related mobile artwork model into a generic array
-     *
-     * @return array
-     */
-    protected function transformMobileArtwork()
-    {
-
-        if ($this->mobileArtwork) {
-
-            return [
-
-                'latitude' => $this->mobileArtwork->latitude,
-                'longitude' => $this->mobileArtwork->longitude,
-                'latlon' => $this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude,
-                'is_highlighted_in_mobile' => (bool) $this->mobileArtwork->highlighted,
-                'selector_number' => $this->mobileArtwork->selector_number,
-
-            ];
-
-        }
-
-        return [];
-
-    }
-
-
-    /**
-     * Helper function for collecting all image-related fields.
-     *
-     * @return array
-     */
-    protected function transformArtworkImages()
-    {
-
-        $preferred_image = $this->images->first( function( $image ) {
-            return $image->preferred;
-        });
-
-        return [
-
-            'preferred_image_id' => $preferred_image ? $preferred_image->lake_guid : null,
-            'preferred_image_iiif_url' => $preferred_image ? $preferred_image->iiif_url : null,
-
-            'image_ids' => $this->images->pluck('lake_guid')->all(),
-            'image_iiif_urls' => $this->images->pluck('iiif_url')->all(),
 
         ];
 

@@ -53,4 +53,17 @@ trait Transformable
 
     }
 
+
+    /**
+     * Define how the fields in the API are mapped to model properties
+     *
+     * @return array
+     */
+    protected function transformMapping()
+    {
+
+        return [];
+
+    }
+
 }
