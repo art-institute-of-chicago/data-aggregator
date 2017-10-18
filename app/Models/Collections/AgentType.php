@@ -5,6 +5,9 @@ namespace App\Models\Collections;
 use App\Models\CollectionsModel;
 use App\Models\Documentable;
 
+/**
+ * A kind of agent, e.g., Artist, Corporate Body, Copyrigth Representative, etc.
+ */
 class AgentType extends CollectionsModel
 {
 

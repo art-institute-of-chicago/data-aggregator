@@ -6,6 +6,9 @@ use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
+/**
+ * A binary representation of a collections resource, like an artwork, artist, exhibition, etc.
+ */
 class Asset extends CollectionsModel
 {
 
@@ -57,11 +60,9 @@ class Asset extends CollectionsModel
     }
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return array_merge(
@@ -73,12 +74,27 @@ class Asset extends CollectionsModel
                 // 'description' => isset( $this->description ) ? $this->description : null,
                 // 'content' => isset( $this->content ) ? $this->content : null,
 
-                'description' => $this->description,
-                'content' => $this->content,
+                'description' => [
+                    "doc" => "Explanation of what this asset is",
+                    "value" => function() { return $this->description; },
+                ],
+                'content' => [
+                    "doc" => "Text of URL of the contents of this asset",
+                    "value" => function() { return $this->content; },
+                ],
                 // @TODO Review whether to default to empty string or null.
-                'artist' => $this->artist()->getResults() ? $this->artist()->getResults()->title : '',
-                'artist_id' => $this->agent_citi_id,
-                'category_ids' => $this->categories->pluck('citi_id')->all(),
+                'artist' => [
+                    "doc" => "Name of the artist associated with this asset",
+                    "value" => function() { return $this->artist()->getResults() ? $this->artist()->getResults()->title : ''; },
+                ],
+                'artist_id' => [
+                    "doc" => "Unique identifier of the artist associated with this asset",
+                    "value" => function() { return $this->agent_citi_id; },
+                ],
+                'category_ids' => [
+                    "doc" => "Unique identifier of the categories associated with this asset",
+                    "value" => function() { return $this->categories->pluck('citi_id')->all(); },
+                ],
             ],
             $this->transformAsset()
         );

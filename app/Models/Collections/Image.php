@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Models\Collections;
-
 // @TODO: Make Images not Assets, both in the CDS and the DA?
+
+/**
+ * A pictoral representation of a collections resource, like an artwork, artist, exhibition, etc.
+ */
 class Image extends Asset
 {
 
@@ -32,10 +35,22 @@ class Image extends Asset
         return [
 
             // 'type' => $item->type,
-            'iiif_url' =>  $this->iiif_url,
-            'is_preferred' => (bool) $this->preferred,
-            'artwork_ids' => $this->artworks->pluck('citi_id')->all(),
-            'artwork_titles' => $this->artworks()->pluck('title'),
+            'iiif_url' => [
+                "doc" => "IIIF URL of this image",
+                "value" => function() { return $this->iiif_url; },
+            ],
+            'is_preferred' => [
+                "doc" => "Whether this is the preferred representation for a work of art",
+                "value" => function() { return (bool) $this->preferred; },
+            ],
+            'artwork_ids' => [
+                "doc" => "Unique identifiers of the artworks included in this image",
+                "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
+            ],
+            'artwork_titles' => [
+                "doc" => "The names of the artworks included in this image",
+                "value" => function() { return $this->artworks()->pluck('title'); },
+            ],
 
         ];
 

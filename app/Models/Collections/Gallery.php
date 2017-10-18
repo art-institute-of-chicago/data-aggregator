@@ -6,6 +6,9 @@ use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
+/**
+ * A room or hall that works of art are displayed in.
+ */
 class Gallery extends CollectionsModel
 {
 
@@ -37,21 +40,40 @@ class Gallery extends CollectionsModel
 
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
-        return  [
-            'is_closed' => (bool) $this->closed,
-            'number' => $this->number,
-            'floor' => $this->floor,
-            'latitude' => $this->latitude,
-            'longitude' => $this->longitude,
-            'latlon' => $this->latitude .',' .$this->longitude,
-            'category_ids' => $this->categories->pluck('citi_id')->all(),
+        return [
+            'is_closed' => [
+                "doc" => "Whether the gallery is currently closed",
+                "value" => function() { return (bool) $this->closed; }
+            ],
+            'number' => [
+                "doc" => "The gallery's room number. For 'Gallery 100', this would be '100'.",
+                "value" => function() { return $this->number; },
+            ],
+            'floor' => [
+                "doc" => "The level the gallery is on, e.g., 1, 2, 3, or LL",
+                "value" => function() { return $this->floor; },
+            ],
+            'latitude' => [
+                "doc" => "Latitude coordinate of the center of the room",
+                "value" => function() { return $this->latitude; },
+            ],
+            'longitude' => [
+                "doc" => "Longitude coordinate of the center of the room",
+                "value" => function() { return $this->longitude; },
+            ],
+            'latlon' => [
+                "doc" => "Latitude and longitude coordinates of the center of the room",
+                "value" => function() { return $this->latitude .',' .$this->longitude; },
+            ],
+            'category_ids' => [
+                "doc" => "Uniqiue identifiers of the categories this gallery is a part of",
+                "value" => function() { return $this->categories->pluck('citi_id')->all(); },
+            ],
         ];
 
     }

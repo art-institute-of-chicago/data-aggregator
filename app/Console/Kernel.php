@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
         Commands\ReindexSearch::class,
         Commands\AliasSearch::class,
         Commands\CreateEndpointDocs::class,
+        Commands\CreateFieldsDocs::class,
     ];
 
     /**

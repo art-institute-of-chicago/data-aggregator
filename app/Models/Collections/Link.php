@@ -2,6 +2,9 @@
 
 namespace App\Models\Collections;
 
+/**
+ * A website that represents a collections resource, like an artwork, artist, exhibition, etc.
+ */
 class Link extends Asset
 {
 

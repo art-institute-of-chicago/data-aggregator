@@ -6,6 +6,9 @@ use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
+/**
+ * Represents a person or organization. In the API, this includes artists, copyright representives and corporate bodies.
+ */
 class Agent extends CollectionsModel
 {
 
@@ -42,21 +45,40 @@ class Agent extends CollectionsModel
     }
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
-            'birth_date' => $this->birth_date,
-            'birth_place' => $this->birth_place,
-            'death_date' => $this->death_date,
-            'death_place' => $this->death_place,
-            'is_licensing_restricted' => (bool) $this->licensing_restricted,
-            'agent_type' => $this->agentType()->getResults() ? $this->agentType()->getResults()->title : '',
-            'agent_type_id' => $this->agent_type_citi_id,
+            'birth_date' => [
+                "doc" => "The year this agent was born",
+                "value" => function() { return $this->birth_date; },
+            ],
+            'birth_place' => [
+                "doc" => "Name of the place this agent was born",
+                "value" => function() { return $this->birth_place; },
+            ],
+            'death_date' => [
+                "doc" => "The year this agent died",
+                "value" => function() { return $this->death_date; },
+            ],
+            'death_place' => [
+                "doc" => "Name of the place this agent died",
+                "value" => function() { return $this->death_place; },
+            ],
+            'is_licensing_restricted' => [
+                "doc" => "Whether the use of the images of works by this artist are resticted by licensing",
+                "value" => function() { return (bool) $this->licensing_restricted; },
+            ],
+            'agent_type' => [
+                "doc" => "Name of the type of agent, e.g., 'Artist', 'Copyright Representative', or 'Corporate Body'",
+                "value" => function() { return $this->agentType()->getResults() ? $this->agentType()->getResults()->title : ''; },
+            ],
+            'agent_type_id' => [
+                "doc" => "Unique identifier of the type of agent",
+                "value" => function() { return $this->agent_type_citi_id; },
+            ],
         ];
 
     }

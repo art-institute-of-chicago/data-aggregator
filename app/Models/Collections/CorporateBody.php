@@ -2,6 +2,9 @@
 
 namespace App\Models\Collections;
 
+/**
+ * An organization like a museum. This is a type of Agent.
+ */
 class CorporateBody extends Agent
 {
 

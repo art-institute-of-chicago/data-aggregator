@@ -2,6 +2,9 @@
 
 namespace App\Models\Collections;
 
+/**
+ * A person who created an artwork. This is a type of Agent.
+ */
 class Artist extends Agent
 {
 

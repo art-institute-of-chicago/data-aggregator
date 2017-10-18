@@ -20,7 +20,7 @@ class CreateEndpointDocs extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Generate documentation for API endpoints';
 
     protected $appUrl;
 
@@ -55,46 +55,46 @@ class CreateEndpointDocs extends Command
         $doc = '';
 
         $doc .= "# Collections\n\n";
-        $doc .= \App\Models\Collections\Artwork::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\Agent::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\Artist::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\CorporateBody::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\Department::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\ObjectType::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\Category::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\AgentType::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\Gallery::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\Exhibition::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\Image::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\Video::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\Link::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\Sound::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Collections\Text::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Collections\Artwork::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Agent::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Artist::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\CorporateBody::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Department::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\ObjectType::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Category::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\AgentType::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Gallery::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Exhibition::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Image::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Video::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Link::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Sound::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Text::instance()->docEndpoints($this->appUrl);
 
         $doc .= "# Shop\n\n";
-        $doc .= \App\Models\Shop\Category::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Shop\Product::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Shop\Category::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Shop\Product::instance()->docEndpoints($this->appUrl);
 
         $doc .= "# Events and Membership\n\n";
-        $doc .= \App\Models\Membership\Event::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Membership\Event::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Membership\Event::instance()->docMembershipEndpoint($this->appUrl);
 
         $doc .= "# Mobile\n\n";
-        $doc .= \App\Models\Mobile\Tour::instance()->doc($this->appUrl);
-        //$doc .= \App\Models\Mobile\TourStop::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Mobile\Sound::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Mobile\Tour::instance()->docEndpoints($this->appUrl);
+        //$doc .= \App\Models\Mobile\TourStop::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Mobile\Sound::instance()->docEndpoints($this->appUrl);
 
         $doc .= "# Digital Scholarly Catalogs\n\n";
-        $doc .= \App\Models\Dsc\Publication::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Dsc\TitlePage::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Dsc\Section::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Dsc\WorkOfArt::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Dsc\Footnote::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Dsc\Figure::instance()->doc($this->appUrl);
-        $doc .= \App\Models\Dsc\Collector::instance()->doc($this->appUrl);
+        $doc .= \App\Models\Dsc\Publication::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Dsc\TitlePage::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Dsc\Section::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Dsc\WorkOfArt::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Dsc\Footnote::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Dsc\Figure::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Dsc\Collector::instance()->docEndpoints($this->appUrl);
 
         $doc .= "# Static Archive\n\n";
-        $doc .= \App\Models\StaticArchive\Site::instance()->doc($this->appUrl);
+        $doc .= \App\Models\StaticArchive\Site::instance()->docEndpoints($this->appUrl);
 
         Storage::disk('local')->put('ENDPOINTS.md', $doc);
 

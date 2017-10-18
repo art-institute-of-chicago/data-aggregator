@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use Zend\Code\Reflection\ClassReflection;
+
 trait Documentable
 {
 
     /**
-     * Generate all documentationa for this model
+     * Generate endpoint documentation for this model
      *
      * @return string
      */
-    public function doc($appUrl)
+    public function docEndpoints($appUrl)
     {
 
         if ($this->docOnly())
@@ -59,14 +61,50 @@ trait Documentable
     }
 
     /**
-     * Generate a title for all endpoonts for this class
+     * Generate field documentation for this model
+     *
+     * @return string
+     */
+    public function docFields()
+    {
+
+        $doc = '';
+        $doc .= $this->docTitle() ."\n\n";
+        $doc .= $this->docDescription() ."\n\n";
+
+        if (!$this->docOnly())
+        {
+
+            $doc .= $this->docListFields() ."\n\n";
+
+        }
+
+        return $doc;
+
+    }
+
+    /**
+     * Generate a title for this resource
      *
      * @return string
      */
     public function docTitle()
     {
 
-        return '## ' .title_case( $this->_endpoint() );
+        return '## ' .str_replace('-', ' ', title_case( $this->_endpoint() ) );
+
+    }
+
+    /**
+     * Generate a description of this resource
+     *
+     * @return string
+     */
+    public function docDescription()
+    {
+
+        $rc = new ClassReflection(get_called_class());
+        return $rc->getDocBlock()->getShortDescription();
 
     }
 
@@ -90,6 +128,32 @@ trait Documentable
         $doc .= $this->docListParameters();
 
         $doc .= $this->docExampleOutput($appUrl);
+
+        return $doc;
+
+    }
+
+    /**
+     * Generate documentation for listing fields
+     *
+     * @return string
+     */
+    public function docListFields()
+    {
+
+        $calledClass = get_called_class();
+        $endpoint = $this->_endpoint();
+        $endpointAsCopyText = $this->_endpointAsCopyText();
+
+        $doc = '';
+        foreach ($this->transformMapping() as $key => $array)
+        {
+
+            $doc .= "* `" .$key ."` - " .$array['doc'] ."\n";
+
+        }
+
+        $doc .= "\n";
 
         return $doc;
 

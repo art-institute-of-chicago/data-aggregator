@@ -6,6 +6,9 @@ use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
+/**
+ * Represents a curatorial department in the museum.
+ */
 class Department extends CollectionsModel
 {
 

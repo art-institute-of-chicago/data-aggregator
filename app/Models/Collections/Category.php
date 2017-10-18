@@ -6,6 +6,9 @@ use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
+/**
+ * Tag-like classifications of artworks and other resources.
+ */
 class Category extends CollectionsModel
 {
 
@@ -37,19 +40,32 @@ class Category extends CollectionsModel
     }
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
-            'parent_id' => $this->parent_id,
-            'is_in_nav' => (bool) $this->is_in_nav,
-            'description' => $this->description,
-            'sort' => $this->sort,
-            'type' => $this->type,
+            'parent_id' => [
+                "doc" => "Unique identifier of this categories parent",
+                "value" => function() { return $this->parent_id; },
+            ],
+            'is_in_nav' => [
+                "doc" => "Whether this category was included in the departmental navigation in the old collections site",
+                "value" => function() { return (bool) $this->is_in_nav; }
+            ],
+            'description' => [
+                "doc" => "Explanation of what this category is",
+                "value" => function() { return $this->description; }
+            ],
+            'sort' => [
+                "doc" => "Number representing this categories sort order",
+                "value" => function() { return $this->sort; }
+            ],
+            'type' => [
+                "doc" => "Number representing the type of category. 1 is departmental, 2 is subject, 3 is theme, 5 is multimedia.",
+                "value" => function() { return $this->type; }
+            ],
         ];
 
     }

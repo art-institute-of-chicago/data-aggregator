@@ -6,6 +6,9 @@ use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
+/**
+ * An organized presentation and display of a selection of artworks.
+ */
 class Exhibition extends CollectionsModel
 {
 
@@ -79,24 +82,52 @@ class Exhibition extends CollectionsModel
 
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
-            'description' => $this->description,
-            'type' => $this->type,
-            'department' => $this->department()->getResults() ? $this->department()->getResults()->title : '',
-            'department_id' => $this->department_citi_id,
-            'gallery' => $this->gallery()->getResults() ? $this->gallery()->getResults()->title : '',
-            'gallery_id' => $this->gallery_citi_id,
-            'dates' => $this->exhibition_dates,
-            'is_active' => (bool) $this->active,
-            'artwork_ids' => $this->artworks->pluck('citi_id')->all(),
-            'venue_ids' => $this->venues->pluck('citi_id')->all(),
+            'description' => [
+                "doc" => "Explanation of what this exhibition is",
+                "value" => function() { return $this->description; },
+            ],
+            'type' => [
+                "doc" => "The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues, or whether it was",
+                "value" => function() { return $this->type; },
+            ],
+            'department' => [
+                "doc" => "The name of the department that primarily organized the exhibition",
+                "value" => function() { return $this->department()->getResults() ? $this->department()->getResults()->title : ''; },
+            ],
+            'department_id' => [
+                "doc" => "Unique identifier of the department that primarily organized the exhibition",
+                "value" => function() { return $this->department_citi_id; },
+            ],
+            'gallery' => [
+                "doc" => "The name of the gallery that mainly housed the exhibition",
+                "value" => function() { return $this->gallery()->getResults() ? $this->gallery()->getResults()->title : ''; },
+            ],
+            'gallery_id' => [
+                "doc" => "Unique identifier of the gallery that mainly housed the exhibition",
+                "value" => function() { return $this->gallery_citi_id; },
+            ],
+            'dates' => [
+                "doc" => "A readable string of when the exhibition took place",
+                "value" => function() { return $this->exhibition_dates; },
+            ],
+            'is_active' => [
+                "doc" => "Whether the exhibition is active",
+                "value" => function() { return (bool) $this->active; },
+            ],
+            'artwork_ids' => [
+                "doc" => "Unique identifiers of the artworks that were part of the exhibition",
+                "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
+            ],
+            'venue_ids' => [
+                "doc" => "Unique identifiers of the venue agent records representing who hosted the exhibition",
+                "value" => function() { return $this->venues->pluck('citi_id')->all(); },
+            ],
         ];
 
     }
