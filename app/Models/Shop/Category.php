@@ -5,6 +5,9 @@ namespace App\Models\Shop;
 use App\Models\ShopModel;
 use App\Models\Documentable;
 
+/**
+ * Tag-like classifications of shop products
+ */
 class Category extends ShopModel
 {
 
@@ -39,20 +42,32 @@ class Category extends ShopModel
 
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @param boolean  $withTitles
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
-            'link' => $this->link,
-            'parent_id' => $this->parent_category_shop_id,
-            'type' => $this->type,
-            'source_id' => $this->source_id,
-            'child_ids' => $this->children->pluck('shop_id')->all(),
+            'link' => [
+                "doc" => "URL to the shop page for this category",
+                "value" => function() { return $this->link; },
+            ],
+            'parent_id' => [
+                "doc" => "Unique identifier of this category's parent",
+                "value" => function() { return $this->parent_category_shop_id; },
+            ],
+            'type' => [
+                "doc" => "The type of category, e.g., sale, place-of-origin, style, etc.",
+                "value" => function() { return $this->type; },
+            ],
+            'source_id' => [
+                "doc" => "The identifier from the source system. This is only unique relative to the type of category, so we don't use this as the primary identifier.",
+                "value" => function() { return $this->source_id; },
+            ],
+            'child_ids' => [
+                "doc" => "Unique identifier of this category's children",
+                "value" => function() { return $this->children->pluck('shop_id')->all(); },
+            ],
         ];
 
     }

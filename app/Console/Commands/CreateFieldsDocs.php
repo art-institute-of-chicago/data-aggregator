@@ -48,32 +48,26 @@ class CreateFieldsDocs extends Command
         $doc .= \App\Models\Collections\Sound::instance()->docFields();
         $doc .= \App\Models\Collections\Text::instance()->docFields();
 
-        // $doc .= "# Shop\n\n";
-        // $doc .= \App\Models\Shop\Category::instance()->docFields();
-        // $doc .= \App\Models\Shop\Product::instance()->docFields();
+        $doc .= "# Shop\n\n";
+        $doc .= \App\Models\Shop\Category::instance()->docFields();
+        $doc .= \App\Models\Shop\Product::instance()->docFields();
 
-        // $doc .= "# Events and Membership\n\n";
-        // $doc .= \App\Models\Membership\Event::instance()->docFields();
-        // $doc .= \App\Models\Membership\Event::instance()->docMembershipEndpoint();
+        $doc .= "# Events and Membership\n\n";
+        $doc .= \App\Models\Membership\Event::instance()->docFields();
+        $doc .= \App\Models\Membership\Event::instance()->docMembershipFields();
 
-        // $doc .= "# Mobile\n\n";
-        // $doc .= \App\Models\Mobile\Tour::instance()->docFields();
-        // //$doc .= \App\Models\Mobile\TourStop::instance()->docFields();
-        // $doc .= \App\Models\Mobile\Sound::instance()->docFields();
+        $doc .= "# Mobile\n\n";
+        $doc .= \App\Models\Mobile\Tour::instance()->docFields();
+        $doc .= \App\Models\Mobile\TourStop::instance()->docFields();
+        $doc .= \App\Models\Mobile\Sound::instance()->docFields();
 
-        // $doc .= "# Digital Scholarly Catalogs\n\n";
-        // $doc .= \App\Models\Dsc\Publication::instance()->docFields();
-        // $doc .= \App\Models\Dsc\TitlePage::instance()->docFields();
-        // $doc .= \App\Models\Dsc\Section::instance()->docFields();
-        // $doc .= \App\Models\Dsc\WorkOfArt::instance()->docFields();
-        // $doc .= \App\Models\Dsc\Footnote::instance()->docFields();
-        // $doc .= \App\Models\Dsc\Figure::instance()->docFields();
-        // $doc .= \App\Models\Dsc\Collector::instance()->docFields();
+        $doc .= "# Digital Scholarly Catalogs\n\n";
+        $doc .= \App\Models\Dsc\Publication::instance()->docFields();
+        $doc .= \App\Models\Dsc\Section::instance()->docFields();
 
-        // $doc .= "# Static Archive\n\n";
-        // $doc .= \App\Models\StaticArchive\Site::instance()->docFields();
+        $doc .= "# Static Archive\n\n";
+        $doc .= \App\Models\StaticArchive\Site::instance()->docFields();
 
-        $this->info($doc);
         Storage::disk('local')->put('FIELDS.md', $doc);
 
     }

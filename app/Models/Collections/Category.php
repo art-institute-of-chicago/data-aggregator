@@ -47,7 +47,7 @@ class Category extends CollectionsModel
 
         return [
             'parent_id' => [
-                "doc" => "Unique identifier of this categories parent",
+                "doc" => "Unique identifier of this category's parent",
                 "value" => function() { return $this->parent_id; },
             ],
             'is_in_nav' => [
@@ -59,7 +59,7 @@ class Category extends CollectionsModel
                 "value" => function() { return $this->description; }
             ],
             'sort' => [
-                "doc" => "Number representing this categories sort order",
+                "doc" => "Number representing this category's sort order",
                 "value" => function() { return $this->sort; }
             ],
             'type' => [

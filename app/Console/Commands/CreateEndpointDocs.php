@@ -86,12 +86,7 @@ class CreateEndpointDocs extends Command
 
         $doc .= "# Digital Scholarly Catalogs\n\n";
         $doc .= \App\Models\Dsc\Publication::instance()->docEndpoints($this->appUrl);
-        $doc .= \App\Models\Dsc\TitlePage::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Dsc\Section::instance()->docEndpoints($this->appUrl);
-        $doc .= \App\Models\Dsc\WorkOfArt::instance()->docEndpoints($this->appUrl);
-        $doc .= \App\Models\Dsc\Footnote::instance()->docEndpoints($this->appUrl);
-        $doc .= \App\Models\Dsc\Figure::instance()->docEndpoints($this->appUrl);
-        $doc .= \App\Models\Dsc\Collector::instance()->docEndpoints($this->appUrl);
 
         $doc .= "# Static Archive\n\n";
         $doc .= \App\Models\StaticArchive\Site::instance()->docEndpoints($this->appUrl);

@@ -6,6 +6,9 @@ use App\Models\MembershipModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
+/**
+ * An occurrence of a program at the museum
+ */
 class Event extends MembershipModel
 {
 
@@ -71,32 +74,59 @@ class Event extends MembershipModel
     }
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @param boolean  $withTitles
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
 
-            'type_id' => $this->type_id,
+            'type_id' => [
+                "doc" => "Number indicating the type of event",
+                "value" => function() { return $this->type_id; },
+            ],
 
-            'start_at' => $this->start_at->toIso8601String(),
-            'end_at' => $this->end_at->toIso8601String(),
+            'start_at' => [
+                "doc" => "Date and time the event begins",
+                "value" => function() { return $this->start_at->toIso8601String(); },
+            ],
+            'end_at' => [
+                "doc" => "Date and time the event ends",
+                "value" => function() { return $this->end_at->toIso8601String(); },
+            ],
 
-            'resource_id' => $this->resource_id,
-            'resource_title' => $this->resource_title,
+            'resource_id' => [
+                "doc" => "Unique identifier of the resouce associated with this event, often the venue in which it takes place",
+                "value" => function() { return $this->resource_id; },
+            ],
+            'resource_title' => [
+                "doc" => "The name of the resouce associated with this event, often the venue in which it takes place",
+                "value" => function() { return $this->resource_title; },
+            ],
 
             // Caution: (bool) null = false
             // TODO: Use $casts throughout the codebase
-            'is_after_hours' => (bool) $this->is_after_hours,
-            'is_private_event' => (bool) $this->is_private_event,
-            'is_admission_required' => (bool) $this->is_admission_required,
+            'is_after_hours' => [
+                "doc" => "Whether the event takes place after museum hours",
+                "value" => function() { return (bool) $this->is_after_hours; },
+            ],
+            'is_private_event' => [
+                "doc" => "Whether the event is open to public",
+                "value" => function() { return (bool) $this->is_private_event; },
+            ],
+            'is_admission_required' => [
+                "doc" => "Whether admission is required in order to attend the event",
+                "value" => function() { return (bool) $this->is_admission_required; },
+            ],
 
-            'available' => $this->available,
-            'total_capacity' => $this->total_capacity,
+            'available' => [
+                "doc" => "Number indicating how many tickets are available for the event",
+                "value" => function() { return $this->available; },
+            ],
+            'total_capacity' => [
+                "doc" => "Number indicating the total number of tickets that can be sold for the event",
+                "value" => function() { return $this->total_capacity; },
+            ],
 
         ];
 

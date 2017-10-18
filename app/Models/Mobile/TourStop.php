@@ -6,6 +6,9 @@ use App\Models\MobileModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
+/**
+ * An audio tour stops on a tour.
+ */
 class TourStop extends MobileModel
 {
 
@@ -37,23 +40,41 @@ class TourStop extends MobileModel
 
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @param boolean  $withTitles
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
             // TODO: Determine if tour stops have dedicated titles?
-            'title' => $this->artwork->title,
-            'artwork' => $this->artwork->title,
-            'artwork_id' => $this->artwork->artwork->id,
-            'mobile_sound' => $this->sound->link,
-            'mobile_sound_id' => $this->sound->id,
-            'weight' => $this->weight,
-            'description' => $this->description,
+            'title' => [
+                "doc" => "Name of this tour stop",
+                "value" => function() { return $this->artwork->title; },
+            ],
+            'artwork' => [
+                "doc" => "Name of the artwork for this tour stop",
+                "value" => function() { return $this->artwork->title; },
+            ],
+            'artwork_id' => [
+                "doc" => "Unique identifier of the artwork for this tour stop",
+                "value" => function() { return $this->artwork->artwork->id; },
+            ],
+            'mobile_sound' => [
+                "doc" => "URL to the audio file for this tour stop",
+                "value" => function() { return $this->sound->link; },
+            ],
+            'mobile_sound_id' => [
+                "doc" => "Unique identifier of the audio file for this tour stop",
+                "value" => function() { return $this->sound->id; },
+            ],
+            'weight' => [
+                "doc" => "Number representing this tour stop's sort order",
+                "value" => function() { return $this->weight; },
+            ],
+            'description' => [
+                "doc" => "Explanation of what this tour stop is",
+                "value" => function() { return $this->description; },
+            ],
         ];
 
     }

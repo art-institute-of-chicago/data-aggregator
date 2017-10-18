@@ -6,6 +6,9 @@ use App\Models\DscModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
+/**
+ * Represents an overall digital publication.
+ */
 class Publication extends DscModel
 {
 
@@ -14,16 +17,16 @@ class Publication extends DscModel
 
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @param boolean  $withTitles
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
-            'link' => $this->link,
+            'link' => [
+                "doc" => "URL to the publication",
+                "value" => function() { return $this->link; },
+            ],
         ];
 
     }

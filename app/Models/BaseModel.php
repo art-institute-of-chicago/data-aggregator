@@ -134,4 +134,56 @@ class BaseModel extends Model
     }
 
 
+    /**
+     * Define how the fields in the API are mapped to model properties.
+     *
+     * Acts as a wrapper method to common attributes across a range of resources. Each method should
+     * override `transformMappingInternal()` with their specific field definitions.
+     *
+     * The keys in the returned array represent the property name as it appears in the API. The value of
+     * each pair is an array that includes the following:
+     *
+     * - "doc" => The documentation for this API field
+     * - "value" => An anoymous function that returns the value for this field
+     *
+     * @return array
+     */
+    protected function transformMapping()
+    {
+
+        $ret = [
+            'id' => [
+                'doc' => "Unique identifier of this resource. Taken from the source system.",
+                'value' => function() { return $this->getAttributeValue($this->getKeyName()); },
+            ],
+            'title' => [
+                'doc' => "Name of this resource",
+                'value' => function() { return $this->title; },
+            ]
+        ];
+
+        $ret = array_merge($ret, $this->transformMappingInternal());
+
+        if (!$this->excludeDates)
+        {
+
+            $ret = array_merge($ret,
+                               [
+                                   'last_updated_source' => [
+                                           'doc' => "Date and time the resource was updated in the source system",
+                                           'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
+                                   ],
+                                   'last_updated' => [
+                                           'doc' => "Date and time the resource was updated in the Data Aggregator",
+                                           'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
+                                   ],
+                               ]
+            );
+
+        }
+
+        return $ret;
+
+    }
+
 }

@@ -5,6 +5,9 @@ namespace App\Models\Mobile;
 use App\Models\MobileModel;
 use App\Models\Documentable;
 
+/**
+ * The audio file for a stops on a tour.
+ */
 class Sound extends MobileModel
 {
 
@@ -32,17 +35,20 @@ class Sound extends MobileModel
     }
 
     /**
-     * Turn this item object into a generic array.
-     *
-     * @param  \App\Models\Mobile\Tour  $item
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
-            'link' => $this->link,
-            'transcript' => $this->transcript,
+            'link' => [
+                "doc" => "URL to the audio file",
+                "value" => function() { return $this->link; },
+            ],
+            'transcript' => [
+                "doc" => "Text transcription of the audio file",
+                "value" => function() { return $this->transcript; },
+            ],
         ];
 
     }

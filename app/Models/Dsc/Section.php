@@ -6,6 +6,9 @@ use App\Models\DscModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
+/**
+ * Represents a chapter of publication.
+ */
 class Section extends DscModel
 {
 
@@ -21,20 +24,32 @@ class Section extends DscModel
 
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @param boolean  $withTitles
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
-            'content' => $this->content,
-            'weight' => $this->weight,
-            'depth' => $this->depth,
-            'publication' => $this->publication ? $this->publication->title : '',
-            'publication_id' => $this->publication_dsc_id,
+            'content' => [
+                "doc" => "The text of this section",
+                "value" => function() { return $this->content; },
+            ],
+            'weight' => [
+                "doc" => "Number representing this section's sort order",
+                "value" => function() { return $this->weight; },
+            ],
+            'depth' => [
+                "doc" => "Number representing how deep in the navigation heirarchy this section resides",
+                "value" => function() { return $this->depth; },
+            ],
+            'publication' => [
+                "doc" => "Name of the publication this section belongs to",
+                "value" => function() { return $this->publication ? $this->publication->title : ''; },
+            ],
+            'publication_id' => [
+                "doc" => "Unique identifier of the publication this section belongs to",
+                "value" => function() { return $this->publication_dsc_id; },
+            ],
         ];
 
     }
