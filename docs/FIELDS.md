@@ -2,7 +2,7 @@
 
 ## Artworks
 
-Represents a work of art in our collections.
+Represents a work of art in our collections. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#artworks).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -59,7 +59,7 @@ Represents a work of art in our collections.
 
 ## Agents
 
-Represents a person or organization. In the API, this includes artists, copyright representives and corporate bodies.
+Represents a person or organization. In the API, this includes artists, copyright representives and corporate bodies. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agents).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -78,15 +78,15 @@ Represents a person or organization. In the API, this includes artists, copyrigh
 
 ## Artists
 
-A person who created an artwork. This is a type of Agent.
+A person who created an artwork. This is a type of Agent. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#artists).
 
 ## Venues
 
-An organization like a museum. This is a type of Agent.
+An organization like a museum. This is a type of Agent. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#venues).
 
 ## Departments
 
-Represents a curatorial department in the museum.
+Represents a curatorial department in the museum. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#departments).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -98,7 +98,7 @@ Represents a curatorial department in the museum.
 
 ## Object Types
 
-A kind of object or work, e.g., Painting, Sculpture, Book, etc.
+A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#object-types).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -110,7 +110,7 @@ A kind of object or work, e.g., Painting, Sculpture, Book, etc.
 
 ## Categories
 
-Tag-like classifications of artworks and other resources.
+Tag-like classifications of artworks and other resources. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#categories).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -127,7 +127,7 @@ Tag-like classifications of artworks and other resources.
 
 ## Agent Types
 
-A kind of agent, e.g., Artist, Corporate Body, Copyrigth Representative, etc.
+A kind of agent, e.g., Artist, Corporate Body, Copyrigth Representative, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agent-types).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -139,7 +139,7 @@ A kind of agent, e.g., Artist, Corporate Body, Copyrigth Representative, etc.
 
 ## Galleries
 
-A room or hall that works of art are displayed in.
+A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#galleries).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -158,7 +158,7 @@ A room or hall that works of art are displayed in.
 
 ## Exhibitions
 
-An organized presentation and display of a selection of artworks.
+An organized presentation and display of a selection of artworks. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#exhibitions).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -180,7 +180,7 @@ An organized presentation and display of a selection of artworks.
 
 ## Images
 
-A pictoral representation of a collections resource, like an artwork, artist, exhibition, etc.
+A pictoral representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#images).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -201,7 +201,7 @@ A pictoral representation of a collections resource, like an artwork, artist, ex
 
 ## Videos
 
-A moving image representation of a collections resource, like an artwork, artist, exhibition, etc.
+A moving image representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#videos).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -218,7 +218,7 @@ A moving image representation of a collections resource, like an artwork, artist
 
 ## Links
 
-A website that represents a collections resource, like an artwork, artist, exhibition, etc.
+A website that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#links).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -235,7 +235,7 @@ A website that represents a collections resource, like an artwork, artist, exhib
 
 ## Sounds
 
-Audio that represents a collections resource, like an artwork, artist, exhibition, etc.
+Audio that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#sounds).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -252,7 +252,7 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 
 ## Texts
 
-Text that represents a collections resource, like an artwork, artist, exhibition, etc.
+Text that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#texts).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -271,7 +271,7 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 
 ## Shop Categories
 
-Tag-like classifications of shop products
+Tag-like classifications of shop products For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#shop-categories).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this resource
@@ -287,7 +287,7 @@ Tag-like classifications of shop products
 
 ## Products
 
-An item available for purchase in the museum shop
+An item available for purchase in the museum shop For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#products).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this resource
@@ -312,7 +312,7 @@ An item available for purchase in the museum shop
 
 ## Events
 
-An occurrence of a program at the museum
+An occurrence of a program at the museum For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#events).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this resource
@@ -381,7 +381,7 @@ A member of the museum
 
 ## Tours
 
-A collection of audio tour stops to form a tour.
+A collection of audio tour stops to form a tour. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#tours).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this resource
@@ -398,7 +398,7 @@ A collection of audio tour stops to form a tour.
 
 ## Tour Stops
 
-An audio tour stops on a tour.
+An audio tour stops on a tour. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#tour-stops).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this tour stop
@@ -415,7 +415,7 @@ An audio tour stops on a tour.
 
 ## Mobile Sounds
 
-The audio file for a stops on a tour.
+The audio file for a stops on a tour. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#mobile-sounds).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this resource
@@ -430,7 +430,7 @@ The audio file for a stops on a tour.
 
 ## Publications
 
-Represents an overall digital publication.
+Represents an overall digital publication. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#publications).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this resource
@@ -442,7 +442,7 @@ Represents an overall digital publication.
 
 ## Sections
 
-Represents a chapter of publication.
+Represents a chapter of publication. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#sections).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this resource
@@ -460,7 +460,7 @@ Represents a chapter of publication.
 
 ## Sites
 
-An archived static microsite.
+An archived static microsite. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#sites).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this resource

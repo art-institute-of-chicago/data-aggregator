@@ -70,7 +70,7 @@ trait Documentable
 
         $doc = '';
         $doc .= $this->docTitle() ."\n\n";
-        $doc .= $this->docDescription() ."\n\n";
+        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#" .$this->_endpoint() .").\n\n";
 
         if (!$this->docOnly())
         {
