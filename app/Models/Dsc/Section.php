@@ -39,7 +39,7 @@ class Section extends DscModel
                 "value" => function() { return $this->weight; },
             ],
             'depth' => [
-                "doc" => "Number representing how deep in the navigation heirarchy this section resides",
+                "doc" => "Number representing how deep in the navigation hierarchy this section resides",
                 "value" => function() { return $this->depth; },
             ],
             'publication' => [

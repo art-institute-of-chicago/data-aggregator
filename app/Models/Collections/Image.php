@@ -4,7 +4,7 @@ namespace App\Models\Collections;
 // @TODO: Make Images not Assets, both in the CDS and the DA?
 
 /**
- * A pictoral representation of a collections resource, like an artwork, artist, exhibition, etc.
+ * A pictorial representation of a collections resource, like an artwork, artist, exhibition, etc.
  */
 class Image extends Asset
 {

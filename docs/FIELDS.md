@@ -27,7 +27,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `is_public_domain` - Whether the work is in the public domain, meaning it was created before copyrights existed or has left the copyright term
 * `copyright_notice` - Statement notifying how the work is protected by copyright. Applies to the work itself, not image or other related assets.
 * `place_of_origin` - The location where the creation, design, or production of the work took place, or the original location of the work
-* `collection_status` - The works status of belonging to out collection. Either 'Permanent Collection' or 'Long-term Loan'.
+* `collection_status` - The works status of belonging to our collection. Either 'Permanent Collection' or 'Long-term Loan'.
 * `gallery` - The location of this work in our museum
 * `gallery_id` - Unique identifier of the location of this work in our museum
 * `is_in_gallery` - Whether the work is on display
@@ -37,20 +37,20 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `is_highlighted_in_mobile` - Whether the work is highlighted in the mobile app
 * `selector_number` - The code that can be entered in our audioguides to learn more about this work
 * `artist_ids` - Unique identifiers of the artists associated with this work
-* `category_ids` - Uniqiue identifiers of the categories this work is a part of
+* `category_ids` - Unique identifiers of the categories this work is a part of
 * `copyright_representative_ids` - Unique identifiers of the copyright representatives associated with this work
 * `part_ids` - Unique identifiers of the individual works that make up this work
 * `set_ids` - Unique identifiers of the sets this work is a part of. These are not artwork ids.
 * `date_dates` - List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.
 * `catalogue_titles` - A catalogue raisonné is a comprehensive, annotated listing of all the known artworks by an artist. This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.
-* `committee_titles` - List of committes which were involved in the acquisition or deaccession of this work
+* `committee_titles` - List of committees which were involved in the acquisition or deaccession of this work
 * `term_titles` - The names of the subject terms tagged for this work
 * `preferred_image_id` - Unique identifier of the preferred image to use to represent this work
 * `preferred_image_iiif_url` - IIIF URL of the preferred image to use to represent this work
 * `image_ids` - Unique identifiers of all the images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.
 * `image_iiif_urls` - IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.
 * `publication_ids` - Unique identifiers of the Digital Scholarly Catalogs this work is included in
-* `tour_ids` - Unique identifies of the tours this work is included in
+* `tour_ids` - Unique identifiers of the tours this work is included in
 * `last_updated_fedora` - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` - Date and time the resource was updated in the Data Aggregator
@@ -59,7 +59,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 
 ## Agents
 
-Represents a person or organization. In the API, this includes artists, copyright representives and corporate bodies. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agents).
+Represents a person or organization. In the API, this includes artists, copyright representatives and corporate bodies. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agents).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -67,7 +67,7 @@ Represents a person or organization. In the API, this includes artists, copyrigh
 * `birth_place` - Name of the place this agent was born
 * `death_date` - The year this agent died
 * `death_place` - Name of the place this agent died
-* `is_licensing_restricted` - Whether the use of the images of works by this artist are resticted by licensing
+* `is_licensing_restricted` - Whether the use of the images of works by this artist are restricted by licensing
 * `agent_type` - Name of the type of agent, e.g., 'Artist', 'Copyright Representative', or 'Corporate Body'
 * `agent_type_id` - Unique identifier of the type of agent
 * `last_updated_fedora` - Date and time the resource was updated in LAKE, our digital asset management system
@@ -127,7 +127,7 @@ Tag-like classifications of artworks and other resources. For a description of a
 
 ## Agent Types
 
-A kind of agent, e.g., Artist, Corporate Body, Copyrigth Representative, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agent-types).
+A kind of agent, e.g., Artist, Corporate Body, Copyright Representative, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agent-types).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -149,7 +149,7 @@ A room or hall that works of art are displayed in. For a description of all the 
 * `latitude` - Latitude coordinate of the center of the room
 * `longitude` - Longitude coordinate of the center of the room
 * `latlon` - Latitude and longitude coordinates of the center of the room
-* `category_ids` - Uniqiue identifiers of the categories this gallery is a part of
+* `category_ids` - Unique identifiers of the categories this gallery is a part of
 * `last_updated_fedora` - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` - Date and time the resource was updated in the Data Aggregator
@@ -180,7 +180,7 @@ An organized presentation and display of a selection of artworks. For a descript
 
 ## Images
 
-A pictoral representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#images).
+A pictorial representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#images).
 
 * `id` - Unique identifier of this resource. Taken from the source system
 * `title` - Name of this resource
@@ -300,8 +300,8 @@ An item available for purchase in the museum shop For a description of all the e
 * `priority` - We are unclear as to the purpose of this numeric field
 * `price` - Number indicating how much the product costs the customer
 * `review_count` - Number indicating how many reviews this product has
-* `item_sold` - Number indiciating how many items of this product have been sold
-* `rating` - Floating number representing the average rating this product has recieved
+* `item_sold` - Number indicating how many items of this product have been sold
+* `rating` - Floating number representing the average rating this product has received
 * `category_ids` - Unique identifier of the categories associated with this product
 * `last_updated_source` - Date and time the resource was updated in the source system
 * `last_updated` - Date and time the resource was updated in the Data Aggregator
@@ -319,8 +319,8 @@ An occurrence of a program at the museum For a description of all the endpoints 
 * `type_id` - Number indicating the type of event
 * `start_at` - Date and time the event begins
 * `end_at` - Date and time the event ends
-* `resource_id` - Unique identifier of the resouce associated with this event, often the venue in which it takes place
-* `resource_title` - The name of the resouce associated with this event, often the venue in which it takes place
+* `resource_id` - Unique identifier of the resource associated with this event, often the venue in which it takes place
+* `resource_title` - The name of the resource associated with this event, often the venue in which it takes place
 * `is_after_hours` - Whether the event takes place after museum hours
 * `is_private_event` - Whether the event is open to public
 * `is_admission_required` - Whether admission is required in order to attend the event
@@ -346,7 +346,7 @@ A member of the museum
 * `date_opened` - Date and time the membership was first created
 * `date_used` - Date and time the membership was last used
 * `valid_days` - Number indicating for how many more days the membership will be valid
-* `valid_until` - Date and time of when the membership will become invald
+* `valid_until` - Date and time of when the membership will become invalid
 * `members` - An array representing each person associated with this membership. Fields include:
   * `id` - Unique identifier of this person on the membership
   * `member_type` - Number representing the type of member this person is
@@ -370,12 +370,12 @@ A member of the museum
   * `country` - The name of the country this person resides in
   * `phone` - This person's phone number
   * `fax` - This person's fax number, if available
-  * `cell` - This person's cell number, if avaiable
+  * `cell` - This person's cell number, if available
   * `email` - This person's email address, if available
   * `allow_email` - Whether this person has stated it's okay to send them email
   * `allow_mailings` - Whether this person has stated it's okay to send them postal mailings
   * `date_of_birth` - Date this person was born
-  * `age_group` - Nummber indicating this person's age group
+  * `age_group` - Number indicating this person's age group
   * `gender` - Number indicating this person's gender
 # Mobile
 
@@ -390,7 +390,7 @@ A collection of audio tour stops to form a tour. For a description of all the en
 * `intro` - Text introducing the tour
 * `weight` - Number representing this tour's sort order
 * `intro_link` - Link to the audio file of the introduction
-* `intro_transcript` - Transcipt of the introduction audio to the tour
+* `intro_transcript` - Transcript of the introduction audio to the tour
 * `last_updated_source` - Date and time the resource was updated in the source system
 * `last_updated` - Date and time the resource was updated in the Data Aggregator
 
@@ -448,7 +448,7 @@ Represents a chapter of publication. For a description of all the endpoints avai
 * `title` - Name of this resource
 * `content` - The text of this section
 * `weight` - Number representing this section's sort order
-* `depth` - Number representing how deep in the navigation heirarchy this section resides
+* `depth` - Number representing how deep in the navigation hierarchy this section resides
 * `publication` - Name of the publication this section belongs to
 * `publication_id` - Unique identifier of the publication this section belongs to
 * `last_updated_source` - Date and time the resource was updated in the source system

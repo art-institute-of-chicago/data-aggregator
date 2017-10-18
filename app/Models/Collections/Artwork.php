@@ -523,7 +523,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->place_of_origin; },
             ],
             'collection_status' => [
-                "doc" => "The works status of belonging to out collection. Either 'Permanent Collection' or 'Long-term Loan'.",
+                "doc" => "The works status of belonging to our collection. Either 'Permanent Collection' or 'Long-term Loan'.",
                 "value" => function() { return $this->collection_status; },
             ],
             'gallery' => [
@@ -563,7 +563,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->artists->pluck('citi_id')->all(); },
             ],
             'category_ids' => [
-                "doc" => "Uniqiue identifiers of the categories this work is a part of",
+                "doc" => "Unique identifiers of the categories this work is a part of",
                 "value" => function() { return $this->categories->pluck('citi_id')->all(); },
             ],
             'copyright_representative_ids' => [
@@ -589,7 +589,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->catalogues->pluck('catalogue')->all(); },
             ],
             'committee_titles' => [
-                "doc" => "List of committes which were involved in the acquisition or deaccession of this work",
+                "doc" => "List of committees which were involved in the acquisition or deaccession of this work",
                 "value" => function() { return $this->committees->pluck('committee')->all(); },
             ],
             'term_titles' => [
@@ -625,7 +625,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->publications->pluck('dsc_id')->all(); },
             ],
             'tour_ids' => [
-                "doc" => "Unique identifies of the tours this work is included in",
+                "doc" => "Unique identifiers of the tours this work is included in",
                 "value" => function() { return $this->mobileArtwork ? ( $this->mobileArtwork->stops->map( function( $stop ) {  return $stop->tour; })->pluck('mobile_id')->all() ) : []; },
             ],
         ];

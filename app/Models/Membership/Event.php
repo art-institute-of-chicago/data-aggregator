@@ -96,11 +96,11 @@ class Event extends MembershipModel
             ],
 
             'resource_id' => [
-                "doc" => "Unique identifier of the resouce associated with this event, often the venue in which it takes place",
+                "doc" => "Unique identifier of the resource associated with this event, often the venue in which it takes place",
                 "value" => function() { return $this->resource_id; },
             ],
             'resource_title' => [
-                "doc" => "The name of the resouce associated with this event, often the venue in which it takes place",
+                "doc" => "The name of the resource associated with this event, often the venue in which it takes place",
                 "value" => function() { return $this->resource_title; },
             ],
 

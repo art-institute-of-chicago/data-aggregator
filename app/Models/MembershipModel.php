@@ -62,7 +62,7 @@ class MembershipModel extends BaseModel
         $doc .= "* `date_opened` - Date and time the membership was first created\n";
         $doc .= "* `date_used` - Date and time the membership was last used\n";
         $doc .= "* `valid_days` - Number indicating for how many more days the membership will be valid\n";
-        $doc .= "* `valid_until` - Date and time of when the membership will become invald\n";
+        $doc .= "* `valid_until` - Date and time of when the membership will become invalid\n";
         $doc .= "* `members` - An array representing each person associated with this membership. Fields include:\n";
         $doc .= "  * `id` - Unique identifier of this person on the membership\n";
         $doc .= "  * `member_type` - Number representing the type of member this person is\n";
@@ -86,12 +86,12 @@ class MembershipModel extends BaseModel
         $doc .= "  * `country` - The name of the country this person resides in\n";
         $doc .= "  * `phone` - This person's phone number\n";
         $doc .= "  * `fax` - This person's fax number, if available\n";
-        $doc .= "  * `cell` - This person's cell number, if avaiable\n";
+        $doc .= "  * `cell` - This person's cell number, if available\n";
         $doc .= "  * `email` - This person's email address, if available\n";
         $doc .= "  * `allow_email` - Whether this person has stated it's okay to send them email\n";
         $doc .= "  * `allow_mailings` - Whether this person has stated it's okay to send them postal mailings\n";
         $doc .= "  * `date_of_birth` - Date this person was born\n";
-        $doc .= "  * `age_group` - Nummber indicating this person's age group\n";
+        $doc .= "  * `age_group` - Number indicating this person's age group\n";
         $doc .= "  * `gender` - Number indicating this person's gender\n";
 
         return $doc;

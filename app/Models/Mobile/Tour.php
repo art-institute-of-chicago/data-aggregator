@@ -58,7 +58,7 @@ class Tour extends MobileModel
                 "value" => function() { return $this->intro->link; },
             ],
             'intro_transcript' => [
-                "doc" => "Transcipt of the introduction audio to the tour",
+                "doc" => "Transcript of the introduction audio to the tour",
                 "value" => function() { return $this->intro->transcript; },
             ],
         ];

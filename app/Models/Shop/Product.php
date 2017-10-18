@@ -65,11 +65,11 @@ class Product extends ShopModel
                 "value" => function() { return $this->review_count; },
             ],
             'item_sold' => [
-                "doc" => "Number indiciating how many items of this product have been sold",
+                "doc" => "Number indicating how many items of this product have been sold",
                 "value" => function() { return $this->item_sold; },
             ],
             'rating' => [
-                "doc" => "Floating number representing the average rating this product has recieved",
+                "doc" => "Floating number representing the average rating this product has received",
                 "value" => function() { return $this->rating; },
             ],
             'category_ids' => [

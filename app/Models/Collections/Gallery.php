@@ -71,7 +71,7 @@ class Gallery extends CollectionsModel
                 "value" => function() { return $this->latitude .',' .$this->longitude; },
             ],
             'category_ids' => [
-                "doc" => "Uniqiue identifiers of the categories this gallery is a part of",
+                "doc" => "Unique identifiers of the categories this gallery is a part of",
                 "value" => function() { return $this->categories->pluck('citi_id')->all(); },
             ],
         ];

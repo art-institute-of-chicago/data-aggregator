@@ -7,7 +7,7 @@ use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
 /**
- * Represents a person or organization. In the API, this includes artists, copyright representives and corporate bodies.
+ * Represents a person or organization. In the API, this includes artists, copyright representatives and corporate bodies.
  */
 class Agent extends CollectionsModel
 {
@@ -68,7 +68,7 @@ class Agent extends CollectionsModel
                 "value" => function() { return $this->death_place; },
             ],
             'is_licensing_restricted' => [
-                "doc" => "Whether the use of the images of works by this artist are resticted by licensing",
+                "doc" => "Whether the use of the images of works by this artist are restricted by licensing",
                 "value" => function() { return (bool) $this->licensing_restricted; },
             ],
             'agent_type' => [
