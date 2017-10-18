@@ -3,9 +3,12 @@
 namespace App\Models\Dsc;
 
 use App\Models\DscModel;
+use App\Models\Documentable;
 
 class Figure extends DscModel
 {
+
+    use Documentable;
 
     protected $keyType = 'string';
 
@@ -44,6 +47,18 @@ class Figure extends DscModel
             'section' => $this->section ? $this->section->title : '',
             'section_id' => $this->section_dsc_id,
         ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "fig-1428-47";
 
     }
 

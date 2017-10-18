@@ -255,6 +255,17 @@ abstract class ApiController extends Controller
 
     }
 
+    public function transformer() {
+
+        return $this->transformer;
+
+    }
+
+    public function model() {
+
+        return $this->model;
+
+    }
 
     // See boot() in App\Providers\AppServiceProvider for the error() macro
     // TODO: Move these into Exceptions?

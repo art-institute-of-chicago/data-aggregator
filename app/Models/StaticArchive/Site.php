@@ -4,11 +4,16 @@ namespace App\Models\StaticArchive;
 
 use App\Models\BaseModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
+/**
+ * An archived static microsite.
+ */
 class Site extends BaseModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
     protected $primaryKey = 'site_id';
     protected $dates = ['source_created_at', 'source_modified_at'];
@@ -29,20 +34,32 @@ class Site extends BaseModel
 
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @param boolean  $withTitles
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
-            'description' => $this->description,
-            'link' => $this->link,
-            'exhibition' => $this->exhibition ? $this->exhibition->title : "",
-            'exhibition_id' => $this->exhibition_citi_id,
-            'artwork_ids' => $this->artworks->pluck('citi_id')->all(),
+            'description' => [
+                "doc" => "Explanation of what this site is",
+                "value" => function() { return $this->description; },
+            ],
+            'link' => [
+                "doc" => "URL to this site",
+                "value" => function() { return $this->link; },
+            ],
+            'exhibition' => [
+                "doc" => "The name of the exhibition this site is associated with",
+                "value" => function() { return $this->exhibition ? $this->exhibition->title : ""; },
+            ],
+            'exhibition_id' => [
+                "doc" => "Unique identifier of the exhibition this site is associated with",
+                "value" => function() { return $this->exhibition_citi_id; },
+            ],
+            'artwork_ids' => [
+                "doc" => "Unique identifiers of the artworks this site is associated with",
+                "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
+            ],
         ];
 
     }
@@ -91,6 +108,18 @@ class Site extends BaseModel
                     'type' => 'text',
                 ],
             ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "2842";
 
     }
 

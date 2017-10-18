@@ -105,8 +105,8 @@ class Request
 
         return [
             'index' => $this->index,
-            'type' => $input['type'] ?: $this->type,
-            'preference' => $input['preference'],
+            'type' => array_get( $input, 'type' ) ?: $this->type,
+            'preference' => array_get( $input, 'preference' ),
         ];
 
     }
@@ -123,7 +123,7 @@ class Request
         $input = self::getValidInput();
 
         // TODO: Handle case where no `q` param is present?
-        if( is_null( $input['q'] ) ) {
+        if( is_null( array_get( $input, 'q' ) ) ) {
             return [];
         }
 
@@ -146,10 +146,15 @@ class Request
      *
      * @return array
      */
-    public function getSearchParams( ) {
+    public function getSearchParams( $input = [] ) {
 
-        // Strip down the (top-level) params to what our thin client supports
-        $input = self::getValidInput();
+        if (!$input)
+        {
+
+            // Strip down the (top-level) params to what our thin client supports
+            $input = self::getValidInput();
+
+        }
 
         $params = array_merge(
             $this->getBaseParams( $input ),
@@ -173,14 +178,14 @@ class Request
         // Add our custom relevancy tweaks into `should`
         $params = $this->addRelevancyParams( $params, $input );
 
-        if( is_null( $input['q'] ) ) {
+        if( is_null( array_get( $input, 'q' ) ) ) {
 
             // Empy search requires special handling, e.g. no suggestions
             $params = $this->addEmptySearchParams( $params );
 
         } else {
 
-            if( is_null( $input['query'] ) ) {
+            if( is_null( array_get( $input, 'query' ) ) ) {
 
                 $params = $this->addSimpleSearchParams( $params, $input );
 
@@ -243,12 +248,12 @@ class Request
     private function getPaginationParams( array $input ) {
 
         // Elasticsearch params take precedence
-        $size = isset( $input['size'] ) ? $input['size'] : null;
-        $from = isset( $input['from'] ) ? $input['from'] : null;
+        $size = array_get( $input, 'size' ) ? $input['size'] : null;
+        $from = array_get( $input, 'from' ) ? $input['from'] : null;
 
         // If that doesn't work, attempt to convert Laravel's pagination into ES params
-        isset( $size ) ?: $size = isset( $input['limit'] ) ? $input['size'] : null;
-        isset( $from ) ?: $from = isset( $input['page'] ) ? $input['page'] * $size : null;
+        isset( $size ) ?: $size = array_get( $input, 'limit' ) ? $input['size'] : null;
+        isset( $from ) ?: $from = array_get( $input, 'page' ) ? $input['page'] * $size : null;
 
         // If not null, cast these params to int
         if( isset( $size ) ) { $size = (int) $size; }
@@ -284,7 +289,7 @@ class Request
 
         return [
             // '_source' => $input['_source'] ?? ( $default ?? self::$defaultFields ), // PHP 7
-            '_source' => isset( $input['_source'] ) ? $input['_source'] : ( isset( $default ) ? $default : self::$defaultFields ),
+            '_source' => array_get( $input, '_source' ) ? $input['_source'] : ( isset( $default ) ? $default : self::$defaultFields ),
         ];
 
     }
@@ -328,7 +333,7 @@ class Request
 
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
-                'query' => $input['q'],
+                'query' => array_get( $input, 'q' ),
                 'fuzziness' => 3,
                 'prefix_length' => 1,
                 'fields' => [
@@ -355,7 +360,7 @@ class Request
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
         $params['body']['query']['bool']['must'][] = [
-            $input['query'],
+            array_get( $input, 'query' ),
         ];
 
         return $params;
@@ -401,7 +406,7 @@ class Request
     {
 
         $params['body']['suggest'] = [
-            'text' => $input['q'],
+            'text' => array_get( $input, 'q' ),
         ];
 
         $params = $this->addAutocompleteSuggestParams( $params, $input );
@@ -424,7 +429,7 @@ class Request
     {
 
         $params['body']['suggest']['autocomplete'] = [
-            'prefix' =>  $input['q'],
+            'prefix' =>  array_get( $input, 'q' ),
             'completion' => [
                 'field' => 'suggest_autocomplete',
             ],
@@ -485,7 +490,7 @@ class Request
     {
 
         // If the user did not specify a facet parameter, facet by model
-        $facets = $input['facets'] ? explode(',', $input['facets']) : ['api_model'];
+        $facets = array_get( $input, 'facets' ) ? explode(',', $input['facets']) : ['api_model'];
 
         $aggregations = [];
 

@@ -3,9 +3,12 @@
 namespace App\Models\Dsc;
 
 use App\Models\DscModel;
+use App\Models\Documentable;
 
 class Footnote extends DscModel
 {
+
+    use Documentable;
 
     protected $keyType = 'string';
 
@@ -30,6 +33,18 @@ class Footnote extends DscModel
             'section' => $this->section ? $this->section->title : '',
             'section_id' => $this->section_dsc_id,
         ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "fn-2313-46";
 
     }
 

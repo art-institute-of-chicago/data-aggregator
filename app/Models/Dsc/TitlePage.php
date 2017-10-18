@@ -3,9 +3,12 @@
 namespace App\Models\Dsc;
 
 use App\Models\DscModel;
+use App\Models\Documentable;
 
 class TitlePage extends DscModel
 {
+
+    use Documentable;
 
     public function publication()
     {
@@ -29,6 +32,18 @@ class TitlePage extends DscModel
             'publication' => $this->publication ? $this->publication->title : '',
             'publication_id' => $this->publication_dsc_id,
         ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "7991";
 
     }
 
