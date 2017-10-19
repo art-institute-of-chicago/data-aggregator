@@ -593,7 +593,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->committees->pluck('committee')->all(); },
             ],
             'term_titles' => [
-                "doc" => "The names of the subject terms tagged for this work",
+                "doc" => "The names of the taxonomy tags for this work",
                 "value" => function() { return $this->terms->pluck('term')->all(); },
             ],
             'preferred_image_id' => [
