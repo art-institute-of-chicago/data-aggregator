@@ -451,7 +451,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->date_end; },
             ],
             'date_display' => [
-                "doc" => "Readable, free-text description of the period of time associated with the creation of this work. Written by curators and editors in house style, and is the preferred field for display on websites and apps.",
+                "doc" => "Readable, free-text description of the period of time associated with the creation of this work. This might include date terms like Dynasty, Era etc. Written by curators and editors in house style, and is the preferred field for display on websites and apps. ",
                 "value" => function() { return $this->date_display; },
             ],
             'description' => [
@@ -471,7 +471,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->department_citi_id; },
             ],
             'dimensions' => [
-                "doc" => "The size, shape, scale, and dimensions of the work. Free-form text formatted in a house style.",
+                "doc" => "The size, shape, scale, and dimensions of the work. May include multiple dimension like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.",
                 "value" => function() { return $this->dimensions; },
             ],
             'medium' => [
@@ -479,7 +479,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->medium_display; },
             ],
             'inscriptions' => [
-                "doc" => "A description of distinguishing or identifying physical markings that are a part of the work",
+                "doc" => "A description of distinguishing or identifying physical markings that are on the work",
                 "value" => function() { return $this->inscriptions; },
             ],
             'object_type' => [
@@ -503,7 +503,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->exhibition_history; },
             ],
             'provenance_text' => [
-                "doc" => "Ownership/collecting history of the work. May include names of owners, dates, and possibly methods of transfer of ownership",
+                "doc" => "Ownership/collecting history of the work. May include names of owners, dates, and possibly methods of transfer of ownership. Free-form text formatted in a house style.",
                 "value" => function() { return $this->provenance; },
             ],
             'publishing_verification_level' => [
@@ -523,7 +523,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->place_of_origin; },
             ],
             'collection_status' => [
-                "doc" => "The works status of belonging to our collection. Either 'Permanent Collection' or 'Long-term Loan'.",
+                "doc" => "The works status of belonging to our collection. Values include 'Permanent Collection', 'Ryerson Collection', and 'Long-term Loan'.",
                 "value" => function() { return $this->collection_status; },
             ],
             'gallery' => [

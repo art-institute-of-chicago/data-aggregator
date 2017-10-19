@@ -72,7 +72,7 @@ class Agent extends CollectionsModel
                 "value" => function() { return (bool) $this->licensing_restricted; },
             ],
             'agent_type' => [
-                "doc" => "Name of the type of agent, e.g., 'Artist', 'Copyright Representative', or 'Corporate Body'",
+                "doc" => "Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.",
                 "value" => function() { return $this->agentType()->getResults() ? $this->agentType()->getResults()->title : ''; },
             ],
             'agent_type_id' => [

@@ -6,7 +6,7 @@ use App\Models\ShopModel;
 use App\Models\Documentable;
 
 /**
- * Tag-like classifications of shop products
+ * Tag-like classifications of shop products.
  */
 class Category extends ShopModel
 {

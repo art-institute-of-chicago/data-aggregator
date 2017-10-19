@@ -7,7 +7,7 @@ use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
 /**
- * An occurrence of a program at the museum
+ * An occurrence of a program at the museum.
  */
 class Event extends MembershipModel
 {

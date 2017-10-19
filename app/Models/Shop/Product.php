@@ -6,7 +6,7 @@ use App\Models\ShopModel;
 use App\Models\Documentable;
 
 /**
- * An item available for purchase in the museum shop
+ * An item available for purchase in the museum shop.
  */
 class Product extends ShopModel
 {
