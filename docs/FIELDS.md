@@ -9,25 +9,25 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `main_reference_number` - Unique identifier assigned to the artwork upon acquisition
 * `date_start` - The year of the period of time associated with the creation of this work
 * `date_end` - The year of the period of time associated with the creation of this work
-* `date_display` - Readable, free-text description of the period of time associated with the creation of this work. Written by curators and editors in house style, and is the preferred field for display on websites and apps.
+* `date_display` - Readable, free-text description of the period of time associated with the creation of this work. This might include date terms like Dynasty, Era etc. Written by curators and editors in house style, and is the preferred field for display on websites and apps. 
 * `description` - Longer explanation describing the work
 * `artist_display` - Readable description of the creator of this work. Includes artist names, nationality and lifespan dates
 * `department` - Name of the curatorial department that this work belongs to
 * `department_id` - Unique identifier of the curatorial department that this work belongs to
-* `dimensions` - The size, shape, scale, and dimensions of the work. Free-form text formatted in a house style.
+* `dimensions` - The size, shape, scale, and dimensions of the work. May include multiple dimension like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.
 * `medium` - The substances or materials used in the creation of a work
-* `inscriptions` - A description of distinguishing or identifying physical markings that are a part of the work
+* `inscriptions` - A description of distinguishing or identifying physical markings that are on the work
 * `object_type` - The kind of object or work, e.g., Painting, Sculpture, Book, etc.
 * `object_type_id` - Unique identifier of the kind of object or work
 * `credit_line` - Brief statement indicating how the work came into the collection
 * `publication_history` - Bibliographic list of all the places this work has been published
 * `exhibition_history` - List of all the places this work has been exhibited
-* `provenance_text` - Ownership/collecting history of the work. May include names of owners, dates, and possibly methods of transfer of ownership
+* `provenance_text` - Ownership/collecting history of the work. May include names of owners, dates, and possibly methods of transfer of ownership. Free-form text formatted in a house style.
 * `publishing_verification_level` - Indicator of how much metadata on the work in published. Web Basic is the least amount, Web Everything is the greatest.
 * `is_public_domain` - Whether the work is in the public domain, meaning it was created before copyrights existed or has left the copyright term
 * `copyright_notice` - Statement notifying how the work is protected by copyright. Applies to the work itself, not image or other related assets.
 * `place_of_origin` - The location where the creation, design, or production of the work took place, or the original location of the work
-* `collection_status` - The works status of belonging to our collection. Either 'Permanent Collection' or 'Long-term Loan'.
+* `collection_status` - The works status of belonging to our collection. Values include 'Permanent Collection', 'Ryerson Collection', and 'Long-term Loan'.
 * `gallery` - The location of this work in our museum
 * `gallery_id` - Unique identifier of the location of this work in our museum
 * `is_in_gallery` - Whether the work is on display
@@ -44,7 +44,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `date_dates` - List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.
 * `catalogue_titles` - A catalogue raisonné is a comprehensive, annotated listing of all the known artworks by an artist. This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.
 * `committee_titles` - List of committees which were involved in the acquisition or deaccession of this work
-* `term_titles` - The names of the subject terms tagged for this work
+* `term_titles` - The names of the taxonomy tags for this work
 * `preferred_image_id` - Unique identifier of the preferred image to use to represent this work
 * `preferred_image_iiif_url` - IIIF URL of the preferred image to use to represent this work
 * `image_ids` - Unique identifiers of all the images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.
@@ -68,7 +68,7 @@ Represents a person or organization. In the API, this includes artists, copyrigh
 * `death_date` - The year this agent died
 * `death_place` - Name of the place this agent died
 * `is_licensing_restricted` - Whether the use of the images of works by this artist are restricted by licensing
-* `agent_type` - Name of the type of agent, e.g., 'Artist', 'Copyright Representative', or 'Corporate Body'
+* `agent_type` - Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.
 * `agent_type_id` - Unique identifier of the type of agent
 * `last_updated_fedora` - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
@@ -271,7 +271,7 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 
 ## Shop Categories
 
-Tag-like classifications of shop products For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#shop-categories).
+Tag-like classifications of shop products. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#shop-categories).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this resource
@@ -287,7 +287,7 @@ Tag-like classifications of shop products For a description of all the endpoints
 
 ## Products
 
-An item available for purchase in the museum shop For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#products).
+An item available for purchase in the museum shop. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#products).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this resource
@@ -312,7 +312,7 @@ An item available for purchase in the museum shop For a description of all the e
 
 ## Events
 
-An occurrence of a program at the museum For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#events).
+An occurrence of a program at the museum. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#events).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` - Name of this resource
@@ -474,3 +474,4 @@ An archived static microsite. For a description of all the endpoints available f
 
 
 
+> Generated by `php artisan docs:fields` on 2017-10-19 16:55:33
