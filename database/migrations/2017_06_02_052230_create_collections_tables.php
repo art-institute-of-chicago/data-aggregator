@@ -231,7 +231,6 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addIdsAndTitle($table, false, 'text');
             $table = $this->_addInterpretiveResourceFileds($table);
             $table->string('type')->nullable();
-            $table->boolean('preferred')->nullable();
             $table = $this->_addDates($table, false);
         });
 
@@ -249,6 +248,7 @@ class CreateCollectionsTables extends Migration
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->uuid('image_lake_guid');
             $table->foreign('image_lake_guid')->references('lake_guid')->on('images')->onDelete('cascade');
+            $table->boolean('preferred')->nullable();
         });
 
         Schema::create('exhibitions', function (Blueprint $table) {

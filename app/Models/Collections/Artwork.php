@@ -105,7 +105,7 @@ class Artwork extends CollectionsModel
     public function images()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Image');
+        return $this->belongsToMany('App\Models\Collections\Image')->withPivot('preferred');
 
     }
 
@@ -173,19 +173,13 @@ class Artwork extends CollectionsModel
         if ($source->image_guid)
         {
 
-            // $image = Image::findOrCreate($source->image_guid);
-            // $image->preferred = true;
-            // $this->images()->save($image);
-
-            $this->images()->sync([$source->image_guid], false);
-
             // https://stackoverflow.com/questions/27230672/laravel-sync-how-to-sync-an-array-and-also-pass-additional-pivot-fields
             // This is how we sync w/ an additional attribute on the pivot table
-            // $this->images()->sync([
-            //     $source->image_guid => [
-            //         'preferred' => true
-            //     ]
-            // ], false);
+            $this->images()->sync([
+                $source->image_guid => [
+                    'preferred' => true
+                ]
+            ], false);
 
         }
 
@@ -355,9 +349,7 @@ class Artwork extends CollectionsModel
             // This architecture means it would have to be the preferred one for all of them!
             // Potentially consider specifying `preferred` column on the pivot table?
             // https://laravel.com/docs/5.4/eloquent-relationships#many-to-many
-            $image = factory(\App\Models\Collections\Image::class)->make([
-                'preferred' => $preferred,
-            ]);
+            $image = factory(\App\Models\Collections\Image::class)->make();
             $this->images()->save($image);
 
             if ($preferred || $hasPreferred) $hasPreferred = true;
@@ -637,19 +629,17 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifier of the preferred image to use to represent this work",
                 "type" => "number",
                 "value" => function() {
-                    $preferred_image = $this->images->first( function( $image ) {
-                        return $image->preferred;
-                    });
-                    return $preferred_image ? $preferred_image->lake_guid : null; },
+                    $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
+                    return $preferred_image ? $preferred_image->lake_guid : null;
+                },
             ],
             'preferred_image_iiif_url' => [
                 "doc" => "IIIF URL of the preferred image to use to represent this work",
                 "type" => "string",
                 "value" => function() {
-                    $preferred_image = $this->images->first( function( $image ) {
-                        return $image->preferred;
-                    });
-                    return $preferred_image ? $preferred_image->iiif_url : null; },
+                    $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
+                    return $preferred_image ? $preferred_image->iiif_url : null;
+                },
             ],
             'image_ids' => [
                 "doc" => "Unique identifiers of all the images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.",
