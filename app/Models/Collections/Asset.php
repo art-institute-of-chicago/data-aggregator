@@ -76,23 +76,28 @@ class Asset extends CollectionsModel
 
                 'description' => [
                     "doc" => "Explanation of what this asset is",
+                    "type" => "string",
                     "value" => function() { return $this->description; },
                 ],
                 'content' => [
                     "doc" => "Text of URL of the contents of this asset",
+                    "type" => "string",
                     "value" => function() { return $this->content; },
                 ],
                 // @TODO Review whether to default to empty string or null.
                 'artist' => [
                     "doc" => "Name of the artist associated with this asset",
+                    "type" => "string",
                     "value" => function() { return $this->artist()->getResults() ? $this->artist()->getResults()->title : ''; },
                 ],
                 'artist_id' => [
                     "doc" => "Unique identifier of the artist associated with this asset",
+                    "type" => "number",
                     "value" => function() { return $this->agent_citi_id; },
                 ],
                 'category_ids' => [
                     "doc" => "Unique identifier of the categories associated with this asset",
+                    "type" => "array",
                     "value" => function() { return $this->categories->pluck('citi_id')->all(); },
                 ],
             ],

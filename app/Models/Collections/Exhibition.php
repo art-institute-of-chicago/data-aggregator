@@ -90,42 +90,52 @@ class Exhibition extends CollectionsModel
         return [
             'description' => [
                 "doc" => "Explanation of what this exhibition is",
+                "type" => "string",
                 "value" => function() { return $this->description; },
             ],
             'type' => [
                 "doc" => "The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues, or whether it was",
+                "type" => "string",
                 "value" => function() { return $this->type; },
             ],
             'department' => [
                 "doc" => "The name of the department that primarily organized the exhibition",
+                "type" => "string",
                 "value" => function() { return $this->department()->getResults() ? $this->department()->getResults()->title : ''; },
             ],
             'department_id' => [
                 "doc" => "Unique identifier of the department that primarily organized the exhibition",
+                "type" => "number",
                 "value" => function() { return $this->department_citi_id; },
             ],
             'gallery' => [
                 "doc" => "The name of the gallery that mainly housed the exhibition",
+                "type" => "string",
                 "value" => function() { return $this->gallery()->getResults() ? $this->gallery()->getResults()->title : ''; },
             ],
             'gallery_id' => [
                 "doc" => "Unique identifier of the gallery that mainly housed the exhibition",
+                "type" => "number",
                 "value" => function() { return $this->gallery_citi_id; },
             ],
             'dates' => [
                 "doc" => "A readable string of when the exhibition took place",
+                "type" => "string",
                 "value" => function() { return $this->exhibition_dates; },
             ],
             'is_active' => [
                 "doc" => "Whether the exhibition is active",
+                "type" => "boolean",
                 "value" => function() { return (bool) $this->active; },
             ],
             'artwork_ids' => [
                 "doc" => "Unique identifiers of the artworks that were part of the exhibition",
+                "type" => "array",
                 "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
             ],
             'venue_ids' => [
                 "doc" => "Unique identifiers of the venue agent records representing who hosted the exhibition",
+                "type" => "array",
                 "value" => function() { return $this->venues->pluck('citi_id')->all(); },
             ],
         ];

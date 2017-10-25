@@ -49,30 +49,37 @@ class TourStop extends MobileModel
             // TODO: Determine if tour stops have dedicated titles?
             'title' => [
                 "doc" => "Name of this tour stop",
+                "type" => "string",
                 "value" => function() { return $this->artwork->title; },
             ],
             'artwork' => [
                 "doc" => "Name of the artwork for this tour stop",
+                "type" => "string",
                 "value" => function() { return $this->artwork->title; },
             ],
             'artwork_id' => [
                 "doc" => "Unique identifier of the artwork for this tour stop",
+                "type" => "number",
                 "value" => function() { return $this->artwork->artwork->id; },
             ],
             'mobile_sound' => [
                 "doc" => "URL to the audio file for this tour stop",
+                "type" => "url",
                 "value" => function() { return $this->sound->link; },
             ],
             'mobile_sound_id' => [
                 "doc" => "Unique identifier of the audio file for this tour stop",
+                "type" => "number",
                 "value" => function() { return $this->sound->id; },
             ],
             'weight' => [
                 "doc" => "Number representing this tour stop's sort order",
+                "type" => "number",
                 "value" => function() { return $this->weight; },
             ],
             'description' => [
                 "doc" => "Explanation of what this tour stop is",
+                "type" => "string",
                 "value" => function() { return $this->description; },
             ],
         ];

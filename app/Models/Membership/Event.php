@@ -83,24 +83,29 @@ class Event extends MembershipModel
 
             'type_id' => [
                 "doc" => "Number indicating the type of event",
+                "type" => "number",
                 "value" => function() { return $this->type_id; },
             ],
 
             'start_at' => [
                 "doc" => "Date and time the event begins",
+                "type" => "ISO 8601 date and time",
                 "value" => function() { return $this->start_at->toIso8601String(); },
             ],
             'end_at' => [
                 "doc" => "Date and time the event ends",
+                "type" => "ISO 8601 date and time",
                 "value" => function() { return $this->end_at->toIso8601String(); },
             ],
 
             'resource_id' => [
                 "doc" => "Unique identifier of the resource associated with this event, often the venue in which it takes place",
+                "type" => "number",
                 "value" => function() { return $this->resource_id; },
             ],
             'resource_title' => [
                 "doc" => "The name of the resource associated with this event, often the venue in which it takes place",
+                "type" => "number",
                 "value" => function() { return $this->resource_title; },
             ],
 
@@ -108,23 +113,28 @@ class Event extends MembershipModel
             // TODO: Use $casts throughout the codebase
             'is_after_hours' => [
                 "doc" => "Whether the event takes place after museum hours",
+                "type" => "boolean",
                 "value" => function() { return (bool) $this->is_after_hours; },
             ],
             'is_private_event' => [
                 "doc" => "Whether the event is open to public",
+                "type" => "boolean",
                 "value" => function() { return (bool) $this->is_private_event; },
             ],
             'is_admission_required' => [
                 "doc" => "Whether admission is required in order to attend the event",
+                "type" => "boolean",
                 "value" => function() { return (bool) $this->is_admission_required; },
             ],
 
             'available' => [
                 "doc" => "Number indicating how many tickets are available for the event",
+                "type" => "number",
                 "value" => function() { return $this->available; },
             ],
             'total_capacity' => [
                 "doc" => "Number indicating the total number of tickets that can be sold for the event",
+                "type" => "number",
                 "value" => function() { return $this->total_capacity; },
             ],
 

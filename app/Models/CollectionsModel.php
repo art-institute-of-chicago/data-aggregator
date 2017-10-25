@@ -111,10 +111,12 @@ class CollectionsModel extends BaseModel
         $ret = [
             'id' => [
                 'doc' => "Unique identifier of this resource. Taken from the source system",
+                "type" => "number",
                 'value' => function() { return $this->getAttributeValue($this->getKeyName()); },
             ],
             'title' => [
                 'doc' => "Name of this resource",
+                "type" => "string",
                 'value' => function() { return $this->title; },
             ]
         ];
@@ -126,6 +128,7 @@ class CollectionsModel extends BaseModel
                                [
                                    'lake_guid' => [
                                        'doc' => "Unique UUID of this resource in LAKE, our digital asset management system",
+                                       "type" => "uuid",
                                        'value' => function() { return $this->lake_guid; },
                                    ]
                                ]
@@ -145,6 +148,7 @@ class CollectionsModel extends BaseModel
                                    [
                                        'last_updated_citi' => [
                                            'doc' => "Date and time the resource was updated in CITI, our collections management system",
+                                           "type" => "ISO 8601 date and time",
                                            'value' => function() { return $this->citi_modified_at->toIso8601String(); },
                                        ]
                                    ]);
@@ -155,14 +159,17 @@ class CollectionsModel extends BaseModel
                                [
                                    'last_updated_fedora' => [
                                            'doc' => "Date and time the resource was updated in LAKE, our digital asset management system",
+                                           "type" => "ISO 8601 date and time",
                                            'value' => function() { return $this->source_modified_at ? $this->source_modified_at->toIso8601String() : NULL; },
                                    ],
                                    'last_updated_source' => [
                                            'doc' => "Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data",
+                                           "type" => "string",
                                            'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
                                    ],
                                    'last_updated' => [
                                            'doc' => "Date and time the resource was updated in the Data Aggregator",
+                                           "type" => "ISO 8601 date and time",
                                            'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
                                    ],
                                ]

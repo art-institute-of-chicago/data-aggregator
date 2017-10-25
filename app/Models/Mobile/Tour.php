@@ -39,26 +39,32 @@ class Tour extends MobileModel
         return [
             'image' => [
                 "doc" => "The main image for the tour",
+                "type" => "url",
                 "value" => function() { return $this->image; },
             ],
             'description' => [
                 "doc" => "Explanation of what the tour is",
+                "type" => "string",
                 "value" => function() { return $this->description; },
             ],
             'intro' => [
                 "doc" => "Text introducing the tour",
+                "type" => "string",
                 "value" => function() { return $this->intro_text; },
             ],
             'weight' => [
                 "doc" => "Number representing this tour's sort order",
+                "type" => "number",
                 "value" => function() { return $this->weight; },
             ],
             'intro_link' => [
                 "doc" => "Link to the audio file of the introduction",
+                "type" => "url",
                 "value" => function() { return $this->intro->link; },
             ],
             'intro_transcript' => [
                 "doc" => "Transcript of the introduction audio to the tour",
+                "type" => "string",
                 "value" => function() { return $this->intro->transcript; },
             ],
         ];

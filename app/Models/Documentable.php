@@ -149,7 +149,7 @@ trait Documentable
         foreach ($this->transformMapping() as $key => $array)
         {
 
-            $doc .= "* `" .$key ."` - " .$array['doc'] ."\n";
+            $doc .= "* `" .$key ."` " .(array_key_exists("type", $array) ? "*" .$array['type'] ."* " : "") ."- " .$array['doc'] ."\n";
 
         }
 

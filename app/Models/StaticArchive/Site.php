@@ -42,22 +42,27 @@ class Site extends BaseModel
         return [
             'description' => [
                 "doc" => "Explanation of what this site is",
+                "type" => "string",
                 "value" => function() { return $this->description; },
             ],
             'link' => [
                 "doc" => "URL to this site",
+                "type" => "url",
                 "value" => function() { return $this->link; },
             ],
             'exhibition' => [
                 "doc" => "The name of the exhibition this site is associated with",
+                "type" => "string",
                 "value" => function() { return $this->exhibition ? $this->exhibition->title : ""; },
             ],
             'exhibition_id' => [
                 "doc" => "Unique identifier of the exhibition this site is associated with",
+                "type" => "number",
                 "value" => function() { return $this->exhibition_citi_id; },
             ],
             'artwork_ids' => [
                 "doc" => "Unique identifiers of the artworks this site is associated with",
+                "type" => "array",
                 "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
             ],
         ];

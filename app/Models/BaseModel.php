@@ -158,6 +158,7 @@ class BaseModel extends Model
             ],
             'title' => [
                 'doc' => "Name of this resource",
+                "type" => "string",
                 'value' => function() { return $this->title; },
             ]
         ];
@@ -171,10 +172,12 @@ class BaseModel extends Model
                                [
                                    'last_updated_source' => [
                                            'doc' => "Date and time the resource was updated in the source system",
+                                           "type" => "string",
                                            'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
                                    ],
                                    'last_updated' => [
                                            'doc' => "Date and time the resource was updated in the Data Aggregator",
+                                           "type" => "string",
                                            'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
                                    ],
                                ]

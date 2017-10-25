@@ -50,22 +50,27 @@ class Category extends ShopModel
         return [
             'link' => [
                 "doc" => "URL to the shop page for this category",
+                "type" => "url",
                 "value" => function() { return $this->link; },
             ],
             'parent_id' => [
                 "doc" => "Unique identifier of this category's parent",
+                "type" => "number",
                 "value" => function() { return $this->parent_category_shop_id; },
             ],
             'type' => [
                 "doc" => "The type of category, e.g., sale, place-of-origin, style, etc.",
+                "type" => "string",
                 "value" => function() { return $this->type; },
             ],
             'source_id' => [
                 "doc" => "The identifier from the source system. This is only unique relative to the type of category, so we don't use this as the primary identifier.",
+                "type" => "number",
                 "value" => function() { return $this->source_id; },
             ],
             'child_ids' => [
                 "doc" => "Unique identifier of this category's children",
+                "type" => "array",
                 "value" => function() { return $this->children->pluck('shop_id')->all(); },
             ],
         ];
