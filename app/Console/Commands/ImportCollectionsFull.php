@@ -33,30 +33,18 @@ class ImportCollectionsFull extends AbstractImportCommand
         else
         {
 
-            // @TODO Replace with real endpoint when it becomes available
             $this->import('agent-types');
-
-            $this->import('artists');
-            //$this->import('copyright-representative');
-            //$this->import('corporate-body');
-
+            $this->import('agents');
             $this->import('departments');
-
             $this->import('object-types');
-
             $this->import('categories');
-
             $this->import('galleries');
-
             $this->import('artworks');
             $this->import('links');
             $this->import('videos');
             $this->import('texts');
-
-            // @TODO Replace with real endpoint when it becomes available
-            $this->import('exhibitions');
-
             $this->import('sounds');
+            $this->import('exhibitions');
 
         }
 

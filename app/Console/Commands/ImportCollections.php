@@ -15,15 +15,18 @@ class ImportCollections extends AbstractImportCommand
     public function handle()
     {
 
-        $this->import('artists');
+        $this->import('agent-types');
+        $this->import('agents');
         $this->import('departments');
+        $this->import('object-types');
         $this->import('categories');
-        //$this->import('galleries');
+        $this->import('galleries');
         $this->import('artworks');
         $this->import('links');
         $this->import('videos');
         $this->import('texts');
         $this->import('sounds');
+        $this->import('exhibitions');
 
     }
 
