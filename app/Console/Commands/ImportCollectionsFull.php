@@ -34,23 +34,19 @@ class ImportCollectionsFull extends AbstractImportCommand
         {
 
             // @TODO Replace with real endpoint when it becomes available
-            $this->seed( \App\Models\Collections\AgentType::class, 'AgentTypesTableSeeder' );
+            $this->import('agent-types');
 
-            // @TODO Replace with agent endpoint when it becomes available
-            $this->seed( \App\Models\Collections\Agent::class, 'AgentsTableSeeder', 'artists' );
+            $this->import('artists');
+            //$this->import('copyright-representative');
+            //$this->import('corporate-body');
 
             $this->import('departments');
 
-            // @TODO Replace with real endpoint when it becomes available
-            $this->seed( \App\Models\Collections\ObjectType::class, 'ObjectTypesTableSeeder' );
+            $this->import('object-types');
 
             $this->import('categories');
 
-            // @TODO Galleries are available, but break due to Redmine bug #1911 - Gallery Floor isn't always a number
-            //$this->import('galleries');
-
-            // @TODO Replace with real endpoint when it becomes available
-            $this->seed( \App\Models\Collections\Gallery::class, 'GalleriesTableSeeder' );
+            $this->import('galleries');
 
             $this->import('artworks');
             $this->import('links');
@@ -58,7 +54,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             $this->import('texts');
 
             // @TODO Replace with real endpoint when it becomes available
-            $this->seed( \App\Models\Collections\Exhibition::class, 'ExhibitionsTableSeeder' );
+            $this->import('exhibitions');
 
             $this->import('sounds');
 
@@ -80,11 +76,6 @@ class ImportCollectionsFull extends AbstractImportCommand
         if ($model::count() > 0)
         {
             return false;
-        }
-
-        if( $endpoint )
-        {
-            $this->import( $endpoint );
         }
 
         \Artisan::call("db:seed", ['--class' => $seeder]);
