@@ -184,13 +184,8 @@ class Artwork extends CollectionsModel
         if ($source->department_id)
         {
 
-            // $department = Department::findOrCreate($source->department_id);
-            // $this->department()->associate($department);
-
-            $this->department_citi_id = $source->department_id;
-
             // Sync is unnecessary here, since it's just a column on this table
-            // $this->department()->sync([$source->department_id], false);
+            $this->department_citi_id = $source->department_id;
 
         }
 
@@ -231,11 +226,12 @@ class Artwork extends CollectionsModel
             $id = $agentIds[array_rand($agentIds)];
 
             if (!in_array($id, $ids)) {
-                $this->copyrightRepresentatives()->attach($id);
                 $ids[] = $id;
             }
 
         }
+
+        $this->copyrightRepresentatives()->sync($ids, false);
 
         return $this;
 
