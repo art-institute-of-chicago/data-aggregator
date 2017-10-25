@@ -11,14 +11,16 @@ use Elasticsearch;
 
 class SearchController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Search Controller
     |--------------------------------------------------------------------------
     |
-    | This controller is responsible for handling password reset emails and
-    | includes a trait which assists in sending these notifications from
-    | your application to your users. Feel free to explore this trait.
+    | This controller provides a thin API on top of Elasticsearch. It largely
+    | follows ES Request Body conventions, but limits what kind of queries can
+    | be performed, for security and performance reasons. Additionally, it
+    | applies our own business logic to tweak relevancy.
     |
     */
 
@@ -26,124 +28,92 @@ class SearchController extends Controller
     /**
      * General entry point for search. There are three modes:
      *
-     * 1. Don't pass any params to view all works, magically sorted.
+     * 1. Don't pass `q` to view all works, magically sorted.
      * 2. Pass `q` param w/ string for a simple, optimized search.
-     * 3. Pass `q` param *and* subset of ES Request Body params.
+     * 3. Pass `q` param *and* `query` param, which follows ES Request Body conventions.
+     *
+     * The most important distinction is between "empty" and "non-empty" queries.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html
      *
      * @return void
      */
-    public function search(HttpRequest $httpRequest)
+    public function search($type = null, $input = [])
     {
 
-        $response = [];
-        try {
-            $response = $this->request($httpRequest);
-        } catch (\Exception $e) {
-            return response( $e->getMessage(), $e->getCode() )->header('Content-Type', 'application/json');
-        }
+        $searchRequest = new SearchRequest( $type );
 
-        // return $this->jsonQuery();
+        $params = $searchRequest->getSearchParams($input);
 
-        return $this->response($response, $this->simple($httpRequest));
+        $results = $this->query( $params );
+
+        $searchResponse = new SearchResponse( $results, $params );
+
+        return $searchResponse->getSearchResponse();
 
     }
 
 
     /**
-     * Autocomplete entry point for search.
+     * Return only the `suggest` field of search. This method optimizes both our request
+     * to Elasticsearch and the outgoing results for the minimum required to provide
+     * autocomplete suggestions. It accepts the same params as the `search` method,
+     * though most of them will not be used.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-completion.html
      *
      * @return void
      */
-    public function autocomplete(HttpRequest $httpRequest)
+    public function autocomplete($type = null)
     {
 
-        $response = [];
+        $searchRequest = new SearchRequest( $type );
+
+        $params = $searchRequest->getAutocompleteParams();
+
+        $results = $this->query( $params );
+
+        $searchResponse = new SearchResponse( $results, $params );
+
+        return $searchResponse->getAutocompleteResponse();
+
+    }
+
+
+    /**
+     * Perform a query against Elasticsearch endpoint
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    private function query( array $params )
+    {
+
         try {
-            $response = $this->request($httpRequest); //, $searchRequest->autocompleteParams());
+
+            $searchResponse = Elasticsearch::search( $params );
+
         } catch (\Exception $e) {
+
             return response( $e->getMessage(), $e->getCode() )->header('Content-Type', 'application/json');
-        }
-
-        //return $this->jsonQuery();
-
-        return $this->response($response, $this->simple($httpRequest));
-
-    }
-
-
-    /**
-     * Perform the search against ES enpoint
-     *
-     * @param HttpRequest  The incoming request to this controller
-     * @return array  The Elasticsearch response
-     */
-    private function request(HttpRequest $httpRequest, $params = [])
-    {
-
-        $searchRequest = new SearchRequest($httpRequest);
-        $type = $searchRequest->type();
-        
-        if (empty($params))
-        {
-
-            $params = $searchRequest->params();
 
         }
 
-        // Keeping this here for debug purposes:
-        // return response()->json( $params );
-
-        return Elasticsearch::search( $params );
-    }
-
-
-    /**
-     * Parse the response from the search against ES enpoint
-     *
-     * @param array  The response as it came back from Elasitcsearch
-     * @return array  An API-friendly response array
-     */
-    private function response(array $response, $simple = false)
-    {
-
-        $resp = new SearchResponse($response);
-
-        $resp->simple = $simple;
-
-        return $resp->response();
+        return $searchResponse;
 
     }
 
 
     /**
-     * Decide if the incoming request is a simple query
+     * Respond with the actual JSON query sent by the official ES PHP client
      *
-     * @param HttpRequest  The incoming request to this controller
-     * @return boolean
+     * @return string
      */
-    private function simple($httpRequest)
+    private function showQuery()
     {
 
-        $searchRequest = new SearchRequest($httpRequest);
-        $input = $searchRequest->validInput();
-        if( !is_null( $input['q'] ) ) {
-            return false;
-        }
-        return true;
-    }
-
-
-    /**
-     * The actual query sent by the official ES PHP client
-     *
-     * @return string  Json string
-     */
-    private function jsonQuery()
-    {
-
-        return response()->json( json_decode( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'] ) );
+        return response( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'] )->header('Content-Type', 'application/json');
 
     }
 

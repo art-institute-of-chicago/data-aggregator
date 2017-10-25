@@ -3,11 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Http\Transformers\ApiSerializer;
-use ScoutEngines\Elasticsearch\ElasticsearchEngine;
-use Laravel\Scout\EngineManager;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
                 $paginator = [
                     'total' => $collection->total(),
                     'limit' => (int) $collection->perPage(),
-                    'offset' => $collection->currentPage() - 1,
+                    'offset' => (int) $collection->perPage() * ( $collection->currentPage() - 1 ),
                     'total_pages' => $collection->lastPage(),
                     'current_page' => $collection->currentPage(),
                 ];
@@ -90,11 +88,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
-        $this->app->singleton(\Solarium\Client::class, function ($app) {
-            // First endpoint is used by default
-            return new \Solarium\Client( config('solarium') );
-        });
 
     }
 }

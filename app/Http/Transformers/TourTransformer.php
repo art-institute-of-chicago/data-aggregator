@@ -7,6 +7,8 @@ use App\Models\Mobile\Tour;
 class TourTransformer extends ApiTransformer
 {
 
+    public $excludeDates = true;
+
     /**
      * List of resources possible to include
      *

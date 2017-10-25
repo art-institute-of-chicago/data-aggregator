@@ -4,11 +4,16 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
+/**
+ * A binary representation of a collections resource, like an artwork, artist, exhibition, etc.
+ */
 class Asset extends CollectionsModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
     protected $primaryKey = 'lake_guid';
     protected $keyType = 'string';
@@ -39,7 +44,7 @@ class Asset extends CollectionsModel
 
     }
 
-    public function attachFrom($source)
+    public function attachFrom($source, $fake = true)
     {
 
         if ($source->artist_id)
@@ -55,21 +60,41 @@ class Asset extends CollectionsModel
     }
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return array_merge(
             [
-                'description' => $this->description,
-                'content' => $this->content,
-                // @TODO Review whether to default to empty string or null. Solr indexes null as empty string!
-                'artist' => $this->artist()->getResults() ? $this->artist()->getResults()->title : '',
-                'artist_id' => $this->agent_citi_id,
-                'category_ids' => $this->categories->pluck('citi_id')->all(),
+                // @TODO Make Images non-assets on CDS and DA? Currently, these transformations aren't defensive,
+                // i.e. if these fields are missing from the CDS response, this will throw an error.
+
+                // Potential defensive approach:
+                // 'description' => isset( $this->description ) ? $this->description : null,
+                // 'content' => isset( $this->content ) ? $this->content : null,
+
+                'description' => [
+                    "doc" => "Explanation of what this asset is",
+                    "value" => function() { return $this->description; },
+                ],
+                'content' => [
+                    "doc" => "Text of URL of the contents of this asset",
+                    "value" => function() { return $this->content; },
+                ],
+                // @TODO Review whether to default to empty string or null.
+                'artist' => [
+                    "doc" => "Name of the artist associated with this asset",
+                    "value" => function() { return $this->artist()->getResults() ? $this->artist()->getResults()->title : ''; },
+                ],
+                'artist_id' => [
+                    "doc" => "Unique identifier of the artist associated with this asset",
+                    "value" => function() { return $this->agent_citi_id; },
+                ],
+                'category_ids' => [
+                    "doc" => "Unique identifier of the categories associated with this asset",
+                    "value" => function() { return $this->categories->pluck('citi_id')->all(); },
+                ],
             ],
             $this->transformAsset()
         );

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Membership\Member;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class MembersController extends ApiController
 {
@@ -11,45 +11,65 @@ class MembersController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Collections\Member  $member
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @param  int $zip
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $memberId, $zip)
+    public function show(Request $request, $id)
     {
 
-        if ($request->method() != 'GET')
+        $zip = $request->input('zip');
+        $email = $request->input('email');
+        $phone = $request->input('phone');
+
+        if( !( $zip || $email || $phone ) )
         {
-
-            $this->respondMethodNotAllowed();
-
+            return $this->respondInvalidSyntax('Missing parameters', "Please provide at least one of the following: zip, email, or phone.");
         }
 
-        try
-        {
-            if (intval($memberId) <= 0)
-            {
-                return $this->respondInvalidSyntax('Invalid identifier', "The member identifier should be a number. Please ensure you're passing the correct source identifier and try again.");
-            }
+        $url = env('EVENTS_DATA_SERVICE_URL', 'http://localhost');
+        $url .= "/members/{$id}?zip={$zip}&email={$email}&phone={$phone}";
 
-            if (!$zip)
-            {
-                return $this->respondInvalidSyntax('Invalid postal code', "The member's postal code must be passed. Please provide the postal code and try again.");
-            }
-
-            $item = Member::find($memberId);
-
-            if (!$item)
-            {
-                return $this->respondNotFound('Member not found', "The member you requested cannot be found. Please ensure you're passing the source identifier and try again.");
-            }
-
-            return response()->item($item, new \App\Http\Transformers\MemberTransformer);
-        }
-        catch(\Exception $e)
-        {
-            return $this->respondFailure($e->getMessage());
-        }
+        return response()->json( $this->query( $url ) );
 
     }
+
+
+    /**
+     * Retrieving a list of members is forbidden.
+     *
+     * @TODO We haven't actually defined this route, but I thought it best to
+     * override the inherited method. We should handle the `NotFoundHttpException`
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        return $this->respondForbidden();
+    }
+
+
+    private function query($url)
+    {
+
+        $ch = curl_init();
+
+        curl_setopt ($ch, CURLOPT_URL, $url);
+        curl_setopt ($ch, CURLOPT_HEADER, 0);
+
+        ob_start();
+
+        curl_exec ($ch);
+        curl_close ($ch);
+        $string = ob_get_contents();
+
+        ob_end_clean();
+
+        return json_decode($string);
+
+    }
+
 
 }

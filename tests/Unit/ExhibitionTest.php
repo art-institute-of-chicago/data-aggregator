@@ -2,10 +2,6 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 use App\Models\Collections\Exhibition;
 use App\Models\Collections\Gallery;
 use App\Models\Collections\Department;
@@ -16,6 +12,12 @@ use App\Models\Collections\Agent;
 class ExhibitionTest extends ApiTestCase
 {
 
+    protected $model = Exhibition::class;
+
+    protected $route = 'exhibitions';
+
+    protected $keys = ['lake_guid'];
+
     public function setUp()
     {
 
@@ -25,70 +27,6 @@ class ExhibitionTest extends ApiTestCase
         $this->times(5)->make(Agent::class);
 
     }
-
-    /** @test */
-    public function it_fetches_all_exhibitions()
-    {
-
-        $resources = $this->it_fetches_all(Exhibition::class, 'exhibitions');
-
-        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
-
-    }
-
-    /** @test */
-    public function it_fetches_a_single_exhibition()
-    {
-
-        $resource = $this->it_fetches_a_single(Exhibition::class, 'exhibitions');
-
-        $this->assertArrayHasKeys($resource, ['lake_guid']);
-
-    }
-
-    /** @test */
-    public function it_fetches_multiple_exhibitions()
-    {
-
-        $resources = $this->it_fetches_multiple(Exhibition::class, 'exhibitions');
-
-        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
-
-    }
-
-
-    /** @test */
-    public function it_400s_if_nonnumerid_nonuuid_is_passed()
-    {
-
-        $this->it_400s(Exhibition::class, 'exhibitions');
-
-    }
-
-    /** @test */
-    public function it_403s_if_limit_is_too_high()
-    {
-
-        $this->it_403s(Exhibition::class, 'exhibitions');
-
-    }
-
-    /** @test */
-    public function it_404s_if_not_found()
-    {
-
-        $this->it_404s(Exhibition::class, 'exhibitions');
-
-    }
-
-    /** @test */
-    public function it_405s_if_a_request_is_posted()
-    {
-
-        $this->it_405s(Exhibition::class, 'exhibitions');
-
-    }
-
 
     /** @test */
     public function it_fetches_artworks_for_an_exhibition()

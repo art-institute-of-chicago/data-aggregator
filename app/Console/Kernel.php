@@ -15,6 +15,10 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\ImportCollectionsFull::class,
         Commands\ImportCollections::class,
+        Commands\ImportEssentials::class,
+        Commands\ImportEventsFull::class,
+        Commands\ImportEvents::class,
+        Commands\ImportMobile::class,
         Commands\ScoutImportOne::class,
         Commands\ScoutImportAll::class,
         Commands\ScoutFlushAll::class,
@@ -24,6 +28,8 @@ class Kernel extends ConsoleKernel
         Commands\UninstallSearch::class,
         Commands\ReindexSearch::class,
         Commands\AliasSearch::class,
+        Commands\CreateEndpointDocs::class,
+        Commands\CreateFieldsDocs::class,
     ];
 
     /**
@@ -46,6 +52,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        require base_path('routes/console.php');
+        //
     }
 }

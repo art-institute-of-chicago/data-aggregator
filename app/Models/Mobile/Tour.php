@@ -4,11 +4,16 @@ namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
+/**
+ * A collection of audio tour stops to form a tour.
+ */
 class Tour extends MobileModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
     public function intro()
     {
@@ -20,27 +25,42 @@ class Tour extends MobileModel
     public function stops()
     {
 
-        return $this->hasMany('App\Models\Mobile\TourStop');
+        return $this->hasMany('App\Models\Mobile\TourStop', 'tour_mobile_id');
 
     }
 
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @param boolean  $withTitles
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
-            'image' => $this->image,
-            'description' => $this->description,
-            'intro' => $this->intro_text,
-            'weight' => $this->weight,
-            'intro_link' => $this->intro->link,
-            'intro_transcript' => $this->intro->transcript,
+            'image' => [
+                "doc" => "The main image for the tour",
+                "value" => function() { return $this->image; },
+            ],
+            'description' => [
+                "doc" => "Explanation of what the tour is",
+                "value" => function() { return $this->description; },
+            ],
+            'intro' => [
+                "doc" => "Text introducing the tour",
+                "value" => function() { return $this->intro_text; },
+            ],
+            'weight' => [
+                "doc" => "Number representing this tour's sort order",
+                "value" => function() { return $this->weight; },
+            ],
+            'intro_link' => [
+                "doc" => "Link to the audio file of the introduction",
+                "value" => function() { return $this->intro->link; },
+            ],
+            'intro_transcript' => [
+                "doc" => "Transcript of the introduction audio to the tour",
+                "value" => function() { return $this->intro->transcript; },
+            ],
         ];
 
     }
@@ -72,6 +92,18 @@ class Tour extends MobileModel
                     'type' => 'text',
                 ],
             ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "2280";
 
     }
 

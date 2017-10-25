@@ -4,11 +4,16 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
+/**
+ * Represents a work of art in our collections.
+ */
 class Artwork extends CollectionsModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
@@ -111,27 +116,6 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function mobileSounds()
-    {
-
-        return $this->belongsToMany('App\Models\Mobile\Sound', 'artwork_mobile_app_sound', 'artwork_citi_id', 'mobile_app_sound_mobile_id');
-
-    }
-
-    public function tourStops()
-    {
-
-        return $this->hasMany('App\Models\Mobile\TourStop');
-
-    }
-
-    public function tours()
-    {
-
-        return $this->belongsToMany('App\Models\Mobile\Tour', 'tour_stops');
-
-    }
-
     public function publications()
     {
 
@@ -139,7 +123,7 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function getFillFieldsFrom($source)
+    public function getFillFieldsFrom($source, $fake = true)
     {
 
         return [
@@ -157,12 +141,12 @@ class Artwork extends CollectionsModel
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
             'provenance' => $source->provenance,
-            'description' => 'fake ' .$this->faker->paragraphs(5, true),
-            'publishing_verification_level' => 'fake ' .$this->faker->randomElement(['Web Basic', 'Web Cataloged', 'Web Everything']),
-            'is_public_domain' => $this->faker->boolean,
+            'description' => $fake ? 'fake ' .$this->faker->paragraphs(5, true) : null,
+            'publishing_verification_level' => $fake ? 'fake ' .$this->faker->randomElement(['Web Basic', 'Web Cataloged', 'Web Everything']) : null,
+            'is_public_domain' => $fake ? $this->faker->boolean : null,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
-            'place_of_origin' => 'fake ' .$this->faker->country,
-            'collection_status' => 'fake ' .$this->faker->randomElement(['Permanent Collection', 'Long-term Loan']),
+            'place_of_origin' => $fake ? 'fake ' .$this->faker->country : null,
+            'collection_status' => $fake ? 'fake ' .$this->faker->randomElement(['Permanent Collection', 'Long-term Loan']) : null,
             'department_citi_id' => $source->department_id,
             //'object_type_citi_id' => ,
             //'gallery_citi_id' => ,
@@ -173,53 +157,83 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function attachFrom($source)
+    public function attachFrom($source, $fake = true)
     {
 
         if ($source->creator_id)
         {
 
-            Artist::findOrCreate($source->creator_id);
-            $this->artists()->attach($source->creator_id);
+            // Artist::findOrCreate($source->creator_id);
+            // $this->artists()->attach($source->creator_id);
+
+            $this->artists()->sync([$source->creator_id], false);
 
         }
 
-        // $source->image_guid
+        if ($source->image_guid)
+        {
+
+            // $image = Image::findOrCreate($source->image_guid);
+            // $image->preferred = true;
+            // $this->images()->save($image);
+
+            $this->images()->sync([$source->image_guid], false);
+
+            // https://stackoverflow.com/questions/27230672/laravel-sync-how-to-sync-an-array-and-also-pass-additional-pivot-fields
+            // This is how we sync w/ an additional attribute on the pivot table
+            // $this->images()->sync([
+            //     $source->image_guid => [
+            //         'preferred' => true
+            //     ]
+            // ], false);
+
+        }
+
 
         if ($source->department_id)
         {
 
-            $department = Department::findOrCreate($source->department_id);
-            $this->department()->associate($department);
+            // $department = Department::findOrCreate($source->department_id);
+            // $this->department()->associate($department);
+
+            $this->department_citi_id = $source->department_id;
+
+            // Sync is unnecessary here, since it's just a column on this table
+            // $this->department()->sync([$source->department_id], false);
 
         }
 
         if ($source->category_ids)
         {
+            $cats = [];
+
             foreach ($source->category_ids as $id)
             {
 
                 $cat = Category::where('citi_id', $id)->first();
                 if ($cat)
                 {
-
-                    $this->categories()->attach($cat->citi_id);
-
+                    $cats[] = $cat->citi_id;
                 }
 
             }
+
+            $this->categories()->sync($cats, false);
 
         }
         // $source->document_guids
 
         // @TODO Replace with real endpoints when they become available
-        $this->seedCopyrightRepresentatives();
-        $this->seedCommittees();
-        $this->seedTerms();
-        $this->seedDates();
-        $this->seedCatalogues();
-        $this->seedImages();
-        //$this->seedParts();
+        if( $fake ) {
+            $this->seedCopyrightRepresentatives();
+            $this->seedCommittees();
+            $this->seedTerms();
+            $this->seedDates();
+            $this->seedCatalogues();
+            // TODO: Remove this...? Might be unnecessary.
+            // $this->seedImages();
+            // $this->seedParts();
+        }
 
         // update artworks with gallery id and object type id
 
@@ -339,6 +353,10 @@ class Artwork extends CollectionsModel
 
             $preferred = $hasPreferred ? false : $this->faker->boolean;
 
+            // TODO: Problem! What if the image depicts multiple artworks?
+            // This architecture means it would have to be the preferred one for all of them!
+            // Potentially consider specifying `preferred` column on the pivot table?
+            // https://laravel.com/docs/5.4/eloquent-relationships#many-to-many
             $image = factory(\App\Models\Collections\Image::class)->make([
                 'preferred' => $preferred,
             ]);
@@ -414,59 +432,203 @@ class Artwork extends CollectionsModel
 
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
-        return array_merge(
-            [
-                'main_reference_number' => $this->main_id,
-                'date_start' => $this->date_start,
-                'date_end' => $this->date_end,
-                'date_display' => $this->date_display,
-                'description' => $this->description,
-                'artist_display' => $this->artist_display,
-                'department' => $this->department ? $this->department->title : NULL,
-                'department_id' => $this->department_citi_id,
-                'dimensions' => $this->dimensions,
-                'medium' => $this->medium_display,
-                'inscriptions' => $this->inscriptions,
-                'object_type' => $this->objectType ? $this->objectType->title : NULL,
-                'object_type_id' => $this->object_type_citi_id,
-                'credit_line' => $this->credit_line,
-                'publication_history' => $this->publication_history,
-                'exhibition_history' => $this->exhibition_history,
-                'provenance_text' => $this->provenance,
-                'publishing_verification_level' => $this->publishing_verification_level,
-                'is_public_domain' => (bool) $this->is_public_domain,
-                'copyright_notice' => $this->copyright_notice,
-                'place_of_origin' => $this->place_of_origin,
-                'collection_status' => $this->collection_status,
-                'gallery' => $this->gallery ? $this->gallery->title : '',
-                'gallery_id' => $this->gallery_citi_id,
-                'is_in_gallery' => $this->gallery_citi_id ? true : false,
+        return [
+            'main_reference_number' => [
+                "doc" => "Unique identifier assigned to the artwork upon acquisition",
+                "value" => function() { return $this->main_id; },
             ],
-            $this->transformMobileArtwork(),
-            [
-                'artist_ids' => $this->artists->pluck('citi_id')->all(),
-                'category_ids' => $this->categories->pluck('citi_id')->all(),
-                'copyright_representative_ids' => $this->copyrightRepresentatives->pluck('citi_id')->all(),
-                'part_ids' => $this->parts->pluck('citi_id')->all(),
-                'set_ids' => $this->sets->pluck('citi_id')->all(),
-                'date_dates' => $this->dates()->pluck('date')->transform(function ($item, $key) {
+            'date_start' => [
+                "doc" => "The year of the period of time associated with the creation of this work",
+                "value" => function() { return $this->date_start; },
+            ],
+            'date_end' => [
+                "doc" => "The year of the period of time associated with the creation of this work",
+                "value" => function() { return $this->date_end; },
+            ],
+            'date_display' => [
+                "doc" => "Readable, free-text description of the period of time associated with the creation of this work. This might include date terms like Dynasty, Era etc. Written by curators and editors in house style, and is the preferred field for display on websites and apps. ",
+                "value" => function() { return $this->date_display; },
+            ],
+            'description' => [
+                "doc" => "Longer explanation describing the work",
+                "value" => function() { return $this->description; },
+            ],
+            'artist_display' => [
+                "doc" => "Readable description of the creator of this work. Includes artist names, nationality and lifespan dates",
+                "value" => function() { return $this->artist_display; },
+            ],
+            'department' => [
+                "doc" => "Name of the curatorial department that this work belongs to",
+                "value" => function() { return $this->department ? $this->department->title : NULL; },
+            ],
+            'department_id' => [
+                "doc" => "Unique identifier of the curatorial department that this work belongs to",
+                "value" => function() { return $this->department_citi_id; },
+            ],
+            'dimensions' => [
+                "doc" => "The size, shape, scale, and dimensions of the work. May include multiple dimension like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.",
+                "value" => function() { return $this->dimensions; },
+            ],
+            'medium' => [
+                "doc" => "The substances or materials used in the creation of a work",
+                "value" => function() { return $this->medium_display; },
+            ],
+            'inscriptions' => [
+                "doc" => "A description of distinguishing or identifying physical markings that are on the work",
+                "value" => function() { return $this->inscriptions; },
+            ],
+            'object_type' => [
+                "doc" => "The kind of object or work, e.g., Painting, Sculpture, Book, etc.",
+                "value" => function() { return $this->objectType ? $this->objectType->title : NULL; },
+            ],
+            'object_type_id' => [
+                "doc" => "Unique identifier of the kind of object or work",
+                "value" => function() { return $this->object_type_citi_id; },
+            ],
+            'credit_line' => [
+                "doc" => "Brief statement indicating how the work came into the collection",
+                "value" => function() { return $this->credit_line; },
+            ],
+            'publication_history' => [
+                "doc" => "Bibliographic list of all the places this work has been published",
+                "value" => function() { return $this->publication_history; },
+            ],
+            'exhibition_history' => [
+                "doc" => "List of all the places this work has been exhibited",
+                "value" => function() { return $this->exhibition_history; },
+            ],
+            'provenance_text' => [
+                "doc" => "Ownership/collecting history of the work. May include names of owners, dates, and possibly methods of transfer of ownership. Free-form text formatted in a house style.",
+                "value" => function() { return $this->provenance; },
+            ],
+            'publishing_verification_level' => [
+                "doc" => "Indicator of how much metadata on the work in published. Web Basic is the least amount, Web Everything is the greatest.",
+                "value" => function() { return $this->publishing_verification_level; },
+            ],
+            'is_public_domain' => [
+                "doc" => "Whether the work is in the public domain, meaning it was created before copyrights existed or has left the copyright term",
+                "value" => function() { return (bool) $this->is_public_domain; },
+            ],
+            'copyright_notice' => [
+                "doc" => "Statement notifying how the work is protected by copyright. Applies to the work itself, not image or other related assets.",
+                "value" => function() { return $this->copyright_notice; },
+            ],
+            'place_of_origin' => [
+                "doc" => "The location where the creation, design, or production of the work took place, or the original location of the work",
+                "value" => function() { return $this->place_of_origin; },
+            ],
+            'collection_status' => [
+                "doc" => "The works status of belonging to our collection. Values include 'Permanent Collection', 'Ryerson Collection', and 'Long-term Loan'.",
+                "value" => function() { return $this->collection_status; },
+            ],
+            'gallery' => [
+                "doc" => "The location of this work in our museum",
+                "value" => function() { return $this->gallery ? $this->gallery->title : ''; },
+            ],
+            'gallery_id' => [
+                "doc" => "Unique identifier of the location of this work in our museum",
+                "value" => function() { return $this->gallery_citi_id; },
+            ],
+            'is_in_gallery' => [
+                "doc" => "Whether the work is on display",
+                "value" => function() { return $this->gallery_citi_id ? true : false; },
+            ],
+            'latitude' => [
+                "doc" => "Latitude coordinate of the location of this work in our galleries",
+                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->latitude : NULL; },
+            ],
+            'longitude' => [
+                "doc" => "Longitude coordinate of the location of this work in our galleries",
+                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->longitude : NULL; },
+            ],
+            'latlon' => [
+                "doc" => "Latitude and longitude coordinates of the location of this work in our galleries",
+                "value" => function() { return $this->mobileArtwork ? ($this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude) : NULL; },
+            ],
+            'is_highlighted_in_mobile' => [
+                "doc" => "Whether the work is highlighted in the mobile app",
+                "value" => function() { return (bool) $this->mobileArtwork ? $this->mobileArtwork->highlighted : NULL; },
+            ],
+            'selector_number' => [
+                "doc" => "The code that can be entered in our audioguides to learn more about this work",
+                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->selector_number : NULL; },
+            ],
+            'artist_ids' => [
+                "doc" => "Unique identifiers of the artists associated with this work",
+                "value" => function() { return $this->artists->pluck('citi_id')->all(); },
+            ],
+            'category_ids' => [
+                "doc" => "Unique identifiers of the categories this work is a part of",
+                "value" => function() { return $this->categories->pluck('citi_id')->all(); },
+            ],
+            'copyright_representative_ids' => [
+                "doc" => "Unique identifiers of the copyright representatives associated with this work",
+                "value" => function() { return $this->copyrightRepresentatives->pluck('citi_id')->all(); },
+            ],
+            'part_ids' => [
+                "doc" => "Unique identifiers of the individual works that make up this work",
+                "value" => function() { return $this->parts->pluck('citi_id')->all(); },
+            ],
+            'set_ids' => [
+                "doc" => "Unique identifiers of the sets this work is a part of. These are not artwork ids.",
+                "value" => function() { return $this->sets->pluck('citi_id')->all(); },
+            ],
+            'date_dates' => [
+                "doc" => "List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.",
+                "value" => function() { return $this->dates()->pluck('date')->transform(function ($item, $key) { 
                     return $item->toIso8601String();
-                })->all(),
-                'catalogue_titles' => $this->catalogues->pluck('catalogue')->all(),
-                'committee_titles' => $this->committees->pluck('committee')->all(),
-                'term_titles' => $this->terms->pluck('term')->all(),
-                'image_urls' => $this->images->pluck('iiif_url')->all(),
-                'publication_ids' => $this->publications->pluck('dsc_id')->all(),
-                'tour_ids' => $this->tours->pluck('mobile_id')->all(),
-            ]
-        );
+                })->all(); },
+            ],
+            'catalogue_titles' => [
+                "doc" => "A catalogue raisonné is a comprehensive, annotated listing of all the known artworks by an artist. This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.",
+                "value" => function() { return $this->catalogues->pluck('catalogue')->all(); },
+            ],
+            'committee_titles' => [
+                "doc" => "List of committees which were involved in the acquisition or deaccession of this work",
+                "value" => function() { return $this->committees->pluck('committee')->all(); },
+            ],
+            'term_titles' => [
+                "doc" => "The names of the taxonomy tags for this work",
+                "value" => function() { return $this->terms->pluck('term')->all(); },
+            ],
+            'preferred_image_id' => [
+                "doc" => "Unique identifier of the preferred image to use to represent this work",
+                "value" => function() {
+                    $preferred_image = $this->images->first( function( $image ) {
+                        return $image->preferred;
+                    });
+                    return $preferred_image ? $preferred_image->lake_guid : null; },
+            ],
+            'preferred_image_iiif_url' => [
+                "doc" => "IIIF URL of the preferred image to use to represent this work",
+                "value" => function() {
+                    $preferred_image = $this->images->first( function( $image ) {
+                        return $image->preferred;
+                    });
+                    return $preferred_image ? $preferred_image->iiif_url : null; },
+            ],
+            'image_ids' => [
+                "doc" => "Unique identifiers of all the images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.",
+                "value" => function() { return $this->images->pluck('lake_guid')->all(); },
+            ],
+            'image_iiif_urls' => [
+                "doc" => "IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.",
+                "value" => function() { return $this->images->pluck('iiif_url')->all(); },
+            ],
+            'publication_ids' => [
+                "doc" => "Unique identifiers of the Digital Scholarly Catalogs this work is included in",
+                "value" => function() { return $this->publications->pluck('dsc_id')->all(); },
+            ],
+            'tour_ids' => [
+                "doc" => "Unique identifiers of the tours this work is included in",
+                "value" => function() { return $this->mobileArtwork ? ( $this->mobileArtwork->stops->map( function( $stop ) {  return $stop->tour; })->pluck('mobile_id')->all() ) : []; },
+            ],
+        ];
 
     }
 
@@ -487,36 +649,9 @@ class Artwork extends CollectionsModel
             'part_titles' => $this->parts->pluck('title')->all(),
             'set_titles' => $this->sets->pluck('title')->all(),
             'publication_titles' => $this->publications->pluck('title')->all(),
-            'tour_titles' => $this->tours->pluck('title')->all(),
+            'tour_titles' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('title')->all() : [],
 
         ];
-
-    }
-
-
-    /**
-     * Turn the relevant fields from the related mobile artwork model into a generic array
-     *
-     * @return array
-     */
-    protected function transformMobileArtwork()
-    {
-
-        if ($this->mobileArtwork) {
-
-            return [
-
-                'latitude' => $this->mobileArtwork->latitude,
-                'longitude' => $this->mobileArtwork->longitude,
-                'latlon' => $this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude,
-                'is_highlighted_in_mobile' => (bool) $this->mobileArtwork->highlighted,
-                'selector_number' => $this->mobileArtwork->selector_number,
-
-            ];
-
-        }
-
-        return [];
 
     }
 
@@ -603,6 +738,7 @@ class Artwork extends CollectionsModel
                 'is_in_gallery' => [
                     'type' => 'boolean',
                 ],
+                // TODO: Move these to Mobile\Artwork
                 'latitude' => [
                     'type' => 'float',
                 ],
@@ -618,6 +754,7 @@ class Artwork extends CollectionsModel
                 'selector_number' => [
                     'type' => 'integer',
                 ],
+                // EOF TODO Mobile\Artwork
                 'artist_ids' => [
                     'type' => 'integer',
                 ],
@@ -663,6 +800,7 @@ class Artwork extends CollectionsModel
                 'image_urls' => [
                     'type' => 'keyword',
                 ],
+                // TODO: Move these to Dsc\WorkOfArt
                 'publication_id' => [
                     'type' => 'integer',
                 ],
@@ -672,6 +810,7 @@ class Artwork extends CollectionsModel
                 'publication_titles' => [
                     'type' => 'text',
                 ],
+                // TODO: Move these to Mobile\Artwork
                 'tour_ids' => [
                     'type' => 'integer',
                 ],
@@ -679,6 +818,67 @@ class Artwork extends CollectionsModel
                     'type' => 'text',
                 ],
             ];
+
+    }
+
+
+    /**
+     * Get the subresources for the resource.
+     *
+     * @return array
+     */
+    public function subresources()
+    {
+
+        return ['artists', 'copyrightRepresentatives', 'categories', 'images', 'parts', 'sets'];
+
+    }
+
+    /**
+     * Get the subresources to skip the example output for.
+     *
+     * @return array
+     */
+    public function subresourcesToSkipExampleOutput()
+    {
+
+        return ['parts', 'sets'];
+
+    }
+
+    /**
+     * Get any extra descriptions of the search endpoint for this resource
+     *
+     * @return string
+     */
+    public function extraSearchDescription()
+    {
+
+        return "Artworks in the groups of essentials are boosted so they'll show up higher in results.";
+
+    }
+
+    /**
+     * Get an example search query for documentation generation
+     *
+     * @return string
+     */
+    public function exampleSearchQuery()
+    {
+
+        return 'q=monet';
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "111628";
 
     }
 

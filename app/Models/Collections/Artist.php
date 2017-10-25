@@ -2,6 +2,9 @@
 
 namespace App\Models\Collections;
 
+/**
+ * A person who created an artwork. This is a type of Agent.
+ */
 class Artist extends Agent
 {
 
@@ -29,6 +32,8 @@ class Artist extends Agent
     public function newInstance($attributes = [], $exists = false)
     {
 
+        // TODO: This fails if there's no AgentType w/ title of Artist
+        // TODO: LPM doesn't have an "Artist" AgentType. Artists are Agents who have Artwork.creator_id assoc.
         $model = parent::newInstance($attributes, $exists);
         $model->agentType()->associate(\App\Models\Collections\AgentType::where('title', 'Artist')->first());
         return $model;
@@ -52,5 +57,22 @@ class Artist extends Agent
 
     }
 
+    /**
+     * For this resource, use this as the full documentation.
+     *
+     * @return string
+     */
+    public function docOnly()
+    {
+
+        $doc = "Artists are a subset of agents filtered by `agent_type` with values `Artist`. ";
+        $doc .= "The following endpoints are available with the same parameters and output as their corresponding `/agents` endpoints:\n\n";
+
+        $doc .= "* `/artists`\n";
+        $doc .= "* `/artists/{id}`\n";
+
+        return $doc;
+
+    }
 
 }

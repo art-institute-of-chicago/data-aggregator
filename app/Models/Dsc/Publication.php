@@ -4,24 +4,29 @@ namespace App\Models\Dsc;
 
 use App\Models\DscModel;
 use App\Models\ElasticSearchable;
+use App\Models\Documentable;
 
+/**
+ * Represents an overall digital publication.
+ */
 class Publication extends DscModel
 {
 
     use ElasticSearchable;
+    use Documentable;
 
 
     /**
-     * Turn this model object into a generic array.
-     *
-     * @param boolean  $withTitles
-     * @return array
+     * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
-    public function transformFields()
+    protected function transformMappingInternal()
     {
 
         return [
-            'link' => $this->link,
+            'link' => [
+                "doc" => "URL to the publication",
+                "value" => function() { return $this->link; },
+            ],
         ];
 
     }
@@ -41,6 +46,18 @@ class Publication extends DscModel
                     'type' => 'keyword',
                 ],
             ];
+
+    }
+
+    /**
+     * Get an example ID for documentation generation
+     *
+     * @return string
+     */
+    public function exampleId()
+    {
+
+        return "6566";
 
     }
 

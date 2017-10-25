@@ -13,17 +13,6 @@ trait ElasticSearchable
 
     protected $apiCtrl;
 
-    public function __construct(array $attributes = array()) {
-
-        parent::__construct($attributes);
-
-        $calledClass = get_called_class();
-
-        $this->apiCtrl = $this->apiCtrl ?: str_plural( class_basename($calledClass) ) . 'Controller';
-
-    }
-
-
     /**
      * Generate a link to the API for this model resource.
      *
@@ -31,6 +20,10 @@ trait ElasticSearchable
      */
     protected function searchableLink()
     {
+
+        $calledClass = get_called_class();
+
+        $this->apiCtrl = $this->apiCtrl ?: str_plural( class_basename($calledClass) ) . 'Controller';
 
         return action($this->apiCtrl . '@show', ['id' => $this->getKey()]);
 
@@ -106,7 +99,7 @@ trait ElasticSearchable
 
     }
 
-    
+
     /**
      * Generate an array representing the schema for this object.
      *
@@ -118,8 +111,7 @@ trait ElasticSearchable
         return
             [
                 $this->searchableModel() => [
-                    'properties' => 
-                    array_merge(
+                    'properties' => array_merge(
                         [
                             'api_id' => [
                                 'type' => 'keyword',
