@@ -14,12 +14,12 @@ trait Fillable
      * @param  bool  $fake
      * @return $this
      */
-    public function fillFrom($source, $fake = true)
+    public function fillFrom($source)
     {
         $this
             ->fillIdsFrom($source)
             ->fillTitleFrom($source)
-            ->fill( $this->getFillFieldsFrom($source, $fake) )
+            ->fill( $this->getFillFieldsFrom($source) )
             ->fillDatesFrom($source);
 
         return $this;
@@ -33,7 +33,7 @@ trait Fillable
      * @param  object  $source
      * @return $this
      */
-    public function attachFrom($source, $fake = true)
+    public function attachFrom($source)
     {
 
         return $this;

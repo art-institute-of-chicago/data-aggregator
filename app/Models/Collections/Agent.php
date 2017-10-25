@@ -39,7 +39,7 @@ class Agent extends CollectionsModel
             'death_date' => $source->date_death,
             //'death_place' => ,
             //'licensing_restricted' => ,
-            'agent_type_citi_id' => \App\Models\Collections\AgentType::where('title', 'Artist')->first()->citi_id,
+            //'agent_type_citi_id' => \App\Models\Collections\AgentType::where('title', 'Artist')->first()->citi_id,
         ];
 
     }

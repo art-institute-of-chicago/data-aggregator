@@ -123,7 +123,7 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function getFillFieldsFrom($source, $fake = true)
+    public function getFillFieldsFrom($source)
     {
 
         return [
@@ -141,12 +141,12 @@ class Artwork extends CollectionsModel
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
             'provenance' => $source->provenance,
-            'description' => $fake ? 'fake ' .$this->faker->paragraphs(5, true) : null,
-            'publishing_verification_level' => $fake ? 'fake ' .$this->faker->randomElement(['Web Basic', 'Web Cataloged', 'Web Everything']) : null,
-            'is_public_domain' => $fake ? $this->faker->boolean : null,
+            'description' => $source->description,
+            'publishing_verification_level' => null,
+            'is_public_domain' => null,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
-            'place_of_origin' => $fake ? 'fake ' .$this->faker->country : null,
-            'collection_status' => $fake ? 'fake ' .$this->faker->randomElement(['Permanent Collection', 'Long-term Loan']) : null,
+            'place_of_origin' => null,
+            'collection_status' => null,
             'department_citi_id' => $source->department_id,
             //'object_type_citi_id' => ,
             //'gallery_citi_id' => ,
@@ -157,7 +157,7 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function attachFrom($source, $fake = true)
+    public function attachFrom($source)
     {
 
         if ($source->creator_id)
@@ -224,16 +224,14 @@ class Artwork extends CollectionsModel
         // $source->document_guids
 
         // @TODO Replace with real endpoints when they become available
-        if( $fake ) {
-            $this->seedCopyrightRepresentatives();
-            $this->seedCommittees();
-            $this->seedTerms();
-            $this->seedDates();
-            $this->seedCatalogues();
-            // TODO: Remove this...? Might be unnecessary.
-            // $this->seedImages();
-            // $this->seedParts();
-        }
+        // $this->seedCopyrightRepresentatives();
+        // $this->seedCommittees();
+        // $this->seedTerms();
+        // $this->seedDates();
+        // $this->seedCatalogues();
+        // TODO: Remove this...? Might be unnecessary.
+        // $this->seedImages();
+        // $this->seedParts();
 
         // update artworks with gallery id and object type id
 
