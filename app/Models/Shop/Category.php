@@ -56,7 +56,7 @@ class Category extends ShopModel
             'parent_id' => [
                 "doc" => "Unique identifier of this category's parent",
                 "type" => "number",
-                "value" => function() { return $this->parent_category_shop_id; },
+                "value" => function() { return $this->parent ? $this->parent->shop_id : null; },
             ],
             'type' => [
                 "doc" => "The type of category, e.g., sale, place-of-origin, style, etc.",

@@ -31,7 +31,7 @@ class Footnote extends DscModel
         return [
             'content' => $this->content,
             'section' => $this->section ? $this->section->title : '',
-            'section_id' => $this->section_dsc_id,
+            'section_id' => $this->section ? $this->section->dsc_id : null,
         ];
 
     }

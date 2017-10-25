@@ -58,7 +58,7 @@ class Site extends BaseModel
             'exhibition_id' => [
                 "doc" => "Unique identifier of the exhibition this site is associated with",
                 "type" => "number",
-                "value" => function() { return $this->exhibition_citi_id; },
+                "value" => function() { return $this->exhibition ? $this->exhibition->citi_id : null; },
             ],
             'artwork_ids' => [
                 "doc" => "Unique identifiers of the artworks this site is associated with",

@@ -53,7 +53,7 @@ class Section extends DscModel
             'publication_id' => [
                 "doc" => "Unique identifier of the publication this section belongs to",
                 "type" => "number",
-                "value" => function() { return $this->publication_dsc_id; },
+                "value" => function() { return $this->publication ? $this->publication->dsc_id : null; },
             ],
         ];
 

@@ -94,7 +94,7 @@ class Exhibition extends CollectionsModel
             'department_id' => [
                 "doc" => "Unique identifier of the department that primarily organized the exhibition",
                 "type" => "number",
-                "value" => function() { return $this->department_citi_id; },
+                "value" => function() { return $this->department ? $this->department->citi_id : null; },
             ],
             'gallery' => [
                 "doc" => "The name of the gallery that mainly housed the exhibition",
@@ -104,7 +104,7 @@ class Exhibition extends CollectionsModel
             'gallery_id' => [
                 "doc" => "Unique identifier of the gallery that mainly housed the exhibition",
                 "type" => "number",
-                "value" => function() { return $this->gallery_citi_id; },
+                "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
             ],
             'dates' => [
                 "doc" => "A readable string of when the exhibition took place",

@@ -452,7 +452,7 @@ class Artwork extends CollectionsModel
             'department_id' => [
                 "doc" => "Unique identifier of the curatorial department that this work belongs to",
                 "type" => "number",
-                "value" => function() { return $this->department_citi_id; },
+                "value" => function() { return $this->department ? $this->department_citi_id : null; },
             ],
             'dimensions' => [
                 "doc" => "The size, shape, scale, and dimensions of the work. May include multiple dimension like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.",
@@ -477,7 +477,7 @@ class Artwork extends CollectionsModel
             'object_type_id' => [
                 "doc" => "Unique identifier of the kind of object or work",
                 "type" => "number",
-                "value" => function() { return $this->object_type_citi_id; },
+                "value" => function() { return $this->objectType ? $this->objectType->citi_id : null; },
             ],
             'credit_line' => [
                 "doc" => "Brief statement indicating how the work came into the collection",
@@ -532,12 +532,12 @@ class Artwork extends CollectionsModel
             'gallery_id' => [
                 "doc" => "Unique identifier of the location of this work in our museum",
                 "type" => "number",
-                "value" => function() { return $this->gallery_citi_id; },
+                "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
             ],
             'is_in_gallery' => [
                 "doc" => "Whether the work is on display",
                 "type" => "boolean",
-                "value" => function() { return $this->gallery_citi_id ? true : false; },
+                "value" => function() { return $this->gallery ? true : false; },
             ],
             'latitude' => [
                 "doc" => "Latitude coordinate of the location of this work in our galleries",
