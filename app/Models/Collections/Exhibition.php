@@ -49,15 +49,9 @@ class Exhibition extends CollectionsModel
     public function seedArtworks()
     {
 
-        $artworkIds = \App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
+        $ids = \App\Models\Collections\Artwork::all()->pluck('citi_id')->random(rand(2,8))->all();
 
-        for ($i = 0; $i < rand(2,8); $i++) {
-
-            $artworkId = $artworkIds[array_rand($artworkIds)];
-
-            $this->artworks()->attach($artworkId);
-
-        }
+        $this->copyrightRepresentatives()->sync($ids, false);
 
         return $this;
 
@@ -66,15 +60,9 @@ class Exhibition extends CollectionsModel
     public function seedVenues()
     {
 
-        $agentIds = \App\Models\Collections\CorporateBody::all()->pluck('citi_id')->all();
+        $ids = \App\Models\Collections\CorporateBody::all()->pluck('citi_id')->random(rand(1,3))->all();
 
-        for ($i = 0; $i < rand(1,3); $i++) {
-
-            $agentId = $agentIds[array_rand($agentIds)];
-
-            $this->venues()->attach($agentId);
-
-        }
+        $this->venues()->sync($ids, false);
 
         return $this;
 

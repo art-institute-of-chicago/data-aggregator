@@ -163,9 +163,6 @@ class Artwork extends CollectionsModel
         if ($source->creator_id)
         {
 
-            // Artist::findOrCreate($source->creator_id);
-            // $this->artists()->attach($source->creator_id);
-
             $this->artists()->sync([$source->creator_id], false);
 
         }
@@ -199,22 +196,11 @@ class Artwork extends CollectionsModel
 
         if ($source->category_ids)
         {
-            $cats = [];
 
-            foreach ($source->category_ids as $id)
-            {
-
-                $cat = Category::where('citi_id', $id)->first();
-                if ($cat)
-                {
-                    $cats[] = $cat->citi_id;
-                }
-
-            }
-
-            $this->categories()->sync($cats, false);
+            $this->categories()->sync($source->category_ids, false);
 
         }
+
         // $source->document_guids
 
         // @TODO Replace with real endpoints when they become available
