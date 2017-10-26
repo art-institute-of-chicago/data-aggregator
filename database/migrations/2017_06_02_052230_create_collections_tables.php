@@ -252,13 +252,13 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('exhibitions', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+            $table = $this->_addIdsAndTitle($table, true, 'text');
             $table->text('description')->nullable();
             $table->string('type')->nullable();
             $table->integer('department_citi_id')->nullable()->unsigned()->index();
             $table->foreign('department_citi_id')->references('citi_id')->on('departments');
             $table->integer('gallery_citi_id')->unsigned()->index();
-            $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
+            $table->foreign('gallery_citi_id')->nullable()->references('citi_id')->on('galleries')->onDelete('cascade');
             $table->string('exhibition_dates')->nullable();
             $table->boolean('active')->nullable();
             $table = $this->_addDates($table);
@@ -287,7 +287,7 @@ class CreateCollectionsTables extends Migration
     {
 
         $table->text('description')->nullable();
-        $table->string('content')->nullable();
+        $table->text('content')->nullable();
         $table->string('published')->nullable();
         $table->integer('agent_citi_id')->nullable()->unsigned()->index();
         $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
