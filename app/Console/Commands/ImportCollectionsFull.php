@@ -44,6 +44,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             $this->import('videos');
             $this->import('texts');
             $this->import('sounds');
+            $this->import('images');
             $this->import('exhibitions');
 
         }
