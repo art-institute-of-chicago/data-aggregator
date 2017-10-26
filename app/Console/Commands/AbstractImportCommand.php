@@ -99,8 +99,8 @@ abstract class AbstractImportCommand extends Command
         // Don't use findOrCreate here, since it can cause errors due to Searchable
         $resource = $model::findOrNew( $datum->id );
 
-        $resource->fillFrom($datum, $fake);
-        $resource->attachFrom($datum, $fake);
+        $resource->fillFrom($datum);
+        $resource->attachFrom($datum);
         $resource->save();
 
         return $resource;
