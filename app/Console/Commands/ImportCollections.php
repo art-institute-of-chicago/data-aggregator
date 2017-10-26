@@ -34,6 +34,8 @@ class ImportCollections extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
         $model = \App\Models\CollectionsModel::classFor($endpoint);
 
         $json = $this->queryService($endpoint, $current);
@@ -60,6 +62,8 @@ class ImportCollections extends AbstractImportCommand
             $json = $this->queryService($endpoint, $current);
 
         }
+
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 
