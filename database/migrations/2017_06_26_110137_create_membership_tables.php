@@ -28,6 +28,7 @@ class CreateMembershipTables extends Migration
             $table->text('description')->nullable(); // Description
             $table->integer('available')->nullable();
             $table->integer('total_capacity')->nullable();
+            $table->boolean('is_ticketed')->nullable();
 
             $table = $this->_addDates($table);
         });

@@ -52,6 +52,7 @@ $factory->define(App\Models\Membership\Event::class, function (Faker\Generator $
             'is_admission_required' => $faker->boolean,
             'available' => $has_capacity ? $faker->randomDigit * 10 : null,
             'total_capacity' => $has_capacity ? $faker->randomDigit * 100 : null,
+            'is_ticketed' => $faker->boolean,
         ],
         membershipDates($faker)
     );
