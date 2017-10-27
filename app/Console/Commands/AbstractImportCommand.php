@@ -91,7 +91,7 @@ abstract class AbstractImportCommand extends Command
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    protected function saveDatum( $datum, $model, $fake = true )
+    protected function saveDatum( $datum, $model )
     {
 
         $this->warn("Importing #{$datum->id}: {$datum->title}");
