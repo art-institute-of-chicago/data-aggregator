@@ -11,6 +11,6 @@ class FootnotesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Dsc\Footnote::class, 200)->create();
+        factory(App\Models\Dsc\Footnote::class, 50)->create();
     }
 }

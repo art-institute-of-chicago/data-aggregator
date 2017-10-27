@@ -217,11 +217,11 @@ class Artwork extends CollectionsModel
     public function seedCopyrightRepresentatives()
     {
 
-        $agentIds = CopyrightRepresentative::all()->pluck('citi_id')->all();
+        $agentIds = CopyrightRepresentative::fake()->pluck('citi_id')->all();
 
         $ids = [];
 
-        for ($i = 0; $i < rand(2,8); $i++) {
+        for ($i = 0; $i < rand(2,4); $i++) {
 
             $id = $agentIds[array_rand($agentIds)];
 
@@ -240,7 +240,7 @@ class Artwork extends CollectionsModel
     public function seedCommittees()
     {
 
-        for ($i = 0; $i < rand(2,8); $i++) {
+        for ($i = 0; $i < rand(2,4); $i++) {
 
             $committee = factory(ArtworkCommittee::class)->make([
                 'artwork_citi_id' => $this->citi_id,
@@ -257,7 +257,7 @@ class Artwork extends CollectionsModel
     public function seedTerms()
     {
 
-        for ($i = 0; $i < rand(2,8); $i++) {
+        for ($i = 0; $i < rand(2,4); $i++) {
 
             $term = factory(ArtworkTerm::class)->make([
                 'artwork_citi_id' => $this->citi_id,
@@ -276,7 +276,7 @@ class Artwork extends CollectionsModel
 
         $hasPreferred = false;
 
-        for ($i = 0; $i < rand(2,8); $i++) {
+        for ($i = 0; $i < rand(2,4); $i++) {
 
             $preferred = $hasPreferred ? false : $this->faker->boolean;
 
@@ -299,7 +299,7 @@ class Artwork extends CollectionsModel
 
         $hasPreferred = false;
 
-        for ($i = 0; $i < rand(2,8); $i++) {
+        for ($i = 0; $i < rand(2,4); $i++) {
 
             $preferred = $this->faker->boolean;
 

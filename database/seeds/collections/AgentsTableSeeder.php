@@ -15,15 +15,4 @@ class AgentsTableSeeder extends Seeder
         factory(Agent::class, 100)->create();
     }
 
-    public function clean()
-    {
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
-        Agent::truncate();
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
-    }
-
 }

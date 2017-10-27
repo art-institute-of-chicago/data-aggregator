@@ -17,6 +17,7 @@ class Site extends BaseModel
 
     protected $primaryKey = 'site_id';
     protected $dates = ['source_created_at', 'source_modified_at'];
+    protected $fakeIdsStartAt = 9990000;
 
     public function exhibition()
     {

@@ -13,6 +13,8 @@ class MembershipModel extends BaseModel
 
     protected $dates = ['source_created_at', 'source_modified_at'];
 
+    protected $fakeIdsStartAt = 99900000;
+
     protected function fillIdsFrom($source)
     {
 

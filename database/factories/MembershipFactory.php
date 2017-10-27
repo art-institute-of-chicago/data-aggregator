@@ -16,7 +16,7 @@ if (!function_exists('membershipIdsAndTitle'))
     {
 
         return [
-            'membership_id' => $faker->unique()->randomNumber(5),
+            'membership_id' => $faker->unique()->randomNumber(5) + 999 * pow(10, 5),
             'title' => $title ? $title : ucfirst($faker->words(3, true)),
         ];
 

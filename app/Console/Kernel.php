@@ -30,6 +30,7 @@ class Kernel extends ConsoleKernel
         Commands\AliasSearch::class,
         Commands\CreateEndpointDocs::class,
         Commands\CreateFieldsDocs::class,
+        Commands\CleanSeed::class,
     ];
 
     /**

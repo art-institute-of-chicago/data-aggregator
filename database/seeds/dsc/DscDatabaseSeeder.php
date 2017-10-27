@@ -13,8 +13,6 @@ class DscDatabaseSeeder extends Seeder
     public function run()
     {
 
-        $this->clean();
-
         $this->call(PublicationsTableSeeder::class);
         $this->call(TitlePagesTableSeeder::class);
         $this->call(SectionsTableSeeder::class);
@@ -25,20 +23,16 @@ class DscDatabaseSeeder extends Seeder
 
     }
 
-    private function clean()
+    public static function clean()
     {
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
-        App\Models\Dsc\Publication::truncate();
-        App\Models\Dsc\TitlePage::truncate();
-        App\Models\Dsc\Section::truncate();
-        App\Models\Dsc\WorkOfArt::truncate();
-        App\Models\Dsc\Footnote::truncate();
-        App\Models\Dsc\Figure::truncate();
-        App\Models\Dsc\Collector::truncate();
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        App\Models\Dsc\Publication::fake()->delete();
+        App\Models\Dsc\TitlePage::fake()->delete();
+        App\Models\Dsc\Section::fake()->delete();
+        App\Models\Dsc\WorkOfArt::fake()->delete();
+        App\Models\Dsc\Footnote::fake()->delete();
+        App\Models\Dsc\Figure::fake()->delete();
+        App\Models\Dsc\Collector::fake()->delete();
 
     }
 

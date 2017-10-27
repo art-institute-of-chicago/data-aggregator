@@ -12,12 +12,12 @@ class TextCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $texts = App\Models\Collections\Text::all()->all();
-        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
+        $texts = App\Models\Collections\Text::fake()->get();
+        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
 
         foreach ($texts as $text) {
 
-            for ($i = 0; $i < rand(2,8); $i++) {
+            for ($i = 0; $i < rand(2,4); $i++) {
                 $text->categories()->attach($categoryIds[array_rand($categoryIds)]);
             }
 

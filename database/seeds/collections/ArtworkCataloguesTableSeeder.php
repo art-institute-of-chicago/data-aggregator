@@ -12,7 +12,7 @@ class ArtworkCataloguesTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Models\Collections\Artwork::all()->all();
+        $artworks = App\Models\Collections\Artwork::fake()->get();
 
         foreach ($artworks as $artwork) {
 
