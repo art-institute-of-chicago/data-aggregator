@@ -15,7 +15,7 @@ if (!function_exists('idsAndTitle'))
     function idsAndTitle($faker, $title, $citiField = false, $idLength = 6)
     {
 
-        $lake_id = '99999999-9999-9999-9999-' .$faker->randomNumber(6);
+        $lake_id = '99999999-9999-9999-9999-999999' .$faker->randomNumber(6, true);
         $ret = [];
 
         if ($citiField)

@@ -70,7 +70,7 @@ abstract class ApiTestCase extends TestCase
         if (get_class($this) != 'Tests\Unit\AgentTypeTest')
         {
 
-            $agentTypeId = $this->make(AgentType::class, ['title' => 'Artist']);
+            $agentTypeId = $this->make(AgentType::class, ['title' => 'Individual']);
 
             if (get_class($this) != 'Tests\Unit\AgentTest')
             {
