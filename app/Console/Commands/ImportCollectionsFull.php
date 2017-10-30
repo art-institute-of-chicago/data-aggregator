@@ -11,11 +11,7 @@ class ImportCollectionsFull extends AbstractImportCommand
                             {endpoint? : That last portion of the URL path naming the resource to import, for example "artists"}
                             {page? : The page to begin importing from}';
 
-    protected $description =
-                           "Import all collections data\n\n"
-
-                           ."If no options are passes all Collections data will be imported. Results are paged through 100 records \n"
-                           ."at a time. If the Collections Data Service doesn't provide an endpoint fake data will be generated.";
+    protected $description = "Import all collections data. If no options are passes all Collections data will be imported.";
 
 
     public function handle()
@@ -33,61 +29,21 @@ class ImportCollectionsFull extends AbstractImportCommand
         else
         {
 
-            // @TODO Replace with real endpoint when it becomes available
-            $this->seed( \App\Models\Collections\AgentType::class, 'AgentTypesTableSeeder' );
-
-            // @TODO Replace with agent endpoint when it becomes available
-            $this->seed( \App\Models\Collections\Agent::class, 'AgentsTableSeeder', 'artists' );
-
+            $this->import('agent-types');
+            $this->import('agents');
             $this->import('departments');
-
-            // @TODO Replace with real endpoint when it becomes available
-            $this->seed( \App\Models\Collections\ObjectType::class, 'ObjectTypesTableSeeder' );
-
+            $this->import('object-types');
             $this->import('categories');
-
-            // @TODO Galleries are available, but break due to Redmine bug #1911 - Gallery Floor isn't always a number
-            //$this->import('galleries');
-
-            // @TODO Replace with real endpoint when it becomes available
-            $this->seed( \App\Models\Collections\Gallery::class, 'GalleriesTableSeeder' );
-
+            $this->import('galleries');
             $this->import('artworks');
             $this->import('links');
             $this->import('videos');
             $this->import('texts');
-
-            // @TODO Replace with real endpoint when it becomes available
-            $this->seed( \App\Models\Collections\Exhibition::class, 'ExhibitionsTableSeeder' );
-
             $this->import('sounds');
+            $this->import('images');
+            $this->import('exhibitions');
 
         }
-
-    }
-
-
-    /**
-     * Seed data for a given model.
-     *
-     * @param string $model     Classname.
-     * @param string $seeder    Param for db:seed
-     * @param string $endpoint  (optional) If given, will import before seeding.
-     */
-    private function seed( $model, $seeder, $endpoint = null )
-    {
-
-        if ($model::count() > 0)
-        {
-            return false;
-        }
-
-        if( $endpoint )
-        {
-            $this->import( $endpoint );
-        }
-
-        \Artisan::call("db:seed", ['--class' => $seeder]);
 
     }
 

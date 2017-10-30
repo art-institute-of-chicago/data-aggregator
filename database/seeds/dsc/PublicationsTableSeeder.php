@@ -11,6 +11,6 @@ class PublicationsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Dsc\Publication::class, 50)->create();
+        factory(App\Models\Dsc\Publication::class, 25)->create();
     }
 }

@@ -13,20 +13,14 @@ class MembershipDatabaseSeeder extends Seeder
     public function run()
     {
 
-        $this->clean();
-
         $this->call(EventsTableSeeder::class);
 
     }
 
-    private function clean()
+    public static function clean()
     {
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
-        App\Models\Membership\Event::truncate();
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        App\Models\Membership\Event::fake()->delete();
 
     }
 

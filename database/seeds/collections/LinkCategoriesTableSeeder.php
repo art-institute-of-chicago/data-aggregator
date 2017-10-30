@@ -12,12 +12,12 @@ class LinkCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $links = App\Models\Collections\Link::all()->all();
-        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
+        $links = App\Models\Collections\Link::fake()->get();
+        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
 
         foreach ($links as $link) {
 
-            for ($i = 0; $i < rand(2,8); $i++) {
+            for ($i = 0; $i < rand(2,4); $i++) {
                 $link->categories()->attach($categoryIds[array_rand($categoryIds)]);
             }
 

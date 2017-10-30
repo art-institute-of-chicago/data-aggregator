@@ -25,6 +25,7 @@ class Publication extends DscModel
         return [
             'link' => [
                 "doc" => "URL to the publication",
+                "type" => "string",
                 "value" => function() { return $this->link; },
             ],
         ];

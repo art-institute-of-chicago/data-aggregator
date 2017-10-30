@@ -39,7 +39,7 @@ class Agent extends CollectionsModel
             'death_date' => $source->date_death,
             //'death_place' => ,
             //'licensing_restricted' => ,
-            'agent_type_citi_id' => \App\Models\Collections\AgentType::where('title', 'Artist')->first()->citi_id,
+            //'agent_type_citi_id' => \App\Models\Collections\AgentType::where('title', 'Artist')->first()->citi_id,
         ];
 
     }
@@ -53,30 +53,37 @@ class Agent extends CollectionsModel
         return [
             'birth_date' => [
                 "doc" => "The year this agent was born",
+                "type" => "number",
                 "value" => function() { return $this->birth_date; },
             ],
             'birth_place' => [
                 "doc" => "Name of the place this agent was born",
+                "type" => "string",
                 "value" => function() { return $this->birth_place; },
             ],
             'death_date' => [
                 "doc" => "The year this agent died",
+                "type" => "number",
                 "value" => function() { return $this->death_date; },
             ],
             'death_place' => [
                 "doc" => "Name of the place this agent died",
+                "type" => "string",
                 "value" => function() { return $this->death_place; },
             ],
             'is_licensing_restricted' => [
                 "doc" => "Whether the use of the images of works by this artist are restricted by licensing",
+                "type" => "boolean",
                 "value" => function() { return (bool) $this->licensing_restricted; },
             ],
             'agent_type' => [
                 "doc" => "Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.",
+                "type" => "string",
                 "value" => function() { return $this->agentType()->getResults() ? $this->agentType()->getResults()->title : ''; },
             ],
             'agent_type_id' => [
                 "doc" => "Unique identifier of the type of agent",
+                "type" => "number",
                 "value" => function() { return $this->agent_type_citi_id; },
             ],
         ];

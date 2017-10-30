@@ -48,30 +48,37 @@ class Gallery extends CollectionsModel
         return [
             'is_closed' => [
                 "doc" => "Whether the gallery is currently closed",
+                "type" => "boolean",
                 "value" => function() { return (bool) $this->closed; }
             ],
             'number' => [
-                "doc" => "The gallery's room number. For 'Gallery 100', this would be '100'.",
+                "doc" => "The gallery's room number. For 'Gallery 100A', this would be '100A'.",
+                "type" => "string",
                 "value" => function() { return $this->number; },
             ],
             'floor' => [
                 "doc" => "The level the gallery is on, e.g., 1, 2, 3, or LL",
+                "type" => "string",
                 "value" => function() { return $this->floor; },
             ],
             'latitude' => [
                 "doc" => "Latitude coordinate of the center of the room",
+                "type" => "number",
                 "value" => function() { return $this->latitude; },
             ],
             'longitude' => [
                 "doc" => "Longitude coordinate of the center of the room",
+                "type" => "number",
                 "value" => function() { return $this->longitude; },
             ],
             'latlon' => [
                 "doc" => "Latitude and longitude coordinates of the center of the room",
+                "type" => "string",
                 "value" => function() { return $this->latitude .',' .$this->longitude; },
             ],
             'category_ids' => [
                 "doc" => "Unique identifiers of the categories this gallery is a part of",
+                "type" => "number",
                 "value" => function() { return $this->categories->pluck('citi_id')->all(); },
             ],
         ];

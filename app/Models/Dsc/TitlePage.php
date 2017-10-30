@@ -30,7 +30,7 @@ class TitlePage extends DscModel
         return [
             'content' => $this->content,
             'publication' => $this->publication ? $this->publication->title : '',
-            'publication_id' => $this->publication_dsc_id,
+            'publication_id' => $this->publication ? $this->publication->dsc_id : null,
         ];
 
     }

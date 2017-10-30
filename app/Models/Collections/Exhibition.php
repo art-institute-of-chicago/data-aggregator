@@ -49,15 +49,9 @@ class Exhibition extends CollectionsModel
     public function seedArtworks()
     {
 
-        $artworkIds = \App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
+        $ids = \App\Models\Collections\Artwork::fake()->pluck('citi_id')->random(rand(2,4))->all();
 
-        for ($i = 0; $i < rand(2,8); $i++) {
-
-            $artworkId = $artworkIds[array_rand($artworkIds)];
-
-            $this->artworks()->attach($artworkId);
-
-        }
+        $this->artworks()->sync($ids, false);
 
         return $this;
 
@@ -66,15 +60,9 @@ class Exhibition extends CollectionsModel
     public function seedVenues()
     {
 
-        $agentIds = \App\Models\Collections\CorporateBody::all()->pluck('citi_id')->all();
+        $ids = \App\Models\Collections\CorporateBody::fake()->pluck('citi_id')->random(rand(1,3))->all();
 
-        for ($i = 0; $i < rand(1,3); $i++) {
-
-            $agentId = $agentIds[array_rand($agentIds)];
-
-            $this->venues()->attach($agentId);
-
-        }
+        $this->venues()->sync($ids, false);
 
         return $this;
 
@@ -90,42 +78,52 @@ class Exhibition extends CollectionsModel
         return [
             'description' => [
                 "doc" => "Explanation of what this exhibition is",
+                "type" => "string",
                 "value" => function() { return $this->description; },
             ],
             'type' => [
                 "doc" => "The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues, or whether it was",
+                "type" => "string",
                 "value" => function() { return $this->type; },
             ],
             'department' => [
                 "doc" => "The name of the department that primarily organized the exhibition",
+                "type" => "string",
                 "value" => function() { return $this->department()->getResults() ? $this->department()->getResults()->title : ''; },
             ],
             'department_id' => [
                 "doc" => "Unique identifier of the department that primarily organized the exhibition",
-                "value" => function() { return $this->department_citi_id; },
+                "type" => "number",
+                "value" => function() { return $this->department ? $this->department->citi_id : null; },
             ],
             'gallery' => [
                 "doc" => "The name of the gallery that mainly housed the exhibition",
+                "type" => "string",
                 "value" => function() { return $this->gallery()->getResults() ? $this->gallery()->getResults()->title : ''; },
             ],
             'gallery_id' => [
                 "doc" => "Unique identifier of the gallery that mainly housed the exhibition",
-                "value" => function() { return $this->gallery_citi_id; },
+                "type" => "number",
+                "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
             ],
             'dates' => [
                 "doc" => "A readable string of when the exhibition took place",
+                "type" => "string",
                 "value" => function() { return $this->exhibition_dates; },
             ],
             'is_active' => [
                 "doc" => "Whether the exhibition is active",
+                "type" => "boolean",
                 "value" => function() { return (bool) $this->active; },
             ],
             'artwork_ids' => [
                 "doc" => "Unique identifiers of the artworks that were part of the exhibition",
+                "type" => "array",
                 "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
             ],
             'venue_ids' => [
                 "doc" => "Unique identifiers of the venue agent records representing who hosted the exhibition",
+                "type" => "array",
                 "value" => function() { return $this->venues->pluck('citi_id')->all(); },
             ],
         ];

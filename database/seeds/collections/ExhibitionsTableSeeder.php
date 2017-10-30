@@ -12,9 +12,9 @@ class ExhibitionsTableSeeder extends Seeder
     public function run()
     {
 
-        factory(App\Models\Collections\Exhibition::class, 100)->create();
+        factory(App\Models\Collections\Exhibition::class, 25)->create();
 
-        $exhibitions = App\Models\Collections\Exhibition::all()->all();
+        $exhibitions = App\Models\Collections\Exhibition::fake()->get();
 
         foreach ($exhibitions as $exhibition) {
 

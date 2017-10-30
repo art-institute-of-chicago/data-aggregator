@@ -13,20 +13,14 @@ class StaticArchiveDatabaseSeeder extends Seeder
     public function run()
     {
 
-        $this->clean();
-
         $this->call(SitesTableSeeder::class);
 
     }
 
-    private function clean()
+    public static function clean()
     {
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
-        App\Models\StaticArchive\Site::truncate();
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        App\Models\StaticArchive\Site::fake()->delete();
 
     }
 

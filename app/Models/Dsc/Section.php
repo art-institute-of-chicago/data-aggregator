@@ -32,23 +32,28 @@ class Section extends DscModel
         return [
             'content' => [
                 "doc" => "The text of this section",
+                "type" => "string",
                 "value" => function() { return $this->content; },
             ],
             'weight' => [
                 "doc" => "Number representing this section's sort order",
+                "type" => "number",
                 "value" => function() { return $this->weight; },
             ],
             'depth' => [
                 "doc" => "Number representing how deep in the navigation hierarchy this section resides",
+                "type" => "number",
                 "value" => function() { return $this->depth; },
             ],
             'publication' => [
                 "doc" => "Name of the publication this section belongs to",
+                "type" => "string",
                 "value" => function() { return $this->publication ? $this->publication->title : ''; },
             ],
             'publication_id' => [
                 "doc" => "Unique identifier of the publication this section belongs to",
-                "value" => function() { return $this->publication_dsc_id; },
+                "type" => "number",
+                "value" => function() { return $this->publication ? $this->publication->dsc_id : null; },
             ],
         ];
 

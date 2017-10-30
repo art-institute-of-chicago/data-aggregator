@@ -13,22 +13,19 @@ class ShopDatabaseSeeder extends Seeder
     public function run()
     {
 
-        $this->clean();
-
         $this->call(ShopCategoriesTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
 
     }
 
-    private function clean()
+    public static function clean()
     {
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        App\Models\Shop\Category::fake()->delete();
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        App\Models\Shop\Product::truncate();
-        App\Models\Shop\Category::truncate();
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        App\Models\Shop\Product::fake()->delete();
 
     }
 

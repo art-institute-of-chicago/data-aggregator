@@ -12,14 +12,14 @@ class ArtistArtworksTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Models\Collections\Artwork::all()->all();
-        $artistsIds = App\Models\Collections\Artist::all()->pluck('citi_id')->all();
+        $artworks = App\Models\Collections\Artwork::fake()->get();
+        $artistsIds = App\Models\Collections\Artist::fake()->pluck('citi_id')->all();
 
         foreach ($artworks as $artwork) {
 
             $ids = [];
 
-            for ($i = 0; $i < rand(2,8); $i++) {
+            for ($i = 0; $i < rand(2,4); $i++) {
 
                 $id = $artistsIds[array_rand($artistsIds)];
 

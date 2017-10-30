@@ -26,6 +26,11 @@ class Category extends CollectionsModel
         return $this->belongsToMany('App\Models\Collections\Artwork');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Collections\Category', 'parent_id');
+    }
+
     public function getFillFieldsFrom($source)
     {
 
@@ -48,22 +53,27 @@ class Category extends CollectionsModel
         return [
             'parent_id' => [
                 "doc" => "Unique identifier of this category's parent",
-                "value" => function() { return $this->parent_id; },
+                "type" => "number",
+                "value" => function() { return $this->parent ? $this->parent->citi_id : null; },
             ],
             'is_in_nav' => [
                 "doc" => "Whether this category was included in the departmental navigation in the old collections site",
+                "type" => "boolean",
                 "value" => function() { return (bool) $this->is_in_nav; }
             ],
             'description' => [
                 "doc" => "Explanation of what this category is",
+                "type" => "string",
                 "value" => function() { return $this->description; }
             ],
             'sort' => [
                 "doc" => "Number representing this category's sort order",
+                "type" => "number",
                 "value" => function() { return $this->sort; }
             ],
             'type' => [
                 "doc" => "Number representing the type of category. 1 is departmental, 2 is subject, 3 is theme, 5 is multimedia.",
+                "type" => "number",
                 "value" => function() { return $this->type; }
             ],
         ];

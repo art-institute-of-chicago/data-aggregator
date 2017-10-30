@@ -13,4 +13,6 @@ class DscModel extends BaseModel
 
     protected $dates = ['source_created_at', 'source_modified_at'];
 
+    protected $fakeIdsStartAt = 9990000;
+
 }

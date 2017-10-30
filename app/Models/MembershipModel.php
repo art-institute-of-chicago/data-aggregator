@@ -13,6 +13,8 @@ class MembershipModel extends BaseModel
 
     protected $dates = ['source_created_at', 'source_modified_at'];
 
+    protected $fakeIdsStartAt = 99900000;
+
     protected function fillIdsFrom($source)
     {
 
@@ -38,6 +40,8 @@ class MembershipModel extends BaseModel
         $doc .= "* `zip` - The zip code matching the requested member record\n";
         $doc .= "* `email` - The email address matching the requested member record\n";
         $doc .= "* `phone` - The phone number matching the requested member record\n";
+
+        $doc .= "\n\n";
 
         return $doc;
     }
@@ -93,6 +97,8 @@ class MembershipModel extends BaseModel
         $doc .= "  * `date_of_birth` - Date this person was born\n";
         $doc .= "  * `age_group` - Number indicating this person's age group\n";
         $doc .= "  * `gender` - Number indicating this person's gender\n";
+
+        $doc .= "\n\n";
 
         return $doc;
     }

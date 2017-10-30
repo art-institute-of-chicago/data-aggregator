@@ -67,6 +67,7 @@ class ImportEventsFull extends AbstractImportCommand
             foreach ($json->data as $source)
             {
 
+                $source->is_ticketed = true;
                 $this->saveDatum( $source, $model );
 
             }

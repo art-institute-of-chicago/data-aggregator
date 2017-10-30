@@ -12,12 +12,12 @@ class ArtworkCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Models\Collections\Artwork::all()->all();
-        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
+        $artworks = App\Models\Collections\Artwork::fake()->get();
+        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
 
         foreach ($artworks as $artwork) {
 
-            for ($i = 0; $i < rand(2,8); $i++) {
+            for ($i = 0; $i < rand(2,4); $i++) {
                 $artwork->categories()->attach($categoryIds[array_rand($categoryIds)]);
             }
 
