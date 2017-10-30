@@ -27,7 +27,7 @@ The Data Aggregator interfaces with several internal APIs to collect its data.
 The project has been built in Laravel, and includes the following requirements:
 
 * Laravel 5.4
-* PHP 7.0 (may work in earlier versions but hasn't been tested)
+* PHP 7.1 (may work in earlier versions but hasn't been tested)
 * MySQL 5.7 (may work in earlier versions but hasn't been tested)
 * [Composer](https://getcomposer.org/)
 
@@ -101,7 +101,7 @@ in the [migrations](database/migrations) folder. In this file, add your create t
 
 #### 2. Create a factory to generate fake data
 
-We create a single [factory](database/factories) per source system, and define a factory for each model.
+We create a single [factory](database/factories) per source system, and define a factory for each model. 
 
 #### 3. Create a model
 
@@ -127,7 +127,9 @@ you'll have to rerun all your migrations:
 php artisan migrate:refresh --seed
 ```
 
-Be aware that if you've imported real data into into any of your tables they will be truncated and replaced with fake data.
+Seeded data data doesn't interfere with real data. All seed data should generate IDs outside of the range of real data. See 
+[MembershipFactory.php](database/factories/MembershipFactory.php#L19) for an example. Other parts of the code rely on
+[`$fakeIdsStartAt`](app/Models/BaseModel.php#L37) to differentiate fake data from real data.
 
 #### 5. Create unit tests
 
@@ -143,10 +145,10 @@ It's probably easiest to copy an existing [controller](app/Http/Controller) as a
 #### 7. Create a transformer
 
 Transformers take the model data and turns it into an array ready for output. Using the [Fractal](http://fractal.thephpleague.com/)
-library, we've created a [foundation](app/Http/Transformers/ApiTransformer.php) to make creating transformers in the Aggregator
-fairly straightforward. Ids, titles and dates will be added automatically unless you exclude them by setting the `$excludeIdsAndTitle`
-or `$excludeDates` properties to `false`. Then create a `transformFields` function to return an array of the fields 
-that are unique to your model.
+library, we've created a [foundation](app/Http/Transformers/ApiTransformer.php) for all the transformations at the API level, and a
+[Transformable trait](app/Models/Transformable.php) as a place for model-specific tranformations. Ids, titles and dates will be added 
+automatically unless you exclude them by setting the `$excludeIdsAndTitle` or `$excludeDates` properties to `false` in the transformer class. 
+Create a Transformer class, then create a `transformMappingInternal()` function in your model to return an array of the fields that are unique to your model.
 
 #### 8. Create routes for your endpoints
 
@@ -166,10 +168,20 @@ Keep going until all your tests pass. You can use the following to run all tests
 phpunit
 ```
 
-#### 10. Add Swagger documentation
+#### 10. Add documentation
 
-Add your new source data to our [Swagger](resource/views/swagger.blade.php) documentation. This file is not parsed or generated at all.
-It contains one big JSON object that gets output as swagger.json.
+The model `transformMappingInternal()` function includes array elements for documenting the fields outputted in the API. If you didn't
+add the documentation during that step, do it now. You can generate new documentation with the following commands:
+
+```shell
+php artisan docs:endpoints
+php artisan docs:fields
+```
+
+Markdown files will be generated in `storage/apps`. When these look good to release, copy them to the `docs` folder.
+
+Also, add your new source data to our [Swagger](resource/views/swagger.blade.php) 
+documentation. This file is not parsed or generated at all. It contains one big JSON object that gets output as swagger.json.
 
 That's it!
 
