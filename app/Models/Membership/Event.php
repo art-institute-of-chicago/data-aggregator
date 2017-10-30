@@ -141,6 +141,7 @@ class Event extends MembershipModel
             ],
             'is_ticketed' => [
                 "doc" => "Whether a ticket is required to attend the event.",
+                "type" => "boolean",
                 "value" => function() { return (bool) $this->is_ticketed; },
             ],
 
