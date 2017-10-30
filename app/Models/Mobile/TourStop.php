@@ -50,27 +50,27 @@ class TourStop extends MobileModel
             'title' => [
                 "doc" => "Name of this tour stop",
                 "type" => "string",
-                "value" => function() { return $this->artwork->title; },
+                "value" => function() { return $this->artwork ? $this->artwork->title : NULL; },
             ],
             'artwork' => [
                 "doc" => "Name of the artwork for this tour stop",
                 "type" => "string",
-                "value" => function() { return $this->artwork->title; },
+                "value" => function() { return $this->artwork ? $this->artwork->title : NULL; },
             ],
             'artwork_id' => [
                 "doc" => "Unique identifier of the artwork for this tour stop",
                 "type" => "number",
-                "value" => function() { return $this->artwork->artwork->id; },
+                "value" => function() { return $this->artwork && $this->artwork->artwork ? $this->artwork->artwork->id : NULL; },
             ],
             'mobile_sound' => [
                 "doc" => "URL to the audio file for this tour stop",
                 "type" => "url",
-                "value" => function() { return $this->sound->link; },
+                "value" => function() { return $this->sound ? $this->sound->link : NULL; },
             ],
             'mobile_sound_id' => [
                 "doc" => "Unique identifier of the audio file for this tour stop",
                 "type" => "number",
-                "value" => function() { return $this->sound->id; },
+                "value" => function() { return $this->sound ? $this->sound->id : NULL; },
             ],
             'weight' => [
                 "doc" => "Number representing this tour stop's sort order",
