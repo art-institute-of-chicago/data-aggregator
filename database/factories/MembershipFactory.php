@@ -16,7 +16,7 @@ if (!function_exists('membershipIdsAndTitle'))
     {
 
         return [
-            'membership_id' => $faker->unique()->randomNumber(5),
+            'membership_id' => $faker->unique()->randomNumber(5) + 999 * pow(10, 5),
             'title' => $title ? $title : ucfirst($faker->words(3, true)),
         ];
 
@@ -52,6 +52,7 @@ $factory->define(App\Models\Membership\Event::class, function (Faker\Generator $
             'is_admission_required' => $faker->boolean,
             'available' => $has_capacity ? $faker->randomDigit * 10 : null,
             'total_capacity' => $has_capacity ? $faker->randomDigit * 100 : null,
+            'is_ticketed' => $faker->boolean,
         ],
         membershipDates($faker)
     );

@@ -12,8 +12,8 @@ class ImageCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $images = App\Models\Collections\Image::all();
-        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
+        $images = App\Models\Collections\Image::fake();
+        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
 
         $images->each(function ($image, $key) use ($categoryIds) {
 

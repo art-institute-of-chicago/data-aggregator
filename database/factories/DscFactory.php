@@ -16,7 +16,7 @@ if (!function_exists('dscIdsAndTitle'))
     {
 
         return [
-            'dsc_id' => $id ?: $faker->unique()->randomNumber(4),
+            'dsc_id' => $id ?: $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
             'title' => ucfirst($faker->words(3, true)),
         ];
 
@@ -50,7 +50,7 @@ $factory->define(App\Models\Dsc\TitlePage::class, function (Faker\Generator $fak
         dscIdsAndTitle($faker),
         [
             'content' => '<img src="' .$faker->imageUrl .'" />',
-            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::all()->pluck('dsc_id')->all()),
+            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::fake()->pluck('dsc_id')->all()),
         ]
     );
 });
@@ -60,7 +60,7 @@ $factory->define(App\Models\Dsc\Section::class, function (Faker\Generator $faker
         dscIdsAndTitle($faker),
         [
             'content' => $faker->paragraphs(10, true),
-            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::all()->pluck('dsc_id')->all()),
+            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::fake()->pluck('dsc_id')->all()),
             'weight' => $faker->randomNumber(2),
             'depth' => $faker->randomDigit,
         ]
@@ -72,14 +72,14 @@ $factory->define(App\Models\Dsc\WorkOfArt::class, function (Faker\Generator $fak
 
     if (!$artworks)
     {
-        $artworks = App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
+        $artworks = App\Models\Collections\Artwork::fake()->pluck('citi_id')->all();
     }
 
     return array_merge(
         dscIdsAndTitle($faker),
         [
             'content' => $faker->paragraphs(10, true),
-            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::all()->pluck('dsc_id')->all()),
+            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::fake()->pluck('dsc_id')->all()),
             'artwork_citi_id' => $faker->randomElement($artworks),
             'weight' => $faker->randomNumber(2),
             'depth' => $faker->randomDigit,
@@ -88,7 +88,7 @@ $factory->define(App\Models\Dsc\WorkOfArt::class, function (Faker\Generator $fak
 });
 
 $factory->define(App\Models\Dsc\Footnote::class, function (Faker\Generator $faker) {
-    $section_id = $faker->randomElement(App\Models\Dsc\Section::all()->pluck('dsc_id')->all());
+    $section_id = $faker->randomElement(App\Models\Dsc\Section::fake()->pluck('dsc_id')->all());
     $id = 'fn-' .$section_id .'-' .$faker->randomNumber(3);
     return array_merge(
         dscIdsAndTitle($faker, $id),
@@ -100,7 +100,7 @@ $factory->define(App\Models\Dsc\Footnote::class, function (Faker\Generator $fake
 });
 
 $factory->define(App\Models\Dsc\Figure::class, function (Faker\Generator $faker) {
-    $section_id = $faker->randomElement(App\Models\Dsc\Section::all()->pluck('dsc_id')->all());
+    $section_id = $faker->randomElement(App\Models\Dsc\Section::fake()->pluck('dsc_id')->all());
     $id = 'fig-' .$section_id .'-' .$faker->randomNumber(3);
     return array_merge(
         dscIdsAndTitle($faker, $id),
@@ -115,7 +115,7 @@ $factory->define(App\Models\Dsc\FigureImage::class, function (Faker\Generator $f
     return array_merge(
         [
             'title' => ucfirst($faker->words(3, true)),
-            'figure_dsc_id' => $faker->randomElement(App\Models\Dsc\Figure::all()->pluck('dsc_id')->all()),
+            'figure_dsc_id' => $faker->randomElement(App\Models\Dsc\Figure::fake()->pluck('dsc_id')->all()),
             'link' => $faker->url,
         ]
     );
@@ -125,7 +125,7 @@ $factory->define(App\Models\Dsc\FigureVector::class, function (Faker\Generator $
     return array_merge(
         [
             'title' => ucfirst($faker->words(3, true)),
-            'figure_dsc_id' => $faker->randomElement(App\Models\Dsc\Figure::all()->pluck('dsc_id')->all()),
+            'figure_dsc_id' => $faker->randomElement(App\Models\Dsc\Figure::fake()->pluck('dsc_id')->all()),
             'link' => $faker->url,
         ]
     );
@@ -137,7 +137,7 @@ $factory->define(App\Models\Dsc\Collector::class, function (Faker\Generator $fak
         dscIdsAndTitle($faker),
         [
             'content' => $faker->paragraph(3),
-            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::all()->pluck('dsc_id')->all()),
+            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::fake()->pluck('dsc_id')->all()),
             'weight' => $faker->randomNumber(2),
             'depth' => $faker->randomDigit,
         ]

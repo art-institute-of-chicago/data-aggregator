@@ -11,10 +11,10 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Collections\Category::class, 100)->create();
+        factory(App\Models\Collections\Category::class, 25)->create();
 
-        $categories = App\Models\Collections\Category::all()->all();
-        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
+        $categories = App\Models\Collections\Category::fake()->get();
+        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
 
         foreach ($categories as $category) {
 

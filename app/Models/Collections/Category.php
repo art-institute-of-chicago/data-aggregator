@@ -26,6 +26,11 @@ class Category extends CollectionsModel
         return $this->belongsToMany('App\Models\Collections\Artwork');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Collections\Category', 'parent_id');
+    }
+
     public function getFillFieldsFrom($source)
     {
 
@@ -49,7 +54,7 @@ class Category extends CollectionsModel
             'parent_id' => [
                 "doc" => "Unique identifier of this category's parent",
                 "type" => "number",
-                "value" => function() { return $this->parent_id; },
+                "value" => function() { return $this->parent ? $this->parent->citi_id : null; },
             ],
             'is_in_nav' => [
                 "doc" => "Whether this category was included in the departmental navigation in the old collections site",

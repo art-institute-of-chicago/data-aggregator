@@ -105,7 +105,7 @@ class Artwork extends CollectionsModel
     public function images()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Image');
+        return $this->belongsToMany('App\Models\Collections\Image')->withPivot('preferred');
 
     }
 
@@ -123,7 +123,7 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function getFillFieldsFrom($source, $fake = true)
+    public function getFillFieldsFrom($source)
     {
 
         return [
@@ -141,12 +141,12 @@ class Artwork extends CollectionsModel
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
             'provenance' => $source->provenance,
-            'description' => $fake ? 'fake ' .$this->faker->paragraphs(5, true) : null,
-            'publishing_verification_level' => $fake ? 'fake ' .$this->faker->randomElement(['Web Basic', 'Web Cataloged', 'Web Everything']) : null,
-            'is_public_domain' => $fake ? $this->faker->boolean : null,
+            'description' => $source->description,
+            'publishing_verification_level' => null,
+            'is_public_domain' => null,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
-            'place_of_origin' => $fake ? 'fake ' .$this->faker->country : null,
-            'collection_status' => $fake ? 'fake ' .$this->faker->randomElement(['Permanent Collection', 'Long-term Loan']) : null,
+            'place_of_origin' => null,
+            'collection_status' => null,
             'department_citi_id' => $source->department_id,
             //'object_type_citi_id' => ,
             //'gallery_citi_id' => ,
@@ -157,14 +157,11 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function attachFrom($source, $fake = true)
+    public function attachFrom($source)
     {
 
         if ($source->creator_id)
         {
-
-            // Artist::findOrCreate($source->creator_id);
-            // $this->artists()->attach($source->creator_id);
 
             $this->artists()->sync([$source->creator_id], false);
 
@@ -173,19 +170,13 @@ class Artwork extends CollectionsModel
         if ($source->image_guid)
         {
 
-            // $image = Image::findOrCreate($source->image_guid);
-            // $image->preferred = true;
-            // $this->images()->save($image);
-
-            $this->images()->sync([$source->image_guid], false);
-
             // https://stackoverflow.com/questions/27230672/laravel-sync-how-to-sync-an-array-and-also-pass-additional-pivot-fields
             // This is how we sync w/ an additional attribute on the pivot table
-            // $this->images()->sync([
-            //     $source->image_guid => [
-            //         'preferred' => true
-            //     ]
-            // ], false);
+            $this->images()->sync([
+                $source->image_guid => [
+                    'preferred' => true
+                ]
+            ], false);
 
         }
 
@@ -193,47 +184,29 @@ class Artwork extends CollectionsModel
         if ($source->department_id)
         {
 
-            // $department = Department::findOrCreate($source->department_id);
-            // $this->department()->associate($department);
-
-            $this->department_citi_id = $source->department_id;
-
             // Sync is unnecessary here, since it's just a column on this table
-            // $this->department()->sync([$source->department_id], false);
+            $this->department_citi_id = $source->department_id;
 
         }
 
         if ($source->category_ids)
         {
-            $cats = [];
 
-            foreach ($source->category_ids as $id)
-            {
-
-                $cat = Category::where('citi_id', $id)->first();
-                if ($cat)
-                {
-                    $cats[] = $cat->citi_id;
-                }
-
-            }
-
-            $this->categories()->sync($cats, false);
+            $this->categories()->sync($source->category_ids, false);
 
         }
+
         // $source->document_guids
 
         // @TODO Replace with real endpoints when they become available
-        if( $fake ) {
-            $this->seedCopyrightRepresentatives();
-            $this->seedCommittees();
-            $this->seedTerms();
-            $this->seedDates();
-            $this->seedCatalogues();
-            // TODO: Remove this...? Might be unnecessary.
-            // $this->seedImages();
-            // $this->seedParts();
-        }
+        // $this->seedCopyrightRepresentatives();
+        // $this->seedCommittees();
+        // $this->seedTerms();
+        // $this->seedDates();
+        // $this->seedCatalogues();
+        // TODO: Remove this...? Might be unnecessary.
+        // $this->seedImages();
+        // $this->seedParts();
 
         // update artworks with gallery id and object type id
 
@@ -244,20 +217,21 @@ class Artwork extends CollectionsModel
     public function seedCopyrightRepresentatives()
     {
 
-        $agentIds = CopyrightRepresentative::all()->pluck('citi_id')->all();
+        $agentIds = CopyrightRepresentative::fake()->pluck('citi_id')->all();
 
         $ids = [];
 
-        for ($i = 0; $i < rand(2,8); $i++) {
+        for ($i = 0; $i < rand(2,4); $i++) {
 
             $id = $agentIds[array_rand($agentIds)];
 
             if (!in_array($id, $ids)) {
-                $this->copyrightRepresentatives()->attach($id);
                 $ids[] = $id;
             }
 
         }
+
+        $this->copyrightRepresentatives()->sync($ids, false);
 
         return $this;
 
@@ -266,7 +240,7 @@ class Artwork extends CollectionsModel
     public function seedCommittees()
     {
 
-        for ($i = 0; $i < rand(2,8); $i++) {
+        for ($i = 0; $i < rand(2,4); $i++) {
 
             $committee = factory(ArtworkCommittee::class)->make([
                 'artwork_citi_id' => $this->citi_id,
@@ -283,7 +257,7 @@ class Artwork extends CollectionsModel
     public function seedTerms()
     {
 
-        for ($i = 0; $i < rand(2,8); $i++) {
+        for ($i = 0; $i < rand(2,4); $i++) {
 
             $term = factory(ArtworkTerm::class)->make([
                 'artwork_citi_id' => $this->citi_id,
@@ -302,7 +276,7 @@ class Artwork extends CollectionsModel
 
         $hasPreferred = false;
 
-        for ($i = 0; $i < rand(2,8); $i++) {
+        for ($i = 0; $i < rand(2,4); $i++) {
 
             $preferred = $hasPreferred ? false : $this->faker->boolean;
 
@@ -325,7 +299,7 @@ class Artwork extends CollectionsModel
 
         $hasPreferred = false;
 
-        for ($i = 0; $i < rand(2,8); $i++) {
+        for ($i = 0; $i < rand(2,4); $i++) {
 
             $preferred = $this->faker->boolean;
 
@@ -357,9 +331,7 @@ class Artwork extends CollectionsModel
             // This architecture means it would have to be the preferred one for all of them!
             // Potentially consider specifying `preferred` column on the pivot table?
             // https://laravel.com/docs/5.4/eloquent-relationships#many-to-many
-            $image = factory(\App\Models\Collections\Image::class)->make([
-                'preferred' => $preferred,
-            ]);
+            $image = factory(\App\Models\Collections\Image::class)->make();
             $this->images()->save($image);
 
             if ($preferred || $hasPreferred) $hasPreferred = true;
@@ -476,7 +448,7 @@ class Artwork extends CollectionsModel
             'department_id' => [
                 "doc" => "Unique identifier of the curatorial department that this work belongs to",
                 "type" => "number",
-                "value" => function() { return $this->department_citi_id; },
+                "value" => function() { return $this->department ? $this->department_citi_id : null; },
             ],
             'dimensions' => [
                 "doc" => "The size, shape, scale, and dimensions of the work. May include multiple dimension like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.",
@@ -501,7 +473,7 @@ class Artwork extends CollectionsModel
             'object_type_id' => [
                 "doc" => "Unique identifier of the kind of object or work",
                 "type" => "number",
-                "value" => function() { return $this->object_type_citi_id; },
+                "value" => function() { return $this->objectType ? $this->objectType->citi_id : null; },
             ],
             'credit_line' => [
                 "doc" => "Brief statement indicating how the work came into the collection",
@@ -556,12 +528,12 @@ class Artwork extends CollectionsModel
             'gallery_id' => [
                 "doc" => "Unique identifier of the location of this work in our museum",
                 "type" => "number",
-                "value" => function() { return $this->gallery_citi_id; },
+                "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
             ],
             'is_in_gallery' => [
                 "doc" => "Whether the work is on display",
                 "type" => "boolean",
-                "value" => function() { return $this->gallery_citi_id ? true : false; },
+                "value" => function() { return $this->gallery ? true : false; },
             ],
             'latitude' => [
                 "doc" => "Latitude coordinate of the location of this work in our galleries",
@@ -639,19 +611,17 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifier of the preferred image to use to represent this work",
                 "type" => "number",
                 "value" => function() {
-                    $preferred_image = $this->images->first( function( $image ) {
-                        return $image->preferred;
-                    });
-                    return $preferred_image ? $preferred_image->lake_guid : null; },
+                    $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
+                    return $preferred_image ? $preferred_image->lake_guid : null;
+                },
             ],
             'preferred_image_iiif_url' => [
                 "doc" => "IIIF URL of the preferred image to use to represent this work",
                 "type" => "string",
                 "value" => function() {
-                    $preferred_image = $this->images->first( function( $image ) {
-                        return $image->preferred;
-                    });
-                    return $preferred_image ? $preferred_image->iiif_url : null; },
+                    $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
+                    return $preferred_image ? $preferred_image->iiif_url : null;
+                },
             ],
             'image_ids' => [
                 "doc" => "Unique identifiers of all the images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.",

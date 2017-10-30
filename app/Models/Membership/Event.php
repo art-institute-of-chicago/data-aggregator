@@ -69,6 +69,8 @@ class Event extends MembershipModel
             'available' => $source->available,
             'total_capacity' => $source->total_capacity,
 
+            'is_ticketed' => $source->is_ticketed,
+
         ];
 
     }
@@ -137,6 +139,11 @@ class Event extends MembershipModel
                 "type" => "number",
                 "value" => function() { return $this->total_capacity; },
             ],
+            'is_ticketed' => [
+                "doc" => "Whether a ticket is required to attend the event.",
+                "type" => "boolean",
+                "value" => function() { return (bool) $this->is_ticketed; },
+            ],
 
         ];
 
@@ -182,6 +189,9 @@ class Event extends MembershipModel
             ],
             'total_capacity' => [
                 'type' => 'integer',
+            ],
+            'is_ticketed' => [
+                'type' => 'boolean',
             ],
 
         ];

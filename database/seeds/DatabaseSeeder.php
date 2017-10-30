@@ -37,4 +37,16 @@ class DatabaseSeeder extends Seeder
 
     }
 
+    public static function clean()
+    {
+
+        CollectionsDatabaseSeeder::clean();
+        ShopDatabaseSeeder::clean();
+        MembershipDatabaseSeeder::clean();
+        MobileDatabaseSeeder::clean();
+        DscDatabaseSeeder::clean();
+        StaticArchiveDatabaseSeeder::clean();
+
+    }
+
 }

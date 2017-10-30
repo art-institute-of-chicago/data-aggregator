@@ -49,15 +49,9 @@ class Exhibition extends CollectionsModel
     public function seedArtworks()
     {
 
-        $artworkIds = \App\Models\Collections\Artwork::all()->pluck('citi_id')->all();
+        $ids = \App\Models\Collections\Artwork::fake()->pluck('citi_id')->random(rand(2,4))->all();
 
-        for ($i = 0; $i < rand(2,8); $i++) {
-
-            $artworkId = $artworkIds[array_rand($artworkIds)];
-
-            $this->artworks()->attach($artworkId);
-
-        }
+        $this->artworks()->sync($ids, false);
 
         return $this;
 
@@ -66,15 +60,9 @@ class Exhibition extends CollectionsModel
     public function seedVenues()
     {
 
-        $agentIds = \App\Models\Collections\CorporateBody::all()->pluck('citi_id')->all();
+        $ids = \App\Models\Collections\CorporateBody::fake()->pluck('citi_id')->random(rand(1,3))->all();
 
-        for ($i = 0; $i < rand(1,3); $i++) {
-
-            $agentId = $agentIds[array_rand($agentIds)];
-
-            $this->venues()->attach($agentId);
-
-        }
+        $this->venues()->sync($ids, false);
 
         return $this;
 
@@ -106,7 +94,7 @@ class Exhibition extends CollectionsModel
             'department_id' => [
                 "doc" => "Unique identifier of the department that primarily organized the exhibition",
                 "type" => "number",
-                "value" => function() { return $this->department_citi_id; },
+                "value" => function() { return $this->department ? $this->department->citi_id : null; },
             ],
             'gallery' => [
                 "doc" => "The name of the gallery that mainly housed the exhibition",
@@ -116,7 +104,7 @@ class Exhibition extends CollectionsModel
             'gallery_id' => [
                 "doc" => "Unique identifier of the gallery that mainly housed the exhibition",
                 "type" => "number",
-                "value" => function() { return $this->gallery_citi_id; },
+                "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
             ],
             'dates' => [
                 "doc" => "A readable string of when the exhibition took place",

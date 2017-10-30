@@ -30,6 +30,14 @@ class BaseModel extends Model
 
 
     /**
+     * The smallest number that fake IDs start at for this model
+     *
+     * @var integer
+     */
+    protected $fakeIdsStartAt = 999000;
+
+
+    /**
      * Create a new model instance. Also instantiates a $faker class.
      *
      * @param  array  $attributes
@@ -78,6 +86,30 @@ class BaseModel extends Model
 
 
     /**
+     * Scope a query to only include fake records.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFake($query)
+    {
+        if ($this->getKeyType() == 'int')
+        {
+
+            return $query->where($this->getKeyName(), '>=', $this->fakeIdsStartAt);
+
+        }
+        else
+        {
+
+            return $query->where($this->getKeyName(), 'like', '99999999-9999-9999-9999-%');
+
+        }
+
+    }
+
+
+    /**
      * Return the cached instance or create a new instance of this model.
      * Uses an array to accomodate for multiple inherited models calling
      * this same method.
@@ -104,6 +136,19 @@ class BaseModel extends Model
 
 
     /**
+     * Get the class name for a given API endpoint
+     *
+     * @param  string  $endpoint
+     * @return string
+     */
+    public static function classFor($endpoint)
+    {
+
+        return '\App\Models\\' . static::$source . '\\' . studly_case(str_singular($endpoint));
+
+    }
+
+    /**
      * Find the record matching the given id or create it.
      *
      * @TODO Remove this in favor of Laravel's built-in findOrCreate.
@@ -121,15 +166,14 @@ class BaseModel extends Model
 
 
     /**
-     * Get the class name for a given API endpoint
+     * The smallest number that fake IDs start at for this model
      *
-     * @param  string  $endpoint
-     * @return string
+     * @return integer
      */
-    public static function classFor($endpoint)
+    public static function fakeIdsStartAt()
     {
 
-        return '\App\Models\\' . static::$source . '\\' . studly_case(str_singular($endpoint));
+        return $this->instance()->fakeIdsStartAt;
 
     }
 

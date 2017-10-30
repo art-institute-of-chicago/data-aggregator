@@ -11,6 +11,6 @@ class TextsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Collections\Text::class, 100)->create();
+        factory(App\Models\Collections\Text::class, 25)->create();
     }
 }

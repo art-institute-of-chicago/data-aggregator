@@ -16,7 +16,7 @@ if (!function_exists('shopIdsAndTitle'))
     {
 
         return [
-            'shop_id' => $faker->unique()->randomNumber(3),
+            'shop_id' => $faker->unique()->randomNumber(3) + 999 * pow(10, 3),
             'title' => $title ? $title : ucfirst($faker->words(5, true)),
         ];
 

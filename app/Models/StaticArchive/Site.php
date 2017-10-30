@@ -17,6 +17,7 @@ class Site extends BaseModel
 
     protected $primaryKey = 'site_id';
     protected $dates = ['source_created_at', 'source_modified_at'];
+    protected $fakeIdsStartAt = 9990000;
 
     public function exhibition()
     {
@@ -58,7 +59,7 @@ class Site extends BaseModel
             'exhibition_id' => [
                 "doc" => "Unique identifier of the exhibition this site is associated with",
                 "type" => "number",
-                "value" => function() { return $this->exhibition_citi_id; },
+                "value" => function() { return $this->exhibition ? $this->exhibition->citi_id : null; },
             ],
             'artwork_ids' => [
                 "doc" => "Unique identifiers of the artworks this site is associated with",

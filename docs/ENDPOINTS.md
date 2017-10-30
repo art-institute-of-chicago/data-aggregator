@@ -142,39 +142,39 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 7869,
+        "total": 4943,
         "limit": 10,
         "offset": 0,
-        "total_pages": 787,
+        "total_pages": 495,
         "current_page": 1
     },
     "data": [
         {
-            "_score": 23.14772,
-            "api_id": "14598",
-            "api_model": "artworks",
-            "api_link": "http:\/\/data-aggregator.dev\/api\/v1\/artworks\/14598",
-            "id": "collections.artworks.14598",
-            "title": "The Beach at Sainte-Adresse",
-            "timestamp": "2017-09-20T19:38:40-05:00"
-        },
-        {
-            "_score": 20.726635,
+            "_score": 23.046413,
             "api_id": "16499",
             "api_model": "artworks",
-            "api_link": "http:\/\/data-aggregator.dev\/api\/v1\/artworks\/16499",
-            "id": "collections.artworks.16499",
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/16499",
+            "id": 16499,
             "title": "Jesus Mocked by the Soldiers",
-            "timestamp": "2017-09-20T19:36:53-05:00"
+            "timestamp": "2017-10-27T11:23:12-05:00"
         },
         {
-            "_score": 20.678082,
+            "_score": 20.159664,
             "api_id": "16571",
             "api_model": "artworks",
-            "api_link": "http:\/\/data-aggregator.dev\/api\/v1\/artworks\/16571",
-            "id": "collections.artworks.16571",
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/16571",
+            "id": 16571,
             "title": "Arrival of the Normandy Train, Gare Saint-Lazare",
-            "timestamp": "2017-09-20T19:36:52-05:00"
+            "timestamp": "2017-10-26T17:33:56-05:00"
+        },
+        {
+            "_score": 19.088053,
+            "api_id": "14598",
+            "api_model": "artworks",
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/14598",
+            "id": 14598,
+            "title": "The Beach at Sainte-Adresse",
+            "timestamp": "2017-10-27T11:24:13-05:00"
         }
     ],
     "suggest": {
@@ -189,14 +189,14 @@ Example output:
             "<em>don't<\/em>",
             "<em>Don't<\/em>",
             "<em>Donut<\/em>",
-            "<em>Manet<\/em>"
+            "<em>Bonnet<\/em>"
         ]
     },
     "aggregations": {
         "count_api_model": [
             {
                 "key": "artworks",
-                "doc_count": 7869
+                "doc_count": 4943
             }
         ]
     }
@@ -540,15 +540,24 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 11309,
+        "total": 13985,
         "limit": 10,
         "offset": 0,
-        "total_pages": 1131,
+        "total_pages": 1399,
         "current_page": 1
     },
     "data": [
         {
-            "_score": 11.860229,
+            "_score": 12.113433,
+            "api_id": "92975",
+            "api_model": "agents",
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/92975",
+            "id": 92975,
+            "title": "Quimbaya",
+            "timestamp": "2017-10-26T17:24:42-05:00"
+        },
+        {
+            "_score": 11.77696,
             "api_id": "111317",
             "api_model": "agents",
             "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/agents\/111317",
@@ -557,29 +566,20 @@ Example output:
             "timestamp": "2017-09-15T12:20:38-05:00"
         },
         {
-            "_score": 11.860229,
-            "api_id": "92975",
+            "_score": 11.525646,
+            "api_id": "111810",
             "api_model": "agents",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/92975",
-            "id": "collections.agents.92975",
-            "title": "Quimbaya",
-            "timestamp": "2017-09-25T15:00:24-05:00"
-        },
-        {
-            "_score": 11.523757,
-            "api_id": "90583",
-            "api_model": "agents",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/90583",
-            "id": "collections.agents.90583",
-            "title": "Rich, Felicity",
-            "timestamp": "2017-09-25T15:00:24-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/111810",
+            "id": 111810,
+            "title": "Rossetti, Cesare",
+            "timestamp": "2017-10-26T17:24:09-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "agents",
-                "doc_count": 11309
+                "doc_count": 13985
             }
         ]
     }
@@ -626,7 +626,7 @@ Example output:
 }
 ```
 
-Artists are a subset of agents filtered by `agent_type` with values `Artist`. The following endpoints are available with the same parameters and output as their corresponding `/agents` endpoints:
+Artists are a subset of agents filtered by `agent_type` with values `Individual`. The following endpoints are available with the same parameters and output as their corresponding `/agents` endpoints:
 
 * `/artists`
 * `/artists/{id}`
@@ -703,46 +703,46 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 32,
+        "total": 799,
         "limit": 10,
         "offset": 0,
-        "total_pages": 4,
+        "total_pages": 80,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
-            "api_id": "423",
+            "api_id": "999820051",
             "api_model": "departments",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/423",
-            "id": "collections.departments.423",
-            "title": "Design and Construction",
-            "timestamp": "2017-10-04T13:40:40-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/999820051",
+            "id": 999820051,
+            "title": "Molestiae Art",
+            "timestamp": "2017-10-26T17:15:12-05:00"
         },
         {
             "_score": 1,
-            "api_id": "84",
+            "api_id": "999821069",
             "api_model": "departments",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/84",
-            "id": "collections.departments.84",
-            "title": "Museum Registrar",
-            "timestamp": "2017-10-04T13:40:41-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/999821069",
+            "id": 999821069,
+            "title": "Quidem Art",
+            "timestamp": "2017-10-26T17:15:12-05:00"
         },
         {
             "_score": 1,
-            "api_id": "89",
+            "api_id": "999623617",
             "api_model": "departments",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/89",
-            "id": "collections.departments.89",
-            "title": "Conservation",
-            "timestamp": "2017-10-04T13:40:41-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/999623617",
+            "id": 999623617,
+            "title": "Error Art",
+            "timestamp": "2017-10-26T17:15:13-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "departments",
-                "doc_count": 32
+                "doc_count": 799
             }
         ]
     }
@@ -909,46 +909,46 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 790,
+        "total": 2343,
         "limit": 10,
         "offset": 0,
-        "total_pages": 79,
+        "total_pages": 235,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
-            "api_id": "366",
+            "api_id": "999940019",
             "api_model": "categories",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/366",
-            "id": "collections.categories.366",
-            "title": "Art Access: Art of India, Himalayas, and Southeast",
-            "timestamp": "2017-10-10T11:25:43-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/999940019",
+            "id": 999940019,
+            "title": "Et",
+            "timestamp": "2017-10-26T17:15:14-05:00"
         },
         {
             "_score": 1,
-            "api_id": "60",
+            "api_id": "999424227",
             "api_model": "categories",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/60",
-            "id": "collections.categories.60",
-            "title": "Western Africa",
-            "timestamp": "2017-10-10T11:25:43-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/999424227",
+            "id": 999424227,
+            "title": "Velit",
+            "timestamp": "2017-10-26T17:15:14-05:00"
         },
         {
             "_score": 1,
-            "api_id": "313",
+            "api_id": "999118426",
             "api_model": "categories",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/313",
-            "id": "collections.categories.313",
-            "title": "Vladimir Ivanovich Liushin",
-            "timestamp": "2017-10-10T11:25:43-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/999118426",
+            "id": 999118426,
+            "title": "Ratione",
+            "timestamp": "2017-10-26T17:15:14-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "categories",
-                "doc_count": 790
+                "doc_count": 2343
             }
         ]
     }
@@ -1117,13 +1117,22 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 116,
+        "total": 1520,
         "limit": 10,
         "offset": 0,
-        "total_pages": 12,
+        "total_pages": 152,
         "current_page": 1
     },
     "data": [
+        {
+            "_score": 11.4849825,
+            "api_id": "23972",
+            "api_model": "galleries",
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries\/23972",
+            "id": 23972,
+            "title": "Gallery 297B",
+            "timestamp": "2017-10-26T17:31:52-05:00"
+        },
         {
             "_score": 1,
             "api_id": "22475",
@@ -1141,22 +1150,13 @@ Example output:
             "id": "collections.galleries.27057",
             "title": "Reichel Study Room",
             "timestamp": "2017-09-15T12:20:42-05:00"
-        },
-        {
-            "_score": 1,
-            "api_id": "72471",
-            "api_model": "galleries",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/galleries\/72471",
-            "id": "collections.galleries.72471",
-            "title": "Gallery 643",
-            "timestamp": "2017-09-15T12:20:42-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "galleries",
-                "doc_count": 116
+                "doc_count": 1520
             }
         ]
     }
@@ -1256,46 +1256,46 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 100,
+        "total": 5305,
         "limit": 10,
         "offset": 0,
-        "total_pages": 10,
+        "total_pages": 531,
         "current_page": 1
     },
     "data": [
         {
-            "_score": 1,
-            "api_id": "27292",
+            "_score": 11.813478,
+            "api_id": "4788",
             "api_model": "exhibitions",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/exhibitions\/27292",
-            "id": "collections.exhibitions.27292",
-            "title": "Error Minus Voluptatum",
-            "timestamp": "2017-09-15T13:57:41-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/4788",
+            "id": 4788,
+            "title": "Guild of Boston Artists",
+            "timestamp": "2017-10-27T14:07:21-05:00"
         },
         {
-            "_score": 1,
-            "api_id": "55283",
+            "_score": 11.813478,
+            "api_id": "4796",
             "api_model": "exhibitions",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/exhibitions\/55283",
-            "id": "collections.exhibitions.55283",
-            "title": "Consequuntur Est Dolor",
-            "timestamp": "2017-09-15T13:57:41-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/4796",
+            "id": 4796,
+            "title": "Art Students' League of Chicago 23rd Annual",
+            "timestamp": "2017-10-27T14:07:33-05:00"
         },
         {
-            "_score": 1,
-            "api_id": "143734",
+            "_score": 11.813478,
+            "api_id": "6596",
             "api_model": "exhibitions",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/exhibitions\/143734",
-            "id": "collections.exhibitions.143734",
-            "title": "Voluptates Et Ullam",
-            "timestamp": "2017-09-15T13:57:41-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/6596",
+            "id": 6596,
+            "title": "The Age of Louis XV: French Paintings from 1710-1774",
+            "timestamp": "2017-10-27T14:09:19-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "exhibitions",
-                "doc_count": 100
+                "doc_count": 5305
             }
         ]
     }
@@ -1459,10 +1459,10 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 413340,
+        "total": 415578,
         "limit": 10,
         "offset": 0,
-        "total_pages": 41334,
+        "total_pages": 41558,
         "current_page": 1
     },
     "data": [
@@ -1498,7 +1498,7 @@ Example output:
         "count_api_model": [
             {
                 "key": "images",
-                "doc_count": 413340
+                "doc_count": 415578
             }
         ]
     }
@@ -1597,46 +1597,46 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 312,
+        "total": 1012,
         "limit": 10,
         "offset": 0,
-        "total_pages": 32,
+        "total_pages": 102,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
-            "api_id": "031dcad7-f39f-2dae-595c-eb6730a54dc6",
+            "api_id": "813ecdc8-d3ac-3182-a8b7-e64646f914a5",
             "api_model": "videos",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/videos\/031dcad7-f39f-2dae-595c-eb6730a54dc6",
-            "id": "collections.videos.031dcad7-f39f-2dae-595c-eb6730a54dc6",
-            "title": "Video: Staff Picks: Robby S.",
-            "timestamp": "2017-09-15T13:57:33-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/videos\/813ecdc8-d3ac-3182-a8b7-e64646f914a5",
+            "id": "813ecdc8-d3ac-3182-a8b7-e64646f914a5",
+            "title": "Consequatur Ad Nemo",
+            "timestamp": "2017-10-26T17:11:53-05:00"
         },
         {
             "_score": 1,
-            "api_id": "05ef3389-d354-0890-a840-dd836ed0c52d",
+            "api_id": "e5216d3e-5791-33ee-a419-7142bcf30bc6",
             "api_model": "videos",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/videos\/05ef3389-d354-0890-a840-dd836ed0c52d",
-            "id": "collections.videos.05ef3389-d354-0890-a840-dd836ed0c52d",
-            "title": "Video: Moreau's Enduring Art",
-            "timestamp": "2017-09-15T13:57:33-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/videos\/e5216d3e-5791-33ee-a419-7142bcf30bc6",
+            "id": "e5216d3e-5791-33ee-a419-7142bcf30bc6",
+            "title": "Impedit Magni Fugiat",
+            "timestamp": "2017-10-26T17:11:53-05:00"
         },
         {
             "_score": 1,
-            "api_id": "12f69a4d-06c5-e35c-c936-d1dc451231d1",
+            "api_id": "abfaf15a-f96f-30bc-a2f2-8ad268848375",
             "api_model": "videos",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/videos\/12f69a4d-06c5-e35c-c936-d1dc451231d1",
-            "id": "collections.videos.12f69a4d-06c5-e35c-c936-d1dc451231d1",
-            "title": "Video: Cassatt in the Paris Art World",
-            "timestamp": "2017-09-15T13:57:33-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/videos\/abfaf15a-f96f-30bc-a2f2-8ad268848375",
+            "id": "abfaf15a-f96f-30bc-a2f2-8ad268848375",
+            "title": "Debitis Enim Eos",
+            "timestamp": "2017-10-26T17:11:53-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "videos",
-                "doc_count": 312
+                "doc_count": 1012
             }
         ]
     }
@@ -1735,46 +1735,46 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 146,
+        "total": 846,
         "limit": 10,
         "offset": 0,
-        "total_pages": 15,
+        "total_pages": 85,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
-            "api_id": "0006576e-6a99-7ec1-9562-8a5c1085d2d9",
+            "api_id": "5caabfd8-310a-3158-a968-fcabe183006b",
             "api_model": "links",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/links\/0006576e-6a99-7ec1-9562-8a5c1085d2d9",
-            "id": "collections.links.0006576e-6a99-7ec1-9562-8a5c1085d2d9",
-            "title": "Timeline: When in Africa, When in the World",
-            "timestamp": "2017-09-15T13:57:27-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/links\/5caabfd8-310a-3158-a968-fcabe183006b",
+            "id": "5caabfd8-310a-3158-a968-fcabe183006b",
+            "title": "Voluptas Dolorem Fugiat",
+            "timestamp": "2017-10-26T17:09:43-05:00"
         },
         {
             "_score": 1,
-            "api_id": "0af8be20-aebb-1193-96d5-f1045e399776",
+            "api_id": "0c3d028e-b69f-3ce0-b8ca-bf8f21182cfe",
             "api_model": "links",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/links\/0af8be20-aebb-1193-96d5-f1045e399776",
-            "id": "collections.links.0af8be20-aebb-1193-96d5-f1045e399776",
-            "title": "Timeline: Irving Penn",
-            "timestamp": "2017-09-15T13:57:27-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/links\/0c3d028e-b69f-3ce0-b8ca-bf8f21182cfe",
+            "id": "0c3d028e-b69f-3ce0-b8ca-bf8f21182cfe",
+            "title": "Non Officiis Veritatis",
+            "timestamp": "2017-10-26T17:09:43-05:00"
         },
         {
             "_score": 1,
-            "api_id": "12af57aa-9338-35a0-bd9c-658bb31e9d3f",
+            "api_id": "5669f4c6-7862-3b4b-99f2-fa9937066e5a",
             "api_model": "links",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/links\/12af57aa-9338-35a0-bd9c-658bb31e9d3f",
-            "id": "collections.links.12af57aa-9338-35a0-bd9c-658bb31e9d3f",
-            "title": "Turning the Pages: Jacques-Louis David, (French, 1748\u20131825) Sketchbook, 1809\/10",
-            "timestamp": "2017-09-15T13:57:27-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/links\/5669f4c6-7862-3b4b-99f2-fa9937066e5a",
+            "id": "5669f4c6-7862-3b4b-99f2-fa9937066e5a",
+            "title": "Eaque Magni Reiciendis",
+            "timestamp": "2017-10-26T17:09:43-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "links",
-                "doc_count": 146
+                "doc_count": 846
             }
         ]
     }
@@ -1873,46 +1873,46 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 1020,
+        "total": 1720,
         "limit": 10,
         "offset": 0,
-        "total_pages": 102,
+        "total_pages": 172,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
-            "api_id": "7e6e63e5-1ae0-cadd-b661-1be558f7ca2c",
+            "api_id": "2e999957-0ee3-3b3f-a322-f69403e22bad",
             "api_model": "sounds",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/sounds\/7e6e63e5-1ae0-cadd-b661-1be558f7ca2c",
-            "id": "collections.sounds.7e6e63e5-1ae0-cadd-b661-1be558f7ca2c",
-            "title": "243.mp3",
-            "timestamp": "2017-09-15T13:57:30-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sounds\/2e999957-0ee3-3b3f-a322-f69403e22bad",
+            "id": "2e999957-0ee3-3b3f-a322-f69403e22bad",
+            "title": "Minus Consectetur Adipisci",
+            "timestamp": "2017-10-26T17:11:51-05:00"
         },
         {
             "_score": 1,
-            "api_id": "7ee3015a-b040-1c0b-8075-98faa93ac368",
+            "api_id": "e871ae8e-8258-3506-8b79-1d1ebd77970c",
             "api_model": "sounds",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/sounds\/7ee3015a-b040-1c0b-8075-98faa93ac368",
-            "id": "collections.sounds.7ee3015a-b040-1c0b-8075-98faa93ac368",
-            "title": "455.wav",
-            "timestamp": "2017-09-15T13:57:30-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sounds\/e871ae8e-8258-3506-8b79-1d1ebd77970c",
+            "id": "e871ae8e-8258-3506-8b79-1d1ebd77970c",
+            "title": "Molestiae Veniam Doloremque",
+            "timestamp": "2017-10-26T17:11:51-05:00"
         },
         {
             "_score": 1,
-            "api_id": "7fa2e184-a94a-8529-6c03-01a96c7c5981",
+            "api_id": "ffd70ddb-5502-3f11-a444-51ec843d529a",
             "api_model": "sounds",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/sounds\/7fa2e184-a94a-8529-6c03-01a96c7c5981",
-            "id": "collections.sounds.7fa2e184-a94a-8529-6c03-01a96c7c5981",
-            "title": "Musecast: July 2009",
-            "timestamp": "2017-09-15T13:57:30-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sounds\/ffd70ddb-5502-3f11-a444-51ec843d529a",
+            "id": "ffd70ddb-5502-3f11-a444-51ec843d529a",
+            "title": "Repudiandae Nisi In",
+            "timestamp": "2017-10-26T17:11:51-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "sounds",
-                "doc_count": 1020
+                "doc_count": 1720
             }
         ]
     }
@@ -2011,46 +2011,46 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 601,
+        "total": 1301,
         "limit": 10,
         "offset": 0,
-        "total_pages": 61,
+        "total_pages": 131,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
-            "api_id": "00b9fbb1-0548-9f4c-e269-ebf702490f4c",
+            "api_id": "92734517-a9bf-3089-a6a5-eb73bbb3281c",
             "api_model": "texts",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/texts\/00b9fbb1-0548-9f4c-e269-ebf702490f4c",
-            "id": "collections.texts.00b9fbb1-0548-9f4c-e269-ebf702490f4c",
-            "title": "Related Story: READ Duchamp in His Own Words",
-            "timestamp": "2017-09-15T13:57:35-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/texts\/92734517-a9bf-3089-a6a5-eb73bbb3281c",
+            "id": "92734517-a9bf-3089-a6a5-eb73bbb3281c",
+            "title": "Et Eos Sit",
+            "timestamp": "2017-10-26T17:11:59-05:00"
         },
         {
             "_score": 1,
-            "api_id": "049c9547-d585-c8d5-1070-93e83b0dfb89",
+            "api_id": "dced5fdb-9ea9-3673-bb93-d67ddce0be10",
             "api_model": "texts",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/texts\/049c9547-d585-c8d5-1070-93e83b0dfb89",
-            "id": "collections.texts.049c9547-d585-c8d5-1070-93e83b0dfb89",
-            "title": "Monet's Water Garden",
-            "timestamp": "2017-09-15T13:57:35-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/texts\/dced5fdb-9ea9-3673-bb93-d67ddce0be10",
+            "id": "dced5fdb-9ea9-3673-bb93-d67ddce0be10",
+            "title": "Aut Sed Consectetur",
+            "timestamp": "2017-10-26T17:12:00-05:00"
         },
         {
             "_score": 1,
-            "api_id": "05873879-a659-bca6-a9be-5eec6460c09f",
+            "api_id": "8926c86f-a8ec-3c89-99c7-ed2855b957a8",
             "api_model": "texts",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/texts\/05873879-a659-bca6-a9be-5eec6460c09f",
-            "id": "collections.texts.05873879-a659-bca6-a9be-5eec6460c09f",
-            "title": "Related Story: Antioch and Early Christianity ",
-            "timestamp": "2017-09-15T13:57:35-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/texts\/8926c86f-a8ec-3c89-99c7-ed2855b957a8",
+            "id": "8926c86f-a8ec-3c89-99c7-ed2855b957a8",
+            "title": "Placeat Dolorum Est",
+            "timestamp": "2017-10-26T17:12:00-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "texts",
-                "doc_count": 601
+                "doc_count": 1301
             }
         ]
     }
@@ -2256,10 +2256,10 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 100,
+        "total": 380,
         "limit": 10,
         "offset": 0,
-        "total_pages": 10,
+        "total_pages": 38,
         "current_page": 1
     },
     "data": [
@@ -2295,7 +2295,7 @@ Example output:
         "count_api_model": [
             {
                 "key": "products",
-                "doc_count": 100
+                "doc_count": 380
             }
         ]
     }
@@ -2394,46 +2394,46 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 154,
+        "total": 479,
         "limit": 10,
         "offset": 0,
-        "total_pages": 16,
+        "total_pages": 48,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
-            "api_id": "13182",
+            "api_id": "80613",
             "api_model": "events",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/events\/13182",
-            "id": "membership.events.13182",
-            "title": "Gauguin: Artist as Alchemist",
-            "timestamp": "2017-09-15T13:57:42-05:00"
+            "api_link": "http:\/\/data-aggregator.dev\/api\/v1\/events\/80613",
+            "id": "membership.events.80613",
+            "title": "Ullam est est",
+            "timestamp": "2017-09-21T20:48:36-05:00"
         },
         {
             "_score": 1,
-            "api_id": "14110",
+            "api_id": "15260",
             "api_model": "events",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/events\/14110",
-            "id": "membership.events.14110",
-            "title": "Sketch Class: Still Life \u2014 Approaches and Meanings",
-            "timestamp": "2017-09-15T13:57:42-05:00"
+            "api_link": "http:\/\/data-aggregator.dev\/api\/v1\/events\/15260",
+            "id": "membership.events.15260",
+            "title": "Impedit exercitationem aut",
+            "timestamp": "2017-09-21T20:48:36-05:00"
         },
         {
             "_score": 1,
-            "api_id": "14119",
+            "api_id": "35864",
             "api_model": "events",
-            "api_link": "http:\/\/ec2-13-59-173-130.us-east-2.compute.amazonaws.com\/api\/v1\/events\/14119",
-            "id": "membership.events.14119",
-            "title": "Griffith Mann",
-            "timestamp": "2017-09-15T13:57:42-05:00"
+            "api_link": "http:\/\/data-aggregator.dev\/api\/v1\/events\/35864",
+            "id": "membership.events.35864",
+            "title": "Asperiores molestiae iusto",
+            "timestamp": "2017-09-21T20:48:36-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "events",
-                "doc_count": 154
+                "doc_count": 479
             }
         ]
     }
@@ -2545,28 +2545,46 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 1,
+        "total": 108,
         "limit": 10,
         "offset": 0,
-        "total_pages": 1,
+        "total_pages": 11,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
-            "api_id": "2333",
+            "api_id": "9994722",
             "api_model": "tours",
-            "api_link": "http:\/\/data-aggregator.dev\/api\/v1\/tours\/2333",
-            "id": "mobile.tours.2333",
-            "title": "Gauguin: Artist as Alchemist",
-            "timestamp": "2017-09-22T16:23:12-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tours\/9994722",
+            "id": 9994722,
+            "title": "Et aut minima",
+            "timestamp": "2017-10-27T17:15:46-05:00"
+        },
+        {
+            "_score": 1,
+            "api_id": "9991187",
+            "api_model": "tours",
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tours\/9991187",
+            "id": 9991187,
+            "title": "Amet rem veritatis",
+            "timestamp": "2017-10-27T17:15:46-05:00"
+        },
+        {
+            "_score": 1,
+            "api_id": "9999687",
+            "api_model": "tours",
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tours\/9999687",
+            "id": 9999687,
+            "title": "Nulla dolores nemo",
+            "timestamp": "2017-10-27T17:15:46-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "tours",
-                "doc_count": 1
+                "doc_count": 108
             }
         ]
     }
@@ -2730,10 +2748,10 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 100,
+        "total": 175,
         "limit": 10,
         "offset": 0,
-        "total_pages": 10,
+        "total_pages": 18,
         "current_page": 1
     },
     "data": [
@@ -2769,7 +2787,7 @@ Example output:
         "count_api_model": [
             {
                 "key": "publications",
-                "doc_count": 100
+                "doc_count": 175
             }
         ]
     }
@@ -2865,10 +2883,10 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 250,
+        "total": 399,
         "limit": 10,
         "offset": 0,
-        "total_pages": 25,
+        "total_pages": 40,
         "current_page": 1
     },
     "data": [
@@ -2904,7 +2922,7 @@ Example output:
         "count_api_model": [
             {
                 "key": "sections",
-                "doc_count": 250
+                "doc_count": 399
             }
         ]
     }
@@ -3005,10 +3023,10 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 50,
+        "total": 125,
         "limit": 10,
         "offset": 0,
-        "total_pages": 5,
+        "total_pages": 13,
         "current_page": 1
     },
     "data": [
@@ -3044,7 +3062,7 @@ Example output:
         "count_api_model": [
             {
                 "key": "sites",
-                "doc_count": 50
+                "doc_count": 125
             }
         ]
     }
@@ -3072,4 +3090,4 @@ Example output:
 }
 ```
 
-> Generated by `php artisan docs:endpoints` on 2017-10-19 17:01:45
+> Generated by `php artisan docs:endpoints` on 2017-10-30 10:42:19

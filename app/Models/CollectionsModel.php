@@ -8,6 +8,7 @@ class CollectionsModel extends BaseModel
 {
 
     protected static $source = 'Collections';
+    protected $fakeIdsStartAt = 999000000;
 
     /**
      * Get the class name for a given API endpoint

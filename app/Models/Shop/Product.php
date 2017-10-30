@@ -59,7 +59,7 @@ class Product extends ShopModel
                 "value" => function() { return (bool) $this->on_sale; },
             ],
             'priority' => [
-                "doc" => "We are unclear as to the purpose of this numeric field",
+                "doc" => "Used for sorting in the shop website, specifically in the \"Featured\" sort mode, which is the default. This sort mode is two-part: first, items are sorted by their `priority` ascending; then as a secondary step, items are sorted by the number of items sold, descending.",
                 "type" => "number",
                 "value" => function() { return $this->priority; },
             ],

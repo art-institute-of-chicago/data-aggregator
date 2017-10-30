@@ -5,16 +5,20 @@ use Illuminate\Database\Seeder;
 use App\Models\Collections\AgentType;
 use App\Models\Collections\Agent;
 use App\Models\Collections\Department;
-use App\Models\Collections\Artwork;
+use App\Models\Collections\ObjectType;
+use App\Models\Collections\Category;
 use App\Models\Collections\Gallery;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\ArtworkCommittee;
+use App\Models\Collections\ArtworkTerm;
+use App\Models\Collections\ArtworkDate;
+use App\Models\Collections\ArtworkCatalogue;
 use App\Models\Collections\Theme;
 use App\Models\Collections\Link;
-use App\Models\Collections\Video;
-use App\Models\Collections\ObjectType;
 use App\Models\Collections\Sound;
+use App\Models\Collections\Video;
 use App\Models\Collections\Text;
 use App\Models\Collections\Image;
-use App\Models\Collections\Category;
 use App\Models\Collections\Exhibition;
 
 class CollectionsDatabaseSeeder extends Seeder
@@ -27,8 +31,6 @@ class CollectionsDatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-        $this->clean();
 
         $this->call(AgentTypesTableSeeder::class);
         $this->call(AgentsTableSeeder::class);
@@ -61,27 +63,27 @@ class CollectionsDatabaseSeeder extends Seeder
 
     }
 
-    private function clean()
+    public static function clean()
     {
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
-        Exhibition::truncate();
-        Image::truncate();
-        Text::truncate();
-        Video::truncate();
-        Sound::truncate();
-        Link::truncate();
-        Theme::truncate();
-        Artwork::truncate();
-        Gallery::truncate();
-        Category::truncate();
-        ObjectType::truncate();
-        Department::truncate();
-        Agent::truncate();
-        AgentType::truncate();
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        Exhibition::fake()->delete();
+        Image::fake()->delete();
+        Text::fake()->delete();
+        Video::fake()->delete();
+        Sound::fake()->delete();
+        Link::fake()->delete();
+        Theme::fake()->delete();
+        ArtworkCatalogue::fake()->delete();
+        ArtworkDate::fake()->delete();
+        ArtworkTerm::fake()->delete();
+        ArtworkCommittee::fake()->delete();
+        Artwork::fake()->delete();
+        Gallery::fake()->delete();
+        Category::fake()->delete();
+        ObjectType::fake()->delete();
+        Department::fake()->delete();
+        Agent::fake()->delete();
+        AgentType::fake()->delete();
 
     }
 

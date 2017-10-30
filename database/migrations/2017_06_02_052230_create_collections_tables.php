@@ -231,7 +231,6 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addIdsAndTitle($table, false, 'text');
             $table = $this->_addInterpretiveResourceFileds($table);
             $table->string('type')->nullable();
-            $table->boolean('preferred')->nullable();
             $table = $this->_addDates($table, false);
         });
 
@@ -249,15 +248,16 @@ class CreateCollectionsTables extends Migration
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->uuid('image_lake_guid');
             $table->foreign('image_lake_guid')->references('lake_guid')->on('images')->onDelete('cascade');
+            $table->boolean('preferred')->nullable();
         });
 
         Schema::create('exhibitions', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+            $table = $this->_addIdsAndTitle($table, true, 'text');
             $table->text('description')->nullable();
             $table->string('type')->nullable();
             $table->integer('department_citi_id')->nullable()->unsigned()->index();
             $table->foreign('department_citi_id')->references('citi_id')->on('departments');
-            $table->integer('gallery_citi_id')->unsigned()->index();
+            $table->integer('gallery_citi_id')->nullable()->unsigned()->index();
             $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
             $table->string('exhibition_dates')->nullable();
             $table->boolean('active')->nullable();
@@ -287,7 +287,7 @@ class CreateCollectionsTables extends Migration
     {
 
         $table->text('description')->nullable();
-        $table->string('content')->nullable();
+        $table->text('content')->nullable();
         $table->string('published')->nullable();
         $table->integer('agent_citi_id')->nullable()->unsigned()->index();
         $table->foreign('agent_citi_id')->references('citi_id')->on('agents');

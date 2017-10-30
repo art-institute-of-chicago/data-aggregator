@@ -39,10 +39,6 @@ class Image extends Asset
                 "doc" => "IIIF URL of this image",
                 "value" => function() { return $this->iiif_url; },
             ],
-            'is_preferred' => [
-                "doc" => "Whether this is the preferred representation for a work of art",
-                "value" => function() { return (bool) $this->preferred; },
-            ],
             'artwork_ids' => [
                 "doc" => "Unique identifiers of the artworks included in this image",
                 "value" => function() { return $this->artworks->pluck('citi_id')->all(); },

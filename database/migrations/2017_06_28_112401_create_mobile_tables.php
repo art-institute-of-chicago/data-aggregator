@@ -23,7 +23,7 @@ class CreateMobileTables extends Migration
 
             // https://laracasts.com/discuss/channels/laravel/schema-float-function-generated-a-double-type
             $table->double('latitude', 15, 13)->nullable();
-            $table->double('longitude', 15, 13)->nullable();
+            $table->double('longitude', 16, 13)->nullable();
 
             $table->boolean('highlighted')->nullable();
             $table->integer('selector_number')->nullable();

@@ -34,7 +34,7 @@ class Collector extends DscModel
             'weight' => $this->weight,
             'depth' => $this->depth,
             'publication' => $this->publication ? $this->publication->title : '',
-            'publication_id' => $this->publication_dsc_id,
+            'publication_id' => $this->publication ? $this->publication->dsc_id : null,
         ];
 
     }

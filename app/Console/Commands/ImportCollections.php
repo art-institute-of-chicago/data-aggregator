@@ -15,20 +15,26 @@ class ImportCollections extends AbstractImportCommand
     public function handle()
     {
 
-        $this->import('artists');
+        $this->import('agent-types');
+        $this->import('agents');
         $this->import('departments');
+        $this->import('object-types');
         $this->import('categories');
-        //$this->import('galleries');
+        $this->import('galleries');
         $this->import('artworks');
         $this->import('links');
         $this->import('videos');
         $this->import('texts');
         $this->import('sounds');
+        $this->import('images');
+        $this->import('exhibitions');
 
     }
 
     private function import($endpoint, $current = 1)
     {
+
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         $model = \App\Models\CollectionsModel::classFor($endpoint);
 
@@ -56,6 +62,8 @@ class ImportCollections extends AbstractImportCommand
             $json = $this->queryService($endpoint, $current);
 
         }
+
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 

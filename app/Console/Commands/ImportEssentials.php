@@ -148,7 +148,7 @@ class ImportEssentials extends AbstractImportCommand
         foreach ($data as $datum)
         {
 
-            $this->saveDatum( $source, $model, false );
+            $this->saveDatum( $source, $model );
 
             $resources[] = $resource;
 

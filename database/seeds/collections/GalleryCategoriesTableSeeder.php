@@ -12,12 +12,12 @@ class GalleryCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $galleries = App\Models\Collections\Gallery::all()->all();
-        $categoryIds = App\Models\Collections\Category::all()->pluck('citi_id')->all();
+        $galleries = App\Models\Collections\Gallery::fake()->get();
+        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
 
         foreach ($galleries as $gallery) {
 
-            for ($i = 0; $i < rand(2,8); $i++) {
+            for ($i = 0; $i < rand(2,4); $i++) {
                 $gallery->categories()->attach($categoryIds[array_rand($categoryIds)]);
             }
 

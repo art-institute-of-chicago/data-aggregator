@@ -11,6 +11,6 @@ class WorkOfArtsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Dsc\WorkOfArt::class, 300)->create();
+        factory(App\Models\Dsc\WorkOfArt::class, 25)->create();
     }
 }
