@@ -47,6 +47,7 @@ class ImportEvents extends AbstractImportCommand
                     break 2;
                 }
 
+                $source->source = 'galaxy';
                 $this->saveDatum( $source, $model );
 
             }
