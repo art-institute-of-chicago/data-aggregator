@@ -29,7 +29,7 @@ class Event extends MembershipModel
     public function exhibitions()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Exhibition');
+        return $this->belongsToMany('App\Models\Collections\Exhibition', 'event_exhibition', 'event_membership_id', 'exhibition_citi_id');
 
     }
 
@@ -241,6 +241,11 @@ class Event extends MembershipModel
                 "doc" => "Whether a ticket is required to attend the event.",
                 "type" => "boolean",
                 "value" => function() { return (bool) $this->is_ticketed; },
+            ],
+            'exhibition_ids' => [
+                "doc" => "Unique identifiers of the exhibitions associated with this work",
+                "type" => "array",
+                "value" => function() { return $this->exhibitions->pluck('citi_id')->all(); },
             ],
 
         ];
