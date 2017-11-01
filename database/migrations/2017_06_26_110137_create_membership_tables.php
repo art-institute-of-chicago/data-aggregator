@@ -29,8 +29,15 @@ class CreateMembershipTables extends Migration
             $table->integer('available')->nullable();
             $table->integer('total_capacity')->nullable();
             $table->boolean('is_ticketed')->nullable();
-
             $table = $this->_addDates($table);
+        });
+
+        Schema::create('event_exhibition', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('event_membership_id')->unsigned()->index();
+            $table->foreign('event_membership_id')->references('membership_id')->on('events')->onDelete('cascade');
+            $table->integer('exhibition_citi_id')->unsigned()->index();
+            $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
         });
 
     }
@@ -60,6 +67,7 @@ class CreateMembershipTables extends Migration
     public function down()
     {
 
+        Schema::dropIfExists('event_exhibition');
         Schema::dropIfExists('events');
 
     }

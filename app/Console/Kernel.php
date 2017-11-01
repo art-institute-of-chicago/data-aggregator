@@ -31,6 +31,7 @@ class Kernel extends ConsoleKernel
         Commands\CreateEndpointDocs::class,
         Commands\CreateFieldsDocs::class,
         Commands\CleanSeed::class,
+        Commands\ImportLegacyEvents::class,
     ];
 
     /**
