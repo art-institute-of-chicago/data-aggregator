@@ -63,23 +63,21 @@ class Event extends MembershipModel
     protected function getFillFieldsFrom($source)
     {
 
-        if ($source->source = 'drupal')
+        if ($source->source == 'drupal')
         {
 
             //// Available fields we haven't done anything with yet:
-            // +"summary": " Guided tour  "
             // +"url": "http://www.artic.edu/event/gallery-talk-modern-wing-highlights"
-            // Once we know more about what the types are from Galaxy, store types for non-Galaxy events
-            //$this->printUnknown($this->drupalTypeValues(), $source->type);
 
             $ret = [
                 'title' => $source->title,
+                'type' => $source->type,
                 'description' => $source->body,
                 'short_description' => $source->summary,
                 'image_url' => $source->image,
                 'source_created_at' => new Carbon($source->created_at),
                 'source_modified_at' => new Carbon($source->modified_at),
-                'is_ticketed' => FALSE,
+                'is_ticketed' => $source->button_link ? TRUE : FALSE,
             ];
 
             if (!$this->start_at)
@@ -129,8 +127,6 @@ class Event extends MembershipModel
 
                 'membership_id' => $source->id,
 
-                'type_id' => $source->type_id,
-
                 'start_at' => strtotime($source->start_at),
                 'end_at' => strtotime($source->end_at),
 
@@ -144,7 +140,7 @@ class Event extends MembershipModel
                 'available' => $source->available,
                 'total_capacity' => $source->total_capacity,
 
-                'is_ticketed' => $source->is_ticketed,
+                'is_ticketed' => TRUE,
 
             ];
 
@@ -155,18 +151,23 @@ class Event extends MembershipModel
     public function attachFrom($source)
     {
 
-        if ($source->exhibition_id)
+        if ($source->source == 'drupal')
         {
 
-            $ids = explode(', ', $source->exhibition_id);
-            $syncIds = [];
-            foreach ($ids as $id)
+            if ($source->exhibition_id)
             {
-                if ($this->exhibitionIdFromDrupal($id)) {
-                    $syncIds[] = $this->exhibitionIdFromDrupal($id);
+
+                $ids = explode(', ', $source->exhibition_id);
+                $syncIds = [];
+                foreach ($ids as $id)
+                {
+                    if ($this->exhibitionIdFromDrupal($id)) {
+                        $syncIds[] = $this->exhibitionIdFromDrupal($id);
+                    }
                 }
+                $this->exhibitions()->sync($syncIds, false);
+
             }
-            $this->exhibitions()->sync($syncIds, false);
 
         }
 
@@ -197,10 +198,10 @@ class Event extends MembershipModel
                 "type" => "url",
                 "value" => function() { return $this->image_url; },
             ],
-            'type_id' => [
-                "doc" => "Number indicating the type of event",
-                "type" => "number",
-                "value" => function() { return $this->type_id; },
+            'type' => [
+                "doc" => "The name of the type of event",
+                "type" => "string",
+                "value" => function() { return $this->type; },
             ],
             'start_at' => [
                 "doc" => "Date and time the event begins",
@@ -276,7 +277,7 @@ class Event extends MembershipModel
 
         return [
 
-            'type_id' => [
+            'type' => [
                 'type' => 'keyword',
             ],
             'start_at' => [
