@@ -75,6 +75,7 @@ class Event extends MembershipModel
             $ret = [
                 'title' => $source->title,
                 'description' => $source->body,
+                'short_description' => $source->summary,
                 'image_url' => $source->image,
                 'source_created_at' => new Carbon($source->created_at),
                 'source_modified_at' => new Carbon($source->modified_at),
@@ -181,12 +182,26 @@ class Event extends MembershipModel
 
         return [
 
+            'description' => [
+                "doc" => "Long description of the event",
+                "type" => "string",
+                "value" => function() { return $this->description; },
+            ],
+            'short_description' => [
+                "doc" => "Short description of the event",
+                "type" => "string",
+                "value" => function() { return trim($this->short_description); },
+            ],
+            'image' => [
+                "doc" => "URL to an image representing this event",
+                "type" => "url",
+                "value" => function() { return $this->image_url; },
+            ],
             'type_id' => [
                 "doc" => "Number indicating the type of event",
                 "type" => "number",
                 "value" => function() { return $this->type_id; },
             ],
-
             'start_at' => [
                 "doc" => "Date and time the event begins",
                 "type" => "ISO 8601 date and time",
@@ -197,7 +212,6 @@ class Event extends MembershipModel
                 "type" => "ISO 8601 date and time",
                 "value" => function() { return $this->end_at ? $this->end_at->toIso8601String() : NULL; },
             ],
-
             'resource_id' => [
                 "doc" => "Unique identifier of the resource associated with this event, often the venue in which it takes place",
                 "type" => "number",
@@ -226,7 +240,11 @@ class Event extends MembershipModel
                 "type" => "boolean",
                 "value" => function() { return (bool) $this->is_admission_required; },
             ],
-
+            'is_ticketed' => [
+                "doc" => "Whether a ticket is required to attend the event.",
+                "type" => "boolean",
+                "value" => function() { return (bool) $this->is_ticketed; },
+            ],
             'available' => [
                 "doc" => "Number indicating how many tickets are available for the event",
                 "type" => "number",
@@ -236,11 +254,6 @@ class Event extends MembershipModel
                 "doc" => "Number indicating the total number of tickets that can be sold for the event",
                 "type" => "number",
                 "value" => function() { return $this->total_capacity; },
-            ],
-            'is_ticketed' => [
-                "doc" => "Whether a ticket is required to attend the event.",
-                "type" => "boolean",
-                "value" => function() { return (bool) $this->is_ticketed; },
             ],
             'exhibition_ids' => [
                 "doc" => "Unique identifiers of the exhibitions associated with this work",

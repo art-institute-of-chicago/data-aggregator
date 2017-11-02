@@ -42,6 +42,9 @@ $factory->define(App\Models\Membership\Event::class, function (Faker\Generator $
     return array_merge(
         membershipIdsAndTitle($faker),
         [
+            'description' => $faker->paragraph(2),
+            'short_description' => $faker->sentence(6),
+            'image_url' => $faker->imageUrl,
             'type_id' => $faker->randomNumber(2),
             'start_at' => $faker->dateTimeThisYear,
             'end_at' => $faker->dateTimeThisYear,

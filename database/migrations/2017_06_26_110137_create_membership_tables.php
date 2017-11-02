@@ -25,7 +25,8 @@ class CreateMembershipTables extends Migration
             $table->boolean('is_private_event')->nullable();
             $table->boolean('is_admission_required')->nullable();
             $table->string('image_url')->nullable();
-            $table->text('description')->nullable(); // Description
+            $table->text('description')->nullable();
+            $table->text('short_description')->nullable();
             $table->integer('available')->nullable();
             $table->integer('total_capacity')->nullable();
             $table->boolean('is_ticketed')->nullable();
