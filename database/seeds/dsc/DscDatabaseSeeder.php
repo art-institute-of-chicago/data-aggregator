@@ -15,7 +15,6 @@ class DscDatabaseSeeder extends Seeder
 
         $this->call(PublicationsTableSeeder::class);
         $this->call(SectionsTableSeeder::class);
-        $this->call(WorkOfArtsTableSeeder::class);
 
     }
 
@@ -24,7 +23,6 @@ class DscDatabaseSeeder extends Seeder
 
         App\Models\Dsc\Publication::fake()->delete();
         App\Models\Dsc\Section::fake()->delete();
-        App\Models\Dsc\WorkOfArt::fake()->delete();
 
     }
 

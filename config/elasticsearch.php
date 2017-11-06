@@ -308,7 +308,6 @@ return [
 
                 \App\Models\Dsc\Publication::instance()->elasticsearchMapping(),
                 \App\Models\Dsc\Section::instance()->elasticsearchMapping(),
-                \App\Models\Dsc\WorkOfArt::instance()->elasticsearchMapping(),
 
                 \App\Models\StaticArchive\Site::instance()->elasticsearchMapping()
             )

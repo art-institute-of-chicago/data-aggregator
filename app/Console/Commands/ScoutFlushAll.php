@@ -37,7 +37,6 @@ class ScoutFlushAll extends Command
 
         $this->call("scout:flush", ['model' => \App\Models\Dsc\Publication::class]);
         $this->call("scout:flush", ['model' => \App\Models\Dsc\Section::class]);
-        $this->call("scout:flush", ['model' => \App\Models\Dsc\WorkOfArt::class]);
 
         $this->call("scout:flush", ['model' => \App\Models\StaticArchive\Site::class]);
 

@@ -137,9 +137,6 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('sections', 'SectionsController@index');
     Route::get('sections/{id}', 'SectionsController@show');
 
-    Route::get('works-of-art', 'WorksOfArtController@index');
-    Route::get('works-of-art/{id}', 'WorksOfArtController@show');
-
     Route::get('sites', 'SitesController@index');
     Route::get('sites/{id}', 'SitesController@show');
 

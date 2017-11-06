@@ -56,23 +56,3 @@ $factory->define(App\Models\Dsc\Section::class, function (Faker\Generator $faker
         ]
     );
 });
-
-$factory->define(App\Models\Dsc\WorkOfArt::class, function (Faker\Generator $faker) {
-    static $artworks;
-
-    if (!$artworks)
-    {
-        $artworks = App\Models\Collections\Artwork::fake()->pluck('citi_id')->all();
-    }
-
-    return array_merge(
-        dscIdsAndTitle($faker),
-        [
-            'content' => $faker->paragraphs(10, true),
-            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::fake()->pluck('dsc_id')->all()),
-            'artwork_citi_id' => $faker->randomElement($artworks),
-            'weight' => $faker->randomNumber(2),
-            'depth' => $faker->randomDigit,
-        ]
-    );
-});
