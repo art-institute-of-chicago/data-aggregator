@@ -13,18 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-// This is a temporary work-around to see this w/ JSON Formatter
-Route::get('/dsc', function (Request $request) {
-
-    $params = http_build_query( $request->all() );
-    $contents = file_get_contents( env('DSC_URL') . '?' . $params );
-
-    // Contents is already valid JSON, just not served w/ the right content-type
-    return response( $contents )->header('Content-Type', 'application/json; charset=UTF-8');
-
-});
-
-
 Route::get('/', function () {
     return redirect('/api/v1');
 });
