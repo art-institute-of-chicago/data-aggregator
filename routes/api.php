@@ -140,9 +140,6 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('works-of-art', 'WorksOfArtController@index');
     Route::get('works-of-art/{id}', 'WorksOfArtController@show');
 
-    Route::get('figures', 'FiguresController@index');
-    Route::get('figures/{id}', 'FiguresController@show');
-
     Route::get('collectors', 'CollectorsController@index');
     Route::get('collectors/{id}', 'CollectorsController@show');
 

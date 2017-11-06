@@ -42,32 +42,6 @@ class CreateDscTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('figures', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table, 'string');
-            $table->text('content');
-            $table->integer('section_dsc_id')->unsigned()->index();
-            $table->foreign('section_dsc_id')->references('dsc_id')->on('sections')->onDelete('cascade');
-            $table = $this->_addDates($table);
-        });
-
-        Schema::create('figure_images', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('figure_dsc_id')->index();
-            $table->foreign('figure_dsc_id')->references('dsc_id')->on('figures')->onDelete('cascade');
-            $table->string('title')->nullable();
-            $table->string('link')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('figure_vectors', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('figure_dsc_id')->index();
-            $table->foreign('figure_dsc_id')->references('dsc_id')->on('figures')->onDelete('cascade');
-            $table->string('title')->nullable();
-            $table->string('link')->nullable();
-            $table->timestamps();
-        });
-
         Schema::create('collectors', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->text('content');
@@ -112,9 +86,6 @@ class CreateDscTables extends Migration
     {
 
         Schema::dropIfExists('collectors');
-        Schema::dropIfExists('figure_images');
-        Schema::dropIfExists('figure_vectors');
-        Schema::dropIfExists('figures');
         Schema::dropIfExists('works_of_art');
         Schema::dropIfExists('sections');
         Schema::dropIfExists('publications');

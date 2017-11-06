@@ -77,39 +77,6 @@ $factory->define(App\Models\Dsc\WorkOfArt::class, function (Faker\Generator $fak
     );
 });
 
-$factory->define(App\Models\Dsc\Figure::class, function (Faker\Generator $faker) {
-    $section_id = $faker->randomElement(App\Models\Dsc\Section::fake()->pluck('dsc_id')->all());
-    $id = 'fig-' .$section_id .'-' .$faker->randomNumber(3);
-    return array_merge(
-        dscIdsAndTitle($faker, $id),
-        [
-            'content' => $faker->paragraph(3),
-            'section_dsc_id' => $section_id,
-        ]
-    );
-});
-
-$factory->define(App\Models\Dsc\FigureImage::class, function (Faker\Generator $faker) {
-    return array_merge(
-        [
-            'title' => ucfirst($faker->words(3, true)),
-            'figure_dsc_id' => $faker->randomElement(App\Models\Dsc\Figure::fake()->pluck('dsc_id')->all()),
-            'link' => $faker->url,
-        ]
-    );
-});
-
-$factory->define(App\Models\Dsc\FigureVector::class, function (Faker\Generator $faker) {
-    return array_merge(
-        [
-            'title' => ucfirst($faker->words(3, true)),
-            'figure_dsc_id' => $faker->randomElement(App\Models\Dsc\Figure::fake()->pluck('dsc_id')->all()),
-            'link' => $faker->url,
-        ]
-    );
-});
-
-
 $factory->define(App\Models\Dsc\Collector::class, function (Faker\Generator $faker) {
     return array_merge(
         dscIdsAndTitle($faker),

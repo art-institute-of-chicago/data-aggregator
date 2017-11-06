@@ -2859,81 +2859,6 @@
       }
     },
 
-    "/figures": {
-      "get": {
-        "tags": [
-            "figures",
-            "dsc"
-        ],
-        "summary": "A list of all figures sorted by last updated date in descending order",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/ids"
-          },
-          {
-            "$ref": "#/parameters/limit"
-          },
-          {
-            "$ref": "#/parameters/page"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Figure"
-              }
-            }
-          },
-          "default": {
-            "description": "error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-
-    "/figures/{id}": {
-      "get": {
-        "tags": [
-            "figure",
-            "dsc"
-        ],
-        "summary": "A single figure by the given identifier",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/id"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "items": {
-                "$ref": "#/definitions/Figure"
-              }
-            }
-          },
-          "default": {
-            "description": "error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-
     "/collectors": {
       "get": {
         "tags": [
@@ -4051,33 +3976,6 @@
         },
         "artwork_id": {
           "description": "Unique identifier of the artwork this section describes"
-        },
-        "last_updated_source": {
-          "description": "Date the work was last updated in the source system"
-        },
-        "last_updated": {
-          "description": "Date the work was last updated in the Data Aggregator"
-        }
-      },
-      "type": "object"
-    },
-
-    "Figure": {
-      "properties": {
-        "id": {
-          "description": "Unique identifier"
-        },
-        "title": {
-          "description": "Name of the figure"
-        },
-        "content": {
-          "description": "Text content of this figure"
-        },
-        "section": {
-          "description": "Name of the section this figure belongs to"
-        },
-        "section_id": {
-          "description": "Unique identifier of the section this figure belongs to"
         },
         "last_updated_source": {
           "description": "Date the work was last updated in the source system"
