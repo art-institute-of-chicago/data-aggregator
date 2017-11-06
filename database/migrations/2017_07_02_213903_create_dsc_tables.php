@@ -42,16 +42,6 @@ class CreateDscTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('collectors', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
-            $table->text('content');
-            $table->integer('publication_dsc_id')->unsigned()->index();
-            $table->foreign('publication_dsc_id')->references('dsc_id')->on('publications')->onDelete('cascade');
-            $table->integer('weight');
-            $table->integer('depth');
-            $table = $this->_addDates($table);
-        });
-
     }
 
     private function _addIdsAndTitle($table, $idType = 'integer')
@@ -85,7 +75,6 @@ class CreateDscTables extends Migration
     public function down()
     {
 
-        Schema::dropIfExists('collectors');
         Schema::dropIfExists('works_of_art');
         Schema::dropIfExists('sections');
         Schema::dropIfExists('publications');

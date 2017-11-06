@@ -76,16 +76,3 @@ $factory->define(App\Models\Dsc\WorkOfArt::class, function (Faker\Generator $fak
         ]
     );
 });
-
-$factory->define(App\Models\Dsc\Collector::class, function (Faker\Generator $faker) {
-    return array_merge(
-        dscIdsAndTitle($faker),
-        [
-            'content' => $faker->paragraph(3),
-            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::fake()->pluck('dsc_id')->all()),
-            'weight' => $faker->randomNumber(2),
-            'depth' => $faker->randomDigit,
-        ]
-    );
-});
-
