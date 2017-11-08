@@ -23,10 +23,25 @@ class Publication extends DscModel
     {
 
         return [
-            'link' => [
+            'web_url' => [
                 "doc" => "URL to the publication",
                 "type" => "string",
-                "value" => function() { return $this->link; },
+                "value" => function() { return $this->web_url; },
+            ],
+            'site' => [
+                "doc" => "Which site in our multi-site Drupal installation owns this publication",
+                "type" => "string",
+                "value" => function() { return $this->site; },
+            ],
+            'alias' => [
+                "doc" => "Used by Drupal in lieu of the id to generate pretty paths",
+                "type" => "string",
+                "value" => function() { return $this->alias; },
+            ],
+            'title' => [
+                "doc" => "Official title of the publication",
+                "type" => "string",
+                "value" => function() { return $this->title; },
             ],
         ];
 
@@ -43,8 +58,17 @@ class Publication extends DscModel
 
         return
             [
-                'link' => [
+                'web_url' => [
                     'type' => 'keyword',
+                ],
+                'site' => [
+                    'type' => 'keyword',
+                ],
+                'alias' => [
+                    'type' => 'keyword',
+                ],
+                'title' => [
+                    'type' => 'text',
                 ],
             ];
 

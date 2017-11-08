@@ -15,10 +15,26 @@ class Section extends DscModel
     use ElasticSearchable;
     use Documentable;
 
+    protected $fakeIdsStartAt = 90000000000;
+
     public function publication()
     {
 
         return $this->belongsTo('App\Models\Dsc\Publication');
+
+    }
+
+    public function parent()
+    {
+
+        return $this->belongsTo('App\Models\Dsc\Section', 'parent_id');
+
+    }
+
+    public function artwork()
+    {
+
+        return $this->belongsTo('App\Models\Collections\Artwork', 'artwork_citi_id');
 
     }
 
@@ -30,20 +46,35 @@ class Section extends DscModel
     {
 
         return [
-            'content' => [
-                "doc" => "The text of this section",
+            'web_url' => [
+                "doc" => "URL to the section",
                 "type" => "string",
-                "value" => function() { return $this->content; },
+                "value" => function() { return $this->web_url; },
+            ],
+            'accession' => [
+                "doc" => "An accession number parsed from the title or tombstone",
+                "type" => "string",
+                "value" => function() { return $this->accession; },
+            ],
+            'revision' => [
+                "doc" => "Version identifier as provided by Drupal",
+                "type" => "number",
+                "value" => function() { return $this->revision; },
+            ],
+            'source_id' => [
+                "doc" => "Drupal node id, unique only within the site of this publication",
+                "type" => "number",
+                "value" => function() { return $this->source_id; },
             ],
             'weight' => [
                 "doc" => "Number representing this section's sort order",
                 "type" => "number",
                 "value" => function() { return $this->weight; },
             ],
-            'depth' => [
-                "doc" => "Number representing how deep in the navigation hierarchy this section resides",
+            'parent_id' => [
+                "doc" => "Uniquer identifier of the parent section",
                 "type" => "number",
-                "value" => function() { return $this->depth; },
+                "value" => function() { return $this->parent ? $this->parent->dsc_id : null; },
             ],
             'publication' => [
                 "doc" => "Name of the publication this section belongs to",
@@ -55,6 +86,17 @@ class Section extends DscModel
                 "type" => "number",
                 "value" => function() { return $this->publication ? $this->publication->dsc_id : null; },
             ],
+            'artwork_id' => [
+                "doc" => "Unique identifier of the artwork with which this section is associated",
+                "type" => "number",
+                "value" => function() { return $this->artwork ? $this->artwork->citi_id : null; },
+            ],
+            'content' => [
+                "doc" => "Content of this section in plaintext",
+                "type" => "string",
+                "value" => function() { return $this->content; },
+            ],
+
         ];
 
     }
@@ -70,20 +112,35 @@ class Section extends DscModel
 
         return
             [
-                'content' => [
-                    'type' => 'text',
+                'web_url' =>[
+                    'type' => 'keyword',
                 ],
-                'weight' => [
+                'accession' =>[
+                    'type' => 'keyword',
+                ],
+                'revision' =>[
                     'type' => 'integer',
                 ],
-                'depth' => [
+                'source_id' =>[
+                    'type' => 'integer',
+                ],
+                'weight' =>[
+                    'type' => 'integer',
+                ],
+                'parent_id' =>[
                     'type' => 'integer',
                 ],
                 'publication' => [
                     'type' => 'text',
                 ],
-                'publication_id' => [
+                'publication_id' =>[
                     'type' => 'integer',
+                ],
+                'artwork_id' =>[
+                    'type' => 'integer',
+                ],
+                'content' =>[
+                    'type' => 'text',
                 ],
             ];
 

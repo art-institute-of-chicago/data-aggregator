@@ -39,7 +39,12 @@ $factory->define(App\Models\Dsc\Publication::class, function (Faker\Generator $f
     return array_merge(
         dscIdsAndTitle($faker),
         [
-            'link' => $faker->url,
+
+            'web_url' => $faker->url,
+            'site' => implode('', $faker->words(2)),
+            'alias' => implode('', $faker->words(2)),
+            'title' => ucfirst( $faker->words(6) ),
+
         ],
         dscDates($faker)
     );
@@ -49,10 +54,17 @@ $factory->define(App\Models\Dsc\Section::class, function (Faker\Generator $faker
     return array_merge(
         dscIdsAndTitle($faker),
         [
-            'content' => $faker->paragraphs(10, true),
-            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::fake()->pluck('dsc_id')->all()),
+
+            'web_url' => $faker->url,
+            'accession' => $faker->randomFloat(3, 1900, 2018),
+            'revision' => $faker->randomNumber(10),
+            'source_id' => $faker->randomNumber(5),
             'weight' => $faker->randomNumber(2),
-            'depth' => $faker->randomDigit,
+            'parent_id' => !rand(0,3) ? null : $faker->randomElement(App\Models\Dsc\Section::fake()->pluck('dsc_id')->all()),
+            'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::fake()->pluck('dsc_id')->all()),
+            'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::fake()->pluck('citi_id')->all()),
+            'content' => $faker->paragraphs(10, true),
+
         ]
     );
 });
