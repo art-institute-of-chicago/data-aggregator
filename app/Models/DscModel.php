@@ -13,4 +13,13 @@ class DscModel extends BaseModel
 
     protected $fakeIdsStartAt = 9990000;
 
+    protected function fillIdsFrom($source)
+    {
+
+        $this->dsc_id = $source->id;
+
+        return $this;
+
+    }
+
 }
