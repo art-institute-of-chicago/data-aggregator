@@ -5,6 +5,8 @@ namespace App\Models;
 trait Fillable
 {
 
+    protected $hasSourceDates = true;
+
     /**
      * Fill in this model's fields from the given resource, or fill it in with fake data.
      * This method is used primarily when the given resource is provided by the source
@@ -19,8 +21,12 @@ trait Fillable
         $this
             ->fillIdsFrom($source)
             ->fillTitleFrom($source)
-            ->fill( $this->getFillFieldsFrom($source) )
-            ->fillDatesFrom($source);
+            ->fill( $this->getFillFieldsFrom($source) );
+
+        if( $this->hasSourceDates )
+        {
+            $this->fillDatesFrom($source);
+        }
 
         return $this;
     }

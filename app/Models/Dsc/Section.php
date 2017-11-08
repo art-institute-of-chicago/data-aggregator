@@ -17,6 +17,8 @@ class Section extends DscModel
 
     protected $fakeIdsStartAt = 90000000000;
 
+    protected $hasSourceDates = false;
+
     public function publication()
     {
 

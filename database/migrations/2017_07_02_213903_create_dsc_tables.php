@@ -21,7 +21,7 @@ class CreateDscTables extends Migration
             $table->string('site')->nullable();
             $table->string('alias')->nullable();
             $table->string('web_url')->nullable();
-            $table = $this->_addDates($table);
+            $table->timestamps();
         });
 
         Schema::create('sections', function (Blueprint $table) {
@@ -36,7 +36,7 @@ class CreateDscTables extends Migration
             $table->integer('artwork_citi_id')->nullable()->unsigned()->index();
             $table->foreign('artwork_citi_id')->nullable()->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->longText('content')->nullable();
-            $table = $this->_addDates($table);
+            $table->timestamps();
         });
 
         // Because these are self-referential, the table must be created first
@@ -59,14 +59,6 @@ class CreateDscTables extends Migration
             $table->$idType('dsc_id')->unique()->primary();
         }
         $table->string('title');
-        return $table;
-    }
-
-    private function _addDates($table, $citiField = true)
-    {
-        $table->timestamp('source_created_at')->nullable()->useCurrent();
-        $table->timestamp('source_modified_at')->nullable()->useCurrent();
-        $table->timestamps();
         return $table;
     }
 

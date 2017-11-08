@@ -15,6 +15,7 @@ class Publication extends DscModel
     use ElasticSearchable;
     use Documentable;
 
+    protected $hasSourceDates = false;
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
