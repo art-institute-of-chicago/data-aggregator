@@ -127,16 +127,6 @@ class ArtworkTransformer extends CollectionsTransformer
     }
 
     /**
-     * Include publications.
-     *
-     * @param  \App\Models\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includePublications(Artwork $artwork)
-    {
-        return $this->collection($artwork->publications()->getResults(), new PublicationTransformer, false);
-    }
-    /**
      * Include tours.
      *
      * @param  \App\Models\Collections\Artwork  $artwork
