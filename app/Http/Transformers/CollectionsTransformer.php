@@ -21,20 +21,16 @@ class CollectionsTransformer extends ApiTransformer
             'id' => $item->getAttributeValue($item->getKeyName()),
         ];
 
-        $ret = array_merge($ret,
-                           [
-                               'title' => $item->title,
-                           ]
-        );
+        $ret = array_merge( $ret, [
+            'title' => $item->title,
+        ]);
 
         if ($this->citiObject)
         {
 
-            $ret = array_merge($ret,
-                               [
-                                   'lake_guid' => $item->lake_guid,
-                               ]
-            );
+            $ret = array_merge( $ret, [
+                'lake_guid' => $item->lake_guid,
+            ]);
         }
 
         return $ret;

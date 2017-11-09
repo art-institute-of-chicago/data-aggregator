@@ -27,4 +27,5 @@ class GalleryTransformer extends CollectionsTransformer
     {
         return $this->collection($gallery->categories()->getResults(), new CategoryTransformer, false);
     }
+
 }

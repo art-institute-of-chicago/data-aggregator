@@ -22,6 +22,7 @@ class ArtworkCommitteeTransformer extends CollectionsTransformer
             'committee' => $item->committee,
             'date' => $item->date->toDateString(),
             'action' => $item->action,
-       ];
+        ];
     }
+
 }

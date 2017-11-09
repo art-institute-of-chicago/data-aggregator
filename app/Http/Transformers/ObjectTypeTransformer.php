@@ -20,4 +20,5 @@ class ObjectTypeTransformer extends CollectionsTransformer
         return [
         ];
     }
+
 }

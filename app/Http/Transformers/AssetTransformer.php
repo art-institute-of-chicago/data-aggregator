@@ -25,4 +25,5 @@ class AssetTransformer extends CollectionsTransformer
     {
         return $this->collection($asset->categories()->getResults(), new CategoryTransformer, false);
     }
+
 }

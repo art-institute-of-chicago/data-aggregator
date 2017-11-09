@@ -19,4 +19,5 @@ class DepartmentTransformer extends CollectionsTransformer
     {
         return [];
     }
+
 }

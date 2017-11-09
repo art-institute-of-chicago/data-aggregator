@@ -28,7 +28,7 @@ class ExhibitionTransformer extends CollectionsTransformer
         return $this->collection($exhibition->artworks()->getResults(), new ArtworkTransformer, false);
     }
 
-    
+
     /**
      * Include venues.
      *
