@@ -116,13 +116,6 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function publications()
-    {
-
-        return $this->belongsToMany('App\Models\Dsc\Publication', 'works_of_art');
-
-    }
-
     public function getFillFieldsFrom($source)
     {
 
@@ -633,11 +626,6 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "value" => function() { return $this->images->pluck('iiif_url')->all(); },
             ],
-            'publication_ids' => [
-                "doc" => "Unique identifiers of the Digital Scholarly Catalogs this work is included in",
-                "type" => "number",
-                "value" => function() { return $this->publications->pluck('dsc_id')->all(); },
-            ],
             'tour_ids' => [
                 "doc" => "Unique identifiers of the tours this work is included in",
                 "type" => "array",
@@ -663,7 +651,6 @@ class Artwork extends CollectionsModel
             'copyright_representative_titles' => $this->copyrightRepresentatives->pluck('title')->all(),
             'part_titles' => $this->parts->pluck('title')->all(),
             'set_titles' => $this->sets->pluck('title')->all(),
-            'publication_titles' => $this->publications->pluck('title')->all(),
             //'tour_titles' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('title')->all() : [],
 
         ];
@@ -814,16 +801,6 @@ class Artwork extends CollectionsModel
                 ],
                 'image_urls' => [
                     'type' => 'keyword',
-                ],
-                // TODO: Move these to Dsc\WorkOfArt
-                'publication_id' => [
-                    'type' => 'integer',
-                ],
-                'publication_ids' => [
-                    'type' => 'integer',
-                ],
-                'publication_titles' => [
-                    'type' => 'text',
                 ],
                 // TODO: Move these to Mobile\Artwork
                 'tour_ids' => [
