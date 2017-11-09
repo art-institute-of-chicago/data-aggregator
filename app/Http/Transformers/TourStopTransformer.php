@@ -25,11 +25,6 @@ class TourStopTransformer extends ApiTransformer
     public $excludeIdsAndTitle = true;
     public $excludeDates = true;
 
-    public function transformFields($item)
-    {
-        return [];
-    }
-
     /**
      * Include sound.
      *
