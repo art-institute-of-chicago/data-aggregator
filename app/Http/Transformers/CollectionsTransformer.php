@@ -5,7 +5,14 @@ namespace App\Http\Transformers;
 class CollectionsTransformer extends ApiTransformer
 {
 
-    public $citiObject = false;
+    /**
+     * Whether or not CITI is the system of record for this resource.
+     *
+     * @TODO Move this domain knowledge to models?
+     *
+     * @var boolean
+     */
+    public $citiObject = true;
 
     protected function transformIdsAndTitle($item)
     {
@@ -21,20 +28,16 @@ class CollectionsTransformer extends ApiTransformer
             'id' => $item->getAttributeValue($item->getKeyName()),
         ];
 
-        $ret = array_merge($ret,
-                           [
-                               'title' => $item->title,
-                           ]
-        );
+        $ret = array_merge( $ret, [
+            'title' => $item->title,
+        ]);
 
         if ($this->citiObject)
         {
 
-            $ret = array_merge($ret,
-                               [
-                                   'lake_guid' => $item->lake_guid,
-                               ]
-            );
+            $ret = array_merge( $ret, [
+                'lake_guid' => $item->lake_guid,
+            ]);
         }
 
         return $ret;

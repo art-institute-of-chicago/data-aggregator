@@ -8,6 +8,14 @@ class AssetTransformer extends CollectionsTransformer
 {
 
     /**
+     * Assets are native to LAKE, not CITI.
+     *
+     * @var boolean
+     */
+    public $citiObject = false;
+
+
+    /**
      * List of resources possible to include
      *
      * @var array
@@ -23,6 +31,7 @@ class AssetTransformer extends CollectionsTransformer
      */
     public function includeCategories(Asset $asset)
     {
-        return $this->collection($asset->categories()->getResults(), new CategoryTransformer, false);
+        return $this->collection($asset->categories()->getResults(), new CollectionsTransformer, false);
     }
+
 }

@@ -10,7 +10,7 @@ class CategoriesController extends ApiController
 
     protected $model = \App\Models\Collections\Category::class;
 
-    protected $transformer = \App\Http\Transformers\CategoryTransformer::class;
+    protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
 
 
     // artworks/{id}/categories

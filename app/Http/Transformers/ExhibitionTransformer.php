@@ -7,8 +7,6 @@ use App\Models\Collections\Exhibition;
 class ExhibitionTransformer extends CollectionsTransformer
 {
 
-    public $citiObject = true;
-
     /**
      * List of resources possible to include
      *
@@ -28,7 +26,7 @@ class ExhibitionTransformer extends CollectionsTransformer
         return $this->collection($exhibition->artworks()->getResults(), new ArtworkTransformer, false);
     }
 
-    
+
     /**
      * Include venues.
      *
@@ -37,7 +35,7 @@ class ExhibitionTransformer extends CollectionsTransformer
      */
     public function includeVenues(Exhibition $exhibition)
     {
-        return $this->collection($exhibition->venues()->getResults(), new AgentTransformer, false);
+        return $this->collection($exhibition->venues()->getResults(), new CollectionsTransformer, false);
     }
 
 }

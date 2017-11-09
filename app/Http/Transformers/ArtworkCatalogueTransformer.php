@@ -25,4 +25,5 @@ class ArtworkCatalogueTransformer extends CollectionsTransformer
             'state_edition' => $item->state_edition,
         ];
     }
+
 }

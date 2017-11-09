@@ -10,7 +10,7 @@ class DepartmentsController extends ApiController
 
     protected $model = \App\Models\Collections\Department::class;
 
-    protected $transformer = \App\Http\Transformers\DepartmentTransformer::class;
+    protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
 
     // artworks/{id}/department
     // TODO: Is this actually necessary? There's only ever one department per artwork, and there's no extra fields it offers.
