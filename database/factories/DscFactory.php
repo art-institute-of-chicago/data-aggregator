@@ -22,16 +22,6 @@ if (!function_exists('dscIdsAndTitle'))
 
     }
 
-    function dscDates($faker)
-    {
-
-        return [
-            'source_created_at' => $faker->dateTimeThisYear,
-            'source_modified_at' => $faker->dateTimeThisYear,
-        ];
-
-    }
-
 }
 
 
@@ -44,8 +34,7 @@ $factory->define(App\Models\Dsc\Publication::class, function (Faker\Generator $f
             'site' => implode('', $faker->words(2)),
             'alias' => implode('', $faker->words(2)),
 
-        ],
-        dscDates($faker)
+        ]
     );
 });
 
