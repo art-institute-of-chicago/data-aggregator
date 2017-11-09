@@ -77,11 +77,6 @@ class TourStop extends MobileModel
                 "type" => "number",
                 "value" => function() { return $this->weight; },
             ],
-            'description' => [
-                "doc" => "Explanation of what this tour stop is",
-                "type" => "string",
-                "value" => function() { return $this->description; },
-            ],
         ];
 
     }
