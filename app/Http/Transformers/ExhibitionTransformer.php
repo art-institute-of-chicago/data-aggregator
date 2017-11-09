@@ -35,7 +35,7 @@ class ExhibitionTransformer extends CollectionsTransformer
      */
     public function includeVenues(Exhibition $exhibition)
     {
-        return $this->collection($exhibition->venues()->getResults(), new AgentTransformer, false);
+        return $this->collection($exhibition->venues()->getResults(), new CollectionsTransformer, false);
     }
 
 }

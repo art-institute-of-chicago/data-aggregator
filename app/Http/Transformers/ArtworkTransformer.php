@@ -22,7 +22,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeArtists(Artwork $artwork)
     {
-        return $this->collection($artwork->artists()->getResults(), new AgentTransformer, false);
+        return $this->collection($artwork->artists()->getResults(), new CollectionsTransformer, false);
     }
 
     /**
@@ -33,7 +33,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCopyrightRepresentatives(Artwork $artwork)
     {
-        return $this->collection($artwork->copyrightRepresentatives()->getResults(), new AgentTransformer, false);
+        return $this->collection($artwork->copyrightRepresentatives()->getResults(), new CollectionsTransformer, false);
     }
 
     /**
