@@ -43,7 +43,7 @@ $factory->define(App\Models\Dsc\Publication::class, function (Faker\Generator $f
             'web_url' => $faker->url,
             'site' => implode('', $faker->words(2)),
             'alias' => implode('', $faker->words(2)),
-            'title' => ucfirst( $faker->words(6) ),
+            'title' => ucfirst( $faker->words(6, true) ),
 
         ],
         dscDates($faker)
