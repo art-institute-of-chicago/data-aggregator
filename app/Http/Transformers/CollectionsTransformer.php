@@ -5,7 +5,14 @@ namespace App\Http\Transformers;
 class CollectionsTransformer extends ApiTransformer
 {
 
-    public $citiObject = false;
+    /**
+     * Whether or not CITI is the system of record for this resource.
+     *
+     * @TODO Move this domain knowledge to models?
+     *
+     * @var boolean
+     */
+    public $citiObject = true;
 
     protected function transformIdsAndTitle($item)
     {

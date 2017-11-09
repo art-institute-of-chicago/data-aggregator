@@ -7,8 +7,6 @@ use App\Models\Collections\ObjectType;
 class ObjectTypeTransformer extends CollectionsTransformer
 {
 
-    public $citiObject = true;
-
     /**
      * Turn this item object into a generic array.
      *

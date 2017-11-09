@@ -7,8 +7,6 @@ use App\Models\Collections\Exhibition;
 class ExhibitionTransformer extends CollectionsTransformer
 {
 
-    public $citiObject = true;
-
     /**
      * List of resources possible to include
      *

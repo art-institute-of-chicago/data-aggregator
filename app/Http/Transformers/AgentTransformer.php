@@ -7,6 +7,4 @@ use App\Models\Collections\Agent;
 class AgentTransformer extends CollectionsTransformer
 {
 
-    public $citiObject = true;
-
 }
