@@ -11,8 +11,15 @@ class DscModel extends BaseModel
 
     protected $primaryKey = 'dsc_id';
 
-    protected $dates = ['source_created_at', 'source_modified_at'];
-
     protected $fakeIdsStartAt = 9990000;
+
+    protected function fillIdsFrom($source)
+    {
+
+        $this->dsc_id = $source->id;
+
+        return $this;
+
+    }
 
 }

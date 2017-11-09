@@ -37,8 +37,6 @@ class ScoutImportAll extends Command
 
         $this->call("scout:import", ['model' => \App\Models\Dsc\Publication::class]);
         $this->call("scout:import", ['model' => \App\Models\Dsc\Section::class]);
-        $this->call("scout:import", ['model' => \App\Models\Dsc\WorkOfArt::class]);
-        $this->call("scout:import", ['model' => \App\Models\Dsc\Collector::class]);
 
         $this->call("scout:import", ['model' => \App\Models\StaticArchive\Site::class]);
 

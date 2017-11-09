@@ -122,23 +122,8 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('publications', 'PublicationsController@index');
     Route::get('publications/{id}', 'PublicationsController@show');
 
-    Route::get('title-pages', 'TitlePagesController@index');
-    Route::get('title-pages/{id}', 'TitlePagesController@show');
-
     Route::get('sections', 'SectionsController@index');
     Route::get('sections/{id}', 'SectionsController@show');
-
-    Route::get('works-of-art', 'WorksOfArtController@index');
-    Route::get('works-of-art/{id}', 'WorksOfArtController@show');
-
-    Route::get('footnotes', 'FootnotesController@index');
-    Route::get('footnotes/{id}', 'FootnotesController@show');
-
-    Route::get('figures', 'FiguresController@index');
-    Route::get('figures/{id}', 'FiguresController@show');
-
-    Route::get('collectors', 'CollectorsController@index');
-    Route::get('collectors/{id}', 'CollectorsController@show');
 
     Route::get('sites', 'SitesController@index');
     Route::get('sites/{id}', 'SitesController@show');
