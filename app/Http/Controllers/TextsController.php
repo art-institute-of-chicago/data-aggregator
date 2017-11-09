@@ -7,6 +7,6 @@ class TextsController extends AssetsController
 
     protected $model = \App\Models\Collections\Text::class;
 
-    protected $transformer = \App\Http\Transformers\TextTransformer::class;
+    protected $transformer = \App\Http\Transformers\AssetTransformer::class;
 
 }
