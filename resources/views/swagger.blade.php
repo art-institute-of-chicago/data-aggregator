@@ -3636,9 +3636,6 @@
         },
         "weight": {
           "description": "Sort order for the tour stop in a list"
-        },
-        "description": {
-          "description": "Description of the tour"
         }
       },
       "type": "object"
