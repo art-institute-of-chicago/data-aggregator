@@ -31,7 +31,7 @@ class AssetTransformer extends CollectionsTransformer
      */
     public function includeCategories(Asset $asset)
     {
-        return $this->collection($asset->categories()->getResults(), new CategoryTransformer, false);
+        return $this->collection($asset->categories()->getResults(), new CollectionsTransformer, false);
     }
 
 }

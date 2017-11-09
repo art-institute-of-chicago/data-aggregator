@@ -23,7 +23,7 @@ class GalleryTransformer extends CollectionsTransformer
      */
     public function includeCategories(Gallery $gallery)
     {
-        return $this->collection($gallery->categories()->getResults(), new CategoryTransformer, false);
+        return $this->collection($gallery->categories()->getResults(), new CollectionsTransformer, false);
     }
 
 }

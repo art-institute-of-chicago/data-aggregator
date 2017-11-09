@@ -44,7 +44,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCategories(Artwork $artwork)
     {
-        return $this->collection($artwork->categories()->getResults(), new CategoryTransformer, false);
+        return $this->collection($artwork->categories()->getResults(), new CollectionsTransformer, false);
     }
 
     /**
