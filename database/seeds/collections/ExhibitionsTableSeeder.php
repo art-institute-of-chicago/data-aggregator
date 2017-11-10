@@ -18,11 +18,29 @@ class ExhibitionsTableSeeder extends Seeder
 
         foreach ($exhibitions as $exhibition) {
 
-            $exhibition->seedArtworks();
+            $this->seedArtworks( $exhibition );
 
-            $exhibition->seedVenues();
+            $this->seedVenues( $exhibition );
 
         }
+
+    }
+
+    private function seedArtworks( $exhibition )
+    {
+
+        $ids = \App\Models\Collections\Artwork::fake()->pluck('citi_id')->random(rand(2,4))->all();
+
+        $exhibition->artworks()->sync($ids, false);
+
+    }
+
+    private function seedVenues( $exhibition )
+    {
+
+        $ids = \App\Models\Collections\CorporateBody::fake()->pluck('citi_id')->random(rand(1,3))->all();
+
+        $exhibition->venues()->sync($ids, false);
 
     }
 
