@@ -175,6 +175,7 @@ return [
         // App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\FakerServiceProvider::class,
 
         Laravel\Scout\ScoutServiceProvider::class,
         Cviebrock\LaravelElasticsearch\ServiceProvider::class, // To interface with ES--create index, add schema, query, etc.
