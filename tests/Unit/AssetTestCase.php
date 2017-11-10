@@ -14,7 +14,7 @@ abstract class AssetTestCase extends ApiTestCase
      */
     protected function getRandomId()
     {
-        return app('Faker')->unique()->uuid;
+        return Faker::unique()->uuid;
     }
 
 }

@@ -271,11 +271,11 @@ class Artwork extends CollectionsModel
 
         for ($i = 0; $i < rand(2,4); $i++) {
 
-            $preferred = $hasPreferred ? false : app('Faker')->boolean;
+            $preferred = $hasPreferred ? false : Faker::boolean;
 
             $this->dates()->create([
-                'date' => app('Faker')->dateTimeAD,
-                'qualifier' => ucfirst(app('Faker')->word) .' date',
+                'date' => Faker::dateTimeAD,
+                'qualifier' => ucfirst( Faker::word ) .' date',
                 'preferred' => $preferred,
             ]);
 
@@ -294,13 +294,13 @@ class Artwork extends CollectionsModel
 
         for ($i = 0; $i < rand(2,4); $i++) {
 
-            $preferred = app('Faker')->boolean;
+            $preferred = Faker::boolean;
 
             $this->catalogues()->create([
-                'preferred' => $hasPreferred ? false : app('Faker')->boolean,
-                'catalogue' => ucwords(app('Faker')->words(2, true)),
-                'number' => app('Faker')->randomNumber(3),
-                'state_edition' => app('Faker')->words(2, true),
+                'preferred' => $hasPreferred ? false : Faker::boolean,
+                'catalogue' => ucwords( Faker::words(2, true) ),
+                'number' => Faker::randomNumber(3),
+                'state_edition' => Faker::words(2, true),
             ]);
 
             if ($preferred || $hasPreferred) $hasPreferred = true;
@@ -318,7 +318,7 @@ class Artwork extends CollectionsModel
 
         for ($i = 0; $i < rand(2,4); $i++) {
 
-            $preferred = $hasPreferred ? false : app('Faker')->boolean;
+            $preferred = $hasPreferred ? false : Faker::boolean;
 
             // TODO: Problem! What if the image depicts multiple artworks?
             // This architecture means it would have to be the preferred one for all of them!
