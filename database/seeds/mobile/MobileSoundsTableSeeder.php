@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Mobile\Sound;
+use App\Models\Mobile\Artwork;
+
 class MobileSoundsTableSeeder extends Seeder
 {
     /**
@@ -12,7 +15,7 @@ class MobileSoundsTableSeeder extends Seeder
     public function run()
     {
 
-        factory(App\Models\Mobile\Sound::class, 25)->create();
+        factory( Sound::class, 25 )->create();
 
         $this->_addSoundsToArtworks();
 
@@ -21,8 +24,8 @@ class MobileSoundsTableSeeder extends Seeder
     private function _addSoundsToArtworks()
     {
 
-        $artworks = App\Models\Mobile\Artwork::fake()->get();
-        $soundIds = App\Models\Mobile\Sound::fake()->pluck('mobile_id')->all();
+        $artworks = Artwork::fake()->get();
+        $soundIds = Sound::fake()->pluck('mobile_id')->all();
 
         foreach ($artworks as $artwork) {
 

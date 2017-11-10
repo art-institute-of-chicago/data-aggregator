@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Mobile\Artwork;
+
 class MobileArtworksTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class MobileArtworksTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Mobile\Artwork::class, 25)->create();
+        factory( Artwork::class, 25 )->create();
     }
 }

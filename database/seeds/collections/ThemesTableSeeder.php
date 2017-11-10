@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Theme;
+
 class ThemesTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class ThemesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Collections\Theme::class, 15)->create();
+        factory( Theme::class, 15 )->create();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+
 use App\Models\Collections\Agent;
 
 class AgentsTableSeeder extends Seeder
@@ -12,7 +13,7 @@ class AgentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Agent::class, 100)->create();
+        factory( Agent::class, 100 )->create();
     }
 
 }

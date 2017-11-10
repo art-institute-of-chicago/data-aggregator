@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Mobile\Artwork;
+use App\Models\Mobile\Sound;
+use App\Models\Mobile\Tour;
+
 class MobileDatabaseSeeder extends Seeder
 {
 
@@ -22,9 +26,9 @@ class MobileDatabaseSeeder extends Seeder
     public static function clean()
     {
 
-        App\Models\Mobile\Artwork::fake()->delete();
-        App\Models\Mobile\Sound::fake()->delete();
-        App\Models\Mobile\Tour::fake()->delete();
+        Artwork::fake()->delete();
+        Sound::fake()->delete();
+        Tour::fake()->delete();
 
     }
 

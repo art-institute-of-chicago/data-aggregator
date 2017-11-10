@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Gallery;
+use App\Models\Collections\Category;
+
 class GalleryCategoriesTableSeeder extends Seeder
 {
     /**
@@ -12,8 +15,8 @@ class GalleryCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $galleries = App\Models\Collections\Gallery::fake()->get();
-        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
+        $galleries = Gallery::fake()->get();
+        $categoryIds = Category::fake()->pluck('citi_id')->all();
 
         foreach ($galleries as $gallery) {
 

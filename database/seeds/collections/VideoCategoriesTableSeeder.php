@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Video;
+use App\Models\Collections\Category;
+
 class VideoCategoriesTableSeeder extends Seeder
 {
     /**
@@ -12,8 +15,8 @@ class VideoCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $videos = App\Models\Collections\Video::fake()->get();
-        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
+        $videos = Video::fake()->get();
+        $categoryIds = Category::fake()->pluck('citi_id')->all();
 
         foreach ($videos as $video) {
 

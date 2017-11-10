@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Link;
+
 class LinksTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class LinksTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Collections\Link::class, 25)->create();
+        factory( Link::class, 25 )->create();
     }
 }

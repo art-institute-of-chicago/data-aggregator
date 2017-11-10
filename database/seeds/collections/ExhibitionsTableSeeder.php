@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Exhibition;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\CorporateBody;
+
 class ExhibitionsTableSeeder extends Seeder
 {
     /**
@@ -12,9 +16,9 @@ class ExhibitionsTableSeeder extends Seeder
     public function run()
     {
 
-        factory(App\Models\Collections\Exhibition::class, 25)->create();
+        factory( Exhibition::class, 25 )->create();
 
-        $exhibitions = App\Models\Collections\Exhibition::fake()->get();
+        $exhibitions = Exhibition::fake()->get();
 
         foreach ($exhibitions as $exhibition) {
 
@@ -29,7 +33,7 @@ class ExhibitionsTableSeeder extends Seeder
     private function seedArtworks( $exhibition )
     {
 
-        $ids = \App\Models\Collections\Artwork::fake()->pluck('citi_id')->random(rand(2,4))->all();
+        $ids = Artwork::fake()->pluck('citi_id')->random(rand(2,4))->all();
 
         $exhibition->artworks()->sync($ids, false);
 
@@ -38,7 +42,7 @@ class ExhibitionsTableSeeder extends Seeder
     private function seedVenues( $exhibition )
     {
 
-        $ids = \App\Models\Collections\CorporateBody::fake()->pluck('citi_id')->random(rand(1,3))->all();
+        $ids = CorporateBody::fake()->pluck('citi_id')->random(rand(1,3))->all();
 
         $exhibition->venues()->sync($ids, false);
 

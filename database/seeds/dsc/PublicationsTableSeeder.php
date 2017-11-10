@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Dsc\Publication;
+
 class PublicationsTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class PublicationsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Dsc\Publication::class, 25)->create();
+        factory( Publication::class, 25 )->create();
     }
 }

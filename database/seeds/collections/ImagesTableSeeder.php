@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Image;
+use App\Models\Collections\Artwork;
+
 class ImagesTableSeeder extends Seeder
 {
     /**
@@ -12,7 +15,7 @@ class ImagesTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Models\Collections\Artwork::fake()->get();
+        $artworks = Artwork::fake()->get();
 
         foreach ($artworks as $artwork) {
 
@@ -35,7 +38,8 @@ class ImagesTableSeeder extends Seeder
             // This architecture means it would have to be the preferred one for all of them!
             // Potentially consider specifying `preferred` column on the pivot table?
             // https://laravel.com/docs/5.4/eloquent-relationships#many-to-many
-            $image = factory(\App\Models\Collections\Image::class)->make();
+
+            $image = factory( Image::class )->make();
             $artwork->images()->save($image);
 
             if ($preferred || $hasPreferred) $hasPreferred = true;

@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Gallery;
+
 class GalleriesTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class GalleriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Collections\Gallery::class, 25)->create();
+        factory( Gallery::class, 25 )->create();
     }
 }

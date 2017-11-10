@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Shop\Category;
+use App\Models\Shop\Product;
+
 class ShopDatabaseSeeder extends Seeder
 {
 
@@ -22,10 +25,11 @@ class ShopDatabaseSeeder extends Seeder
     {
 
         \DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        App\Models\Shop\Category::fake()->delete();
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        App\Models\Shop\Product::fake()->delete();
+        Category::fake()->delete();
+        Product::fake()->delete();
+
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 

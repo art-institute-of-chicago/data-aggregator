@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\StaticArchive\Site;
+
 class StaticArchiveDatabaseSeeder extends Seeder
 {
 
@@ -20,7 +22,7 @@ class StaticArchiveDatabaseSeeder extends Seeder
     public static function clean()
     {
 
-        App\Models\StaticArchive\Site::fake()->delete();
+        Site::fake()->delete();
 
     }
 

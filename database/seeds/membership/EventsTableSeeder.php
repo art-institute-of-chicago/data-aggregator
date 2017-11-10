@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Membership\Event;
+use App\Models\Collections\Exhibition;
+
 class EventsTableSeeder extends Seeder
 {
     /**
@@ -12,7 +15,7 @@ class EventsTableSeeder extends Seeder
     public function run()
     {
 
-        factory(App\Models\Membership\Event::class, 25)->create();
+        factory( Event::class, 25 )->create();
 
         $this->_addExhibitionsToEvents();
 
@@ -21,8 +24,8 @@ class EventsTableSeeder extends Seeder
     private function _addExhibitionsToEvents()
     {
 
-        $events = App\Models\Membership\Event::fake()->get();
-        $exhibitionIds = App\Models\Collections\Exhibition::fake()->pluck('citi_id')->all();
+        $events = Event::fake()->get();
+        $exhibitionIds = Exhibition::fake()->pluck('citi_id')->all();
 
         foreach ($events as $event) {
 

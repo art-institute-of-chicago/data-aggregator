@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Image;
+use App\Models\Collections\Category;
+
 class ImageCategoriesTableSeeder extends Seeder
 {
     /**
@@ -12,8 +15,8 @@ class ImageCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $images = App\Models\Collections\Image::fake();
-        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
+        $images = Image::fake();
+        $categoryIds = Category::fake()->pluck('citi_id')->all();
 
         $images->each(function ($image, $key) use ($categoryIds) {
 

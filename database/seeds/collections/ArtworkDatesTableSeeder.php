@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Artwork;
+use App\Models\Collections\ArtworkDate;
+
 class ArtworkDatesTableSeeder extends Seeder
 {
     /**
@@ -12,7 +15,7 @@ class ArtworkDatesTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Models\Collections\Artwork::fake()->get();
+        $artworks = Artwork::fake()->get();
 
         foreach ($artworks as $artwork) {
 
@@ -31,6 +34,7 @@ class ArtworkDatesTableSeeder extends Seeder
 
             $preferred = $hasPreferred ? false : app('Faker')->boolean;
 
+            // TODO: Determine if this runs the risk of "duplicating" dates
             $artwork->dates()->create([
                 'date' => app('Faker')->dateTimeAD,
                 'qualifier' => ucfirst( app('Faker')->word ) . ' date',

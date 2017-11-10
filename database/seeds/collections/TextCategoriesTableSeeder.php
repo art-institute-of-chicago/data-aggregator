@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Text;
+use App\Models\Collections\Category;
+
 class TextCategoriesTableSeeder extends Seeder
 {
     /**
@@ -12,8 +15,8 @@ class TextCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $texts = App\Models\Collections\Text::fake()->get();
-        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
+        $texts = Text::fake()->get();
+        $categoryIds = Category::fake()->pluck('citi_id')->all();
 
         foreach ($texts as $text) {
 

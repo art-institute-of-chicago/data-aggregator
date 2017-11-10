@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Department;
+
 class DepartmentsTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class DepartmentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Collections\Department::class, 25)->create();
+        factory( Department::class, 25 )->create();
     }
 }

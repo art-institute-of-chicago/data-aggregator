@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Artwork;
+use App\Models\Collections\ArtworkTerm;
+
 class ArtworkTermsTableSeeder extends Seeder
 {
     /**
@@ -12,7 +15,7 @@ class ArtworkTermsTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Models\Collections\Artwork::fake()->get();
+        $artworks = Artwork::fake()->get();
 
         foreach ($artworks as $artwork) {
 
@@ -28,7 +31,7 @@ class ArtworkTermsTableSeeder extends Seeder
 
         for ($i = 0; $i < rand(2,4); $i++) {
 
-            $term = factory(App\Models\Collections\ArtworkTerm::class)->make([
+            $term = factory( ArtworkTerm::class )->make([
                 'artwork_citi_id' => $artwork->citi_id,
             ]);
 

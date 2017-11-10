@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Artwork;
+
 class ArtworkArtworksTableSeeder extends Seeder
 {
     /**
@@ -12,8 +14,8 @@ class ArtworkArtworksTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Models\Collections\Artwork::fake();
-        $artworkIds = App\Models\Collections\Artwork::fake()->pluck('citi_id')->all();
+        $artworks = Artwork::fake();
+        $artworkIds = Artwork::fake()->pluck('citi_id')->all();
 
         $artworks->each(function($artwork, $key) use ($artworkIds) {
 

@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Artwork;
+use App\Models\Collections\CopyrightRepresentative;
+
 class ArtworkCopyrightRepresentativesTableSeeder extends Seeder
 {
     /**
@@ -12,7 +15,7 @@ class ArtworkCopyrightRepresentativesTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Models\Collections\Artwork::fake()->get();
+        $artworks = Artwork::fake()->get();
 
         foreach ($artworks as $artwork) {
 
@@ -25,7 +28,7 @@ class ArtworkCopyrightRepresentativesTableSeeder extends Seeder
     public function seedCopyrightRepresentatives( $artwork )
     {
 
-        $agentIds = App\Models\Collections\CopyrightRepresentative::fake()->pluck('citi_id')->all();
+        $agentIds = CopyrightRepresentative::fake()->pluck('citi_id')->all();
 
         $ids = [];
 

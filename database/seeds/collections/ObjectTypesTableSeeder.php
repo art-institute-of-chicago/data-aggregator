@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\ObjectType;
+
 class ObjectTypesTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class ObjectTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Collections\ObjectType::class, 25)->create();
+        factory( ObjectType::class, 25 )->create();
     }
 }

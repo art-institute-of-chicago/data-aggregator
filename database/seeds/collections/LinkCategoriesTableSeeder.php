@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Link;
+use App\Models\Collections\Category;
+
 class LinkCategoriesTableSeeder extends Seeder
 {
     /**
@@ -12,8 +15,8 @@ class LinkCategoriesTableSeeder extends Seeder
     public function run()
     {
 
-        $links = App\Models\Collections\Link::fake()->get();
-        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
+        $links = Link::fake()->get();
+        $categoryIds = Category::fake()->pluck('citi_id')->all();
 
         foreach ($links as $link) {
 

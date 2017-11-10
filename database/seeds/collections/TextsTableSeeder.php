@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Text;
+
 class TextsTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class TextsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Collections\Text::class, 25)->create();
+        factory( Text::class, 25 )->create();
     }
 }

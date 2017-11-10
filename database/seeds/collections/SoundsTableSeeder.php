@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Sound;
+
 class SoundsTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class SoundsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Collections\Sound::class, 25)->create();
+        factory( Sound::class, 25 )->create();
     }
 }

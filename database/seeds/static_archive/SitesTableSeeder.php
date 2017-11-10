@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\StaticArchive\Site;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\Exhibition;
+
 class SitesTableSeeder extends Seeder
 {
     /**
@@ -12,11 +16,11 @@ class SitesTableSeeder extends Seeder
     public function run()
     {
 
-        factory(App\Models\StaticArchive\Site::class, 25)->create();
+        factory( Site::class, 25 )->create();
 
-        $sites = App\Models\StaticArchive\Site::fake()->get();
-        $artworkIds = App\Models\Collections\Artwork::fake()->pluck('citi_id')->all();
-        $exhibitionIds = App\Models\Collections\Exhibition::fake()->pluck('citi_id')->all();
+        $sites = Site::fake()->get();
+        $artworkIds = Artwork::fake()->pluck('citi_id')->all();
+        $exhibitionIds = Exhibition::fake()->pluck('citi_id')->all();
 
         foreach ($sites as $site) {
 

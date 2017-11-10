@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\Artwork;
+use App\Models\Collections\ArtworkCommittee;
+
 class ArtworkCommitteesTableSeeder extends Seeder
 {
 
@@ -13,7 +16,7 @@ class ArtworkCommitteesTableSeeder extends Seeder
     public function run()
     {
 
-        $artworks = App\Models\Collections\Artwork::fake()->get();
+        $artworks = Artwork::fake()->get();
 
         foreach ($artworks as $artwork) {
 
@@ -28,7 +31,7 @@ class ArtworkCommitteesTableSeeder extends Seeder
 
         for ($i = 0; $i < rand(2,4); $i++) {
 
-            $committee = factory(App\Models\Collections\ArtworkCommittee::class)->make([
+            $committee = factory( ArtworkCommittee::class )->make([
                 'artwork_citi_id' => $artwork->citi_id,
             ]);
 

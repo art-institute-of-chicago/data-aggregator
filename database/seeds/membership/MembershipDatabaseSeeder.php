@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Membership\Event;
+
 class MembershipDatabaseSeeder extends Seeder
 {
 
@@ -20,7 +22,7 @@ class MembershipDatabaseSeeder extends Seeder
     public static function clean()
     {
 
-        App\Models\Membership\Event::fake()->delete();
+        Event::fake()->delete();
 
     }
 

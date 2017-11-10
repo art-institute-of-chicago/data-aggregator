@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Collections\AgentType;
+
 class AgentTypesTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class AgentTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Collections\AgentType::class, 10)->create();
+        factory( AgentType::class, 10 )->create();
     }
 }

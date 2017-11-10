@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Shop\Product;
+use App\Models\Shop\Category;
+
 class ProductsTableSeeder extends Seeder
 {
     /**
@@ -12,7 +15,7 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
 
-        factory(App\Models\Shop\Product::class, 25)->create();
+        factory( Product::class, 25 )->create();
 
         $this->_addCategoriesToProducts();
 
@@ -21,8 +24,8 @@ class ProductsTableSeeder extends Seeder
     private function _addCategoriesToProducts()
     {
 
-        $products = App\Models\Shop\Product::fake()->get();
-        $categoryIds = App\Models\Shop\Category::fake()->pluck('shop_id')->all();
+        $products = Product::fake()->get();
+        $categoryIds = Category::fake()->pluck('shop_id')->all();
 
         foreach ($products as $product) {
 
