@@ -33,5 +33,13 @@ class FakerServiceProvider extends ServiceProvider
 
         });
 
+
+        // This forces factories to use our enhanced Faker by default
+        $this->app->singleton('Faker\Generator', function($app) {
+
+            return app('Faker');
+
+        });
+
     }
 }
