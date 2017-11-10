@@ -16,9 +16,33 @@ class ArtworkCataloguesTableSeeder extends Seeder
 
         foreach ($artworks as $artwork) {
 
-            $artwork->seedCatalogues();
+            $this->seedCatalogues( $artwork );
 
         }
+
+    }
+
+    public function seedCatalogues( $artwork )
+    {
+
+        $hasPreferred = false;
+
+        for ($i = 0; $i < rand(2,4); $i++) {
+
+            $preferred = app('Faker')->boolean;
+
+            $artwork->catalogues()->create([
+                'preferred' => $hasPreferred ? false : app('Faker')->boolean,
+                'catalogue' => ucwords( app('Faker')->words(2, true) ),
+                'number' => app('Faker')->randomNumber(3),
+                'state_edition' => app('Faker')->words(2, true),
+            ]);
+
+            if ($preferred || $hasPreferred) $hasPreferred = true;
+
+        }
+
+        return $this;
 
     }
 

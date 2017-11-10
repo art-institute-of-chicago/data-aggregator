@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 
 class ArtworkCommitteesTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -16,10 +17,26 @@ class ArtworkCommitteesTableSeeder extends Seeder
 
         foreach ($artworks as $artwork) {
 
-            $artwork->seedCommittees();
+            $this->seedCommittees( $artwork );
 
         }
 
     }
+
+    public function seedCommittees( $artwork )
+    {
+
+        for ($i = 0; $i < rand(2,4); $i++) {
+
+            $committee = factory(App\Models\Collections\ArtworkCommittee::class)->make([
+                'artwork_citi_id' => $artwork->citi_id,
+            ]);
+
+            $artwork->committees()->save($committee);
+
+        }
+
+    }
+
 
 }

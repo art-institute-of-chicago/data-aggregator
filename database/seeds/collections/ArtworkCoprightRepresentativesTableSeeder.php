@@ -16,10 +16,32 @@ class ArtworkCopyrightRepresentativesTableSeeder extends Seeder
 
         foreach ($artworks as $artwork) {
 
-            $artwork->seedCopyrightRepresentatives();
+            $this->seedCopyrightRepresentatives( $artwork );
 
         }
 
     }
+
+    public function seedCopyrightRepresentatives( $artwork )
+    {
+
+        $agentIds = App\Models\Collections\CopyrightRepresentative::fake()->pluck('citi_id')->all();
+
+        $ids = [];
+
+        for ($i = 0; $i < rand(2,4); $i++) {
+
+            $id = $agentIds[array_rand($agentIds)];
+
+            if (!in_array($id, $ids)) {
+                $ids[] = $id;
+            }
+
+        }
+
+        $artwork->copyrightRepresentatives()->sync($ids, false);
+
+    }
+
 
 }
