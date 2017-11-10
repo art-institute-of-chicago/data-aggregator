@@ -231,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Elasticsearch' => Cviebrock\LaravelElasticsearch\Facade::class,
+        'Faker' => App\Facades\Faker::class,
 
     ],
 
