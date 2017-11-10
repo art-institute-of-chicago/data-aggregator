@@ -44,7 +44,7 @@ $factory->define(App\Models\Dsc\Section::class, function (Faker\Generator $faker
         [
 
             'web_url' => $faker->url,
-            'accession' => $faker->randomFloat(3, 1900, 2018),
+            'accession' => $faker->accession,
             'revision' => rand(1230768000,1483228800), // timestamp b/w 2009 and 2017
             'source_id' => $faker->randomNumber(5),
             'weight' => $faker->randomNumber(2),

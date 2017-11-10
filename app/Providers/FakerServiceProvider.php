@@ -29,7 +29,22 @@ class FakerServiceProvider extends ServiceProvider
 
         $this->app->singleton('Faker', function($app) {
 
-            return \Faker\Factory::create();
+            $faker = \Faker\Factory::create();
+
+            // This illustrates how to add custom Faker providers
+            $newProvider = new class($faker) extends \Faker\Provider\Base {
+
+                // Used in Collections\Artwork and Dsc\Section
+                public function accession()
+                {
+                    return strval( $this->generator->randomFloat(3, 1900, 2018) );
+                }
+
+            };
+
+            $faker->addProvider($newProvider);
+
+            return $faker;
 
         });
 
