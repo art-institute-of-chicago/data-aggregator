@@ -121,7 +121,7 @@ $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generato
     return array_merge(
         idsAndTitle($faker, ucwords($faker->words(4, true)), true, 6),
         [
-            'main_id' => $faker->randomFloat(3, 1900, 2018),
+            'main_id' => $faker->accession,
             'date_display' => '' .$date_end,
             'date_start' => $faker->year,
             'date_end' => $date_end,
