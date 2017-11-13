@@ -1,28 +1,20 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Exhibition;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\CorporateBody;
 
-class ExhibitionsTableSeeder extends Seeder
+class ExhibitionsTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        factory(App\Models\Collections\Exhibition::class, 25)->create();
+        factory( Exhibition::class, 25 )->create();
 
-        $exhibitions = App\Models\Collections\Exhibition::fake()->get();
+        $this->seedPivot( Exhibition::class, Artwork::class, 'artworks' );
 
-        foreach ($exhibitions as $exhibition) {
-
-            $exhibition->seedArtworks();
-
-            $exhibition->seedVenues();
-
-        }
+        $this->seedPivot( Exhibition::class, CorporateBody::class, 'venues' );
 
     }
 

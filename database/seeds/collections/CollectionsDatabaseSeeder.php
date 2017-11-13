@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\AgentType;
 use App\Models\Collections\Agent;
 use App\Models\Collections\Department;
@@ -21,15 +19,10 @@ use App\Models\Collections\Text;
 use App\Models\Collections\Image;
 use App\Models\Collections\Exhibition;
 
-class CollectionsDatabaseSeeder extends Seeder
+class CollectionsDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    protected function seed()
     {
 
         $this->call(AgentTypesTableSeeder::class);
@@ -63,7 +56,7 @@ class CollectionsDatabaseSeeder extends Seeder
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
         Exhibition::fake()->delete();

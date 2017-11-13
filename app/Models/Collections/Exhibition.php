@@ -46,28 +46,6 @@ class Exhibition extends CollectionsModel
 
     }
 
-    public function seedArtworks()
-    {
-
-        $ids = \App\Models\Collections\Artwork::fake()->pluck('citi_id')->random(rand(2,4))->all();
-
-        $this->artworks()->sync($ids, false);
-
-        return $this;
-
-    }
-
-    public function seedVenues()
-    {
-
-        $ids = \App\Models\Collections\CorporateBody::fake()->pluck('citi_id')->random(rand(1,3))->all();
-
-        $this->venues()->sync($ids, false);
-
-        return $this;
-
-    }
-
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.

@@ -1,16 +1,13 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Gallery;
 
-class GalleriesTableSeeder extends Seeder
+class GalleriesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
-        factory(App\Models\Collections\Gallery::class, 25)->create();
+        factory( Gallery::class, 25 )->create();
     }
+
 }

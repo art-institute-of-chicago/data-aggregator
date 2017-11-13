@@ -1,45 +1,17 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Shop\Product;
+use App\Models\Shop\Category;
 
-class ProductsTableSeeder extends Seeder
+class ProductsTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        factory(App\Models\Shop\Product::class, 25)->create();
+        factory( Product::class, 25 )->create();
 
-        $this->_addCategoriesToProducts();
-
-    }
-
-    private function _addCategoriesToProducts()
-    {
-
-        $products = App\Models\Shop\Product::fake()->get();
-        $categoryIds = App\Models\Shop\Category::fake()->pluck('shop_id')->all();
-
-        foreach ($products as $product) {
-
-            $ids = [];
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-
-                $id = $categoryIds[array_rand($categoryIds)];
-
-                if (!in_array($id, $ids)) {
-                    $product->categories()->attach($id);
-                    $ids[] = $id;
-                }
-
-            }
-
-        }
+        $this->seedPivot( Product::class, Category::class, 'categories' );
 
     }
 

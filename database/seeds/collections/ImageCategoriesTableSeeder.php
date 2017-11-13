@@ -1,27 +1,15 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Image;
+use App\Models\Collections\Category;
 
-class ImageCategoriesTableSeeder extends Seeder
+class ImageCategoriesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        $images = App\Models\Collections\Image::fake();
-        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
-
-        $images->each(function ($image, $key) use ($categoryIds) {
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-                $image->categories()->attach($categoryIds[array_rand($categoryIds)]);
-            }
-
-        });
+        $this->seedPivot( Image::class, Category::class, 'categories' );
 
     }
 

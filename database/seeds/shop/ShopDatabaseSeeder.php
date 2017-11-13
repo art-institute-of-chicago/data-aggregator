@@ -1,16 +1,12 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Shop\Category;
+use App\Models\Shop\Product;
 
-class ShopDatabaseSeeder extends Seeder
+class ShopDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    protected function seed()
     {
 
         $this->call(ShopCategoriesTableSeeder::class);
@@ -18,14 +14,15 @@ class ShopDatabaseSeeder extends Seeder
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
         \DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        App\Models\Shop\Category::fake()->delete();
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        App\Models\Shop\Product::fake()->delete();
+        Category::fake()->delete();
+        Product::fake()->delete();
+
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 

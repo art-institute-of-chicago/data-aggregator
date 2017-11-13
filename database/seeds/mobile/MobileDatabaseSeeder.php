@@ -1,16 +1,13 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Mobile\Artwork;
+use App\Models\Mobile\Sound;
+use App\Models\Mobile\Tour;
 
-class MobileDatabaseSeeder extends Seeder
+class MobileDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    protected function seed()
     {
 
         $this->call(MobileArtworksTableSeeder::class);
@@ -19,12 +16,12 @@ class MobileDatabaseSeeder extends Seeder
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
-        App\Models\Mobile\Artwork::fake()->delete();
-        App\Models\Mobile\Sound::fake()->delete();
-        App\Models\Mobile\Tour::fake()->delete();
+        Artwork::fake()->delete();
+        Sound::fake()->delete();
+        Tour::fake()->delete();
 
     }
 

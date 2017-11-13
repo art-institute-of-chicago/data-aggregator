@@ -1,16 +1,13 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Theme;
 
-class ThemesTableSeeder extends Seeder
+class ThemesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
-        factory(App\Models\Collections\Theme::class, 15)->create();
+        factory( Theme::class, 15 )->create();
     }
+
 }

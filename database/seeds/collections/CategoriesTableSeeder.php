@@ -1,20 +1,17 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Category;
 
-class CategoriesTableSeeder extends Seeder
+class CategoriesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        factory(App\Models\Collections\Category::class, 25)->create();
 
-        $categories = App\Models\Collections\Category::fake()->get();
-        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
+    protected function seed()
+    {
+
+        factory( Category::class, 25 )->create();
+
+        $categories = Category::fake()->get();
+        $categoryIds = Category::fake()->pluck('citi_id')->all();
 
         foreach ($categories as $category) {
 

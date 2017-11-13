@@ -1,16 +1,13 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Sound;
 
-class SoundsTableSeeder extends Seeder
+class SoundsTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
-        factory(App\Models\Collections\Sound::class, 25)->create();
+        factory( Sound::class, 25 )->create();
     }
+
 }

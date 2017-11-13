@@ -1,27 +1,15 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Sound;
+use App\Models\Collections\Category;
 
-class SoundCategoriesTableSeeder extends Seeder
+class SoundCategoriesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        $sounds = App\Models\Collections\Sound::fake()->get();
-        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
-
-        foreach ($sounds as $sound) {
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-                $sound->categories()->attach($categoryIds[array_rand($categoryIds)]);
-            }
-
-        }
+        $this->seedPivot( Sound::class, Category::class, 'categories' );
 
     }
 

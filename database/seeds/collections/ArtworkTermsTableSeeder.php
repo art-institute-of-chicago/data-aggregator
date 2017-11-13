@@ -1,25 +1,39 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\ArtworkTerm;
 
-class ArtworkTermsTableSeeder extends Seeder
+class ArtworkTermsTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        $artworks = App\Models\Collections\Artwork::fake()->get();
+        $artworks = Artwork::fake()->get();
 
         foreach ($artworks as $artwork) {
 
-            $artwork->seedTerms();
+            $this->seedTerms( $artwork );
 
         }
 
     }
+
+
+    public function seedTerms( $artwork )
+    {
+
+        for ($i = 0; $i < rand(2,4); $i++) {
+
+            $term = factory( ArtworkTerm::class )->make([
+                'artwork_citi_id' => $artwork->citi_id,
+            ]);
+
+            $artwork->terms()->save($term);
+
+        }
+
+    }
+
 
 }

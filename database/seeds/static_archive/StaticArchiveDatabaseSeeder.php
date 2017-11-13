@@ -1,26 +1,21 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\StaticArchive\Site;
 
-class StaticArchiveDatabaseSeeder extends Seeder
+class StaticArchiveDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    protected function seed()
     {
 
         $this->call(SitesTableSeeder::class);
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
-        App\Models\StaticArchive\Site::fake()->delete();
+        Site::fake()->delete();
 
     }
 

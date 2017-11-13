@@ -1,32 +1,23 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\StaticArchive\Site;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\Exhibition;
 
-class SitesTableSeeder extends Seeder
+class SitesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        factory(App\Models\StaticArchive\Site::class, 25)->create();
+        factory( Site::class, 25 )->create();
 
-        $sites = App\Models\StaticArchive\Site::fake()->get();
-        $artworkIds = App\Models\Collections\Artwork::fake()->pluck('citi_id')->all();
-        $exhibitionIds = App\Models\Collections\Exhibition::fake()->pluck('citi_id')->all();
+        $this->seedPivot( Site::class, Artwork::class, 'artworks' );
+
+        $sites = Site::fake()->get();
+        $exhibitionIds = Exhibition::fake()->pluck('citi_id')->all();
 
         foreach ($sites as $site) {
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-
-                $artworkId = $artworkIds[array_rand($artworkIds)];
-
-                $site->artworks()->attach($artworkId);
-
-            }
 
             $exhibitionId = $exhibitionIds[array_rand($exhibitionIds)];
 

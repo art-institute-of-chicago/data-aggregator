@@ -1,18 +1,15 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Mobile\Tour;
+use App\Models\Mobile\TourStop;
 
-class ToursTableSeeder extends Seeder
+class ToursTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        factory(App\Models\Mobile\Tour::class, 25)->create();
+        factory( Tour::class, 25 )->create();
 
         $this->_addStopsToTours();
 
@@ -21,13 +18,13 @@ class ToursTableSeeder extends Seeder
     private function _addStopsToTours()
     {
 
-        $tours = App\Models\Mobile\Tour::fake()->get();
+        $tours = Tour::fake()->get();
 
         foreach ($tours as $tour) {
 
             for ($i = 0; $i < rand(2,4); $i++) {
 
-                factory(App\Models\Mobile\TourStop::class)->create(['tour_mobile_id' => $tour->mobile_id]);
+                factory( TourStop::class )->create(['tour_mobile_id' => $tour->mobile_id]);
 
             }
 

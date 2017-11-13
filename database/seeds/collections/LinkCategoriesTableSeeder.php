@@ -1,27 +1,15 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Link;
+use App\Models\Collections\Category;
 
-class LinkCategoriesTableSeeder extends Seeder
+class LinkCategoriesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        $links = App\Models\Collections\Link::fake()->get();
-        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
-
-        foreach ($links as $link) {
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-                $link->categories()->attach($categoryIds[array_rand($categoryIds)]);
-            }
-
-        }
+        $this->seedPivot( Link::class, Category::class, 'categories' );
 
     }
 

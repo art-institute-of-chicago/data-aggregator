@@ -1,16 +1,12 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Dsc\Publication;
+use App\Models\Dsc\Section;
 
-class DscDatabaseSeeder extends Seeder
+class DscDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    protected function seed()
     {
 
         $this->call(PublicationsTableSeeder::class);
@@ -18,11 +14,11 @@ class DscDatabaseSeeder extends Seeder
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
-        App\Models\Dsc\Publication::fake()->delete();
-        App\Models\Dsc\Section::fake()->delete();
+        Publication::fake()->delete();
+        Section::fake()->delete();
 
     }
 

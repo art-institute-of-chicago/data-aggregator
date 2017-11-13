@@ -1,27 +1,15 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Video;
+use App\Models\Collections\Category;
 
-class VideoCategoriesTableSeeder extends Seeder
+class VideoCategoriesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        $videos = App\Models\Collections\Video::fake()->get();
-        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
-
-        foreach ($videos as $video) {
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-                $video->categories()->attach($categoryIds[array_rand($categoryIds)]);
-            }
-
-        }
+        $this->seedPivot( Video::class, Category::class, 'categories' );
 
     }
 

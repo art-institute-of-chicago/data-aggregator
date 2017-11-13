@@ -1,16 +1,13 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Video;
 
-class VideosTableSeeder extends Seeder
+class VideosTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
-        factory(App\Models\Collections\Video::class, 25)->create();
+        factory( Video::class, 25 )->create();
     }
+
 }

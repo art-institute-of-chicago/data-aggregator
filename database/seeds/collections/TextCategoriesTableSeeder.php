@@ -1,27 +1,15 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Text;
+use App\Models\Collections\Category;
 
-class TextCategoriesTableSeeder extends Seeder
+class TextCategoriesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        $texts = App\Models\Collections\Text::fake()->get();
-        $categoryIds = App\Models\Collections\Category::fake()->pluck('citi_id')->all();
-
-        foreach ($texts as $text) {
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-                $text->categories()->attach($categoryIds[array_rand($categoryIds)]);
-            }
-
-        }
+        $this->seedPivot( Text::class, Category::class, 'categories' );
 
     }
 

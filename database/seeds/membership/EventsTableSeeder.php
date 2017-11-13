@@ -1,45 +1,17 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Membership\Event;
+use App\Models\Collections\Exhibition;
 
-class EventsTableSeeder extends Seeder
+class EventsTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        factory(App\Models\Membership\Event::class, 25)->create();
+        factory( Event::class, 25 )->create();
 
-        $this->_addExhibitionsToEvents();
-
-    }
-
-    private function _addExhibitionsToEvents()
-    {
-
-        $events = App\Models\Membership\Event::fake()->get();
-        $exhibitionIds = App\Models\Collections\Exhibition::fake()->pluck('citi_id')->all();
-
-        foreach ($events as $event) {
-
-            $ids = [];
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-
-                $id = $exhibitionIds[array_rand($exhibitionIds)];
-
-                if (!in_array($id, $ids)) {
-                    $event->exhibitions()->attach($id);
-                    $ids[] = $id;
-                }
-
-            }
-
-        }
+        $this->seedPivot( Event::class, Exhibition::class, 'exhibitions' );
 
     }
 
