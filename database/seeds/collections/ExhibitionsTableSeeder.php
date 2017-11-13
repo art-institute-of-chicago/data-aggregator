@@ -12,33 +12,9 @@ class ExhibitionsTableSeeder extends AbstractSeeder
 
         factory( Exhibition::class, 25 )->create();
 
-        $exhibitions = Exhibition::fake()->get();
+        $this->seedPivot( Exhibition::class, Artwork::class, 'artworks' );
 
-        foreach ($exhibitions as $exhibition) {
-
-            $this->seedArtworks( $exhibition );
-
-            $this->seedVenues( $exhibition );
-
-        }
-
-    }
-
-    private function seedArtworks( $exhibition )
-    {
-
-        $ids = Artwork::fake()->pluck('citi_id')->random(rand(2,4))->all();
-
-        $exhibition->artworks()->sync($ids, false);
-
-    }
-
-    private function seedVenues( $exhibition )
-    {
-
-        $ids = CorporateBody::fake()->pluck('citi_id')->random(rand(1,3))->all();
-
-        $exhibition->venues()->sync($ids, false);
+        $this->seedPivot( Exhibition::class, CorporateBody::class, 'venues' );
 
     }
 

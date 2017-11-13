@@ -9,16 +9,7 @@ class TextCategoriesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $texts = Text::fake()->get();
-        $categoryIds = Category::fake()->pluck('citi_id')->all();
-
-        foreach ($texts as $text) {
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-                $text->categories()->attach($categoryIds[array_rand($categoryIds)]);
-            }
-
-        }
+        $this->seedPivot( Text::class, Category::class, 'categories' );
 
     }
 

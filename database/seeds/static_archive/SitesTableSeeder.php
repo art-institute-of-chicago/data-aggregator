@@ -12,19 +12,12 @@ class SitesTableSeeder extends AbstractSeeder
 
         factory( Site::class, 25 )->create();
 
+        $this->seedPivot( Site::class, Artwork::class, 'artworks' );
+
         $sites = Site::fake()->get();
-        $artworkIds = Artwork::fake()->pluck('citi_id')->all();
         $exhibitionIds = Exhibition::fake()->pluck('citi_id')->all();
 
         foreach ($sites as $site) {
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-
-                $artworkId = $artworkIds[array_rand($artworkIds)];
-
-                $site->artworks()->attach($artworkId);
-
-            }
 
             $exhibitionId = $exhibitionIds[array_rand($exhibitionIds)];
 

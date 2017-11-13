@@ -9,16 +9,7 @@ class LinkCategoriesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $links = Link::fake()->get();
-        $categoryIds = Category::fake()->pluck('citi_id')->all();
-
-        foreach ($links as $link) {
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-                $link->categories()->attach($categoryIds[array_rand($categoryIds)]);
-            }
-
-        }
+        $this->seedPivot( Link::class, Category::class, 'categories' );
 
     }
 

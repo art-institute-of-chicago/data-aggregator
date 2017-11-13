@@ -9,25 +9,7 @@ class ArtistArtworksTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $artworks = Artwork::fake()->get();
-        $artistsIds = Artist::fake()->pluck('citi_id')->all();
-
-        foreach ($artworks as $artwork) {
-
-            $ids = [];
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-
-                $id = $artistsIds[array_rand($artistsIds)];
-
-                if (!in_array($id, $ids)) {
-                    $artwork->artists()->attach($id);
-                    $ids[] = $id;
-                }
-
-            }
-
-        }
+        $this->seedPivot( Artwork::class, Artist::class, 'artists' );
 
     }
 
