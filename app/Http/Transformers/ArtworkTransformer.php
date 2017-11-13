@@ -121,7 +121,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeImages(Artwork $artwork)
     {
-        return $this->collection($artwork->images()->getResults(), new ImageTransformer, false);
+        return $this->collection($artwork->images()->getResults(), new AssetTransformer, false);
     }
 
     /**

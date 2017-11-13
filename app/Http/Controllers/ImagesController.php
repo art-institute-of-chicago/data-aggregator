@@ -10,7 +10,7 @@ class ImagesController extends AssetsController
 
     protected $model = \App\Models\Collections\Image::class;
 
-    protected $transformer = \App\Http\Transformers\ImageTransformer::class;
+    protected $transformer = \App\Http\Transformers\AssetTransformer::class;
 
 
     // artworks/{id}/images
