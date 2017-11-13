@@ -214,81 +214,51 @@ $factory->define(App\Models\Collections\Theme::class, function (Faker\Generator 
 });
 
 
-$factory->define(App\Models\Collections\Link::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Collections\Asset::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, ucwords($faker->words(3, true))),
         [
-            'description' => $faker->paragraph(3),
             'content' => $faker->url,
             'published' => $faker->boolean,
+            'description' => $faker->paragraph(3),
             'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::fake()->pluck('citi_id')->all()),
         ],
         dates($faker)
     );
 });
 
+// TODO: Laravel 5.5 allows array as 3rd argument, Laravel 5.4 requires callable
+// https://laravel.com/docs/5.4/database-testing#factory-states
+// https://laravel.com/docs/5.5/database-testing#factory-states
 
-$factory->define(App\Models\Collections\Sound::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true))),
-        [
-            'description' => $faker->paragraph(3),
-            'content' => $faker->url,
-            'published' => $faker->boolean,
-            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::fake()->pluck('citi_id')->all()),
-        ],
-        dates($faker)
-    );
+$factory->state(App\Models\Collections\Asset::class, 'image', function (Faker\Generator $faker) {
+    return [
+        'type' => 'image',
+    ];
 });
 
-
-$factory->define(App\Models\Collections\Video::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true))),
-        [
-            'description' => $faker->paragraph(3),
-            'content' => $faker->url,
-            'published' => $faker->boolean,
-            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::fake()->pluck('citi_id')->all()),
-        ],
-        dates($faker)
-    );
+$factory->state(App\Models\Collections\Asset::class, 'link', function (Faker\Generator $faker) {
+    return [
+        'type' => 'link',
+    ];
 });
 
-
-$factory->define(App\Models\Collections\Text::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true))),
-        [
-            'description' => $faker->paragraph(3),
-            'content' => $faker->url,
-            'published' => $faker->boolean,
-            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::fake()->pluck('citi_id')->all()),
-        ],
-        dates($faker)
-    );
+$factory->state(App\Models\Collections\Asset::class, 'sound', function (Faker\Generator $faker) {
+    return [
+        'type' => 'sound',
+    ];
 });
 
+$factory->state(App\Models\Collections\Asset::class, 'text', function (Faker\Generator $faker) {
+    return [
+        'type' => 'text',
+    ];
+});
 
-$factory->define(App\Models\Collections\Image::class, function (Faker\Generator $faker) {
-    static $agents;
-
-    if (!$agents)
-    {
-
-        $agents = App\Models\Collections\Artist::fake()->pluck('citi_id')->all();
-
-    }
-    $lake_id = '99999999-9999-9999-9999-999999' .$faker->randomNumber(6);
-    return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true))),
-        [
-            'description' => $faker->paragraph(3),
-            'type' => 'http://definitions.artic.edu/doctypes/' .$faker->randomElement(['Imaging', 'CuratorialStillImage']),
-            'agent_citi_id' => $faker->randomElement($agents),
-        ],
-        dates($faker)
-    );
+$factory->state(App\Models\Collections\Asset::class, 'video', function (Faker\Generator $faker) {
+    return [
+        'type' => 'video',
+    ];
 });
 
 
