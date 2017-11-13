@@ -75,7 +75,7 @@ class Image extends Asset
     public function exampleId()
     {
 
-        return "0d6cca51-bbe1-350b-87df-bb2b4c0c9720";
+        return "c972e5d7-0667-6904-d919-bbeefeae0a10";
 
     }
 

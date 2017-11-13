@@ -119,7 +119,7 @@ class TourStop extends MobileModel
     public function exampleId()
     {
 
-        return "2320";
+        return "62";
 
     }
 

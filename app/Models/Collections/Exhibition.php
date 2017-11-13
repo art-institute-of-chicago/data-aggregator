@@ -185,7 +185,7 @@ class Exhibition extends CollectionsModel
     public function exampleId()
     {
 
-        return "903287";
+        return "1302";
 
     }
 

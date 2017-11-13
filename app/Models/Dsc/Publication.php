@@ -107,7 +107,7 @@ class Publication extends DscModel
     public function exampleId()
     {
 
-        return "6566";
+        return "445";
 
     }
 

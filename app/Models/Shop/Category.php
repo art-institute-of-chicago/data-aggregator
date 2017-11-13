@@ -139,7 +139,7 @@ class Category extends ShopModel
     public function exampleId()
     {
 
-        return "377";
+        return "999397";
 
     }
 

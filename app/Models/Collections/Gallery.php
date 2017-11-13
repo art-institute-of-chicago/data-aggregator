@@ -149,7 +149,7 @@ class Gallery extends CollectionsModel
     public function exampleId()
     {
 
-        return "400844"; //27946
+        return "24650";
 
     }
 
