@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Membership\Event;
 
-class MembershipDatabaseSeeder extends Seeder
+class MembershipDatabaseSeeder extends AbstractSeeder
 {
 
     /**

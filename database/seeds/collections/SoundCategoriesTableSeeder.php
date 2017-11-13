@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Sound;
 use App\Models\Collections\Category;
 
-class SoundCategoriesTableSeeder extends Seeder
+class SoundCategoriesTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

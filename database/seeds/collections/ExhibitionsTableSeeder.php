@@ -1,12 +1,10 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Exhibition;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\CorporateBody;
 
-class ExhibitionsTableSeeder extends Seeder
+class ExhibitionsTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

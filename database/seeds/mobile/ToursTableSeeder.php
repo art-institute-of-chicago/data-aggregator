@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Mobile\Tour;
 use App\Models\Mobile\TourStop;
 
-class ToursTableSeeder extends Seeder
+class ToursTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

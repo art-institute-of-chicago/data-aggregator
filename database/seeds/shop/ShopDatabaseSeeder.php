@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Shop\Category;
 use App\Models\Shop\Product;
 
-class ShopDatabaseSeeder extends Seeder
+class ShopDatabaseSeeder extends AbstractSeeder
 {
 
     /**

@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Artwork;
 use App\Models\Collections\CopyrightRepresentative;
 
-class ArtworkCopyrightRepresentativesTableSeeder extends Seeder
+class ArtworkCopyrightRepresentativesTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

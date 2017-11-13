@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Membership\Event;
 use App\Models\Collections\Exhibition;
 
-class EventsTableSeeder extends Seeder
+class EventsTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

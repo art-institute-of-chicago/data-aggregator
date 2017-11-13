@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Sound;
 
-class SoundsTableSeeder extends Seeder
+class SoundsTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

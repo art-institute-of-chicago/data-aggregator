@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Gallery;
 
-class GalleriesTableSeeder extends Seeder
+class GalleriesTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

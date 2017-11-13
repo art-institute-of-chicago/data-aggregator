@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Video;
 
-class VideosTableSeeder extends Seeder
+class VideosTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

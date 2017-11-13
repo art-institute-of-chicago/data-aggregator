@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Gallery;
 use App\Models\Collections\Category;
 
-class GalleryCategoriesTableSeeder extends Seeder
+class GalleryCategoriesTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

@@ -1,12 +1,10 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Mobile\Artwork;
 use App\Models\Mobile\Sound;
 use App\Models\Mobile\Tour;
 
-class MobileDatabaseSeeder extends Seeder
+class MobileDatabaseSeeder extends AbstractSeeder
 {
 
     /**

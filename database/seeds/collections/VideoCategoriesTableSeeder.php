@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Video;
 use App\Models\Collections\Category;
 
-class VideoCategoriesTableSeeder extends Seeder
+class VideoCategoriesTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

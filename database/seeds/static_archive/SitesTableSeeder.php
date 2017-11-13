@@ -1,12 +1,10 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\StaticArchive\Site;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Exhibition;
 
-class SitesTableSeeder extends Seeder
+class SitesTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Artwork;
 
-class ArtworksTableSeeder extends Seeder
+class ArtworksTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

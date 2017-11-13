@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Department;
 
-class DepartmentsTableSeeder extends Seeder
+class DepartmentsTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

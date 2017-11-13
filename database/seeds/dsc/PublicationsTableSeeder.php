@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Dsc\Publication;
 
-class PublicationsTableSeeder extends Seeder
+class PublicationsTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

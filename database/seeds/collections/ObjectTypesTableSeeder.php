@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\ObjectType;
 
-class ObjectTypesTableSeeder extends Seeder
+class ObjectTypesTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

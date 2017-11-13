@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Dsc\Section;
 
-class SectionsTableSeeder extends Seeder
+class SectionsTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Text;
 
-class TextsTableSeeder extends Seeder
+class TextsTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

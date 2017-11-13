@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Dsc\Publication;
 use App\Models\Dsc\Section;
 
-class DscDatabaseSeeder extends Seeder
+class DscDatabaseSeeder extends AbstractSeeder
 {
 
     /**

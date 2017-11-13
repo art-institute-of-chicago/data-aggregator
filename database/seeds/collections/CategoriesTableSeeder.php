@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Category;
 
-class CategoriesTableSeeder extends Seeder
+class CategoriesTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

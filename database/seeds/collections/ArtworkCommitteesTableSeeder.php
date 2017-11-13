@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Artwork;
 use App\Models\Collections\ArtworkCommittee;
 
-class ArtworkCommitteesTableSeeder extends Seeder
+class ArtworkCommitteesTableSeeder extends AbstractSeeder
 {
 
     /**

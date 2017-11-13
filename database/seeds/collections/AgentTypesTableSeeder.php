@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\AgentType;
 
-class AgentTypesTableSeeder extends Seeder
+class AgentTypesTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

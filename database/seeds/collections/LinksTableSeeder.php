@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Link;
 
-class LinksTableSeeder extends Seeder
+class LinksTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

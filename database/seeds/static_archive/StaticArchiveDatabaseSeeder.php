@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\StaticArchive\Site;
 
-class StaticArchiveDatabaseSeeder extends Seeder
+class StaticArchiveDatabaseSeeder extends AbstractSeeder
 {
 
     /**

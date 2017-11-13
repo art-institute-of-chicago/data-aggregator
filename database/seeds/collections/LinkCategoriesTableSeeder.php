@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\Link;
 use App\Models\Collections\Category;
 
-class LinkCategoriesTableSeeder extends Seeder
+class LinkCategoriesTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.

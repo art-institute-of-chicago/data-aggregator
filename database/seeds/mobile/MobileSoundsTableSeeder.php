@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Mobile\Sound;
 use App\Models\Mobile\Artwork;
 
-class MobileSoundsTableSeeder extends Seeder
+class MobileSoundsTableSeeder extends AbstractSeeder
 {
     /**
      * Run the database seeds.
