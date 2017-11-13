@@ -6,11 +6,6 @@ use App\Models\Collections\ArtworkCommittee;
 class ArtworkCommitteesTableSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     protected function seed()
     {
 

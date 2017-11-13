@@ -5,11 +5,7 @@ use App\Models\Collections\Exhibition;
 
 class EventsTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     protected function seed()
     {
 

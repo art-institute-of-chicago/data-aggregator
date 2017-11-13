@@ -5,11 +5,7 @@ use App\Models\Shop\Category;
 
 class ProductsTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     protected function seed()
     {
 

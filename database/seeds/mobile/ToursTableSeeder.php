@@ -5,11 +5,7 @@ use App\Models\Mobile\TourStop;
 
 class ToursTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     protected function seed()
     {
 

@@ -4,11 +4,7 @@ use App\Models\Shop\Category;
 
 class ShopCategoriesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     protected function seed()
     {
 

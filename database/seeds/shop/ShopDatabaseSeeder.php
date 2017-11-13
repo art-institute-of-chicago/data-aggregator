@@ -6,11 +6,6 @@ use App\Models\Shop\Product;
 class ShopDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     protected function seed()
     {
 

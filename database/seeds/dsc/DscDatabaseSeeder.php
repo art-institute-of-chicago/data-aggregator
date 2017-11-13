@@ -6,11 +6,6 @@ use App\Models\Dsc\Section;
 class DscDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     protected function seed()
     {
 

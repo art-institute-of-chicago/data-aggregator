@@ -5,11 +5,7 @@ use App\Models\Collections\Category;
 
 class TextCategoriesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     protected function seed()
     {
 

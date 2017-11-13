@@ -4,11 +4,7 @@ use App\Models\Collections\Artwork;
 
 class ArtworkCataloguesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     protected function seed()
     {
 

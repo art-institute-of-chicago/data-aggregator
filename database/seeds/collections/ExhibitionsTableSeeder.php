@@ -6,11 +6,7 @@ use App\Models\Collections\CorporateBody;
 
 class ExhibitionsTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     protected function seed()
     {
 

@@ -5,11 +5,6 @@ use App\Models\Membership\Event;
 class MembershipDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     protected function seed()
     {
 

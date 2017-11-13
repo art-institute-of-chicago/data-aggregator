@@ -5,11 +5,7 @@ use App\Models\Collections\Artwork;
 
 class ImagesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     protected function seed()
     {
 

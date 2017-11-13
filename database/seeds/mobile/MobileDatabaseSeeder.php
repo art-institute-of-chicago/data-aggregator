@@ -7,11 +7,6 @@ use App\Models\Mobile\Tour;
 class MobileDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     protected function seed()
     {
 

@@ -22,11 +22,6 @@ use App\Models\Collections\Exhibition;
 class CollectionsDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     protected function seed()
     {
 

@@ -5,11 +5,7 @@ use App\Models\Collections\ArtworkDate;
 
 class ArtworkDatesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     protected function seed()
     {
 

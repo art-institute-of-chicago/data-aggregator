@@ -5,11 +5,6 @@ use App\Models\StaticArchive\Site;
 class StaticArchiveDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     protected function seed()
     {
 
