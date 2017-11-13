@@ -52,7 +52,7 @@ class Section extends DscModel
             'weight' => $source->weight,
             'parent_id' => $source->parent_id,
             'publication_dsc_id' => $source->publication_id,
-            'artwork_citi_id' => $source->artwork_id ?? null,
+            'artwork_citi_id' => $source->citi_id ?? null,
             'content' => $source->content,
         ];
 

@@ -17,6 +17,13 @@ class Publication extends DscModel
 
     protected $hasSourceDates = false;
 
+    public function sections()
+    {
+
+        return $this->hasMany('App\Models\Dsc\Section');
+
+    }
+
     public function getFillFieldsFrom($source)
     {
 
@@ -55,6 +62,11 @@ class Publication extends DscModel
                 "doc" => "Official title of the publication",
                 "type" => "string",
                 "value" => function() { return $this->title; },
+            ],
+            'section_ids' => [
+                "doc" => "Unique identifiers of the sections of this publication",
+                "type" => "array",
+                "value" => function() { return $this->sections->pluck('dsc_id'); },
             ],
         ];
 
