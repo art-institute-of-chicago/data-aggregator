@@ -9,7 +9,7 @@ class SoundsTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
         factory( Sound::class, 25 )->create();
     }

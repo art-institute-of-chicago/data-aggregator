@@ -8,7 +8,7 @@ class DatabaseSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         $this->call(CollectionsDatabaseSeeder::class);
@@ -20,7 +20,7 @@ class DatabaseSeeder extends AbstractSeeder
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
         CollectionsDatabaseSeeder::clean();

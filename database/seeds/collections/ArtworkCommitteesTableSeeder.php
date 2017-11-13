@@ -11,7 +11,7 @@ class ArtworkCommitteesTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         $artworks = Artwork::fake()->get();

@@ -10,7 +10,7 @@ class SoundCategoriesTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         $sounds = Sound::fake()->get();

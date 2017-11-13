@@ -10,7 +10,7 @@ class TextCategoriesTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         $texts = Text::fake()->get();

@@ -9,7 +9,7 @@ class TextsTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
         factory( Text::class, 25 )->create();
     }

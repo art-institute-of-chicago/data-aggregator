@@ -10,14 +10,14 @@ class MembershipDatabaseSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         $this->call(EventsTableSeeder::class);
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
         Event::fake()->delete();

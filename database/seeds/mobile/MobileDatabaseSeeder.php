@@ -12,7 +12,7 @@ class MobileDatabaseSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         $this->call(MobileArtworksTableSeeder::class);
@@ -21,7 +21,7 @@ class MobileDatabaseSeeder extends AbstractSeeder
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
         Artwork::fake()->delete();

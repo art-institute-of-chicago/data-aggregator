@@ -10,7 +10,7 @@ class ImageCategoriesTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         $images = Image::fake();

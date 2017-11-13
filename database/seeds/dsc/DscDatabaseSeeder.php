@@ -11,7 +11,7 @@ class DscDatabaseSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         $this->call(PublicationsTableSeeder::class);
@@ -19,7 +19,7 @@ class DscDatabaseSeeder extends AbstractSeeder
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
         Publication::fake()->delete();

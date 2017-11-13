@@ -10,7 +10,7 @@ class ToursTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         factory( Tour::class, 25 )->create();

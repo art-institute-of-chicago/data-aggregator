@@ -11,7 +11,7 @@ class ShopDatabaseSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         $this->call(ShopCategoriesTableSeeder::class);
@@ -19,7 +19,7 @@ class ShopDatabaseSeeder extends AbstractSeeder
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
         \DB::statement('SET FOREIGN_KEY_CHECKS=0');

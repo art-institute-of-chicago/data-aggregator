@@ -9,7 +9,7 @@ class LinksTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
         factory( Link::class, 25 )->create();
     }

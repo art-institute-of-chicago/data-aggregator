@@ -9,7 +9,7 @@ class MobileArtworksTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
         factory( Artwork::class, 25 )->create();
     }

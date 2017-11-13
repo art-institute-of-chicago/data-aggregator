@@ -9,7 +9,7 @@ class SectionsTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
         factory( Section::class, 50 )->create();
     }

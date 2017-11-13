@@ -10,14 +10,14 @@ class StaticArchiveDatabaseSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         $this->call(SitesTableSeeder::class);
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
         Site::fake()->delete();

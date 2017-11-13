@@ -9,7 +9,7 @@ class VideosTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
         factory( Video::class, 25 )->create();
     }

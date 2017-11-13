@@ -11,7 +11,7 @@ class SitesTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         factory( Site::class, 25 )->create();

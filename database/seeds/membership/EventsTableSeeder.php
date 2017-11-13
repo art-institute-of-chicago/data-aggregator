@@ -10,7 +10,7 @@ class EventsTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         factory( Event::class, 25 )->create();

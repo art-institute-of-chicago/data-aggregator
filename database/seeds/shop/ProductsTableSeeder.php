@@ -10,7 +10,7 @@ class ProductsTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         factory( Product::class, 25 )->create();

@@ -9,7 +9,7 @@ class CategoriesTableSeeder extends AbstractSeeder
      *
      * @return void
      */
-    public function run()
+    protected function seed()
     {
 
         factory( Category::class, 25 )->create();
