@@ -31,6 +31,11 @@ class Category extends CollectionsModel
         return $this->belongsTo('App\Models\Collections\Category', 'parent_id');
     }
 
+    public function children()
+    {
+        return $this->hasMany('App\Models\Collections\Category', 'parent_id');
+    }
+
     public function getFillFieldsFrom($source)
     {
 

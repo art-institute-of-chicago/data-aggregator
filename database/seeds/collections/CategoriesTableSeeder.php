@@ -12,6 +12,9 @@ class CategoriesTableSeeder extends AbstractSeeder
 
         $this->seedBelongsTo( Category::class, Category::class, 'parent' );
 
+        // Alternatively, you can call this, for demonstration purposes:
+        // $this->seedHasMany( Category::class, Category::class, 'children' );
+
     }
 
 }
