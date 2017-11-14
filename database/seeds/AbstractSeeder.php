@@ -78,7 +78,7 @@ abstract class AbstractSeeder extends Seeder
 
             if ($isReflexive)
             {
-                $ids = $ids->except( [ $parent->getKey() ] );
+                $ids = $ids->diff( [ $parent->getKey() ] );
             }
 
             $parent->$method()->sync( $ids->all() );
