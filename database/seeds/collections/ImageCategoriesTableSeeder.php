@@ -9,7 +9,7 @@ class ImageCategoriesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedPivot( Image::class, Category::class, 'categories' );
+        $this->seedBelongsToMany( Image::class, Category::class, 'categories' );
 
     }
 

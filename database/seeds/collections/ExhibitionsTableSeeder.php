@@ -12,9 +12,9 @@ class ExhibitionsTableSeeder extends AbstractSeeder
 
         factory( Exhibition::class, 25 )->create();
 
-        $this->seedPivot( Exhibition::class, Artwork::class, 'artworks' );
+        $this->seedBelongsToMany( Exhibition::class, Artwork::class, 'artworks' );
 
-        $this->seedPivot( Exhibition::class, CorporateBody::class, 'venues' );
+        $this->seedBelongsToMany( Exhibition::class, CorporateBody::class, 'venues' );
 
     }
 

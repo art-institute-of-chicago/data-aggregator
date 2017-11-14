@@ -12,7 +12,7 @@ class SitesTableSeeder extends AbstractSeeder
 
         factory( Site::class, 25 )->create();
 
-        $this->seedPivot( Site::class, Artwork::class, 'artworks' );
+        $this->seedBelongsToMany( Site::class, Artwork::class, 'artworks' );
 
         $sites = Site::fake()->get();
         $exhibitionIds = Exhibition::fake()->pluck('citi_id')->all();

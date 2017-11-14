@@ -9,7 +9,7 @@ class TextCategoriesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedPivot( Text::class, Category::class, 'categories' );
+        $this->seedBelongsToMany( Text::class, Category::class, 'categories' );
 
     }
 

@@ -11,7 +11,7 @@ class MobileSoundsTableSeeder extends AbstractSeeder
 
         factory( Sound::class, 25 )->create();
 
-        $this->seedPivot( Artwork::class, Sound::class, 'sounds' );
+        $this->seedBelongsToMany( Artwork::class, Sound::class, 'sounds' );
 
     }
 

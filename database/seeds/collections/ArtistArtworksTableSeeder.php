@@ -9,7 +9,7 @@ class ArtistArtworksTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedPivot( Artwork::class, Artist::class, 'artists' );
+        $this->seedBelongsToMany( Artwork::class, Artist::class, 'artists' );
 
     }
 

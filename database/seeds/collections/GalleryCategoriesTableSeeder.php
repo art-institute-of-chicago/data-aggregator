@@ -9,7 +9,7 @@ class GalleryCategoriesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedPivot( Gallery::class, Category::class, 'categories' );
+        $this->seedBelongsToMany( Gallery::class, Category::class, 'categories' );
 
     }
 

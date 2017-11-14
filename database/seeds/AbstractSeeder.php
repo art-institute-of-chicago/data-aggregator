@@ -61,7 +61,7 @@ abstract class AbstractSeeder extends Seeder
      * @param  string  $method  Name of method on parent, which must return an instance of
      *                          \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    protected function seedPivot( $parent, $child, $method )
+    protected function seedBelongsToMany( $parent, $child, $method )
     {
 
         $isReflexive = ( $parent === $child );

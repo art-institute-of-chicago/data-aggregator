@@ -9,7 +9,7 @@ class LinkCategoriesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedPivot( Link::class, Category::class, 'categories' );
+        $this->seedBelongsToMany( Link::class, Category::class, 'categories' );
 
     }
 

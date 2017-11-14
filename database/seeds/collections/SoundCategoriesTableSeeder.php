@@ -9,7 +9,7 @@ class SoundCategoriesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedPivot( Sound::class, Category::class, 'categories' );
+        $this->seedBelongsToMany( Sound::class, Category::class, 'categories' );
 
     }
 
