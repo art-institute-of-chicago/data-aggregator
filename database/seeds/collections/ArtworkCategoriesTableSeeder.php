@@ -9,7 +9,7 @@ class ArtworkCategoriesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedBelongsToMany( Artwork::class, Category::class, 'categories' );
+        $this->seedRelation( Artwork::class, Category::class, 'categories' );
 
     }
 

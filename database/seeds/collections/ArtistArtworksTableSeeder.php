@@ -9,7 +9,7 @@ class ArtistArtworksTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedBelongsToMany( Artwork::class, Artist::class, 'artists' );
+        $this->seedRelation( Artwork::class, Artist::class, 'artists' );
 
     }
 

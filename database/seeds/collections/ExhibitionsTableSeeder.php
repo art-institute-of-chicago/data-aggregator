@@ -12,9 +12,9 @@ class ExhibitionsTableSeeder extends AbstractSeeder
 
         factory( Exhibition::class, 25 )->create();
 
-        $this->seedBelongsToMany( Exhibition::class, Artwork::class, 'artworks' );
+        $this->seedRelation( Exhibition::class, Artwork::class, 'artworks' );
 
-        $this->seedBelongsToMany( Exhibition::class, CorporateBody::class, 'venues' );
+        $this->seedRelation( Exhibition::class, CorporateBody::class, 'venues' );
 
     }
 

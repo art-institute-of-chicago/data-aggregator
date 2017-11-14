@@ -45,125 +45,108 @@ abstract class AbstractSeeder extends Seeder
 
 
     /**
-     * Helper method for seeding BelongsToMany relations. It loops through all fake instances of the
-     * `$subject` model, and attaches 2-4 fake instances of the `$object` model using the subject's
-     * `$method`, which must return an instance of `BelongsToMany`.
+     * Helper method for seeding relations. It attaches fake instances of the "object" model to
+     * fake instances of the "subject" model, using the subject's specified method.
      *
-     * If `$subject` and `$object` refer to the same class, measures are taken to ensure that an
+     * The method must return an instance of \Illuminate\Database\Eloquent\Relations\Relation,
+     * or rather one of the classes that extend it. The following are currently supported:
+     *
+     *  - \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     *  - \Illuminate\Database\Eloquent\Relations\HasMany
+     *  - \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     * If subject and object refer to the same class, measures are taken to ensure that an
      * instance of a model is never attached to itself.
+     *
+     * @param  string  $parent  Class name of the "subject" model to which objects are attached
+     * @param  string  $child   Class name of the "object" model which gets attached to subject
+     * @param  string  $method  Name of method on parent, which must return an instance of
+     *                          \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    protected function seedRelation( $subjectClass, $objectClass, $method )
+    {
+
+        $isReflexive = ( $subjectClass === $objectClass );
+
+        $subjects = $subjectClass::fake()->get();
+        $objects = $objectClass::fake()->get();
+
+        $delegate = $this->getRelationMethod( $subjectClass, $method );
+
+        foreach ($subjects as $subject)
+        {
+
+            $selected = $objects->random( rand(2,4) );
+
+            if ($isReflexive)
+            {
+                $selected = $selected->diff( [ $subject ] );
+            }
+
+            $this->$delegate( $subject, $selected, $method );
+
+        }
+
+    }
+
+
+    /**
+     * Determine which `seed___` method should be used for this relationship.
+     */
+    private function getRelationMethod( $subjectClass, $method )
+    {
+
+        $relation = ( new $subjectClass )->$method();
+        $class = get_class( $relation );
+
+        $classname = explode('\\', $class);
+        $classname = collect( $classname );
+        $classname = $classname->last();
+
+        return 'seed' . $classname;
+
+    }
+
+
+    /**
+     * Helper for seeding BelongsToMany relations.
      *
      * @link https://laravel.com/docs/5.5/eloquent-relationships#many-to-many
-     *
-     * @param  string  $parent  Class name of the "subject" model to which objects are attached
-     * @param  string  $child   Class name of the "object" model which gets attached to subject
-     * @param  string  $method  Name of method on parent, which must return an instance of
-     *                          \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    protected function seedBelongsToMany( $subjectClass, $objectClass, $method )
+    private function seedBelongsToMany( $subject, $objects, $method )
     {
 
-        $isReflexive = ( $subjectClass === $objectClass );
-
-        $subjects = $subjectClass::fake()->get();
-        $objects = $objectClass::fake()->get();
-
-        foreach ($subjects as $subject)
-        {
-
-            $selected = $objects->random( rand(2,4) );
-
-            if ($isReflexive)
-            {
-                $selected = $selected->diff( [ $subject ] );
-            }
-
-            $subject->$method()->sync( $selected );
-
-        }
+        $subject->$method()->sync( $objects );
 
     }
 
 
     /**
-     * Helper method for seeding HasMany relationships. It loops through all fake instances of the
-     * `$subject` model, and attaches 2-4 fake instances of the `$object` model using the subject's
-     * `$method`, which must return an instance of `HasMany`.
-     *
-     * If `$subject` and `$object` refer to the same class, measures are taken to ensure that an
-     * instance of a model is never attached to itself.
+     * Helper for seeding HasMany relations.
      *
      * @link https://laravel.com/docs/5.5/eloquent-relationships#one-to-many
-     *
-     * @param  string  $parent  Class name of the "subject" model to which objects are attached
-     * @param  string  $child   Class name of the "object" model which gets attached to subject
-     * @param  string  $method  Name of method on parent, which must return an instance of
-     *                          \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected function seedHasMany( $subjectClass, $objectClass, $method )
+    private function seedHasMany( $subject, $objects, $method )
     {
 
-        $isReflexive = ( $subjectClass === $objectClass );
-
-        $subjects = $subjectClass::fake()->get();
-        $objects = $objectClass::fake()->get();
-
-        foreach ($subjects as $subject)
-        {
-
-            $selected = $objects->random( rand(2,4) );
-
-            if ($isReflexive)
-            {
-                $selected = $selected->diff( [ $subject ] );
-            }
-
-            $subject->$method()->saveMany( $selected );
-
-        }
+        $subject->$method()->saveMany( $objects );
 
     }
 
 
     /**
-     * Helper method for seeding BelongsTo relationships. It loops through all fake instances of the
-     * `$subject` model, and attaches 2-4 fake instances of the `$object` model using the subject's
-     * `$method`, which must return an instance of `BelongsTo`.
-     *
-     * If `$subject` and `$object` refer to the same class, measures are taken to ensure that an
-     * instance of a model is never attached to itself.
+     * Helper for seeding BelongsTo relations.
      *
      * @link https://laravel.com/docs/5.5/eloquent-relationships#updating-belongs-to-relationships
-     *
-     * @param  string  $parent  Class name of the "subject" model to which objects are attached
-     * @param  string  $child   Class name of the "object" model which gets attached to subject
-     * @param  string  $method  Name of method on parent, which must return an instance of
-     *                          \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    protected function seedBelongsTo( $subjectClass, $objectClass, $method )
+    private function seedBelongsTo( $subject, $objects, $method )
     {
 
-        $isReflexive = ( $subjectClass === $objectClass );
+        $object = $objects->random();
 
-        $subjects = $subjectClass::fake()->get();
-        $objects = $objectClass::fake()->get();
+        $subject->$method()->associate( $object );
 
-        foreach ($subjects as $subject)
-        {
-
-            $selected = $objects->random( rand(2,4) );
-
-            if ($isReflexive)
-            {
-                $selected = $selected->diff( [ $subject ] );
-            }
-
-            $selected = $selected->random();
-
-            $subject->$method()->associate( $selected );
-
-            $subject->save();
-
-        }
+        $subject->save();
 
     }
 

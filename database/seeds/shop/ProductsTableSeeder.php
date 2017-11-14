@@ -11,7 +11,7 @@ class ProductsTableSeeder extends AbstractSeeder
 
         factory( Product::class, 25 )->create();
 
-        $this->seedBelongsToMany( Product::class, Category::class, 'categories' );
+        $this->seedRelation( Product::class, Category::class, 'categories' );
 
     }
 

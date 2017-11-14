@@ -9,7 +9,7 @@ class ArtworkCopyrightRepresentativesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedBelongsToMany( Artwork::class, CopyrightRepresentative::class, 'copyrightRepresentatives' );
+        $this->seedRelation( Artwork::class, CopyrightRepresentative::class, 'copyrightRepresentatives' );
 
     }
 

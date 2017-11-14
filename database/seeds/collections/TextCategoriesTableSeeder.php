@@ -9,7 +9,7 @@ class TextCategoriesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedBelongsToMany( Text::class, Category::class, 'categories' );
+        $this->seedRelation( Text::class, Category::class, 'categories' );
 
     }
 

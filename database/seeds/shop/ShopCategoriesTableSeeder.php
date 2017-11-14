@@ -10,7 +10,7 @@ class ShopCategoriesTableSeeder extends AbstractSeeder
 
         factory( Category::class, 25 )->create();
 
-        $this->seedHasMany( Category::class, Category::class, 'children' );
+        $this->seedRelation( Category::class, Category::class, 'children' );
 
     }
 

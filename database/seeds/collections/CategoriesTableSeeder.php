@@ -10,10 +10,10 @@ class CategoriesTableSeeder extends AbstractSeeder
 
         factory( Category::class, 25 )->create();
 
-        $this->seedBelongsTo( Category::class, Category::class, 'parent' );
+        $this->seedRelation( Category::class, Category::class, 'parent' );
 
         // Alternatively, you can call this, for demonstration purposes:
-        // $this->seedHasMany( Category::class, Category::class, 'children' );
+        // $this->seedRelation( Category::class, Category::class, 'children' );
 
     }
 
