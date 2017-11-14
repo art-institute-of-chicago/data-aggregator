@@ -5,6 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateDscTables extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,8 +14,7 @@ class CreateDscTables extends Migration
     public function up()
     {
 
-        Schema::dropIfExists('sections');
-        Schema::dropIfExists('publications');
+        $this->down();
 
         Schema::create('publications', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
@@ -74,4 +74,5 @@ class CreateDscTables extends Migration
         Schema::dropIfExists('publications');
 
     }
+
 }

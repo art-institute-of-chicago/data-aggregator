@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMembershipTables extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,6 +14,8 @@ class CreateMembershipTables extends Migration
      */
     public function up()
     {
+
+        $this->down();
 
         Schema::create('events', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
@@ -72,4 +75,5 @@ class CreateMembershipTables extends Migration
         Schema::dropIfExists('events');
 
     }
+
 }
