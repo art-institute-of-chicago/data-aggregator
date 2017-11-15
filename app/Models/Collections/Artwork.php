@@ -457,7 +457,7 @@ class Artwork extends CollectionsModel
             'date_dates' => [
                 "doc" => "List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.",
                 "type" => "array",
-                "value" => function() { return $this->dates()->pluck('date')->transform(function ($item, $key) { 
+                "value" => function() { return $this->dates()->pluck('date')->transform(function ($item, $key) {
                     return $item->toIso8601String();
                 })->all(); },
             ],
