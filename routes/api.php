@@ -84,6 +84,8 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('exhibitions/{id}/artworks', 'ArtworksController@forExhibition');
     Route::get('exhibitions/{id}/venues', 'VenuesController@forExhibition');
 
+    Route::get('assets', 'AssetsController@index');
+    Route::get('assets/{id}', 'AssetsController@show');
     Route::get('images', 'ImagesController@index');
     Route::get('images/{id}', 'ImagesController@show');
     Route::get('videos', 'VideosController@index');
