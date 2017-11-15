@@ -150,31 +150,31 @@ Example output:
     },
     "data": [
         {
-            "_score": 19.153254,
+            "_score": 18.989058,
             "api_id": "16499",
             "api_model": "artworks",
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/16499",
             "id": 16499,
             "title": "Jesus Mocked by the Soldiers",
-            "timestamp": "2017-10-30T15:36:27-05:00"
+            "timestamp": "2017-11-14T09:23:24-06:00"
         },
         {
-            "_score": 17.152597,
+            "_score": 17.175083,
             "api_id": "14598",
             "api_model": "artworks",
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/14598",
             "id": 14598,
             "title": "The Beach at Sainte-Adresse",
-            "timestamp": "2017-10-30T15:36:06-05:00"
+            "timestamp": "2017-11-14T09:23:13-06:00"
         },
         {
-            "_score": 15.305559,
+            "_score": 15.56993,
             "api_id": "16571",
             "api_model": "artworks",
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/16571",
             "id": 16571,
             "title": "Arrival of the Normandy Train, Gare Saint-Lazare",
-            "timestamp": "2017-10-30T15:36:27-05:00"
+            "timestamp": "2017-11-14T09:23:24-06:00"
         }
     ],
     "suggest": {
@@ -187,9 +187,9 @@ Example output:
         "phrase": [
             "<em>month<\/em>",
             "<em>don't<\/em>",
-            "<em>Don't<\/em>",
             "<em>Manet<\/em>",
-            "<em>Bonnet<\/em>"
+            "<em>Don't<\/em>",
+            "<em>won't<\/em>"
         ]
     },
     "aggregations": {
@@ -233,7 +233,17 @@ Example output:
 
 ```
 {
-    "data": []
+    "data": [
+        {
+            "id": 34996,
+            "title": "Hopper, Edward",
+            "lake_guid": "cba02485-5b76-1e48-bb85-2f9d0f3e3c57",
+            "birth_date": 1882,
+            "birth_place": null,
+            "death_date": 1967,
+            ...
+        }
+    ]
 }
 ```
 
@@ -442,7 +452,7 @@ Example output:
             "description": null,
             "content": null,
             "category_ids": [],
-            "iiif_url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/39d43108-e690-2705-67e2-a16dc28b8c7f",
+            "iiif_url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/39d43108-e690-2705-67e2-a16dc28b8c7f",
             ...
         }
     ]
@@ -480,10 +490,10 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 100,
+        "total": 11228,
         "limit": 2,
         "offset": 0,
-        "total_pages": 50,
+        "total_pages": 5614,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents?page=2&limit=2"
     },
@@ -538,31 +548,31 @@ Example output:
     },
     "data": [
         {
-            "_score": 10.724321,
+            "_score": 10.947568,
             "api_id": "92975",
             "api_model": "agents",
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/92975",
             "id": 92975,
             "title": "Quimbaya",
-            "timestamp": "2017-10-30T15:33:53-05:00"
+            "timestamp": "2017-11-13T22:27:44-06:00"
         },
         {
-            "_score": 10.355133,
+            "_score": 10.581821,
             "api_id": "24548",
             "api_model": "agents",
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/24548",
             "id": 24548,
             "title": "Soule, John P.",
-            "timestamp": "2017-10-30T15:33:40-05:00"
+            "timestamp": "2017-11-13T22:24:01-06:00"
         },
         {
-            "_score": 10.355133,
+            "_score": 10.581821,
             "api_id": "70443",
             "api_model": "agents",
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/70443",
             "id": 70443,
             "title": "Ngwane",
-            "timestamp": "2017-10-30T15:33:53-05:00"
+            "timestamp": "2017-11-13T22:27:30-06:00"
         }
     ],
     "aggregations": {
@@ -586,10 +596,10 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 100,
+        "total": 11228,
         "limit": 2,
         "offset": 0,
-        "total_pages": 50,
+        "total_pages": 5614,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents?page=2&limit=2"
     },
@@ -707,7 +717,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/14",
             "id": 14,
             "title": "European Painting and Sculpture",
-            "timestamp": "2017-10-30T15:33:57-05:00"
+            "timestamp": "2017-11-13T22:28:41-06:00"
         },
         {
             "_score": 1,
@@ -716,7 +726,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/25",
             "id": 25,
             "title": "Architecture and Design",
-            "timestamp": "2017-10-30T15:33:57-05:00"
+            "timestamp": "2017-11-13T22:28:41-06:00"
         },
         {
             "_score": 1,
@@ -725,7 +735,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/84",
             "id": 84,
             "title": "Museum Registrar",
-            "timestamp": "2017-10-30T15:33:57-05:00"
+            "timestamp": "2017-11-13T22:28:41-06:00"
         }
     ],
     "aggregations": {
@@ -913,7 +923,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/14",
             "id": 14,
             "title": "Textiles",
-            "timestamp": "2017-10-30T15:33:58-05:00"
+            "timestamp": "2017-11-13T22:28:42-06:00"
         },
         {
             "_score": 1,
@@ -922,7 +932,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/19",
             "id": 19,
             "title": "American Rooms",
-            "timestamp": "2017-10-30T15:33:58-05:00"
+            "timestamp": "2017-11-13T22:28:42-06:00"
         },
         {
             "_score": 1,
@@ -931,7 +941,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/22",
             "id": 22,
             "title": "Featured Works",
-            "timestamp": "2017-10-30T15:33:58-05:00"
+            "timestamp": "2017-11-13T22:28:42-06:00"
         }
     ],
     "aggregations": {
@@ -1115,13 +1125,13 @@ Example output:
     },
     "data": [
         {
-            "_score": 10.295673,
+            "_score": 10.498612,
             "api_id": "23972",
             "api_model": "galleries",
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries\/23972",
             "id": 23972,
             "title": "Gallery 297B",
-            "timestamp": "2017-10-30T15:33:59-05:00"
+            "timestamp": "2017-11-13T22:28:57-06:00"
         },
         {
             "_score": 1,
@@ -1130,7 +1140,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries\/23990",
             "id": 23990,
             "title": "Gallery 392A",
-            "timestamp": "2017-10-30T15:33:59-05:00"
+            "timestamp": "2017-11-13T22:28:57-06:00"
         },
         {
             "_score": 1,
@@ -1139,7 +1149,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries\/23993",
             "id": 23993,
             "title": "Gallery 395A",
-            "timestamp": "2017-10-30T15:33:59-05:00"
+            "timestamp": "2017-11-13T22:28:57-06:00"
         }
     ],
     "aggregations": {
@@ -1254,31 +1264,31 @@ Example output:
     },
     "data": [
         {
-            "_score": 10.355133,
+            "_score": 10.245349,
             "api_id": "4788",
             "api_model": "exhibitions",
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/4788",
             "id": 4788,
             "title": "Guild of Boston Artists",
-            "timestamp": "2017-10-30T16:24:30-05:00"
+            "timestamp": "2017-11-14T09:53:51-06:00"
         },
         {
-            "_score": 10.355133,
+            "_score": 10.245349,
+            "api_id": "4796",
+            "api_model": "exhibitions",
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/4796",
+            "id": 4796,
+            "title": "Art Students' League of Chicago 23rd Annual",
+            "timestamp": "2017-11-14T09:53:51-06:00"
+        },
+        {
+            "_score": 10.245349,
             "api_id": "6596",
             "api_model": "exhibitions",
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/6596",
             "id": 6596,
             "title": "The Age of Louis XV: French Paintings from 1710-1774",
-            "timestamp": "2017-10-30T16:24:43-05:00"
-        },
-        {
-            "_score": 10.295673,
-            "api_id": "4575",
-            "api_model": "exhibitions",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/4575",
-            "id": 4575,
-            "title": "Paintings by Contemporary Spanish Artists",
-            "timestamp": "2017-10-30T16:24:29-05:00"
+            "timestamp": "2017-11-14T09:53:59-06:00"
         }
     ],
     "aggregations": {
@@ -1378,7 +1388,7 @@ Example output:
                 999671554,
                 999519730
             ],
-            "iiif_url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/99999999-9999-9999-9999-999999284859",
+            "iiif_url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/99999999-9999-9999-9999-999999284859",
             ...
         },
         {
@@ -1391,7 +1401,7 @@ Example output:
                 999736683,
                 999452985
             ],
-            "iiif_url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/99999999-9999-9999-9999-999999359912",
+            "iiif_url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/99999999-9999-9999-9999-999999359912",
             ...
         }
     ]
@@ -1446,7 +1456,7 @@ Example output:
         "description": null,
         "content": null,
         "category_ids": [],
-        "iiif_url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/c972e5d7-0667-6904-d919-bbeefeae0a10",
+        "iiif_url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/c972e5d7-0667-6904-d919-bbeefeae0a10",
         ...
     }
 }
@@ -2094,7 +2104,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/products\/999386",
             "id": 999386,
             "title": "Cupiditate Quasi Voluptatem Qui Quis Et",
-            "timestamp": "2017-10-30T16:24:52-05:00"
+            "timestamp": "2017-11-14T09:54:03-06:00"
         },
         {
             "_score": 1,
@@ -2103,7 +2113,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/products\/999398",
             "id": 999398,
             "title": "Repudiandae Necessitatibus Beatae Minima Et Animi",
-            "timestamp": "2017-10-30T16:24:52-05:00"
+            "timestamp": "2017-11-14T09:54:03-06:00"
         },
         {
             "_score": 1,
@@ -2112,7 +2122,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/products\/999547",
             "id": 999547,
             "title": "Ipsa Sunt Sint Sapiente Molestiae Magnam",
-            "timestamp": "2017-10-30T16:24:52-05:00"
+            "timestamp": "2017-11-14T09:54:03-06:00"
         }
     ],
     "aggregations": {
@@ -2385,7 +2395,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tours\/2193",
             "id": 2193,
             "title": "The Essentials Tour",
-            "timestamp": "2017-10-30T16:24:52-05:00"
+            "timestamp": "2017-11-14T09:54:08-06:00"
         },
         {
             "_score": 1,
@@ -2394,7 +2404,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tours\/2333",
             "id": 2333,
             "title": "Gauguin: Artist as Alchemist",
-            "timestamp": "2017-10-30T16:24:52-05:00"
+            "timestamp": "2017-11-14T09:54:08-06:00"
         },
         {
             "_score": 1,
@@ -2403,7 +2413,7 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tours\/9991596",
             "id": 9991596,
             "title": "Et ut sunt",
-            "timestamp": "2017-10-30T16:24:52-05:00"
+            "timestamp": "2017-11-14T09:54:08-06:00"
         }
     ],
     "aggregations": {
@@ -2634,29 +2644,29 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 35,
+        "total": 10,
         "limit": 2,
         "offset": 0,
-        "total_pages": 18,
+        "total_pages": 5,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/publications?page=2&limit=2"
     },
     "data": [
         {
-            "id": 9991702,
-            "title": "Corrupti consequatur molestias",
-            "web_url": "http:\/\/www.bruen.com\/suscipit-similique-nihil-ut-quod-aut-nesciunt-quod",
-            "site": "autquasi",
-            "alias": "suscipitest",
+            "id": 7,
+            "title": "Pissarro Paintings and Works on Paper at the Art Institute of Chicago",
+            "web_url": "https:\/\/publications.artic.edu\/pissarro\/reader\/paintingsandpaper",
+            "site": "pissarro",
+            "alias": "paintingsandpaper",
             "last_updated_source": null,
             ...
         },
         {
-            "id": 9990945,
-            "title": "Quae nobis magnam",
-            "web_url": "https:\/\/hickle.com\/dolores-explicabo-dolorem-nisi-necessitatibus-nobis.html",
-            "site": "undenulla",
-            "alias": "aipsam",
+            "id": 12,
+            "title": "The Modern Series at the Art Institute of Chicago",
+            "web_url": "https:\/\/publications.artic.edu\/modernseries\/reader\/shatterrupturebreak",
+            "site": "modernseries",
+            "alias": "shatterrupturebreak",
             "last_updated_source": null,
             ...
         }
@@ -2684,10 +2694,10 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 60,
+        "total": 35,
         "limit": 10,
         "offset": 0,
-        "total_pages": 6,
+        "total_pages": 4,
         "current_page": 1
     },
     "data": [
@@ -2707,23 +2717,23 @@ Example output:
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/publications\/140019",
             "id": 140019,
             "title": "Manet Paintings and Works on Paper at the Art Institute of Chicago",
-            "timestamp": "2017-11-13T15:37:34-06:00"
+            "timestamp": "2017-11-14T10:23:12-06:00"
         },
         {
             "_score": 1,
-            "api_id": "9990049",
+            "api_id": "9990054",
             "api_model": "publications",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/publications\/9990049",
-            "id": 9990049,
-            "title": "Cumque animi et",
-            "timestamp": "2017-11-13T15:44:09-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/publications\/9990054",
+            "id": 9990054,
+            "title": "Debitis dolorem necessitatibus",
+            "timestamp": "2017-10-30T16:32:52-05:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "publications",
-                "doc_count": 60
+                "doc_count": 35
             }
         ]
     }
@@ -2770,30 +2780,30 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 895,
+        "total": 845,
         "limit": 2,
         "offset": 0,
-        "total_pages": 448,
+        "total_pages": 423,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections?page=2&limit=2"
     },
     "data": [
         {
-            "id": 9995033,
-            "title": "Distinctio deleniti sit",
-            "web_url": "http:\/\/www.schuppe.net\/totam-aliquid-est-dolores-ipsam-perferendis-repudiandae-maiores",
-            "accession": "1914.084",
-            "revision": 1480797384,
-            "source_id": 22056,
+            "id": 518663,
+            "title": "Authors and Contributors",
+            "web_url": "https:\/\/publications.artic.edu\/pissarro\/reader\/paintingsandpaper\/section\/1010",
+            "accession": null,
+            "revision": 1502911013,
+            "source_id": 1010,
             ...
         },
         {
-            "id": 9991251,
-            "title": "Cumque odio reiciendis",
-            "web_url": "https:\/\/mcdermott.com\/commodi-velit-culpa-voluptatem-reiciendis-facilis-est-provident.html",
-            "accession": "1930.902",
-            "revision": 1364204535,
-            "source_id": 38127,
+            "id": 517645,
+            "title": "About this Catalogue",
+            "web_url": "https:\/\/publications.artic.edu\/pissarro\/reader\/paintingsandpaper\/section\/1009",
+            "accession": null,
+            "revision": 1502911013,
+            "source_id": 1009,
             ...
         }
     ]
@@ -2820,21 +2830,21 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 569,
+        "total": 519,
         "limit": 10,
         "offset": 0,
-        "total_pages": 57,
+        "total_pages": 52,
         "current_page": 1
     },
     "data": [
         {
-            "_score": 10.018661,
+            "_score": 9.994035,
             "api_id": "111401",
             "api_model": "sections",
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections\/111401",
             "id": 111401,
             "title": "Sheet 3F",
-            "timestamp": "2017-11-13T15:38:02-06:00"
+            "timestamp": "2017-11-14T10:23:35-06:00"
         },
         {
             "_score": 1,
@@ -2859,7 +2869,7 @@ Example output:
         "count_api_model": [
             {
                 "key": "sections",
-                "doc_count": 569
+                "doc_count": 519
             }
         ]
     }
@@ -2879,7 +2889,7 @@ Example output:
         "id": 3014259,
         "title": "Cat. 160 Pair of Earrings",
         "web_url": "https:\/\/publications.artic.edu\/roman\/reader\/romanart\/section\/1974",
-        "accession": null,
+        "accession": "1892.24",
         "revision": 1502910278,
         "source_id": 1974,
         ...
@@ -2910,30 +2920,30 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 25,
+        "total": 96,
         "limit": 2,
         "offset": 0,
-        "total_pages": 13,
+        "total_pages": 48,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites?page=2&limit=2"
     },
     "data": [
         {
-            "id": 9996300,
-            "title": "Deleniti veniam necessitatibus",
-            "description": "Cupiditate quisquam ex est ut et. Quis aperiam consequuntur ex itaque dolor. Atque ratione soluta qui sed magnam soluta. Ducimus sed enim dolorem minima. Reprehenderit qui esse expedita cupiditate.",
-            "link": "http:\/\/bernhard.com\/consequatur-esse-dolore-quia-et-ex-quasi",
-            "exhibition": "Fugiat Qui Necessitatibus",
-            "exhibition_id": 999464502,
+            "id": 79,
+            "title": "Windows on the War: Soviet TASS Posters at Home and Abroad, 1941\u20131945",
+            "description": "Seventy years ago, in the immediate aftermath of the German invasion of the Soviet Union, a group of artists and writers in Moscow joined forces under the auspices of the TASS News Agency to help reassure and rouse the Soviet citizenry by producing large-scale posters\u2014TASS Windows. Despite the brutal regime of Joseph Stalin, creativity flourished among these diverse artists and writers as they attempted to find purpose while working in and for a totalitarian state. Producing a poster design for nearly every day of the war with a labor-intensive technical virtuosity previously unheard of in poster production, these artists committed themselves to the defense of the motherland. In collaboration with the Ne boltai! Collection of 20th-century propaganda, Windows on the War marks the first time these enormous handmade posters have been displayed in the United States since World War II, bringing to the fore many Soviet artists little known in this country.",
+            "link": null,
+            "exhibition": "",
+            "exhibition_id": null,
             ...
         },
         {
-            "id": 9994789,
-            "title": "Et blanditiis neque",
-            "description": "Quasi ut ducimus mollitia voluptas. Odit neque saepe explicabo odit nihil. Mollitia quaerat exercitationem qui in. Dolores possimus cumque odit ex voluptatem. Ut qui autem est quia eveniet fuga commodi quos. Repudiandae dolore voluptatem non non tempora. Aut cupiditate deleniti corrupti repellendus.",
-            "link": "http:\/\/koss.com\/non-iusto-velit-minus.html",
-            "exhibition": "Eos Inventore Earum",
-            "exhibition_id": 999010659,
+            "id": 80,
+            "title": "The Three Graces",
+            "description": "Beyond their capacity to preserve and evoke memories, snapshots of celebrations, vacations, and gatherings of family and friends are accumulated with the aim of constructing a personal history and preserving it for future generations. When these photographs are discarded or displaced\u2014becoming anonymous\u2014they are transformed into cultural artifacts that collectively trace a history of private image making and evolving habits of self-presentation before the camera. The snapshots presented here are such artifacts, presumably taken by nonprofessionals and saved for a time. Disowned and scattered, they were plucked from flea markets, shops, and galleries by New York collector Peter J. Cohen. Noticing the frequency of photographs featuring trios of women, he named the group after the Three Graces, an iconic motif in Western art.",
+            "link": null,
+            "exhibition": "",
+            "exhibition_id": null,
             ...
         }
     ]
@@ -2960,46 +2970,46 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 25,
+        "total": 96,
         "limit": 10,
         "offset": 0,
-        "total_pages": 3,
+        "total_pages": 10,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
-            "api_id": "9991306",
+            "api_id": "14",
             "api_model": "sites",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/9991306",
-            "id": 9991306,
-            "title": "Sit est est",
-            "timestamp": "2017-10-30T16:32:53-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/14",
+            "id": 14,
+            "title": "The Medici, Michelangelo, and the Art of Late Renaissance Florence",
+            "timestamp": "2017-11-15T11:02:44-06:00"
         },
         {
             "_score": 1,
-            "api_id": "9992202",
+            "api_id": "19",
             "api_model": "sites",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/9992202",
-            "id": 9992202,
-            "title": "Dolore incidunt dicta",
-            "timestamp": "2017-10-30T16:32:53-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/19",
+            "id": 19,
+            "title": "Perpetual Glory: Medieval Islamic Ceramics from the Harvey B. Plotnick Collection",
+            "timestamp": "2017-11-15T11:02:44-06:00"
         },
         {
             "_score": 1,
-            "api_id": "9992555",
+            "api_id": "22",
             "api_model": "sites",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/9992555",
-            "id": 9992555,
-            "title": "Qui et id",
-            "timestamp": "2017-10-30T16:32:53-05:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/22",
+            "id": 22,
+            "title": "Seurat and the Making of \"La Grande Jatte\"",
+            "timestamp": "2017-11-15T11:02:44-06:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "sites",
-                "doc_count": 25
+                "doc_count": 96
             }
         ]
     }
@@ -3010,21 +3020,21 @@ Example output:
 
 A single sites by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/sites/9996300?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/sites/1?limit=2  
 Example output:
 
 ```
 {
     "data": {
-        "id": 9996300,
-        "title": "Deleniti veniam necessitatibus",
-        "description": "Cupiditate quisquam ex est ut et. Quis aperiam consequuntur ex itaque dolor. Atque ratione soluta qui sed magnam soluta. Ducimus sed enim dolorem minima. Reprehenderit qui esse expedita cupiditate.",
-        "link": "http:\/\/bernhard.com\/consequatur-esse-dolore-quia-et-ex-quasi",
-        "exhibition": "Fugiat Qui Necessitatibus",
-        "exhibition_id": 999464502,
+        "id": 1,
+        "title": "Chicago Architecture: Ten Visions",
+        "description": "Chicago Architecture: Ten Visions presents diverse views of the future of Chicago\u2019s built environment from 10 internationally renowned architects. The architects were selected from an invited competition juried by architects Stanley Tigerman and Harry Cobb, in collaboration with curators from the Art Institute\u2019s Department of Architecture. The 10 architects reflect a cross section of Chicago\u2019s vibrant architectural scene\u2014from large and small firms as well as the academic community\u2014bringing to this exhibition diverse experiences and insights. Each architect was asked to define an important issue for the future of Chicago and create a \u201cspatial commentary\u201d on that particular theme. Within a lively plan designed by Stanley Tigerman, each of the participants has curated and designed his or her own mini-exhibition in a space of approximately 21 feet square. Tigerman\u2019s setting creates a linear sequence in which visitors pass through the architects\u2019 spaces to an interactive area where the architects\u2019 commentaries can be heard by picking up a telephone. Visitors are encouraged to record their comments on any and all of the \u201cten visions.\u201d",
+        "link": null,
+        "exhibition": "",
+        "exhibition_id": null,
         ...
     }
 }
 ```
 
-> Generated by `php artisan docs:endpoints` on 2017-11-13 17:38:07
+> Generated by `php artisan docs:endpoints` on 2017-11-15 11:13:52

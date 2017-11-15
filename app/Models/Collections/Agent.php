@@ -30,6 +30,13 @@ class Agent extends CollectionsModel
 
     }
 
+    public function sites()
+    {
+
+        return $this->belongsToMany('App\Models\StaticArchive\Site');
+
+    }
+
     public function getFillFieldsFrom($source)
     {
 
@@ -85,6 +92,11 @@ class Agent extends CollectionsModel
                 "doc" => "Unique identifier of the type of agent",
                 "type" => "number",
                 "value" => function() { return $this->agent_type_citi_id; },
+            ],
+            'site_ids' => [
+                "doc" => "Unique identifiers of the microsites this exhibition is a part of",
+                "type" => "array",
+                "value" => function() { return $this->sites->pluck('site_id')->all(); },
             ],
         ];
 

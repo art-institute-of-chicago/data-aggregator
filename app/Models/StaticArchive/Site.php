@@ -16,13 +16,29 @@ class Site extends BaseModel
     use Documentable;
 
     protected $primaryKey = 'site_id';
-    protected $dates = ['source_created_at', 'source_modified_at'];
     protected $fakeIdsStartAt = 9990000;
+    protected $hasSourceDates = false;
 
-    public function exhibition()
+    protected function fillIdsFrom($source)
     {
 
-        return $this->belongsTo('App\Models\Collections\Exhibition');
+        $this->site_id = $source->id;
+
+        return $this;
+
+    }
+
+    public function exhibitions()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Exhibition');
+
+    }
+
+    public function agents()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Agent');
 
     }
 
@@ -56,10 +72,15 @@ class Site extends BaseModel
                 "type" => "string",
                 "value" => function() { return $this->exhibition ? $this->exhibition->title : ""; },
             ],
-            'exhibition_id' => [
-                "doc" => "Unique identifier of the exhibition this site is associated with",
-                "type" => "number",
-                "value" => function() { return $this->exhibition ? $this->exhibition->citi_id : null; },
+            'exhibition_ids' => [
+                "doc" => "Unique identifier of the exhibitions this site is associated with",
+                "type" => "array",
+                "value" => function() { return $this->exhibitions->pluck('citi_id')->all(); },
+            ],
+            'artist_ids' => [
+                "doc" => "Unique identifiers of the artists this site is associated with",
+                "type" => "array",
+                "value" => function() { return $this->agents->pluck('citi_id')->all(); },
             ],
             'artwork_ids' => [
                 "doc" => "Unique identifiers of the artworks this site is associated with",
@@ -82,8 +103,49 @@ class Site extends BaseModel
         return [
 
             'artwork_titles' => $this->artworks->pluck('title')->all(),
+            'exhibition_titles' => $this->exhibitions->pluck('title')->all(),
+            'artist_titles' => $this->agents->pluck('title')->all(),
 
         ];
+
+    }
+
+    public function getFillFieldsFrom($source)
+    {
+
+        return [
+            'site_id' => $source->id,
+            'description' => $source->description,
+            'web_url' => $source->link,
+        ];
+
+    }
+
+    public function attachFrom($source)
+    {
+
+        if ($source->exhibition_ids)
+        {
+
+            $this->exhibitions()->sync($source->exhibition_ids, false);
+
+        }
+
+        if ($source->agent_ids)
+        {
+
+            $this->agents()->sync($source->agent_ids, false);
+
+        }
+
+        if ($source->artwork_ids)
+        {
+
+            $this->artworks()->sync($source->artwork_ids, false);
+
+        }
+
+        return $this;
 
     }
 
@@ -101,11 +163,17 @@ class Site extends BaseModel
                 'link' => [
                     'type' => 'keyword',
                 ],
-                'exhibition' => [
+                'exhibition_ids' => [
+                    'type' => 'integer',
+                ],
+                'exhibition_titles' => [
                     'type' => 'text',
                 ],
-                'exhibition_id' => [
+                'artist_ids' => [
                     'type' => 'integer',
+                ],
+                'artist_titles' => [
+                    'type' => 'text',
                 ],
                 'artwork_ids' => [
                     'type' => 'integer',
@@ -125,7 +193,7 @@ class Site extends BaseModel
     public function exampleId()
     {
 
-        return "9996300";
+        return "1";
 
     }
 

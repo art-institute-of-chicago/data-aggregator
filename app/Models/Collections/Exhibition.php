@@ -46,6 +46,13 @@ class Exhibition extends CollectionsModel
 
     }
 
+    public function sites()
+    {
+
+        return $this->belongsToMany('App\Models\StaticArchive\Site');
+
+    }
+
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
@@ -103,6 +110,11 @@ class Exhibition extends CollectionsModel
                 "doc" => "Unique identifiers of the venue agent records representing who hosted the exhibition",
                 "type" => "array",
                 "value" => function() { return $this->venues->pluck('citi_id')->all(); },
+            ],
+            'site_ids' => [
+                "doc" => "Unique identifiers of the microsites this exhibition is a part of",
+                "type" => "array",
+                "value" => function() { return $this->sites->pluck('site_id')->all(); },
             ],
         ];
 

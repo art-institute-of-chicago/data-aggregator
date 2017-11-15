@@ -25,7 +25,7 @@ class ImportLegacyEvents extends AbstractImportCommand
         {
 
             $this->info('Retrieving events JSON from artic.edu');
-            Storage::disk('local')->put('drupal-7-events.json', file_get_contents('http://www.artic.edu/events-json/all'));
+            Storage::disk('local')->put('drupal-7-events.json', file_get_contents(env('LEGACY_EVENTS_JSON', 'http://localhost/events.json')));
 
         }
         $contents = Storage::get('drupal-7-events.json');

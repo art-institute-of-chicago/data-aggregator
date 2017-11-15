@@ -116,6 +116,13 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function sites()
+    {
+
+        return $this->belongsToMany('App\Models\StaticArchive\Site');
+
+    }
+
     public function getFillFieldsFrom($source)
     {
 
@@ -499,6 +506,11 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifiers of the tours this work is included in",
                 "type" => "array",
                 "value" => function() { return $this->mobileArtwork ? ( $this->mobileArtwork->stops->map( function( $stop ) {  return $stop->tour; })->pluck('mobile_id')->all() ) : []; },
+            ],
+            'site_ids' => [
+                "doc" => "Unique identifiers of the microsites this exhibition is a part of",
+                "type" => "array",
+                "value" => function() { return $this->sites->pluck('site_id')->all(); },
             ],
         ];
 
