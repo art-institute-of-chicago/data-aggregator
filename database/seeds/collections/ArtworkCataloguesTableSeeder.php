@@ -21,6 +21,11 @@ class ArtworkCataloguesTableSeeder extends AbstractSeeder
     public function seedCatalogues( $artwork )
     {
 
+        // There's a non-exclusive, many-to-many relationship b/w catalogues and artworks
+        // A commitee can be (1) free-floating, and (2) assoc. w/ more than one artwork
+
+        // We shouldn't receive catalogues that aren't assoc. w/ artworks
+
         $hasPreferred = false;
 
         for ($i = 0; $i < rand(2,4); $i++) {
