@@ -33,7 +33,7 @@ class Agent extends CollectionsModel
     public function sites()
     {
 
-        return $this->belongsToMany('App\Models\StaticArchive\Site');
+        return $this->belongsToMany('App\Models\StaticArchive\Site', 'agent_site', 'agent_citi_id');
 
     }
 
