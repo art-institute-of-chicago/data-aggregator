@@ -11,7 +11,7 @@ class EventsTableSeeder extends AbstractSeeder
 
         factory( Event::class, 25 )->create();
 
-        $this->seedPivot( Event::class, Exhibition::class, 'exhibitions' );
+        $this->seedRelation( Event::class, Exhibition::class, 'exhibitions' );
 
     }
 

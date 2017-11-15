@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCollectionsTables extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,6 +14,8 @@ class CreateCollectionsTables extends Migration
      */
     public function up()
     {
+
+        $this->down();
 
         Schema::create('agent_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);

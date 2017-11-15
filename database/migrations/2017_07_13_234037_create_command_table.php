@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCommandTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,6 +14,8 @@ class CreateCommandTable extends Migration
      */
     public function up()
     {
+
+        $this->down();
 
         Schema::create('commands', function (Blueprint $table) {
             $table->increments('id');
@@ -35,4 +38,5 @@ class CreateCommandTable extends Migration
         Schema::dropIfExists('commands');
 
     }
+
 }

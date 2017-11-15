@@ -9,7 +9,7 @@ class ArtworkCopyrightRepresentativesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedPivot( Artwork::class, CopyrightRepresentative::class, 'copyrightRepresentatives' );
+        $this->seedRelation( Artwork::class, CopyrightRepresentative::class, 'copyrightRepresentatives' );
 
     }
 

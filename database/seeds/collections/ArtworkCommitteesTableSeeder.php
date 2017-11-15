@@ -22,17 +22,15 @@ class ArtworkCommitteesTableSeeder extends AbstractSeeder
     public function seedCommittees( $artwork )
     {
 
-        for ($i = 0; $i < rand(2,4); $i++) {
+        // There's a non-exclusive, many-to-many relationship b/w committees and artworks
+        // A commitee can be (1) free-floating, and (2) assoc. w/ more than one artwork
 
-            $committee = factory( ArtworkCommittee::class )->make([
-                'artwork_citi_id' => $artwork->citi_id,
-            ]);
+        // We shouldn't receive committees that aren't assoc. w/ artworks
 
-            $artwork->committees()->save($committee);
-
-        }
+        factory( ArtworkCommittee::class, rand(2,4) )->create([
+            'artwork_citi_id' => $artwork->getKey(),
+        ]);
 
     }
-
 
 }

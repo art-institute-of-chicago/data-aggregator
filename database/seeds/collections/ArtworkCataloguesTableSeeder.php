@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Collections\Artwork;
+use App\Models\Collections\ArtworkCatalogue;
 
 class ArtworkCataloguesTableSeeder extends AbstractSeeder
 {
@@ -21,24 +22,19 @@ class ArtworkCataloguesTableSeeder extends AbstractSeeder
     public function seedCatalogues( $artwork )
     {
 
-        $hasPreferred = false;
+        // There's a non-exclusive, many-to-many relationship b/w catalogues and artworks
+        // A commitee can be (1) free-floating, and (2) assoc. w/ more than one artwork
 
-        for ($i = 0; $i < rand(2,4); $i++) {
+        // We shouldn't receive catalogues that aren't assoc. w/ artworks
 
-            $preferred = app('Faker')->boolean;
+        $catalogues = factory( ArtworkCatalogue::class, rand(2,4) )->create([
+            'artwork_citi_id' => $artwork->getKey(),
+            'preferred' => false,
+        ]);
 
-            $artwork->catalogues()->create([
-                'preferred' => $hasPreferred ? false : app('Faker')->boolean,
-                'catalogue' => ucwords( app('Faker')->words(2, true) ),
-                'number' => app('Faker')->randomNumber(3),
-                'state_edition' => app('Faker')->words(2, true),
-            ]);
-
-            if ($preferred || $hasPreferred) $hasPreferred = true;
-
-        }
-
-        return $this;
+        $catalogue = $catalogues->random();
+        $catalogue->preferred = true;
+        $catalogue->save();
 
     }
 

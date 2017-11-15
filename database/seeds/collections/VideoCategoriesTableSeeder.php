@@ -9,7 +9,7 @@ class VideoCategoriesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->seedPivot( Video::class, Category::class, 'categories' );
+        $this->seedRelation( Video::class, Category::class, 'categories' );
 
     }
 

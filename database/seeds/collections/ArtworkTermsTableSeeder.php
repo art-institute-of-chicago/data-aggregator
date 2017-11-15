@@ -23,15 +23,9 @@ class ArtworkTermsTableSeeder extends AbstractSeeder
     public function seedTerms( $artwork )
     {
 
-        for ($i = 0; $i < rand(2,4); $i++) {
-
-            $term = factory( ArtworkTerm::class )->make([
-                'artwork_citi_id' => $artwork->citi_id,
-            ]);
-
-            $artwork->terms()->save($term);
-
-        }
+        factory( ArtworkTerm::class, rand(2,4) )->create([
+            'artwork_citi_id' => $artwork->getKey(),
+        ]);
 
     }
 

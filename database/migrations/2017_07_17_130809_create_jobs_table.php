@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateJobsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,6 +14,9 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
+
+        $this->down();
+
         Schema::create('jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('queue');
@@ -24,6 +28,7 @@ class CreateJobsTable extends Migration
 
             $table->index(['queue', 'reserved_at']);
         });
+
     }
 
     /**
@@ -35,4 +40,5 @@ class CreateJobsTable extends Migration
     {
         Schema::dropIfExists('jobs');
     }
+
 }

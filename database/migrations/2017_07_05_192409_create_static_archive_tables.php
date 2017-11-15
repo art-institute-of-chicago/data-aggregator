@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateStaticArchiveTables extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,6 +14,8 @@ class CreateStaticArchiveTables extends Migration
      */
     public function up()
     {
+
+        $this->down();
 
         Schema::create('sites', function (Blueprint $table) {
             $table->integer('site_id')->unsigned()->unique()->primary();
@@ -62,4 +65,5 @@ class CreateStaticArchiveTables extends Migration
         Schema::dropIfExists('sites');
 
     }
+
 }

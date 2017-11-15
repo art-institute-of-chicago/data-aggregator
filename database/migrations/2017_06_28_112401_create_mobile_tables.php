@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMobileTables extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,6 +14,8 @@ class CreateMobileTables extends Migration
      */
     public function up()
     {
+
+        $this->down();
 
         Schema::create('mobile_artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
@@ -98,4 +101,5 @@ class CreateMobileTables extends Migration
         \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
+
 }
