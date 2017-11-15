@@ -8,6 +8,8 @@ namespace App\Models\Collections;
 class Link extends Asset
 {
 
+    protected $table = 'assets';
+
     /**
      * Get an example ID for documentation generation
      *

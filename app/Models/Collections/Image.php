@@ -9,15 +9,9 @@ namespace App\Models\Collections;
 class Image extends Asset
 {
 
+    protected $table = 'assets';
+
     protected $appends = ['iiif_url'];
-
-    // Note: Not all Images are meant to be associated w/ Artworks
-    public function artworks()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Artwork');
-
-    }
 
     /**
      * Turn this model object into a generic array.
@@ -34,18 +28,9 @@ class Image extends Asset
 
         return [
 
-            // 'type' => $item->type,
             'iiif_url' => [
                 "doc" => "IIIF URL of this image",
                 "value" => function() { return $this->iiif_url; },
-            ],
-            'artwork_ids' => [
-                "doc" => "Unique identifiers of the artworks included in this image",
-                "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
-            ],
-            'artwork_titles' => [
-                "doc" => "The names of the artworks included in this image",
-                "value" => function() { return $this->artworks()->pluck('title'); },
             ],
 
         ];

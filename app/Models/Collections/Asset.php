@@ -17,6 +17,7 @@ class Asset extends CollectionsModel
 
     protected $primaryKey = 'lake_guid';
     protected $keyType = 'string';
+
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
 
     // @TODO: It looks like the agent_citi_id field is missing...
@@ -30,7 +31,15 @@ class Asset extends CollectionsModel
     public function categories()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Category');
+        return $this->belongsToMany('App\Models\Collections\Category', 'asset_category', 'asset_lake_guid');
+
+    }
+
+    // Note: Not all Images are meant to be associated w/ Artworks
+    public function artworks()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_lake_guid');
 
     }
 
@@ -67,13 +76,12 @@ class Asset extends CollectionsModel
 
         return array_merge(
             [
-                // @TODO Make Images non-assets on CDS and DA? Currently, these transformations aren't defensive,
-                // i.e. if these fields are missing from the CDS response, this will throw an error.
 
-                // Potential defensive approach:
-                // 'description' => isset( $this->description ) ? $this->description : null,
-                // 'content' => isset( $this->content ) ? $this->content : null,
-
+                'type' => [
+                    "doc" => "Typs always takes one of the following values: image, link, sound, text, video",
+                    "type" => "string",
+                    "value" => function() { return $this->type; },
+                ],
                 'description' => [
                     "doc" => "Explanation of what this asset is",
                     "type" => "string",
@@ -97,6 +105,14 @@ class Asset extends CollectionsModel
                     "doc" => "Unique identifier of the categories associated with this asset",
                     "type" => "array",
                     "value" => function() { return $this->categories->pluck('citi_id')->all(); },
+                ],
+                'artwork_ids' => [
+                    "doc" => "Unique identifiers of the artworks associated with this asset",
+                    "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
+                ],
+                'artwork_titles' => [
+                    "doc" => "The names of the artworks associated with this asset",
+                    "value" => function() { return $this->artworks()->pluck('title'); },
                 ],
             ],
             $this->transformAsset()
