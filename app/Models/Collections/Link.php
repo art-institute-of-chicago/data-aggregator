@@ -11,6 +11,24 @@ class Link extends Asset
     protected $table = 'assets';
 
     /**
+     * Filters the `assets` table by `type` to retrieve only links.
+     * Uses the inline method for scope definition, rather than creating new classes.
+     *
+     * @link https://stackoverflow.com/questions/20701216/laravel-default-orderby
+     *
+     * {@inheritdoc}
+     */
+    protected static function boot() {
+
+        parent::boot();
+
+        static::addGlobalScope('links', function ($builder) {
+            $builder->where('type', '=', 'link');
+        });
+
+    }
+
+    /**
      * Get an example ID for documentation generation
      *
      * @return string
