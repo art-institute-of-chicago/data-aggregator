@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 abstract class AbstractSeeder extends Seeder
 {
@@ -58,10 +59,10 @@ abstract class AbstractSeeder extends Seeder
      * If subject and object refer to the same class, measures are taken to ensure that an
      * instance of a model is never attached to itself.
      *
-     * @param  string  $parent  Class name of the "subject" model to which objects are attached
-     * @param  string  $child   Class name of the "object" model which gets attached to subject
-     * @param  string  $method  Name of method on parent, which must return an instance of
-     *                          \Illuminate\Database\Eloquent\Relations\Relation
+     * @param  string  $subjectClass  Class name of the "subject" model to which objects are attached
+     * @param  string  $objectClass   Class name of the "object" model which gets attached to subject
+     * @param  string  $method        Name of method on subject, which must return an instance of
+     *                                \Illuminate\Database\Eloquent\Relations\Relation
      */
     protected function seedRelation( $subjectClass, $objectClass, $method )
     {
@@ -70,6 +71,8 @@ abstract class AbstractSeeder extends Seeder
 
         $subjects = $subjectClass::fake()->get();
         $objects = $objectClass::fake()->get();
+
+        $this->validateSeedRelation( $subjectClass, $objectClass, $subjects, $objects, $method );
 
         $delegate = $this->getRelationMethod( $subjectClass, $method );
 
@@ -147,6 +150,45 @@ abstract class AbstractSeeder extends Seeder
         $subject->$method()->associate( $object );
 
         $subject->save();
+
+    }
+
+    /**
+     * Validates parameters and database state for running `seedRelation`.
+     *
+     * @param  string  $subjectClass  Class name of the "subject" model to which objects are attached
+     * @param  string  $objectClass   Class name of the "object" model which gets attached to subject
+     * @param  string  $subjects      Instances of $subjectClass
+     * @param  string  $objects       Instances of $objectClass
+     * @param  string  $method        Name of method on subject, which must return an instance of
+     *                                \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    private function validateSeedRelation( $subjectClass, $objectClass, $subjects, $objects, $method )
+    {
+
+        if( ! method_exists( $subjectClass, $method ) )
+        {
+            throw new BadFunctionCallException( 'Class ' . $subjectClass . ' has no relation method `' . $method . '`' );
+        }
+
+        $relation = ( new $subjectClass )->$method();
+
+        if( ! $relation instanceof Relation )
+        {
+            throw new InvalidArgumentException( $subjectClass . '\'s `' . $method . '` must return an instance of ' . Relation::class );
+        }
+
+        $prefix = 'Attempting to relate ' . $subjectClass . ' to ' . $objectClass;
+
+        if( $subjects->count() < 1 )
+        {
+            throw new InvalidArgumentException( $prefix . ', but there are no ' . $subjectClass . '\'s in the database.' );
+        }
+
+        if( $objects->count() < 1 )
+        {
+            throw new InvalidArgumentException( $prefix . ', but there are no ' . $objectClass . '\'s in the database.' );
+        }
 
     }
 
