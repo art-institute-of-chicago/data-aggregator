@@ -78,6 +78,7 @@ $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator 
             'birth_place' => $faker->country,
             'death_place' => $faker->country,
             'licensing_restricted' => $faker->boolean,
+            'is_artist' => $faker->boolean,
             'agent_type_citi_id' => $faker->randomElement(App\Models\Collections\AgentType::fake()->pluck('citi_id')->all()),
         ],
         dates($faker, true)
@@ -117,7 +118,7 @@ $factory->define(App\Models\Collections\Category::class, function (Faker\Generat
 
 $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generator $faker) {
     $date_end = $faker->year;
-    $artist = App\Models\Collections\Agent::where('agent_type_citi_id', App\Models\Collections\AgentType::where('title', 'Individual')->first()->citi_id)->get()->random();
+    $artist = App\Models\Collections\Agent::where('agent_type_citi_id', App\Models\Collections\AgentType::where('title', 'Individual')->first()->citi_id)->where('is_artist', '=', TRUE)->get()->random();
     return array_merge(
         idsAndTitle($faker, ucwords($faker->words(4, true)), true, 6),
         [
