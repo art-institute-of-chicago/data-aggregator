@@ -14,16 +14,7 @@ class SitesTableSeeder extends AbstractSeeder
 
         $this->seedRelation( Site::class, Artwork::class, 'artworks' );
 
-        $sites = Site::fake()->get();
-        $exhibitionIds = Exhibition::fake()->pluck('citi_id')->all();
-
-        foreach ($sites as $site) {
-
-            $exhibitionId = $exhibitionIds[array_rand($exhibitionIds)];
-
-            $site->exhibition_id = $exhibitionId;
-
-        }
+        $this->seedRelation( Site::class, Exhibition::class, 'exhibition' );
 
     }
 
