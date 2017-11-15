@@ -46,6 +46,23 @@ class Asset extends CollectionsModel
 
     }
 
+    /**
+     * Create a new instance of the given model. For Assets, we use this to set a default `type`.
+     *
+     * @param  array  $attributes
+     * @param  bool  $exists
+     * @return static
+     */
+    public function newInstance($attributes = [], $exists = false)
+    {
+
+        $model = parent::newInstance($attributes, $exists);
+        $model->type = static::$assetType;
+        return $model;
+
+    }
+
+
     // @TODO: It looks like the agent_citi_id field is missing...
     // public function artist()
     // {
