@@ -9,38 +9,26 @@ class ImagesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
+        factory( Image::class, 100 )->create();
+
+        $this->seedRelation( Artwork::class, Image::class, 'images' );
+
+        $this->seedPreferred();
+
+    }
+
+    private function seedPreferred()
+    {
+
         $artworks = Artwork::fake()->get();
 
         foreach ($artworks as $artwork) {
 
-            $this->seedImages( $artwork );
+            $image = $artwork->images->random();
+
+            $artwork->images()->updateExistingPivot( $image->getKey(), [ 'preferred' => true ] );
 
         }
-
-    }
-
-    public function seedImages( $artwork )
-    {
-
-        $hasPreferred = false;
-
-        for ($i = 0; $i < rand(2,4); $i++) {
-
-            $preferred = $hasPreferred ? false : app('Faker')->boolean;
-
-            // TODO: Problem! What if the image depicts multiple artworks?
-            // This architecture means it would have to be the preferred one for all of them!
-            // Potentially consider specifying `preferred` column on the pivot table?
-            // https://laravel.com/docs/5.4/eloquent-relationships#many-to-many
-
-            $image = factory( Image::class )->make();
-            $artwork->images()->save($image);
-
-            if ($preferred || $hasPreferred) $hasPreferred = true;
-
-        }
-
-        return $this;
 
     }
 
