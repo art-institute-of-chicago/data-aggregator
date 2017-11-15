@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Collections\Artwork;
+use App\Models\Collections\ArtworkCatalogue;
 
 class ArtworkCataloguesTableSeeder extends AbstractSeeder
 {
@@ -26,24 +27,14 @@ class ArtworkCataloguesTableSeeder extends AbstractSeeder
 
         // We shouldn't receive catalogues that aren't assoc. w/ artworks
 
-        $hasPreferred = false;
+        $catalogues = factory( ArtworkCatalogue::class, rand(2,4) )->create([
+            'artwork_citi_id' => $artwork->getKey(),
+            'preferred' => false,
+        ]);
 
-        for ($i = 0; $i < rand(2,4); $i++) {
-
-            $preferred = app('Faker')->boolean;
-
-            $artwork->catalogues()->create([
-                'preferred' => $hasPreferred ? false : app('Faker')->boolean,
-                'catalogue' => ucwords( app('Faker')->words(2, true) ),
-                'number' => app('Faker')->randomNumber(3),
-                'state_edition' => app('Faker')->words(2, true),
-            ]);
-
-            if ($preferred || $hasPreferred) $hasPreferred = true;
-
-        }
-
-        return $this;
+        $catalogue = $catalogues->random();
+        $catalogue->preferred = true;
+        $catalogue->save();
 
     }
 
