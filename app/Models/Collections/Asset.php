@@ -34,6 +34,12 @@ class Asset extends CollectionsModel
 
         parent::boot();
 
+        // Allows querying all assets via the Asset class directly
+        if( !static::$assetType )
+        {
+            return;
+        }
+
         static::addGlobalScope('assets', function ($builder) {
             $builder->where('type', '=', static::$assetType );
         });
