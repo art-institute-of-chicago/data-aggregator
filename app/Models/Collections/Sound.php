@@ -10,23 +10,7 @@ class Sound extends Asset
 
     protected $table = 'assets';
 
-    /**
-     * Filters the `assets` table by `type` to retrieve only sounds.
-     * Uses the inline method for scope definition, rather than creating new classes.
-     *
-     * @link https://stackoverflow.com/questions/20701216/laravel-default-orderby
-     *
-     * {@inheritdoc}
-     */
-    protected static function boot() {
-
-        parent::boot();
-
-        static::addGlobalScope('sounds', function ($builder) {
-            $builder->where('type', '=', 'sound');
-        });
-
-    }
+    protected static $assetType = 'sound';
 
     /**
      * Get an example ID for documentation generation

@@ -10,25 +10,9 @@ class Image extends Asset
 
     protected $table = 'assets';
 
+    protected static $assetType = 'image';
+
     protected $appends = ['iiif_url'];
-
-    /**
-     * Filters the `assets` table by `type` to retrieve only images.
-     * Uses the inline method for scope definition, rather than creating new classes.
-     *
-     * @link https://stackoverflow.com/questions/20701216/laravel-default-orderby
-     *
-     * {@inheritdoc}
-     */
-    protected static function boot() {
-
-        parent::boot();
-
-        static::addGlobalScope('images', function ($builder) {
-            $builder->where('type', '=', 'image');
-        });
-
-    }
 
     /**
      * Turn this model object into a generic array.

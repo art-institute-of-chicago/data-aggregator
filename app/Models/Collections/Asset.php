@@ -20,6 +20,26 @@ class Asset extends CollectionsModel
 
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
 
+    protected static $assetType = null;
+
+    /**
+     * Filters the `assets` table by `type` to match `$assetType` of the model.
+     * Uses the inline method for scope definition, rather than creating new classes.
+     *
+     * @link https://stackoverflow.com/questions/20701216/laravel-default-orderby
+     *
+     * {@inheritdoc}
+     */
+    protected static function boot() {
+
+        parent::boot();
+
+        static::addGlobalScope('assets', function ($builder) {
+            $builder->where('type', '=', static::$assetType );
+        });
+
+    }
+
     // @TODO: It looks like the agent_citi_id field is missing...
     // public function artist()
     // {
