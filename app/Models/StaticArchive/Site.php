@@ -62,10 +62,10 @@ class Site extends BaseModel
                 "type" => "string",
                 "value" => function() { return $this->description; },
             ],
-            'link' => [
+            'web_url' => [
                 "doc" => "URL to this site",
                 "type" => "url",
-                "value" => function() { return $this->link; },
+                "value" => function() { return $this->web_url; },
             ],
             'exhibition' => [
                 "doc" => "The name of the exhibition this site is associated with",
