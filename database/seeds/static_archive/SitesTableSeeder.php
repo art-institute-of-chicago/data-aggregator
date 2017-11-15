@@ -3,6 +3,7 @@
 use App\Models\StaticArchive\Site;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Exhibition;
+use App\Models\Collections\Agent;
 
 class SitesTableSeeder extends AbstractSeeder
 {
@@ -14,7 +15,9 @@ class SitesTableSeeder extends AbstractSeeder
 
         $this->seedRelation( Site::class, Artwork::class, 'artworks' );
 
-        $this->seedRelation( Site::class, Exhibition::class, 'exhibition' );
+        $this->seedRelation( Site::class, Exhibition::class, 'exhibitions' );
+
+        $this->seedRelation( Site::class, Agent::class, 'agents' );
 
     }
 
