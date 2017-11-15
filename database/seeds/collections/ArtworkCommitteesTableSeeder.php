@@ -22,17 +22,10 @@ class ArtworkCommitteesTableSeeder extends AbstractSeeder
     public function seedCommittees( $artwork )
     {
 
-        for ($i = 0; $i < rand(2,4); $i++) {
-
-            $committee = factory( ArtworkCommittee::class )->make([
-                'artwork_citi_id' => $artwork->citi_id,
-            ]);
-
-            $artwork->committees()->save($committee);
-
-        }
+        factory( ArtworkCommittee::class, rand(2,4) )->create([
+            'artwork_citi_id' => $artwork->getKey(),
+        ]);
 
     }
-
 
 }
