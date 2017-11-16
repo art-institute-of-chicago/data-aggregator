@@ -83,6 +83,11 @@ class Agent extends CollectionsModel
                 "type" => "boolean",
                 "value" => function() { return (bool) $this->licensing_restricted; },
             ],
+            'is_artist' => [
+                "doc" => "Whether the agent is an artist. Soley based on whether the agent is listed as an artist for an artwork record.",
+                "type" => "boolean",
+                "value" => function() { return (bool) $this->is_artist; },
+            ],
             'agent_type' => [
                 "doc" => "Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.",
                 "type" => "string",
@@ -126,6 +131,9 @@ class Agent extends CollectionsModel
                     'type' => 'text',
                 ],
                 'is_licensing_restricted' => [
+                    'type' => 'boolean',
+                ],
+                'is_artist' => [
                     'type' => 'boolean',
                 ],
                 'agent_type' => [

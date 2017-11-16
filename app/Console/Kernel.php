@@ -34,6 +34,7 @@ class Kernel extends ConsoleKernel
         Commands\CleanSeed::class,
         Commands\ImportLegacyEvents::class,
         Commands\ImportSites::class,
+        Commands\ImportSetArtists::class,
     ];
 
     /**
