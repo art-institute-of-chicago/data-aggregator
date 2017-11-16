@@ -20,6 +20,10 @@ class Asset extends CollectionsModel
 
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
 
+    protected $casts = [
+        'metadata' => 'object',
+    ];
+
     protected static $assetType = null;
 
     /**
@@ -156,6 +160,11 @@ class Asset extends CollectionsModel
                 'artwork_titles' => [
                     "doc" => "The names of the artworks associated with this asset",
                     "value" => function() { return $this->artworks()->pluck('title'); },
+                ],
+                'metadata' => [
+                    "doc" => "Type-specific metadata about this asset",
+                    "type" => "object",
+                    "value" => function() { return $this->metadata; },
                 ],
             ],
             $this->transformAsset()

@@ -179,6 +179,7 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addIdsAndTitle($table, false, 'text');
             $table = $this->_addInterpretiveResourceFileds($table);
             $table->string('type')->nullable()->index();
+            $table->json('metadata')->nullable();
             $table = $this->_addDates($table, false);
         });
 
