@@ -23,4 +23,5 @@ class ArtworkTermTransformer extends CollectionsTransformer
             'type' => $item->type,
         ];
     }
+
 }

@@ -15,6 +15,8 @@ class CreateShopTables extends Migration
     public function up()
     {
 
+        $this->down();
+
         Schema::create('shop_categories', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('link')->nullable();

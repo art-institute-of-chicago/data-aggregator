@@ -25,7 +25,7 @@ class AgentType extends CollectionsModel
     public function exampleId()
     {
 
-        return "36";
+        return "1";
 
     }
 

@@ -7,6 +7,6 @@ class AgentTypesController extends ApiController
 
     protected $model = \App\Models\Collections\AgentType::class;
 
-    protected $transformer = \App\Http\Transformers\AgentTypeTransformer::class;
+    protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
 
 }

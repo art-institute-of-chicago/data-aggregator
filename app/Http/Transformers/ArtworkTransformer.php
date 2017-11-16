@@ -7,8 +7,6 @@ use App\Models\Collections\Artwork;
 class ArtworkTransformer extends CollectionsTransformer
 {
 
-    public $citiObject = true;
-
     /**
      * List of resources possible to include
      *
@@ -24,7 +22,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeArtists(Artwork $artwork)
     {
-        return $this->collection($artwork->artists()->getResults(), new AgentTransformer, false);
+        return $this->collection($artwork->artists()->getResults(), new CollectionsTransformer, false);
     }
 
     /**
@@ -35,7 +33,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCopyrightRepresentatives(Artwork $artwork)
     {
-        return $this->collection($artwork->copyrightRepresentatives()->getResults(), new AgentTransformer, false);
+        return $this->collection($artwork->copyrightRepresentatives()->getResults(), new CollectionsTransformer, false);
     }
 
     /**
@@ -46,7 +44,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCategories(Artwork $artwork)
     {
-        return $this->collection($artwork->categories()->getResults(), new CategoryTransformer, false);
+        return $this->collection($artwork->categories()->getResults(), new CollectionsTransformer, false);
     }
 
     /**
@@ -123,19 +121,9 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeImages(Artwork $artwork)
     {
-        return $this->collection($artwork->images()->getResults(), new ImageTransformer, false);
+        return $this->collection($artwork->images()->getResults(), new AssetTransformer, false);
     }
 
-    /**
-     * Include publications.
-     *
-     * @param  \App\Models\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includePublications(Artwork $artwork)
-    {
-        return $this->collection($artwork->publications()->getResults(), new PublicationTransformer, false);
-    }
     /**
      * Include tours.
      *

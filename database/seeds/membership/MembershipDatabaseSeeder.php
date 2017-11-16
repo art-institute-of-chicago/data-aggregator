@@ -1,26 +1,21 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Membership\Event;
 
-class MembershipDatabaseSeeder extends Seeder
+class MembershipDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    protected function seed()
     {
 
         $this->call(EventsTableSeeder::class);
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
-        App\Models\Membership\Event::fake()->delete();
+        Event::fake()->delete();
 
     }
 

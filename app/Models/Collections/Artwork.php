@@ -105,7 +105,7 @@ class Artwork extends CollectionsModel
     public function images()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Image')->withPivot('preferred');
+        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->withPivot('preferred');
 
     }
 
@@ -116,10 +116,10 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function publications()
+    public function sites()
     {
 
-        return $this->belongsToMany('App\Models\Dsc\Publication', 'works_of_art');
+        return $this->belongsToMany('App\Models\StaticArchive\Site');
 
     }
 
@@ -196,147 +196,16 @@ class Artwork extends CollectionsModel
 
         }
 
+        // @TODO Sync the following when they become available
         // $source->document_guids
-
-        // @TODO Replace with real endpoints when they become available
-        // $this->seedCopyrightRepresentatives();
-        // $this->seedCommittees();
-        // $this->seedTerms();
-        // $this->seedDates();
-        // $this->seedCatalogues();
-        // TODO: Remove this...? Might be unnecessary.
-        // $this->seedImages();
-        // $this->seedParts();
+        // $source->copyright_representative_ids
+        // $source->committee_ids
+        // $source->term_ids
+        // $source->date_ids [verify?]
+        // $source->catalogue_ids [verify?]
+        // $source->part_ids
 
         // update artworks with gallery id and object type id
-
-        return $this;
-
-    }
-
-    public function seedCopyrightRepresentatives()
-    {
-
-        $agentIds = CopyrightRepresentative::fake()->pluck('citi_id')->all();
-
-        $ids = [];
-
-        for ($i = 0; $i < rand(2,4); $i++) {
-
-            $id = $agentIds[array_rand($agentIds)];
-
-            if (!in_array($id, $ids)) {
-                $ids[] = $id;
-            }
-
-        }
-
-        $this->copyrightRepresentatives()->sync($ids, false);
-
-        return $this;
-
-    }
-
-    public function seedCommittees()
-    {
-
-        for ($i = 0; $i < rand(2,4); $i++) {
-
-            $committee = factory(ArtworkCommittee::class)->make([
-                'artwork_citi_id' => $this->citi_id,
-            ]);
-
-            $this->committees()->save($committee);
-
-        }
-
-        return $this;
-
-    }
-
-    public function seedTerms()
-    {
-
-        for ($i = 0; $i < rand(2,4); $i++) {
-
-            $term = factory(ArtworkTerm::class)->make([
-                'artwork_citi_id' => $this->citi_id,
-            ]);
-
-            $this->terms()->save($term);
-
-        }
-
-        return $this;
-
-    }
-
-    public function seedDates()
-    {
-
-        $hasPreferred = false;
-
-        for ($i = 0; $i < rand(2,4); $i++) {
-
-            $preferred = $hasPreferred ? false : $this->faker->boolean;
-
-            $this->dates()->create([
-                'date' => $this->faker->dateTimeAD,
-                'qualifier' => ucfirst($this->faker->word) .' date',
-                'preferred' => $preferred,
-            ]);
-
-            if ($preferred || $hasPreferred) $hasPreferred = true;
-
-        }
-
-        return $this;
-
-    }
-
-    public function seedCatalogues()
-    {
-
-        $hasPreferred = false;
-
-        for ($i = 0; $i < rand(2,4); $i++) {
-
-            $preferred = $this->faker->boolean;
-
-            $this->catalogues()->create([
-                'preferred' => $hasPreferred ? false : $this->faker->boolean,
-                'catalogue' => ucwords($this->faker->words(2, true)),
-                'number' => $this->faker->randomNumber(3),
-                'state_edition' => $this->faker->words(2, true),
-            ]);
-
-            if ($preferred || $hasPreferred) $hasPreferred = true;
-
-        }
-
-        return $this;
-
-    }
-
-    public function seedImages()
-    {
-
-        $hasPreferred = false;
-
-        for ($i = 0; $i < rand(2,4); $i++) {
-
-            $preferred = $hasPreferred ? false : $this->faker->boolean;
-
-            // TODO: Problem! What if the image depicts multiple artworks?
-            // This architecture means it would have to be the preferred one for all of them!
-            // Potentially consider specifying `preferred` column on the pivot table?
-            // https://laravel.com/docs/5.4/eloquent-relationships#many-to-many
-            $image = factory(\App\Models\Collections\Image::class)->make();
-            $this->images()->save($image);
-
-            if ($preferred || $hasPreferred) $hasPreferred = true;
-
-        }
 
         return $this;
 
@@ -588,7 +457,7 @@ class Artwork extends CollectionsModel
             'date_dates' => [
                 "doc" => "List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.",
                 "type" => "array",
-                "value" => function() { return $this->dates()->pluck('date')->transform(function ($item, $key) { 
+                "value" => function() { return $this->dates()->pluck('date')->transform(function ($item, $key) {
                     return $item->toIso8601String();
                 })->all(); },
             ],
@@ -633,15 +502,15 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "value" => function() { return $this->images->pluck('iiif_url')->all(); },
             ],
-            'publication_ids' => [
-                "doc" => "Unique identifiers of the Digital Scholarly Catalogs this work is included in",
-                "type" => "number",
-                "value" => function() { return $this->publications->pluck('dsc_id')->all(); },
-            ],
             'tour_ids' => [
                 "doc" => "Unique identifiers of the tours this work is included in",
                 "type" => "array",
                 "value" => function() { return $this->mobileArtwork ? ( $this->mobileArtwork->stops->map( function( $stop ) {  return $stop->tour; })->pluck('mobile_id')->all() ) : []; },
+            ],
+            'site_ids' => [
+                "doc" => "Unique identifiers of the microsites this exhibition is a part of",
+                "type" => "array",
+                "value" => function() { return $this->sites->pluck('site_id')->all(); },
             ],
         ];
 
@@ -663,8 +532,7 @@ class Artwork extends CollectionsModel
             'copyright_representative_titles' => $this->copyrightRepresentatives->pluck('title')->all(),
             'part_titles' => $this->parts->pluck('title')->all(),
             'set_titles' => $this->sets->pluck('title')->all(),
-            'publication_titles' => $this->publications->pluck('title')->all(),
-            'tour_titles' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('title')->all() : [],
+            //'tour_titles' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('title')->all() : [],
 
         ];
 
@@ -814,16 +682,6 @@ class Artwork extends CollectionsModel
                 ],
                 'image_urls' => [
                     'type' => 'keyword',
-                ],
-                // TODO: Move these to Dsc\WorkOfArt
-                'publication_id' => [
-                    'type' => 'integer',
-                ],
-                'publication_ids' => [
-                    'type' => 'integer',
-                ],
-                'publication_titles' => [
-                    'type' => 'text',
                 ],
                 // TODO: Move these to Mobile\Artwork
                 'tour_ids' => [

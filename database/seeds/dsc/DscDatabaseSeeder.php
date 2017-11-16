@@ -1,38 +1,24 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Dsc\Publication;
+use App\Models\Dsc\Section;
 
-class DscDatabaseSeeder extends Seeder
+class DscDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    protected function seed()
     {
 
         $this->call(PublicationsTableSeeder::class);
-        $this->call(TitlePagesTableSeeder::class);
         $this->call(SectionsTableSeeder::class);
-        $this->call(WorkOfArtsTableSeeder::class);
-        $this->call(FootnotesTableSeeder::class);
-        $this->call(FiguresTableSeeder::class);
-        $this->call(CollectorsTableSeeder::class);
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
-        App\Models\Dsc\Publication::fake()->delete();
-        App\Models\Dsc\TitlePage::fake()->delete();
-        App\Models\Dsc\Section::fake()->delete();
-        App\Models\Dsc\WorkOfArt::fake()->delete();
-        App\Models\Dsc\Footnote::fake()->delete();
-        App\Models\Dsc\Figure::fake()->delete();
-        App\Models\Dsc\Collector::fake()->delete();
+        Publication::fake()->delete();
+        Section::fake()->delete();
 
     }
 

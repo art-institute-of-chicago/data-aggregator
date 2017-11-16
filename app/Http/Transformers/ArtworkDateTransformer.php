@@ -24,4 +24,5 @@ class ArtworkDateTransformer extends CollectionsTransformer
             'is_preferred' => (bool) $item->preferred,
         ];
     }
+
 }

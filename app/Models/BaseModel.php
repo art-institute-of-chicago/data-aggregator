@@ -20,37 +20,11 @@ class BaseModel extends Model
 
 
     /**
-     * A Faker instance for the model.
-     *
-     * @TODO This sorta belongs in Fillable, but it should likely be a Provider, not tied to model(s).
-     *
-     * @var \Faker\Generator
-     */
-    public $faker;
-
-
-    /**
      * The smallest number that fake IDs start at for this model
      *
      * @var integer
      */
     protected $fakeIdsStartAt = 999000;
-
-
-    /**
-     * Create a new model instance. Also instantiates a $faker class.
-     *
-     * @param  array  $attributes
-     * @return void
-     */
-    function __construct($attributes = array())
-    {
-        parent::__construct($attributes);
-
-        // We are putting the faker definition here to avoid __construct conflicts
-        $this->faker = \Faker\Factory::create();
-
-    }
 
 
     /**
@@ -230,6 +204,34 @@ class BaseModel extends Model
         }
 
         return $ret;
+
+    }
+
+    /**
+     * Generate a unique ID based on a combination of two numbers.
+     * @param  int   $x
+     * @param  int   $y
+     * @return int
+     */
+    public function cantorPair($x, $y)
+    {
+
+        return (($x + $y) * ($x + $y + 1)) / 2 + $y;
+
+    }
+
+    /**
+     * Get the two numbers that a cantor ID was based on
+     * @param  int   $z
+     * @return array
+     */
+    public function reverseCantorPair($z)
+    {
+
+        $t = floor((-1 + sqrt(1 + 8 * $z))/2);
+        $x = $t * ($t + 3) / 2 - $z;
+        $y = $z - $t * ($t + 1) / 2;
+        return [$x, $y];
 
     }
 

@@ -46,25 +46,10 @@ class Exhibition extends CollectionsModel
 
     }
 
-    public function seedArtworks()
+    public function sites()
     {
 
-        $ids = \App\Models\Collections\Artwork::fake()->pluck('citi_id')->random(rand(2,4))->all();
-
-        $this->artworks()->sync($ids, false);
-
-        return $this;
-
-    }
-
-    public function seedVenues()
-    {
-
-        $ids = \App\Models\Collections\CorporateBody::fake()->pluck('citi_id')->random(rand(1,3))->all();
-
-        $this->venues()->sync($ids, false);
-
-        return $this;
+        return $this->belongsToMany('App\Models\StaticArchive\Site');
 
     }
 
@@ -125,6 +110,11 @@ class Exhibition extends CollectionsModel
                 "doc" => "Unique identifiers of the venue agent records representing who hosted the exhibition",
                 "type" => "array",
                 "value" => function() { return $this->venues->pluck('citi_id')->all(); },
+            ],
+            'site_ids' => [
+                "doc" => "Unique identifiers of the microsites this exhibition is a part of",
+                "type" => "array",
+                "value" => function() { return $this->sites->pluck('site_id')->all(); },
             ],
         ];
 
@@ -207,7 +197,7 @@ class Exhibition extends CollectionsModel
     public function exampleId()
     {
 
-        return "903287";
+        return "1302";
 
     }
 

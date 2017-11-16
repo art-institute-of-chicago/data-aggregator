@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         Commands\ImportEventsFull::class,
         Commands\ImportEvents::class,
         Commands\ImportMobile::class,
+        Commands\ImportCatalogues::class,
         Commands\ScoutImportOne::class,
         Commands\ScoutImportAll::class,
         Commands\ScoutFlushAll::class,
@@ -31,6 +32,9 @@ class Kernel extends ConsoleKernel
         Commands\CreateEndpointDocs::class,
         Commands\CreateFieldsDocs::class,
         Commands\CleanSeed::class,
+        Commands\ImportLegacyEvents::class,
+        Commands\ImportSites::class,
+        Commands\ImportSetArtists::class,
     ];
 
     /**

@@ -1,16 +1,13 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Mobile\Artwork;
 
-class MobileArtworksTableSeeder extends Seeder
+class MobileArtworksTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
-        factory(App\Models\Mobile\Artwork::class, 25)->create();
+        factory( Artwork::class, 25 )->create();
     }
+
 }

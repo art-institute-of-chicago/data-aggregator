@@ -487,13 +487,6 @@ trait Documentable
 
         }
 
-        if ($baseName == "WorkOfArt")
-        {
-
-            return 'works-of-art';
-
-        }
-
         return kebab_case( str_plural( $baseName ) );
 
     }

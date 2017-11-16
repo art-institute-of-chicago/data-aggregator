@@ -7,6 +7,6 @@ class EventsController extends ApiController
 
     protected $model = \App\Models\Membership\Event::class;
 
-    protected $transformer = \App\Http\Transformers\EventTransformer::class;
+    protected $transformer = \App\Http\Transformers\ApiTransformer::class;
 
 }

@@ -1,22 +1,44 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\ArtworkDate;
 
-class ArtworkDatesTableSeeder extends Seeder
+class ArtworkDatesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        $artworks = App\Models\Collections\Artwork::fake()->get();
+        $artworks = Artwork::fake()->get();
 
         foreach ($artworks as $artwork) {
 
-            $artwork->seedDates();
+            $this->seedDates( $artwork );
+
+        }
+
+    }
+
+    public function seedDates( $artwork )
+    {
+
+        $hasPreferred = false;
+
+        // There's an exclusive, many-to-one relationship b/w dates and artworks
+        // A date cannot be (1) free-floating, or (2) assoc. w/ more than one artwork
+
+        for ($i = 0; $i < rand(2,4); $i++) {
+
+            $preferred = $hasPreferred ? false : app('Faker')->boolean;
+
+            // TODO: Determine if this runs the risk of "duplicating" dates
+            $artwork->dates()->create([
+                'date' => app('Faker')->dateTimeAD,
+                'qualifier' => ucfirst( app('Faker')->word ) . ' date',
+                'preferred' => $preferred,
+            ]);
+
+            if ($preferred || $hasPreferred) $hasPreferred = true;
 
         }
 

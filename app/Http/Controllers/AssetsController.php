@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Response;
 
-abstract class AssetsController extends ApiController
+class AssetsController extends ApiController
 {
+
+    protected $model = \App\Models\Collections\Asset::class;
+
+    protected $transformer = \App\Http\Transformers\AssetTransformer::class;
 
     protected function validateId( $id )
     {

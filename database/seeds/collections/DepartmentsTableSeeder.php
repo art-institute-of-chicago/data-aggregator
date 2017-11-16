@@ -1,16 +1,13 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Department;
 
-class DepartmentsTableSeeder extends Seeder
+class DepartmentsTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
-        factory(App\Models\Collections\Department::class, 25)->create();
+        factory( Department::class, 25 )->create();
     }
+
 }

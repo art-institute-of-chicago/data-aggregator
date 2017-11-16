@@ -30,6 +30,13 @@ class Agent extends CollectionsModel
 
     }
 
+    public function sites()
+    {
+
+        return $this->belongsToMany('App\Models\StaticArchive\Site', 'agent_site', 'agent_citi_id');
+
+    }
+
     public function getFillFieldsFrom($source)
     {
 
@@ -76,6 +83,11 @@ class Agent extends CollectionsModel
                 "type" => "boolean",
                 "value" => function() { return (bool) $this->licensing_restricted; },
             ],
+            'is_artist' => [
+                "doc" => "Whether the agent is an artist. Soley based on whether the agent is listed as an artist for an artwork record.",
+                "type" => "boolean",
+                "value" => function() { return (bool) $this->is_artist; },
+            ],
             'agent_type' => [
                 "doc" => "Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.",
                 "type" => "string",
@@ -85,6 +97,11 @@ class Agent extends CollectionsModel
                 "doc" => "Unique identifier of the type of agent",
                 "type" => "number",
                 "value" => function() { return $this->agent_type_citi_id; },
+            ],
+            'site_ids' => [
+                "doc" => "Unique identifiers of the microsites this exhibition is a part of",
+                "type" => "array",
+                "value" => function() { return $this->sites->pluck('site_id')->all(); },
             ],
         ];
 
@@ -114,6 +131,9 @@ class Agent extends CollectionsModel
                     'type' => 'text',
                 ],
                 'is_licensing_restricted' => [
+                    'type' => 'boolean',
+                ],
+                'is_artist' => [
                     'type' => 'boolean',
                 ],
                 'agent_type' => [

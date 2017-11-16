@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Models\Collections\AgentType;
 use App\Models\Collections\Agent;
 use App\Models\Collections\Department;
@@ -14,22 +12,13 @@ use App\Models\Collections\ArtworkTerm;
 use App\Models\Collections\ArtworkDate;
 use App\Models\Collections\ArtworkCatalogue;
 use App\Models\Collections\Theme;
-use App\Models\Collections\Link;
-use App\Models\Collections\Sound;
-use App\Models\Collections\Video;
-use App\Models\Collections\Text;
-use App\Models\Collections\Image;
+use App\Models\Collections\Asset;
 use App\Models\Collections\Exhibition;
 
-class CollectionsDatabaseSeeder extends Seeder
+class CollectionsDatabaseSeeder extends AbstractSeeder
 {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    protected function seed()
     {
 
         $this->call(AgentTypesTableSeeder::class);
@@ -49,29 +38,17 @@ class CollectionsDatabaseSeeder extends Seeder
         $this->call(ArtworkCataloguesTableSeeder::class);
         $this->call(ArtworkArtworksTableSeeder::class);
         $this->call(ThemesTableSeeder::class);
-        $this->call(LinksTableSeeder::class);
-        $this->call(LinkCategoriesTableSeeder::class);
-        $this->call(SoundsTableSeeder::class);
-        $this->call(SoundCategoriesTableSeeder::class);
-        $this->call(VideosTableSeeder::class);
-        $this->call(VideoCategoriesTableSeeder::class);
-        $this->call(TextsTableSeeder::class);
-        $this->call(TextCategoriesTableSeeder::class);
-        $this->call(ImagesTableSeeder::class);
-        $this->call(ImageCategoriesTableSeeder::class);
+        $this->call(AssetsTableSeeder::class);
+        $this->call(AssetCategoriesTableSeeder::class);
         $this->call(ExhibitionsTableSeeder::class);
 
     }
 
-    public static function clean()
+    protected static function unseed()
     {
 
         Exhibition::fake()->delete();
-        Image::fake()->delete();
-        Text::fake()->delete();
-        Video::fake()->delete();
-        Sound::fake()->delete();
-        Link::fake()->delete();
+        Asset::fake()->delete();
         Theme::fake()->delete();
         ArtworkCatalogue::fake()->delete();
         ArtworkDate::fake()->delete();

@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 class ArtistsController extends AgentsController
 {
 
-    protected $agentType = 'Artist';
-
     // artworks/{id}/artists
     public function forArtwork(Request $request, $id) {
 
@@ -18,6 +16,20 @@ class ArtistsController extends AgentsController
             return Artwork::findOrFail($id)->artists;
 
         });
+
+    }
+
+    protected function paginate($limit )
+    {
+
+        return ($this->model)::where('is_artist', '=', TRUE)->paginate($limit);
+
+    }
+
+    protected function find( $ids )
+    {
+
+        return ($this->model)::where('is_artist', '=', TRUE)->find($ids);
 
     }
 

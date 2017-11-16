@@ -78,6 +78,7 @@ $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator 
             'birth_place' => $faker->country,
             'death_place' => $faker->country,
             'licensing_restricted' => $faker->boolean,
+            'is_artist' => $faker->boolean,
             'agent_type_citi_id' => $faker->randomElement(App\Models\Collections\AgentType::fake()->pluck('citi_id')->all()),
         ],
         dates($faker, true)
@@ -117,11 +118,11 @@ $factory->define(App\Models\Collections\Category::class, function (Faker\Generat
 
 $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generator $faker) {
     $date_end = $faker->year;
-    $artist = App\Models\Collections\Agent::where('agent_type_citi_id', App\Models\Collections\AgentType::where('title', 'Individual')->first()->citi_id)->get()->random();
+    $artist = App\Models\Collections\Agent::where('agent_type_citi_id', App\Models\Collections\AgentType::where('title', 'Individual')->first()->citi_id)->where('is_artist', '=', TRUE)->get()->random();
     return array_merge(
         idsAndTitle($faker, ucwords($faker->words(4, true)), true, 6),
         [
-            'main_id' => $faker->randomFloat(3, 1900, 2018),
+            'main_id' => $faker->accession,
             'date_display' => '' .$date_end,
             'date_start' => $faker->year,
             'date_end' => $date_end,
@@ -214,84 +215,6 @@ $factory->define(App\Models\Collections\Theme::class, function (Faker\Generator 
 });
 
 
-$factory->define(App\Models\Collections\Link::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true))),
-        [
-            'description' => $faker->paragraph(3),
-            'content' => $faker->url,
-            'published' => $faker->boolean,
-            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::fake()->pluck('citi_id')->all()),
-        ],
-        dates($faker)
-    );
-});
-
-
-$factory->define(App\Models\Collections\Sound::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true))),
-        [
-            'description' => $faker->paragraph(3),
-            'content' => $faker->url,
-            'published' => $faker->boolean,
-            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::fake()->pluck('citi_id')->all()),
-        ],
-        dates($faker)
-    );
-});
-
-
-$factory->define(App\Models\Collections\Video::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true))),
-        [
-            'description' => $faker->paragraph(3),
-            'content' => $faker->url,
-            'published' => $faker->boolean,
-            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::fake()->pluck('citi_id')->all()),
-        ],
-        dates($faker)
-    );
-});
-
-
-$factory->define(App\Models\Collections\Text::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true))),
-        [
-            'description' => $faker->paragraph(3),
-            'content' => $faker->url,
-            'published' => $faker->boolean,
-            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::fake()->pluck('citi_id')->all()),
-        ],
-        dates($faker)
-    );
-});
-
-
-$factory->define(App\Models\Collections\Image::class, function (Faker\Generator $faker) {
-    static $agents;
-
-    if (!$agents)
-    {
-
-        $agents = App\Models\Collections\Artist::fake()->pluck('citi_id')->all();
-
-    }
-    $lake_id = '99999999-9999-9999-9999-999999' .$faker->randomNumber(6);
-    return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true))),
-        [
-            'description' => $faker->paragraph(3),
-            'type' => 'http://definitions.artic.edu/doctypes/' .$faker->randomElement(['Imaging', 'CuratorialStillImage']),
-            'agent_citi_id' => $faker->randomElement($agents),
-        ],
-        dates($faker)
-    );
-});
-
-
 $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Generator $faker) {
     $lake_id = $faker->uuid;
     return array_merge(
@@ -309,3 +232,71 @@ $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Gener
 });
 
 
+$factory->define(App\Models\Collections\Asset::class, function (Faker\Generator $faker) {
+    return array_merge(
+        idsAndTitle($faker, ucwords($faker->words(3, true))),
+        [
+            'content' => $faker->url,
+            'published' => $faker->boolean,
+            'description' => $faker->paragraph(3),
+            'agent_citi_id' => $faker->randomElement(App\Models\Collections\Artist::fake()->pluck('citi_id')->all()),
+        ],
+        dates($faker)
+    );
+});
+
+// TODO: Laravel 5.5 allows array as 3rd argument, Laravel 5.4 requires callable
+// https://laravel.com/docs/5.4/database-testing#factory-states
+// https://laravel.com/docs/5.5/database-testing#factory-states
+
+$factory->state(App\Models\Collections\Asset::class, 'image', function (Faker\Generator $faker) {
+    return [
+        'type' => 'image',
+    ];
+});
+
+$factory->state(App\Models\Collections\Asset::class, 'link', function (Faker\Generator $faker) {
+    return [
+        'type' => 'link',
+    ];
+});
+
+$factory->state(App\Models\Collections\Asset::class, 'sound', function (Faker\Generator $faker) {
+    return [
+        'type' => 'sound',
+    ];
+});
+
+$factory->state(App\Models\Collections\Asset::class, 'text', function (Faker\Generator $faker) {
+    return [
+        'type' => 'text',
+    ];
+});
+
+$factory->state(App\Models\Collections\Asset::class, 'video', function (Faker\Generator $faker) {
+    return [
+        'type' => 'video',
+    ];
+});
+
+// Soft-links to the Asset factory + state:
+
+$factory->define(App\Models\Collections\Image::class, function (Faker\Generator $faker) {
+    return factory( App\Models\Collections\Asset::class )->states('image')->raw();
+});
+
+$factory->define(App\Models\Collections\Link::class, function (Faker\Generator $faker) {
+    return factory( App\Models\Collections\Asset::class )->states('link')->raw();
+});
+
+$factory->define(App\Models\Collections\Sound::class, function (Faker\Generator $faker) {
+    return factory( App\Models\Collections\Asset::class )->states('sound')->raw();
+});
+
+$factory->define(App\Models\Collections\Text::class, function (Faker\Generator $faker) {
+    return factory( App\Models\Collections\Asset::class )->states('text')->raw();
+});
+
+$factory->define(App\Models\Collections\Video::class, function (Faker\Generator $faker) {
+    return factory( App\Models\Collections\Asset::class )->states('video')->raw();
+});

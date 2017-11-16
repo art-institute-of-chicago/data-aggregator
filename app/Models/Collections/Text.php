@@ -8,6 +8,10 @@ namespace App\Models\Collections;
 class Text extends Asset
 {
 
+    protected $table = 'assets';
+
+    protected static $assetType = 'text';
+
     /**
      * Get an example ID for documentation generation
      *

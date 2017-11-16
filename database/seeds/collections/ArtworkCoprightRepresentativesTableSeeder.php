@@ -1,24 +1,15 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Artwork;
+use App\Models\Collections\CopyrightRepresentative;
 
-class ArtworkCopyrightRepresentativesTableSeeder extends Seeder
+class ArtworkCopyrightRepresentativesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        $artworks = App\Models\Collections\Artwork::fake()->get();
-
-        foreach ($artworks as $artwork) {
-
-            $artwork->seedCopyrightRepresentatives();
-
-        }
+        $this->seedRelation( Artwork::class, CopyrightRepresentative::class, 'copyrightRepresentatives' );
 
     }
 

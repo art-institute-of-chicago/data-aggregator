@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMembershipTables extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -14,9 +15,11 @@ class CreateMembershipTables extends Migration
     public function up()
     {
 
+        $this->down();
+
         Schema::create('events', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->integer('type_id')->nullable();
+            $table->string('type')->nullable();
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
             $table->integer('resource_id')->nullable();
@@ -25,12 +28,20 @@ class CreateMembershipTables extends Migration
             $table->boolean('is_private_event')->nullable();
             $table->boolean('is_admission_required')->nullable();
             $table->string('image_url')->nullable();
-            $table->text('description')->nullable(); // Description
+            $table->text('description')->nullable();
+            $table->text('short_description')->nullable();
             $table->integer('available')->nullable();
             $table->integer('total_capacity')->nullable();
             $table->boolean('is_ticketed')->nullable();
-
             $table = $this->_addDates($table);
+        });
+
+        Schema::create('event_exhibition', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('event_membership_id')->unsigned()->index();
+            $table->foreign('event_membership_id')->references('membership_id')->on('events')->onDelete('cascade');
+            $table->integer('exhibition_citi_id')->unsigned()->index();
+            $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
         });
 
     }
@@ -60,7 +71,9 @@ class CreateMembershipTables extends Migration
     public function down()
     {
 
+        Schema::dropIfExists('event_exhibition');
         Schema::dropIfExists('events');
 
     }
+
 }

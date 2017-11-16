@@ -7,6 +7,6 @@ class PublicationsController extends ApiController
 
     protected $model = \App\Models\Dsc\Publication::class;
 
-    protected $transformer = \App\Http\Transformers\PublicationTransformer::class;
+    protected $transformer = \App\Http\Transformers\DscTransformer::class;
 
 }

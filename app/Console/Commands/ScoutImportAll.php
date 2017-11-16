@@ -21,9 +21,10 @@ class ScoutImportAll extends Command
         $this->call("scout:import", ['model' => \App\Models\Collections\Gallery::class]);
         $this->call("scout:import", ['model' => \App\Models\Collections\Artwork::class]);
         $this->call("scout:import", ['model' => \App\Models\Collections\Link::class]);
-        $this->call("scout:import", ['model' => \App\Models\Collections\Sound::class]);
         $this->call("scout:import", ['model' => \App\Models\Collections\Video::class]);
         $this->call("scout:import", ['model' => \App\Models\Collections\Text::class]);
+        $this->call("scout:import", ['model' => \App\Models\Collections\Sound::class]);
+        $this->call("scout:import", ['model' => \App\Models\Collections\Image::class]);
         $this->call("scout:import", ['model' => \App\Models\Collections\Exhibition::class]);
 
         $this->call("scout:import", ['model' => \App\Models\Shop\Category::class]);
@@ -36,8 +37,6 @@ class ScoutImportAll extends Command
 
         $this->call("scout:import", ['model' => \App\Models\Dsc\Publication::class]);
         $this->call("scout:import", ['model' => \App\Models\Dsc\Section::class]);
-        $this->call("scout:import", ['model' => \App\Models\Dsc\WorkOfArt::class]);
-        $this->call("scout:import", ['model' => \App\Models\Dsc\Collector::class]);
 
         $this->call("scout:import", ['model' => \App\Models\StaticArchive\Site::class]);
 

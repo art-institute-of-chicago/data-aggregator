@@ -6,8 +6,6 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use Faker\Factory as Faker;
-
 use Tests\Helpers\Factory;
 
 use App\Models\Collections\AgentType;
@@ -17,8 +15,6 @@ abstract class ApiTestCase extends TestCase
 {
 
     use Factory;
-
-    protected $faker;
 
     /**
      * Reference to the classname of the model being tested.
@@ -50,7 +46,7 @@ abstract class ApiTestCase extends TestCase
      */
     protected function getRandomId()
     {
-        return $this->faker->unique()->randomNumber(5);
+        return app('Faker')->unique()->randomNumber(5);
     }
 
 
@@ -60,8 +56,6 @@ abstract class ApiTestCase extends TestCase
         parent::setUp();
 
         ini_set('memory_limit', '-1');
-
-        $this->faker = Faker::create();
 
         config(['elasticsearch.defaultConnection' => 'testing']);
 
@@ -75,7 +69,7 @@ abstract class ApiTestCase extends TestCase
             if (get_class($this) != 'Tests\Unit\AgentTest')
             {
 
-                $this->times(1)->make(Agent::class, ['agent_type_citi_id' => $agentTypeId]);
+                $this->times(1)->make(Agent::class, ['agent_type_citi_id' => $agentTypeId, 'is_artist' => TRUE]);
 
             }
 

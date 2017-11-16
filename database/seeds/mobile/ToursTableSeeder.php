@@ -1,35 +1,33 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Mobile\Tour;
+use App\Models\Mobile\TourStop;
 
-class ToursTableSeeder extends Seeder
+class ToursTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        factory(App\Models\Mobile\Tour::class, 25)->create();
+        factory( Tour::class, 25 )->create();
 
-        $this->_addStopsToTours();
+        $this->addStopsToTours();
+
+        // TODO: Add ability to seedRelation, while ensuring no nulls are left over?
+        // $this->seedRelation( Tour::class, TourStop::class, 'stops' );
 
     }
 
-    private function _addStopsToTours()
+    private function addStopsToTours()
     {
 
-        $tours = App\Models\Mobile\Tour::fake()->get();
+        $tours = Tour::fake()->get();
 
         foreach ($tours as $tour) {
 
-            for ($i = 0; $i < rand(2,4); $i++) {
-
-                factory(App\Models\Mobile\TourStop::class)->create(['tour_mobile_id' => $tour->mobile_id]);
-
-            }
+            factory( TourStop::class, rand(2,4) )->create([
+                'tour_mobile_id' => $tour->getKey()
+            ]);
 
         }
 

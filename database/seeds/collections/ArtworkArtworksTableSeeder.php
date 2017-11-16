@@ -1,33 +1,14 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\Artwork;
 
-class ArtworkArtworksTableSeeder extends Seeder
+class ArtworkArtworksTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
 
-        $artworks = App\Models\Collections\Artwork::fake();
-        $artworkIds = App\Models\Collections\Artwork::fake()->pluck('citi_id')->all();
-
-        $artworks->each(function($artwork, $key) use ($artworkIds) {
-
-            for ($i = 0; $i < rand(2,4); $i++) {
-
-                $artworkId = $artworkIds[array_rand($artworkIds)];
-
-                if ($artworkId != $artwork->getKey()) {
-                    $artwork->parts()->attach($artworkId);
-                }
-
-            }
-
-        });
+        $this->seedRelation( Artwork::class, Artwork::class, 'parts' );
 
     }
 

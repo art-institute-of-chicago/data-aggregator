@@ -15,6 +15,26 @@ class Publication extends DscModel
     use ElasticSearchable;
     use Documentable;
 
+    protected $hasSourceDates = false;
+
+    public function sections()
+    {
+
+        return $this->hasMany('App\Models\Dsc\Section');
+
+    }
+
+    public function getFillFieldsFrom($source)
+    {
+
+        return [
+            'web_url' => $source->web_url,
+            'site' => $source->site,
+            'alias' => $source->alias,
+            'title' => $source->title,
+        ];
+
+    }
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
@@ -23,10 +43,30 @@ class Publication extends DscModel
     {
 
         return [
-            'link' => [
+            'web_url' => [
                 "doc" => "URL to the publication",
                 "type" => "string",
-                "value" => function() { return $this->link; },
+                "value" => function() { return $this->web_url; },
+            ],
+            'site' => [
+                "doc" => "Which site in our multi-site Drupal installation owns this publication",
+                "type" => "string",
+                "value" => function() { return $this->site; },
+            ],
+            'alias' => [
+                "doc" => "Used by Drupal in lieu of the id to generate pretty paths",
+                "type" => "string",
+                "value" => function() { return $this->alias; },
+            ],
+            'title' => [
+                "doc" => "Official title of the publication",
+                "type" => "string",
+                "value" => function() { return $this->title; },
+            ],
+            'section_ids' => [
+                "doc" => "Unique identifiers of the sections of this publication",
+                "type" => "array",
+                "value" => function() { return $this->sections->pluck('dsc_id'); },
             ],
         ];
 
@@ -43,8 +83,17 @@ class Publication extends DscModel
 
         return
             [
-                'link' => [
+                'web_url' => [
                     'type' => 'keyword',
+                ],
+                'site' => [
+                    'type' => 'keyword',
+                ],
+                'alias' => [
+                    'type' => 'keyword',
+                ],
+                'title' => [
+                    'type' => 'text',
                 ],
             ];
 
@@ -58,7 +107,7 @@ class Publication extends DscModel
     public function exampleId()
     {
 
-        return "6566";
+        return "445";
 
     }
 

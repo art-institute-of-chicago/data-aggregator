@@ -82,7 +82,7 @@ class CreateEndpointDocs extends Command
 
         $doc .= "# Mobile\n\n";
         $doc .= \App\Models\Mobile\Tour::instance()->docEndpoints($this->appUrl);
-        //$doc .= \App\Models\Mobile\TourStop::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Mobile\TourStop::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Mobile\Sound::instance()->docEndpoints($this->appUrl);
 
         $doc .= "# Digital Scholarly Catalogs\n\n";

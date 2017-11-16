@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMobileTables extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,6 +14,8 @@ class CreateMobileTables extends Migration
      */
     public function up()
     {
+
+        $this->down();
 
         Schema::create('mobile_artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
@@ -87,15 +90,12 @@ class CreateMobileTables extends Migration
     public function down()
     {
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
         Schema::dropIfExists('tour_stops');
         Schema::dropIfExists('tours');
         Schema::dropIfExists('mobile_artwork_mobile_sound');
         Schema::dropIfExists('mobile_sounds');
         Schema::dropIfExists('mobile_artworks');
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
     }
+
 }

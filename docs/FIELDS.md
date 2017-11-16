@@ -49,8 +49,8 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `preferred_image_iiif_url` *string* - IIIF URL of the preferred image to use to represent this work
 * `image_ids` *number* - Unique identifiers of all the images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.
 * `image_iiif_urls` *array* - IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.
-* `publication_ids` *number* - Unique identifiers of the Digital Scholarly Catalogs this work is included in
 * `tour_ids` *array* - Unique identifiers of the tours this work is included in
+* `site_ids` *array* - Unique identifiers of the microsites this exhibition is a part of
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
@@ -70,6 +70,7 @@ Represents a person or organization. In the API, this includes artists, copyrigh
 * `is_licensing_restricted` *boolean* - Whether the use of the images of works by this artist are restricted by licensing
 * `agent_type` *string* - Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.
 * `agent_type_id` *number* - Unique identifier of the type of agent
+* `site_ids` *array* - Unique identifiers of the microsites this exhibition is a part of
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
@@ -172,6 +173,7 @@ An organized presentation and display of a selection of artworks. For a descript
 * `is_active` *boolean* - Whether the exhibition is active
 * `artwork_ids` *array* - Unique identifiers of the artworks that were part of the exhibition
 * `venue_ids` *array* - Unique identifiers of the venue agent records representing who hosted the exhibition
+* `site_ids` *array* - Unique identifiers of the microsites this exhibition is a part of
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
@@ -286,7 +288,7 @@ An item available for purchase in the museum shop. For a description of all the 
 * `image` *url* - URL of an image for this product
 * `description` *string* - Explanation of what this product is
 * `is_on_sale` *boolean* - Whether this product us on sale
-* `priority` *number* - We are unclear as to the purpose of this numeric field
+* `priority` *number* - Used for sorting in the shop website, specifically in the "Featured" sort mode, which is the default. This sort mode is two-part: first, items are sorted by their `priority` ascending; then as a secondary step, items are sorted by the number of items sold, descending.
 * `price` *number* - Number indicating how much the product costs the customer
 * `review_count` *number* - Number indicating how many reviews this product has
 * `item_sold` *number* - Number indicating how many items of this product have been sold
@@ -305,7 +307,10 @@ An occurrence of a program at the museum. For a description of all the endpoints
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `type_id` *number* - Number indicating the type of event
+* `description` *string* - Long description of the event
+* `short_description` *string* - Short description of the event
+* `image` *url* - URL to an image representing this event
+* `type` *string* - The name of the type of event
 * `start_at` *ISO 8601 date and time* - Date and time the event begins
 * `end_at` *ISO 8601 date and time* - Date and time the event ends
 * `resource_id` *number* - Unique identifier of the resource associated with this event, often the venue in which it takes place
@@ -313,9 +318,10 @@ An occurrence of a program at the museum. For a description of all the endpoints
 * `is_after_hours` *boolean* - Whether the event takes place after museum hours
 * `is_private_event` *boolean* - Whether the event is open to public
 * `is_admission_required` *boolean* - Whether admission is required in order to attend the event
+* `is_ticketed` *boolean* - Whether a ticket is required to attend the event.
 * `available` *number* - Number indicating how many tickets are available for the event
 * `total_capacity` *number* - Number indicating the total number of tickets that can be sold for the event
-* `is_ticketed` *boolean* - Whether a ticket is required to attend the event.
+* `exhibition_ids` *array* - Unique identifiers of the exhibitions associated with this work
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 
@@ -399,7 +405,6 @@ An audio tour stops on a tour. For a description of all the endpoints available 
 * `mobile_sound` *url* - URL to the audio file for this tour stop
 * `mobile_sound_id` *number* - Unique identifier of the audio file for this tour stop
 * `weight` *number* - Number representing this tour stop's sort order
-* `description` *string* - Explanation of what this tour stop is
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 
@@ -425,8 +430,11 @@ The audio file for a stops on a tour. For a description of all the endpoints ava
 Represents an overall digital publication. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#publications).
 
 * `id` - Unique identifier of this resource. Taken from the source system.
-* `title` *string* - Name of this resource
-* `link` *string* - URL to the publication
+* `title` *string* - Official title of the publication
+* `web_url` *string* - URL to the publication
+* `site` *string* - Which site in our multi-site Drupal installation owns this publication
+* `alias` *string* - Used by Drupal in lieu of the id to generate pretty paths
+* `section_ids` *array* - Unique identifiers of the sections of this publication
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 
@@ -438,11 +446,16 @@ Represents a chapter of publication. For a description of all the endpoints avai
 
 * `id` - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `content` *string* - The text of this section
+* `web_url` *string* - URL to the section
+* `accession` *string* - An accession number parsed from the title or tombstone
+* `revision` *number* - Version identifier as provided by Drupal
+* `source_id` *number* - Drupal node id, unique only within the site of this publication
 * `weight` *number* - Number representing this section's sort order
-* `depth` *number* - Number representing how deep in the navigation hierarchy this section resides
+* `parent_id` *number* - Uniquer identifier of the parent section
 * `publication` *string* - Name of the publication this section belongs to
 * `publication_id` *number* - Unique identifier of the publication this section belongs to
+* `artwork_id` *number* - Unique identifier of the artwork with which this section is associated
+* `content` *string* - Content of this section in plaintext
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 
@@ -459,11 +472,12 @@ An archived static microsite. For a description of all the endpoints available f
 * `description` *string* - Explanation of what this site is
 * `link` *url* - URL to this site
 * `exhibition` *string* - The name of the exhibition this site is associated with
-* `exhibition_id` *number* - Unique identifier of the exhibition this site is associated with
+* `exhibition_ids` *array* - Unique identifier of the exhibitions this site is associated with
+* `artist_ids` *array* - Unique identifiers of the artists this site is associated with
 * `artwork_ids` *array* - Unique identifiers of the artworks this site is associated with
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 
 
 
-> Generated by `php artisan docs:fields` on 2017-10-30 10:48:15
+> Generated by `php artisan docs:fields` on 2017-11-15 11:14:00

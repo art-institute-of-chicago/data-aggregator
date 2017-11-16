@@ -1,16 +1,12 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Collections\AgentType;
 
-class AgentTypesTableSeeder extends Seeder
+class AgentTypesTableSeeder extends AbstractSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+
+    protected function seed()
     {
-        factory(App\Models\Collections\AgentType::class, 10)->create();
+        factory( AgentType::class, 10 )->create();
     }
 }

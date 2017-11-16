@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCollectionsTables extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,6 +14,8 @@ class CreateCollectionsTables extends Migration
      */
     public function up()
     {
+
+        $this->down();
 
         Schema::create('agent_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
@@ -26,6 +29,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('death_date')->nullable();
             $table->string('death_place')->nullable();
             $table->boolean('licensing_restricted')->nullable();
+            $table->boolean('is_artist')->nullable();
             $table->integer('agent_type_citi_id')->nullable()->unsigned()->index();
             $table->foreign('agent_type_citi_id')->references('citi_id')->on('agent_types');
             $table = $this->_addDates($table);
@@ -171,83 +175,27 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('links', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table, false);
-            $table = $this->_addInterpretiveResourceFileds($table);
-            $table = $this->_addDates($table, false);
-        });
-
-        Schema::create('category_link', function(Blueprint $table) {
-            $table->increments('id');
-            $table->uuid('link_lake_guid');
-            $table->foreign('link_lake_guid')->references('lake_guid')->on('links')->onDelete('cascade');
-            $table->integer('category_citi_id')->unsigned()->index();
-            $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
-        });
-
-        Schema::create('sounds', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table, false);
-            $table = $this->_addInterpretiveResourceFileds($table);
-            $table = $this->_addDates($table, false);
-        });
-
-        Schema::create('category_sound', function(Blueprint $table) {
-            $table->increments('id');
-            $table->uuid('sound_lake_guid');
-            $table->foreign('sound_lake_guid')->references('lake_guid')->on('sounds')->onDelete('cascade');
-            $table->integer('category_citi_id')->unsigned()->index();
-            $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
-        });
-
-        Schema::create('videos', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table, false);
-            $table = $this->_addInterpretiveResourceFileds($table);
-            $table = $this->_addDates($table, false);
-        });
-
-        Schema::create('category_video', function(Blueprint $table) {
-            $table->increments('id');
-            $table->uuid('video_lake_guid');
-            $table->foreign('video_lake_guid')->references('lake_guid')->on('videos')->onDelete('cascade');
-            $table->integer('category_citi_id')->unsigned()->index();
-            $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
-        });
-
-        Schema::create('texts', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table, false);
-            $table = $this->_addInterpretiveResourceFileds($table);
-            $table = $this->_addDates($table, false);
-        });
-
-        Schema::create('category_text', function(Blueprint $table) {
-            $table->increments('id');
-            $table->uuid('text_lake_guid');
-            $table->foreign('text_lake_guid')->references('lake_guid')->on('texts')->onDelete('cascade');
-            $table->integer('category_citi_id')->unsigned()->index();
-            $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
-        });
-
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('assets', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false, 'text');
             $table = $this->_addInterpretiveResourceFileds($table);
-            $table->string('type')->nullable();
+            $table->string('type')->nullable()->index();
             $table = $this->_addDates($table, false);
         });
 
-        Schema::create('category_image', function(Blueprint $table) {
+        Schema::create('asset_category', function(Blueprint $table) {
             $table->increments('id');
-            $table->uuid('image_lake_guid');
-            $table->foreign('image_lake_guid')->references('lake_guid')->on('images')->onDelete('cascade');
+            $table->uuid('asset_lake_guid');
+            $table->foreign('asset_lake_guid')->references('lake_guid')->on('assets')->onDelete('cascade');
             $table->integer('category_citi_id')->unsigned()->index();
             $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
-        Schema::create('artwork_image', function(Blueprint $table) {
+        Schema::create('artwork_asset', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->unsigned()->index();
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
-            $table->uuid('image_lake_guid');
-            $table->foreign('image_lake_guid')->references('lake_guid')->on('images')->onDelete('cascade');
+            $table->uuid('asset_lake_guid');
+            $table->foreign('asset_lake_guid')->references('lake_guid')->on('assets')->onDelete('cascade');
             $table->boolean('preferred')->nullable();
         });
 
@@ -346,17 +294,9 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('agent_exhibition');
         Schema::dropIfExists('artwork_exhibition');
         Schema::dropIfExists('exhibitions');
-        Schema::dropIfExists('artwork_image');
-        Schema::dropIfExists('category_image');
-        Schema::dropIfExists('images');
-        Schema::dropIfExists('category_text');
-        Schema::dropIfExists('texts');
-        Schema::dropIfExists('category_video');
-        Schema::dropIfExists('videos');
-        Schema::dropIfExists('category_sound');
-        Schema::dropIfExists('sounds');
-        Schema::dropIfExists('category_link');
-        Schema::dropIfExists('links');
+        Schema::dropIfExists('artwork_asset');
+        Schema::dropIfExists('asset_category');
+        Schema::dropIfExists('assets');
         Schema::dropIfExists('themes');
         Schema::dropIfExists('artwork_artwork');
         Schema::dropIfExists('artwork_committees');
