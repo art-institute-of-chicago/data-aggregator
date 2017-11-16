@@ -12,11 +12,7 @@ use App\Models\Collections\ArtworkTerm;
 use App\Models\Collections\ArtworkDate;
 use App\Models\Collections\ArtworkCatalogue;
 use App\Models\Collections\Theme;
-use App\Models\Collections\Link;
-use App\Models\Collections\Sound;
-use App\Models\Collections\Video;
-use App\Models\Collections\Text;
-use App\Models\Collections\Image;
+use App\Models\Collections\Asset;
 use App\Models\Collections\Exhibition;
 
 class CollectionsDatabaseSeeder extends AbstractSeeder
@@ -42,16 +38,8 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         $this->call(ArtworkCataloguesTableSeeder::class);
         $this->call(ArtworkArtworksTableSeeder::class);
         $this->call(ThemesTableSeeder::class);
-        $this->call(LinksTableSeeder::class);
-        $this->call(LinkCategoriesTableSeeder::class);
-        $this->call(SoundsTableSeeder::class);
-        $this->call(SoundCategoriesTableSeeder::class);
-        $this->call(VideosTableSeeder::class);
-        $this->call(VideoCategoriesTableSeeder::class);
-        $this->call(TextsTableSeeder::class);
-        $this->call(TextCategoriesTableSeeder::class);
-        $this->call(ImagesTableSeeder::class);
-        $this->call(ImageCategoriesTableSeeder::class);
+        $this->call(AssetsTableSeeder::class);
+        $this->call(AssetCategoriesTableSeeder::class);
         $this->call(ExhibitionsTableSeeder::class);
 
     }
@@ -60,11 +48,7 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
     {
 
         Exhibition::fake()->delete();
-        Image::fake()->delete();
-        Text::fake()->delete();
-        Video::fake()->delete();
-        Sound::fake()->delete();
-        Link::fake()->delete();
+        Asset::fake()->delete();
         Theme::fake()->delete();
         ArtworkCatalogue::fake()->delete();
         ArtworkDate::fake()->delete();

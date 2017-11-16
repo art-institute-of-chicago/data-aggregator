@@ -17,7 +17,51 @@ class Asset extends CollectionsModel
 
     protected $primaryKey = 'lake_guid';
     protected $keyType = 'string';
+
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
+
+    protected static $assetType = null;
+
+    /**
+     * Filters the `assets` table by `type` to match `$assetType` of the model.
+     * Uses the inline method for scope definition, rather than creating new classes.
+     *
+     * @link https://stackoverflow.com/questions/20701216/laravel-default-orderby
+     *
+     * {@inheritdoc}
+     */
+    protected static function boot() {
+
+        parent::boot();
+
+        // Allows querying all assets via the Asset class directly
+        if( !static::$assetType )
+        {
+            return;
+        }
+
+        static::addGlobalScope('assets', function ($builder) {
+            $builder->where('type', '=', static::$assetType );
+        });
+
+    }
+
+    /**
+     * Create a new instance of the given model. For Assets, we use this to set a default `type`.
+     *
+     * @param  array  $attributes
+     * @param  bool  $exists
+     * @return static
+     */
+    public function newInstance($attributes = [], $exists = false)
+    {
+
+        $model = parent::newInstance($attributes, $exists);
+        $model->type = static::$assetType;
+        return $model;
+
+    }
+
 
     // @TODO: It looks like the agent_citi_id field is missing...
     // public function artist()
@@ -30,7 +74,15 @@ class Asset extends CollectionsModel
     public function categories()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Category');
+        return $this->belongsToMany('App\Models\Collections\Category', 'asset_category', 'asset_lake_guid');
+
+    }
+
+    // Note: Not all Images are meant to be associated w/ Artworks
+    public function artworks()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_lake_guid');
 
     }
 
@@ -67,13 +119,12 @@ class Asset extends CollectionsModel
 
         return array_merge(
             [
-                // @TODO Make Images non-assets on CDS and DA? Currently, these transformations aren't defensive,
-                // i.e. if these fields are missing from the CDS response, this will throw an error.
 
-                // Potential defensive approach:
-                // 'description' => isset( $this->description ) ? $this->description : null,
-                // 'content' => isset( $this->content ) ? $this->content : null,
-
+                'type' => [
+                    "doc" => "Typs always takes one of the following values: image, link, sound, text, video",
+                    "type" => "string",
+                    "value" => function() { return $this->type; },
+                ],
                 'description' => [
                     "doc" => "Explanation of what this asset is",
                     "type" => "string",
@@ -97,6 +148,14 @@ class Asset extends CollectionsModel
                     "doc" => "Unique identifier of the categories associated with this asset",
                     "type" => "array",
                     "value" => function() { return $this->categories->pluck('citi_id')->all(); },
+                ],
+                'artwork_ids' => [
+                    "doc" => "Unique identifiers of the artworks associated with this asset",
+                    "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
+                ],
+                'artwork_titles' => [
+                    "doc" => "The names of the artworks associated with this asset",
+                    "value" => function() { return $this->artworks()->pluck('title'); },
                 ],
             ],
             $this->transformAsset()

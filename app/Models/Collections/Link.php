@@ -8,6 +8,10 @@ namespace App\Models\Collections;
 class Link extends Asset
 {
 
+    protected $table = 'assets';
+
+    protected static $assetType = 'link';
+
     /**
      * Get an example ID for documentation generation
      *
