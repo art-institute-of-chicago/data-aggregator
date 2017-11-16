@@ -244,58 +244,25 @@ $factory->define(App\Models\Collections\Asset::class, function (Faker\Generator 
     );
 });
 
-// TODO: Laravel 5.5 allows array as 3rd argument, Laravel 5.4 requires callable
-// https://laravel.com/docs/5.4/database-testing#factory-states
-// https://laravel.com/docs/5.5/database-testing#factory-states
 
-$factory->state(App\Models\Collections\Asset::class, 'image', function (Faker\Generator $faker) {
-    return [
-        'type' => 'image',
-    ];
-});
 
-$factory->state(App\Models\Collections\Asset::class, 'link', function (Faker\Generator $faker) {
-    return [
-        'type' => 'link',
-    ];
-});
+foreach( ['image', 'link', 'sound', 'text', 'video'] as $assetType )
+{
 
-$factory->state(App\Models\Collections\Asset::class, 'sound', function (Faker\Generator $faker) {
-    return [
-        'type' => 'sound',
-    ];
-});
+    // TODO: Laravel 5.5 allows array as 3rd argument, Laravel 5.4 requires callable
+    // https://laravel.com/docs/5.4/database-testing#factory-states
+    // https://laravel.com/docs/5.5/database-testing#factory-states
 
-$factory->state(App\Models\Collections\Asset::class, 'text', function (Faker\Generator $faker) {
-    return [
-        'type' => 'text',
-    ];
-});
+    $factory->state(App\Models\Collections\Asset::class, $assetType, function (Faker\Generator $faker) use ($assetType) {
+        return [
+            'type' => $assetType,
+        ];
+    });
 
-$factory->state(App\Models\Collections\Asset::class, 'video', function (Faker\Generator $faker) {
-    return [
-        'type' => 'video',
-    ];
-});
+    // Soft-links to the Asset factory + state:
 
-// Soft-links to the Asset factory + state:
+    $factory->define('App\Models\Collections\\' . ucfirst( $assetType ), function (Faker\Generator $faker) use ($assetType) {
+        return factory( App\Models\Collections\Asset::class )->states($assetType)->raw();
+    });
 
-$factory->define(App\Models\Collections\Image::class, function (Faker\Generator $faker) {
-    return factory( App\Models\Collections\Asset::class )->states('image')->raw();
-});
-
-$factory->define(App\Models\Collections\Link::class, function (Faker\Generator $faker) {
-    return factory( App\Models\Collections\Asset::class )->states('link')->raw();
-});
-
-$factory->define(App\Models\Collections\Sound::class, function (Faker\Generator $faker) {
-    return factory( App\Models\Collections\Asset::class )->states('sound')->raw();
-});
-
-$factory->define(App\Models\Collections\Text::class, function (Faker\Generator $faker) {
-    return factory( App\Models\Collections\Asset::class )->states('text')->raw();
-});
-
-$factory->define(App\Models\Collections\Video::class, function (Faker\Generator $faker) {
-    return factory( App\Models\Collections\Asset::class )->states('video')->raw();
-});
+}
