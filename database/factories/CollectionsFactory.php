@@ -214,6 +214,23 @@ $factory->define(App\Models\Collections\Theme::class, function (Faker\Generator 
 });
 
 
+$factory->define(App\Models\Collections\Exhibition::class, function (Faker\Generator $faker) {
+    $lake_id = $faker->uuid;
+    return array_merge(
+        idsAndTitle($faker, ucwords($faker->words(3, true)), true),
+        [
+            'description' => $faker->paragraph(3),
+            'type' => $faker->randomElement(['AIC Only', 'AIC & Other Venues', 'Mini Exhibition', 'Permanent Collection Special Project', 'Rotation']),
+            'department_citi_id' => $faker->randomElement(App\Models\Collections\Department::fake()->pluck('citi_id')->all()),
+            'gallery_citi_id' => $faker->randomElement(App\Models\Collections\Gallery::fake()->pluck('citi_id')->all()),
+            'exhibition_dates' => $faker->date($format = 'm/d/Y') .'–' .$faker->date($format = 'm/d/Y'),
+            'active' => $faker->boolean
+        ],
+        dates($faker, true)
+    );
+});
+
+
 $factory->define(App\Models\Collections\Asset::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, ucwords($faker->words(3, true))),
@@ -260,22 +277,3 @@ $factory->state(App\Models\Collections\Asset::class, 'video', function (Faker\Ge
         'type' => 'video',
     ];
 });
-
-
-$factory->define(App\Models\Collections\Exhibition::class, function (Faker\Generator $faker) {
-    $lake_id = $faker->uuid;
-    return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true)), true),
-        [
-            'description' => $faker->paragraph(3),
-            'type' => $faker->randomElement(['AIC Only', 'AIC & Other Venues', 'Mini Exhibition', 'Permanent Collection Special Project', 'Rotation']),
-            'department_citi_id' => $faker->randomElement(App\Models\Collections\Department::fake()->pluck('citi_id')->all()),
-            'gallery_citi_id' => $faker->randomElement(App\Models\Collections\Gallery::fake()->pluck('citi_id')->all()),
-            'exhibition_dates' => $faker->date($format = 'm/d/Y') .'–' .$faker->date($format = 'm/d/Y'),
-            'active' => $faker->boolean
-        ],
-        dates($faker, true)
-    );
-});
-
-
