@@ -4,7 +4,7 @@
 
 Thank you for your interest in using our museum's API. Our API offers an aggregation of our institutional data from a number of our internal systems, including artworks, artists, events, mobile tours and more.
 
-The API is currently in develpment and is planned to move to production in early 2018. It is developed and maintained by in-house developers at the Art Institute of Chicago.
+The API is currently in development and is planned to move to production in early 2018. It is developed and maintained by in-house developers at the Art Institute of Chicago.
 
 ## Features
 
