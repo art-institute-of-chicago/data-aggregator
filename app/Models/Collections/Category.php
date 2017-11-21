@@ -43,7 +43,7 @@ class Category extends CollectionsModel
             'description' => $source->description,
             'is_in_nav' => $source->is_in_nav,
             'parent_id' => $source->parent_id,
-            'sort' => $source->sort,
+            //'sort' => $source->sort,
             'type' => $source->type,
         ];
 
