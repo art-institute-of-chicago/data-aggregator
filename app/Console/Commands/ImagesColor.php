@@ -84,9 +84,9 @@ class ImagesColor extends Command
 
             // @TODO Consider using HSV instead
             $out = [
-                'h' => $color->getHue() * 360,
-                's' => $color->getSaturation() * 100,
-                'l' => $color->getLightness() * 100,
+                'h' => floor( $this->normalize( $color->getHue() * 360, 0, 360 ) ),
+                's' => floor( $this->normalize( $color->getSaturation() * 100, 0, 100 ) ),
+                'l' => floor( $this->normalize( $color->getLightness() * 100, 0, 100 ) ),
             ];
 
             // Assumes that the folder is `images`
@@ -106,10 +106,25 @@ class ImagesColor extends Command
             $image->metadata = $metadata;
             $image->save();
 
-            $this->info( $id . ' = ' . $color );
+            $this->info( $id . ' = ' . json_encode( $out ) );
 
         }
 
+    }
+
+    /**
+     * Normalizes any number to an arbitrary range by assuming the range
+     * wraps around when going below min or above max.
+     *
+     * @link https://stackoverflow.com/questions/1628386/normalise-orientation-between-0-and-360
+     */
+    private function normalize( $value, $min, $max )
+    {
+        $range = $max - $min;
+        $offset = $value - $min;
+
+        // + start to reset back to start of original range
+        return ( $offset - ( floor( $offset / $range ) * $range ) ) + $min;
     }
 
 }
