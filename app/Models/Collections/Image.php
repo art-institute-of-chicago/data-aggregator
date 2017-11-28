@@ -33,6 +33,16 @@ class Image extends Asset
                 "doc" => "IIIF URL of this image",
                 "value" => function() { return $this->iiif_url; },
             ],
+            'color' => [
+                "doc" => "Dominant color of this image in HSL",
+                "type" => "object",
+                "value" => function() { return $this->metadata->color ?? null; },
+            ],
+            'fingerprint' => [
+                "doc" => "Image hashes: aHash, dHash, pHash, wHash",
+                "type" => "object",
+                "value" => function() { return $this->metadata->fingerprint ?? null; },
+            ],
 
         ];
 

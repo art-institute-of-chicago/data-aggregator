@@ -161,11 +161,6 @@ class Asset extends CollectionsModel
                     "doc" => "The names of the artworks associated with this asset",
                     "value" => function() { return $this->artworks()->pluck('title'); },
                 ],
-                'metadata' => [
-                    "doc" => "Type-specific metadata about this asset",
-                    "type" => "object",
-                    "value" => function() { return $this->metadata; },
-                ],
             ],
             $this->transformAsset()
         );
