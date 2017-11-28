@@ -40,7 +40,9 @@ class ImagesColor extends Command
         //     'images/9eabaa4f-bfcd-0fc0-1ea2-dbc64a8b0761.jpg',
         // ];
 
-        foreach( $files as $file )
+        $total = count( $files );
+
+        foreach( $files as $i => $file )
         {
 
             // Skip touched files
@@ -106,7 +108,7 @@ class ImagesColor extends Command
             $image->metadata = $metadata;
             $image->save();
 
-            $this->info( $id . ' = ' . json_encode( $out ) );
+            $this->info( $i . ' of ' . $total . ': ' . $id . ' = ' . json_encode( $out ) );
 
         }
 
