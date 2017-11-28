@@ -75,4 +75,39 @@ class Image extends Asset
 
     }
 
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        $original = parent::elasticsearchMappingFields();
+
+        $additional = [
+            'color' => [
+                'type' => 'object',
+                'properties' => [
+                    'h' => [ 'type' => 'integer' ],
+                    's' => [ 'type' => 'integer' ],
+                    'l' => [ 'type' => 'integer' ],
+                ]
+            ],
+            // TODO: Elasticsearch is bad at string distance
+            'fingerprint' => [
+                'type' => 'object',
+                'properties' => [
+                    'ahash' => [ 'type' => 'keyword' ],
+                    'dhash' => [ 'type' => 'keyword' ],
+                    'phash' => [ 'type' => 'keyword' ],
+                    'whash' => [ 'type' => 'keyword' ],
+                ]
+            ],
+        ];
+
+        return array_merge( $original, $additional );
+
+    }
+
 }
