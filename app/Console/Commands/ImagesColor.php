@@ -13,7 +13,8 @@ use App\Models\Collections\Image;
 class ImagesColor extends Command
 {
 
-    protected $signature = 'images:color';
+    protected $signature = "images:color
+                            {--force : Don't skip images that have a dominant color on record already }";
 
     protected $description = 'Determine dominant color for each image';
 
@@ -40,10 +41,31 @@ class ImagesColor extends Command
         //     'images/9eabaa4f-bfcd-0fc0-1ea2-dbc64a8b0761.jpg',
         // ];
 
-        $total = count( $files );
+        // Grab just the ids - assumes that the folder is `images`
+        $ids = $files->map( function( $file ) {
+            return substr( $file, 7, strlen( $file ) - 11 );
+        });
 
-        foreach( $files as $i => $file )
+        $this->info( $ids->count() . ' files found...' );
+
+        if( !$this->option('force') ) {
+
+            $processed = Image::select('lake_guid')->whereNotNull('metadata->color')->get()->pluck('lake_guid');
+
+            $this->info( $processed->count() . ' images have already been processed...' );
+
+            $ids = $ids->diff( $processed );
+
+        }
+
+        $this->info( $ids->count()  . ' files will be processed.'  );
+
+        $total = count( $ids );
+
+        foreach( $ids as $i => $id )
         {
+
+            $file = 'images/' . $id . '.jpg';
 
             // Skip touched files
             if( Storage::size( $file ) < 1 ) {
@@ -90,9 +112,6 @@ class ImagesColor extends Command
                 's' => floor( $this->normalize( $color->getSaturation() * 100, 0, 100 ) ),
                 'l' => floor( $this->normalize( $color->getLightness() * 100, 0, 100 ) ),
             ];
-
-            // Assumes that the folder is `images`
-            $id = substr( $file, 7, strlen( $file ) - 11 );
 
             // Save the color to Image metadata
             $image = Image::find( $id );
