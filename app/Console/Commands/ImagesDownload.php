@@ -13,7 +13,9 @@ class ImagesDownload extends Command
      *
      * @var string
      */
-    protected $signature = 'images:download';
+    protected $signature = 'images:download
+                            {--skip=? : Manual offset for downloading}
+                            {--forget : Do not track offset for later}';
 
     /**
      * The console command description.
@@ -49,6 +51,10 @@ class ImagesDownload extends Command
             $skip = (int) \Storage::get( $lastSkipFile );
         } else {
             $skip = 0;
+        }
+
+        if( $this->option('skip') ) {
+            $skip = (int) $this->option('skip');
         }
 
         $count = Image::count();
@@ -89,7 +95,11 @@ class ImagesDownload extends Command
             // Advance our counter
             $skip += $take;
 
-            \Storage::put( $lastSkipFile, $skip );
+            if( !$this->option('forget') ) {
+
+               \Storage::put( $lastSkipFile, $skip );
+
+            }
 
         }
 
