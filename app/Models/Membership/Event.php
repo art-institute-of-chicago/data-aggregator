@@ -183,42 +183,50 @@ class Event extends MembershipModel
 
         return [
 
-            'description' => [
+            [
+                "name" => 'description',
                 "doc" => "Long description of the event",
                 "type" => "string",
                 "value" => function() { return $this->description; },
             ],
-            'short_description' => [
+            [
+                "name" => 'short_description',
                 "doc" => "Short description of the event",
                 "type" => "string",
                 "value" => function() { return trim($this->short_description); },
             ],
-            'image' => [
+            [
+                "name" => 'image',
                 "doc" => "URL to an image representing this event",
                 "type" => "url",
                 "value" => function() { return $this->image_url; },
             ],
-            'type' => [
+            [
+                "name" => 'type',
                 "doc" => "The name of the type of event",
                 "type" => "string",
                 "value" => function() { return $this->type; },
             ],
-            'start_at' => [
+            [
+                "name" => 'start_at',
                 "doc" => "Date and time the event begins",
                 "type" => "ISO 8601 date and time",
                 "value" => function() { return $this->start_at ? $this->start_at->toIso8601String() : NULL; },
             ],
-            'end_at' => [
+            [
+                "name" => 'end_at',
                 "doc" => "Date and time the event ends",
                 "type" => "ISO 8601 date and time",
                 "value" => function() { return $this->end_at ? $this->end_at->toIso8601String() : NULL; },
             ],
-            'resource_id' => [
+            [
+                "name" => 'resource_id',
                 "doc" => "Unique identifier of the resource associated with this event, often the venue in which it takes place",
                 "type" => "number",
                 "value" => function() { return $this->resource_id; },
             ],
-            'resource_title' => [
+            [
+                "name" => 'resource_title',
                 "doc" => "The name of the resource associated with this event, often the venue in which it takes place",
                 "type" => "number",
                 "value" => function() { return $this->resource_title; },
@@ -226,37 +234,44 @@ class Event extends MembershipModel
 
             // Caution: (bool) null = false
             // TODO: Use $casts throughout the codebase
-            'is_after_hours' => [
+            [
+                "name" => 'is_after_hours',
                 "doc" => "Whether the event takes place after museum hours",
                 "type" => "boolean",
                 "value" => function() { return (bool) $this->is_after_hours; },
             ],
-            'is_private_event' => [
+            [
+                "name" => 'is_private_event',
                 "doc" => "Whether the event is open to public",
                 "type" => "boolean",
                 "value" => function() { return (bool) $this->is_private_event; },
             ],
-            'is_admission_required' => [
+            [
+                "name" => 'is_admission_required',
                 "doc" => "Whether admission is required in order to attend the event",
                 "type" => "boolean",
                 "value" => function() { return (bool) $this->is_admission_required; },
             ],
-            'is_ticketed' => [
+            [
+                "name" => 'is_ticketed',
                 "doc" => "Whether a ticket is required to attend the event.",
                 "type" => "boolean",
                 "value" => function() { return (bool) $this->is_ticketed; },
             ],
-            'available' => [
+            [
+                "name" => 'available',
                 "doc" => "Number indicating how many tickets are available for the event",
                 "type" => "number",
                 "value" => function() { return $this->available; },
             ],
-            'total_capacity' => [
+            [
+                "name" => 'total_capacity',
                 "doc" => "Number indicating the total number of tickets that can be sold for the event",
                 "type" => "number",
                 "value" => function() { return $this->total_capacity; },
             ],
-            'exhibition_ids' => [
+            [
+                "name" => 'exhibition_ids',
                 "doc" => "Unique identifiers of the exhibitions associated with this work",
                 "type" => "array",
                 "value" => function() { return $this->exhibitions->pluck('citi_id')->all(); },

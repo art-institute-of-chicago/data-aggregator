@@ -38,10 +38,10 @@ trait Transformable
 
         $fields = [];
 
-        foreach ($this->transformMapping() as $key => $array)
+        foreach ($this->transformMapping() as $array)
         {
 
-            $fields[$key] = call_user_func($array["value"]);
+            $fields[$array["name"]] = call_user_func($array["value"]);
 
         }
 

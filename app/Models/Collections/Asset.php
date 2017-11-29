@@ -124,17 +124,20 @@ class Asset extends CollectionsModel
         return array_merge(
             [
 
-                'type' => [
+                [
+                    "name" => 'type',
                     "doc" => "Typs always takes one of the following values: image, link, sound, text, video",
                     "type" => "string",
                     "value" => function() { return $this->type; },
                 ],
-                'description' => [
+                [
+                    "name" => 'description',
                     "doc" => "Explanation of what this asset is",
                     "type" => "string",
                     "value" => function() { return $this->description; },
                 ],
-                'content' => [
+                [
+                    "name" => 'content',
                     "doc" => "Text of URL of the contents of this asset",
                     "type" => "string",
                     "value" => function() { return $this->content; },
@@ -148,17 +151,21 @@ class Asset extends CollectionsModel
                 //     "doc" => "Unique identifier of the artist associated with this asset",
                 //     "value" => function() { return $this->agent_citi_id; },
                 // ],
-                'category_ids' => [
+                [
+                    "name" => 'category_ids',
                     "doc" => "Unique identifier of the categories associated with this asset",
                     "type" => "array",
                     "value" => function() { return $this->categories->pluck('citi_id')->all(); },
                 ],
-                'artwork_ids' => [
+                [
+                    "name" => 'artwork_ids',
                     "doc" => "Unique identifiers of the artworks associated with this asset",
+                    "type" => "array",
                     "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
                 ],
-                'artwork_titles' => [
-                    "doc" => "The names of the artworks associated with this asset",
+                [
+                    "name" => 'artwork_titles',
+                    "type" => "array",
                     "value" => function() { return $this->artworks()->pluck('title'); },
                 ],
             ],

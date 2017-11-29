@@ -58,47 +58,56 @@ class Agent extends CollectionsModel
     {
 
         return [
-            'birth_date' => [
+            [
+                "name" => 'birth_date',
                 "doc" => "The year this agent was born",
                 "type" => "number",
                 "value" => function() { return $this->birth_date; },
             ],
-            'birth_place' => [
+            [
+                "name" => 'birth_place',
                 "doc" => "Name of the place this agent was born",
                 "type" => "string",
                 "value" => function() { return $this->birth_place; },
             ],
-            'death_date' => [
+            [
+                "name" => 'death_date',
                 "doc" => "The year this agent died",
                 "type" => "number",
                 "value" => function() { return $this->death_date; },
             ],
-            'death_place' => [
+            [
+                "name" => 'death_place',
                 "doc" => "Name of the place this agent died",
                 "type" => "string",
                 "value" => function() { return $this->death_place; },
             ],
-            'is_licensing_restricted' => [
+            [
+                "name" => 'is_licensing_restricted',
                 "doc" => "Whether the use of the images of works by this artist are restricted by licensing",
                 "type" => "boolean",
                 "value" => function() { return (bool) $this->licensing_restricted; },
             ],
-            'is_artist' => [
+            [
+                "name" => 'is_artist',
                 "doc" => "Whether the agent is an artist. Soley based on whether the agent is listed as an artist for an artwork record.",
                 "type" => "boolean",
                 "value" => function() { return (bool) $this->is_artist; },
             ],
-            'agent_type' => [
+            [
+                "name" => 'agent_type',
                 "doc" => "Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.",
                 "type" => "string",
                 "value" => function() { return $this->agentType()->getResults() ? $this->agentType()->getResults()->title : ''; },
             ],
-            'agent_type_id' => [
+            [
+                "name" => 'agent_type_id',
                 "doc" => "Unique identifier of the type of agent",
                 "type" => "number",
                 "value" => function() { return $this->agent_type_citi_id; },
             ],
-            'site_ids' => [
+            [
+                "name" => 'site_ids',
                 "doc" => "Unique identifiers of the microsites this exhibition is a part of",
                 "type" => "array",
                 "value" => function() { return $this->sites->pluck('site_id')->all(); },

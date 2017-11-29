@@ -146,10 +146,10 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         $doc = '';
-        foreach ($this->transformMapping() as $key => $array)
+        foreach ($this->transformMapping() as $array)
         {
 
-            $doc .= "* `" .$key ."` " .(array_key_exists("type", $array) ? "*" .$array['type'] ."* " : "") ."- " .$array['doc'] ."\n";
+            $doc .= "* `" .$array["name"] ."` " .(array_key_exists("type", $array) ? "*" .$array['type'] ."* " : "") ."- " .$array['doc'] ."\n";
 
         }
 

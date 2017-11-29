@@ -56,27 +56,32 @@ class Category extends CollectionsModel
     {
 
         return [
-            'parent_id' => [
+            [
+                "name" => 'parent_id',
                 "doc" => "Unique identifier of this category's parent",
                 "type" => "number",
                 "value" => function() { return $this->parent ? $this->parent->citi_id : null; },
             ],
-            'is_in_nav' => [
+            [
+                "name" => 'is_in_nav',
                 "doc" => "Whether this category was included in the departmental navigation in the old collections site",
                 "type" => "boolean",
                 "value" => function() { return (bool) $this->is_in_nav; }
             ],
-            'description' => [
+            [
+                "name" => 'description',
                 "doc" => "Explanation of what this category is",
                 "type" => "string",
                 "value" => function() { return $this->description; }
             ],
-            'sort' => [
+            [
+                "name" => 'sort',
                 "doc" => "Number representing this category's sort order",
                 "type" => "number",
                 "value" => function() { return $this->sort; }
             ],
-            'type' => [
+            [
+                "name" => 'type',
                 "doc" => "Number representing the type of category. 1 is departmental, 2 is subject, 3 is theme, 5 is multimedia.",
                 "type" => "number",
                 "value" => function() { return $this->type; }

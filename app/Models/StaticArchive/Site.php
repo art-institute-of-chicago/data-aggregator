@@ -57,32 +57,38 @@ class Site extends BaseModel
     {
 
         return [
-            'description' => [
+            [
+                "name" => 'description',
                 "doc" => "Explanation of what this site is",
                 "type" => "string",
                 "value" => function() { return $this->description; },
             ],
-            'web_url' => [
+            [
+                "name" => 'web_url',
                 "doc" => "URL to this site",
                 "type" => "url",
                 "value" => function() { return $this->web_url; },
             ],
-            'exhibition' => [
+            [
+                "name" => 'exhibition',
                 "doc" => "The name of the exhibition this site is associated with",
                 "type" => "string",
                 "value" => function() { return $this->exhibition ? $this->exhibition->title : ""; },
             ],
-            'exhibition_ids' => [
+            [
+                "name" => 'exhibition_ids',
                 "doc" => "Unique identifier of the exhibitions this site is associated with",
                 "type" => "array",
                 "value" => function() { return $this->exhibitions->pluck('citi_id')->all(); },
             ],
-            'artist_ids' => [
+            [
+                "name" => 'artist_ids',
                 "doc" => "Unique identifiers of the artists this site is associated with",
                 "type" => "array",
                 "value" => function() { return $this->agents->pluck('citi_id')->all(); },
             ],
-            'artwork_ids' => [
+            [
+                "name" => 'artwork_ids',
                 "doc" => "Unique identifiers of the artworks this site is associated with",
                 "type" => "array",
                 "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
