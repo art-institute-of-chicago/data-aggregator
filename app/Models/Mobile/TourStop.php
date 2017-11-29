@@ -51,71 +51,48 @@ class TourStop extends MobileModel
                 "name" => 'title',
                 "doc" => "Name of this tour stop",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->artwork ? $this->artwork->title : NULL; },
             ],
             [
                 "name" => 'artwork',
                 "doc" => "Name of the artwork for this tour stop",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->artwork ? $this->artwork->title : NULL; },
             ],
             [
                 "name" => 'artwork_id',
                 "doc" => "Unique identifier of the artwork for this tour stop",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->artwork && $this->artwork->artwork ? $this->artwork->artwork->id : NULL; },
             ],
             [
                 "name" => 'mobile_sound',
                 "doc" => "URL to the audio file for this tour stop",
                 "type" => "url",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->sound ? $this->sound->link : NULL; },
             ],
             [
                 "name" => 'mobile_sound_id',
                 "doc" => "Unique identifier of the audio file for this tour stop",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->sound ? $this->sound->id : NULL; },
             ],
             [
                 "name" => 'weight',
                 "doc" => "Number representing this tour stop's sort order",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->weight; },
             ],
         ];
 
     }
 
-
-    /**
-     * Generate model-specific fields for an array representing the schema for this object.
-     *
-     * @return array
-     */
-    public function elasticsearchMappingFields()
-    {
-
-        return
-            [
-                'artwork' => [
-                    'type' => 'text',
-                ],
-                'artwork_id' => [
-                    'type' => 'integer',
-                ],
-                'mobile_sound' => [
-                    'type' => 'keyword',
-                ],
-                'mobile_sound_id' => [
-                    'type' => 'integer',
-                ],
-                'weight' => [
-                    'type' => 'integer',
-                ],
-            ];
-
-    }
 
     /**
      * Get an example ID for documentation generation

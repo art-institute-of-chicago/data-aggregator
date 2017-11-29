@@ -128,44 +128,52 @@ class Asset extends CollectionsModel
                     "name" => 'type',
                     "doc" => "Typs always takes one of the following values: image, link, sound, text, video",
                     "type" => "string",
+                    'elasticsearch_type' => 'keyword',
                     "value" => function() { return $this->type; },
                 ],
                 [
                     "name" => 'description',
                     "doc" => "Explanation of what this asset is",
                     "type" => "string",
+                    'elasticsearch_type' => 'text',
                     "value" => function() { return $this->description; },
                 ],
                 [
                     "name" => 'content',
                     "doc" => "Text of URL of the contents of this asset",
                     "type" => "string",
+                    'elasticsearch_type' => 'text',
                     "value" => function() { return $this->content; },
                 ],
                 // @TODO Re-enable this once the artist association is fixed
                 // 'artist' => [
                 //     "doc" => "Name of the artist associated with this asset",
+                //     'elasticsearch_type' => 'text',
                 //     "value" => function() { return $this->artist()->getResults() ? $this->artist()->getResults()->title : ''; },
                 // ],
                 // 'artist_id' => [
                 //     "doc" => "Unique identifier of the artist associated with this asset",
+                //     'elasticsearch_type' => 'integer',
                 //     "value" => function() { return $this->agent_citi_id; },
                 // ],
                 [
                     "name" => 'category_ids',
                     "doc" => "Unique identifier of the categories associated with this asset",
                     "type" => "array",
+                    'elasticsearch_type' => 'integer',
                     "value" => function() { return $this->categories->pluck('citi_id')->all(); },
                 ],
                 [
                     "name" => 'artwork_ids',
                     "doc" => "Unique identifiers of the artworks associated with this asset",
                     "type" => "array",
+                    'elasticsearch_type' => 'integer',
                     "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
                 ],
                 [
                     "name" => 'artwork_titles',
                     "type" => "array",
+                    'elasticsearch_type' => 'text',
                     "value" => function() { return $this->artworks()->pluck('title'); },
                 ],
             ],
@@ -196,39 +204,15 @@ class Asset extends CollectionsModel
 
         return [
 
-            'category_titles' => $this->categories->pluck('title')->all(),
+            [
+                "name" => 'category_titles',
+                "doc" => "Names of the categories associated with this asset",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->categories->pluck('title')->all(); },
+            ],
 
         ];
-
-    }
-
-    /**
-     * Generate model-specific fields for an array representing the schema for this object.
-     *
-     * @return array
-     */
-    public function elasticsearchMappingFields()
-    {
-
-        return
-            [
-                'content' => [
-                    'type' => 'text',
-                ],
-                // @TODO Re-enable this once the artist association is fixed
-                // 'artist' => [
-                //     'type' => 'text',
-                // ],
-                // 'artist_id' => [
-                //     'type' => 'integer',
-                // ],
-                'category_ids' => [
-                    'type' => 'integer',
-                ],
-                'category_titles' => [
-                    'type' => 'text',
-                ],
-            ];
 
     }
 

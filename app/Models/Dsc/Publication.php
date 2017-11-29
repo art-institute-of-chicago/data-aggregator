@@ -47,62 +47,41 @@ class Publication extends DscModel
                 "name" => 'web_url',
                 "doc" => "URL to the publication",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->web_url; },
             ],
             [
                 "name" => 'site',
                 "doc" => "Which site in our multi-site Drupal installation owns this publication",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->site; },
             ],
             [
                 "name" => 'alias',
                 "doc" => "Used by Drupal in lieu of the id to generate pretty paths",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->alias; },
             ],
             [
                 "name" => 'title',
                 "doc" => "Official title of the publication",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->title; },
             ],
             [
                 "name" => 'section_ids',
                 "doc" => "Unique identifiers of the sections of this publication",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->sections->pluck('dsc_id'); },
             ],
         ];
 
     }
 
-
-    /**
-     * Generate model-specific fields for an array representing the schema for this object.
-     *
-     * @return array
-     */
-    public function elasticsearchMappingFields()
-    {
-
-        return
-            [
-                'web_url' => [
-                    'type' => 'keyword',
-                ],
-                'site' => [
-                    'type' => 'keyword',
-                ],
-                'alias' => [
-                    'type' => 'keyword',
-                ],
-                'title' => [
-                    'type' => 'text',
-                ],
-            ];
-
-    }
 
     /**
      * Get an example ID for documentation generation

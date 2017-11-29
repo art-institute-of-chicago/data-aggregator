@@ -41,71 +41,48 @@ class Tour extends MobileModel
                 "name" => 'image',
                 "doc" => "The main image for the tour",
                 "type" => "url",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->image; },
             ],
             [
                 "name" => 'description',
                 "doc" => "Explanation of what the tour is",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->description; },
             ],
             [
                 "name" => 'intro',
                 "doc" => "Text introducing the tour",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->intro_text; },
             ],
             [
                 "name" => 'weight',
                 "doc" => "Number representing this tour's sort order",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->weight; },
             ],
             [
                 "name" => 'intro_link',
                 "doc" => "Link to the audio file of the introduction",
                 "type" => "url",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->intro->link; },
             ],
             [
                 "name" => 'intro_transcript',
                 "doc" => "Transcript of the introduction audio to the tour",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->intro->transcript; },
             ],
         ];
 
     }
 
-
-    /**
-     * Generate model-specific fields for an array representing the schema for this object.
-     *
-     * @return array
-     */
-    public function elasticsearchMappingFields()
-    {
-
-        return
-            [
-                'image' => [
-                    'type' => 'keyword',
-                ],
-                'intro' => [
-                    'type' => 'text',
-                ],
-                'weight' => [
-                    'type' => 'integer',
-                ],
-                'intro_link' => [
-                    'type' => 'keyword',
-                ],
-                'intro_transcript' => [
-                    'type' => 'text',
-                ],
-            ];
-
-    }
 
     /**
      * Get an example ID for documentation generation

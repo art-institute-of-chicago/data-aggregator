@@ -29,8 +29,12 @@ class Image extends Asset
 
         return [
 
-            'iiif_url' => [
+            [
+
+                "name" => 'iiif_url',
                 "doc" => "IIIF URL of this image",
+                "type" => "url",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->iiif_url; },
             ],
             'color' => [

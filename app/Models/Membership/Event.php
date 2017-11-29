@@ -187,48 +187,56 @@ class Event extends MembershipModel
                 "name" => 'description',
                 "doc" => "Long description of the event",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->description; },
             ],
             [
                 "name" => 'short_description',
                 "doc" => "Short description of the event",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return trim($this->short_description); },
             ],
             [
                 "name" => 'image',
                 "doc" => "URL to an image representing this event",
                 "type" => "url",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->image_url; },
             ],
             [
                 "name" => 'type',
                 "doc" => "The name of the type of event",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->type; },
             ],
             [
                 "name" => 'start_at',
                 "doc" => "Date and time the event begins",
                 "type" => "ISO 8601 date and time",
+                'elasticsearch_type' => 'date',
                 "value" => function() { return $this->start_at ? $this->start_at->toIso8601String() : NULL; },
             ],
             [
                 "name" => 'end_at',
                 "doc" => "Date and time the event ends",
                 "type" => "ISO 8601 date and time",
+                'elasticsearch_type' => 'date',
                 "value" => function() { return $this->end_at ? $this->end_at->toIso8601String() : NULL; },
             ],
             [
                 "name" => 'resource_id',
                 "doc" => "Unique identifier of the resource associated with this event, often the venue in which it takes place",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->resource_id; },
             ],
             [
                 "name" => 'resource_title',
                 "doc" => "The name of the resource associated with this event, often the venue in which it takes place",
-                "type" => "number",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->resource_title; },
             ],
 
@@ -238,42 +246,49 @@ class Event extends MembershipModel
                 "name" => 'is_after_hours',
                 "doc" => "Whether the event takes place after museum hours",
                 "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
                 "value" => function() { return (bool) $this->is_after_hours; },
             ],
             [
                 "name" => 'is_private_event',
                 "doc" => "Whether the event is open to public",
                 "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
                 "value" => function() { return (bool) $this->is_private_event; },
             ],
             [
                 "name" => 'is_admission_required',
                 "doc" => "Whether admission is required in order to attend the event",
                 "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
                 "value" => function() { return (bool) $this->is_admission_required; },
             ],
             [
                 "name" => 'is_ticketed',
                 "doc" => "Whether a ticket is required to attend the event.",
                 "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
                 "value" => function() { return (bool) $this->is_ticketed; },
             ],
             [
                 "name" => 'available',
                 "doc" => "Number indicating how many tickets are available for the event",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->available; },
             ],
             [
                 "name" => 'total_capacity',
                 "doc" => "Number indicating the total number of tickets that can be sold for the event",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->total_capacity; },
             ],
             [
                 "name" => 'exhibition_ids',
                 "doc" => "Unique identifiers of the exhibitions associated with this work",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->exhibitions->pluck('citi_id')->all(); },
             ],
 
@@ -281,54 +296,6 @@ class Event extends MembershipModel
 
     }
 
-
-    /**
-     * Generate model-specific fields for an array representing the schema for this object.
-     *
-     * @return array
-     */
-    public function elasticsearchMappingFields()
-    {
-
-        return [
-
-            'type' => [
-                'type' => 'keyword',
-            ],
-            'start_at' => [
-                'type' => 'date',
-            ],
-            'end_at' => [
-                'type' => 'date',
-            ],
-            'resource_id' => [
-                'type' => 'integer',
-            ],
-            'resource_title' => [
-                'type' => 'keyword',
-            ],
-            'is_after_hours' => [
-                'type' => 'boolean',
-            ],
-            'is_private_event' => [
-                'type' => 'boolean',
-            ],
-            'is_admission_required' => [
-                'type' => 'boolean',
-            ],
-            'available' => [
-                'type' => 'integer',
-            ],
-            'total_capacity' => [
-                'type' => 'integer',
-            ],
-            'is_ticketed' => [
-                'type' => 'boolean',
-            ],
-
-        ];
-
-    }
 
     /**
      * Get an example ID for documentation generation
