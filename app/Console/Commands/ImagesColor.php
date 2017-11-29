@@ -69,6 +69,7 @@ class ImagesColor extends Command
 
             // Skip touched files
             if( Storage::size( $file ) < 1 ) {
+                $this->warn( $this->prefix( $i, $total, $id ) . 'Skipping touched file!' );
                 continue;
             }
 
@@ -82,6 +83,8 @@ class ImagesColor extends Command
             } catch( \Exception $e ) {
                 // TODO: Resolve [ErrorException]  max(): Array must contain at least one element
                 // See vendor/marijnvdwerf/material-palette/src/Palette.php:81
+                // https://github.com/marijnvdwerf/material-palette-php/issues/6
+                $this->warn( $this->prefix( $i, $total, $id ) . 'Monotone image skipped!' );
                 continue;
             }
 
@@ -99,6 +102,7 @@ class ImagesColor extends Command
 
             // I guess this might happen if the image is black-and-white?
             if( !$swatch ) {
+                $this->warn( $this->prefix( $i, $total, $id ) . 'No swatches generated!' );
                 continue;
             }
 
@@ -123,6 +127,7 @@ class ImagesColor extends Command
 
             // Image not found
             if( !$image ) {
+                $this->warn( $this->prefix( $i, $total, $id ) . 'Image not found!' );
                 continue;
             }
 
@@ -132,7 +137,7 @@ class ImagesColor extends Command
             $image->metadata = $metadata;
             $image->save();
 
-            $this->info( $i . ' of ' . $total . ': ' . $id . ' = ' . json_encode( $out ) );
+            $this->info( $this->prefix( $i, $total, $id ) . json_encode( $out ) );
 
         }
 
@@ -151,6 +156,14 @@ class ImagesColor extends Command
 
         // + start to reset back to start of original range
         return ( $offset - ( floor( $offset / $range ) * $range ) ) + $min;
+    }
+
+    /**
+     * Helper for consistent console output.
+     */
+    private function prefix( $i, $total, $id )
+    {
+        return $i . ' of ' . $total . ': ' . $id . ' = ';
     }
 
 }
