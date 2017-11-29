@@ -106,9 +106,13 @@ class ImagesColor extends Command
             // https://dpb587.me/blog/2014/04/24/color-searching-with-elasticsearch.html
             $color = $swatch->getColor()->asHSLColor();
 
+            // For calculating percentage of pixel population
+            $size = getimagesize( storage_path() . '/app/' . $file );
+
             // @TODO Consider using HSV instead
             $out = [
                 'population' => $swatch->getPopulation(),
+                'percentage' => $swatch->getPopulation() / ( $size[0] * $size[1] ) * 100,
                 'h' => floor( $this->normalize( $color->getHue() * 360, 0, 360 ) ),
                 's' => floor( $this->normalize( $color->getSaturation() * 100, 0, 100 ) ),
                 'l' => floor( $this->normalize( $color->getLightness() * 100, 0, 100 ) ),

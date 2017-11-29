@@ -90,6 +90,7 @@ class Image extends Asset
                 'type' => 'object',
                 'properties' => [
                     'population' => [ 'type' => 'integer' ],
+                    'percentage' => [ 'type' => 'float' ],
                     'h' => [ 'type' => 'integer' ],
                     's' => [ 'type' => 'integer' ],
                     'l' => [ 'type' => 'integer' ],
