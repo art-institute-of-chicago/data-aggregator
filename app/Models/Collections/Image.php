@@ -33,6 +33,16 @@ class Image extends Asset
                 "doc" => "IIIF URL of this image",
                 "value" => function() { return $this->iiif_url; },
             ],
+            'color' => [
+                "doc" => "Dominant color of this image in HSL",
+                "type" => "object",
+                "value" => function() { return $this->metadata->color ?? null; },
+            ],
+            'fingerprint' => [
+                "doc" => "Image hashes: aHash, dHash, pHash, wHash",
+                "type" => "object",
+                "value" => function() { return $this->metadata->fingerprint ?? null; },
+            ],
 
         ];
 
@@ -62,6 +72,43 @@ class Image extends Asset
     {
 
         return "c972e5d7-0667-6904-d919-bbeefeae0a10";
+
+    }
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        $original = parent::elasticsearchMappingFields();
+
+        $additional = [
+            'color' => [
+                'type' => 'object',
+                'properties' => [
+                    'population' => [ 'type' => 'integer' ],
+                    'percentage' => [ 'type' => 'float' ],
+                    'h' => [ 'type' => 'integer' ],
+                    's' => [ 'type' => 'integer' ],
+                    'l' => [ 'type' => 'integer' ],
+                ]
+            ],
+            // TODO: Elasticsearch is bad at string distance
+            'fingerprint' => [
+                'type' => 'object',
+                'properties' => [
+                    'ahash' => [ 'type' => 'keyword' ],
+                    'dhash' => [ 'type' => 'keyword' ],
+                    'phash' => [ 'type' => 'keyword' ],
+                    'whash' => [ 'type' => 'keyword' ],
+                ]
+            ],
+        ];
+
+        return array_merge( $original, $additional );
 
     }
 

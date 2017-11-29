@@ -13,6 +13,24 @@ trait ElasticSearchable
 
     protected $apiCtrl;
 
+
+    /**
+     * Get the type associated with this model. We need to overwrite the inherited method
+     * because it defaults to using the table name. We need to use the model name instead.
+     * This method is used when a document gets indexed, not when the mappings are defined.
+     * This avoids a number of bugs, including `tour_stops` vs. `tour-stops`, `agents` vs.
+     * `artists`, and `assets` vs. `images`.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+
+        return config('scout.prefix') . $this->searchableModel();
+
+    }
+
+
     /**
      * Generate a link to the API for this model resource.
      *
@@ -110,7 +128,7 @@ trait ElasticSearchable
 
         return
             [
-                $this->searchableModel() => [
+                $this->searchableAs() => [
                     'properties' => array_merge(
                         [
                             'api_id' => [

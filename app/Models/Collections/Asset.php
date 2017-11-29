@@ -20,6 +20,10 @@ class Asset extends CollectionsModel
 
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
 
+    protected $casts = [
+        'metadata' => 'object',
+    ];
+
     protected static $assetType = null;
 
     /**

@@ -296,6 +296,7 @@ return [
                 \App\Models\Collections\Sound::instance()->elasticsearchMapping(),
                 \App\Models\Collections\Video::instance()->elasticsearchMapping(),
                 \App\Models\Collections\Text::instance()->elasticsearchMapping(),
+                \App\Models\Collections\Image::instance()->elasticsearchMapping(),
                 \App\Models\Collections\Exhibition::instance()->elasticsearchMapping(),
 
                 \App\Models\Shop\Category::instance()->elasticsearchMapping(),
