@@ -14,6 +14,8 @@ class ImagesColor extends Command
 {
 
     protected $signature = "images:color
+                            {start? : Manual offset for multi processing. Use with force }
+                            {count? : Manual count for multi processing. Use with force }
                             {--force : Don't skip images that have a dominant color on record already }";
 
     protected $description = 'Determine dominant color for each image';
@@ -55,6 +57,14 @@ class ImagesColor extends Command
             $this->info( $processed->count() . ' images have already been processed...' );
 
             $ids = $ids->diff( $processed );
+
+        }
+
+        if( $this->argument('start') !== null && $this->argument('count') !== null && $this->option('force') ) {
+
+            $this->info('Applying start of ' . $this->argument('start') . ' and count of ' . $this->argument('count') );
+
+            $ids = $ids->slice( (int) $this->argument('start'), (int) $this->argument('count') );
 
         }
 
