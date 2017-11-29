@@ -89,6 +89,7 @@ class Image extends Asset
             'color' => [
                 'type' => 'object',
                 'properties' => [
+                    'population' => [ 'type' => 'integer' ],
                     'h' => [ 'type' => 'integer' ],
                     's' => [ 'type' => 'integer' ],
                     'l' => [ 'type' => 'integer' ],

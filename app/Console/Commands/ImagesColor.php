@@ -108,6 +108,7 @@ class ImagesColor extends Command
 
             // @TODO Consider using HSV instead
             $out = [
+                'population' => $swatch->getPopulation(),
                 'h' => floor( $this->normalize( $color->getHue() * 360, 0, 360 ) ),
                 's' => floor( $this->normalize( $color->getSaturation() * 100, 0, 100 ) ),
                 'l' => floor( $this->normalize( $color->getLightness() * 100, 0, 100 ) ),
