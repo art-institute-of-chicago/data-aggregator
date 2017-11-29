@@ -88,17 +88,22 @@ class ImagesColor extends Command
                 continue;
             }
 
+            // TODO: Reorder these for better results?
             $swatches = [
                 'vibrant' => $palette->getVibrantSwatch(),
-                'vibrant_light' => $palette->getLightVibrantSwatch(),
-                'vibrant_dark' => $palette->getDarkVibrantSwatch(),
                 'muted' => $palette->getMutedSwatch(),
+                'vibrant_light' => $palette->getLightVibrantSwatch(),
                 'muted_light' => $palette->getLightMutedSwatch(),
+                'vibrant_dark' => $palette->getDarkVibrantSwatch(),
                 'muted_dark' => $palette->getDarkMutedSwatch(),
             ];
 
-            // @TODO Tweak this for better results?
-            $swatch = $swatches['vibrant'] ?? $swatches['muted'] ?? $swatches['vibrant_light'] ?? $swatches['muted_light'] ?? $swatches['vibrant_dark'] ?? $swatches['muted_dark'] ?? null;
+            $swatches = collect( $swatches );
+
+            // Select the first swatch that (1) isn't empty, and (2) isn't derived
+            $swatch = $swatches->first( function( $swatch ) {
+                return !is_null( $swatch ) && $swatch->getPopulation() > 0;
+            });
 
             // I guess this might happen if the image is black-and-white?
             if( !$swatch ) {
