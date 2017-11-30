@@ -172,6 +172,7 @@ class Asset extends CollectionsModel
                 ],
                 [
                     "name" => 'artwork_titles',
+                    "doc" => "Names of the artworks associated with this asset",
                     "type" => "array",
                     'elasticsearch_type' => 'text',
                     "value" => function() { return $this->artworks()->pluck('title'); },
