@@ -30,19 +30,22 @@ class Image extends Asset
         return [
 
             [
-
                 "name" => 'iiif_url',
                 "doc" => "IIIF URL of this image",
                 "type" => "url",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->iiif_url; },
             ],
-            'color' => [
+
+            // These two fields are added to the Elasticsearch schema manually via elasticsearchMappingFields
+            [
+                "name" => 'color',
                 "doc" => "Dominant color of this image in HSL",
                 "type" => "object",
                 "value" => function() { return $this->metadata->color ?? null; },
             ],
-            'fingerprint' => [
+            [
+                "name" => 'fingerprint',
                 "doc" => "Image hashes: aHash, dHash, pHash, wHash",
                 "type" => "object",
                 "value" => function() { return $this->metadata->fingerprint ?? null; },
