@@ -70,7 +70,7 @@ trait Documentable
 
         $doc = '';
         $doc .= $this->docTitle() ."\n\n";
-        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#" .$this->_endpoint() .").\n\n";
+        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#" .endpointFor() .").\n\n";
 
         if (!$this->docOnly())
         {
@@ -91,7 +91,7 @@ trait Documentable
     public function docTitle()
     {
 
-        return '## ' .str_replace('-', ' ', title_case( $this->_endpoint() ) );
+        return '## ' .str_replace('-', ' ', title_case( endpointFor() ) );
 
     }
 
@@ -117,7 +117,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = $this->_endpoint();
+        $endpoint = endpointFor();
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -142,7 +142,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = $this->_endpoint();
+        $endpoint = endpointFor();
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         $doc = '';
@@ -169,7 +169,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = $this->_endpoint();
+        $endpoint = endpointFor();
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -193,7 +193,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = $this->_endpoint();
+        $endpoint = endpointFor();
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -217,7 +217,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = $this->_endpoint();
+        $endpoint = endpointFor();
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -248,7 +248,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = $this->_endpoint();
+        $endpoint = endpointFor();
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -328,7 +328,7 @@ trait Documentable
     {
 
         $doc = '';
-        $controllerClass = "\\App\\Http\\Controllers\\" .ucfirst( camel_case( $this->_endpoint() ) ) ."Controller";
+        $controllerClass = "\\App\\Http\\Controllers\\" .ucfirst( camel_case( endpointFor() ) ) ."Controller";
         $controller = new $controllerClass;
         $transformerClass = $controller->transformer();
         $transformer = new $transformerClass;
@@ -449,49 +449,6 @@ trait Documentable
 
 
     /**
-     * Generate an endpoint name
-     *
-     * @return string
-     */
-    private function _endpoint($modelClass = '')
-    {
-
-        if (!$modelClass)
-        {
-
-            $modelClass = get_called_class();
-
-        }
-
-        $baseName = class_basename($modelClass);
-
-        // Use the user-friendly endpoint names for the following resources:
-        if ($baseName == "CorporateBody")
-        {
-
-            $baseName = "Venue";
-
-        }
-
-        if ($baseName == "Category" && static::$source == 'Shop')
-        {
-
-            $baseName = "ShopCategory";
-
-        }
-
-        if ($baseName == "Sound" && static::$source == 'Mobile')
-        {
-
-            $baseName = "MobileSound";
-
-        }
-
-        return kebab_case( str_plural( $baseName ) );
-
-    }
-
-    /**
      * Generate an endpoint name as copy text
      *
      * @return string
@@ -502,7 +459,7 @@ trait Documentable
         if (!$endpoint)
         {
 
-            $endpoint = $this->_endpoint();
+            $endpoint = endpointFor();
         }
 
         return strtolower( title_case( $endpoint ) );
@@ -525,7 +482,7 @@ trait Documentable
 
         $options = array_merge($defaults, $options);
 
-        $path = '/' .$this->_endpoint();
+        $path = '/' .endpointFor();
 
         if ($options['extraPath'])
         {

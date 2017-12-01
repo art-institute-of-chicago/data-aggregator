@@ -287,7 +287,8 @@ return [
             ],
             // Mappings are defined in SearchServiceProvider
             // https://laracasts.com/discuss/channels/laravel/how-to-access-auth-user-details-in-config-files
-        ]
+        ],
+
     ],
 
 ];
