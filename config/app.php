@@ -181,10 +181,6 @@ return [
         App\Providers\SearchServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
 
-        Laravel\Scout\ScoutServiceProvider::class,
-        Cviebrock\LaravelElasticsearch\ServiceProvider::class, // To interface with ES--create index, add schema, query, etc.
-        App\Providers\ElasticsearchProvider::class // Elasticsearch Scout Engine, to keep ES in sync with Laravel
-
     ],
 
     /*
