@@ -24,6 +24,13 @@ class SearchController extends Controller
     |
     */
 
+    /**
+     * Prepend outgoing Elasticsearch query to the response, for debugging.
+     *
+     * @var boolean
+     */
+    private $showQuery = false;
+
 
     /**
      * General entry point for search. There are three modes:
@@ -49,7 +56,14 @@ class SearchController extends Controller
 
         $searchResponse = new SearchResponse( $results, $params );
 
-        return $searchResponse->getSearchResponse();
+        $response = $searchResponse->getSearchResponse();
+
+        if( $this->showQuery )
+        {
+            $response = array_merge( ["request" => $this->getQuery()], $response );
+        }
+
+        return $response;
 
     }
 
@@ -75,7 +89,14 @@ class SearchController extends Controller
 
         $searchResponse = new SearchResponse( $results, $params );
 
-        return $searchResponse->getAutocompleteResponse();
+        $response = $searchResponse->getAutocompleteResponse();
+
+        if( $this->showQuery )
+        {
+            $response = array_merge( ["request" => $this->getQuery()], $response );
+        }
+
+        return $response;
 
     }
 
@@ -106,6 +127,19 @@ class SearchController extends Controller
 
 
     /**
+     * Retrieve the last query sent by this client to Elasticsearch.
+     *
+     * @return array
+     */
+    private function getQuery()
+    {
+
+        return json_decode( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'], true );
+
+    }
+
+
+    /**
      * Respond with the actual JSON query sent by the official ES PHP client
      *
      * @return string
@@ -113,7 +147,7 @@ class SearchController extends Controller
     private function showQuery()
     {
 
-        return response( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'] )->header('Content-Type', 'application/json');
+        return response( $this->getQuery() )->header('Content-Type', 'application/json');
 
     }
 
