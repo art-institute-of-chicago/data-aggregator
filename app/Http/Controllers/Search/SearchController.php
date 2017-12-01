@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Search;
 
+use Elasticsearch;
 use App\Http\Controllers\Controller;
 use App\Http\Search\Request as SearchRequest;
 use App\Http\Search\Response as SearchResponse;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Http\Request as HttpRequest;
-use Elasticsearch;
+use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
@@ -54,25 +53,10 @@ class SearchController extends Controller
      *
      * @return void
      */
-    public function search($type = null, $input = [])
+    public function search( Request $request, $type = null )
     {
 
-        $searchRequest = new SearchRequest( $type );
-
-        $params = $searchRequest->getSearchParams($input);
-
-        $results = $this->query( $params );
-
-        $searchResponse = new SearchResponse( $results, $params );
-
-        $response = $searchResponse->getSearchResponse();
-
-        if( $this->showQuery )
-        {
-            $response = array_merge( ["request" => $this->getQuery()], $response );
-        }
-
-        return $response;
+        return $this->query( $type, 'getSearchParams', 'getSearchResponse' );
 
     }
 
@@ -87,50 +71,44 @@ class SearchController extends Controller
      *
      * @return void
      */
-    public function autocomplete($type = null)
+    public function autocomplete( Request $request, $type = null )
     {
 
-        $searchRequest = new SearchRequest( $type );
-
-        $params = $searchRequest->getAutocompleteParams();
-
-        $results = $this->query( $params );
-
-        $searchResponse = new SearchResponse( $results, $params );
-
-        $response = $searchResponse->getAutocompleteResponse();
-
-        if( $this->showQuery )
-        {
-            $response = array_merge( ["request" => $this->getQuery()], $response );
-        }
-
-        return $response;
+        return $this->query( $type, 'getAutocompleteParams', 'getAutocompleteResponse' );
 
     }
 
 
     /**
-     * Perform a query against Elasticsearch endpoint
+     * Helper method to perform a query against Elasticsearch endpoint.
      *
-     * @param array $params
+     * @param array $type  Elasticsearch type to query
+     * @param string $requestMethod  Name of transformation method on SearchRequest class
+     * @param string $responseMethod  Name of transformation method on SearchResponse class
      *
      * @return array
      */
-    private function query( array $params )
+    private function query( $type, $requestMethod, $responseMethod )
     {
 
+        // Transform our API's syntax into an Elasticsearch params array
+        $params = ( new SearchRequest( $type ) )->$requestMethod();
+
         try {
-
-            $searchResponse = Elasticsearch::search( $params );
-
+            $results = Elasticsearch::search( $params );
         } catch (\Exception $e) {
-
             return response( $e->getMessage(), $e->getCode() )->header('Content-Type', 'application/json');
-
         }
 
-        return $searchResponse;
+        // Transform Elasticsearch results into our API standard
+        $response = ( new SearchResponse( $results, $params ) )->$responseMethod();
+
+        // Prepend the generated query?
+        if( $this->showQuery ) {
+            $response = array_merge( ["request" => $this->getQuery()], $response );
+        }
+
+        return $response;
 
     }
 

@@ -158,13 +158,8 @@ class Request
      */
     public function getSearchParams( $input = [] ) {
 
-        if (!$input)
-        {
-
-            // Strip down the (top-level) params to what our thin client supports
-            $input = self::getValidInput();
-
-        }
+        // Strip down the (top-level) params to what our thin client supports
+        $input = self::getValidInput();
 
         $params = array_merge(
             $this->getBaseParams( $input ),
