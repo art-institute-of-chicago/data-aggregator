@@ -25,6 +25,8 @@ class Request
     /**
      * List of allowed Input params for querying.
      *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-request-body.html
+     *
      * @var array
      */
     private static $allowed = [
@@ -32,7 +34,7 @@ class Request
         // Type can be passed via route, or via query params
         'type',
 
-        // Required: we must know the core search string
+        // Required for "Did You Mean"-style suggestions: we need to know the core search string
         // We use `q` b/c it won't cause UnexpectedValueException, if the user uses an official ES Client
         'q',
 
@@ -67,7 +69,6 @@ class Request
         'preference',
 
     ];
-
 
     /**
      * Default fields to return.
@@ -187,24 +188,33 @@ class Request
         // Add our custom relevancy tweaks into `should`
         $params = $this->addRelevancyParams( $params, $input );
 
-        if( is_null( array_get( $input, 'q' ) ) ) {
+        /**
+         * 1. If `query` is present, our client acts as a pass-through.
+         * 2. If `query` is absent, check if `q` is present:
+         *    a. If `q` is present, fall back into simple search mode.
+         *    b. If `q` is absent, show all results.
+         */
+        if( isset( $input['query'] ) ) {
 
-            // Empy search requires special handling, e.g. no suggestions
-            $params = $this->addEmptySearchParams( $params );
+            $params = $this->addFullSearchParams( $params, $input );
 
         } else {
 
-            if( is_null( array_get( $input, 'query' ) ) ) {
+            if( isset( $input['q'] ) ) {
 
                 $params = $this->addSimpleSearchParams( $params, $input );
 
             } else {
 
-                $params = $this->addFullSearchParams( $params, $input );
+                $params = $this->addEmptySearchParams( $params );
 
             }
 
-            // Both `query` and `q`-only searches support suggestions
+        }
+
+        // Regardless of the mode, if `q` is present, show search suggestions
+        if( isset( $input['q'] ) ) {
+
             $params = $this->addSuggestParams( $params, $input );
 
         }

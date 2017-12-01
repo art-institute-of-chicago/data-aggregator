@@ -35,13 +35,22 @@ class SearchController extends Controller
     /**
      * General entry point for search. There are three modes:
      *
-     * 1. Don't pass `q` to view all works, magically sorted.
-     * 2. Pass `q` param w/ string for a simple, optimized search.
-     * 3. Pass `q` param *and* `query` param, which follows ES Request Body conventions.
+     *  1. If `query` is present, our client acts as a pass-through.
+     *  2. If `query` is absent, check if `q` is present:
+     *     a. If `q` is present, fall back into simple search mode.
+     *     b. If `q` is absent, show all results.
      *
-     * The most important distinction is between "empty" and "non-empty" queries.
+     * `query` follows ES "Search Request Body" and "Query DSL" conventions.
+     * `q` is a string, but it does *not* support ES's "URI Search" syntax.
+     *
+     * We use `q` for performing simple, opinionated full-text searches, and
+     * for offering search suggestions, e.g. spelling corrections.
+     *
+     * Regardless of whether or not `query` is present, if `q` is present,
+     * it will be used to provide "Did You Mean"-style suggestions.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-uri-request.html
      *
      * @return void
      */
