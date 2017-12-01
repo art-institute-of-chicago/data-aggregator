@@ -26,6 +26,7 @@ class SearchServiceProvider extends ServiceProvider
             );
         });
 
+        // Bind the Search singleton's output into our config
         config( [ 'elasticsearch.indexParams.body.mappings' => app('Search')->getElasticsearchMappings() ] );
 
     }
@@ -33,9 +34,6 @@ class SearchServiceProvider extends ServiceProvider
 
     /**
      * Register a search application service, which tracks Searchable models.
-     *
-     *
-     * @return void
      */
     public function register()
     {
@@ -44,6 +42,13 @@ class SearchServiceProvider extends ServiceProvider
 
             return new class {
 
+                /**
+                 * Array of models with the Searchable trait. Converted to Eloquent collection on init.
+                 * An explicit listing is (currently) preferred for performance reasons, and to avoid
+                 * creating indexes for parents of some polymorphic models (i.e. Assets).
+                 *
+                 * @var array
+                 */
                 private $models = [
 
                     \App\Models\Collections\Agent::class,
@@ -74,11 +79,22 @@ class SearchServiceProvider extends ServiceProvider
 
                 ];
 
+                /**
+                 * Init this class. Transforms `$models` into an Eloquent collection.
+                 */
                 public function __construct()
                 {
                     $this->models = collect( $this->models );
                 }
 
+                /**
+                 * Get an array containing Elasticsearch type mappings in conformance with the official ES PHP syntax.
+                 * Meant for feeding into `config('elasticsearch.indexParams.body.mappings')`.
+                 *
+                 * @link https://laracasts.com/discuss/channels/laravel/how-to-access-auth-user-details-in-config-files
+                 *
+                 * @return array
+                 */
                 public function getElasticsearchMappings() {
 
                     $mappings = $this->models->map( function( $model ) {
@@ -89,6 +105,11 @@ class SearchServiceProvider extends ServiceProvider
 
                 }
 
+                /**
+                 * Returns an array containing namespaced classnames of models with the Searchable trait.
+                 *
+                 * @return array
+                 */
                 public function getSearchableModels() {
 
                     return $this->models->all();
