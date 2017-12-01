@@ -5,26 +5,30 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Elasticsearch;
 
+use App\Console\Helpers\Indexer;
+
 class UninstallSearch extends Command
 {
 
-    protected $signature = 'search:uninstall {index? : The name of the index to delete}';
+    use Indexer;
 
-    protected $description = 'Tear down the Search Service index';
+    protected $signature = 'search:uninstall {prefix? : The prefixes of the indexes to delete} {--y|yes : Answer "yes" to all prompts confirming to delete index}';
+
+    protected $description = 'Tear down the Search Service indexes';
 
     /**
-     * The name of the index to delete.
+     * The prefix of the indexes to delete.
      *
      * @var string
      */
-    protected $index;
+    protected $prefix;
 
 
     public function __construct()
     {
 
         parent::__construct();
-        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
+        $this->prefix = env('ELASTICSEARCH_INDEX_PREFIX', 'test_');
 
     }
 
@@ -32,23 +36,47 @@ class UninstallSearch extends Command
     public function handle()
     {
 
-        if ($this->argument('index'))
+        if ($this->argument('prefix'))
         {
 
-            $this->index = $this->argument('index');
+            $this->prefix = $this->argument('prefix');
 
         }
 
-        $params = [
-            'index' => $this->index,
-        ];
-
-        if (Elasticsearch::indices()->exists($params))
+        if (!$this->option('yes') && !$this->confirm("This will delete all indexes that begin with the prefix " .$this->prefix .". Do you wish to continue?"))
         {
 
-            $return = Elasticsearch::indices()->delete($params);
+            return false;
 
         }
+
+        foreach (allModelsThatUse(\App\Models\ElasticSearchable::class) as $model)
+        {
+
+            $endpoint = endpointFor($model);
+            $index = $this->prefix .$endpoint;
+
+            $params = [
+                'index' => $index,
+            ];
+
+            if (Elasticsearch::indices()->exists($params))
+            {
+
+                $return = Elasticsearch::indices()->delete($params);
+
+                $this->info($this->done($return));
+
+            }
+            else
+            {
+
+                $this->info("Index " .$index . " does not exist.");
+
+            }
+
+        }
+
 
     }
 
