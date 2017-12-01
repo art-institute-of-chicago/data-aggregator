@@ -83,6 +83,15 @@ class Request
         'timestamp',
     ];
 
+    /**
+     * Maximum request `size` for pagination.
+     *
+     * @TODO Sync this to max size as defined in controllers.
+     *
+     * @var integer
+     */
+    private static $maxSize = 1000;
+
 
     /**
      * Create a new request instance.
@@ -248,20 +257,22 @@ class Request
     private function getPaginationParams( array $input ) {
 
         // Elasticsearch params take precedence
-        $size = array_get( $input, 'size' ) ? $input['size'] : null;
-        $from = array_get( $input, 'from' ) ? $input['from'] : null;
-
         // If that doesn't work, attempt to convert Laravel's pagination into ES params
-        isset( $size ) ?: $size = array_get( $input, 'limit' ) ? $input['size'] : null;
-        isset( $from ) ?: $from = array_get( $input, 'page' ) ? $input['page'] * $size : null;
+        $size = $input['size'] ?? $input['limit'] ?? null;
+        $from = $input['from'] ?? $input['page'] ??  null;
+
+        // ES is robust: it can accept `size` or `from` independently
 
         // If not null, cast these params to int
+        // We are using isset() instead of normal ternary to avoid catching `0` as falsey
         if( isset( $size ) ) { $size = (int) $size; }
         if( isset( $from ) ) { $from = (int) $from; }
 
-        // We are using isset() instead of normal ternary to avoid catching `0` as falsey
-        // PHP 7 allows the "null coalescing operator"  - `??` - which serves the same role
-        // https://stackoverflow.com/questions/18603250/php-shorthand-for-isset
+        // TODO: Throw an exception if `size` is too big
+        // This will have to wait until we refactor controller exceptions
+        if( $size > self::$maxSize ) {
+            //
+        }
 
         return [
 
