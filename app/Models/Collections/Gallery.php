@@ -46,39 +46,53 @@ class Gallery extends CollectionsModel
     {
 
         return [
-            'is_closed' => [
+            [
+                "name" => 'is_closed',
                 "doc" => "Whether the gallery is currently closed",
                 "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
                 "value" => function() { return (bool) $this->closed; }
             ],
-            'number' => [
+            [
+                "name" => 'number',
                 "doc" => "The gallery's room number. For 'Gallery 100A', this would be '100A'.",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->number; },
             ],
-            'floor' => [
+            [
+                "name" => 'floor',
                 "doc" => "The level the gallery is on, e.g., 1, 2, 3, or LL",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->floor; },
             ],
-            'latitude' => [
+            [
+                "name" => 'latitude',
                 "doc" => "Latitude coordinate of the center of the room",
                 "type" => "number",
+                'elasticsearch_type' => 'float',
                 "value" => function() { return $this->latitude; },
             ],
-            'longitude' => [
+            [
+                "name" => 'longitude',
                 "doc" => "Longitude coordinate of the center of the room",
                 "type" => "number",
+                'elasticsearch_type' => 'float',
                 "value" => function() { return $this->longitude; },
             ],
-            'latlon' => [
+            [
+                "name" => 'latlon',
                 "doc" => "Latitude and longitude coordinates of the center of the room",
                 "type" => "string",
+                'elasticsearch_type' => 'geo_point',
                 "value" => function() { return $this->latitude .',' .$this->longitude; },
             ],
-            'category_ids' => [
+            [
+                "name" => 'category_ids',
                 "doc" => "Unique identifiers of the categories this gallery is a part of",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->categories->pluck('citi_id')->all(); },
             ],
         ];
@@ -96,50 +110,18 @@ class Gallery extends CollectionsModel
 
         return [
 
-            'category_titles' => $this->categories->pluck('title')->all(),
+            [
+                "name" => 'category_titles',
+                "doc" => "Names of the categories this gallery is a part of",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->categories->pluck('title')->all(); },
+            ],
 
         ];
 
     }
 
-
-    /**
-     * Generate model-specific fields for an array representing the schema for this object.
-     *
-     * @return array
-     */
-    public function elasticsearchMappingFields()
-    {
-
-        return
-            [
-                'is_closed' => [
-                    'type' => 'boolean',
-                ],
-                'number' => [
-                    'type' => 'keyword',
-                ],
-                'floor' => [
-                    'type' => 'keyword',
-                ],
-                'latitude' => [
-                    'type' => 'float',
-                ],
-                'longitude' => [
-                    'type' => 'float',
-                ],
-                'latlon' => [
-                    'type' => 'geo_point',
-                ],
-                'category_ids' => [
-                    'type' => 'integer',
-                ],
-                'category_titles' => [
-                    'type' => 'text',
-                ],
-            ];
-
-    }
 
     /**
      * Get an example ID for documentation generation

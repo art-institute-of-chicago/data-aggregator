@@ -185,7 +185,24 @@ trait ElasticSearchable
     public function elasticsearchMappingFields()
     {
 
-        return [];
+        $fieldMappings = array_merge($this->transformMappingInternal(), $this->transformTitles());
+
+        $ret = [];
+        foreach (array_pluck($fieldMappings, 'elasticsearch_type', 'name') as $field => $type)
+        {
+
+            if ($type)
+            {
+
+                $ret[$field] = [
+                    'type' => $type
+                ];
+
+            }
+
+        }
+
+        return $ret;
 
     }
 

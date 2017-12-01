@@ -54,7 +54,6 @@ class CreateEndpointDocs extends Command
         }
 
         $doc = '';
-
         $doc .= "# Collections\n\n";
         $doc .= \App\Models\Collections\Artwork::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Agent::instance()->docEndpoints($this->appUrl);

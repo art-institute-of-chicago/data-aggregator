@@ -41,14 +41,18 @@ class Sound extends MobileModel
     {
 
         return [
-            'link' => [
+            [
+                "name" => 'link',
                 "doc" => "URL to the audio file",
                 "type" => "url",
+                "elasticsearch_type" => "keyword",
                 "value" => function() { return $this->link; },
             ],
-            'transcript' => [
+            [
+                "name" => 'transcript',
                 "doc" => "Text transcription of the audio file",
                 "type" => "string",
+                "elasticsearch_type" => "text",
                 "value" => function() { return $this->transcript; },
             ],
         ];

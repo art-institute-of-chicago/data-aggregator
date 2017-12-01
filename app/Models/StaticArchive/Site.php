@@ -57,34 +57,39 @@ class Site extends BaseModel
     {
 
         return [
-            'description' => [
+            [
+                "name" => 'description',
                 "doc" => "Explanation of what this site is",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->description; },
             ],
-            'web_url' => [
+            [
+                "name" => 'web_url',
                 "doc" => "URL to this site",
                 "type" => "url",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->web_url; },
             ],
-            'exhibition' => [
-                "doc" => "The name of the exhibition this site is associated with",
-                "type" => "string",
-                "value" => function() { return $this->exhibition ? $this->exhibition->title : ""; },
-            ],
-            'exhibition_ids' => [
+            [
+                "name" => 'exhibition_ids',
                 "doc" => "Unique identifier of the exhibitions this site is associated with",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->exhibitions->pluck('citi_id')->all(); },
             ],
-            'artist_ids' => [
+            [
+                "name" => 'artist_ids',
                 "doc" => "Unique identifiers of the artists this site is associated with",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->agents->pluck('citi_id')->all(); },
             ],
-            'artwork_ids' => [
+            [
+                "name" => 'artwork_ids',
                 "doc" => "Unique identifiers of the artworks this site is associated with",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
             ],
         ];
@@ -102,9 +107,27 @@ class Site extends BaseModel
 
         return [
 
-            'artwork_titles' => $this->artworks->pluck('title')->all(),
-            'exhibition_titles' => $this->exhibitions->pluck('title')->all(),
-            'artist_titles' => $this->agents->pluck('title')->all(),
+            [
+                "name" => 'artwork_titles',
+                "doc" => "Names of the artworks this site is associated with",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->artworks->pluck('title')->all(); },
+            ],
+            [
+                "name" => 'exhibition_titles',
+                "doc" => "Names of the exhibitions this site is associated with",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->exhibitions->pluck('title')->all(); },
+            ],
+            [
+                "name" => 'artist_titles',
+                "doc" => "Names of the artists this site is associated with",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->agents->pluck('title')->all(); },
+            ],
 
         ];
 
@@ -149,41 +172,6 @@ class Site extends BaseModel
 
     }
 
-
-    /**
-     * Generate model-specific fields for an array representing the schema for this object.
-     *
-     * @return array
-     */
-    public function elasticsearchMappingFields()
-    {
-
-        return
-            [
-                'link' => [
-                    'type' => 'keyword',
-                ],
-                'exhibition_ids' => [
-                    'type' => 'integer',
-                ],
-                'exhibition_titles' => [
-                    'type' => 'text',
-                ],
-                'artist_ids' => [
-                    'type' => 'integer',
-                ],
-                'artist_titles' => [
-                    'type' => 'text',
-                ],
-                'artwork_ids' => [
-                    'type' => 'integer',
-                ],
-                'artwork_titles' => [
-                    'type' => 'text',
-                ],
-            ];
-
-    }
 
     /**
      * Get an example ID for documentation generation

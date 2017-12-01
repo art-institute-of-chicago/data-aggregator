@@ -48,29 +48,39 @@ class Category extends ShopModel
     {
 
         return [
-            'link' => [
+            [
+                "name" => 'link',
                 "doc" => "URL to the shop page for this category",
                 "type" => "url",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->link; },
             ],
-            'parent_id' => [
+            [
+                "name" => 'parent_id',
                 "doc" => "Unique identifier of this category's parent",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->parent ? $this->parent->shop_id : null; },
             ],
-            'type' => [
+            [
+                "name" => 'type',
                 "doc" => "The type of category, e.g., sale, place-of-origin, style, etc.",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->type; },
             ],
-            'source_id' => [
+            [
+                "name" => 'source_id',
                 "doc" => "The identifier from the source system. This is only unique relative to the type of category, so we don't use this as the primary identifier.",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->source_id; },
             ],
-            'child_ids' => [
-                "doc" => "Unique identifier of this category's children",
+            [
+                "name" => 'child_ids',
+                "doc" => "Unique identifiers of this category's children",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->children->pluck('shop_id')->all(); },
             ],
         ];
@@ -88,48 +98,25 @@ class Category extends ShopModel
 
         return [
 
-            'parent_title' => $this->parent ? $this->parent->title : NULL,
-            'child_titles' => $this->children->pluck('title')->all(),
+            [
+                "name" => 'parent_title',
+                "doc" => "Name of this category's parent",
+                "type" => "string",
+                "elasticsearch_type" => "text",
+                "value" => function() { return $this->parent ? $this->parent->title : NULL; },
+            ],
+            [
+                "name" => 'child_titles',
+                "doc" => "Names of this category's children",
+                "type" => "array",
+                "elasticsearch_type" => "text",
+                "value" => function() { return $this->children->pluck('title')->all(); },
+            ],
 
         ];
 
     }
 
-
-    /**
-     * Generate model-specific fields for an array representing the schema for this object.
-     *
-     * @return array
-     */
-    public function elasticsearchMappingFields()
-    {
-
-        return
-            [
-                'link' => [
-                    'type' => 'keyword',
-                ],
-                'parent_id' => [
-                    'type' => 'integer',
-                ],
-                'parent_title' => [
-                    'type' => 'text',
-                ],
-                'type' => [
-                    'type' => 'keyword',
-                ],
-                'source_id' => [
-                    'type' => 'integer',
-                ],
-                'child_ids' => [
-                    'type' => 'integer',
-                ],
-                'child_titles' => [
-                    'type' => 'text',
-                ],
-            ];
-
-    }
 
     /**
      * Get an example ID for documentation generation
@@ -139,7 +126,7 @@ class Category extends ShopModel
     public function exampleId()
     {
 
-        return "999397";
+        return "999700";
 
     }
 

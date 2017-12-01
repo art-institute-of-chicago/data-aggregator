@@ -66,54 +66,74 @@ class Section extends DscModel
     {
 
         return [
-            'web_url' => [
+            [
+                "name" => 'web_url',
                 "doc" => "URL to the section",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->web_url; },
             ],
-            'accession' => [
+            [
+                "name" => 'accession',
                 "doc" => "An accession number parsed from the title or tombstone",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->accession; },
             ],
-            'revision' => [
+            [
+                "name" => 'revision',
                 "doc" => "Version identifier as provided by Drupal",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->revision; },
             ],
-            'source_id' => [
+            [
+                "name" => 'source_id',
                 "doc" => "Drupal node id, unique only within the site of this publication",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->source_id; },
             ],
-            'weight' => [
+            [
+                "name" => 'weight',
                 "doc" => "Number representing this section's sort order",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->weight; },
             ],
-            'parent_id' => [
+            [
+                "name" => 'parent_id',
                 "doc" => "Uniquer identifier of the parent section",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->parent ? $this->parent->dsc_id : null; },
             ],
-            'publication' => [
+            [
+                "name" => 'publication',
                 "doc" => "Name of the publication this section belongs to",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->publication ? $this->publication->title : ''; },
             ],
-            'publication_id' => [
+            [
+                "name" => 'publication_id',
                 "doc" => "Unique identifier of the publication this section belongs to",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->publication ? $this->publication->dsc_id : null; },
             ],
-            'artwork_id' => [
+            [
+                "name" => 'artwork_id',
                 "doc" => "Unique identifier of the artwork with which this section is associated",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->artwork ? $this->artwork->citi_id : null; },
             ],
-            'content' => [
+            [
+                "name" => 'content',
                 "doc" => "Content of this section in plaintext",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->content; },
             ],
 
@@ -121,50 +141,6 @@ class Section extends DscModel
 
     }
 
-
-    /**
-     * Generate model-specific fields for an array representing the schema for this object.
-     *
-     * @return array
-     */
-    public function elasticsearchMappingFields()
-    {
-
-        return
-            [
-                'web_url' =>[
-                    'type' => 'keyword',
-                ],
-                'accession' =>[
-                    'type' => 'keyword',
-                ],
-                'revision' =>[
-                    'type' => 'integer',
-                ],
-                'source_id' =>[
-                    'type' => 'integer',
-                ],
-                'weight' =>[
-                    'type' => 'integer',
-                ],
-                'parent_id' =>[
-                    'type' => 'integer',
-                ],
-                'publication' => [
-                    'type' => 'text',
-                ],
-                'publication_id' =>[
-                    'type' => 'integer',
-                ],
-                'artwork_id' =>[
-                    'type' => 'integer',
-                ],
-                'content' =>[
-                    'type' => 'text',
-                ],
-            ];
-
-    }
 
     /**
      * Get an example ID for documentation generation
