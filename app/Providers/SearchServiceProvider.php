@@ -89,6 +89,12 @@ class SearchServiceProvider extends ServiceProvider
 
                 }
 
+                public function getSearchableModels() {
+
+                    return $this->models->all();
+
+                }
+
             };
 
         });
