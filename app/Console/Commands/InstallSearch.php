@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Elasticsearch;
+use Artisan;
 
 use App\Console\Helpers\Indexer;
 
@@ -12,7 +13,7 @@ class InstallSearch extends Command
 
     use Indexer;
 
-    protected $signature = 'search:install {prefix? : The prefixes of the indexes to create} {--y|yes : Answer "yes" to all prompts confirming to delete index}';
+    protected $signature = 'search:install {index? : The name of the index to create. Will be created as an alias to a set of indexes with the same prefixes} {--y|yes : Answer "yes" to all prompts confirming to delete index}';
 
     protected $description = 'Set up the Search Service indexes with data types and fields';
 
@@ -21,14 +22,14 @@ class InstallSearch extends Command
      *
      * @var string
      */
-    protected $prefix;
+    protected $index;
 
 
     public function __construct()
     {
 
         parent::__construct();
-        $this->prefix = env('ELASTICSEARCH_INDEX_PREFIX', 'data_aggregator_test_');
+        $this->index = env('ELASTICSEARCH_INDEX', 'test');
 
     }
 
@@ -36,10 +37,10 @@ class InstallSearch extends Command
     public function handle()
     {
 
-        if ($this->argument('prefix'))
+        if ($this->argument('index'))
         {
 
-            $this->prefix = $this->argument('prefix');
+            $this->index = $this->argument('index');
 
         }
 
@@ -47,7 +48,7 @@ class InstallSearch extends Command
         {
 
             $endpoint = endpointFor($model);
-            $index = $this->prefix .$endpoint;
+            $index = $this->index .'-' .$endpoint;
 
             if (!$this->destroy($index, $this->option('yes')))
             {
@@ -65,6 +66,8 @@ class InstallSearch extends Command
             $return = Elasticsearch::indices()->create($params);
 
             $this->info($this->done($return));
+
+            Artisan::call('search:alias', ['source' => $index, 'alias' => $this->index, '--single' => true]);
 
         }
 

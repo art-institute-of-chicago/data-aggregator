@@ -13,41 +13,49 @@ class ReindexSearch extends Command
     use Indexer;
 
     protected $signature = 'search:reindex
-                            {source : The name of the index to copy documents from}
-                            {dest? : The name of the index to copy documents to}';
+                            {dest : The name of the index to copy documents to}
+                            {source? : The prefix of the indexes to create the alias from}';
 
-    protected $description = 'Copy documents from one index to another';
+    protected $description = 'Copy documents from one set of indices to another';
 
 
     public function handle()
     {
 
-        $source = $this->argument('source');
-        $dest = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
+        $source = env('ELASTICSEARCH_INDEX', 'test-latest-prefix');
+        $dest = $this->argument('dest');
 
-        if ($this->argument('dest'))
+        if ($this->argument('source'))
         {
 
-            $dest = $this->argument('dest');
+            $source = $this->argument('source');
 
         }
 
-        $params = [
-            'wait_for_completion' => false,
-            'body' => [
-                'source' => [
-                    'index' => $source,
-                    'size' => 100,
-                ],
-                'dest' => [
-                    'index' => $dest,
-                ],
-            ],
-        ];
+        foreach (allModelsThatUse(\App\Models\ElasticSearchable::class) as $model)
+        {
 
-        $return = Elasticsearch::reindex($params);
+            $endpoint = endpointFor($model);
+            $index = $source .'-' .$endpoint;
 
-        $this->info('Reindex has started. You can monitor the process here: ' .$this->baseUrl() .'/_tasks/' .$return['task']);
+            $params = [
+                'wait_for_completion' => false,
+                'body' => [
+                    'source' => [
+                        'index' => $index,
+                        'size' => 100,
+                    ],
+                    'dest' => [
+                        'index' => $dest .'-' .$endpoint,
+                    ],
+                ],
+            ];
+
+            $return = Elasticsearch::reindex($params);
+
+            $this->info('Reindex from ' .$index .'has started. You can monitor the process here: ' .$this->baseUrl() .'/_tasks/' .$return['task']);
+
+        }
 
     }
 
