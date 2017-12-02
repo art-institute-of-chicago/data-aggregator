@@ -121,7 +121,7 @@ function endpointFor($modelClass)
 
     $baseName = class_basename($modelClass);
 
-    $source = substr($modelClass, 10, strlen($modelClass) - strlen($baseName) - 11);
+    $source = substr($modelClass, 12, strlen($modelClass) - strlen($baseName) - 13);
 
     // Use the user-friendly endpoint names for the following resources:
     if ($baseName == "CorporateBody")
