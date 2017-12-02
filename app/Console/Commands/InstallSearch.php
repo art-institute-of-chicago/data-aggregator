@@ -67,7 +67,7 @@ class InstallSearch extends Command
 
             $this->info($this->done($return));
 
-            Artisan::call('search:alias', ['source' => $index, 'alias' => $this->index]);
+            Artisan::call('search:alias', ['source' => $index, 'alias' => $this->index, '--single' => true]);
 
         }
 
