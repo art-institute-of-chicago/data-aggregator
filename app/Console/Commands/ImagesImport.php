@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
 
 use League\Csv\Reader;
 
@@ -14,9 +13,9 @@ class ImagesImport extends Command
 
     protected $signature = 'images:import';
 
-    protected $description = 'Import CSV for downloaded images';
+    protected $description = 'Import CSV for image metadata';
 
-    protected $filename = 'output.csv';
+    protected $filename = 'images.csv';
 
     public function handle()
     {
@@ -39,31 +38,57 @@ class ImagesImport extends Command
                 continue;
             }
 
-            $metadata = $image->metadata ?? (object) [];
-            $fingerprint = $metadata->fingerprint ?? (object) [];
-
-            $fingerprint->ahash = $row['ahash'] ?? null;
-            $fingerprint->dhash = $row['dhash'] ?? null;
-            $fingerprint->phash = $row['phash'] ?? null;
-            $fingerprint->whash = $row['whash'] ?? null;
-
-            $metadata->mse = $row['mse'] ?? null;
-
-            $metadata->fingerprint = $fingerprint;
-            $image->metadata = $metadata;
+            $image->metadata = $this->getMetadata( $image, $row );
 
             $image->save();
 
             // Output for reference
-            $this->info( $image->getKey() . ' = ' . implode(', ', [
-                $image->metadata->mse,
-                $image->metadata->fingerprint->ahash,
-                $image->metadata->fingerprint->dhash,
-                $image->metadata->fingerprint->phash,
-                $image->metadata->fingerprint->whash,
-            ]));
+            $this->info( $image->getKey() . ' = ' . json_encode( $image->metadata ) );
 
         }
+
+    }
+
+    private function getMetadata( $image, $row )
+    {
+
+        $metadata = $image->metadata ?? (object) [];
+
+        $metadata->color = $this->getColor( $metadata, $row );
+        // $metadata->fingerprint = $this->getFingerprint( $metadata, $row );
+
+        // $metadata->mse = $row['mse'] ?? null;
+
+        return $metadata;
+
+    }
+
+    private function getColor( $metadata, $row )
+    {
+
+        $color = $metadata->color ?? (object) [];
+
+        $color->h = (int) $row['h'] ?? null;
+        $color->s = (int) $row['s'] ?? null;
+        $color->l = (int) $row['l'] ?? null;
+        $color->population = (int) $row['population'] ?? null;
+        $color->percentage = (float) $row['percentage'] ?? null;
+
+        return $color;
+
+    }
+
+    private function getFingerprint( $metadata, $row )
+    {
+
+        $fingerprint = $metadata->fingerprint ?? (object) [];
+
+        $fingerprint->ahash = $row['ahash'] ?? null;
+        $fingerprint->dhash = $row['dhash'] ?? null;
+        $fingerprint->phash = $row['phash'] ?? null;
+        $fingerprint->whash = $row['whash'] ?? null;
+
+        return $fingerprint;
 
     }
 
