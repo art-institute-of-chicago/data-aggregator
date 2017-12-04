@@ -7,7 +7,7 @@ use Elasticsearch;
 
 use App\Console\Helpers\Indexer;
 
-class AliasSearch extends Command
+class SearchAlias extends Command
 {
 
     use Indexer;

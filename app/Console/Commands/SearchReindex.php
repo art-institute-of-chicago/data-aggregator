@@ -7,7 +7,7 @@ use Elasticsearch;
 
 use App\Console\Helpers\Indexer;
 
-class ReindexSearch extends Command
+class SearchReindex extends Command
 {
 
     use Indexer;

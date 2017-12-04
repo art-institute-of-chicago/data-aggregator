@@ -7,7 +7,7 @@ use Elasticsearch;
 
 use App\Console\Helpers\Indexer;
 
-class UninstallSearch extends Command
+class SearchUninstall extends Command
 {
 
     use Indexer;

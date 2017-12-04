@@ -8,7 +8,7 @@ use Artisan;
 
 use App\Console\Helpers\Indexer;
 
-class InstallSearch extends Command
+class SearchInstall extends Command
 {
 
     use Indexer;
