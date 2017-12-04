@@ -101,7 +101,7 @@ class Request
      */
     public function __construct( $type = null )
     {
-        $this->index = $type ? env('ELASTICSEARCH_INDEX') . $type : env('ELASTICSEARCH_ALIAS');
+        $this->index = $type ? env('ELASTICSEARCH_INDEX') . '-' . $type : env('ELASTICSEARCH_ALIAS');
         $this->type = $type;
     }
 
