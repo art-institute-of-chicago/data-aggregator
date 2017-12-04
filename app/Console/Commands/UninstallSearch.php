@@ -28,7 +28,7 @@ class UninstallSearch extends Command
     {
 
         parent::__construct();
-        $this->index = env('ELASTICSEARCH_INDEX', 'test_');
+        $this->index = env('ELASTICSEARCH_INDEX');
 
     }
 

@@ -40,8 +40,8 @@ class AliasSearch extends Command
     {
 
         parent::__construct();
-        $this->source = env('ELASTICSEARCH_INDEX', 'test-latest-prefix');
-        $this->alias = env('ELASTICSEARCH_ALIAS', 'test');
+        $this->source = env('ELASTICSEARCH_INDEX');
+        $this->alias = env('ELASTICSEARCH_ALIAS');
 
     }
 

@@ -29,7 +29,7 @@ class InstallSearch extends Command
     {
 
         parent::__construct();
-        $this->index = env('ELASTICSEARCH_INDEX', 'test');
+        $this->index = env('ELASTICSEARCH_INDEX');
 
     }
 

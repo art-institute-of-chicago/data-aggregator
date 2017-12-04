@@ -16,7 +16,7 @@ trait Indexer
         if (!$index)
         {
 
-            $index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
+            $index = env('ELASTICSEARCH_INDEX');
 
         }
 

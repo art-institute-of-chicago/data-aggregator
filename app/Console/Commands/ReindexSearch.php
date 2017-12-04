@@ -22,7 +22,7 @@ class ReindexSearch extends Command
     public function handle()
     {
 
-        $source = env('ELASTICSEARCH_INDEX', 'test-latest-prefix');
+        $source = env('ELASTICSEARCH_INDEX');
         $dest = $this->argument('dest');
 
         if ($this->argument('source'))

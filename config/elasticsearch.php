@@ -229,7 +229,7 @@ return [
     ],
 
     'indexParams' => [
-        'index' => env('ELASTICSEARCH_INDEX', 'data_aggregator'),
+        'index' => env('ELASTICSEARCH_INDEX'),
         'body' => [
             'settings' => [
                 'analysis' => [
