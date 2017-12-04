@@ -4,6 +4,12 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/art-institute-of-chicago/laravel-scout-elastic.git"
+        }
+    ],
     "require": {
         "php": ">=5.6.4",
         "cviebrock/laravel-elasticsearch": "^2.0",
@@ -15,7 +21,7 @@
         "league/csv": "^9.1",
         "league/fractal": "^0.16.0",
         "marijnvdwerf/material-palette": "^1.2",
-        "tamayo/laravel-scout-elastic": "^3.0",
+        "tamayo/laravel-scout-elastic": "dev-index-per-model#4a5ef1845b4ff66d6fcf2e2ff6d21260c3b60e71",
         "zendframework/zend-code": "^3.2"
     },
     "require-dev": {

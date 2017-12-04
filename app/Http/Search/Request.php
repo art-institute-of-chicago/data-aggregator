@@ -101,7 +101,7 @@ class Request
      */
     public function __construct( $type = null )
     {
-        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
+        $this->index = $type ? env('ELASTICSEARCH_INDEX') . $type : env('ELASTICSEARCH_ALIAS');
         $this->type = $type;
     }
 
