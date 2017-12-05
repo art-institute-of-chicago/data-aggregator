@@ -14,16 +14,7 @@ trait Transformable
     public function transform($withTitles = false)
     {
 
-        $ret = $this->transformFields();
-
-        if ($withTitles)
-        {
-
-            $ret = array_merge($ret, $this->transformTitles());
-
-        }
-
-        return $ret;
+        return $this->transformFields($withTitles);
 
     }
 
@@ -33,19 +24,26 @@ trait Transformable
      *
      * @return array
      */
-    public function transformFields()
+    public function transformFields($withTitles = false)
     {
 
-        $fields = [];
+        $fields = $this->transformMapping();
 
-        foreach ($this->transformMapping() as $array)
+        if ($withTitles)
+        {
+            $fields = array_merge( $fields, $this->transformTitles() );
+        }
+
+        $out = [];
+
+        foreach ($fields as $field)
         {
 
-            $fields[$array["name"]] = call_user_func($array["value"]);
+            $out[ $field["name"] ] = call_user_func( $field["value"] );
 
         }
 
-        return $fields;
+        return $out;
 
     }
 
