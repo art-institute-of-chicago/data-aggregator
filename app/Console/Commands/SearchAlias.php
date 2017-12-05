@@ -20,65 +20,27 @@ class SearchAlias extends Command
     protected $description = 'Create an alias for an index';
 
 
-    /**
-     * The prefix of the indexes to create the alias from
-     *
-     * @var string
-     */
-    protected $source;
-
-
-    /**
-     * The name of the alias to create
-     *
-     * @var string
-     */
-    protected $alias;
-
-
-    public function __construct()
-    {
-
-        parent::__construct();
-        $this->source = env('ELASTICSEARCH_INDEX');
-        $this->alias = env('ELASTICSEARCH_ALIAS');
-
-    }
-
-
     public function handle()
     {
 
-        if ($this->argument('alias'))
-        {
-
-            $this->alias = $this->argument('alias');
-
-        }
-
-        if ($this->argument('source'))
-        {
-
-            $this->source = $this->argument('source');
-
-        }
+        $source = $this->argument('source') ?? env('ELASTICSEARCH_INDEX');
+        $alias = $this->argument('alias') ?? env('ELASTICSEARCH_ALIAS');
 
         if ($this->option('single'))
         {
 
-            $this->alias($this->source, $this->alias);
+            $this->alias($source, $alias);
 
-        }
-        else
-        {
+        } else {
 
             foreach (allModelsThatUse(\App\Models\ElasticSearchable::class) as $model)
             {
 
                 $endpoint = endpointFor($model);
-                $index = $this->source .'-' .$endpoint;
+                $index = $source . '-' . $endpoint;
 
-                $this->alias($index, $this->alias);
+                $this->alias($index, $alias);
+
             }
 
         }
@@ -86,7 +48,7 @@ class SearchAlias extends Command
     }
 
 
-    public function alias($index)
+    public function alias($index, $alias)
     {
 
         $params = [
@@ -95,7 +57,7 @@ class SearchAlias extends Command
                     [
                         'add' => [
                             'index' => $index,
-                            'alias' => $this->alias
+                            'alias' => $alias
                         ]
                     ]
                 ]
@@ -104,7 +66,7 @@ class SearchAlias extends Command
 
         $return = Elasticsearch::indices()->updateAliases($params);
 
-        $this->info('An alias in the name of ' .$this->alias .' has been created for ' .$index);
+        $this->info('An alias in the name of ' . $alias . ' has been created for ' . $index);
 
     }
 

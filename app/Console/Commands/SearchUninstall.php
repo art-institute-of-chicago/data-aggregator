@@ -12,38 +12,19 @@ class SearchUninstall extends Command
 
     use Indexer;
 
-    protected $signature = 'search:uninstall {index? : The group of indexes to delete} {--y|yes : Answer "yes" to all prompts confirming to delete index}';
+    protected $signature = 'search:uninstall
+                            {index? : The group of indexes to delete}
+                            {--y|yes : Answer "yes" to all prompts confirming to delete index}';
 
     protected $description = 'Tear down the Search Service indexes';
-
-    /**
-     * The prefix of the indexes to delete.
-     *
-     * @var string
-     */
-    protected $index;
-
-
-    public function __construct()
-    {
-
-        parent::__construct();
-        $this->index = env('ELASTICSEARCH_INDEX');
-
-    }
 
 
     public function handle()
     {
 
-        if ($this->argument('index'))
-        {
+        $prefix = $this->argument('index') ?? env('ELASTICSEARCH_INDEX');
 
-            $this->index = $this->argument('index');
-
-        }
-
-        if (!$this->option('yes') && !$this->confirm("This will delete all indexes that are a part of the " .$this->index ." alias. Do you wish to continue?"))
+        if (!$this->option('yes') && !$this->confirm("This will delete all indexes with `" . $prefix . "` prefix. Are you sure?"))
         {
 
             return false;
@@ -54,9 +35,9 @@ class SearchUninstall extends Command
         {
 
             $endpoint = endpointFor($model);
-            $index = $this->index .'-' .$endpoint;
+            $index = $prefix . '-' . $endpoint;
 
-            $this->info('Deleting ' .$index .' index...');
+            $this->info('Deleting ' . $index . ' index...');
 
             $params = [
                 'index' => $index,
@@ -69,11 +50,9 @@ class SearchUninstall extends Command
 
                 $this->info($this->done($return));
 
-            }
-            else
-            {
+            } else {
 
-                $this->info("Index " .$index . " does not exist.");
+                $this->info("Index " . $index . " does not exist.");
 
             }
 
