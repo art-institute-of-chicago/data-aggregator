@@ -28,7 +28,7 @@ class SearchServiceProvider extends ServiceProvider
         });
 
         // Bind the Search singleton's output into our config
-        config( [ 'elasticsearch.indexParams.body.mappings' => app('Search')->getElasticsearchMappings() ] );
+        app('Search')->updateElasticsearchConfig();
 
     }
 
@@ -45,8 +45,9 @@ class SearchServiceProvider extends ServiceProvider
 
                 /**
                  * Array of models with the Searchable trait. Converted to Eloquent collection on init.
-                 * An explicit listing is (currently) preferred for performance reasons, and to avoid
-                 * creating indexes for parents of some polymorphic models (i.e. Assets).
+                 *
+                 * An explicit listing is (currently) preferred for performance reasons and due to
+                 * difficulties with creating indexes for polymorphic models (Assets and Agents).
                  *
                  * @var array
                  */
@@ -102,7 +103,7 @@ class SearchServiceProvider extends ServiceProvider
                         return $model::instance()->elasticsearchMapping();
                     });
 
-                    return array_merge( ... $mappings );
+                    return $mappings->isNotEmpty() ? array_merge( ... $mappings ) : [];
 
                 }
 
@@ -114,6 +115,26 @@ class SearchServiceProvider extends ServiceProvider
                 public function getSearchableModels() {
 
                     return $this->models->all();
+
+                }
+
+                /**
+                 * Add model classname to searchable keychain and update the config.
+                 */
+                public function addSearchableModel( $model ) {
+
+                    $this->models->push( $model );
+
+                    $this->updateElasticsearchConfig();
+
+                }
+
+                /**
+                 * Update values from `config/elasticsearch.php` with our singleton's output
+                 */
+                public function updateElasticsearchConfig() {
+
+                    config( [ 'elasticsearch.indexParams.body.mappings' => $this->getElasticsearchMappings() ] );
 
                 }
 
