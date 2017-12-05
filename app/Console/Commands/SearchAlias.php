@@ -33,7 +33,9 @@ class SearchAlias extends Command
 
         } else {
 
-            foreach (allModelsThatUse(\App\Models\ElasticSearchable::class) as $model)
+            $models = app('Search')->getSearchableModels();
+
+            foreach ($models as $model)
             {
 
                 $endpoint = endpointFor($model);

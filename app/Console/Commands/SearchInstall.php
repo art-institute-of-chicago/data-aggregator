@@ -25,8 +25,9 @@ class SearchInstall extends Command
 
         $prefix = $this->argument('index') ?? env('ELASTICSEARCH_INDEX');
 
+        $models = app('Search')->getSearchableModels();
 
-        foreach (allModelsThatUse(\App\Models\ElasticSearchable::class) as $model)
+        foreach ($models as $model)
         {
 
             $endpoint = endpointFor($model);
