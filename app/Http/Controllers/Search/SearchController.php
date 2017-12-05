@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Search;
 
+use Elasticsearch;
 use App\Http\Controllers\Controller;
 use App\Http\Search\Request as SearchRequest;
 use App\Http\Search\Response as SearchResponse;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Http\Request as HttpRequest;
-use Elasticsearch;
+use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
@@ -24,32 +23,40 @@ class SearchController extends Controller
     |
     */
 
+    /**
+     * Prepend outgoing Elasticsearch query to the response, for debugging.
+     *
+     * @var boolean
+     */
+    private $showQuery = false;
+
 
     /**
      * General entry point for search. There are three modes:
      *
-     * 1. Don't pass `q` to view all works, magically sorted.
-     * 2. Pass `q` param w/ string for a simple, optimized search.
-     * 3. Pass `q` param *and* `query` param, which follows ES Request Body conventions.
+     *  1. If `query` is present, our client acts as a pass-through.
+     *  2. If `query` is absent, check if `q` is present:
+     *     a. If `q` is present, fall back into simple search mode.
+     *     b. If `q` is absent, show all results.
      *
-     * The most important distinction is between "empty" and "non-empty" queries.
+     * `query` follows ES "Search Request Body" and "Query DSL" conventions.
+     * `q` is a string, but it does *not* support ES's "URI Search" syntax.
+     *
+     * We use `q` for performing simple, opinionated full-text searches, and
+     * for offering search suggestions, e.g. spelling corrections.
+     *
+     * Regardless of whether or not `query` is present, if `q` is present,
+     * it will be used to provide "Did You Mean"-style suggestions.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-uri-request.html
      *
      * @return void
      */
-    public function search($type = null, $input = [])
+    public function search( Request $request, $type = null )
     {
 
-        $searchRequest = new SearchRequest( $type );
-
-        $params = $searchRequest->getSearchParams($input);
-
-        $results = $this->query( $params );
-
-        $searchResponse = new SearchResponse( $results, $params );
-
-        return $searchResponse->getSearchResponse();
+        return $this->query( $type, 'getSearchParams', 'getSearchResponse' );
 
     }
 
@@ -64,43 +71,57 @@ class SearchController extends Controller
      *
      * @return void
      */
-    public function autocomplete($type = null)
+    public function autocomplete( Request $request, $type = null )
     {
 
-        $searchRequest = new SearchRequest( $type );
-
-        $params = $searchRequest->getAutocompleteParams();
-
-        $results = $this->query( $params );
-
-        $searchResponse = new SearchResponse( $results, $params );
-
-        return $searchResponse->getAutocompleteResponse();
+        return $this->query( $type, 'getAutocompleteParams', 'getAutocompleteResponse' );
 
     }
 
 
     /**
-     * Perform a query against Elasticsearch endpoint
+     * Helper method to perform a query against Elasticsearch endpoint.
      *
-     * @param array $params
+     * @param array $type  Elasticsearch type to query
+     * @param string $requestMethod  Name of transformation method on SearchRequest class
+     * @param string $responseMethod  Name of transformation method on SearchResponse class
      *
      * @return array
      */
-    private function query( array $params )
+    private function query( $type, $requestMethod, $responseMethod )
     {
 
+        // Transform our API's syntax into an Elasticsearch params array
+        $params = ( new SearchRequest( $type ) )->$requestMethod();
+
         try {
-
-            $searchResponse = Elasticsearch::search( $params );
-
+            $results = Elasticsearch::search( $params );
         } catch (\Exception $e) {
-
             return response( $e->getMessage(), $e->getCode() )->header('Content-Type', 'application/json');
-
         }
 
-        return $searchResponse;
+        // Transform Elasticsearch results into our API standard
+        $response = ( new SearchResponse( $results, $params ) )->$responseMethod();
+
+        // Prepend the generated query?
+        if( $this->showQuery ) {
+            $response = array_merge( ["request" => $this->getQuery()], $response );
+        }
+
+        return $response;
+
+    }
+
+
+    /**
+     * Retrieve the last query sent by this client to Elasticsearch.
+     *
+     * @return array
+     */
+    private function getQuery()
+    {
+
+        return json_decode( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'], true );
 
     }
 
@@ -113,7 +134,7 @@ class SearchController extends Controller
     private function showQuery()
     {
 
-        return response( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'] )->header('Content-Type', 'application/json');
+        return response( $this->getQuery() )->header('Content-Type', 'application/json');
 
     }
 

@@ -21,13 +21,14 @@ class SearchServiceProvider extends ServiceProvider
          * the connections created in laravel-elasticsearch.
          */
         app(EngineManager::class)->extend('elasticsearch', function($app) {
-            return new ElasticsearchEngine(Elasticsearch::connection(),
-                config('scout.elasticsearch.index')
+            return new ElasticsearchEngine( Elasticsearch::connection(),
+                config('scout.elasticsearch.index') . '-', // Acts as a prefix
+                true // Use an index per model?
             );
         });
 
         // Bind the Search singleton's output into our config
-        config( [ 'elasticsearch.indexParams.body.mappings' => app('Search')->getElasticsearchMappings() ] );
+        app('Search')->updateElasticsearchConfig();
 
     }
 
@@ -44,8 +45,9 @@ class SearchServiceProvider extends ServiceProvider
 
                 /**
                  * Array of models with the Searchable trait. Converted to Eloquent collection on init.
-                 * An explicit listing is (currently) preferred for performance reasons, and to avoid
-                 * creating indexes for parents of some polymorphic models (i.e. Assets).
+                 *
+                 * An explicit listing is (currently) preferred for performance reasons and due to
+                 * difficulties with creating indexes for polymorphic models (Assets and Agents).
                  *
                  * @var array
                  */
@@ -98,10 +100,22 @@ class SearchServiceProvider extends ServiceProvider
                 public function getElasticsearchMappings() {
 
                     $mappings = $this->models->map( function( $model ) {
-                        return $model::instance()->elasticsearchMapping();
+                        return $this->getElasticsearchMapping( $model );
                     });
 
-                    return array_merge( ... $mappings );
+                    return $mappings->isNotEmpty() ? array_merge( ... $mappings ) : [];
+
+                }
+
+                /**
+                 * Return Elasticsearch field mapping in conformance with official ES PHP syntax.
+                 * Abstracted into own method here to ease potential later modification.
+                 *
+                 * @return array
+                 */
+                public function getElasticsearchMapping( $model ) {
+
+                    return $model::instance()->elasticsearchMapping();
 
                 }
 
@@ -113,6 +127,26 @@ class SearchServiceProvider extends ServiceProvider
                 public function getSearchableModels() {
 
                     return $this->models->all();
+
+                }
+
+                /**
+                 * Add model classname to searchable keychain and update the config.
+                 */
+                public function addSearchableModel( $model ) {
+
+                    $this->models->push( $model );
+
+                    $this->updateElasticsearchConfig();
+
+                }
+
+                /**
+                 * Update values from `config/elasticsearch.php` with our singleton's output
+                 */
+                public function updateElasticsearchConfig() {
+
+                    config( [ 'elasticsearch.indexParams.body.mappings' => $this->getElasticsearchMappings() ] );
 
                 }
 
