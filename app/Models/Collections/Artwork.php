@@ -661,7 +661,7 @@ class Artwork extends CollectionsModel
                 "doc" => "Names of the tours this work is a part of",
                 "type" => "array",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('title')->all() : []; },
+                "value" => function() { return $this->mobileArtwork && $this->mobileArtwork->tours ? $this->mobileArtwork->tours->pluck('title')->all() ?? null : null; },
             ],
 
         ];
