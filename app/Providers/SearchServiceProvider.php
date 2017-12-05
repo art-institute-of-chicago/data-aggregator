@@ -100,10 +100,22 @@ class SearchServiceProvider extends ServiceProvider
                 public function getElasticsearchMappings() {
 
                     $mappings = $this->models->map( function( $model ) {
-                        return $model::instance()->elasticsearchMapping();
+                        return $this->getElasticsearchMapping( $model );
                     });
 
                     return $mappings->isNotEmpty() ? array_merge( ... $mappings ) : [];
+
+                }
+
+                /**
+                 * Return Elasticsearch field mapping in conformance with official ES PHP syntax.
+                 * Abstracted into own method here to ease potential later modification.
+                 *
+                 * @return array
+                 */
+                public function getElasticsearchMapping( $model ) {
+
+                    return $model::instance()->elasticsearchMapping();
 
                 }
 

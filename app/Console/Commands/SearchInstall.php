@@ -43,8 +43,9 @@ class SearchInstall extends Command
             }
 
             $params = config('elasticsearch.indexParams');
+
             $params['index'] = $index;
-            $params['body']['mappings'] = $model::instance()->elasticsearchMapping();
+            $params['body']['mappings'] = app('Search')->getElasticsearchMapping( $model );
 
             $return = Elasticsearch::indices()->create($params);
 
