@@ -22,14 +22,14 @@ class ArtistsController extends AgentsController
     protected function paginate($limit )
     {
 
-        return ($this->model)::where('is_artist', '=', TRUE)->paginate($limit);
+        return ($this->model)::artists()->paginate($limit);
 
     }
 
     protected function find( $ids )
     {
 
-        return ($this->model)::where('is_artist', '=', TRUE)->find($ids);
+        return ($this->model)::artists()->find($ids);
 
     }
 

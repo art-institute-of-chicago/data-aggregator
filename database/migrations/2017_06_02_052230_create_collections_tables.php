@@ -112,6 +112,7 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('agent_artwork', function(Blueprint $table) {
             $table->increments('id');
+            $table->tinyInteger('type')->unsigned()->nullable()->index();
             $table->integer('artwork_citi_id')->unsigned()->index();
             $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->integer('agent_citi_id')->unsigned()->index();

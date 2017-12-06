@@ -6,6 +6,8 @@ use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
+use App\Models\Collections\Agent;
+
 /**
  * Represents a work of art in our collections.
  */
@@ -18,24 +20,24 @@ class Artwork extends CollectionsModel
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
+    public function agents()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Agent')->withPivot('type');
+
+    }
+
     public function artists()
     {
 
-        return $this->agents();
+        return $this->agents()->wherePivot('type', '=', Agent::ROLE_ARTIST);
 
     }
 
     public function copyrightRepresentatives()
     {
 
-        return $this->agents();
-
-    }
-
-    public function agents()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Agent', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
+        return $this->agents()->wherePivot('type', '=', Agent::ROLE_COPYRIGHT_REPRESENTATIVE);
 
     }
 
@@ -170,7 +172,11 @@ class Artwork extends CollectionsModel
         if ($source->creator_id)
         {
 
-            $this->artists()->sync([$source->creator_id], false);
+            $this->artists()->sync([
+                $source->creator_id => [
+                    'type' => Agent::ROLE_ARTIST
+                ]
+            ], false);
 
         }
 
