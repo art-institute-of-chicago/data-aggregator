@@ -51,18 +51,19 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('artworks/{id}/sets', 'ArtworksController@sets');
 
     Route::get('artworks/{id}/images', 'ImagesController@forArtwork');
-    Route::get('artworks/{id}/artists', 'ArtistsController@forArtwork');
     Route::get('artworks/{id}/categories', 'CategoriesController@forArtwork');
     Route::get('artworks/{id}/departments', 'DepartmentsController@forArtwork'); // TODO: Unknown formatter "getKeyName"
-    Route::get('artworks/{id}/copyrightRepresentatives', 'CopyrightRepresentativesController@forArtwork');
+
+    Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
+    Route::get('artworks/{id}/copyrightRepresentatives', 'AgentsController@scopeForArtwork');
 
     // Collections
     Route::get('agents', 'AgentsController@index');
     Route::get('agents/{id}', 'AgentsController@show');
-    Route::get('artists', 'ArtistsController@index');
-    Route::get('artists/{id}', 'ArtistsController@show');
-    Route::get('venues', 'VenuesController@index');
-    Route::get('venues/{id}', 'VenuesController@show');
+    Route::get('artists', 'AgentsController@indexScope');
+    Route::get('artists/{id}', 'AgentsController@showScope');
+    Route::get('venues', 'AgentsController@indexScope');
+    Route::get('venues/{id}', 'AgentsController@showScope');
 
     Route::get('departments', 'DepartmentsController@index');
     Route::get('departments/{id}', 'DepartmentsController@show');
@@ -82,7 +83,7 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('exhibitions', 'ExhibitionsController@index');
     Route::get('exhibitions/{id}', 'ExhibitionsController@show');
     Route::get('exhibitions/{id}/artworks', 'ArtworksController@forExhibition');
-    Route::get('exhibitions/{id}/venues', 'VenuesController@forExhibition');
+    Route::get('exhibitions/{id}/venues', 'AgentsController@forExhibition');
 
     Route::get('assets', 'AssetsController@index');
     Route::get('assets/{id}', 'AssetsController@show');

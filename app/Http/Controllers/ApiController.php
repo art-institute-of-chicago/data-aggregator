@@ -54,6 +54,71 @@ abstract class ApiController extends Controller
 
 
     /**
+     * Display the specified resource, but use the route name as a scope on the model.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  mixed $id
+     * @return \Illuminate\Http\Response
+     */
+    protected function showScope( Request $request, $id )
+    {
+
+        $scope = $this->getScope( $request, -2 );
+
+        return $this->select( $request, function( $id ) use ( $scope ) {
+
+            return ($this->model)::$scope()->find($id);
+
+        });
+
+    }
+
+
+    /**
+     * Display a listing of the resource, but use the route name as a scope on the model.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function indexScope( Request $request )
+    {
+
+        $scope = $this->getScope( $request, -1 );
+
+        return $this->collect( $request, function( $limit ) use ( $scope ) {
+
+            return ($this->model)::$scope()->paginate($limit);
+
+        });
+
+    }
+
+
+    /**
+     * Extract name of scope method from request string.
+     * Ensures that the method is a valid local scope.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  integer $offset  Index of the Request URI segment to extract
+     * @return string
+     */
+    protected function getScope( Request $request, $offset )
+    {
+
+        $scope = array_slice( $request->segments(), $offset, 1 )[0];
+
+        if( !method_exists( $this->model, 'scope' . $scope ) )
+        {
+            // TODO: Improve exception handling app-wide
+            throw new \BadFunctionCallException( 'Class ' . $this->model . ' has no scope named `' . $scope . '`' );
+        }
+
+        return $scope;
+
+    }
+
+
+    /**
      * Call to find specific id(s). Override this method when logic to get
      * a model is more complex than a simple `$model::find($id)` call.
      *
