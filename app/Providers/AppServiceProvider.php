@@ -23,7 +23,9 @@ class AppServiceProvider extends ServiceProvider
         $fractal->setSerializer(new ApiSerializer);
 
         if (isset($_GET['include'])) {
-            $fractal->parseIncludes($_GET['include']);
+            $includes = $_GET['include'];
+            $includes = snake_case( camel_case( $includes ) );
+            $fractal->parseIncludes( $includes );
         }
 
         response()->macro('item', function ($item, \League\Fractal\TransformerAbstract $transformer, $status = 200, array $headers = []) use ($fractal) {
