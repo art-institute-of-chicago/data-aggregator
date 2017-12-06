@@ -49,6 +49,13 @@ class Agent extends CollectionsModel
 
     }
 
+    public function exhibitions()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Exhibition');
+
+    }
+
     public function sites()
     {
 
@@ -79,6 +86,19 @@ class Agent extends CollectionsModel
     {
 
         return $query->whereHas('copyrightedArtworks');
+
+    }
+
+    /**
+     * Scope a query to only include agents that have hosted an exhibition.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVenues($query)
+    {
+
+        return $query->whereHas('exhibitions');
 
     }
 
