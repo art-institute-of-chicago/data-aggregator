@@ -206,7 +206,7 @@
       }
     },
 
-    "/artworks/{id}/copyrightRepresentatives": {
+    "/artworks/{id}/copyright-representatives": {
       "get": {
         "tags": [
             "artworks",

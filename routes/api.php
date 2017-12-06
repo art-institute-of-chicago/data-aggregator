@@ -55,7 +55,7 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('artworks/{id}/departments', 'DepartmentsController@forArtwork'); // TODO: Unknown formatter "getKeyName"
 
     Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
-    Route::get('artworks/{id}/copyrightRepresentatives', 'AgentsController@scopeForArtwork');
+    Route::get('artworks/{id}/copyright-representatives', 'AgentsController@scopeForArtwork');
 
     // Collections
     Route::get('agents', 'AgentsController@index');

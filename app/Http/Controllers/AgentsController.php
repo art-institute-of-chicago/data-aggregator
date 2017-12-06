@@ -15,8 +15,7 @@ class AgentsController extends ApiController
     protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
 
     // artworks/{id}/artists
-    // artworks/{id}/copyrightRepresentatives
-    // TODO: Change this route from camel case and update Swagger docs
+    // artworks/{id}/copyright-representatives
     public function scopeForArtwork(Request $request, $id) {
 
         // Technically, this is a relation, not a scope. Better naming?

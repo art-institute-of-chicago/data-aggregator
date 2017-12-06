@@ -111,7 +111,7 @@ class ArtworkTest extends ApiTestCase
         $copyRepAgentType = $this->make(AgentType::class, ['title' => 'Copyright Representative']);
         $artworkKey = $this->attach(Agent::class, 2, 'copyrightRepresentatives', ['agent_type_citi_id' => $copyRepAgentType])->make(Artwork::class);
 
-        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/copyrightRepresentatives');
+        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/copyright-representatives');
         $response->assertSuccessful();
 
         $copyrightRepresentatives = $response->json()['data'];
