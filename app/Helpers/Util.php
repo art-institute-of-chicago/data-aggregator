@@ -124,13 +124,6 @@ function endpointFor($modelClass)
     $source = substr($modelClass, 12, strlen($modelClass) - strlen($baseName) - 13);
 
     // Use the user-friendly endpoint names for the following resources:
-    if ($baseName == "CorporateBody")
-    {
-
-        $baseName = "Venue";
-
-    }
-
     if ($baseName == "Category" && $source == 'Shop')
     {
 
