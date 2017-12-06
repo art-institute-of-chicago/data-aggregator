@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 class CopyrightRepresentativesController extends AgentsController
 {
 
-    protected $agentType = 'Copyright Representative';
-
     // TODO: Changed this route from camel case and update Swagger docs
     // artworks/{id}/copyrightRepresentatives
     public function forArtwork(Request $request, $id) {
