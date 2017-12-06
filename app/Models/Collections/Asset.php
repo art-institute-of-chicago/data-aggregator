@@ -71,7 +71,7 @@ class Asset extends CollectionsModel
     // public function artist()
     // {
     //
-    //     return $this->belongsTo('App\Models\Collections\Artist', 'agent_citi_id');
+    //     return $this->belongsTo('App\Models\Collections\Agent', 'agent_citi_id');
     //
     // }
 

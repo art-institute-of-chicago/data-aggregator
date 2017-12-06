@@ -21,7 +21,7 @@ class Artwork extends CollectionsModel
     public function artists()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Artist', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Agent', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
 
     }
 
