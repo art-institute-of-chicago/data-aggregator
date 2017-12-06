@@ -105,9 +105,13 @@ abstract class ApiController extends Controller
     protected function getScope( Request $request, $offset )
     {
 
-        $scope = array_slice( $request->segments(), $offset, 1 )[0];
+        $param = array_slice( $request->segments(), $offset, 1 )[0];
+        $param = str_replace( ' ', '', ucwords( str_replace( '-', ' ', $param ) ) );
 
-        if( !method_exists( $this->model, 'scope' . $scope ) )
+        $scope = lcfirst( $param );
+        $method = 'scope' . $scope;
+
+        if( !method_exists( $this->model, $method ) )
         {
             // TODO: Improve exception handling app-wide
             throw new \BadFunctionCallException( 'Class ' . $this->model . ' has no scope named `' . $scope . '`' );

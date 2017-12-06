@@ -64,6 +64,7 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('artists/{id}', 'AgentsController@showScope');
     Route::get('venues', 'AgentsController@indexScope');
     Route::get('venues/{id}', 'AgentsController@showScope');
+    // Route::get('copyright-representatives', 'AgentsController@indexScope');
 
     Route::get('departments', 'DepartmentsController@index');
     Route::get('departments/{id}', 'DepartmentsController@show');

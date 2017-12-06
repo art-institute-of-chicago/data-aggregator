@@ -28,14 +28,14 @@ class Agent extends CollectionsModel
 
     }
 
-    public function creations()
+    public function createdArtworks()
     {
 
         return $this->artworks()->wherePivot('type', '=', self::ROLE_ARTIST);
 
     }
 
-    public function posessions()
+    public function copyrightedArtworks()
     {
 
         return $this->artworks()->wherePivot('type', '=', self::ROLE_COPYRIGHT_REPRESENTATIVE);
@@ -65,7 +65,20 @@ class Agent extends CollectionsModel
     public function scopeArtists($query)
     {
 
-        return $query->whereHas('creations');
+        return $query->whereHas('createdArtworks');
+
+    }
+
+    /**
+     * Scope a query to only include agents that are copyright representatives for an artwork.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCopyrightRepresentatives($query)
+    {
+
+        return $query->whereHas('copyrightedArtworks');
 
     }
 
