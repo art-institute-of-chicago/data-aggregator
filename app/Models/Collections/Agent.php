@@ -21,6 +21,13 @@ class Agent extends CollectionsModel
     const ROLE_ARTIST = 0;
     const ROLE_COPYRIGHT_REPRESENTATIVE = 1;
 
+    public function agentType()
+    {
+
+        return $this->belongsTo('App\Models\Collections\AgentType');
+
+    }
+
     public function artworks()
     {
 
@@ -39,13 +46,6 @@ class Agent extends CollectionsModel
     {
 
         return $this->artworks()->wherePivot('type', '=', self::ROLE_COPYRIGHT_REPRESENTATIVE);
-
-    }
-
-    public function agentType()
-    {
-
-        return $this->belongsTo('App\Models\Collections\AgentType');
 
     }
 

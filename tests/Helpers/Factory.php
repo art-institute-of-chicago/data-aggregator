@@ -21,14 +21,12 @@ trait Factory
 
     protected function attach($types, $times = 1, $relation = '', $fields = []) {
 
-        if (is_array($types))
+        if( !is_array($types) )
         {
-            $this->attachTypes = $types;
+            $types = array( $types );
         }
-        else
-        {
-            $this->attachTypes = [$types];
-        }
+
+        $this->attachTypes = $types;
         $this->attachTimes = $times;
         $this->attachRelation = $relation;
         $this->attachFields = $fields;
@@ -58,6 +56,7 @@ trait Factory
                         $relation = $this->attachRelation ? $this->attachRelation : lcfirst(str_plural($class));
 
                         $attach = factory($attachType)->create($this->attachFields);
+
                         if ($model->$relation() instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo)
                         {
 
