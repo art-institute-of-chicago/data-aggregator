@@ -21,14 +21,14 @@ class Artwork extends CollectionsModel
     public function artists()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Artist', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_artist');
 
     }
 
     public function copyrightRepresentatives()
     {
 
-        return $this->belongsToMany('App\Models\Collections\CopyrightRepresentative', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_copyright_representative');
 
     }
 
@@ -163,7 +163,7 @@ class Artwork extends CollectionsModel
         if ($source->creator_id)
         {
 
-            $this->artists()->sync([$source->creator_id], false);
+            $this->artists()->sync([ $source->creator_id ], false);
 
         }
 

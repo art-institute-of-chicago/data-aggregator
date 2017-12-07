@@ -7,7 +7,7 @@ use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
 /**
- * Represents a person or organization. In the API, this includes artists, copyright representatives and corporate bodies.
+ * Represents a person or organization. In the API, this includes artists, venues, and copyright representatives.
  */
 class Agent extends CollectionsModel
 {
@@ -18,11 +18,6 @@ class Agent extends CollectionsModel
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
-    public function artworks()
-    {
-        return $this->hasMany('App\Models\Collections\Artwork');
-    }
-
     public function agentType()
     {
 
@@ -30,10 +25,70 @@ class Agent extends CollectionsModel
 
     }
 
+    public function createdArtworks()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist');
+
+    }
+
+    public function copyrightedArtworks()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_copyright_representative');
+
+    }
+
+    public function exhibitions()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Exhibition');
+
+    }
+
     public function sites()
     {
 
         return $this->belongsToMany('App\Models\StaticArchive\Site', 'agent_site', 'agent_citi_id');
+
+    }
+
+    /**
+     * Scope a query to only include agents that created an artwork.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeArtists($query)
+    {
+
+        return $query->whereHas('createdArtworks');
+
+    }
+
+    /**
+     * Scope a query to only include agents that are copyright representatives for an artwork.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCopyrightRepresentatives($query)
+    {
+
+        return $query->whereHas('copyrightedArtworks');
+
+    }
+
+    /**
+     * Scope a query to only include agents that have hosted an exhibition.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVenues($query)
+    {
+
+        return $query->whereHas('exhibitions');
 
     }
 
@@ -46,6 +101,8 @@ class Agent extends CollectionsModel
             'death_date' => $source->date_death,
             //'death_place' => ,
             //'licensing_restricted' => ,
+
+            // @TODO Artist is not a valid agent type. Artistry is determined by relation.
             //'agent_type_citi_id' => \App\Models\Collections\AgentType::where('title', 'Artist')->first()->citi_id,
         ];
 
@@ -98,7 +155,7 @@ class Agent extends CollectionsModel
                 "doc" => "Whether the agent is an artist. Soley based on whether the agent is listed as an artist for an artwork record.",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->is_artist; },
+                "value" => function() { return (bool) $this->createdArtworks; },
             ],
             [
                 "name" => 'agent_type',

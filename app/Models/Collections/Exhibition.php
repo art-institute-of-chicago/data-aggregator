@@ -25,10 +25,13 @@ class Exhibition extends CollectionsModel
 
     }
 
+    /**
+     * @TODO Differentiate between venues and artists represented in the exhibition.
+     */
     public function venues()
     {
 
-        return $this->belongsToMany('App\Models\Collections\CorporateBody', 'agent_exhibition', 'exhibition_citi_id', 'agent_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Agent', 'agent_exhibition', 'exhibition_citi_id', 'agent_citi_id');
 
     }
 

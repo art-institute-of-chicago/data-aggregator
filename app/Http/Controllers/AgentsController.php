@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Collections\Artwork;
+use App\Models\Collections\Exhibition;
+
 class AgentsController extends ApiController
 {
 
@@ -11,28 +14,30 @@ class AgentsController extends ApiController
 
     protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
 
-    protected $agentType = '%';
+    // artworks/{id}/artists
+    // artworks/{id}/copyright-representatives
+    public function scopeForArtwork(Request $request, $id) {
 
-    protected function paginate($limit )
-    {
+        // Technically, this is a relation, not a scope. Better naming?
+        $scope = camel_case( array_slice( $request->segments(), -1, 1 )[0] );
 
-        return ($this->model)::whereHas('agentType', function ($query) { $this->whereHas($query); })->paginate($limit);
+        return $this->collect( $request, function( $limit, $id ) use ( $scope ) {
 
-    }
+            return Artwork::findOrFail($id)->$scope;
 
-    protected function find( $ids )
-    {
-
-        return ($this->model)::whereHas('agentType', function ($query) { $this->whereHas($query); })->find($ids);
-
-    }
-
-    protected function whereHas($query)
-    {
-
-        $query->where('title', 'like', $this->agentType);
+        });
 
     }
 
+    // exhibitions/{id}/venues
+    public function forExhibition(Request $request, $id) {
+
+        return $this->collect( $request, function( $limit, $id ) {
+
+            return Exhibition::findOrFail($id)->venues;
+
+        });
+
+    }
 
 }

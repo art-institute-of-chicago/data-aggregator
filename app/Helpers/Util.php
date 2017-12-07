@@ -17,7 +17,7 @@ function allModels()
     foreach($files as $file)
     {
 
-        //skip current and parent folder entries 
+        //skip current and parent folder entries
         if ($file == '.' || $file == '..') continue;
 
         $sourcepath = $dir .DIRECTORY_SEPARATOR .$file;
@@ -76,7 +76,7 @@ function allModelsThatUse($trait)
 
 
 /**
- * Get a list of endpoints used by the given models. If none are specified, all endpoints for all 
+ * Get a list of endpoints used by the given models. If none are specified, all endpoints for all
  * models in the application will be used.
  *
  * @return array
@@ -124,13 +124,6 @@ function endpointFor($modelClass)
     $source = substr($modelClass, 12, strlen($modelClass) - strlen($baseName) - 13);
 
     // Use the user-friendly endpoint names for the following resources:
-    if ($baseName == "CorporateBody")
-    {
-
-        $baseName = "Venue";
-
-    }
-
     if ($baseName == "Category" && $source == 'Shop')
     {
 
