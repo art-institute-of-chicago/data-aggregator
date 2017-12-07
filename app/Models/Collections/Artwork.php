@@ -2,6 +2,8 @@
 
 namespace App\Models\Collections;
 
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
+
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
@@ -14,11 +16,26 @@ use App\Models\Collections\Agent;
 class Artwork extends CollectionsModel
 {
 
+    use PivotEventTrait;
+
     use ElasticSearchable;
     use Documentable;
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
+
+    public static function boot()
+    {
+
+        parent::boot();
+
+        static::pivotAttached(function ($model, $relationName, $pivotIds) {
+            echo get_class($model);
+            echo $relationName;
+            print_r($pivotIds);
+        });
+
+    }
 
     public function agents()
     {

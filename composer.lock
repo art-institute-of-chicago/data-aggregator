@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "81f5d32b136a3853499caebf2e3210d7",
+    "content-hash": "0d9e96237f93c7a54915cab2bffd47ff",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -337,6 +337,58 @@
                 "parser"
             ],
             "time": "2017-03-29T16:04:15+00:00"
+        },
+        {
+            "name": "fico7489/laravel-pivot",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fico7489/laravel-pivot.git",
+                "reference": "8dff4219a41a493eeda4d3c0e77efdf79f1b02ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fico7489/laravel-pivot/zipball/8dff4219a41a493eeda4d3c0e77efdf79f1b02ab",
+                "reference": "8dff4219a41a493eeda4d3c0e77efdf79f1b02ab",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.4.*"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9",
+                "orchestra/database": "~3.4.0",
+                "orchestra/testbench": "~3.4.0",
+                "phpunit/phpunit": "~4.8|~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fico7489\\Laravel\\Pivot\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filip Horvat",
+                    "email": "filip.horvat@am2studio.hr",
+                    "homepage": "http://am2studio.hr",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This package introduces new eloquent events for changes on pivot table.",
+            "homepage": "https://github.com/fico7489/laravel-pivot",
+            "keywords": [
+                "Laravel BelongsToMany",
+                "Laravel pivot",
+                "laravel",
+                "laravel BelongsToMany events",
+                "laravel pivot events"
+            ],
+            "time": "2017-11-08T15:32:43+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

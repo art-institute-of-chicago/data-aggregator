@@ -125,6 +125,19 @@ abstract class AbstractSeeder extends Seeder
 
 
     /**
+     * Helper for seeding BelongsToManyCustom relations.
+     *
+     * @link https://github.com/fico7489/laravel-pivot/blob/master/src/Relations/BelongsToManyCustom.php
+     */
+    private function seedBelongsToManyCustom( $subject, $objects, $method )
+    {
+
+        $subject->$method()->sync( $objects );
+
+    }
+
+
+    /**
      * Helper for seeding HasMany relations.
      *
      * @link https://laravel.com/docs/5.5/eloquent-relationships#one-to-many

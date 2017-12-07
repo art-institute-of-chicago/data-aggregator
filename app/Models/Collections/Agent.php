@@ -2,6 +2,8 @@
 
 namespace App\Models\Collections;
 
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
+
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
@@ -12,6 +14,8 @@ use App\Models\Documentable;
 class Agent extends CollectionsModel
 {
 
+    use PivotEventTrait;
+
     use ElasticSearchable;
     use Documentable;
 
@@ -20,6 +24,20 @@ class Agent extends CollectionsModel
 
     const ROLE_ARTIST = 0;
     const ROLE_COPYRIGHT_REPRESENTATIVE = 1;
+
+    public static function boot()
+    {
+
+        parent::boot();
+
+        static::pivotAttached(function ($model, $relationName, $pivotIds) {
+            dd( get_class($model) );
+            echo get_class($model);
+            echo $relationName;
+            print_r($pivotIds);
+        });
+
+    }
 
     public function agentType()
     {
