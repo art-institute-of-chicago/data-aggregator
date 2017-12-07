@@ -110,14 +110,17 @@ class CreateCollectionsTables extends Migration
             $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
-        Schema::create('agent_artwork', function(Blueprint $table) {
-            $table->increments('id');
-            $table->tinyInteger('type')->unsigned()->nullable()->index();
-            $table->integer('artwork_citi_id')->unsigned()->index();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
-            $table->integer('agent_citi_id')->unsigned()->index();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents')->onDelete('cascade');
-        });
+        foreach( ['artwork_artist', 'artwork_copyright_representative'] as $artwork_agent ) {
+
+            Schema::create($artwork_agent, function(Blueprint $table) {
+                $table->increments('id');
+                $table->integer('artwork_citi_id')->unsigned()->index();
+                $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
+                $table->integer('agent_citi_id')->unsigned()->index();
+                $table->foreign('agent_citi_id')->references('citi_id')->on('agents')->onDelete('cascade');
+            });
+
+        }
 
         Schema::create('artwork_dates', function(Blueprint $table) {
             $table->increments('id');
@@ -305,7 +308,8 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('artwork_dates');
         Schema::dropIfExists('artwork_terms');
         Schema::dropIfExists('artwork_catalogues');
-        Schema::dropIfExists('agent_artwork');
+        Schema::dropIfExists('artwork_artist');
+        Schema::dropIfExists('artwork_copyright_representative');
         Schema::dropIfExists('artwork_category');
         Schema::dropIfExists('artworks');
         Schema::dropIfExists('category_gallery');

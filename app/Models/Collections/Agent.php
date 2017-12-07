@@ -18,9 +18,6 @@ class Agent extends CollectionsModel
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
-    const ROLE_ARTIST = 0;
-    const ROLE_COPYRIGHT_REPRESENTATIVE = 1;
-
     public function agentType()
     {
 
@@ -28,24 +25,17 @@ class Agent extends CollectionsModel
 
     }
 
-    public function artworks()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Artwork')->withPivot('type');
-
-    }
-
     public function createdArtworks()
     {
 
-        return $this->artworks()->wherePivot('type', '=', self::ROLE_ARTIST);
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist');
 
     }
 
     public function copyrightedArtworks()
     {
 
-        return $this->artworks()->wherePivot('type', '=', self::ROLE_COPYRIGHT_REPRESENTATIVE);
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_copyright_representative');
 
     }
 
