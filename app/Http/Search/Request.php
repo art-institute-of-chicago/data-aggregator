@@ -315,7 +315,7 @@ class Request
 
 
     /**
-     * Determine sort order.
+     * Determine sort order. Sort must go into the request body, and it cannot be null.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-request-sort.html
      * @link https://github.com/elastic/elasticsearch-php/issues/179
@@ -327,7 +327,10 @@ class Request
      */
     private function addSortParams( array $params, array $input ) {
 
-        $params['body']['sort'] = $input['sort'] ?? null;
+        if( isset( $input['sort'] ) )
+        {
+            $params['body']['sort'] = $input['sort'];
+        }
 
         return $params;
 
