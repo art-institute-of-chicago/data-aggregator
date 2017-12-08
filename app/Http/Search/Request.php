@@ -180,6 +180,9 @@ class Request
 
         ];
 
+        // Add sort into the body, not the request
+        $params = $this->addSortParams( $params, $input );
+
         // Add our custom relevancy tweaks into `should`
         $params = $this->addRelevancyParams( $params, $input );
 
@@ -307,6 +310,26 @@ class Request
             // '_source' => $input['_source'] ?? ( $default ?? self::$defaultFields ), // PHP 7
             '_source' => array_get( $input, '_source' ) ? $input['_source'] : ( isset( $default ) ? $default : self::$defaultFields ),
         ];
+
+    }
+
+
+    /**
+     * Determine sort order.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-request-sort.html
+     * @link https://github.com/elastic/elasticsearch-php/issues/179
+     *
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
+     */
+    private function addSortParams( array $params, array $input ) {
+
+        $params['body']['sort'] = $input['sort'] ?? null;
+
+        return $params;
 
     }
 
