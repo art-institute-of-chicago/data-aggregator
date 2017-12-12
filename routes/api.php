@@ -41,6 +41,12 @@ Route::group(['prefix' => 'v1'], function()
     Route::match( array('GET', 'POST'), '_search', 'Search\SearchController@search');
     Route::match( array('GET', 'POST'), '{type}/_search', 'Search\SearchController@search');
 
+    // For debugging search, show generated request
+    if( env('APP_ENV') === 'local' ) {
+        Route::match( array('GET', 'POST'), 'echo', 'Search\SearchController@echo');
+        Route::match( array('GET', 'POST'), '{type}/echo', 'Search\SearchController@echo');
+    }
+
 
     // Artwork related stuff
     Route::get('artworks', 'ArtworksController@index');
