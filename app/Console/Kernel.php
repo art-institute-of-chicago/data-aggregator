@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         Commands\ImportCatalogues::class,
         Commands\ImportLegacyEvents::class,
         Commands\ImportSites::class,
+        Commands\ImportSetUlanUris::class,
 
         Commands\ScoutImportOne::class,
         Commands\ScoutImportAll::class,
