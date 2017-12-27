@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Search;
 
-use Elasticsearch;
-use App\Http\Controllers\Controller;
 use App\Http\Search\Request as SearchRequest;
 use App\Http\Search\Response as SearchResponse;
 use Illuminate\Http\Request;
+use Elasticsearch;
 
-class SearchController extends Controller
+use Illuminate\Routing\Controller as BaseController;
+
+class SearchController extends BaseController
 {
 
     /*
