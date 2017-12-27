@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Aic\Hub\Foundation\AbstractModel;
 
-use App\Scopes\SortByLastUpdatedScope;
-
-class BaseModel extends Model
+class BaseModel extends AbstractModel
 {
 
     use Transformable, Fillable;
@@ -25,38 +23,6 @@ class BaseModel extends Model
      * @var integer
      */
     protected $fakeIdsStartAt = 999000;
-
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var boolean
-     */
-    public $incrementing = false;
-
-
-    /**
-     * The attributes that aren't mass assignable. Generally,
-     * we want all attributes to be mass assignable. Laravel
-     * defaults to guarding all attributes.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-
-        parent::boot();
-        static::addGlobalScope(new SortByLastUpdatedScope());
-
-    }
 
 
     /**

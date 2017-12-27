@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Exhibition;
 
-class AgentsController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class AgentsController extends BaseController
 {
 
     protected $model = \App\Models\Collections\Agent::class;

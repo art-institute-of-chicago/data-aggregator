@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class ExhibitionsController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class ExhibitionsController extends BaseController
 {
 
     protected $model = \App\Models\Collections\Exhibition::class;

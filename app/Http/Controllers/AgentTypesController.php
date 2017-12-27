@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class AgentTypesController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class AgentTypesController extends BaseController
 {
 
     protected $model = \App\Models\Collections\AgentType::class;
