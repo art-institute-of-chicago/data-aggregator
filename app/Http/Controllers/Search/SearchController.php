@@ -24,14 +24,6 @@ class SearchController extends Controller
     */
 
     /**
-     * Prepend outgoing Elasticsearch query to the response, for debugging.
-     *
-     * @var boolean
-     */
-    private $showQuery = false;
-
-
-    /**
      * General entry point for search. There are three modes:
      *
      *  1. If `query` is present, our client acts as a pass-through.
@@ -78,6 +70,21 @@ class SearchController extends Controller
 
     }
 
+    /**
+     * Perform Elasticsearch search, but show last request sent to Elasticsearch instead.
+     * Meant for local debugging.
+     *
+     * @return void
+     */
+    public function echo( Request $request, $type = null )
+    {
+
+        $this->query( $type, 'getSearchParams', 'getSearchResponse' );
+
+        return response( $this->getRequest() )->header('Content-Type', 'application/json');
+
+    }
+
 
     /**
      * Helper method to perform a query against Elasticsearch endpoint.
@@ -103,11 +110,6 @@ class SearchController extends Controller
         // Transform Elasticsearch results into our API standard
         $response = ( new SearchResponse( $results, $params ) )->$responseMethod();
 
-        // Prepend the generated query?
-        if( $this->showQuery ) {
-            $response = array_merge( ["request" => $this->getQuery()], $response );
-        }
-
         return $response;
 
     }
@@ -118,23 +120,13 @@ class SearchController extends Controller
      *
      * @return array
      */
-    private function getQuery()
+    private function getRequest()
     {
 
-        return json_decode( Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request']['body'], true );
+        $request = Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request'];
+        $request['body'] = json_decode( $request['body'], true );
 
-    }
-
-
-    /**
-     * Respond with the actual JSON query sent by the official ES PHP client
-     *
-     * @return string
-     */
-    private function showQuery()
-    {
-
-        return response( $this->getQuery() )->header('Content-Type', 'application/json');
+        return $request;
 
     }
 
