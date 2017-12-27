@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
+
     /**
      * The application's global HTTP middleware stack.
      *
@@ -18,8 +19,8 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \Illuminate\Foundation\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\CORS::class,
-        \App\Http\Middleware\ETagMiddleware::class,
+        \Aic\Hub\Foundation\Middleware\CORS::class,
+        \Aic\Hub\Foundation\Middleware\ETagMiddleware::class,
     ];
 
     /**
@@ -50,6 +51,6 @@ class Kernel extends HttpKernel
         // https://laracasts.com/discuss/channels/laravel/52-53-model-autoloading-via-routes-stopped-working
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'cors' => \App\Http\Middleware\CORS::class,
     ];
+
 }
