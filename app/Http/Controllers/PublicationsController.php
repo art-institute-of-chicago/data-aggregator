@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class PublicationsController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class PublicationsController extends BaseController
 {
 
     protected $model = \App\Models\Dsc\Publication::class;

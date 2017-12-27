@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class MobileSoundsController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class MobileSoundsController extends BaseController
 {
 
     protected $model = \App\Models\Mobile\Sound::class;

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Response;
 
-class AssetsController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class AssetsController extends BaseController
 {
 
     protected $model = \App\Models\Collections\Asset::class;

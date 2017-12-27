@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
-class CategoriesController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class CategoriesController extends BaseController
 {
 
     protected $model = \App\Models\Collections\Category::class;

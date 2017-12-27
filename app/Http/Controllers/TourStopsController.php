@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class TourStopsController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class TourStopsController extends BaseController
 {
 
     protected $model = \App\Models\Mobile\TourStop::class;

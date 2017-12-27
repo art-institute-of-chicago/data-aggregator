@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class GalleriesController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class GalleriesController extends BaseController
 {
 
     protected $model = \App\Models\Collections\Gallery::class;
