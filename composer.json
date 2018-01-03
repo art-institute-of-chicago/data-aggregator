@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=5.6.4",
-        "aic/data-hub-foundation": "dev-master#98447f688afc62658e2852fa13c7ec5ff2c87e2c",
+        "aic/data-hub-foundation": "dev-master#7d25c10e19f3f601a6e19ac4f61a6e6f57da9792",
         "cviebrock/laravel-elasticsearch": "^2.0",
         "elasticsearch/elasticsearch": "^5.3",
         "jsq/amazon-es-php": "^0.2.0",
