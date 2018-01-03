@@ -3,7 +3,7 @@
 namespace App\Http\Transformers;
 
 use App\Models\Library\Material;
-use App\Transformers\LibraryTermTransformer as TermTransformer;
+use App\Http\Transformers\LibraryTermTransformer as TermTransformer;
 
 use Aic\Hub\Foundation\AbstractTransformer;
 
