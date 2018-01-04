@@ -2,10 +2,12 @@
 
 namespace App\Models\Library;
 
-use Aic\Hub\Foundation\AbstractModel as BaseModel;
+use App\Models\LibraryModel as BaseModel;
 
 class Term extends BaseModel
 {
+
+    protected $hasSourceDates = false;
 
     protected $table = 'library_terms';
 
