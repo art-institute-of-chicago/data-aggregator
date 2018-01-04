@@ -138,4 +138,11 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('sites', 'SitesController@index');
     Route::get('sites/{id}', 'SitesController@show');
 
+    // Library
+    Route::get('library-materials', 'LibraryMaterialController@index');
+    Route::get('library-materials/{id}', 'LibraryMaterialController@show');
+
+    Route::get('library-terms', 'LibraryTermController@index');
+    Route::get('library-terms/{id}', 'LibraryTermController@show');
+
 });
