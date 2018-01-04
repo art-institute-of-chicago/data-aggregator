@@ -49,7 +49,8 @@ trait Fillable
 
     /**
      * Method to allow child classes to define how `fill` methods should treat fields that are
-     * specific to each model.
+     * specific to each model. If not overwritten, defaults to filling with all fields that do
+     * not contain array or object values, except `title` and `id`, which are handled separately.
      *
      * @param  object  $source
      * @return $this
@@ -57,7 +58,24 @@ trait Fillable
     protected function getFillFieldsFrom($source)
     {
 
-        return [];
+        // Ignore `id` and `title`
+        foreach( ['id', 'title'] as $field )
+        {
+            if( isset( $source->$field ) )
+            {
+                unset( $source->$field );
+            }
+        }
+
+        // Cast the object to an array
+        $data = (array) $source;
+
+        // Remove any fields that are objects or arrays
+        $data = array_filter( $data, function( $datum ) {
+            return !is_array( $datum ) && !is_object( $datum );
+        });
+
+        return $data;
 
     }
 
