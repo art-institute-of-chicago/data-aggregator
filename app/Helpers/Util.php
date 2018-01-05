@@ -112,16 +112,9 @@ function endpointsFor($modelClasses = [])
 function endpointFor($modelClass)
 {
 
-    if (!$modelClass)
-    {
-
-        $modelClass = get_called_class();
-
-    }
-
     $baseName = class_basename($modelClass);
 
-    $source = substr($modelClass, 12, strlen($modelClass) - strlen($baseName) - 13);
+    $source = substr($modelClass, 11, strlen($modelClass) - strlen($baseName) - 12);
 
     // Use the user-friendly endpoint names for the following resources:
     if ($baseName == "Category" && $source == 'Shop')

@@ -70,7 +70,7 @@ trait Documentable
 
         $doc = '';
         $doc .= $this->docTitle() ."\n\n";
-        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#" .endpointFor() .").\n\n";
+        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#" .endpointFor(get_called_class()) .").\n\n";
 
         if (!$this->docOnly())
         {
@@ -91,7 +91,7 @@ trait Documentable
     public function docTitle()
     {
 
-        return '## ' .str_replace('-', ' ', title_case( endpointFor() ) );
+        return '## ' .str_replace('-', ' ', title_case( endpointFor(get_called_class()) ) );
 
     }
 
@@ -117,7 +117,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor();
+        $endpoint = endpointFor(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -142,7 +142,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor();
+        $endpoint = endpointFor(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         $doc = '';
@@ -169,7 +169,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor();
+        $endpoint = endpointFor(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -193,7 +193,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor();
+        $endpoint = endpointFor(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -217,7 +217,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor();
+        $endpoint = endpointFor(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -248,7 +248,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor();
+        $endpoint = endpointFor(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -328,7 +328,7 @@ trait Documentable
     {
 
         $doc = '';
-        $controllerClass = "\\App\\Http\\Controllers\\" .ucfirst( camel_case( endpointFor() ) ) ."Controller";
+        $controllerClass = "\\App\\Http\\Controllers\\" .ucfirst( camel_case( endpointFor(get_called_class()) ) ) ."Controller";
         $controller = new $controllerClass;
         $transformerClass = $controller->transformer();
         $transformer = new $transformerClass;
@@ -459,7 +459,7 @@ trait Documentable
         if (!$endpoint)
         {
 
-            $endpoint = endpointFor();
+            $endpoint = endpointFor(get_called_class());
         }
 
         return strtolower( title_case( $endpoint ) );
@@ -482,7 +482,7 @@ trait Documentable
 
         $options = array_merge($defaults, $options);
 
-        $path = '/' .endpointFor();
+        $path = '/' .endpointFor(get_called_class());
 
         if ($options['extraPath'])
         {
