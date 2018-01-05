@@ -16,7 +16,7 @@ class ArchivalImageTransformer extends AbstractTransformer
             'id' => $image->id,
             'title' => $image->title,
             'alternate_title' => $image->alt_title,
-            'web_url' => $image->getWebUrl(),
+            'web_url' => $image->web_url,
             'collection' => $image->collection_name,
             'archive' => $image->archive_name,
             'format' => $image->format,
@@ -33,12 +33,12 @@ class ArchivalImageTransformer extends AbstractTransformer
             'photographer' => $image->photographer,
             'main_id' => $image->main_id,
             'legacy_image_id' => $image->legacy_image_id,
-            'subject_terms' => $image->getSubjectTerms(),
+            'subject_terms' => $image->subject_terms,
             'view' => $image->view,
             'image_notes' => $image->image_notes,
             'file_name' => $image->file_name,
-            'created_at' => $image->source_created_at->toIso8601String(),
-            'modified_at' => $image->source_modified_at->toIso8601String(),
+            'source_created_at' => $image->source_created_at->toIso8601String(),
+            'source_modified_at' => $image->source_modified_at->toIso8601String(),
         ];
 
         // Enables ?fields= functionality

@@ -21,6 +21,7 @@ class CreateArchiveTables extends Migration
             $table->integer('id')->unsigned()->primary();
             $table->string('title')->nullable();
             $table->string('alt_title')->nullable();
+            $table->string('web_url')->nullable();
             $table->string('collection_name')->nullable();
             $table->string('archive_name')->nullable();
             $table->string('format')->nullable();
@@ -55,6 +56,8 @@ class CreateArchiveTables extends Migration
      */
     public function down()
     {
-        //
+
+        Schema::dropIfExists('archival_images');
+
     }
 }

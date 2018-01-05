@@ -677,7 +677,7 @@ class Artwork extends CollectionsModel
     public function subresources()
     {
 
-        return ['artists', 'copyrightRepresentatives', 'categories', 'images', 'parts', 'sets'];
+        return ['artists', 'categories', 'images', 'parts', 'sets']; //, 'copyrightRepresentatives'
 
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Aic\Hub\Foundation\AbstractController as BaseController;
 
-class ArchivalImageController extends BaseController
+class ArchivalImagesController extends BaseController
 {
 
     protected $model = \App\Models\Archive\ArchivalImage::class;
