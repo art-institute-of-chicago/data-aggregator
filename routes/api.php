@@ -145,4 +145,9 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('library-terms', 'LibraryTermController@index');
     Route::get('library-terms/{id}', 'LibraryTermController@show');
 
+    // Archive
+    Route::get('archival-images', 'ArchivalImagesController@index');
+    Route::get('archival-images/{id}', 'ArchivalImagesController@show');
+
+
 });
