@@ -20,13 +20,16 @@ trait Fillable
     {
         $this
             ->fillIdsFrom($source)
-            ->fillTitleFrom($source)
-            ->fill( $this->getFillFieldsFrom($source) );
+            ->fillTitleFrom($source);
 
         if( $this->hasSourceDates )
         {
             $this->fillDatesFrom($source);
         }
+
+        $this->fillArraysAndObjectsFrom($source);
+
+        $this->fill( $this->getFillFieldsFrom($source) );
 
         return $this;
     }
@@ -58,8 +61,8 @@ trait Fillable
     protected function getFillFieldsFrom($source)
     {
 
-        // Ignore `id` and `title`
-        foreach( ['id', 'title'] as $field )
+        // Ignore `id`, `title`, `created_at` and `modified_at`
+        foreach( ['id', 'title', 'created_at', 'modified_at'] as $field )
         {
             if( isset( $source->$field ) )
             {
@@ -136,5 +139,18 @@ trait Fillable
 
     }
 
+    /**
+     * Provide child classes a space to implement fill functionality for arrays and objects
+     * returned from source APIs
+     *
+     * @param  object  $source
+     * @return $this
+     */
+    protected function fillArraysAndObjectsFrom($source)
+    {
+
+        return $this;
+
+    }
 
 }

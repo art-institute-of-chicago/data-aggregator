@@ -30,6 +30,7 @@ class Kernel extends ConsoleKernel
         Commands\ImportSites::class,
         Commands\ImportSetUlanUris::class,
         Commands\ImportLibrary::class,
+        Commands\ImportArchive::class,
 
         Commands\ScoutImportOne::class,
         Commands\ScoutImportAll::class,
