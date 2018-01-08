@@ -26,7 +26,7 @@ A list of all artworks sorted by last updated date in descending order. For a de
   * `publications`
   * `tours`
 
-Example request: http://data-aggregator.test/api/v1/artworks?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks?limit=2  
 Example output:
 
 ```
@@ -37,7 +37,7 @@ Example output:
         "offset": 0,
         "total_pages": 53157,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/artworks?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks?page=2&limit=2"
     },
     "data": [
         {
@@ -86,7 +86,7 @@ A list of essential artworks sorted by last updated date in descending order. Th
   * `publications`
   * `tours`
 
-Example request: http://data-aggregator.test/api/v1/artworks/essentials?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/essentials?limit=2  
 Example output:
 
 ```
@@ -97,7 +97,7 @@ Example output:
         "offset": 0,
         "total_pages": 207,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/artworks\/essentials?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/essentials?page=2&limit=2"
     },
     "data": [
         {
@@ -135,7 +135,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/artworks/search?q=monet  
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/search?q=monet  
 Example output:
 
 ```
@@ -201,7 +201,7 @@ Example output:
 
 A single artworks by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/artworks/111628?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628?limit=2  
 Example output:
 
 ```
@@ -222,7 +222,7 @@ Example output:
 
 The artists for a given artworks. Served from the API as a type of `agent`, so their output schema is the same.
 
-Example request: http://data-aggregator.test/api/v1/artworks/111628/artists?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/artists?limit=2  
 Example output:
 
 ```
@@ -245,7 +245,7 @@ Example output:
 
 The categories for a given artworks.
 
-Example request: http://data-aggregator.test/api/v1/artworks/111628/categories?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/categories?limit=2  
 Example output:
 
 ```
@@ -421,7 +421,7 @@ Example output:
 
 The images for a given artworks.
 
-Example request: http://data-aggregator.test/api/v1/artworks/111628/images?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/images?limit=2  
 Example output:
 
 ```
@@ -444,13 +444,13 @@ Example output:
 
 The parts for a given artworks.
 
-Example request: http://data-aggregator.test/api/v1/artworks/111628/parts?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/parts?limit=2  
 
 ### `/artworks/{id}/sets`
 
 The sets for a given artworks.
 
-Example request: http://data-aggregator.test/api/v1/artworks/111628/sets?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/sets?limit=2  
 
 ## Agents
 
@@ -465,7 +465,7 @@ A list of all agents sorted by last updated date in descending order. For a desc
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://data-aggregator.test/api/v1/agents?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/agents?limit=2  
 Example output:
 
 ```
@@ -476,7 +476,7 @@ Example output:
         "offset": 0,
         "total_pages": 5769,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/agents?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents?page=2&limit=2"
     },
     "data": [
         {
@@ -514,31 +514,22 @@ Search agents data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/agents/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/agents/search  
 Example output:
 
 ```
 {
     "preference": null,
     "pagination": {
-        "total": 11411,
+        "total": 11457,
         "limit": 10,
         "offset": 0,
-        "total_pages": 1142,
+        "total_pages": 1146,
         "current_page": 1
     },
     "data": [
         {
-            "_score": 8.4257555,
-            "api_id": "36132",
-            "api_model": "agents",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/36132",
-            "id": 36132,
-            "title": "Parker, Bart",
-            "timestamp": "2017-12-04T00:37:08-06:00"
-        },
-        {
-            "_score": 8.4257555,
+            "_score": 8.363491,
             "api_id": "90583",
             "api_model": "agents",
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/90583",
@@ -547,20 +538,29 @@ Example output:
             "timestamp": "2017-12-04T00:37:24-06:00"
         },
         {
-            "_score": 8.4257555,
-            "api_id": "92975",
+            "_score": 8.363491,
+            "api_id": "60755",
             "api_model": "agents",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/92975",
-            "id": 92975,
-            "title": "Quimbaya",
-            "timestamp": "2017-12-04T00:37:24-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/60755",
+            "id": 60755,
+            "title": "Hartmann et Fils",
+            "timestamp": "2017-12-04T00:37:20-06:00"
+        },
+        {
+            "_score": 8.363491,
+            "api_id": "43060",
+            "api_model": "agents",
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/43060",
+            "id": 43060,
+            "title": "Ward, Sheila",
+            "timestamp": "2017-12-04T00:37:15-06:00"
         }
     ],
     "aggregations": {
         "count_api_model": [
             {
                 "key": "agents",
-                "doc_count": 11411
+                "doc_count": 11457
             }
         ]
     }
@@ -571,7 +571,7 @@ Example output:
 
 A single agents by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/agents?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/agents?limit=2  
 Example output:
 
 ```
@@ -582,7 +582,7 @@ Example output:
         "offset": 0,
         "total_pages": 5769,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/agents?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents?page=2&limit=2"
     },
     "data": [
         {
@@ -620,7 +620,7 @@ A list of all departments sorted by last updated date in descending order. For a
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://data-aggregator.test/api/v1/departments?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/departments?limit=2  
 Example output:
 
 ```
@@ -631,7 +631,7 @@ Example output:
         "offset": 0,
         "total_pages": 29,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/departments?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments?page=2&limit=2"
     },
     "data": [
         {
@@ -669,7 +669,7 @@ Search departments data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/departments/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/departments/search  
 Example output:
 
 ```
@@ -726,7 +726,7 @@ Example output:
 
 A single departments by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/departments/4?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/departments/4?limit=2  
 Example output:
 
 ```
@@ -756,7 +756,7 @@ A list of all object-types sorted by last updated date in descending order. For 
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://data-aggregator.test/api/v1/object-types?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/object-types?limit=2  
 Example output:
 
 ```
@@ -767,7 +767,7 @@ Example output:
         "offset": 0,
         "total_pages": 33,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/object-types?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/object-types?page=2&limit=2"
     },
     "data": [
         {
@@ -796,7 +796,7 @@ Example output:
 
 A single object-types by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/object-types/3?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/object-types/3?limit=2  
 Example output:
 
 ```
@@ -826,7 +826,7 @@ A list of all categories sorted by last updated date in descending order. For a 
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://data-aggregator.test/api/v1/categories?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/categories?limit=2  
 Example output:
 
 ```
@@ -837,7 +837,7 @@ Example output:
         "offset": 0,
         "total_pages": 408,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/categories?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories?page=2&limit=2"
     },
     "data": [
         {
@@ -875,7 +875,7 @@ Search categories data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/categories/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/categories/search  
 Example output:
 
 ```
@@ -932,7 +932,7 @@ Example output:
 
 A single categories by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/categories/3?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/categories/3?limit=2  
 Example output:
 
 ```
@@ -962,7 +962,7 @@ A list of all agent-types sorted by last updated date in descending order. For a
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://data-aggregator.test/api/v1/agent-types?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/agent-types?limit=2  
 Example output:
 
 ```
@@ -973,7 +973,7 @@ Example output:
         "offset": 0,
         "total_pages": 18,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/agent-types?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agent-types?page=2&limit=2"
     },
     "data": [
         {
@@ -1002,7 +1002,7 @@ Example output:
 
 A single agent-types by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/agent-types/1?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/agent-types/1?limit=2  
 Example output:
 
 ```
@@ -1034,7 +1034,7 @@ A list of all galleries sorted by last updated date in descending order. For a d
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `categories`
 
-Example request: http://data-aggregator.test/api/v1/galleries?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/galleries?limit=2  
 Example output:
 
 ```
@@ -1045,7 +1045,7 @@ Example output:
         "offset": 0,
         "total_pages": 121,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/galleries?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries?page=2&limit=2"
     },
     "data": [
         {
@@ -1083,7 +1083,7 @@ Search galleries data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/galleries/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/galleries/search  
 Example output:
 
 ```
@@ -1140,7 +1140,7 @@ Example output:
 
 A single galleries by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/galleries/24650?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/galleries/24650?limit=2  
 Example output:
 
 ```
@@ -1173,7 +1173,7 @@ A list of all exhibitions sorted by last updated date in descending order. For a
   * `artworks`
   * `venues`
 
-Example request: http://data-aggregator.test/api/v1/exhibitions?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/exhibitions?limit=2  
 Example output:
 
 ```
@@ -1184,7 +1184,7 @@ Example output:
         "offset": 0,
         "total_pages": 3010,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/exhibitions?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions?page=2&limit=2"
     },
     "data": [
         {
@@ -1222,7 +1222,7 @@ Search exhibitions data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/exhibitions/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/exhibitions/search  
 Example output:
 
 ```
@@ -1279,7 +1279,7 @@ Example output:
 
 A single exhibitions by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/exhibitions/1302?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/exhibitions/1302?limit=2  
 Example output:
 
 ```
@@ -1300,7 +1300,7 @@ Example output:
 
 The artworks for a given exhibitions.
 
-Example request: http://data-aggregator.test/api/v1/exhibitions/1302/artworks?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/exhibitions/1302/artworks?limit=2  
 Example output:
 
 ```
@@ -1313,7 +1313,7 @@ Example output:
 
 The venues for a given exhibitions.
 
-Example request: http://data-aggregator.test/api/v1/exhibitions/1302/venues?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/exhibitions/1302/venues?limit=2  
 Example output:
 
 ```
@@ -1338,7 +1338,7 @@ A list of all images sorted by last updated date in descending order. For a desc
   * `categories`
   * `artworks`
 
-Example request: http://data-aggregator.test/api/v1/images?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/images?limit=2  
 Example output:
 
 ```
@@ -1349,7 +1349,7 @@ Example output:
         "offset": 0,
         "total_pages": 54986,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/images?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/images?page=2&limit=2"
     },
     "data": [
         {
@@ -1387,7 +1387,7 @@ Search images data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/images/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/images/search  
 Example output:
 
 ```
@@ -1444,7 +1444,7 @@ Example output:
 
 A single images by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/images/c972e5d7-0667-6904-d919-bbeefeae0a10?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/images/c972e5d7-0667-6904-d919-bbeefeae0a10?limit=2  
 Example output:
 
 ```
@@ -1477,7 +1477,7 @@ A list of all videos sorted by last updated date in descending order. For a desc
   * `categories`
   * `artworks`
 
-Example request: http://data-aggregator.test/api/v1/videos?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/videos?limit=2  
 Example output:
 
 ```
@@ -1488,7 +1488,7 @@ Example output:
         "offset": 0,
         "total_pages": 169,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/videos?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/videos?page=2&limit=2"
     },
     "data": [
         {
@@ -1526,7 +1526,7 @@ Search videos data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/videos/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/videos/search  
 Example output:
 
 ```
@@ -1583,7 +1583,7 @@ Example output:
 
 A single videos by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/videos/8199a3c6-99fa-582d-449a-bc9221db54da?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/videos/8199a3c6-99fa-582d-449a-bc9221db54da?limit=2  
 Example output:
 
 ```
@@ -1616,7 +1616,7 @@ A list of all links sorted by last updated date in descending order. For a descr
   * `categories`
   * `artworks`
 
-Example request: http://data-aggregator.test/api/v1/links?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/links?limit=2  
 Example output:
 
 ```
@@ -1627,7 +1627,7 @@ Example output:
         "offset": 0,
         "total_pages": 86,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/links?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/links?page=2&limit=2"
     },
     "data": [
         {
@@ -1665,7 +1665,7 @@ Search links data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/links/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/links/search  
 Example output:
 
 ```
@@ -1722,7 +1722,7 @@ Example output:
 
 A single links by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/links/3990a5f5-2ae9-3c7b-2fb8-1b0438962cd3?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/links/3990a5f5-2ae9-3c7b-2fb8-1b0438962cd3?limit=2  
 Example output:
 
 ```
@@ -1755,7 +1755,7 @@ A list of all sounds sorted by last updated date in descending order. For a desc
   * `categories`
   * `artworks`
 
-Example request: http://data-aggregator.test/api/v1/sounds?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/sounds?limit=2  
 Example output:
 
 ```
@@ -1766,7 +1766,7 @@ Example output:
         "offset": 0,
         "total_pages": 523,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/sounds?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sounds?page=2&limit=2"
     },
     "data": [
         {
@@ -1804,7 +1804,7 @@ Search sounds data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/sounds/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/sounds/search  
 Example output:
 
 ```
@@ -1861,7 +1861,7 @@ Example output:
 
 A single sounds by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/sounds/0dc99580-0a4c-c047-31e9-f42d29ac020e?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/sounds/0dc99580-0a4c-c047-31e9-f42d29ac020e?limit=2  
 Example output:
 
 ```
@@ -1894,7 +1894,7 @@ A list of all texts sorted by last updated date in descending order. For a descr
   * `categories`
   * `artworks`
 
-Example request: http://data-aggregator.test/api/v1/texts?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/texts?limit=2  
 Example output:
 
 ```
@@ -1905,7 +1905,7 @@ Example output:
         "offset": 0,
         "total_pages": 313,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/texts?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/texts?page=2&limit=2"
     },
     "data": [
         {
@@ -1943,7 +1943,7 @@ Search texts data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/texts/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/texts/search  
 Example output:
 
 ```
@@ -2000,7 +2000,7 @@ Example output:
 
 A single texts by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://data-aggregator.test/api/v1/texts/28f4641e-c040-7669-6036-f6fce1e25514?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/texts/28f4641e-c040-7669-6036-f6fce1e25514?limit=2  
 Example output:
 
 ```
@@ -2034,7 +2034,7 @@ A list of all shop-categories sorted by last updated date in descending order. F
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `children`
 
-Example request: http://data-aggregator.test/api/v1/shop-categories?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/shop-categories?limit=2  
 Example output:
 
 ```
@@ -2045,7 +2045,7 @@ Example output:
         "offset": 0,
         "total_pages": 13,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/shop-categories?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/shop-categories?page=2&limit=2"
     },
     "data": [
         {
@@ -2083,7 +2083,7 @@ Search shop-categories data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/shop-categories/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/shop-categories/search  
 Example output:
 
 ```
@@ -2140,7 +2140,7 @@ Example output:
 
 A single shop-categories by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/shop-categories/999700?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/shop-categories/999700?limit=2  
 Example output:
 
 ```
@@ -2172,7 +2172,7 @@ A list of all products sorted by last updated date in descending order. For a de
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `categories`
 
-Example request: http://data-aggregator.test/api/v1/products?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/products?limit=2  
 Example output:
 
 ```
@@ -2183,7 +2183,7 @@ Example output:
         "offset": 0,
         "total_pages": 13,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/products?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/products?page=2&limit=2"
     },
     "data": [
         {
@@ -2221,7 +2221,7 @@ Search products data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/products/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/products/search  
 Example output:
 
 ```
@@ -2278,7 +2278,7 @@ Example output:
 
 A single products by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/products/999426?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/products/999426?limit=2  
 Example output:
 
 ```
@@ -2310,7 +2310,7 @@ A list of all events sorted by last updated date in descending order. For a desc
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://data-aggregator.test/api/v1/events?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/events?limit=2  
 Example output:
 
 ```
@@ -2321,7 +2321,7 @@ Example output:
         "offset": 0,
         "total_pages": 1029,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/events?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/events?page=2&limit=2"
     },
     "data": [
         {
@@ -2359,7 +2359,7 @@ Search events data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/events/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/events/search  
 Example output:
 
 ```
@@ -2416,7 +2416,7 @@ Example output:
 
 A single events by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/events/28990343?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/events/28990343?limit=2  
 Example output:
 
 ```
@@ -2463,7 +2463,7 @@ A list of all tours sorted by last updated date in descending order. For a descr
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `stops`
 
-Example request: http://data-aggregator.test/api/v1/tours?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/tours?limit=2  
 Example output:
 
 ```
@@ -2474,7 +2474,7 @@ Example output:
         "offset": 0,
         "total_pages": 17,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/tours?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tours?page=2&limit=2"
     },
     "data": [
         {
@@ -2512,7 +2512,7 @@ Search tours data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/tours/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/tours/search  
 Example output:
 
 ```
@@ -2569,7 +2569,7 @@ Example output:
 
 A single tours by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/tours/2280?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/tours/2280?limit=2  
 Example output:
 
 ```
@@ -2601,7 +2601,7 @@ A list of all tour-stops sorted by last updated date in descending order. For a 
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `sound`
 
-Example request: http://data-aggregator.test/api/v1/tour-stops?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/tour-stops?limit=2  
 Example output:
 
 ```
@@ -2612,7 +2612,7 @@ Example output:
         "offset": 0,
         "total_pages": 80,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/tour-stops?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tour-stops?page=2&limit=2"
     },
     "data": [
         {
@@ -2650,7 +2650,7 @@ Search tour-stops data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/tour-stops/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/tour-stops/search  
 Example output:
 
 ```
@@ -2674,7 +2674,7 @@ Example output:
 
 A single tour-stops by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/tour-stops/62?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/tour-stops/62?limit=2  
 Example output:
 
 ```
@@ -2704,7 +2704,7 @@ A list of all mobile-sounds sorted by last updated date in descending order. For
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://data-aggregator.test/api/v1/mobile-sounds?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/mobile-sounds?limit=2  
 Example output:
 
 ```
@@ -2715,7 +2715,7 @@ Example output:
         "offset": 0,
         "total_pages": 275,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/mobile-sounds?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/mobile-sounds?page=2&limit=2"
     },
     "data": [
         {
@@ -2744,7 +2744,7 @@ Example output:
 
 A single mobile-sounds by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/mobile-sounds/1545?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/mobile-sounds/1545?limit=2  
 Example output:
 
 ```
@@ -2776,7 +2776,7 @@ A list of all publications sorted by last updated date in descending order. For 
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://data-aggregator.test/api/v1/publications?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/publications?limit=2  
 Example output:
 
 ```
@@ -2787,7 +2787,7 @@ Example output:
         "offset": 0,
         "total_pages": 5,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/publications?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/publications?page=2&limit=2"
     },
     "data": [
         {
@@ -2969,7 +2969,7 @@ Search publications data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/publications/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/publications/search  
 Example output:
 
 ```
@@ -3026,7 +3026,7 @@ Example output:
 
 A single publications by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/publications/445?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/publications/445?limit=2  
 Example output:
 
 ```
@@ -3077,7 +3077,7 @@ A list of all sections sorted by last updated date in descending order. For a de
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://data-aggregator.test/api/v1/sections?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/sections?limit=2  
 Example output:
 
 ```
@@ -3088,7 +3088,7 @@ Example output:
         "offset": 0,
         "total_pages": 423,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/sections?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections?page=2&limit=2"
     },
     "data": [
         {
@@ -3126,7 +3126,7 @@ Search sections data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/sections/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/sections/search  
 Example output:
 
 ```
@@ -3183,7 +3183,7 @@ Example output:
 
 A single sections by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/sections/3014259?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/sections/3014259?limit=2  
 Example output:
 
 ```
@@ -3217,7 +3217,7 @@ A list of all sites sorted by last updated date in descending order. For a descr
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `artworks`
 
-Example request: http://data-aggregator.test/api/v1/sites?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/sites?limit=2  
 Example output:
 
 ```
@@ -3228,7 +3228,7 @@ Example output:
         "offset": 0,
         "total_pages": 48,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/sites?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites?page=2&limit=2"
     },
     "data": [
         {
@@ -3270,7 +3270,7 @@ Search sites data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://data-aggregator.test/api/v1/sites/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/sites/search  
 Example output:
 
 ```
@@ -3327,7 +3327,7 @@ Example output:
 
 A single sites by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/sites/1?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/sites/1?limit=2  
 Example output:
 
 ```
@@ -3342,9 +3342,9 @@ Example output:
         ],
         "artist_ids": [
             103040,
-            72565,
             31760,
-            31646
+            31646,
+            72565
         ],
         ...
     }
@@ -3366,7 +3366,7 @@ A list of all archive-images sorted by last updated date in descending order. Fo
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://data-aggregator.test/api/v1/archive-images?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/archive-images?limit=2  
 Example output:
 
 ```
@@ -3377,7 +3377,7 @@ Example output:
         "offset": 0,
         "total_pages": 27796,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/archive-images?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/archive-images?page=2&limit=2"
     },
     "data": [
         {
@@ -3406,7 +3406,7 @@ Example output:
 
 A single archive-images by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/archive-images?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/archive-images?limit=2  
 Example output:
 
 ```
@@ -3417,7 +3417,7 @@ Example output:
         "offset": 0,
         "total_pages": 27796,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/archive-images?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/archive-images?page=2&limit=2"
     },
     "data": [
         {
@@ -3460,7 +3460,7 @@ A list of all library-materials sorted by last updated date in descending order.
   * `creators`
   * `subjects`
 
-Example request: http://data-aggregator.test/api/v1/library-materials?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/library-materials?limit=2  
 Example output:
 
 ```
@@ -3471,7 +3471,7 @@ Example output:
         "offset": 0,
         "total_pages": 3431,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/library-materials?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/library-materials?page=2&limit=2"
     },
     "data": [
         {
@@ -3542,7 +3542,7 @@ Example output:
 
 A single library-materials by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/library-materials?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/library-materials?limit=2  
 Example output:
 
 ```
@@ -3553,7 +3553,7 @@ Example output:
         "offset": 0,
         "total_pages": 3431,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/library-materials?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/library-materials?page=2&limit=2"
     },
     "data": [
         {
@@ -3636,7 +3636,7 @@ A list of all library-terms sorted by last updated date in descending order. For
   * `creator_of`
   * `subject_of`
 
-Example request: http://data-aggregator.test/api/v1/library-terms?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/library-terms?limit=2  
 Example output:
 
 ```
@@ -3647,7 +3647,7 @@ Example output:
         "offset": 0,
         "total_pages": 4754,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/library-terms?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/library-terms?page=2&limit=2"
     },
     "data": [
         {
@@ -3670,7 +3670,7 @@ Example output:
 
 A single library-terms by the given identifier.
 
-Example request: http://data-aggregator.test/api/v1/library-terms?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/library-terms?limit=2  
 Example output:
 
 ```
@@ -3681,7 +3681,7 @@ Example output:
         "offset": 0,
         "total_pages": 4754,
         "current_page": 1,
-        "next_url": "http:\/\/data-aggregator.test\/api\/v1\/library-terms?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/library-terms?page=2&limit=2"
     },
     "data": [
         {
@@ -3700,4 +3700,4 @@ Example output:
 }
 ```
 
-> Generated by `php artisan docs:endpoints` on 2018-01-08 13:05:43
+> Generated by `php artisan docs:endpoints` on 2018-01-08 13:19:59
