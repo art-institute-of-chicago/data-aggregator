@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Archive\ArchivalImage;
+use App\Models\Archive\ArchiveImage;
 
 class ArchiveDatabaseSeeder extends AbstractSeeder
 {
@@ -8,14 +8,14 @@ class ArchiveDatabaseSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->call(ArchivalImageSeeder::class);
+        $this->call(ArchiveImageSeeder::class);
 
     }
 
     protected static function unseed()
     {
 
-        ArchivalImage::fake()->delete();
+        ArchiveImage::fake()->delete();
 
     }
 

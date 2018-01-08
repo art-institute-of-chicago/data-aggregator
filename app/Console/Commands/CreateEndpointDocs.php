@@ -90,7 +90,7 @@ class CreateEndpointDocs extends Command
         $doc .= \App\Models\StaticArchive\Site::instance()->docEndpoints($this->appUrl);
 
         $doc .= "# Archive\n\n";
-        $doc .= \App\Models\Archive\ArchivalImage::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Archive\ArchiveImage::instance()->docEndpoints($this->appUrl);
 
         $doc .= "# Library\n\n";
         $doc .= \App\Models\Library\Material::instance()->docEndpoints($this->appUrl);

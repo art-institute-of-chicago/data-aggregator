@@ -10,7 +10,7 @@
 |
 */
 
-$factory->define(App\Models\Archive\ArchivalImage::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Archive\ArchiveImage::class, function (Faker\Generator $faker) {
     $id = $faker->unique()->randomNumber(6) + 999 * pow(10, 6);
     return [
         'id' => $id,

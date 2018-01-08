@@ -22,7 +22,7 @@ class ImportArchive extends AbstractImportCommand
         }
 
         // Remove all library materials from the search index
-        //$this->call("scout:flush", ['model' => \App\Models\Archive\ArchivalImage::class]);
+        //$this->call("scout:flush", ['model' => \App\Models\Archive\ArchiveImage::class]);
 
         // Pseduo-refresh this specific migration...
         $migration = new \CreateArchiveTables();
@@ -36,9 +36,9 @@ class ImportArchive extends AbstractImportCommand
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
-        $this->import(\App\Models\Archive\ArchivalImage::class, 'archival-images', 1);
+        $this->import(\App\Models\Archive\ArchiveImage::class, 'archival-images', 1);
 
-        $this->info("Imported all archival images from data service!");
+        $this->info("Imported all archive images from data service!");
 
     }
 

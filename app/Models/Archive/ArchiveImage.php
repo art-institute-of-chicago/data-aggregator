@@ -9,7 +9,7 @@ use App\Models\Documentable;
 /**
  * An image from the archives.
  */
-class ArchivalImage extends BaseModel
+class ArchiveImage extends BaseModel
 {
 
     use Fillable;
@@ -20,6 +20,8 @@ class ArchivalImage extends BaseModel
     protected $casts = ['subject_terms' => 'array'];
 
     protected static $source = 'Archive';
+
+    protected $table = 'archival_images';
 
     protected $primaryKey = 'id';
 

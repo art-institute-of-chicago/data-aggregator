@@ -4,9 +4,9 @@ namespace App\Http\Transformers;
 
 use Aic\Hub\Foundation\AbstractTransformer;
 
-use App\ArchivalImage;
+use App\ArchiveImage;
 
-class ArchivalImageTransformer extends AbstractTransformer
+class ArchiveImageTransformer extends AbstractTransformer
 {
 
     public function transform($image)

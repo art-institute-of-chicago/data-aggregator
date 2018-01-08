@@ -68,7 +68,7 @@ class CreateFieldsDocs extends Command
         $doc .= \App\Models\StaticArchive\Site::instance()->docFields();
 
         $doc .= "# Archive\n\n";
-        $doc .= \App\Models\Archive\ArchivalImage::instance()->docFields();
+        $doc .= \App\Models\Archive\ArchiveImage::instance()->docFields();
 
         $doc .= "# Library\n\n";
         $doc .= \App\Models\Library\Material::instance()->docFields();
