@@ -6,6 +6,9 @@ use App\Models\BaseModel;
 use App\Models\Fillable;
 use App\Models\Documentable;
 
+/**
+ * An image from the archives.
+ */
 class ArchivalImage extends BaseModel
 {
 
@@ -218,6 +221,18 @@ class ArchivalImage extends BaseModel
         $this->fill($fill);
 
         return $this;
+
+    }
+
+    /**
+     * Whether this resource has a `/search` endpoint
+     *
+     * @return boolean
+     */
+    public function hasSearchEndpoint()
+    {
+
+        return false;
 
     }
 

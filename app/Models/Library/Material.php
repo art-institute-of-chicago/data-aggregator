@@ -4,6 +4,9 @@ namespace App\Models\Library;
 
 use App\Models\LibraryModel as BaseModel;
 
+/**
+ * A library material, such as a book, journal, or video.
+ */
 class Material extends BaseModel
 {
 
@@ -35,6 +38,33 @@ class Material extends BaseModel
         $this->subjects()->sync( $subject_ids, false );
 
         return $this;
+
+    }
+
+    protected function transformMappingInternal()
+    {
+
+        return [
+            [
+                "name" => 'date',
+                "doc" => "Publication year of this library material",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->date; },
+            ],
+        ];
+
+    }
+
+    /**
+     * Whether this resource has a `/search` endpoint
+     *
+     * @return boolean
+     */
+    public function hasSearchEndpoint()
+    {
+
+        return false;
 
     }
 

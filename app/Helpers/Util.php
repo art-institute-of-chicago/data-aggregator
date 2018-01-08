@@ -131,6 +131,21 @@ function endpointFor($modelClass)
 
     }
 
+    // TODO: This is fragile polymorphism. Handle this declaratively.
+    if ($baseName == "Material" && $source == 'Library')
+    {
+
+        $baseName = "LibraryMaterial";
+
+    }
+
+    if ($baseName == "Term" && $source == 'Library')
+    {
+
+        $baseName = "LibraryTerm";
+
+    }
+
     return kebab_case( str_plural( $baseName ) );
 
 }

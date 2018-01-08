@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Aic\Hub\Foundation\AbstractModel as BaseModel;
+use App\Models\BaseModel as BaseModel;
 
 class LibraryModel extends BaseModel
 {
 
-    use Fillable;
+    use Documentable;
 
     protected static $source = 'Library';
 

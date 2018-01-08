@@ -98,6 +98,8 @@ trait Documentable
     /**
      * Generate a description of this resource
      *
+     * @TODO Raise informative exception if the doc block is missing.
+     *
      * @return string
      */
     public function docDescription()
@@ -329,6 +331,20 @@ trait Documentable
 
         $doc = '';
         $controllerClass = "\\App\\Http\\Controllers\\" .ucfirst( camel_case( endpointFor(get_called_class()) ) ) ."Controller";
+
+        // TODO: Make all this more declarative!
+        // Alternatively, rename the controllers to plural?
+        if( $controllerClass == '\App\Http\Controllers\LibraryMaterialsController' )
+        {
+            $controllerClass = '\App\Http\Controllers\LibraryMaterialController';
+        }
+
+        // TODO: Make all this more declarative!
+        if( $controllerClass == '\App\Http\Controllers\LibraryTermsController' )
+        {
+            $controllerClass = '\App\Http\Controllers\LibraryTermController';
+        }
+
         $controller = new $controllerClass;
         $transformerClass = $controller->transformer();
         $transformer = new $transformerClass;
