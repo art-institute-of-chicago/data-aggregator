@@ -116,6 +116,13 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function sections()
+    {
+
+        return $this->hasMany('App\Models\Dsc\Section');
+
+    }
+
     public function sites()
     {
 
@@ -592,11 +599,18 @@ class Artwork extends CollectionsModel
             ],
             // TODO: Move these to Mobile\Artwork
             [
-                "name" => 'tour_ids',
-                "doc" => "Unique identifiers of the tours this work is included in",
+                "name" => 'tour_stop_ids',
+                "doc" => "Unique identifiers of the tour stops this work is included in",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->mobileArtwork ? ( $this->mobileArtwork->stops->map( function( $stop ) {  return $stop->tour; })->pluck('mobile_id')->all() ) : []; },
+                "value" => function() { return $this->mobileArtwork ? ( $this->mobileArtwork->stops->pluck('id')->all() ) : []; },
+            ],
+            [
+                "name" => 'section_ids',
+                "doc" => "Unique identifiers of the digital publication chaptes this work in included in",
+                "type" => "array",
+                'elasticsearch_type' => 'string',
+                "value" => function() { return $this->sections->pluck('dsc_id')->all(); },
             ],
             [
                 "name" => 'site_ids',
@@ -662,6 +676,13 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->mobileArtwork && $this->mobileArtwork->tours ? $this->mobileArtwork->tours->pluck('title')->all() ?? null : null; },
+            ],
+            [
+                "name" => 'section_titles',
+                "doc" => "Names of the digital publication chapters this work is included in",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->sections->pluck('title')->all(); },
             ],
 
         ];
