@@ -1,17 +1,17 @@
 Data Aggregator Changelog
 =============================
-0.5 - Library, Archives, dominiant colors and improve search
+0.5 - Library, Archives, dominant colors and improve search
 
 	* Add Etags to all API output
 	* Add dominant color information to all images
-	* Separate Elasticsearch index into separate indexes per resource, for future compatability
+	* Separate Elasticsearch index into separate indexes per resource, for future compatibility
 	* Refactor agents to store all in a single table, while still providing separate endpoints by type
-	* Tie Agents to their coresponding ULAN URIs
+	* Tie Agents to their corresponding ULAN URIs
 	* Add ability to sort search results
 	* Abstract portions of code common between APIs into the `data-hub-foundation` package
 	* Add Library Terms and Materials data to the aggregator
 	* Add images from the Ryerson & Burnham Library Image Archive to the aggregator
-	* Add missing relationships to Artwork endpoint—DSC Sections, Mobile Tour Stops, domoniant color of prefered image
+	* Add missing relationships to Artwork endpoint—DSC Sections, Mobile Tour Stops, dominant color of preferred image
 	* Add missing relationships to Artists endpoint—Artworks
 	* Add missing relationships to Exhibitions endpoint—Events
 
