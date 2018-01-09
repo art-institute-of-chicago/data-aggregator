@@ -56,6 +56,13 @@ class Exhibition extends CollectionsModel
 
     }
 
+    public function ticketedEvents()
+    {
+
+        return $this->belongsToMany('App\Models\Membership\Event');
+
+    }
+
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
@@ -140,6 +147,13 @@ class Exhibition extends CollectionsModel
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->sites->pluck('site_id')->all(); },
+            ],
+            [
+                "name" => 'event_ids',
+                "doc" => "Unique identifiers of the ticketed events featuring this exhibition",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->ticketedEvents->pluck('membership_id')->all(); },
             ],
         ];
 
