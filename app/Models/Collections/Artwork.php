@@ -563,6 +563,17 @@ class Artwork extends CollectionsModel
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->terms->pluck('term')->all(); },
             ],
+
+            // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
+            [
+                "name" => 'color',
+                "doc" => "Dominant color of this image in HSL",
+                "type" => "object",
+                "value" => function() {
+                    $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
+                    return ($preferred_image && $preferred_image->metadata->color ? $preferred_image->metadata->color : null);
+                },
+            ],
             [
                 "name" => 'preferred_image_id',
                 "doc" => "Unique identifier of the preferred image to use to represent this work",
@@ -689,6 +700,28 @@ class Artwork extends CollectionsModel
 
     }
 
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return [
+            'color' => [
+                'type' => 'object',
+                'properties' => [
+                    'population' => [ 'type' => 'integer' ],
+                    'percentage' => [ 'type' => 'float' ],
+                    'h' => [ 'type' => 'integer' ],
+                    's' => [ 'type' => 'integer' ],
+                    'l' => [ 'type' => 'integer' ],
+                ]
+            ],
+        ];
+
+    }
 
     /**
      * Get the subresources for the resource.

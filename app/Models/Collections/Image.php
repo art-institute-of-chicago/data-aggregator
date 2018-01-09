@@ -90,9 +90,7 @@ class Image extends Asset
     public function elasticsearchMappingFields()
     {
 
-        $original = parent::elasticsearchMappingFields();
-
-        $additional = [
+        return [
             'color' => [
                 'type' => 'object',
                 'properties' => [
@@ -114,8 +112,6 @@ class Image extends Asset
                 ]
             ],
         ];
-
-        return array_merge( $original, $additional );
 
     }
 

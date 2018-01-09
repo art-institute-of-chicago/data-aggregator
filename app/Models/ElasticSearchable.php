@@ -126,6 +126,25 @@ trait ElasticSearchable
     public function elasticsearchMapping()
     {
 
+        // Get a default list of field names for this model
+        $fieldMappings = array_merge($this->transformMappingInternal(), $this->transformTitles());
+
+        $default = [];
+        foreach (array_pluck($fieldMappings, 'elasticsearch_type', 'name') as $field => $type)
+        {
+
+            if ($type)
+            {
+
+                $default[$field] = [
+                    'type' => $type
+                ];
+
+            }
+
+        }
+
+        // Now bring it all together
         return
             [
                 $this->searchableAs() => [
@@ -169,6 +188,7 @@ trait ElasticSearchable
                                 ],
                             ],
                         ],
+                        $default,
                         $this->elasticsearchMappingFields()
                     )
                 ],
@@ -185,24 +205,7 @@ trait ElasticSearchable
     public function elasticsearchMappingFields()
     {
 
-        $fieldMappings = array_merge($this->transformMappingInternal(), $this->transformTitles());
-
-        $ret = [];
-        foreach (array_pluck($fieldMappings, 'elasticsearch_type', 'name') as $field => $type)
-        {
-
-            if ($type)
-            {
-
-                $ret[$field] = [
-                    'type' => $type
-                ];
-
-            }
-
-        }
-
-        return $ret;
+        return [];
 
     }
 
