@@ -144,6 +144,13 @@ class Agent extends CollectionsModel
                 "value" => function() { return $this->death_place; },
             ],
             [
+                "name" => 'ulan_uri',
+                "doc" => "Unique identifier of this agent in Getty's ULAN",
+                "type" => "uri",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->ulan_uri; },
+            ],
+            [
                 "name" => 'is_licensing_restricted',
                 "doc" => "Whether the use of the images of works by this artist are restricted by licensing",
                 "type" => "boolean",
