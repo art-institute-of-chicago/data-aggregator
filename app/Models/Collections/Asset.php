@@ -26,6 +26,29 @@ class Asset extends CollectionsModel
 
     protected static $assetType = null;
 
+    public function categories()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Category', 'asset_category', 'asset_lake_guid');
+
+    }
+
+    // Note: Not all Images are meant to be associated w/ Artworks
+    public function artworks()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_lake_guid');
+
+    }
+
+    // @TODO: It looks like the agent_citi_id field is missing...
+    // public function artist()
+    // {
+    //
+    //     return $this->belongsTo('App\Models\Collections\Agent', 'agent_citi_id');
+    //
+    // }
+
     /**
      * Filters the `assets` table by `type` to match `$assetType` of the model.
      * Uses the inline method for scope definition, rather than creating new classes.
@@ -63,30 +86,6 @@ class Asset extends CollectionsModel
         $model = parent::newInstance($attributes, $exists);
         $model->type = static::$assetType;
         return $model;
-
-    }
-
-
-    // @TODO: It looks like the agent_citi_id field is missing...
-    // public function artist()
-    // {
-    //
-    //     return $this->belongsTo('App\Models\Collections\Agent', 'agent_citi_id');
-    //
-    // }
-
-    public function categories()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Category', 'asset_category', 'asset_lake_guid');
-
-    }
-
-    // Note: Not all Images are meant to be associated w/ Artworks
-    public function artworks()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_lake_guid');
 
     }
 
