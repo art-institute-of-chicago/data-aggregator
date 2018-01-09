@@ -158,6 +158,13 @@ class Agent extends CollectionsModel
                 "value" => function() { return (bool) $this->createdArtworks; },
             ],
             [
+                "name" => 'artwork_ids',
+                "doc" => "Unique identifiers of the works this artist created.",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->createdArtworks->pluck('citi_id'); },
+            ],
+            [
                 "name" => 'agent_type',
                 "doc" => "Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.",
                 "type" => "string",
