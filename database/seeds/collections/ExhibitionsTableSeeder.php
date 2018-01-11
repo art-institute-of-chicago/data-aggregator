@@ -2,7 +2,7 @@
 
 use App\Models\Collections\Exhibition;
 use App\Models\Collections\Artwork;
-use App\Models\Collections\CorporateBody;
+use App\Models\Collections\Agent;
 
 class ExhibitionsTableSeeder extends AbstractSeeder
 {
@@ -14,7 +14,7 @@ class ExhibitionsTableSeeder extends AbstractSeeder
 
         $this->seedRelation( Exhibition::class, Artwork::class, 'artworks' );
 
-        $this->seedRelation( Exhibition::class, CorporateBody::class, 'venues' );
+        $this->seedRelation( Exhibition::class, Agent::class, 'venues' );
 
     }
 

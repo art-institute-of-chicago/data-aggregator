@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class SectionsController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class SectionsController extends BaseController
 {
 
     protected $model = \App\Models\Dsc\Section::class;

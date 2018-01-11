@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class SitesController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class SitesController extends BaseController
 {
 
     protected $model = \App\Models\StaticArchive\Site::class;

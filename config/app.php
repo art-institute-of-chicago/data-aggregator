@@ -167,19 +167,22 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
+        Cviebrock\LaravelElasticsearch\ServiceProvider::class,
+
+        /*
+         * Foundation Service Providers...
+         */
+        Aic\Hub\Foundation\ResourceServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        // App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FakerServiceProvider::class,
-
-        Laravel\Scout\ScoutServiceProvider::class,
-        Cviebrock\LaravelElasticsearch\ServiceProvider::class, // To interface with ES--create index, add schema, query, etc.
-        App\Providers\ElasticsearchProvider::class // Elasticsearch Scout Engine, to keep ES in sync with Laravel
+        App\Providers\SearchServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
 
     ],
 

@@ -25,6 +25,8 @@ class Request
     /**
      * List of allowed Input params for querying.
      *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-request-body.html
+     *
      * @var array
      */
     private static $allowed = [
@@ -32,7 +34,7 @@ class Request
         // Type can be passed via route, or via query params
         'type',
 
-        // Required: we must know the core search string
+        // Required for "Did You Mean"-style suggestions: we need to know the core search string
         // We use `q` b/c it won't cause UnexpectedValueException, if the user uses an official ES Client
         'q',
 
@@ -68,7 +70,6 @@ class Request
 
     ];
 
-
     /**
      * Default fields to return.
      *
@@ -83,6 +84,15 @@ class Request
         'timestamp',
     ];
 
+    /**
+     * Maximum request `size` for pagination.
+     *
+     * @TODO Sync this to max size as defined in controllers.
+     *
+     * @var integer
+     */
+    private static $maxSize = 1000;
+
 
     /**
      * Create a new request instance.
@@ -91,7 +101,7 @@ class Request
      */
     public function __construct( $type = null )
     {
-        $this->index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
+        $this->index = $type ? env('ELASTICSEARCH_INDEX') . '-' . $type : env('ELASTICSEARCH_ALIAS');
         $this->type = $type;
     }
 
@@ -148,13 +158,8 @@ class Request
      */
     public function getSearchParams( $input = [] ) {
 
-        if (!$input)
-        {
-
-            // Strip down the (top-level) params to what our thin client supports
-            $input = self::getValidInput();
-
-        }
+        // Strip down the (top-level) params to what our thin client supports
+        $input = self::getValidInput();
 
         $params = array_merge(
             $this->getBaseParams( $input ),
@@ -175,27 +180,39 @@ class Request
 
         ];
 
+        // Add sort into the body, not the request
+        $params = $this->addSortParams( $params, $input );
+
         // Add our custom relevancy tweaks into `should`
         $params = $this->addRelevancyParams( $params, $input );
 
-        if( is_null( array_get( $input, 'q' ) ) ) {
+        /**
+         * 1. If `query` is present, our client acts as a pass-through.
+         * 2. If `query` is absent, check if `q` is present:
+         *    a. If `q` is present, fall back into simple search mode.
+         *    b. If `q` is absent, show all results.
+         */
+        if( isset( $input['query'] ) ) {
 
-            // Empy search requires special handling, e.g. no suggestions
-            $params = $this->addEmptySearchParams( $params );
+            $params = $this->addFullSearchParams( $params, $input );
 
         } else {
 
-            if( is_null( array_get( $input, 'query' ) ) ) {
+            if( isset( $input['q'] ) ) {
 
                 $params = $this->addSimpleSearchParams( $params, $input );
 
             } else {
 
-                $params = $this->addFullSearchParams( $params, $input );
+                $params = $this->addEmptySearchParams( $params );
 
             }
 
-            // Both `query` and `q`-only searches support suggestions
+        }
+
+        // Regardless of the mode, if `q` is present, show search suggestions
+        if( isset( $input['q'] ) ) {
+
             $params = $this->addSuggestParams( $params, $input );
 
         }
@@ -248,20 +265,22 @@ class Request
     private function getPaginationParams( array $input ) {
 
         // Elasticsearch params take precedence
-        $size = array_get( $input, 'size' ) ? $input['size'] : null;
-        $from = array_get( $input, 'from' ) ? $input['from'] : null;
-
         // If that doesn't work, attempt to convert Laravel's pagination into ES params
-        isset( $size ) ?: $size = array_get( $input, 'limit' ) ? $input['size'] : null;
-        isset( $from ) ?: $from = array_get( $input, 'page' ) ? $input['page'] * $size : null;
+        $size = $input['size'] ?? $input['limit'] ?? null;
+        $from = $input['from'] ?? $input['page'] ??  null;
+
+        // ES is robust: it can accept `size` or `from` independently
 
         // If not null, cast these params to int
+        // We are using isset() instead of normal ternary to avoid catching `0` as falsey
         if( isset( $size ) ) { $size = (int) $size; }
         if( isset( $from ) ) { $from = (int) $from; }
 
-        // We are using isset() instead of normal ternary to avoid catching `0` as falsey
-        // PHP 7 allows the "null coalescing operator"  - `??` - which serves the same role
-        // https://stackoverflow.com/questions/18603250/php-shorthand-for-isset
+        // TODO: Throw an exception if `size` is too big
+        // This will have to wait until we refactor controller exceptions
+        if( $size > self::$maxSize ) {
+            //
+        }
 
         return [
 
@@ -291,6 +310,29 @@ class Request
             // '_source' => $input['_source'] ?? ( $default ?? self::$defaultFields ), // PHP 7
             '_source' => array_get( $input, '_source' ) ? $input['_source'] : ( isset( $default ) ? $default : self::$defaultFields ),
         ];
+
+    }
+
+
+    /**
+     * Determine sort order. Sort must go into the request body, and it cannot be null.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-request-sort.html
+     * @link https://github.com/elastic/elasticsearch-php/issues/179
+     *
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
+     */
+    private function addSortParams( array $params, array $input ) {
+
+        if( isset( $input['sort'] ) )
+        {
+            $params['body']['sort'] = $input['sort'];
+        }
+
+        return $params;
 
     }
 

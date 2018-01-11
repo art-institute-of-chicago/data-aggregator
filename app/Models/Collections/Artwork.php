@@ -21,14 +21,14 @@ class Artwork extends CollectionsModel
     public function artists()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Artist', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_artist');
 
     }
 
     public function copyrightRepresentatives()
     {
 
-        return $this->belongsToMany('App\Models\Collections\CopyrightRepresentative', 'agent_artwork', 'artwork_citi_id', 'agent_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_copyright_representative');
 
     }
 
@@ -116,6 +116,13 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function sections()
+    {
+
+        return $this->hasMany('App\Models\Dsc\Section');
+
+    }
+
     public function sites()
     {
 
@@ -163,7 +170,7 @@ class Artwork extends CollectionsModel
         if ($source->creator_id)
         {
 
-            $this->artists()->sync([$source->creator_id], false);
+            $this->artists()->sync([ $source->creator_id ], false);
 
         }
 
@@ -279,237 +286,348 @@ class Artwork extends CollectionsModel
     {
 
         return [
-            'main_reference_number' => [
+            [
+                "name" => 'main_reference_number',
                 "doc" => "Unique identifier assigned to the artwork upon acquisition",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->main_id; },
             ],
-            'date_start' => [
+            [
+                "name" => 'date_start',
                 "doc" => "The year of the period of time associated with the creation of this work",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->date_start; },
             ],
-            'date_end' => [
+            [
+                "name" => 'date_end',
                 "doc" => "The year of the period of time associated with the creation of this work",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->date_end; },
             ],
-            'date_display' => [
+            [
+                "name" => 'date_display',
                 "doc" => "Readable, free-text description of the period of time associated with the creation of this work. This might include date terms like Dynasty, Era etc. Written by curators and editors in house style, and is the preferred field for display on websites and apps. ",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->date_display; },
             ],
-            'description' => [
+            [
+                "name" => 'description',
                 "doc" => "Longer explanation describing the work",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->description; },
             ],
-            'artist_display' => [
+            [
+                "name" => 'artist_display',
                 "doc" => "Readable description of the creator of this work. Includes artist names, nationality and lifespan dates",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->artist_display; },
             ],
-            'department' => [
+            [
+                "name" => 'department',
                 "doc" => "Name of the curatorial department that this work belongs to",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->department ? $this->department->title : NULL; },
             ],
-            'department_id' => [
+            [
+                "name" => 'department_id',
                 "doc" => "Unique identifier of the curatorial department that this work belongs to",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->department ? $this->department_citi_id : null; },
             ],
-            'dimensions' => [
+            [
+                "name" => 'dimensions',
                 "doc" => "The size, shape, scale, and dimensions of the work. May include multiple dimension like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->dimensions; },
             ],
-            'medium' => [
+            [
+                "name" => 'medium',
                 "doc" => "The substances or materials used in the creation of a work",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->medium_display; },
             ],
-            'inscriptions' => [
+            [
+                "name" => 'inscriptions',
                 "doc" => "A description of distinguishing or identifying physical markings that are on the work",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->inscriptions; },
             ],
-            'object_type' => [
+            [
+                "name" => 'object_type',
                 "doc" => "The kind of object or work, e.g., Painting, Sculpture, Book, etc.",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->objectType ? $this->objectType->title : NULL; },
             ],
-            'object_type_id' => [
+            [
+                "name" => 'object_type_id',
                 "doc" => "Unique identifier of the kind of object or work",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->objectType ? $this->objectType->citi_id : null; },
             ],
-            'credit_line' => [
+            [
+                "name" => 'credit_line',
                 "doc" => "Brief statement indicating how the work came into the collection",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->credit_line; },
             ],
-            'publication_history' => [
+            [
+                "name" => 'publication_history',
                 "doc" => "Bibliographic list of all the places this work has been published",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->publication_history; },
             ],
-            'exhibition_history' => [
+            [
+                "name" => 'exhibition_history',
                 "doc" => "List of all the places this work has been exhibited",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->exhibition_history; },
             ],
-            'provenance_text' => [
+            [
+                "name" => 'provenance_text',
                 "doc" => "Ownership/collecting history of the work. May include names of owners, dates, and possibly methods of transfer of ownership. Free-form text formatted in a house style.",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->provenance; },
             ],
-            'publishing_verification_level' => [
+            [
+                "name" => 'publishing_verification_level',
                 "doc" => "Indicator of how much metadata on the work in published. Web Basic is the least amount, Web Everything is the greatest.",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->publishing_verification_level; },
             ],
-            'is_public_domain' => [
+            [
+                "name" => 'is_public_domain',
                 "doc" => "Whether the work is in the public domain, meaning it was created before copyrights existed or has left the copyright term",
                 "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
                 "value" => function() { return (bool) $this->is_public_domain; },
             ],
-            'copyright_notice' => [
+            [
+                "name" => 'copyright_notice',
                 "doc" => "Statement notifying how the work is protected by copyright. Applies to the work itself, not image or other related assets.",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->copyright_notice; },
             ],
-            'place_of_origin' => [
+            [
+                "name" => 'place_of_origin',
                 "doc" => "The location where the creation, design, or production of the work took place, or the original location of the work",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->place_of_origin; },
             ],
-            'collection_status' => [
+            [
+                "name" => 'collection_status',
                 "doc" => "The works status of belonging to our collection. Values include 'Permanent Collection', 'Ryerson Collection', and 'Long-term Loan'.",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->collection_status; },
             ],
-            'gallery' => [
+            [
+                "name" => 'gallery',
                 "doc" => "The location of this work in our museum",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->gallery ? $this->gallery->title : ''; },
             ],
-            'gallery_id' => [
+            [
+                "name" => 'gallery_id',
                 "doc" => "Unique identifier of the location of this work in our museum",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
             ],
-            'is_in_gallery' => [
+            [
+                "name" => 'is_in_gallery',
                 "doc" => "Whether the work is on display",
                 "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
                 "value" => function() { return $this->gallery ? true : false; },
             ],
-            'latitude' => [
+            // TODO: Move these to Mobile\Artwork
+            [
+                "name" => 'latitude',
                 "doc" => "Latitude coordinate of the location of this work in our galleries",
                 "type" => "number",
+                'elasticsearch_type' => 'float',
                 "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->latitude : NULL; },
             ],
-            'longitude' => [
+            [
+                "name" => 'longitude',
                 "doc" => "Longitude coordinate of the location of this work in our galleries",
                 "type" => "number",
+                'elasticsearch_type' => 'float',
                 "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->longitude : NULL; },
             ],
-            'latlon' => [
+            [
+                "name" => 'latlon',
                 "doc" => "Latitude and longitude coordinates of the location of this work in our galleries",
                 "type" => "string",
+                'elasticsearch_type' => 'geo_point',
                 "value" => function() { return $this->mobileArtwork ? ($this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude) : NULL; },
             ],
-            'is_highlighted_in_mobile' => [
+            [
+                "name" => 'is_highlighted_in_mobile',
                 "doc" => "Whether the work is highlighted in the mobile app",
                 "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
                 "value" => function() { return (bool) $this->mobileArtwork ? $this->mobileArtwork->highlighted : NULL; },
             ],
-            'selector_number' => [
+            [
+                "name" => 'selector_number',
                 "doc" => "The code that can be entered in our audioguides to learn more about this work",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->selector_number : NULL; },
             ],
-            'artist_ids' => [
+            // EOF TODO Mobile\Artwork
+            [
+                "name" => 'artist_ids',
                 "doc" => "Unique identifiers of the artists associated with this work",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->artists->pluck('citi_id')->all(); },
             ],
-            'category_ids' => [
+            [
+                "name" => 'category_ids',
                 "doc" => "Unique identifiers of the categories this work is a part of",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->categories->pluck('citi_id')->all(); },
             ],
-            'copyright_representative_ids' => [
+            [
+                "name" => 'copyright_representative_ids',
                 "doc" => "Unique identifiers of the copyright representatives associated with this work",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->copyrightRepresentatives->pluck('citi_id')->all(); },
             ],
-            'part_ids' => [
+            [
+                "name" => 'part_ids',
                 "doc" => "Unique identifiers of the individual works that make up this work",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->parts->pluck('citi_id')->all(); },
             ],
-            'set_ids' => [
+            [
+                "name" => 'set_ids',
                 "doc" => "Unique identifiers of the sets this work is a part of. These are not artwork ids.",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->sets->pluck('citi_id')->all(); },
             ],
-            'date_dates' => [
+            [
+                "name" => 'date_dates',
                 "doc" => "List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.",
                 "type" => "array",
+                'elasticsearch_type' => 'date',
                 "value" => function() { return $this->dates()->pluck('date')->transform(function ($item, $key) {
                     return $item->toIso8601String();
                 })->all(); },
             ],
-            'catalogue_titles' => [
+            [
+                "name" => 'catalogue_titles',
                 "doc" => "A catalogue raisonné is a comprehensive, annotated listing of all the known artworks by an artist. This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.",
                 "type" => "array",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->catalogues->pluck('catalogue')->all(); },
             ],
-            'committee_titles' => [
+            [
+                "name" => 'committee_titles',
                 "doc" => "List of committees which were involved in the acquisition or deaccession of this work",
                 "type" => "array",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->committees->pluck('committee')->all(); },
             ],
-            'term_titles' => [
+            [
+                "name" => 'term_titles',
                 "doc" => "The names of the taxonomy tags for this work",
                 "type" => "array",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->terms->pluck('term')->all(); },
             ],
-            'preferred_image_id' => [
+
+            // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
+            [
+                "name" => 'color',
+                "doc" => "Dominant color of this image in HSL",
+                "type" => "object",
+                "value" => function() {
+                    $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
+                    return ($preferred_image && $preferred_image->metadata->color ? $preferred_image->metadata->color : null);
+                },
+            ],
+            [
+                "name" => 'preferred_image_id',
                 "doc" => "Unique identifier of the preferred image to use to represent this work",
-                "type" => "number",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() {
                     $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
                     return $preferred_image ? $preferred_image->lake_guid : null;
                 },
             ],
-            'preferred_image_iiif_url' => [
+            [
+                "name" => 'preferred_image_iiif_url',
                 "doc" => "IIIF URL of the preferred image to use to represent this work",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() {
                     $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
                     return $preferred_image ? $preferred_image->iiif_url : null;
                 },
             ],
-            'image_ids' => [
+            [
+                "name" => 'image_ids',
                 "doc" => "Unique identifiers of all the images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.",
-                "type" => "number",
+                "type" => "array",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->images->pluck('lake_guid')->all(); },
             ],
-            'image_iiif_urls' => [
+            [
+                "name" => 'image_iiif_urls',
                 "doc" => "IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.",
                 "type" => "array",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->images->pluck('iiif_url')->all(); },
             ],
-            'tour_ids' => [
-                "doc" => "Unique identifiers of the tours this work is included in",
+            // TODO: Move these to Mobile\Artwork
+            [
+                "name" => 'tour_stop_ids',
+                "doc" => "Unique identifiers of the tour stops this work is included in",
                 "type" => "array",
-                "value" => function() { return $this->mobileArtwork ? ( $this->mobileArtwork->stops->map( function( $stop ) {  return $stop->tour; })->pluck('mobile_id')->all() ) : []; },
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->mobileArtwork ? ( $this->mobileArtwork->stops->pluck('id')->all() ) : []; },
             ],
-            'site_ids' => [
-                "doc" => "Unique identifiers of the microsites this exhibition is a part of",
+            [
+                "name" => 'section_ids',
+                "doc" => "Unique identifiers of the digital publication chaptes this work in included in",
                 "type" => "array",
+                'elasticsearch_type' => 'string',
+                "value" => function() { return $this->sections->pluck('dsc_id')->all(); },
+            ],
+            [
+                "name" => 'site_ids',
+                "doc" => "Unique identifiers of the microsites this work is a part of",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->sites->pluck('site_id')->all(); },
             ],
         ];
@@ -527,17 +645,60 @@ class Artwork extends CollectionsModel
 
         return [
 
-            'artist_titles' => $this->artists->pluck('title')->all(),
-            // @TODO category_titles?
-            'copyright_representative_titles' => $this->copyrightRepresentatives->pluck('title')->all(),
-            'part_titles' => $this->parts->pluck('title')->all(),
-            'set_titles' => $this->sets->pluck('title')->all(),
-            //'tour_titles' => $this->mobileArtwork ? $this->mobileArtwork->tours->pluck('title')->all() : [],
+            [
+                "name" => 'artist_titles',
+                "doc" => "Names of the artists this artwork is a part of",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->artists->pluck('title')->all(); },
+            ],
+            [
+                "name" => 'category_titles',
+                "doc" => "Names of the categories this artwork is a part of",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->artists->pluck('title')->all(); },
+            ],
+            [
+                "name" => 'copyright_representative_titles',
+                "doc" => "Names of the agents that represent copyright for this artwork",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->copyrightRepresentatives->pluck('title')->all(); },
+            ],
+            [
+                "name" => 'part_titles',
+                "doc" => "Names of the artworks that make up this work",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->parts->pluck('title')->all(); },
+            ],
+            [
+                "name" => 'set_titles',
+                "doc" => "Names of the sets this work is a part of",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->sets->pluck('title')->all(); },
+            ],
+            // TODO: Move these to Mobile\Artwork
+            [
+                "name" => 'tour_titles',
+                "doc" => "Names of the tours this work is a part of",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->mobileArtwork && $this->mobileArtwork->tours ? $this->mobileArtwork->tours->pluck('title')->all() ?? null : null; },
+            ],
+            [
+                "name" => 'section_titles',
+                "doc" => "Names of the digital publication chapters this work is included in",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->sections->pluck('title')->all(); },
+            ],
 
         ];
 
     }
-
 
     /**
      * Generate model-specific fields for an array representing the schema for this object.
@@ -547,153 +708,20 @@ class Artwork extends CollectionsModel
     public function elasticsearchMappingFields()
     {
 
-        return
-            [
-                'main_reference_number' => [
-                    'type' => 'keyword',
-                ],
-                'date_display' => [
-                    'type' => 'keyword',
-                ],
-                'date_start' => [
-                    'type' => 'integer',
-                ],
-                'date_end' => [
-                    'type' => 'integer',
-                ],
-                'artist_display' => [
-                    'type' => 'text',
-                ],
-                'department' => [
-                    'type' => 'text',
-                ],
-                'department_id' => [
-                    'type' => 'integer',
-                ],
-                'dimensions' => [
-                    'type' => 'keyword',
-                ],
-                'medium' => [
-                    'type' => 'text',
-                ],
-                'inscriptions' => [
-                    'type' => 'text',
-                ],
-                'object_type' => [
-                    'type' => 'text',
-                ],
-                'object_type_id' => [
-                    'type' => 'integer',
-                ],
-                'credit_line' => [
-                    'type' => 'text',
-                ],
-                'publication_history' => [
-                    'type' => 'text',
-                ],
-                'exhibition_history' => [
-                    'type' => 'text',
-                ],
-                'provenance_text' => [
-                    'type' => 'text',
-                ],
-                'publishing_verification_level' => [
-                    'type' => 'keyword',
-                ],
-                'is_public_domain' => [
-                    'type' => 'boolean',
-                ],
-                'copyright_notice' => [
-                    'type' => 'text',
-                ],
-                'place_of_origin' => [
-                    'type' => 'text',
-                ],
-                'collection_status' => [
-                    'type' => 'text',
-                ],
-                'gallery' => [
-                    'type' => 'text',
-                ],
-                'gallery_id' => [
-                    'type' => 'integer',
-                ],
-                'is_in_gallery' => [
-                    'type' => 'boolean',
-                ],
-                // TODO: Move these to Mobile\Artwork
-                'latitude' => [
-                    'type' => 'float',
-                ],
-                'longitude' => [
-                    'type' => 'float',
-                ],
-                'latlon' => [
-                    'type' => 'geo_point',
-                ],
-                'is_highlighted_in_mobile' => [
-                    'type' => 'boolean',
-                ],
-                'selector_number' => [
-                    'type' => 'integer',
-                ],
-                // EOF TODO Mobile\Artwork
-                'artist_ids' => [
-                    'type' => 'integer',
-                ],
-                'artist_titles' => [
-                    'type' => 'text',
-                ],
-                'category_ids' => [
-                    'type' => 'integer',
-                ],
-                'category_titles' => [
-                    'type' => 'text',
-                ],
-                'copyright_representative_ids' => [
-                    'type' => 'integer',
-                ],
-                'copyright_representative_titles' => [
-                    'type' => 'text',
-                ],
-                'part_ids' => [
-                    'type' => 'integer',
-                ],
-                'part_titles' => [
-                    'type' => 'text',
-                ],
-                'set_ids' => [
-                    'type' => 'integer',
-                ],
-                'set_titles' => [
-                    'type' => 'text',
-                ],
-                'date_dates' => [
-                    'type' => 'date',
-                ],
-                'catalogue_titles' => [
-                    'type' => 'text',
-                ],
-                'committee_titles' => [
-                    'type' => 'text',
-                ],
-                'term_titles' => [
-                    'type' => 'text',
-                ],
-                'image_urls' => [
-                    'type' => 'keyword',
-                ],
-                // TODO: Move these to Mobile\Artwork
-                'tour_ids' => [
-                    'type' => 'integer',
-                ],
-                'tour_titles' => [
-                    'type' => 'text',
-                ],
-            ];
+        return [
+            'color' => [
+                'type' => 'object',
+                'properties' => [
+                    'population' => [ 'type' => 'integer' ],
+                    'percentage' => [ 'type' => 'float' ],
+                    'h' => [ 'type' => 'integer' ],
+                    's' => [ 'type' => 'integer' ],
+                    'l' => [ 'type' => 'integer' ],
+                ]
+            ],
+        ];
 
     }
-
 
     /**
      * Get the subresources for the resource.
@@ -703,7 +731,7 @@ class Artwork extends CollectionsModel
     public function subresources()
     {
 
-        return ['artists', 'copyrightRepresentatives', 'categories', 'images', 'parts', 'sets'];
+        return ['artists', 'categories', 'images', 'parts', 'sets']; //, 'copyrightRepresentatives'
 
     }
 

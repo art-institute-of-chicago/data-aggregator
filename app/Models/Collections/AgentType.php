@@ -6,7 +6,7 @@ use App\Models\CollectionsModel;
 use App\Models\Documentable;
 
 /**
- * A kind of agent, e.g., Artist, Corporate Body, Copyright Representative, etc.
+ * A kind of agent, e.g. Individual, Couple, School, Estate, Culture.
  */
 class AgentType extends CollectionsModel
 {

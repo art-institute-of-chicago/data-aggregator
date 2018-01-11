@@ -89,6 +89,7 @@ class ImportEssentials extends AbstractImportCommand
         // We need an Agent Type w/ title = Artist, or Artwork import will fail
         // We can't actually import the real Agent Types, since none of them is `Artist`
         // Until this discrepancy is resolved, just manually seed the table
+        // @TODO Artists have been removed, update this?
         $agent_type = new \App\Models\Collections\AgentType;
         $agent_type->citi_id = 7;
         $agent_type->title = 'Artist';

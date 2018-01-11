@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class ProductsController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class ProductsController extends BaseController
 {
 
     protected $model = \App\Models\Shop\Product::class;

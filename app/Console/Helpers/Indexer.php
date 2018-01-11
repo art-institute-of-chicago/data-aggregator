@@ -10,13 +10,13 @@ trait Indexer
     /**
      * Check if the index already exists. If it exists, the user is prompted to delete it.
      */
-    public function destroy($index = null)
+    public function destroy($index = null, $yes = false)
     {
 
         if (!$index)
         {
 
-            $index = env('ELASTICSEARCH_INDEX', 'data_aggregator_test');
+            $index = env('ELASTICSEARCH_INDEX');
 
         }
 
@@ -31,9 +31,14 @@ trait Indexer
         }
 
         // Return false if the user bails out
-        if (!$this->confirm("The " .$index ." index already exists. Do you wish to delete it?"))
+        if (!$yes && !$this->confirm("The " .$index ." index already exists. Do you wish to delete it?"))
         {
             return false;
+        }
+        else
+        {
+
+            $this->info('Deleting ' .$index .' index...');
         }
 
         // @TODO: Catch exceptions?
@@ -64,7 +69,7 @@ trait Indexer
     private function done($return = [])
     {
 
-        if ($return['acknowledged'])
+        if (array_key_exists('acknowledged', $return))
         {
 
             return 'Done!';

@@ -29,9 +29,26 @@ class Image extends Asset
 
         return [
 
-            'iiif_url' => [
+            [
+                "name" => 'iiif_url',
                 "doc" => "IIIF URL of this image",
+                "type" => "url",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->iiif_url; },
+            ],
+
+            // These two fields are added to the Elasticsearch schema manually via elasticsearchMappingFields
+            [
+                "name" => 'color',
+                "doc" => "Dominant color of this image in HSL",
+                "type" => "object",
+                "value" => function() { return $this->metadata->color ?? null; },
+            ],
+            [
+                "name" => 'fingerprint',
+                "doc" => "Image hashes: aHash, dHash, pHash, wHash",
+                "type" => "object",
+                "value" => function() { return $this->metadata->fingerprint ?? null; },
             ],
 
         ];
@@ -62,6 +79,39 @@ class Image extends Asset
     {
 
         return "c972e5d7-0667-6904-d919-bbeefeae0a10";
+
+    }
+
+    /**
+     * Generate model-specific fields for an array representing the schema for this object.
+     *
+     * @return array
+     */
+    public function elasticsearchMappingFields()
+    {
+
+        return [
+            'color' => [
+                'type' => 'object',
+                'properties' => [
+                    'population' => [ 'type' => 'integer' ],
+                    'percentage' => [ 'type' => 'float' ],
+                    'h' => [ 'type' => 'integer' ],
+                    's' => [ 'type' => 'integer' ],
+                    'l' => [ 'type' => 'integer' ],
+                ]
+            ],
+            // TODO: Elasticsearch is bad at string distance
+            'fingerprint' => [
+                'type' => 'object',
+                'properties' => [
+                    'ahash' => [ 'type' => 'keyword' ],
+                    'dhash' => [ 'type' => 'keyword' ],
+                    'phash' => [ 'type' => 'keyword' ],
+                    'whash' => [ 'type' => 'keyword' ],
+                ]
+            ],
+        ];
 
     }
 

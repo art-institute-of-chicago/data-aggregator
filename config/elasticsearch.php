@@ -229,7 +229,7 @@ return [
     ],
 
     'indexParams' => [
-        'index' => env('ELASTICSEARCH_INDEX', 'data_aggregator'),
+        'index' => env('ELASTICSEARCH_INDEX'),
         'body' => [
             'settings' => [
                 'analysis' => [
@@ -285,33 +285,10 @@ return [
                     ],
                 ],
             ],
-            'mappings' =>
-            array_merge(
-                \App\Models\Collections\Agent::instance()->elasticsearchMapping(),
-                \App\Models\Collections\Department::instance()->elasticsearchMapping(),
-                \App\Models\Collections\Category::instance()->elasticsearchMapping(),
-                \App\Models\Collections\Gallery::instance()->elasticsearchMapping(),
-                \App\Models\Collections\Artwork::instance()->elasticsearchMapping(),
-                \App\Models\Collections\Link::instance()->elasticsearchMapping(),
-                \App\Models\Collections\Sound::instance()->elasticsearchMapping(),
-                \App\Models\Collections\Video::instance()->elasticsearchMapping(),
-                \App\Models\Collections\Text::instance()->elasticsearchMapping(),
-                \App\Models\Collections\Exhibition::instance()->elasticsearchMapping(),
+            // Mappings are defined in SearchServiceProvider
+            // https://laracasts.com/discuss/channels/laravel/how-to-access-auth-user-details-in-config-files
+        ],
 
-                \App\Models\Shop\Category::instance()->elasticsearchMapping(),
-                \App\Models\Shop\Product::instance()->elasticsearchMapping(),
-
-                \App\Models\Membership\Event::instance()->elasticsearchMapping(),
-
-                \App\Models\Mobile\Tour::instance()->elasticsearchMapping(),
-                \App\Models\Mobile\TourStop::instance()->elasticsearchMapping(),
-
-                \App\Models\Dsc\Publication::instance()->elasticsearchMapping(),
-                \App\Models\Dsc\Section::instance()->elasticsearchMapping(),
-
-                \App\Models\StaticArchive\Site::instance()->elasticsearchMapping()
-            )
-        ]
     ],
 
 ];

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class MembersController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class MembersController extends BaseController
 {
 
     /**

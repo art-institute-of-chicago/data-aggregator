@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class ObjectTypesController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class ObjectTypesController extends BaseController
 {
 
     protected $model = \App\Models\Collections\ObjectType::class;

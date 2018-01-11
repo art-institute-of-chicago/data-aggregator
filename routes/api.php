@@ -41,6 +41,12 @@ Route::group(['prefix' => 'v1'], function()
     Route::match( array('GET', 'POST'), '_search', 'Search\SearchController@search');
     Route::match( array('GET', 'POST'), '{type}/_search', 'Search\SearchController@search');
 
+    // For debugging search, show generated request
+    if( env('APP_ENV') === 'local' ) {
+        Route::match( array('GET', 'POST'), 'echo', 'Search\SearchController@echo');
+        Route::match( array('GET', 'POST'), '{type}/echo', 'Search\SearchController@echo');
+    }
+
 
     // Artwork related stuff
     Route::get('artworks', 'ArtworksController@index');
@@ -51,18 +57,20 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('artworks/{id}/sets', 'ArtworksController@sets');
 
     Route::get('artworks/{id}/images', 'ImagesController@forArtwork');
-    Route::get('artworks/{id}/artists', 'ArtistsController@forArtwork');
     Route::get('artworks/{id}/categories', 'CategoriesController@forArtwork');
     Route::get('artworks/{id}/departments', 'DepartmentsController@forArtwork'); // TODO: Unknown formatter "getKeyName"
-    Route::get('artworks/{id}/copyrightRepresentatives', 'CopyrightRepresentativesController@forArtwork');
+
+    Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
+    Route::get('artworks/{id}/copyright-representatives', 'AgentsController@scopeForArtwork');
 
     // Collections
     Route::get('agents', 'AgentsController@index');
     Route::get('agents/{id}', 'AgentsController@show');
-    Route::get('artists', 'ArtistsController@index');
-    Route::get('artists/{id}', 'ArtistsController@show');
-    Route::get('venues', 'VenuesController@index');
-    Route::get('venues/{id}', 'VenuesController@show');
+    Route::get('artists', 'AgentsController@indexScope');
+    Route::get('artists/{id}', 'AgentsController@showScope');
+    Route::get('venues', 'AgentsController@indexScope');
+    Route::get('venues/{id}', 'AgentsController@showScope');
+    // Route::get('copyright-representatives', 'AgentsController@indexScope');
 
     Route::get('departments', 'DepartmentsController@index');
     Route::get('departments/{id}', 'DepartmentsController@show');
@@ -82,7 +90,7 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('exhibitions', 'ExhibitionsController@index');
     Route::get('exhibitions/{id}', 'ExhibitionsController@show');
     Route::get('exhibitions/{id}/artworks', 'ArtworksController@forExhibition');
-    Route::get('exhibitions/{id}/venues', 'VenuesController@forExhibition');
+    Route::get('exhibitions/{id}/venues', 'AgentsController@forExhibition');
 
     Route::get('assets', 'AssetsController@index');
     Route::get('assets/{id}', 'AssetsController@show');
@@ -129,5 +137,17 @@ Route::group(['prefix' => 'v1'], function()
 
     Route::get('sites', 'SitesController@index');
     Route::get('sites/{id}', 'SitesController@show');
+
+    // Library
+    Route::get('library-materials', 'LibraryMaterialController@index');
+    Route::get('library-materials/{id}', 'LibraryMaterialController@show');
+
+    Route::get('library-terms', 'LibraryTermController@index');
+    Route::get('library-terms/{id}', 'LibraryTermController@show');
+
+    // Archive
+    Route::get('archive-images', 'ArchiveImagesController@index');
+    Route::get('archive-images/{id}', 'ArchiveImagesController@show');
+
 
 });

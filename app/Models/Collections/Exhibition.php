@@ -25,10 +25,13 @@ class Exhibition extends CollectionsModel
 
     }
 
+    /**
+     * @TODO Differentiate between venues and artists represented in the exhibition.
+     */
     public function venues()
     {
 
-        return $this->belongsToMany('App\Models\Collections\CorporateBody', 'agent_exhibition', 'exhibition_citi_id', 'agent_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Agent', 'agent_exhibition', 'exhibition_citi_id', 'agent_citi_id');
 
     }
 
@@ -53,6 +56,13 @@ class Exhibition extends CollectionsModel
 
     }
 
+    public function ticketedEvents()
+    {
+
+        return $this->belongsToMany('App\Models\Membership\Event');
+
+    }
+
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
@@ -61,60 +71,89 @@ class Exhibition extends CollectionsModel
     {
 
         return [
-            'description' => [
+            [
+                "name" => 'description',
                 "doc" => "Explanation of what this exhibition is",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->description; },
             ],
-            'type' => [
+            [
+                "name" => 'type',
                 "doc" => "The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues, or whether it was",
                 "type" => "string",
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->type; },
             ],
-            'department' => [
+            [
+                "name" => 'department',
                 "doc" => "The name of the department that primarily organized the exhibition",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->department()->getResults() ? $this->department()->getResults()->title : ''; },
             ],
-            'department_id' => [
+            [
+                "name" => 'department_id',
                 "doc" => "Unique identifier of the department that primarily organized the exhibition",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->department ? $this->department->citi_id : null; },
             ],
-            'gallery' => [
+            [
+                "name" => 'gallery',
                 "doc" => "The name of the gallery that mainly housed the exhibition",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->gallery()->getResults() ? $this->gallery()->getResults()->title : ''; },
             ],
-            'gallery_id' => [
+            [
+                "name" => 'gallery_id',
                 "doc" => "Unique identifier of the gallery that mainly housed the exhibition",
                 "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
             ],
-            'dates' => [
+            [
+                "name" => 'dates',
                 "doc" => "A readable string of when the exhibition took place",
                 "type" => "string",
+                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->exhibition_dates; },
             ],
-            'is_active' => [
+            [
+                "name" => 'is_active',
                 "doc" => "Whether the exhibition is active",
                 "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
                 "value" => function() { return (bool) $this->active; },
             ],
-            'artwork_ids' => [
+            [
+                "name" => 'artwork_ids',
                 "doc" => "Unique identifiers of the artworks that were part of the exhibition",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
             ],
-            'venue_ids' => [
+            [
+                "name" => 'venue_ids',
                 "doc" => "Unique identifiers of the venue agent records representing who hosted the exhibition",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->venues->pluck('citi_id')->all(); },
             ],
-            'site_ids' => [
+            [
+                "name" => 'site_ids',
                 "doc" => "Unique identifiers of the microsites this exhibition is a part of",
                 "type" => "array",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->sites->pluck('site_id')->all(); },
+            ],
+            [
+                "name" => 'event_ids',
+                "doc" => "Unique identifiers of the ticketed events featuring this exhibition",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->ticketedEvents->pluck('membership_id')->all(); },
             ],
         ];
 
@@ -131,63 +170,25 @@ class Exhibition extends CollectionsModel
 
         return [
 
-            'artwork_titles' => $this->artworks->pluck('title')->all(),
-            'venue_titles' => $this->venues->pluck('title')->all(),
+            [
+                "name" => 'artwork_titles',
+                "doc" => "Names of the artworks that were part of the exhibition",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->artworks->pluck('title')->all(); },
+            ],
+            [
+                "name" => 'venue_titles',
+                "doc" => "Names of the venue agent records representing who hosted the exhibition",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->venues->pluck('title')->all(); },
+            ],
 
         ];
 
     }
 
-
-    /**
-     * Generate model-specific fields for an array representing the schema for this object.
-     *
-     * @return array
-     */
-    public function elasticsearchMappingFields()
-    {
-
-        return
-            [
-                'type' => [
-                    'type' => 'keyword',
-                ],
-                'department' => [
-                    'type' => 'text',
-                ],
-                'department_id' => [
-                    'type' => 'integer',
-                ],
-                'gallery' => [
-                    'type' => 'text',
-                ],
-                'gallery_id' => [
-                    'type' => 'integer',
-                ],
-                'dates' => [
-                    'type' => 'text',
-                ],
-                'is_active' => [
-                    'type' => 'boolean',
-                ],
-                'artwork_id' => [
-                    'type' => 'integer',
-                ],
-                'artwork_ids' => [
-                    'type' => 'integer',
-                ],
-                'artwork_titles' => [
-                    'type' => 'text',
-                ],
-                'venue_ids' => [
-                    'type' => 'integer',
-                ],
-                'venue_titles' => [
-                    'type' => 'text',
-                ],
-            ];
-
-    }
 
     /**
      * Get an example ID for documentation generation

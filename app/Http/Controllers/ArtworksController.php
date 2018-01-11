@@ -7,7 +7,9 @@ use App\Models\Collections\Exhibition;
 
 use Illuminate\Http\Request;
 
-class ArtworksController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class ArtworksController extends BaseController
 {
 
     protected $model = Artwork::class;

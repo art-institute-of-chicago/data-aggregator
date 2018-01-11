@@ -13,6 +13,12 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+
+        Commands\ImagesColor::class,
+        Commands\ImagesExport::class,
+        Commands\ImagesImport::class,
+        Commands\ImagesDownload::class,
+
         Commands\ImportCollectionsFull::class,
         Commands\ImportCollections::class,
         Commands\ImportEssentials::class,
@@ -20,21 +26,27 @@ class Kernel extends ConsoleKernel
         Commands\ImportEvents::class,
         Commands\ImportMobile::class,
         Commands\ImportCatalogues::class,
+        Commands\ImportLegacyEvents::class,
+        Commands\ImportSites::class,
+        Commands\ImportSetUlanUris::class,
+        Commands\ImportLibrary::class,
+        Commands\ImportArchive::class,
+
         Commands\ScoutImportOne::class,
         Commands\ScoutImportAll::class,
         Commands\ScoutFlushAll::class,
         Commands\ScoutRefresh::class,
         Commands\ScoutRefreshAll::class,
-        Commands\InstallSearch::class,
-        Commands\UninstallSearch::class,
-        Commands\ReindexSearch::class,
-        Commands\AliasSearch::class,
+
+        Commands\SearchAlias::class,
+        Commands\SearchInstall::class,
+        Commands\SearchReindex::class,
+        Commands\SearchUninstall::class,
+
         Commands\CreateEndpointDocs::class,
         Commands\CreateFieldsDocs::class,
         Commands\CleanSeed::class,
-        Commands\ImportLegacyEvents::class,
-        Commands\ImportSites::class,
-        Commands\ImportSetArtists::class,
+
     ];
 
     /**

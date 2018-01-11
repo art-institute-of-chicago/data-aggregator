@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Collections\Artwork;
 use Illuminate\Http\Request;
 
-class DepartmentsController extends ApiController
+use Aic\Hub\Foundation\AbstractController as BaseController;
+
+class DepartmentsController extends BaseController
 {
 
     protected $model = \App\Models\Collections\Department::class;

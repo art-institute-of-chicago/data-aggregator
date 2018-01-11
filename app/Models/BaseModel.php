@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Aic\Hub\Foundation\AbstractModel;
 
-use App\Scopes\SortByLastUpdatedScope;
-
-class BaseModel extends Model
+class BaseModel extends AbstractModel
 {
 
     use Transformable, Fillable;
@@ -25,38 +23,6 @@ class BaseModel extends Model
      * @var integer
      */
     protected $fakeIdsStartAt = 999000;
-
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var boolean
-     */
-    public $incrementing = false;
-
-
-    /**
-     * The attributes that aren't mass assignable. Generally,
-     * we want all attributes to be mass assignable. Laravel
-     * defaults to guarding all attributes.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-
-        parent::boot();
-        static::addGlobalScope(new SortByLastUpdatedScope());
-
-    }
 
 
     /**
@@ -170,11 +136,13 @@ class BaseModel extends Model
     {
 
         $ret = [
-            'id' => [
+            [
+                'name' => 'id',
                 'doc' => "Unique identifier of this resource. Taken from the source system.",
                 'value' => function() { return $this->getAttributeValue($this->getKeyName()); },
             ],
-            'title' => [
+            [
+                'name' => 'title',
                 'doc' => "Name of this resource",
                 "type" => "string",
                 'value' => function() { return $this->title; },
@@ -188,15 +156,17 @@ class BaseModel extends Model
 
             $ret = array_merge($ret,
                                [
-                                   'last_updated_source' => [
-                                           'doc' => "Date and time the resource was updated in the source system",
-                                           "type" => "string",
-                                           'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
+                                   [
+                                       'name' => 'last_updated_source',
+                                       'doc' => "Date and time the resource was updated in the source system",
+                                       "type" => "string",
+                                       'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
                                    ],
-                                   'last_updated' => [
-                                           'doc' => "Date and time the resource was updated in the Data Aggregator",
-                                           "type" => "string",
-                                           'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
+                                   [
+                                       'name' => 'last_updated',
+                                       'doc' => "Date and time the resource was updated in the Data Aggregator",
+                                       "type" => "string",
+                                       'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
                                    ],
                                ]
             );
@@ -232,6 +202,26 @@ class BaseModel extends Model
         $x = $t * ($t + 3) / 2 - $z;
         $y = $z - $t * ($t + 1) / 2;
         return [$x, $y];
+
+    }
+
+    public function has($trait)
+    {
+
+        $traits = class_uses_deep($this);
+        foreach ($traits as $t)
+        {
+
+            if ($t == $trait)
+            {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
 
     }
 
