@@ -89,17 +89,6 @@ class Asset extends CollectionsModel
 
     }
 
-    public function getFillFieldsFrom($source)
-    {
-
-        return [
-            'description' => $source->description,
-            'content' => $source->content,
-            'published' => $source->published,
-        ];
-
-    }
-
     public function attachFrom($source)
     {
 

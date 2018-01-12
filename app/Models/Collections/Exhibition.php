@@ -190,6 +190,18 @@ class Exhibition extends CollectionsModel
     }
 
 
+    public function getExtraFillFieldsFrom($source)
+    {
+
+        return [
+            'type' => $source->exhibition_type,
+            'department_citi_id' => $source->department_id,
+            'source_indexed_at' => strtotime($source->indexed_at),
+        ];
+
+    }
+
+
     /**
      * Get an example ID for documentation generation
      *

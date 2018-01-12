@@ -36,19 +36,6 @@ class Category extends CollectionsModel
         return $this->hasMany('App\Models\Collections\Category', 'parent_id');
     }
 
-    public function getFillFieldsFrom($source)
-    {
-
-        return [
-            'description' => $source->description,
-            'is_in_nav' => $source->is_in_nav,
-            'parent_id' => $source->parent_id,
-            //'sort' => $source->sort,
-            'type' => $source->type,
-        ];
-
-    }
-
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */

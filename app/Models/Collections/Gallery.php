@@ -25,20 +25,6 @@ class Gallery extends CollectionsModel
 
     }
 
-    public function getFillFieldsFrom($source)
-    {
-
-        return [
-            'closed' => $source->closed,
-            'number' => $source->number,
-            'floor' => $source->floor,
-            'latitude' => $source->latitude,
-            'longitude' => $source->longitude,
-        ];
-
-    }
-
-
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */

@@ -133,12 +133,10 @@ class Site extends BaseModel
 
     }
 
-    public function getFillFieldsFrom($source)
+    public function getExtraFillFieldsFrom($source)
     {
 
         return [
-            'site_id' => $source->id,
-            'description' => $source->description,
             'web_url' => $source->link,
         ];
 

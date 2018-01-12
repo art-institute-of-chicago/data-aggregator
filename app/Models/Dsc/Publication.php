@@ -24,18 +24,6 @@ class Publication extends DscModel
 
     }
 
-    public function getFillFieldsFrom($source)
-    {
-
-        return [
-            'web_url' => $source->web_url,
-            'site' => $source->site,
-            'alias' => $source->alias,
-            'title' => $source->title,
-        ];
-
-    }
-
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */

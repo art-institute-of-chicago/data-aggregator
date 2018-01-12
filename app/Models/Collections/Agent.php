@@ -92,7 +92,7 @@ class Agent extends CollectionsModel
 
     }
 
-    public function getFillFieldsFrom($source)
+    public function getExtraFillFieldsFrom($source)
     {
 
         return [

@@ -130,25 +130,13 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function getFillFieldsFrom($source)
+    public function getExtraFillFieldsFrom($source)
     {
 
         return [
-            'citi_id' => $source->id,
-            'lake_guid' => $source->lake_guid,
-            'main_id' => $source->main_id,
-            'date_display' => $source->date_display,
-            'date_start' => $source->date_start,
-            'date_end' => $source->date_end,
             'artist_display' => $source->creator_display,
-            'dimensions' => $source->dimensions,
-            'medium' => $source->medium,
-            'credit_line' => $source->credit_line,
-            'inscriptions' => $source->inscriptions,
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
-            'provenance' => $source->provenance,
-            'description' => $source->description,
             'publishing_verification_level' => null,
             'is_public_domain' => null,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
@@ -157,8 +145,6 @@ class Artwork extends CollectionsModel
             'department_citi_id' => $source->department_id,
             //'object_type_citi_id' => ,
             //'gallery_citi_id' => ,
-            'source_created_at' => strtotime($source->created_at),
-            'source_modified_at' => strtotime($source->modified_at),
             'source_indexed_at' => strtotime($source->indexed_at),
         ];
 
@@ -571,7 +557,7 @@ class Artwork extends CollectionsModel
                 "type" => "object",
                 "value" => function() {
                     $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
-                    return ($preferred_image && $preferred_image->metadata->color ? $preferred_image->metadata->color : null);
+                    return ($preferred_image && $preferred_image->metadata && $preferred_image->metadata->color ? $preferred_image->metadata->color : null);
                 },
             ],
             [

@@ -29,7 +29,9 @@ trait Fillable
 
         $this->fillArraysAndObjectsFrom($source);
 
-        $this->fill( $this->getFillFieldsFrom($source) );
+        $this->fillFieldsFrom($source);
+
+        $this->fill( $this->getExtraFillFieldsFrom($source) );
 
         return $this;
     }
@@ -51,14 +53,28 @@ trait Fillable
 
 
     /**
-     * Method to allow child classes to define how `fill` methods should treat fields that are
-     * specific to each model. If not overwritten, defaults to filling with all fields that do
-     * not contain array or object values, except `title` and `id`, which are handled separately.
+     * Method to allow child classes to define `fill` fields that are named differently from the API, 
+     * or should be treated differently. 
      *
      * @param  object  $source
      * @return $this
      */
-    protected function getFillFieldsFrom($source)
+    protected function getExtraFillFieldsFrom($source)
+    {
+
+        return [];
+
+    }
+
+    /**
+     * Fill in this model's attributes from source data. Only fill attributes whose names are the same
+     * as the field name presented in the API that do not contain array or object values. Does not process
+     * `title`, `id`, `created_at` and `modified_at` which are handled in separate methods.
+     *
+     * @param  object  $source
+     * @return $this
+     */
+    protected function fillFieldsFrom($source)
     {
 
         // Ignore `id`, `title`, `created_at` and `modified_at`
@@ -78,7 +94,14 @@ trait Fillable
             return !is_array( $datum ) && !is_object( $datum );
         });
 
-        return $data;
+        // Remove any fields that aren't columns in the database
+        $availableAttributes = array_keys($this->attributes);
+        $data = array_filter( $data, function( $key ) use ($availableAttributes) {
+            return in_array( $key, $availableAttributes );
+        }, ARRAY_FILTER_USE_KEY);
+
+        $this->fill($data);
+        return $this;
 
     }
 
