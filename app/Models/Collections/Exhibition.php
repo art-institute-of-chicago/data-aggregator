@@ -80,7 +80,7 @@ class Exhibition extends CollectionsModel
             ],
             [
                 "name" => 'type',
-                "doc" => "The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues, or whether it was",
+                "doc" => "The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues.",
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->type; },
