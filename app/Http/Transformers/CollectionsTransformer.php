@@ -60,7 +60,7 @@ class CollectionsTransformer extends ApiTransformer
         {
 
             $ret = [
-                'last_updated_citi' => $item->citi_modified_at->toIso8601String(),
+                'last_updated_citi' => $item->citi_modified_at ? $item->citi_modified_at->toIso8601String() : null,
             ];
 
         }

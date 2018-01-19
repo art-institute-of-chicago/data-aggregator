@@ -16,7 +16,7 @@ class Exhibition extends CollectionsModel
     use Documentable;
 
     protected $primaryKey = 'citi_id';
-    protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
+    protected $dates = ['date_start', 'date_end', 'date_aic_start', 'date_aic_end', 'source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
     public function artworks()
     {
@@ -86,6 +86,37 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->type; },
             ],
             [
+                "name" => 'status',
+                "doc" => "Whether the exhibition is open or closed",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->status; },
+            ],
+            [
+                "name" => 'date_aic_start',
+                'doc' => "Date the exhibition opened at the Art Institute of Chicago",
+                "type" => "ISO 8601 date and time",
+                'value' => function() { return $this->date_aic_start ? $this->date_aic_start->toIso8601String() : NULL; },
+            ],
+            [
+                "name" => 'date_aic_end',
+                'doc' => "Date the exhibition closed at the Art Institute of Chicago",
+                "type" => "ISO 8601 date and time",
+                'value' => function() { return $this->date_aic_end ? $this->date_aic_end->toIso8601String() : NULL; },
+            ],
+            [
+                "name" => 'date_start',
+                'doc' => "Date the exhibition opened across multiple venues",
+                "type" => "ISO 8601 date and time",
+                'value' => function() { return $this->date_start ? $this->date_start->toIso8601String() : NULL; },
+            ],
+            [
+                "name" => 'date_end',
+                'doc' => "Date the exhibition closed across multiple venues",
+                "type" => "ISO 8601 date and time",
+                'value' => function() { return $this->date_end ? $this->date_end->toIso8601String() : NULL; },
+            ],
+            [
                 "name" => 'department',
                 "doc" => "The name of the department that primarily organized the exhibition",
                 "type" => "string",
@@ -104,7 +135,7 @@ class Exhibition extends CollectionsModel
                 "doc" => "The name of the gallery that mainly housed the exhibition",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->gallery()->getResults() ? $this->gallery()->getResults()->title : ''; },
+                "value" => function() { return $this->gallery()->getResults() ? $this->gallery()->getResults()->title : $this->gallery_display; },
             ],
             [
                 "name" => 'gallery_id',
@@ -114,18 +145,22 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
             ],
             [
-                "name" => 'dates',
-                "doc" => "A readable string of when the exhibition took place",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->exhibition_dates; },
+                "name" => 'image_id',
+                "doc" => "Unique identifier of the image to use to represent this exhibition",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() {
+                    return $this->asset_lake_guid;
+                },
             ],
             [
-                "name" => 'is_active',
-                "doc" => "Whether the exhibition is active",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->active; },
+                "name" => 'image_iiif_url',
+                "doc" => "IIIF URL of the image to use to represent this exhibition",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() {
+                    return $this->image_iiif_url;
+                },
             ],
             [
                 "name" => 'artwork_ids',
@@ -193,14 +228,38 @@ class Exhibition extends CollectionsModel
     public function getExtraFillFieldsFrom($source)
     {
 
+        $gallery = Gallery::where('title', $source->gallery)->first();
+
         return [
             'type' => $source->exhibition_type,
+            'status' => $source->exhibition_status,
+            'asset_lake_guid' => $source->image_guid,
             'department_citi_id' => $source->department_id,
+            'gallery_citi_id' => $gallery ? $gallery->citi_id : null,
+            'gallery_display' => $source->gallery,
+            'date_start' => $source->start_date ? strtotime($source->start_date) : null,
+            'date_end' => $source->end_date ? strtotime($source->end_date) : null,
+            'date_aic_start' => $source->aic_start_date ? strtotime($source->aic_start_date) : null,
+            'date_aic_end' => $source->aic_end_date ? strtotime($source->aic_end_date) : null,
             'source_indexed_at' => strtotime($source->indexed_at),
         ];
 
     }
 
+
+    /**
+     * Get the IIIF URL of the image representing this exhibition. Corresponds to the `@id` attribute in the image's `/info.json`
+     *
+     * @TODO Currently, this redirects to a non-existent `info.json'
+     *
+     * @return string
+     */
+    public function getImageIiifUrlAttribute()
+    {
+
+        return env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->asset_lake_guid;
+
+    }
 
     /**
      * Get an example ID for documentation generation
