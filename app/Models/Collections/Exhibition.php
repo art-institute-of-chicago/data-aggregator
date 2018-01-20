@@ -247,6 +247,26 @@ class Exhibition extends CollectionsModel
     }
 
 
+    public function attachFrom($source)
+    {
+
+        if ($source->exhibition_agent_ids)
+        {
+
+            foreach ($source->exhibition_agent_ids as $id)
+            {
+
+                $ae = AgentExhibition::find($id);
+                $ae->exhibition_citi_id = $this->citi_id;
+                $ae->save();
+
+            }
+
+        }
+
+    }
+
+
     /**
      * Get the IIIF URL of the image representing this exhibition. Corresponds to the `@id` attribute in the image's `/info.json`
      *

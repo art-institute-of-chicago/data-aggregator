@@ -7,7 +7,7 @@ use Aic\Hub\Foundation\AbstractModel;
 class BaseModel extends AbstractModel
 {
 
-    use Transformable, Fillable;
+    use Transformable, Fillable, Instancable;
 
     /**
      * String that indicates the sub-namespace of the child models. Used for dynamic model retrieval.
@@ -45,32 +45,6 @@ class BaseModel extends AbstractModel
             return $query->where($this->getKeyName(), 'like', '99999999-9999-9999-9999-%');
 
         }
-
-    }
-
-
-    /**
-     * Return the cached instance or create a new instance of this model.
-     * Uses an array to accomodate for multiple inherited models calling
-     * this same method.
-     *
-     * @return static
-     */
-    public static function instance()
-    {
-
-        static $instances = array();
-
-        $calledClass = get_called_class();
-
-        if (!isset($instances[$calledClass]))
-        {
-
-            $instances[$calledClass] = new $calledClass();
-
-        }
-
-        return $instances[$calledClass];
 
     }
 

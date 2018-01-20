@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Schema;
+
 trait Fillable
 {
 
@@ -27,11 +29,10 @@ trait Fillable
             $this->fillDatesFrom($source);
         }
 
-        $this->fillArraysAndObjectsFrom($source);
-
-        $this->fillFieldsFrom($source);
-
-        $this->fill( $this->getExtraFillFieldsFrom($source) );
+        $this
+            ->fillArraysAndObjectsFrom($source)
+            ->fillFieldsFrom($source)
+            ->fill( $this->getExtraFillFieldsFrom($source) );
 
         return $this;
     }
@@ -95,7 +96,7 @@ trait Fillable
         });
 
         // Remove any fields that aren't columns in the database
-        $availableAttributes = array_keys($this->attributes);
+        $availableAttributes = Schema::getColumnListing(get_called_class()::instance()->getTable());
         $data = array_filter( $data, function( $key ) use ($availableAttributes) {
             return in_array( $key, $availableAttributes );
         }, ARRAY_FILTER_USE_KEY);
@@ -133,7 +134,12 @@ trait Fillable
     protected function fillTitleFrom($source)
     {
 
-        $this->title = $source->title;
+        if ( in_array( 'title', array_keys($this->attributes) ) )
+        {
+
+            $this->title = $source->title;
+
+        }
 
         return $this;
 
@@ -153,8 +159,19 @@ trait Fillable
 
         $fill = [];
 
-        $fill['source_created_at'] = strtotime($source->created_at);
-        $fill['source_modified_at'] = strtotime($source->modified_at);
+        if ( in_array( 'source_created_at', array_keys($this->attributes) ) )
+        {
+
+            $fill['source_created_at'] = strtotime($source->created_at);
+
+        }
+
+        if ( in_array( 'source_modified_at', array_keys($this->attributes) ) )
+        {
+
+            $fill['source_modified_at'] = strtotime($source->modified_at);
+
+        }
 
         $this->fill($fill);
 
