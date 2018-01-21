@@ -68,8 +68,8 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('agents/{id}', 'AgentsController@show');
     Route::get('artists', 'AgentsController@indexScope');
     Route::get('artists/{id}', 'AgentsController@showScope');
-    Route::get('venues', 'AgentsController@indexScope');
-    Route::get('venues/{id}', 'AgentsController@showScope');
+    Route::get('venues', 'AgentExhibitionsController@index');
+    Route::get('venues/{id}', 'AgentExhibitionsController@show');
     // Route::get('copyright-representatives', 'AgentsController@indexScope');
 
     Route::get('departments', 'DepartmentsController@index');
@@ -90,7 +90,7 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('exhibitions', 'ExhibitionsController@index');
     Route::get('exhibitions/{id}', 'ExhibitionsController@show');
     Route::get('exhibitions/{id}/artworks', 'ArtworksController@forExhibition');
-    Route::get('exhibitions/{id}/venues', 'AgentsController@forExhibition');
+    Route::get('exhibitions/{id}/venues', 'AgentExhibitionsController@forExhibition');
 
     Route::get('assets', 'AssetsController@index');
     Route::get('assets/{id}', 'AssetsController@show');

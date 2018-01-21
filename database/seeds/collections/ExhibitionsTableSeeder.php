@@ -14,7 +14,7 @@ class ExhibitionsTableSeeder extends AbstractSeeder
 
         $this->seedRelation( Exhibition::class, Artwork::class, 'artworks' );
 
-        $this->seedRelation( Exhibition::class, Agent::class, 'venues' );
+        $this->seedRelation( Exhibition::class, AgentExhibition::class, 'venues' );
 
     }
 

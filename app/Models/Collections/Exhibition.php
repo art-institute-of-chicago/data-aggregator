@@ -31,7 +31,7 @@ class Exhibition extends CollectionsModel
     public function venues()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Agent', 'agent_exhibition', 'exhibition_citi_id', 'agent_citi_id');
+        return $this->hasMany('App\Models\Collections\AgentExhibition');
 
     }
 
@@ -174,7 +174,7 @@ class Exhibition extends CollectionsModel
                 "doc" => "Unique identifiers of the venue agent records representing who hosted the exhibition",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->venues->pluck('citi_id')->all(); },
+                "value" => function() { return $this->venues->pluck('id')->all(); },
             ],
             [
                 "name" => 'site_ids',
@@ -250,19 +250,7 @@ class Exhibition extends CollectionsModel
     public function attachFrom($source)
     {
 
-        if ($source->exhibition_agent_ids)
-        {
-
-            foreach ($source->exhibition_agent_ids as $id)
-            {
-
-                $ae = AgentExhibition::find($id);
-                $ae->exhibition_citi_id = $this->citi_id;
-                $ae->save();
-
-            }
-
-        }
+        $this->venues()->saveMany(AgentExhibition::findMany($source->exhibition_agent_ids));
 
     }
 
