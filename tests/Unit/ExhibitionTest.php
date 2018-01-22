@@ -8,6 +8,7 @@ use App\Models\Collections\Department;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\AgentType;
 use App\Models\Collections\Agent;
+use App\Models\Collections\AgentExhibition;
 
 class ExhibitionTest extends ApiTestCase
 {

@@ -21,11 +21,11 @@ class AddAgentExhibitionFields extends Migration
             $table->boolean('is_organizer')->nullable();
             $table->integer('agent_citi_id')->unsigned()->nullable()->change();
             $table->integer('exhibition_citi_id')->unsigned()->nullable()->change();
-            $table->timestamp('source_created_at')->nullable()->useCurrent();
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
-            $table->timestamp('source_indexed_at')->nullable()->useCurrent();
-            $table->timestamp('citi_created_at')->nullable()->useCurrent();
-            $table->timestamp('citi_modified_at')->nullable()->useCurrent();
+            $table->timestamp('source_created_at')->nullable();
+            $table->timestamp('source_modified_at')->nullable();
+            $table->timestamp('source_indexed_at')->nullable();
+            $table->timestamp('citi_created_at')->nullable();
+            $table->timestamp('citi_modified_at')->nullable();
             $table->timestamps();
         });
 
