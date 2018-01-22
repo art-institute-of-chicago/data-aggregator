@@ -25,9 +25,6 @@ class Exhibition extends CollectionsModel
 
     }
 
-    /**
-     * @TODO Differentiate between venues and artists represented in the exhibition.
-     */
     public function venues()
     {
 
@@ -60,6 +57,13 @@ class Exhibition extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Models\Membership\Event');
+
+    }
+
+    public function getArtistsAttribute()
+    {
+
+        return $this->sites->pluck('agents')->collapse()->unique();
 
     }
 
@@ -175,6 +179,13 @@ class Exhibition extends CollectionsModel
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->venues->pluck('id')->all(); },
+            ],
+            [
+                "name" => 'artist_ids',
+                "doc" => "Unique identifiers of the artist agent records representing who was shown in the exhibition",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->artists->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'site_ids',
