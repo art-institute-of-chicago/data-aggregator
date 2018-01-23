@@ -5,7 +5,7 @@ use App\Models\Collections\Agent;
 use App\Models\Collections\Department;
 use App\Models\Collections\ObjectType;
 use App\Models\Collections\Category;
-use App\Models\Collections\Gallery;
+use App\Models\Collections\Place;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\ArtworkCommittee;
 use App\Models\Collections\ArtworkTerm;
@@ -26,8 +26,8 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         $this->call(DepartmentsTableSeeder::class);
         $this->call(ObjectTypesTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
-        $this->call(GalleriesTableSeeder::class);
-        $this->call(GalleryCategoriesTableSeeder::class);
+        $this->call(PlacesTableSeeder::class);
+        $this->call(PlaceCategoriesTableSeeder::class);
         $this->call(ArtworksTableSeeder::class);
         $this->call(ArtistArtworksTableSeeder::class);
         $this->call(ArtworkCopyrightRepresentativesTableSeeder::class);
@@ -55,7 +55,7 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         ArtworkTerm::fake()->delete();
         ArtworkCommittee::fake()->delete();
         Artwork::fake()->delete();
-        Gallery::fake()->delete();
+        Place::fake()->delete();
         Category::fake()->delete();
         ObjectType::fake()->delete();
         Department::fake()->delete();

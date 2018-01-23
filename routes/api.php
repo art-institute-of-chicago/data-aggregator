@@ -84,8 +84,10 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('agent-types', 'AgentTypesController@index');
     Route::get('agent-types/{id}', 'AgentTypesController@show');
 
-    Route::get('galleries', 'GalleriesController@index');
-    Route::get('galleries/{id}', 'GalleriesController@show');
+    Route::get('places', 'PlacesController@index');
+    Route::get('places/{id}', 'PlacesController@show');
+    Route::get('galleries', 'PlacesController@indexScope');
+    Route::get('galleries/{id}', 'PlacesController@showScope');
 
     Route::get('exhibitions', 'ExhibitionsController@index');
     Route::get('exhibitions/{id}', 'ExhibitionsController@show');

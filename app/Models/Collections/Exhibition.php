@@ -42,7 +42,7 @@ class Exhibition extends CollectionsModel
     public function gallery()
     {
 
-        return $this->belongsTo('App\Models\Collections\Gallery');
+        return $this->belongsTo('App\Models\Collections\Place');
 
     }
 
@@ -239,15 +239,15 @@ class Exhibition extends CollectionsModel
     public function getExtraFillFieldsFrom($source)
     {
 
-        $gallery = Gallery::where('title', $source->gallery)->first();
+        $gallery = Place::where('title', $source->gallery)->first();
 
         return [
             'type' => $source->exhibition_type,
             'status' => $source->exhibition_status,
             'asset_lake_guid' => $source->image_guid,
             'department_citi_id' => $source->department_id,
-            'gallery_citi_id' => $gallery ? $gallery->citi_id : null,
-            'gallery_display' => $source->gallery,
+            'place_citi_id' => $gallery ? $gallery->citi_id : null,
+            'place_display' => $source->gallery,
             'date_start' => $source->start_date ? strtotime($source->start_date) : null,
             'date_end' => $source->end_date ? strtotime($source->end_date) : null,
             'date_aic_start' => $source->aic_start_date ? strtotime($source->aic_start_date) : null,

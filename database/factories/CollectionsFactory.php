@@ -141,7 +141,7 @@ $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generato
             'collection_status' => $faker->randomElement(['Permanent Collection', 'Long-term Loan']),
             'department_citi_id' => $faker->randomElement(App\Models\Collections\Department::fake()->pluck('citi_id')->all()),
             'object_type_citi_id' => $faker->randomElement(App\Models\Collections\ObjectType::fake()->pluck('citi_id')->all()),
-            'gallery_citi_id' => $faker->randomElement(App\Models\Collections\Gallery::fake()->pluck('citi_id')->all()),
+            'place_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
         ],
         dates($faker, true)
     );
@@ -186,7 +186,7 @@ $factory->define(App\Models\Collections\ArtworkCatalogue::class, function (Faker
 });
 
 
-$factory->define(App\Models\Collections\Gallery::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Collections\Place::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, $faker->randomElement(['Gallery ' .$faker->unique()->randomNumber(3), $faker->lastName .' ' .$faker->randomElement(['Hall', 'Building', 'Memorial Garden', 'Reading Room', 'Study Room'])]), true, 6),
         [
@@ -195,6 +195,7 @@ $factory->define(App\Models\Collections\Gallery::class, function (Faker\Generato
             'floor' => $faker->randomElement([1,2,3, 'LL']),
             'latitude' => $faker->latitude,
             'longitude' => $faker->longitude,
+            'type' => 'AIC Gallery',
         ],
         dates($faker, true)
     );
@@ -221,8 +222,8 @@ $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Gener
             'description' => $faker->paragraph(3),
             'type' => $faker->randomElement(['AIC Only', 'AIC & Other Venues', 'Mini Exhibition', 'Permanent Collection Special Project', 'Rotation']),
             'department_citi_id' => $faker->randomElement(App\Models\Collections\Department::fake()->pluck('citi_id')->all()),
-            'gallery_citi_id' => $faker->randomElement(App\Models\Collections\Gallery::fake()->pluck('citi_id')->all()),
-            'gallery_display' => 'Gallery ' .$faker->randomNumber(3),
+            'place_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
+            'place_display' => 'Gallery ' .$faker->randomNumber(3),
             'status' => $faker->randomElement(['Open', 'Closed']),
             'asset_lake_guid' => $faker->uuid,
             'date_start' => $faker->dateTimeAd,

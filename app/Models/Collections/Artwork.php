@@ -84,7 +84,7 @@ class Artwork extends CollectionsModel
     public function gallery()
     {
 
-        return $this->belongsTo('App\Models\Collections\Gallery');
+        return $this->belongsTo('App\Models\Collections\Place');
 
     }
 
@@ -144,7 +144,7 @@ class Artwork extends CollectionsModel
             'collection_status' => null,
             'department_citi_id' => $source->department_id,
             //'object_type_citi_id' => ,
-            //'gallery_citi_id' => ,
+            //'place_citi_id' => ,
             'source_indexed_at' => strtotime($source->indexed_at),
         ];
 
@@ -445,7 +445,7 @@ class Artwork extends CollectionsModel
                 "doc" => "Whether the work is on display",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->gallery ? true : false; },
+                "value" => function() { return $this->gallery && !$this->gallery->closed ? true : false; },
             ],
             // TODO: Move these to Mobile\Artwork
             [

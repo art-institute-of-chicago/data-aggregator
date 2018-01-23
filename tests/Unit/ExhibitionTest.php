@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Collections\Exhibition;
-use App\Models\Collections\Gallery;
+use App\Models\Collections\Place;
 use App\Models\Collections\Department;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\AgentType;
@@ -23,7 +23,7 @@ class ExhibitionTest extends ApiTestCase
     {
 
         parent::setUp();
-        $this->make(Gallery::class);
+        $this->make(Place::class, ['type' => 'AIC Gallery']);
         $this->make(Department::class);
         $this->times(5)->make(Agent::class);
 

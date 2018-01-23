@@ -20,7 +20,7 @@ class ImportCollections extends AbstractImportCommand
         $this->import('departments');
         $this->import('object-types');
         $this->import('categories');
-        $this->import('galleries');
+        $this->import('places');
         $this->import('artworks');
         $this->import('links');
         $this->import('videos');
