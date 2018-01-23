@@ -26,8 +26,8 @@ class AddExhibitionFields extends Migration
         });
 
         Schema::table('exhibitions', function (Blueprint $table) {
-            $table->removeColumn('active');
-            $table->removeColumn('exhibition_dates');
+            $table->dropColumn('active');
+            $table->dropColumn('exhibition_dates');
         });
 
     }
@@ -41,13 +41,13 @@ class AddExhibitionFields extends Migration
     {
 
         Schema::table('exhibitions', function (Blueprint $table) {
-            $table->removeColumn('gallery_display');
-            $table->removeColumn('status');
-            $table->removeColumn('asset_lake_guid');
-            $table->removeColumn('date_start');
-            $table->removeColumn('date_end');
-            $table->removeColumn('date_aic_start');
-            $table->removeColumn('date_aic_end');
+            $table->dropColumn('gallery_display');
+            $table->dropColumn('status');
+            $table->dropColumn('asset_lake_guid');
+            $table->dropColumn('date_start');
+            $table->dropColumn('date_end');
+            $table->dropColumn('date_aic_start');
+            $table->dropColumn('date_aic_end');
         });
 
         Schema::table('exhibitions', function (Blueprint $table) {
