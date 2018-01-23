@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
 
+        Commands\DatabaseReset::class,
+
         Commands\ImagesColor::class,
         Commands\ImagesExport::class,
         Commands\ImagesImport::class,
