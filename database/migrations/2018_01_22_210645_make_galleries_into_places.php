@@ -30,6 +30,9 @@ class MakeGalleriesIntoPlaces extends Migration
 
         Schema::table('exhibitions', function (Blueprint $table) {
             $table->renameColumn('gallery_citi_id', 'place_citi_id');
+        });
+
+        Schema::table('exhibitions', function (Blueprint $table) {
             $table->renameColumn('gallery_display', 'place_display');
         });
 
@@ -59,6 +62,9 @@ class MakeGalleriesIntoPlaces extends Migration
 
         Schema::table('exhibitions', function (Blueprint $table) {
             $table->renameColumn('place_citi_id', 'gallery_citi_id');
+        });
+
+        Schema::table('exhibitions', function (Blueprint $table) {
             $table->renameColumn('place_display', 'gallery_display');
         });
 
