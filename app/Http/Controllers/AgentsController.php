@@ -13,7 +13,7 @@ class AgentsController extends BaseController
 
     protected $model = \App\Models\Collections\Agent::class;
 
-    protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
+    protected $transformer = \App\Http\Transformers\AgentTransformer::class;
 
     // artworks/{id}/artists
     // artworks/{id}/copyright-representatives

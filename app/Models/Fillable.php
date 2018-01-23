@@ -8,6 +8,7 @@ trait Fillable
 {
 
     protected $hasSourceDates = true;
+    protected $availableAttributes = [];
 
     /**
      * Fill in this model's fields from the given resource, or fill it in with fake data.
@@ -96,9 +97,8 @@ trait Fillable
         });
 
         // Remove any fields that aren't columns in the database
-        $availableAttributes = Schema::getColumnListing(get_called_class()::instance()->getTable());
-        $data = array_filter( $data, function( $key ) use ($availableAttributes) {
-            return in_array( $key, $availableAttributes );
+        $data = array_filter( $data, function( $key ) {
+            return in_array( $key, $this->availableAttributes() );
         }, ARRAY_FILTER_USE_KEY);
 
         $this->fill($data);
@@ -134,7 +134,7 @@ trait Fillable
     protected function fillTitleFrom($source)
     {
 
-        if ( in_array( 'title', array_keys($this->attributes) ) )
+        if ( in_array( 'title', $this->availableAttributes() ) )
         {
 
             $this->title = $source->title;
@@ -159,17 +159,24 @@ trait Fillable
 
         $fill = [];
 
-        if ( in_array( 'source_created_at', array_keys($this->attributes) ) )
+        if ( in_array( 'source_created_at', $this->availableAttributes() ) )
         {
 
             $fill['source_created_at'] = strtotime($source->created_at);
 
         }
 
-        if ( in_array( 'source_modified_at', array_keys($this->attributes) ) )
+        if ( in_array( 'source_modified_at', $this->availableAttributes() ) )
         {
 
             $fill['source_modified_at'] = strtotime($source->modified_at);
+
+        }
+
+        if ( in_array( 'source_indexed_at', $this->availableAttributes() ) )
+        {
+
+            $fill['source_indexed_at'] = strtotime($source->indexed_at);
 
         }
 
@@ -190,6 +197,20 @@ trait Fillable
     {
 
         return $this;
+
+    }
+
+    protected function availableAttributes()
+    {
+
+        if (!$this->availableAttributes)
+        {
+
+            $this->availableAttributes = Schema::getColumnListing(get_called_class()::instance()->getTable());
+
+        }
+
+        return $this->availableAttributes;
 
     }
 

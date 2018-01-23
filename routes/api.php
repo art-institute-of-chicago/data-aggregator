@@ -66,11 +66,14 @@ Route::group(['prefix' => 'v1'], function()
     // Collections
     Route::get('agents', 'AgentsController@index');
     Route::get('agents/{id}', 'AgentsController@show');
+    Route::get('agents/{id}/places', 'AgentPlacesController@forAgent');
     Route::get('artists', 'AgentsController@indexScope');
     Route::get('artists/{id}', 'AgentsController@showScope');
     Route::get('venues', 'AgentExhibitionsController@index');
     Route::get('venues/{id}', 'AgentExhibitionsController@show');
     // Route::get('copyright-representatives', 'AgentsController@indexScope');
+    Route::get('agent-places', 'AgentPlacesController@index');
+    Route::get('agent-places/{id}', 'AgentPlacesController@show');
 
     Route::get('departments', 'DepartmentsController@index');
     Route::get('departments/{id}', 'DepartmentsController@show');
