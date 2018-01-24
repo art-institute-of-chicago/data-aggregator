@@ -49,6 +49,22 @@ class AgentPlace extends Pivot
 
     }
 
+    /**
+     * Fill in this model's identifiers from source data.
+     * Meant to be overridden, especially by CollectionsModel, etc.
+     *
+     * @param  object  $source
+     * @return $this
+     */
+    protected function fillIdsFrom($source)
+    {
+
+        $this->citi_id = $source->citi_id;
+
+        return $this;
+
+    }
+
     public function getExtraFillFieldsFrom($source)
     {
 
