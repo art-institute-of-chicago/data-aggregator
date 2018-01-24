@@ -135,7 +135,7 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->department ? $this->department->citi_id : null; },
             ],
             [
-                "name" => 'gallery',
+                "name" => 'gallery_title',
                 "doc" => "The name of the gallery that mainly housed the exhibition",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
