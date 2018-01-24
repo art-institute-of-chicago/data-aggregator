@@ -142,6 +142,13 @@ class Agent extends CollectionsModel
 
         return [
             [
+                "name" => 'alternate_titles',
+                "doc" => "Altername names for this agent",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return []; },
+            ],
+            [
                 "name" => 'birth_date',
                 "doc" => "The year this agent was born",
                 "type" => "number",

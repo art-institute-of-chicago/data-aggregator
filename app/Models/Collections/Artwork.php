@@ -273,6 +273,13 @@ class Artwork extends CollectionsModel
 
         return [
             [
+                "name" => 'alternate_titles',
+                "doc" => "Altername names for this work",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return []; },
+            ],
+            [
                 "name" => 'main_reference_number',
                 "doc" => "Unique identifier assigned to the artwork upon acquisition",
                 "type" => "string",
