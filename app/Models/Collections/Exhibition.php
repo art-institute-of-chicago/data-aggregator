@@ -262,6 +262,7 @@ class Exhibition extends CollectionsModel
     {
 
         $this->venues()->saveMany(AgentExhibition::findMany($source->exhibition_agent_ids));
+        $this->artworks()->sync($source->artwork_ids, false);
 
     }
 
