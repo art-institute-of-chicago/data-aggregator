@@ -472,8 +472,16 @@ class Artwork extends CollectionsModel
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
             ],
+            // TODO: Version our API!
             [
                 "name" => 'is_in_gallery',
+                "doc" => "[DEPRECATED] Whether the work is on display",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return $this->gallery && !$this->gallery->closed ? true : false; },
+            ],
+            [
+                "name" => 'is_on_view',
                 "doc" => "Whether the work is on display",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
