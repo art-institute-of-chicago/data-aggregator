@@ -16,6 +16,7 @@ class AgentPlace extends Pivot
 
     use Fillable, Instancable, Transformable;
 
+    protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
     public function agent()
@@ -34,18 +35,18 @@ class AgentPlace extends Pivot
 
     public function getCreatedAtColumn()
     {
-        
+
         return 'created_at';
 
     }
- 
-    
+
+
 
     public function getUpdatedAtColumn()
     {
-        
+
         return 'updated_at';
-    
+
     }
 
     public function getExtraFillFieldsFrom($source)

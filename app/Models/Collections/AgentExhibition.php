@@ -16,6 +16,7 @@ class AgentExhibition extends Pivot
 
     use Fillable, Instancable, Transformable;
 
+    protected $primaryKey = 'citi_id';
     protected $dates = ['date_start', 'date_end', 'source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
     public function agent()
