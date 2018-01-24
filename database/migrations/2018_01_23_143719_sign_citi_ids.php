@@ -14,13 +14,10 @@ class SignCitiIds extends Migration
 
         $output = new ConsoleOutput();
 
-        $tables = DB::select('SHOW TABLES');
+        $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
 
-        foreach( $tables as $table )
+        foreach( $tables as $table_name )
         {
-
-            $table_array = get_object_vars( $table );
-            $table_name = $table_array[ key( $table_array ) ];
 
             Schema::table($table_name, function (Blueprint $table) use ($table_name, $output) {
 
@@ -35,7 +32,12 @@ class SignCitiIds extends Migration
                     {
                         $table->integer($column)->signed()->change();
 
-                        $output->writeln( 'Signed in ' . $table_name . ': ' . $column);
+                        if (!App::environment('testing'))
+                        {
+
+                            $output->writeln( 'Signed in ' . $table_name . ': ' . $column);
+
+                        }
                     }
                 }
 

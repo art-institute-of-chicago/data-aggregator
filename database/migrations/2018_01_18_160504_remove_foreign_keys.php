@@ -15,12 +15,10 @@ class RemoveForeignKeys extends Migration
         $output = new ConsoleOutput();
         $conn = Schema::getConnection()->getDoctrineSchemaManager();
 
-        $tables = DB::select('SHOW TABLES');
+        $tables = $conn->listTableNames();
 
-        foreach( $tables as $table )
+        foreach( $tables as $table_name )
         {
-            $table_array = get_object_vars( $table );
-            $table_name = $table_array[ key( $table_array ) ];
 
             $foreign_keys = $conn->listTableForeignKeys( $table_name );
 
@@ -32,7 +30,12 @@ class RemoveForeignKeys extends Migration
                     $key_name = $key->getName();
                     $table->dropForeign( $key_name );
 
-                    $output->writeln( 'Dropped `' . $key_name . '` from table `' . $table_name . '` ');
+                    if (!App::environment('testing'))
+                    {
+
+                        $output->writeln( 'Dropped `' . $key_name . '` from table `' . $table_name . '` ');
+
+                    }
 
                 }
 

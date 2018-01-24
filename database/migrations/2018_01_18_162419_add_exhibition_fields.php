@@ -27,6 +27,9 @@ class AddExhibitionFields extends Migration
 
         Schema::table('exhibitions', function (Blueprint $table) {
             $table->dropColumn('active');
+        });
+
+        Schema::table('exhibitions', function (Blueprint $table) {
             $table->dropColumn('exhibition_dates');
         });
 
@@ -52,6 +55,9 @@ class AddExhibitionFields extends Migration
 
         Schema::table('exhibitions', function (Blueprint $table) {
             $table->string('exhibition_dates')->after('gallery_citi_id');
+        });
+
+        Schema::table('exhibitions', function (Blueprint $table) {
             $table->boolean('active')->after('exhibition_dates');
         });
 

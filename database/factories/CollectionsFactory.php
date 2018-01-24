@@ -239,7 +239,7 @@ $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Gener
 $factory->define(App\Models\Collections\AgentExhibition::class, function (Faker\Generator $faker) {
     return array_merge(
         [
-            'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+            'citi_id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
             'agent_citi_id' => $faker->randomElement(App\Models\Collections\Agent::fake()->pluck('citi_id')->all()),
             'exhibition_citi_id' => $faker->randomElement(App\Models\Collections\Exhibition::fake()->pluck('citi_id')->all()),
             'date_start' => $faker->dateTimeAd,
