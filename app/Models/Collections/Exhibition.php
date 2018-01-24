@@ -42,7 +42,7 @@ class Exhibition extends CollectionsModel
     public function gallery()
     {
 
-        return $this->belongsTo('App\Models\Collections\Place');
+        return $this->belongsTo('App\Models\Collections\Place', 'place_citi_id');
 
     }
 
@@ -239,6 +239,8 @@ class Exhibition extends CollectionsModel
     public function getExtraFillFieldsFrom($source)
     {
 
+        // Galleries must be imported before exhibitions!
+        // Waiting on Redmine #2000 to do this properly
         $gallery = Place::where('title', $source->gallery)->first();
 
         return [
