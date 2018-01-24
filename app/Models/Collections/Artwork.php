@@ -458,7 +458,8 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->collection_status; },
             ],
             [
-                "name" => 'gallery',
+                # TODO: Handle titles holistically, for everything!
+                "name" => 'gallery_title',
                 "doc" => "The location of this work in our museum",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
