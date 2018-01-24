@@ -40,13 +40,7 @@ class ImportSites extends AbstractImportCommand
 
         $results = json_decode( $contents );
 
-        // // We need to turn off foreign key checks, since we will be e.g. attaching sound ids
-        // // to mobile artworks before the mobile sounds have been imported.
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
         $this->importSites( $results->data );
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 

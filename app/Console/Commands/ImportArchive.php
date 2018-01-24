@@ -46,8 +46,6 @@ class ImportArchive extends AbstractImportCommand
     private function import($model, $endpoint, $current = 1)
     {
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
         // Abort if the table is already filled
         if( $model::count() > 0 )
         {
@@ -72,8 +70,6 @@ class ImportArchive extends AbstractImportCommand
             $json = $this->queryService($endpoint, $current);
 
         }
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 

@@ -21,11 +21,7 @@ abstract class AbstractSeeder extends Seeder
             throw new InvalidArgumentException('Method [seed] missing from '.get_class($this));
         }
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
         $this->seed();
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 
@@ -36,11 +32,7 @@ abstract class AbstractSeeder extends Seeder
             throw new InvalidArgumentException('Method [unseed] missing from '.get_class(self));
         }
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
         self::unseed();
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 
