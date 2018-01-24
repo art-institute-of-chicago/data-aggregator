@@ -61,7 +61,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('import:collections')
             ->everyFiveMinutes()
-            ->withoutOverlapping();;
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/import-collections.log'))
+            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')]);
+
     }
 
     /**
