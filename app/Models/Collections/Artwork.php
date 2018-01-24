@@ -463,7 +463,7 @@ class Artwork extends CollectionsModel
                 "doc" => "The location of this work in our museum",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->gallery ? $this->gallery->title : ''; },
+                "value" => function() { return $this->gallery ? $this->gallery->title : null; },
             ],
             [
                 "name" => 'gallery_id',
