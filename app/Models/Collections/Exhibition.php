@@ -121,11 +121,11 @@ class Exhibition extends CollectionsModel
                 'value' => function() { return $this->date_end ? $this->date_end->toIso8601String() : NULL; },
             ],
             [
-                "name" => 'department',
+                "name" => 'department_title',
                 "doc" => "The name of the department that primarily organized the exhibition",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->department()->getResults() ? $this->department()->getResults()->title : ''; },
+                "value" => function() { return $this->department()->getResults() ? $this->department()->getResults()->title : null; },
             ],
             [
                 "name" => 'department_id',
