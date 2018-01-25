@@ -1,5 +1,40 @@
 Data Aggregator Changelog
 =============================
+
+0.6 - Fill in Collections data
+	* Upgrade to Laravel 5.5
+	* Clean up Fillable logic to reduce redundancy
+	* Add db:reset command to drop all tables
+	* Change all CITI IDs to signed integers in database, to account for low negative number IDs from CITI places
+	* Add `alternate_titles` field to API schema for artworks and agents
+
+	EXHIBITIONS ENDPOINT
+	* Add start dates and end dates:
+	  - aic_start_at - Date the exhibition opened at the Art Institute of Chicago
+	  - aic_end_at - Date the exhibition closed at the Art Institute of Chicago
+	  - start_at - Date the exhibition opened across multiple venues
+	  - end_at - Date the exhibition closed across multiple venues
+	* Remove array of images in favor of a single, preferred image:
+	  - image_id - Unique identifier of the image to use to represent this exhibition
+	  - image_iiif_url - IIIF URL of the image to use to represent this exhibition
+	* Add additional fields:
+	  - status - Whether the exhibition is open or closed
+	* Populate venues data, which fills in `venue_ids` and `/venues`, `/venues/{id}` and `/exhibitions/{id}/venues` endpoints
+	* Populate artworks data, which fills in `artwork_ids` and `/exhibitions/{id}/artworks` endpoint
+	* Show related artists via related Static Archive Sites
+	* Add `short_description` and `web_url` and import from existing website
+	* Fill in the gallery_id based on a string name (hotfix until more reliable data is available from LAKE)
+
+	PLACES ENDPOINT
+	* Create `/places` endpoints that act as parents to galleries. Add `/places` and `/places/{id}` endpoints
+	* Populate Agent Place data, which fills in `agents/{id}/places`, `/agent-places` and `/agent-places/{id}` endpoints
+	* Fill in gallery type with "AIC Gallery" for any gallery that is associated with an artwork (hotfix until more reliable data is available from LAKE)
+
+	ARTWORKS ENDPOINT
+	* Fill in the gallery_id based on a string name (hotfix until more reliable data is available from LAKE)
+	* Rename `gallery` to `gallery_title`
+	* Deprecate `is_in_gallery` in favor of `is_on_view`, which checks if the artwork is in a gallery, and that the gallery is open
+
 0.5 - Library, Archives, dominant colors and improve search
 
 	* Add Etags to all API output
