@@ -6,6 +6,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system
 * `title` *string* - Name of this resource
+* `alternate_titles` *array* - Altername names for this work
 * `main_reference_number` *string* - Unique identifier assigned to the artwork upon acquisition
 * `date_start` *number* - The year of the period of time associated with the creation of this work
 * `date_end` *number* - The year of the period of time associated with the creation of this work
@@ -28,9 +29,10 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `copyright_notice` *string* - Statement notifying how the work is protected by copyright. Applies to the work itself, not image or other related assets.
 * `place_of_origin` *string* - The location where the creation, design, or production of the work took place, or the original location of the work
 * `collection_status` *string* - The works status of belonging to our collection. Values include 'Permanent Collection', 'Ryerson Collection', and 'Long-term Loan'.
-* `gallery` *string* - The location of this work in our museum
+* `gallery_title` *string* - The location of this work in our museum
 * `gallery_id` *number* - Unique identifier of the location of this work in our museum
-* `is_in_gallery` *boolean* - Whether the work is on display
+* `is_in_gallery` *boolean* - [DEPRECATED] Whether the work is on display
+* `is_on_view` *boolean* - Whether the work is on display
 * `latitude` *number* - Latitude coordinate of the location of this work in our galleries
 * `longitude` *number* - Longitude coordinate of the location of this work in our galleries
 * `latlon` *string* - Latitude and longitude coordinates of the location of this work in our galleries
@@ -45,11 +47,13 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `catalogue_titles` *array* - A catalogue raisonné is a comprehensive, annotated listing of all the known artworks by an artist. This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.
 * `committee_titles` *array* - List of committees which were involved in the acquisition or deaccession of this work
 * `term_titles` *array* - The names of the taxonomy tags for this work
+* `color` *object* - Dominant color of this image in HSL
 * `preferred_image_id` *uuid* - Unique identifier of the preferred image to use to represent this work
 * `preferred_image_iiif_url` *string* - IIIF URL of the preferred image to use to represent this work
 * `image_ids` *array* - Unique identifiers of all the images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.
 * `image_iiif_urls` *array* - IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.
-* `tour_ids` *array* - Unique identifiers of the tours this work is included in
+* `tour_stop_ids` *array* - Unique identifiers of the tour stops this work is included in
+* `section_ids` *array* - Unique identifiers of the digital publication chaptes this work in included in
 * `site_ids` *array* - Unique identifiers of the microsites this work is a part of
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
@@ -63,14 +67,18 @@ Represents a person or organization. In the API, this includes artists, venues, 
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system
 * `title` *string* - Name of this resource
+* `alternate_titles` *array* - Altername names for this agent
 * `birth_date` *number* - The year this agent was born
 * `birth_place` *string* - Name of the place this agent was born
 * `death_date` *number* - The year this agent died
 * `death_place` *string* - Name of the place this agent died
+* `ulan_uri` *uri* - Unique identifier of this agent in Getty's ULAN
 * `is_licensing_restricted` *boolean* - Whether the use of the images of works by this artist are restricted by licensing
 * `is_artist` *boolean* - Whether the agent is an artist. Soley based on whether the agent is listed as an artist for an artwork record.
 * `agent_type` *string* - Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.
 * `agent_type_id` *number* - Unique identifier of the type of agent
+* `artwork_ids` *array* - Unique identifiers of the works this artist created.
+* `agent_place_ids` *array* - Unique identifiers of the places this artist is associated with.
 * `site_ids` *array* - Unique identifiers of the microsites this exhibition is a part of
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
@@ -131,19 +139,16 @@ A kind of agent, e.g. Individual, Couple, School, Estate, Culture. For a descrip
 
 
 
-## Galleries
+## Places
 
-A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#galleries).
+A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#places).
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system
 * `title` *string* - Name of this resource
-* `is_closed` *boolean* - Whether the gallery is currently closed
-* `number` *string* - The gallery's room number. For 'Gallery 100A', this would be '100A'.
-* `floor` *string* - The level the gallery is on, e.g., 1, 2, 3, or LL
 * `latitude` *number* - Latitude coordinate of the center of the room
 * `longitude` *number* - Longitude coordinate of the center of the room
 * `latlon` *string* - Latitude and longitude coordinates of the center of the room
-* `category_ids` *number* - Unique identifiers of the categories this gallery is a part of
+* `category_ids` *number* - Unique identifiers of the categories this place is a part of
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
@@ -157,16 +162,23 @@ An organized presentation and display of a selection of artworks. For a descript
 * `id` *number* - Unique identifier of this resource. Taken from the source system
 * `title` *string* - Name of this resource
 * `description` *string* - Explanation of what this exhibition is
-* `type` *string* - The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues, or whether it was
-* `department` *string* - The name of the department that primarily organized the exhibition
+* `type` *string* - The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues.
+* `status` *string* - Whether the exhibition is open or closed
+* `aic_start_at` *ISO 8601 date and time* - Date the exhibition opened at the Art Institute of Chicago
+* `aic_end_at` *ISO 8601 date and time* - Date the exhibition closed at the Art Institute of Chicago
+* `start_at` *ISO 8601 date and time* - Date the exhibition opened across multiple venues
+* `end_at` *ISO 8601 date and time* - Date the exhibition closed across multiple venues
+* `department_title` *string* - The name of the department that primarily organized the exhibition
 * `department_id` *number* - Unique identifier of the department that primarily organized the exhibition
-* `gallery` *string* - The name of the gallery that mainly housed the exhibition
+* `gallery_title` *string* - The name of the gallery that mainly housed the exhibition
 * `gallery_id` *number* - Unique identifier of the gallery that mainly housed the exhibition
-* `dates` *string* - A readable string of when the exhibition took place
-* `is_active` *boolean* - Whether the exhibition is active
+* `image_id` *uuid* - Unique identifier of the image to use to represent this exhibition
+* `image_iiif_url` *string* - IIIF URL of the image to use to represent this exhibition
 * `artwork_ids` *array* - Unique identifiers of the artworks that were part of the exhibition
 * `venue_ids` *array* - Unique identifiers of the venue agent records representing who hosted the exhibition
+* `artist_ids` *array* - Unique identifiers of the artist agent records representing who was shown in the exhibition
 * `site_ids` *array* - Unique identifiers of the microsites this exhibition is a part of
+* `event_ids` *array* - Unique identifiers of the ticketed events featuring this exhibition
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
@@ -552,4 +564,4 @@ A Library of Congress term. For a description of all the endpoints available for
 
 
 
-> Generated by `php artisan docs:fields` on 2018-01-08 13:20:04
+> Generated by `php artisan docs:fields` on 2018-01-25 14:15:32

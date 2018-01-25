@@ -132,7 +132,7 @@ class Place extends CollectionsModel
     public function exampleId()
     {
 
-        return "24650";
+        return "26772";
 
     }
 
