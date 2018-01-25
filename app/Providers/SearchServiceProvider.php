@@ -58,7 +58,7 @@ class SearchServiceProvider extends ServiceProvider
                     \App\Models\Collections\Category::class,
                     \App\Models\Collections\Department::class,
                     \App\Models\Collections\Exhibition::class,
-                    \App\Models\Collections\Gallery::class,
+                    \App\Models\Collections\Place::class,
 
                     \App\Models\Collections\Image::class,
                     \App\Models\Collections\Link::class,

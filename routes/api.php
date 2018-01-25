@@ -66,11 +66,14 @@ Route::group(['prefix' => 'v1'], function()
     // Collections
     Route::get('agents', 'AgentsController@index');
     Route::get('agents/{id}', 'AgentsController@show');
+    Route::get('agents/{id}/places', 'AgentPlacesController@forAgent');
     Route::get('artists', 'AgentsController@indexScope');
     Route::get('artists/{id}', 'AgentsController@showScope');
-    Route::get('venues', 'AgentsController@indexScope');
-    Route::get('venues/{id}', 'AgentsController@showScope');
+    Route::get('venues', 'AgentExhibitionsController@index');
+    Route::get('venues/{id}', 'AgentExhibitionsController@show');
     // Route::get('copyright-representatives', 'AgentsController@indexScope');
+    Route::get('agent-places', 'AgentPlacesController@index');
+    Route::get('agent-places/{id}', 'AgentPlacesController@show');
 
     Route::get('departments', 'DepartmentsController@index');
     Route::get('departments/{id}', 'DepartmentsController@show');
@@ -84,13 +87,15 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('agent-types', 'AgentTypesController@index');
     Route::get('agent-types/{id}', 'AgentTypesController@show');
 
-    Route::get('galleries', 'GalleriesController@index');
-    Route::get('galleries/{id}', 'GalleriesController@show');
+    Route::get('places', 'PlacesController@index');
+    Route::get('places/{id}', 'PlacesController@show');
+    Route::get('galleries', 'PlacesController@indexScope');
+    Route::get('galleries/{id}', 'PlacesController@showScope');
 
     Route::get('exhibitions', 'ExhibitionsController@index');
     Route::get('exhibitions/{id}', 'ExhibitionsController@show');
     Route::get('exhibitions/{id}/artworks', 'ArtworksController@forExhibition');
-    Route::get('exhibitions/{id}/venues', 'AgentsController@forExhibition');
+    Route::get('exhibitions/{id}/venues', 'AgentExhibitionsController@forExhibition');
 
     Route::get('assets', 'AssetsController@index');
     Route::get('assets/{id}', 'AssetsController@show');

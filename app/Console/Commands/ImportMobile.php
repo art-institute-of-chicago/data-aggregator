@@ -33,18 +33,12 @@ class ImportMobile extends AbstractImportCommand
 
         $results = json_decode( $contents );
 
-        // We need to turn off foreign key checks, since we will be e.g. attaching sound ids
-        // to mobile artworks before the mobile sounds have been imported.
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
         // There's no unique data coming re: galleries from the mobile app AFAICT
 
         $this->importArtworks( $results );
         $this->importSounds( $results );
         $this->importTours( $results );
         // TourStops are imported inside importTours()
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 

@@ -46,6 +46,13 @@ class Agent extends CollectionsModel
 
     }
 
+    public function places()
+    {
+
+        return $this->hasMany('App\Models\Collections\AgentPlace');
+
+    }
+
     public function sites()
     {
 
@@ -100,11 +107,30 @@ class Agent extends CollectionsModel
             //'birth_place' => ,
             'death_date' => $source->date_death,
             //'death_place' => ,
-            //'licensing_restricted' => ,
+            'licensing_restricted' => (bool) $source->is_licensing_restricted,
 
             // @TODO Artist is not a valid agent type. Artistry is determined by relation.
             //'agent_type_citi_id' => \App\Models\Collections\AgentType::where('title', 'Artist')->first()->citi_id,
         ];
+
+    }
+
+    public function attachFrom($source)
+    {
+
+        if ($source->agent_place_ids)
+        {
+
+            foreach ($source->agent_place_ids as $id)
+            {
+
+                $ae = AgentPlace::find($id);
+                $ae->agent_citi_id = $this->citi_id;
+                $ae->save();
+
+            }
+
+        }
 
     }
 
@@ -115,6 +141,13 @@ class Agent extends CollectionsModel
     {
 
         return [
+            [
+                "name" => 'alternate_titles',
+                "doc" => "Altername names for this agent",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return []; },
+            ],
             [
                 "name" => 'birth_date',
                 "doc" => "The year this agent was born",
@@ -165,13 +198,6 @@ class Agent extends CollectionsModel
                 "value" => function() { return (bool) $this->createdArtworks; },
             ],
             [
-                "name" => 'artwork_ids',
-                "doc" => "Unique identifiers of the works this artist created.",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->createdArtworks->pluck('citi_id'); },
-            ],
-            [
                 "name" => 'agent_type',
                 "doc" => "Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.",
                 "type" => "string",
@@ -184,6 +210,20 @@ class Agent extends CollectionsModel
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->agent_type_citi_id; },
+            ],
+            [
+                "name" => 'artwork_ids',
+                "doc" => "Unique identifiers of the works this artist created.",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->createdArtworks->pluck('citi_id'); },
+            ],
+            [
+                "name" => 'agent_place_ids',
+                "doc" => "Unique identifiers of the places this artist is associated with.",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->places->pluck('id'); },
             ],
             [
                 "name" => 'site_ids',

@@ -17,12 +17,8 @@ class ShopDatabaseSeeder extends AbstractSeeder
     protected static function unseed()
     {
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
         Category::fake()->delete();
         Product::fake()->delete();
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 

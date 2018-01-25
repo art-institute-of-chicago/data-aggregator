@@ -20,7 +20,7 @@ class ImportCollections extends AbstractImportCommand
         $this->import('departments');
         $this->import('object-types');
         $this->import('categories');
-        $this->import('galleries');
+        $this->import('places');
         $this->import('artworks');
         $this->import('links');
         $this->import('videos');
@@ -33,8 +33,6 @@ class ImportCollections extends AbstractImportCommand
 
     private function import($endpoint, $current = 1)
     {
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         $model = \App\Models\CollectionsModel::classFor($endpoint);
 
@@ -66,8 +64,6 @@ class ImportCollections extends AbstractImportCommand
             $json = $this->queryService($endpoint, $current);
 
         }
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 

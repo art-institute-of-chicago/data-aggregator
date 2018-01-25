@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Schema;
+
 trait Fillable
 {
 
     protected $hasSourceDates = true;
+    protected $availableAttributes = [];
 
     /**
      * Fill in this model's fields from the given resource, or fill it in with fake data.
@@ -27,11 +30,10 @@ trait Fillable
             $this->fillDatesFrom($source);
         }
 
-        $this->fillArraysAndObjectsFrom($source);
-
-        $this->fillFieldsFrom($source);
-
-        $this->fill( $this->getExtraFillFieldsFrom($source) );
+        $this
+            ->fillArraysAndObjectsFrom($source)
+            ->fillFieldsFrom($source)
+            ->fill( $this->getExtraFillFieldsFrom($source) );
 
         return $this;
     }
@@ -53,8 +55,8 @@ trait Fillable
 
 
     /**
-     * Method to allow child classes to define `fill` fields that are named differently from the API, 
-     * or should be treated differently. 
+     * Method to allow child classes to define `fill` fields that are named differently from the API,
+     * or should be treated differently.
      *
      * @param  object  $source
      * @return $this
@@ -77,8 +79,8 @@ trait Fillable
     protected function fillFieldsFrom($source)
     {
 
-        // Ignore `id`, `title`, `created_at` and `modified_at`
-        foreach( ['id', 'title', 'created_at', 'modified_at'] as $field )
+        // Ignore `id`, `title`, `created_at`, `modified_at`, `citi_created_at` and `citi_modified_at`
+        foreach( ['id', 'title', 'created_at', 'modified_at', 'citi_created_at', 'citi_modified_at'] as $field )
         {
             if( isset( $source->$field ) )
             {
@@ -95,10 +97,21 @@ trait Fillable
         });
 
         // Remove any fields that aren't columns in the database
-        $availableAttributes = array_keys($this->attributes);
-        $data = array_filter( $data, function( $key ) use ($availableAttributes) {
-            return in_array( $key, $availableAttributes );
+        $data = array_filter( $data, function( $key ) {
+            return in_array( $key, $this->availableAttributes() );
         }, ARRAY_FILTER_USE_KEY);
+
+        foreach ($this->dates as $field)
+        {
+
+            if (array_key_exists($field, $data))
+            {
+
+                $data[$field] = strtotime($source->$field);
+
+            }
+
+        }
 
         $this->fill($data);
         return $this;
@@ -133,7 +146,12 @@ trait Fillable
     protected function fillTitleFrom($source)
     {
 
-        $this->title = $source->title;
+        if ( in_array( 'title', $this->availableAttributes() ) )
+        {
+
+            $this->title = $source->title;
+
+        }
 
         return $this;
 
@@ -153,8 +171,26 @@ trait Fillable
 
         $fill = [];
 
-        $fill['source_created_at'] = strtotime($source->created_at);
-        $fill['source_modified_at'] = strtotime($source->modified_at);
+        if ( in_array( 'source_created_at', $this->availableAttributes() ) )
+        {
+
+            $fill['source_created_at'] = strtotime($source->created_at);
+
+        }
+
+        if ( in_array( 'source_modified_at', $this->availableAttributes() ) )
+        {
+
+            $fill['source_modified_at'] = strtotime($source->modified_at);
+
+        }
+
+        if ( in_array( 'source_indexed_at', $this->availableAttributes() ) )
+        {
+
+            $fill['source_indexed_at'] = strtotime($source->indexed_at);
+
+        }
 
         $this->fill($fill);
 
@@ -173,6 +209,20 @@ trait Fillable
     {
 
         return $this;
+
+    }
+
+    protected function availableAttributes()
+    {
+
+        if (!$this->availableAttributes)
+        {
+
+            $this->availableAttributes = Schema::getColumnListing(get_called_class()::instance()->getTable());
+
+        }
+
+        return $this->availableAttributes;
 
     }
 
