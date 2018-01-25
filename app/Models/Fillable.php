@@ -55,8 +55,8 @@ trait Fillable
 
 
     /**
-     * Method to allow child classes to define `fill` fields that are named differently from the API, 
-     * or should be treated differently. 
+     * Method to allow child classes to define `fill` fields that are named differently from the API,
+     * or should be treated differently.
      *
      * @param  object  $source
      * @return $this
@@ -79,8 +79,8 @@ trait Fillable
     protected function fillFieldsFrom($source)
     {
 
-        // Ignore `id`, `title`, `created_at` and `modified_at`
-        foreach( ['id', 'title', 'created_at', 'modified_at'] as $field )
+        // Ignore `id`, `title`, `created_at`, `modified_at`, `citi_created_at` and `citi_modified_at`
+        foreach( ['id', 'title', 'created_at', 'modified_at', 'citi_created_at', 'citi_modified_at'] as $field )
         {
             if( isset( $source->$field ) )
             {
@@ -100,6 +100,18 @@ trait Fillable
         $data = array_filter( $data, function( $key ) {
             return in_array( $key, $this->availableAttributes() );
         }, ARRAY_FILTER_USE_KEY);
+
+        foreach ($this->dates as $field)
+        {
+
+            if (array_key_exists($field, $data))
+            {
+
+                $data[$field] = strtotime($source->$field);
+
+            }
+
+        }
 
         $this->fill($data);
         return $this;

@@ -38,7 +38,7 @@ class SearchInstall extends Command
             foreach ($models as $model)
             {
 
-                $this->install( $model, $index );
+                $this->install( $model, $prefix );
 
             }
 

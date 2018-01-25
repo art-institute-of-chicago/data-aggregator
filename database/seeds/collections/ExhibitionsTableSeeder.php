@@ -3,6 +3,7 @@
 use App\Models\Collections\Exhibition;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Agent;
+use App\Models\Collections\AgentExhibition;
 
 class ExhibitionsTableSeeder extends AbstractSeeder
 {

@@ -29,7 +29,7 @@ abstract class AbstractSeeder extends Seeder
     {
 
         if (! method_exists(self::class, 'unseed')) {
-            throw new InvalidArgumentException('Method [unseed] missing from '.get_class(self));
+            throw new InvalidArgumentException('Method [unseed] missing from '.get_called_class());
         }
 
         self::unseed();
