@@ -2,6 +2,7 @@ Data Aggregator Changelog
 =============================
 
 0.6 - Fill in Collections data
+
 	* Upgrade to Laravel 5.5
 	* Clean up Fillable logic to reduce redundancy
 	* Add db:reset command to drop all tables
