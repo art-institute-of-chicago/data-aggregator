@@ -26,6 +26,9 @@ class CollectionsModel extends BaseModel
             case 'venues':
                 return \App\Models\Collections\Agent::class;
             break;
+            case 'exhibition-agents':
+                return \App\Models\Collections\AgentExhibition::class;
+            break;
         }
 
         return parent::classFor($endpoint);

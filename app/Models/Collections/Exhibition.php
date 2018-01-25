@@ -16,7 +16,7 @@ class Exhibition extends CollectionsModel
     use Documentable;
 
     protected $primaryKey = 'citi_id';
-    protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
+    protected $dates = ['date_start', 'date_end', 'date_aic_start', 'date_aic_end', 'source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
     public function artworks()
     {
@@ -25,13 +25,10 @@ class Exhibition extends CollectionsModel
 
     }
 
-    /**
-     * @TODO Differentiate between venues and artists represented in the exhibition.
-     */
     public function venues()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Agent', 'agent_exhibition', 'exhibition_citi_id', 'agent_citi_id');
+        return $this->hasMany('App\Models\Collections\AgentExhibition');
 
     }
 
@@ -45,7 +42,7 @@ class Exhibition extends CollectionsModel
     public function gallery()
     {
 
-        return $this->belongsTo('App\Models\Collections\Gallery');
+        return $this->belongsTo('App\Models\Collections\Place', 'place_citi_id');
 
     }
 
@@ -60,6 +57,13 @@ class Exhibition extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Models\Membership\Event');
+
+    }
+
+    public function getArtistsAttribute()
+    {
+
+        return $this->sites->pluck('agents')->collapse()->unique();
 
     }
 
@@ -80,17 +84,48 @@ class Exhibition extends CollectionsModel
             ],
             [
                 "name" => 'type',
-                "doc" => "The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues, or whether it was",
+                "doc" => "The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues.",
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->type; },
             ],
             [
-                "name" => 'department',
+                "name" => 'status',
+                "doc" => "Whether the exhibition is open or closed",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->status; },
+            ],
+            [
+                "name" => 'aic_start_at',
+                'doc' => "Date the exhibition opened at the Art Institute of Chicago",
+                "type" => "ISO 8601 date and time",
+                'value' => function() { return $this->date_aic_start ? $this->date_aic_start->toIso8601String() : NULL; },
+            ],
+            [
+                "name" => 'aic_end_at',
+                'doc' => "Date the exhibition closed at the Art Institute of Chicago",
+                "type" => "ISO 8601 date and time",
+                'value' => function() { return $this->date_aic_end ? $this->date_aic_end->toIso8601String() : NULL; },
+            ],
+            [
+                "name" => 'start_at',
+                'doc' => "Date the exhibition opened across multiple venues",
+                "type" => "ISO 8601 date and time",
+                'value' => function() { return $this->date_start ? $this->date_start->toIso8601String() : NULL; },
+            ],
+            [
+                "name" => 'end_at',
+                'doc' => "Date the exhibition closed across multiple venues",
+                "type" => "ISO 8601 date and time",
+                'value' => function() { return $this->date_end ? $this->date_end->toIso8601String() : NULL; },
+            ],
+            [
+                "name" => 'department_title',
                 "doc" => "The name of the department that primarily organized the exhibition",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->department()->getResults() ? $this->department()->getResults()->title : ''; },
+                "value" => function() { return $this->department()->getResults() ? $this->department()->getResults()->title : null; },
             ],
             [
                 "name" => 'department_id',
@@ -100,11 +135,11 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->department ? $this->department->citi_id : null; },
             ],
             [
-                "name" => 'gallery',
+                "name" => 'gallery_title',
                 "doc" => "The name of the gallery that mainly housed the exhibition",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->gallery()->getResults() ? $this->gallery()->getResults()->title : ''; },
+                "value" => function() { return $this->gallery()->getResults() ? $this->gallery()->getResults()->title : $this->gallery_display; },
             ],
             [
                 "name" => 'gallery_id',
@@ -114,18 +149,22 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
             ],
             [
-                "name" => 'dates',
-                "doc" => "A readable string of when the exhibition took place",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->exhibition_dates; },
+                "name" => 'image_id',
+                "doc" => "Unique identifier of the image to use to represent this exhibition",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() {
+                    return $this->asset_lake_guid;
+                },
             ],
             [
-                "name" => 'is_active',
-                "doc" => "Whether the exhibition is active",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->active; },
+                "name" => 'image_iiif_url',
+                "doc" => "IIIF URL of the image to use to represent this exhibition",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() {
+                    return $this->image_iiif_url;
+                },
             ],
             [
                 "name" => 'artwork_ids',
@@ -139,7 +178,14 @@ class Exhibition extends CollectionsModel
                 "doc" => "Unique identifiers of the venue agent records representing who hosted the exhibition",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->venues->pluck('citi_id')->all(); },
+                "value" => function() { return $this->venues->pluck('id')->all(); },
+            ],
+            [
+                "name" => 'artist_ids',
+                "doc" => "Unique identifiers of the artist agent records representing who was shown in the exhibition",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->artists->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'site_ids',
@@ -189,6 +235,53 @@ class Exhibition extends CollectionsModel
 
     }
 
+
+    public function getExtraFillFieldsFrom($source)
+    {
+
+        // Galleries must be imported before exhibitions!
+        // Waiting on Redmine #2000 to do this properly
+        $gallery = Place::where('title', $source->gallery)->first();
+
+        return [
+            'type' => $source->exhibition_type,
+            'status' => $source->exhibition_status,
+            'asset_lake_guid' => $source->image_guid,
+            'department_citi_id' => $source->department_id,
+            'place_citi_id' => $gallery ? $gallery->citi_id : null,
+            'place_display' => $source->gallery,
+            'date_start' => $source->start_date ? strtotime($source->start_date) : null,
+            'date_end' => $source->end_date ? strtotime($source->end_date) : null,
+            'date_aic_start' => $source->aic_start_date ? strtotime($source->aic_start_date) : null,
+            'date_aic_end' => $source->aic_end_date ? strtotime($source->aic_end_date) : null,
+            'source_indexed_at' => strtotime($source->indexed_at),
+        ];
+
+    }
+
+
+    public function attachFrom($source)
+    {
+
+        $this->venues()->saveMany(AgentExhibition::findMany($source->exhibition_agent_ids));
+        $this->artworks()->sync($source->artwork_ids, false);
+
+    }
+
+
+    /**
+     * Get the IIIF URL of the image representing this exhibition. Corresponds to the `@id` attribute in the image's `/info.json`
+     *
+     * @TODO Currently, this redirects to a non-existent `info.json'
+     *
+     * @return string
+     */
+    public function getImageIiifUrlAttribute()
+    {
+
+        return env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->asset_lake_guid;
+
+    }
 
     /**
      * Get an example ID for documentation generation

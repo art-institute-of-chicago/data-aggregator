@@ -26,7 +26,7 @@ class CreateLibraryTables extends Migration
 
         Schema::create('library_terms', function(Blueprint $table) {
             $table->string('id')->index();
-            $table->string('uri')->index();
+            $table->string('uri')->nullable()->index();
             $table->text('title')->nullable();
             $table->timestamps();
         });

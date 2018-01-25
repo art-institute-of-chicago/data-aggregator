@@ -27,12 +27,13 @@ class ImportSites extends AbstractImportCommand
         // Remove all Publications and Sections from the search index
         $this->call("scout:flush", ['model' => Site::class]);
 
-        // Pseduo-refresh this specific migration...
-        $migration = new \CreateStaticArchiveTables();
-        $migration->down();
-        $migration->up();
+        // Truncate tables
+        DB::table('artwork_site')->truncate();
+        DB::table('agent_site')->truncate();
+        DB::table('exhibition_site')->truncate();
+        DB::table('sites')->truncate();
 
-        $this->info("Refreshed \CreateStaticArchiveTables migration.");
+        $this->info("Truncated sites tables.");
 
         Storage::disk('local')->put('archive.json', file_get_contents(env('STATIC_ARCHIVE_JSON', 'http://localhost/archive.json')));
 
@@ -40,13 +41,7 @@ class ImportSites extends AbstractImportCommand
 
         $results = json_decode( $contents );
 
-        // // We need to turn off foreign key checks, since we will be e.g. attaching sound ids
-        // // to mobile artworks before the mobile sounds have been imported.
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
         $this->importSites( $results->data );
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 

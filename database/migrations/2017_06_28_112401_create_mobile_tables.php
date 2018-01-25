@@ -19,7 +19,7 @@ class CreateMobileTables extends Migration
 
         Schema::create('mobile_artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->integer('artwork_citi_id')->unsigned()->index();
+            $table->integer('artwork_citi_id')->unsigned()->nullable()->index();
 
             // Disabling foreign key checks in order to decouple mobile import from collections import
             // $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');

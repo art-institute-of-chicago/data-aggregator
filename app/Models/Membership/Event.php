@@ -60,7 +60,7 @@ class Event extends MembershipModel
         return $locations[ $resource_id ] ?? null;
     }
 
-    protected function getFillFieldsFrom($source)
+    protected function getExtraFillFieldsFrom($source)
     {
 
         if ($source->source == 'drupal')
@@ -70,13 +70,9 @@ class Event extends MembershipModel
             // +"url": "http://www.artic.edu/event/gallery-talk-modern-wing-highlights"
 
             $ret = [
-                'title' => $source->title,
-                'type' => $source->type,
                 'description' => $source->body,
                 'short_description' => $source->summary,
                 'image_url' => $source->image,
-                'source_created_at' => new Carbon($source->created_at),
-                'source_modified_at' => new Carbon($source->modified_at),
                 'is_ticketed' => $source->button_link ? TRUE : FALSE,
             ];
 
@@ -125,20 +121,8 @@ class Event extends MembershipModel
 
             return [
 
-                'membership_id' => $source->id,
-
                 'start_at' => strtotime($source->start_at),
                 'end_at' => strtotime($source->end_at),
-
-                'resource_id' => $source->resource_id,
-                'resource_title' => $source->resource_title,
-
-                'is_after_hours' => $source->is_after_hours,
-                'is_private_event' => $source->is_private_event,
-                'is_admission_required' => $source->is_admission_required,
-
-                'available' => $source->available,
-                'total_capacity' => $source->total_capacity,
 
                 'is_ticketed' => TRUE,
 

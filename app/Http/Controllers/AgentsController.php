@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Collections\Artwork;
-use App\Models\Collections\Exhibition;
 
 use Aic\Hub\Foundation\AbstractController as BaseController;
 
@@ -14,7 +13,7 @@ class AgentsController extends BaseController
 
     protected $model = \App\Models\Collections\Agent::class;
 
-    protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
+    protected $transformer = \App\Http\Transformers\AgentTransformer::class;
 
     // artworks/{id}/artists
     // artworks/{id}/copyright-representatives
@@ -26,17 +25,6 @@ class AgentsController extends BaseController
         return $this->collect( $request, function( $limit, $id ) use ( $scope ) {
 
             return Artwork::findOrFail($id)->$scope;
-
-        });
-
-    }
-
-    // exhibitions/{id}/venues
-    public function forExhibition(Request $request, $id) {
-
-        return $this->collect( $request, function( $limit, $id ) {
-
-            return Exhibition::findOrFail($id)->venues;
 
         });
 

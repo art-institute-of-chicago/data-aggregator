@@ -84,7 +84,7 @@ class Artwork extends CollectionsModel
     public function gallery()
     {
 
-        return $this->belongsTo('App\Models\Collections\Gallery');
+        return $this->belongsTo('App\Models\Collections\Place', 'place_citi_id');
 
     }
 
@@ -130,35 +130,21 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function getFillFieldsFrom($source)
+    public function getExtraFillFieldsFrom($source)
     {
 
         return [
-            'citi_id' => $source->id,
-            'lake_guid' => $source->lake_guid,
-            'main_id' => $source->main_id,
-            'date_display' => $source->date_display,
-            'date_start' => $source->date_start,
-            'date_end' => $source->date_end,
             'artist_display' => $source->creator_display,
-            'dimensions' => $source->dimensions,
-            'medium' => $source->medium,
-            'credit_line' => $source->credit_line,
-            'inscriptions' => $source->inscriptions,
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
-            'provenance' => $source->provenance,
-            'description' => $source->description,
             'publishing_verification_level' => null,
             'is_public_domain' => null,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
             'place_of_origin' => null,
             'collection_status' => null,
             'department_citi_id' => $source->department_id,
-            //'object_type_citi_id' => ,
-            //'gallery_citi_id' => ,
-            'source_created_at' => strtotime($source->created_at),
-            'source_modified_at' => strtotime($source->modified_at),
+            //'object_type_citi_id' => , // Redmine #2431
+            //'place_citi_id' => , // Redmine #2000
             'source_indexed_at' => strtotime($source->indexed_at),
         ];
 
@@ -212,7 +198,31 @@ class Artwork extends CollectionsModel
         // $source->catalogue_ids [verify?]
         // $source->part_ids
 
-        // update artworks with gallery id and object type id
+        // Galleries must be imported before artworks!
+        // Waiting on Redmine #2000 to do this properly
+        // Also: should Galleries be their own model?
+        if ($source->location)
+        {
+
+            $gallery = \App\Models\Collections\Place::where('title', $source->location)->first();
+
+            // Sometimes we get oddballs like 'Currently not on display'
+            if( $gallery )
+            {
+
+                echo $source->location . PHP_EOL;
+
+                // Tag this place as a gallery ;)
+                $gallery->type = 'AIC Gallery';
+                $gallery->save();
+
+                $this->place_citi_id = $gallery ? $gallery->citi_id : null;
+
+            }
+
+        }
+
+        // update artworks with object type id
 
         return $this;
 
@@ -286,6 +296,13 @@ class Artwork extends CollectionsModel
     {
 
         return [
+            [
+                "name" => 'alternate_titles',
+                "doc" => "Altername names for this work",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return []; },
+            ],
             [
                 "name" => 'main_reference_number',
                 "doc" => "Unique identifier assigned to the artwork upon acquisition",
@@ -441,11 +458,12 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->collection_status; },
             ],
             [
-                "name" => 'gallery',
+                # TODO: Handle titles holistically, for everything!
+                "name" => 'gallery_title',
                 "doc" => "The location of this work in our museum",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->gallery ? $this->gallery->title : ''; },
+                "value" => function() { return $this->gallery ? $this->gallery->title : null; },
             ],
             [
                 "name" => 'gallery_id',
@@ -454,12 +472,20 @@ class Artwork extends CollectionsModel
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
             ],
+            // TODO: Version our API!
             [
                 "name" => 'is_in_gallery',
+                "doc" => "[DEPRECATED] Whether the work is on display",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return $this->gallery && !$this->gallery->closed ? true : false; },
+            ],
+            [
+                "name" => 'is_on_view',
                 "doc" => "Whether the work is on display",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->gallery ? true : false; },
+                "value" => function() { return $this->gallery && !$this->gallery->closed ? true : false; },
             ],
             // TODO: Move these to Mobile\Artwork
             [
@@ -571,7 +597,7 @@ class Artwork extends CollectionsModel
                 "type" => "object",
                 "value" => function() {
                     $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
-                    return ($preferred_image && $preferred_image->metadata->color ? $preferred_image->metadata->color : null);
+                    return ($preferred_image && $preferred_image->metadata && $preferred_image->metadata->color ? $preferred_image->metadata->color : null);
                 },
             ],
             [

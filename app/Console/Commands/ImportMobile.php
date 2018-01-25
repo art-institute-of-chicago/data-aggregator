@@ -11,6 +11,8 @@ use App\Models\Mobile\Sound;
 use App\Models\Mobile\Tour;
 use App\Models\Mobile\TourStop;
 
+use Storage;
+
 
 class ImportMobile extends AbstractImportCommand
 {
@@ -23,14 +25,13 @@ class ImportMobile extends AbstractImportCommand
     public function handle()
     {
 
+        $this->info('Retrieving events JSON from artic.edu');
+        Storage::disk('local')->put('appData.json', file_get_contents(env('MOBILE_JSON', 'http://localhost/appData.json')));
+
         // Spoofing this w/ local file for speed
         $contents = \Storage::get('appData.json');
 
         $results = json_decode( $contents );
-
-        // We need to turn off foreign key checks, since we will be e.g. attaching sound ids
-        // to mobile artworks before the mobile sounds have been imported.
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         // There's no unique data coming re: galleries from the mobile app AFAICT
 
@@ -38,8 +39,6 @@ class ImportMobile extends AbstractImportCommand
         $this->importSounds( $results );
         $this->importTours( $results );
         // TourStops are imported inside importTours()
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 
@@ -67,7 +66,7 @@ class ImportMobile extends AbstractImportCommand
 
             // $artwork->artwork()->attach( $base );
             // $artwork->artwork()->associate( $base );
-            $artwork->artwork_citi_id = $datum->object_id;
+            $artwork->artwork_citi_id = isset( $datum->object_id ) ? $datum->object_id : null;
 
             // Pull in an actual model
             // $artwork->artwork_citi_id = (int) $datum->object_id,

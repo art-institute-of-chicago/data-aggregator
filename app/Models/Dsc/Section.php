@@ -41,19 +41,12 @@ class Section extends DscModel
     }
 
 
-    public function getFillFieldsFrom($source)
+    public function getExtraFillFieldsFrom($source)
     {
 
         return [
-            'web_url' => $source->web_url,
-            'accession' => $source->accession,
-            'revision' => $source->revision,
-            'source_id' => $source->source_id,
-            'weight' => $source->weight,
-            'parent_id' => $source->parent_id,
             'publication_dsc_id' => $source->publication_id,
             'artwork_citi_id' => $source->citi_id ?? null,
-            'content' => $source->content,
         ];
 
     }

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
+use DB;
 
 class ImportLibrary extends AbstractImportCommand
 {
@@ -24,15 +25,11 @@ class ImportLibrary extends AbstractImportCommand
         // Remove all library materials from the search index
         // $this->call("scout:flush", ['model' => \App\Models\Library\Material::class]);
 
-        // Truncate all tables
-        // $this->call("migrate:refresh");
+        // Truncate tables
+        DB::table('library_materials')->truncate();
+        DB::table('library_terms')->truncate();
 
-        // Pseduo-refresh this specific migration...
-        $migration = new \CreateLibraryTables();
-        $migration->down();
-        $migration->up();
-
-        $this->info("Refreshed CreateLibraryTables migration.");
+        $this->info("Truncated library tables.");
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
         $this->warn("Please manually ensure that your search index mappings are up-to-date.");
@@ -52,8 +49,6 @@ class ImportLibrary extends AbstractImportCommand
 
     private function import($model, $endpoint, $current = 1)
     {
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         // Abort if the table is already filled
         if( $model::count() > 0 )
@@ -79,8 +74,6 @@ class ImportLibrary extends AbstractImportCommand
             $json = $this->queryService($endpoint, $current);
 
         }
-
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
     }
 

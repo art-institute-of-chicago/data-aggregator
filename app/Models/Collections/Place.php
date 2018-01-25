@@ -9,7 +9,7 @@ use App\Models\Documentable;
 /**
  * A room or hall that works of art are displayed in.
  */
-class Gallery extends CollectionsModel
+class Place extends CollectionsModel
 {
 
     use ElasticSearchable;
@@ -25,19 +25,18 @@ class Gallery extends CollectionsModel
 
     }
 
-    public function getFillFieldsFrom($source)
+    /**
+     * Scope a query to only include galleries
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGalleries($query)
     {
 
-        return [
-            'closed' => $source->closed,
-            'number' => $source->number,
-            'floor' => $source->floor,
-            'latitude' => $source->latitude,
-            'longitude' => $source->longitude,
-        ];
+        return $query->where('type', 'AIC Gallery');
 
     }
-
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
@@ -46,6 +45,7 @@ class Gallery extends CollectionsModel
     {
 
         return [
+            /*
             [
                 "name" => 'is_closed',
                 "doc" => "Whether the gallery is currently closed",
@@ -67,6 +67,7 @@ class Gallery extends CollectionsModel
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->floor; },
             ],
+            */
             [
                 "name" => 'latitude',
                 "doc" => "Latitude coordinate of the center of the room",
@@ -90,7 +91,7 @@ class Gallery extends CollectionsModel
             ],
             [
                 "name" => 'category_ids',
-                "doc" => "Unique identifiers of the categories this gallery is a part of",
+                "doc" => "Unique identifiers of the categories this place is a part of",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->categories->pluck('citi_id')->all(); },
@@ -112,7 +113,7 @@ class Gallery extends CollectionsModel
 
             [
                 "name" => 'category_titles',
-                "doc" => "Names of the categories this gallery is a part of",
+                "doc" => "Names of the categories this place is a part of",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->categories->pluck('title')->all(); },
