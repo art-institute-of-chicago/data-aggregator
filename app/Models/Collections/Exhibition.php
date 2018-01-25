@@ -83,6 +83,20 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->description; },
             ],
             [
+                "name" => 'short_description',
+                "doc" => "Breif explanation of what this exhibition is",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->short_description; },
+            ],
+            [
+                "name" => 'web_url',
+                "doc" => "URL to this exhibition on our website",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->web_url; },
+            ],
+            [
                 "name" => 'type',
                 "doc" => "The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues.",
                 "type" => "string",
