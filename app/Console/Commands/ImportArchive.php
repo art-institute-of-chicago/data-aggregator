@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
+use DB;
 
 class ImportArchive extends AbstractImportCommand
 {
@@ -24,12 +25,10 @@ class ImportArchive extends AbstractImportCommand
         // Remove all library materials from the search index
         //$this->call("scout:flush", ['model' => \App\Models\Archive\ArchiveImage::class]);
 
-        // Pseduo-refresh this specific migration...
-        $migration = new \CreateArchiveTables();
-        $migration->down();
-        $migration->up();
+        // Truncate tables
+        DB::table('archival_images')->truncate();
 
-        $this->info("Refreshed \CreateArchiveTables migration.");
+        $this->info("Truncated archive tables.");
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
         $this->warn("Please manually ensure that your search index mappings are up-to-date.");

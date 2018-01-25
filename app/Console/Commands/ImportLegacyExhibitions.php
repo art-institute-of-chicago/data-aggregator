@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Storage;
-use DB;
 use Carbon\Carbon;
 use App\Models\Collections\Exhibition;
 

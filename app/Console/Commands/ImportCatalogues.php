@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
+use DB;
 
 use App\Models\Dsc\Publication;
 use App\Models\Dsc\Section;
@@ -28,15 +29,11 @@ class ImportCatalogues extends AbstractImportCommand
         $this->call("scout:flush", ['model' => Publication::class]);
         $this->call("scout:flush", ['model' => Section::class]);
 
-        // Truncate all tables
-        // $this->call("migrate:refresh");
+        // Truncate tables
+        DB::table('sections')->truncate();
+        DB::table('publications')->truncate();
 
-        // Pseduo-refresh this specific migration...
-        $migration = new \CreateDscTables();
-        $migration->down();
-        $migration->up();
-
-        $this->info("Refreshed CreateDscTables migration.");
+        $this->info("Truncated catalogue tables.");
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
         $this->warn("Please manually ensure that your search index mappings are up-to-date.");

@@ -27,12 +27,13 @@ class ImportSites extends AbstractImportCommand
         // Remove all Publications and Sections from the search index
         $this->call("scout:flush", ['model' => Site::class]);
 
-        // Pseduo-refresh this specific migration...
-        $migration = new \CreateStaticArchiveTables();
-        $migration->down();
-        $migration->up();
+        // Truncate tables
+        DB::table('artwork_site')->truncate();
+        DB::table('agent_site')->truncate();
+        DB::table('exhibition_site')->truncate();
+        DB::table('sites')->truncate();
 
-        $this->info("Refreshed \CreateStaticArchiveTables migration.");
+        $this->info("Truncated sites tables.");
 
         Storage::disk('local')->put('archive.json', file_get_contents(env('STATIC_ARCHIVE_JSON', 'http://localhost/archive.json')));
 
