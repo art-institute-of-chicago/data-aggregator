@@ -55,9 +55,7 @@ class CollectionsModel extends BaseModel
             $fill['citi_id'] = $source->id;
             $fill['lake_guid'] = $source->lake_guid;
 
-        }
-        else
-        {
+        } else {
 
             $fill['lake_guid'] = $source->id;
 
@@ -130,15 +128,16 @@ class CollectionsModel extends BaseModel
         if ($this->citiObject)
         {
 
-            $ret = array_merge($ret,
-                               [
-                                   [
-                                       "name" => 'lake_guid',
-                                       'doc' => "Unique UUID of this resource in LAKE, our digital asset management system",
-                                       "type" => "uuid",
-                                       'value' => function() { return $this->lake_guid; },
-                                   ]
-                               ]
+            $ret = array_merge(
+                $ret,
+                [
+                    [
+                       "name" => 'lake_guid',
+                       'doc' => "Unique UUID of this resource in LAKE, our digital asset management system",
+                       "type" => "uuid",
+                       'value' => function() { return $this->lake_guid; },
+                    ]
+                ]
             );
 
         }
@@ -151,39 +150,42 @@ class CollectionsModel extends BaseModel
             if ($this->citiObject)
             {
 
-                $ret = array_merge($ret,
-                                   [
-                                       [
-                                           "name" => 'last_updated_citi',
-                                           'doc' => "Date and time the resource was updated in CITI, our collections management system",
-                                           "type" => "ISO 8601 date and time",
-                                           'value' => function() { return $this->citi_modified_at->toIso8601String(); },
-                                       ]
-                                   ]);
+                $ret = array_merge(
+                    $ret,
+                    [
+                        [
+                           "name" => 'last_updated_citi',
+                           'doc' => "Date and time the resource was updated in CITI, our collections management system",
+                           "type" => "ISO 8601 date and time",
+                           'value' => function() { return $this->citi_modified_at->toIso8601String(); },
+                        ]
+                    ]
+               );
 
             }
 
-            $ret = array_merge($ret,
-                               [
-                                   [
-                                       "name" => 'last_updated_fedora',
-                                       'doc' => "Date and time the resource was updated in LAKE, our digital asset management system",
-                                       "type" => "ISO 8601 date and time",
-                                       'value' => function() { return $this->source_modified_at ? $this->source_modified_at->toIso8601String() : NULL; },
-                                   ],
-                                   [
-                                       "name" => 'last_updated_source',
-                                       'doc' => "Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data",
-                                       "type" => "string",
-                                       'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
-                                   ],
-                                   [
-                                       "name" => 'last_updated',
-                                       'doc' => "Date and time the resource was updated in the Data Aggregator",
-                                       "type" => "ISO 8601 date and time",
-                                       'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
-                                   ],
-                               ]
+            $ret = array_merge(
+                $ret,
+                [
+                    [
+                       "name" => 'last_updated_fedora',
+                       'doc' => "Date and time the resource was updated in LAKE, our digital asset management system",
+                       "type" => "ISO 8601 date and time",
+                       'value' => function() { return $this->source_modified_at ? $this->source_modified_at->toIso8601String() : NULL; },
+                    ],
+                    [
+                       "name" => 'last_updated_source',
+                       'doc' => "Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data",
+                       "type" => "string",
+                       'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
+                    ],
+                    [
+                       "name" => 'last_updated',
+                       'doc' => "Date and time the resource was updated in the Data Aggregator",
+                       "type" => "ISO 8601 date and time",
+                       'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
+                    ],
+                ]
             );
 
         }
