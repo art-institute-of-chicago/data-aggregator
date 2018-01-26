@@ -413,6 +413,9 @@ class Request
     /**
      * Append our own custom queries to tweak relevancy.
      *
+     * @TODO: Allow per-model relevancy tweaks
+     * @TODO: Allow per-model filtering..? Ensure it goes through even if sort is set
+     *
      * @param $params array
      * @param $input array
      *
@@ -420,6 +423,12 @@ class Request
      */
     public function addRelevancyParams( array $params, array $input )
     {
+
+        // Don't tweak relevancy if sort is passed
+        if( isset( $input['sort'] ) )
+        {
+            return $params;
+        }
 
         // Boost essential artworks
         $params['body']['query']['bool']['should'][] = [
