@@ -130,16 +130,16 @@ trait ElasticSearchable
         $fieldMappings = array_merge($this->transformMappingInternal(), $this->transformTitles());
 
         $default = [];
-        foreach (array_pluck($fieldMappings, 'elasticsearch_type', 'name') as $field => $type)
+
+        foreach( $fieldMappings as $field )
         {
 
-            if ($type)
+            $mapping = $this->getMappingForField( $field );
+
+            // TODO: Determine if we can just pass null here
+            if( $mapping )
             {
-
-                $default[$field] = [
-                    'type' => $type
-                ];
-
+                $default[ $field['name'] ] = $mapping;
             }
 
         }
@@ -206,6 +206,103 @@ trait ElasticSearchable
     {
 
         return [];
+
+    }
+
+    /**
+     * Retrieve Elasticsearch mappings for a single field.
+     *
+     * With this method, all of the following field definitions are valid:
+     *
+     * ```php
+     * [
+     *     [
+     *         'name' => 'foo',
+     *         'elasticsearch_type' => 'integer',
+     *     ],
+     *     [
+     *         'name' => 'bar',
+     *         'elasticsearch' => 'integer',
+     *     ],
+     *     [
+     *         'name' => 'baz',
+     *         'elasticsearch' => [
+     *             'default' => true,      // app-specific setting
+     *             'type' => 'integer',
+     *         ]
+     *     ],
+     *     [
+     *         'name' => 'bom',
+     *         'elasticsearch' => [
+     *             'default' => true,      // app-specific setting
+     *             'mapping' => [
+     *                 'type' => 'integer',
+     *             ]
+     *         ]
+     *     ],
+     * ]
+     * ```
+     *
+     * This allows us to add mapping params that aren't `type` and to mix Elasticsearch
+     * mappings with app-specific params, such as whether a term should be targeted for
+     * simple searches on this model.
+     *
+     * Returns `null` if the mapping could not be parsed.
+     *
+     * @link http://nocf-www.elastic.co/guide/en/elasticsearch/reference/5.3/mapping-params.html
+     *
+     *
+     * @return array
+     */
+    private function getMappingForField( $field )
+    {
+
+        if( $field['elasticsearch'] ?? false )
+        {
+
+            // Allows setting params other than type
+            if( $field['elasticsearch']['mapping'] ?? false )
+            {
+
+                return $field['elasticsearch']['mapping'];
+
+            }
+
+            // Allows using 'elasticsearch' like 'elasticsearch_type'
+            if( is_string( $field['elasticsearch'] ) )
+            {
+
+                return [
+                    'type' => $field['elasticsearch'],
+                ];
+
+            }
+
+            // Allows setting app-specific parameters alongside
+            if( $field['elasticsearch']['type'] ?? false )
+            {
+
+                return [
+                    'type' => $field['elasticsearch']['type'],
+                ];
+
+            }
+
+        } else {
+
+            // Supporting old behavior
+            if( $field['elasticsearch_type'] ?? false )
+            {
+
+                return [
+                    'type' => $field['elasticsearch_type'],
+                ];
+
+            }
+
+        }
+
+        return null;
 
     }
 
