@@ -118,16 +118,13 @@ trait ElasticSearchable
     }
 
     /**
-     * Return names of fields marked as default, for simple search.
-     *
-     * @TODO: Expand this to also return per-field boosts?
+     * Return mapping of fields marked as default, for simple search.
      *
      * @return array
      */
-    public function getDefaultSearchFields()
+    public function getDefaultSearchFieldMapping()
     {
 
-        // Get a default list of field names for this model
         $fields = array_merge($this->transformMappingInternal(), $this->transformTitles());
 
         $fields = array_filter( $fields, function($field) {
@@ -138,8 +135,46 @@ trait ElasticSearchable
 
         });
 
-        // Grab just the field names using a Laravel helper
-        $fields = array_pluck( $fields, 'name' );
+        return $fields;
+
+    }
+
+    /**
+     * Return names of fields marked as default, for simple search.
+     * This method appends a boost factor to the field name, if present.
+     *
+     * ```php
+     * [
+     *     'name' => 'foobar',
+     *     'elasticsearch' => [
+     *         'default' => true,
+     *         'boost' => 3,
+     *         'type' => 'text',
+     *     ]
+     * ],
+     * ```
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/query-dsl-multi-match-query.html
+     *
+     * @return array
+     */
+    public function getDefaultSearchFields()
+    {
+
+        $fields = $this->getDefaultSearchFieldMapping();
+
+        $fields = array_map( function( $field ) {
+
+            $label = $field['name'];
+
+            if( isset( $field['elasticsearch']['boost'] ) )
+            {
+                $label .= '^' . $field['elasticsearch']['boost'];
+            }
+
+            return $label;
+
+        }, $fields);
 
         return $fields;
 

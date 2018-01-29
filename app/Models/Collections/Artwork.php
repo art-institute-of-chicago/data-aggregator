@@ -312,6 +312,7 @@ class Artwork extends CollectionsModel
                 "type" => "string",
                 "elasticsearch" => [
                     "default" => true,
+                    "boost" => 3,
                     "type" => 'keyword',
                 ],
                 "value" => function() { return $this->main_id; },
