@@ -45,7 +45,6 @@ class Place extends CollectionsModel
     {
 
         return [
-            /*
             [
                 "name" => 'is_closed',
                 "doc" => "Whether the gallery is currently closed",
@@ -67,7 +66,6 @@ class Place extends CollectionsModel
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->floor; },
             ],
-            */
             [
                 "name" => 'latitude',
                 "doc" => "Latitude coordinate of the center of the room",
