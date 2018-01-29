@@ -109,45 +109,83 @@ class BaseModel extends AbstractModel
     protected function transformMapping()
     {
 
-        $ret = [
+        return array_merge(
+            $this->getMappingForIds(),
+            $this->getMappingForTitles(),
+            [
+                [
+                    'name' => 'is_boosted',
+                    'doc' => "Whether this document should be boosted in search",
+                    "type" => "boolean",
+                    'value' => function() { return $this->isBoosted(); },
+                ]
+            ],
+            $this->transformMappingInternal(),
+            $this->getMappingForDates()
+        );
+
+    }
+
+    protected function getMappingForIds()
+    {
+        return [
             [
                 'name' => 'id',
-                'doc' => "Unique identifier of this resource. Taken from the source system.",
+                'doc' => 'Unique identifier of this resource. Taken from the source system.',
+                'type' => 'number',
+                'elasticsearch' => [
+                    'type' => 'integer',
+                ],
                 'value' => function() { return $this->getAttributeValue($this->getKeyName()); },
-            ],
+            ]
+        ];
+    }
+
+    protected function getMappingForTitles()
+    {
+        return [
             [
                 'name' => 'title',
-                'doc' => "Name of this resource",
-                "type" => "string",
+                'doc' => 'Name of this resource',
+                'type' => 'string',
+                'elasticsearch' => [
+                    'type' => 'text',
+                    'default' => true,
+                    'boost' => 2,
+                ],
                 'value' => function() { return $this->title; },
             ]
         ];
+    }
 
-        $ret = array_merge($ret, $this->transformMappingInternal());
+    protected function getMappingForDates()
+    {
 
-        if (!$this->excludeDates)
+        if ($this->excludeDates)
         {
-
-            $ret = array_merge($ret,
-                               [
-                                   [
-                                       'name' => 'last_updated_source',
-                                       'doc' => "Date and time the resource was updated in the source system",
-                                       "type" => "string",
-                                       'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
-                                   ],
-                                   [
-                                       'name' => 'last_updated',
-                                       'doc' => "Date and time the resource was updated in the Data Aggregator",
-                                       "type" => "string",
-                                       'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
-                                   ],
-                               ]
-            );
-
+            return [];
         }
 
-        return $ret;
+        return [
+            [
+                'name' => 'last_updated_source',
+                'doc' => 'Date and time the resource was updated in the source system',
+                'type' => 'string',
+                'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
+            ],
+            [
+                'name' => 'last_updated',
+                'doc' => 'Date and time the resource was updated in the Data Aggregator',
+                'type' => 'string',
+                'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
+            ],
+        ];
+    }
+
+    public function isBoosted()
+    {
+
+        return false;
 
     }
 

@@ -31,20 +31,20 @@ Route::group(['prefix' => 'v1'], function()
 
     // Elasticsearch
     Route::match( array('GET', 'POST'), 'search', 'Search\SearchController@search');
-    Route::match( array('GET', 'POST'), '{type}/search', 'Search\SearchController@search');
-    // We can do ->where('type', '(foo|bar)') to limit {type}, but it's not necessary...
+    Route::match( array('GET', 'POST'), '{resource}/search', 'Search\SearchController@search');
+    // We can do ->where('resource', '(foo|bar)') to limit {resource}, but it's not necessary...
 
     Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocomplete');
-    // We can't limit autocomplete to specific types w/o creating additional type-specific suggest fields
+    // We can't limit autocomplete to specific resources w/o creating additional resource-specific suggest fields
 
     // ...following Elasticsearch conventions
     Route::match( array('GET', 'POST'), '_search', 'Search\SearchController@search');
-    Route::match( array('GET', 'POST'), '{type}/_search', 'Search\SearchController@search');
+    Route::match( array('GET', 'POST'), '{resource}/_search', 'Search\SearchController@search');
 
     // For debugging search, show generated request
     if( env('APP_ENV') === 'local' ) {
         Route::match( array('GET', 'POST'), 'echo', 'Search\SearchController@echo');
-        Route::match( array('GET', 'POST'), '{type}/echo', 'Search\SearchController@echo');
+        Route::match( array('GET', 'POST'), '{resource}/echo', 'Search\SearchController@echo');
     }
 
 

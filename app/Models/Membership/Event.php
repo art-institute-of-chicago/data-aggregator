@@ -171,7 +171,10 @@ class Event extends MembershipModel
                 "name" => 'description',
                 "doc" => "Long description of the event",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->description; },
             ],
             [

@@ -55,9 +55,7 @@ class CollectionsModel extends BaseModel
             $fill['citi_id'] = $source->id;
             $fill['lake_guid'] = $source->lake_guid;
 
-        }
-        else
-        {
+        } else {
 
             $fill['lake_guid'] = $source->id;
 
@@ -95,98 +93,68 @@ class CollectionsModel extends BaseModel
 
     }
 
-    /**
-     * Define how the fields in the API are mapped to model properties.
-     *
-     * Acts as a wrapper method to common attributes across a range of resources. Each method should
-     * override `transformMappingInternal()` with their specific field definitions.
-     *
-     * The keys in the returned array represent the property name as it appears in the API. The value of
-     * each pair is an array that includes the following:
-     *
-     * - "doc" => The documentation for this API field
-     * - "value" => An anoymous function that returns the value for this field
-     *
-     * @return array
-     */
-    protected function transformMapping()
+    protected function getMappingForIds()
     {
 
-        $ret = [
+        $ret = parent::getMappingForIds();
+
+        // TODO: I think this logic is wrong... It's the same as it was before, but it may need to be reversed
+        if (!$this->citiObject)
+        {
+            return $ret;
+        }
+
+        return array_merge( $ret, [
             [
-                "name" => 'id',
-                'doc' => "Unique identifier of this resource. Taken from the source system",
-                "type" => "number",
-                'value' => function() { return $this->getAttributeValue($this->getKeyName()); },
-            ],
-            [
-                "name" => 'title',
-                'doc' => "Name of this resource",
-                "type" => "string",
-                'value' => function() { return $this->title; },
+               "name" => 'lake_guid',
+               'doc' => "Unique UUID of this resource in LAKE, our digital asset management system",
+               "type" => "uuid",
+               'value' => function() { return $this->lake_guid; },
             ]
+        ]);
+
+    }
+
+    // TODO: Change this to more specificity, i.e. last_updated_lake rather than last_updated_source
+    protected function getMappingForDates()
+    {
+
+        if ($this->excludeDates)
+        {
+            return $ret;
+        }
+
+        $ret = parent::getMappingForDates();
+
+        $ret[] = [
+           "name" => 'last_updated_fedora',
+           'doc' => "Date and time the resource was updated in LAKE, our digital asset management system",
+           "type" => "ISO 8601 date and time",
+           'value' => function() { return $this->source_modified_at ? $this->source_modified_at->toIso8601String() : NULL; },
+
         ];
 
-        if ($this->citiObject)
-        {
-
-            $ret = array_merge($ret,
-                               [
-                                   [
-                                       "name" => 'lake_guid',
-                                       'doc' => "Unique UUID of this resource in LAKE, our digital asset management system",
-                                       "type" => "uuid",
-                                       'value' => function() { return $this->lake_guid; },
-                                   ]
-                               ]
-            );
-
-        }
-
-        $ret = array_merge($ret, $this->transformMappingInternal());
-
-        if (!$this->excludeDates)
-        {
-
-            if ($this->citiObject)
-            {
-
-                $ret = array_merge($ret,
-                                   [
-                                       [
-                                           "name" => 'last_updated_citi',
-                                           'doc' => "Date and time the resource was updated in CITI, our collections management system",
-                                           "type" => "ISO 8601 date and time",
-                                           'value' => function() { return $this->citi_modified_at->toIso8601String(); },
-                                       ]
-                                   ]);
-
+        // We need to replace the `doc` and `value of an item already in the array
+        // This is tricky since we don't key by the field name
+        // We should consider doing so once this logic lives in outbound transformers
+        foreach ($ret as &$field) {
+            if($field['name'] == 'last_updated_source') {
+                $field['doc'] = "Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data";
+                $field['value'] = function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; };
             }
-
-            $ret = array_merge($ret,
-                               [
-                                   [
-                                       "name" => 'last_updated_fedora',
-                                       'doc' => "Date and time the resource was updated in LAKE, our digital asset management system",
-                                       "type" => "ISO 8601 date and time",
-                                       'value' => function() { return $this->source_modified_at ? $this->source_modified_at->toIso8601String() : NULL; },
-                                   ],
-                                   [
-                                       "name" => 'last_updated_source',
-                                       'doc' => "Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data",
-                                       "type" => "string",
-                                       'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
-                                   ],
-                                   [
-                                       "name" => 'last_updated',
-                                       'doc' => "Date and time the resource was updated in the Data Aggregator",
-                                       "type" => "ISO 8601 date and time",
-                                       'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
-                                   ],
-                               ]
-            );
-
         }
+
+        if (!$this->citiObject)
+        {
+            return $ret;
+        }
+
+        $ret[] = [
+           "name" => 'last_updated_citi',
+           'doc' => "Date and time the resource was updated in CITI, our collections management system",
+           "type" => "ISO 8601 date and time",
+           'value' => function() { return $this->citi_modified_at->toIso8601String(); },
+        ];
 
         return $ret;
 

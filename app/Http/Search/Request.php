@@ -3,24 +3,16 @@
 namespace App\Http\Search;
 
 use Illuminate\Support\Facades\Input;
-use App\Models\Collections\Artwork;
 
 class Request
 {
 
     /**
-     * The name of the index we will be querying.
+     * The API resource through which search was accessed.
      *
      * @var string
      */
-    protected $index;
-
-    /**
-     * The Elasticsearch type (model) we will be querying.
-     *
-     * @var string
-     */
-    protected $type = null;
+    protected $resource = null;
 
     /**
      * List of allowed Input params for querying.
@@ -31,7 +23,9 @@ class Request
      */
     private static $allowed = [
 
-        // Type can be passed via route, or via query params
+        // Resources can be passed via route, or via query params
+        // TODO: Deprecate type?
+        'resources',
         'type',
 
         // Required for "Did You Mean"-style suggestions: we need to know the core search string
@@ -97,25 +91,60 @@ class Request
     /**
      * Create a new request instance.
      *
+     * @param $resource string
+     *
      * @return void
      */
-    public function __construct( $type = null )
+    public function __construct( $resource = null )
     {
-        $this->index = $type ? env('ELASTICSEARCH_INDEX') . '-' . $type : env('ELASTICSEARCH_ALIAS');
-        $this->type = $type;
+        $this->resource = $resource;
     }
 
 
     /**
      * Get params that should be applied to all queries.
      *
+     * @TODO: Remove type-related logic when we upgrade to ES 6.0
+     *
      * @return array
      */
     public function getBaseParams( array $input ) {
 
+        // Grab resource target from resource endpoint, `resources`, or `type`
+        $resources = $this->resource ?? $input['resources'] ?? $input['type'] ?? null;
+
+        // Assume types map 1-to-1 with resources for now
+        // TODO: They don't - handle scoped models, e.g. artists?
+        $types = $resources;
+
+        if( is_null( $resources ) )
+        {
+
+            $indexes = env('ELASTICSEARCH_ALIAS');
+
+        } else {
+
+            // Ensure that resources is an array, not string
+            if( !is_array( $resources ) )
+            {
+                $resources = explode(',', $resources);
+            }
+
+            // Generate index list by prefixing each resource
+            $indexes = array_map( function($resource) {
+
+                return env('ELASTICSEARCH_INDEX') . '-' . $resource;
+
+            }, $resources);
+
+            // Looks like we don't need to implode $indexes and $types
+            // PHP Elasticsearch seems to do so for us
+
+        }
+
         return [
-            'index' => $this->index,
-            'type' => array_get( $input, 'type' ) ?: $this->type,
+            'index' => $indexes,
+            'type' => $types,
             'preference' => array_get( $input, 'preference' ),
         ];
 
@@ -360,6 +389,8 @@ class Request
     /**
      * Append the query params for a simple search
      *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/common-options.html#fuzziness
+     *
      * @param $params array
      * @param $input array
      *
@@ -376,11 +407,9 @@ class Request
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
                 'query' => array_get( $input, 'q' ),
-                'fuzziness' => 3,
+                'fuzziness' => 'AUTO',
                 'prefix_length' => 1,
-                'fields' => [
-                    '_all',
-                ]
+                'fields' => app('Search')->getDefaultFields()
             ]
         ];
 
@@ -413,6 +442,8 @@ class Request
     /**
      * Append our own custom queries to tweak relevancy.
      *
+     * @TODO: Allow per-model filtering..? Ensure it goes through even if sort is set
+     *
      * @param $params array
      * @param $input array
      *
@@ -421,10 +452,16 @@ class Request
     public function addRelevancyParams( array $params, array $input )
     {
 
-        // Boost essential artworks
+        // Don't tweak relevancy if sort is passed
+        if( isset( $input['sort'] ) )
+        {
+            return $params;
+        }
+
+        // Boost anthing with `is_boosted` true
         $params['body']['query']['bool']['should'][] = [
-            'terms' => [
-                'api_id' => Artwork::getEssentialIds()
+            'term' => [
+                'is_boosted' => true
             ]
         ];
 
