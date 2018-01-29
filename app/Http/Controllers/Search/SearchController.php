@@ -46,10 +46,10 @@ class SearchController extends BaseController
      *
      * @return void
      */
-    public function search( Request $request, $type = null )
+    public function search( Request $request, $resource = null )
     {
 
-        return $this->query( $type, 'getSearchParams', 'getSearchResponse' );
+        return $this->query( $resource, 'getSearchParams', 'getSearchResponse' );
 
     }
 
@@ -64,10 +64,10 @@ class SearchController extends BaseController
      *
      * @return void
      */
-    public function autocomplete( Request $request, $type = null )
+    public function autocomplete( Request $request, $resource = null )
     {
 
-        return $this->query( $type, 'getAutocompleteParams', 'getAutocompleteResponse' );
+        return $this->query( $resource, 'getAutocompleteParams', 'getAutocompleteResponse' );
 
     }
 
@@ -77,10 +77,10 @@ class SearchController extends BaseController
      *
      * @return void
      */
-    public function echo( Request $request, $type = null )
+    public function echo( Request $request, $resource = null )
     {
 
-        $this->query( $type, 'getSearchParams', 'getSearchResponse' );
+        $this->query( $resource, 'getSearchParams', 'getSearchResponse' );
 
         return response( $this->getRequest() )->header('Content-Type', 'application/json');
 
@@ -90,17 +90,17 @@ class SearchController extends BaseController
     /**
      * Helper method to perform a query against Elasticsearch endpoint.
      *
-     * @param array $type  Elasticsearch type to query
+     * @param array $resource Resource to search (translates to index and type)
      * @param string $requestMethod  Name of transformation method on SearchRequest class
      * @param string $responseMethod  Name of transformation method on SearchResponse class
      *
      * @return array
      */
-    private function query( $type, $requestMethod, $responseMethod )
+    private function query( $resource, $requestMethod, $responseMethod )
     {
 
         // Transform our API's syntax into an Elasticsearch params array
-        $params = ( new SearchRequest( $type ) )->$requestMethod();
+        $params = ( new SearchRequest( $resource ) )->$requestMethod();
 
         try {
             $results = Elasticsearch::search( $params );
