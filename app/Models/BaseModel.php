@@ -125,6 +125,9 @@ class BaseModel extends AbstractModel
                 'name' => 'id',
                 'doc' => 'Unique identifier of this resource. Taken from the source system.',
                 'type' => 'number',
+                'elasticsearch' => [
+                    'type' => 'integer',
+                ],
                 'value' => function() { return $this->getAttributeValue($this->getKeyName()); },
             ]
         ];
@@ -137,6 +140,11 @@ class BaseModel extends AbstractModel
                 'name' => 'title',
                 'doc' => 'Name of this resource',
                 'type' => 'string',
+                'elasticsearch' => [
+                    'type' => 'text',
+                    'default' => true,
+                    'boost' => 2,
+                ],
                 'value' => function() { return $this->title; },
             ]
         ];
