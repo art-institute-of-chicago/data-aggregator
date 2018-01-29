@@ -128,21 +128,22 @@ class BaseModel extends AbstractModel
         if (!$this->excludeDates)
         {
 
-            $ret = array_merge($ret,
-                               [
-                                   [
-                                       'name' => 'last_updated_source',
-                                       'doc' => "Date and time the resource was updated in the source system",
-                                       "type" => "string",
-                                       'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
-                                   ],
-                                   [
-                                       'name' => 'last_updated',
-                                       'doc' => "Date and time the resource was updated in the Data Aggregator",
-                                       "type" => "string",
-                                       'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
-                                   ],
-                               ]
+            $ret = array_merge(
+                $ret,
+                [
+                    [
+                        'name' => 'last_updated_source',
+                        'doc' => "Date and time the resource was updated in the source system",
+                        "type" => "string",
+                        'value' => function() { return $this->source_indexed_at ? $this->source_indexed_at->toIso8601String() : NULL; },
+                    ],
+                    [
+                        'name' => 'last_updated',
+                        'doc' => "Date and time the resource was updated in the Data Aggregator",
+                        "type" => "string",
+                        'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
+                    ],
+                ]
             );
 
         }
