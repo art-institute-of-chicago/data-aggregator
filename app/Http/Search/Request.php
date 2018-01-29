@@ -360,6 +360,8 @@ class Request
     /**
      * Append the query params for a simple search
      *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/common-options.html#fuzziness
+     *
      * @param $params array
      * @param $input array
      *
@@ -376,7 +378,7 @@ class Request
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
                 'query' => array_get( $input, 'q' ),
-                'fuzziness' => 3,
+                'fuzziness' => 'AUTO',
                 'prefix_length' => 1,
                 'fields' => app('Search')->getDefaultFields()
             ]
