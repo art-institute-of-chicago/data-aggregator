@@ -120,6 +120,45 @@ class SearchServiceProvider extends ServiceProvider
                 }
 
                 /**
+                 * Returns an array containing fields to target for simple search for all models.
+                 *
+                 * @return array
+                 */
+                public function getDefaultFields() {
+
+                    $fields = $this->models->map( function( $model ) {
+                        return $this->getDefaultFieldsForModel( $model );
+                    });
+
+                    $fields = $fields->isNotEmpty() ? array_merge( ... $fields ) : [];
+
+                    // Remove duplicate field names, e.g. `content`
+                    $fields = array_unique( $fields );
+
+                    // Reindex consequtively
+                    $fields = array_values( $fields );
+
+                    // TODO: Once we start boosting individual fields on query-time, determine
+                    // what should be done in cases where a simple search is performed across
+                    // multiple indexes, which contain different boost values for fields with
+                    // the same names. I'm leaning towards using the highest boost value.
+
+                    return $fields;
+
+                }
+
+                /**
+                 * Returns an array containing fields to target for simple search for one model.
+                 *
+                 * @return array
+                 */
+                public function getDefaultFieldsForModel( $model ) {
+
+                    return $model::instance()->getDefaultSearchFields();
+
+                }
+
+                /**
                  * Returns an array containing namespaced classnames of models with the Searchable trait.
                  *
                  * @return array

@@ -117,6 +117,33 @@ trait ElasticSearchable
 
     }
 
+    /**
+     * Return names of fields marked as default, for simple search.
+     *
+     * @TODO: Expand this to also return per-field boosts?
+     *
+     * @return array
+     */
+    public function getDefaultSearchFields()
+    {
+
+        // Get a default list of field names for this model
+        $fields = array_merge($this->transformMappingInternal(), $this->transformTitles());
+
+        $fields = array_filter( $fields, function($field) {
+
+            return isset( $field['elasticsearch'] )
+                && isset( $field['elasticsearch']['default'] )
+                && $field['elasticsearch']['default'] == true;
+
+        });
+
+        // Grab just the field names using a Laravel helper
+        $fields = array_pluck( $fields, 'name' );
+
+        return $fields;
+
+    }
 
     /**
      * Generate an array representing the schema for this object.

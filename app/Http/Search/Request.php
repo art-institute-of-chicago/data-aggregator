@@ -378,9 +378,7 @@ class Request
                 'query' => array_get( $input, 'q' ),
                 'fuzziness' => 3,
                 'prefix_length' => 1,
-                'fields' => [
-                    '_all',
-                ]
+                'fields' => app('Search')->getDefaultFields()
             ]
         ];
 
