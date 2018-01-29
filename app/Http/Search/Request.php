@@ -460,7 +460,7 @@ class Request
 
         // Boost anthing with `is_boosted` true
         $params['body']['query']['bool']['should'][] = [
-            'terms' => [
+            'term' => [
                 'is_boosted' => true
             ]
         ];
