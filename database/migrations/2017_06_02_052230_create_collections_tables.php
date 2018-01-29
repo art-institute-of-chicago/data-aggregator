@@ -60,8 +60,8 @@ class CreateCollectionsTables extends Migration
             $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
             $table->string('floor')->nullable();
-            $table->float('latitude')->nullable();
-            $table->float('longitude')->nullable();
+            $table->double('latitude', 15, 13)->nullable();
+            $table->double('longitude', 16, 13)->nullable();
             $table = $this->_addDates($table);
         });
 
