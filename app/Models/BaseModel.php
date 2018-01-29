@@ -112,6 +112,14 @@ class BaseModel extends AbstractModel
         return array_merge(
             $this->getMappingForIds(),
             $this->getMappingForTitles(),
+            [
+                [
+                    'name' => 'is_boosted',
+                    'doc' => "Whether this document should be boosted in search",
+                    "type" => "boolean",
+                    'value' => function() { return $this->isBoosted(); },
+                ]
+            ],
             $this->transformMappingInternal(),
             $this->getMappingForDates()
         );
@@ -172,6 +180,13 @@ class BaseModel extends AbstractModel
                 'value' => function() { return $this->updated_at ? $this->updated_at->toIso8601String() : NULL; },
             ],
         ];
+    }
+
+    public function isBoosted()
+    {
+
+        return false;
+
     }
 
     /**

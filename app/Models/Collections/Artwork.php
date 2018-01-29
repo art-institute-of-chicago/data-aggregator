@@ -272,6 +272,12 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function isBoosted()
+    {
+
+        return in_array( $this->getKey(), static::getEssentialIds() );
+
+    }
 
     /**
      * Get the models representing our essential artworks from the database.

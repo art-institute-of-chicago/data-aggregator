@@ -3,7 +3,6 @@
 namespace App\Http\Search;
 
 use Illuminate\Support\Facades\Input;
-use App\Models\Collections\Artwork;
 
 class Request
 {
@@ -443,7 +442,6 @@ class Request
     /**
      * Append our own custom queries to tweak relevancy.
      *
-     * @TODO: Allow per-model relevancy tweaks
      * @TODO: Allow per-model filtering..? Ensure it goes through even if sort is set
      *
      * @param $params array
@@ -460,10 +458,10 @@ class Request
             return $params;
         }
 
-        // Boost essential artworks
+        // Boost anthing with `is_boosted` true
         $params['body']['query']['bool']['should'][] = [
             'terms' => [
-                'api_id' => Artwork::getEssentialIds()
+                'is_boosted' => true
             ]
         ];
 
