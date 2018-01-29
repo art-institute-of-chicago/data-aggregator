@@ -145,7 +145,10 @@ class Agent extends CollectionsModel
                 "name" => 'alternate_titles',
                 "doc" => "Altername names for this agent",
                 "type" => "array",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return []; },
             ],
             [

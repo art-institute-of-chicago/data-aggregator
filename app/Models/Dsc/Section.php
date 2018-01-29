@@ -126,7 +126,10 @@ class Section extends DscModel
                 "name" => 'content',
                 "doc" => "Content of this section in plaintext",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->content; },
             ],
 

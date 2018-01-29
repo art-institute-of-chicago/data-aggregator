@@ -52,7 +52,10 @@ class Sound extends MobileModel
                 "name" => 'transcript',
                 "doc" => "Text transcription of the audio file",
                 "type" => "string",
-                "elasticsearch_type" => "text",
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->transcript; },
             ],
         ];

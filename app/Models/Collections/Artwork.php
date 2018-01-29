@@ -300,14 +300,20 @@ class Artwork extends CollectionsModel
                 "name" => 'alternate_titles',
                 "doc" => "Altername names for this work",
                 "type" => "array",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return []; },
             ],
             [
                 "name" => 'main_reference_number',
                 "doc" => "Unique identifier assigned to the artwork upon acquisition",
                 "type" => "string",
-                'elasticsearch_type' => 'keyword',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'keyword',
+                ],
                 "value" => function() { return $this->main_id; },
             ],
             [
@@ -342,7 +348,10 @@ class Artwork extends CollectionsModel
                 "name" => 'artist_display',
                 "doc" => "Readable description of the creator of this work. Includes artist names, nationality and lifespan dates",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->artist_display; },
             ],
             [
@@ -370,7 +379,10 @@ class Artwork extends CollectionsModel
                 "name" => 'medium',
                 "doc" => "The substances or materials used in the creation of a work",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->medium_display; },
             ],
             [
@@ -447,7 +459,10 @@ class Artwork extends CollectionsModel
                 "name" => 'place_of_origin',
                 "doc" => "The location where the creation, design, or production of the work took place, or the original location of the work",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->place_of_origin; },
             ],
             [
@@ -586,7 +601,10 @@ class Artwork extends CollectionsModel
                 "name" => 'term_titles',
                 "doc" => "The names of the taxonomy tags for this work",
                 "type" => "array",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->terms->pluck('term')->all(); },
             ],
 
@@ -682,7 +700,10 @@ class Artwork extends CollectionsModel
                 "name" => 'category_titles',
                 "doc" => "Names of the categories this artwork is a part of",
                 "type" => "array",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->artists->pluck('title')->all(); },
             ],
             [

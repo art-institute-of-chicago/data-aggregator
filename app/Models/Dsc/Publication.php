@@ -56,7 +56,10 @@ class Publication extends DscModel
                 "name" => 'title',
                 "doc" => "Official title of the publication",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->title; },
             ],
             [

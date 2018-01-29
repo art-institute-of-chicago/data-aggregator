@@ -130,7 +130,10 @@ class Asset extends CollectionsModel
                     "name" => 'content',
                     "doc" => "Text of URL of the contents of this asset",
                     "type" => "string",
-                    'elasticsearch_type' => 'text',
+                    "elasticsearch" => [
+                        "default" => true,
+                        "type" => 'text',
+                    ],
                     "value" => function() { return $this->content; },
                 ],
                 // @TODO Re-enable this once the artist association is fixed
