@@ -114,7 +114,7 @@ class Asset extends CollectionsModel
 
                 [
                     "name" => 'type',
-                    "doc" => "Typs always takes one of the following values: image, link, sound, text, video",
+                    "doc" => "Type always takes one of the following values: image, link, sound, text, video",
                     "type" => "string",
                     'elasticsearch_type' => 'keyword',
                     "value" => function() { return $this->type; },
