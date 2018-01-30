@@ -38,7 +38,7 @@ class SearchAlias extends Command
             foreach ($models as $model)
             {
 
-                $endpoint = endpointFor($model);
+                $endpoint = app('Resources')->getEndpointForModel($model);
                 $index = $source . '-' . $endpoint;
 
                 $this->alias($index, $alias);
