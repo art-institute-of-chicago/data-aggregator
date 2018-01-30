@@ -34,7 +34,7 @@ class ImportCollections extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
-        $model = \App\Models\CollectionsModel::classFor($endpoint);
+        $model = app('Resources')->getModelForEndpoint($endpoint);
 
         $json = $this->queryService($endpoint, $current);
         $pages = $json->pagination->pages->total;

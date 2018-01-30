@@ -30,7 +30,7 @@ class SearchReindex extends Command
         foreach ($models as $model)
         {
 
-            $endpoint = endpointFor($model);
+            $endpoint = app('Resources')->getEndpointForModel($model);
             $index = $source . '-' . $endpoint;
 
             $params = [

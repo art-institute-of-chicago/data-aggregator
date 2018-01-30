@@ -53,7 +53,7 @@ class ImportCollectionsFull extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
-        $model = \App\Models\CollectionsModel::classFor($endpoint);
+        $model = app('Resources')->getModelForEndpoint($endpoint);
 
         // Abort if the table is already filled in production.
         // In test we want to update existing records. Once we verify this

@@ -1,0 +1,182 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class ResourceServiceProvider extends ServiceProvider
+{
+
+
+    public function boot()
+    {
+        //
+    }
+
+    public function register()
+    {
+
+        $this->app->singleton('Resources', function($app) {
+
+            return new class {
+
+                /**
+                 * Array of resources (endpoints), mapped to their models.
+                 * Currently, only top-level endpoints are tracked.
+                 *
+                 * @TODO Should this live in a config file?
+                 * @TODO Use this space to tag things as searchable?
+                 *
+                 * @var array
+                 */
+                private $resources = [
+                    [
+                        'endpoint' => 'artworks',
+                        'model' => \App\Models\Collections\Artwork::class,
+                    ],
+                    [
+                        'endpoint' => 'agents',
+                        'model' => \App\Models\Collections\Agent::class,
+                    ],
+                    [
+                        'endpoint' => 'artists',
+                        'model' => \App\Models\Collections\Agent::class,
+                    ],
+                    [
+                        'endpoint' => 'venues',
+                        'model' => \App\Models\Collections\Agent::class,
+                    ],
+                    [
+                        'endpoint' => 'departments',
+                        'model' => \App\Models\Collections\Department::class,
+                    ],
+                    [
+                        'endpoint' => 'agent-places',
+                        'model' => \App\Models\Collections\AgentPlace::class,
+                    ],
+                    [
+                        'endpoint' => 'agent-types',
+                        'model' => \App\Models\Collections\AgentType::class,
+                    ],
+                    [
+                        'endpoint' => 'object-types',
+                        'model' => \App\Models\Collections\ObjectType::class,
+                    ],
+                    [
+                        'endpoint' => 'categories',
+                        'model' => \App\Models\Collections\Category::class,
+                    ],
+                    [
+                        'endpoint' => 'places',
+                        'model' => \App\Models\Collections\Place::class,
+                    ],
+                    [
+                        'endpoint' => 'galleries',
+                        'model' => \App\Models\Collections\Place::class,
+                    ],
+                    [
+                        'endpoint' => 'exhibitions',
+                        'model' => \App\Models\Collections\Exhibition::class,
+                    ],
+                    [
+                        'endpoint' => 'assets',
+                        'model' => \App\Models\Collections\Asset::class,
+                    ],
+                    [
+                        'endpoint' => 'images',
+                        'model' => \App\Models\Collections\Image::class,
+                    ],
+                    [
+                        'endpoint' => 'videos',
+                        'model' => \App\Models\Collections\Video::class,
+                    ],
+                    [
+                        'endpoint' => 'links',
+                        'model' => \App\Models\Collections\Link::class,
+                    ],
+                    [
+                        'endpoint' => 'sounds',
+                        'model' => \App\Models\Collections\Sound::class,
+                    ],
+                    [
+                        'endpoint' => 'texts',
+                        'model' => \App\Models\Collections\Text::class,
+                    ],
+                    [
+                        'endpoint' => 'shop-categories',
+                        'model' => \App\Models\Shop\Category::class,
+                    ],
+                    [
+                        'endpoint' => 'products',
+                        'model' => \App\Models\Shop\Product::class,
+                    ],
+                    [
+                        'endpoint' => 'events',
+                        'model' => \App\Models\Membership\Event::class,
+                    ],
+                    [
+                        'endpoint' => 'tours',
+                        'model' => \App\Models\Mobile\Tour::class,
+                    ],
+                    [
+                        'endpoint' => 'tour-stops',
+                        'model' => \App\Models\Mobile\TourStop::class,
+                    ],
+                    [
+                        'endpoint' => 'mobile-sounds',
+                        'model' => \App\Models\Mobile\Sound::class,
+                    ],
+                    [
+                        'endpoint' => 'publications',
+                        'model' => \App\Models\Dsc\Publication::class,
+                    ],
+                    [
+                        'endpoint' => 'sections',
+                        'model' => \App\Models\Dsc\Section::class,
+                    ],
+                    [
+                        'endpoint' => 'sites',
+                        'model' => \App\Models\Sites\Site::class,
+                    ],
+                    [
+                        'endpoint' => 'library-materials',
+                        'model' => \App\Models\Library\Material::class,
+                    ],
+                    [
+                        'endpoint' => 'library-terms',
+                        'model' => \App\Models\Library\Term::class,
+                    ],
+                    [
+                        'endpoint' => 'archive-images',
+                        'model' => \App\Models\Archive\ArchiveImage::class,
+                    ],
+                ];
+
+                /**
+                 * Init this class. Transforms `$resources` into an Eloquent collection.
+                 */
+                public function __construct()
+                {
+                    $this->resources = collect( $this->resources );
+                }
+
+                public function getModelForEndpoint( $endpoint )
+                {
+                    $resource = $this->resources->firstWhere('endpoint', $endpoint);
+
+                    return $resource['model'] ?? null;
+                }
+
+                public function getEndpointForModel( $model )
+                {
+                    $resource = $this->resources->firstWhere('model', $model);
+
+                    return $resource['endpoint'] ?? null;
+                }
+
+            };
+
+        });
+
+    }
+}

@@ -50,19 +50,6 @@ class BaseModel extends AbstractModel
 
 
     /**
-     * Get the class name for a given API endpoint
-     *
-     * @param  string  $endpoint
-     * @return string
-     */
-    public static function classFor($endpoint)
-    {
-
-        return '\App\Models\\' . static::$source . '\\' . studly_case(str_singular($endpoint));
-
-    }
-
-    /**
      * Find the record matching the given id or create it.
      *
      * @TODO Remove this in favor of Laravel's built-in findOrCreate.
