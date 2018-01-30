@@ -144,7 +144,7 @@ class ImportEssentials extends AbstractImportCommand
 
         $resources = [];
 
-        $model = \App\Models\CollectionsModel::classFor($type);
+        $model = app('Resources')->getModelForEndpoint($endpoint);
 
         foreach ($data as $datum)
         {
@@ -208,7 +208,7 @@ class ImportEssentials extends AbstractImportCommand
 
         $results = [];
 
-        $class = \App\Models\CollectionsModel::classFor($endpoint);
+        $model = app('Resources')->getModelForEndpoint($endpoint);
 
         // Query for the first page + get page count
         $response = $this->query($endpoint, $current);

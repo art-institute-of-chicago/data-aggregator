@@ -11,32 +11,6 @@ class CollectionsModel extends BaseModel
     protected $fakeIdsStartAt = 999000000;
 
     /**
-     * Get the class name for a given API endpoint
-     *
-     * @param  string  $endpoint
-     * @return string
-     */
-    public static function classFor($endpoint)
-    {
-
-        switch ($endpoint) {
-            case 'artists':
-                return \App\Models\Collections\Agent::class;
-            break;
-            case 'venues':
-                return \App\Models\Collections\Agent::class;
-            break;
-            case 'exhibition-agents':
-                return \App\Models\Collections\AgentExhibition::class;
-            break;
-        }
-
-        return parent::classFor($endpoint);
-
-    }
-
-
-    /**
      * Fill in this model's IDs from the given resource, or fill it in with fake data.
      * This method is used primarily when the given resource is provided by the source
      * system.
