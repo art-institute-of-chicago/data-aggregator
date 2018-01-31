@@ -48,6 +48,8 @@ class Request
         // 'search_after',
 
         // Choose which fields to return
+        // TODO: Deprecate `_source`?
+        'fields',
         '_source',
 
         // Fields to use for aggregations
@@ -327,6 +329,8 @@ class Request
 
     /**
      * Determine which fields to return. Set `_source` to `true` to return all.
+     * Set `_source` to `false` to return nothing. You can also pass `fields`
+     * instead of `_source` to match our REST API conventions.
      *
      * @param $input array
      * @param $default mixed Valid `_source` is array, string, null, or bool
@@ -336,8 +340,7 @@ class Request
     private function getFieldParams( array $input, $default = null ) {
 
         return [
-            // '_source' => $input['_source'] ?? ( $default ?? self::$defaultFields ), // PHP 7
-            '_source' => array_get( $input, '_source' ) ? $input['_source'] : ( isset( $default ) ? $default : self::$defaultFields ),
+            '_source' => $input['fields'] ?? $input['_source'] ?? ( $default ?? self::$defaultFields ),
         ];
 
     }
