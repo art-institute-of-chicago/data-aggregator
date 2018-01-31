@@ -70,11 +70,32 @@ class Artwork extends CollectionsModel
     public function terms()
     {
 
-        return $this->hasMany('App\Models\Collections\ArtworkTerm');
+        return $this->belongsToMany('App\Models\Collections\Term');
 
     }
 
-    public function catalogues()
+    public function styles()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'style');
+
+    }
+
+    public function classifications()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'classification');
+
+    }
+
+    public function subjects()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'subject');
+
+    }
+
+    public function artworkCatalogues()
     {
 
         return $this->hasMany('App\Models\Collections\ArtworkCatalogue');
@@ -303,7 +324,7 @@ class Artwork extends CollectionsModel
 
         return [
             [
-                "name" => 'alternate_titles',
+                "name" => 'alt_titles',
                 "doc" => "Altername names for this work",
                 "type" => "array",
                 "elasticsearch" => [
@@ -456,6 +477,20 @@ class Artwork extends CollectionsModel
                 "value" => function() { return (bool) $this->is_public_domain; },
             ],
             [
+                "name" => 'is_zoomable',
+                "doc" => "Whether images of the work are allowed to be displayed in a zoomable interface.",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return (bool) false; },
+            ],
+            [
+                "name" => 'max_zoom_window_size',
+                "doc" => "The maximum size of the window the image is allowed to be viewed in, in pixels.",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return 843; },
+            ],
+            [
                 "name" => 'copyright_notice',
                 "doc" => "Statement notifying how the work is protected by copyright. Applies to the work itself, not image or other related assets.",
                 "type" => "string",
@@ -536,7 +571,7 @@ class Artwork extends CollectionsModel
                 "doc" => "Whether the work is highlighted in the mobile app",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->mobileArtwork ? $this->mobileArtwork->highlighted : NULL; },
+                "value" => function() { return (bool) $this->mobileArtwork ? $this->mobileArtwork->highlighted : false; },
             ],
             [
                 "name" => 'selector_number',
@@ -547,8 +582,15 @@ class Artwork extends CollectionsModel
             ],
             // EOF TODO Mobile\Artwork
             [
-                "name" => 'artist_ids',
-                "doc" => "Unique identifiers of the artists associated with this work",
+                "name" => 'artist_id',
+                "doc" => "Unique identifier of the preferred artist/culture associated with this work",
+                "type" => "integer",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->artists->pluck('citi_id')->first(); },
+            ],
+            [
+                "name" => 'alt_artist_ids',
+                "doc" => "Unique identifiers of the non-preferred artists/cultures associated with this work",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->artists->pluck('citi_id')->all(); },
@@ -591,11 +633,11 @@ class Artwork extends CollectionsModel
                 })->all(); },
             ],
             [
-                "name" => 'catalogue_titles',
-                "doc" => "A catalogue raisonné is a comprehensive, annotated listing of all the known artworks by an artist. This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.",
+                "name" => 'artwork_catalogue_ids',
+                "doc" => "This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.",
                 "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->catalogues->pluck('catalogue')->all(); },
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->artworkCatalogues->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'committee_titles',
@@ -614,6 +656,48 @@ class Artwork extends CollectionsModel
                 ],
                 "value" => function() { return $this->terms->pluck('term')->all(); },
             ],
+            [
+                "name" => 'style',
+                "doc" => "The preferred style term for this work",
+                "type" => "number",
+                "elasticsearch_type" => "integer",
+                "value" => function() { return $this->styles->where('preferred', true)->pluck('term')->pluck('id')->first(); },
+            ],
+            [
+                "name" => 'alt_style_ids',
+                "doc" => "Al other non-preferred style terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "integer",
+                "value" => function() { return $this->styles->where('preferred', false)->pluck('term')->pluck('id')->all(); },
+            ],
+            [
+                "name" => 'classification',
+                "doc" => "The preferred classification term for this work",
+                "type" => "number",
+                "elasticsearch_type" => "integer",
+                "value" => function() { return $this->classifications->where('preferred', true)->pluck('term')->pluck('id')->first(); },
+            ],
+            [
+                "name" => 'alt_classificaiton_ids',
+                "doc" => "Al other non-preferred classification terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "integer",
+                "value" => function() { return $this->classifications->where('preferred', false)->pluck('term')->pluck('id')->all(); },
+            ],
+            [
+                "name" => 'subject',
+                "doc" => "The preferred subject term for this work",
+                "type" => "number",
+                "elasticsearch_type" => "integer",
+                "value" => function() { return $this->subjects->where('preferred', true)->pluck('term')->pluck('id')->first(); },
+            ],
+            [
+                "name" => 'alt_subject_ids',
+                "doc" => "Al other non-preferred subject terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "integer",
+                "value" => function() { return $this->subjects->where('preferred', false)->pluck('term')->pluck('id')->all(); },
+            ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
             [
@@ -626,7 +710,7 @@ class Artwork extends CollectionsModel
                 },
             ],
             [
-                "name" => 'preferred_image_id',
+                "name" => 'image_id',
                 "doc" => "Unique identifier of the preferred image to use to represent this work",
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
@@ -636,7 +720,7 @@ class Artwork extends CollectionsModel
                 },
             ],
             [
-                "name" => 'preferred_image_iiif_url',
+                "name" => 'image_iiif_url',
                 "doc" => "IIIF URL of the preferred image to use to represent this work",
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
@@ -646,18 +730,24 @@ class Artwork extends CollectionsModel
                 },
             ],
             [
-                "name" => 'image_ids',
-                "doc" => "Unique identifiers of all the images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.",
+                "name" => 'alt_image_ids',
+                "doc" => "Unique identifiers of all non-preferred images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->images->pluck('lake_guid')->all(); },
+                "value" => function() {
+                    $alt_images = $this->images()->wherePivot('preferred','=',false)->get()->all();
+                    return $alt_images ? $alt_images->pluck('lake_guid')->all() : null;
+                },
             ],
             [
-                "name" => 'image_iiif_urls',
+                "name" => 'alt_image_iiif_urls',
                 "doc" => "IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->images->pluck('iiif_url')->all(); },
+                "value" => function() {
+                    $alt_images = $this->images()->wherePivot('preferred','=',false)->get()->all();
+                    return $alt_images ? $alt_images->pluck('iiif_url')->all() : null;
+                },
             ],
             // TODO: Move these to Mobile\Artwork
             [
