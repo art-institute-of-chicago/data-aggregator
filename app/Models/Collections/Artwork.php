@@ -498,6 +498,13 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->copyright_notice; },
             ],
             [
+                "name" => 'fiscal_year',
+                "doc" => "January 1st of the fiscal year in which this artwork was acquired.",
+                "type" => "ISO 8601 date",
+                'elasticsearch_type' => 'date',
+                "value" => function() { return null; },
+            ],
+            [
                 "name" => 'place_of_origin',
                 "doc" => "The location where the creation, design, or production of the work took place, or the original location of the work",
                 "type" => "string",
