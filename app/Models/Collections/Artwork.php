@@ -657,7 +657,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->terms->pluck('term')->all(); },
             ],
             [
-                "name" => 'style',
+                "name" => 'style_id',
                 "doc" => "The preferred style term for this work",
                 "type" => "number",
                 "elasticsearch_type" => "integer",
@@ -671,7 +671,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->styles->where('preferred', false)->pluck('term')->pluck('id')->all(); },
             ],
             [
-                "name" => 'classification',
+                "name" => 'classification_id',
                 "doc" => "The preferred classification term for this work",
                 "type" => "number",
                 "elasticsearch_type" => "integer",
@@ -685,7 +685,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->classifications->where('preferred', false)->pluck('term')->pluck('id')->all(); },
             ],
             [
-                "name" => 'subject',
+                "name" => 'subject_id',
                 "doc" => "The preferred subject term for this work",
                 "type" => "number",
                 "elasticsearch_type" => "integer",
