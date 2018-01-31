@@ -65,6 +65,8 @@ Route::group(['prefix' => 'v1'], function()
 
     Route::get('artworks/{id}/terms', 'TermsController@forArtwork');
 
+    Route::get('artworks/{id}/artwork-catalogues', 'ArtworkCataloguesController@forArtwork');
+
     // Collections
     Route::get('agents', 'AgentsController@index');
     Route::get('agents/{id}', 'AgentsController@show');
@@ -76,6 +78,9 @@ Route::group(['prefix' => 'v1'], function()
     // Route::get('copyright-representatives', 'AgentsController@indexScope');
     Route::get('agent-places', 'AgentPlacesController@index');
     Route::get('agent-places/{id}', 'AgentPlacesController@show');
+
+    Route::get('artwork-catalogues', 'AgentPlacesController@index');
+    Route::get('artwork-catalogues/{id}', 'AgentPlacesController@show');
 
     Route::get('departments', 'DepartmentsController@index');
     Route::get('departments/{id}', 'DepartmentsController@show');
