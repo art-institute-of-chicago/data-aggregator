@@ -63,6 +63,8 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
     Route::get('artworks/{id}/copyright-representatives', 'AgentsController@scopeForArtwork');
 
+    Route::get('artworks/{id}/terms', 'TermsController@forArtwork');
+
     // Collections
     Route::get('agents', 'AgentsController@index');
     Route::get('agents/{id}', 'AgentsController@show');
@@ -109,6 +111,9 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('sounds/{id}', 'SoundsController@show');
     Route::get('texts', 'TextsController@index');
     Route::get('texts/{id}', 'TextsController@show');
+
+    Route::get('terms', 'TermsController@index');
+    Route::get('terms/{id}', 'TermsController@show');
 
     // Shop
     Route::get('shop-categories', 'ShopCategoriesController@index');
