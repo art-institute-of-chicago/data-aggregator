@@ -112,6 +112,9 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('texts', 'TextsController@index');
     Route::get('texts/{id}', 'TextsController@show');
 
+    Route::get('catalogues', 'CataloguesController@index');
+    Route::get('catalogues/{id}', 'CataloguesController@show');
+
     Route::get('terms', 'TermsController@index');
     Route::get('terms/{id}', 'TermsController@show');
 
