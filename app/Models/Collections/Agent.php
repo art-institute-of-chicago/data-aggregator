@@ -142,7 +142,7 @@ class Agent extends CollectionsModel
 
         return [
             [
-                "name" => 'alternate_titles',
+                "name" => 'alt_titles',
                 "doc" => "Altername names for this agent",
                 "type" => "array",
                 "elasticsearch" => [
