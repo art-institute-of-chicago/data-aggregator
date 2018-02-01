@@ -432,6 +432,35 @@ class Request
 
 
     /**
+     * Append our own custom queries to tweak relevancy.
+     *
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
+     */
+    public function addRelevancyParams( array $params, array $input )
+    {
+
+        // Don't tweak relevancy if sort is passed
+        if( isset( $input['sort'] ) )
+        {
+            return $params;
+        }
+
+        // Boost anthing with `is_boosted` true
+        $params['body']['query']['bool']['should'][] = [
+            'term' => [
+                'is_boosted' => true
+            ]
+        ];
+
+        return $params;
+
+    }
+
+
+    /**
      * Append any search clauses that are needed to isolate scoped resources.
      *
      * @param $params array
@@ -520,35 +549,6 @@ class Request
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
         $params['body']['query']['bool']['must'][] = [
             array_get( $input, 'query' ),
-        ];
-
-        return $params;
-
-    }
-
-
-    /**
-     * Append our own custom queries to tweak relevancy.
-     *
-     * @param $params array
-     * @param $input array
-     *
-     * @return array
-     */
-    public function addRelevancyParams( array $params, array $input )
-    {
-
-        // Don't tweak relevancy if sort is passed
-        if( isset( $input['sort'] ) )
-        {
-            return $params;
-        }
-
-        // Boost anthing with `is_boosted` true
-        $params['body']['query']['bool']['should'][] = [
-            'term' => [
-                'is_boosted' => true
-            ]
         ];
 
         return $params;
