@@ -401,14 +401,14 @@ class Artwork extends CollectionsModel
                 "doc" => "Name of the curatorial department that this work belongs to",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->department ? $this->department->title : NULL; },
+                "value" => function() { return $this->department->title ?? null; },
             ],
             [
                 "name" => 'department_id',
                 "doc" => "Unique identifier of the curatorial department that this work belongs to",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->department ? $this->department_citi_id : null; },
+                "value" => function() { return $this->department->citi_id ?? null; },
             ],
             [
                 "name" => 'dimensions',
@@ -439,14 +439,14 @@ class Artwork extends CollectionsModel
                 "doc" => "The kind of object or work, e.g., Painting, Sculpture, Book, etc.",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->objectType ? $this->objectType->title : NULL; },
+                "value" => function() { return $this->objectType->title ?? null; },
             ],
             [
                 "name" => 'object_type_id',
                 "doc" => "Unique identifier of the kind of object or work",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->objectType ? $this->objectType->citi_id : null; },
+                "value" => function() { return $this->objectType->citi_id ?? null; },
             ],
             [
                 "name" => 'credit_line',
@@ -541,14 +541,14 @@ class Artwork extends CollectionsModel
                 "doc" => "The location of this work in our museum",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->gallery ? $this->gallery->title : null; },
+                "value" => function() { return $this->gallery->title ?? null; },
             ],
             [
                 "name" => 'gallery_id',
                 "doc" => "Unique identifier of the location of this work in our museum",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
+                "value" => function() { return $this->gallery->citi_id ?? null; },
             ],
             // TODO: Version our API!
             [
@@ -571,14 +571,14 @@ class Artwork extends CollectionsModel
                 "doc" => "Latitude coordinate of the location of this work in our galleries",
                 "type" => "number",
                 'elasticsearch_type' => 'float',
-                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->latitude : NULL; },
+                "value" => function() { return $this->mobileArtwork->latitude ?? null; },
             ],
             [
                 "name" => 'longitude',
                 "doc" => "Longitude coordinate of the location of this work in our galleries",
                 "type" => "number",
                 'elasticsearch_type' => 'float',
-                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->longitude : NULL; },
+                "value" => function() { return $this->mobileArtwork->longitude ?? null; },
             ],
             [
                 "name" => 'latlon',
@@ -599,7 +599,7 @@ class Artwork extends CollectionsModel
                 "doc" => "The code that can be entered in our audioguides to learn more about this work",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->selector_number : NULL; },
+                "value" => function() { return $this->mobileArtwork->selector_number ?? null; },
             ],
             // EOF TODO Mobile\Artwork
             [
@@ -737,7 +737,7 @@ class Artwork extends CollectionsModel
                 'elasticsearch_type' => 'keyword',
                 "value" => function() {
                     $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
-                    return $preferred_image ? $preferred_image->lake_guid : null;
+                    return $preferred_image->lake_guid ?? null;
                 },
             ],
             [
@@ -747,7 +747,7 @@ class Artwork extends CollectionsModel
                 'elasticsearch_type' => 'keyword',
                 "value" => function() {
                     $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
-                    return $preferred_image ? $preferred_image->iiif_url : null;
+                    return $preferred_image->iiif_url ?? null;
                 },
             ],
             [

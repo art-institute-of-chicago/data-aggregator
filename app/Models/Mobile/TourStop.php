@@ -52,14 +52,14 @@ class TourStop extends MobileModel
                 "doc" => "Name of this tour stop",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->artwork ? $this->artwork->title : NULL; },
+                "value" => function() { return $this->artwork->title ?? null; },
             ],
             [
                 "name" => 'artwork',
                 "doc" => "Name of the artwork for this tour stop",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->artwork ? $this->artwork->title : NULL; },
+                "value" => function() { return $this->artwork->title ?? null; },
             ],
             [
                 "name" => 'artwork_id',
@@ -73,7 +73,7 @@ class TourStop extends MobileModel
                 "doc" => "URL to the audio file for this tour stop",
                 "type" => "url",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->sound ? $this->sound->link : NULL; },
+                "value" => function() { return $this->sound->link ?? null; },
             ],
             [
                 "name" => 'mobile_sound_id',

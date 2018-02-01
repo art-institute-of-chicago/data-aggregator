@@ -85,7 +85,7 @@ class AgentPlace extends Pivot
                 "name" => 'agent',
                 "doc" => "Name of the agent the place is associated with",
                 "type" => "string",
-                "value" => function() { return $this->agent ? $this->agent->title : null; },
+                "value" => function() { return $this->agent->title ?? null; },
             ],
             [
                 "name" => 'agent_id',
@@ -97,7 +97,7 @@ class AgentPlace extends Pivot
                 "name" => 'place',
                 "doc" => "Name of the place the agent is associated with",
                 "type" => "string",
-                "value" => function() { return $this->place ? $this->place->title : null; },
+                "value" => function() { return $this->place->title ?? null; },
             ],
             [
                 "name" => 'place_id',

@@ -78,7 +78,7 @@ class AgentExhibition extends Pivot
                 "name" => 'agent',
                 "doc" => "Name of the venue in which this exhibition took place",
                 "type" => "string",
-                "value" => function() { return $this->agent ? $this->agent->title : null; },
+                "value" => function() { return $this->agent->title ?? null; },
             ],
             [
                 "name" => 'agent_id',
@@ -90,7 +90,7 @@ class AgentExhibition extends Pivot
                 "name" => 'exhibition',
                 "doc" => "Name of the exhibition",
                 "type" => "string",
-                "value" => function() { return $this->exhibition ? $this->exhibition->title : null; },
+                "value" => function() { return $this->exhibition->title ?? null; },
             ],
             [
                 "name" => 'exhibition_id',
