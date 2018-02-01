@@ -169,6 +169,10 @@ class ResourceServiceProvider extends ServiceProvider
 
                 public function getEndpointForModel( $model )
                 {
+
+                    // Remove \ from start of $model if present
+                    $model = ltrim( $model, '\\' );
+
                     $resource = $this->resources->firstWhere('model', $model);
 
                     return $resource['endpoint'] ?? null;
