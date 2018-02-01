@@ -41,10 +41,12 @@ class ResourceServiceProvider extends ServiceProvider
                     [
                         'endpoint' => 'artists',
                         'model' => \App\Models\Collections\Agent::class,
+                        'scope' => 'agents',
                     ],
                     [
                         'endpoint' => 'venues',
                         'model' => \App\Models\Collections\Agent::class,
+                        'scope' => 'agents',
                     ],
                     [
                         'endpoint' => 'departments',
@@ -73,6 +75,7 @@ class ResourceServiceProvider extends ServiceProvider
                     [
                         'endpoint' => 'galleries',
                         'model' => \App\Models\Collections\Place::class,
+                        'scope' => 'places',
                     ],
                     [
                         'endpoint' => 'exhibitions',
@@ -176,6 +179,69 @@ class ResourceServiceProvider extends ServiceProvider
                     $resource = $this->resources->firstWhere('model', $model);
 
                     return $resource['endpoint'] ?? null;
+                }
+
+                public function getParent( $endpoint )
+                {
+
+                    $resource = $this->resources->firstWhere('endpoint', $endpoint);
+
+                    return $resource['scope'] ?? null;
+                }
+
+                public function getSearchScopeForEndpoint( $endpoint )
+                {
+
+                    $model = $this->getModelForEndpoint( $endpoint );
+
+                    $resource = $this->getParent( $endpoint ) ?? $endpoint;
+
+                    // Defaults
+                    $settings = [
+                        'index' => env('ELASTICSEARCH_INDEX') . '-' . $resource,
+                        'type' => $resource,
+                    ];
+
+                    // ex. `searchGalleries` for `galleries` endpoint in model `Place`
+                    $searchScopeMethod = 'search' . studly_case( $endpoint );
+
+                    if( method_exists( $model, $searchScopeMethod ) )
+                    {
+
+                        $scope = $model::$searchScopeMethod();
+
+                        $settings['scope'] = [
+                            'bool' => [
+                                'should' => [
+                                    [
+                                        'bool' => [
+                                            'must' => [
+                                                [
+                                                    'term' => [
+                                                        'api_model' => $resource
+                                                    ],
+                                                ],
+                                                $scope,
+                                            ]
+                                        ]
+                                    ],
+                                    [
+                                        'bool' => [
+                                            'must_not' => [
+                                                'term' => [
+                                                    'api_model' => $resource
+                                                ],
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ];
+
+                    }
+
+                    return $settings;
+
                 }
 
             };

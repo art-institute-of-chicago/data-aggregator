@@ -22,6 +22,13 @@ class Request
     protected $id = null;
 
     /**
+     * Array of queries needed to isolate any "scoped" resources in this request.
+     *
+     * @var array
+     */
+    protected $scopes = null;
+
+    /**
      * List of allowed Input params for querying.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-request-body.html
@@ -140,12 +147,32 @@ class Request
                 $resources = explode(',', $resources);
             }
 
-            // Generate index list by prefixing each resource
-            $indexes = array_map( function($resource) {
+            // Filter out any resources that have a parent resource requested as well
+            // So e.g. if places and galleries are requested, we'll show places only
+            $resources = array_filter( $resources, function($resource) use ($resources) {
 
-                return env('ELASTICSEARCH_INDEX') . '-' . $resource;
+                $parent = app('Resources')->getParent( $resource );
+
+                return !in_array( $parent, $resources );
+
+            });
+
+            // Grab settings from our models via the service provider
+            $settings = array_map( function($resource) {
+
+                return app('Resources')->getSearchScopeForEndpoint( $resource );
 
             }, $resources);
+
+            // Make settings into a Laravel collection
+            $settings = collect($settings);
+
+            // Collate our indexes and types
+            $indexes = $settings->pluck('index')->unique()->all();
+            $types = $settings->pluck('type')->unique()->all();
+
+            // These will be injected into the must clause
+            $this->scopes = $settings->pluck('scope')->filter()->all();
 
             // Looks like we don't need to implode $indexes and $types
             // PHP Elasticsearch seems to do so for us
@@ -224,6 +251,9 @@ class Request
 
         // Add our custom relevancy tweaks into `should`
         $params = $this->addRelevancyParams( $params, $input );
+
+        // Add params to isolate "scoped" resources into `must`
+        $params = $this->addScopeParams( $params, $input );
 
         /**
          * 1. If `query` is present, our client acts as a pass-through.
@@ -402,6 +432,29 @@ class Request
 
 
     /**
+     * Append any search clauses that are needed to isolate scoped resources.
+     *
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
+     */
+    public function addScopeParams( array $params, array $input )
+    {
+
+        // Assumes that `scopes` has no null members
+        $params['body']['query']['bool']['must'][] = [
+            'bool' => [
+                'should' => $this->scopes,
+            ]
+        ];
+
+        return $params;
+
+    }
+
+
+    /**
      * Get the search params for an empty string search.
      * Empy search requires special handling, e.g. no suggestions.
      *
@@ -476,8 +529,6 @@ class Request
 
     /**
      * Append our own custom queries to tweak relevancy.
-     *
-     * @TODO: Allow per-model filtering..? Ensure it goes through even if sort is set
      *
      * @param $params array
      * @param $input array
