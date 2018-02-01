@@ -41,10 +41,12 @@ class ResourceServiceProvider extends ServiceProvider
                     [
                         'endpoint' => 'artists',
                         'model' => \App\Models\Collections\Agent::class,
+                        'scope' => 'agents',
                     ],
                     [
                         'endpoint' => 'venues',
                         'model' => \App\Models\Collections\Agent::class,
+                        'scope' => 'agents',
                     ],
                     [
                         'endpoint' => 'departments',
@@ -73,6 +75,7 @@ class ResourceServiceProvider extends ServiceProvider
                     [
                         'endpoint' => 'galleries',
                         'model' => \App\Models\Collections\Place::class,
+                        'scope' => 'places',
                     ],
                     [
                         'endpoint' => 'exhibitions',
@@ -169,9 +172,21 @@ class ResourceServiceProvider extends ServiceProvider
 
                 public function getEndpointForModel( $model )
                 {
+
+                    // Remove \ from start of $model if present
+                    $model = ltrim( $model, '\\' );
+
                     $resource = $this->resources->firstWhere('model', $model);
 
                     return $resource['endpoint'] ?? null;
+                }
+
+                public function getParent( $endpoint )
+                {
+
+                    $resource = $this->resources->firstWhere('endpoint', $endpoint);
+
+                    return $resource['scope'] ?? null;
                 }
 
             };

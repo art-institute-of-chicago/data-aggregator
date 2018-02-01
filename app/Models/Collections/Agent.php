@@ -74,6 +74,22 @@ class Agent extends CollectionsModel
     }
 
     /**
+     * Scope a search to only include agents that created an artwork.
+     *
+     * @return array
+     */
+    public static function searchArtists()
+    {
+
+        return [
+            'exists' => [
+                'field' => 'artwork_ids'
+            ]
+        ];
+
+    }
+
+    /**
      * Scope a query to only include agents that are copyright representatives for an artwork.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

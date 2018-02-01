@@ -189,6 +189,68 @@ class SearchServiceProvider extends ServiceProvider
 
                 }
 
+                /**
+                 * Given an endpoint, retrieve index, type, and search scope settings.
+                 * Requires ResourceServiceProvider.
+                 *
+                 * @param $endpoint string
+                 * @return array
+                 */
+                public function getSearchScopeForEndpoint( $endpoint )
+                {
+
+                    $model = app('Resources')->getModelForEndpoint( $endpoint );
+
+                    $resource = app('Resources')->getParent( $endpoint ) ?? $endpoint;
+
+                    // Defaults
+                    $settings = [
+                        'index' => env('ELASTICSEARCH_INDEX') . '-' . $resource,
+                        'type' => $resource,
+                    ];
+
+                    // ex. `searchGalleries` for `galleries` endpoint in model `Place`
+                    $searchScopeMethod = 'search' . studly_case( $endpoint );
+
+                    if( method_exists( $model, $searchScopeMethod ) )
+                    {
+
+                        $scope = $model::$searchScopeMethod();
+
+                        $settings['scope'] = [
+                            'bool' => [
+                                'should' => [
+                                    [
+                                        'bool' => [
+                                            'must' => [
+                                                [
+                                                    'term' => [
+                                                        'api_model' => $resource
+                                                    ],
+                                                ],
+                                                $scope,
+                                            ]
+                                        ]
+                                    ],
+                                    [
+                                        'bool' => [
+                                            'must_not' => [
+                                                'term' => [
+                                                    'api_model' => $resource
+                                                ],
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ];
+
+                    }
+
+                    return $settings;
+
+                }
+
             };
 
         });

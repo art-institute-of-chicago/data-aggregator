@@ -72,6 +72,19 @@ class Response
 
 
     /**
+     * Transform response for explain queries.
+     *
+     * @return array
+     */
+    public function getExplainResponse()
+    {
+
+        return $this->searchResponse;
+
+    }
+
+
+    /**
      * Transform response for autocomplete queries.
      *
      * @return array

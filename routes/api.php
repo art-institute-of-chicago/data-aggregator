@@ -45,6 +45,7 @@ Route::group(['prefix' => 'v1'], function()
     if( env('APP_ENV') === 'local' ) {
         Route::match( array('GET', 'POST'), 'echo', 'Search\SearchController@echo');
         Route::match( array('GET', 'POST'), '{resource}/echo', 'Search\SearchController@echo');
+        Route::match( array('GET', 'POST'), '{resource}/{id}/explain', 'Search\SearchController@explain');
     }
 
 
