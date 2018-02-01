@@ -160,7 +160,7 @@ class Request
             // Grab settings from our models via the service provider
             $settings = array_map( function($resource) {
 
-                return app('Resources')->getSearchScopeForEndpoint( $resource );
+                return app('Search')->getSearchScopeForEndpoint( $resource );
 
             }, $resources);
 
