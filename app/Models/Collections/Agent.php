@@ -226,7 +226,7 @@ class Agent extends CollectionsModel
                 "doc" => "Unique identifiers of the places this artist is associated with.",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->places->pluck('id'); },
+                "value" => function() { return $this->places->pluck('citi_id'); },
             ],
             [
                 "name" => 'site_ids',
