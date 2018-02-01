@@ -49,7 +49,7 @@ class SearchController extends BaseController
     public function search( Request $request, $resource = null )
     {
 
-        return $this->query( $resource, 'getSearchParams', 'getSearchResponse' );
+        return $this->query( 'getSearchParams', 'getSearchResponse', 'search', $resource );
 
     }
 
@@ -67,7 +67,19 @@ class SearchController extends BaseController
     public function autocomplete( Request $request, $resource = null )
     {
 
-        return $this->query( $resource, 'getAutocompleteParams', 'getAutocompleteResponse' );
+        return $this->query( 'getAutocompleteParams', 'getAutocompleteResponse', 'search', $resource );
+
+    }
+
+    /**
+     * Perform Elasticsearch explain query. Meant for local debugging.
+     *
+     * @return void
+     */
+    public function explain( Request $request, $resource, $id )
+    {
+
+        return $this->query( 'getExplainParams', 'getExplainResponse', 'explain', $resource, $id );
 
     }
 
@@ -80,32 +92,36 @@ class SearchController extends BaseController
     public function echo( Request $request, $resource = null )
     {
 
-        $this->query( $resource, 'getSearchParams', 'getSearchResponse' );
+        $this->query( 'getSearchParams', 'getSearchResponse', 'search', $resource );
 
         return response( $this->getRequest() )->header('Content-Type', 'application/json');
 
     }
 
-
     /**
      * Helper method to perform a query against Elasticsearch endpoint.
      *
-     * @param array $resource Resource to search (translates to index and type)
      * @param string $requestMethod  Name of transformation method on SearchRequest class
      * @param string $responseMethod  Name of transformation method on SearchResponse class
+     * @param array $resource Resource to search (translates to index and type)
+     * @param string $id Identifier of a resource (meant for explain)
      *
      * @return array
      */
-    private function query( $resource, $requestMethod, $responseMethod )
+    private function query( $requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null )
     {
 
         // Transform our API's syntax into an Elasticsearch params array
-        $params = ( new SearchRequest( $resource ) )->$requestMethod();
+        $params = ( new SearchRequest( $resource, $id ) )->$requestMethod();
 
         try {
-            $results = Elasticsearch::search( $params );
+            $results = Elasticsearch::$elasticsearchMethod( $params );
         } catch (\Exception $e) {
-            return response( $e->getMessage(), $e->getCode() )->header('Content-Type', 'application/json');
+
+            // Elasticsearch occasionally returns a status code of zero
+            $code = $e->getCode() > 0 ? $e->getCode() : 500;
+
+            return response( $e->getMessage(), $code )->header('Content-Type', 'application/json');
         }
 
         // Transform Elasticsearch results into our API standard

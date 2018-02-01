@@ -15,6 +15,13 @@ class Request
     protected $resource = null;
 
     /**
+     * Identifier, e.g. for `_explain` queries
+     *
+     * @var string
+     */
+    protected $id = null;
+
+    /**
      * List of allowed Input params for querying.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-request-body.html
@@ -97,9 +104,10 @@ class Request
      *
      * @return void
      */
-    public function __construct( $resource = null )
+    public function __construct( $resource = null, $id = null )
     {
         $this->resource = $resource;
+        $this->id = $id;
     }
 
 
@@ -187,7 +195,7 @@ class Request
      *
      * @return array
      */
-    public function getSearchParams( $input = [] ) {
+    public function getSearchParams( $input = [], $withSuggestions = true, $withAggregations = true ) {
 
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput();
@@ -242,14 +250,38 @@ class Request
         }
 
         // Regardless of the mode, if `q` is present, show search suggestions
-        if( isset( $input['q'] ) ) {
+        if( isset( $input['q'] ) && $withSuggestions ) {
 
             $params = $this->addSuggestParams( $params, $input );
 
         }
 
         // Add Aggregations (facets)
-        $params = $this->addAggregationParams( $params, $input );
+        if( $withAggregations ) {
+
+            $params = $this->addAggregationParams( $params, $input );
+
+        }
+
+        return $params;
+
+    }
+
+
+    /**
+     * Gather params for an expalin query. Explain queries are identical to search,
+     * but they need an id and lack pagination, aggregations, and suggestions.
+     *
+     * @return array
+     */
+    public function getExplainParams( $input = [] ) {
+
+        $params = $this->getSearchParams( $input, false, false );
+
+        $params['id'] = $this->id;
+
+        unset( $params['from'] );
+        unset( $params['size'] );
 
         return $params;
 
