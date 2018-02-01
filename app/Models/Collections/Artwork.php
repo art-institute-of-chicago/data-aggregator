@@ -77,21 +77,21 @@ class Artwork extends CollectionsModel
     public function styles()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'style');
+        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'style')->withPivot('preferred');
 
     }
 
     public function classifications()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'classification');
+        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'classification')->withPivot('preferred');
 
     }
 
     public function subjects()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'subject');
+        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'subject')->withPivot('preferred');
 
     }
 
@@ -661,49 +661,49 @@ class Artwork extends CollectionsModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return $this->terms->pluck('term')->all(); },
+                "value" => function() { return $this->terms->pluck('title')->all(); },
             ],
             [
                 "name" => 'style_id',
                 "doc" => "The preferred style term for this work",
                 "type" => "number",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->styles->where('preferred', true)->pluck('term')->pluck('id')->first(); },
+                "value" => function() { return $this->styles->where('pivot.preferred', true)->pluck('citi_id')->first(); },
             ],
             [
                 "name" => 'alt_style_ids',
                 "doc" => "Al other non-preferred style terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->styles->where('preferred', false)->pluck('term')->pluck('id')->all(); },
+                "value" => function() { return $this->styles->where('pivot.preferred', false)->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'classification_id',
                 "doc" => "The preferred classification term for this work",
                 "type" => "number",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->classifications->where('preferred', true)->pluck('term')->pluck('id')->first(); },
+                "value" => function() { return $this->classifications->where('pivot.preferred', true)->pluck('citi_id')->first(); },
             ],
             [
                 "name" => 'alt_classificaiton_ids',
                 "doc" => "Al other non-preferred classification terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->classifications->where('preferred', false)->pluck('term')->pluck('id')->all(); },
+                "value" => function() { return $this->classifications->where('pivot.preferred', false)->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'subject_id',
                 "doc" => "The preferred subject term for this work",
                 "type" => "number",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->subjects->where('preferred', true)->pluck('term')->pluck('id')->first(); },
+                "value" => function() { return $this->subjects->where('pivot.preferred', true)->pluck('citi_id')->first(); },
             ],
             [
                 "name" => 'alt_subject_ids',
                 "doc" => "Al other non-preferred subject terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->subjects->where('preferred', false)->pluck('term')->pluck('id')->all(); },
+                "value" => function() { return $this->subjects->where('pivot.preferred', false)->pluck('citi_id')->all(); },
             ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
