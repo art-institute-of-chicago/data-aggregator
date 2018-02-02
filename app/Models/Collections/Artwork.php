@@ -158,11 +158,7 @@ class Artwork extends CollectionsModel
             'artist_display' => $source->creator_display,
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
-            'publishing_verification_level' => null,
-            'is_public_domain' => null,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
-            'place_of_origin' => null,
-            'collection_status' => null,
             'department_citi_id' => $source->department_id,
             //'object_type_citi_id' => , // Redmine #2431
             //'place_citi_id' => , // Redmine #2000
