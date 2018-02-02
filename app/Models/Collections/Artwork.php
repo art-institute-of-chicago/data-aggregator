@@ -213,8 +213,13 @@ class Artwork extends CollectionsModel
             {
 
                 $ae = ArtworkCatalogue::find($id);
-                $ae->artwork_citi_id = $this->citi_id;
-                $ae->save();
+                if ($ae)
+                {
+
+                    $ae->artwork_citi_id = $this->citi_id;
+                    $ae->save();
+
+                }
 
             }
 

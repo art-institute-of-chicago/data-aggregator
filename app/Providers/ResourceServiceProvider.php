@@ -90,6 +90,10 @@ class ResourceServiceProvider extends ServiceProvider
                         'model' => \App\Models\Collections\Exhibition::class,
                     ],
                     [
+                        'endpoint' => 'exhibition-agents',
+                        'model' => \App\Models\Collections\AgentExhibition::class,
+                    ],
+                    [
                         'endpoint' => 'assets',
                         'model' => \App\Models\Collections\Asset::class,
                     ],

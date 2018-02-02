@@ -29,7 +29,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('death_date')->nullable();
             $table->string('death_place')->nullable();
             $table->boolean('licensing_restricted')->nullable();
-            $table->string('ulan_uri')->unique()->nullable();
+            $table->string('ulan_uri')->nullable();
             $table->integer('agent_type_citi_id')->nullable()->unsigned()->index();
             $table->foreign('agent_type_citi_id')->references('citi_id')->on('agent_types');
             $table = $this->_addDates($table);
