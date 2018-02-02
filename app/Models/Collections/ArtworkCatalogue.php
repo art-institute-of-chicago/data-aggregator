@@ -56,6 +56,16 @@ class ArtworkCatalogue extends Pivot
 
     }
 
+    public function getExtraFillFieldsFrom($source)
+    {
+
+        return [
+            'catalogue_citi_id' => $source->catalog_id,
+            'preferred' => (bool) $source->is_preferred,
+        ];
+
+    }
+
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */

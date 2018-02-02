@@ -73,6 +73,14 @@ class ResourceServiceProvider extends ServiceProvider
                         'model' => \App\Models\Collections\Place::class,
                     ],
                     [
+                        'endpoint' => 'catalogues',
+                        'model' => \App\Models\Collections\Catalogue::class,
+                    ],
+                    [
+                        'endpoint' => 'artwork-catalogues',
+                        'model' => \App\Models\Collections\ArtworkCatalogue::class,
+                    ],
+                    [
                         'endpoint' => 'galleries',
                         'model' => \App\Models\Collections\Place::class,
                         'scope' => 'places',

@@ -210,13 +210,26 @@ class Artwork extends CollectionsModel
 
         }
 
+        if ($source->artwork_catalogue_ids)
+        {
+
+            foreach ($source->artwork_catalogue_ids as $id)
+            {
+
+                $ae = ArtworkCatalogue::find($id);
+                $ae->artwork_citi_id = $this->citi_id;
+                $ae->save();
+
+            }
+
+        }
+
         // @TODO Sync the following when they become available
         // $source->document_guids
         // $source->copyright_representative_ids
         // $source->committee_ids
         // $source->term_ids
         // $source->date_ids [verify?]
-        // $source->catalogue_ids [verify?]
         // $source->part_ids
 
         // Galleries must be imported before artworks!

@@ -80,8 +80,8 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('agent-places', 'AgentPlacesController@index');
     Route::get('agent-places/{id}', 'AgentPlacesController@show');
 
-    Route::get('artwork-catalogues', 'AgentPlacesController@index');
-    Route::get('artwork-catalogues/{id}', 'AgentPlacesController@show');
+    Route::get('artwork-catalogues', 'ArtworkCataloguesController@index');
+    Route::get('artwork-catalogues/{id}', 'ArtworkCataloguesController@show');
 
     Route::get('departments', 'DepartmentsController@index');
     Route::get('departments/{id}', 'DepartmentsController@show');
