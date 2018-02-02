@@ -397,7 +397,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->artist_display; },
             ],
             [
-                "name" => 'department',
+                "name" => 'department_title',
                 "doc" => "Name of the curatorial department that this work belongs to",
                 "type" => "string",
                 'elasticsearch_type' => 'text',

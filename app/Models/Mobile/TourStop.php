@@ -55,7 +55,7 @@ class TourStop extends MobileModel
                 "value" => function() { return $this->artwork->title ?? null; },
             ],
             [
-                "name" => 'artwork',
+                "name" => 'artwork_title',
                 "doc" => "Name of the artwork for this tour stop",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
