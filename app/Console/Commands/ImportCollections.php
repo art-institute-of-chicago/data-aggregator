@@ -16,6 +16,7 @@ class ImportCollections extends AbstractImportCommand
     {
 
         $this->import('agent-types');
+        $this->import('agent-places');
         $this->import('agents');
         $this->import('departments');
         $this->import('object-types');
@@ -29,6 +30,7 @@ class ImportCollections extends AbstractImportCommand
         $this->import('texts');
         $this->import('sounds');
         $this->import('images');
+        $this->import('exhibition-agents');
         $this->import('exhibitions');
 
     }
