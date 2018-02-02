@@ -508,9 +508,9 @@ class Artwork extends CollectionsModel
             ],
             [
                 "name" => 'fiscal_year',
-                "doc" => "January 1st of the fiscal year in which this artwork was acquired.",
-                "type" => "ISO 8601 date",
-                'elasticsearch_type' => 'date',
+                "doc" => "The fiscal year in which this artwork was acquired.",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return null; },
             ],
             [
