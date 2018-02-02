@@ -65,12 +65,12 @@ class ImportLegacyTerms extends Command
 
                 $terms = array_map('trim', explode(',', $row[$termField]));
 
-                foreach ($terms as $ind => $t)
-                {
+                $terms = Term::where('type', $type)
+                       ->whereIn('title', $terms)
+                       ->get();
 
-                    $term = Term::where('type', $type)
-                        ->where('title', $t)
-                        ->first();
+                foreach ($terms as $ind => $term)
+                {
 
                     if ($artwork && $term)
                     {
