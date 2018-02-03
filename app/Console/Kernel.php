@@ -16,11 +16,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+
         $schedule->command('import:collections')
             ->everyFiveMinutes()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-collections.log'))
             ->sendOutputTo(storage_path('logs/import-collections-last-run.log'))
+            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')]);
+
+        $schedule->command('import:daily')
+            ->dailyAt('23:00')
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/import-daily.log'))
+            ->sendOutputTo(storage_path('logs/import-daily-last-run.log'))
             ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')]);
 
     }
