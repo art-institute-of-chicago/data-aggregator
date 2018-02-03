@@ -39,17 +39,17 @@ class ImportAllCommand extends Command
     public function handle()
     {
 
-        $this->call('db:reset'); // Add --yes flag
+        $this->call('db:reset'); // Add --yes flag?
         $this->call('migrate');
         $this->call('import:collections-full');
         $this->call('import:exhibitions-legacy');
-        $this->call('import:events-full');  // Add --yes flag
+        $this->call('import:events-full', ['--yes' => 'default']);
         $this->call('import:events-legacy');
-        $this->call('import:dsc');  // Add --yes flag
+        $this->call('import:dsc', ['--yes' => 'default']);
         $this->call('import:mobile');
-        $this->call('import:library');  // Add --yes flag
-        $this->call('import:archive'); // Add --yes flag
-        $this->call('import:sites');  // Add --yes flag
+        $this->call('import:library', ['--yes' => 'default']);
+        $this->call('import:archive', ['--yes' => 'default']);
+        $this->call('import:sites', ['--yes' => 'default']);
         $this->call('import:set-ulan-uris');
         $this->call('import:terms-legacy');
 

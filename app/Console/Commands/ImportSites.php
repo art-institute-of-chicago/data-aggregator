@@ -10,7 +10,8 @@ use App\Models\StaticArchive\Site;
 class ImportSites extends AbstractImportCommand
 {
 
-    protected $signature = "import:sites";
+    protected $signature = 'import:sites
+                            {--y|yes : Answer "yes" to all prompts}';
 
     protected $description = "Import all historic microsites";
 
@@ -19,7 +20,7 @@ class ImportSites extends AbstractImportCommand
     {
 
         // Return false if the user bails out
-        if (!$this->confirm("Running this will delete all existing sites data from your database! Are you sure?"))
+        if (!$this->option('yes') && !$this->confirm("Running this will delete all existing sites data from your database! Are you sure?"))
         {
             return false;
         }

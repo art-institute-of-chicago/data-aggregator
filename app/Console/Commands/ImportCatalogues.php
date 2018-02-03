@@ -11,7 +11,8 @@ use App\Models\Dsc\Section;
 class ImportCatalogues extends AbstractImportCommand
 {
 
-    protected $signature = 'import:dsc';
+    protected $signature = 'import:dsc
+                            {--y|yes : Answer "yes" to all prompts}';
 
     protected $description = "Import all catalogue data";
 
@@ -20,7 +21,7 @@ class ImportCatalogues extends AbstractImportCommand
     {
 
         // Return false if the user bails out
-        if (!$this->confirm("Running this will delete all existing catalogue data from your database! Are you sure?"))
+        if (!$this->option('yes') && !$this->confirm("Running this will delete all existing catalogue data from your database! Are you sure?"))
         {
             return false;
         }

@@ -8,7 +8,8 @@ use DB;
 class ImportLibrary extends AbstractImportCommand
 {
 
-    protected $signature = 'import:library';
+    protected $signature = 'import:library
+                            {--y|yes : Answer "yes" to all prompts}';
 
     protected $description = "Import all library data";
 
@@ -17,7 +18,7 @@ class ImportLibrary extends AbstractImportCommand
     {
 
         // Return false if the user bails out
-        if (!$this->confirm("Running this will delete all existing library data from your database! Are you sure?"))
+        if (!$this->option('yes') && !$this->confirm("Running this will delete all existing library data from your database! Are you sure?"))
         {
             return false;
         }
