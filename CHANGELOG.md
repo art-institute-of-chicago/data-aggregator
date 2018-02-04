@@ -1,6 +1,69 @@
 Data Aggregator Changelog
 =============================
 
+0.7 - Add functionality to support website and mobile App development
+
+	* Add general import:all and import:daily commands to run imports from all sources
+	* Adjust task scheduling to make automatic imports function properly
+	* Enhance search, artworks and exhibitions to support website and mobile app, as follows:
+
+	SEARCH ENHANCEMENTS
+	* Avoid adjusting relevance if `sort` is set
+	* Adjust simple searches to only search specified fields
+	* Allow searching across multiple resources
+	* Add `is_boosted` field to search output, to help inform "Featured result"
+	* Generalize definition of is_boosted functionality across all resources
+	* Add ability to search resources that are subsets of others, like artists and galleries
+
+	ARTWORK ENDPOINT
+	* Restructure terms and catalogues raisonne to be a first-class resource rather than a list of strings
+	* Seed terms data with static production export
+	* Add catalogue raisonne data from LPM
+	* Add flags to indicate rights usage
+	* The following modifications have been made to the API schema:
+	  - `alt_titles` - Renamed from `alternative_titles` to match schema used by other fields
+	  - `is_zoomable` - Added, whether images of the work are allowed to be displayed in a zoomable interface.
+	  - `max_zoom_window_size` - Added, the maximum size of the window the image is allowed to be viewed in, in pixels.
+	  - `fiscal_year` - Added, the fiscal year in which the work was acquired.
+	  - `artist_ids` - Removed, in favor of two separate fields to specify a preferred artists and all others.
+	  - `artist_id` - Added, unique identifier of the preferred artist associated with the work
+	  - `alt_artist_ids` - Added, unique identifiers of the non-preferred artists/cultures associated with the work
+	  - `catalogue_titles` - Removed
+	  - `artwork_catalogue_ids` - Added, represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.
+	  - `style_id` - Added, unique identifier of the preferred style term for the work
+	  - `alt_style_ids` - Added, unique identifiers of all other non-preferred style terms for the work
+	  - `classification_id` - Added, unique identifier of the preferred classification term for the work
+	  - `alt_classification_ids` - Added, unique identifiers of all other non-preferred classification terms for the work
+	  - `subject_id` - Added, unique identifier of the preferred subject term for the work
+	  - `alt_subject_ids` - Added, unique identifiers of all other non-preferred subject terms for the work
+	  - `image_id` - Renamed from `preferred_image_id`
+	  - `image_iiif_url` - Renamed from `preferred_image_iiif_url`
+	  - `alt_image_ids` - Renamed from `image_ids` and refactored to omit the preferred image
+	  - `alt_image_iiif_urls` - Renamed from `image_iiif_urls` and refactored to omit the preferred image
+
+	EXHIBITIONS ENDPOINT
+	* Add new fields to support mobile app:
+	  - `short_description` - Brief explanation of what this exhibition is
+	  - `web_url` - URL to this exhibition on our website
+
+	NEW ENDPOINTS
+	* Additionally, the following endpoints have been added to the API:
+	  - `/terms` – Get a list of all terms. Includes all styles, classifications and subjects bundled together, differentiated by `type`.
+	  - `/terms/{id}` – Get a specific term with the given ID.
+	  - `/artwork/{id}/terms` – Get all the terms for an artwork.
+	  - `/catalogues` – Get a list of all catalogues raisonné that we know about.
+	  - `/catalogues/{id}` – Get a specific catalogue raisonné with the given ID.
+	  - `/artwork-catalogues` – Get all the pivot catalogues raisonné between artworks and catalogues. The pivot models include page numbers, state/edition, and whether this is the preferred catalogue for the artwork.
+	  - `/artwork-catalogues/{id}` – Get a specific pivot catalogue.
+	  - `/artworks/{id}/artwork-catalogues` – Get all the pivot catalogues for a given artwork.
+
+	NEW SEARCH PARAMETERS
+	* Additionally, the following parameters have been added to our search endpoints, with plans to deprecate some existing ones
+	  - `resources` – An array to identify the types of data to return. Options match the names of available endpoints. For example "artworks", "galleries", etc.
+	  - `type` – This parameter is no longer supported in later versions of Elasticsearch, so we plan to deprecate this in 0.8.
+	  - `fields` – An array of field names to return in your search results. Can be set to any field name that's returned in our API. Can also be set to `true` to return all fields, which is useful for debugging.
+	  - `_source` – This parameter duplicates functionality provided by `fields`, so we plan to deprecate this in 0.8.
+
 0.6 - Fill in Collections data
 
 	* Upgrade to Laravel 5.5
