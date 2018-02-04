@@ -87,7 +87,7 @@ class Exhibition extends CollectionsModel
             ],
             [
                 "name" => 'short_description',
-                "doc" => "Breif explanation of what this exhibition is",
+                "doc" => "Brief explanation of what this exhibition is",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->short_description; },
