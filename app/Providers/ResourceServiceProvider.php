@@ -151,7 +151,7 @@ class ResourceServiceProvider extends ServiceProvider
                     ],
                     [
                         'endpoint' => 'sites',
-                        'model' => \App\Models\Sites\Site::class,
+                        'model' => \App\Models\StaticArchive\Site::class,
                     ],
                     [
                         'endpoint' => 'library-materials',

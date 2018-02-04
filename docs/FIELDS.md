@@ -4,9 +4,10 @@
 
 Represents a work of art in our collections. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#artworks).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `alternate_titles` *array* - Altername names for this work
+* `is_boosted` *boolean* - Whether this document should be boosted in search
+* `alt_titles` *array* - Altername names for this work
 * `main_reference_number` *string* - Unique identifier assigned to the artwork upon acquisition
 * `date_start` *number* - The year of the period of time associated with the creation of this work
 * `date_end` *number* - The year of the period of time associated with the creation of this work
@@ -26,7 +27,10 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `provenance_text` *string* - Ownership/collecting history of the work. May include names of owners, dates, and possibly methods of transfer of ownership. Free-form text formatted in a house style.
 * `publishing_verification_level` *string* - Indicator of how much metadata on the work in published. Web Basic is the least amount, Web Everything is the greatest.
 * `is_public_domain` *boolean* - Whether the work is in the public domain, meaning it was created before copyrights existed or has left the copyright term
+* `is_zoomable` *boolean* - Whether images of the work are allowed to be displayed in a zoomable interface.
+* `max_zoom_window_size` *number* - The maximum size of the window the image is allowed to be viewed in, in pixels.
 * `copyright_notice` *string* - Statement notifying how the work is protected by copyright. Applies to the work itself, not image or other related assets.
+* `fiscal_year` *number* - The fiscal year in which the work was acquired.
 * `place_of_origin` *string* - The location where the creation, design, or production of the work took place, or the original location of the work
 * `collection_status` *string* - The works status of belonging to our collection. Values include 'Permanent Collection', 'Ryerson Collection', and 'Long-term Loan'.
 * `gallery_title` *string* - The location of this work in our museum
@@ -38,26 +42,33 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `latlon` *string* - Latitude and longitude coordinates of the location of this work in our galleries
 * `is_highlighted_in_mobile` *boolean* - Whether the work is highlighted in the mobile app
 * `selector_number` *number* - The code that can be entered in our audioguides to learn more about this work
-* `artist_ids` *array* - Unique identifiers of the artists associated with this work
+* `artist_id` *integer* - Unique identifier of the preferred artist/culture associated with this work
+* `alt_artist_ids` *array* - Unique identifiers of the non-preferred artists/cultures associated with this work
 * `category_ids` *array* - Unique identifiers of the categories this work is a part of
 * `copyright_representative_ids` *array* - Unique identifiers of the copyright representatives associated with this work
 * `part_ids` *array* - Unique identifiers of the individual works that make up this work
 * `set_ids` *array* - Unique identifiers of the sets this work is a part of. These are not artwork ids.
 * `date_dates` *array* - List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.
-* `catalogue_titles` *array* - A catalogue raisonné is a comprehensive, annotated listing of all the known artworks by an artist. This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.
+* `artwork_catalogue_ids` *array* - This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.
 * `committee_titles` *array* - List of committees which were involved in the acquisition or deaccession of this work
 * `term_titles` *array* - The names of the taxonomy tags for this work
+* `style_id` *number* - Unique identifier of the preferred style term for this work
+* `alt_style_ids` *array* - Unique identifiers of all other non-preferred style terms for this work
+* `classification_id` *number* - Unique identifier of the preferred classification term for this work
+* `alt_classificaiton_ids` *array* - Unique identifiers of all other non-preferred classification terms for this work
+* `subject_id` *number* - Unique identifier of the preferred subject term for this work
+* `alt_subject_ids` *array* - Unique identifiers of all other non-preferred subject terms for this work
 * `color` *object* - Dominant color of this image in HSL
-* `preferred_image_id` *uuid* - Unique identifier of the preferred image to use to represent this work
-* `preferred_image_iiif_url` *string* - IIIF URL of the preferred image to use to represent this work
-* `image_ids` *array* - Unique identifiers of all the images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.
-* `image_iiif_urls` *array* - IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.
+* `image_id` *uuid* - Unique identifier of the preferred image to use to represent this work
+* `image_iiif_url` *string* - IIIF URL of the preferred image to use to represent this work
+* `alt_image_ids` *array* - Unique identifiers of all non-preferred images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.
+* `alt_image_iiif_urls` *array* - IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.
 * `tour_stop_ids` *array* - Unique identifiers of the tour stops this work is included in
 * `section_ids` *array* - Unique identifiers of the digital publication chaptes this work in included in
 * `site_ids` *array* - Unique identifiers of the microsites this work is a part of
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -65,9 +76,10 @@ Represents a work of art in our collections. For a description of all the endpoi
 
 Represents a person or organization. In the API, this includes artists, venues, and copyright representatives. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agents).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `alternate_titles` *array* - Altername names for this agent
+* `is_boosted` *boolean* - Whether this document should be boosted in search
+* `alt_titles` *array* - Altername names for this agent
 * `birth_date` *number* - The year this agent was born
 * `birth_place` *string* - Name of the place this agent was born
 * `death_date` *number* - The year this agent died
@@ -80,9 +92,9 @@ Represents a person or organization. In the API, this includes artists, venues, 
 * `artwork_ids` *array* - Unique identifiers of the works this artist created.
 * `agent_place_ids` *array* - Unique identifiers of the places this artist is associated with.
 * `site_ids` *array* - Unique identifiers of the microsites this exhibition is a part of
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -90,11 +102,12 @@ Represents a person or organization. In the API, this includes artists, venues, 
 
 Represents a curatorial department in the museum. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#departments).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -102,11 +115,12 @@ Represents a curatorial department in the museum. For a description of all the e
 
 A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#object-types).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -114,16 +128,17 @@ A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a descriptio
 
 Tag-like classifications of artworks and other resources. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#categories).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `parent_id` *number* - Unique identifier of this category's parent
 * `is_in_nav` *boolean* - Whether this category was included in the departmental navigation in the old collections site
 * `description` *string* - Explanation of what this category is
 * `sort` *number* - Number representing this category's sort order
 * `type` *number* - Number representing the type of category. 1 is departmental, 2 is subject, 3 is theme, 5 is multimedia.
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -131,11 +146,12 @@ Tag-like classifications of artworks and other resources. For a description of a
 
 A kind of agent, e.g. Individual, Couple, School, Estate, Culture. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agent-types).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -143,15 +159,20 @@ A kind of agent, e.g. Individual, Couple, School, Estate, Culture. For a descrip
 
 A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#places).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
+* `type` *string* - Type always takes one of the following values: AIC Gallery, AIC Storage, null
+* `is_closed` *boolean* - Whether the gallery is currently closed
+* `number` *string* - The gallery's room number. For 'Gallery 100A', this would be '100A'.
+* `floor` *string* - The level the gallery is on, e.g., 1, 2, 3, or LL
 * `latitude` *number* - Latitude coordinate of the center of the room
 * `longitude` *number* - Longitude coordinate of the center of the room
 * `latlon` *string* - Latitude and longitude coordinates of the center of the room
 * `category_ids` *number* - Unique identifiers of the categories this place is a part of
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -159,9 +180,12 @@ A room or hall that works of art are displayed in. For a description of all the 
 
 An organized presentation and display of a selection of artworks. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#exhibitions).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `description` *string* - Explanation of what this exhibition is
+* `short_description` *string* - Brief explanation of what this exhibition is
+* `web_url` *string* - URL to this exhibition on our website
 * `type` *string* - The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues.
 * `status` *string* - Whether the exhibition is open or closed
 * `aic_start_at` *ISO 8601 date and time* - Date the exhibition opened at the Art Institute of Chicago
@@ -179,9 +203,9 @@ An organized presentation and display of a selection of artworks. For a descript
 * `artist_ids` *array* - Unique identifiers of the artist agent records representing who was shown in the exhibition
 * `site_ids` *array* - Unique identifiers of the microsites this exhibition is a part of
 * `event_ids` *array* - Unique identifiers of the ticketed events featuring this exhibition
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -189,9 +213,10 @@ An organized presentation and display of a selection of artworks. For a descript
 
 A pictorial representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#images).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `type` *string* - Typs always takes one of the following values: image, link, sound, text, video
+* `is_boosted` *boolean* - Whether this document should be boosted in search
+* `type` *string* - Type always takes one of the following values: image, link, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
 * `category_ids` *array* - Unique identifier of the categories associated with this asset
@@ -200,9 +225,9 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 * `iiif_url` *url* - IIIF URL of this image
 * `color` *object* - Dominant color of this image in HSL
 * `fingerprint` *object* - Image hashes: aHash, dHash, pHash, wHash
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -210,17 +235,18 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 
 A moving image representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#videos).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `type` *string* - Typs always takes one of the following values: image, link, sound, text, video
+* `is_boosted` *boolean* - Whether this document should be boosted in search
+* `type` *string* - Type always takes one of the following values: image, link, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
 * `category_ids` *array* - Unique identifier of the categories associated with this asset
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -228,17 +254,18 @@ A moving image representation of a collections resource, like an artwork, artist
 
 A website that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#links).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `type` *string* - Typs always takes one of the following values: image, link, sound, text, video
+* `is_boosted` *boolean* - Whether this document should be boosted in search
+* `type` *string* - Type always takes one of the following values: image, link, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
 * `category_ids` *array* - Unique identifier of the categories associated with this asset
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -246,17 +273,18 @@ A website that represents a collections resource, like an artwork, artist, exhib
 
 Audio that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#sounds).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `type` *string* - Typs always takes one of the following values: image, link, sound, text, video
+* `is_boosted` *boolean* - Whether this document should be boosted in search
+* `type` *string* - Type always takes one of the following values: image, link, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
 * `category_ids` *array* - Unique identifier of the categories associated with this asset
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -264,17 +292,18 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 
 Text that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#texts).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
-* `type` *string* - Typs always takes one of the following values: image, link, sound, text, video
+* `is_boosted` *boolean* - Whether this document should be boosted in search
+* `type` *string* - Type always takes one of the following values: image, link, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
 * `category_ids` *array* - Unique identifier of the categories associated with this asset
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the resource was updated in the Data Aggregator
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
 
 
 
@@ -284,8 +313,9 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 
 Tag-like classifications of shop products. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#shop-categories).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `link` *url* - URL to the shop page for this category
 * `parent_id` *number* - Unique identifier of this category's parent
 * `type` *string* - The type of category, e.g., sale, place-of-origin, style, etc.
@@ -300,8 +330,9 @@ Tag-like classifications of shop products. For a description of all the endpoint
 
 An item available for purchase in the museum shop. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#products).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `title_display` *string* - HTML prettified version of the title
 * `sku` *string* - Numeric product identification code of a machine-readable bar code
 * `link` *url* - URL to the item in the shop
@@ -325,8 +356,9 @@ An item available for purchase in the museum shop. For a description of all the 
 
 An occurrence of a program at the museum. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#events).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `description` *string* - Long description of the event
 * `short_description` *string* - Short description of the event
 * `image` *url* - URL to an image representing this event
@@ -401,8 +433,9 @@ A member of the museum
 
 A collection of audio tour stops to form a tour. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#tours).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `image` *url* - The main image for the tour
 * `description` *string* - Explanation of what the tour is
 * `intro` *string* - Text introducing the tour
@@ -418,8 +451,9 @@ A collection of audio tour stops to form a tour. For a description of all the en
 
 An audio tour stops on a tour. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#tour-stops).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `title` *string* - Name of this tour stop
 * `artwork` *string* - Name of the artwork for this tour stop
 * `artwork_id` *number* - Unique identifier of the artwork for this tour stop
@@ -435,8 +469,9 @@ An audio tour stops on a tour. For a description of all the endpoints available 
 
 The audio file for a stops on a tour. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#mobile-sounds).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `link` *url* - URL to the audio file
 * `transcript` *string* - Text transcription of the audio file
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
@@ -450,8 +485,9 @@ The audio file for a stops on a tour. For a description of all the endpoints ava
 
 Represents an overall digital publication. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#publications).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `web_url` *string* - URL to the publication
 * `site` *string* - Which site in our multi-site Drupal installation owns this publication
 * `alias` *string* - Used by Drupal in lieu of the id to generate pretty paths
@@ -466,8 +502,9 @@ Represents an overall digital publication. For a description of all the endpoint
 
 Represents a chapter of publication. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#sections).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `web_url` *string* - URL to the section
 * `accession` *string* - An accession number parsed from the title or tombstone
 * `revision` *number* - Version identifier as provided by Drupal
@@ -489,8 +526,9 @@ Represents a chapter of publication. For a description of all the endpoints avai
 
 An archived static microsite. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#sites).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `description` *string* - Explanation of what this site is
 * `web_url` *url* - URL to this site
 * `exhibition_ids` *array* - Unique identifier of the exhibitions this site is associated with
@@ -507,8 +545,9 @@ An archived static microsite. For a description of all the endpoints available f
 
 An image from the archives. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#archive-images).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `alternate_title` *string* - Alternate name of this image
 * `web_url` *url* - URL to this image on the archives website
 * `collection` *string* - Name of the collection this image is a part of
@@ -544,8 +583,9 @@ An image from the archives. For a description of all the endpoints available for
 
 A library material, such as a book, journal, or video. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#library-materials).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `date` *number* - Publication year of this library material
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
@@ -556,12 +596,13 @@ A library material, such as a book, journal, or video. For a description of all 
 
 A Library of Congress term. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#library-terms).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
 * `uri` *string* - Full Library of Congress URI for identification
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 
 
 
-> Generated by `php artisan docs:fields` on 2018-01-25 14:15:32
+> Generated by `php artisan docs:fields` on 2018-02-03 22:46:06
