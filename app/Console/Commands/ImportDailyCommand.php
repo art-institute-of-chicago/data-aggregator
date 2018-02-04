@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class ImportAllCommand extends Command
+class ImportDailyCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'import:all';
+    protected $signature = 'import:daily';
 
 
     /**
@@ -19,7 +19,7 @@ class ImportAllCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Run all import commands';
+    protected $description = 'Run all increment commands on sources that we\'re able to, and do a full refresh on sources that require it.';
 
     /**
      * Create a new command instance.
@@ -39,11 +39,9 @@ class ImportAllCommand extends Command
     public function handle()
     {
 
-        $this->call('db:reset'); // Add --yes flag?
-        $this->call('migrate');
-        $this->call('import:collections-full');
+        $this->call('import:collections');
         $this->call('import:exhibitions-legacy');
-        $this->call('import:events-full', ['--yes' => 'default']);
+        $this->call('import:events');
         $this->call('import:events-legacy');
         $this->call('import:dsc', ['--yes' => 'default']);
         $this->call('import:mobile');
@@ -51,7 +49,6 @@ class ImportAllCommand extends Command
         $this->call('import:archive', ['--yes' => 'default']);
         $this->call('import:sites', ['--yes' => 'default']);
         $this->call('import:set-ulan-uris');
-        $this->call('import:terms-legacy');
 
     }
 

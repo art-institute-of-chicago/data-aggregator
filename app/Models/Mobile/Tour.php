@@ -55,7 +55,10 @@ class Tour extends MobileModel
                 "name" => 'intro',
                 "doc" => "Text introducing the tour",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->intro_text; },
             ],
             [
@@ -76,7 +79,10 @@ class Tour extends MobileModel
                 "name" => 'intro_transcript',
                 "doc" => "Transcript of the introduction audio to the tour",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->intro->transcript; },
             ],
         ];

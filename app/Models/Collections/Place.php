@@ -39,13 +39,35 @@ class Place extends CollectionsModel
     }
 
     /**
+     * Scope a search to only include galleries.
+     *
+     * @return array
+     */
+    public static function searchGalleries()
+    {
+
+        return [
+            'term' => [
+                'type' => 'AIC Gallery'
+            ]
+        ];
+
+    }
+
+    /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
     protected function transformMappingInternal()
     {
 
         return [
-            /*
+            [
+                "name" => 'type',
+                "doc" => "Type always takes one of the following values: AIC Gallery, AIC Storage, null",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->type; },
+            ],
             [
                 "name" => 'is_closed',
                 "doc" => "Whether the gallery is currently closed",
@@ -67,7 +89,6 @@ class Place extends CollectionsModel
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->floor; },
             ],
-            */
             [
                 "name" => 'latitude',
                 "doc" => "Latitude coordinate of the center of the room",

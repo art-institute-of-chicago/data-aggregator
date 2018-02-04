@@ -183,6 +183,7 @@ return [
         App\Providers\FakerServiceProvider::class,
         App\Providers\SearchServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
+        App\Providers\ResourceServiceProvider::class,
 
     ],
 

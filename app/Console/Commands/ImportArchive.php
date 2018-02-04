@@ -8,7 +8,8 @@ use DB;
 class ImportArchive extends AbstractImportCommand
 {
 
-    protected $signature = 'import:archive';
+    protected $signature = 'import:archive
+                            {--y|yes : Answer "yes" to all prompts}';
 
     protected $description = "Import all archives data";
 
@@ -17,7 +18,7 @@ class ImportArchive extends AbstractImportCommand
     {
 
         // Return false if the user bails out
-        if (!$this->confirm("Running this will delete all existing archive data from your database! Are you sure?"))
+        if (!$this->option('yes') && !$this->confirm("Running this will delete all existing archive data from your database! Are you sure?"))
         {
             return false;
         }

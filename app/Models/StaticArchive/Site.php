@@ -61,7 +61,10 @@ class Site extends BaseModel
                 "name" => 'description',
                 "doc" => "Explanation of what this site is",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->description; },
             ],
             [
@@ -111,21 +114,30 @@ class Site extends BaseModel
                 "name" => 'artwork_titles',
                 "doc" => "Names of the artworks this site is associated with",
                 "type" => "array",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->artworks->pluck('title')->all(); },
             ],
             [
                 "name" => 'exhibition_titles',
                 "doc" => "Names of the exhibitions this site is associated with",
                 "type" => "array",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->exhibitions->pluck('title')->all(); },
             ],
             [
                 "name" => 'artist_titles',
                 "doc" => "Names of the artists this site is associated with",
                 "type" => "array",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->agents->pluck('title')->all(); },
             ],
 

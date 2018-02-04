@@ -68,9 +68,11 @@ trait Documentable
     public function docFields()
     {
 
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+
         $doc = '';
         $doc .= $this->docTitle() ."\n\n";
-        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#" .endpointFor(get_called_class()) .").\n\n";
+        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#" .$endpoint .").\n\n";
 
         if (!$this->docOnly())
         {
@@ -91,7 +93,9 @@ trait Documentable
     public function docTitle()
     {
 
-        return '## ' .str_replace('-', ' ', title_case( endpointFor(get_called_class()) ) );
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+
+        return '## ' .str_replace('-', ' ', title_case( $endpoint ) );
 
     }
 
@@ -119,7 +123,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor(get_called_class());
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -144,7 +148,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor(get_called_class());
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         $doc = '';
@@ -171,7 +175,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor(get_called_class());
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -195,7 +199,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor(get_called_class());
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -219,7 +223,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor(get_called_class());
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -250,7 +254,7 @@ trait Documentable
     {
 
         $calledClass = get_called_class();
-        $endpoint = endpointFor(get_called_class());
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -329,8 +333,10 @@ trait Documentable
     public function docIncludeParameters()
     {
 
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+
         $doc = '';
-        $controllerClass = "\\App\\Http\\Controllers\\" .ucfirst( camel_case( endpointFor(get_called_class()) ) ) ."Controller";
+        $controllerClass = "\\App\\Http\\Controllers\\" .ucfirst( camel_case( $endpoint ) ) ."Controller";
 
         // TODO: Make all this more declarative!
         // Alternatively, rename the controllers to plural?
@@ -474,8 +480,7 @@ trait Documentable
 
         if (!$endpoint)
         {
-
-            $endpoint = endpointFor(get_called_class());
+            $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         }
 
         return strtolower( title_case( $endpoint ) );
@@ -498,7 +503,9 @@ trait Documentable
 
         $options = array_merge($defaults, $options);
 
-        $path = '/' .endpointFor(get_called_class());
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+
+        $path = '/' .$endpoint;
 
         if ($options['extraPath'])
         {

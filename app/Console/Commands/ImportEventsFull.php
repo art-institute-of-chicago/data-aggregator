@@ -8,7 +8,8 @@ use DB;
 class ImportEventsFull extends AbstractImportCommand
 {
 
-    protected $signature = 'import:events-full';
+    protected $signature = 'import:events-full
+                            {--y|yes : Answer "yes" to all prompts}';
 
     protected $description = "Import all events data";
 
@@ -17,7 +18,7 @@ class ImportEventsFull extends AbstractImportCommand
     {
 
         // Return false if the user bails out
-        if (!$this->confirm("Running this will delete all existing events from your database! Are you sure?"))
+        if (!$this->option('yes') && !$this->confirm("Running this will delete all existing events from your database! Are you sure?"))
         {
             return false;
         }

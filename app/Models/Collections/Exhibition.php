@@ -79,12 +79,15 @@ class Exhibition extends CollectionsModel
                 "name" => 'description',
                 "doc" => "Explanation of what this exhibition is",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->description; },
             ],
             [
                 "name" => 'short_description',
-                "doc" => "Breif explanation of what this exhibition is",
+                "doc" => "Brief explanation of what this exhibition is",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->short_description; },

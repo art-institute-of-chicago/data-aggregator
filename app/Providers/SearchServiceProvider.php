@@ -120,6 +120,45 @@ class SearchServiceProvider extends ServiceProvider
                 }
 
                 /**
+                 * Returns an array containing fields to target for simple search for all models.
+                 *
+                 * @return array
+                 */
+                public function getDefaultFields() {
+
+                    $fields = $this->models->map( function( $model ) {
+                        return $this->getDefaultFieldsForModel( $model );
+                    });
+
+                    $fields = $fields->isNotEmpty() ? array_merge( ... $fields ) : [];
+
+                    // Remove duplicate field names, e.g. `content`
+                    $fields = array_unique( $fields );
+
+                    // Reindex consequtively
+                    $fields = array_values( $fields );
+
+                    // TODO: Once we start boosting individual fields on query-time, determine
+                    // what should be done in cases where a simple search is performed across
+                    // multiple indexes, which contain different boost values for fields with
+                    // the same names. I'm leaning towards using the highest boost value.
+
+                    return $fields;
+
+                }
+
+                /**
+                 * Returns an array containing fields to target for simple search for one model.
+                 *
+                 * @return array
+                 */
+                public function getDefaultFieldsForModel( $model ) {
+
+                    return $model::instance()->getDefaultSearchFields();
+
+                }
+
+                /**
                  * Returns an array containing namespaced classnames of models with the Searchable trait.
                  *
                  * @return array
@@ -147,6 +186,68 @@ class SearchServiceProvider extends ServiceProvider
                 public function updateElasticsearchConfig() {
 
                     config( [ 'elasticsearch.indexParams.body.mappings' => $this->getElasticsearchMappings() ] );
+
+                }
+
+                /**
+                 * Given an endpoint, retrieve index, type, and search scope settings.
+                 * Requires ResourceServiceProvider.
+                 *
+                 * @param $endpoint string
+                 * @return array
+                 */
+                public function getSearchScopeForEndpoint( $endpoint )
+                {
+
+                    $model = app('Resources')->getModelForEndpoint( $endpoint );
+
+                    $resource = app('Resources')->getParent( $endpoint ) ?? $endpoint;
+
+                    // Defaults
+                    $settings = [
+                        'index' => env('ELASTICSEARCH_INDEX') . '-' . $resource,
+                        'type' => $resource,
+                    ];
+
+                    // ex. `searchGalleries` for `galleries` endpoint in model `Place`
+                    $searchScopeMethod = 'search' . studly_case( $endpoint );
+
+                    if( method_exists( $model, $searchScopeMethod ) )
+                    {
+
+                        $scope = $model::$searchScopeMethod();
+
+                        $settings['scope'] = [
+                            'bool' => [
+                                'should' => [
+                                    [
+                                        'bool' => [
+                                            'must' => [
+                                                [
+                                                    'term' => [
+                                                        'api_model' => $resource
+                                                    ],
+                                                ],
+                                                $scope,
+                                            ]
+                                        ]
+                                    ],
+                                    [
+                                        'bool' => [
+                                            'must_not' => [
+                                                'term' => [
+                                                    'api_model' => $resource
+                                                ],
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ];
+
+                    }
+
+                    return $settings;
 
                 }
 

@@ -74,6 +74,22 @@ class Agent extends CollectionsModel
     }
 
     /**
+     * Scope a search to only include agents that created an artwork.
+     *
+     * @return array
+     */
+    public static function searchArtists()
+    {
+
+        return [
+            'exists' => [
+                'field' => 'artwork_ids'
+            ]
+        ];
+
+    }
+
+    /**
      * Scope a query to only include agents that are copyright representatives for an artwork.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -142,10 +158,13 @@ class Agent extends CollectionsModel
 
         return [
             [
-                "name" => 'alternate_titles',
+                "name" => 'alt_titles',
                 "doc" => "Altername names for this agent",
                 "type" => "array",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return []; },
             ],
             [
@@ -223,7 +242,7 @@ class Agent extends CollectionsModel
                 "doc" => "Unique identifiers of the places this artist is associated with.",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->places->pluck('id'); },
+                "value" => function() { return $this->places->pluck('citi_id'); },
             ],
             [
                 "name" => 'site_ids',

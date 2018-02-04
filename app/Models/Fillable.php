@@ -82,7 +82,7 @@ trait Fillable
         // Ignore `id`, `title`, `created_at`, `modified_at`, `citi_created_at` and `citi_modified_at`
         foreach( ['id', 'title', 'created_at', 'modified_at', 'citi_created_at', 'citi_modified_at'] as $field )
         {
-            if( isset( $source->$field ) )
+            if( isset( $source->$field ) || property_exists($source, $field))
             {
                 unset( $source->$field );
             }

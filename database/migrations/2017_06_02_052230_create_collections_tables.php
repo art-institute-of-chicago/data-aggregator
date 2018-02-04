@@ -29,7 +29,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('death_date')->nullable();
             $table->string('death_place')->nullable();
             $table->boolean('licensing_restricted')->nullable();
-            $table->string('ulan_uri')->unique()->nullable();
+            $table->string('ulan_uri')->nullable();
             $table->integer('agent_type_citi_id')->nullable()->unsigned()->index();
             $table->foreign('agent_type_citi_id')->references('citi_id')->on('agent_types');
             $table = $this->_addDates($table);
@@ -60,8 +60,8 @@ class CreateCollectionsTables extends Migration
             $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
             $table->string('floor')->nullable();
-            $table->float('latitude')->nullable();
-            $table->float('longitude')->nullable();
+            $table->double('latitude', 15, 13)->nullable();
+            $table->double('longitude', 16, 13)->nullable();
             $table = $this->_addDates($table);
         });
 

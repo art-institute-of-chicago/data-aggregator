@@ -31,20 +31,21 @@ Route::group(['prefix' => 'v1'], function()
 
     // Elasticsearch
     Route::match( array('GET', 'POST'), 'search', 'Search\SearchController@search');
-    Route::match( array('GET', 'POST'), '{type}/search', 'Search\SearchController@search');
-    // We can do ->where('type', '(foo|bar)') to limit {type}, but it's not necessary...
+    Route::match( array('GET', 'POST'), '{resource}/search', 'Search\SearchController@search');
+    // We can do ->where('resource', '(foo|bar)') to limit {resource}, but it's not necessary...
 
     Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocomplete');
-    // We can't limit autocomplete to specific types w/o creating additional type-specific suggest fields
+    // We can't limit autocomplete to specific resources w/o creating additional resource-specific suggest fields
 
     // ...following Elasticsearch conventions
     Route::match( array('GET', 'POST'), '_search', 'Search\SearchController@search');
-    Route::match( array('GET', 'POST'), '{type}/_search', 'Search\SearchController@search');
+    Route::match( array('GET', 'POST'), '{resource}/_search', 'Search\SearchController@search');
 
     // For debugging search, show generated request
     if( env('APP_ENV') === 'local' ) {
         Route::match( array('GET', 'POST'), 'echo', 'Search\SearchController@echo');
-        Route::match( array('GET', 'POST'), '{type}/echo', 'Search\SearchController@echo');
+        Route::match( array('GET', 'POST'), '{resource}/echo', 'Search\SearchController@echo');
+        Route::match( array('GET', 'POST'), '{resource}/{id}/explain', 'Search\SearchController@explain');
     }
 
 
@@ -63,6 +64,10 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
     Route::get('artworks/{id}/copyright-representatives', 'AgentsController@scopeForArtwork');
 
+    Route::get('artworks/{id}/terms', 'TermsController@forArtwork');
+
+    Route::get('artworks/{id}/artwork-catalogues', 'ArtworkCataloguesController@forArtwork');
+
     // Collections
     Route::get('agents', 'AgentsController@index');
     Route::get('agents/{id}', 'AgentsController@show');
@@ -74,6 +79,9 @@ Route::group(['prefix' => 'v1'], function()
     // Route::get('copyright-representatives', 'AgentsController@indexScope');
     Route::get('agent-places', 'AgentPlacesController@index');
     Route::get('agent-places/{id}', 'AgentPlacesController@show');
+
+    Route::get('artwork-catalogues', 'ArtworkCataloguesController@index');
+    Route::get('artwork-catalogues/{id}', 'ArtworkCataloguesController@show');
 
     Route::get('departments', 'DepartmentsController@index');
     Route::get('departments/{id}', 'DepartmentsController@show');
@@ -109,6 +117,12 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('sounds/{id}', 'SoundsController@show');
     Route::get('texts', 'TextsController@index');
     Route::get('texts/{id}', 'TextsController@show');
+
+    Route::get('catalogues', 'CataloguesController@index');
+    Route::get('catalogues/{id}', 'CataloguesController@show');
+
+    Route::get('terms', 'TermsController@index');
+    Route::get('terms/{id}', 'TermsController@show');
 
     // Shop
     Route::get('shop-categories', 'ShopCategoriesController@index');

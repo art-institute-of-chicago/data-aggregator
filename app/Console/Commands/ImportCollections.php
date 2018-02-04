@@ -16,17 +16,21 @@ class ImportCollections extends AbstractImportCommand
     {
 
         $this->import('agent-types');
+        $this->import('agent-places');
         $this->import('agents');
         $this->import('departments');
         $this->import('object-types');
         $this->import('categories');
         $this->import('places');
+        $this->import('artwork-catalogues');
+        $this->import('catalogues');
         $this->import('artworks');
         $this->import('links');
         $this->import('videos');
         $this->import('texts');
         $this->import('sounds');
         $this->import('images');
+        $this->import('exhibition-agents');
         $this->import('exhibitions');
 
     }
@@ -34,7 +38,7 @@ class ImportCollections extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
-        $model = \App\Models\CollectionsModel::classFor($endpoint);
+        $model = app('Resources')->getModelForEndpoint($endpoint);
 
         $json = $this->queryService($endpoint, $current);
         $pages = $json->pagination->pages->total;

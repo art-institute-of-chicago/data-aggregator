@@ -60,7 +60,10 @@ class Product extends ShopModel
                 "name" => 'description',
                 "doc" => "Explanation of what this product is",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->description; },
             ],
             [
@@ -148,7 +151,7 @@ class Product extends ShopModel
     public function exampleId()
     {
 
-        return "999686";
+        return "999681";
 
     }
 

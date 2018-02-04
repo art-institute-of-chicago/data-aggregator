@@ -50,7 +50,7 @@ class SearchInstall extends Command
     private function install( $model, $prefix )
     {
 
-        $endpoint = endpointFor($model);
+        $endpoint = app('Resources')->getEndpointForModel($model);
         $index = $prefix . '-' . $endpoint;
 
         if (!$this->destroy($index, $this->option('yes')))

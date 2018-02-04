@@ -3,24 +3,30 @@
 namespace App\Http\Search;
 
 use Illuminate\Support\Facades\Input;
-use App\Models\Collections\Artwork;
 
 class Request
 {
 
     /**
-     * The name of the index we will be querying.
+     * The API resource through which search was accessed.
      *
      * @var string
      */
-    protected $index;
+    protected $resource = null;
 
     /**
-     * The Elasticsearch type (model) we will be querying.
+     * Identifier, e.g. for `_explain` queries
      *
      * @var string
      */
-    protected $type = null;
+    protected $id = null;
+
+    /**
+     * Array of queries needed to isolate any "scoped" resources in this request.
+     *
+     * @var array
+     */
+    protected $scopes = null;
 
     /**
      * List of allowed Input params for querying.
@@ -31,7 +37,9 @@ class Request
      */
     private static $allowed = [
 
-        // Type can be passed via route, or via query params
+        // Resources can be passed via route, or via query params
+        // TODO: Deprecate type?
+        'resources',
         'type',
 
         // Required for "Did You Mean"-style suggestions: we need to know the core search string
@@ -54,6 +62,8 @@ class Request
         // 'search_after',
 
         // Choose which fields to return
+        // TODO: Deprecate `_source`?
+        'fields',
         '_source',
 
         // Fields to use for aggregations
@@ -80,6 +90,7 @@ class Request
         'api_id',
         'api_model',
         'api_link',
+        'is_boosted',
         'title',
         'timestamp',
     ];
@@ -97,25 +108,81 @@ class Request
     /**
      * Create a new request instance.
      *
+     * @param $resource string
+     *
      * @return void
      */
-    public function __construct( $type = null )
+    public function __construct( $resource = null, $id = null )
     {
-        $this->index = $type ? env('ELASTICSEARCH_INDEX') . '-' . $type : env('ELASTICSEARCH_ALIAS');
-        $this->type = $type;
+        $this->resource = $resource;
+        $this->id = $id;
     }
 
 
     /**
      * Get params that should be applied to all queries.
      *
+     * @TODO: Remove type-related logic when we upgrade to ES 6.0
+     *
      * @return array
      */
     public function getBaseParams( array $input ) {
 
+        // Grab resource target from resource endpoint, `resources`, or `type`
+        $resources = $this->resource ?? $input['resources'] ?? $input['type'] ?? null;
+
+        // Assume types map 1-to-1 with resources for now
+        // TODO: They don't - handle scoped models, e.g. artists?
+        $types = $resources;
+
+        if( is_null( $resources ) )
+        {
+
+            $indexes = env('ELASTICSEARCH_ALIAS');
+
+        } else {
+
+            // Ensure that resources is an array, not string
+            if( !is_array( $resources ) )
+            {
+                $resources = explode(',', $resources);
+            }
+
+            // Filter out any resources that have a parent resource requested as well
+            // So e.g. if places and galleries are requested, we'll show places only
+            $resources = array_filter( $resources, function($resource) use ($resources) {
+
+                $parent = app('Resources')->getParent( $resource );
+
+                return !in_array( $parent, $resources );
+
+            });
+
+            // Grab settings from our models via the service provider
+            $settings = array_map( function($resource) {
+
+                return app('Search')->getSearchScopeForEndpoint( $resource );
+
+            }, $resources);
+
+            // Make settings into a Laravel collection
+            $settings = collect($settings);
+
+            // Collate our indexes and types
+            $indexes = $settings->pluck('index')->unique()->all();
+            $types = $settings->pluck('type')->unique()->all();
+
+            // These will be injected into the must clause
+            $this->scopes = $settings->pluck('scope')->filter()->all();
+
+            // Looks like we don't need to implode $indexes and $types
+            // PHP Elasticsearch seems to do so for us
+
+        }
+
         return [
-            'index' => $this->index,
-            'type' => array_get( $input, 'type' ) ?: $this->type,
+            'index' => $indexes,
+            'type' => $types,
             'preference' => array_get( $input, 'preference' ),
         ];
 
@@ -156,7 +223,7 @@ class Request
      *
      * @return array
      */
-    public function getSearchParams( $input = [] ) {
+    public function getSearchParams( $input = [], $withSuggestions = true, $withAggregations = true ) {
 
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput();
@@ -186,6 +253,9 @@ class Request
         // Add our custom relevancy tweaks into `should`
         $params = $this->addRelevancyParams( $params, $input );
 
+        // Add params to isolate "scoped" resources into `must`
+        $params = $this->addScopeParams( $params, $input );
+
         /**
          * 1. If `query` is present, our client acts as a pass-through.
          * 2. If `query` is absent, check if `q` is present:
@@ -211,14 +281,38 @@ class Request
         }
 
         // Regardless of the mode, if `q` is present, show search suggestions
-        if( isset( $input['q'] ) ) {
+        if( isset( $input['q'] ) && $withSuggestions ) {
 
             $params = $this->addSuggestParams( $params, $input );
 
         }
 
         // Add Aggregations (facets)
-        $params = $this->addAggregationParams( $params, $input );
+        if( $withAggregations ) {
+
+            $params = $this->addAggregationParams( $params, $input );
+
+        }
+
+        return $params;
+
+    }
+
+
+    /**
+     * Gather params for an expalin query. Explain queries are identical to search,
+     * but they need an id and lack pagination, aggregations, and suggestions.
+     *
+     * @return array
+     */
+    public function getExplainParams( $input = [] ) {
+
+        $params = $this->getSearchParams( $input, false, false );
+
+        $params['id'] = $this->id;
+
+        unset( $params['from'] );
+        unset( $params['size'] );
 
         return $params;
 
@@ -298,6 +392,8 @@ class Request
 
     /**
      * Determine which fields to return. Set `_source` to `true` to return all.
+     * Set `_source` to `false` to return nothing. You can also pass `fields`
+     * instead of `_source` to match our REST API conventions.
      *
      * @param $input array
      * @param $default mixed Valid `_source` is array, string, null, or bool
@@ -307,8 +403,7 @@ class Request
     private function getFieldParams( array $input, $default = null ) {
 
         return [
-            // '_source' => $input['_source'] ?? ( $default ?? self::$defaultFields ), // PHP 7
-            '_source' => array_get( $input, '_source' ) ? $input['_source'] : ( isset( $default ) ? $default : self::$defaultFields ),
+            '_source' => $input['fields'] ?? $input['_source'] ?? ( $default ?? self::$defaultFields ),
         ];
 
     }
@@ -338,6 +433,58 @@ class Request
 
 
     /**
+     * Append our own custom queries to tweak relevancy.
+     *
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
+     */
+    public function addRelevancyParams( array $params, array $input )
+    {
+
+        // Don't tweak relevancy if sort is passed
+        if( isset( $input['sort'] ) )
+        {
+            return $params;
+        }
+
+        // Boost anthing with `is_boosted` true
+        $params['body']['query']['bool']['should'][] = [
+            'term' => [
+                'is_boosted' => true
+            ]
+        ];
+
+        return $params;
+
+    }
+
+
+    /**
+     * Append any search clauses that are needed to isolate scoped resources.
+     *
+     * @param $params array
+     * @param $input array
+     *
+     * @return array
+     */
+    public function addScopeParams( array $params, array $input )
+    {
+
+        // Assumes that `scopes` has no null members
+        $params['body']['query']['bool']['must'][] = [
+            'bool' => [
+                'should' => $this->scopes,
+            ]
+        ];
+
+        return $params;
+
+    }
+
+
+    /**
      * Get the search params for an empty string search.
      * Empy search requires special handling, e.g. no suggestions.
      *
@@ -360,6 +507,8 @@ class Request
     /**
      * Append the query params for a simple search
      *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/common-options.html#fuzziness
+     *
      * @param $params array
      * @param $input array
      *
@@ -376,11 +525,9 @@ class Request
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
                 'query' => array_get( $input, 'q' ),
-                'fuzziness' => 3,
+                'fuzziness' => 'AUTO',
                 'prefix_length' => 1,
-                'fields' => [
-                    '_all',
-                ]
+                'fields' => app('Search')->getDefaultFields()
             ]
         ];
 
@@ -403,29 +550,6 @@ class Request
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
         $params['body']['query']['bool']['must'][] = [
             array_get( $input, 'query' ),
-        ];
-
-        return $params;
-
-    }
-
-
-    /**
-     * Append our own custom queries to tweak relevancy.
-     *
-     * @param $params array
-     * @param $input array
-     *
-     * @return array
-     */
-    public function addRelevancyParams( array $params, array $input )
-    {
-
-        // Boost essential artworks
-        $params['body']['query']['bool']['should'][] = [
-            'terms' => [
-                'api_id' => Artwork::getEssentialIds()
-            ]
         ];
 
         return $params;
