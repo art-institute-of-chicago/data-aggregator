@@ -90,6 +90,7 @@ class Request
         'api_id',
         'api_model',
         'api_link',
+        'is_boosted',
         'title',
         'timestamp',
     ];
