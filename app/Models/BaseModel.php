@@ -3,11 +3,38 @@
 namespace App\Models;
 
 use Aic\Hub\Foundation\AbstractModel;
+use App\BelongsToManyOrOne;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class BaseModel extends AbstractModel
 {
 
     use Transformable, Fillable, Instancable;
+
+
+    /**
+     * Instantiate a new BelongsToMany relationship.
+     *
+     * @TODO: Move this to the foundation?
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Model  $parent
+     * @param  string  $table
+     * @param  string  $foreignPivotKey
+     * @param  string  $relatedPivotKey
+     * @param  string  $parentKey
+     * @param  string  $relatedKey
+     * @param  string  $relationName
+     * @return \App\BelongsToManyOrOne
+     */
+    protected function newBelongsToMany(Builder $query, Model $parent, $table, $foreignPivotKey, $relatedPivotKey,
+                                        $parentKey, $relatedKey, $relationName = null)
+    {
+        return new BelongsToManyOrOne($query, $parent, $table, $foreignPivotKey, $relatedPivotKey, $parentKey, $relatedKey, $relationName);
+    }
+
 
     /**
      * String that indicates the sub-namespace of the child models. Used for dynamic model retrieval.
