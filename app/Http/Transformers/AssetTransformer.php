@@ -31,7 +31,7 @@ class AssetTransformer extends CollectionsTransformer
      */
     public function includeCategories(Asset $asset)
     {
-        return $this->collection($asset->categories()->getResults(), new CollectionsTransformer, false);
+        return $this->collection($asset->categories, new CollectionsTransformer, false);
     }
 
 
@@ -43,7 +43,7 @@ class AssetTransformer extends CollectionsTransformer
      */
     public function includeArtworks(Asset $asset)
     {
-        return $this->collection($asset->artworks()->getResults(), new ArtworkTransformer, false);
+        return $this->collection($asset->artworks, new ArtworkTransformer, false);
     }
 
 }

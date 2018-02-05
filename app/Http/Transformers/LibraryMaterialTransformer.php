@@ -30,13 +30,13 @@ class LibraryMaterialTransformer extends AbstractTransformer
 
     public function includeSubjects(Material $material)
     {
-        return $this->collection( $material->subjects()->getResults(), new TermTransformer, false );
+        return $this->collection( $material->subjects, new TermTransformer, false );
     }
 
 
     public function includeCreators(Material $material)
     {
-        return $this->collection( $material->creators()->getResults(), new TermTransformer, false );
+        return $this->collection( $material->creators, new TermTransformer, false );
     }
 
 }
