@@ -492,8 +492,8 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->inscriptions; },
             ],
             [
-                "name" => 'object_type',
-                "doc" => "The kind of object or work, e.g., Painting, Sculpture, Book, etc.",
+                "name" => 'object_type_title',
+                "doc" => "The kind of object or work (e.g. Painting, Sculpture, Book)",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->objectType->title ?? null; },
