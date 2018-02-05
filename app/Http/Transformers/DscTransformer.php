@@ -12,9 +12,7 @@ class DscTransformer extends ApiTransformer
 
         if ($this->excludeIdsAndTitle)
         {
-
             return [];
-
         }
 
         return [
