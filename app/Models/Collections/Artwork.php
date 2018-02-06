@@ -425,7 +425,7 @@ class Artwork extends CollectionsModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return $this->medium_display; },
+                "value" => function() { return $this->medium; },
             ],
             [
                 "name" => 'inscriptions',
