@@ -243,30 +243,27 @@ class Request
         $params = $this->addScopeParams( $params, $input );
 
         /**
-         * 1. If `query` is present, our client acts as a pass-through.
-         * 2. If `query` is absent, check if `q` is present:
-         *    a. If `q` is present, fall back into simple search mode.
-         *    b. If `q` is absent, show all results.
+         * 1. If `query` is present, append it to the `must` clause.
+         * 2. If `q` is present, add full-text search to the `must` clause.
+         * 3. If `q` is absent, show all results.
          */
         if( isset( $input['query'] ) ) {
 
             $params = $this->addFullSearchParams( $params, $input );
 
+        }
+
+        if( isset( $input['q'] ) ) {
+
+            $params = $this->addSimpleSearchParams( $params, $input );
+
         } else {
 
-            if( isset( $input['q'] ) ) {
-
-                $params = $this->addSimpleSearchParams( $params, $input );
-
-            } else {
-
-                $params = $this->addEmptySearchParams( $params );
-
-            }
+            $params = $this->addEmptySearchParams( $params );
 
         }
 
-        // Regardless of the mode, if `q` is present, show search suggestions
+        // If `q` is present, use it for search suggestions
         if( isset( $input['q'] ) && $withSuggestions ) {
 
             $params = $this->addSuggestParams( $params, $input );
