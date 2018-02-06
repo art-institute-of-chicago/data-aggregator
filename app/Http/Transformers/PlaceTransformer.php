@@ -23,7 +23,7 @@ class PlaceTransformer extends CollectionsTransformer
      */
     public function includeCategories(Place $place)
     {
-        return $this->collection($place->categories()->getResults(), new CollectionsTransformer, false);
+        return $this->collection($place->categories, new CollectionsTransformer, false);
     }
 
 }

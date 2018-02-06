@@ -28,13 +28,13 @@ class LibraryTermTransformer extends AbstractTransformer
 
     public function includeSubjectOf(Term $term)
     {
-        return $this->collection( $term->subjectOf()->getResults(), new MaterialTransformer, false );
+        return $this->collection( $term->subjectOf, new MaterialTransformer, false );
     }
 
 
     public function includeCreatorOf(Term $term)
     {
-        return $this->collection( $term->creatorOf()->getResults(), new MaterialTransformer, false );
+        return $this->collection( $term->creatorOf, new MaterialTransformer, false );
     }
 
 }

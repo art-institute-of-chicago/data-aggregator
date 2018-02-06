@@ -48,7 +48,7 @@ class ArtworkTerm extends Pivot
 
         return [
             [
-                "name" => 'artwork',
+                "name" => 'artwork_title',
                 "doc" => "Name of the work this term is for",
                 "type" => "string",
                 "value" => function() { return $this->artwork ? $this->artwork->title : null; },
@@ -60,7 +60,7 @@ class ArtworkTerm extends Pivot
                 "value" => function() { return $this->artwork_citi_id; },
             ],
             [
-                "name" => 'term',
+                "name" => 'term_title',
                 "doc" => "Name of the term",
                 "type" => "string",
                 "value" => function() { return $this->term ? $this->term->title : null; },

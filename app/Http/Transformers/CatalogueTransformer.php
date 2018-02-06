@@ -23,7 +23,7 @@ class CatalogueTransformer extends CollectionsTransformer
      */
     public function includeArtworks(Catalogue $catalogue)
     {
-        return $this->collection($catalogue->artworks()->getResults(), new CollectionsTransformer, false);
+        return $this->collection($catalogue->artworks, new CollectionsTransformer, false);
     }
 
 }

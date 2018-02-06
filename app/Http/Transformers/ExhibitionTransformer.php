@@ -23,7 +23,7 @@ class ExhibitionTransformer extends CollectionsTransformer
      */
     public function includeArtworks(Exhibition $exhibition)
     {
-        return $this->collection($exhibition->artworks()->getResults(), new ArtworkTransformer, false);
+        return $this->collection($exhibition->artworks, new ArtworkTransformer, false);
     }
 
 
@@ -35,7 +35,7 @@ class ExhibitionTransformer extends CollectionsTransformer
      */
     public function includeVenues(Exhibition $exhibition)
     {
-        return $this->collection($exhibition->venues()->getResults(), new CollectionsTransformer, false);
+        return $this->collection($exhibition->venues, new CollectionsTransformer, false);
     }
 
 }

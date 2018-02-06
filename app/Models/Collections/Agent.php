@@ -221,14 +221,14 @@ class Agent extends CollectionsModel
                 "doc" => "Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->agentType()->getResults() ? $this->agentType()->getResults()->title : ''; },
+                "value" => function() { return $this->agentType->title ?? null; },
             ],
             [
                 "name" => 'agent_type_id',
                 "doc" => "Unique identifier of the type of agent",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->agent_type_citi_id; },
+                "value" => function() { return $this->agentType->citi_id ?? null; },
             ],
             [
                 "name" => 'artwork_ids',

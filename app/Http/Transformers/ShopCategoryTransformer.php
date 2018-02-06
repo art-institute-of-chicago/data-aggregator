@@ -23,7 +23,7 @@ class ShopCategoryTransformer extends ApiTransformer
      */
     public function includeChildren(Category $category)
     {
-        return $this->collection($category->children()->getResults(), new ShopCategoryTransformer, false);
+        return $this->collection($category->children, new ShopCategoryTransformer, false);
     }
 
 }

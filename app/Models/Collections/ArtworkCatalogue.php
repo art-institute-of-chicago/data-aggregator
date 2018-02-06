@@ -74,7 +74,7 @@ class ArtworkCatalogue extends Pivot
 
         return [
             [
-                "name" => 'artwork',
+                "name" => 'artwork_title',
                 "doc" => "Name of the artwork this catalogue raisonne includes",
                 "type" => "string",
                 "value" => function() { return $this->artwork ? $this->artwork->title : null; },
@@ -86,7 +86,7 @@ class ArtworkCatalogue extends Pivot
                 "value" => function() { return $this->artwork_citi_id; },
             ],
             [
-                "name" => 'catalogue',
+                "name" => 'catalogue_title',
                 "doc" => "Name of the catalogue raisonne",
                 "type" => "string",
                 "value" => function() { return $this->catalogue ? $this->catalogue->title : null; },
