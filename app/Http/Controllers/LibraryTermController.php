@@ -20,7 +20,7 @@ class LibraryTermController extends BaseController
     protected function validateId( $id )
     {
 
-        return preg_match('/[a-z]+[0-9]+/', $id);
+        return \App\Models\Library\Term::validateId( $id );
 
     }
 
