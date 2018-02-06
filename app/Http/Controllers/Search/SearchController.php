@@ -27,10 +27,12 @@ class SearchController extends BaseController
     /**
      * General entry point for search. There are three modes:
      *
-     *  1. If `query` is present, our client acts as a pass-through.
-     *  2. If `query` is absent, check if `q` is present:
-     *     a. If `q` is present, fall back into simple search mode.
-     *     b. If `q` is absent, show all results.
+     *  1. If `query` is present, append it to the `must` clause.
+     *  2. If `q` is present, add full-text search to the `must` clause.
+     *  3. If `q` is absent, show all results.
+     *
+     * Broadly, we send a bool query to Elasticsearch. We put the user's queries
+     * into the `must` clause, and our relevancy tweaks, into the `should` clause.
      *
      * `query` follows ES "Search Request Body" and "Query DSL" conventions.
      * `q` is a string, but it does *not* support ES's "URI Search" syntax.
