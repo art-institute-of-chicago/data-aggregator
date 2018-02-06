@@ -60,18 +60,10 @@ class Request
         // 'search_after',
 
         // Choose which fields to return
-        // TODO: Deprecate `_source`?
         'fields',
-        '_source',
 
         // Fields to use for aggregations
         'facets',
-
-        // TODO: Hide implementation by combining _source w/ other fields?
-        // Note that _source supports wildcards, while the others do not
-        // 'fields', // old convention
-        // 'stored_fields',
-        // 'docvalue_fields',
 
         // Determines which shards to use, ensures consistent result order
         'preference',
@@ -385,9 +377,12 @@ class Request
 
 
     /**
-     * Determine which fields to return. Set `_source` to `true` to return all.
-     * Set `_source` to `false` to return nothing. You can also pass `fields`
-     * instead of `_source` to match our REST API conventions.
+     * Determine which fields to return. Set `fields` to `true` to return all.
+     * Set `fields` to `false` to return nothing.
+     *
+     * We currently use `fields` to return `_source` from Elasticsearch, but this
+     * may change in the future. The user shouldn't care about how we are storing
+     * these fields internally, only what the API outputs.
      *
      * @param $input array
      * @param $default mixed Valid `_source` is array, string, null, or bool
@@ -397,7 +392,7 @@ class Request
     private function getFieldParams( array $input, $default = null ) {
 
         return [
-            '_source' => $input['fields'] ?? $input['_source'] ?? ( $default ?? self::$defaultFields ),
+            '_source' => $input['fields'] ?? ( $default ?? self::$defaultFields ),
         ];
 
     }
