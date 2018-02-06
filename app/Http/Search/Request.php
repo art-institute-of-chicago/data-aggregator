@@ -38,9 +38,7 @@ class Request
     private static $allowed = [
 
         // Resources can be passed via route, or via query params
-        // TODO: Deprecate type?
         'resources',
-        'type',
 
         // Required for "Did You Mean"-style suggestions: we need to know the core search string
         // We use `q` b/c it won't cause UnexpectedValueException, if the user uses an official ES Client
@@ -128,12 +126,8 @@ class Request
      */
     public function getBaseParams( array $input ) {
 
-        // Grab resource target from resource endpoint, `resources`, or `type`
-        $resources = $this->resource ?? $input['resources'] ?? $input['type'] ?? null;
-
-        // Assume types map 1-to-1 with resources for now
-        // TODO: They don't - handle scoped models, e.g. artists?
-        $types = $resources;
+        // Grab resource target from resource endpoint or `resources` param
+        $resources = $this->resource ?? $input['resources'] ?? null;
 
         if( is_null( $resources ) )
         {
