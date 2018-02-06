@@ -5,6 +5,8 @@ namespace App\Models;
 trait Transformable
 {
 
+    protected $presenter = null;
+
     /**
      * Turn this model object into a generic array.
      *
@@ -14,7 +16,20 @@ trait Transformable
     public function transform($withTitles = false)
     {
 
-        return $this->transformFields($withTitles);
+        $ret = [];
+        foreach (get_class_methods($this->presenter) as $attr)
+        {
+
+            if (!starts_with($attr, '__'))
+            {
+
+                $ret[$attr] = $this->present()->$attr;
+
+            }
+
+        }
+
+        return $ret;
 
     }
 
@@ -89,6 +104,45 @@ trait Transformable
     {
 
         return [];
+
+    }
+
+    public function present()
+    {
+
+        return static::presenterInstance($this);
+
+    }
+
+
+    /**
+     * Return the cached instance or create a new instance of this model.
+     * Uses an array to accomodate for multiple inherited models calling
+     * this same method.
+     *
+     * @return static
+     */
+    public static function presenterInstance($that)
+    {
+
+        static $instances = array();
+
+        if (!$that->presenter or !class_exists($that->presenter))
+        {
+
+            throw new \Exception("Please set $presenter property to your presenter path");
+
+        }
+
+
+        if (!isset($instances[$that->presenter]))
+        {
+
+            $instances[$that->presenter] = new $that->presenter($that);
+
+        }
+
+        return $instances[$that->presenter];
 
     }
 
