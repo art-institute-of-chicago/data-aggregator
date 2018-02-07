@@ -21,6 +21,7 @@ class ImportCollections extends AbstractImportCommand
         $this->import('object-types');
         $this->import('categories');
         $this->import('places');
+        $this->import('galleries');
         $this->import('artwork-catalogues');
         $this->import('catalogues');
         $this->import('artworks');

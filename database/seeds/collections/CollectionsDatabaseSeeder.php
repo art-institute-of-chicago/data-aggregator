@@ -5,6 +5,7 @@ use App\Models\Collections\Agent;
 use App\Models\Collections\ObjectType;
 use App\Models\Collections\Category;
 use App\Models\Collections\Place;
+use App\Models\Collections\Gallery;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\ArtworkCommittee;
 use App\Models\Collections\ArtworkTerm;
@@ -25,6 +26,7 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         $this->call(ObjectTypesTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(PlacesTableSeeder::class);
+        $this->call(GalleriesTableSeeder::class);
         $this->call(PlaceCategoriesTableSeeder::class);
         $this->call(ArtworksTableSeeder::class);
         $this->call(ArtistArtworksTableSeeder::class);
@@ -54,6 +56,7 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         ArtworkCommittee::fake()->delete();
         Artwork::fake()->delete();
         Place::fake()->delete();
+        Gallery::fake()->delete();
         Category::fake()->delete();
         ObjectType::fake()->delete();
         Agent::fake()->delete();

@@ -9,7 +9,7 @@ use App\Models\Documentable;
 /**
  * A room or hall that works of art are displayed in.
  */
-class Place extends CollectionsModel
+class Gallery extends CollectionsModel
 {
 
     use ElasticSearchable;
@@ -21,9 +21,10 @@ class Place extends CollectionsModel
     public function categories()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Category');
+        return $this->belongsToMany('App\Models\Collections\Category', 'category_place', 'place_citi_id', 'category_citi_id');
 
     }
+
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
@@ -38,6 +39,27 @@ class Place extends CollectionsModel
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->type; },
+            ],
+            [
+                "name" => 'is_closed',
+                "doc" => "Whether the gallery is currently closed",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return (bool) $this->closed; }
+            ],
+            [
+                "name" => 'number',
+                "doc" => "The gallery's room number. For 'Gallery 100A', this would be '100A'.",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->number; },
+            ],
+            [
+                "name" => 'floor',
+                "doc" => "The level the gallery is on, e.g., 1, 2, 3, or LL",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->floor; },
             ],
             [
                 "name" => 'latitude',
@@ -62,7 +84,7 @@ class Place extends CollectionsModel
             ],
             [
                 "name" => 'category_ids',
-                "doc" => "Unique identifiers of the categories this place is a part of",
+                "doc" => "Unique identifiers of the categories this gallery is a part of",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->categories->pluck('citi_id')->all(); },
@@ -84,7 +106,7 @@ class Place extends CollectionsModel
 
             [
                 "name" => 'category_titles',
-                "doc" => "Names of the categories this place is a part of",
+                "doc" => "Names of the categories this gallery is a part of",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->categories->pluck('title')->all(); },

@@ -148,7 +148,7 @@ class Artwork extends CollectionsModel
     public function gallery()
     {
 
-        return $this->belongsTo('App\Models\Collections\Place', 'place_citi_id');
+        return $this->belongsTo('App\Models\Collections\Gallery');
 
     }
 
@@ -217,7 +217,7 @@ class Artwork extends CollectionsModel
             'exhibition_history' => $source->exhibitions,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
             //'object_type_citi_id' => , // Redmine #2431
-            //'place_citi_id' => , // Redmine #2000
+            //'gallery_citi_id' => , // Redmine #2000
             'source_indexed_at' => strtotime($source->indexed_at),
         ];
 
@@ -286,7 +286,7 @@ class Artwork extends CollectionsModel
         if ($source->location)
         {
 
-            $gallery = \App\Models\Collections\Place::where('title', $source->location)->first();
+            $gallery = \App\Models\Collections\Gallery::where('title', $source->location)->first();
 
             // Sometimes we get oddballs like 'Currently not on display'
             if( $gallery )
@@ -298,7 +298,7 @@ class Artwork extends CollectionsModel
                 $gallery->type = 'AIC Gallery';
                 $gallery->save();
 
-                $this->place_citi_id = $gallery ? $gallery->citi_id : null;
+                $this->gallery_citi_id = $gallery ? $gallery->citi_id : null;
 
             }
 

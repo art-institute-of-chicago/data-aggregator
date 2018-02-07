@@ -83,8 +83,7 @@ class ResourceServiceProvider extends ServiceProvider
                     ],
                     [
                         'endpoint' => 'galleries',
-                        'model' => \App\Models\Collections\Place::class,
-                        'scope' => 'places',
+                        'model' => \App\Models\Collections\Gallery::class,
                     ],
                     [
                         'endpoint' => 'exhibitions',

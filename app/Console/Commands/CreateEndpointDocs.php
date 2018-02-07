@@ -61,6 +61,7 @@ class CreateEndpointDocs extends Command
         $doc .= \App\Models\Collections\Category::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\AgentType::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Place::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Gallery::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Exhibition::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Image::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Video::instance()->docEndpoints($this->appUrl);

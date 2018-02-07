@@ -133,7 +133,7 @@ $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generato
             'place_of_origin' => $faker->country,
             'collection_status' => $faker->randomElement(['Permanent Collection', 'Long-term Loan']),
             'object_type_citi_id' => $faker->randomElement(App\Models\Collections\ObjectType::fake()->pluck('citi_id')->all()),
-            'place_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
+            'gallery_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
         ],
         dates($faker, true)
     );
@@ -178,7 +178,7 @@ $factory->define(App\Models\Collections\ArtworkCatalogue::class, function (Faker
 });
 
 
-$factory->define(App\Models\Collections\Place::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Collections\Gallery::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, $faker->randomElement(['Gallery ' .$faker->unique()->randomNumber(3), $faker->lastName .' ' .$faker->randomElement(['Hall', 'Building', 'Memorial Garden', 'Reading Room', 'Study Room'])]), true, 6),
         [
@@ -188,6 +188,18 @@ $factory->define(App\Models\Collections\Place::class, function (Faker\Generator 
             'latitude' => $faker->latitude,
             'longitude' => $faker->longitude,
             'type' => 'AIC Gallery',
+        ],
+        dates($faker, true)
+    );
+});
+
+
+$factory->define(App\Models\Collections\Place::class, function (Faker\Generator $faker) {
+    return array_merge(
+        idsAndTitle($faker, $faker->country, true),
+        [
+            'latitude' => $faker->latitude,
+            'longitude' => $faker->longitude,
         ],
         dates($faker, true)
     );
