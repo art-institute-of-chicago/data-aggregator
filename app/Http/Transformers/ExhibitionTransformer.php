@@ -12,7 +12,7 @@ class ExhibitionTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['artworks', 'venues'];
+    protected $availableIncludes = ['artworks', 'venues', 'sites'];
 
 
     /**
@@ -36,6 +36,18 @@ class ExhibitionTransformer extends CollectionsTransformer
     public function includeVenues(Exhibition $exhibition)
     {
         return $this->collection($exhibition->venues, new CollectionsTransformer, false);
+    }
+
+
+    /**
+     * Include sites.
+     *
+     * @param  \App\Models\Collections\Exhibition  $exhibition
+     * @return League\Fractal\ItemResource
+     */
+    public function includeSites(Exhibition $exhibition)
+    {
+        return $this->collection($exhibition->sites, new SiteTransformer, false);
     }
 
 }
