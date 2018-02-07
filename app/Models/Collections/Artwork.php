@@ -552,14 +552,14 @@ class Artwork extends CollectionsModel
                 "doc" => "Whether images of the work are allowed to be displayed in a zoomable interface.",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) false; },
+                "value" => function() { return (bool) $this->is_zoomable; },
             ],
             [
                 "name" => 'max_zoom_window_size',
                 "doc" => "The maximum size of the window the image is allowed to be viewed in, in pixels.",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return 843; },
+                "value" => function() { return $this->max_zoom_window_size; },
             ],
             [
                 "name" => 'copyright_notice',
