@@ -18,7 +18,7 @@ class ArtworkTest extends ApiTestCase
     protected $keys = ['lake_guid'];
 
     /** @test */
-    public function it_fetches_essential_artworks()
+    public function it_fetches_boosted_artworks()
     {
 
         $this->make(Artwork::class, ['citi_id' => 185651]);
@@ -26,7 +26,7 @@ class ArtworkTest extends ApiTestCase
         $this->make(Artwork::class, ['citi_id' => 151358]);
         $this->make(Artwork::class, ['citi_id' => 99539]);
         $this->make(Artwork::class, ['citi_id' => 189595]);
-        $resources = $this->it_fetches_multiple(Artwork::class, 'artworks/essentials');
+        $resources = $this->it_fetches_multiple(Artwork::class, 'artworks/boosted');
 
         $this->assertArrayHasKeys($resources, ['lake_guid'], true);
 

@@ -36,7 +36,7 @@ trait Documentable
         if (get_called_class() == Collections\Artwork::class)
         {
 
-            $doc .= $this->docEssentials($appUrl) ."\n";
+            $doc .= $this->docBoosted($appUrl) ."\n";
 
         }
 
@@ -167,11 +167,11 @@ trait Documentable
 
 
     /**
-     * Generate documentation for essentials endpoint
+     * Generate documentation for boosted endpoints
      *
      * @return string
      */
-    public function docEssentials($appUrl)
+    public function docBoosted($appUrl)
     {
 
         $calledClass = get_called_class();
@@ -179,13 +179,13 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `' .$this->_endpointPath(['extraPath' => 'essentials']) ."`\n\n";
+        $doc = '### `' .$this->_endpointPath(['extraPath' => 'boosted']) ."`\n\n";
 
-        $doc .= "A list of essential " .$endpointAsCopyText ." sorted by last updated date in descending order. This is a subset of the `" .$endpoint ."/` endpoint that represents approximately 400 of our most well-known works. This can be used to get a shorter list of " .$endpoint ." that will have most of its metadata filled out for testing purposes.\n\n";
+        $doc .= "A list of boosted " .$endpointAsCopyText ." sorted by last updated date in descending order. This is a subset of the `" .$endpoint ."/` endpoint that represents approximately 400 of our most well-known resources. This can be used to get a shorter list of " .$endpoint ." that will have most of its metadata filled out for testing purposes.\n\n";
 
         $doc .= $this->docListParameters();
 
-        $doc .= $this->docExampleOutput($appUrl, ['extraPath' => 'essentials']);
+        $doc .= $this->docExampleOutput($appUrl, ['extraPath' => 'boosted']);
 
         return $doc;
     }

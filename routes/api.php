@@ -51,7 +51,7 @@ Route::group(['prefix' => 'v1'], function()
 
     // Artwork related stuff
     Route::get('artworks', 'ArtworksController@index');
-    Route::get('artworks/essentials', 'ArtworksController@essentials');
+    Route::get('artworks/boosted', 'ArtworksController@boosted');
 
     Route::get('artworks/{id}', 'ArtworksController@show');
     Route::get('artworks/{id}/parts', 'ArtworksController@parts');

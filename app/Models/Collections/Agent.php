@@ -118,7 +118,7 @@ class Agent extends CollectionsModel
     /**
      * Get the IDs representing our essential artists from the database.
      *
-     * These are artists that are included the Artwork::getEssentialIds list, along with the top
+     * These are artists that are included the Artwork::getBoostedIds list, along with the top
      * 100 viewed artists on our website in 2017.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]

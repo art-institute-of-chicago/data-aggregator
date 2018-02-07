@@ -59,13 +59,13 @@
       }
     },
 
-    "/artworks/essentials": {
+    "/artworks/boosted": {
       "get": {
         "tags": [
             "artworks",
             "collections"
         ],
-        "summary": "A list of essential artworks sorted by last updated date in descending order",
+        "summary": "A list of boosted artworks sorted by last updated date in descending order",
         "produces": [
           "application/json"
         ],

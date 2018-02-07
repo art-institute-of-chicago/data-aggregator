@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-class ImportEssentials extends AbstractImportCommand
+class ImportBoosted extends AbstractImportCommand
 {
 
-    protected $signature = 'import:essentials';
+    protected $signature = 'import:boosted';
 
-    protected $description = 'Import all collections data related to Essential Works';
+    protected $description = 'Import all collections data related to boosted Works';
 
 
     public function handle()
@@ -41,8 +41,8 @@ class ImportEssentials extends AbstractImportCommand
         // TODO: Replace this w/ $gallery_ids, when those become available in LPM Solr
         $gallery_titles = [];
 
-        // We are interested in only the essentials
-        $artwork_ids = \App\Models\Collections\Artwork::getEssentialIds();
+        // We are interested in only the boosted
+        $artwork_ids = \App\Models\Collections\Artwork::getBoostedIds();
 
         // Reduce the number of ids down, for testing
         $artwork_ids = array_slice( $artwork_ids, 0, 50 );
