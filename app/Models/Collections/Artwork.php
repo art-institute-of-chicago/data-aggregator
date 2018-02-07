@@ -32,13 +32,6 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function department()
-    {
-
-        return $this->belongsTo('App\Models\Collections\Department');
-
-    }
-
     public function objectType()
     {
 
@@ -50,6 +43,13 @@ class Artwork extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Models\Collections\Category');
+
+    }
+
+    public function department()
+    {
+
+        return $this->categories()->where('type', 1)->where('parent_id', null)->expectOne();
 
     }
 
@@ -216,7 +216,6 @@ class Artwork extends CollectionsModel
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
-            'department_citi_id' => $source->department_id,
             //'object_type_citi_id' => , // Redmine #2431
             //'place_citi_id' => , // Redmine #2000
             'source_indexed_at' => strtotime($source->indexed_at),
@@ -244,15 +243,6 @@ class Artwork extends CollectionsModel
                     'preferred' => true
                 ]
             ], false);
-
-        }
-
-
-        if ($source->department_id)
-        {
-
-            // Sync is unnecessary here, since it's just a column on this table
-            $this->department_citi_id = $source->department_id;
 
         }
 

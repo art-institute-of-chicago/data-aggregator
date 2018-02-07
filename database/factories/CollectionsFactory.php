@@ -85,13 +85,6 @@ $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator 
 });
 
 
-$factory->define(App\Models\Collections\Department::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, ucfirst($faker->word) .' Art', true, 6),
-        dates($faker, true)
-    );
-});
-
 $factory->define(App\Models\Collections\ObjectType::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, $faker->randomElement(['Painting', 'Design', 'Drawing and ' .ucfirst($faker->word), ucfirst($faker->word) .' Arts', 'Sculpture']), true, 2),
@@ -139,7 +132,6 @@ $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generato
             'copyright_notice' => '© ' .$faker->year .' ' .ucfirst($faker->words(3, true)),
             'place_of_origin' => $faker->country,
             'collection_status' => $faker->randomElement(['Permanent Collection', 'Long-term Loan']),
-            'department_citi_id' => $faker->randomElement(App\Models\Collections\Department::fake()->pluck('citi_id')->all()),
             'object_type_citi_id' => $faker->randomElement(App\Models\Collections\ObjectType::fake()->pluck('citi_id')->all()),
             'place_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
         ],
@@ -221,7 +213,7 @@ $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Gener
         [
             'description' => $faker->paragraph(3),
             'type' => $faker->randomElement(['AIC Only', 'AIC & Other Venues', 'Mini Exhibition', 'Permanent Collection Special Project', 'Rotation']),
-            'department_citi_id' => $faker->randomElement(App\Models\Collections\Department::fake()->pluck('citi_id')->all()),
+            'department_display' => ucwords($faker->words(2, true)),
             'place_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
             'place_display' => 'Gallery ' .$faker->randomNumber(3),
             'status' => $faker->randomElement(['Open', 'Closed']),

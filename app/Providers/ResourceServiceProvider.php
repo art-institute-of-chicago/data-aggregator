@@ -49,10 +49,6 @@ class ResourceServiceProvider extends ServiceProvider
                         'scope' => 'agents',
                     ],
                     [
-                        'endpoint' => 'departments',
-                        'model' => \App\Models\Collections\Department::class,
-                    ],
-                    [
                         'endpoint' => 'agent-places',
                         'model' => \App\Models\Collections\AgentPlace::class,
                     ],
@@ -67,6 +63,11 @@ class ResourceServiceProvider extends ServiceProvider
                     [
                         'endpoint' => 'categories',
                         'model' => \App\Models\Collections\Category::class,
+                    ],
+                    [
+                        'endpoint' => 'departments',
+                        'model' => \App\Models\Collections\Category::class,
+                        'scope' => 'departments',
                     ],
                     [
                         'endpoint' => 'places',

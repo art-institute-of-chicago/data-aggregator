@@ -59,7 +59,6 @@ Route::group(['prefix' => 'v1'], function()
 
     Route::get('artworks/{id}/images', 'ImagesController@forArtwork');
     Route::get('artworks/{id}/categories', 'CategoriesController@forArtwork');
-    Route::get('artworks/{id}/departments', 'DepartmentsController@forArtwork'); // TODO: Unknown formatter "getKeyName"
 
     Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
     Route::get('artworks/{id}/copyright-representatives', 'AgentsController@scopeForArtwork');
@@ -84,8 +83,8 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('artwork-catalogues', 'ArtworkCataloguesController@index');
     Route::get('artwork-catalogues/{id}', 'ArtworkCataloguesController@show');
 
-    Route::get('departments', 'DepartmentsController@index');
-    Route::get('departments/{id}', 'DepartmentsController@show');
+    Route::get('departments', 'CategoriesController@departments');
+    Route::get('departments/{id}', 'CategoriesController@show');
 
     Route::get('object-types', 'ObjectTypesController@index');
     Route::get('object-types/{id}', 'ObjectTypesController@show');

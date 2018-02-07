@@ -2,7 +2,6 @@
 
 use App\Models\Collections\AgentType;
 use App\Models\Collections\Agent;
-use App\Models\Collections\Department;
 use App\Models\Collections\ObjectType;
 use App\Models\Collections\Category;
 use App\Models\Collections\Place;
@@ -23,7 +22,6 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
 
         $this->call(AgentTypesTableSeeder::class);
         $this->call(AgentsTableSeeder::class);
-        $this->call(DepartmentsTableSeeder::class);
         $this->call(ObjectTypesTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(PlacesTableSeeder::class);
@@ -58,7 +56,6 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         Place::fake()->delete();
         Category::fake()->delete();
         ObjectType::fake()->delete();
-        Department::fake()->delete();
         Agent::fake()->delete();
         AgentType::fake()->delete();
 

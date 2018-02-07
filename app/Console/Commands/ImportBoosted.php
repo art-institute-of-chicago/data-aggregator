@@ -31,12 +31,10 @@ class ImportBoosted extends AbstractImportCommand
         $artworks = [];
         $galleries = [];
         $categories = [];
-        $departments = [];
 
         // These will be filled in from artworks
         $image_ids = [];
         $category_ids = [];
-        $department_ids = [];
 
         // TODO: Replace this w/ $gallery_ids, when those become available in LPM Solr
         $gallery_titles = [];
@@ -65,10 +63,6 @@ class ImportBoosted extends AbstractImportCommand
                 $creator_ids[] = $artwork->creator_id;
             }
 
-            if( !is_null( $artwork->department_id ) ) {
-                $department_ids[] = $artwork->department_id;
-            }
-
             if( !is_null( $artwork->location ) ) {
                 $gallery_titles[] = $artwork->location;
             }
@@ -83,7 +77,6 @@ class ImportBoosted extends AbstractImportCommand
         $image_ids = array_unique( $image_ids );
         $creator_ids = array_unique( $creator_ids );
         $category_ids = array_unique( $category_ids );
-        $department_ids = array_unique( $department_ids );
         $gallery_titles = array_unique( $gallery_titles );
 
         // We need an Agent Type w/ title = Artist, or Artwork import will fail
@@ -109,7 +102,6 @@ class ImportBoosted extends AbstractImportCommand
         $this->getDataAndImport( $image_ids, 'images' );
         $this->getDataAndImport( $creator_ids, 'artists' );
         $this->getDataAndImport( $category_ids, 'categories' );
-        $this->getDataAndImport( $department_ids, 'departments' );
 
     }
 
