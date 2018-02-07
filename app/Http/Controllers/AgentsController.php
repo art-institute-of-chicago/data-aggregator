@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Collections\Agent;
+use App\Models\Collections\Artwork;
 
 use Aic\Hub\Foundation\AbstractController as BaseController;
 
