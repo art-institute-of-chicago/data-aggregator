@@ -281,7 +281,7 @@ class Exhibition extends CollectionsModel
     public function getImageIiifUrlAttribute()
     {
 
-        return env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->asset_lake_guid;
+        return $this->asset_lake_guid ? (env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->asset_lake_guid) : null;
 
     }
 
