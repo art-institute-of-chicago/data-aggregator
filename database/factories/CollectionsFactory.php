@@ -206,19 +206,6 @@ $factory->define(App\Models\Collections\Place::class, function (Faker\Generator 
 });
 
 
-$factory->define(App\Models\Collections\Theme::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true)), true, 6),
-        [
-            'description' => $faker->paragraph(3),
-            'is_in_navigation' => ucfirst($faker->boolean),
-            'sort' => $faker->randomDigit * 10,
-        ],
-        dates($faker, true)
-    );
-});
-
-
 $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, ucwords($faker->words(3, true)), true),

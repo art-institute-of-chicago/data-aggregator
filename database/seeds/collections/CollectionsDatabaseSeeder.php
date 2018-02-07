@@ -11,7 +11,6 @@ use App\Models\Collections\ArtworkCommittee;
 use App\Models\Collections\ArtworkTerm;
 use App\Models\Collections\ArtworkDate;
 use App\Models\Collections\ArtworkCatalogue;
-use App\Models\Collections\Theme;
 use App\Models\Collections\Asset;
 use App\Models\Collections\Exhibition;
 
@@ -37,7 +36,6 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         $this->call(ArtworkDatesTableSeeder::class);
         $this->call(ArtworkCataloguesTableSeeder::class);
         $this->call(ArtworkArtworksTableSeeder::class);
-        $this->call(ThemesTableSeeder::class);
         $this->call(AssetsTableSeeder::class);
         $this->call(AssetCategoriesTableSeeder::class);
         $this->call(ExhibitionsTableSeeder::class);
@@ -49,7 +47,6 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
 
         Exhibition::fake()->delete();
         Asset::fake()->delete();
-        Theme::fake()->delete();
         ArtworkCatalogue::fake()->delete();
         ArtworkDate::fake()->delete();
         ArtworkTerm::fake()->delete();
