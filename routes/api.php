@@ -70,6 +70,7 @@ Route::group(['prefix' => 'v1'], function()
 
     // Collections
     Route::get('agents', 'AgentsController@index');
+    Route::get('agents/boosted', 'AgentsController@boosted');
     Route::get('agents/{id}', 'AgentsController@show');
     Route::get('agents/{id}/places', 'AgentPlacesController@forAgent');
     Route::get('artists', 'AgentsController@indexScope');

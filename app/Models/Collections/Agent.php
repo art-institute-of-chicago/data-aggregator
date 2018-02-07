@@ -118,7 +118,7 @@ class Agent extends CollectionsModel
     /**
      * Get the IDs representing our essential artists from the database.
      *
-     * These are artists that are included the Artwork::getBoostedIds list, along with the top
+     * These are artists that are included the Artwork::boostedIds list, along with the top
      * 100 viewed artists on our website in 2017.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
@@ -162,6 +162,21 @@ class Agent extends CollectionsModel
     {
 
         return in_array( $this->getKey(), static::boostedIds() );
+
+    }
+
+    /**
+     * Get the models representing our essential artists from the database.
+     *
+     * These are artists that are included the Artwork::boostedIds list, along with the top
+     * 100 viewed artists on our website in 2017.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public static function boosted()
+    {
+
+        return (new static)->newQuery()->whereKey( static::boostedIds() );
 
     }
 

@@ -33,7 +33,7 @@ trait Documentable
         $doc .= $this->docTitle() ."\n\n";
         $doc .= $this->docList($appUrl) ."\n";
 
-        if (get_called_class() == Collections\Artwork::class)
+        if (get_called_class() == Collections\Artwork::class || get_called_class() == Collections\Agent::class)
         {
 
             $doc .= $this->docBoosted($appUrl) ."\n";

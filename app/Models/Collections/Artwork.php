@@ -329,7 +329,7 @@ class Artwork extends CollectionsModel
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function getBoostedIds() {
+    public static function boostedIds() {
 
         return [
             185651,183077,151358,99539,189595,187528,102611,111401,91620,18757,51185,55249,14968,65290,75644,
@@ -367,7 +367,7 @@ class Artwork extends CollectionsModel
     public function isBoosted()
     {
 
-        return in_array( $this->getKey(), static::getBoostedIds() );
+        return in_array( $this->getKey(), static::boostedIds() );
 
     }
 
@@ -382,7 +382,7 @@ class Artwork extends CollectionsModel
     public static function boosted()
     {
 
-        return (new static)->newQuery()->whereKey( static::getBoostedIds() );
+        return (new static)->newQuery()->whereKey( static::boostedIds() );
 
     }
 
