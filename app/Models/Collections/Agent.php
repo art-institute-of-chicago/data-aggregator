@@ -189,9 +189,7 @@ class Agent extends CollectionsModel
             'death_date' => $source->date_death,
             //'death_place' => ,
             'licensing_restricted' => (bool) $source->is_licensing_restricted,
-
-            // @TODO Artist is not a valid agent type. Artistry is determined by relation.
-            //'agent_type_citi_id' => \App\Models\Collections\AgentType::where('title', 'Artist')->first()->citi_id,
+            'agent_type_citi_id' => $source->agent_type_id,
         ];
 
     }
@@ -283,14 +281,14 @@ class Agent extends CollectionsModel
             ],
             [
                 "name" => 'agent_type',
-                "doc" => "Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.",
+                "doc" => "Name of the type of agent, e.g. individual, fund, school, organization, etc.",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->agentType->title ?? null; },
             ],
             [
                 "name" => 'agent_type_id',
-                "doc" => "Unique identifier of the type of agent",
+                "doc" => "Unique identifier of the type of agent, e.g. individual, fund, school, organization, etc.",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->agentType->citi_id ?? null; },
