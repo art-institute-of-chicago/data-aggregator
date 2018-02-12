@@ -89,8 +89,8 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('departments', 'CategoriesController@departments');
     Route::get('departments/{id}', 'CategoriesController@show');
 
-    Route::get('object-types', 'ObjectTypesController@index');
-    Route::get('object-types/{id}', 'ObjectTypesController@show');
+    Route::get('artwork-types', 'ArtworkTypesController@index');
+    Route::get('artwork-types/{id}', 'ArtworkTypesController@show');
 
     Route::get('categories', 'CategoriesController@index');
     Route::get('categories/{id}', 'CategoriesController@show');

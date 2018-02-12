@@ -756,13 +756,13 @@
       }
     },
 
-    "/object-types": {
+    "/artwork-types": {
       "get": {
         "tags": [
-            "objectTypes",
+            "artworkTypes",
             "collections"
         ],
-        "summary": "A list of all object types sorted by last updated date in descending order",
+        "summary": "A list of all artwork types sorted by last updated date in descending order",
         "produces": [
           "application/json"
         ],
@@ -783,7 +783,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/ObjectType"
+                "$ref": "#/definitions/ArtworkType"
               }
             }
           },
@@ -797,13 +797,13 @@
       }
     },
 
-    "/object-types/{id}": {
+    "/artwork-types/{id}": {
       "get": {
         "tags": [
-            "objectTypes",
+            "artworkTypes",
             "collections"
         ],
-        "summary": "A single object type by the given identifier",
+        "summary": "A single artwork type by the given identifier",
         "produces": [
           "application/json"
         ],
@@ -817,7 +817,7 @@
             "description": "Successful operation",
             "schema": {
               "items": {
-                "$ref": "#/definitions/ObjectType"
+                "$ref": "#/definitions/ArtworkType"
               }
             }
           },
@@ -3252,7 +3252,7 @@
       "type": "object"
     },
 
-    "ObjectType": {
+    "ArtworkType": {
       "properties": {
         "id": {
           "description": "Unique identifier"

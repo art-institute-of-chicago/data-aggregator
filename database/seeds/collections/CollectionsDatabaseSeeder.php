@@ -2,11 +2,11 @@
 
 use App\Models\Collections\AgentType;
 use App\Models\Collections\Agent;
-use App\Models\Collections\ObjectType;
 use App\Models\Collections\Category;
 use App\Models\Collections\Place;
 use App\Models\Collections\Gallery;
 use App\Models\Collections\Artwork;
+use App\Models\Collections\ArtworkType;
 use App\Models\Collections\ArtworkTerm;
 use App\Models\Collections\ArtworkDate;
 use App\Models\Collections\ArtworkCatalogue;
@@ -21,7 +21,7 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
 
         $this->call(AgentTypesTableSeeder::class);
         $this->call(AgentsTableSeeder::class);
-        $this->call(ObjectTypesTableSeeder::class);
+        $this->call(ArtworkTypesTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(PlacesTableSeeder::class);
         $this->call(GalleriesTableSeeder::class);
@@ -52,7 +52,7 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         Place::fake()->delete();
         Gallery::fake()->delete();
         Category::fake()->delete();
-        ObjectType::fake()->delete();
+        ArtworkType::fake()->delete();
         Agent::fake()->delete();
         AgentType::fake()->delete();
 

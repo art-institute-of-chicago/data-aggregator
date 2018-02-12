@@ -32,10 +32,10 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function objectType()
+    public function artworkType()
     {
 
-        return $this->belongsTo('App\Models\Collections\ObjectType');
+        return $this->belongsTo('App\Models\Collections\ArtworkType');
 
     }
 
@@ -209,7 +209,8 @@ class Artwork extends CollectionsModel
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
-            //'object_type_citi_id' => , // Redmine #2431
+            // TODO: ArtworkTypes will need to be attached via string comparison
+            //'artwork_type_citi_id' => , // Redmine #2431
             //'gallery_citi_id' => , // Redmine #2000
             'source_indexed_at' => strtotime($source->indexed_at),
         ];
@@ -486,18 +487,18 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->inscriptions; },
             ],
             [
-                "name" => 'object_type_title',
+                "name" => 'artwork_type_title',
                 "doc" => "The kind of object or work (e.g. Painting, Sculpture, Book)",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->objectType->title ?? null; },
+                "value" => function() { return $this->artworkType->title ?? null; },
             ],
             [
-                "name" => 'object_type_id',
+                "name" => 'artwork_type_id',
                 "doc" => "Unique identifier of the kind of object or work",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->objectType->citi_id ?? null; },
+                "value" => function() { return $this->artworkType->citi_id ?? null; },
             ],
             [
                 "name" => 'credit_line',
