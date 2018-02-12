@@ -2993,9 +2993,6 @@
         "catalogue_titles": {
           "description": "Names of the catalogue raisonné this work in included in"
         },
-        "committee_titles": {
-          "description": "Names of the committees associated with this work"
-        },
         "term_titles": {
           "description": "Names of the terms associated with this work"
         },

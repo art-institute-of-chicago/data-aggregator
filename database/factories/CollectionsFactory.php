@@ -150,15 +150,6 @@ $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Gene
 });
 
 
-$factory->define(App\Models\Collections\ArtworkCommittee::class, function (Faker\Generator $faker) {
-    return [
-        'committee' => $faker->randomElement(['Board of ' .$faker->word, 'Year End ' .$faker->word, 'Deaccession']),
-        'date' => $faker->dateTimeAd,
-        'action' => $faker->randomElement(['Acquisition', 'Deaccession', 'Transfer to', 'Transfer from', 'Referenced']),
-    ];
-});
-
-
 $factory->define(App\Models\Collections\ArtworkTerm::class, function (Faker\Generator $faker) {
     return [
         'term' => $faker->words(2, true),

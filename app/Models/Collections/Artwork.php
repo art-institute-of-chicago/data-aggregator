@@ -60,13 +60,6 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function committees()
-    {
-
-        return $this->hasMany('App\Models\Collections\ArtworkCommittee');
-
-    }
-
     public function terms()
     {
 
@@ -283,7 +276,6 @@ class Artwork extends CollectionsModel
         // $source->alt_titles
 
         // @TODO Determine this logic in the dataservice?
-        // $source->committee_ids
         // $source->fiscal_year
         // $source->accquired_at
 
@@ -710,13 +702,6 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->artworkCatalogues->pluck('citi_id')->all(); },
-            ],
-            [
-                "name" => 'committee_titles',
-                "doc" => "List of committees which were involved in the acquisition or deaccession of this work",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->committees->pluck('committee')->all(); },
             ],
             [
                 "name" => 'term_titles',
