@@ -253,6 +253,7 @@ class Artwork extends CollectionsModel
 
         }
 
+        // This is a case where the source pivot model lack an artwork id
         if ($source->artwork_catalogue_ids)
         {
 
@@ -272,13 +273,24 @@ class Artwork extends CollectionsModel
 
         }
 
-        // @TODO Sync the following when they become available
-        // $source->document_guids
-        // $source->copyright_representative_ids
-        // $source->committee_ids
-        // $source->term_ids
-        // $source->date_ids [verify?]
+        // @TODO The following are available for syncing:
+        // $source->document_ids
+        // $source->artwork_date_ids
+        // $source->artwork_agent_ids (add ArtworkAgent, ArtworkAgentRole)
+        // $source->artwork_place_ids (add ArtworkPlace, ArtworkPlaceQualifier)
         // $source->part_ids
+        // $source->set_ids
+        // $source->alt_titles
+
+        // @TODO Determine this logic in the dataservice?
+        // $source->committee_ids
+        // $source->fiscal_year
+        // $source->accquired_at
+
+        // @TODO Waiting on Redmines for the following:
+        // $source->copyright_representative_ids
+        // $source->term_ids
+
 
         // Galleries must be imported before artworks!
         // Waiting on Redmine #2000 to do this properly

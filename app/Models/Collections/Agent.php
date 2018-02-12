@@ -192,11 +192,16 @@ class Agent extends CollectionsModel
             'agent_type_citi_id' => $source->agent_type_id,
         ];
 
+        // @TODO Import the following:
+        // $source->title_sort
+        // $source->alt_titles
+
     }
 
     public function attachFrom($source)
     {
 
+        // AgentPlace's source doesn't have an agent id
         if ($source->agent_place_ids)
         {
 
