@@ -18,6 +18,10 @@ class Agent extends CollectionsModel
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
+    protected $casts = [
+        'alt_titles' => 'array',
+    ];
+
     public function agentType()
     {
 
@@ -184,17 +188,14 @@ class Agent extends CollectionsModel
     {
 
         return [
+            // TODO: Determine if the "pretty" name should be in `title`
+            'sort_title' => $source->sort_title,
+            'alt_titles' => $source->alt_titles,
             'birth_date' => $source->date_birth,
-            //'birth_place' => ,
             'death_date' => $source->date_death,
-            //'death_place' => ,
             'licensing_restricted' => (bool) $source->is_licensing_restricted,
             'agent_type_citi_id' => $source->agent_type_id,
         ];
-
-        // @TODO Import the following:
-        // $source->title_sort
-        // $source->alt_titles
 
     }
 
@@ -226,6 +227,13 @@ class Agent extends CollectionsModel
 
         return [
             [
+                "name" => 'sort_title',
+                "doc" => "Sortable name for this agent, typically with last name first.",
+                "type" => "string",
+                "elasticsearch_type" => 'text',
+                "value" => function() { return $this->sort_title; },
+            ],
+            [
                 "name" => 'alt_titles',
                 "doc" => "Altername names for this agent",
                 "type" => "array",
@@ -233,7 +241,7 @@ class Agent extends CollectionsModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return []; },
+                "value" => function() { return $this->alt_titles; },
             ],
             [
                 "name" => 'birth_date',

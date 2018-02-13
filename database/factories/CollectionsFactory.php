@@ -70,9 +70,15 @@ $factory->define(App\Models\Collections\AgentType::class, function (Faker\Genera
 });
 
 $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator $faker) {
+
+    $first_name = $faker->firstName;
+    $last_name = $faker->lastName;
+
     return array_merge(
-        idsAndTitle($faker, ucwords($faker->lastName .', ' .$faker->firstName), true, 6),
+        idsAndTitle($faker, ucwords($first_name.' '.$last_name), true, 6),
         [
+            'sort_title' => $last_name .', ' .$first_name,
+            'alt_titles' => [],
             'birth_date' => $faker->year,
             'death_date' => $faker->year,
             'birth_place' => $faker->country,
