@@ -22,7 +22,7 @@ class MakeGalleriesTable extends Migration
             $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
             $table->string('floor')->nullable();
-            $table->double('latitude', 15, 13)->nullable();
+            $table->double('latitude', 16, 13)->nullable();
             $table->double('longitude', 16, 13)->nullable();
             $table->string('type')->nullable();
             $table->timestamp('source_created_at')->nullable()->useCurrent();

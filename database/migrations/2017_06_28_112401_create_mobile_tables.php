@@ -25,7 +25,7 @@ class CreateMobileTables extends Migration
             // $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
 
             // https://laracasts.com/discuss/channels/laravel/schema-float-function-generated-a-double-type
-            $table->double('latitude', 15, 13)->nullable();
+            $table->double('latitude', 16, 13)->nullable();
             $table->double('longitude', 16, 13)->nullable();
 
             $table->boolean('highlighted')->nullable();
