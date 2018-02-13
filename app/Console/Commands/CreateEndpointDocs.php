@@ -73,9 +73,9 @@ class CreateEndpointDocs extends Command
         $doc .= \App\Models\Shop\Category::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Shop\Product::instance()->docEndpoints($this->appUrl);
 
-        $doc .= "# Events and Membership\n\n";
-        $doc .= \App\Models\Membership\Event::instance()->docEndpoints($this->appUrl);
-        $doc .= \App\Models\Membership\Event::instance()->docMembershipEndpoint($this->appUrl);
+        $doc .= "# Events\n\n";
+        $doc .= \App\Models\Membership\LegacyEvent::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Membership\TicketedEvent::instance()->docEndpoints($this->appUrl);
 
         $doc .= "# Mobile\n\n";
         $doc .= \App\Models\Mobile\Tour::instance()->docEndpoints($this->appUrl);

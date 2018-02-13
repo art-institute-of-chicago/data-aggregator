@@ -131,13 +131,11 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('products', 'ProductsController@index');
     Route::get('products/{id}', 'ProductsController@show');
 
-    // Membership/Events
+    // Events
     Route::get('legacy-events', 'LegacyEventsController@index');
     Route::get('legacy-events/{id}', 'LegacyEventsController@show');
     Route::get('ticketed-events', 'TicketedEventsController@index');
     Route::get('ticketed-events/{id}', 'TicketedEventsController@show');
-
-    Route::get('members/{id}', 'MembersController@show');
 
     // Mobile App
     Route::get('tours', 'ToursController@index');
