@@ -69,7 +69,8 @@ class SearchServiceProvider extends ServiceProvider
                     \App\Models\Shop\Category::class,
                     \App\Models\Shop\Product::class,
 
-                    \App\Models\Membership\Event::class,
+                    \App\Models\Membership\LegacyEvent::class,
+                    \App\Models\Membership\TicketedEvent::class,
 
                     \App\Models\Mobile\Tour::class,
                     \App\Models\Mobile\TourStop::class,

@@ -46,10 +46,10 @@ class Exhibition extends CollectionsModel
 
     }
 
-    public function ticketedEvents()
+    public function legacyEvents()
     {
 
-        return $this->belongsToMany('App\Models\Membership\Event');
+        return $this->belongsToMany('App\Models\Membership\LegacyEvent');
 
     }
 
@@ -198,8 +198,9 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->sites->pluck('site_id')->all(); },
             ],
             [
-                "name" => 'event_ids',
-                "doc" => "Unique identifiers of the ticketed events featuring this exhibition",
+                "name" => 'legacy_event_ids',
+                "doc" => "Unique identifiers of the legacy events featuring this exhibition. These are events that been "
+                        ." imported from our existing site as a placeholder, until events from our new can be pulled in.",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->ticketedEvents->pluck('membership_id')->all(); },

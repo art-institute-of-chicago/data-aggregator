@@ -4,10 +4,10 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 
-class ImportEvents extends AbstractImportCommand
+class ImportTicketedEvents extends AbstractImportCommand
 {
 
-    protected $signature = 'import:events';
+    protected $signature = 'import:events-ticketed';
 
     protected $description = "Import events data that has been updated since the last import";
 
@@ -29,7 +29,7 @@ class ImportEvents extends AbstractImportCommand
     private function import($endpoint, $current = 1)
     {
 
-        $model = \App\Models\Membership\Event::class;
+        $model = \App\Models\Membership\TicketedEvent::class;
 
         $json = $this->queryService($endpoint, $current);
         $pages = $json->pagination->total_pages;

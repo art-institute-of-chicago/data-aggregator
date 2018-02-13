@@ -15,8 +15,6 @@ class CreateMembershipTables extends Migration
     public function up()
     {
 
-        $this->down();
-
         Schema::create('events', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('type')->nullable();

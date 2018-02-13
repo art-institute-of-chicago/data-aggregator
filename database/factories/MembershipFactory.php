@@ -35,9 +35,7 @@ if (!function_exists('membershipIdsAndTitle'))
 }
 
 
-$factory->define(App\Models\Membership\Event::class, function (Faker\Generator $faker) {
-
-    $has_capacity = rand(0,1) == 1;
+$factory->define(App\Models\Membership\LegacyEvent::class, function (Faker\Generator $faker) {
 
     return array_merge(
         membershipIdsAndTitle($faker),
@@ -48,6 +46,24 @@ $factory->define(App\Models\Membership\Event::class, function (Faker\Generator $
             'type' => ucfirst($faker->words(3, true)),
             'start_at' => $faker->dateTimeThisYear,
             'end_at' => $faker->dateTimeThisYear,
+            'resource_title' => ucfirst($faker->words(3, true)),
+            'is_admission_required' => $faker->boolean,
+        ],
+        membershipDates($faker)
+    );
+
+});
+
+$factory->define(App\Models\Membership\TicketedEvent::class, function (Faker\Generator $faker) {
+
+    $has_capacity = rand(0,1) == 1;
+
+    return array_merge(
+        membershipIdsAndTitle($faker),
+        [
+            'image_url' => $faker->imageUrl,
+            'start_at' => $faker->dateTimeThisYear,
+            'end_at' => $faker->dateTimeThisYear,
             'resource_id' => $faker->randomNumber(2),
             'resource_title' => ucfirst($faker->words(3, true)),
             'is_after_hours' => $faker->boolean,
@@ -55,7 +71,6 @@ $factory->define(App\Models\Membership\Event::class, function (Faker\Generator $
             'is_admission_required' => $faker->boolean,
             'available' => $has_capacity ? $faker->randomDigit * 10 : null,
             'total_capacity' => $has_capacity ? $faker->randomDigit * 100 : null,
-            'is_ticketed' => $faker->boolean,
         ],
         membershipDates($faker)
     );

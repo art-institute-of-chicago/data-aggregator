@@ -43,7 +43,7 @@ class ImportAllCommand extends Command
         $this->call('migrate');
         $this->call('import:collections-full');
         $this->call('import:exhibitions-legacy');
-        $this->call('import:events-full', ['--yes' => 'default']);
+        $this->call('import:events-ticketed-full', ['--yes' => 'default']);
         $this->call('import:events-legacy');
         $this->call('import:dsc', ['--yes' => 'default']);
         $this->call('import:mobile');

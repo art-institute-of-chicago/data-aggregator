@@ -41,7 +41,7 @@ class ImportDailyCommand extends Command
 
         $this->call('import:collections');
         $this->call('import:exhibitions-legacy');
-        $this->call('import:events');
+        $this->call('import:events-ticketed');
         $this->call('import:events-legacy');
         $this->call('import:dsc', ['--yes' => 'default']);
         $this->call('import:mobile');

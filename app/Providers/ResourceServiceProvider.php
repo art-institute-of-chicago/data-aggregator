@@ -126,8 +126,12 @@ class ResourceServiceProvider extends ServiceProvider
                         'model' => \App\Models\Shop\Product::class,
                     ],
                     [
-                        'endpoint' => 'events',
-                        'model' => \App\Models\Membership\Event::class,
+                        'endpoint' => 'legacy-events',
+                        'model' => \App\Models\Membership\LegacyEvent::class,
+                    ],
+                    [
+                        'endpoint' => 'ticketed-events',
+                        'model' => \App\Models\Membership\TicketedEvent::class,
                     ],
                     [
                         'endpoint' => 'tours',

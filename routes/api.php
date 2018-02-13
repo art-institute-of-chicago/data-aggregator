@@ -132,8 +132,10 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('products/{id}', 'ProductsController@show');
 
     // Membership/Events
-    Route::get('events', 'EventsController@index');
-    Route::get('events/{id}', 'EventsController@show');
+    Route::get('legacy-events', 'LegacyEventsController@index');
+    Route::get('legacy-events/{id}', 'LegacyEventsController@show');
+    Route::get('ticketed-events', 'TicketedEventsController@index');
+    Route::get('ticketed-events/{id}', 'TicketedEventsController@show');
 
     Route::get('members/{id}', 'MembersController@show');
 
