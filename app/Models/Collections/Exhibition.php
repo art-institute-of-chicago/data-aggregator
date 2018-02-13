@@ -49,7 +49,7 @@ class Exhibition extends CollectionsModel
     public function legacyEvents()
     {
 
-        return $this->belongsToMany('App\Models\Membership\LegacyEvent');
+        return $this->belongsToMany('App\Models\Membership\LegacyEvent', 'legacy_event_exhibition');
 
     }
 
@@ -203,7 +203,7 @@ class Exhibition extends CollectionsModel
                         ." imported from our existing site as a placeholder, until events from our new can be pulled in.",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->ticketedEvents->pluck('membership_id')->all(); },
+                "value" => function() { return $this->legacyEvents->pluck('membership_id')->all(); },
             ],
         ];
 

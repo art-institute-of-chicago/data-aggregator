@@ -29,7 +29,7 @@ class LegacyEvent extends MembershipModel
     public function exhibitions()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Exhibition', 'event_exhibition', 'event_membership_id', 'exhibition_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Exhibition', 'legacy_event_exhibition', 'legacy_event_membership_id', 'exhibition_citi_id');
 
     }
 
