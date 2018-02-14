@@ -835,7 +835,6 @@ class Artwork extends CollectionsModel
                 "name" => 'artist_titles',
                 "doc" => "Names of the artists this artwork is a part of",
                 "type" => "array",
-                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->artists->pluck('title')->all(); },
             ],
             [
@@ -844,7 +843,6 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "elasticsearch" => [
                     "default" => true,
-                    "type" => 'text',
                 ],
                 "value" => function() { return $this->categories->pluck('title')->all(); },
             ],
