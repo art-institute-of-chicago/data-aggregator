@@ -846,7 +846,7 @@ class Artwork extends CollectionsModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return $this->artists->pluck('title')->all(); },
+                "value" => function() { return $this->categories->pluck('title')->all(); },
             ],
             [
                 "name" => 'copyright_representative_titles',
