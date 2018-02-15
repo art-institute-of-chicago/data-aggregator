@@ -43,7 +43,7 @@ class ImportCollections extends AbstractImportCommand
         $json = $this->queryService($endpoint, $current);
         $pages = $json->pagination->pages->total;
 
-        $this->info( 'Found ' . $pages . ' page(s) for model ' . $model );
+        $this->info( 'Found ' . $pages . ' page(s) for model ' . $model, 'vv' );
 
         while ($current <= $pages)
         {
@@ -76,7 +76,7 @@ class ImportCollections extends AbstractImportCommand
 
         $url = env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&per_page=' . $limit;
 
-        $this->info( 'Querying: ' . $url );
+        $this->info( 'Querying: ' . $url, 'vv' );
 
         $result = $this->query( $url );
 

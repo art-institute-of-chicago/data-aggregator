@@ -31,7 +31,7 @@ class ImagesExport extends Command
 
         $images = Image::whereNotNull('metadata')->get();
 
-        $this->info( $images->count() . ' images with metadata found.' );
+        $this->info( $images->count() . ' images with metadata found.', 'vv' );
 
         // Uncomment for testing
         // $images = $images->slice( 0, 5 );
@@ -54,7 +54,7 @@ class ImagesExport extends Command
 
         $this->csv->insertOne( $row );
 
-        $this->info( json_encode( $row ) );
+        $this->info( json_encode( $row ), 'vv' );
 
     }
 

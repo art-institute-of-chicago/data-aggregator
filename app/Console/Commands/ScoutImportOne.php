@@ -24,7 +24,7 @@ class ScoutImportOne extends Command
 
         $model::find( $id )->searchable();
 
-        $this->info("Imported #${id} of model ${class}");
+        $this->info("Imported #${id} of model ${class}", 'vv');
 
     }
 }

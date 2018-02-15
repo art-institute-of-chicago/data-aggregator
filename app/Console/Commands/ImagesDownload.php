@@ -82,7 +82,7 @@ class ImagesDownload extends Command
                 try {
                     $contents = $this->fetch( $url );
                     \Storage::put( $file, $contents);
-                    $this->info( "Image #{$n}: ID {$id} - downloaded" );
+                    $this->info( "Image #{$n}: ID {$id} - downloaded", 'vv' );
                 }
                 catch (\Exception $e) {
                     $this->line( "Image #{$n}: ID {$id} - not found" );

@@ -39,16 +39,16 @@ class ImportDailyCommand extends Command
     public function handle()
     {
 
-        $this->call('import:collections');
-        $this->call('import:exhibitions-legacy');
-        $this->call('import:events-ticketed');
-        $this->call('import:events-legacy');
-        $this->call('import:dsc', ['--yes' => 'default']);
-        $this->call('import:mobile');
-        $this->call('import:library', ['--yes' => 'default']);
-        $this->call('import:archive', ['--yes' => 'default']);
-        $this->call('import:sites', ['--yes' => 'default']);
-        $this->call('import:set-ulan-uris');
+        $this->call('import:collections', ['-v' => 'default']);
+        $this->call('import:exhibitions-legacy', ['-v' => 'default']);
+        $this->call('import:events-ticketed', ['-v' => 'default']);
+        $this->call('import:events-legacy', ['-v' => 'default']);
+        $this->call('import:dsc', ['--yes' => 'default', '-v' => 'default']);
+        $this->call('import:mobile', ['-v' => 'default']);
+        $this->call('import:library', ['--yes' => 'default', '-v' => 'default']);
+        $this->call('import:archive', ['--yes' => 'default', '-v' => 'default']);
+        $this->call('import:sites', ['--yes' => 'default', '-v' => 'default']);
+        $this->call('import:set-ulan-uris', ['-v' => 'default']);
 
     }
 

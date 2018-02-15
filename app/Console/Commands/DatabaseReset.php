@@ -54,7 +54,7 @@ class DatabaseReset extends AbstractCommand
             $table_array = get_object_vars( $table );
             $table_name = $table_array[ key( $table_array ) ];
             Schema::drop( $table_name );
-            $this->info( 'Dropped table ' . $table_name );
+            $this->info( 'Dropped table ' . $table_name, 'vv' );
         }
 
     }
