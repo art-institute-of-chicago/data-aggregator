@@ -69,6 +69,13 @@ class TourStop extends MobileModel
                 "value" => function() { return $this->artwork->artwork->citi_id ?? null; },
             ],
             [
+                "name" => 'tour_id',
+                "doc" => "Unique identifier of the tour this stop is a part of",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->tour->id ?? null; },
+            ],
+            [
                 "name" => 'mobile_sound',
                 "doc" => "URL to the audio file for this tour stop",
                 "type" => "url",
