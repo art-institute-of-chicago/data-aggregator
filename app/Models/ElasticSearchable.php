@@ -107,14 +107,38 @@ trait ElasticSearchable
                 'api_link' => $this->searchableLink(),
                 'title' => $this->title,
                 'timestamp' => Carbon::now()->toIso8601String(),
-                'suggest_autocomplete' => [$this->title],
             ],
+            $this->getSuggestSearchFields(),
             $this->transform($withTitles = true)
         );
 
         return $array;
 
     }
+
+    /**
+     * Add suggest fields and values. By default, only boosted works are added to the autocomplete.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
+     *
+     * @return array
+     */
+    public function getSuggestSearchFields()
+    {
+
+        if( !$this->isBoosted() )
+        {
+            return [];
+        }
+
+        return [
+            'suggest_autocomplete' => [
+                $this->title,
+            ],
+        ];
+
+    }
+
 
     /**
      * Return mapping of fields marked as default, for simple search.
