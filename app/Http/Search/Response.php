@@ -61,7 +61,7 @@ class Response
 
         $response = array_merge(
             [
-                'preference' => $this->searchParams['preference'],
+                'preference' => $this->searchParams['preference'] ?? null,
             ],
             $response
         );
@@ -111,8 +111,8 @@ class Response
 
         // LengthAwarePaginator has trouble here
         $total = $this->searchResponse['hits']['total'];
-        $limit = $this->searchParams['size'] ?: 10;
-        $offset = $this->searchParams['from'] ?: 0;
+        $limit = $this->searchParams['size'] ?? 10;
+        $offset = $this->searchParams['from'] ?? 0;
 
         $total_pages = ceil( $total / $limit );
         $current_page = floor( $offset / $limit ) + 1;

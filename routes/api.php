@@ -34,10 +34,13 @@ Route::group(['prefix' => 'v1'], function()
     Route::match( array('GET', 'POST'), '{resource}/search', 'Search\SearchController@search');
     // We can do ->where('resource', '(foo|bar)') to limit {resource}, but it's not necessary...
 
+    Route::match( array('GET', 'POST'), 'msearch', 'Search\SearchController@msearch');
+
     Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocomplete');
     // We can't limit autocomplete to specific resources w/o creating additional resource-specific suggest fields
 
     // ...following Elasticsearch conventions
+    // TODO: Deprecate these since we're not following ES conventions anymore?
     Route::match( array('GET', 'POST'), '_search', 'Search\SearchController@search');
     Route::match( array('GET', 'POST'), '{resource}/_search', 'Search\SearchController@search');
 

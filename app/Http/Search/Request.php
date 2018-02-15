@@ -210,10 +210,10 @@ class Request
      *
      * @return array
      */
-    public function getSearchParams( $input = [], $withSuggestions = true, $withAggregations = true ) {
+    public function getSearchParams( $input = null, $withSuggestions = true, $withAggregations = true ) {
 
         // Strip down the (top-level) params to what our thin client supports
-        $input = self::getValidInput();
+        $input = self::getValidInput( $input );
 
         $params = array_merge(
             $this->getBaseParams( $input ),
