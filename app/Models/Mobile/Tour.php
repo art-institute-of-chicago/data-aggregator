@@ -104,6 +104,9 @@ class Tour extends MobileModel
                 "name" => 'tour_stop_titles',
                 "doc" => "Names of the tour stops that make up this tour",
                 "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                ],
                 "value" => function() { return $this->stops->pluck('artwork')->pluck('title')->all(); },
             ],
 
