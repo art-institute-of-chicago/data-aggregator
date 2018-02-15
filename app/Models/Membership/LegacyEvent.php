@@ -43,46 +43,38 @@ class LegacyEvent extends MembershipModel
             'description' => $source->body,
             'short_description' => $source->summary,
             'image_url' => $source->image,
-            'is_ticketed' => $source->button_link ? TRUE : FALSE,
+            'start_at' => new Carbon($source->dates ." " .$source->start_time),
+            'end_at' => new Carbon($source->dates ." " .$source->end_time),
+            'resource_title' => $source->location,
+            'web_url' => $source->url,
         ];
 
-        if (!$this->start_at)
-        {
+        // Set flag is_admission_required
+        $ret['is_admission_required'] = FALSE;
+        if ($source->fee == "Free with museum admission"
+            || $source->fee == "Free with museum admission*"
+            || $source->fee == "Free with museum admission, no registration required"
+            || $source->fee == "Free with museum admission; registration required"
+            || $source->fee == "Free with museum admission, registration required"
+            || $source->fee == "Free with museum admission; registration required*"
+            || $source->fee == "Free to Illinois residents or with museum admission; registration required*") {
 
-            $ret['start_at'] = new Carbon($source->dates ." " .$source->start_time);
-
-        }
-        if (!$this->end_at)
-        {
-
-            $ret['end_at'] = new Carbon($source->dates ." " .$source->end_time);
-
-        }
-        if (!$this->resource_title)
-        {
-
-            $ret['resource_title'] = $source->location;
+            $ret['is_admission_required'] = TRUE;
 
         }
-        if (!$this->is_admission_required)
+
+        if ($source->button_link)
         {
+            $dom = new \DOMDocument();
+            @$dom->loadHTML($source->button_link);
+            foreach ($dom->getElementsByTagName('a') as $a)
+            {
 
-            // Set flag is_admission_required
-            $ret['is_admission_required'] = FALSE;
-            if ($source->fee == "Free with museum admission"
-                || $source->fee == "Free with museum admission*"
-                || $source->fee == "Free with museum admission, no registration required"
-                || $source->fee == "Free with museum admission; registration required"
-                || $source->fee == "Free with museum admission, registration required"
-                || $source->fee == "Free with museum admission; registration required*"
-                || $source->fee == "Free to Illinois residents or with museum admission; registration required*") {
-
-                $ret['is_admission_required'] = TRUE;
+                $ret['button_text'] = $a->textContent;
+                $ret['button_url'] = $a->getAttribute('href');
 
             }
-
         }
-
         return $ret;
 
     }

@@ -44,13 +44,7 @@ class ImportLegacyEvents extends AbstractImportCommand
         foreach( $results as $datum )
         {
 
-            $datum->id = LegacyEvent::instance()->cantorPair($datum->nid, $datum->repeat_delta);
-            if ($datum->button_link) {
-                if (preg_match( '/https:\/\/sales.artic.edu\/Events\/Event\/([0-9]+)/', $datum->button_link, $matches )) {
-                    $datum->id = $matches[1];
-                }
-            }
-            $datum->source = 'drupal';
+            $datum->id = $datum->nid;
             $this->saveDatum( $datum, \App\Models\Membership\LegacyEvent::class );
 
         }
