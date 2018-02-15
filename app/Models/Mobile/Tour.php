@@ -91,6 +91,28 @@ class Tour extends MobileModel
 
 
     /**
+     * Turn the titles for related models into a generic array
+     *
+     * @return array
+     */
+    protected function transformTitles()
+    {
+
+        return [
+
+            [
+                "name" => 'tour_stop_titles',
+                "doc" => "Names of the tour stops that make up this tour",
+                "type" => "array",
+                "value" => function() { return $this->stops->pluck('artwork')->pluck('title')->all(); },
+            ],
+
+        ];
+
+    }
+
+
+    /**
      * Get an example ID for documentation generation
      *
      * @return string
