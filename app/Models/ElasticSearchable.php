@@ -108,7 +108,6 @@ trait ElasticSearchable
                 'title' => $this->title,
                 'timestamp' => Carbon::now()->toIso8601String(),
                 'suggest_autocomplete' => [$this->title],
-                'suggest_phrase' => $this->title,
             ],
             $this->transform($withTitles = true)
         );
@@ -235,19 +234,6 @@ trait ElasticSearchable
                             ],
                             'suggest_autocomplete' => [
                                 'type' => 'completion',
-                            ],
-                            'suggest_phrase' => [
-                                'type' => 'keyword',
-                                'fields' => [
-                                    'trigram' => [
-                                        'type' => 'text',
-                                        'analyzer' => 'trigram'
-                                    ],
-                                    'reverse' => [
-                                        'type' => 'text',
-                                        'analyzer' => 'reverse'
-                                    ],
-                                ],
                             ],
                         ],
                         $default,

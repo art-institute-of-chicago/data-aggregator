@@ -563,7 +563,6 @@ class Request
         ];
 
         $params = $this->addAutocompleteSuggestParams( $params, $input );
-        $params = $this->addPhraseSuggestParams( $params, $input );
 
         return $params;
 
@@ -585,44 +584,6 @@ class Request
             'prefix' =>  array_get( $input, 'q' ),
             'completion' => [
                 'field' => 'suggest_autocomplete',
-            ],
-        ];
-
-        return $params;
-
-    }
-
-
-    /**
-     * Append phrase suggest parameters.
-     *
-     * @param $params array
-     *
-     * @return array
-     */
-    private function addPhraseSuggestParams( array $params )
-    {
-
-        $params['body']['suggest']['phrase-suggest'] = [
-            'phrase' => [
-                'field' => 'suggest_phrase.trigram',
-                'gram_size' => 3,
-                'direct_generator' => [
-                    [
-                        'field' => 'suggest_phrase.trigram',
-                        'suggest_mode' => 'always'
-                    ],
-                    [
-                        'field' => 'suggest_phrase.reverse',
-                        'suggest_mode' => 'always',
-                        'pre_filter' => 'reverse',
-                        'post_filter' => 'reverse'
-                    ],
-                ],
-                'highlight' => [
-                    'pre_tag' => '<em>',
-                    'post_tag' => '</em>'
-                ],
             ],
         ];
 
