@@ -168,6 +168,20 @@ class LegacyEvent extends MembershipModel
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->exhibitions->pluck('citi_id')->all(); },
             ],
+            [
+                "name" => 'button_text',
+                "doc" => "Name of text on the CTA to buy tickets/register",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->button_text; },
+            ],
+            [
+                "name" => 'button_url',
+                "doc" => "URL of the CTA to buy tickets/register",
+                "type" => "url",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->button_url; },
+            ],
 
         ];
 
