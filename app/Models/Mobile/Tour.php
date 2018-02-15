@@ -73,7 +73,7 @@ class Tour extends MobileModel
                 "doc" => "Link to the audio file of the introduction",
                 "type" => "url",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->intro->link; },
+                "value" => function() { return $this->intro->link ?? null; },
             ],
             [
                 "name" => 'intro_transcript',
@@ -83,7 +83,7 @@ class Tour extends MobileModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return $this->intro->transcript; },
+                "value" => function() { return $this->intro->transcript ?? null; },
             ],
         ];
 
