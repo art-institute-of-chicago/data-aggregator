@@ -63,7 +63,8 @@ class Request
         'fields',
 
         // Fields to use for aggregations
-        'facets',
+        'aggs',
+        'aggregations',
 
         // Determines which shards to use, ensures consistent result order
         'preference',
@@ -209,10 +210,10 @@ class Request
      *
      * @return array
      */
-    public function getSearchParams( $input = [], $withSuggestions = true, $withAggregations = true ) {
+    public function getSearchParams( $input = null, $withSuggestions = true, $withAggregations = true ) {
 
         // Strip down the (top-level) params to what our thin client supports
-        $input = self::getValidInput();
+        $input = self::getValidInput( $input );
 
         $params = array_merge(
             $this->getBaseParams( $input ),
@@ -631,7 +632,8 @@ class Request
 
 
     /**
-     * Append aggregation parameters.
+     * Append aggregation parameters. This is a straight pass-through for more flexibility.
+     * Elasticsearch accepts both `aggs` and `aggregations`, so we support both too.
      *
      * @param $params array
      * @param $input array
@@ -641,23 +643,13 @@ class Request
     public function addAggregationParams( array $params, array $input )
     {
 
-        // If the user did not specify a facet parameter, facet by model
-        $facets = array_get( $input, 'facets' ) ? explode(',', $input['facets']) : ['api_model'];
+        $aggregations = $input['aggregations'] ?? $input['aggs'] ?? null;
 
-        $aggregations = [];
+        if( $aggregations ) {
 
-        foreach ($facets as $facet)
-        {
-
-            $aggregations['count_' . $facet] = [
-                'terms' => [
-                    'field' => $facet
-                ]
-            ];
+            $params['body']['aggregations'] = $aggregations;
 
         }
-
-        $params['body']['aggregations'] = $aggregations;
 
         return $params;
 
