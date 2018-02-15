@@ -22,7 +22,7 @@ class Tour extends MobileModel
 
     }
 
-    public function stops()
+    public function tourStops()
     {
 
         return $this->hasMany('App\Models\Mobile\TourStop', 'tour_mobile_id');
@@ -107,7 +107,7 @@ class Tour extends MobileModel
                 "elasticsearch" => [
                     "default" => true,
                 ],
-                "value" => function() { return $this->stops->pluck('artwork')->pluck('title')->all(); },
+                "value" => function() { return $this->tourStops->pluck('artwork')->pluck('title')->all(); },
             ],
 
         ];
