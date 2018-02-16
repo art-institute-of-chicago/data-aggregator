@@ -126,16 +126,21 @@ trait ElasticSearchable
     public function getSuggestSearchFields()
     {
 
-        if( !$this->isBoosted() )
-        {
-            return [];
-        }
-
-        return [
+        // TODO: Move `suggest_autocomplete_boosted` into `suggest_autocomplete`, and re-index everything from database?
+        $fields = [
             'suggest_autocomplete' => [
                 $this->title,
             ],
         ];
+
+        if( $this->isBoosted() )
+        {
+            $fields['suggest_autocomplete_boosted'] = [
+                $this->title,
+            ];
+        }
+
+        return $fields;
 
     }
 
@@ -257,6 +262,10 @@ trait ElasticSearchable
                                 'type' => 'date',
                             ],
                             'suggest_autocomplete' => [
+                                'type' => 'completion',
+                            ],
+                            // TODO: Remove this after we regenerate all search indexes?
+                            'suggest_autocomplete_boosted' => [
                                 'type' => 'completion',
                             ],
                         ],

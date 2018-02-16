@@ -583,7 +583,7 @@ class Request
         $params['body']['suggest']['autocomplete'] = [
             'prefix' =>  array_get( $input, 'q' ),
             'completion' => [
-                'field' => 'suggest_autocomplete',
+                'field' => 'suggest_autocomplete_boosted',
             ],
         ];
 
