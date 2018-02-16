@@ -16,6 +16,13 @@ class MakeGalleriesIntoPlaces extends Migration
 
         Schema::rename('galleries', 'places');
         Schema::table('places', function (Blueprint $table) {
+            $table->dropUnique('galleries_lake_guid_unique');
+            $table->dropUnique('galleries_lake_uri_unique');
+            $table->unique('lake_guid');
+            $table->unique('lake_uri');
+        });
+
+        Schema::table('places', function (Blueprint $table) {
             $table->string('type')->nullable();
         });
 

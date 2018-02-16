@@ -12,7 +12,7 @@ class ArtworkTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['artists', 'categories', 'copyright_representatives', 'parts', 'sets', 'dates', 'catalogues', 'committees', 'terms', 'images', 'publications', 'tours'];
+    protected $availableIncludes = ['artists', 'categories', 'copyright_representatives', 'parts', 'sets', 'dates', 'catalogues', 'committees', 'terms', 'images', 'publications', 'tours', 'sites'];
 
     /**
      * Include artists.
@@ -22,7 +22,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeArtists(Artwork $artwork)
     {
-        return $this->collection($artwork->artists()->getResults(), new CollectionsTransformer, false);
+        return $this->collection($artwork->artists, new CollectionsTransformer, false);
     }
 
     /**
@@ -33,7 +33,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCopyrightRepresentatives(Artwork $artwork)
     {
-        return $this->collection($artwork->copyrightRepresentatives()->getResults(), new CollectionsTransformer, false);
+        return $this->collection($artwork->copyrightRepresentatives, new CollectionsTransformer, false);
     }
 
     /**
@@ -44,7 +44,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCategories(Artwork $artwork)
     {
-        return $this->collection($artwork->categories()->getResults(), new CollectionsTransformer, false);
+        return $this->collection($artwork->categories, new CollectionsTransformer, false);
     }
 
     /**
@@ -55,7 +55,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeParts(Artwork $artwork)
     {
-        return $this->collection($artwork->parts()->getResults(), new ArtworkTransformer, false);
+        return $this->collection($artwork->parts, new ArtworkTransformer, false);
     }
 
     /**
@@ -66,7 +66,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeSets(Artwork $artwork)
     {
-        return $this->collection($artwork->sets()->getResults(), new ArtworkTransformer, false);
+        return $this->collection($artwork->sets, new ArtworkTransformer, false);
     }
 
     /**
@@ -77,7 +77,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeDates(Artwork $artwork)
     {
-        return $this->collection($artwork->dates()->getResults(), new ArtworkDateTransformer, false);
+        return $this->collection($artwork->dates, new ArtworkDateTransformer, false);
     }
 
     /**
@@ -88,7 +88,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCatalogues(Artwork $artwork)
     {
-        return $this->collection($artwork->catalogues()->getResults(), new ArtworkCatalogueTransformer, false);
+        return $this->collection($artwork->catalogues, new ArtworkCatalogueTransformer, false);
     }
 
     /**
@@ -99,7 +99,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCommittees(Artwork $artwork)
     {
-        return $this->collection($artwork->committees()->getResults(), new ArtworkCommitteeTransformer, false);
+        return $this->collection($artwork->committees, new ArtworkCommitteeTransformer, false);
     }
 
     /**
@@ -110,7 +110,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeTerms(Artwork $artwork)
     {
-        return $this->collection($artwork->terms()->getResults(), new ArtworkTermTransformer, false);
+        return $this->collection($artwork->terms, new ArtworkTermTransformer, false);
     }
 
     /**
@@ -121,7 +121,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeImages(Artwork $artwork)
     {
-        return $this->collection($artwork->images()->getResults(), new AssetTransformer, false);
+        return $this->collection($artwork->images, new AssetTransformer, false);
     }
 
     /**
@@ -132,7 +132,18 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeTours(Artwork $artwork)
     {
-        return $this->collection($artwork->tours()->getResults(), new TourTransformer, false);
+        return $this->collection($artwork->tours, new TourTransformer, false);
+    }
+
+    /**
+     * Include sites.
+     *
+     * @param  \App\Models\Collections\Artwork  $artwork
+     * @return League\Fractal\ItemResource
+     */
+    public function includeSites(Artwork $artwork)
+    {
+        return $this->collection($artwork->sites, new SiteTransformer, false);
     }
 
 }

@@ -48,7 +48,7 @@ class SearchReindex extends Command
 
             $return = Elasticsearch::reindex($params);
 
-            $this->info('Reindex from ' . $index . 'has started. You can monitor the process here: ' . $this->baseUrl() . '/_tasks/' . $return['task']);
+            $this->info('Reindex from ' . $index . 'has started. You can monitor the process here: ' . $this->baseUrl() . '/_tasks/' . $return['task'], 'vv');
 
         }
 

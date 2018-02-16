@@ -29,7 +29,7 @@ class ImportArchive extends AbstractImportCommand
         // Truncate tables
         DB::table('archival_images')->truncate();
 
-        $this->info("Truncated archive tables.");
+        $this->info("Truncated archive tables.", 'vv');
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
         $this->warn("Please manually ensure that your search index mappings are up-to-date.");
@@ -38,7 +38,7 @@ class ImportArchive extends AbstractImportCommand
 
         $this->import(\App\Models\Archive\ArchiveImage::class, 'archival-images', 1);
 
-        $this->info("Imported all archive images from data service!");
+        $this->info("Imported all archive images from data service!", 'vv');
 
     }
 
@@ -78,7 +78,7 @@ class ImportArchive extends AbstractImportCommand
 
         $url = env('ARCHIVES_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit;
 
-        $this->info( 'Querying: ' . $url );
+        $this->info( 'Querying: ' . $url, 'vv' );
 
         $result = $this->query( $url );
 

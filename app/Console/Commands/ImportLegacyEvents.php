@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Storage;
 use Carbon\Carbon;
-use App\Models\Membership\Event;
+use App\Models\Membership\LegacyEvent;
 
 class ImportLegacyEvents extends AbstractImportCommand
 {
@@ -23,7 +23,7 @@ class ImportLegacyEvents extends AbstractImportCommand
         if (!$fromBackup)
         {
 
-            $this->info('Retrieving events JSON from artic.edu');
+            $this->info('Retrieving events JSON from artic.edu', 'vv');
             Storage::disk('local')->put('drupal-7-events.json', file_get_contents(env('LEGACY_EVENTS_JSON', 'http://localhost/events.json')));
 
         }
@@ -39,19 +39,13 @@ class ImportLegacyEvents extends AbstractImportCommand
     private function importEvents( $results )
     {
 
-        $this->info("Importing legacy events");
+        $this->info("Importing legacy events", 'vv');
 
         foreach( $results as $datum )
         {
 
-            $datum->id = Event::instance()->cantorPair($datum->nid, $datum->repeat_delta);
-            if ($datum->button_link) {
-                if (preg_match( '/https:\/\/sales.artic.edu\/Events\/Event\/([0-9]+)/', $datum->button_link, $matches )) {
-                    $datum->id = $matches[1];
-                }
-            }
-            $datum->source = 'drupal';
-            $this->saveDatum( $datum, \App\Models\Membership\Event::class );
+            $datum->id = $datum->nid;
+            $this->saveDatum( $datum, \App\Models\Membership\LegacyEvent::class );
 
         }
 

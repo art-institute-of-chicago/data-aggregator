@@ -85,13 +85,6 @@ $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator 
 });
 
 
-$factory->define(App\Models\Collections\Department::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, ucfirst($faker->word) .' Art', true, 6),
-        dates($faker, true)
-    );
-});
-
 $factory->define(App\Models\Collections\ObjectType::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, $faker->randomElement(['Painting', 'Design', 'Drawing and ' .ucfirst($faker->word), ucfirst($faker->word) .' Arts', 'Sculpture']), true, 2),
@@ -139,9 +132,8 @@ $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generato
             'copyright_notice' => '© ' .$faker->year .' ' .ucfirst($faker->words(3, true)),
             'place_of_origin' => $faker->country,
             'collection_status' => $faker->randomElement(['Permanent Collection', 'Long-term Loan']),
-            'department_citi_id' => $faker->randomElement(App\Models\Collections\Department::fake()->pluck('citi_id')->all()),
             'object_type_citi_id' => $faker->randomElement(App\Models\Collections\ObjectType::fake()->pluck('citi_id')->all()),
-            'place_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
+            'gallery_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
         ],
         dates($faker, true)
     );
@@ -186,7 +178,7 @@ $factory->define(App\Models\Collections\ArtworkCatalogue::class, function (Faker
 });
 
 
-$factory->define(App\Models\Collections\Place::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Collections\Gallery::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, $faker->randomElement(['Gallery ' .$faker->unique()->randomNumber(3), $faker->lastName .' ' .$faker->randomElement(['Hall', 'Building', 'Memorial Garden', 'Reading Room', 'Study Room'])]), true, 6),
         [
@@ -202,13 +194,12 @@ $factory->define(App\Models\Collections\Place::class, function (Faker\Generator 
 });
 
 
-$factory->define(App\Models\Collections\Theme::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Collections\Place::class, function (Faker\Generator $faker) {
     return array_merge(
-        idsAndTitle($faker, ucwords($faker->words(3, true)), true, 6),
+        idsAndTitle($faker, $faker->country, true),
         [
-            'description' => $faker->paragraph(3),
-            'is_in_navigation' => ucfirst($faker->boolean),
-            'sort' => $faker->randomDigit * 10,
+            'latitude' => $faker->latitude,
+            'longitude' => $faker->longitude,
         ],
         dates($faker, true)
     );
@@ -221,7 +212,7 @@ $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Gener
         [
             'description' => $faker->paragraph(3),
             'type' => $faker->randomElement(['AIC Only', 'AIC & Other Venues', 'Mini Exhibition', 'Permanent Collection Special Project', 'Rotation']),
-            'department_citi_id' => $faker->randomElement(App\Models\Collections\Department::fake()->pluck('citi_id')->all()),
+            'department_display' => ucwords($faker->words(2, true)),
             'place_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
             'place_display' => 'Gallery ' .$faker->randomNumber(3),
             'status' => $faker->randomElement(['Open', 'Closed']),

@@ -34,7 +34,7 @@ class ImportCatalogues extends AbstractImportCommand
         DB::table('sections')->truncate();
         DB::table('publications')->truncate();
 
-        $this->info("Truncated catalogue tables.");
+        $this->info("Truncated catalogue tables.", 'vv');
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
         $this->warn("Please manually ensure that your search index mappings are up-to-date.");
@@ -44,7 +44,7 @@ class ImportCatalogues extends AbstractImportCommand
         $this->import(Publication::class, 'publications', 1);
         $this->import(Section::class, 'sections', 1);
 
-        $this->info("Imported all Publications and Sections from data service!");
+        $this->info("Imported all Publications and Sections from data service!", 'vv');
 
     }
 

@@ -33,7 +33,7 @@ class TourStopTransformer extends ApiTransformer
      */
     public function includeSound(TourStop $tourStop)
     {
-        return $this->item($tourStop->sound()->getResults(), new ApiTransformer, config('constants.no_data_wrapper'));
+        return $this->item($tourStop->sound, new ApiTransformer, config('constants.no_data_wrapper'));
     }
 
 }

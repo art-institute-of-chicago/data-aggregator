@@ -49,10 +49,6 @@ class ResourceServiceProvider extends ServiceProvider
                         'scope' => 'agents',
                     ],
                     [
-                        'endpoint' => 'departments',
-                        'model' => \App\Models\Collections\Department::class,
-                    ],
-                    [
                         'endpoint' => 'agent-places',
                         'model' => \App\Models\Collections\AgentPlace::class,
                     ],
@@ -69,6 +65,11 @@ class ResourceServiceProvider extends ServiceProvider
                         'model' => \App\Models\Collections\Category::class,
                     ],
                     [
+                        'endpoint' => 'departments',
+                        'model' => \App\Models\Collections\Category::class,
+                        'scope' => 'departments',
+                    ],
+                    [
                         'endpoint' => 'places',
                         'model' => \App\Models\Collections\Place::class,
                     ],
@@ -82,8 +83,7 @@ class ResourceServiceProvider extends ServiceProvider
                     ],
                     [
                         'endpoint' => 'galleries',
-                        'model' => \App\Models\Collections\Place::class,
-                        'scope' => 'places',
+                        'model' => \App\Models\Collections\Gallery::class,
                     ],
                     [
                         'endpoint' => 'exhibitions',
@@ -126,8 +126,12 @@ class ResourceServiceProvider extends ServiceProvider
                         'model' => \App\Models\Shop\Product::class,
                     ],
                     [
-                        'endpoint' => 'events',
-                        'model' => \App\Models\Membership\Event::class,
+                        'endpoint' => 'legacy-events',
+                        'model' => \App\Models\Membership\LegacyEvent::class,
+                    ],
+                    [
+                        'endpoint' => 'ticketed-events',
+                        'model' => \App\Models\Membership\TicketedEvent::class,
                     ],
                     [
                         'endpoint' => 'tours',

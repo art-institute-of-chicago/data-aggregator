@@ -32,13 +32,6 @@ class Exhibition extends CollectionsModel
 
     }
 
-    public function department()
-    {
-
-        return $this->belongsTo('App\Models\Collections\Department');
-
-    }
-
     public function gallery()
     {
 
@@ -53,10 +46,10 @@ class Exhibition extends CollectionsModel
 
     }
 
-    public function ticketedEvents()
+    public function legacyEvents()
     {
 
-        return $this->belongsToMany('App\Models\Membership\Event');
+        return $this->belongsToMany('App\Models\Membership\LegacyEvent', 'legacy_event_exhibition');
 
     }
 
@@ -138,18 +131,11 @@ class Exhibition extends CollectionsModel
                 'value' => function() { return $this->date_end ? $this->date_end->toIso8601String() : NULL; },
             ],
             [
-                "name" => 'department_title',
+                "name" => 'department_display',
                 "doc" => "The name of the department that primarily organized the exhibition",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->department()->getResults() ? $this->department()->getResults()->title : null; },
-            ],
-            [
-                "name" => 'department_id',
-                "doc" => "Unique identifier of the department that primarily organized the exhibition",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->department ? $this->department->citi_id : null; },
+                "value" => function() { return $this->department_display; },
             ],
             [
                 "name" => 'gallery_title',
@@ -212,11 +198,12 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->sites->pluck('site_id')->all(); },
             ],
             [
-                "name" => 'event_ids',
-                "doc" => "Unique identifiers of the ticketed events featuring this exhibition",
+                "name" => 'legacy_event_ids',
+                "doc" => "Unique identifiers of the legacy events featuring this exhibition. These are events that been "
+                        ." imported from our existing site as a placeholder, until events from our new can be pulled in.",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->ticketedEvents->pluck('membership_id')->all(); },
+                "value" => function() { return $this->legacyEvents->pluck('membership_id')->all(); },
             ],
         ];
 
@@ -264,7 +251,6 @@ class Exhibition extends CollectionsModel
             'type' => $source->exhibition_type,
             'status' => $source->exhibition_status,
             'asset_lake_guid' => $source->image_guid,
-            'department_citi_id' => $source->department_id,
             'place_citi_id' => $gallery ? $gallery->citi_id : null,
             'place_display' => $source->gallery,
             'date_start' => $source->start_date ? strtotime($source->start_date) : null,
@@ -296,7 +282,7 @@ class Exhibition extends CollectionsModel
     public function getImageIiifUrlAttribute()
     {
 
-        return env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->asset_lake_guid;
+        return $this->asset_lake_guid ? (env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->asset_lake_guid) : null;
 
     }
 

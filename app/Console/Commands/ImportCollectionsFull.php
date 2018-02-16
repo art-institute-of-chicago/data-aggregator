@@ -32,10 +32,10 @@ class ImportCollectionsFull extends AbstractImportCommand
             $this->import('agent-types');
             $this->import('agent-places');
             $this->import('agents');
-            $this->import('departments');
             $this->import('object-types');
             $this->import('categories');
             $this->import('places');
+            $this->import('galleries');
             $this->import('artwork-catalogues');
             $this->import('catalogues');
             $this->import('artworks');
@@ -92,7 +92,7 @@ class ImportCollectionsFull extends AbstractImportCommand
 
         $url = env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&per_page=' . $limit;
 
-        $this->info( 'Querying: ' . $url );
+        $this->info( 'Querying: ' . $url, 'vv' );
 
         $result = $this->query( $url );
 

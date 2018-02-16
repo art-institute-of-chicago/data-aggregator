@@ -18,7 +18,7 @@ class ImportSetUlanUris extends AbstractImportCommand
         // Loop through all agents
         foreach (\App\Models\Collections\Agent::cursor() as $agent) {
 
-            $this->info('Trying agent #' .$agent->citi_id .', ' .$agent->title);
+            $this->info('Trying agent #' .$agent->citi_id .', ' .$agent->title, 'vv');
 
             // Query ulan service with birth date
             $result = $this->queryService($agent, $agent->birth_date, null);
@@ -45,7 +45,7 @@ class ImportSetUlanUris extends AbstractImportCommand
 
             }
 
-            
+
             // If there are no results, try with just the last name or first word
             if (count($result->results) == 0)
             {
@@ -74,7 +74,7 @@ class ImportSetUlanUris extends AbstractImportCommand
         if (count($result->results) == 1)
         {
 
-            $this->info('... exact name matched ' .$message .' ' .$result->results[0]->uri);
+            $this->info('... exact name matched ' .$message .' ' .$result->results[0]->uri, 'vv');
             $agent->ulan_uri = $result->results[0]->uri;
             $agent->save();
             return true;
@@ -98,7 +98,7 @@ class ImportSetUlanUris extends AbstractImportCommand
             if (count($uris) == 1)
             {
 
-                $this->info('... exact name matched distinct results' .$message);
+                $this->info('... exact name matched distinct results' .$message, 'vv');
                 $agent->ulan_uri = $uris[0];
                 $agent->save();
                 return true;

@@ -57,11 +57,11 @@ class CreateEndpointDocs extends Command
         $doc .= "# Collections\n\n";
         $doc .= \App\Models\Collections\Artwork::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Agent::instance()->docEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Department::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\ObjectType::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Category::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\AgentType::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Place::instance()->docEndpoints($this->appUrl);
+        $doc .= \App\Models\Collections\Gallery::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Exhibition::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Image::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Video::instance()->docEndpoints($this->appUrl);
@@ -73,9 +73,9 @@ class CreateEndpointDocs extends Command
         $doc .= \App\Models\Shop\Category::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Shop\Product::instance()->docEndpoints($this->appUrl);
 
-        $doc .= "# Events and Membership\n\n";
-        $doc .= \App\Models\Membership\Event::instance()->docEndpoints($this->appUrl);
-        $doc .= \App\Models\Membership\Event::instance()->docMembershipEndpoint($this->appUrl);
+        $doc .= "# Events\n\n";
+        $doc .= \App\Models\Membership\LegacyEvent::instance()->docEndpoints($this->appUrl);
+        //$doc .= \App\Models\Membership\TicketedEvent::instance()->docEndpoints($this->appUrl);
 
         $doc .= "# Mobile\n\n";
         $doc .= \App\Models\Mobile\Tour::instance()->docEndpoints($this->appUrl);

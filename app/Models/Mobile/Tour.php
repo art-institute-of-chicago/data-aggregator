@@ -22,7 +22,7 @@ class Tour extends MobileModel
 
     }
 
-    public function stops()
+    public function tourStops()
     {
 
         return $this->hasMany('App\Models\Mobile\TourStop', 'tour_mobile_id');
@@ -73,7 +73,7 @@ class Tour extends MobileModel
                 "doc" => "Link to the audio file of the introduction",
                 "type" => "url",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->intro->link; },
+                "value" => function() { return $this->intro->link ?? null; },
             ],
             [
                 "name" => 'intro_transcript',
@@ -83,8 +83,33 @@ class Tour extends MobileModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return $this->intro->transcript; },
+                "value" => function() { return $this->intro->transcript ?? null; },
             ],
+        ];
+
+    }
+
+
+    /**
+     * Turn the titles for related models into a generic array
+     *
+     * @return array
+     */
+    protected function transformTitles()
+    {
+
+        return [
+
+            [
+                "name" => 'tour_stop_titles',
+                "doc" => "Names of the tour stops that make up this tour",
+                "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                ],
+                "value" => function() { return $this->tourStops->pluck('artwork')->pluck('title')->all(); },
+            ],
+
         ];
 
     }

@@ -23,7 +23,7 @@ class SiteTransformer extends ApiTransformer
      */
     public function includeArtworks(Site $site)
     {
-        return $this->collection($site->artworks()->getResults(), new ArtworkTransformer, false);
+        return $this->collection($site->artworks, new ArtworkTransformer, false);
     }
 
 }

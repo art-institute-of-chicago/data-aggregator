@@ -52,35 +52,42 @@ class TourStop extends MobileModel
                 "doc" => "Name of this tour stop",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->artwork ? $this->artwork->title : NULL; },
+                "value" => function() { return $this->artwork->title ?? null; },
             ],
             [
-                "name" => 'artwork',
+                "name" => 'artwork_title',
                 "doc" => "Name of the artwork for this tour stop",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->artwork ? $this->artwork->title : NULL; },
+                "value" => function() { return $this->artwork->title ?? null; },
             ],
             [
                 "name" => 'artwork_id',
                 "doc" => "Unique identifier of the artwork for this tour stop",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->artwork && $this->artwork->artwork ? $this->artwork->artwork->id : NULL; },
+                "value" => function() { return $this->artwork->artwork->citi_id ?? null; },
+            ],
+            [
+                "name" => 'tour_id',
+                "doc" => "Unique identifier of the tour this stop is a part of",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->tour->id ?? null; },
             ],
             [
                 "name" => 'mobile_sound',
                 "doc" => "URL to the audio file for this tour stop",
                 "type" => "url",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->sound ? $this->sound->link : NULL; },
+                "value" => function() { return $this->sound->link ?? null; },
             ],
             [
                 "name" => 'mobile_sound_id',
                 "doc" => "Unique identifier of the audio file for this tour stop",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->sound ? $this->sound->id : NULL; },
+                "value" => function() { return $this->sound->mobile_id ?? null; },
             ],
             [
                 "name" => 'weight',
@@ -102,7 +109,7 @@ class TourStop extends MobileModel
     public function exampleId()
     {
 
-        return "160";
+        return "17";
 
     }
 

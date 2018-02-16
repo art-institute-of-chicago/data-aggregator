@@ -12,7 +12,7 @@ class AgentTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['places'];
+    protected $availableIncludes = ['places', 'sites'];
 
 
     /**
@@ -23,7 +23,18 @@ class AgentTransformer extends CollectionsTransformer
      */
     public function includePlaces(Agent $agent)
     {
-        return $this->collection($agent->places()->getResults(), new CollectionsTransformer, false);
+        return $this->collection($agent->places, new CollectionsTransformer, false);
+    }
+
+    /**
+     * Include sites.
+     *
+     * @param  \App\Models\Collections\Agent  $agent
+     * @return League\Fractal\ItemResource
+     */
+    public function includeSites(Agent $agent)
+    {
+        return $this->collection($agent->sites, new SiteTransformer, false);
     }
 
 }

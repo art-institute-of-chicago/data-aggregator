@@ -37,6 +37,19 @@ class Category extends CollectionsModel
     }
 
     /**
+     * Scope a query to only include categories that represent departments
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDepartments($query)
+    {
+
+        return $query->where('type', 1)->where('parent_id', null);
+
+    }
+
+    /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
     protected function transformMappingInternal()

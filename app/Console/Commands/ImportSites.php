@@ -34,7 +34,7 @@ class ImportSites extends AbstractImportCommand
         DB::table('exhibition_site')->truncate();
         DB::table('sites')->truncate();
 
-        $this->info("Truncated sites tables.");
+        $this->info("Truncated sites tables.", 'vv');
 
         Storage::disk('local')->put('archive.json', file_get_contents(env('STATIC_ARCHIVE_JSON', 'http://localhost/archive.json')));
 
@@ -50,7 +50,7 @@ class ImportSites extends AbstractImportCommand
     private function importSites( $results )
     {
 
-        $this->info("Importing static sites");
+        $this->info("Importing static sites", 'vv');
 
         foreach( $results as $datum )
         {

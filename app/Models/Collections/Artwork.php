@@ -32,13 +32,6 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function department()
-    {
-
-        return $this->belongsTo('App\Models\Collections\Department');
-
-    }
-
     public function objectType()
     {
 
@@ -50,6 +43,13 @@ class Artwork extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Models\Collections\Category');
+
+    }
+
+    public function department()
+    {
+
+        return $this->categories()->where('type', 1)->where('parent_id', null)->expectOne();
 
     }
 
@@ -81,6 +81,21 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function style()
+    {
+
+        return $this->styles()->wherePivot('preferred', '=', true)->expectOne();
+
+    }
+
+    public function altStyles()
+    {
+
+        return $this->styles()->wherePivot('preferred', '=', false)->expectMany();
+
+    }
+
+
     public function classifications()
     {
 
@@ -88,10 +103,38 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function classification()
+    {
+
+        return $this->classifications()->wherePivot('preferred', '=', true)->expectOne();
+
+    }
+
+    public function altClassifications()
+    {
+
+        return $this->classifications()->wherePivot('preferred', '=', false)->expectMany();
+
+    }
+
     public function subjects()
     {
 
         return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'subject')->withPivot('preferred');
+
+    }
+
+    public function subject()
+    {
+
+        return $this->subjects()->wherePivot('preferred', '=', true)->expectOne();
+
+    }
+
+    public function altSubjects()
+    {
+
+        return $this->subjects()->wherePivot('preferred', '=', false)->expectMany();
 
     }
 
@@ -105,7 +148,7 @@ class Artwork extends CollectionsModel
     public function gallery()
     {
 
-        return $this->belongsTo('App\Models\Collections\Place', 'place_citi_id');
+        return $this->belongsTo('App\Models\Collections\Gallery');
 
     }
 
@@ -127,6 +170,20 @@ class Artwork extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->withPivot('preferred');
+
+    }
+
+    public function image()
+    {
+
+        return $this->images()->wherePivot('preferred','=',true)->expectOne();
+
+    }
+
+    public function altImages()
+    {
+
+        return $this->images()->wherePivot('preferred','=',false)->expectMany();
 
     }
 
@@ -159,9 +216,8 @@ class Artwork extends CollectionsModel
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
-            'department_citi_id' => $source->department_id,
             //'object_type_citi_id' => , // Redmine #2431
-            //'place_citi_id' => , // Redmine #2000
+            //'gallery_citi_id' => , // Redmine #2000
             'source_indexed_at' => strtotime($source->indexed_at),
         ];
 
@@ -187,15 +243,6 @@ class Artwork extends CollectionsModel
                     'preferred' => true
                 ]
             ], false);
-
-        }
-
-
-        if ($source->department_id)
-        {
-
-            // Sync is unnecessary here, since it's just a column on this table
-            $this->department_citi_id = $source->department_id;
 
         }
 
@@ -239,7 +286,7 @@ class Artwork extends CollectionsModel
         if ($source->location)
         {
 
-            $gallery = \App\Models\Collections\Place::where('title', $source->location)->first();
+            $gallery = \App\Models\Collections\Gallery::where('title', $source->location)->first();
 
             // Sometimes we get oddballs like 'Currently not on display'
             if( $gallery )
@@ -251,7 +298,7 @@ class Artwork extends CollectionsModel
                 $gallery->type = 'AIC Gallery';
                 $gallery->save();
 
-                $this->place_citi_id = $gallery ? $gallery->citi_id : null;
+                $this->gallery_citi_id = $gallery ? $gallery->citi_id : null;
 
             }
 
@@ -272,7 +319,7 @@ class Artwork extends CollectionsModel
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function getEssentialIds() {
+    public static function boostedIds() {
 
         return [
             185651,183077,151358,99539,189595,187528,102611,111401,91620,18757,51185,55249,14968,65290,75644,
@@ -310,7 +357,7 @@ class Artwork extends CollectionsModel
     public function isBoosted()
     {
 
-        return in_array( $this->getKey(), static::getEssentialIds() );
+        return in_array( $this->getKey(), static::boostedIds() );
 
     }
 
@@ -322,10 +369,10 @@ class Artwork extends CollectionsModel
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function essentials()
+    public static function boosted()
     {
 
-        return (new static)->newQuery()->whereKey( static::getEssentialIds() );
+        return (new static)->newQuery()->whereKey( static::boostedIds() );
 
     }
 
@@ -397,18 +444,18 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->artist_display; },
             ],
             [
-                "name" => 'department',
+                "name" => 'department_title',
                 "doc" => "Name of the curatorial department that this work belongs to",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->department ? $this->department->title : NULL; },
+                "value" => function() { return $this->department->title ?? null; },
             ],
             [
                 "name" => 'department_id',
                 "doc" => "Unique identifier of the curatorial department that this work belongs to",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->department ? $this->department_citi_id : null; },
+                "value" => function() { return $this->department->citi_id ?? null; },
             ],
             [
                 "name" => 'dimensions',
@@ -425,7 +472,7 @@ class Artwork extends CollectionsModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return $this->medium_display; },
+                "value" => function() { return $this->medium; },
             ],
             [
                 "name" => 'inscriptions',
@@ -435,18 +482,18 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->inscriptions; },
             ],
             [
-                "name" => 'object_type',
-                "doc" => "The kind of object or work, e.g., Painting, Sculpture, Book, etc.",
+                "name" => 'object_type_title',
+                "doc" => "The kind of object or work (e.g. Painting, Sculpture, Book)",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->objectType ? $this->objectType->title : NULL; },
+                "value" => function() { return $this->objectType->title ?? null; },
             ],
             [
                 "name" => 'object_type_id',
                 "doc" => "Unique identifier of the kind of object or work",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->objectType ? $this->objectType->citi_id : null; },
+                "value" => function() { return $this->objectType->citi_id ?? null; },
             ],
             [
                 "name" => 'credit_line',
@@ -495,14 +542,14 @@ class Artwork extends CollectionsModel
                 "doc" => "Whether images of the work are allowed to be displayed in a zoomable interface.",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) false; },
+                "value" => function() { return (bool) $this->is_zoomable; },
             ],
             [
                 "name" => 'max_zoom_window_size',
                 "doc" => "The maximum size of the window the image is allowed to be viewed in, in pixels.",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return 843; },
+                "value" => function() { return $this->max_zoom_window_size; },
             ],
             [
                 "name" => 'copyright_notice',
@@ -541,22 +588,14 @@ class Artwork extends CollectionsModel
                 "doc" => "The location of this work in our museum",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->gallery ? $this->gallery->title : null; },
+                "value" => function() { return $this->gallery->title ?? null; },
             ],
             [
                 "name" => 'gallery_id',
                 "doc" => "Unique identifier of the location of this work in our museum",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
-            ],
-            // TODO: Version our API!
-            [
-                "name" => 'is_in_gallery',
-                "doc" => "[DEPRECATED] Whether the work is on display",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->gallery && !$this->gallery->closed ? true : false; },
+                "value" => function() { return $this->gallery->citi_id ?? null; },
             ],
             [
                 "name" => 'is_on_view',
@@ -571,14 +610,14 @@ class Artwork extends CollectionsModel
                 "doc" => "Latitude coordinate of the location of this work in our galleries",
                 "type" => "number",
                 'elasticsearch_type' => 'float',
-                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->latitude : NULL; },
+                "value" => function() { return $this->mobileArtwork->latitude ?? null; },
             ],
             [
                 "name" => 'longitude',
                 "doc" => "Longitude coordinate of the location of this work in our galleries",
                 "type" => "number",
                 'elasticsearch_type' => 'float',
-                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->longitude : NULL; },
+                "value" => function() { return $this->mobileArtwork->longitude ?? null; },
             ],
             [
                 "name" => 'latlon',
@@ -599,7 +638,7 @@ class Artwork extends CollectionsModel
                 "doc" => "The code that can be entered in our audioguides to learn more about this work",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->mobileArtwork ? $this->mobileArtwork->selector_number : NULL; },
+                "value" => function() { return $this->mobileArtwork->selector_number ?? null; },
             ],
             // EOF TODO Mobile\Artwork
             [
@@ -682,28 +721,28 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifier of the preferred style term for this work",
                 "type" => "number",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->styles->where('pivot.preferred', true)->pluck('citi_id')->first(); },
+                "value" => function() { return $this->style->citi_id ?? null; },
             ],
             [
                 "name" => 'alt_style_ids',
                 "doc" => "Unique identifiers of all other non-preferred style terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->styles->where('pivot.preferred', false)->pluck('citi_id')->all(); },
+                "value" => function() { return $this->altStyles->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'classification_id',
                 "doc" => "Unique identifier of the preferred classification term for this work",
                 "type" => "number",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->classifications->where('pivot.preferred', true)->pluck('citi_id')->first(); },
+                "value" => function() { return $this->classification->citi_id ?? null; },
             ],
             [
                 "name" => 'alt_classificaiton_ids',
                 "doc" => "Unique identifiers of all other non-preferred classification terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->classifications->where('pivot.preferred', false)->pluck('citi_id')->all(); },
+                "value" => function() { return $this->altClassifications->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'subject_id',
@@ -725,50 +764,35 @@ class Artwork extends CollectionsModel
                 "name" => 'color',
                 "doc" => "Dominant color of this image in HSL",
                 "type" => "object",
-                "value" => function() {
-                    $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
-                    return ($preferred_image && $preferred_image->metadata && $preferred_image->metadata->color ? $preferred_image->metadata->color : null);
-                },
+                "value" => function() { return $this->image->metadata->color ?? null; },
             ],
             [
                 "name" => 'image_id',
                 "doc" => "Unique identifier of the preferred image to use to represent this work",
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() {
-                    $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
-                    return $preferred_image ? $preferred_image->lake_guid : null;
-                },
+                "value" => function() { return $this->image->lake_guid ?? null; },
             ],
             [
                 "name" => 'image_iiif_url',
                 "doc" => "IIIF URL of the preferred image to use to represent this work",
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() {
-                    $preferred_image = $this->images()->wherePivot('preferred','=',true)->get()->first();
-                    return $preferred_image ? $preferred_image->iiif_url : null;
-                },
+                "value" => function() { return $this->image->iiif_url ?? null; },
             ],
             [
                 "name" => 'alt_image_ids',
                 "doc" => "Unique identifiers of all non-preferred images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() {
-                    $alt_images = $this->images()->wherePivot('preferred','=',false)->get()->all();
-                    return $alt_images ? $alt_images->pluck('lake_guid')->all() : null;
-                },
+                "value" => function() { return $this->altImages->pluck('lake_guid')->all(); },
             ],
             [
                 "name" => 'alt_image_iiif_urls',
                 "doc" => "IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() {
-                    $alt_images = $this->images()->wherePivot('preferred','=',false)->get()->all();
-                    return $alt_images ? $alt_images->pluck('iiif_url')->all() : null;
-                },
+                "value" => function() { return $this->altImages->pluck('iiif_url')->all(); },
             ],
             // TODO: Move these to Mobile\Artwork
             [
@@ -811,7 +835,6 @@ class Artwork extends CollectionsModel
                 "name" => 'artist_titles',
                 "doc" => "Names of the artists this artwork is a part of",
                 "type" => "array",
-                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->artists->pluck('title')->all(); },
             ],
             [
@@ -820,9 +843,8 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "elasticsearch" => [
                     "default" => true,
-                    "type" => 'text',
                 ],
-                "value" => function() { return $this->artists->pluck('title')->all(); },
+                "value" => function() { return $this->categories->pluck('title')->all(); },
             ],
             [
                 "name" => 'copyright_representative_titles',

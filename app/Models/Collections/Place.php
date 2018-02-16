@@ -26,35 +26,6 @@ class Place extends CollectionsModel
     }
 
     /**
-     * Scope a query to only include galleries
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeGalleries($query)
-    {
-
-        return $query->where('type', 'AIC Gallery');
-
-    }
-
-    /**
-     * Scope a search to only include galleries.
-     *
-     * @return array
-     */
-    public static function searchGalleries()
-    {
-
-        return [
-            'term' => [
-                'type' => 'AIC Gallery'
-            ]
-        ];
-
-    }
-
-    /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
     protected function transformMappingInternal()
@@ -67,27 +38,6 @@ class Place extends CollectionsModel
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->type; },
-            ],
-            [
-                "name" => 'is_closed',
-                "doc" => "Whether the gallery is currently closed",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->closed; }
-            ],
-            [
-                "name" => 'number',
-                "doc" => "The gallery's room number. For 'Gallery 100A', this would be '100A'.",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->number; },
-            ],
-            [
-                "name" => 'floor',
-                "doc" => "The level the gallery is on, e.g., 1, 2, 3, or LL",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->floor; },
             ],
             [
                 "name" => 'latitude',
@@ -153,7 +103,7 @@ class Place extends CollectionsModel
     public function exampleId()
     {
 
-        return "26772";
+        return "27406";
 
     }
 

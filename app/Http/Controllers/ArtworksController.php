@@ -17,12 +17,12 @@ class ArtworksController extends BaseController
     protected $transformer = \App\Http\Transformers\ArtworkTransformer::class;
 
 
-    // artworks/essentials
-    public function essentials(Request $request) {
+    // artworks/boosted
+    public function boosted(Request $request) {
 
         return $this->collect( $request, function( $limit ) {
 
-            return Artwork::essentials()->paginate($limit);
+            return Artwork::boosted()->paginate($limit);
 
         });
 

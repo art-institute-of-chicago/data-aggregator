@@ -30,7 +30,7 @@ class ImportLibrary extends AbstractImportCommand
         DB::table('library_materials')->truncate();
         DB::table('library_terms')->truncate();
 
-        $this->info("Truncated library tables.");
+        $this->info("Truncated library tables.", 'vv');
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
         $this->warn("Please manually ensure that your search index mappings are up-to-date.");
@@ -39,11 +39,11 @@ class ImportLibrary extends AbstractImportCommand
 
         $this->import(\App\Models\Library\Material::class, 'materials', 1);
 
-        $this->info("Imported all library materials from data service!");
+        $this->info("Imported all library materials from data service!", 'vv');
 
         $this->import(\App\Models\Library\Term::class, 'terms', 1);
 
-        $this->info("Imported all library terms from data service!");
+        $this->info("Imported all library terms from data service!", 'vv');
 
     }
 
@@ -83,7 +83,7 @@ class ImportLibrary extends AbstractImportCommand
 
         $url = env('LIBRARY_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit;
 
-        $this->info( 'Querying: ' . $url );
+        $this->info( 'Querying: ' . $url, 'vv' );
 
         $result = $this->query( $url );
 

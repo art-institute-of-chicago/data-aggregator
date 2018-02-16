@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Image;
+use App\Models\Collections\Gallery;
 use App\Models\Collections\Category;
 use App\Models\Collections\Agent;
 use App\Models\Collections\AgentType;
@@ -15,10 +16,10 @@ class ArtworkTest extends ApiTestCase
 
     protected $route = 'artworks';
 
-    protected $keys = ['lake_guid'];
+    protected $keys = ['id'];
 
     /** @test */
-    public function it_fetches_essential_artworks()
+    public function it_fetches_boosted_artworks()
     {
 
         $this->make(Artwork::class, ['citi_id' => 185651]);
@@ -26,9 +27,24 @@ class ArtworkTest extends ApiTestCase
         $this->make(Artwork::class, ['citi_id' => 151358]);
         $this->make(Artwork::class, ['citi_id' => 99539]);
         $this->make(Artwork::class, ['citi_id' => 189595]);
-        $resources = $this->it_fetches_multiple(Artwork::class, 'artworks/essentials');
+        $resources = $this->it_fetches_multiple(Artwork::class, 'artworks/boosted');
 
-        $this->assertArrayHasKeys($resources, ['lake_guid'], true);
+        $this->assertArrayHasKeys($resources, ['id'], true);
+
+    }
+
+    /** @test */
+    public function it_fetches_the_gallery_for_an_artwork()
+    {
+
+        $galleryKey = $this->make(Gallery::class, ['closed' => false]);
+        $artworkKey = $this->make(Artwork::class, ['gallery_citi_id' => $galleryKey]);
+
+        $response = $this->getJson('api/v1/artworks/' .$artworkKey);
+        $response->assertSuccessful();
+
+        $resource = $response->json()['data'];
+        $this->assertTrue($resource['is_on_view']);
 
     }
 

@@ -34,10 +34,13 @@ Route::group(['prefix' => 'v1'], function()
     Route::match( array('GET', 'POST'), '{resource}/search', 'Search\SearchController@search');
     // We can do ->where('resource', '(foo|bar)') to limit {resource}, but it's not necessary...
 
+    Route::match( array('GET', 'POST'), 'msearch', 'Search\SearchController@msearch');
+
     Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocomplete');
     // We can't limit autocomplete to specific resources w/o creating additional resource-specific suggest fields
 
     // ...following Elasticsearch conventions
+    // TODO: Deprecate these since we're not following ES conventions anymore?
     Route::match( array('GET', 'POST'), '_search', 'Search\SearchController@search');
     Route::match( array('GET', 'POST'), '{resource}/_search', 'Search\SearchController@search');
 
@@ -51,7 +54,7 @@ Route::group(['prefix' => 'v1'], function()
 
     // Artwork related stuff
     Route::get('artworks', 'ArtworksController@index');
-    Route::get('artworks/essentials', 'ArtworksController@essentials');
+    Route::get('artworks/boosted', 'ArtworksController@boosted');
 
     Route::get('artworks/{id}', 'ArtworksController@show');
     Route::get('artworks/{id}/parts', 'ArtworksController@parts');
@@ -59,7 +62,6 @@ Route::group(['prefix' => 'v1'], function()
 
     Route::get('artworks/{id}/images', 'ImagesController@forArtwork');
     Route::get('artworks/{id}/categories', 'CategoriesController@forArtwork');
-    Route::get('artworks/{id}/departments', 'DepartmentsController@forArtwork'); // TODO: Unknown formatter "getKeyName"
 
     Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
     Route::get('artworks/{id}/copyright-representatives', 'AgentsController@scopeForArtwork');
@@ -70,6 +72,7 @@ Route::group(['prefix' => 'v1'], function()
 
     // Collections
     Route::get('agents', 'AgentsController@index');
+    Route::get('agents/boosted', 'AgentsController@boosted');
     Route::get('agents/{id}', 'AgentsController@show');
     Route::get('agents/{id}/places', 'AgentPlacesController@forAgent');
     Route::get('artists', 'AgentsController@indexScope');
@@ -83,8 +86,8 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('artwork-catalogues', 'ArtworkCataloguesController@index');
     Route::get('artwork-catalogues/{id}', 'ArtworkCataloguesController@show');
 
-    Route::get('departments', 'DepartmentsController@index');
-    Route::get('departments/{id}', 'DepartmentsController@show');
+    Route::get('departments', 'CategoriesController@departments');
+    Route::get('departments/{id}', 'CategoriesController@show');
 
     Route::get('object-types', 'ObjectTypesController@index');
     Route::get('object-types/{id}', 'ObjectTypesController@show');
@@ -97,8 +100,8 @@ Route::group(['prefix' => 'v1'], function()
 
     Route::get('places', 'PlacesController@index');
     Route::get('places/{id}', 'PlacesController@show');
-    Route::get('galleries', 'PlacesController@indexScope');
-    Route::get('galleries/{id}', 'PlacesController@showScope');
+    Route::get('galleries', 'GalleriesController@index');
+    Route::get('galleries/{id}', 'GalleriesController@show');
 
     Route::get('exhibitions', 'ExhibitionsController@index');
     Route::get('exhibitions/{id}', 'ExhibitionsController@show');
@@ -131,11 +134,11 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('products', 'ProductsController@index');
     Route::get('products/{id}', 'ProductsController@show');
 
-    // Membership/Events
-    Route::get('events', 'EventsController@index');
-    Route::get('events/{id}', 'EventsController@show');
-
-    Route::get('members/{id}', 'MembersController@show');
+    // Events
+    Route::get('legacy-events', 'LegacyEventsController@index');
+    Route::get('legacy-events/{id}', 'LegacyEventsController@show');
+    Route::get('ticketed-events', 'TicketedEventsController@index');
+    Route::get('ticketed-events/{id}', 'TicketedEventsController@show');
 
     // Mobile App
     Route::get('tours', 'ToursController@index');

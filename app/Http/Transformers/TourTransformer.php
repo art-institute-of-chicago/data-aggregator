@@ -14,18 +14,18 @@ class TourTransformer extends ApiTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['stops'];
+    protected $availableIncludes = ['tour_stops'];
 
 
     /**
-     * Include stops.
+     * Include tour stops.
      *
      * @param  \App\Models\Mobile\TourStop  $artwork
      * @return League\Fractal\ItemResource
      */
-    public function includeStops(Tour $tour)
+    public function includeTourStops(Tour $tour)
     {
-        return $this->collection($tour->stops()->getResults(), new TourStopTransformer, config('constants.no_data_wrapper'));
+        return $this->collection($tour->tourStops, new TourStopTransformer, config('constants.no_data_wrapper'));
     }
 
 }

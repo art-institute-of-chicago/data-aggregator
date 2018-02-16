@@ -14,12 +14,12 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `date_display` *string* - Readable, free-text description of the period of time associated with the creation of this work. This might include date terms like Dynasty, Era etc. Written by curators and editors in house style, and is the preferred field for display on websites and apps. 
 * `description` *string* - Longer explanation describing the work
 * `artist_display` *string* - Readable description of the creator of this work. Includes artist names, nationality and lifespan dates
-* `department` *string* - Name of the curatorial department that this work belongs to
+* `department_title` *string* - Name of the curatorial department that this work belongs to
 * `department_id` *number* - Unique identifier of the curatorial department that this work belongs to
 * `dimensions` *string* - The size, shape, scale, and dimensions of the work. May include multiple dimension like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.
 * `medium` *string* - The substances or materials used in the creation of a work
 * `inscriptions` *string* - A description of distinguishing or identifying physical markings that are on the work
-* `object_type` *string* - The kind of object or work, e.g., Painting, Sculpture, Book, etc.
+* `object_type_title` *string* - The kind of object or work (e.g. Painting, Sculpture, Book)
 * `object_type_id` *number* - Unique identifier of the kind of object or work
 * `credit_line` *string* - Brief statement indicating how the work came into the collection
 * `publication_history` *string* - Bibliographic list of all the places this work has been published
@@ -35,7 +35,6 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `collection_status` *string* - The works status of belonging to our collection. Values include 'Permanent Collection', 'Ryerson Collection', and 'Long-term Loan'.
 * `gallery_title` *string* - The location of this work in our museum
 * `gallery_id` *number* - Unique identifier of the location of this work in our museum
-* `is_in_gallery` *boolean* - [DEPRECATED] Whether the work is on display
 * `is_on_view` *boolean* - Whether the work is on display
 * `latitude` *number* - Latitude coordinate of the location of this work in our galleries
 * `longitude` *number* - Longitude coordinate of the location of this work in our galleries
@@ -98,19 +97,6 @@ Represents a person or organization. In the API, this includes artists, venues, 
 
 
 
-## Departments
-
-Represents a curatorial department in the museum. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#departments).
-
-* `id` *number* - Unique identifier of this resource. Taken from the source system.
-* `title` *string* - Name of this resource
-* `is_boosted` *boolean* - Whether this document should be boosted in search
-* `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
-
-
-
 ## Object Types
 
 A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#object-types).
@@ -163,13 +149,31 @@ A room or hall that works of art are displayed in. For a description of all the 
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
 * `type` *string* - Type always takes one of the following values: AIC Gallery, AIC Storage, null
+* `latitude` *number* - Latitude coordinate of the center of the room
+* `longitude` *number* - Longitude coordinate of the center of the room
+* `latlon` *string* - Latitude and longitude coordinates of the center of the room
+* `category_ids` *number* - Unique identifiers of the categories this place is a part of
+* `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
+
+
+
+## Galleries
+
+A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#galleries).
+
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
+* `type` *string* - Type always takes one of the following values: AIC Gallery, AIC Storage, null
 * `is_closed` *boolean* - Whether the gallery is currently closed
 * `number` *string* - The gallery's room number. For 'Gallery 100A', this would be '100A'.
 * `floor` *string* - The level the gallery is on, e.g., 1, 2, 3, or LL
 * `latitude` *number* - Latitude coordinate of the center of the room
 * `longitude` *number* - Longitude coordinate of the center of the room
 * `latlon` *string* - Latitude and longitude coordinates of the center of the room
-* `category_ids` *number* - Unique identifiers of the categories this place is a part of
+* `category_ids` *number* - Unique identifiers of the categories this gallery is a part of
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
@@ -192,8 +196,7 @@ An organized presentation and display of a selection of artworks. For a descript
 * `aic_end_at` *ISO 8601 date and time* - Date the exhibition closed at the Art Institute of Chicago
 * `start_at` *ISO 8601 date and time* - Date the exhibition opened across multiple venues
 * `end_at` *ISO 8601 date and time* - Date the exhibition closed across multiple venues
-* `department_title` *string* - The name of the department that primarily organized the exhibition
-* `department_id` *number* - Unique identifier of the department that primarily organized the exhibition
+* `department_display` *string* - The name of the department that primarily organized the exhibition
 * `gallery_title` *string* - The name of the gallery that mainly housed the exhibition
 * `gallery_id` *number* - Unique identifier of the gallery that mainly housed the exhibition
 * `image_id` *uuid* - Unique identifier of the image to use to represent this exhibition
@@ -202,7 +205,7 @@ An organized presentation and display of a selection of artworks. For a descript
 * `venue_ids` *array* - Unique identifiers of the venue agent records representing who hosted the exhibition
 * `artist_ids` *array* - Unique identifiers of the artist agent records representing who was shown in the exhibition
 * `site_ids` *array* - Unique identifiers of the microsites this exhibition is a part of
-* `event_ids` *array* - Unique identifiers of the ticketed events featuring this exhibition
+* `legacy_event_ids` *array* - Unique identifiers of the legacy events featuring this exhibition. These are events that been  imported from our existing site as a placeholder, until events from our new can be pulled in.
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
@@ -350,11 +353,11 @@ An item available for purchase in the museum shop. For a description of all the 
 
 
 
-# Events and Membership
+# Events
 
-## Events
+## Legacy Events
 
-An occurrence of a program at the museum. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#events).
+An occurrence of a program at the museum. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#legacy-events).
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
@@ -365,66 +368,35 @@ An occurrence of a program at the museum. For a description of all the endpoints
 * `type` *string* - The name of the type of event
 * `start_at` *ISO 8601 date and time* - Date and time the event begins
 * `end_at` *ISO 8601 date and time* - Date and time the event ends
-* `resource_id` *number* - Unique identifier of the resource associated with this event, often the venue in which it takes place
 * `resource_title` *string* - The name of the resource associated with this event, often the venue in which it takes place
-* `is_after_hours` *boolean* - Whether the event takes place after museum hours
-* `is_private_event` *boolean* - Whether the event is open to public
-* `is_admission_required` *boolean* - Whether admission is required in order to attend the event
-* `is_ticketed` *boolean* - Whether a ticket is required to attend the event.
-* `available` *number* - Number indicating how many tickets are available for the event
-* `total_capacity` *number* - Number indicating the total number of tickets that can be sold for the event
 * `exhibition_ids` *array* - Unique identifiers of the exhibitions associated with this work
+* `button_text` *string* - Name of text on the CTA to buy tickets/register
+* `button_url` *url* - URL of the CTA to buy tickets/register
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 
 
 
-## Members
+## Ticketed Events
 
-A member of the museum
+An occurrence of a program at the museum. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#ticketed-events).
 
-* `id` - Unique identifier of this resource. Taken from the source system.
-* `item_id` - Unique identifier indicating the type of membership
-* `item_name` - The name of the type of membership
-* `item_description` - Explanation of what the type of membership is
-* `status` - Number indicating the status of the membership
-* `status_description` - Explanation of the status of the membership
-* `category` - Unique identifier of the category associated with this membership
-* `sub_category` - Unique identifier of the subcategory associated with this membership
-* `date_opened` - Date and time the membership was first created
-* `date_used` - Date and time the membership was last used
-* `valid_days` - Number indicating for how many more days the membership will be valid
-* `valid_until` - Date and time of when the membership will become invalid
-* `members` - An array representing each person associated with this membership. Fields include:
-  * `id` - Unique identifier of this person on the membership
-  * `member_type` - Number representing the type of member this person is
-  * `primary` - Whether this person is the primary member
-  * `status` - Number indicating the status of this person on the membership
-  * `status_description` - Explanation of the status of this person on the membership
-  * `relationship_type_id` - Unique identifier of the type of relationship this person has with the primary member
-  * `relationship_description` - Explanation of the type of relationship this person has with the primary member
-  * `job_title` - This person's job title
-  * `name_title_id` - Unique identifier of this person's title, e.g., Ms., Miss, Mrs., Mr., etc.
-  * `first_name` - This person's first name
-  * `middle_name` - This person's middle name
-  * `last_name` - This person's last name
-  * `name_suffix_id` - Unique identifier of this person's suffix, e.g., Jr., III, etc.
-  * `street_1` - First line of street address
-  * `street_2` - Second line of street address, if needed
-  * `street_3` - Third line of street address, if needed
-  * `city` - The name of the city this person resides in
-  * `state` - The name of the state this person resides in
-  * `zip` - The zip code this person resides in
-  * `country` - The name of the country this person resides in
-  * `phone` - This person's phone number
-  * `fax` - This person's fax number, if available
-  * `cell` - This person's cell number, if available
-  * `email` - This person's email address, if available
-  * `allow_email` - Whether this person has stated it's okay to send them email
-  * `allow_mailings` - Whether this person has stated it's okay to send them postal mailings
-  * `date_of_birth` - Date this person was born
-  * `age_group` - Number indicating this person's age group
-  * `gender` - Number indicating this person's gender
+* `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `title` *string* - Name of this resource
+* `is_boosted` *boolean* - Whether this document should be boosted in search
+* `image` *url* - URL to an image representing this event
+* `start_at` *ISO 8601 date and time* - Date and time the event begins
+* `end_at` *ISO 8601 date and time* - Date and time the event ends
+* `resource_id` *number* - Unique identifier of the resource associated with this event, often the venue in which it takes place
+* `resource_title` *string* - The name of the resource associated with this event, often the venue in which it takes place
+* `is_after_hours` *boolean* - Whether the event takes place after museum hours
+* `is_private_event` *boolean* - Whether the event is open to public
+* `is_admission_required` *boolean* - Whether admission is required in order to attend the event
+* `available` *number* - Number indicating how many tickets are available for the event
+* `total_capacity` *number* - Number indicating the total number of tickets that can be sold for the event
+* `last_updated_source` *string* - Date and time the resource was updated in the source system
+* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
+
 
 
 # Mobile
@@ -455,8 +427,9 @@ An audio tour stops on a tour. For a description of all the endpoints available 
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
 * `title` *string* - Name of this tour stop
-* `artwork` *string* - Name of the artwork for this tour stop
+* `artwork_title` *string* - Name of the artwork for this tour stop
 * `artwork_id` *number* - Unique identifier of the artwork for this tour stop
+* `tour_id` *number* - Unique identifier of the tour this stop is a part of
 * `mobile_sound` *url* - URL to the audio file for this tour stop
 * `mobile_sound_id` *number* - Unique identifier of the audio file for this tour stop
 * `weight` *number* - Number representing this tour stop's sort order
@@ -511,7 +484,7 @@ Represents a chapter of publication. For a description of all the endpoints avai
 * `source_id` *number* - Drupal node id, unique only within the site of this publication
 * `weight` *number* - Number representing this section's sort order
 * `parent_id` *number* - Uniquer identifier of the parent section
-* `publication` *string* - Name of the publication this section belongs to
+* `publication_title` *string* - Name of the publication this section belongs to
 * `publication_id` *number* - Unique identifier of the publication this section belongs to
 * `artwork_id` *number* - Unique identifier of the artwork with which this section is associated
 * `content` *string* - Content of this section in plaintext
@@ -605,4 +578,4 @@ A Library of Congress term. For a description of all the endpoints available for
 
 
 
-> Generated by `php artisan docs:fields` on 2018-02-03 22:46:06
+> Generated by `php artisan docs:fields` on 2018-02-16 08:39:18

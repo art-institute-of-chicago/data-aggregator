@@ -20,9 +20,7 @@ class LibraryMaterialController extends BaseController
     protected function validateId( $id )
     {
 
-        $length = strlen( env('PRIMO_API_SOURCE') );
-
-        return substr( $id, 0, $length ) == env('PRIMO_API_SOURCE') && is_numeric( substr( $id, $length ) );
+        return \App\Models\Library\Material::validateId( $id );
 
     }
 

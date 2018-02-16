@@ -60,7 +60,7 @@ class Category extends ShopModel
                 "doc" => "Unique identifier of this category's parent",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->parent ? $this->parent->shop_id : null; },
+                "value" => function() { return $this->parent->shop_id ?? null; },
             ],
             [
                 "name" => 'type',
@@ -103,7 +103,7 @@ class Category extends ShopModel
                 "doc" => "Name of this category's parent",
                 "type" => "string",
                 "elasticsearch_type" => "text",
-                "value" => function() { return $this->parent ? $this->parent->title : NULL; },
+                "value" => function() { return $this->parent->title ?? null; },
             ],
             [
                 "name" => 'child_titles',
@@ -126,7 +126,7 @@ class Category extends ShopModel
     public function exampleId()
     {
 
-        return "999689";
+        return "999175";
 
     }
 

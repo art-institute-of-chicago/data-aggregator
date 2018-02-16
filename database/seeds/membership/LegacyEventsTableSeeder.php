@@ -1,15 +1,15 @@
 <?php
 
-use App\Models\Membership\Event;
+use App\Models\Membership\LegacyEvent;
 use App\Models\Collections\Exhibition;
 
-class EventsTableSeeder extends AbstractSeeder
+class LegacyEventsTableSeeder extends AbstractSeeder
 {
 
     protected function seed()
     {
 
-        factory( Event::class, 25 )->create();
+        factory( LegacyEvent::class, 25 )->create();
 
         $this->seedRelation( Event::class, Exhibition::class, 'exhibitions' );
 

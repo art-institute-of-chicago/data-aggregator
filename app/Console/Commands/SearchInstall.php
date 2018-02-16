@@ -69,7 +69,7 @@ class SearchInstall extends Command
 
         $return = Elasticsearch::indices()->create($params);
 
-        $this->info($this->done($return));
+        $this->info($this->done($return), 'vv');
 
         Artisan::call('search:alias', ['source' => $index, 'alias' => $prefix, '--single' => true]);
 

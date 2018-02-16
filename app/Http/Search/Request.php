@@ -38,9 +38,7 @@ class Request
     private static $allowed = [
 
         // Resources can be passed via route, or via query params
-        // TODO: Deprecate type?
         'resources',
-        'type',
 
         // Required for "Did You Mean"-style suggestions: we need to know the core search string
         // We use `q` b/c it won't cause UnexpectedValueException, if the user uses an official ES Client
@@ -62,18 +60,11 @@ class Request
         // 'search_after',
 
         // Choose which fields to return
-        // TODO: Deprecate `_source`?
         'fields',
-        '_source',
 
         // Fields to use for aggregations
-        'facets',
-
-        // TODO: Hide implementation by combining _source w/ other fields?
-        // Note that _source supports wildcards, while the others do not
-        // 'fields', // old convention
-        // 'stored_fields',
-        // 'docvalue_fields',
+        'aggs',
+        'aggregations',
 
         // Determines which shards to use, ensures consistent result order
         'preference',
@@ -128,12 +119,8 @@ class Request
      */
     public function getBaseParams( array $input ) {
 
-        // Grab resource target from resource endpoint, `resources`, or `type`
-        $resources = $this->resource ?? $input['resources'] ?? $input['type'] ?? null;
-
-        // Assume types map 1-to-1 with resources for now
-        // TODO: They don't - handle scoped models, e.g. artists?
-        $types = $resources;
+        // Grab resource target from resource endpoint or `resources` param
+        $resources = $this->resource ?? $input['resources'] ?? null;
 
         if( is_null( $resources ) )
         {
@@ -223,10 +210,10 @@ class Request
      *
      * @return array
      */
-    public function getSearchParams( $input = [], $withSuggestions = true, $withAggregations = true ) {
+    public function getSearchParams( $input = null, $withSuggestions = true, $withAggregations = true ) {
 
         // Strip down the (top-level) params to what our thin client supports
-        $input = self::getValidInput();
+        $input = self::getValidInput( $input );
 
         $params = array_merge(
             $this->getBaseParams( $input ),
@@ -257,30 +244,27 @@ class Request
         $params = $this->addScopeParams( $params, $input );
 
         /**
-         * 1. If `query` is present, our client acts as a pass-through.
-         * 2. If `query` is absent, check if `q` is present:
-         *    a. If `q` is present, fall back into simple search mode.
-         *    b. If `q` is absent, show all results.
+         * 1. If `query` is present, append it to the `must` clause.
+         * 2. If `q` is present, add full-text search to the `must` clause.
+         * 3. If `q` is absent, show all results.
          */
         if( isset( $input['query'] ) ) {
 
             $params = $this->addFullSearchParams( $params, $input );
 
+        }
+
+        if( isset( $input['q'] ) ) {
+
+            $params = $this->addSimpleSearchParams( $params, $input );
+
         } else {
 
-            if( isset( $input['q'] ) ) {
-
-                $params = $this->addSimpleSearchParams( $params, $input );
-
-            } else {
-
-                $params = $this->addEmptySearchParams( $params );
-
-            }
+            $params = $this->addEmptySearchParams( $params );
 
         }
 
-        // Regardless of the mode, if `q` is present, show search suggestions
+        // If `q` is present, use it for search suggestions
         if( isset( $input['q'] ) && $withSuggestions ) {
 
             $params = $this->addSuggestParams( $params, $input );
@@ -391,9 +375,12 @@ class Request
 
 
     /**
-     * Determine which fields to return. Set `_source` to `true` to return all.
-     * Set `_source` to `false` to return nothing. You can also pass `fields`
-     * instead of `_source` to match our REST API conventions.
+     * Determine which fields to return. Set `fields` to `true` to return all.
+     * Set `fields` to `false` to return nothing.
+     *
+     * We currently use `fields` to return `_source` from Elasticsearch, but this
+     * may change in the future. The user shouldn't care about how we are storing
+     * these fields internally, only what the API outputs.
      *
      * @param $input array
      * @param $default mixed Valid `_source` is array, string, null, or bool
@@ -403,7 +390,7 @@ class Request
     private function getFieldParams( array $input, $default = null ) {
 
         return [
-            '_source' => $input['fields'] ?? $input['_source'] ?? ( $default ?? self::$defaultFields ),
+            '_source' => $input['fields'] ?? ( $default ?? self::$defaultFields ),
         ];
 
     }
@@ -645,7 +632,8 @@ class Request
 
 
     /**
-     * Append aggregation parameters.
+     * Append aggregation parameters. This is a straight pass-through for more flexibility.
+     * Elasticsearch accepts both `aggs` and `aggregations`, so we support both too.
      *
      * @param $params array
      * @param $input array
@@ -655,23 +643,13 @@ class Request
     public function addAggregationParams( array $params, array $input )
     {
 
-        // If the user did not specify a facet parameter, facet by model
-        $facets = array_get( $input, 'facets' ) ? explode(',', $input['facets']) : ['api_model'];
+        $aggregations = $input['aggregations'] ?? $input['aggs'] ?? null;
 
-        $aggregations = [];
+        if( $aggregations ) {
 
-        foreach ($facets as $facet)
-        {
-
-            $aggregations['count_' . $facet] = [
-                'terms' => [
-                    'field' => $facet
-                ]
-            ];
+            $params['body']['aggregations'] = $aggregations;
 
         }
-
-        $params['body']['aggregations'] = $aggregations;
 
         return $params;
 

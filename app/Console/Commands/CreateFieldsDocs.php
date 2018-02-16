@@ -35,11 +35,11 @@ class CreateFieldsDocs extends Command
         $doc .= "# Collections\n\n";
         $doc .= \App\Models\Collections\Artwork::instance()->docFields();
         $doc .= \App\Models\Collections\Agent::instance()->docFields();
-        $doc .= \App\Models\Collections\Department::instance()->docFields();
         $doc .= \App\Models\Collections\ObjectType::instance()->docFields();
         $doc .= \App\Models\Collections\Category::instance()->docFields();
         $doc .= \App\Models\Collections\AgentType::instance()->docFields();
         $doc .= \App\Models\Collections\Place::instance()->docFields();
+        $doc .= \App\Models\Collections\Gallery::instance()->docFields();
         $doc .= \App\Models\Collections\Exhibition::instance()->docFields();
         $doc .= \App\Models\Collections\Image::instance()->docFields();
         $doc .= \App\Models\Collections\Video::instance()->docFields();
@@ -51,9 +51,9 @@ class CreateFieldsDocs extends Command
         $doc .= \App\Models\Shop\Category::instance()->docFields();
         $doc .= \App\Models\Shop\Product::instance()->docFields();
 
-        $doc .= "# Events and Membership\n\n";
-        $doc .= \App\Models\Membership\Event::instance()->docFields();
-        $doc .= \App\Models\Membership\Event::instance()->docMembershipFields();
+        $doc .= "# Events\n\n";
+        $doc .= \App\Models\Membership\LegacyEvent::instance()->docFields();
+        $doc .= \App\Models\Membership\TicketedEvent::instance()->docFields();
 
         $doc .= "# Mobile\n\n";
         $doc .= \App\Models\Mobile\Tour::instance()->docFields();

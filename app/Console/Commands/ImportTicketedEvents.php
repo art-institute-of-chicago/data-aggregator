@@ -4,10 +4,10 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 
-class ImportEvents extends AbstractImportCommand
+class ImportTicketedEvents extends AbstractImportCommand
 {
 
-    protected $signature = 'import:events';
+    protected $signature = 'import:events-ticketed';
 
     protected $description = "Import events data that has been updated since the last import";
 
@@ -18,18 +18,18 @@ class ImportEvents extends AbstractImportCommand
         // For debugging...
         // $this->command->last_success_at = $this->command->last_success_at->subDays(10);
 
-        $this->info("Looking for events since " . $this->command->last_success_at);
+        $this->info("Looking for events since " . $this->command->last_success_at, 'vv');
 
         $this->import('events');
 
-        $this->info("Ran out of events to import!");
+        $this->info("Ran out of events to import!", 'vv');
 
     }
 
     private function import($endpoint, $current = 1)
     {
 
-        $model = \App\Models\Membership\Event::class;
+        $model = \App\Models\Membership\TicketedEvent::class;
 
         $json = $this->queryService($endpoint, $current);
         $pages = $json->pagination->total_pages;

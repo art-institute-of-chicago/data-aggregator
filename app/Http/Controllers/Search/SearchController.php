@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Search;
 
+use Aic\Hub\Foundation\Exceptions\DetailedException;
+
 use App\Http\Search\Request as SearchRequest;
 use App\Http\Search\Response as SearchResponse;
 use Illuminate\Http\Request;
@@ -27,10 +29,12 @@ class SearchController extends BaseController
     /**
      * General entry point for search. There are three modes:
      *
-     *  1. If `query` is present, our client acts as a pass-through.
-     *  2. If `query` is absent, check if `q` is present:
-     *     a. If `q` is present, fall back into simple search mode.
-     *     b. If `q` is absent, show all results.
+     *  1. If `query` is present, append it to the `must` clause.
+     *  2. If `q` is present, add full-text search to the `must` clause.
+     *  3. If `q` is absent, show all results.
+     *
+     * Broadly, we send a bool query to Elasticsearch. We put the user's queries
+     * into the `must` clause, and our relevancy tweaks, into the `should` clause.
      *
      * `query` follows ES "Search Request Body" and "Query DSL" conventions.
      * `q` is a string, but it does *not* support ES's "URI Search" syntax.
@@ -52,7 +56,6 @@ class SearchController extends BaseController
         return $this->query( 'getSearchParams', 'getSearchResponse', 'search', $resource );
 
     }
-
 
     /**
      * Return only the `suggest` field of search. This method optimizes both our request
@@ -131,6 +134,94 @@ class SearchController extends BaseController
 
     }
 
+    /**
+     * Multisearch stub functionality.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-multi-search.html
+     * @link https://discuss.elastic.co/t/elasticsearch-5-0-php-msearch/66716
+     *
+     * @return array
+     */
+    public function msearch( Request $request )
+    {
+
+        $queries = json_decode($request->getContent(), true);
+
+        if( !is_array( $queries ) || count( array_filter( array_keys( $queries ), 'is_string') ) > 0 ) {
+
+            // TODO: Accept key'd
+            throw new DetailedException('Invalid Query', 'You must pass an indexed array as the root object.', 400);
+
+        }
+
+        $originalParams = [];
+
+        foreach( $queries as $query )
+        {
+            $originalParams[] = ( new SearchRequest() )->getSearchParams( $query );
+        }
+
+        $transformedParams = [];
+
+        foreach( $originalParams as $params )
+        {
+
+            $header = [];
+
+            if( isset( $params['index'] ) ) {
+               $header['index'] = $params['index'];
+               unset( $params['index'] );
+            }
+
+            if( isset( $params['type'] ) ) {
+               $header['type'] = $params['type'];
+               unset( $params['type'] );
+            }
+
+            $body = [];
+
+            if( isset( $params['body'] ) ) {
+                $body = $params['body'];
+                unset( $params['body'] );
+            }
+
+            foreach( ['preference', 'from', 'size'] as $key ) {
+                if( array_key_exists( $key, $params ) && is_null( $params[$key] ) ) {
+                    unset( $params[$key] );
+                }
+            }
+
+            $body = array_merge( $params, $body );
+
+            $transformedParams[] = $header;
+            $transformedParams[] = $body;
+        }
+
+        try {
+            $results = Elasticsearch::msearch( ['body' => $transformedParams] );
+        } catch (\Exception $e) {
+
+            // Elasticsearch occasionally returns a status code of zero
+            $code = $e->getCode() > 0 ? $e->getCode() : 500;
+
+            return response( $e->getMessage(), $code )->header('Content-Type', 'application/json');
+        }
+
+        // Reduce down to our array of interest
+        $results = $results['responses'];
+
+        $responses = [];
+
+        foreach( $results as $result ) {
+
+            // Transform Elasticsearch results into our API standard
+            $responses[] = ( new SearchResponse( $result, $originalParams ) )->getSearchResponse();
+
+        }
+
+        return $responses;
+
+    }
 
     /**
      * Retrieve the last query sent by this client to Elasticsearch.

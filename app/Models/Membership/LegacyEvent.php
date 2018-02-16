@@ -13,7 +13,7 @@ use Carbon\Carbon;
 /**
  * An occurrence of a program at the museum.
  */
-class Event extends MembershipModel
+class LegacyEvent extends MembershipModel
 {
 
     use ElasticSearchable;
@@ -29,129 +29,71 @@ class Event extends MembershipModel
     public function exhibitions()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Exhibition', 'event_exhibition', 'event_membership_id', 'exhibition_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Exhibition', 'legacy_event_exhibition', 'legacy_event_membership_id', 'exhibition_citi_id');
 
-    }
-
-    public function resource2gallery( $resource_id )
-    {
-
-        $locations = [
-            '3' => 26131, // Rubloff Auditorium
-            '4' => 28277, // Price Auditorium
-            '5' => 28276, // Morton Auditorium
-            '10' => 24000, // Griffin Court
-            '11' => 2147475902, // Regenstein Hall
-            '22' => 23998, // Abbott Galleries (Galleries 182-184, this is Gallery 183)
-            '23' => 2147483599, // Fullerton Hall
-            '49' => 23965, // Cafe Moderno
-            '50' => 25563, // Terzo Piano
-            '77' => 2147475902, // Regenstein Hall Thursday
-            '80' => 25237, // Pritzker Garden
-            '81' => 346, // Stock Exchange Trading Room
-            '82' => 2147477257, // Gallery 11
-            '83' => 2147472011, // Grand Staircase
-            '86' => 27946, // South Garden
-            '87' => 2147477076, // North Garden
-        ];
-
-        $resource_id = (string) $resource_id;
-
-        return $locations[ $resource_id ] ?? null;
     }
 
     protected function getExtraFillFieldsFrom($source)
     {
 
-        if ($source->source == 'drupal')
-        {
+        //// Available fields we haven't done anything with yet:
+        // +"url": "http://www.artic.edu/event/gallery-talk-modern-wing-highlights"
 
-            //// Available fields we haven't done anything with yet:
-            // +"url": "http://www.artic.edu/event/gallery-talk-modern-wing-highlights"
+        $ret = [
+            'description' => $source->body,
+            'short_description' => $source->summary,
+            'image_url' => $source->image,
+            'start_at' => new Carbon($source->dates ." " .$source->start_time),
+            'end_at' => new Carbon($source->dates ." " .$source->end_time),
+            'resource_title' => $source->location,
+            'web_url' => $source->url,
+        ];
 
-            $ret = [
-                'description' => $source->body,
-                'short_description' => $source->summary,
-                'image_url' => $source->image,
-                'is_ticketed' => $source->button_link ? TRUE : FALSE,
-            ];
+        // Set flag is_admission_required
+        $ret['is_admission_required'] = FALSE;
+        if ($source->fee == "Free with museum admission"
+            || $source->fee == "Free with museum admission*"
+            || $source->fee == "Free with museum admission, no registration required"
+            || $source->fee == "Free with museum admission; registration required"
+            || $source->fee == "Free with museum admission, registration required"
+            || $source->fee == "Free with museum admission; registration required*"
+            || $source->fee == "Free to Illinois residents or with museum admission; registration required*") {
 
-            if (!$this->start_at)
-            {
-
-                $ret['start_at'] = new Carbon($source->dates ." " .$source->start_time);
-
-            }
-            if (!$this->end_at)
-            {
-
-                $ret['end_at'] = new Carbon($source->dates ." " .$source->end_time);
-
-            }
-            if (!$this->resource_title)
-            {
-
-                $ret['resource_title'] = $source->location;
-
-            }
-            if (!$this->is_admission_required)
-            {
-
-                // Set flag is_admission_required
-                $ret['is_admission_required'] = FALSE;
-                if ($source->fee == "Free with museum admission"
-                    || $source->fee == "Free with museum admission*"
-                    || $source->fee == "Free with museum admission, no registration required"
-                    || $source->fee == "Free with museum admission; registration required"
-                    || $source->fee == "Free with museum admission, registration required"
-                    || $source->fee == "Free with museum admission; registration required*"
-                    || $source->fee == "Free to Illinois residents or with museum admission; registration required*") {
-
-                    $ret['is_admission_required'] = TRUE;
-
-                }
-
-            }
-
-            return $ret;
+            $ret['is_admission_required'] = TRUE;
 
         }
-        else
+
+        if ($source->button_link)
         {
+            $dom = new \DOMDocument();
+            @$dom->loadHTML($source->button_link);
+            foreach ($dom->getElementsByTagName('a') as $a)
+            {
 
-            return [
+                $ret['button_text'] = $a->textContent;
+                $ret['button_url'] = $a->getAttribute('href');
 
-                'start_at' => strtotime($source->start_at),
-                'end_at' => strtotime($source->end_at),
-
-                'is_ticketed' => TRUE,
-
-            ];
-
+            }
         }
+        return $ret;
 
     }
 
     public function attachFrom($source)
     {
 
-        if ($source->source == 'drupal')
+        if ($source->exhibition_id)
         {
 
-            if ($source->exhibition_id)
+            $ids = explode(', ', $source->exhibition_id);
+            $syncIds = [];
+            foreach ($ids as $id)
             {
-
-                $ids = explode(', ', $source->exhibition_id);
-                $syncIds = [];
-                foreach ($ids as $id)
-                {
-                    if ($this->exhibitionIdFromDrupal($id)) {
-                        $syncIds[] = $this->exhibitionIdFromDrupal($id);
-                    }
+                if ($this->exhibitionIdFromDrupal($id)) {
+                    $syncIds[] = $this->exhibitionIdFromDrupal($id);
                 }
-                $this->exhibitions()->sync($syncIds, false);
-
             }
+            $this->exhibitions()->sync($syncIds, false);
 
         }
 
@@ -213,63 +155,11 @@ class Event extends MembershipModel
                 "value" => function() { return $this->end_at ? $this->end_at->toIso8601String() : NULL; },
             ],
             [
-                "name" => 'resource_id',
-                "doc" => "Unique identifier of the resource associated with this event, often the venue in which it takes place",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->resource_id; },
-            ],
-            [
                 "name" => 'resource_title',
                 "doc" => "The name of the resource associated with this event, often the venue in which it takes place",
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->resource_title; },
-            ],
-
-            // Caution: (bool) null = false
-            // TODO: Use $casts throughout the codebase
-            [
-                "name" => 'is_after_hours',
-                "doc" => "Whether the event takes place after museum hours",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->is_after_hours; },
-            ],
-            [
-                "name" => 'is_private_event',
-                "doc" => "Whether the event is open to public",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->is_private_event; },
-            ],
-            [
-                "name" => 'is_admission_required',
-                "doc" => "Whether admission is required in order to attend the event",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->is_admission_required; },
-            ],
-            [
-                "name" => 'is_ticketed',
-                "doc" => "Whether a ticket is required to attend the event.",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->is_ticketed; },
-            ],
-            [
-                "name" => 'available',
-                "doc" => "Number indicating how many tickets are available for the event",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->available; },
-            ],
-            [
-                "name" => 'total_capacity',
-                "doc" => "Number indicating the total number of tickets that can be sold for the event",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->total_capacity; },
             ],
             [
                 "name" => 'exhibition_ids',
@@ -277,6 +167,20 @@ class Event extends MembershipModel
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->exhibitions->pluck('citi_id')->all(); },
+            ],
+            [
+                "name" => 'button_text',
+                "doc" => "Name of text on the CTA to buy tickets/register",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->button_text; },
+            ],
+            [
+                "name" => 'button_url',
+                "doc" => "URL of the CTA to buy tickets/register",
+                "type" => "url",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->button_url; },
             ],
 
         ];
@@ -292,7 +196,7 @@ class Event extends MembershipModel
     public function exampleId()
     {
 
-        return "28990343";
+        return "2277";
 
     }
 

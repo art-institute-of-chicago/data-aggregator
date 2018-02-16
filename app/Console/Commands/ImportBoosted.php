@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-class ImportEssentials extends AbstractImportCommand
+class ImportBoosted extends AbstractImportCommand
 {
 
-    protected $signature = 'import:essentials';
+    protected $signature = 'import:boosted';
 
-    protected $description = 'Import all collections data related to Essential Works';
+    protected $description = 'Import all collections data related to boosted Works';
 
 
     public function handle()
@@ -31,18 +31,16 @@ class ImportEssentials extends AbstractImportCommand
         $artworks = [];
         $galleries = [];
         $categories = [];
-        $departments = [];
 
         // These will be filled in from artworks
         $image_ids = [];
         $category_ids = [];
-        $department_ids = [];
 
         // TODO: Replace this w/ $gallery_ids, when those become available in LPM Solr
         $gallery_titles = [];
 
-        // We are interested in only the essentials
-        $artwork_ids = \App\Models\Collections\Artwork::getEssentialIds();
+        // We are interested in only the boosted
+        $artwork_ids = \App\Models\Collections\Artwork::getBoostedIds();
 
         // Reduce the number of ids down, for testing
         $artwork_ids = array_slice( $artwork_ids, 0, 50 );
@@ -65,10 +63,6 @@ class ImportEssentials extends AbstractImportCommand
                 $creator_ids[] = $artwork->creator_id;
             }
 
-            if( !is_null( $artwork->department_id ) ) {
-                $department_ids[] = $artwork->department_id;
-            }
-
             if( !is_null( $artwork->location ) ) {
                 $gallery_titles[] = $artwork->location;
             }
@@ -83,7 +77,6 @@ class ImportEssentials extends AbstractImportCommand
         $image_ids = array_unique( $image_ids );
         $creator_ids = array_unique( $creator_ids );
         $category_ids = array_unique( $category_ids );
-        $department_ids = array_unique( $department_ids );
         $gallery_titles = array_unique( $gallery_titles );
 
         // We need an Agent Type w/ title = Artist, or Artwork import will fail
@@ -109,7 +102,6 @@ class ImportEssentials extends AbstractImportCommand
         $this->getDataAndImport( $image_ids, 'images' );
         $this->getDataAndImport( $creator_ids, 'artists' );
         $this->getDataAndImport( $category_ids, 'categories' );
-        $this->getDataAndImport( $department_ids, 'departments' );
 
     }
 

@@ -19,25 +19,17 @@ class CollectionsTransformer extends ApiTransformer
 
         if ($this->excludeIdsAndTitle)
         {
-
             return [];
-
         }
 
         $ret = [
             'id' => $item->getAttributeValue($item->getKeyName()),
-        ];
-
-        $ret = array_merge( $ret, [
             'title' => $item->title,
-        ]);
+        ];
 
         if ($this->citiObject)
         {
-
-            $ret = array_merge( $ret, [
-                'lake_guid' => $item->lake_guid,
-            ]);
+            $ret['lake_guid'] = $item->lake_guid;
         }
 
         return $ret;
@@ -49,20 +41,14 @@ class CollectionsTransformer extends ApiTransformer
 
         if ($this->excludeDates)
         {
-
             return [];
-
         }
 
         $ret = [];
 
         if ($this->citiObject)
         {
-
-            $ret = [
-                'last_updated_citi' => $item->citi_modified_at ? $item->citi_modified_at->toIso8601String() : null,
-            ];
-
+            $ret['last_updated_citi'] = $item->citi_modified_at ? $item->citi_modified_at->toIso8601String() : null;
         }
 
         return array_merge(

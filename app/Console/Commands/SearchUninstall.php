@@ -39,7 +39,7 @@ class SearchUninstall extends Command
             $endpoint = app('Resources')->getEndpointForModel($model);
             $index = $prefix . '-' . $endpoint;
 
-            $this->info('Deleting ' . $index . ' index...');
+            $this->info('Deleting ' . $index . ' index...', 'vv');
 
             $params = [
                 'index' => $index,
@@ -50,11 +50,11 @@ class SearchUninstall extends Command
 
                 $return = Elasticsearch::indices()->delete($params);
 
-                $this->info($this->done($return));
+                $this->info($this->done($return), 'vv');
 
             } else {
 
-                $this->info("Index " . $index . " does not exist.");
+                $this->info("Index " . $index . " does not exist.", 'vv');
 
             }
 

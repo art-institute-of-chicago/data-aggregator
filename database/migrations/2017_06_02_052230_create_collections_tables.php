@@ -60,7 +60,7 @@ class CreateCollectionsTables extends Migration
             $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
             $table->string('floor')->nullable();
-            $table->double('latitude', 15, 13)->nullable();
+            $table->double('latitude', 16, 13)->nullable();
             $table->double('longitude', 16, 13)->nullable();
             $table = $this->_addDates($table);
         });
@@ -321,5 +321,6 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('agent_types');
 
     }
+
 
 }

@@ -23,7 +23,7 @@ class TermTransformer extends CollectionsTransformer
      */
     public function includeArtworks(Term $term)
     {
-        return $this->collection($term->artworks()->getResults(), new CollectionsTransformer, false);
+        return $this->collection($term->artworks, new CollectionsTransformer, false);
     }
 
 }

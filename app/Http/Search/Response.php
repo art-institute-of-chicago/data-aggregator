@@ -61,7 +61,7 @@ class Response
 
         $response = array_merge(
             [
-                'preference' => $this->searchParams['preference'],
+                'preference' => $this->searchParams['preference'] ?? null,
             ],
             $response
         );
@@ -111,8 +111,8 @@ class Response
 
         // LengthAwarePaginator has trouble here
         $total = $this->searchResponse['hits']['total'];
-        $limit = $this->searchParams['size'] ?: 10;
-        $offset = $this->searchParams['from'] ?: 0;
+        $limit = $this->searchParams['size'] ?? 10;
+        $offset = $this->searchParams['from'] ?? 0;
 
         $total_pages = ceil( $total / $limit );
         $current_page = floor( $offset / $limit ) + 1;
@@ -205,37 +205,16 @@ class Response
 
 
     /**
-     * Add aggregations (i.e. facets) to response.
+     * Add aggregations (i.e. facets) to response. Again, straight pass-through.
      *
      * @return array
      */
     public function aggregate()
     {
 
-        $results = array_get($this->searchResponse, 'aggregations');
+        $aggregations = $this->searchResponse['aggregations'] ?? null;
 
-        // Exit out of there are no aggregations returned
-        if( is_null( $results ) ) {
-            return [];
-        }
-
-        $aggs = [];
-
-        foreach ( $results as $count => $data)
-        {
-
-            $aggs[$count] = $data['buckets'];
-
-        }
-
-        if ($aggs)
-        {
-
-            return ['aggregations' => $aggs];
-
-        }
-
-        return [];
+        return $aggregations ? ['aggregations' => $aggregations] : [];
 
     }
 
