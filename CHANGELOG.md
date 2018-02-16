@@ -1,6 +1,65 @@
 Data Aggregator Changelog
 =============================
 
+0.8 - Clean up for consistency, and further feature additions to support the website and mobile app
+
+	* Add `*_title` to all name-of fields for consistency
+	* Accept `q` and `query` in the same search request
+	* Boost artists, to provide better data to the "Featured result" option on the website. We're boosting all artists in the set of boosted artworks, along with the top 100 viewed artists on our website in 2017.
+	* Refactor departments to use departmental publish categories in CITI rather than our internal department structure.
+	* Add includes for `sites` to /agents, /artworks and /exhibitions
+	* Split /galleries and /places with a more reliable condition
+	* Remove deprecated `theme` model, which isn't output anywhere in the API
+	* Split /events up into /ticketed-events and /legacy-event endpoints, to make room for canonical events from the new website
+	* Remove /members endpoint
+	* Add `button_url`, `button_text` and `web_url` to /legacy-events
+	* Provide functionality to pass aggregation parameters to search endpoints
+	* Add multi search functionality to allow multiple queries to be sent in one request
+	* Make tours discoverable by the names of their tour stops
+	* Add `tour_ids` to `/tour-stops`
+	* Rename `/tours` include from `stops` to `tour-stops`
+
+	ARTWORKS ENDPOINT
+	* Fix output of `medium` field
+	* Properly fill in rights flags
+	* The following modifications have been made to the API schema:
+	- `department_title` - Renamed from `department` to match schema used by other fields
+	- `object_type_title` - Renamed from `object_type` to match schema used by other fields
+	- `is_in_gallery` - Removed, in favor of `is_on_view` that accounts for gallery closures
+	- `object_type_title` - Renamed from `object_type` to match schema used by other fields
+
+	VENUES ENDPOINT
+	* The following modifications have been made to the API schema:
+	- `agent_title` - Renamed from `agent` to match schema used by other fields
+	- `exhibition_title` - Renamed from `exhibition` to match schema used by other fields
+
+	AGENT PLACES ENDPOINT
+	* The following modifications have been made to the API schema:
+	- `agent_title` - Renamed from `agent` to match schema used by other fields
+	- `place_title` - Renamed from `place` to match schema used by other fields
+
+	ARTWORK CATALOGUES ENDPOINT
+	* The following modifications have been made to the API schema:
+	- `artwork_title` - Renamed from `artwork` to match schema used by other fields
+	- `catalogue_title` - Renamed from `catalogue` to match schema used by other fields
+
+	TOUR STOPS ENDPOINT
+	* The following modifications have been made to the API schema:
+	- `artwork_title` - Renamed from `artwork` to match schema used by other fields
+
+	NEW ENDPOINTS
+	* Additionally, the following endpoints have been added to the API:
+	- `/artworks/boosted` – Renamed from `/artworks/essentials`, which has been deprecated. This naming matches logic we released in 0.7 to create a common mechanism by which resources can provide boosted results.
+	- `/agents/boosted` – We're now boosting artists in addition to artworks. This endpoint provides a view of just boosted artists.
+	- `/legacy-events` and `/ticketed-events` – The `/events` endpoint has been split up into two separate endpoints, more clearly naming what data it's serving. `/legacy-events` are from the existing website for use by the mobile app. `/ticketed-events` are the small set of events in our ticketing system for use by the website CMS. These name changes also affect the resource names and endpoints for our search. After the website launches, `/legacy-events` will be deprecated and we'll work with the mobile team to make the transition. This change has been made to make room for a single, canonical list of events that will be provided by the new website.
+	- The `/members` endpoint has been removed.
+
+	DEPRECATED SEARCH PARAMETERS
+	* As planned, the following search parameters have been removed from the API:
+	- `type` – Replaced with `resources`. This parameter is no longer supported in later versions of Elasticsearch.
+	- `_source` – Replaced with `fields`. This parameter duplicates functionality provided by `fields`.
+	- `facets` - Replaced with `aggregations`. This parameter opens up built in Elasticsearch aggregation functionality to our API
+
 0.7 - Add functionality to support website and mobile App development
 
 	* Add general import:all and import:daily commands to run imports from all sources
