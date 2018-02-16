@@ -169,7 +169,7 @@ class Request
 
         return [
             'index' => $indexes,
-            'type' => $types,
+            'type' => $types ?? null,
             'preference' => array_get( $input, 'preference' ),
         ];
 
