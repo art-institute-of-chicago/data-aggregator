@@ -25,6 +25,7 @@ A list of all artworks sorted by last updated date in descending order. For a de
   * `images`
   * `publications`
   * `tours`
+  * `sites`
 
 Example request: http://aggregator-data-test.artic.edu/api/v1/artworks?limit=2  
 Example output:
@@ -32,39 +33,39 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 106479,
+        "total": 106503,
         "limit": 2,
         "offset": 0,
-        "total_pages": 53240,
+        "total_pages": 53252,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks?page=2&limit=2"
     },
     "data": [
         {
-            "id": 153671,
-            "title": "Panel (Furnishing Fabric)",
-            "lake_guid": "452bba13-905e-dce5-2c1c-d7038e8d3a5b",
+            "id": 45571,
+            "title": "Chair Back",
+            "lake_guid": "a44955fc-e64e-4db6-fcb7-4ee01be42160",
             "is_boosted": false,
             "alt_titles": [],
-            "main_reference_number": "1999.567",
+            "main_reference_number": "1973.581",
             ...
         },
         {
-            "id": 184960,
-            "title": "Section of Border from Thanka (Religious Picture)",
-            "lake_guid": "71d6fca7-d552-739f-d029-87806ea9bf0d",
+            "id": 46103,
+            "title": "Panel (Furnishing Fabric)",
+            "lake_guid": "74da7217-a7d2-6ed1-9022-d42b57445e08",
             "is_boosted": false,
             "alt_titles": [],
-            "main_reference_number": "1931.9b",
+            "main_reference_number": "1943.23",
             ...
         }
     ]
 }
 ```
 
-### `/artworks/essentials`
+### `/artworks/boosted`
 
-A list of essential artworks sorted by last updated date in descending order. This is a subset of the `artworks/` endpoint that represents approximately 400 of our most well-known works. This can be used to get a shorter list of artworks that will have most of its metadata filled out for testing purposes.
+A list of boosted artworks sorted by last updated date in descending order. This is a subset of the `artworks/` endpoint that represents approximately 400 of our most well-known resources. This can be used to get a shorter list of artworks that will have most of its metadata filled out for testing purposes.
 
 #### Available parameters:
 
@@ -85,8 +86,9 @@ A list of essential artworks sorted by last updated date in descending order. Th
   * `images`
   * `publications`
   * `tours`
+  * `sites`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/essentials?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/boosted?limit=2  
 Example output:
 
 ```
@@ -97,25 +99,25 @@ Example output:
         "offset": 0,
         "total_pages": 207,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/essentials?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/boosted?page=2&limit=2"
     },
     "data": [
         {
-            "id": 869,
-            "title": "The Watermill with the Great Red Roof",
-            "lake_guid": "43ec8cd2-8ac7-c9ec-5c7b-aa7a225b53c8",
+            "id": 66434,
+            "title": "Georgia O'Keeffe\u2014Hands and Thimble",
+            "lake_guid": "98f1fd24-3b57-9a0f-cebb-d63c1c6d4f7b",
             "is_boosted": true,
             "alt_titles": [],
-            "main_reference_number": "1894.1031",
+            "main_reference_number": "1949.745",
             ...
         },
         {
-            "id": 4575,
-            "title": "Judith",
-            "lake_guid": "abd92a83-28ee-6255-d1f3-8354a9f39e08",
+            "id": 15401,
+            "title": "At Mouquin's",
+            "lake_guid": "4bac2d7e-1c89-805e-c4a5-19315bbc566e",
             "is_boosted": true,
             "alt_titles": [],
-            "main_reference_number": "1956.1109",
+            "main_reference_number": "1925.295",
             ...
         }
     ]
@@ -150,34 +152,34 @@ Example output:
     },
     "data": [
         {
-            "_score": 14.395895,
+            "_score": 13.925655,
             "api_id": "14598",
             "api_model": "artworks",
             "is_boosted": true,
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/14598",
             "id": 14598,
             "title": "The Beach at Sainte-Adresse",
-            "timestamp": "2018-02-02T21:06:35-06:00"
+            "timestamp": "2018-02-16T08:36:23-06:00"
         },
         {
-            "_score": 13.653746,
+            "_score": 13.587482,
             "api_id": "16571",
             "api_model": "artworks",
             "is_boosted": true,
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/16571",
             "id": 16571,
             "title": "Arrival of the Normandy Train, Gare Saint-Lazare",
-            "timestamp": "2018-02-02T21:04:39-06:00"
+            "timestamp": "2018-02-16T08:35:12-06:00"
         },
         {
-            "_score": 13.653746,
+            "_score": 13.587482,
             "api_id": "16568",
             "api_model": "artworks",
             "is_boosted": true,
             "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/16568",
             "id": 16568,
             "title": "Water Lilies",
-            "timestamp": "2018-02-02T21:06:29-06:00"
+            "timestamp": "2018-02-16T08:35:17-06:00"
         }
     ],
     "suggest": {
@@ -187,14 +189,6 @@ Example output:
             "<em>Don't<\/em>",
             "<em>Donut<\/em>",
             "<em>Bonnet<\/em>"
-        ]
-    },
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "artworks",
-                "doc_count": 345
-            }
         ]
     }
 }
@@ -235,7 +229,7 @@ Example output:
             "id": 34996,
             "title": "Edward Hopper",
             "lake_guid": "cba02485-5b76-1e48-bb85-2f9d0f3e3c57",
-            "is_boosted": false,
+            "is_boosted": true,
             "alt_titles": [],
             "birth_date": 1882,
             ...
@@ -270,6 +264,15 @@ Example output:
             "is_boosted": false,
             "parent_id": null,
             "is_in_nav": false,
+            ...
+        },
+        {
+            "id": 41,
+            "title": "Featured Works",
+            "lake_guid": "ae637a2b-e996-a28e-7ca8-adae24ae01fa",
+            "is_boosted": false,
+            "parent_id": 2,
+            "is_in_nav": true,
             ...
         },
         {
@@ -309,47 +312,11 @@ Example output:
             ...
         },
         {
-            "id": 41,
-            "title": "Featured Works",
-            "lake_guid": "ae637a2b-e996-a28e-7ca8-adae24ae01fa",
-            "is_boosted": false,
-            "parent_id": 2,
-            "is_in_nav": true,
-            ...
-        },
-        {
             "id": 83,
             "title": "Featured Works",
             "lake_guid": "854c887d-e8e1-71fb-1393-a3280918efd2",
             "is_boosted": false,
             "parent_id": 11,
-            "is_in_nav": true,
-            ...
-        },
-        {
-            "id": 44,
-            "title": "Paintings, 1900-1955",
-            "lake_guid": "dcafd608-cc4a-bf34-12b7-87e095bc0a5b",
-            "is_boosted": false,
-            "parent_id": 2,
-            "is_in_nav": true,
-            ...
-        },
-        {
-            "id": 87,
-            "title": "American Modernism",
-            "lake_guid": "3c15e374-7cd0-7a9a-0280-fa3855032a3f",
-            "is_boosted": false,
-            "parent_id": 11,
-            "is_in_nav": true,
-            ...
-        },
-        {
-            "id": 48,
-            "title": "American Modernism",
-            "lake_guid": "795eda4e-6c99-1e9f-3283-5aaaad27f857",
-            "is_boosted": false,
-            "parent_id": 2,
             "is_in_nav": true,
             ...
         },
@@ -360,6 +327,15 @@ Example output:
             "is_boosted": false,
             "parent_id": null,
             "is_in_nav": false,
+            ...
+        },
+        {
+            "id": 44,
+            "title": "Paintings, 1900-1955",
+            "lake_guid": "dcafd608-cc4a-bf34-12b7-87e095bc0a5b",
+            "is_boosted": false,
+            "parent_id": 2,
+            "is_in_nav": true,
             ...
         },
         {
@@ -387,6 +363,24 @@ Example output:
             "is_boosted": false,
             "parent_id": null,
             "is_in_nav": false,
+            ...
+        },
+        {
+            "id": 87,
+            "title": "American Modernism",
+            "lake_guid": "3c15e374-7cd0-7a9a-0280-fa3855032a3f",
+            "is_boosted": false,
+            "parent_id": 11,
+            "is_in_nav": true,
+            ...
+        },
+        {
+            "id": 48,
+            "title": "American Modernism",
+            "lake_guid": "795eda4e-6c99-1e9f-3283-5aaaad27f857",
+            "is_boosted": false,
+            "parent_id": 2,
+            "is_in_nav": true,
             ...
         },
         {
@@ -469,6 +463,7 @@ A list of all agents sorted by last updated date in descending order. For a desc
 * `fields` - A comma-separated list of fields to return per resource
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `places`
+  * `sites`
 
 Example request: http://aggregator-data-test.artic.edu/api/v1/agents?limit=2  
 Example output:
@@ -476,30 +471,80 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 11522,
+        "total": 12225,
         "limit": 2,
         "offset": 0,
-        "total_pages": 5761,
+        "total_pages": 6113,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents?page=2&limit=2"
     },
     "data": [
         {
-            "id": 87635,
-            "title": "Manchu",
-            "lake_guid": "d08c8763-3950-fda1-70af-84cbc4d594f6",
+            "id": 35594,
+            "title": "Brice Marden",
+            "lake_guid": "1e58e94b-9384-6b32-eb3b-021263324fc8",
+            "is_boosted": true,
+            "alt_titles": [],
+            "birth_date": 1938,
+            ...
+        },
+        {
+            "id": 114190,
+            "title": "Tom Steger",
+            "lake_guid": "9769bc51-4065-3603-ff38-852f48067372",
             "is_boosted": false,
             "alt_titles": [],
             "birth_date": null,
             ...
+        }
+    ]
+}
+```
+
+### `/agents/boosted`
+
+A list of boosted agents sorted by last updated date in descending order. This is a subset of the `agents/` endpoint that represents approximately 400 of our most well-known resources. This can be used to get a shorter list of agents that will have most of its metadata filled out for testing purposes.
+
+#### Available parameters:
+
+* `ids` - A comma-separated list of resource ids to retrieve
+* `limit` - The number of resources to return per page
+* `page` - The page of resources to retrieve
+* `fields` - A comma-separated list of fields to return per resource
+* `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
+  * `places`
+  * `sites`
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/agents/boosted?limit=2  
+Example output:
+
+```
+{
+    "pagination": {
+        "total": 330,
+        "limit": 2,
+        "offset": 0,
+        "total_pages": 165,
+        "current_page": 1,
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/boosted?page=2&limit=2"
+    },
+    "data": [
+        {
+            "id": 35594,
+            "title": "Brice Marden",
+            "lake_guid": "1e58e94b-9384-6b32-eb3b-021263324fc8",
+            "is_boosted": true,
+            "alt_titles": [],
+            "birth_date": 1938,
+            ...
         },
         {
-            "id": 34398,
-            "title": "Peter Henry Emerson",
-            "lake_guid": "82be17ba-593e-4653-e6d0-0ca37552c757",
-            "is_boosted": false,
+            "id": 24885,
+            "title": "Florine Stettheimer",
+            "lake_guid": "e17ea79f-c2dc-c32e-6fd6-9a9b78098a8f",
+            "is_boosted": true,
             "alt_titles": [],
-            "birth_date": null,
+            "birth_date": 1871,
             ...
         }
     ]
@@ -526,52 +571,44 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 11646,
+        "total": 12352,
         "limit": 10,
         "offset": 0,
-        "total_pages": 1165,
+        "total_pages": 1236,
         "current_page": 1
     },
     "data": [
         {
-            "_score": 2,
-            "api_id": "4247",
+            "_score": 5.7674494,
+            "api_id": "41673",
             "api_model": "agents",
-            "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/4247",
-            "id": 4247,
-            "title": "Castiglione, Giovanni Battista",
-            "timestamp": "2018-02-01T15:14:43-06:00"
+            "is_boosted": true,
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/41673",
+            "id": 41673,
+            "title": "William Merritt Chase",
+            "timestamp": "2018-02-16T08:30:04-06:00"
         },
         {
-            "_score": 2,
-            "api_id": "16649",
+            "_score": 5.7674494,
+            "api_id": "44584",
             "api_model": "agents",
-            "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/16649",
-            "id": 16649,
-            "title": "Matsubara Naoko",
-            "timestamp": "2018-02-01T15:14:52-06:00"
+            "is_boosted": true,
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/44584",
+            "id": 44584,
+            "title": "Carl Blechen",
+            "timestamp": "2018-02-16T08:30:01-06:00"
         },
         {
-            "_score": 2,
-            "api_id": "37129",
+            "_score": 5.7674494,
+            "api_id": "40545",
             "api_model": "agents",
-            "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/37129",
-            "id": 37129,
-            "title": "Vasarely, Victor de",
-            "timestamp": "2018-02-01T15:15:18-06:00"
+            "is_boosted": true,
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/40545",
+            "id": 40545,
+            "title": "Eug\u00e8ne Delacroix",
+            "timestamp": "2018-02-16T08:30:01-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "agents",
-                "doc_count": 11646
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -585,169 +622,33 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 11522,
+        "total": 12225,
         "limit": 2,
         "offset": 0,
-        "total_pages": 5761,
+        "total_pages": 6113,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents?page=2&limit=2"
     },
     "data": [
         {
-            "id": 87635,
-            "title": "Manchu",
-            "lake_guid": "d08c8763-3950-fda1-70af-84cbc4d594f6",
-            "is_boosted": false,
+            "id": 35594,
+            "title": "Brice Marden",
+            "lake_guid": "1e58e94b-9384-6b32-eb3b-021263324fc8",
+            "is_boosted": true,
             "alt_titles": [],
-            "birth_date": null,
+            "birth_date": 1938,
             ...
         },
         {
-            "id": 34398,
-            "title": "Peter Henry Emerson",
-            "lake_guid": "82be17ba-593e-4653-e6d0-0ca37552c757",
+            "id": 114190,
+            "title": "Tom Steger",
+            "lake_guid": "9769bc51-4065-3603-ff38-852f48067372",
             "is_boosted": false,
             "alt_titles": [],
             "birth_date": null,
             ...
         }
     ]
-}
-```
-
-## Departments
-
-### `/departments`
-
-A list of all departments sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#departments).
-
-#### Available parameters:
-
-* `ids` - A comma-separated list of resource ids to retrieve
-* `limit` - The number of resources to return per page
-* `page` - The page of resources to retrieve
-* `fields` - A comma-separated list of fields to return per resource
-
-Example request: http://aggregator-data-test.artic.edu/api/v1/departments?limit=2  
-Example output:
-
-```
-{
-    "pagination": {
-        "total": 32,
-        "limit": 2,
-        "offset": 0,
-        "total_pages": 16,
-        "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments?page=2&limit=2"
-    },
-    "data": [
-        {
-            "id": 1,
-            "title": "Unknown",
-            "lake_guid": "a6295a34-c3a9-b51f-d9dc-c2d13be2aa75",
-            "is_boosted": false,
-            "last_updated_source": "2017-11-06T15:36:33-06:00",
-            "last_updated": "2018-02-02T10:28:55-06:00",
-            ...
-        },
-        {
-            "id": 3,
-            "title": "Prints and Drawings",
-            "lake_guid": "922e5173-2c3d-b6c1-f223-bb591cafbb79",
-            "is_boosted": false,
-            "last_updated_source": "2017-11-06T15:36:31-06:00",
-            "last_updated": "2018-02-02T10:28:55-06:00",
-            ...
-        }
-    ]
-}
-```
-
-### `/departments/search`
-
-Search departments data in the aggregator. 
-
-#### Available parameters:
-
-* `q` - Your search query
-* `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
-* `sort` - Used in conjunction with `query`
-* `from` - Starting point of results. Pagination via Elasticsearch conventions
-* `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
-
-Example request: http://aggregator-data-test.artic.edu/api/v1/departments/search  
-Example output:
-
-```
-{
-    "preference": null,
-    "pagination": {
-        "total": 57,
-        "limit": 10,
-        "offset": 0,
-        "total_pages": 6,
-        "current_page": 1
-    },
-    "data": [
-        {
-            "_score": 2,
-            "api_id": "999409545",
-            "api_model": "departments",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/999409545",
-            "id": 999409545,
-            "title": "Odit Art",
-            "timestamp": "2018-01-25T13:26:19-06:00"
-        },
-        {
-            "_score": 2,
-            "api_id": "999664329",
-            "api_model": "departments",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/999664329",
-            "id": 999664329,
-            "title": "Eos Art",
-            "timestamp": "2018-01-25T13:26:19-06:00"
-        },
-        {
-            "_score": 2,
-            "api_id": "999161977",
-            "api_model": "departments",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/departments\/999161977",
-            "id": 999161977,
-            "title": "Nemo Art",
-            "timestamp": "2018-01-25T13:26:19-06:00"
-        }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "departments",
-                "doc_count": 57
-            }
-        ]
-    }
-}
-```
-
-### `/departments/{id}`
-
-A single departments by the given identifier. {id} is the identifier from our collections managements system.
-
-Example request: http://aggregator-data-test.artic.edu/api/v1/departments/4?limit=2  
-Example output:
-
-```
-{
-    "data": {
-        "id": 4,
-        "title": "Textiles",
-        "lake_guid": "cbb32062-dd50-8711-0513-f7d19801938c",
-        "is_boosted": false,
-        "last_updated_source": "2017-11-06T15:36:36-06:00",
-        "last_updated": "2018-02-02T10:28:55-06:00",
-        ...
-    }
 }
 ```
 
@@ -784,7 +685,7 @@ Example output:
             "lake_guid": "cfae4567-198f-973a-07b8-2e4b0defc28e",
             "is_boosted": false,
             "last_updated_source": "2018-01-12T13:58:00-06:00",
-            "last_updated": "2018-02-02T10:28:56-06:00",
+            "last_updated": "2018-02-15T15:10:45-06:00",
             ...
         },
         {
@@ -793,7 +694,7 @@ Example output:
             "lake_guid": "f3daccbc-a5c3-41c9-859b-aac047d78a1c",
             "is_boosted": false,
             "last_updated_source": "2018-01-12T13:58:03-06:00",
-            "last_updated": "2018-02-02T10:28:56-06:00",
+            "last_updated": "2018-02-15T15:10:45-06:00",
             ...
         }
     ]
@@ -815,7 +716,7 @@ Example output:
         "lake_guid": "e2ed3e7c-d93f-7576-9a38-149daf99fba3",
         "is_boosted": false,
         "last_updated_source": "2018-01-12T13:58:01-06:00",
-        "last_updated": "2018-02-02T10:28:56-06:00",
+        "last_updated": "2018-02-15T15:10:45-06:00",
         ...
     }
 }
@@ -849,18 +750,18 @@ Example output:
     },
     "data": [
         {
-            "id": 537,
-            "title": "Paper Architecture: Case 4",
-            "lake_guid": "59fd3f55-520c-6072-ace8-eb880b039b3a",
+            "id": 772,
+            "title": "Picturesque: Case 4",
+            "lake_guid": "de381c5a-4c09-5839-6156-222dfb245c07",
             "is_boosted": false,
             "parent_id": 426,
             "is_in_nav": false,
             ...
         },
         {
-            "id": 562,
-            "title": "Caricatures: Case 6",
-            "lake_guid": "d1788815-07f2-9484-7b24-f898eb4ed2a2",
+            "id": 778,
+            "title": "Wendingen: Case 3",
+            "lake_guid": "8c6e80ad-d7bd-1aae-470d-fb3815e9eedb",
             "is_boosted": false,
             "parent_id": 426,
             "is_in_nav": false,
@@ -899,43 +800,35 @@ Example output:
     "data": [
         {
             "_score": 2,
-            "api_id": "369",
+            "api_id": "44",
             "api_model": "categories",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/369",
-            "id": 369,
-            "title": "Art Access: Art of the Americas",
-            "timestamp": "2018-02-02T10:28:56-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/44",
+            "id": 44,
+            "title": "Paintings, 1900-1955",
+            "timestamp": "2018-02-16T08:33:31-06:00"
         },
         {
             "_score": 2,
-            "api_id": "79",
+            "api_id": "48",
             "api_model": "categories",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/79",
-            "id": 79,
-            "title": "French",
-            "timestamp": "2018-02-02T10:28:56-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/48",
+            "id": 48,
+            "title": "American Modernism",
+            "timestamp": "2018-02-16T08:33:31-06:00"
         },
         {
             "_score": 2,
-            "api_id": "98",
+            "api_id": "40",
             "api_model": "categories",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/98",
-            "id": 98,
-            "title": "Painting 1600\u20131800",
-            "timestamp": "2018-02-02T10:28:56-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/40",
+            "id": 40,
+            "title": "American Quilts",
+            "timestamp": "2018-02-16T08:33:31-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "categories",
-                "doc_count": 815
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -979,7 +872,7 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 25,
+        "total": 26,
         "limit": 2,
         "offset": 0,
         "total_pages": 13,
@@ -992,8 +885,8 @@ Example output:
             "title": "Corporate Body",
             "lake_guid": "4fc9cef2-32d7-60a0-8ddd-335fd7800f29",
             "is_boosted": false,
-            "last_updated_source": "2018-01-12T13:31:23-06:00",
-            "last_updated": "2018-02-02T10:21:38-06:00",
+            "last_updated_source": "2018-02-09T10:43:56-06:00",
+            "last_updated": "2018-02-15T14:39:52-06:00",
             ...
         },
         {
@@ -1001,8 +894,8 @@ Example output:
             "title": "Culture",
             "lake_guid": "7b02ffea-6a50-4090-0898-f2ab89215d26",
             "is_boosted": false,
-            "last_updated_source": "2018-01-12T13:31:25-06:00",
-            "last_updated": "2018-02-02T10:21:38-06:00",
+            "last_updated_source": "2018-02-09T10:43:57-06:00",
+            "last_updated": "2018-02-15T14:39:52-06:00",
             ...
         }
     ]
@@ -1023,8 +916,8 @@ Example output:
         "title": "Corporate Body",
         "lake_guid": "4fc9cef2-32d7-60a0-8ddd-335fd7800f29",
         "is_boosted": false,
-        "last_updated_source": "2018-01-12T13:31:23-06:00",
-        "last_updated": "2018-02-02T10:21:38-06:00",
+        "last_updated_source": "2018-02-09T10:43:56-06:00",
+        "last_updated": "2018-02-15T14:39:52-06:00",
         ...
     }
 }
@@ -1051,30 +944,30 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 1746,
+        "total": 12882,
         "limit": 2,
         "offset": 0,
-        "total_pages": 873,
+        "total_pages": 6441,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/places?page=2&limit=2"
     },
     "data": [
         {
-            "id": 346,
-            "title": "Stock Exchange Trading Room",
-            "lake_guid": "78da15d9-176a-366e-32e0-5cfd4007cdac",
+            "id": 2147476007,
+            "title": "Gallery 173",
+            "lake_guid": "40e49893-4a74-c54e-af60-a054cc71031f",
             "is_boosted": false,
             "type": "AIC Gallery",
-            "is_closed": false,
+            "latitude": 41.878826,
             ...
         },
         {
-            "id": 2147483599,
-            "title": "Fullerton Hall Lobby",
-            "lake_guid": "6a0f0d00-458d-ef16-33f9-ab82c95b985c",
+            "id": 2147476836,
+            "title": "Gallery 227",
+            "lake_guid": "981e94ab-c973-a801-8211-9e5df159ee98",
             "is_boosted": false,
             "type": "AIC Gallery",
-            "is_closed": false,
+            "latitude": 41.879303,
             ...
         }
     ]
@@ -1101,10 +994,10 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 1771,
+        "total": 12850,
         "limit": 10,
         "offset": 0,
-        "total_pages": 178,
+        "total_pages": 1285,
         "current_page": 1
     },
     "data": [
@@ -1138,15 +1031,7 @@ Example output:
             "title": "Gallery 165",
             "timestamp": "2018-02-01T14:28:16-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "places",
-                "doc_count": 1771
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -1154,7 +1039,140 @@ Example output:
 
 A single places by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/places/26772?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/places/27406?limit=2  
+Example output:
+
+```
+{
+    "data": {
+        "id": 27406,
+        "title": "box c34325 Parada, Esther",
+        "lake_guid": "25edc61c-01f7-f2e6-a80e-d82fae8ae36e",
+        "is_boosted": false,
+        "type": "AIC Storage",
+        "latitude": 0,
+        ...
+    }
+}
+```
+
+## Galleries
+
+### `/galleries`
+
+A list of all galleries sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#galleries).
+
+#### Available parameters:
+
+* `ids` - A comma-separated list of resource ids to retrieve
+* `limit` - The number of resources to return per page
+* `page` - The page of resources to retrieve
+* `fields` - A comma-separated list of fields to return per resource
+* `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
+  * `categories`
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/galleries?limit=2  
+Example output:
+
+```
+{
+    "pagination": {
+        "total": 254,
+        "limit": 2,
+        "offset": 0,
+        "total_pages": 127,
+        "current_page": 1,
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries?page=2&limit=2"
+    },
+    "data": [
+        {
+            "id": 2147483483,
+            "title": "Gallery 109a",
+            "lake_guid": "3ef24120-ffb3-9876-88ea-82620082a088",
+            "is_boosted": false,
+            "type": "AIC Gallery",
+            "is_closed": false,
+            ...
+        },
+        {
+            "id": 2147483484,
+            "title": "Gallery 108a",
+            "lake_guid": "a53db368-4aaf-01d6-dd3d-7035997255df",
+            "is_boosted": false,
+            "type": "AIC Gallery",
+            "is_closed": false,
+            ...
+        }
+    ]
+}
+```
+
+### `/galleries/search`
+
+Search galleries data in the aggregator. 
+
+#### Available parameters:
+
+* `q` - Your search query
+* `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
+* `sort` - Used in conjunction with `query`
+* `from` - Starting point of results. Pagination via Elasticsearch conventions
+* `size` - Number of results to return. Pagination via Elasticsearch conventions
+* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/galleries/search  
+Example output:
+
+```
+{
+    "preference": null,
+    "pagination": {
+        "total": 254,
+        "limit": 10,
+        "offset": 0,
+        "total_pages": 26,
+        "current_page": 1
+    },
+    "data": [
+        {
+            "_score": 2,
+            "api_id": "2147483613",
+            "api_model": "galleries",
+            "is_boosted": false,
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries\/2147483613",
+            "id": 2147483613,
+            "title": "Gallery 219",
+            "timestamp": "2018-02-16T08:34:22-06:00"
+        },
+        {
+            "_score": 2,
+            "api_id": "2147476019",
+            "api_model": "galleries",
+            "is_boosted": false,
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries\/2147476019",
+            "id": 2147476019,
+            "title": "Gallery 177",
+            "timestamp": "2018-02-16T08:34:22-06:00"
+        },
+        {
+            "_score": 2,
+            "api_id": "2147477218",
+            "api_model": "galleries",
+            "is_boosted": false,
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries\/2147477218",
+            "id": 2147477218,
+            "title": "Gallery 200",
+            "timestamp": "2018-02-16T08:34:22-06:00"
+        }
+    ]
+}
+```
+
+### `/galleries/{id}`
+
+A single galleries by the given identifier. {id} is the identifier from our collections managements system.
+
+Example request: http://aggregator-data-test.artic.edu/api/v1/galleries/26772?limit=2  
 Example output:
 
 ```
@@ -1186,6 +1204,7 @@ A list of all exhibitions sorted by last updated date in descending order. For a
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `artworks`
   * `venues`
+  * `sites`
 
 Example request: http://aggregator-data-test.artic.edu/api/v1/exhibitions?limit=2  
 Example output:
@@ -1193,30 +1212,30 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 5973,
+        "total": 6185,
         "limit": 2,
         "offset": 0,
-        "total_pages": 2987,
+        "total_pages": 3093,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions?page=2&limit=2"
     },
     "data": [
         {
-            "id": 257,
-            "title": "Utamaro: Aspects of Beauty",
-            "lake_guid": "37d8b387-7505-c981-3378-d7b85ae624a5",
+            "id": 2345,
+            "title": "Tarsila do Amaral: Inventing Modern Art in Brazil",
+            "lake_guid": "aa1fd01e-c8f2-e6b0-fa93-e935ac0d77b5",
             "is_boosted": false,
-            "description": "Chosen from among approximately 300 works by Kitagawa Utamaro (c. 1753\u20131806) in the Art Institute\u2019s collection, this exhibition highlights some of the artist\u2019s most celebrated prints. It was Utamaro who gave us close-up portraits of beauties with pensive expressions, scenes of women engaged in everyday activities such as cooking, and images of women of every age against backgrounds that range from gray to yellow to brilliant (and luminescent) mica of various shades. Examples of each of these types of prints as well as illustrated books are on view.",
-            "short_description": "This display includes some of the artist's most celebrated prints\u2014portraits of pensive beauties, scenes of women engaged in everyday activities, and images of women of every age.\n",
+            "description": null,
+            "short_description": "This exhibition devoted to Brazilian artist Tarsila do Amaral focuses on her synthesis of avant-garde aesthetics and Brazilian subjects to produce a powerful new modern art for her country.\n",
             ...
         },
         {
-            "id": 1507,
-            "title": "Spencer Finch: Lunar",
-            "lake_guid": "22aa7acc-721d-9307-1be2-d0134852456c",
+            "id": 2954,
+            "title": "Making Memories: Quilts as Souvenirs",
+            "lake_guid": "bbc77df8-5969-d7c8-cb36-fd8df7411132",
             "is_boosted": false,
-            "description": "Throughout his career, American artist Spencer Finch has used color and light as primary subjects\u2014and materials\u2014in his drawings, photographs, mixed media projects, and large-scale installations. Best known for exploring ideas about memory and perception, the artist often employs a colorimeter, a device that measures the average color and temperature of light that exists naturally in a specific place and time. With this information in hand, Finch reconstructs the luminosity of the location through artificial means.\n\nFor his solo project at the Art Institute, Finch has created a solar-powered \u201clunar lander module\u201d that uses energy from sunlight to power a geodesic dome\u2013shaped object\u2014a \u201cbuckyball\u201d that resembles the carbon molecules named for visionary architect Buckminster Fuller\u2014positioned on top of the lander. Installed on the open-air Bluhm Family Terrace, Lunar will glow during the evening hours the color of moonlight\u2014the exact light measured from the full moon over Chicago in July 2011.\n\n\u201cLike just about everyone, I wanted to make a picture of the moon or, more specifically, of moonlight,\u201d Finch said about the project. \u201cI have always loved nocturnes and the impossible attempts to paint near-darkness in near-darkness. I figured there were probably enough literal pictures of the moon, so I began thinking about the form of moonlight and how it is actually reflected sunlight. This led me to explore the use of solar power to generate the light of the moon. The structure of the lunar module and the buckyball followed in short order\u2014I thought it would be fun to imagine that a lunar module returning from the moon with moonlight on board landed on top of the Art Institute.\u201d\n\nSponsor\nThis exhibition is organized by the Art Institute of Chicago with major funding from the Bluhm Family Endowment Fund. The fund supports exhibitions of modern and contemporary sculpture, which may consist of existing works drawn from the Art Institute\u2019s permanent collection or borrowed from other collections private and public, or new works commissioned specifically for this site. Generous support is provided by the Exhibitions Trust: Goldman Sachs, Kenneth and Anne Griffin, Thomas and Margot Pritzker, the Earl and Brenda Shapiro Foundation, Donna and Howard Stone, and Melinda and Paul Sullivan.",
-            "short_description": "Throughout his career, American artist Spencer Finch has used color and light as primary subjects\u2014and materials\u2014in his drawings, photographs, mixed media projects, and large-scale installations. Best known for exploring ideas about memory and perception, the artist often employs a colorimeter, a device that measures the average color and temperature of light that exists naturally in a specific place and time. With this information in hand, Finch reconstructs the luminosity of the location through artificial means.",
+            "description": null,
+            "short_description": "This presentation of 27 quilts explores the way these textiles function as keepsakes and considers how their material fabrication mimics the construction of memory. \n",
             ...
         }
     ]
@@ -1243,10 +1262,10 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 5998,
+        "total": 6025,
         "limit": 10,
         "offset": 0,
-        "total_pages": 600,
+        "total_pages": 603,
         "current_page": 1
     },
     "data": [
@@ -1270,23 +1289,15 @@ Example output:
         },
         {
             "_score": 2,
-            "api_id": "1082",
+            "api_id": "5626",
             "api_model": "exhibitions",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/1082",
-            "id": 1082,
-            "title": "Windows on the War: Soviet Tass Posters  at Home and Abroad 1941-1945",
-            "timestamp": "2018-02-02T13:40:52-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/5626",
+            "id": 5626,
+            "title": "A Century of Progress: Loan Exhibition of Paintings and Sculpture",
+            "timestamp": "2018-02-02T13:40:53-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "exhibitions",
-                "doc_count": 5998
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -1338,27 +1349,27 @@ Example output:
             "id": 1445,
             "title": null,
             "lake_guid": null,
-            "agent": "Mus\u00e9e d'Orsay",
+            "agent_title": "Mus\u00e9e d'Orsay",
             "agent_id": 93515,
-            "exhibition": "Impressionism, Fashion, and Modernity",
+            "exhibition_title": "Impressionism, Fashion, and Modernity",
             ...
         },
         {
             "id": 1446,
             "title": null,
             "lake_guid": null,
-            "agent": "The Metropolitan Museum of Art",
+            "agent_title": "The Metropolitan Museum of Art",
             "agent_id": 25885,
-            "exhibition": "Impressionism, Fashion, and Modernity",
+            "exhibition_title": "Impressionism, Fashion, and Modernity",
             ...
         },
         {
             "id": 1447,
             "title": null,
             "lake_guid": null,
-            "agent": "The Art Institute of Chicago",
+            "agent_title": "The Art Institute of Chicago",
             "agent_id": 25739,
-            "exhibition": "Impressionism, Fashion, and Modernity",
+            "exhibition_title": "Impressionism, Fashion, and Modernity",
             ...
         }
     ]
@@ -1387,17 +1398,17 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 110207,
+        "total": 110232,
         "limit": 2,
         "offset": 0,
-        "total_pages": 55104,
+        "total_pages": 55116,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/images?page=2&limit=2"
     },
     "data": [
         {
-            "id": "240afeef-965e-27d6-68b9-9b687e533c6d",
-            "title": "IM019311",
+            "id": "c9154218-8d42-b2f9-4e66-1a3f42f9b493",
+            "title": "54123",
             "is_boosted": false,
             "type": "image",
             "description": null,
@@ -1405,8 +1416,8 @@ Example output:
             ...
         },
         {
-            "id": "2a97cbe8-2159-fef1-9e1e-89ec34ce275f",
-            "title": "IM018887",
+            "id": "c918903e-4217-8814-efd6-fa32eb62360d",
+            "title": "137174",
             "is_boosted": false,
             "type": "image",
             "description": null,
@@ -1437,10 +1448,10 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 110254,
+        "total": 110276,
         "limit": 10,
         "offset": 0,
-        "total_pages": 11026,
+        "total_pages": 11028,
         "current_page": 1
     },
     "data": [
@@ -1471,15 +1482,7 @@ Example output:
             "title": "IM026053",
             "timestamp": "2018-01-25T06:20:04-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "images",
-                "doc_count": 110254
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -1544,12 +1547,12 @@ Example output:
             ...
         },
         {
-            "id": "1a521261-2f72-1ec7-5b65-35f7cead3849",
-            "title": "Online Game: Henri de Toulouse-Lautrec's <em>At the Moulin Rouge<\/em>",
+            "id": "322cdacc-0bfa-f004-544d-dc14d2c81bfd",
+            "title": "Video: Toulouse-Lautrec's <em>At the Moulin Rouge<\/em>",
             "is_boosted": false,
             "type": "video",
-            "description": "<p><em>Note: This game is not Macintosh compatible.<\/em><\/p><br \/> <p>What's missing in this picture of Parisians at the famous Moulin Rouge dance hall?<\/p>",
-            "content": "http:\/\/www.artic.edu\/aic\/collections\/citi\/resources\/261.dcr",
+            "description": "Tour the famous Parisian dance hall in this painting by Toulouse-Lautrec.",
+            "content": "http:\/\/www.artic.edu\/aic\/collections\/citi\/resources\/43.flv",
             ...
         }
     ]
@@ -1613,15 +1616,7 @@ Example output:
             "title": "Video: Lecture with Mary Heilmann",
             "timestamp": "2018-02-02T12:45:03-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "videos",
-                "doc_count": 312
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -1668,29 +1663,29 @@ Example output:
 ```
 {
     "pagination": {
-        "total": 146,
+        "total": 142,
         "limit": 2,
         "offset": 0,
-        "total_pages": 73,
+        "total_pages": 71,
         "current_page": 1,
         "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/links?page=2&limit=2"
     },
     "data": [
-        {
-            "id": "07b09575-74d2-9fba-2ba5-a0b00c8ebc52",
-            "title": "REUSE",
-            "is_boosted": false,
-            "type": "link",
-            "description": null,
-            "content": null,
-            ...
-        },
         {
             "id": "1ac6c73b-e560-5fc9-05fb-8e2c30eccdc0",
             "title": "Text: The Bartletts and the Grande Jatte:  Collecting Modern Painting in the 1920s",
             "is_boosted": false,
             "type": "link",
             "description": "The fascinating story of the collectors' love of modern art and their acquisiton of  Seurat's famous painting in 1924.",
+            "content": null,
+            ...
+        },
+        {
+            "id": "316671be-a9f3-603a-e387-7d6652cc6309",
+            "title": "Audio Lecture: Where Art and Science Meet\u2014Unlocking the Secrets of the Collection with High-Tech Scientific Tools",
+            "is_boosted": false,
+            "type": "link",
+            "description": "<p>Francesca Casadio, Andrew W. Mellon Conservation Scientist at the Art Institute of Chicago, leads a talk that is part forensic science, part detective work. Examples of research carried out on selected objects from the collection are given.<\/p>",
             "content": null,
             ...
         }
@@ -1755,15 +1750,7 @@ Example output:
             "title": "The Alfred Stieglitz Collection at the Art Institute of Chicago",
             "timestamp": "2018-02-02T12:44:59-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "links",
-                "doc_count": 146
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -1819,8 +1806,8 @@ Example output:
     },
     "data": [
         {
-            "id": "0a9dc20c-f384-990b-43dc-c51b24cb5a72",
-            "title": "569.mp3",
+            "id": "d718f1ba-4559-c502-86b3-3de1791b7050",
+            "title": "439.wav",
             "is_boosted": false,
             "type": "sound",
             "description": null,
@@ -1828,8 +1815,8 @@ Example output:
             ...
         },
         {
-            "id": "0eb6300c-f812-8d92-46c8-a2fa0e0f89f1",
-            "title": "247.mp3",
+            "id": "dec011c1-f3cb-4d17-f42d-47c4978fbfb2",
+            "title": "440.wav",
             "is_boosted": false,
             "type": "sound",
             "description": null,
@@ -1897,15 +1884,7 @@ Example output:
             "title": "Audio Lecture: Manchay Culture: Ancient Temples of Peru",
             "timestamp": "2018-02-02T12:45:29-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "sounds",
-                "doc_count": 1020
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -1961,21 +1940,21 @@ Example output:
     },
     "data": [
         {
-            "id": "000c25a1-f2bb-affb-6575-5afbacc9587c",
-            "title": "Artist Biography: Gustave Courbet",
+            "id": "0de7088d-00e1-5d1f-2e42-8fd0dfe6cc1a",
+            "title": "Overview: Twachtman's Seasonal Exploration and Depiction of <em>The White Bridge<\/em>",
             "is_boosted": false,
             "type": "text",
-            "description": "A concise biography of Courbet's life and work.  ",
-            "content": "Gustave Courbet<br>\nFrench, 1819-1877<br>\nGustave Courbet was the main exponent of realism in nineteenth-century French painting. His style contrasts with the classicism of Jean-Auguste-Dominique Ingres and the romanticism of Eug\u00e8ne Delacroix. Rejecting the fine, smooth finish of\nacademic paintings, he was the first to popularize the palette-knife technique that enabled him to emulate a variety of textures.<br><br>\nBorn in Ornans, Courbet came to Paris, where he exhibited at the Salon for the first time in 1841. After his work was rejected from the Exposition Universelle in 1855, he built the Pavilion of Realism, where he held a one-man exhibition that firmly established his position as the leading realist painter. This defiant act and his bold red signature were clear assertions of his disdain for the Acad\u00e9mie Royale.<br><br>\nFrom the 1850s Courbet traveled extensively but consciously maintained his connection to the countryside by frequently returning to Ornans. His contemporary depictions of French peasant life explore and elevate themes considered unworthy of representation in academic culture. He was imprisoned for his prominent role as head of the Federation of Arts in the Paris Commune in 1871. Ostracized for his radical politics, Courbet spent his last years in exile in Switzerland.\n",
+            "description": " An overview of Twachtman's paintings of his Connecticut property and a look at his joyous image of springtime and of human construction in harmony with nature.    ",
+            "content": "For John Henry Twachtman, Cos Cob, Connecticut, was a source of never-ending artistic inspiration. He purchased property there in 1889, and, over the following decade, made improvements to his house and surrounding land. In 1895 he added a trellised, white footbridge, which spanned Horseneck Brook. Twachtman carefully selected the proportions and color of the structure to enhance the site\u2019s inherent aesthetic qualities. He then made at least five paintings of the bridge from different vantage points, exploring its relationship to both the man-made and natural world. These works are contemporaneous with Claude Monet\u2019s pictures of the Japanese bridge over his water-lily pond at Giverny; although Twachtman was less methodical (and less prolific) than Monet, he worked with a similarly palpable love of place. <br><br>\n The Art Institute\u2019s <em>White Bridge<\/em> is a vivid, joyous image of springtime that complements <em>Icebound<\/em>, Twachtman\u2019s rendition of the same brook in winter. Delineated with bright, white paint, the bridge crosses over the reflective surface of the water and stands out sharply through transparent trees in the foreground. The light, feathery strokes that compose the bridge echo those used to trace the limbs and branches of the surrounding hemlocks. The artist thus used brushwork to unify forms on the surface of the canvas, as he had made an effort to integrate the bridge itself into the Cos Cob setting. Twachtman\u2019s desire to show human construction in harmony with nature indicates his concern\u2014widespread at the turn of the twentieth century\u2014about the effects of urban and industrial growth. A witness to (and participant in) the suburbanization of rural Connecticut, Twachtman lamented the threat posed to the pastoral landscape he loved.\n",
             ...
         },
         {
-            "id": "065f90c5-32de-a279-c981-0e12e9203c34",
-            "title": "Introduction: Degas's <em>Spanish Dance<\/em>",
+            "id": "19151aeb-f37d-7cde-c3d1-11f55f702cd8",
+            "title": "Examination: Van Gogh's <em>Self Portrait<\/em>",
             "is_boosted": false,
             "type": "text",
-            "description": "An introduction to one of two known sculptural studies by the artist treating a Spaninsh theme.  ",
-            "content": "This is one of two known sculptural studies by Edgar Degas treating a Spanish theme. Degas may have chosen this pose\u2014called a <em>cambr\u00e9<\/em>, or bend from the waist\u2014after seeing Edouard Manet\u2019s painting <em>Spanish Dance<\/em> (1862; Washington, D.C., Phillips Collection), which includes two dancers posed in a similar manner, at a retrospective of the artist\u2019s work in 1883. Degas was probably also influenced by an 1837 bronze by Jean Auguste Barre of the ballerina Fanny Elssler, who achieved her greatest success performing the <em>cachucha<\/em>, a Spanish dance featured in a ballet choreographed by Jean Coralli. <br><br>\n Of the more than one hundred fifty wax sculptures that Degas produced, he exhibited just one and sold none. Only after his death were seventy-three of the waxes cast in bronze. Why did the artist make sculptures if he did not intend to display them in a permanent form? The answer lies in his compositional methods. Degas characteristically explored poses from various angles and experimented with reversals and tracings. Sculpture came to play an important role in this process, supplementing his life studies and allowing him to examine a figure from all points of view. Furthermore, because Degas made his sculptures on a small scale and with malleable materials, he could adjust their contours and lines to create new positions.  <br><br>\nIn <em>Spanish Dance<\/em>, Degas displayed his typical interest in the fine points of posture. With a flourish, the figure reaches her right arm over her head, curves her left arm in front of her torso, and bends back, thrusting her left hip to the side. Somewhat surprisingly, given Degas\u2019 interest in various ethnic dance styles, he did not explore Spanish dance themes in a sustained manner; this dramatic pose does not appear in any of the artist\u2019s known two-dimensional work.\n\n",
+            "description": "An exploration of the lively brushwork and color in van Gogh's intense self-portrait.  ",
+            "content": "Prior to leaving the Netherlands for Paris in February 1886, Vincent van Gogh \nhad rendered the harsh beauty of peasant life in images such as <em>The Potato Eaters <\/em>(1885; Amsterdam, Van Gogh Museum), the great work of his early Realist phase. However, sudden exposure to French avant-garde painting prompted him to rethink his artistic means. Rejecting the bleak palette and crude forms he had employed in his previous paintings, van Gogh set about assimilating the art of the Impressionists, notably their broken brushwork and vibrant use of color. Simultaneously, he came to terms with the quasi-scientific method of Georges Seurat, whose <em>Sunday on La Grande Jatte\u20141884<em> he discovered at the final Impressionist exhibition, which opened a few months after his arrival in the capital. In 1888 van Gogh went to Arles, where he devised a highly personal style characterized by decorative clarity, expressive drawing, and violent chromatic contrasts. But it was during his two-year Paris sojourn that he laid the foundation for the achievement of his final years. <br><br>\nIn this transitional period, van Gogh\u2014who had never before executed a self-portrait\u2014produced at least twenty-four images of himself, in which we can measure his adaptation of new ideas to his own expressive ends. The format of the Art Institute\u2019s example evokes traditional conventions of the genre, but the technique is thoroughly modern. The face is rendered in brusque strokes of bright color, and the coat and background are a vibrating flux of dots and dashes. Juxtaposing complementary colors, for example red and green (in the beard, as well as the background), van Gogh demonstrated his awareness of Neo-Impressionist practice. He would soon abandon Pointillist handling, but Seurat\u2019s poetic notion of a \"harmony of contrasts\" would continue to haunt his imagination. \n",
             ...
         }
     ]
@@ -2039,15 +2018,7 @@ Example output:
             "title": "Turning the Pages: Unbound copy of Pablo Picasso (Spanish, 1881-1973), <em>Le Chef d'oeuvre inconnu<\/em> (<em>The Unknown Masterpiece<\/em>), 1931",
             "timestamp": "2018-02-02T12:45:17-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "texts",
-                "doc_count": 601
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -2104,21 +2075,21 @@ Example output:
     },
     "data": [
         {
-            "id": 999689,
-            "title": "Aut et recusandae eveniet iure",
+            "id": 999175,
+            "title": "Aut ipsam molestiae accusamus iure",
             "is_boosted": false,
-            "link": "http:\/\/ratke.com\/maiores-ut-fuga-illum-qui-consectetur-adipisci-hic-corporis",
-            "parent_id": 999405,
-            "type": "artist",
+            "link": "http:\/\/beahan.com\/",
+            "parent_id": 999194,
+            "type": "sub-category",
             ...
         },
         {
-            "id": 999693,
-            "title": "Magni ullam voluptatibus reprehenderit optio",
+            "id": 999697,
+            "title": "Facere quasi cupiditate ea ipsa",
             "is_boosted": false,
-            "link": "http:\/\/www.bogan.com\/repudiandae-incidunt-laborum-quae-incidunt-sunt-voluptatem.html",
-            "parent_id": 999879,
-            "type": "color",
+            "link": "http:\/\/www.vonrueden.com\/aliquid-fuga-praesentium-iste-culpa-quaerat-quam-sunt",
+            "parent_id": 999083,
+            "type": "sub-category",
             ...
         }
     ]
@@ -2145,49 +2116,43 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 50,
+        "total": 73,
         "limit": 10,
         "offset": 0,
-        "total_pages": 5,
+        "total_pages": 8,
         "current_page": 1
     },
     "data": [
         {
             "_score": 2,
-            "api_id": "999579",
+            "api_id": "999809",
             "api_model": "shop-categories",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/shop-categories\/999579",
-            "id": 999579,
-            "title": "Similique aut quia laboriosam blanditiis",
-            "timestamp": "2018-01-25T13:34:01-06:00"
+            "is_boosted": false,
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/shop-categories\/999809",
+            "id": 999809,
+            "title": "Est nostrum dolor numquam et",
+            "timestamp": "2018-02-03T22:40:29-06:00"
         },
         {
             "_score": 2,
-            "api_id": "999872",
+            "api_id": "999879",
             "api_model": "shop-categories",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/shop-categories\/999872",
-            "id": 999872,
-            "title": "Rerum et aut provident rerum",
-            "timestamp": "2018-01-25T13:34:01-06:00"
+            "is_boosted": false,
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/shop-categories\/999879",
+            "id": 999879,
+            "title": "Atque hic non sit dolorem",
+            "timestamp": "2018-02-03T22:40:29-06:00"
         },
         {
             "_score": 2,
-            "api_id": "999287",
+            "api_id": "999328",
             "api_model": "shop-categories",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/shop-categories\/999287",
-            "id": 999287,
-            "title": "Asperiores ut illum enim debitis",
-            "timestamp": "2018-01-25T13:34:01-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/shop-categories\/999328",
+            "id": 999328,
+            "title": "Fugit in aut expedita sit",
+            "timestamp": "2018-01-25T13:34:02-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "shop-categories",
-                "doc_count": 50
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -2195,18 +2160,18 @@ Example output:
 
 A single shop-categories by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/shop-categories/999689?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/shop-categories/999175?limit=2  
 Example output:
 
 ```
 {
     "data": {
-        "id": 999689,
-        "title": "Aut et recusandae eveniet iure",
+        "id": 999175,
+        "title": "Aut ipsam molestiae accusamus iure",
         "is_boosted": false,
-        "link": "http:\/\/ratke.com\/maiores-ut-fuga-illum-qui-consectetur-adipisci-hic-corporis",
-        "parent_id": 999405,
-        "type": "artist",
+        "link": "http:\/\/beahan.com\/",
+        "parent_id": 999194,
+        "type": "sub-category",
         ...
     }
 }
@@ -2242,21 +2207,21 @@ Example output:
     },
     "data": [
         {
-            "id": 999681,
-            "title": "Quia Esse Quibusdam Doloremque Perferendis Expedita",
+            "id": 999966,
+            "title": "Officiis Ipsum Rerum Alias Cumque Occaecati",
             "is_boosted": false,
-            "title_display": "Quia Esse <em>Quibusdam Doloremque<\/em> Perferendis Expedita",
-            "sku": "68504410",
-            "link": "http:\/\/www.reynolds.com\/",
+            "title_display": "Officiis Ipsum <em>Rerum Alias<\/em> Cumque Occaecati",
+            "sku": "58054222",
+            "link": "http:\/\/kuhn.com\/id-dolore-perspiciatis-ullam-facilis-et",
             ...
         },
         {
-            "id": 999444,
-            "title": "Non Dolores Optio Sint Voluptas Esse",
+            "id": 999969,
+            "title": "Odio Et Et Dicta Natus Totam",
             "is_boosted": false,
-            "title_display": "Non Dolores <em>Optio Sint<\/em> Voluptas Esse",
-            "sku": "94387667",
-            "link": "http:\/\/www.sipes.biz\/",
+            "title_display": "Odio Et <em>Et Dicta<\/em> Natus Totam",
+            "sku": "63522761",
+            "link": "http:\/\/sauer.com\/aut-voluptatem-sit-ut-vel-modi-quia.html",
             ...
         }
     ]
@@ -2283,10 +2248,10 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 48,
+        "total": 70,
         "limit": 10,
         "offset": 0,
-        "total_pages": 5,
+        "total_pages": 7,
         "current_page": 1
     },
     "data": [
@@ -2317,15 +2282,7 @@ Example output:
             "title": "Et Adipisci Et Unde Velit Commodi",
             "timestamp": "2018-01-25T13:34:02-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "products",
-                "doc_count": 48
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -2333,30 +2290,30 @@ Example output:
 
 A single products by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/products/999681?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/products/999966?limit=2  
 Example output:
 
 ```
 {
     "data": {
-        "id": 999681,
-        "title": "Quia Esse Quibusdam Doloremque Perferendis Expedita",
+        "id": 999966,
+        "title": "Officiis Ipsum Rerum Alias Cumque Occaecati",
         "is_boosted": false,
-        "title_display": "Quia Esse <em>Quibusdam Doloremque<\/em> Perferendis Expedita",
-        "sku": "68504410",
-        "link": "http:\/\/www.reynolds.com\/",
+        "title_display": "Officiis Ipsum <em>Rerum Alias<\/em> Cumque Occaecati",
+        "sku": "58054222",
+        "link": "http:\/\/kuhn.com\/id-dolore-perspiciatis-ullam-facilis-et",
         ...
     }
 }
 ```
 
-# Events and Membership
+# Events
 
-## Events
+## Legacy Events
 
-### `/events`
+### `/legacy-events`
 
-A list of all events sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#events).
+A list of all legacy-events sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#legacy-events).
 
 #### Available parameters:
 
@@ -2365,23 +2322,23 @@ A list of all events sorted by last updated date in descending order. For a desc
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/events?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/legacy-events?limit=2  
 Example output:
 
 ```
 {
     "pagination": {
-        "total": 1858,
+        "total": 128,
         "limit": 2,
         "offset": 0,
-        "total_pages": 929,
+        "total_pages": 64,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/events?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/legacy-events?page=2&limit=2"
     },
     "data": [
         {
-            "id": 2639272,
-            "title": "Museum Closed for New Year&#039;s Day",
+            "id": 2277,
+            "title": "Museum Closed for Christmas",
             "is_boosted": false,
             "description": "",
             "short_description": "",
@@ -2389,7 +2346,7 @@ Example output:
             ...
         },
         {
-            "id": 2636974,
+            "id": 2278,
             "title": "Museum Closed for New Year&#039;s Day",
             "is_boosted": false,
             "description": "",
@@ -2401,9 +2358,9 @@ Example output:
 }
 ```
 
-### `/events/search`
+### `/legacy-events/search`
 
-Search events data in the aggregator. 
+Search legacy-events data in the aggregator. 
 
 #### Available parameters:
 
@@ -2414,92 +2371,74 @@ Search events data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of "count" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/events/search  
+Example request: http://aggregator-data-test.artic.edu/api/v1/legacy-events/search  
 Example output:
 
 ```
 {
     "preference": null,
     "pagination": {
-        "total": 1918,
+        "total": 123,
         "limit": 10,
         "offset": 0,
-        "total_pages": 192,
+        "total_pages": 13,
         "current_page": 1
     },
     "data": [
         {
             "_score": 2,
-            "api_id": "30384910",
-            "api_model": "events",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/events\/30384910",
-            "id": 30384910,
-            "title": "Sketch Class: The Sketchbook as Tool",
-            "timestamp": "2018-01-25T12:32:45-06:00"
+            "api_id": "7832",
+            "api_model": "legacy-events",
+            "is_boosted": false,
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/legacy-events\/7832",
+            "id": 7832,
+            "title": "Artists Connect: Barak ad\u00e9 Soleil",
+            "timestamp": "2018-02-14T22:38:09-06:00"
         },
         {
             "_score": 2,
-            "api_id": "14888",
-            "api_model": "events",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/events\/14888",
-            "id": 14888,
-            "title": "Lecture: Drinking with Dionysos and Sekhmet&#039;s Wrath: Beer and Wine in Egypt and Greece",
-            "timestamp": "2018-01-25T12:32:42-06:00"
+            "api_id": "7703",
+            "api_model": "legacy-events",
+            "is_boosted": false,
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/legacy-events\/7703",
+            "id": 7703,
+            "title": "Gallery Talk: Art of the Newspaper",
+            "timestamp": "2018-02-14T22:38:06-06:00"
         },
         {
             "_score": 2,
-            "api_id": "11169942",
-            "api_model": "events",
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/events\/11169942",
-            "id": 11169942,
-            "title": "Museum Orientation Tour",
-            "timestamp": "2018-01-25T12:32:42-06:00"
+            "api_id": "7774",
+            "api_model": "legacy-events",
+            "is_boosted": false,
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/legacy-events\/7774",
+            "id": 7774,
+            "title": "Gallery Talk: Intersections",
+            "timestamp": "2018-02-14T22:38:07-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "events",
-                "doc_count": 1918
-            }
-        ]
-    }
+    ]
 }
 ```
 
-### `/events/{id}`
+### `/legacy-events/{id}`
 
-A single events by the given identifier.
+A single legacy-events by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/events/28990343?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/legacy-events/2277?limit=2  
 Example output:
 
 ```
 {
     "data": {
-        "id": 28990343,
-        "title": "Gallery Talk in American Sign Language",
+        "id": 2277,
+        "title": "Museum Closed for Christmas",
         "is_boosted": false,
-        "description": "Join us on an interactive tour of works in the collection led by a museum educator in American Sign Language. This public program is offered primarily for the Deaf community. All visitors are welcome.<br \/>\nTo request an accessibility accommodation for an Art Institute program, please call (312) 443-3680 or send an e-mail to access@artic.edu as far in advance as possible.\u00a0<br \/>\nPlease see the museum\u2019s Accessibility page for more information.<br \/>\n\u00a0",
-        "short_description": "Guided Tour",
-        "image": "http:\/\/www.artic.edu\/sites\/default\/files\/cal-ASL%20tour.-06222017.jpg",
+        "description": "",
+        "short_description": "",
+        "image": "",
         ...
     }
 }
 ```
-
-## Members
-
-### `/members/{id}?zip=XXX`
-
-A single member by the given identifier. Will only provide results if a valid verification parameter is passed.
-
-#### Available parameters:
-
-* `zip` - The zip code matching the requested member record
-* `email` - The email address matching the requested member record
-* `phone` - The phone number matching the requested member record
-
 
 # Mobile
 
@@ -2516,7 +2455,7 @@ A list of all tours sorted by last updated date in descending order. For a descr
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
-  * `stops`
+  * `tour_stops`
 
 Example request: http://aggregator-data-test.artic.edu/api/v1/tours?limit=2  
 Example output:
@@ -2533,21 +2472,21 @@ Example output:
     },
     "data": [
         {
-            "id": 2352,
-            "title": "Visions of America",
-            "is_boosted": false,
-            "image": "http:\/\/aicweb10.artic.edu\/sites\/default\/files\/tour-images\/10141_4227478.jpg",
-            "description": "Inspired by the hit musical Hamilton, explore America now, through America&nbsp;then.&nbsp;",
-            "intro": "Narrated by two principal cast members from the Chicago production of Hamilton\u2014this new audio tour offers a contemporary lens on art from the early years of the United States. Get to know the people, places, and stories behind a variety of works of early American art and gain a new understanding of America now.",
-            ...
-        },
-        {
             "id": 2193,
             "title": "The Essentials Tour",
             "is_boosted": false,
             "image": "http:\/\/aicweb10.artic.edu\/sites\/default\/files\/tour-images\/english%20%281%29.jpg",
             "description": "Discover the stories behind some of the museum\u2019s most iconic artworks.",
             "intro": "Indulge in the sunlit bank of the River Seine in Georges Seurat\u2019s \"A Sunday on La Grande Jatte\" or make a late-night stop at a New York City diner in Edward Hopper\u2019s \"Nighthawks\" in this tour of the museum\u2019s iconic collection. Founded in 1879, the Art Institute of Chicago is home to a massive collection spanning nearly all of human history. As you explore centuries of art, this tour highlights some essential landmarks\u2014with lesser known, but equally engaging artworks\u2014along the way. The soundtrack features the music of Andrew Bird, another Chicago essential.",
+            ...
+        },
+        {
+            "id": 2219,
+            "title": "Visita a lo esencial",
+            "is_boosted": false,
+            "image": "http:\/\/aicweb10.artic.edu\/sites\/default\/files\/tour-images\/espanol.jpg",
+            "description": "Descubra las historias detr\u00e1s de algunas de las obras de arte m\u00e1s ic\u00f3nicas del museo.",
+            "intro": "Disfrute el banco del R\u00edo Sena ba\u00f1ado de sol en \u201cUn domingo en La Grande Jatte\u201d de Georges Seurat o haga una parada nocturna en una cafeter\u00eda de Nueva York en \u201cNighthawks\u201d de Edward Hopper en esta visita a la ic\u00f3nica colecci\u00f3n del museo. El Art Institute of Chicago, fundado en 1879, alberga una enorme colecci\u00f3n que abarca casi toda la historia de la humanidad. A medida que explora siglos de arte, esta visita resalta algunos hitos esenciales, con obras de arte menos conocidas, pero igualmente interesantes, en todo el recorrido. La pista musical presenta la m\u00fasica de Andrew Bird, otra persona esencial en Chicago.",
             ...
         }
     ]
@@ -2608,15 +2547,7 @@ Example output:
             "title": "Sint eum aspernatur",
             "timestamp": "2018-01-25T13:34:14-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "tours",
-                "doc_count": 33
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -2671,21 +2602,21 @@ Example output:
     },
     "data": [
         {
-            "id": 99,
-            "title": "Punch Bowl",
+            "id": 12,
+            "title": "The Woman's Board Grand Staircase",
             "is_boosted": false,
-            "artwork": "Punch Bowl",
-            "artwork_id": null,
-            "mobile_sound": "http:\/\/aicweb10.artic.edu\/sites\/default\/files\/audio\/121%20Punch%20Bowl%20DD%20092617.mp3",
+            "artwork_title": "The Woman's Board Grand Staircase",
+            "artwork_id": 236511,
+            "tour_id": null,
             ...
         },
         {
-            "id": 100,
-            "title": "Mrs. Andrew Bedford Bankson and Son, Gunning Bedford Bankson",
+            "id": 98,
+            "title": null,
             "is_boosted": false,
-            "artwork": "Mrs. Andrew Bedford Bankson and Son, Gunning Bedford Bankson",
+            "artwork_title": null,
             "artwork_id": null,
-            "mobile_sound": "http:\/\/aicweb10.artic.edu\/sites\/default\/files\/audio\/122%20Joshua%20Johnson%20DD%20092617.mp3",
+            "tour_id": null,
             ...
         }
     ]
@@ -2718,10 +2649,7 @@ Example output:
         "total_pages": 0,
         "current_page": 1
     },
-    "data": [],
-    "aggregations": {
-        "count_api_model": []
-    }
+    "data": []
 }
 ```
 
@@ -2729,18 +2657,18 @@ Example output:
 
 A single tour-stops by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/tour-stops/160?limit=2  
+Example request: http://aggregator-data-test.artic.edu/api/v1/tour-stops/17?limit=2  
 Example output:
 
 ```
 {
     "data": {
-        "id": 160,
-        "title": "Nighthawks",
+        "id": 17,
+        "title": "Chicago Stock Exchange Trading Room: Reconstruction at the Art Institute of Chicago",
         "is_boosted": false,
-        "artwork": "Nighthawks",
-        "artwork_id": null,
-        "mobile_sound": "http:\/\/aicweb10.artic.edu\/sites\/default\/files\/audio\/973s.mp3",
+        "artwork_title": "Chicago Stock Exchange Trading Room: Reconstruction at the Art Institute of Chicago",
+        "artwork_id": 156538,
+        "tour_id": null,
         ...
     }
 }
@@ -2774,20 +2702,20 @@ Example output:
     },
     "data": [
         {
-            "id": 256,
-            "title": "Jan Cornelis Sylvius",
+            "id": 1536,
+            "title": "Arrangement in Flesh Color and Brown: Portrait of Arthur Jerome Eddy",
             "is_boosted": false,
-            "link": "http:\/\/aicweb10.artic.edu\/sites\/default\/files\/audio\/888.mp3",
-            "transcript": "NARRATOR: This is Jan Cornelis Sylvius, a minister in the Dutch Reform Church. A cousin of Rembrandt\u2019s first wife Saskia, Sylvius baptized Rembrandt\u2019s first two children. But he was best known for his considerable skills as an orator. \r\n\r\nVICTORIA SANCHO LOBIS: In fact, Rembrandt created this portrait print of Sylvius depicting him in the act of speaking. So, Rembrandt was in some ways confronting the idea of how do you convey speech? Rembrandt has chosen to show him extending his right hand.  This is a classic rhetorical gesture that dates back to ancient sculpture. You can see that his hand casts a shadow on what appears to be the portrait\u2019s frame, and his face also casts a shadow just beyond the darkened oval.  \r\n\r\nNARRATOR: These devices refer to a tradition of funerary sculpture in the Netherlands, which often included sculpted busts of the deceased emerging from the face of a tomb.  And this is, indeed, a posthumous portrait, produced six years after Sylvius\u2019s death.\r\n\r\nThe text around the minister names him, says where he worked, and gives the date of his death. Rembrandt also includes a poem that reads, in part:\r\n\r\nVICTORIA SANCHO LOBIS: \u201cHis eloquence taught men to honor Christ and showed them the true way to heaven.\u201d \r\n",
+            "link": "http:\/\/aicweb10.artic.edu\/sites\/default\/files\/audio\/742.mp3",
+            "transcript": "NARRATOR: For James McNeill Whistler, the title of a painting really mattered. \r\nSarah Kelly:  You&#039;ll notice that Whistler titled this portrait, &quot;Arrangement in Flesh Color and Brown,&quot; and only then has the subtitle, &quot;Portrait of Arthur Jerome Eddy.&quot; He wanted to emphasize that it was simply a chosen arrangement of line and of color, rather than Arthur Jerome Eddy. And Eddy was very much agreeable to this. \r\n\r\nNARRATOR:  Sarah Kelly, Associate Curator at the Art Institute of Chicago. \r\n\r\nSARAH KELLY:  Arthur Jerome Eddy is a very important person to the Art Institute of Chicago. He was a Chicago lawyer, and he saw Whistler&#039;s works at the 1893 World&#039;s Columbian Exhibition here in Chicago, where Whistler actually was given center stage. And he was so impressed that he went off and asked Whistler to paint his portrait. He then went from championing Whistler to championing modern art. He became a very influential collector of modern paintings, so the core collection of German expressionist painting came from Arthur Jerome Eddy. He also published a book about modern art. So he was very influential in promoting modern art in America, and particularly in Chicago.",
             "last_updated_source": null,
             ...
         },
         {
-            "id": 1024,
-            "title": "Introduction to \"City Within a City\"",
+            "id": 1537,
+            "title": "Bust of a Youth (Saint John the Baptist?)",
             "is_boosted": false,
-            "link": "http:\/\/aicweb10.artic.edu\/sites\/default\/files\/audio\/AIC%20Architecture%20Tour_INTRO_With%20IDs.mp3",
-            "transcript": "ERIN HOGAN: I just think about, like, Chicago trying to prove itself and trying to be cultural. And, like, so much energy, and this building is kind of, like, so ambitious. \r\n\r\nThe Architecture of the Art Institute of Chicago. Hello, everybody, I am Erin Hogan, and I am the former Director of Public Affairs and Communication at the Art Institute of Chicago, and I have just long been an admirer of the physical building of the Art Institute. I love this building so much because I see it as a living, breathing organism. Well, when you walk through the door on Michigan Avenue, which for the bulk of the Art Institute&#039;s history was our only entrance, you can see immediately that you are supposed to be awed. This is a grand, civic building. You have to ascend to it; you have to come up a flight of stairs to get into the building. \r\n\r\nTIM SAMUELSON: I mean, I really feel that buildings and places have a collective vibe. And you can feel it in a building like the Art Institute, in the different spaces. And you can feel the presence of different eras of the people who created them. And the best part of it is just working quietly behind the scenes. But it&#039;s very much there. \r\n \r\nJOHN VINCI: Well the Art Institute is a conglomerate of expansions. So this is what gave the Art Institute is a special quality to me, is these parts that made it more like a city rather than a museum designed in one foul swoop. \r\n\r\nERIN HOGAN: You know, we&#039;re all about art here, it is an art museum, but this is a tour in which you will not see any art at all. And you will walk past a lot of monumental works of art at a criminal pace while we talk about corners and walls and buildings. But hopefully it will give you an appreciation for the structure that is the Art Institute of Chicago. \r\n\r\nNARRATOR: This audio guide is supported by Bloomberg Philanthropies. \r\n",
+            "link": "http:\/\/aicweb10.artic.edu\/sites\/default\/files\/audio\/750.mp3",
+            "transcript": "NARRATOR:  Bruce Boucher, Curator of European sculpture. \r\n\r\nBRUCE BOUCHER:  Francesco Mochi&#039;s Bust of a Youth is one of our signature pieces, and it is one of the most beautiful Baroque sculptures in the collection. It shows a youth, an adolescent, with corkscrew curls and drapery that suggests he may or may not be the young Saint John the Baptist. But it is a portrait of adolescence, he has a rather dreamy expression and his lips are parted as if he is about to speak, or has just said something. It&#039;s the kind of animated expression that Baroque sculptors like Mochi would use, to try to transcend the limitations of marble as a medium. \r\n\r\nBRUCE BOUCHER  He could carve marble like butter. And if you look at these curls, you could put your finger through them, they are really a tour de force of sculpture. What is Baroque about this, is the way in which.. the sculptor is trying to engage us in a kind of imaginary discourse with the sitter. The figure&#039;s head is turned sharply to the side, his eyes are focused, his mouth is open. There&#039;s a sense of movement about it, which distinguishes it from a Renaissance sculpture, which would probably have been much more passive and less engaged with us as spectators.",
             "last_updated_source": null,
             ...
         }
@@ -2846,21 +2774,21 @@ Example output:
     },
     "data": [
         {
-            "id": 135446,
-            "title": "Renoir Paintings and Drawings at the Art Institute of Chicago",
+            "id": 226,
+            "title": "James Ensor: The Temptation of Saint Anthony",
             "is_boosted": false,
-            "web_url": "https:\/\/publications.artic.edu\/renoir\/reader\/paintingsanddrawings",
-            "site": "renoir",
-            "alias": "paintingsanddrawings",
+            "web_url": "https:\/\/publications.artic.edu\/ensor\/reader\/temptationstanthony",
+            "site": "ensor",
+            "alias": "temptationstanthony",
             ...
         },
         {
-            "id": 141096,
-            "title": "Gauguin Paintings, Sculpture, and Graphic Works at the Art Institute of Chicago",
+            "id": 140019,
+            "title": "Manet Paintings and Works on Paper at the Art Institute of Chicago",
             "is_boosted": false,
-            "web_url": "https:\/\/publications.artic.edu\/gauguin\/reader\/gauguinart",
-            "site": "gauguin",
-            "alias": "gauguinart",
+            "web_url": "https:\/\/publications.artic.edu\/manet\/reader\/manetart",
+            "site": "manet",
+            "alias": "manetart",
             ...
         }
     ]
@@ -2921,15 +2849,7 @@ Example output:
             "title": "Soluta eum delectus",
             "timestamp": "2018-01-25T13:34:20-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "publications",
-                "doc_count": 35
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -2982,21 +2902,21 @@ Example output:
     },
     "data": [
         {
-            "id": 580495,
-            "title": "Director's Statement",
+            "id": 37654267653,
+            "title": "Works of Art--Renoir 2014",
             "is_boosted": false,
-            "web_url": "https:\/\/publications.artic.edu\/pissarro\/reader\/paintingsandpaper\/section\/1069",
+            "web_url": "https:\/\/publications.artic.edu\/renoir\/reader\/paintingsanddrawings\/section\/138977",
             "accession": null,
-            "revision": 1502911013,
+            "revision": 1512680354,
             ...
         },
         {
-            "id": 522745,
-            "title": "Copyright",
+            "id": 37793804331,
+            "title": "Collection Highlights",
             "is_boosted": false,
-            "web_url": "https:\/\/publications.artic.edu\/pissarro\/reader\/paintingsandpaper\/section\/1014",
+            "web_url": "https:\/\/publications.artic.edu\/renoir\/reader\/paintingsanddrawings\/section\/139485",
             "accession": null,
-            "revision": 1502911013,
+            "revision": 1512680354,
             ...
         }
     ]
@@ -3023,52 +2943,44 @@ Example output:
 {
     "preference": null,
     "pagination": {
-        "total": 519,
+        "total": 723,
         "limit": 10,
         "offset": 0,
-        "total_pages": 52,
+        "total_pages": 73,
         "current_page": 1
     },
     "data": [
         {
             "_score": 2,
-            "api_id": "474344",
+            "api_id": "499019",
             "api_model": "sections",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections\/474344",
-            "id": 474344,
-            "title": "Cat. 6 Portrait Head of Emperor Hadrian",
-            "timestamp": "2018-02-02T21:18:16-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections\/499019",
+            "id": 499019,
+            "title": "Cat. 30 Denarius Portraying Julius Caesar",
+            "timestamp": "2018-02-08T23:02:34-06:00"
         },
         {
             "_score": 2,
-            "api_id": "470454",
+            "api_id": "488085",
             "api_model": "sections",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections\/470454",
-            "id": 470454,
-            "title": "Cat. 2 Cinerary Urn",
-            "timestamp": "2018-02-02T21:18:04-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections\/488085",
+            "id": 488085,
+            "title": "Cat. 19 Head of a Philosopher",
+            "timestamp": "2018-02-08T23:02:34-06:00"
         },
         {
             "_score": 2,
-            "api_id": "481190",
+            "api_id": "487097",
             "api_model": "sections",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections\/481190",
-            "id": 481190,
-            "title": "Cat. 13 Statue of the Aphrodite of Knidos",
-            "timestamp": "2018-02-02T21:18:35-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections\/487097",
+            "id": 487097,
+            "title": "Cat. 20 Side Panel of a Sarcophagus",
+            "timestamp": "2018-02-08T23:02:34-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "sections",
-                "doc_count": 519
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -3086,7 +2998,7 @@ Example output:
         "title": "Cat. 160 Pair of Earrings",
         "is_boosted": false,
         "web_url": "https:\/\/publications.artic.edu\/roman\/reader\/romanart\/section\/1974",
-        "accession": "1892.24",
+        "accession": null,
         "revision": 1502910278,
         ...
     }
@@ -3125,22 +3037,22 @@ Example output:
     },
     "data": [
         {
-            "id": 90,
-            "title": "Steve McQueen",
+            "id": 96,
+            "title": "Van Gogh's Bedroooms",
             "is_boosted": false,
-            "description": "Steve McQueen is an internationally acclaimed artist whose work is primarily engaged with moving images. Born in London in 1969, he has, over the last twenty years, made a series of film and video installations designed for gallery-based presentation, along with two feature films made for cinematic release. His efforts in these two distinct, but interrelated, arenas have earned him a reputation as one of the most important and influential artists of his generation working with these media, and beyond. McQueen's earliest works are silent, and mostly black-and-white, often with a focus on the body, very often the artist\u2019s own. Subsequent pieces incorporate, as a general rule, sound and color, and often emerge from more elaborate investigations.",
-            "web_url": "http:\/\/archive.artic.edu\/mcqueen\/",
+            "description": "Vincent van Gogh\u2019s bedroom in Arles is arguably the most famous chambre in the history of art. It also held special significance for the artist, who created three distinct paintings of this intimate space from 1888 to 1889. This exhibition\u2014presented only at the Art Institute of Chicago\u2014brings together all three versions of The Bedroom for the first time in North America, offering a pioneering and in-depth study of their making and meaning to Van Gogh in his relentless quest for home.",
+            "web_url": "http:\/\/archive.artic.edu\/van-gogh-bedrooms\/",
             "exhibition_ids": [
-                1613
+                1865
             ],
             ...
         },
         {
-            "id": 91,
-            "title": "The New Mobile Experience",
+            "id": 89,
+            "title": "Magritte: Time Transfixed",
             "is_boosted": false,
-            "description": "Find the art that speaks to you with our location-aware map. Take an audio tour and immerse yourself in stories of culture and creativity. The Art Institute offers nearly a million square feet to explore\u2014the New Mobile Experience will be your guide.",
-            "web_url": "http:\/\/archive.artic.edu\/new-mobile\/",
+            "description": "Magritte: The Mystery of the Ordinary, 1926\u20141938 focuses on Ren\u00e9 Magritte\u2019s breakthrough Surrealist years, peeling back the layers of this inventive and experimental period in the artist\u2019s career to reveal the development of the themes and motifs that make his art so unforgettable. Each of Magritte\u2019s enigmatic works encourages viewers to think and search deeply, and in the case of the Art Institute\u2019s iconic Time Transfixed, that kind of probing investigation revealed surprising twists and turns in the making of painting.",
+            "web_url": "http:\/\/archive.artic.edu\/magritte\/",
             "exhibition_ids": [],
             ...
         }
@@ -3177,43 +3089,32 @@ Example output:
     "data": [
         {
             "_score": 2,
-            "api_id": "19",
+            "api_id": "9991844",
             "api_model": "sites",
-            "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/19",
-            "id": 19,
-            "title": "Perpetual Glory: Medieval Islamic Ceramics from the Harvey B. Plotnick Collection",
-            "timestamp": "2018-02-02T21:25:16-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/9991844",
+            "id": 9991844,
+            "title": "Possimus quis a",
+            "timestamp": "2018-01-25T13:34:26-06:00"
         },
         {
             "_score": 2,
-            "api_id": "22",
+            "api_id": "9997382",
             "api_model": "sites",
-            "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/22",
-            "id": 22,
-            "title": "Seurat and the Making of \"La Grande Jatte\"",
-            "timestamp": "2018-02-02T21:25:16-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/9997382",
+            "id": 9997382,
+            "title": "Architecto consequatur eum",
+            "timestamp": "2018-01-25T13:34:26-06:00"
         },
         {
             "_score": 2,
-            "api_id": "24",
+            "api_id": "9990543",
             "api_model": "sites",
-            "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/24",
-            "id": 24,
-            "title": "The Silk Road and Beyond: Travel, Trade, and Transformation",
-            "timestamp": "2018-02-02T21:25:16-06:00"
+            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/9990543",
+            "id": 9990543,
+            "title": "Eligendi sint officiis",
+            "timestamp": "2018-01-25T13:34:26-06:00"
         }
-    ],
-    "aggregations": {
-        "count_api_model": [
-            {
-                "key": "sites",
-                "doc_count": 121
-            }
-        ]
-    }
+    ]
 }
 ```
 
@@ -3270,19 +3171,19 @@ Example output:
     },
     "data": [
         {
-            "id": 25807,
-            "title": "Sullivan, Albert Walter, Residence",
+            "id": 25535,
+            "title": "Streetscape",
             "alternate_title": null,
-            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/25807",
+            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/25535",
             "collection": "Historic Architecture and Landscape Image Collection, c.1865-1973 (bulk 1890-1930)",
             "archive": "Architecture Lantern Slide Collection",
             ...
         },
         {
-            "id": 25552,
-            "title": "Streetscape",
+            "id": 25792,
+            "title": "Rue de la Saint-Antoine",
             "alternate_title": null,
-            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/25552",
+            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/25792",
             "collection": "Historic Architecture and Landscape Image Collection, c.1865-1973 (bulk 1890-1930)",
             "archive": "Architecture Lantern Slide Collection",
             ...
@@ -3310,19 +3211,19 @@ Example output:
     },
     "data": [
         {
-            "id": 25807,
-            "title": "Sullivan, Albert Walter, Residence",
+            "id": 25535,
+            "title": "Streetscape",
             "alternate_title": null,
-            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/25807",
+            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/25535",
             "collection": "Historic Architecture and Landscape Image Collection, c.1865-1973 (bulk 1890-1930)",
             "archive": "Architecture Lantern Slide Collection",
             ...
         },
         {
-            "id": 25552,
-            "title": "Streetscape",
+            "id": 25792,
+            "title": "Rue de la Saint-Antoine",
             "alternate_title": null,
-            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/25552",
+            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/25792",
             "collection": "Historic Architecture and Landscape Image Collection, c.1865-1973 (bulk 1890-1930)",
             "archive": "Architecture Lantern Slide Collection",
             ...
@@ -3364,44 +3265,71 @@ Example output:
     },
     "data": [
         {
-            "id": "01ARTIC_ALMA2133675920003801",
-            "title": "Illustrated catalogue",
-            "date": 1890,
-            "creators": [],
+            "id": "01ARTIC_ALMA2123092740003801",
+            "title": "A Voyage to Cadiz and Gibraltar, up the Mediterranean to Sicily and Malta, in 1810, & 11 : including a description of Sicily and the Lipari Islands, and an excursion in Portugal",
+            "date": 1815,
+            "creators": [
+                {
+                    "id": "no89017673",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/names\/no89017673",
+                    "title": "Cockburn, George"
+                }
+            ],
             "subjects": [
                 {
-                    "id": "sh85022351",
-                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85022351",
-                    "title": "Chairs -- Catalogs"
+                    "id": "sh86002688",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh86002688",
+                    "title": "Mediterranean Region -- Description and travel"
                 },
                 {
-                    "id": "sh85020909",
-                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85020909",
-                    "title": "Commercial catalogs"
+                    "id": "sh85122237",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85122237",
+                    "title": "Sicily (Italy) -- Description and travel"
+                },
+                {
+                    "id": "sh85080200",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85080200",
+                    "title": "Malta -- Description and travel"
+                },
+                {
+                    "id": "sh85105232",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85105232",
+                    "title": "Portugal -- Description and travel"
                 }
             ],
             ...
         },
         {
-            "id": "01ARTIC_ALMA2133625370003801",
-            "title": "The painter : an illustrated monthly magazine devoted to painting and decoration.",
-            "date": 1882,
-            "creators": [],
+            "id": "01ARTIC_ALMA2123108950003801",
+            "title": "Nihon jinmin no sh\u014dri e no zenshin : Anpo hantai t\u014ds\u014d kiroku shashinsh\u016b",
+            "date": 1961,
+            "creators": [
+                {
+                    "id": "n50061776",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/names\/n50061776",
+                    "title": "Nihon Ky\u014dsant\u014d"
+                }
+            ],
             "subjects": [
                 {
-                    "id": "sh2010104712",
-                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2010104712",
-                    "title": "Paint -- Periodicals"
+                    "id": "sh2010106269",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2010106269",
+                    "title": "Peace movements -- Japan"
                 },
                 {
-                    "id": "sh2008102124",
-                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2008102124",
-                    "title": "Decoration and ornament -- Periodicals"
+                    "id": "sh2008107793",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2008107793",
+                    "title": "Military assistance, American -- Japan"
                 },
                 {
-                    "id": "sh85096661",
-                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85096661",
-                    "title": "Painting -- Private collections -- United States"
+                    "id": "sh2008115634",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2008115634",
+                    "title": "Japan -- Foreign relations -- United States"
+                },
+                {
+                    "id": "sh85140113",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85140113",
+                    "title": "United States -- Foreign relations -- Japan"
                 }
             ],
             ...
@@ -3429,44 +3357,71 @@ Example output:
     },
     "data": [
         {
-            "id": "01ARTIC_ALMA2133675920003801",
-            "title": "Illustrated catalogue",
-            "date": 1890,
-            "creators": [],
+            "id": "01ARTIC_ALMA2123092740003801",
+            "title": "A Voyage to Cadiz and Gibraltar, up the Mediterranean to Sicily and Malta, in 1810, & 11 : including a description of Sicily and the Lipari Islands, and an excursion in Portugal",
+            "date": 1815,
+            "creators": [
+                {
+                    "id": "no89017673",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/names\/no89017673",
+                    "title": "Cockburn, George"
+                }
+            ],
             "subjects": [
                 {
-                    "id": "sh85022351",
-                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85022351",
-                    "title": "Chairs -- Catalogs"
+                    "id": "sh86002688",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh86002688",
+                    "title": "Mediterranean Region -- Description and travel"
                 },
                 {
-                    "id": "sh85020909",
-                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85020909",
-                    "title": "Commercial catalogs"
+                    "id": "sh85122237",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85122237",
+                    "title": "Sicily (Italy) -- Description and travel"
+                },
+                {
+                    "id": "sh85080200",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85080200",
+                    "title": "Malta -- Description and travel"
+                },
+                {
+                    "id": "sh85105232",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85105232",
+                    "title": "Portugal -- Description and travel"
                 }
             ],
             ...
         },
         {
-            "id": "01ARTIC_ALMA2133625370003801",
-            "title": "The painter : an illustrated monthly magazine devoted to painting and decoration.",
-            "date": 1882,
-            "creators": [],
+            "id": "01ARTIC_ALMA2123108950003801",
+            "title": "Nihon jinmin no sh\u014dri e no zenshin : Anpo hantai t\u014ds\u014d kiroku shashinsh\u016b",
+            "date": 1961,
+            "creators": [
+                {
+                    "id": "n50061776",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/names\/n50061776",
+                    "title": "Nihon Ky\u014dsant\u014d"
+                }
+            ],
             "subjects": [
                 {
-                    "id": "sh2010104712",
-                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2010104712",
-                    "title": "Paint -- Periodicals"
+                    "id": "sh2010106269",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2010106269",
+                    "title": "Peace movements -- Japan"
                 },
                 {
-                    "id": "sh2008102124",
-                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2008102124",
-                    "title": "Decoration and ornament -- Periodicals"
+                    "id": "sh2008107793",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2008107793",
+                    "title": "Military assistance, American -- Japan"
                 },
                 {
-                    "id": "sh85096661",
-                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85096661",
-                    "title": "Painting -- Private collections -- United States"
+                    "id": "sh2008115634",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2008115634",
+                    "title": "Japan -- Foreign relations -- United States"
+                },
+                {
+                    "id": "sh85140113",
+                    "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85140113",
+                    "title": "United States -- Foreign relations -- Japan"
                 }
             ],
             ...
@@ -3506,15 +3461,15 @@ Example output:
     },
     "data": [
         {
-            "id": "no2013140656",
-            "uri": "http:\/\/id.loc.gov\/authorities\/names\/no2013140656",
-            "title": "Le Noci, Guido",
+            "id": "n98090075",
+            "uri": "http:\/\/id.loc.gov\/authorities\/names\/n98090075",
+            "title": "Baldung, Hans, -1545. Freiburg Altar",
             ...
         },
         {
-            "id": "n50004573",
-            "uri": "http:\/\/id.loc.gov\/authorities\/names\/n50004573",
-            "title": "Mulas, Ugo",
+            "id": "nr95018309",
+            "uri": "http:\/\/id.loc.gov\/authorities\/names\/nr95018309",
+            "title": "T\u00e9rey, G\u00e1bor",
             ...
         }
     ]
@@ -3540,19 +3495,19 @@ Example output:
     },
     "data": [
         {
-            "id": "no2013140656",
-            "uri": "http:\/\/id.loc.gov\/authorities\/names\/no2013140656",
-            "title": "Le Noci, Guido",
+            "id": "n98090075",
+            "uri": "http:\/\/id.loc.gov\/authorities\/names\/n98090075",
+            "title": "Baldung, Hans, -1545. Freiburg Altar",
             ...
         },
         {
-            "id": "n50004573",
-            "uri": "http:\/\/id.loc.gov\/authorities\/names\/n50004573",
-            "title": "Mulas, Ugo",
+            "id": "nr95018309",
+            "uri": "http:\/\/id.loc.gov\/authorities\/names\/nr95018309",
+            "title": "T\u00e9rey, G\u00e1bor",
             ...
         }
     ]
 }
 ```
 
-> Generated by `php artisan docs:endpoints` on 2018-02-03 22:45:58
+> Generated by `php artisan docs:endpoints` on 2018-02-16 08:36:58

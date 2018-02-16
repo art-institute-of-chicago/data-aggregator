@@ -196,7 +196,7 @@ class LegacyEvent extends MembershipModel
     public function exampleId()
     {
 
-        return "28990343";
+        return "2277";
 
     }
 

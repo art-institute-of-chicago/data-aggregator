@@ -75,7 +75,7 @@ class CreateEndpointDocs extends Command
 
         $doc .= "# Events\n\n";
         $doc .= \App\Models\Membership\LegacyEvent::instance()->docEndpoints($this->appUrl);
-        $doc .= \App\Models\Membership\TicketedEvent::instance()->docEndpoints($this->appUrl);
+        //$doc .= \App\Models\Membership\TicketedEvent::instance()->docEndpoints($this->appUrl);
 
         $doc .= "# Mobile\n\n";
         $doc .= \App\Models\Mobile\Tour::instance()->docEndpoints($this->appUrl);
