@@ -61,8 +61,6 @@ class TicketedEvent extends MembershipModel
             'start_at' => strtotime($source->start_at),
             'end_at' => strtotime($source->end_at),
 
-            'is_ticketed' => TRUE,
-
         ];
 
     }
