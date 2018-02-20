@@ -107,15 +107,43 @@ trait ElasticSearchable
                 'api_link' => $this->searchableLink(),
                 'title' => $this->title,
                 'timestamp' => Carbon::now()->toIso8601String(),
-                'suggest_autocomplete' => [$this->title],
-                'suggest_phrase' => $this->title,
             ],
+            $this->getSuggestSearchFields(),
             $this->transform($withTitles = true)
         );
 
         return $array;
 
     }
+
+    /**
+     * Add suggest fields and values. By default, only boosted works are added to the autocomplete.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
+     *
+     * @return array
+     */
+    public function getSuggestSearchFields()
+    {
+
+        // TODO: Move `suggest_autocomplete_boosted` into `suggest_autocomplete`, and re-index everything from database?
+        $fields = [
+            'suggest_autocomplete' => [
+                $this->title,
+            ],
+        ];
+
+        if( $this->isBoosted() )
+        {
+            $fields['suggest_autocomplete_boosted'] = [
+                $this->title,
+            ];
+        }
+
+        return $fields;
+
+    }
+
 
     /**
      * Return mapping of fields marked as default, for simple search.
@@ -236,18 +264,9 @@ trait ElasticSearchable
                             'suggest_autocomplete' => [
                                 'type' => 'completion',
                             ],
-                            'suggest_phrase' => [
-                                'type' => 'keyword',
-                                'fields' => [
-                                    'trigram' => [
-                                        'type' => 'text',
-                                        'analyzer' => 'trigram'
-                                    ],
-                                    'reverse' => [
-                                        'type' => 'text',
-                                        'analyzer' => 'reverse'
-                                    ],
-                                ],
+                            // TODO: Remove this after we regenerate all search indexes?
+                            'suggest_autocomplete_boosted' => [
+                                'type' => 'completion',
                             ],
                         ],
                         $default,
