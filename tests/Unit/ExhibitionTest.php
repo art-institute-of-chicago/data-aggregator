@@ -18,6 +18,17 @@ class ExhibitionTest extends ApiTestCase
 
     protected $keys = ['lake_guid'];
 
+    protected $fieldsUsedByMobile = ['id',
+                                     'title',
+                                     'description',
+                                     'short_description',
+                                     'web_url',
+                                     'aic_start_at',
+                                     'aic_end_at',
+                                     'image_iiif_url',
+                                     'gallery_id',
+    ];
+
     public function setUp()
     {
 

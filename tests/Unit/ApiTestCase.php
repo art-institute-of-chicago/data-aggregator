@@ -38,6 +38,13 @@ abstract class ApiTestCase extends TestCase
     protected $keys = [];
 
     /**
+     * A list of API field names used by the mobile app
+     *
+     * @var array
+     */
+    protected $fieldsUsedByMobile = [];
+
+    /**
      * Return an id that is valid, yet has a negligent likelihood of pointing at an actual object.
      * Must pass the relevant controller's `validateId` check.
      * Meant to be overwritten. Defaults to numeric id.
@@ -312,6 +319,36 @@ abstract class ApiTestCase extends TestCase
         return $resources;
     }
 
+    /** @test
+     * List of fields taken from https://docs.google.com/spreadsheets/d/1F8YkAb-xaAAfsuWtXmll84nthfsfbBnxm4yU3lX0uLY
+     */
+    public function it_fetches_fields_used_by_mobile_app()
+    {
+
+        if ($this->fieldsUsedByMobile)
+        {
+
+            $this->times(5)->make($this->model);
+
+            $response = $this->getJson('api/v1/' .$this->route);
+            $response->assertSuccessful();
+
+            $resources = $response->json()['data'];
+            $this->assertCount(5, $resources);
+
+            foreach ($resources as $resource)
+            {
+                $this->assertArrayHasKeys($resource, $this->fieldsUsedByMobile);
+            }
+
+        }
+        else
+        {
+
+            $this->assertEmpty($this->fieldsUsedByMobile);
+
+        }
+    }
 
     /**
      * Helper to retrieve the full list of fields for a resource as it appears in the API.
