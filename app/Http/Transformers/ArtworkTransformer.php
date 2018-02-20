@@ -12,7 +12,7 @@ class ArtworkTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['artists', 'categories', 'copyright_representatives', 'parts', 'sets', 'dates', 'catalogues', 'committees', 'terms', 'images', 'publications', 'tours', 'sites'];
+    protected $availableIncludes = ['artists', 'categories', 'copyright_representatives', 'parts', 'sets', 'dates', 'catalogues', 'terms', 'images', 'publications', 'tours', 'sites'];
 
     /**
      * Include artists.
@@ -89,17 +89,6 @@ class ArtworkTransformer extends CollectionsTransformer
     public function includeCatalogues(Artwork $artwork)
     {
         return $this->collection($artwork->catalogues, new ArtworkCatalogueTransformer, false);
-    }
-
-    /**
-     * Include committees.
-     *
-     * @param  \App\Models\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeCommittees(Artwork $artwork)
-    {
-        return $this->collection($artwork->committees, new ArtworkCommitteeTransformer, false);
     }
 
     /**

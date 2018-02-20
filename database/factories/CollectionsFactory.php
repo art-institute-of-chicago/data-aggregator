@@ -70,9 +70,15 @@ $factory->define(App\Models\Collections\AgentType::class, function (Faker\Genera
 });
 
 $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator $faker) {
+
+    $first_name = $faker->firstName;
+    $last_name = $faker->lastName;
+
     return array_merge(
-        idsAndTitle($faker, ucwords($faker->lastName .', ' .$faker->firstName), true, 6),
+        idsAndTitle($faker, ucwords($first_name.' '.$last_name), true, 6),
         [
+            'sort_title' => $last_name .', ' .$first_name,
+            'alt_titles' => [],
             'birth_date' => $faker->year,
             'death_date' => $faker->year,
             'birth_place' => $faker->country,
@@ -85,7 +91,7 @@ $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator 
 });
 
 
-$factory->define(App\Models\Collections\ObjectType::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Collections\ArtworkType::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, $faker->randomElement(['Painting', 'Design', 'Drawing and ' .ucfirst($faker->word), ucfirst($faker->word) .' Arts', 'Sculpture']), true, 2),
         dates($faker, true)
@@ -132,7 +138,7 @@ $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generato
             'copyright_notice' => '© ' .$faker->year .' ' .ucfirst($faker->words(3, true)),
             'place_of_origin' => $faker->country,
             'collection_status' => $faker->randomElement(['Permanent Collection', 'Long-term Loan']),
-            'object_type_citi_id' => $faker->randomElement(App\Models\Collections\ObjectType::fake()->pluck('citi_id')->all()),
+            'artwork_type_citi_id' => $faker->randomElement(App\Models\Collections\ArtworkType::fake()->pluck('citi_id')->all()),
             'gallery_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
         ],
         dates($faker, true)
@@ -146,15 +152,6 @@ $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Gene
         'date' => $faker->dateTimeAd,
         'qualifier' => ucfirst($faker->word) .' date',
         'preferred' => $faker->boolean,
-    ];
-});
-
-
-$factory->define(App\Models\Collections\ArtworkCommittee::class, function (Faker\Generator $faker) {
-    return [
-        'committee' => $faker->randomElement(['Board of ' .$faker->word, 'Year End ' .$faker->word, 'Deaccession']),
-        'date' => $faker->dateTimeAd,
-        'action' => $faker->randomElement(['Acquisition', 'Deaccession', 'Transfer to', 'Transfer from', 'Referenced']),
     ];
 });
 

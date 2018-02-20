@@ -32,10 +32,10 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function objectType()
+    public function artworkType()
     {
 
-        return $this->belongsTo('App\Models\Collections\ObjectType');
+        return $this->belongsTo('App\Models\Collections\ArtworkType');
 
     }
 
@@ -57,13 +57,6 @@ class Artwork extends CollectionsModel
     {
 
         return $this->hasMany('App\Models\Collections\ArtworkDate');
-
-    }
-
-    public function committees()
-    {
-
-        return $this->hasMany('App\Models\Collections\ArtworkCommittee');
 
     }
 
@@ -216,7 +209,8 @@ class Artwork extends CollectionsModel
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
-            //'object_type_citi_id' => , // Redmine #2431
+            // TODO: ArtworkTypes will need to be attached via string comparison
+            //'artwork_type_citi_id' => , // Redmine #2431
             //'gallery_citi_id' => , // Redmine #2000
             'source_indexed_at' => strtotime($source->indexed_at),
         ];
@@ -253,6 +247,7 @@ class Artwork extends CollectionsModel
 
         }
 
+        // This is a case where the source pivot model lack an artwork id
         if ($source->artwork_catalogue_ids)
         {
 
@@ -272,13 +267,23 @@ class Artwork extends CollectionsModel
 
         }
 
-        // @TODO Sync the following when they become available
-        // $source->document_guids
-        // $source->copyright_representative_ids
-        // $source->committee_ids
-        // $source->term_ids
-        // $source->date_ids [verify?]
+        // @TODO The following are available for syncing:
+        // $source->document_ids
+        // $source->artwork_date_ids
+        // $source->artwork_agent_ids (add ArtworkAgent, ArtworkAgentRole)
+        // $source->artwork_place_ids (add ArtworkPlace, ArtworkPlaceQualifier)
         // $source->part_ids
+        // $source->set_ids
+        // $source->alt_titles
+
+        // @TODO Determine this logic in the dataservice?
+        // $source->fiscal_year
+        // $source->accquired_at
+
+        // @TODO Waiting on Redmines for the following:
+        // $source->copyright_representative_ids
+        // $source->term_ids
+
 
         // Galleries must be imported before artworks!
         // Waiting on Redmine #2000 to do this properly
@@ -482,18 +487,18 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->inscriptions; },
             ],
             [
-                "name" => 'object_type_title',
+                "name" => 'artwork_type_title',
                 "doc" => "The kind of object or work (e.g. Painting, Sculpture, Book)",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->objectType->title ?? null; },
+                "value" => function() { return $this->artworkType->title ?? null; },
             ],
             [
-                "name" => 'object_type_id',
+                "name" => 'artwork_type_id',
                 "doc" => "Unique identifier of the kind of object or work",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->objectType->citi_id ?? null; },
+                "value" => function() { return $this->artworkType->citi_id ?? null; },
             ],
             [
                 "name" => 'credit_line',
@@ -698,13 +703,6 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->artworkCatalogues->pluck('citi_id')->all(); },
-            ],
-            [
-                "name" => 'committee_titles',
-                "doc" => "List of committees which were involved in the acquisition or deaccession of this work",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->committees->pluck('committee')->all(); },
             ],
             [
                 "name" => 'term_titles',

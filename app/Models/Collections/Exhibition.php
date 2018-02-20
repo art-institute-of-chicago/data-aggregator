@@ -251,6 +251,8 @@ class Exhibition extends CollectionsModel
             'type' => $source->exhibition_type,
             'status' => $source->exhibition_status,
             'asset_lake_guid' => $source->image_guid,
+            // TODO: Use actual gallery_id in $source?
+            // TODO: Remove the place_display field
             'place_citi_id' => $gallery ? $gallery->citi_id : null,
             'place_display' => $source->gallery,
             'date_start' => $source->start_date ? strtotime($source->start_date) : null,
@@ -268,6 +270,9 @@ class Exhibition extends CollectionsModel
 
         $this->venues()->saveMany(AgentExhibition::findMany($source->exhibition_agent_ids));
         $this->artworks()->sync($source->artwork_ids, false);
+
+        // TODO: Add documents, i.e. links to assets, e.g. exhibition catalogues
+        // $source->document_ids
 
     }
 
