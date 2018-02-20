@@ -92,7 +92,7 @@ class ImportCollectionsFull extends AbstractImportCommand
 
         $url = env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&per_page=' . $limit;
 
-        $this->info( 'Querying: ' . $url, 'vv' );
+        $this->info( 'Querying: ' . $url );
 
         $result = $this->query( $url );
 

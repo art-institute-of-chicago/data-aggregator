@@ -72,7 +72,7 @@ abstract class AbstractImportCommand extends Command
     protected function saveDatum( $datum, $model )
     {
 
-        $this->info("Importing #{$datum->id}: {$datum->title}", 'vv');
+        $this->info("Importing #{$datum->id}: {$datum->title}");
 
         // Don't use findOrCreate here, since it can cause errors due to Searchable
         $resource = $model::findOrNew( $datum->id );

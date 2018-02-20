@@ -23,7 +23,7 @@ class ImportLegacyExhibitions extends AbstractImportCommand
         if (!$fromBackup)
         {
 
-            $this->info('Retrieving exhibitions JSON from artic.edu', 'vv');
+            $this->info('Retrieving exhibitions JSON from artic.edu');
             Storage::disk('local')->put('drupal-7-exhibitions.json', file_get_contents(env('LEGACY_EXHIBITIONS_JSON', 'http://localhost/exhibitions.json')));
 
         }
@@ -39,7 +39,7 @@ class ImportLegacyExhibitions extends AbstractImportCommand
     private function importExhibitions( $results )
     {
 
-        $this->info("Importing legacy exhibitions", 'vv');
+        $this->info("Importing legacy exhibitions");
 
         foreach( $results as $datum )
         {

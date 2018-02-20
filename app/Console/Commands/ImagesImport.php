@@ -43,7 +43,7 @@ class ImagesImport extends Command
             $image->save();
 
             // Output for reference
-            $this->info( $image->getKey() . ' = ' . json_encode( $image->metadata ), 'vv' );
+            $this->info( $image->getKey() . ' = ' . json_encode( $image->metadata ) );
 
         }
 

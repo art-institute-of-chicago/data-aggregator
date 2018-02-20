@@ -68,7 +68,7 @@ class SearchAlias extends Command
 
         $return = Elasticsearch::indices()->updateAliases($params);
 
-        $this->info('An alias in the name of ' . $alias . ' has been created for ' . $index, 'vv');
+        $this->info('An alias in the name of ' . $alias . ' has been created for ' . $index);
 
     }
 
