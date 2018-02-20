@@ -188,12 +188,6 @@ class Response
             $suggest['autocomplete'] = array_pluck($options, 'text');
         }
 
-        $options = array_get($this->searchResponse, 'suggest.phrase-suggest.0.options');
-
-        if ($options) {
-            $suggest['phrase'] = array_pluck($options, 'highlighted');
-        }
-
         if ($suggest)
         {
             return ['suggest' => $suggest];
