@@ -75,6 +75,34 @@ class ImportLegacyExhibitions extends AbstractImportCommand
                 $exhib = $query->first();
                 $exhib->short_description = $datum->short_description;
                 $exhib->web_url = env('WEBSITE_URL', 'http://localhost') .$datum->path;
+
+                if ($datum->feature_image_desktop)
+                {
+
+                    $dom = new \DOMDocument();
+                    @$dom->loadHTML($datum->feature_image_desktop);
+                    foreach ($dom->getElementsByTagName('img') as $img)
+                    {
+
+                        $exhib->legacy_image_desktop = $img->getAttribute('src');
+
+                    }
+
+                }
+
+                if ($datum->feature_image_mobile)
+                {
+
+                    $dom = new \DOMDocument();
+                    @$dom->loadHTML($datum->feature_image_mobile);
+                    foreach ($dom->getElementsByTagName('img') as $img)
+                    {
+
+                        $exhib->legacy_image_mobile = $img->getAttribute('src');
+
+                    }
+
+                }
                 $exhib->save();
 
             }
