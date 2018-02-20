@@ -293,7 +293,7 @@ class Agent extends CollectionsModel
                 "value" => function() { return (bool) $this->createdArtworks; },
             ],
             [
-                "name" => 'agent_type',
+                "name" => 'agent_type_title',
                 "doc" => "Name of the type of agent, e.g. individual, fund, school, organization, etc.",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
