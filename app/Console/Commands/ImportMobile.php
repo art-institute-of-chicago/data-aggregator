@@ -51,7 +51,7 @@ class ImportMobile extends AbstractImportCommand
         foreach( $results->objects as $datum )
         {
 
-            $this->warn("Importing artwork #{$datum->nid}: {$datum->title}");
+            $this->info("Importing artwork #{$datum->nid}: {$datum->title}", 'vv');
 
             // Ex: 41.8794289180879, -87.6236425536961
             $location = explode(', ', $datum->location);
@@ -95,7 +95,7 @@ class ImportMobile extends AbstractImportCommand
         foreach( $results->audio_files as $datum )
         {
 
-            $this->warn("Importing audio #{$datum->nid}: {$datum->title}");
+            $this->info("Importing audio #{$datum->nid}: {$datum->title}", 'vv');
 
             $sound = Sound::findOrNew( (int) $datum->nid );
 
@@ -122,7 +122,7 @@ class ImportMobile extends AbstractImportCommand
         foreach( $results->tours as $datum )
         {
 
-            $this->warn("Importing tour #{$datum->nid}: {$datum->title}");
+            $this->info("Importing tour #{$datum->nid}: {$datum->title}", 'vv');
 
             $tour = Tour::findOrNew( (int) $datum->nid );
 
@@ -156,7 +156,7 @@ class ImportMobile extends AbstractImportCommand
         foreach( $data as $datum )
         {
 
-            $this->warn("Importing tour stop [ {$tour->mobile_id} / {$datum->object} / {$datum->audio} ]");
+            $this->info("Importing tour stop [ {$tour->mobile_id} / {$datum->object} / {$datum->audio} ]", 'vv');
 
             $stop = new TourStop();
 

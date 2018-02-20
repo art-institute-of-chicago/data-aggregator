@@ -33,7 +33,7 @@ class ImportLibrary extends AbstractImportCommand
         $this->info("Truncated library tables.", 'vv');
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
-        $this->warn("Please manually ensure that your search index mappings are up-to-date.");
+        $this->info("Please manually ensure that your search index mappings are up-to-date.", 'vv');
         // $this->call("search:uninstall");
         // $this->call("search:install");
 

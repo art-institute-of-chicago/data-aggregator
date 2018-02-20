@@ -48,7 +48,7 @@ class ImportCollections extends AbstractImportCommand
         while ($current <= $pages)
         {
 
-            $this->warn( 'Importing ' . $current . ' of ' . $pages . ' for model ' . $model );
+            $this->info( 'Importing ' . $current . ' of ' . $pages . ' for model ' . $model, 'vv' );
 
             foreach ($json->data as $source)
             {
