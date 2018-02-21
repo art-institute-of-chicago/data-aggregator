@@ -191,7 +191,12 @@ class Request
             return [];
         }
 
-        // Suggest also returns `_source`, which we can disable to reduce server load
+        // Hardcode $input to only return the fields we want
+        $input['fields'] = [
+            'title'
+        ];
+
+        // Suggest also returns `_source`, which we can parse to get the cannonical title
         $params = array_merge(
             $this->getBaseParams( $input ) ,
             $this->getFieldParams( $input, false )

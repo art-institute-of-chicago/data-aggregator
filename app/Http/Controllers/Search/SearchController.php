@@ -75,6 +75,18 @@ class SearchController extends BaseController
     }
 
     /**
+     * Temporary method to demonstrate fixed autocomplete. Will be removed.
+     *
+     * @return void
+     */
+    public function autocomplete2( Request $request, $resource = null )
+    {
+
+        return $this->query( 'getAutocompleteParams', 'getAutocompleteResponse2', 'search', $resource );
+
+    }
+
+    /**
      * Perform Elasticsearch explain query. Meant for local debugging.
      *
      * @return void
