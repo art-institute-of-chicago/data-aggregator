@@ -337,7 +337,8 @@ class Agent extends CollectionsModel
      * Agents are a special case, wherein multiple names are common.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
-     * @link https://www.elastic.co/blog/you-complete-me
+     * @link https://www.elastic.co/blog/you-complete-me (obsolete)
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.0/breaking_50_suggester.html
      *
      * @return array
      */
@@ -352,7 +353,6 @@ class Agent extends CollectionsModel
         {
 
             $fields['suggest_autocomplete_boosted'] = [
-                'output' => $this->title,
                 'input' => array_merge(
                     [
                         $this->title,

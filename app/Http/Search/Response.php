@@ -185,7 +185,7 @@ class Response
         $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
 
         if ($options) {
-            $suggest['autocomplete'] = array_pluck($options, 'text');
+            $suggest['autocomplete'] = array_pluck($options, '_source.title');
         }
 
         if ($suggest)
