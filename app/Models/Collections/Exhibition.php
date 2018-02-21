@@ -142,7 +142,7 @@ class Exhibition extends CollectionsModel
                 "doc" => "The name of the gallery that mainly housed the exhibition",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->gallery()->getResults() ? $this->gallery()->getResults()->title : $this->gallery_display; },
+                "value" => function() { return $this->gallery()->getResults() ? $this->gallery()->getResults()->title : $this->place_display; },
             ],
             [
                 "name" => 'gallery_id',
