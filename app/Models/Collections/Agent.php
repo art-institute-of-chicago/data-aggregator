@@ -332,4 +332,40 @@ class Agent extends CollectionsModel
 
     }
 
+    /**
+     * Add suggest fields and values. By default, only boosted works are added to the autocomplete.
+     * Agents are a special case, wherein multiple names are common.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
+     * @link https://www.elastic.co/blog/you-complete-me
+     *
+     * @return array
+     */
+    public function getSuggestSearchFields()
+    {
+
+        $fields = [
+            'suggest_autocomplete' => $this->title,
+        ];
+
+        if( $this->isBoosted() )
+        {
+
+            $fields['suggest_autocomplete_boosted'] = [
+                'output' => $this->title,
+                'input' => array_merge(
+                    [
+                        $this->title,
+                        $this->sort_title,
+                    ],
+                    $this->alt_titles ?? []
+                )
+            ];
+
+        }
+
+        return $fields;
+
+    }
+
 }

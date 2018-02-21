@@ -120,6 +120,7 @@ trait ElasticSearchable
      * Add suggest fields and values. By default, only boosted works are added to the autocomplete.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
+     * @link https://www.elastic.co/blog/you-complete-me
      *
      * @return array
      */
@@ -128,16 +129,12 @@ trait ElasticSearchable
 
         // TODO: Move `suggest_autocomplete_boosted` into `suggest_autocomplete`, and re-index everything from database?
         $fields = [
-            'suggest_autocomplete' => [
-                $this->title,
-            ],
+            'suggest_autocomplete' => $this->title,
         ];
 
         if( $this->isBoosted() )
         {
-            $fields['suggest_autocomplete_boosted'] = [
-                $this->title,
-            ];
+            $fields['suggest_autocomplete_boosted'] = $this->title;
         }
 
         return $fields;
