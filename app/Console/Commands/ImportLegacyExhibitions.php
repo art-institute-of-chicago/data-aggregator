@@ -76,6 +76,13 @@ class ImportLegacyExhibitions extends AbstractImportCommand
                 $exhib->short_description = $datum->short_description;
                 $exhib->web_url = env('WEBSITE_URL', 'http://localhost') .$datum->path;
 
+                if (!$exhib->description && $datum->body)
+                {
+
+                    $exhib->description = $datum->body;
+
+                }
+
                 if ($datum->feature_image_desktop)
                 {
 
