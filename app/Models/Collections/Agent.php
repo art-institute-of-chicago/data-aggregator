@@ -189,7 +189,8 @@ class Agent extends CollectionsModel
 
         return [
             // TODO: Determine if the "pretty" name should be in `title`
-            'sort_title' => $source->sort_title,
+            // TODO: Remove this hotfix after CDS deployment issues are resolved
+            'sort_title' => $source->sort_title ?? $source->title_sort ?? null,
             'alt_titles' => $source->alt_titles,
             'birth_date' => $source->date_birth,
             'death_date' => $source->date_death,
