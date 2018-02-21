@@ -11,7 +11,7 @@
 */
 
 $factory->define(App\Models\Library\Material::class, function (Faker\Generator $faker) {
-    $id = '999' .'ARTIC_ALMA999' .$faker->unique()->randomNumber(8);
+    $id = env('PRIMO_API_SOURCE') .'999' .$faker->unique()->randomNumber(8);
     return [
         'id' => $id,
         'title' => ucfirst($faker->words(3, true)),
