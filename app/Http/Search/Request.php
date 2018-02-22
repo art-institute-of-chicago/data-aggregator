@@ -577,6 +577,8 @@ class Request
     /**
      * Append autocomplete suggest params.
      *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters-completion.html
+     *
      * @param $params array
      * @param $input array
      *
@@ -589,6 +591,9 @@ class Request
             'prefix' =>  array_get( $input, 'q' ),
             'completion' => [
                 'field' => 'suggest_autocomplete_boosted',
+                'fuzzy' => [
+                    'fuzziness' => 'AUTO'
+                ]
             ],
         ];
 
