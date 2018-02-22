@@ -297,8 +297,6 @@ class Artwork extends CollectionsModel
             if( $gallery )
             {
 
-                echo $source->location . PHP_EOL;
-
                 // Tag this place as a gallery ;)
                 $gallery->type = 'AIC Gallery';
                 $gallery->save();
