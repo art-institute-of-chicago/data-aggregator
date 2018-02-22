@@ -264,6 +264,8 @@ trait ElasticSearchable
                             // TODO: Remove this after we regenerate all search indexes?
                             'suggest_autocomplete_boosted' => [
                                 'type' => 'completion',
+                                'analyzer' => 'article', // Custom: targets only `a`, `an`, `the`
+                                'preserve_position_increments' => false, // Strips leading whitespace, leftover from articles
                             ],
                         ],
                         $default,
