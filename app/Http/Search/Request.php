@@ -592,7 +592,8 @@ class Request
             'completion' => [
                 'field' => 'suggest_autocomplete_boosted',
                 'fuzzy' => [
-                    'fuzziness' => 'AUTO'
+                    'fuzziness' => 'AUTO',
+                    'min_length' => 5,
                 ]
             ],
         ];
