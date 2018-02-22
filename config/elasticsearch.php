@@ -238,6 +238,11 @@ return [
                             'type' => 'stop',
                             'stopwords' =>  '_english_',
                         ],
+                        'english_article_stop' => [
+                            'type' => 'stop',
+                            'ignore_case' => true,
+                            'stopwords' =>  ['a', 'an', 'the'],
+                        ],
                         /* This filter should be removed unless there are words which should be excluded from stemming.
                         'english_keywords' => [
                             'type' => 'keyword_marker',
@@ -266,6 +271,13 @@ return [
                                 'lowercase',
                                 'english_stop',
                                 'english_stemmer'
+                            ],
+                        ],
+                        'article' => [
+                            'tokenizer' => 'standard',
+                            'filter' => [
+                                'lowercase',
+                                'english_article_stop',
                             ],
                         ],
                         'trigram' => [
