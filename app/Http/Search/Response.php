@@ -125,8 +125,18 @@ class Response
         $limit = $this->searchParams['size'] ?? 10;
         $offset = $this->searchParams['from'] ?? 0;
 
-        $total_pages = ceil( $total / $limit );
-        $current_page = floor( $offset / $limit ) + 1;
+        // Avoid division by zero
+        if( $limit > 0 ) {
+
+            $total_pages = ceil( $total / $limit );
+            $current_page = floor( $offset / $limit ) + 1;
+
+        } else {
+
+            $total_pages = null;
+            $current_page = null;
+
+        }
 
         $pagination = [
             'total' => $total,
