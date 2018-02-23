@@ -171,10 +171,3 @@ Route::group(['prefix' => 'v1'], function() {
 
 
 });
-
-
-Route::group(['prefix' => 'v2'], function() {
-
-    Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocomplete2');
-
-});

@@ -91,18 +91,6 @@ class Response
      */
     public function getAutocompleteResponse() {
 
-        return $this->searchResponse;
-
-    }
-
-
-    /**
-     * Temporary method to demonstrate fixed autocomplete.
-     *
-     * @return array
-     */
-    public function getAutocompleteResponse2() {
-
         // Defaulting to [] is safe, but ineffecient: catch empty `q` earlier!
         return $this->suggest()['suggest']['autocomplete'] ?? [];
 
