@@ -180,6 +180,41 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function assets()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Asset');
+
+    }
+
+    public function sounds()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Sound', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'sound');
+
+    }
+
+    public function videos()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Video', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'video');
+
+    }
+
+    public function links()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Link', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'link');
+
+    }
+
+    public function texts()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Text', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'text');
+
+    }
+
     public function mobileArtwork()
     {
 
@@ -267,8 +302,14 @@ class Artwork extends CollectionsModel
 
         }
 
+        if ($source->document_ids)
+        {
+
+            $this->assets()->sync($source->document_ids, false);
+
+        }
+
         // @TODO The following are available for syncing:
-        // $source->document_ids
         // $source->artwork_date_ids
         // $source->artwork_agent_ids (add ArtworkAgent, ArtworkAgentRole)
         // $source->artwork_place_ids (add ArtworkPlace, ArtworkPlaceQualifier)
@@ -789,6 +830,34 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->altImages->pluck('iiif_url')->all(); },
+            ],
+            [
+                "name" => 'sound_ids',
+                "doc" => "Unique identifiers of the audio about this work",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->sounds->pluck('lake_guid') ?? null; },
+            ],
+            [
+                "name" => 'video_ids',
+                "doc" => "Unique identifiers of the videos about this work",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->videos->pluck('lake_guid') ?? null; },
+            ],
+            [
+                "name" => 'link_ids',
+                "doc" => "Unique identifiers of the links about this work",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->links->pluck('lake_guid') ?? null; },
+            ],
+            [
+                "name" => 'text_ids',
+                "doc" => "Unique identifiers of the texts about this work",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->texts->pluck('lake_guid') ?? null; },
             ],
             // TODO: Move these to Mobile\Artwork
             [
