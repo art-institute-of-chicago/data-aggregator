@@ -69,7 +69,7 @@ class BelongsToManyOrOne extends BelongsToMany
     public function isAlternative()
     {
 
-        return $this->wherePivot('preferred', '=', false)->expectMany();
+        return $this->wherePivotIn('preferred', [false, null], 'or')->expectMany();
 
     }
 
