@@ -128,7 +128,7 @@ return [
              * @see http://ringphp.readthedocs.org/en/latest/client_handlers.html
              */
 
-            'httpHandler' => new Aws\ElasticsearchService\ElasticsearchPhpHandler('us-east-2'),
+            'httpHandler' => null, //new Aws\ElasticsearchService\ElasticsearchPhpHandler('us-east-2'),
 
             /**
              * Connection Pool
