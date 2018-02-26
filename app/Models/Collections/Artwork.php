@@ -797,14 +797,14 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifier of the preferred subject term for this work",
                 "type" => "number",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->subjects->where('pivot.preferred', true)->pluck('citi_id')->first(); },
+                "value" => function() { return $this->subject->citi_id ?? null; },
             ],
             [
                 "name" => 'alt_subject_ids',
                 "doc" => "Unique identifiers of all other non-preferred subject terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->subjects->where('pivot.preferred', false)->pluck('citi_id')->all(); },
+                "value" => function() { return $this->altSubjects->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'subject_titles',
