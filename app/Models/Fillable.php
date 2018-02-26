@@ -171,21 +171,21 @@ trait Fillable
 
         $fill = [];
 
-        if ( in_array( 'source_created_at', $this->availableAttributes() ) )
+        if ( in_array( 'source_created_at', $this->availableAttributes() ) && $source->created_at )
         {
 
             $fill['source_created_at'] = strtotime($source->created_at);
 
         }
 
-        if ( in_array( 'source_modified_at', $this->availableAttributes() ) )
+        if ( in_array( 'source_modified_at', $this->availableAttributes() ) && $source->modified_at )
         {
 
             $fill['source_modified_at'] = strtotime($source->modified_at);
 
         }
 
-        if ( in_array( 'source_indexed_at', $this->availableAttributes() ) )
+        if ( in_array( 'source_indexed_at', $this->availableAttributes() ) && $source->indexed_at )
         {
 
             $fill['source_indexed_at'] = strtotime($source->indexed_at);
