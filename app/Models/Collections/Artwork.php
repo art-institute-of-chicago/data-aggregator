@@ -77,14 +77,14 @@ class Artwork extends CollectionsModel
     public function style()
     {
 
-        return $this->styles()->wherePivot('preferred', '=', true)->expectOne();
+        return $this->styles()->isPreferred();
 
     }
 
     public function altStyles()
     {
 
-        return $this->styles()->wherePivot('preferred', '=', false)->expectMany();
+        return $this->styles()->isAlternative();
 
     }
 
@@ -99,14 +99,14 @@ class Artwork extends CollectionsModel
     public function classification()
     {
 
-        return $this->classifications()->wherePivot('preferred', '=', true)->expectOne();
+        return $this->classifications()->isPreferred();
 
     }
 
     public function altClassifications()
     {
 
-        return $this->classifications()->wherePivot('preferred', '=', false)->expectMany();
+        return $this->classifications()->isAlternative();
 
     }
 
@@ -120,14 +120,14 @@ class Artwork extends CollectionsModel
     public function subject()
     {
 
-        return $this->subjects()->wherePivot('preferred', '=', true)->expectOne();
+        return $this->subjects()->isPreferred();
 
     }
 
     public function altSubjects()
     {
 
-        return $this->subjects()->wherePivot('preferred', '=', false)->expectMany();
+        return $this->subjects()->isAlternative();
 
     }
 
@@ -169,14 +169,14 @@ class Artwork extends CollectionsModel
     public function image()
     {
 
-        return $this->images()->wherePivot('preferred','=',true)->expectOne();
+        return $this->images()->isPreferred();
 
     }
 
     public function altImages()
     {
 
-        return $this->images()->wherePivot('preferred','=',false)->expectMany();
+        return $this->images()->isAlternative();
 
     }
 
@@ -749,7 +749,6 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "elasticsearch" => [
                     "default" => true,
-                    "type" => 'text',
                 ],
                 "value" => function() { return $this->terms->pluck('title')->all(); },
             ],
@@ -768,6 +767,12 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->altStyles->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'style_titles',
+                "doc" => "The names of all style terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->styles->pluck('title')->all(); },
+            ],
+            [
                 "name" => 'classification_id',
                 "doc" => "Unique identifier of the preferred classification term for this work",
                 "type" => "number",
@@ -782,18 +787,30 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->altClassifications->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'classification_titles',
+                "doc" => "The names of all classification terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->classifications->pluck('title')->all(); },
+            ],
+            [
                 "name" => 'subject_id',
                 "doc" => "Unique identifier of the preferred subject term for this work",
                 "type" => "number",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->subjects->where('pivot.preferred', true)->pluck('citi_id')->first(); },
+                "value" => function() { return $this->subject->citi_id ?? null; },
             ],
             [
                 "name" => 'alt_subject_ids',
                 "doc" => "Unique identifiers of all other non-preferred subject terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->subjects->where('pivot.preferred', false)->pluck('citi_id')->all(); },
+                "value" => function() { return $this->altSubjects->pluck('citi_id')->all(); },
+            ],
+            [
+                "name" => 'subject_titles',
+                "doc" => "The names of all subject terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->subjects->pluck('title')->all(); },
             ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
