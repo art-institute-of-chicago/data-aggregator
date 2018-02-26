@@ -77,14 +77,14 @@ class Artwork extends CollectionsModel
     public function style()
     {
 
-        return $this->styles()->wherePivot('preferred', '=', true)->expectOne();
+        return $this->styles()->isPreferred();
 
     }
 
     public function altStyles()
     {
 
-        return $this->styles()->wherePivot('preferred', '=', false)->expectMany();
+        return $this->styles()->isAlternative();
 
     }
 
@@ -99,14 +99,14 @@ class Artwork extends CollectionsModel
     public function classification()
     {
 
-        return $this->classifications()->wherePivot('preferred', '=', true)->expectOne();
+        return $this->classifications()->isPreferred();
 
     }
 
     public function altClassifications()
     {
 
-        return $this->classifications()->wherePivot('preferred', '=', false)->expectMany();
+        return $this->classifications()->isAlternative();
 
     }
 
@@ -120,14 +120,14 @@ class Artwork extends CollectionsModel
     public function subject()
     {
 
-        return $this->subjects()->wherePivot('preferred', '=', true)->expectOne();
+        return $this->subjects()->isPreferred();
 
     }
 
     public function altSubjects()
     {
 
-        return $this->subjects()->wherePivot('preferred', '=', false)->expectMany();
+        return $this->subjects()->isAlternative();
 
     }
 
@@ -169,14 +169,14 @@ class Artwork extends CollectionsModel
     public function image()
     {
 
-        return $this->images()->wherePivot('preferred','=',true)->expectOne();
+        return $this->images()->isPreferred();
 
     }
 
     public function altImages()
     {
 
-        return $this->images()->wherePivot('preferred','=',false)->expectMany();
+        return $this->images()->isAlternative();
 
     }
 

@@ -22,7 +22,7 @@ class BelongsToManyOrOne extends BelongsToMany
     {
         $results = $this->get();
 
-        return $this->isMany? $results : $results->first();
+        return $this->isMany ? $results : $results->first();
     }
 
     /**
@@ -48,4 +48,29 @@ class BelongsToManyOrOne extends BelongsToMany
 
         return $this;
     }
+
+    /**
+     * Convenience method for only getting the preferred item.
+     *
+     * @return $this
+     */
+    public function isPreferred()
+    {
+
+        return $this->wherePivot('preferred', '=', true)->expectOne();
+
+    }
+
+    /**
+     * Convenience method for only getting the alternative items.
+     *
+     * @return $this
+     */
+    public function isAlternative()
+    {
+
+        return $this->wherePivot('preferred', '=', false)->expectMany();
+
+    }
+
 }
