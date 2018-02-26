@@ -15,6 +15,8 @@ class ScoutImportAll extends Command
     public function handle()
     {
 
+        ini_set("memory_limit", "-1");
+
         $models = app('Search')->getSearchableModels();
 
         foreach( $models as $model ) {
