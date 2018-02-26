@@ -767,6 +767,12 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->altStyles->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'style_titles',
+                "doc" => "The names of all style terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->styles->pluck('title')->all(); },
+            ],
+            [
                 "name" => 'classification_id',
                 "doc" => "Unique identifier of the preferred classification term for this work",
                 "type" => "number",
@@ -781,6 +787,12 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->altClassifications->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'classification_titles',
+                "doc" => "The names of all classification terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->classifications->pluck('title')->all(); },
+            ],
+            [
                 "name" => 'subject_id',
                 "doc" => "Unique identifier of the preferred subject term for this work",
                 "type" => "number",
@@ -793,6 +805,12 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "elasticsearch_type" => "integer",
                 "value" => function() { return $this->subjects->where('pivot.preferred', false)->pluck('citi_id')->all(); },
+            ],
+            [
+                "name" => 'subject_titles',
+                "doc" => "The names of all subject terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->subjects->pluck('title')->all(); },
             ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
