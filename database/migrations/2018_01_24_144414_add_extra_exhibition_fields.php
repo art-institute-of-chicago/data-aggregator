@@ -30,8 +30,8 @@ class AddExtraExhibitionFields extends Migration
     {
 
         Schema::table('exhibitions', function (Blueprint $table) {
-            $table->dropColumn('short_description');
-            $table->dropColumn('web_url');
+            $table->dropColumn(['short_description',
+                                'web_url']);
         });
 
     }

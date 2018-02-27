@@ -40,15 +40,16 @@ class AddAgentExhibitionFields extends Migration
     {
 
         Schema::table('agent_exhibition', function (Blueprint $table) {
-            $table->dropColumn('date_start');
-            $table->dropColumn('date_end');
-            $table->dropColumn('is_host');
-            $table->dropColumn('is_organizer');
-            $table->dropColumn('source_created_at');
-            $table->dropColumn('source_modified_at');
-            $table->dropColumn('source_indexed_at');
-            $table->dropColumn('citi_created_at');
-            $table->dropColumn('citi_modified_at');
+            $table->dropColumn(['date_start',
+                                'date_end',
+                                'is_host',
+                                'is_organizer',
+                                'source_created_at',
+                                'source_modified_at',
+                                'source_indexed_at',
+                                'citi_created_at',
+                                'citi_modified_at']);
+
             $table->dropTimestamps();
 
             App\Models\Collections\AgentExhibition::where('agent_citi_id', null)->delete();

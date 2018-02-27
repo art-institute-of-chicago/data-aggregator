@@ -37,13 +37,13 @@ class AddProductFields extends Migration
         });
 
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('image');
-            $table->dropColumn('link');
-            $table->dropColumn('title_display');
-            $table->dropColumn('on_sale');
-            $table->dropColumn('review_count');
-            $table->dropColumn('items_sold');
-            $table->dropColumn('rating');
+            $table->dropColumn(['image',
+                                'link',
+                                'title_display',
+                                'on_sale',
+                                'review_count',
+                                'items_sold',
+                                'rating']);
         });
 
         Schema::create('artist_product', function(Blueprint $table) {
@@ -53,9 +53,9 @@ class AddProductFields extends Migration
         });
 
         Schema::table('shop_categories', function (Blueprint $table) {
-            $table->dropColumn('link');
-            $table->dropColumn('type')->nullable();
-            $table->dropColumn('source_id')->nullable()->unsigned()->index();
+            $table->dropColumn(['link',
+                                'type',
+                                'source_id']);
         });
 
         Schema::dropIfExists('product_shop_category');
@@ -81,24 +81,24 @@ class AddProductFields extends Migration
         });
 
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('parent_id');
-            $table->dropColumn('category_id');
-            $table->dropColumn('external_sku');
-            $table->dropColumn('title_sort');
-            $table->dropColumn('image_url');
-            $table->dropColumn('sale_price');
-            $table->dropColumn('member_price');
-            $table->dropColumn('aic_collection');
-            $table->dropColumn('gift_box');
-            $table->dropColumn('recipient');
-            $table->dropColumn('holiday');
-            $table->dropColumn('architecture');
-            $table->dropColumn('glass');
-            $table->dropColumn('x_shipping_charge');
-            $table->dropColumn('inventory');
-            $table->dropColumn('choking_hazard');
-            $table->dropColumn('back_order');
-            $table->dropColumn('back_order_due_date');
+            $table->dropColumn(['parent_id',
+                                'category_id',
+                                'external_sku',
+                                'title_sort',
+                                'image_url',
+                                'sale_price',
+                                'member_price',
+                                'aic_collection',
+                                'gift_box',
+                                'recipient',
+                                'holiday',
+                                'architecture',
+                                'glass',
+                                'x_shipping_charge',
+                                'inventory',
+                                'choking_hazard',
+                                'back_order',
+                                'back_order_due_date']);
         });
 
         Schema::table('shop_categories', function (Blueprint $table) {
@@ -116,4 +116,5 @@ class AddProductFields extends Migration
         Schema::dropIfExists('artist_product');
 
     }
+
 }

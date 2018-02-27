@@ -30,8 +30,8 @@ class AddAgentTitles extends Migration
     {
 
         Schema::table('agents', function (Blueprint $table) {
-            $table->dropColumn('sort_title');
-            $table->dropColumn('alt_titles');
+            $table->dropColumn(['sort_title',
+                                'alt_titles']);
         });
 
     }

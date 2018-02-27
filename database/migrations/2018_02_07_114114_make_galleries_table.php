@@ -34,15 +34,9 @@ class MakeGalleriesTable extends Migration
         });
 
         Schema::table('places', function (Blueprint $table) {
-            $table->dropColumn('closed');
-        });
-
-        Schema::table('places', function (Blueprint $table) {
-            $table->dropColumn('number');
-        });
-
-        Schema::table('places', function (Blueprint $table) {
-            $table->dropColumn('floor');
+            $table->dropColumn(['closed',
+                                'number',
+                                'floor']);
         });
 
         Schema::table('artworks', function (Blueprint $table) {

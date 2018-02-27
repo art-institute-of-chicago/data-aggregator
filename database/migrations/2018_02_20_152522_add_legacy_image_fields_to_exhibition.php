@@ -30,8 +30,8 @@ class AddLegacyImageFieldsToExhibition extends Migration
     {
 
         Schema::table('exhibitions', function (Blueprint $table) {
-            $table->dropColumn('legacy_image_desktop');
-            $table->dropColumn('legacy_image_mobile');
+            $table->dropColumn(['legacy_image_desktop',
+                                'legacy_image_mobile']);
         });
 
     }
