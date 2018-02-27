@@ -31,10 +31,11 @@
         "zendframework/zend-code": "^3.2"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.1",
+        "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~6.0",
-        "filp/whoops": "~2.0"
+        "phpunit/phpunit": "~6.0"
     },
     "autoload": {
         "classmap": [
@@ -47,6 +48,12 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+            ]
         }
     },
     "scripts": {
