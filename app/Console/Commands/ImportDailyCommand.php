@@ -49,6 +49,7 @@ class ImportDailyCommand extends Command
         $this->call('import:archive', ['--yes' => 'default']);
         $this->call('import:sites', ['--yes' => 'default']);
         $this->call('import:set-ulan-uris');
+        $this->call('import:products');
 
     }
 
