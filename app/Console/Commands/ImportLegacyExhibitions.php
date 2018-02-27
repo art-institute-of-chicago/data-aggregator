@@ -45,6 +45,7 @@ class ImportLegacyExhibitions extends AbstractImportCommand
         {
 
             $datum->title = html_entity_decode($datum->title, ENT_COMPAT | ENT_QUOTES | ENT_HTML5);
+            $datum->title = $this->convert_smart_quotes( $datum->title );
 
             // Find a matching exhibitions. If there are multiple matches, skip it.
             $query = Exhibition::where('title', $datum->title);
@@ -116,6 +117,31 @@ class ImportLegacyExhibitions extends AbstractImportCommand
 
         }
 
+    }
+
+    // Standardize apostrophes etc into quote characters
+    // https://stackoverflow.com/questions/42932839/how-to-replace-apostrophe-with-single-quote
+    private function convert_smart_quotes($string)
+    {
+        $search = [
+            '’',
+            chr(145),
+            chr(146),
+            chr(147),
+            chr(148),
+            chr(151),
+        ];
+
+        $replace = [
+            "'",
+            "'",
+            "'",
+            '"',
+            '"',
+            '-',
+        ];
+
+        return str_replace($search, $replace, $string);
     }
 
 }
