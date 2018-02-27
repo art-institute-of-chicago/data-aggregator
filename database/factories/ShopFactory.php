@@ -38,11 +38,7 @@ if (!function_exists('shopIdsAndTitle'))
 $factory->define(App\Models\Shop\Category::class, function (Faker\Generator $faker) {
     return array_merge(
         shopIdsAndTitle($faker),
-        [
-            'link' => $faker->url,
-            'type' => $faker->randomElement(['top-category', 'sub-category', 'artist', 'color', 'country', 'style', 'place-of-origin', 'stone', 'sale']),
-            'source_id' => $faker->randomNumber(2),
-        ],
+        [],
         shopDates($faker)
     );
 });
@@ -52,24 +48,30 @@ $factory->define(App\Models\Shop\Product::class, function (Faker\Generator $fake
     $part2 = ucwords($faker->words(2, true));
     $part3 = ucwords($faker->words(2, true));
     $title = $part1 .' ' .$part2 .' ' .$part3;
-    $title_display = $part1 .' <em>' .$part2 .'</em> ' .$part3;
 
     return array_merge(
         shopIdsAndTitle($faker, $title),
         [
             'sku' => $faker->ean8,
-            'title_display' => $title_display,
-            'link' => $faker->url,
-            'image' => $faker->imageUrl,
+            'external_sku' => $faker->ean8,
+            'image_url' => $faker->imageUrl,
             'description' => $faker->paragraph(3),
-            'on_sale' => $faker->boolean,
             'priority' => $faker->randomDigit,
             'price' => $faker->randomFloat(2, 5, 300),
-            'review_count' => $faker->randomNumber(2),
-            'items_sold' => $faker->randomNumber(2),
-            'rating' => $faker->randomFloat(1, 0, 5),
+            'sale_price' => $faker->randomFloat(2, 5, 300),
+            'member_price' => $faker->randomFloat(2, 5, 300),
+            'aic_collection' => $faker->boolean,
+            'gift_box' => $faker->boolean,
+            'recipient' => $faker->randomElement(['ForHim', 'ForHer', 'Anyone']),
+            'holiday' => $faker->boolean,
+            'architecture' => $faker->boolean,
+            'glass' => $faker->boolean,
+            'x_shipping_charge' => $faker->randomNumber(2),
+            'inventory' => $faker->randomNumber(2),
+            'choking_hazard' => $faker->boolean,
+            'back_order' => $faker->boolean,
+            'back_order_due_date' => $faker->dateTimeThisYear,
         ],
         shopDates($faker)
     );
 });
-
