@@ -14,7 +14,6 @@ class ShopCategoryTransformer extends ApiTransformer
      */
     protected $availableIncludes = ['children'];
 
-
     /**
      * Include categories.
      *

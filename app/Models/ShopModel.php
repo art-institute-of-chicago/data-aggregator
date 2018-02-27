@@ -18,4 +18,13 @@ class ShopModel extends BaseModel
 
     protected $fakeIdsStartAt = 999000;
 
+    protected function fillIdsFrom($source)
+    {
+
+        $this->shop_id = $source->id;
+
+        return $this;
+
+    }
+
 }

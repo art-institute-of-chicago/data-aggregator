@@ -52,8 +52,13 @@ class AddProductFields extends Migration
             $table->integer('product_shop_id')->index();
         });
 
+        Schema::table('shop_categories', function (Blueprint $table) {
+            $table->dropColumn('link');
+            $table->dropColumn('type')->nullable();
+            $table->dropColumn('source_id')->nullable()->unsigned()->index();
+        });
+
         Schema::dropIfExists('product_shop_category');
-        Schema::dropIfExists('shop_categories');
 
     }
 
@@ -96,16 +101,10 @@ class AddProductFields extends Migration
             $table->dropColumn('back_order_due_date');
         });
 
-        Schema::create('shop_categories', function (Blueprint $table) {
-            $table->integer('shop_id')->unsigned()->unique()->primary();
-            $table->string('title');
+        Schema::table('shop_categories', function (Blueprint $table) {
             $table->string('link')->nullable();
-            $table->integer('parent_category_shop_id')->unsigned()->index()->nullable();
             $table->string('type')->nullable();
             $table->integer('source_id')->nullable()->unsigned()->index();
-            $table->timestamp('source_created_at')->nullable()->useCurrent();
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
-            $table->timestamps();
         });
 
         Schema::create('product_shop_category', function (Blueprint $table) {

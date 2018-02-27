@@ -28,6 +28,7 @@ class ImportProductsFull extends AbstractImportCommand
 
         // Truncate tables
         DB::table('products')->truncate();
+        DB::table('shop_categories')->truncate();
 
         $this->info("Truncated product table.");
 
@@ -37,6 +38,7 @@ class ImportProductsFull extends AbstractImportCommand
         // $this->call("search:install");
 
         $this->import('products');
+        $this->import('categories');
 
         $this->info("Imported all products from data service!");
 
@@ -47,6 +49,12 @@ class ImportProductsFull extends AbstractImportCommand
     {
 
         $model = \App\Models\Shop\Product::class;
+        if ($endpoint == 'categories')
+        {
+
+            $model = \App\Models\Shop\Category::class;
+
+        }
 
         // Abort if the table is already filled
         if( $model::count() > 0 )
