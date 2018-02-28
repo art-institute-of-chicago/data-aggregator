@@ -8,7 +8,7 @@ use App\Models\Documentable;
 /**
  * A kind of object or work, e.g., Painting, Sculpture, Book, etc.
  */
-class ObjectType extends CollectionsModel
+class ArtworkType extends CollectionsModel
 {
 
     use Documentable;

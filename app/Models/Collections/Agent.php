@@ -18,6 +18,10 @@ class Agent extends CollectionsModel
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
+    protected $casts = [
+        'alt_titles' => 'array',
+    ];
+
     public function agentType()
     {
 
@@ -184,14 +188,14 @@ class Agent extends CollectionsModel
     {
 
         return [
+            // TODO: Determine if the "pretty" name should be in `title`
+            // TODO: Remove this hotfix after CDS deployment issues are resolved
+            'sort_title' => $source->sort_title ?? $source->title_sort ?? null,
+            'alt_titles' => $source->alt_titles,
             'birth_date' => $source->date_birth,
-            //'birth_place' => ,
             'death_date' => $source->date_death,
-            //'death_place' => ,
             'licensing_restricted' => (bool) $source->is_licensing_restricted,
-
-            // @TODO Artist is not a valid agent type. Artistry is determined by relation.
-            //'agent_type_citi_id' => \App\Models\Collections\AgentType::where('title', 'Artist')->first()->citi_id,
+            'agent_type_citi_id' => $source->agent_type_id,
         ];
 
     }
@@ -199,6 +203,7 @@ class Agent extends CollectionsModel
     public function attachFrom($source)
     {
 
+        // AgentPlace's source doesn't have an agent id
         if ($source->agent_place_ids)
         {
 
@@ -223,6 +228,13 @@ class Agent extends CollectionsModel
 
         return [
             [
+                "name" => 'sort_title',
+                "doc" => "Sortable name for this agent, typically with last name first.",
+                "type" => "string",
+                "elasticsearch_type" => 'text',
+                "value" => function() { return $this->sort_title; },
+            ],
+            [
                 "name" => 'alt_titles',
                 "doc" => "Altername names for this agent",
                 "type" => "array",
@@ -230,7 +242,7 @@ class Agent extends CollectionsModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return []; },
+                "value" => function() { return $this->alt_titles; },
             ],
             [
                 "name" => 'birth_date',
@@ -282,15 +294,15 @@ class Agent extends CollectionsModel
                 "value" => function() { return (bool) $this->createdArtworks; },
             ],
             [
-                "name" => 'agent_type',
-                "doc" => "Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.",
+                "name" => 'agent_type_title',
+                "doc" => "Name of the type of agent, e.g. individual, fund, school, organization, etc.",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->agentType->title ?? null; },
             ],
             [
                 "name" => 'agent_type_id',
-                "doc" => "Unique identifier of the type of agent",
+                "doc" => "Unique identifier of the type of agent, e.g. individual, fund, school, organization, etc.",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->agentType->citi_id ?? null; },
@@ -317,6 +329,42 @@ class Agent extends CollectionsModel
                 "value" => function() { return $this->sites->pluck('site_id')->all(); },
             ],
         ];
+
+    }
+
+    /**
+     * Add suggest fields and values. By default, only boosted works are added to the autocomplete.
+     * Agents are a special case, wherein multiple names are common.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
+     * @link https://www.elastic.co/blog/you-complete-me (obsolete)
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.0/breaking_50_suggester.html
+     *
+     * @return array
+     */
+    public function getSuggestSearchFields()
+    {
+
+        $fields = [
+            'suggest_autocomplete' => $this->title,
+        ];
+
+        if( $this->isBoosted() )
+        {
+
+            $fields['suggest_autocomplete_boosted'] = [
+                'input' => array_merge(
+                    [
+                        $this->title,
+                        $this->sort_title,
+                    ],
+                    $this->alt_titles ?? []
+                )
+            ];
+
+        }
+
+        return $fields;
 
     }
 

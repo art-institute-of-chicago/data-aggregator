@@ -48,13 +48,13 @@ class ImagesColor extends Command
             return substr( $file, 7, strlen( $file ) - 11 );
         });
 
-        $this->info( $ids->count() . ' files found...', 'vv' );
+        $this->info( $ids->count() . ' files found...' );
 
         if( !$this->option('force') ) {
 
             $processed = Image::select('lake_guid')->whereNotNull('metadata->color')->get()->pluck('lake_guid');
 
-            $this->info( $processed->count() . ' images have already been processed...', 'vv' );
+            $this->info( $processed->count() . ' images have already been processed...' );
 
             $ids = $ids->diff( $processed );
 
@@ -62,13 +62,13 @@ class ImagesColor extends Command
 
         if( $this->argument('start') !== null && $this->argument('count') !== null && $this->option('force') ) {
 
-            $this->info('Applying start of ' . $this->argument('start') . ' and count of ' . $this->argument('count'), 'vv' );
+            $this->info('Applying start of ' . $this->argument('start') . ' and count of ' . $this->argument('count') );
 
             $ids = $ids->slice( (int) $this->argument('start'), (int) $this->argument('count') );
 
         }
 
-        $this->info( $ids->count()  . ' files will be processed.', 'vv' );
+        $this->info( $ids->count()  . ' files will be processed.' );
 
         $total = count( $ids );
 
@@ -152,7 +152,7 @@ class ImagesColor extends Command
             $image->metadata = $metadata;
             $image->save();
 
-            $this->info( $this->prefix( $i, $total, $id ) . json_encode( $out ), 'vv' );
+            $this->info( $this->prefix( $i, $total, $id ) . json_encode( $out ) );
 
         }
 

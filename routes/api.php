@@ -18,8 +18,7 @@ Route::get('/', function () {
 });
 
 
-Route::group(['prefix' => 'v1'], function()
-{
+Route::group(['prefix' => 'v1'], function() {
 
     Route::get('/', function () {
         return redirect('/api/v1/swagger.json');
@@ -37,7 +36,6 @@ Route::group(['prefix' => 'v1'], function()
     Route::match( array('GET', 'POST'), 'msearch', 'Search\SearchController@msearch');
 
     Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocomplete');
-    // We can't limit autocomplete to specific resources w/o creating additional resource-specific suggest fields
 
     // ...following Elasticsearch conventions
     // TODO: Deprecate these since we're not following ES conventions anymore?
@@ -89,8 +87,8 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('departments', 'CategoriesController@departments');
     Route::get('departments/{id}', 'CategoriesController@show');
 
-    Route::get('object-types', 'ObjectTypesController@index');
-    Route::get('object-types/{id}', 'ObjectTypesController@show');
+    Route::get('artwork-types', 'ArtworkTypesController@index');
+    Route::get('artwork-types/{id}', 'ArtworkTypesController@show');
 
     Route::get('categories', 'CategoriesController@index');
     Route::get('categories/{id}', 'CategoriesController@show');

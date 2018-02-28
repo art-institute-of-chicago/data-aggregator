@@ -18,11 +18,11 @@ class ImportTicketedEvents extends AbstractImportCommand
         // For debugging...
         // $this->command->last_success_at = $this->command->last_success_at->subDays(10);
 
-        $this->info("Looking for events since " . $this->command->last_success_at, 'vv');
+        $this->info("Looking for events since " . $this->command->last_success_at);
 
         $this->import('events');
 
-        $this->info("Ran out of events to import!", 'vv');
+        $this->info("Ran out of events to import!");
 
     }
 

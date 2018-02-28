@@ -44,13 +44,13 @@ class AddExhibitionFields extends Migration
     {
 
         Schema::table('exhibitions', function (Blueprint $table) {
-            $table->dropColumn('gallery_display');
-            $table->dropColumn('status');
-            $table->dropColumn('asset_lake_guid');
-            $table->dropColumn('date_start');
-            $table->dropColumn('date_end');
-            $table->dropColumn('date_aic_start');
-            $table->dropColumn('date_aic_end');
+            $table->dropColumn(['gallery_display',
+                                'status',
+                                'asset_lake_guid',
+                                'date_start',
+                                'date_end',
+                                'date_aic_start',
+                                'date_aic_end']);
         });
 
         Schema::table('exhibitions', function (Blueprint $table) {

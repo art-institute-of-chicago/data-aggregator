@@ -65,6 +65,7 @@ class SearchServiceProvider extends ServiceProvider
                     \App\Models\Collections\Sound::class,
                     \App\Models\Collections\Text::class,
                     \App\Models\Collections\Video::class,
+                    \App\Models\Collections\Term::class,
 
                     \App\Models\Shop\Category::class,
                     \App\Models\Shop\Product::class,

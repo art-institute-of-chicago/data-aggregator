@@ -30,8 +30,8 @@ class AddRightFlagsToArtworks extends Migration
     {
 
         Schema::table('artworks', function (Blueprint $table) {
-            $table->dropColumn('is_zoomable');
-            $table->dropColumn('max_zoom_window_size');
+            $table->dropColumn(['is_zoomable',
+                                'max_zoom_window_size']);
         });
 
     }

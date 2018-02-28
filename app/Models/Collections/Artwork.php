@@ -32,10 +32,10 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function objectType()
+    public function artworkType()
     {
 
-        return $this->belongsTo('App\Models\Collections\ObjectType');
+        return $this->belongsTo('App\Models\Collections\ArtworkType');
 
     }
 
@@ -60,13 +60,6 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function committees()
-    {
-
-        return $this->hasMany('App\Models\Collections\ArtworkCommittee');
-
-    }
-
     public function terms()
     {
 
@@ -84,14 +77,14 @@ class Artwork extends CollectionsModel
     public function style()
     {
 
-        return $this->styles()->wherePivot('preferred', '=', true)->expectOne();
+        return $this->styles()->isPreferred();
 
     }
 
     public function altStyles()
     {
 
-        return $this->styles()->wherePivot('preferred', '=', false)->expectMany();
+        return $this->styles()->isAlternative();
 
     }
 
@@ -106,14 +99,14 @@ class Artwork extends CollectionsModel
     public function classification()
     {
 
-        return $this->classifications()->wherePivot('preferred', '=', true)->expectOne();
+        return $this->classifications()->isPreferred();
 
     }
 
     public function altClassifications()
     {
 
-        return $this->classifications()->wherePivot('preferred', '=', false)->expectMany();
+        return $this->classifications()->isAlternative();
 
     }
 
@@ -127,14 +120,14 @@ class Artwork extends CollectionsModel
     public function subject()
     {
 
-        return $this->subjects()->wherePivot('preferred', '=', true)->expectOne();
+        return $this->subjects()->isPreferred();
 
     }
 
     public function altSubjects()
     {
 
-        return $this->subjects()->wherePivot('preferred', '=', false)->expectMany();
+        return $this->subjects()->isAlternative();
 
     }
 
@@ -176,14 +169,49 @@ class Artwork extends CollectionsModel
     public function image()
     {
 
-        return $this->images()->wherePivot('preferred','=',true)->expectOne();
+        return $this->images()->isPreferred();
 
     }
 
     public function altImages()
     {
 
-        return $this->images()->wherePivot('preferred','=',false)->expectMany();
+        return $this->images()->isAlternative();
+
+    }
+
+    public function assets()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Asset');
+
+    }
+
+    public function sounds()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Sound', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'sound');
+
+    }
+
+    public function videos()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Video', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'video');
+
+    }
+
+    public function links()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Link', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'link');
+
+    }
+
+    public function texts()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Text', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'text');
 
     }
 
@@ -216,7 +244,8 @@ class Artwork extends CollectionsModel
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
-            //'object_type_citi_id' => , // Redmine #2431
+            // TODO: ArtworkTypes will need to be attached via string comparison
+            //'artwork_type_citi_id' => , // Redmine #2431
             //'gallery_citi_id' => , // Redmine #2000
             'source_indexed_at' => strtotime($source->indexed_at),
         ];
@@ -253,6 +282,7 @@ class Artwork extends CollectionsModel
 
         }
 
+        // This is a case where the source pivot model lack an artwork id
         if ($source->artwork_catalogue_ids)
         {
 
@@ -272,13 +302,29 @@ class Artwork extends CollectionsModel
 
         }
 
-        // @TODO Sync the following when they become available
-        // $source->document_guids
-        // $source->copyright_representative_ids
-        // $source->committee_ids
-        // $source->term_ids
-        // $source->date_ids [verify?]
+        if ($source->document_ids)
+        {
+
+            $this->assets()->sync($source->document_ids, false);
+
+        }
+
+        // @TODO The following are available for syncing:
+        // $source->artwork_date_ids
+        // $source->artwork_agent_ids (add ArtworkAgent, ArtworkAgentRole)
+        // $source->artwork_place_ids (add ArtworkPlace, ArtworkPlaceQualifier)
         // $source->part_ids
+        // $source->set_ids
+        // $source->alt_titles
+
+        // @TODO Determine this logic in the dataservice?
+        // $source->fiscal_year
+        // $source->accquired_at
+
+        // @TODO Waiting on Redmines for the following:
+        // $source->copyright_representative_ids
+        // $source->term_ids
+
 
         // Galleries must be imported before artworks!
         // Waiting on Redmine #2000 to do this properly
@@ -291,8 +337,6 @@ class Artwork extends CollectionsModel
             // Sometimes we get oddballs like 'Currently not on display'
             if( $gallery )
             {
-
-                echo $source->location . PHP_EOL;
 
                 // Tag this place as a gallery ;)
                 $gallery->type = 'AIC Gallery';
@@ -482,18 +526,18 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->inscriptions; },
             ],
             [
-                "name" => 'object_type_title',
+                "name" => 'artwork_type_title',
                 "doc" => "The kind of object or work (e.g. Painting, Sculpture, Book)",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->objectType->title ?? null; },
+                "value" => function() { return $this->artworkType->title ?? null; },
             ],
             [
-                "name" => 'object_type_id',
+                "name" => 'artwork_type_id',
                 "doc" => "Unique identifier of the kind of object or work",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->objectType->citi_id ?? null; },
+                "value" => function() { return $this->artworkType->citi_id ?? null; },
             ],
             [
                 "name" => 'credit_line',
@@ -700,19 +744,11 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->artworkCatalogues->pluck('citi_id')->all(); },
             ],
             [
-                "name" => 'committee_titles',
-                "doc" => "List of committees which were involved in the acquisition or deaccession of this work",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->committees->pluck('committee')->all(); },
-            ],
-            [
                 "name" => 'term_titles',
                 "doc" => "The names of the taxonomy tags for this work",
                 "type" => "array",
                 "elasticsearch" => [
                     "default" => true,
-                    "type" => 'text',
                 ],
                 "value" => function() { return $this->terms->pluck('title')->all(); },
             ],
@@ -731,6 +767,12 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->altStyles->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'style_titles',
+                "doc" => "The names of all style terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->styles->pluck('title')->all(); },
+            ],
+            [
                 "name" => 'classification_id',
                 "doc" => "Unique identifier of the preferred classification term for this work",
                 "type" => "number",
@@ -745,18 +787,30 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->altClassifications->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'classification_titles',
+                "doc" => "The names of all classification terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->classifications->pluck('title')->all(); },
+            ],
+            [
                 "name" => 'subject_id',
                 "doc" => "Unique identifier of the preferred subject term for this work",
                 "type" => "number",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->subjects->where('pivot.preferred', true)->pluck('citi_id')->first(); },
+                "value" => function() { return $this->subject->citi_id ?? null; },
             ],
             [
                 "name" => 'alt_subject_ids',
                 "doc" => "Unique identifiers of all other non-preferred subject terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "integer",
-                "value" => function() { return $this->subjects->where('pivot.preferred', false)->pluck('citi_id')->all(); },
+                "value" => function() { return $this->altSubjects->pluck('citi_id')->all(); },
+            ],
+            [
+                "name" => 'subject_titles',
+                "doc" => "The names of all subject terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->subjects->pluck('title')->all(); },
             ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
@@ -794,6 +848,34 @@ class Artwork extends CollectionsModel
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->altImages->pluck('iiif_url')->all(); },
             ],
+            [
+                "name" => 'sound_ids',
+                "doc" => "Unique identifiers of the audio about this work",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->sounds->pluck('lake_guid') ?? null; },
+            ],
+            [
+                "name" => 'video_ids',
+                "doc" => "Unique identifiers of the videos about this work",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->videos->pluck('lake_guid') ?? null; },
+            ],
+            [
+                "name" => 'link_ids',
+                "doc" => "Unique identifiers of the links about this work",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->links->pluck('lake_guid') ?? null; },
+            ],
+            [
+                "name" => 'text_ids',
+                "doc" => "Unique identifiers of the texts about this work",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->texts->pluck('lake_guid') ?? null; },
+            ],
             // TODO: Move these to Mobile\Artwork
             [
                 "name" => 'tour_stop_ids',
@@ -806,7 +888,7 @@ class Artwork extends CollectionsModel
                 "name" => 'section_ids',
                 "doc" => "Unique identifiers of the digital publication chaptes this work in included in",
                 "type" => "array",
-                'elasticsearch_type' => 'string',
+                'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->sections->pluck('dsc_id')->all(); },
             ],
             [

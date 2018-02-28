@@ -23,7 +23,7 @@ class ImportLegacyExhibitions extends AbstractImportCommand
         if (!$fromBackup)
         {
 
-            $this->info('Retrieving exhibitions JSON from artic.edu', 'vv');
+            $this->info('Retrieving exhibitions JSON from artic.edu');
             Storage::disk('local')->put('drupal-7-exhibitions.json', file_get_contents(env('LEGACY_EXHIBITIONS_JSON', 'http://localhost/exhibitions.json')));
 
         }
@@ -39,12 +39,13 @@ class ImportLegacyExhibitions extends AbstractImportCommand
     private function importExhibitions( $results )
     {
 
-        $this->info("Importing legacy exhibitions", 'vv');
+        $this->info("Importing legacy exhibitions");
 
         foreach( $results as $datum )
         {
 
             $datum->title = html_entity_decode($datum->title, ENT_COMPAT | ENT_QUOTES | ENT_HTML5);
+            $datum->title = $this->convert_smart_quotes( $datum->title );
 
             // Find a matching exhibitions. If there are multiple matches, skip it.
             $query = Exhibition::where('title', $datum->title);
@@ -75,12 +76,72 @@ class ImportLegacyExhibitions extends AbstractImportCommand
                 $exhib = $query->first();
                 $exhib->short_description = $datum->short_description;
                 $exhib->web_url = env('WEBSITE_URL', 'http://localhost') .$datum->path;
+
+                if (!$exhib->description && $datum->body)
+                {
+
+                    $exhib->description = $datum->body;
+
+                }
+
+                if ($datum->feature_image_desktop)
+                {
+
+                    $dom = new \DOMDocument();
+                    @$dom->loadHTML($datum->feature_image_desktop);
+                    foreach ($dom->getElementsByTagName('img') as $img)
+                    {
+
+                        $exhib->legacy_image_desktop = $img->getAttribute('src');
+
+                    }
+
+                }
+
+                if ($datum->feature_image_mobile)
+                {
+
+                    $dom = new \DOMDocument();
+                    @$dom->loadHTML($datum->feature_image_mobile);
+                    foreach ($dom->getElementsByTagName('img') as $img)
+                    {
+
+                        $exhib->legacy_image_mobile = $img->getAttribute('src');
+
+                    }
+
+                }
                 $exhib->save();
 
             }
 
         }
 
+    }
+
+    // Standardize apostrophes etc into quote characters
+    // https://stackoverflow.com/questions/42932839/how-to-replace-apostrophe-with-single-quote
+    private function convert_smart_quotes($string)
+    {
+        $search = [
+            '’',
+            chr(145),
+            chr(146),
+            chr(147),
+            chr(148),
+            chr(151),
+        ];
+
+        $replace = [
+            "'",
+            "'",
+            "'",
+            '"',
+            '"',
+            '-',
+        ];
+
+        return str_replace($search, $replace, $string);
     }
 
 }

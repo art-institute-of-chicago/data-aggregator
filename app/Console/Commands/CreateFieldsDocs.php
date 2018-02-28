@@ -35,7 +35,7 @@ class CreateFieldsDocs extends Command
         $doc .= "# Collections\n\n";
         $doc .= \App\Models\Collections\Artwork::instance()->docFields();
         $doc .= \App\Models\Collections\Agent::instance()->docFields();
-        $doc .= \App\Models\Collections\ObjectType::instance()->docFields();
+        $doc .= \App\Models\Collections\ArtworkType::instance()->docFields();
         $doc .= \App\Models\Collections\Category::instance()->docFields();
         $doc .= \App\Models\Collections\AgentType::instance()->docFields();
         $doc .= \App\Models\Collections\Place::instance()->docFields();

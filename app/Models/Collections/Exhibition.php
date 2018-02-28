@@ -35,7 +35,7 @@ class Exhibition extends CollectionsModel
     public function gallery()
     {
 
-        return $this->belongsTo('App\Models\Collections\Place', 'place_citi_id');
+        return $this->belongsTo('App\Models\Collections\Gallery', 'place_citi_id');
 
     }
 
@@ -137,19 +137,21 @@ class Exhibition extends CollectionsModel
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->department_display; },
             ],
-            [
-                "name" => 'gallery_title',
-                "doc" => "The name of the gallery that mainly housed the exhibition",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->gallery()->getResults() ? $this->gallery()->getResults()->title : $this->gallery_display; },
-            ],
+            // TODO: Rename gallery_title to gallery_display, to accurately reflect that it's a free form display
+            //       representation of the galleries an exhibition took place in.
             [
                 "name" => 'gallery_id',
                 "doc" => "Unique identifier of the gallery that mainly housed the exhibition",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->gallery ? $this->gallery->citi_id : null; },
+            ],
+            [
+                "name" => 'gallery_title',
+                "doc" => "The name of the gallery that mainly housed the exhibition",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->place_display; },
             ],
             [
                 "name" => 'image_id',
@@ -168,6 +170,20 @@ class Exhibition extends CollectionsModel
                 "value" => function() {
                     return $this->image_iiif_url;
                 },
+            ],
+            [
+                "name" => 'legacy_image_desktop_url',
+                "doc" => "URL to the desktop hero image from the legacy marketing site",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->legacy_image_desktop; },
+            ],
+            [
+                "name" => 'legacy_image_mobile_url',
+                "doc" => "URL to the mobile hero image from the legacy marketing site",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->legacy_image_mobile; },
             ],
             [
                 "name" => 'artwork_ids',
@@ -243,15 +259,11 @@ class Exhibition extends CollectionsModel
     public function getExtraFillFieldsFrom($source)
     {
 
-        // Galleries must be imported before exhibitions!
-        // Waiting on Redmine #2000 to do this properly
-        $gallery = Place::where('title', $source->gallery)->first();
-
         return [
             'type' => $source->exhibition_type,
             'status' => $source->exhibition_status,
             'asset_lake_guid' => $source->image_guid,
-            'place_citi_id' => $gallery ? $gallery->citi_id : null,
+            'place_citi_id' => $source->gallery_id,
             'place_display' => $source->gallery,
             'date_start' => $source->start_date ? strtotime($source->start_date) : null,
             'date_end' => $source->end_date ? strtotime($source->end_date) : null,
@@ -268,6 +280,9 @@ class Exhibition extends CollectionsModel
 
         $this->venues()->saveMany(AgentExhibition::findMany($source->exhibition_agent_ids));
         $this->artworks()->sync($source->artwork_ids, false);
+
+        // TODO: Add documents, i.e. links to assets, e.g. exhibition catalogues
+        // $source->document_ids
 
     }
 

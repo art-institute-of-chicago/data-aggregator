@@ -23,7 +23,7 @@ class ImportLegacyEvents extends AbstractImportCommand
         if (!$fromBackup)
         {
 
-            $this->info('Retrieving events JSON from artic.edu', 'vv');
+            $this->info('Retrieving events JSON from artic.edu');
             Storage::disk('local')->put('drupal-7-events.json', file_get_contents(env('LEGACY_EVENTS_JSON', 'http://localhost/events.json')));
 
         }
@@ -39,15 +39,29 @@ class ImportLegacyEvents extends AbstractImportCommand
     private function importEvents( $results )
     {
 
-        $this->info("Importing legacy events", 'vv');
+        $this->info("Importing legacy events");
 
         foreach( $results as $datum )
         {
 
-            $datum->id = $datum->nid;
+            $datum->id = $this->cantorPair( $datum->nid, $datum->repeat_delta );
             $this->saveDatum( $datum, \App\Models\Membership\LegacyEvent::class );
 
         }
+
+    }
+
+
+    /**
+     * Generate a unique ID based on a combination of two numbers.
+     * @param  int   $x
+     * @param  int   $y
+     * @return int
+     */
+    public function cantorPair($x, $y)
+    {
+
+        return (($x + $y) * ($x + $y + 1)) / 2 + $y;
 
     }
 

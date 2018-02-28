@@ -29,16 +29,16 @@ class ImportTicketedEventsFull extends AbstractImportCommand
         // Truncate tables
         DB::table('ticketed_events')->truncate();
 
-        $this->info("Truncated ticketed event tables.", 'vv');
+        $this->info("Truncated ticketed event tables.");
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
-        $this->warn("Please manually ensure that your search index mappings are up-to-date.");
+        $this->info("Please manually ensure that your search index mappings are up-to-date.");
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
         $this->import('events', 1);
 
-        $this->info("Imported all events from data service!", 'vv');
+        $this->info("Imported all events from data service!");
 
     }
 
@@ -78,7 +78,7 @@ class ImportTicketedEventsFull extends AbstractImportCommand
 
     private function queryService($endpoint, $page = 1, $limit = 100)
     {
-        $this->info(env('EVENTS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit, 'vv');
+        $this->info(env('EVENTS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit);
         return $this->query( env('EVENTS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit );
     }
 

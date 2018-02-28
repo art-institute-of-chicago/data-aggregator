@@ -57,8 +57,8 @@ class ResourceServiceProvider extends ServiceProvider
                         'model' => \App\Models\Collections\AgentType::class,
                     ],
                     [
-                        'endpoint' => 'object-types',
-                        'model' => \App\Models\Collections\ObjectType::class,
+                        'endpoint' => 'artwork-types',
+                        'model' => \App\Models\Collections\ArtworkType::class,
                     ],
                     [
                         'endpoint' => 'categories',
@@ -92,6 +92,10 @@ class ResourceServiceProvider extends ServiceProvider
                     [
                         'endpoint' => 'exhibition-agents',
                         'model' => \App\Models\Collections\AgentExhibition::class,
+                    ],
+                    [
+                        'endpoint' => 'terms',
+                        'model' => \App\Models\Collections\Term::class,
                     ],
                     [
                         'endpoint' => 'assets',

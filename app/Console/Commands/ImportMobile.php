@@ -25,7 +25,7 @@ class ImportMobile extends AbstractImportCommand
     public function handle()
     {
 
-        $this->info('Retrieving events JSON from artic.edu', 'vv');
+        $this->info('Retrieving events JSON from artic.edu');
         Storage::disk('local')->put('appData.json', file_get_contents(env('MOBILE_JSON', 'http://localhost/appData.json')));
 
         // Spoofing this w/ local file for speed
@@ -46,12 +46,12 @@ class ImportMobile extends AbstractImportCommand
     private function importArtworks( $results )
     {
 
-        $this->info("Importing mobile artworks...", 'vv');
+        $this->info("Importing mobile artworks...");
 
         foreach( $results->objects as $datum )
         {
 
-            $this->warn("Importing artwork #{$datum->nid}: {$datum->title}");
+            $this->info("Importing artwork #{$datum->nid}: {$datum->title}");
 
             // Ex: 41.8794289180879, -87.6236425536961
             $location = explode(', ', $datum->location);
@@ -90,12 +90,12 @@ class ImportMobile extends AbstractImportCommand
     private function importSounds( $results )
     {
 
-        $this->info("Importing mobile sounds...", 'vv');
+        $this->info("Importing mobile sounds...");
 
         foreach( $results->audio_files as $datum )
         {
 
-            $this->warn("Importing audio #{$datum->nid}: {$datum->title}");
+            $this->info("Importing audio #{$datum->nid}: {$datum->title}");
 
             $sound = Sound::findOrNew( (int) $datum->nid );
 
@@ -117,12 +117,12 @@ class ImportMobile extends AbstractImportCommand
     private function importTours( $results )
     {
 
-        $this->info("Importing mobile tours and tour stops...", 'vv');
+        $this->info("Importing mobile tours and tour stops...");
 
         foreach( $results->tours as $datum )
         {
 
-            $this->warn("Importing tour #{$datum->nid}: {$datum->title}");
+            $this->info("Importing tour #{$datum->nid}: {$datum->title}");
 
             $tour = Tour::findOrNew( (int) $datum->nid );
 
@@ -147,16 +147,16 @@ class ImportMobile extends AbstractImportCommand
     private function importTourStops( $data, $tour )
     {
 
-        $this->info("Flushing tour stops for tour #{$tour->mobile_id}...", 'vv');
+        $this->info("Flushing tour stops for tour #{$tour->mobile_id}...");
 
         TourStop::where('tour_mobile_id', $tour->mobile_id)->delete();
 
-        $this->info("Importing tour stops for tour #{$tour->mobile_id}...", 'vv');
+        $this->info("Importing tour stops for tour #{$tour->mobile_id}...");
 
         foreach( $data as $datum )
         {
 
-            $this->warn("Importing tour stop [ {$tour->mobile_id} / {$datum->object} / {$datum->audio} ]");
+            $this->info("Importing tour stop [ {$tour->mobile_id} / {$datum->object} / {$datum->audio} ]");
 
             $stop = new TourStop();
 

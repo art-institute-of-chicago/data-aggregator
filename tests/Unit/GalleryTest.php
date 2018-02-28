@@ -13,4 +13,13 @@ class GalleryTest extends ApiTestCase
 
     protected $keys = ['lake_guid'];
 
+    protected $fieldsUsedByMobile = ['title',
+                                     'id',
+                                     'number',
+                                     'floor',
+                                     'latitude',
+                                     'longitude',
+                                     'is_closed',
+    ];
+
 }

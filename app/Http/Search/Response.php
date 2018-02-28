@@ -91,9 +91,8 @@ class Response
      */
     public function getAutocompleteResponse() {
 
-        return $this->searchResponse;
-
-        return $this->suggest();
+        // Defaulting to [] is safe, but ineffecient: catch empty `q` earlier!
+        return $this->suggest()['suggest']['autocomplete'] ?? [];
 
     }
 
@@ -114,8 +113,18 @@ class Response
         $limit = $this->searchParams['size'] ?? 10;
         $offset = $this->searchParams['from'] ?? 0;
 
-        $total_pages = ceil( $total / $limit );
-        $current_page = floor( $offset / $limit ) + 1;
+        // Avoid division by zero
+        if( $limit > 0 ) {
+
+            $total_pages = ceil( $total / $limit );
+            $current_page = floor( $offset / $limit ) + 1;
+
+        } else {
+
+            $total_pages = null;
+            $current_page = null;
+
+        }
 
         $pagination = [
             'total' => $total,
@@ -185,13 +194,7 @@ class Response
         $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
 
         if ($options) {
-            $suggest['autocomplete'] = array_pluck($options, 'text');
-        }
-
-        $options = array_get($this->searchResponse, 'suggest.phrase-suggest.0.options');
-
-        if ($options) {
-            $suggest['phrase'] = array_pluck($options, 'highlighted');
+            $suggest['autocomplete'] = array_pluck($options, '_source.title');
         }
 
         if ($suggest)

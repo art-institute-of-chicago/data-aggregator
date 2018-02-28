@@ -40,6 +40,17 @@ class Category extends ShopModel
 
     }
 
+    /**
+     * Returns web link to the category
+     *
+     * @return string
+     */
+    public function getWebUrlAttribute()
+    {
+
+        return env('SHOP_CATEGORY_URL') .$this->shop_id;
+
+    }
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
@@ -49,11 +60,11 @@ class Category extends ShopModel
 
         return [
             [
-                "name" => 'link',
+                "name" => 'web_url',
                 "doc" => "URL to the shop page for this category",
                 "type" => "url",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->link; },
+                "value" => function() { return $this->web_url; },
             ],
             [
                 "name" => 'parent_id',
@@ -61,20 +72,6 @@ class Category extends ShopModel
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->parent->shop_id ?? null; },
-            ],
-            [
-                "name" => 'type',
-                "doc" => "The type of category, e.g., sale, place-of-origin, style, etc.",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->type; },
-            ],
-            [
-                "name" => 'source_id',
-                "doc" => "The identifier from the source system. This is only unique relative to the type of category, so we don't use this as the primary identifier.",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->source_id; },
             ],
             [
                 "name" => 'child_ids',
@@ -117,6 +114,14 @@ class Category extends ShopModel
 
     }
 
+    public function getExtraFillFieldsFrom($source)
+    {
+
+        return [
+            'parent_category_shop_id' => $source->parent_id,
+        ];
+
+    }
 
     /**
      * Get an example ID for documentation generation
@@ -126,7 +131,7 @@ class Category extends ShopModel
     public function exampleId()
     {
 
-        return "999175";
+        return "2";
 
     }
 

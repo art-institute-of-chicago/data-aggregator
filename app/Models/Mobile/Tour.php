@@ -116,6 +116,22 @@ class Tour extends MobileModel
 
 
     /**
+     * Overrides method from ElasticSearchable. Tours should always contribute to autocomplete.
+     *
+     * @return array
+     */
+    public function getSuggestSearchFields()
+    {
+
+        return [
+            'suggest_autocomplete' => $this->title,
+            'suggest_autocomplete_boosted' => $this->title,
+        ];
+
+    }
+
+
+    /**
      * Get an example ID for documentation generation
      *
      * @return string

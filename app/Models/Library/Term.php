@@ -14,6 +14,8 @@ class Term extends BaseModel
 
     protected $table = 'library_terms';
 
+    protected $keyType = 'string';
+
     public function creatorOf()
     {
 
