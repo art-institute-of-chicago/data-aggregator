@@ -81,6 +81,9 @@ abstract class AbstractImportCommand extends Command
         $resource->attachFrom($datum);
         $resource->save();
 
+        // For debugging ids and titles:
+        // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");
+
         return $resource;
 
     }

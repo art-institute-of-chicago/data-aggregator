@@ -33,6 +33,16 @@ class LegacyEvent extends MembershipModel
 
     }
 
+    protected function fillTitleFrom($source)
+    {
+
+        // Fix `The Artist&#039;s Studio` to `The Artist's Studio`
+        $this->title = trim( html_entity_decode( $source->title, ENT_QUOTES | ENT_XML1, 'UTF-8' ) );
+
+        return $this;
+
+    }
+
     protected function getExtraFillFieldsFrom($source)
     {
 
