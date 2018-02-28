@@ -52,7 +52,7 @@ class TourStop extends MobileModel
                 "doc" => "Name of this tour stop",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->artwork->title ?? null; },
+                "value" => function() { return $this->sound->title ?? null; },
             ],
             [
                 "name" => 'artwork_title',
