@@ -1,7 +1,7 @@
 Data Aggregator Changelog
 =============================
 
-0.9 - Autocomplete, shop data and support for mobile app
+### 0.9 – Autocomplete, shop data and support for mobile app
 
 * Fill in products and shop categories data from the museum shop
 * Add unit tests to verify that the API is serving fields used by the mobile app
@@ -86,7 +86,7 @@ SHOP CATEGORIES
   - `source_id` - Removed, until the data is provided to from the shop API
 
 
-0.8 - Clean up for consistency, and further feature additions to support the website and mobile app
+### 0.8 – Clean up for consistency, and further feature additions to support the website and mobile app
 
 * Add `*_title` to all name-of fields for consistency
 * Accept `q` and `query` in the same search request
@@ -146,7 +146,7 @@ DEPRECATED SEARCH PARAMETERS
   - `facets` - Replaced with `aggregations`. This parameter opens up built in Elasticsearch aggregation functionality to our API
 
 
-0.7 - Add functionality to support website and mobile App development
+### 0.7 – Add functionality to support website and mobile App development
 
 * Add general import:all and import:daily commands to run imports from all sources
 * Adjust task scheduling to make automatic imports function properly
@@ -210,7 +210,7 @@ NEW SEARCH PARAMETERS
   - `_source` – This parameter duplicates functionality provided by `fields`, so we plan to deprecate this in 0.8.
 
 
-0.6 - Fill in Collections data
+### 0.6 – Fill in Collections data
 
 * Upgrade to Laravel 5.5
 * Clean up Fillable logic to reduce redundancy
@@ -246,7 +246,7 @@ ARTWORKS ENDPOINT
 * Deprecate `is_in_gallery` in favor of `is_on_view`, which checks if the artwork is in a gallery, and that the gallery is open
 
 
-0.5 - Library, Archives, dominant colors and improve search
+### 0.5 – Library, Archives, dominant colors and improve search
 
 * Add Etags to all API output
 * Add dominant color information to all images
@@ -262,7 +262,7 @@ ARTWORKS ENDPOINT
 * Add missing relationships to Exhibitions endpoint—Events
 
 
-0.4 - Digital Catalogues, static sites and mobile
+### 0.4 – Digital Catalogues, static sites and mobile
 
 * Refactor artists endpoint to return all agents that are marked as a creator for an artwork
 * Import real Digital Catalogue data
@@ -277,7 +277,7 @@ ARTWORKS ENDPOINT
 * Provide Faker as a service to all unit tests and factories
 
 
-0.3 - Clean up:
+### 0.3 – Clean up:
 
 * Import processes to remove duplicate relationships
 * Seeding to create fake records with IDs out of the range of real data, so they can live side-by-side
