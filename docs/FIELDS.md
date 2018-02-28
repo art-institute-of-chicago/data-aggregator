@@ -19,8 +19,8 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `dimensions` *string* - The size, shape, scale, and dimensions of the work. May include multiple dimension like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.
 * `medium` *string* - The substances or materials used in the creation of a work
 * `inscriptions` *string* - A description of distinguishing or identifying physical markings that are on the work
-* `object_type_title` *string* - The kind of object or work (e.g. Painting, Sculpture, Book)
-* `object_type_id` *number* - Unique identifier of the kind of object or work
+* `artwork_type_title` *string* - The kind of object or work (e.g. Painting, Sculpture, Book)
+* `artwork_type_id` *number* - Unique identifier of the kind of object or work
 * `credit_line` *string* - Brief statement indicating how the work came into the collection
 * `publication_history` *string* - Bibliographic list of all the places this work has been published
 * `exhibition_history` *string* - List of all the places this work has been exhibited
@@ -49,19 +49,25 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `set_ids` *array* - Unique identifiers of the sets this work is a part of. These are not artwork ids.
 * `date_dates` *array* - List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.
 * `artwork_catalogue_ids` *array* - This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.
-* `committee_titles` *array* - List of committees which were involved in the acquisition or deaccession of this work
 * `term_titles` *array* - The names of the taxonomy tags for this work
 * `style_id` *number* - Unique identifier of the preferred style term for this work
 * `alt_style_ids` *array* - Unique identifiers of all other non-preferred style terms for this work
+* `style_titles` *array* - The names of all style terms related to this artwork
 * `classification_id` *number* - Unique identifier of the preferred classification term for this work
 * `alt_classificaiton_ids` *array* - Unique identifiers of all other non-preferred classification terms for this work
+* `classification_titles` *array* - The names of all classification terms related to this artwork
 * `subject_id` *number* - Unique identifier of the preferred subject term for this work
 * `alt_subject_ids` *array* - Unique identifiers of all other non-preferred subject terms for this work
+* `subject_titles` *array* - The names of all subject terms related to this artwork
 * `color` *object* - Dominant color of this image in HSL
 * `image_id` *uuid* - Unique identifier of the preferred image to use to represent this work
 * `image_iiif_url` *string* - IIIF URL of the preferred image to use to represent this work
 * `alt_image_ids` *array* - Unique identifiers of all non-preferred images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.
 * `alt_image_iiif_urls` *array* - IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.
+* `sound_ids` *uuid* - Unique identifiers of the audio about this work
+* `video_ids` *uuid* - Unique identifiers of the videos about this work
+* `link_ids` *uuid* - Unique identifiers of the links about this work
+* `text_ids` *uuid* - Unique identifiers of the texts about this work
 * `tour_stop_ids` *array* - Unique identifiers of the tour stops this work is included in
 * `section_ids` *array* - Unique identifiers of the digital publication chaptes this work in included in
 * `site_ids` *array* - Unique identifiers of the microsites this work is a part of
@@ -78,6 +84,7 @@ Represents a person or organization. In the API, this includes artists, venues, 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `sort_title` *string* - Sortable name for this agent, typically with last name first.
 * `alt_titles` *array* - Altername names for this agent
 * `birth_date` *number* - The year this agent was born
 * `birth_place` *string* - Name of the place this agent was born
@@ -86,8 +93,8 @@ Represents a person or organization. In the API, this includes artists, venues, 
 * `ulan_uri` *uri* - Unique identifier of this agent in Getty's ULAN
 * `is_licensing_restricted` *boolean* - Whether the use of the images of works by this artist are restricted by licensing
 * `is_artist` *boolean* - Whether the agent is an artist. Soley based on whether the agent is listed as an artist for an artwork record.
-* `agent_type` *string* - Name of the type of agent, e.g., individual, fund, school, organization, corporate body, etc.
-* `agent_type_id` *number* - Unique identifier of the type of agent
+* `agent_type_title` *string* - Name of the type of agent, e.g. individual, fund, school, organization, etc.
+* `agent_type_id` *number* - Unique identifier of the type of agent, e.g. individual, fund, school, organization, etc.
 * `artwork_ids` *array* - Unique identifiers of the works this artist created.
 * `agent_place_ids` *array* - Unique identifiers of the places this artist is associated with.
 * `site_ids` *array* - Unique identifiers of the microsites this exhibition is a part of
@@ -97,9 +104,9 @@ Represents a person or organization. In the API, this includes artists, venues, 
 
 
 
-## Object Types
+## Artwork Types
 
-A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#object-types).
+A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#artwork-types).
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
@@ -197,10 +204,12 @@ An organized presentation and display of a selection of artworks. For a descript
 * `start_at` *ISO 8601 date and time* - Date the exhibition opened across multiple venues
 * `end_at` *ISO 8601 date and time* - Date the exhibition closed across multiple venues
 * `department_display` *string* - The name of the department that primarily organized the exhibition
-* `gallery_title` *string* - The name of the gallery that mainly housed the exhibition
 * `gallery_id` *number* - Unique identifier of the gallery that mainly housed the exhibition
+* `gallery_title` *string* - The name of the gallery that mainly housed the exhibition
 * `image_id` *uuid* - Unique identifier of the image to use to represent this exhibition
 * `image_iiif_url` *string* - IIIF URL of the image to use to represent this exhibition
+* `legacy_image_desktop_url` *string* - URL to the desktop hero image from the legacy marketing site
+* `legacy_image_mobile_url` *string* - URL to the mobile hero image from the legacy marketing site
 * `artwork_ids` *array* - Unique identifiers of the artworks that were part of the exhibition
 * `venue_ids` *array* - Unique identifiers of the venue agent records representing who hosted the exhibition
 * `artist_ids` *array* - Unique identifiers of the artist agent records representing who was shown in the exhibition
@@ -319,10 +328,8 @@ Tag-like classifications of shop products. For a description of all the endpoint
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
-* `link` *url* - URL to the shop page for this category
+* `web_url` *url* - URL to the shop page for this category
 * `parent_id` *number* - Unique identifier of this category's parent
-* `type` *string* - The type of category, e.g., sale, place-of-origin, style, etc.
-* `source_id` *number* - The identifier from the source system. This is only unique relative to the type of category, so we don't use this as the primary identifier.
 * `child_ids` *array* - Unique identifiers of this category's children
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
@@ -336,18 +343,30 @@ An item available for purchase in the museum shop. For a description of all the 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
-* `title_display` *string* - HTML prettified version of the title
+* `title_sort` *string* - The sortable version of the name of this product
+* `parent_id` *number* - Unique identifier of this product's parent
+* `category_id` *number* - Identifier of this product's category
 * `sku` *string* - Numeric product identification code of a machine-readable bar code
-* `link` *url* - URL to the item in the shop
-* `image` *url* - URL of an image for this product
+* `external_sku` *string* - Numeric product identification code of a machine-readable bar code, when the customer sku differs from our internal one
+* `image_url` *url* - URL of an image for this product
+* `web_url` *url* - URL of this product in the shop
 * `description` *string* - Explanation of what this product is
-* `is_on_sale` *boolean* - Whether this product us on sale
 * `priority` *number* - Used for sorting in the shop website, specifically in the "Featured" sort mode, which is the default. This sort mode is two-part: first, items are sorted by their `priority` ascending; then as a secondary step, items are sorted by the number of items sold, descending.
 * `price` *number* - Number indicating how much the product costs the customer
-* `review_count` *number* - Number indicating how many reviews this product has
-* `item_sold` *number* - Number indicating how many items of this product have been sold
-* `rating` *number* - Floating number representing the average rating this product has received
-* `category_ids` *array* - Unique identifier of the categories associated with this product
+* `sale_price` *number* - Number indicating how much the product costs on sale to the customer
+* `member_price` *number* - Number indicating how much the product costs members
+* `aic_collection` *boolean* - Whether the item is an AIC product
+* `gift_box` *boolean* - Whether the item can be wrapped in a gift box
+* `recipient` *string* - Category indicating who the product is intended for. E.g., 'Anyone', 'ForHim', 'ForHer', etc.
+* `holiday` *boolean* - Whether the product is a holiday item
+* `architecture` *boolean* - Whether the product is an architectural item
+* `glass` *boolean* - Whether the item is glass
+* `x_shipping_charge` *integer* - Number indicating the additional shipping charge for this item, in US Dollars.
+* `inventory` *integer* - Number indicating how many items remain in our inventory
+* `choking_hazard` *boolean* - Whether this product is a choking hazard
+* `back_order` *boolean* - Whether this product has been back ordered
+* `back_order_due_date` *date* - Date representing when this item is expected to be back in stock
+* `artist_ids` *array* - Unique identifiers of the artists represented in this item
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 
@@ -578,4 +597,4 @@ A Library of Congress term. For a description of all the endpoints available for
 
 
 
-> Generated by `php artisan docs:fields` on 2018-02-16 08:39:18
+> Generated by `php artisan docs:fields` on 2018-02-27 19:42:42

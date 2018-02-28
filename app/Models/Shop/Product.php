@@ -499,7 +499,7 @@ class Product extends ShopModel
     public function exampleId()
     {
 
-        return "999966";
+        return "7760";
 
     }
 
