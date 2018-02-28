@@ -155,10 +155,9 @@ class LegacyEvent extends MembershipModel
                 "value" => function() { return $this->end_at ? $this->end_at->toIso8601String() : NULL; },
             ],
             [
-                "name" => 'resource_title',
-                "doc" => "The name of the resource associated with this event, often the venue in which it takes place",
+                "name" => 'location',
+                "doc" => "Location of the event (freetext)",
                 "type" => "string",
-                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->resource_title; },
             ],
             [
