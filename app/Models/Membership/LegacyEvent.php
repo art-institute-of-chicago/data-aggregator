@@ -50,13 +50,13 @@ class LegacyEvent extends MembershipModel
         // +"url": "http://www.artic.edu/event/gallery-talk-modern-wing-highlights"
 
         $ret = [
-            'description' => $source->body,
-            'short_description' => $source->summary,
-            'image_url' => $source->image,
+            'description' => trim($source->body) ?: null,
+            'short_description' => trim($source->summary) ?: null,
+            'image_url' => trim($source->image) ?: null,
             'start_at' => new Carbon($source->dates ." " .$source->start_time),
             'end_at' => new Carbon($source->dates ." " .$source->end_time),
-            'resource_title' => $source->location,
-            'web_url' => $source->url,
+            'resource_title' => trim($source->location) ?: null,
+            'web_url' => trim($source->url) ?: null,
         ];
 
         // Set flag is_admission_required
@@ -127,48 +127,48 @@ class LegacyEvent extends MembershipModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return $this->description; },
+                "value" => function() { return $this->description ?: null; },
             ],
             [
                 "name" => 'short_description',
                 "doc" => "Short description of the event",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return trim($this->short_description); },
+                "value" => function() { return trim($this->short_description) ?: null; },
             ],
             [
                 "name" => 'image',
                 "doc" => "URL to an image representing this event",
                 "type" => "url",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->image_url; },
+                "value" => function() { return $this->image_url ?: null; },
             ],
             [
                 "name" => 'type',
                 "doc" => "The name of the type of event",
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->type; },
+                "value" => function() { return $this->type ?: null; },
             ],
             [
                 "name" => 'start_at',
                 "doc" => "Date and time the event begins",
                 "type" => "ISO 8601 date and time",
                 'elasticsearch_type' => 'date',
-                "value" => function() { return $this->start_at ? $this->start_at->toIso8601String() : NULL; },
+                "value" => function() { return $this->start_at ? $this->start_at->toIso8601String() : null; },
             ],
             [
                 "name" => 'end_at',
                 "doc" => "Date and time the event ends",
                 "type" => "ISO 8601 date and time",
                 'elasticsearch_type' => 'date',
-                "value" => function() { return $this->end_at ? $this->end_at->toIso8601String() : NULL; },
+                "value" => function() { return $this->end_at ? $this->end_at->toIso8601String() : null; },
             ],
             [
                 "name" => 'location',
                 "doc" => "Location of the event (freetext)",
                 "type" => "string",
-                "value" => function() { return $this->resource_title; },
+                "value" => function() { return $this->resource_title ?: null; },
             ],
             [
                 "name" => 'exhibition_ids',
