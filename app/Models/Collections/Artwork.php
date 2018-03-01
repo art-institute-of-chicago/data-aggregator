@@ -333,8 +333,27 @@ class Artwork extends CollectionsModel
 
         // @TODO Waiting on Redmines for the following:
         // $source->copyright_representative_ids
-        // $source->term_ids
 
+        $pref_terms = collect( $source->pref_term_ids ?? [] )->map( function( $term ) {
+            return [
+                $term => [
+                    'preferred' => true
+                ]
+            ];
+        });
+
+        $alt_terms = collect( $source->alt_term_ids ?? [] )->map( function( $term ) {
+            return [
+                $term => [
+                    'preferred' => false
+                ]
+            ];
+        });
+
+        $terms = $pref_terms->concat( $alt_terms );
+
+        // TODO: Re-enable this once we're ready to import terms from the dataservice
+        // $this->assets()->sync($terms, false);
 
         // Galleries must be imported before artworks!
         // Waiting on Redmine #2000 to do this properly
