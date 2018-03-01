@@ -73,7 +73,7 @@ class TourStop extends MobileModel
                 "doc" => "Unique identifier of the tour this stop is a part of",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->tour->id ?? null; },
+                "value" => function() { return $this->tour->mobile_id ?? null; },
             ],
             [
                 "name" => 'mobile_sound',
