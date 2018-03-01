@@ -331,8 +331,12 @@ class Artwork extends CollectionsModel
         // $source->fiscal_year
         // $source->accquired_at
 
-        // @TODO Waiting on Redmines for the following:
-        // $source->copyright_representative_ids
+        if ($source->copyright_representative_ids)
+        {
+
+            $this->copyrightRepresentatives()->sync($source->copyright_representative_ids, false);
+
+        }
 
         $pref_terms = collect( $source->pref_term_ids ?? [] )->map( function( $term ) {
             return [
