@@ -30,6 +30,7 @@ class MakeTermsManyToMany extends Migration
         });
 
         Schema::create('artwork_term', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('artwork_citi_id')->nullable();
             $table->integer('term_citi_id')->nullable();
             $table->boolean('preferred')->nullable();
