@@ -70,6 +70,15 @@ class Image extends Asset
 
     }
 
+
+    public function searchableImage()
+    {
+
+        return $this->iiif_url;
+
+    }
+
+
     /**
      * Get an example ID for documentation generation
      *

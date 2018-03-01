@@ -992,6 +992,15 @@ class Artwork extends CollectionsModel
 
     }
 
+
+    public function searchableImage()
+    {
+
+        return $this->image->iiif_url ?? null;
+
+    }
+
+
     /**
      * Get the subresources for the resource.
      *

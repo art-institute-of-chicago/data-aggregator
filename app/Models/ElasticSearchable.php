@@ -92,6 +92,19 @@ trait ElasticSearchable
 
 
     /**
+     * Get an image to represent this record
+     *
+     * @return string
+     */
+    public function searchableImage()
+    {
+
+        return null;
+
+    }
+
+
+    /**
      * Generate an array of model data to send to the search index.
      *
      * @return array
@@ -105,6 +118,7 @@ trait ElasticSearchable
                 'api_id' => "" .$this->getKey(),
                 'api_model' => $this->searchableModel(),
                 'api_link' => $this->searchableLink(),
+                'image_url' => $this->searchableImage(),
                 'title' => $this->title,
                 'timestamp' => Carbon::now()->toIso8601String(),
             ],
