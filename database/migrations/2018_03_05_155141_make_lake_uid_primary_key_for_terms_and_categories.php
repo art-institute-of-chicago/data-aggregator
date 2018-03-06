@@ -23,7 +23,12 @@ class MakeLakeUidPrimaryKeyForTermsAndCategories extends Migration
         Schema::table('categories', function (Blueprint $table) {
             $table->dropColumn('citi_id');
             $table->primary('lake_uid');
+            $table->string('parent_id')->index()->change();
         });
+
+        DB::table('categories')->update([
+            'parent_id' => DB::raw('\'PC-\' || parent_id')
+        ]);
 
         // artwork_category
         Schema::table('artwork_category', function(Blueprint $table) {
@@ -111,8 +116,13 @@ class MakeLakeUidPrimaryKeyForTermsAndCategories extends Migration
             'citi_id' => DB::raw('substr(lake_uid FROM 4)')
         ]);
 
+        DB::table('categories')->update([
+            'parent_id' => DB::raw('substr(parent_id FROM 4)')
+        ]);
+
         Schema::table('categories', function (Blueprint $table) {
             $table->primary('citi_id');
+            $table->integer('parent_id')->index()->change();
         });
 
         // artwork_category
