@@ -14,8 +14,6 @@ class ArtworkTest extends ApiTestCase
 
     protected $model = Artwork::class;
 
-    protected $route = 'artworks';
-
     protected $keys = ['id'];
 
     protected $fieldsUsedByMobile = ['title',

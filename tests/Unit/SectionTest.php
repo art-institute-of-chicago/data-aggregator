@@ -10,8 +10,6 @@ class SectionTest extends ApiTestCase
 
     protected $model = Section::class;
 
-    protected $route = 'sections';
-
     public function setUp()
     {
 

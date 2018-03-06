@@ -9,6 +9,4 @@ class LinkTest extends AssetTestCase
 
     protected $model = Link::class;
 
-    protected $route = 'links';
-
 }

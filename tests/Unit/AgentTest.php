@@ -9,8 +9,6 @@ class AgentTest extends ApiTestCase
 
     protected $model = Agent::class;
 
-    protected $route = 'agents';
-
     protected $keys = ['lake_guid'];
 
     /** @test */

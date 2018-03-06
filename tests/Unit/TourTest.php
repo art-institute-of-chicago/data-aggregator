@@ -10,8 +10,6 @@ class TourTest extends ApiTestCase
 
     protected $model = Tour::class;
 
-    protected $route = 'tours';
-
     public function setUp()
     {
 

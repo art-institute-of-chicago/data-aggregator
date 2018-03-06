@@ -57,6 +57,20 @@ abstract class ApiTestCase extends TestCase
     }
 
 
+    public function model() {
+
+        return $this->model;
+
+    }
+
+    public function route($model = '') {
+
+        $m = $model ?: $this->model;
+
+        return $this->route ?: app('Resources')->getEndpointForModel($m);
+
+    }
+
     public function setUp()
     {
 
@@ -89,7 +103,7 @@ abstract class ApiTestCase extends TestCase
     public function it_fetches_all_entities()
     {
 
-        $resources = $this->it_fetches_all($this->model, $this->route);
+        $resources = $this->it_fetches_all();
 
         $this->assertArrayHasKeys($resources, $this->keys, true);
 
@@ -99,7 +113,7 @@ abstract class ApiTestCase extends TestCase
     public function it_fetches_a_single_entity()
     {
 
-        $resource = $this->it_fetches_a_single($this->model, $this->route);
+        $resource = $this->it_fetches_a_single();
 
         $this->assertArrayHasKeys($resource, $this->keys);
 
@@ -109,7 +123,7 @@ abstract class ApiTestCase extends TestCase
     public function it_fetches_multiple_entities()
     {
 
-        $resources = $this->it_fetches_multiple($this->model, $this->route);
+        $resources = $this->it_fetches_multiple();
 
         $this->assertArrayHasKeys($resources, $this->keys, true);
 
@@ -121,7 +135,7 @@ abstract class ApiTestCase extends TestCase
     public function it_400s_if_nonnumerid_nonuuid_is_passed()
     {
 
-        $this->it_400s($this->model, $this->route);
+        $this->it_400s();
 
     }
 
@@ -129,7 +143,7 @@ abstract class ApiTestCase extends TestCase
     public function it_403s_if_limit_is_too_high()
     {
 
-        $this->it_403s($this->model, $this->route);
+        $this->it_403s();
 
     }
 
@@ -139,7 +153,7 @@ abstract class ApiTestCase extends TestCase
     public function it_404s_if_not_found()
     {
 
-        $this->it_404s($this->model, $this->route);
+        $this->it_404s();
 
     }
 
@@ -147,13 +161,16 @@ abstract class ApiTestCase extends TestCase
     public function it_405s_if_a_request_is_posted()
     {
 
-        $this->it_405s($this->model, $this->route);
+        $this->it_405s();
 
     }
 
 
-    public function it_fetches_all($class, $endpoint)
+    public function it_fetches_all()
     {
+
+        $class = $this->model();
+        $endpoint = $this->route($class);
 
         $this->times(5)->make($class);
 
@@ -171,8 +188,11 @@ abstract class ApiTestCase extends TestCase
         return $resources;
     }
 
-    public function it_fetches_a_single($class, $endpoint, $extraValue = '')
+    public function it_fetches_a_single($extraValue = '')
     {
+
+        $class = $this->model();
+        $endpoint = $this->route($class);
 
         $id = $this->make($class);
 
@@ -185,8 +205,11 @@ abstract class ApiTestCase extends TestCase
         return $resource;
     }
 
-    public function it_fetches_multiple($class, $endpoint)
+    public function it_fetches_multiple()
     {
+
+        $class = $this->model();
+        $endpoint = $this->route($class);
 
         $this->times(5)->make($class);
 
@@ -204,8 +227,11 @@ abstract class ApiTestCase extends TestCase
         return $resources;
     }
 
-    public function it_400s($class, $endpoint)
+    public function it_400s()
     {
+
+        $class = $this->model();
+        $endpoint = $this->route($class);
 
         $this->make($class);
 
@@ -215,8 +241,11 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-    public function it_403s($class, $endpoint)
+    public function it_403s()
     {
+
+        $class = $this->model();
+        $endpoint = $this->route($class);
 
         $this->make($class);
 
@@ -226,8 +255,11 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-    public function it_404s($class, $endpoint)
+    public function it_404s()
     {
+
+        $class = $this->model();
+        $endpoint = $this->route($class);
 
         $this->make($class);
 
@@ -237,8 +269,11 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-    public function it_405s($class, $endpoint)
+    public function it_405s()
     {
+
+        $class = $this->model();
+        $endpoint = $this->route($class);
 
         $this->make($class);
 
@@ -256,9 +291,10 @@ abstract class ApiTestCase extends TestCase
         $retrievedFields = $validFields->slice(0, 2);
         $discardedFields = $validFields->slice(2);
 
-        $this->times(5)->make($this->model);
+        $m = $this->model();
+        $this->times(5)->make($m);
 
-        $response = $this->getJson('api/v1/' . $this->route . '?fields=' . $retrievedFields->implode(',') );
+        $response = $this->getJson('api/v1/' . $this->route($m) . '?fields=' . $retrievedFields->implode(',') );
         $response->assertSuccessful();
 
         $resources = $response->json()['data'];
@@ -281,9 +317,10 @@ abstract class ApiTestCase extends TestCase
         $retrievedFields = $validFields->slice(0, 2);
         $discardedFields = $validFields->slice(2);
 
-        $id = $this->make($this->model);
+        $m = $this->model();
+        $id = $this->make($m);
 
-        $response = $this->getJson('api/v1/' . $this->route . '/' . $id . '?fields=' . $retrievedFields->implode(',') );
+        $response = $this->getJson('api/v1/' . $this->route($m) . '/' . $id . '?fields=' . $retrievedFields->implode(',') );
         $response->assertSuccessful();
 
         $resource = $response->json()['data'];
@@ -302,9 +339,10 @@ abstract class ApiTestCase extends TestCase
         $retrievedFields = $validFields->slice(0, 2);
         $discardedFields = $validFields->slice(2);
 
-        $this->times(5)->make($this->model);
+        $m = $this->model();
+        $this->times(5)->make($m);
 
-        $response = $this->getJson('api/v1/' . $this->route . '?ids=' . implode(',',array_slice($this->ids, -3, 3)) . '&fields=' . $retrievedFields->implode(',') );
+        $response = $this->getJson('api/v1/' . $this->route($m) . '?ids=' . implode(',',array_slice($this->ids, -3, 3)) . '&fields=' . $retrievedFields->implode(',') );
         $response->assertSuccessful();
 
         $resources = $response->json()['data'];
@@ -328,9 +366,10 @@ abstract class ApiTestCase extends TestCase
         if ($this->fieldsUsedByMobile)
         {
 
-            $this->times(5)->make($this->model);
+            $m = $this->model();
+            $this->times(5)->make($m);
 
-            $response = $this->getJson('api/v1/' .$this->route);
+            $response = $this->getJson('api/v1/' .$this->route($m));
             $response->assertSuccessful();
 
             $resources = $response->json()['data'];
@@ -361,11 +400,12 @@ abstract class ApiTestCase extends TestCase
     protected function getValidFields()
     {
 
-        $id = $this->make($this->model);
+        $m = $this->model();
+        $id = $this->make($m);
 
-        $response = $this->getJson('api/v1/' . $this->route . '/' . $id);
+        $response = $this->getJson('api/v1/' . $this->route($m) . '/' . $id);
 
-        $this->model::findOrFail( $id )->delete();
+        $m::findOrFail( $id )->delete();
 
         return collect( $response->json()['data'] )->keys();
 

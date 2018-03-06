@@ -37,7 +37,6 @@ trait Factory
     protected function make($type, $fields = [])
     {
 
-        $model;
         while ($this->times-- > 0) {
 
             $model = factory($type)->create($fields);
