@@ -103,6 +103,7 @@ class Asset extends CollectionsModel
 
     }
 
+
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
@@ -151,7 +152,7 @@ class Asset extends CollectionsModel
                     "name" => 'category_ids',
                     "doc" => "Unique identifier of the categories associated with this asset",
                     "type" => "array",
-                    'elasticsearch_type' => 'integer',
+                    'elasticsearch_type' => 'keyword',
                     "value" => function() { return $this->categories->pluck('citi_id')->all(); },
                 ],
                 [

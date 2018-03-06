@@ -86,7 +86,7 @@ class Gallery extends CollectionsModel
                 "name" => 'category_ids',
                 "doc" => "Unique identifiers of the categories this gallery is a part of",
                 "type" => "number",
-                'elasticsearch_type' => 'integer',
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
             ],
         ];

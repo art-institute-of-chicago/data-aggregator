@@ -60,7 +60,7 @@ class Category extends CollectionsModel
                 "name" => 'parent_id',
                 "doc" => "Unique identifier of this category's parent",
                 "type" => "number",
-                'elasticsearch_type' => 'integer',
+                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->parent ? $this->parent->lake_uid : null; },
             ],
             [
