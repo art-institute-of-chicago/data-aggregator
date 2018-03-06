@@ -153,7 +153,7 @@ class Asset extends CollectionsModel
                     "doc" => "Unique identifier of the categories associated with this asset",
                     "type" => "array",
                     'elasticsearch_type' => 'keyword',
-                    "value" => function() { return $this->categories->pluck('citi_id')->all(); },
+                    "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
                 ],
                 [
                     "name" => 'artwork_ids',
