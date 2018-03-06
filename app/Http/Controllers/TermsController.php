@@ -14,6 +14,12 @@ class TermsController extends BaseController
 
     protected $transformer = \App\Http\Transformers\TermTransformer::class;
 
+    protected function validateId( $id )
+    {
+        return \App\Models\Collections\Term::validateId( $id );
+    }
+
+
     // artworks/{id}/terms
     public function forArtwork(Request $request, $id) {
 
