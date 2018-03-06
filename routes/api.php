@@ -93,6 +93,9 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('categories', 'CategoriesController@index');
     Route::get('categories/{id}', 'CategoriesController@show');
 
+    Route::get('category-terms', 'CategoryTermsController@index');
+    Route::get('category-terms/{id}', 'CategoryTermsController@show');
+
     Route::get('agent-types', 'AgentTypesController@index');
     Route::get('agent-types/{id}', 'AgentTypesController@show');
 
