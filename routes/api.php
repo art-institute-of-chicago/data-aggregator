@@ -176,4 +176,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('tags', 'TagsController@index');
     Route::get('tags/{id}', 'TagsController@show');
 
+    Route::get('locations', 'LocationsController@index');
+    Route::get('locations/{id}', 'LocationsController@show');
+
 });

@@ -2,24 +2,15 @@
 
 namespace App\Models\Web;
 
-use App\Models\BaseModel;
+use App\Models\WebModel;
 use App\Models\Documentable;
 use App\Models\ElasticSearchable;
 
 /**
  * A tag on the website
  */
-class Tag extends BaseModel
+class Tag extends WebModel
 {
-
-    use Documentable, ElasticSearchable;
-
-    protected $casts = [
-        'source_created_at' => 'date',
-        'source_modified_at' => 'date',
-    ];
-
-    protected static $source = 'Web';
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.

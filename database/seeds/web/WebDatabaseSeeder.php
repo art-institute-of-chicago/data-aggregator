@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Web\Tag;
+use App\Models\Web\Location;
 
 class WebDatabaseSeeder extends AbstractSeeder
 {
@@ -9,6 +10,7 @@ class WebDatabaseSeeder extends AbstractSeeder
     {
 
         $this->call(TagsTableSeeder::class);
+        $this->call(LocationsTableSeeder::class);
 
     }
 
@@ -16,6 +18,7 @@ class WebDatabaseSeeder extends AbstractSeeder
     {
 
         Tag::fake()->delete();
+        Location::fake()->delete();
 
     }
 

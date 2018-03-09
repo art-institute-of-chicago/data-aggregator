@@ -83,6 +83,7 @@ class SearchServiceProvider extends ServiceProvider
                     \App\Models\StaticArchive\Site::class,
 
                     \App\Models\Web\Tag::class,
+                    \App\Models\Web\Location::class,
 
                 ];
 

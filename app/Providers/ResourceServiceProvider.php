@@ -181,6 +181,10 @@ class ResourceServiceProvider extends ServiceProvider
                         'endpoint' => 'tags',
                         'model' => \App\Models\Web\Tag::class,
                     ],
+                    [
+                        'endpoint' => 'locations',
+                        'model' => \App\Models\Web\Location::class,
+                    ],
                 ];
 
                 /**
