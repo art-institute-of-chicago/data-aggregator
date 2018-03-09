@@ -172,5 +172,8 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('archive-images', 'ArchiveImagesController@index');
     Route::get('archive-images/{id}', 'ArchiveImagesController@show');
 
+    // Web
+    Route::get('tags', 'TagsController@index');
+    Route::get('tags/{id}', 'TagsController@show');
 
 });

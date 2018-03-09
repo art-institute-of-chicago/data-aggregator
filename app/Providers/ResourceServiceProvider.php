@@ -177,6 +177,10 @@ class ResourceServiceProvider extends ServiceProvider
                         'endpoint' => 'archive-images',
                         'model' => \App\Models\Archive\ArchiveImage::class,
                     ],
+                    [
+                        'endpoint' => 'tags',
+                        'model' => \App\Models\Web\Tag::class,
+                    ],
                 ];
 
                 /**
