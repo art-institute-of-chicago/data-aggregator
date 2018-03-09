@@ -10,6 +10,4 @@ class ProductTest extends ApiTestCase
 
     protected $model = Product::class;
 
-    protected $route = 'products';
-
 }

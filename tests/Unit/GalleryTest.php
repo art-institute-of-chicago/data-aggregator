@@ -9,8 +9,6 @@ class GalleryTest extends ApiTestCase
 
     protected $model = Gallery::class;
 
-    protected $route = 'galleries';
-
     protected $keys = ['lake_guid'];
 
     protected $fieldsUsedByMobile = ['title',

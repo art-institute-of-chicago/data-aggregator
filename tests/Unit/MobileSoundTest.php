@@ -9,6 +9,4 @@ class MobileSoundTest extends ApiTestCase
 
     protected $model = Sound::class;
 
-    protected $route = 'mobile-sounds';
-
 }

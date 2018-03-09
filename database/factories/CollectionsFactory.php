@@ -99,15 +99,28 @@ $factory->define(App\Models\Collections\ArtworkType::class, function (Faker\Gene
 });
 
 
+$factory->define(App\Models\Collections\Term::class, function (Faker\Generator $faker) {
+    return array_merge(
+        idsAndTitle($faker, ucfirst($faker->word(3, true))),
+        [
+            'type' => $faker->randomElement(['style', 'classification', 'subject']),
+            'lake_uid' => 'TM-' .($faker->unique()->randomNumber(6) + 999 * pow(10, 6))
+        ],
+        dates($faker, true)
+    );
+});
+
+
 $factory->define(App\Models\Collections\Category::class, function (Faker\Generator $faker) {
     return array_merge(
-        idsAndTitle($faker, ucfirst($faker->word(3, true)), true),
+        idsAndTitle($faker, ucfirst($faker->word(3, true))),
         [
             'description' => $faker->paragraph(3),
             'is_in_nav' => $faker->boolean,
             'parent_id' => $faker->randomElement(App\Models\Collections\Category::fake()->pluck('citi_id')->all()),
             'sort' => $faker->randomDigit * 5,
             'type' => $faker->randomDigit,
+            'lake_uid' => 'PC-' .($faker->unique()->randomNumber(6) + 999 * pow(10, 6)),
         ],
         dates($faker, true)
     );

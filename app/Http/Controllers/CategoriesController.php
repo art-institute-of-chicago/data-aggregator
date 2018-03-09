@@ -15,6 +15,11 @@ class CategoriesController extends BaseController
 
     protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
 
+    protected function validateId( $id )
+    {
+        return \App\Models\Collections\Category::validateId( $id );
+    }
+
 
     // artworks/{id}/categories
     public function forArtwork(Request $request, $id) {

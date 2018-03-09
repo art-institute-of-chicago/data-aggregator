@@ -52,6 +52,9 @@ return [
             'strict' => true,
             'engine' => null,
             'prefix' => '',
+            'modes' => [
+                'PIPES_AS_CONCAT'
+            ],
         ],
 
         'pgsql' => [

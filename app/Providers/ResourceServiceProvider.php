@@ -98,6 +98,10 @@ class ResourceServiceProvider extends ServiceProvider
                         'model' => \App\Models\Collections\Term::class,
                     ],
                     [
+                        'endpoint' => 'category-terms',
+                        'model' => \App\Models\Collections\CategoryTerm::class,
+                    ],
+                    [
                         'endpoint' => 'assets',
                         'model' => \App\Models\Collections\Asset::class,
                     ],

@@ -9,6 +9,4 @@ class TicketedEventTest extends ApiTestCase
 
     protected $model = TicketedEvent::class;
 
-    protected $route = 'ticketed-events';
-
 }

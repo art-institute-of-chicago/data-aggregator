@@ -9,6 +9,4 @@ class ImageTest extends AssetTestCase
 
     protected $model = Image::class;
 
-    protected $route = 'images';
-
 }
