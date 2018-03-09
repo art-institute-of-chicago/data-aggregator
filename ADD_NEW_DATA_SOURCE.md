@@ -28,7 +28,7 @@ We store each source's models in a separate directory under [app/Models](app/Mod
 
 Create a seeder for your model in the [seeds](database/seeds) folder. We organize all our seeders in subdirectories
 by source system. Each source has a DatabaseSeeder that seeds all the tables for that source, and individual
-TableSeeders for each reosurce. Once you create your seeders, add a reference to the source's DatabaseSeeder in
+TableSeeders for each resource. Once you create your seeders, add a reference to the source's DatabaseSeeder in
 [DatabaseSeeder.php](database/seeds/DatabaseSeeder.php). In this file we group the calls to the source DatabaseSeeders,
 to help organize what can easily be a long list of similar calls.
 
@@ -47,7 +47,7 @@ php artisan migrate --seed
 ```
 
 Seeded data data doesn't interfere with real data. All seed data should generate IDs outside of the range of real data.
-See [MembershipFactory.php](database/factories/DscFactory.php#L19) for an example. Other parts of the code rely on
+See [DscFactory.php](database/factories/DscFactory.php#L19) for an example. Other parts of the code rely on
 [`$fakeIdsStartAt`](app/Models/BaseModel.php#L37) to differentiate fake data from real data.
 
 ### 5. Create unit tests
@@ -70,7 +70,7 @@ that the new controller is responsible for serving, and `$transformer` it should
 Transformers take the model data and turns it into an array ready for output. Using the
 [Fractal](http://fractal.thephpleague.com/) library, we've created a
 [foundation](app/Http/Transformers/ApiTransformer.php) for all the transformations at the API level, and a
-[Transformable trait](app/Models/Transformable.php) as a place for model-specific tranformations. Ids, titles and dates
+[Transformable trait](app/Models/Transformable.php) as a place for model-specific transformations. IDs, titles and dates
 will be added automatically unless you exclude them by setting the `$excludeIdsAndTitle` or `$excludeDates` properties
 to `false` in the transformer class. Create a Transformer class, then create a `transformMappingInternal()` function in
 your model to return an array of the fields that are unique to your model.

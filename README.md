@@ -20,7 +20,7 @@ data that can be accessed in one way, in one location.
 ## Overview
 
 The Data Aggregator interfaces with several internal APIs to collect its data. All data is imported and served
-up locally so that at runtime the API dooesn't have dependancies on other systems. `artisan` commands have
+up locally so that at runtime the API doesn't have dependencies on other systems. `artisan` commands have
 been set up to import data from various sources, either en masse or incrementally. One of the greatest benefits
 of an aggregator like this one is the ability to provide relationship between resources across systems. Our `/artworks`
 endpoint is a great example, as you can see relationships they have to a number of different things, like mobile tours,
