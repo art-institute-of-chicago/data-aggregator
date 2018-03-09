@@ -79,7 +79,12 @@ your model to return an array of the fields that are unique to your model.
 
 [Routes](https://laravel.com/docs/5.5/routing) are registered in [routes/api.php](routes/api.php).
 
-### 9. Make your tests pass
+### 9. Add new models to providers
+
+Be sure to add your models to the [ResourceServiceProvider](app/Providers/ResourceServiceProvider) and, if the model
+is searchable in Elasticsearch, the [SearchServiceProvider](app/Providers/SearchServiceProvider).
+
+### 10. Make your tests pass
 
 You can run the following to only test one set of unit tests:
 
@@ -93,7 +98,7 @@ Keep going until all your tests pass. You can use the following to run all tests
 phpunit
 ```
 
-### 10. Add documentation
+### 11. Add documentation
 
 The model `transformMappingInternal()` function includes array elements for documenting the fields outputted in the API.
 If you didn't add the documentation during that step, do it now. You can generate new documentation with the following
