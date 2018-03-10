@@ -179,4 +179,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('locations', 'LocationsController@index');
     Route::get('locations/{id}', 'LocationsController@show');
 
+    Route::get('hours', 'HoursController@index');
+    Route::get('hours/{id}', 'HoursController@show');
+
 });

@@ -2,6 +2,7 @@
 
 use App\Models\Web\Tag;
 use App\Models\Web\Location;
+use App\Models\Web\Hour;
 
 class WebDatabaseSeeder extends AbstractSeeder
 {
@@ -11,6 +12,7 @@ class WebDatabaseSeeder extends AbstractSeeder
 
         $this->call(TagsTableSeeder::class);
         $this->call(LocationsTableSeeder::class);
+        $this->call(HoursTableSeeder::class);
 
     }
 
@@ -19,6 +21,7 @@ class WebDatabaseSeeder extends AbstractSeeder
 
         Tag::fake()->delete();
         Location::fake()->delete();
+        Hour::fake()->delete();
 
     }
 
