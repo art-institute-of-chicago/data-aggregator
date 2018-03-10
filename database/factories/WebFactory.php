@@ -52,3 +52,17 @@ $factory->define(App\Models\Web\Hour::class, function (Faker\Generator $faker) {
         'updated_at' => $faker->dateTimeThisYear,
     ];
 });
+
+
+$factory->define(App\Models\Web\Closure::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'date_start' => $faker->date(),
+        'date_end' => $faker->date(),
+        'closure_copy' => $faker->sentence(),
+        'type' => $faker->randomDigit,
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});

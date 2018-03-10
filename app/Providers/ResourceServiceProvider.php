@@ -189,6 +189,10 @@ class ResourceServiceProvider extends ServiceProvider
                         'endpoint' => 'hours',
                         'model' => \App\Models\Web\Hour::class,
                     ],
+                    [
+                        'endpoint' => 'closures',
+                        'model' => \App\Models\Web\Closure::class,
+                    ],
                 ];
 
                 /**

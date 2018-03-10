@@ -182,4 +182,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('hours', 'HoursController@index');
     Route::get('hours/{id}', 'HoursController@show');
 
+    Route::get('closures', 'ClosuresController@index');
+    Route::get('closures/{id}', 'ClosuresController@show');
+
 });
