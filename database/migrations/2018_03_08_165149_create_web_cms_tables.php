@@ -25,12 +25,12 @@ class CreateWebCmsTables extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('name');
-            $table->string('street');
-            $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('zip');
+            $table->string('name')->nullable();
+            $table->string('street')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('zip')->nullable();
             $table->boolean('published');
             $table->timestamps();
             $table->softDeletes();
@@ -63,12 +63,12 @@ class CreateWebCmsTables extends Migration
         Schema::create('web_exhibitions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('header_copy');
+            $table->string('header_copy')->nullable();
             $table->json('content')->nullable();
-            $table->string('datahub_id');
+            $table->string('datahub_id')->nullable();
             $table->boolean('is_visible');
-            $table->string('exhibition_message');
-            $table->string('sponsors_sub_copy');
+            $table->string('exhibition_message')->nullable();
+            $table->string('sponsors_sub_copy')->nullable();
             $table->integer('cms_exhibition_type');
             $table->boolean('published');
             $table->timestamps();
@@ -79,26 +79,26 @@ class CreateWebCmsTables extends Migration
             $table->increments('id');
             $table->string('title');
             $table->integer('type');
-            $table->string('short_description');
-            $table->text('description');
-            $table->string('hero_caption');
+            $table->string('short_description')->nullable();
+            $table->text('description')->nullable();
+            $table->string('hero_caption')->nullable();
             $table->boolean('is_private');
             $table->boolean('is_after_hours');
             $table->boolean('is_ticketed');
             $table->boolean('is_free');
             $table->boolean('is_member_exclusive');
             $table->boolean('hidden');
-            $table->string('rsvp_link');
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->string('rsvp_link')->nullable();
+            $table->string('start_date')->nullable();
+            $table->string('end_date')->nullable();
             $table->json('all_dates')->nullable();
-            $table->string('location');
-            $table->text('sponsors_description');
-            $table->text('sponsors_sub_copy');
+            $table->string('location')->nullable();
+            $table->text('sponsors_description')->nullable();
+            $table->text('sponsors_sub_copy')->nullable();
             $table->json('content')->nullable();
             $table->integer('layout_type');
-            $table->string('buy_button_text');
-            $table->text('buy_button_caption');
+            $table->string('buy_button_text')->nullable();
+            $table->text('buy_button_caption')->nullable();
             $table->boolean('published');
             $table->timestamps();
             $table->softDeletes();
@@ -107,8 +107,8 @@ class CreateWebCmsTables extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->timestamp('date');
-            $table->text('copy');
+            $table->timestamp('date')->nullable();
+            $table->text('copy')->nullable();
             $table->boolean('published');
             $table->timestamps();
             $table->softDeletes();
@@ -117,8 +117,8 @@ class CreateWebCmsTables extends Migration
         Schema::create('selections', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('short_copy');
-            $table->text('content');
+            $table->string('short_copy')->nullable();
+            $table->text('content')->nullable();
             $table->boolean('published');
             $table->timestamp('source_modified_at')->nullable()->useCurrent();
             $table->timestamps();
@@ -128,8 +128,8 @@ class CreateWebCmsTables extends Migration
         Schema::create('artists', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->boolean('also_known_as');
-            $table->timestamp('intro_copy');
+            $table->boolean('also_known_as')->nullable();
+            $table->timestamp('intro_copy')->nullable();
             $table->integer('datehub_id');
             $table->timestamps();
             $table->softDeletes();
@@ -139,10 +139,10 @@ class CreateWebCmsTables extends Migration
             $table->increments('id');
             $table->string('title');
             $table->integer('type');
-            $table->string('home_intro');
-            $table->string('exhibition_intro');
-            $table->string('art_intro');
-            $table->string('visit_intro');
+            $table->string('home_intro')->nullable();
+            $table->string('exhibition_intro')->nullable();
+            $table->string('art_intro')->nullable();
+            $table->string('visit_intro')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
