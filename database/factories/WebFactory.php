@@ -83,3 +83,33 @@ $factory->define(App\Models\Web\Exhibition::class, function (Faker\Generator $fa
         'updated_at' => $faker->dateTimeThisYear,
     ];
 });
+
+
+$factory->define(App\Models\Web\Event::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'type' => $faker->randomDigit,
+        'description' => $faker->paragraph(2),
+        'short_description' => $faker->sentence(),
+        'hero_caption' => $faker->sentence(),
+        'is_private' => $faker->boolean,
+        'is_after_hours' => $faker->boolean,
+        'is_ticketed' => $faker->boolean,
+        'is_free' => $faker->boolean,
+        'is_member_exclusive' => $faker->boolean,
+        'hidden' => $faker->boolean,
+        'rsvp_link' => $faker->url,
+        'start_date' => $faker->dateTimeThisYear->format('l, F j, Y'),
+        'end_date' => $faker->dateTimeThisYear->format('l, F j, Y'),
+        'location' => ucfirst($faker->words(3, true)),
+        'sponsors_description' => $faker->sentence(),
+        'sponsors_sub_copy' => $faker->sentence(),
+        'layout_type' => $faker->randomDigit,
+        'buy_button_text' => ucfirst($faker->words(3, true)),
+        'buy_button_caption' => $faker->sentence(),
+        'published' => $faker->boolean,
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});
