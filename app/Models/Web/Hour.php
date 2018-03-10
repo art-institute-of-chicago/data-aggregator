@@ -51,7 +51,7 @@ class Hour extends WebModel
             ],
             [
                 "name" => 'day_of_week',
-                "doc" => "Number indicated the day of the week",
+                "doc" => "Number indicating the day of the week",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->day_of_week; },
