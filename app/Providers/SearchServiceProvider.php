@@ -86,6 +86,7 @@ class SearchServiceProvider extends ServiceProvider
                     \App\Models\Web\Location::class,
                     \App\Models\Web\Hour::class,
                     \App\Models\Web\Closure::class,
+                    \App\Models\Web\Exhibition::class,
 
                 ];
 

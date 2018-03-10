@@ -185,4 +185,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('closures', 'ClosuresController@index');
     Route::get('closures/{id}', 'ClosuresController@show');
 
+    Route::get('web-exhibitions', 'WebExhibitionsController@index');
+    Route::get('web-exhibitions/{id}', 'WebExhibitionsController@show');
+
 });

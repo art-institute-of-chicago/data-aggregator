@@ -193,6 +193,10 @@ class ResourceServiceProvider extends ServiceProvider
                         'endpoint' => 'closures',
                         'model' => \App\Models\Web\Closure::class,
                     ],
+                    [
+                        'endpoint' => 'web-exhibitions',
+                        'model' => \App\Models\Web\Exhibitions::class,
+                    ],
                 ];
 
                 /**

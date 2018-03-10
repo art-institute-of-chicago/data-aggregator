@@ -66,3 +66,20 @@ $factory->define(App\Models\Web\Closure::class, function (Faker\Generator $faker
         'updated_at' => $faker->dateTimeThisYear,
     ];
 });
+
+
+$factory->define(App\Models\Web\Exhibition::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'header_copy' => $faker->sentence(),
+        'datahub_id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'is_visible' => $faker->boolean,
+        'exhibition_message' => $faker->sentence(),
+        'sponsors_sub_copy' => $faker->sentence(),
+        'cms_exhibition_type' => $faker->randomDigit,
+        'published' => $faker->boolean,
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});
