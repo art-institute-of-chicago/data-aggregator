@@ -205,6 +205,10 @@ class ResourceServiceProvider extends ServiceProvider
                         'endpoint' => 'articles',
                         'model' => \App\Models\Web\Article::class,
                     ],
+                    [
+                        'endpoint' => 'selections',
+                        'model' => \App\Models\Web\Selection::class,
+                    ],
                 ];
 
                 /**

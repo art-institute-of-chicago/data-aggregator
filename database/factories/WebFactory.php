@@ -126,3 +126,17 @@ $factory->define(App\Models\Web\Article::class, function (Faker\Generator $faker
         'updated_at' => $faker->dateTimeThisYear,
     ];
 });
+
+
+$factory->define(App\Models\Web\Selection::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'short_copy' => $faker->sentence(),
+        'content' => $faker->paragraph(2),
+        'published' => $faker->boolean,
+        'source_modified_at' => $faker->dateTimeThisYear,
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});

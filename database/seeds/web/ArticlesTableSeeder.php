@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Web\Closure;
+use App\Models\Web\Article;
 
 class ArticlesTableSeeder extends AbstractSeeder
 {

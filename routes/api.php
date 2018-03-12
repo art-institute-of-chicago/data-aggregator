@@ -194,4 +194,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('articles', 'ArticlesController@index');
     Route::get('articles/{id}', 'ArticlesController@show');
 
+    Route::get('selections', 'SelectionsController@index');
+    Route::get('selections/{id}', 'SelectionsController@show');
+
 });
