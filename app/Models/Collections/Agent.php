@@ -359,7 +359,9 @@ class Agent extends CollectionsModel
                         $this->sort_title,
                     ],
                     $this->alt_titles ?? []
-                )
+                ),
+                // Boosts agents higher than unweighted items
+                'weight' => 2,
             ];
 
         }
