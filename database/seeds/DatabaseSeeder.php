@@ -12,6 +12,7 @@ class DatabaseSeeder extends AbstractSeeder
         $this->call(MobileDatabaseSeeder::class);
         $this->call(DscDatabaseSeeder::class);
         $this->call(StaticArchiveDatabaseSeeder::class);
+        $this->call(WebDatabaseSeeder::class);
 
     }
 
@@ -24,6 +25,7 @@ class DatabaseSeeder extends AbstractSeeder
         MobileDatabaseSeeder::clean();
         DscDatabaseSeeder::clean();
         StaticArchiveDatabaseSeeder::clean();
+        WebDatabaseSeeder::clean();
 
     }
 

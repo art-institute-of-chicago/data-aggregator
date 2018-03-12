@@ -82,6 +82,17 @@ class SearchServiceProvider extends ServiceProvider
 
                     \App\Models\StaticArchive\Site::class,
 
+                    \App\Models\Web\Tag::class,
+                    \App\Models\Web\Location::class,
+                    \App\Models\Web\Hour::class,
+                    \App\Models\Web\Closure::class,
+                    \App\Models\Web\Exhibition::class,
+                    \App\Models\Web\Event::class,
+                    \App\Models\Web\Article::class,
+                    \App\Models\Web\Selection::class,
+                    \App\Models\Web\Artist::class,
+                    \App\Models\Web\Page::class,
+
                 ];
 
                 /**

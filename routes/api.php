@@ -172,5 +172,35 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('archive-images', 'ArchiveImagesController@index');
     Route::get('archive-images/{id}', 'ArchiveImagesController@show');
 
+    // Web
+    Route::get('tags', 'TagsController@index');
+    Route::get('tags/{id}', 'TagsController@show');
+
+    Route::get('locations', 'LocationsController@index');
+    Route::get('locations/{id}', 'LocationsController@show');
+
+    Route::get('hours', 'HoursController@index');
+    Route::get('hours/{id}', 'HoursController@show');
+
+    Route::get('closures', 'ClosuresController@index');
+    Route::get('closures/{id}', 'ClosuresController@show');
+
+    Route::get('web-exhibitions', 'WebExhibitionsController@index');
+    Route::get('web-exhibitions/{id}', 'WebExhibitionsController@show');
+
+    Route::get('events', 'EventsController@index');
+    Route::get('events/{id}', 'EventsController@show');
+
+    Route::get('articles', 'ArticlesController@index');
+    Route::get('articles/{id}', 'ArticlesController@show');
+
+    Route::get('selections', 'SelectionsController@index');
+    Route::get('selections/{id}', 'SelectionsController@show');
+
+    Route::get('web-artists', 'WebArtistsController@index');
+    Route::get('web-artists/{id}', 'WebArtistsController@show');
+
+    Route::get('pages', 'PagesController@index');
+    Route::get('pages/{id}', 'PagesController@show');
 
 });

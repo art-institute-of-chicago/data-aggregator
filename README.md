@@ -4,8 +4,8 @@
 > A central location of data collected from several different systems and offered up through an API
 
 The Data Aggregator is part of a large internal project to consolidate data across many disparate systems
-at the Art Institute of Chicago into a single, unified source. This offers our products a rich set of 
-data that can be accessed in one way, in one location. 
+at the Art Institute of Chicago into a single, unified source. This offers our products a rich set of
+data that can be accessed in one way, in one location.
 
 
 ## Features
@@ -19,14 +19,19 @@ data that can be accessed in one way, in one location.
 
 ## Overview
 
-The Data Aggregator interfaces with several internal APIs to collect its data.
+The Data Aggregator interfaces with several internal APIs to collect its data. All data is imported and served
+up locally so that at runtime the API doesn't have dependencies on other systems. `artisan` commands have
+been set up to import data from various sources, either en masse or incrementally. One of the greatest benefits
+of an aggregator like this one is the ability to provide relationship between resources across systems. Our `/artworks`
+endpoint is a great example, as you can see relationships they have to a number of different things, like mobile tours,
+digital publications, and historic static sites.
 
 
 ## Requirements
 
 The project has been built in Laravel, and includes the following requirements:
 
-* Laravel 5.4
+* Laravel 5.5
 * PHP 7.1 (may work in earlier versions but hasn't been tested)
 * MySQL 5.7 (may work in earlier versions but hasn't been tested)
 * [Composer](https://getcomposer.org/)
@@ -45,15 +50,12 @@ cd data-aggregator
 
 # Install PHP dependencies
 composer install
-
-# Create a symlink for generated files
-php artisan storage:link
 ```
 
 
 ## Developing
 
-First you'll need to create a `.env` file and update it to reflect your environment. We've provided an 
+First you'll need to create a `.env` file and update it to reflect your environment. We've provided an
 example file to get you started:
 
 ```shell
@@ -70,126 +72,34 @@ Then, to create the database tables and seed them with fake data, run:
 php artisan migrate --seed
 ```
 
-This will create all the tables and relationships, and fill the tables with data from the 
+This will create all the tables and relationships, and fill the tables with data from the
 [Faker](https://github.com/fzaninotto/Faker) PHP library.
 
 
 ### Importing real data
 
-We'll be creating a series of `artisan` tasks to import data from source systems. You can see all the available
+We've created a series of `artisan` tasks to import data from source systems. You can see all the available
 imports like so:
 
 ```shell
 php artisan list import
 ```
 
-### Adding new data sources
-
-When adding new data sources to the Aggregator, the following steps should be taken.
-
-#### 1. Create database tables
-
-You can use a migration to create the tables. This way the application's schema is saved in version control,
-and other developers can recreate the database environment easily:
+To import all data from all systems, run:
 
 ```shell
-php artisan make:migration create_source_tables
+php artisan import:all
 ```
 
-Replace `source` with the name of the source system you're working with. Your new file will be generated
-in the [migrations](database/migrations) folder. In this file, add your create table commands using [Schema::create](https://laravel.com/docs/5.4/migrations#creating-tables).
+### Adding a new data source
 
-#### 2. Create a factory to generate fake data
-
-We create a single [factory](database/factories) per source system, and define a factory for each model. 
-
-#### 3. Create a model
-
-We store each source's models in a separate directory under [app](app)
-
-#### 4. Create a seeder
-
-Create a seeder for your model in the [seeds](database/seeds) folder. We organize all our seeders in subdirectories
-by source system. Once you create your seeder, add references to it in [DatabaseSeeder.php](database/seeds/DatabaseSeeder.php). 
-In this file we group the calls to the individual seeders by source system, to help organize what can easily
-be a long list of similar calls.
-
-At this point you can recreate your database and seed it with fake data to see your new tables:
-
-```shell
-php artisan migrate --seed
-```
-
-This will run your new migration and seed the tables with fake data. After this point, if you make changes to your migration 
-you'll have to rerun all your migrations:
-
-```shell
-php artisan migrate:refresh --seed
-```
-
-Seeded data data doesn't interfere with real data. All seed data should generate IDs outside of the range of real data. See 
-[MembershipFactory.php](database/factories/MembershipFactory.php#L19) for an example. Other parts of the code rely on
-[`$fakeIdsStartAt`](app/Models/BaseModel.php#L37) to differentiate fake data from real data.
-
-#### 5. Create unit tests
-
-Now that you've got your data structured and some test data to play with, you can begin wiring together the API
-calls to the data. First, create a set of [unit tests](test/Unit) for your new model. At a basic level, test whether you can 
-retrieve a single resource, a list of all resources, multiple resources, and test for expected errors. Create 
-the tests now. It's super-satisfying to see your tests pass when you're done with these steps!
-
-#### 6. Create a controller
-
-It's probably easiest to copy an existing [controller](app/Http/Controller) as a starting point.
-
-#### 7. Create a transformer
-
-Transformers take the model data and turns it into an array ready for output. Using the [Fractal](http://fractal.thephpleague.com/)
-library, we've created a [foundation](app/Http/Transformers/ApiTransformer.php) for all the transformations at the API level, and a
-[Transformable trait](app/Models/Transformable.php) as a place for model-specific tranformations. Ids, titles and dates will be added 
-automatically unless you exclude them by setting the `$excludeIdsAndTitle` or `$excludeDates` properties to `false` in the transformer class. 
-Create a Transformer class, then create a `transformMappingInternal()` function in your model to return an array of the fields that are unique to your model.
-
-#### 8. Create routes for your endpoints
-
-[Routes](https://laravel.com/docs/5.4/routing) are registered in [routes/api.php](routes/api.php).
-
-#### 9. Make your tests pass
-
-You can run the following to only test one set of unit tests:
-
-```shell
-phpunit --filter ResourceTest
-```
-
-Keep going until all your tests pass. You can use the following to run all tests:
-
-```shell
-phpunit
-```
-
-#### 10. Add documentation
-
-The model `transformMappingInternal()` function includes array elements for documenting the fields outputted in the API. If you didn't
-add the documentation during that step, do it now. You can generate new documentation with the following commands:
-
-```shell
-php artisan docs:endpoints
-php artisan docs:fields
-```
-
-Markdown files will be generated in `storage/apps`. When these look good to release, copy them to the `docs` folder.
-
-Also, add your new source data to our [Swagger](resource/views/swagger.blade.php) 
-documentation. This file is not parsed or generated at all. It contains one big JSON object that gets output as swagger.json.
-
-That's it!
+See [here](ADD_NEW_DATA_SOURCE.md) for details on adding new data sources to the Aggregator.
 
 
 ## Contributing
 
-We encourage your contributions. Please fork this repository and make your changes in a separate branch. 
-We like to use [git-flow](https://github.com/nvie/gitflow) to make this process easier.
+We encourage your contributions. Please fork this repository and make your changes in a separate branch.
+You can use [git-flow](https://github.com/nvie/gitflow) to make this process easier.
 
 ```bash
 # Clone the repo to your computer
@@ -210,10 +120,10 @@ git flow start feature yourinitials-good-description-issuenumberifapplicable
 git push origin yourinitials-good-description-issuenumberifapplicable
 ```
 
-Then on github.com, create a Pull Request to merge your changes into our 
-`develop` branch. 
+Then on github.com, create a Pull Request to merge your changes into our
+`develop` branch.
 
-This project is released with a Contributor Code of Conduct. By participating in 
+This project is released with a Contributor Code of Conduct. By participating in
 this project you agree to abide by its [terms](CODE_OF_CONDUCT.md).
 
 We also welcome bug reports and questions under GitHub's [Issues](issues).
@@ -221,5 +131,5 @@ We also welcome bug reports and questions under GitHub's [Issues](issues).
 
 ## Licensing
 
-This project is licensed under the [GNU Affero General Public License 
+This project is licensed under the [GNU Affero General Public License
 Version 3](LICENSE).
