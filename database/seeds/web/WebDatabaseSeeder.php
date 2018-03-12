@@ -9,6 +9,7 @@ use App\Models\Web\Event;
 use App\Models\Web\Article;
 use App\Models\Web\Selection;
 use App\Models\Web\Artist;
+use App\Models\Web\Page;
 
 class WebDatabaseSeeder extends AbstractSeeder
 {
@@ -25,6 +26,7 @@ class WebDatabaseSeeder extends AbstractSeeder
         $this->call(ArticlesTableSeeder::class);
         $this->call(SelectionsTableSeeder::class);
         $this->call(ArtistsTableSeeder::class);
+        $this->call(PagesTableSeeder::class);
 
     }
 
@@ -40,6 +42,7 @@ class WebDatabaseSeeder extends AbstractSeeder
         Article::fake()->delete();
         Selection::fake()->delete();
         Artist::fake()->delete();
+        Page::fake()->delete();
 
     }
 

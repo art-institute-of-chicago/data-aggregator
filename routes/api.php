@@ -200,4 +200,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('web-artists', 'WebArtistsController@index');
     Route::get('web-artists/{id}', 'WebArtistsController@show');
 
+    Route::get('pages', 'PagesController@index');
+    Route::get('pages/{id}', 'PagesController@show');
+
 });

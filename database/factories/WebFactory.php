@@ -153,3 +153,18 @@ $factory->define(App\Models\Web\Artist::class, function (Faker\Generator $faker)
         'updated_at' => $faker->dateTimeThisYear,
     ];
 });
+
+
+$factory->define(App\Models\Web\Page::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'type' => $faker->randomDigit,
+        'home_intro' => $faker->paragraph(),
+        'exhibition_intro' => $faker->paragraph(),
+        'art_intro' => $faker->paragraph(),
+        'visit_intro' => $faker->paragraph(),
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});

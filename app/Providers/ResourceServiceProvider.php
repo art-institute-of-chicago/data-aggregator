@@ -213,6 +213,10 @@ class ResourceServiceProvider extends ServiceProvider
                         'endpoint' => 'web-artists',
                         'model' => \App\Models\Web\Artist::class,
                     ],
+                    [
+                        'endpoint' => 'pages',
+                        'model' => \App\Models\Web\Page::class,
+                    ],
                 ];
 
                 /**
