@@ -16,13 +16,13 @@ php artisan make:migration create_source_tables
 Replace `source` with the name of the source system you're working with. Your new file will be generated
 in the [migrations](database/migrations) folder. In this file, add your create table commands using [Schema::create](https://laravel.com/docs/5.5/migrations#creating-tables).
 
-### 2. Create a factory to generate fake data
-
-We create a single [factory](database/factories) per source system, and define a factory for each model.
-
-### 3. Create a model
+### 2. Create a model
 
 We store each source's models in a separate directory under [app/Models](app/Models)
+
+### 3. Create a factory to generate fake data
+
+We create a single [factory](database/factories) per source system, and define a factory for each model.
 
 ### 4. Create a seeder
 

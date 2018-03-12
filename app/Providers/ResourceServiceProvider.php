@@ -201,6 +201,10 @@ class ResourceServiceProvider extends ServiceProvider
                         'endpoint' => 'events',
                         'model' => \App\Models\Web\Event::class,
                     ],
+                    [
+                        'endpoint' => 'articles',
+                        'model' => \App\Models\Web\Article::class,
+                    ],
                 ];
 
                 /**

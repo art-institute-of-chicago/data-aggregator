@@ -191,4 +191,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('events', 'EventsController@index');
     Route::get('events/{id}', 'EventsController@show');
 
+    Route::get('articles', 'ArticlesController@index');
+    Route::get('articles/{id}', 'ArticlesController@show');
+
 });

@@ -4,6 +4,7 @@ use App\Models\Web\Tag;
 use App\Models\Web\Location;
 use App\Models\Web\Hour;
 use App\Models\Web\Closure;
+use App\Models\Web\Article;
 
 class WebDatabaseSeeder extends AbstractSeeder
 {
@@ -15,6 +16,7 @@ class WebDatabaseSeeder extends AbstractSeeder
         $this->call(LocationsTableSeeder::class);
         $this->call(HoursTableSeeder::class);
         $this->call(ClosuresTableSeeder::class);
+        $this->call(ArticlesTableSeeder::class);
 
     }
 
@@ -25,6 +27,7 @@ class WebDatabaseSeeder extends AbstractSeeder
         Location::fake()->delete();
         Hour::fake()->delete();
         Closure::fake()->delete();
+        Article::fake()->delete();
 
     }
 
