@@ -90,6 +90,7 @@ class SearchServiceProvider extends ServiceProvider
                     \App\Models\Web\Event::class,
                     \App\Models\Web\Article::class,
                     \App\Models\Web\Selection::class,
+                    \App\Models\Web\Artist::class,
 
                 ];
 

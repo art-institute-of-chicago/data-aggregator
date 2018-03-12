@@ -197,4 +197,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('selections', 'SelectionsController@index');
     Route::get('selections/{id}', 'SelectionsController@show');
 
+    Route::get('web-artists', 'WebArtistsController@index');
+    Route::get('web-artists/{id}', 'WebArtistsController@show');
+
 });

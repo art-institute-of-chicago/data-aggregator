@@ -14,6 +14,8 @@ class Exhibition extends WebModel
 
     public $table = 'web_exhibitions';
 
+    protected $apiCtrl = 'WebExhibitionsController';
+
     protected $casts = [
         'source_created_at' => 'date',
         'source_modified_at' => 'date',

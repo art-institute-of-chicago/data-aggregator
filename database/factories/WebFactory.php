@@ -140,3 +140,16 @@ $factory->define(App\Models\Web\Selection::class, function (Faker\Generator $fak
         'updated_at' => $faker->dateTimeThisYear,
     ];
 });
+
+
+$factory->define(App\Models\Web\Artist::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'also_known_as' => $faker->boolean,
+        'intro_copy' => $faker->paragraph(),
+        'datahub_id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});

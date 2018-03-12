@@ -125,12 +125,12 @@ class CreateWebCmsTables extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('artists', function (Blueprint $table) {
+        Schema::create('web_artists', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->boolean('also_known_as')->nullable();
             $table->timestamp('intro_copy')->nullable();
-            $table->integer('datehub_id');
+            $table->integer('datahub_id');
             $table->timestamps();
             $table->softDeletes();
         });
