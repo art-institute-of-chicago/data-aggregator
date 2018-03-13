@@ -203,4 +203,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('pages', 'PagesController@index');
     Route::get('pages/{id}', 'PagesController@show');
 
+    // Health checks
+    Route::get('ping/mysql', 'PingMysqlController@ping');
+
 });
