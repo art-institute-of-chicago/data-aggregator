@@ -141,6 +141,13 @@ trait ElasticSearchable
     public function getSuggestSearchFields()
     {
 
+        // This happens when the title is empty (e.g. TourStops)
+        // Fixes: completion field [suggest_autocomplete] does not support null values
+        if( empty( $this->title ) )
+        {
+            return [];
+        }
+
         // TODO: Move `suggest_autocomplete_boosted` into `suggest_autocomplete`, and re-index everything from database?
         $fields = [
             'suggest_autocomplete' => $this->title,
