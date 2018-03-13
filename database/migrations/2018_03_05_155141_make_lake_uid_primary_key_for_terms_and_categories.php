@@ -14,12 +14,20 @@ class MakeLakeUidPrimaryKeyForTermsAndCategories extends Migration
     public function up()
     {
         // terms
+        DB::table('terms')->update([
+            'lake_uid' => DB::raw('\'TM-\' || citi_id')
+        ]);
+
         Schema::table('terms', function (Blueprint $table) {
             $table->dropColumn('citi_id');
             $table->primary('lake_uid');
         });
 
         // categories
+        DB::table('categories')->update([
+            'lake_uid' => DB::raw('\'PC-\' || citi_id')
+        ]);
+
         Schema::table('categories', function (Blueprint $table) {
             $table->dropColumn('citi_id');
             $table->primary('lake_uid');

@@ -165,7 +165,7 @@ class CreateWebCmsTables extends Migration
         Schema::dropIfExists('events');
         Schema::dropIfExists('articles');
         Schema::dropIfExists('selections');
-        Schema::dropIfExists('artists');
+        Schema::dropIfExists('web_artists');
         Schema::dropIfExists('pages');
 
     }
