@@ -37,7 +37,36 @@ class Image extends Asset
                 "value" => function() { return $this->iiif_url; },
             ],
 
+            // Metadata fields with simple mappings
+            [
+                "name" => 'width',
+                "doc" => "Native width of the image",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->metadata->width ?? null; },
+            ],
+            [
+                "name" => 'height',
+                "doc" => "Native height of the image",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->metadata->height ?? null; },
+            ],
+            [
+                "name" => 'lqip',
+                "doc" => "Low-quality image placeholder (LQIP). Currently a 5x5-constrained, base64-encoded GIF.",
+                "type" => "text",
+                'elasticsearch' => [
+                    'mapping' => [
+                        // There's currently no reason to index this field. It'll still be retrievable via _source
+                        'enabled' => false,
+                    ]
+                ],
+                "value" => function() { return $this->metadata->lqip ?? null; },
+            ],
+
             // These two fields are added to the Elasticsearch schema manually via elasticsearchMappingFields
+            // TODO: Use `elasticsearch.mapping` to move those definitions into this array?
             [
                 "name" => 'color',
                 "doc" => "Dominant color of this image in HSL",
