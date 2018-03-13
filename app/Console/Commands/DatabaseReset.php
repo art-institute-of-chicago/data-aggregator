@@ -45,16 +45,27 @@ class DatabaseReset extends AbstractCommand
     private function dropTables()
     {
 
-        $tables = DB::select('SHOW TABLES');
-
-        // TODO: Return if there's no tables?
+        // Specifying `FULL` returns `Table_type`
+        $tables = DB::select("SHOW FULL TABLES;");
 
         foreach( $tables as $table )
         {
+
             $table_array = get_object_vars( $table );
             $table_name = $table_array[ key( $table_array ) ];
-            Schema::drop( $table_name );
-            $this->info( 'Dropped table ' . $table_name );
+
+            switch( $table_array['Table_type'] )
+            {
+                case 'VIEW':
+                    DB::statement('DROP VIEW `' . $table_name . '`;');
+                    $this->warn( 'Dropped view ' . $table_name );
+                break;
+                default:
+                    Schema::drop( $table_name );
+                    $this->info( 'Dropped table ' . $table_name );
+                break;
+            }
+
         }
 
     }
