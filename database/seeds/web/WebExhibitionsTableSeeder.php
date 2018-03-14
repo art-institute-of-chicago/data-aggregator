@@ -2,7 +2,7 @@
 
 use App\Models\Web\Exhibition;
 
-class ExhibitionsTableSeeder extends AbstractSeeder
+class WebExhibitionsTableSeeder extends AbstractSeeder
 {
 
     protected function seed()

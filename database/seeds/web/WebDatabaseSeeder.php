@@ -21,7 +21,7 @@ class WebDatabaseSeeder extends AbstractSeeder
         $this->call(LocationsTableSeeder::class);
         $this->call(HoursTableSeeder::class);
         $this->call(ClosuresTableSeeder::class);
-        $this->call(ExhibitionsTableSeeder::class);
+        $this->call(WebExhibitionsTableSeeder::class);
         $this->call(EventsTableSeeder::class);
         $this->call(ArticlesTableSeeder::class);
         $this->call(SelectionsTableSeeder::class);
