@@ -195,7 +195,7 @@ class ResourceServiceProvider extends ServiceProvider
                     ],
                     [
                         'endpoint' => 'web-exhibitions',
-                        'model' => \App\Models\Web\Exhibitions::class,
+                        'model' => \App\Models\Web\Exhibition::class,
                     ],
                     [
                         'endpoint' => 'events',
