@@ -257,24 +257,4 @@ class BaseModel extends AbstractModel
 
     }
 
-    public function has($trait)
-    {
-
-        $traits = class_uses_deep($this);
-        foreach ($traits as $t)
-        {
-
-            if ($t == $trait)
-            {
-
-                return true;
-
-            }
-
-        }
-
-        return false;
-
-    }
-
 }
