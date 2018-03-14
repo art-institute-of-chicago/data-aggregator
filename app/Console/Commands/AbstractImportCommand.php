@@ -8,8 +8,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
+use App\Behaviors\CanQuery;
+
 abstract class AbstractImportCommand extends BaseCommand
 {
+
+    use CanQuery;
 
     /**
      * An instance of the \App\Command model for logging.
@@ -53,59 +57,17 @@ abstract class AbstractImportCommand extends BaseCommand
     }
 
 
-    /**
-     * Save a new model instance given an object retrieved from an external source.
-     *
-     * @param object  $datum
-     * @param string  $model
-     * @param boolean $fake  Whether or not to fill missing fields w/ fake data.
-     *
-     * @return \Illuminate\Database\Eloquent\Model
-     */
     protected function saveDatum( $datum, $model )
     {
 
         $this->info("Importing #{$datum->id}: {$datum->title}");
 
-        // Don't use findOrCreate here, since it can cause errors due to Searchable
-        $resource = $model::findOrNew( $datum->id );
-
-        $resource->fillFrom($datum);
-        $resource->attachFrom($datum);
-        $resource->save();
+        $resource = parent::saveDatum($datum, $model);
 
         // For debugging ids and titles:
         // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");
 
         return $resource;
-
-    }
-
-
-    /**
-     * Convenience curl wrapper. Accepts `GET` URL. Returns decoded JSON.
-     *
-     * @param string $url
-     *
-     * @return string
-     */
-    protected function query($url)
-    {
-
-        $ch = curl_init();
-
-        curl_setopt ($ch, CURLOPT_URL, $url);
-        curl_setopt ($ch, CURLOPT_HEADER, 0);
-
-        ob_start();
-
-        curl_exec ($ch);
-        curl_close ($ch);
-        $string = ob_get_contents();
-
-        ob_end_clean();
-
-        return json_decode($string);
 
     }
 
