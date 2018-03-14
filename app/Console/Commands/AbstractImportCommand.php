@@ -6,9 +6,9 @@ use Carbon\Carbon;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use Aic\Hub\Foundation\AbstractCommand;
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
-abstract class AbstractImportCommand extends AbstractCommand
+abstract class AbstractImportCommand extends BaseCommand
 {
 
     /**

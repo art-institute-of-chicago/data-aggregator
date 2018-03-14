@@ -2,15 +2,15 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-
 use League\Csv\Reader;
 
 use App\Models\Collections\Term;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\ArtworkTerm;
 
-class ImportLegacyTerms extends Command
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
+
+class ImportLegacyTerms extends BaseCommand
 {
 
     protected $signature = 'import:terms-legacy';

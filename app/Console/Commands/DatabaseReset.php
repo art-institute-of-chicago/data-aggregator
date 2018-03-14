@@ -5,9 +5,9 @@ namespace App\Console\Commands;
 use DB;
 use Schema;
 
-use Aic\Hub\Foundation\AbstractCommand;
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
-class DatabaseReset extends AbstractCommand
+class DatabaseReset extends BaseCommand
 {
 
     protected $signature = 'db:reset';

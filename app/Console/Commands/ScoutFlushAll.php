@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
-class ScoutFlushAll extends Command
+class ScoutFlushAll extends BaseCommand
 {
 
     protected $signature = 'scout:flush-all';

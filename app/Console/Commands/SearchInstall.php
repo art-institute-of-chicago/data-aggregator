@@ -2,13 +2,14 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use Elasticsearch;
 use Artisan;
 
 use App\Console\Helpers\Indexer;
 
-class SearchInstall extends Command
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
+
+class SearchInstall extends BaseCommand
 {
 
     use Indexer;
