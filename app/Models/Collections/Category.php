@@ -59,7 +59,7 @@ class Category extends CollectionsModel
             [
                 "name" => 'parent_id',
                 "doc" => "Unique identifier of this category's parent",
-                "type" => "number",
+                "type" => "string",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->parent ? $this->parent->lake_uid : null; },
             ],
@@ -118,6 +118,18 @@ class Category extends CollectionsModel
 
     }
 
+    protected function getMappingForIds()
+    {
+
+        $ret = parent::getMappingForIds();
+
+        // Override the first (id) field
+        $ret[0]['type'] = 'string';
+        $ret[0]['elasticsearch']['type'] = 'keyword';
+
+        return $ret;
+
+    }
 
     /**
      * Get an example ID for documentation generation
@@ -127,7 +139,7 @@ class Category extends CollectionsModel
     public function exampleId()
     {
 
-        return "3";
+        return "PC-3";
 
     }
 

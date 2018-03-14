@@ -84,6 +84,19 @@ class Term extends CollectionsModel
 
     }
 
+    protected function getMappingForIds()
+    {
+
+        $ret = parent::getMappingForIds();
+
+        // Override the first (id) field
+        $ret[0]['type'] = 'string';
+        $ret[0]['elasticsearch']['type'] = 'keyword';
+
+        return $ret;
+
+    }
+
     /**
      * Ensure that the id is a valid LAKE UID.
      *

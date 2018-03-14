@@ -763,7 +763,7 @@ class Artwork extends CollectionsModel
             [
                 "name" => 'style_id',
                 "doc" => "Unique identifier of the preferred style term for this work",
-                "type" => "number",
+                "type" => "string",
                 "elasticsearch_type" => "keyword",
                 "value" => function() { return $this->style->lake_uid ?? null; },
             ],
@@ -783,7 +783,7 @@ class Artwork extends CollectionsModel
             [
                 "name" => 'classification_id',
                 "doc" => "Unique identifier of the preferred classification term for this work",
-                "type" => "number",
+                "type" => "string",
                 "elasticsearch_type" => "keyword",
                 "value" => function() { return $this->classification->lake_uid ?? null; },
             ],
@@ -803,7 +803,7 @@ class Artwork extends CollectionsModel
             [
                 "name" => 'subject_id',
                 "doc" => "Unique identifier of the preferred subject term for this work",
-                "type" => "number",
+                "type" => "string",
                 "elasticsearch_type" => "keyword",
                 "value" => function() { return $this->subject->lake_uid ?? null; },
             ],
