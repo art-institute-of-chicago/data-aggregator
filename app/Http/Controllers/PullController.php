@@ -28,7 +28,7 @@ class PullController extends BaseController
         return response()->json([
             "status" => Response::HTTP_ACCEPTED,
             "message" => 'Your request to update has been accepted.'
-        ]);
+        ], Response::HTTP_ACCEPTED);
 
     }
 
