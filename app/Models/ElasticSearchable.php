@@ -235,7 +235,7 @@ trait ElasticSearchable
     {
 
         // Get a default list of field names for this model
-        $fieldMappings = array_merge($this->transformMappingInternal(), $this->transformTitles());
+        $fieldMappings = $this->transformMapping();
 
         $default = [];
 
