@@ -18,6 +18,14 @@ class Artwork extends CollectionsModel
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
+    public function thumbnail()
+    {
+
+        // TODO: Change this to be polymorphic + use its own table?
+        return $this->image();
+
+    }
+
     public function artists()
     {
 

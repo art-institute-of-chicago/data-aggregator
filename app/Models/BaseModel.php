@@ -132,7 +132,33 @@ class BaseModel extends AbstractModel
                     'doc' => "Whether this document should be boosted in search",
                     "type" => "boolean",
                     'value' => function() { return $this->isBoosted(); },
-                ]
+                ],
+                [
+                    "name" => 'thumbnail',
+                    "doc" => "Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.",
+                    "type" => "array",
+                    "elasticsearch" => [
+                        "mapping" => [
+                            'type' => 'object',
+                            'properties' => [
+                                'url' => [ 'type' => 'keyword' ],
+                                'type' => [ 'type' => 'keyword' ],
+                                'lqip' => [ 'enabled' => false ],
+                                'width' => [ 'type' => 'integer' ],
+                                'height' => [ 'type' => 'integer' ],
+                            ]
+                        ]
+                    ],
+                    "value" => function() {
+                        return !$this->thumbnail ? null : [
+                            'url' => $this->thumbnail->iiif_url ?? null,
+                            'type' => 'iiif',
+                            'lqip' => $this->thumbnail->metadata->lqip ?? null,
+                            'width' => $this->thumbnail->metadata->width ?? null,
+                            'height' => $this->thumbnail->metadata->height ?? null,
+                        ];
+                    },
+                ],
             ],
             $this->transformMappingInternal(),
             $this->getMappingForDates()
