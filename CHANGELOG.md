@@ -1,6 +1,65 @@
 Data Aggregator Changelog
 =============================
 
+### 0.10 – CMS API integration and image thumbnail metadata
+
+* Create `/category-terms` endpoint that combines `/categories` and `/terms` into a single endpoint
+* Add new endpoints for all web CMS content, and index them in search
+* Add image thumbnail metadata to search results and listing endpoints, as we work towards clients having everything they need to display search results in a UI without needing to make extra calls
+* Upgrade to Elasticsearch 6.0
+
+SEARCH RESULTS AND ALL ENDPOINTS
+ * The following modifications have been made to the API schema:
+   - `thumbnail` - Added, JSON blob with metadata about the image that represents a search result. Currently only artworks are returning this data. We'll be filling this in for other resources in future sprints. JSON blob includes:
+     - `url` - URL to the static image, or base URL to the image treatment service
+     - `type` - What the `image_url` points to
+     - `lqip` - Base64 string of a low-quality image placeholder
+     - `width` - Maximum width of the image
+     - `height` - Maximum height of the image
+
+SEARCH
+ * Boosts agents higher than unweighted items. Also applies to autocomplete.
+
+LEGACY EVENTS
+ * Remove HTML entities from output
+
+ARTWORKS
+ * The following modifications have been made to the API schema:
+   - `category_ids` - Changed to alphanumeric IDs in the format 'PC-###'
+   - `style_ids` - Changed to alphanumeric IDs in the format 'TM-####'
+   - `alt_style_ids` - Changed to alphanumeric IDs in the format 'TM-####'
+   - `classification_ids` - Changed to alphanumeric IDs in the format 'TM-####'
+   - `alt_classification_ids` - Changed to alphanumeric IDs in the format 'TM-####'
+   - `subject_ids` - Changed to alphanumeric IDs in the format 'TM-####'
+   - `alt_subject_ids` - Changed to alphanumeric IDs in the format 'TM-####'
+
+IMAGES
+ * The following modifications have been made to the API schema:
+   - `width` - Added. Native width of the image
+   - `height` - Added. Native height of the image
+   - `lqip` - Added. Low-quality image placeholder (LQIP). Currently a 5x5-constrained, base64-encoded GIF.
+
+CATEGORIES
+ * The following modifications have been made to the API schema:
+   - `id` - Changed to alphanumeric IDs in the format 'PC-###'
+   - `parent_id` - Changed to alphanumeric IDs in the format 'PC-###'
+
+TERMS
+ * The following modifications have been made to the API schema:
+   - `id` - Changed to alphanumeric IDs in the format 'TM-###'
+
+GALLERIES
+ * The following modifications have been made to the API schema:
+   - `category_ids` - Changed to alphanumeric IDs in the format 'PC-###'
+
+ASSETS (including IMAGES, SOUNDS, VIDEOS, TEXTS, and LINKS)
+ * The following modifications have been made to the API schema:
+   - `category_ids` - Changed to alphanumeric IDs in the format 'PC-###'
+
+TOUR STOPS
+* `tour_id` now correctly displays a value
+
+
 ### 0.9 – Autocomplete, shop data and support for mobile app
 
 * Fill in products and shop categories data from the museum shop
