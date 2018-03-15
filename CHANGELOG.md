@@ -61,6 +61,39 @@ ASSETS (including IMAGES, SOUNDS, VIDEOS, TEXTS, and LINKS)
 TOUR STOPS
 * `tour_id` now correctly displays a value
 
+NEW ENDPOINTS
+* Integration with Web CMS provides a number of endpoints, but all are currently empty:
+  - `/tags`
+  - `/tags/{id}`
+  - `/tags/search`
+  - `/locations`
+  - `/locations/{id}`
+  - `/locations/search`
+  - `/hours`
+  - `/hours/{id}`
+  - `/hours/search`
+  - `/closures`
+  - `/closures/{id}`
+  - `/closures/search`
+  - `/web-exhibitions`
+  - `/web-exhibitions/{id}`
+  - `/web-exhibitions/search`
+  - `/events`
+  - `/events/{id}`
+  - `/events/search`
+  - `/articles`
+  - `/articles/{id}`
+  - `/articles/search`
+  - `/selections`
+  - `/selections/{id}`
+  - `/selections/search`
+  - `/web-artists`
+  - `/web-artists/{id}`
+  - `/web-artists/search`
+  - `/pages`
+  - `/pages/{id}`
+  - `/pages/search`
+
 
 ### 0.9 – Autocomplete, shop data and support for mobile app
 
@@ -69,7 +102,7 @@ TOUR STOPS
 * Silent output on successful scheduled commands
 
 AUTOCOMPLETE
-* Refactor /autocomplete endpoint to simplify output
+* Refactor `/autocomplete` endpoint to simplify output
 * Only provide boosted records as results
 * Allow clients to specify which resources to include in the results
 * Find matches for both sort titles and regular titles
@@ -109,7 +142,7 @@ AGENTS
   - `agent_type_title` - Renamed from `agent_type` to match schema used by other models
 
 TERMS
-* Add search endpoint for terms at /terms/search
+* Add search endpoint for terms at `/terms/search`
 
 PRODUCTS
 * The following modifications have been made to the API schema:
@@ -153,12 +186,12 @@ SHOP CATEGORIES
 * Accept `q` and `query` in the same search request
 * Boost artists, to provide better data to the "Featured result" option on the website. We're boosting all artists in the set of boosted artworks, along with the top 100 viewed artists on our website in 2017.
 * Refactor departments to use departmental publish categories in CITI rather than our internal department structure.
-* Add includes for `sites` to /agents, /artworks and /exhibitions
-* Split /galleries and /places with a more reliable condition
+* Add includes for `sites` to `/agents`, `/artworks` and `/exhibitions`
+* Split `/galleries` and `/places` with a more reliable condition
 * Remove deprecated `theme` model, which isn't output anywhere in the API
-* Split /events up into /ticketed-events and /legacy-event endpoints, to make room for canonical events from the new website
-* Remove /members endpoint
-* Add `button_url`, `button_text` and `web_url` to /legacy-events
+* Split `/events` up into `/ticketed-events` and `/legacy-events` endpoints, to make room for canonical events from the new website
+* Remove `/members` endpoint
+* Add `button_url`, `button_text` and `web_url` to `/legacy-events`
 * Provide functionality to pass aggregation parameters to search endpoints
 * Add multi search functionality to allow multiple queries to be sent in one request
 * Make tours discoverable by the names of their tour stops
