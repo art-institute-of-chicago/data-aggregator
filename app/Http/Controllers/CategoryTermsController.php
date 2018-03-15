@@ -15,9 +15,4 @@ class CategoryTermsController extends BaseController
 
     protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
 
-    protected function validateId( $id )
-    {
-        return \App\Models\Collections\Term::validateId( $id );
-    }
-
 }

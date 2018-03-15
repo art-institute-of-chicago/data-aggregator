@@ -11,17 +11,4 @@ class LibraryMaterialController extends BaseController
 
     protected $transformer = \App\Http\Transformers\LibraryMaterialTransformer::class;
 
-    /**
-     * Ensure that the id is a valid Primo doc id.
-     *
-     * @param string $id
-     * @return boolean
-     */
-    protected function validateId( $id )
-    {
-
-        return \App\Models\Library\Material::validateId( $id );
-
-    }
-
 }

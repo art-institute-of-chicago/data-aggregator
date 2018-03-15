@@ -11,17 +11,4 @@ class LibraryTermController extends BaseController
 
     protected $transformer = \App\Http\Transformers\LibraryTermTransformer::class;
 
-    /**
-     * Ensure that the id is a valid Library of Congress control number (LCCN).
-     *
-     * @param string $id
-     * @return boolean
-     */
-    protected function validateId( $id )
-    {
-
-        return \App\Models\Library\Term::validateId( $id );
-
-    }
-
 }
