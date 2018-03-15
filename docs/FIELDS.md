@@ -5,8 +5,10 @@
 Represents a work of art in our collections. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#artworks).
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `alt_titles` *array* - Altername names for this work
 * `main_reference_number` *string* - Unique identifier assigned to the artwork upon acquisition
 * `date_start` *number* - The year of the period of time associated with the creation of this work
@@ -50,13 +52,13 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `date_dates` *array* - List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.
 * `artwork_catalogue_ids` *array* - This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.
 * `term_titles` *array* - The names of the taxonomy tags for this work
-* `style_id` *number* - Unique identifier of the preferred style term for this work
+* `style_id` *string* - Unique identifier of the preferred style term for this work
 * `alt_style_ids` *array* - Unique identifiers of all other non-preferred style terms for this work
 * `style_titles` *array* - The names of all style terms related to this artwork
-* `classification_id` *number* - Unique identifier of the preferred classification term for this work
+* `classification_id` *string* - Unique identifier of the preferred classification term for this work
 * `alt_classificaiton_ids` *array* - Unique identifiers of all other non-preferred classification terms for this work
 * `classification_titles` *array* - The names of all classification terms related to this artwork
-* `subject_id` *number* - Unique identifier of the preferred subject term for this work
+* `subject_id` *string* - Unique identifier of the preferred subject term for this work
 * `alt_subject_ids` *array* - Unique identifiers of all other non-preferred subject terms for this work
 * `subject_titles` *array* - The names of all subject terms related to this artwork
 * `color` *object* - Dominant color of this image in HSL
@@ -82,8 +84,10 @@ Represents a work of art in our collections. For a description of all the endpoi
 Represents a person or organization. In the API, this includes artists, venues, and copyright representatives. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agents).
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `sort_title` *string* - Sortable name for this agent, typically with last name first.
 * `alt_titles` *array* - Altername names for this agent
 * `birth_date` *number* - The year this agent was born
@@ -109,8 +113,10 @@ Represents a person or organization. In the API, this includes artists, venues, 
 A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#artwork-types).
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
@@ -121,10 +127,12 @@ A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a descriptio
 
 Tag-like classifications of artworks and other resources. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#categories).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `id` *string* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
-* `parent_id` *number* - Unique identifier of this category's parent
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
+* `parent_id` *string* - Unique identifier of this category's parent
 * `is_in_nav` *boolean* - Whether this category was included in the departmental navigation in the old collections site
 * `description` *string* - Explanation of what this category is
 * `sort` *number* - Number representing this category's sort order
@@ -140,8 +148,10 @@ Tag-like classifications of artworks and other resources. For a description of a
 A kind of agent, e.g. Individual, Couple, School, Estate, Culture. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agent-types).
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
@@ -153,8 +163,10 @@ A kind of agent, e.g. Individual, Couple, School, Estate, Culture. For a descrip
 A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#places).
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `type` *string* - Type always takes one of the following values: AIC Gallery, AIC Storage, null
 * `latitude` *number* - Latitude coordinate of the center of the room
 * `longitude` *number* - Longitude coordinate of the center of the room
@@ -171,8 +183,10 @@ A room or hall that works of art are displayed in. For a description of all the 
 A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#galleries).
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `type` *string* - Type always takes one of the following values: AIC Gallery, AIC Storage, null
 * `is_closed` *boolean* - Whether the gallery is currently closed
 * `number` *string* - The gallery's room number. For 'Gallery 100A', this would be '100A'.
@@ -180,7 +194,7 @@ A room or hall that works of art are displayed in. For a description of all the 
 * `latitude` *number* - Latitude coordinate of the center of the room
 * `longitude` *number* - Longitude coordinate of the center of the room
 * `latlon` *string* - Latitude and longitude coordinates of the center of the room
-* `category_ids` *number* - Unique identifiers of the categories this gallery is a part of
+* `category_ids` *string* - Unique identifiers of the categories this gallery is a part of
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
@@ -192,8 +206,10 @@ A room or hall that works of art are displayed in. For a description of all the 
 An organized presentation and display of a selection of artworks. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#exhibitions).
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `description` *string* - Explanation of what this exhibition is
 * `short_description` *string* - Brief explanation of what this exhibition is
 * `web_url` *string* - URL to this exhibition on our website
@@ -225,9 +241,11 @@ An organized presentation and display of a selection of artworks. For a descript
 
 A pictorial representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#images).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `id` *string* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `type` *string* - Type always takes one of the following values: image, link, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
@@ -235,6 +253,9 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `iiif_url` *url* - IIIF URL of this image
+* `width` *number* - Native width of the image
+* `height` *number* - Native height of the image
+* `lqip` *text* - Low-quality image placeholder (LQIP). Currently a 5x5-constrained, base64-encoded GIF.
 * `color` *object* - Dominant color of this image in HSL
 * `fingerprint` *object* - Image hashes: aHash, dHash, pHash, wHash
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
@@ -247,9 +268,11 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 
 A moving image representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#videos).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `id` *string* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `type` *string* - Type always takes one of the following values: image, link, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
@@ -266,9 +289,11 @@ A moving image representation of a collections resource, like an artwork, artist
 
 A website that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#links).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `id` *string* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `type` *string* - Type always takes one of the following values: image, link, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
@@ -285,9 +310,11 @@ A website that represents a collections resource, like an artwork, artist, exhib
 
 Audio that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#sounds).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `id` *string* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `type` *string* - Type always takes one of the following values: image, link, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
@@ -304,9 +331,11 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 
 Text that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#texts).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `id` *string* - Unique identifier of this resource. Taken from the source system.
+* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `type` *string* - Type always takes one of the following values: image, link, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
@@ -328,6 +357,7 @@ Tag-like classifications of shop products. For a description of all the endpoint
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `web_url` *url* - URL to the shop page for this category
 * `parent_id` *number* - Unique identifier of this category's parent
 * `child_ids` *array* - Unique identifiers of this category's children
@@ -343,6 +373,7 @@ An item available for purchase in the museum shop. For a description of all the 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `title_sort` *string* - The sortable version of the name of this product
 * `parent_id` *number* - Unique identifier of this product's parent
 * `category_id` *number* - Identifier of this product's category
@@ -361,8 +392,8 @@ An item available for purchase in the museum shop. For a description of all the 
 * `holiday` *boolean* - Whether the product is a holiday item
 * `architecture` *boolean* - Whether the product is an architectural item
 * `glass` *boolean* - Whether the item is glass
-* `x_shipping_charge` *integer* - Number indicating the additional shipping charge for this item, in US Dollars.
-* `inventory` *integer* - Number indicating how many items remain in our inventory
+* `x_shipping_charge` *number* - Number indicating the additional shipping charge for this item, in US Dollars.
+* `inventory` *number* - Number indicating how many items remain in our inventory
 * `choking_hazard` *boolean* - Whether this product is a choking hazard
 * `back_order` *boolean* - Whether this product has been back ordered
 * `back_order_due_date` *date* - Date representing when this item is expected to be back in stock
@@ -381,13 +412,14 @@ An occurrence of a program at the museum. For a description of all the endpoints
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `description` *string* - Long description of the event
 * `short_description` *string* - Short description of the event
 * `image` *url* - URL to an image representing this event
 * `type` *string* - The name of the type of event
 * `start_at` *ISO 8601 date and time* - Date and time the event begins
 * `end_at` *ISO 8601 date and time* - Date and time the event ends
-* `resource_title` *string* - The name of the resource associated with this event, often the venue in which it takes place
+* `location` *string* - Location of the event (freetext)
 * `exhibition_ids` *array* - Unique identifiers of the exhibitions associated with this work
 * `button_text` *string* - Name of text on the CTA to buy tickets/register
 * `button_url` *url* - URL of the CTA to buy tickets/register
@@ -403,6 +435,7 @@ An occurrence of a program at the museum. For a description of all the endpoints
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `image` *url* - URL to an image representing this event
 * `start_at` *ISO 8601 date and time* - Date and time the event begins
 * `end_at` *ISO 8601 date and time* - Date and time the event ends
@@ -427,6 +460,7 @@ A collection of audio tour stops to form a tour. For a description of all the en
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `image` *url* - The main image for the tour
 * `description` *string* - Explanation of what the tour is
 * `intro` *string* - Text introducing the tour
@@ -445,7 +479,8 @@ An audio tour stops on a tour. For a description of all the endpoints available 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
-* `title` *string* - Name of this tour stop
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
+* `title` *string* - Name of this tour stop – derived from the artwork title
 * `artwork_title` *string* - Name of the artwork for this tour stop
 * `artwork_id` *number* - Unique identifier of the artwork for this tour stop
 * `tour_id` *number* - Unique identifier of the tour this stop is a part of
@@ -464,6 +499,7 @@ The audio file for a stops on a tour. For a description of all the endpoints ava
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `link` *url* - URL to the audio file
 * `transcript` *string* - Text transcription of the audio file
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
@@ -480,6 +516,7 @@ Represents an overall digital publication. For a description of all the endpoint
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `web_url` *string* - URL to the publication
 * `site` *string* - Which site in our multi-site Drupal installation owns this publication
 * `alias` *string* - Used by Drupal in lieu of the id to generate pretty paths
@@ -497,6 +534,7 @@ Represents a chapter of publication. For a description of all the endpoints avai
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `web_url` *string* - URL to the section
 * `accession` *string* - An accession number parsed from the title or tombstone
 * `revision` *number* - Version identifier as provided by Drupal
@@ -521,6 +559,7 @@ An archived static microsite. For a description of all the endpoints available f
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `description` *string* - Explanation of what this site is
 * `web_url` *url* - URL to this site
 * `exhibition_ids` *array* - Unique identifier of the exhibitions this site is associated with
@@ -540,6 +579,7 @@ An image from the archives. For a description of all the endpoints available for
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `alternate_title` *string* - Alternate name of this image
 * `web_url` *url* - URL to this image on the archives website
 * `collection` *string* - Name of the collection this image is a part of
@@ -578,6 +618,7 @@ A library material, such as a book, journal, or video. For a description of all 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `date` *number* - Publication year of this library material
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
@@ -588,13 +629,14 @@ A library material, such as a book, journal, or video. For a description of all 
 
 A Library of Congress term. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#library-terms).
 
-* `id` *number* - Unique identifier of this resource. Taken from the source system.
+* `id` *string* - Unique identifier of this resource. Taken from the source system.
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
+* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `uri` *string* - Full Library of Congress URI for identification
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 
 
 
-> Generated by `php artisan docs:fields` on 2018-02-27 19:42:42
+> Generated by `php artisan docs:fields` on 2018-03-14 21:43:30

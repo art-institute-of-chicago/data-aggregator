@@ -109,7 +109,7 @@ class TourStop extends MobileModel
     public function exampleId()
     {
 
-        return "1041";
+        return "2780"; // Paris Street; Rainy Day
 
     }
 

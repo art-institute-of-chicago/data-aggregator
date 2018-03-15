@@ -6,6 +6,13 @@ Thank you for your interest in using our museum's API. Our API offers an aggrega
 
 The API is currently in development and is planned to move to production in early 2018. It is developed and maintained by in-house developers at the Art Institute of Chicago.
 
+## Contents
+
+This document contains some general conventions we've used in our API. To dig deeper you may also be interested in:
+
+* A list of all [endpoints](ENDPOINTS.md)
+* Details on the [fields](FIELDS.md) that each endpoint returns
+
 ## Features
 
 The API provides:
@@ -13,16 +20,12 @@ The API provides:
 * JSON data in a unified, normalized format for all of our public institutional data
 * Navigate relationships across systems
 * Ability to "include" related data, so you don't have to make multiple calls
-* Ability to specify the fields returned by any query
-
-## Conventions
-
-Following are some general conventions we've used in our API. You can look at information on our [endpoints](ENDPOINTS.md) and [fields](FIELDS.md) to learn more.
+* Ability to search across all data
 
 ### Endpoints
 
 * All endpoint resources are plural, e.g. /artworks, /books or /events
-* Multiple-word resource routes are hyphenated, e.g. /tour-stop 
+* Multiple-word resource routes are hyphenated, e.g. /tour-stop
 * URL paths only contain nouns. The HTTP method is used as the verb describing an action (GET /artworks, POST /books, DELETE /events/3, etc.)
 * Single record results are formatted as:
   ```
@@ -57,13 +60,14 @@ Following are some general conventions we've used in our API. You can look at in
   * GET /resources/X/subresources/Y -- a single subresource for a given resource
   * GET /resources/X/subresources?ids=Y,Z -- multiple subresource for a given resource
 * All resources provide an id and a title, as well as an image and description if possible.
-* The API provides a short version number in the path in the form of /v1/. For the sake of brevity these version numbers aren't semantic, they are incremental. 
+* The API provides a short version number in the path in the form of /v1/. For the sake of brevity these version numbers aren't semantic, they are incremental.
 * Swagger is used to document the API interface, at the path /v1/swagger.json.
 
 ### Status codes
 
 * The following status codes are returned:
   * 200 - generic successful request
+  * 202 - an asynchronous request has been accepted
   * 400 - invalid syntax
   * 403 - current user is forbidden from accessing this data
   * 404 - URL is not valid or requested resource does not exist
@@ -78,10 +82,10 @@ Following are some general conventions we've used in our API. You can look at in
 
 ### Pagination
 
-* By default, all queries return 12 records per page. A maximum of records per page the API can return is 1,000. 
-* Pagination options for all methods can be passed as two query parameters: 
+* By default, all queries return 12 records per page. A maximum of records per page the API can return is 1,000.
+* Pagination options for all methods can be passed as two query parameters:
   * `page` to request a specific page of results
-  * An optional `limit` parameter to set how many records each page should return and override the default. 
+  * An optional `limit` parameter to set how many records each page should return and override the default.
 * Requests that return more data than what’s provided by the initial call add a pagination block to their results:
   ```
   {
@@ -139,7 +143,7 @@ To limit the fields that are returned to your query, you can pass the `fields` p
 * All fields are lowercase and snake case (underscore case)
 * Fields which contain a single id reference to another resource are singular, and end with _id, ex:
   ```
-  "artist_id": 55  
+  "artist_id": 55
   ```
 * Fields which refer to multiple resources via ids have singular resource names, followed by _ids, ex:
   ```
@@ -163,5 +167,5 @@ No authentication is implemented on API.
 
 ## Licensing
 
-This project is licensed under the [GNU Affero General Public License 
+This project is licensed under the [GNU Affero General Public License
 Version 3](LICENSE).
