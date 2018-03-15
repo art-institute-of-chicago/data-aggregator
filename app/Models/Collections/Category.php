@@ -16,6 +16,8 @@ class Category extends CollectionsModel
     use Documentable;
 
     protected $primaryKey = 'lake_uid';
+    protected $keyType = 'string';
+
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
     /**
@@ -115,19 +117,6 @@ class Category extends CollectionsModel
             ]
 
         ];
-
-    }
-
-    protected function getMappingForIds()
-    {
-
-        $ret = parent::getMappingForIds();
-
-        // Override the first (id) field
-        $ret[0]['type'] = 'string';
-        $ret[0]['elasticsearch']['type'] = 'keyword';
-
-        return $ret;
 
     }
 

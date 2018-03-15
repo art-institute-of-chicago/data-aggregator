@@ -168,13 +168,15 @@ class BaseModel extends AbstractModel
 
     protected function getMappingForIds()
     {
+        $is_id_int = $this->getKeyType() === 'int';
+
         return [
             [
                 'name' => 'id',
                 'doc' => 'Unique identifier of this resource. Taken from the source system.',
-                'type' => 'number',
+                'type' => $is_id_int ? 'number' : 'string',
                 'elasticsearch' => [
-                    'type' => 'integer',
+                    'type' =>  $is_id_int ? 'integer' : 'keyword',
                 ],
                 'value' => function() { return $this->getAttributeValue($this->getKeyName()); },
             ]
