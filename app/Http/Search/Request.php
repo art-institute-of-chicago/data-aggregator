@@ -81,9 +81,9 @@ class Request
         'api_id',
         'api_model',
         'api_link',
-        'image_url',
         'is_boosted',
         'title',
+        'thumbnail',
         'timestamp',
     ];
 
