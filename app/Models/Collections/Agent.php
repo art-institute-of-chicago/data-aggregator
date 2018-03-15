@@ -370,4 +370,18 @@ class Agent extends CollectionsModel
 
     }
 
+    /**
+     * Generate documentation for boosted endpoints
+     *
+     * @return string
+     */
+    public function docBoostedDescription()
+    {
+
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+
+        return parent::docBoostedDescription() ." This is a subset of the `" .$endpoint ."/` endpoint that represents all the artists included in boosted Artwork, in addition to the top 100 viewed artists on our website in 2017.";
+
+    }
+
 }

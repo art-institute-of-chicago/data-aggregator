@@ -1069,4 +1069,18 @@ class Artwork extends CollectionsModel
 
     }
 
+    /**
+     * Generate documentation for boosted endpoints
+     *
+     * @return string
+     */
+    public function docBoostedDescription()
+    {
+
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+
+        return parent::docBoostedDescription() ." This is a subset of the `" .$endpoint ."/` endpoint that represents approximately 400 of our most well-known artworks as featured in three important catalogs: Paintings at the Art Institute of Chicago: Highlights of the Collection, The Essential Guide, and Master Paintings in the Art Institute of Chicago. This can be used to get a shorter list of " .$endpoint ." that will have most of its metadata filled out for testing purposes.";
+
+    }
+
 }

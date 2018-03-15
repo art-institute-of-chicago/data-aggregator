@@ -122,14 +122,12 @@ trait Documentable
     public function docList($appUrl)
     {
 
-        $calledClass = get_called_class();
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
-        $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
         $doc = '### `' .$this->_endpointPath() ."`\n\n";
 
-        $doc .= "A list of all " .$endpointAsCopyText ." sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](FIELDS.md#" .$endpoint .").\n\n";
+        $doc .= $this->getListDescription() ." For a description of all the fields included with this response, see [here](FIELDS.md#" .$endpoint .").\n\n";
 
         $doc .= $this->docListParameters();
 
@@ -140,16 +138,26 @@ trait Documentable
     }
 
     /**
+     * Generate description for list endpoint
+     *
+     * @return string
+     */
+    public function docListDescription()
+    {
+
+        $endpointAsCopyText = $this->_endpointAsCopyText();
+
+        return "A list of all " .$endpointAsCopyText ." sorted by last updated date in descending order.";
+
+    }
+
+    /**
      * Generate documentation for listing fields
      *
      * @return string
      */
     public function docListFields()
     {
-
-        $calledClass = get_called_class();
-        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
-        $endpointAsCopyText = $this->_endpointAsCopyText();
 
         $doc = '';
         foreach ($this->transformMapping() as $array)
@@ -174,20 +182,33 @@ trait Documentable
     public function docBoosted($appUrl)
     {
 
-        $calledClass = get_called_class();
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
         $doc = '### `' .$this->_endpointPath(['extraPath' => 'boosted']) ."`\n\n";
 
-        $doc .= "A list of boosted " .$endpointAsCopyText ." sorted by last updated date in descending order. This is a subset of the `" .$endpoint ."/` endpoint that represents approximately 400 of our most well-known resources. This can be used to get a shorter list of " .$endpoint ." that will have most of its metadata filled out for testing purposes.\n\n";
+        $doc .= $this->docBoostedDescription() ."\n\n";
 
         $doc .= $this->docListParameters();
 
         $doc .= $this->docExampleOutput($appUrl, ['extraPath' => 'boosted']);
 
         return $doc;
+    }
+
+    /**
+     * Generate documentation for boosted endpoints
+     *
+     * @return string
+     */
+    public function docBoostedDescription()
+    {
+
+        $endpointAsCopyText = $this->_endpointAsCopyText();
+
+        return "A list of boosted " .$endpointAsCopyText ." sorted by last updated date in descending order.";
+
     }
 
     /**
@@ -198,20 +219,32 @@ trait Documentable
     public function docSearch($appUrl)
     {
 
-        $calledClass = get_called_class();
-        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
         $doc = '### `' .$this->_endpointPath(['extraPath' => 'search']) ."`\n\n";
 
-        $doc .= "Search " .$endpointAsCopyText ." data in the aggregator. " .$this->extraSearchDescription() ."\n\n";
+        $doc .= $this->docSearchDescription() ."\n\n";
 
         $doc .= $this->docSearchParameters();
 
         $doc .= $this->docExampleSearchOutput($appUrl, $this->exampleSearchQuery());
 
         return $doc;
+    }
+
+    /**
+     * Generate description for search endpoint
+     *
+     * @return string
+     */
+    public function docSearchDescription()
+    {
+
+        $endpointAsCopyText = $this->_endpointAsCopyText();
+
+        return "Search " .$endpointAsCopyText ." data in the aggregator. " .$this->extraSearchDescription();
+
     }
 
     /**
@@ -222,14 +255,30 @@ trait Documentable
     public function docSingle($appUrl)
     {
 
-        $calledClass = get_called_class();
-        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
         $doc = '### `' .$this->_endpointPath(['extraPath' => '{id}']) ."`\n\n";
 
-        $doc .= "A single " .$endpointAsCopyText ." by the given identifier.";
+        $doc .= $this->docSingleDescription() ."\n\n";
+
+        $doc .= $this->docExampleOutput($appUrl, ['id' => $this->exampleId()]);
+
+        return $doc;
+
+    }
+
+    /**
+     * Generate description for single resource endpoint
+     *
+     * @return string
+     */
+    public function docSingleDescription()
+    {
+
+        $endpointAsCopyText = $this->_endpointAsCopyText();
+
+        $doc = "A single " .$endpointAsCopyText ." by the given identifier.";
 
         if (static::$source == 'Collections')
         {
@@ -237,9 +286,6 @@ trait Documentable
             $doc .= " {id} is the identifier from our collections managements system.";
 
         }
-        $doc .= "\n\n";
-
-        $doc .= $this->docExampleOutput($appUrl, ['id' => $this->exampleId()]);
 
         return $doc;
 
@@ -253,8 +299,6 @@ trait Documentable
     public function docSubresource($appUrl, $subEndpoint, $includeExampleOutput = true)
     {
 
-        $calledClass = get_called_class();
-        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -277,6 +321,28 @@ trait Documentable
 
     }
 
+    /**
+     * Generate description for subresource endpoint
+     *
+     * @return string
+     */
+    public function docSubresourceDescription($subEndpoint)
+    {
+
+        $endpointAsCopyText = $this->_endpointAsCopyText();
+
+        $doc = "The " .$this->_endpointAsCopyText($subEndpoint) ." for a given " .$endpointAsCopyText .".";
+        if ($subEndpoint == 'artists' || $subEndpoint == 'copyrightRepresentatives')
+        {
+
+            $doc .= " Served from the API as a type of `agent`, so their output schema is the same.";
+
+        }
+
+        return $doc;
+
+    }
+
 
 
     /**
@@ -290,14 +356,33 @@ trait Documentable
         $doc = '';
         $doc .= "#### Available parameters:\n\n";
 
-        $doc .= "* `ids` - A comma-separated list of resource ids to retrieve\n";
-        $doc .= "* `limit` - The number of resources to return per page\n";
-        $doc .= "* `page` - The page of resources to retrieve\n";
-        $doc .= "* `fields` - A comma-separated list of fields to return per resource\n";
+        foreach ($this->docListParametersRaw() as $param => $description)
+        {
+
+            $doc .= "* `" .$param ."` - " .$description ."\n";
+
+        }
 
         $doc .= $this->docIncludeParameters();
 
         return $doc;
+
+    }
+
+    /**
+     * Raw list of parameters used with list endpoints
+     *
+     * @return array
+     */
+    public function docListParametersRaw()
+    {
+
+        return [
+            'ids' => 'A comma-separated list of resource ids to retrieve',
+            'limit' => 'The number of resources to return per page',
+            'page' => 'The page of resources to retrieve',
+            'fields' => 'A comma-separated list of fields to return per resource',
+        ];
 
     }
 
@@ -313,15 +398,34 @@ trait Documentable
 
         $doc .= "#### Available parameters:\n\n";
 
-        $doc .= "* `q` - Your search query\n";
-        $doc .= "* `query` - For complex queries, you can pass Elasticsearch domain syntax queries here\n";
-        $doc .= "* `sort` - Used in conjunction with `query`\n";
-        $doc .= "* `from` - Starting point of results. Pagination via Elasticsearch conventions\n";
-        $doc .= "* `size` - Number of results to return. Pagination via Elasticsearch conventions\n";
-        $doc .= "* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.\n";
+        foreach ($this->docSearchParametersRaw() as $param => $description)
+        {
+
+            $doc .= "* `" .$param ."` - " .$description ."\n";
+
+        }
         $doc .= "\n";
 
         return $doc;
+
+    }
+
+    /**
+     * Raw list of parameters used with search endpoints
+     *
+     * @return string
+     */
+    public function docSearchParametersRaw()
+    {
+
+        return [
+            'q' => 'Your search query',
+            'query' => 'For complex queries, you can pass Elasticsearch domain syntax queries here',
+            'sort' => 'Used in conjunction with `query`',
+            'from' => 'Starting point of results. Pagination via Elasticsearch conventions',
+            'size' => 'Number of results to return. Pagination via Elasticsearch conventions',
+            'facets' => 'A comma-separated list of \"count\" aggregation facets to include in the results.',
+        ];
 
     }
 
@@ -629,6 +733,261 @@ trait Documentable
     {
 
         return true;
+
+    }
+
+    /**
+     * Generate swagger endpoint documentation for this model
+     *
+     * @return string
+     */
+    public function swaggerDoc()
+    {
+
+        if ($this->docOnly())
+        {
+
+            return '';
+
+        }
+
+        $doc = $this->swaggerList();
+
+        if (get_called_class() == Collections\Artwork::class || get_called_class() == Collections\Agent::class)
+        {
+
+            $doc .= $this->swaggerBoosted() ."\n";
+
+        }
+
+        if ($this->hasSearchEndpoint())
+        {
+
+            $doc .= $this->swaggerSearch() ."\n";
+
+        }
+
+        $doc .= $this->swaggerSingle() ."\n";
+
+        foreach ($this->subresources() as $subresource)
+        {
+
+            $doc .= $this->swaggerSubresource($subresource, !in_array($subresource, $this->subresourcesToSkipExampleOutput())) ."\n";
+
+        }
+
+        return $doc;
+
+
+    }
+
+    /**
+     * Generate swagger list endpoint documentation for this model
+     *
+     * @return string
+     */
+    public function swaggerList()
+    {
+
+        $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."\": {\n";
+        $doc .= "      \"get\": {\n";
+        $doc .= $this->swaggerTags(['search']);
+        $doc .= "        \"summary\": \"" .$this->docListDescription() . "\",\n";
+        $doc .= $this->swaggerProduces();
+        $doc .= "        \"parameters\": [\n";
+        foreach ($this->docListParametersRaw() as $param => $description)
+        {
+            $doc .= "          {\n";
+            $doc .= "            \"\$ref\": \"#/parameters/" .$param ."\"\n";
+            $doc .= "          }" .($element !== end($array) ? "," : "") ."\n";
+        }
+        $doc .= "        ],\n";
+        $doc .= $this->swaggerResponses();
+        $doc .= "      }\n";
+        $doc .= "    },\n";
+
+        return $doc;
+
+    }
+
+    /**
+     * Generate swagger boosted endpoint documentation for this model
+     *
+     * @return string
+     */
+    public function swaggerBoosted()
+    {
+
+        $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."/boosted\": {\n";
+        $doc .= "      \"get\": {\n";
+        $doc .= $this->swaggerTags(['search']);
+        $doc .= "        \"summary\": \"" .$this->docBoostedDescription() ."\",\n";
+        $doc .= $this->swaggerProduces();
+        $doc .= "        \"parameters\": [\n";
+        foreach ($this->docListParametersRaw() as $param => $description)
+        {
+            $doc .= "          {\n";
+            $doc .= "            \"\$ref\": \"#/parameters/" .$param ."\"\n";
+            $doc .= "          }" .($element !== end($array) ? "," : "") ."\n";
+        }
+        $doc .= "        ],\n";
+        $doc .= $this->swaggerResponses();
+        $doc .= "      }\n";
+        $doc .= "    },\n";
+
+        return $doc;
+
+    }
+
+    /**
+     * Generate swagger search endpoint documentation for this model
+     *
+     * @return string
+     */
+    public function swaggerSearch()
+    {
+
+        $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."/search\": {\n";
+        $doc .= "      \"get\": {\n";
+        $doc .= $this->swaggerTags(['search']);
+        $doc .= "        \"summary\": \"" .$this->docSearchDescription() ."\",\n";
+        $doc .= $this->swaggerProduces();
+        $doc .= "        \"parameters\": [\n";
+        foreach ($this->docSearchParametersRaw() as $param => $description)
+        {
+            $doc .= "          {\n";
+            $doc .= "            \"\$ref\": \"#/parameters/" .$param ."\"\n";
+            $doc .= "          }" .($element !== end($array) ? "," : "") ."\n";
+        }
+        $doc .= "        ],\n";
+        $doc .= $this->swaggerResponses('SearchResult');
+        $doc .= "      }\n";
+        $doc .= "    },\n";
+
+        return $doc;
+
+    }
+
+    /**
+     * Generate swagger single endpoint documentation for this model
+     *
+     * @return string
+     */
+    public function swaggerSingle()
+    {
+
+        $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."/{id}\": {\n";
+        $doc .= "      \"get\": {\n";
+        $doc .= $this->swaggerTags();
+        $doc .= "        \"summary\": \"" .$this->docSingleDescription() ."\",\n";
+        $doc .= $this->swaggerProduces();
+        $doc .= "        \"parameters\": [\n";
+        $doc .= "          {\n";
+        $doc .= "            \"\$ref\": \"#/parameters/id\"\n";
+        $doc .= "          }\n";
+        $doc .= "        ],\n";
+        $doc .= $this->swaggerResponses();
+        $doc .= "      }\n";
+        $doc .= "    },\n";
+
+        return $doc;
+
+    }
+
+    /**
+     * Generate swagger subresource endpoint documentation for this model
+     *
+     * @return string
+     */
+    public function swaggerSubresource($subresource, $includeExampleOutput = true)
+    {
+
+        $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."/{id}/" .$subresource ."\": {\n";
+        $doc .= "      \"get\": {\n";
+        $doc .= $this->swaggerTags();
+        $doc .= "        \"summary\": \"" .$this->docSubresourceDescription() ."\",\n";
+        $doc .= $this->swaggerProduces();
+        $doc .= "        \"parameters\": [\n";
+        $doc .= "          {\n";
+        $doc .= "            \"\$ref\": \"#/parameters/id\"\n";
+        $doc .= "          }\n";
+        $doc .= "        ],\n";
+
+        $subModel = app('Resources')->getModelForEndpoint($subresource);
+        $doc .= $this->swaggerResponses(class_basename($subModel));
+
+        $doc .= "      }\n";
+        $doc .= "    },\n";
+
+        return $doc;
+
+    }
+
+    public function swaggerTags($extras = [])
+    {
+
+        $model = get_called_class();
+        $endpoint = app('Resources')->getEndpointForModel($model);
+        $source = $model::source();
+
+        $doc = "        \"tags\": [\n";
+        $doc .= "            \"" .$endpoint ."\",\n";
+        $doc .= "            \"" .strtolower($source) ."\"";
+        foreach ($extras as $tag)
+        {
+
+            $doc .= ",\n";
+            $doc .= "            \"" .$tag ."\"";
+
+        }
+        $doc .= "\n";
+        $doc .= "        ],\n";
+
+        return $doc;
+
+    }
+
+    public function swaggerProduces()
+    {
+
+        $doc = "        \"produces\": [\n";
+        $doc .= "          \"application/json\"\n";
+        $doc .= "        ],\n";
+
+        return $doc;
+
+    }
+
+    public function swaggerResponses($modelBasename = null)
+    {
+
+        if (!$modelBasename)
+        {
+
+            $model = get_called_class();
+            $modelBasename = class_basename($model);
+
+        }
+
+        $doc = "        \"responses\": {\n";
+        $doc .= "          \"200\": {\n";
+        $doc .= "            \"description\": \"Successful operation\",\n";
+        $doc .= "            \"schema\": {\n";
+        $doc .= "              \"type\": \"array\",\n";
+        $doc .= "              \"items\": {\n";
+        $doc .= "                \"\$ref\": \"#/definitions/" .$modelBasename ."\"\n";
+        $doc .= "              }\n";
+        $doc .= "            }\n";
+        $doc .= "          },\n";
+        $doc .= "          \"default\": {\n";
+        $doc .= "            \"description\": \"error\",\n";
+        $doc .= "            \"schema\": {\n";
+        $doc .= "              \"\$ref\": \"#/definitions/Error\"\n";
+        $doc .= "            }\n";
+        $doc .= "          }\n";
+        $doc .= "        }\n";
+
+        return $doc;
 
     }
 
