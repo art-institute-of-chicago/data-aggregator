@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
-class ScoutRefreshAll extends Command
+class ScoutRefreshAll extends BaseCommand
 {
 
     protected $signature = 'scout:refresh-all';

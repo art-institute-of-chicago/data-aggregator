@@ -14,8 +14,6 @@ class ExhibitionTest extends ApiTestCase
 
     protected $model = Exhibition::class;
 
-    protected $route = 'exhibitions';
-
     protected $keys = ['lake_guid'];
 
     protected $fieldsUsedByMobile = ['id',

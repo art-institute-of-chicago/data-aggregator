@@ -83,6 +83,7 @@ class Request
         'api_link',
         'is_boosted',
         'title',
+        'thumbnail',
         'timestamp',
     ];
 

@@ -131,6 +131,14 @@ class Tour extends MobileModel
     }
 
 
+    public function searchableImage()
+    {
+
+        return $this->image;
+
+    }
+
+
     /**
      * Get an example ID for documentation generation
      *

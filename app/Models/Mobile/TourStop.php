@@ -49,7 +49,7 @@ class TourStop extends MobileModel
             // TODO: Determine if tour stops have dedicated titles?
             [
                 "name" => 'title',
-                "doc" => "Name of this tour stop",
+                "doc" => "Name of this tour stop – derived from the artwork title",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->artwork->title ?? null; },
@@ -73,7 +73,7 @@ class TourStop extends MobileModel
                 "doc" => "Unique identifier of the tour this stop is a part of",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->tour->id ?? null; },
+                "value" => function() { return $this->tour->mobile_id ?? null; },
             ],
             [
                 "name" => 'mobile_sound',
@@ -109,7 +109,7 @@ class TourStop extends MobileModel
     public function exampleId()
     {
 
-        return "1041";
+        return "2780"; // Paris Street; Rainy Day
 
     }
 

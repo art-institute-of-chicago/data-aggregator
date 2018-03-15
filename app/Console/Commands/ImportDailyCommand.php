@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
-class ImportDailyCommand extends Command
+class ImportDailyCommand extends BaseCommand
 {
     /**
      * The name and signature of the console command.

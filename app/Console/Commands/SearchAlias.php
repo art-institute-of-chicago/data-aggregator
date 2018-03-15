@@ -2,12 +2,13 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use Elasticsearch;
 
 use App\Console\Helpers\Indexer;
 
-class SearchAlias extends Command
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
+
+class SearchAlias extends BaseCommand
 {
 
     use Indexer;

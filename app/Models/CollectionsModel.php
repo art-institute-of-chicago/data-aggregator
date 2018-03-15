@@ -72,17 +72,12 @@ class CollectionsModel extends BaseModel
 
         $ret = parent::getMappingForIds();
 
-        // TODO: I think this logic is wrong... It's the same as it was before, but it may need to be reversed
-        if (!$this->citiObject)
-        {
-            return $ret;
-        }
-
         return array_merge( $ret, [
             [
                "name" => 'lake_guid',
                'doc' => "Unique UUID of this resource in LAKE, our digital asset management system",
                "type" => "uuid",
+               'elasticsearch_type' => 'keyword',
                'value' => function() { return $this->lake_guid; },
             ]
         ]);

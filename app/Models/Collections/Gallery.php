@@ -21,7 +21,7 @@ class Gallery extends CollectionsModel
     public function categories()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Category', 'category_place', 'place_citi_id', 'category_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Category', 'category_place', 'place_citi_id', 'category_lake_uid');
 
     }
 
@@ -85,9 +85,9 @@ class Gallery extends CollectionsModel
             [
                 "name" => 'category_ids',
                 "doc" => "Unique identifiers of the categories this gallery is a part of",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->categories->pluck('citi_id')->all(); },
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
             ],
         ];
 

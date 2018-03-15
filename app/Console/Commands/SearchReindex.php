@@ -2,12 +2,13 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use Elasticsearch;
 
 use App\Console\Helpers\Indexer;
 
-class SearchReindex extends Command
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
+
+class SearchReindex extends BaseCommand
 {
 
     use Indexer;

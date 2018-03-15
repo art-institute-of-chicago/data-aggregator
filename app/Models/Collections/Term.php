@@ -16,7 +16,9 @@ class Term extends CollectionsModel
     use ElasticSearchable;
     use Documentable;
 
-    protected $primaryKey = 'citi_id';
+    protected $primaryKey = 'lake_uid';
+    protected $keyType = 'string';
+
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
     public function artworks()
@@ -81,6 +83,22 @@ class Term extends CollectionsModel
                 "value" => function() { return $this->type; },
             ],
         ];
+
+    }
+
+
+    /**
+     * Ensure that the id is a valid LAKE UID.
+     *
+     * @param mixed $id
+     * @return boolean
+     */
+    public static function validateId($id)
+    {
+
+        $uid = '/^[A-Z]{2}-[0-9]+$/i';
+
+        return preg_match($uid, $id);
 
     }
 

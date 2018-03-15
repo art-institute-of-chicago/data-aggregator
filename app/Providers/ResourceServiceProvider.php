@@ -98,6 +98,10 @@ class ResourceServiceProvider extends ServiceProvider
                         'model' => \App\Models\Collections\Term::class,
                     ],
                     [
+                        'endpoint' => 'category-terms',
+                        'model' => \App\Models\Collections\CategoryTerm::class,
+                    ],
+                    [
                         'endpoint' => 'assets',
                         'model' => \App\Models\Collections\Asset::class,
                     ],
@@ -172,6 +176,46 @@ class ResourceServiceProvider extends ServiceProvider
                     [
                         'endpoint' => 'archive-images',
                         'model' => \App\Models\Archive\ArchiveImage::class,
+                    ],
+                    [
+                        'endpoint' => 'tags',
+                        'model' => \App\Models\Web\Tag::class,
+                    ],
+                    [
+                        'endpoint' => 'locations',
+                        'model' => \App\Models\Web\Location::class,
+                    ],
+                    [
+                        'endpoint' => 'hours',
+                        'model' => \App\Models\Web\Hour::class,
+                    ],
+                    [
+                        'endpoint' => 'closures',
+                        'model' => \App\Models\Web\Closure::class,
+                    ],
+                    [
+                        'endpoint' => 'web-exhibitions',
+                        'model' => \App\Models\Web\Exhibition::class,
+                    ],
+                    [
+                        'endpoint' => 'events',
+                        'model' => \App\Models\Web\Event::class,
+                    ],
+                    [
+                        'endpoint' => 'articles',
+                        'model' => \App\Models\Web\Article::class,
+                    ],
+                    [
+                        'endpoint' => 'selections',
+                        'model' => \App\Models\Web\Selection::class,
+                    ],
+                    [
+                        'endpoint' => 'web-artists',
+                        'model' => \App\Models\Web\Artist::class,
+                    ],
+                    [
+                        'endpoint' => 'pages',
+                        'model' => \App\Models\Web\Page::class,
                     ],
                 ];
 

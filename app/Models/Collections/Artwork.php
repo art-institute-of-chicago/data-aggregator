@@ -18,6 +18,14 @@ class Artwork extends CollectionsModel
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
+    public function thumbnail()
+    {
+
+        // TODO: Change this to be polymorphic + use its own table?
+        return $this->image();
+
+    }
+
     public function artists()
     {
 
@@ -703,8 +711,8 @@ class Artwork extends CollectionsModel
                 "name" => 'category_ids',
                 "doc" => "Unique identifiers of the categories this work is a part of",
                 "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->categories->pluck('citi_id')->all(); },
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
             ],
             [
                 "name" => 'copyright_representative_ids',
@@ -755,16 +763,16 @@ class Artwork extends CollectionsModel
             [
                 "name" => 'style_id',
                 "doc" => "Unique identifier of the preferred style term for this work",
-                "type" => "number",
-                "elasticsearch_type" => "integer",
-                "value" => function() { return $this->style->citi_id ?? null; },
+                "type" => "string",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->style->lake_uid ?? null; },
             ],
             [
                 "name" => 'alt_style_ids',
                 "doc" => "Unique identifiers of all other non-preferred style terms for this work",
                 "type" => "array",
-                "elasticsearch_type" => "integer",
-                "value" => function() { return $this->altStyles->pluck('citi_id')->all(); },
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->altStyles->pluck('lake_uid')->all(); },
             ],
             [
                 "name" => 'style_titles',
@@ -775,16 +783,16 @@ class Artwork extends CollectionsModel
             [
                 "name" => 'classification_id',
                 "doc" => "Unique identifier of the preferred classification term for this work",
-                "type" => "number",
-                "elasticsearch_type" => "integer",
-                "value" => function() { return $this->classification->citi_id ?? null; },
+                "type" => "string",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->classification->lake_uid ?? null; },
             ],
             [
                 "name" => 'alt_classificaiton_ids',
                 "doc" => "Unique identifiers of all other non-preferred classification terms for this work",
                 "type" => "array",
-                "elasticsearch_type" => "integer",
-                "value" => function() { return $this->altClassifications->pluck('citi_id')->all(); },
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->altClassifications->pluck('lake_uid')->all(); },
             ],
             [
                 "name" => 'classification_titles',
@@ -795,16 +803,16 @@ class Artwork extends CollectionsModel
             [
                 "name" => 'subject_id',
                 "doc" => "Unique identifier of the preferred subject term for this work",
-                "type" => "number",
-                "elasticsearch_type" => "integer",
-                "value" => function() { return $this->subject->citi_id ?? null; },
+                "type" => "string",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->subject->lake_uid ?? null; },
             ],
             [
                 "name" => 'alt_subject_ids',
                 "doc" => "Unique identifiers of all other non-preferred subject terms for this work",
                 "type" => "array",
-                "elasticsearch_type" => "integer",
-                "value" => function() { return $this->altSubjects->pluck('citi_id')->all(); },
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->altSubjects->pluck('lake_uid')->all(); },
             ],
             [
                 "name" => 'subject_titles',
@@ -991,6 +999,15 @@ class Artwork extends CollectionsModel
         ];
 
     }
+
+
+    public function searchableImage()
+    {
+
+        return $this->image->iiif_url ?? null;
+
+    }
+
 
     /**
      * Get the subresources for the resource.

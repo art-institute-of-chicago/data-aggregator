@@ -9,6 +9,4 @@ class ShopCategoryTest extends ApiTestCase
 
     protected $model = Category::class;
 
-    protected $route = 'shop-categories';
-
 }

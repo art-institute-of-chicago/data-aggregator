@@ -15,7 +15,9 @@ class Category extends CollectionsModel
     use ElasticSearchable;
     use Documentable;
 
-    protected $primaryKey = 'citi_id';
+    protected $primaryKey = 'lake_uid';
+    protected $keyType = 'string';
+
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
     /**
@@ -59,9 +61,9 @@ class Category extends CollectionsModel
             [
                 "name" => 'parent_id',
                 "doc" => "Unique identifier of this category's parent",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->parent ? $this->parent->citi_id : null; },
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->parent ? $this->parent->lake_uid : null; },
             ],
             [
                 "name" => 'is_in_nav',
@@ -118,7 +120,6 @@ class Category extends CollectionsModel
 
     }
 
-
     /**
      * Get an example ID for documentation generation
      *
@@ -127,7 +128,22 @@ class Category extends CollectionsModel
     public function exampleId()
     {
 
-        return "3";
+        return "PC-3";
+
+    }
+
+    /**
+     * Ensure that the id is a valid LAKE UID.
+     *
+     * @param mixed $id
+     * @return boolean
+     */
+    public static function validateId($id)
+    {
+
+        $uid = '/^[A-Z]{2}-[0-9]+$/i';
+
+        return preg_match($uid, $id);
 
     }
 

@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * TODO: Everything below this is unused. However, these methods could be useful in testing.
+ */
+
+/**
  * Get a list of all the models used in the application
  *
  * @return array

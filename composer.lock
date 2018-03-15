@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "052557b0a5e08ffa8db0a85721c51593",
+    "content-hash": "6d0ddb442611946f790a26d80a4e23f7",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "7d25c10e19f3f601a6e19ac4f61a6e6f57da9792"
+                "reference": "421acfc79b67bbde42e031e1d668bb052e343c72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/7d25c10e19f3f601a6e19ac4f61a6e6f57da9792",
-                "reference": "7d25c10e19f3f601a6e19ac4f61a6e6f57da9792",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/421acfc79b67bbde42e031e1d668bb052e343c72",
+                "reference": "421acfc79b67bbde42e031e1d668bb052e343c72",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/master",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2018-01-03T19:37:41+00:00"
+            "time": "2018-03-12T19:31:04+00:00"
         },
         {
             "name": "aws/aws-sdk-php",

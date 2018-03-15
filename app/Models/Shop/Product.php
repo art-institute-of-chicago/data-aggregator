@@ -418,14 +418,14 @@ class Product extends ShopModel
             [
                 "name" => 'x_shipping_charge',
                 "doc" => "Number indicating the additional shipping charge for this item, in US Dollars.",
-                "type" => "integer",
+                "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->x_shipping_charge; },
             ],
             [
                 "name" => 'inventory',
                 "doc" => "Number indicating how many items remain in our inventory",
-                "type" => "integer",
+                "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->inventory; },
             ],

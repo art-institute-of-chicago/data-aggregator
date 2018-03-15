@@ -13,7 +13,6 @@ use App\Models\Mobile\TourStop;
 
 use Storage;
 
-
 class ImportMobile extends AbstractImportCommand
 {
 

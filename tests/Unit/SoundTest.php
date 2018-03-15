@@ -9,6 +9,4 @@ class SoundTest extends AssetTestCase
 
     protected $model = Sound::class;
 
-    protected $route = 'sounds';
-
 }

@@ -9,6 +9,4 @@ class LibraryMaterialTest extends ApiTestCase
 
     protected $model = Material::class;
 
-    protected $route = 'library-materials';
-
 }

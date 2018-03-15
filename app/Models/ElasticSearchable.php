@@ -92,6 +92,19 @@ trait ElasticSearchable
 
 
     /**
+     * Get an image to represent this record
+     *
+     * @return string
+     */
+    public function searchableImage()
+    {
+
+        return null;
+
+    }
+
+
+    /**
      * Generate an array of model data to send to the search index.
      *
      * @return array
@@ -106,6 +119,13 @@ trait ElasticSearchable
                 'api_model' => $this->searchableModel(),
                 'api_link' => $this->searchableLink(),
                 'title' => $this->title,
+                'thumbnail' => !$this->thumbnail ? null : [
+                    'url' => $this->thumbnail->iiif_url ?? null,
+                    'type' => 'iiif',
+                    'lqip' => $this->thumbnail->metadata->lqip ?? null,
+                    'width' => $this->thumbnail->metadata->width ?? null,
+                    'height' => $this->thumbnail->metadata->height ?? null,
+                ],
                 'timestamp' => Carbon::now()->toIso8601String(),
             ],
             $this->getSuggestSearchFields(),
@@ -126,6 +146,13 @@ trait ElasticSearchable
      */
     public function getSuggestSearchFields()
     {
+
+        // This happens when the title is empty (e.g. TourStops)
+        // Fixes: completion field [suggest_autocomplete] does not support null values
+        if( empty( $this->title ) )
+        {
+            return [];
+        }
 
         // TODO: Move `suggest_autocomplete_boosted` into `suggest_autocomplete`, and re-index everything from database?
         $fields = [
@@ -214,7 +241,7 @@ trait ElasticSearchable
     {
 
         // Get a default list of field names for this model
-        $fieldMappings = array_merge($this->transformMappingInternal(), $this->transformTitles());
+        $fieldMappings = $this->transformMapping();
 
         $default = [];
 

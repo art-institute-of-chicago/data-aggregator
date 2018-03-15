@@ -132,7 +132,33 @@ class BaseModel extends AbstractModel
                     'doc' => "Whether this document should be boosted in search",
                     "type" => "boolean",
                     'value' => function() { return $this->isBoosted(); },
-                ]
+                ],
+                [
+                    "name" => 'thumbnail',
+                    "doc" => "Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.",
+                    "type" => "array",
+                    "elasticsearch" => [
+                        "mapping" => [
+                            'type' => 'object',
+                            'properties' => [
+                                'url' => [ 'type' => 'keyword' ],
+                                'type' => [ 'type' => 'keyword' ],
+                                'lqip' => [ 'enabled' => false ],
+                                'width' => [ 'type' => 'integer' ],
+                                'height' => [ 'type' => 'integer' ],
+                            ]
+                        ]
+                    ],
+                    "value" => function() {
+                        return !$this->thumbnail ? null : [
+                            'url' => $this->thumbnail->iiif_url ?? null,
+                            'type' => 'iiif',
+                            'lqip' => $this->thumbnail->metadata->lqip ?? null,
+                            'width' => $this->thumbnail->metadata->width ?? null,
+                            'height' => $this->thumbnail->metadata->height ?? null,
+                        ];
+                    },
+                ],
             ],
             $this->transformMappingInternal(),
             $this->getMappingForDates()
@@ -142,13 +168,15 @@ class BaseModel extends AbstractModel
 
     protected function getMappingForIds()
     {
+        $is_id_int = $this->getKeyType() === 'int';
+
         return [
             [
                 'name' => 'id',
                 'doc' => 'Unique identifier of this resource. Taken from the source system.',
-                'type' => 'number',
+                'type' => $is_id_int ? 'number' : 'string',
                 'elasticsearch' => [
-                    'type' => 'integer',
+                    'type' =>  $is_id_int ? 'integer' : 'keyword',
                 ],
                 'value' => function() { return $this->getAttributeValue($this->getKeyName()); },
             ]
@@ -228,26 +256,6 @@ class BaseModel extends AbstractModel
         $x = $t * ($t + 3) / 2 - $z;
         $y = $z - $t * ($t + 1) / 2;
         return [$x, $y];
-
-    }
-
-    public function has($trait)
-    {
-
-        $traits = class_uses_deep($this);
-        foreach ($traits as $t)
-        {
-
-            if ($t == $trait)
-            {
-
-                return true;
-
-            }
-
-        }
-
-        return false;
 
     }
 

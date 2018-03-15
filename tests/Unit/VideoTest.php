@@ -9,6 +9,4 @@ class VideoTest extends AssetTestCase
 
     protected $model = Video::class;
 
-    protected $route = 'videos';
-
 }

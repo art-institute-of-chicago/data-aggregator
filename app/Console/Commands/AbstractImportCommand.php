@@ -3,11 +3,12 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
-use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-abstract class AbstractImportCommand extends Command
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
+
+abstract class AbstractImportCommand extends BaseCommand
 {
 
     /**
@@ -16,14 +17,6 @@ abstract class AbstractImportCommand extends Command
      * @var \App\Command
      */
     protected $command;
-
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    abstract public function handle();
 
 
     /**
@@ -80,6 +73,9 @@ abstract class AbstractImportCommand extends Command
         $resource->fillFrom($datum);
         $resource->attachFrom($datum);
         $resource->save();
+
+        // For debugging ids and titles:
+        // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");
 
         return $resource;
 

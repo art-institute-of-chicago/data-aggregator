@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
-class CleanSeed extends Command
+class CleanSeed extends BaseCommand
 {
 
     /**

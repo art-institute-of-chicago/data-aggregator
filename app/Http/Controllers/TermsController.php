@@ -14,6 +14,7 @@ class TermsController extends BaseController
 
     protected $transformer = \App\Http\Transformers\TermTransformer::class;
 
+
     // artworks/{id}/terms
     public function forArtwork(Request $request, $id) {
 
