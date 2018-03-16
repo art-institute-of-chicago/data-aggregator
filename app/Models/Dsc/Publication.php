@@ -53,16 +53,6 @@ class Publication extends DscModel
                 "value" => function() { return $this->alias; },
             ],
             [
-                "name" => 'title',
-                "doc" => "Official title of the publication",
-                "type" => "string",
-                "elasticsearch" => [
-                    "default" => true,
-                    "type" => 'text',
-                ],
-                "value" => function() { return $this->title; },
-            ],
-            [
                 "name" => 'section_ids',
                 "doc" => "Unique identifiers of the sections of this publication",
                 "type" => "array",
