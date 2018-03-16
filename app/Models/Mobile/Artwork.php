@@ -14,6 +14,15 @@ class Artwork extends MobileModel
      */
     protected $table = 'mobile_artworks';
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'highlighted' => 'boolean',
+    ];
+
     public function artwork()
     {
 

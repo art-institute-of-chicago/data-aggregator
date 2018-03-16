@@ -683,7 +683,7 @@ class Artwork extends CollectionsModel
                 "doc" => "Whether the work is highlighted in the mobile app",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->mobileArtwork ? $this->mobileArtwork->highlighted : false; },
+                "value" => function() { return $this->mobileArtwork->highlighted ?? false; },
             ],
             [
                 "name" => 'selector_number',
