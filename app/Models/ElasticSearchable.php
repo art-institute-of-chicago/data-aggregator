@@ -177,7 +177,7 @@ trait ElasticSearchable
     public function getDefaultSearchFieldMapping()
     {
 
-        $fields = array_merge($this->transformMappingInternal(), $this->transformTitles());
+        $fields = array_merge($this->transformMapping(), $this->transformTitles());
 
         $fields = array_filter( $fields, function($field) {
 
