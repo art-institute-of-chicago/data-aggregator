@@ -203,4 +203,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('pages', 'PagesController@index');
     Route::get('pages/{id}', 'PagesController@show');
 
+    // Generic endpoint to allow source systems to let us know when a record should be updated
+    Route::get('{endpoint}/{id}/pull', 'PullController@pull');
+
 });

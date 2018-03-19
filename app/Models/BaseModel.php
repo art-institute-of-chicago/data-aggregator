@@ -186,6 +186,13 @@ class BaseModel extends AbstractModel
 
     }
 
+    public static function source()
+    {
+
+        return static::$source;
+
+    }
+
     /**
      * Generate a unique ID based on a combination of two numbers.
      * @param  int   $x
