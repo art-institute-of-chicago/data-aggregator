@@ -5,6 +5,7 @@ namespace App\Models\Collections;
 use App\Models\Fillable;
 use App\Models\Instancable;
 use App\Models\Transformable;
+use App\Models\Fakeable;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class ArtworkCatalogue extends Pivot
 {
 
-    use Fillable, Instancable, Transformable;
+    use Fillable, Instancable, Transformable, Fakeable;
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['date_start', 'date_end', 'source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];

@@ -7,13 +7,14 @@ use App\Models\CollectionsModel;
 use App\Models\Fillable;
 use App\Models\Instancable;
 use App\Models\Transformable;
+use App\Models\Fakeable;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class ArtworkTerm extends Pivot
 {
 
-    use Fillable, Instancable, Transformable;
+    use Fillable, Instancable, Transformable, Fakeable;
 
     public $incrementing = true;
 

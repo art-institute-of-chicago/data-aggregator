@@ -28,11 +28,11 @@ abstract class AbstractSeeder extends Seeder
     public static function clean()
     {
 
-        if (! method_exists(self::class, 'unseed')) {
+        if (! method_exists(get_called_class(), 'unseed')) {
             throw new InvalidArgumentException('Method [unseed] missing from '.get_called_class());
         }
 
-        self::unseed();
+        get_called_class()::unseed();
 
     }
 
