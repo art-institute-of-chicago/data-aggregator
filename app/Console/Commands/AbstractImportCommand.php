@@ -13,7 +13,9 @@ use App\Behaviors\CanQuery;
 abstract class AbstractImportCommand extends BaseCommand
 {
 
-    use CanQuery;
+    use CanQuery {
+        saveDatum as protected traitSaveDatum;
+    }
 
     /**
      * An instance of the \App\Command model for logging.
@@ -62,7 +64,7 @@ abstract class AbstractImportCommand extends BaseCommand
 
         $this->info("Importing #{$datum->id}: {$datum->title}");
 
-        $resource = parent::saveDatum($datum, $model);
+        $resource = $this->traitSaveDatum($datum, $model);
 
         // For debugging ids and titles:
         // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");
