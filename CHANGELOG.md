@@ -1,6 +1,8 @@
 Data Aggregator Changelog
 =============================
 
+### 0.10.1 – Hotfix to remove ELasticsearch functionality from testing application environment
+
 ### 0.10 – CMS API integration and image thumbnail metadata
 
 * Create `/category-terms` endpoint that combines `/categories` and `/terms` into a single endpoint

@@ -206,14 +206,6 @@ return [
 
             'sniffOnStart' => false,
 
-            'httpHandler' => new GuzzleHttp\Ring\Client\MockHandler([
-                'status' => 200,
-                'transfer_stats' => [
-                    'total_time' => 100
-                ],
-                'body' => fopen(base_path('tests/Unit/mockelasticsearch.json'), 'r')
-            ]),
-
             'connectionPool' => null,
 
             'connectionSelector' => null,
