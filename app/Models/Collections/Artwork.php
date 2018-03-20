@@ -35,13 +35,6 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function copyrightRepresentatives()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_copyright_representative');
-
-    }
-
     public function artworkType()
     {
 
@@ -330,13 +323,6 @@ class Artwork extends CollectionsModel
         // @TODO Determine this logic in the dataservice?
         // $source->fiscal_year
         // $source->accquired_at
-
-        if ($source->copyright_representative_ids)
-        {
-
-            $this->copyrightRepresentatives()->sync($source->copyright_representative_ids, false);
-
-        }
 
         $pref_terms = collect( $source->pref_term_ids ?? [] )->map( function( $term ) {
             return [
@@ -740,13 +726,6 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
             ],
             [
-                "name" => 'copyright_representative_ids',
-                "doc" => "Unique identifiers of the copyright representatives associated with this work",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->copyrightRepresentatives->pluck('citi_id')->all(); },
-            ],
-            [
                 "name" => 'part_ids',
                 "doc" => "Unique identifiers of the individual works that make up this work",
                 "type" => "array",
@@ -967,13 +946,6 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->categories->pluck('title')->all(); },
             ],
             [
-                "name" => 'copyright_representative_titles',
-                "doc" => "Names of the agents that represent copyright for this artwork",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->copyrightRepresentatives->pluck('title')->all(); },
-            ],
-            [
                 "name" => 'part_titles',
                 "doc" => "Names of the artworks that make up this work",
                 "type" => "array",
@@ -1047,7 +1019,7 @@ class Artwork extends CollectionsModel
     public function subresources()
     {
 
-        return ['artists', 'categories', 'images', 'parts', 'sets']; //, 'copyrightRepresentatives'
+        return ['artists', 'categories', 'images', 'parts', 'sets'];
 
     }
 

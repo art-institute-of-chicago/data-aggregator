@@ -64,7 +64,7 @@ if (!function_exists('idsAndTitle'))
 
 $factory->define(App\Models\Collections\AgentType::class, function (Faker\Generator $faker) {
     return array_merge(
-        idsAndTitle($faker, $faker->unique()->randomElement(['Individual', 'Copyright Representative', 'Corporate Body', $faker->words(2, true)]), true, 2),
+        idsAndTitle($faker, $faker->unique()->randomElement(['Individual', 'Corporate Body', $faker->words(2, true)]), true, 2),
         dates($faker, true)
     );
 });

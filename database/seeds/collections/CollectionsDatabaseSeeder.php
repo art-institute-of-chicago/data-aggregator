@@ -28,7 +28,6 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         $this->call(PlaceCategoriesTableSeeder::class);
         $this->call(ArtworksTableSeeder::class);
         $this->call(ArtistArtworksTableSeeder::class);
-        $this->call(ArtworkCopyrightRepresentativesTableSeeder::class);
         $this->call(ArtworkCategoriesTableSeeder::class);
         $this->call(ArtworkTermsTableSeeder::class);
         $this->call(ArtworkDatesTableSeeder::class);

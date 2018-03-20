@@ -7,7 +7,7 @@ use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
 /**
- * Represents a person or organization. In the API, this includes artists, venues, and copyright representatives.
+ * Represents a person or organization. In the API, this includes artists and venues.
  */
 class Agent extends CollectionsModel
 {
@@ -35,13 +35,6 @@ class Agent extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist');
-
-    }
-
-    public function copyrightedArtworks()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_copyright_representative');
 
     }
 
@@ -92,19 +85,6 @@ class Agent extends CollectionsModel
                 'field' => 'artwork_ids'
             ]
         ];
-
-    }
-
-    /**
-     * Scope a query to only include agents that are copyright representatives for an artwork.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeCopyrightRepresentatives($query)
-    {
-
-        return $query->whereHas('copyrightedArtworks');
 
     }
 
