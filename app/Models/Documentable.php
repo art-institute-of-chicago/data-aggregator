@@ -142,10 +142,10 @@ trait Documentable
      *
      * @return string
      */
-    public function docListDescription()
+    public function docListDescription($endpoint = '')
     {
 
-        $endpointAsCopyText = $this->_endpointAsCopyText();
+        $endpointAsCopyText = $this->_endpointAsCopyText($endpoint);
 
         return "A list of all " .$endpointAsCopyText ." sorted by last updated date in descending order.";
 
@@ -273,12 +273,12 @@ trait Documentable
      *
      * @return string
      */
-    public function docSingleDescription()
+    public function docSingleDescription($endpoint = '')
     {
 
-        $endpointAsCopyText = $this->_endpointAsCopyText();
+        $endpointAsCopyText = $this->_endpointAsCopyText($endpoint);
 
-        $doc = "A single " .$endpointAsCopyText ." by the given identifier.";
+        $doc = "A single " .str_singular($endpointAsCopyText) ." by the given identifier.";
 
         if (static::$source == 'Collections')
         {
@@ -741,7 +741,7 @@ trait Documentable
      *
      * @return string
      */
-    public function swaggerDoc()
+    public function swaggerEndpoints()
     {
 
         if ($this->docOnly())
@@ -751,7 +751,7 @@ trait Documentable
 
         }
 
-        $doc = $this->swaggerList();
+        $doc = $this->swaggerList() ."\n";
 
         if (get_called_class() == Collections\Artwork::class || get_called_class() == Collections\Agent::class)
         {
@@ -776,8 +776,76 @@ trait Documentable
 
         }
 
+        if (get_called_class() == Collections\Agent::class)
+        {
+
+            // Artists
+            $doc .= $this->swaggerList('artists') ."\n";
+            $doc .= $this->swaggerSingle('artists') ."\n";
+
+            // Venues
+            $doc .= $this->swaggerList('venues') ."\n";
+            $doc .= $this->swaggerSingle('venues') ."\n";
+
+        }
+        elseif (get_called_class() == Collections\Category::class)
+        {
+
+            // Department
+            $doc .= $this->swaggerList('departments') ."\n";
+            $doc .= $this->swaggerSingle('departments') ."\n";
+
+        }
+
         return $doc;
 
+
+    }
+
+    /**
+     * Generate swagger field documentation for this model
+     *
+     * @return string
+     */
+    public function swaggerFields()
+    {
+
+        $model = get_called_class();
+        $modelBasename = class_basename($model);
+
+        $doc = "    \"" .$modelBasename ."\": {\n";
+        $doc .= "      \"properties\": {\n";
+        $doc .= $this->swaggerListFields();
+        $doc .= "      },\n";
+        $doc .= "      \"type\": \"object\"\n";
+        $doc .= "    },\n";
+
+        $doc .= "\n";
+
+        return $doc;
+
+    }
+
+    /**
+     * Generate swagger documentation for listing fields
+     *
+     * @return string
+     */
+    public function swaggerListFields()
+    {
+
+        $doc = '';
+        $mapping = $this->transformMapping();
+        foreach ($mapping as $array)
+        {
+
+            $doc .= "        \"" .$array["name"] ."\": {\n";
+            $doc .= "          \"description\": \"" .str_replace('"', '\"', $array['doc']) ."\"\n";
+            $doc .= "        }" .($array !== end($mapping) ? "," : "") ."\n";
+
+        }
+
+        return $doc;
 
     }
 
@@ -786,22 +854,15 @@ trait Documentable
      *
      * @return string
      */
-    public function swaggerList()
+    public function swaggerList($endpoint = null)
     {
 
-        $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."\": {\n";
+        $doc = "    \"/" .($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) ."\": {\n";
         $doc .= "      \"get\": {\n";
-        $doc .= $this->swaggerTags(['search']);
-        $doc .= "        \"summary\": \"" .$this->docListDescription() . "\",\n";
+        $doc .= $this->swaggerTags();
+        $doc .= "        \"summary\": \"" .$this->docListDescription($endpoint) . "\",\n";
         $doc .= $this->swaggerProduces();
-        $doc .= "        \"parameters\": [\n";
-        foreach ($this->docListParametersRaw() as $param => $description)
-        {
-            $doc .= "          {\n";
-            $doc .= "            \"\$ref\": \"#/parameters/" .$param ."\"\n";
-            $doc .= "          }" .($element !== end($array) ? "," : "") ."\n";
-        }
-        $doc .= "        ],\n";
+        $doc .= $this->swaggerParameters();
         $doc .= $this->swaggerResponses();
         $doc .= "      }\n";
         $doc .= "    },\n";
@@ -820,17 +881,10 @@ trait Documentable
 
         $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."/boosted\": {\n";
         $doc .= "      \"get\": {\n";
-        $doc .= $this->swaggerTags(['search']);
+        $doc .= $this->swaggerTags();
         $doc .= "        \"summary\": \"" .$this->docBoostedDescription() ."\",\n";
         $doc .= $this->swaggerProduces();
-        $doc .= "        \"parameters\": [\n";
-        foreach ($this->docListParametersRaw() as $param => $description)
-        {
-            $doc .= "          {\n";
-            $doc .= "            \"\$ref\": \"#/parameters/" .$param ."\"\n";
-            $doc .= "          }" .($element !== end($array) ? "," : "") ."\n";
-        }
-        $doc .= "        ],\n";
+        $doc .= $this->swaggerParameters();
         $doc .= $this->swaggerResponses();
         $doc .= "      }\n";
         $doc .= "    },\n";
@@ -852,14 +906,7 @@ trait Documentable
         $doc .= $this->swaggerTags(['search']);
         $doc .= "        \"summary\": \"" .$this->docSearchDescription() ."\",\n";
         $doc .= $this->swaggerProduces();
-        $doc .= "        \"parameters\": [\n";
-        foreach ($this->docSearchParametersRaw() as $param => $description)
-        {
-            $doc .= "          {\n";
-            $doc .= "            \"\$ref\": \"#/parameters/" .$param ."\"\n";
-            $doc .= "          }" .($element !== end($array) ? "," : "") ."\n";
-        }
-        $doc .= "        ],\n";
+        $doc .= $this->swaggerParameters($this->docSearchParametersRaw());
         $doc .= $this->swaggerResponses('SearchResult');
         $doc .= "      }\n";
         $doc .= "    },\n";
@@ -873,19 +920,15 @@ trait Documentable
      *
      * @return string
      */
-    public function swaggerSingle()
+    public function swaggerSingle($endpoint = null)
     {
 
-        $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."/{id}\": {\n";
+        $doc = "    \"/" .($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) ."/{id}\": {\n";
         $doc .= "      \"get\": {\n";
         $doc .= $this->swaggerTags();
-        $doc .= "        \"summary\": \"" .$this->docSingleDescription() ."\",\n";
+        $doc .= "        \"summary\": \"" .$this->docSingleDescription($endpoint) ."\",\n";
         $doc .= $this->swaggerProduces();
-        $doc .= "        \"parameters\": [\n";
-        $doc .= "          {\n";
-        $doc .= "            \"\$ref\": \"#/parameters/id\"\n";
-        $doc .= "          }\n";
-        $doc .= "        ],\n";
+        $doc .= $this->swaggerParameters(['id' => 'Resource id to retrieve']);
         $doc .= $this->swaggerResponses();
         $doc .= "      }\n";
         $doc .= "    },\n";
@@ -905,13 +948,9 @@ trait Documentable
         $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."/{id}/" .$subresource ."\": {\n";
         $doc .= "      \"get\": {\n";
         $doc .= $this->swaggerTags();
-        $doc .= "        \"summary\": \"" .$this->docSubresourceDescription() ."\",\n";
+        $doc .= "        \"summary\": \"" .$this->docSubresourceDescription($subresource) ."\",\n";
         $doc .= $this->swaggerProduces();
-        $doc .= "        \"parameters\": [\n";
-        $doc .= "          {\n";
-        $doc .= "            \"\$ref\": \"#/parameters/id\"\n";
-        $doc .= "          }\n";
-        $doc .= "        ],\n";
+        $doc .= $this->swaggerParameters(['id' => 'Resource id to retrieve']);
 
         $subModel = app('Resources')->getModelForEndpoint($subresource);
         $doc .= $this->swaggerResponses(class_basename($subModel));
@@ -956,6 +995,27 @@ trait Documentable
 
         return $doc;
 
+    }
+
+    /**
+     * Generate swagger parameters for this model
+     *
+     * @return string
+     */
+    public function swaggerParameters($params = [])
+    {
+
+        $doc = "        \"parameters\": [\n";
+        $array = $params ?? $this->docListParametersRaw();
+        foreach ($array as $param => $description)
+        {
+            $doc .= "          {\n";
+            $doc .= "            \"\$ref\": \"#/parameters/" .$param ."\"\n";
+            $doc .= "          }" .($description !== end($array) ? "," : "") ."\n";
+        }
+        $doc .= "        ],\n";
+
+        return $doc;
     }
 
     public function swaggerResponses($modelBasename = null)

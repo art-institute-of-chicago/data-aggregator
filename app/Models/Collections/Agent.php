@@ -13,7 +13,9 @@ class Agent extends CollectionsModel
 {
 
     use ElasticSearchable;
-    use Documentable;
+    use Documentable {
+        docBoostedDescription as public traitDocBoostedDescription;
+    }
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
@@ -380,7 +382,7 @@ class Agent extends CollectionsModel
 
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
-        return parent::docBoostedDescription() ." This is a subset of the `" .$endpoint ."/` endpoint that represents all the artists included in boosted Artwork, in addition to the top 100 viewed artists on our website in 2017.";
+        return $this->traitDocBoostedDescription() ." This is a subset of the `" .$endpoint ."/` endpoint that represents all the artists included in boosted Artwork, in addition to the top 100 viewed artists on our website in 2017.";
 
     }
 

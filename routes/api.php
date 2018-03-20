@@ -25,7 +25,7 @@ Route::group(['prefix' => 'v1'], function() {
     });
 
     Route::get('swagger.json', function() {
-        return response(view('swagger', ['host' => parse_url(config('app.url'), PHP_URL_HOST)]), 200, ['Content-Type' => 'application/json']);
+        return response(view('swagger'), 200, ['Content-Type' => 'application/json']);
     });
 
     // Elasticsearch
