@@ -62,7 +62,7 @@ abstract class AbstractImportCommand extends BaseCommand
     protected function saveDatum( $datum, $model )
     {
 
-        $this->info("Importing #{$datum->id}: {$datum->title}");
+        $this->info("Importing #{$datum->id}" .(property_exists($datum, 'title') ? ": {$datum->title}" : ""));
 
         $resource = $this->traitSaveDatum($datum, $model);
 

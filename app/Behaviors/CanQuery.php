@@ -12,13 +12,21 @@ trait CanQuery
      *
      * @return string
      */
-    protected function query($url)
+    protected function query($url, $auth = '')
     {
 
         $ch = curl_init();
 
         curl_setopt ($ch, CURLOPT_URL, $url);
         curl_setopt ($ch, CURLOPT_HEADER, 0);
+        curl_setopt ($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+
+        if ($auth)
+        {
+
+            curl_setopt ($ch, CURLOPT_USERPWD, $auth);
+
+        }
 
         ob_start();
 

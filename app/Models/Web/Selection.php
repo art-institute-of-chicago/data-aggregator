@@ -44,4 +44,13 @@ class Selection extends WebModel
 
     }
 
+    public function getExtraFillFieldsFrom($source)
+    {
+
+        return [
+            'title' => $source->slug,
+        ];
+
+    }
+
 }
