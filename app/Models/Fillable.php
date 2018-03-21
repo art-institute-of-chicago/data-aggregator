@@ -146,7 +146,8 @@ trait Fillable
     protected function fillTitleFrom($source)
     {
 
-        if ( in_array( 'title', $this->availableAttributes() ) )
+        if ( in_array( 'title', $this->availableAttributes() )
+             && property_exists($source, 'title') )
         {
 
             $this->title = $source->title;
