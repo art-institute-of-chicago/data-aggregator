@@ -47,9 +47,44 @@ class Article extends WebModel
     public function getExtraFillFieldsFrom($source)
     {
 
-        return [
+        $ret = [
             'title' => $source->slug,
         ];
+
+        // Ensure blocks are sorted by their position
+        $blocks = array_sort($source->copy, function ($block) {
+            return $block->position;
+        });
+
+        // Collect all the text in one block
+        $text = "";
+        foreach ($blocks as $block)
+        {
+
+            if ($block->type == 'paragraph')
+            {
+
+                $text .= $block->content->paragraph ?? '';
+
+            }
+
+        }
+        $ret['copy'] = $text;
+
+        // Get a URL to the first large image
+        foreach ($blocks as $block)
+        {
+
+            if ($block->type == 'image')
+            {
+
+                $ret['imgix_uuid'] = $block->medias[0]->uuid;
+                break;
+
+            }
+        }
+
+        return $ret;
 
     }
 
