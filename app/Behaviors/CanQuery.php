@@ -56,7 +56,14 @@ trait CanQuery
         $source = $model::source();
         $url = $this->sourceUrl($source) .'/' .$endpoint .'/' .$id;
 
-        $result = $this->query( $url );
+        $auth = '';
+        if ($source == 'Web' && env('WEB_CMS_DATA_SERVICE_USERNAME'))
+        {
+
+            $auth = env('WEB_CMS_DATA_SERVICE_USERNAME') .':' .env('WEB_CMS_DATA_SERVICE_PASSWORD');
+
+        }
+        $result = $this->query( $url, $auth );
 
         if( is_null( $result ) ) {
             throw new \Exception("Cannot contact data service: " . $url);

@@ -113,9 +113,16 @@ class ImportWebFull extends AbstractImportCommand
 
     private function queryService($endpoint, $page = 1, $limit = 100)
     {
-        return $this->query( env('WEB_CMS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit,
-                             env('WEB_CMS_DATA_SERVICE_USERNAME', 'test') .':' .env('WEB_CMS_DATA_SERVICE_PASSWORD', 'password')
-        );
+
+        $auth = '';
+        if (env('WEB_CMS_DATA_SERVICE_USERNAME'))
+        {
+
+            $auth = env('WEB_CMS_DATA_SERVICE_USERNAME') .':' .env('WEB_CMS_DATA_SERVICE_PASSWORD');
+
+        }
+
+        return $this->query( env('WEB_CMS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit, $auth);
     }
 
 }
