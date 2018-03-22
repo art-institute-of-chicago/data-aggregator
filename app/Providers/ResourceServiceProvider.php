@@ -231,7 +231,14 @@ class ResourceServiceProvider extends ServiceProvider
                 {
                     $resource = $this->resources->firstWhere('endpoint', $endpoint);
 
-                    return $resource['model'] ?? null;
+                    $model = $resource['model'] ?? null;
+
+                    if( !$model )
+                    {
+                        throw new \Exception('You must define a model for endpoint `' . $endpoint . '` in ResourceServiceProvider.');
+                    }
+
+                    return $model;
                 }
 
                 public function getEndpointForModel( $model )
@@ -242,7 +249,14 @@ class ResourceServiceProvider extends ServiceProvider
 
                     $resource = $this->resources->firstWhere('model', $model);
 
-                    return $resource['endpoint'] ?? null;
+                    $endpoint = $resource['endpoint'] ?? null;
+
+                    if( !$endpoint )
+                    {
+                        throw new \Exception('You must define an endpoint for model `' . $model . '` in ResourceServiceProvider.');
+                    }
+
+                    return $endpoint;
                 }
 
                 public function getParent( $endpoint )
