@@ -326,7 +326,7 @@ class Product extends ShopModel
                 "doc" => "URL of an image for this product",
                 "type" => "url",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->image_url; },
+                "value" => function() { return str_replace(env('SHOP_IMAGE_URL'), env('SHOP_IMGIX_URL'), $this->image_url); },
             ],
             [
                 "name" => 'web_url',
