@@ -41,12 +41,12 @@ class ResourceServiceProvider extends ServiceProvider
                     [
                         'endpoint' => 'artists',
                         'model' => \App\Models\Collections\Agent::class,
-                        'scope' => 'agents',
+                        'scope_of' => 'agents',
                     ],
                     [
                         'endpoint' => 'venues',
                         'model' => \App\Models\Collections\Agent::class,
-                        'scope' => 'agents',
+                        'scope_of' => 'agents',
                     ],
                     [
                         'endpoint' => 'agent-places',
@@ -67,7 +67,7 @@ class ResourceServiceProvider extends ServiceProvider
                     [
                         'endpoint' => 'departments',
                         'model' => \App\Models\Collections\Category::class,
-                        'scope' => 'departments',
+                        'scope_of' => 'departments',
                     ],
                     [
                         'endpoint' => 'places',
@@ -264,7 +264,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                     $resource = $this->resources->firstWhere('endpoint', $endpoint);
 
-                    return $resource['scope'] ?? null;
+                    return $resource['scope_of'] ?? null;
                 }
 
             };
