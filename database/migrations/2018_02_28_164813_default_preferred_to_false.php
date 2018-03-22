@@ -15,23 +15,23 @@ class DefaultPreferredToFalse extends Migration
     {
 
         Schema::table('artwork_term', function (Blueprint $table) {
-            $table->boolean('preferred')->nullable()->default(false)->change();
+            $table->boolean('preferred')->default(false)->change();
         });
 
         Schema::table('artwork_catalogue', function (Blueprint $table) {
-            $table->boolean('preferred')->nullable()->default(false)->change();
+            $table->boolean('preferred')->default(false)->change();
         });
 
         Schema::table('agent_place', function(Blueprint $table) {
-            $table->boolean('is_preferred')->nullable()->default(false)->change();
+            $table->boolean('is_preferred')->default(false)->change();
         });
 
         Schema::table('artwork_dates', function(Blueprint $table) {
-            $table->boolean('preferred')->nullable()->default(false)->change();
+            $table->boolean('preferred')->default(false)->change();
         });
 
         Schema::table('artwork_asset', function(Blueprint $table) {
-            $table->boolean('preferred')->nullable()->default(false)->change();
+            $table->boolean('preferred')->default(false)->change();
         });
 
         \App\Models\Collections\ArtworkTerm::where('preferred', null)
@@ -59,25 +59,25 @@ class DefaultPreferredToFalse extends Migration
     public function down()
     {
 
-        Schema::table('artwork_term', function (Blueprint $table) {
-            $table->boolean('preferred')->nullable()->default(null)->change();
-        });
+        $tables = [
+            'artwork_term' => 'preferred',
+            'artwork_catalogue' => 'preferred',
+            'agent_place' => 'is_preferred',
+            'artwork_dates' => 'preferred',
+            'artwork_asset' => 'preferred',
+        ];
 
-        Schema::table('artwork_catalogue', function (Blueprint $table) {
-            $table->boolean('preferred')->nullable()->default(null)->change();
-        });
+        foreach( $tables as $table => $column )
+        {
+            $this->dropDefault( $table, $column );
+        }
 
-        Schema::table('agent_place', function(Blueprint $table) {
-            $table->boolean('is_preferred')->nullable()->default(null)->change();
-        });
+    }
 
-        Schema::create('artwork_dates', function(Blueprint $table) {
-            $table->boolean('preferred')->nullable()->default(null)->change();
-        });
+    private function dropDefault( $table, $column )
+    {
 
-        Schema::table('artwork_asset', function(Blueprint $table) {
-            $table->boolean('preferred')->nullable()->default(null)->change();
-        });
+        \DB::statement('ALTER TABLE `' . $table . '` ALTER COLUMN `' . $column . '` DROP DEFAULT');
 
     }
 }
