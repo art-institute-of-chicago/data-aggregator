@@ -45,6 +45,9 @@ class DatabaseReset extends BaseCommand
     private function dropTables()
     {
 
+        // In case we get interrupted midway
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         // Specifying `FULL` returns `Table_type`
         $tables = DB::select("SHOW FULL TABLES;");
 
@@ -67,6 +70,8 @@ class DatabaseReset extends BaseCommand
             }
 
         }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
     }
 
