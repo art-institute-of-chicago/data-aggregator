@@ -67,7 +67,7 @@ class ResourceServiceProvider extends ServiceProvider
                     [
                         'endpoint' => 'departments',
                         'model' => \App\Models\Collections\Category::class,
-                        'scope_of' => 'departments',
+                        'scope_of' => 'categories',
                     ],
                     [
                         'endpoint' => 'places',
