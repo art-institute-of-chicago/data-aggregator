@@ -525,6 +525,13 @@ class Request
             ]
         ];
 
+        // Queries below depend on `q`, but act as relevany tweaks
+        // Don't tweak relevancy further if sort is passed
+        if( isset( $input['sort'] ) )
+        {
+            return $params;
+        }
+
         // This acts as a boost for docs that match precisely
         $params['body']['query']['bool']['should'][] = [
             'multi_match' => [
@@ -547,7 +554,6 @@ class Request
                 ]
             ];
         }
-
 
         return $params;
 
