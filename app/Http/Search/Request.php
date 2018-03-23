@@ -515,11 +515,20 @@ class Request
         // TODO: Determine which fields to query w/ is_numeric()?
         // See also `lenient` param
 
+        // Pull all docs that match fuzzily into the results
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
                 'query' => array_get( $input, 'q' ),
                 'fuzziness' => 'AUTO',
                 'prefix_length' => 1,
+                'fields' => app('Search')->getDefaultFields()
+            ]
+        ];
+
+        // This acts as a boost for docs that match precisely
+        $params['body']['query']['bool']['should'][] = [
+            'multi_match' => [
+                'query' => array_get( $input, 'q' ),
                 'fields' => app('Search')->getDefaultFields()
             ]
         ];
