@@ -927,6 +927,11 @@ class Artwork extends CollectionsModel
                 "name" => 'artist_titles',
                 "doc" => "Names of the artists this artwork is a part of",
                 "type" => "array",
+                // Previously defined in StaticArchive/Site
+                "elasticsearch" => [
+                    "default" => true,
+                    "boost" => 1.05
+                ],
                 "value" => function() { return $this->artists->pluck('title')->all(); },
             ],
             [
