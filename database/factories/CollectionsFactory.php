@@ -30,7 +30,6 @@ if (!function_exists('idsAndTitle'))
             [
                 'title' => $title,
                 'lake_guid' => $lake_id,
-                'lake_uri' => env('LAKE_URL', 'https://localhost') .'/' .substr($lake_id, 0, 2) .'/' .substr($lake_id, 2, 2) .'/' .substr($lake_id, 4, 2) .'/' .substr($lake_id, 6, 2) .'/' .$lake_id,
             ]
         );
 

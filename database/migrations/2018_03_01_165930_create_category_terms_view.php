@@ -11,16 +11,23 @@ class CreateCategoryTermsView extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up( $isNew = true, $withLakeUri = true )
     {
 
-        \DB::statement("
-          CREATE VIEW category_terms AS
+        if( !$isNew )
+        {
+            DB::statement('DROP VIEW IF EXISTS `category_terms`;');
+        }
+
+        $lake_uri_line = $withLakeUri ? 'lake_uri,' : '';
+
+        \DB::connection()->getPdo()->exec("
+          CREATE VIEW `category_terms` AS
             SELECT DISTINCT
                lake_uid,
                lake_guid,
                title,
-               lake_uri,
+               {$lake_uri_line}
                type,
                source_created_at,
                source_modified_at,
@@ -35,7 +42,7 @@ class CreateCategoryTermsView extends Migration
                lake_uid,
                lake_guid,
                title,
-               lake_uri,
+               {$lake_uri_line}
                type,
                source_created_at,
                source_modified_at,
