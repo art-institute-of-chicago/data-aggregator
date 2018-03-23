@@ -148,7 +148,7 @@ class BaseModel extends AbstractModel
                 'elasticsearch' => [
                     'type' => 'text',
                     'default' => true,
-                    'boost' => 2,
+                    'boost' => 1.5,
                 ],
                 'value' => function() { return $this->title; },
             ]

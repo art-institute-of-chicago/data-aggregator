@@ -515,6 +515,7 @@ class Request
         // TODO: Determine which fields to query w/ is_numeric()?
         // See also `lenient` param
 
+        // Pull all docs that match fuzzily into the results
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
                 'query' => array_get( $input, 'q' ),
@@ -523,6 +524,36 @@ class Request
                 'fields' => app('Search')->getDefaultFields()
             ]
         ];
+
+        // Queries below depend on `q`, but act as relevany tweaks
+        // Don't tweak relevancy further if sort is passed
+        if( isset( $input['sort'] ) )
+        {
+            return $params;
+        }
+
+        // This acts as a boost for docs that match precisely
+        $params['body']['query']['bool']['should'][] = [
+            'multi_match' => [
+                'query' => array_get( $input, 'q' ),
+                'fields' => app('Search')->getDefaultFields()
+            ]
+        ];
+
+        // This boosts docs that have multiple terms in close proximity
+        // `phrase` queries are relatively expensive, so check for spaces first
+        // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
+        if( strpos( $input['q'], ' ' ) )
+        {
+            $params['body']['query']['bool']['should'][] = [
+                'multi_match' => [
+                    'query' => array_get( $input, 'q' ),
+                    'type' => 'phrase',
+                    'slop' => 3, // account for e.g. middle names
+                    'fields' => app('Search')->getDefaultFields()
+                ]
+            ];
+        }
 
         return $params;
 
