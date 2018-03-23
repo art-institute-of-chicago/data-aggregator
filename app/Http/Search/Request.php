@@ -442,10 +442,19 @@ class Request
             return $params;
         }
 
-        // Boost anthing with `is_boosted` true
+        // Boost anything with `is_boosted` true
         $params['body']['query']['bool']['should'][] = [
             'term' => [
                 'is_boosted' => true
+            ]
+        ];
+
+        // Boost anything that's on view
+        // TODO: Move this to the Artwork model?
+        // TODO: Only do this when artworks are searched?
+        $params['body']['query']['bool']['should'][] = [
+            'term' => [
+                'is_on_view' => true
             ]
         ];
 
