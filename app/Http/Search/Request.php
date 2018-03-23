@@ -533,6 +533,22 @@ class Request
             ]
         ];
 
+        // This boosts docs that have multiple terms in close proximity
+        // `phrase` queries are relatively expensive, so check for spaces first
+        // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
+        if( strpos( $input['q'], ' ' ) )
+        {
+            $params['body']['query']['bool']['should'][] = [
+                'multi_match' => [
+                    'query' => array_get( $input, 'q' ),
+                    'type' => 'phrase',
+                    'slop' => 3, // account for e.g. middle names
+                    'fields' => app('Search')->getDefaultFields()
+                ]
+            ];
+        }
+
+
         return $params;
 
     }
