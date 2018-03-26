@@ -265,18 +265,34 @@ class Artwork extends CollectionsModel
 
         }
 
+        // TODO: Filter our documentary images from alt images!
+        // Start building the image sync by pulling in alts first
+        $images = collect( $source->alt_image_guids ?? [] )->map( function( $image ) {
+            return [
+                $image => [
+                    'preferred' => false
+                ]
+            ];
+        });
+
         if ($source->image_guid)
         {
 
-            // https://stackoverflow.com/questions/27230672/laravel-sync-how-to-sync-an-array-and-also-pass-additional-pivot-fields
-            // This is how we sync w/ an additional attribute on the pivot table
-            $this->images()->sync([
+            $images->push([
                 $source->image_guid => [
                     'preferred' => true
                 ]
-            ], false);
+            ]);
 
         }
+
+        // Collapse a collection of arrays into a single, flat collection
+        $images = $images->collapse();
+
+        // Above is how we sync w/ an additional attribute on the pivot table
+        // https://stackoverflow.com/questions/27230672
+
+        $this->images()->sync($images, false);
 
         if ($source->category_ids)
         {
