@@ -856,25 +856,11 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->image->lake_guid ?? null; },
             ],
             [
-                "name" => 'image_iiif_url',
-                "doc" => "IIIF URL of the preferred image to use to represent this work",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->image->iiif_url ?? null; },
-            ],
-            [
                 "name" => 'alt_image_ids',
-                "doc" => "Unique identifiers of all non-preferred images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.",
+                "doc" => "Unique identifiers of all non-preferred images of this work.",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->altImages->pluck('lake_guid')->all(); },
-            ],
-            [
-                "name" => 'alt_image_iiif_urls',
-                "doc" => "IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.",
-                "type" => "array",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->altImages->pluck('iiif_url')->all(); },
             ],
             [
                 "name" => 'sound_ids',
