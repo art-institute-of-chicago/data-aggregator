@@ -31,6 +31,7 @@ class MakeLakeUidPrimaryKeyForTermsAndCategories extends Migration
         Schema::table('categories', function (Blueprint $table) {
             $table->dropColumn('citi_id');
             $table->primary('lake_uid');
+            // Prior to this migration, parent_id did not have an index
             $table->string('parent_id')->index()->change();
         });
 
@@ -130,7 +131,9 @@ class MakeLakeUidPrimaryKeyForTermsAndCategories extends Migration
 
         Schema::table('categories', function (Blueprint $table) {
             $table->primary('citi_id');
-            $table->integer('parent_id')->index()->change();
+            // Revert back to index-less state
+            $table->dropIndex(['parent_id']);
+            $table->integer('parent_id')->change();
         });
 
         // artwork_category

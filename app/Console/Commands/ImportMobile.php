@@ -76,7 +76,6 @@ class ImportMobile extends AbstractImportCommand
             $artwork->latitude = (float) $location[0];
             $artwork->longitude = (float) $location[1];
 
-            $artwork->highlighted = (bool) $datum->highlighted_object;
             $artwork->selector_number = isset( $datum->object_selector_number ) ? (bool) $datum->object_selector_number : null;
 
             $artwork->save();

@@ -305,7 +305,7 @@ trait Documentable
         $doc = '### `' .$this->_endpointPath(['extraPath' => '{id}/' .$subEndpoint]) ."`\n\n";
 
         $doc .= "The " .$this->_endpointAsCopyText($subEndpoint) ." for a given " .$endpointAsCopyText .".";
-        if ($subEndpoint == 'artists' || $subEndpoint == 'copyrightRepresentatives')
+        if ($subEndpoint == 'artists')
         {
 
             $doc .= " Served from the API as a type of `agent`, so their output schema is the same.";
@@ -332,7 +332,7 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         $doc = "The " .$this->_endpointAsCopyText($subEndpoint) ." for a given " .$endpointAsCopyText .".";
-        if ($subEndpoint == 'artists' || $subEndpoint == 'copyrightRepresentatives')
+        if ($subEndpoint == 'artists')
         {
 
             $doc .= " Served from the API as a type of `agent`, so their output schema is the same.";
