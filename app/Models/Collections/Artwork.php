@@ -544,14 +544,14 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->dimensions; },
             ],
             [
-                "name" => 'medium',
+                "name" => 'medium_display',
                 "doc" => "The substances or materials used in the creation of a work",
                 "type" => "string",
                 "elasticsearch" => [
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return $this->medium; },
+                "value" => function() { return $this->medium_display; },
             ],
             [
                 "name" => 'inscriptions',

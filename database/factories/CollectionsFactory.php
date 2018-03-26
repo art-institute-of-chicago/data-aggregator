@@ -139,7 +139,7 @@ $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generato
             'description' => $faker->paragraph(5),
             'artist_display' => $artist->title_raw ."\n" .$faker->country .', ' .$faker->year .'–' .$faker->year,
             'dimensions' => $faker->randomFloat(1, 0, 200) .' x ' .$faker->randomFloat(1, 0, 200) .' (' .$faker->randomNumber(2) .$faker->randomElement(['', ' 1/8', ' 1/4', ' 3/8', ' 1/2', ' 5/8', ' 3/4', ' 7/8']) .' x ' .$faker->randomNumber(2) .$faker->randomElement(['', ' 1/8', ' 1/4', ' 3/8', ' 1/2', ' 5/8', ' 3/4', ' 7/8']) .' in.)',
-            'medium' => ucfirst($faker->word) .' on ' .$faker->word,
+            'medium_display' => ucfirst($faker->word) .' on ' .$faker->word,
             'credit_line' => $faker->randomElement(['', 'Friends of ', 'Gift of ', 'Bequest of ']) .$faker->words(3, true),
             'inscriptions' => $faker->words(4, true),
             'publication_history' => $faker->paragraph(5),
