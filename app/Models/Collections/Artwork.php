@@ -165,7 +165,7 @@ class Artwork extends CollectionsModel
     public function images()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->withPivot('preferred');
+        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->withPivot('preferred')->withPivot('is_doc')->wherePivot('is_doc', '=', false);
 
     }
 
@@ -186,7 +186,14 @@ class Artwork extends CollectionsModel
     public function assets()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Asset');
+        return $this->belongsToMany('App\Models\Collections\Asset')->withPivot('is_doc');
+
+    }
+
+    public function documents()
+    {
+
+        return $this->assets()->wherePivot('is_doc', '=', true);
 
     }
 
@@ -270,7 +277,8 @@ class Artwork extends CollectionsModel
         $images = collect( $source->alt_image_guids ?? [] )->map( function( $image ) {
             return [
                 $image => [
-                    'preferred' => false
+                    'preferred' => false,
+                    'is_doc' => false,
                 ]
             ];
         });
@@ -280,7 +288,8 @@ class Artwork extends CollectionsModel
 
             $images->push([
                 $source->image_guid => [
-                    'preferred' => true
+                    'preferred' => true,
+                    'is_doc' => false,
                 ]
             ]);
 
@@ -324,7 +333,20 @@ class Artwork extends CollectionsModel
         if ($source->document_ids)
         {
 
-            $this->assets()->sync($source->document_ids, false);
+            $documents = collect( $source->document_ids )->map( function( $document ) {
+                return [
+                    $document => [
+                        'preferred' => false,
+                        'is_doc' => true,
+                    ]
+                ];
+            });
+
+            $documents = $documents->collapse();
+
+            // TODO: Account for cases where a doc was changed to a rep, or vice versa
+            // Currently, two entries will be created for it in the pivot table
+            $this->documents()->sync($documents, false);
 
         }
 
@@ -837,7 +859,7 @@ class Artwork extends CollectionsModel
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
             [
                 "name" => 'color',
-                "doc" => "Dominant color of this image in HSL",
+                "doc" => "Dominant color of this artwork in HSL",
                 "type" => "object",
                 "value" => function() { return $this->image->metadata->color ?? null; },
             ],
@@ -854,6 +876,13 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->altImages->pluck('lake_guid')->all(); },
+            ],
+            [
+                "name" => 'document_ids',
+                "doc" => "Unique identifiers of assets that serve as documentation for this artwork",
+                "type" => "array",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->documents->pluck('lake_guid') ?? null; },
             ],
             [
                 "name" => 'sound_ids',
