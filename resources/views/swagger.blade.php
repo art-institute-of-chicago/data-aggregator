@@ -3353,9 +3353,6 @@
         "latlon": {
           "description": "Latitude and longitude coordinates of the location of this work in our galleries"
         },
-        "is_highlighted_in_mobile": {
-          "description": "Whether the work is highlighted in the mobile app"
-        },
         "selector_number": {
           "description": "The code that can be entered in our audioguides to learn more about this work"
         },

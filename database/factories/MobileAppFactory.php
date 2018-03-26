@@ -39,7 +39,6 @@ $factory->define(App\Models\Mobile\Artwork::class, function (Faker\Generator $fa
             'artwork_citi_id' => $faker->randomElement($artworks),
             'latitude' => $faker->latitude,
             'longitude' => $faker->longitude,
-            'highlighted' => $faker->boolean,
             'selector_number' => $faker->randomNumber(3),
         ]
     );
