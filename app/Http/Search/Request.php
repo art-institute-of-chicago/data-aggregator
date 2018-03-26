@@ -445,7 +445,10 @@ class Request
         // Boost anything with `is_boosted` true
         $params['body']['query']['bool']['should'][] = [
             'term' => [
-                'is_boosted' => true
+                'is_boosted' => [
+                    'value' => true,
+                    'boost' => 1.5,
+                ]
             ]
         ];
 
@@ -454,7 +457,10 @@ class Request
         // TODO: Only do this when artworks are searched?
         $params['body']['query']['bool']['should'][] = [
             'term' => [
-                'is_on_view' => true
+                'is_on_view' => [
+                    'value' => true,
+                    'boost' => 1.25,
+                ]
             ]
         ];
 
