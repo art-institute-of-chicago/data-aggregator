@@ -706,13 +706,6 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->mobileArtwork ? ($this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude) : NULL; },
             ],
             [
-                "name" => 'is_highlighted_in_mobile',
-                "doc" => "Whether the work is highlighted in the mobile app",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->mobileArtwork->highlighted ?? false; },
-            ],
-            [
                 "name" => 'selector_number',
                 "doc" => "The code that can be entered in our audioguides to learn more about this work",
                 "type" => "number",
