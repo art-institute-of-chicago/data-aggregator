@@ -92,8 +92,12 @@ trait ImportsData
         // Assumes the dataservice has standardized pagination
         $pages = $json->pagination->total_pages;
 
+        $this->warn( 'Found ' . $pages . ' page(s) for model ' . $model );
+
         while( $current <= $pages )
         {
+
+            $this->warn( 'Importing ' . $current . ' of ' . $pages . ' for model ' . $model );
 
             // Assumes the dataservice wraps its results in a `data` field
             foreach( $json->data as $datum )
