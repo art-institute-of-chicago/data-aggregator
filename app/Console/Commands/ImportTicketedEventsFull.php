@@ -39,7 +39,7 @@ class ImportTicketedEventsFull extends AbstractImportCommandNew
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
-        $this->import(TicketedEvent::class, 'events');
+        $this->import( TicketedEvent::class, 'events' );
 
         $this->info("Imported all events from data service!");
 

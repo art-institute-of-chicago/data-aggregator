@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Shop\Product;
+
 class ImportProducts extends AbstractImportCommandNew
 {
 
@@ -16,7 +18,7 @@ class ImportProducts extends AbstractImportCommandNew
 
         $this->api = env('SHOP_DATA_SERVICE_URL');
 
-        $this->import(\App\Models\Shop\Product::class, 'products');
+        $this->import( Product::class, 'products' );
 
     }
 

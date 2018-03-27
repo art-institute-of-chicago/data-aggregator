@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Membership\TicketedEvent;
+
 class ImportTicketedEvents extends AbstractImportCommandNew
 {
 
@@ -23,7 +25,7 @@ class ImportTicketedEvents extends AbstractImportCommandNew
 
         $this->info("Looking for events since " . $this->command->last_success_at);
 
-        $this->import( \App\Models\Membership\TicketedEvent::class, 'events' );
+        $this->import( TicketedEvent::class, 'events' );
 
         $this->info("Ran out of events to import!");
 

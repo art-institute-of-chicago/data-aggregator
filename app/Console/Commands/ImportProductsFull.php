@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use DB;
 
+use App\Models\Shop\Product;
+use App\Models\Shop\Category;
+
 class ImportProductsFull extends AbstractImportCommandNew
 {
 
@@ -25,7 +28,7 @@ class ImportProductsFull extends AbstractImportCommandNew
         }
 
         // Remove all events from the search index
-        $this->call("scout:flush", ['model' => \App\Models\Shop\Product::class]);
+        $this->call("scout:flush", ['model' => Product::class]);
 
         // Truncate tables
         DB::table('products')->truncate();
@@ -38,8 +41,8 @@ class ImportProductsFull extends AbstractImportCommandNew
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
-        $this->import(\App\Models\Shop\Product::class, 'products');
-        $this->import(\App\Models\Shop\Category::class, 'categories');
+        $this->import( Product::class, 'products' );
+        $this->import( Category::class, 'categories' );
 
         $this->info("Imported all products from data service!");
 

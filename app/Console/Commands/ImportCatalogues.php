@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use DB;
 
 use App\Models\Dsc\Publication;
