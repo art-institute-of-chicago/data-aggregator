@@ -28,6 +28,14 @@ trait ImportsData
      */
     protected $auth;
 
+    /**
+     * Is this a full import, or a partial? If partial, import stops when it
+     * encounters the first items older than the last successful run.
+     *
+     * @var string
+     */
+    protected $isPartial = false;
+
 
     /**
      * Downloads a file and (optionally) runs a json decode on its contents.
@@ -151,6 +159,21 @@ trait ImportsData
             // Assumes the dataservice wraps its results in a `data` field
             foreach( $json->data as $datum )
             {
+
+                // Break if this is a partial import + this datum is older than last run
+                if( $this->isPartial )
+                {
+
+                    $sourceTime = new Carbon( $datum->modified_at );
+                    $sourceTime->timezone = config('app.timezone');
+
+                    if( $this->command->last_success_at->gt( $sourceTime ) )
+                    {
+                        break 2;
+                    }
+
+                }
+
                 // Be sure to overwrite `save` to make this work!
                 $this->save( $datum, $model );
             }
