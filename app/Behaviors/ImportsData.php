@@ -21,6 +21,13 @@ trait ImportsData
      */
     protected $fields;
 
+    /**
+     * (Optional) HTTP Basic Auth string.
+     *
+     * @var string
+     */
+    protected $auth;
+
 
     /**
      * Downloads a file and (optionally) runs a json decode on its contents.
@@ -39,6 +46,45 @@ trait ImportsData
         return $decode ? json_decode( $contents ) : $contents;
 
     }
+
+
+    /**
+     * Convenience curl wrapper. Accepts `GET` URL. Returns decoded JSON.
+     *
+     * @TODO Figure out how to catch "fetch failed" exceptions w/ curl
+     *
+     * @TODO If we use curl, we should keep the connection open, and reuse the same handle
+     * @link https://stackoverflow.com/questions/18046637/should-i-close-curl-or-not
+     *
+     * @param string $url
+     *
+     * @return string
+     */
+    protected function fetchWithAuth( $url, $decode = false )
+    {
+
+        $ch = curl_init();
+
+        curl_setopt ($ch, CURLOPT_URL, $url);
+        curl_setopt ($ch, CURLOPT_HEADER, 0);
+
+        curl_setopt ($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+        curl_setopt ($ch, CURLOPT_USERPWD, $auth);
+
+        ob_start();
+
+        curl_exec ($ch);
+        curl_close ($ch);
+
+        $contents = ob_get_contents();
+
+        ob_end_clean();
+
+        return $decode ? json_decode( $contents ) : $contents;
+
+    }
+
+
 
     /**
      * Queries a paginated JSON endpoint from `$this->api` and returns its decoded contents.
@@ -63,7 +109,10 @@ trait ImportsData
 
         $this->info( 'Querying: ' . $url );
 
-        return $this->fetch( $url, true );
+        // Determine if authentication is needed
+        $method = $this->auth ? 'fetchWithAuth' : 'fetch';
+
+        return $this->$method( $url, true );
 
     }
 
