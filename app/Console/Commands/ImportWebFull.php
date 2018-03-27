@@ -122,7 +122,7 @@ class ImportWebFull extends AbstractImportCommand
 
         }
 
-        return $this->query( env('WEB_CMS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit, $auth);
+        return $this->query( env('WEB_CMS_DATA_SERVICE_URL') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit, $auth);
     }
 
 }

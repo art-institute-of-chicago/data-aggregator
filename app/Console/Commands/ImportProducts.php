@@ -57,8 +57,8 @@ class ImportProducts extends AbstractImportCommand
 
     private function queryService($endpoint, $page = 1, $limit = 100)
     {
-        $this->info(env('SHOP_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit);
-        $result = $this->query( env('SHOP_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit );
+        $this->info(env('SHOP_DATA_SERVICE_URL') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit);
+        $result = $this->query( env('SHOP_DATA_SERVICE_URL') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit );
 
         if( is_null( $result ) ) {
             throw new \Exception("Cannot contact data service: " . $url);

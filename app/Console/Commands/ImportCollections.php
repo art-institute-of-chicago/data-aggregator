@@ -74,7 +74,7 @@ class ImportCollections extends AbstractImportCommand
     private function queryService($endpoint, $page = 1, $limit = 100)
     {
 
-        $url = env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&per_page=' . $limit;
+        $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '?page=' . $page . '&per_page=' . $limit;
 
         $this->info( 'Querying: ' . $url );
 

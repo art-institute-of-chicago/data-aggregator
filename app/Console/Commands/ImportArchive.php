@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Carbon\Carbon;
 use DB;
 
-class ImportArchive extends AbstractImportCommand
+class ImportArchive extends AbstractImportCommandNew
 {
 
     protected $signature = 'import:archive
@@ -16,6 +16,8 @@ class ImportArchive extends AbstractImportCommand
 
     public function handle()
     {
+
+        $this->api = env('ARCHIVES_DATA_SERVICE_URL');
 
         // Return false if the user bails out
         if (!$this->option('yes') && !$this->confirm("Running this will delete all existing archive data from your database! Are you sure?"))
@@ -36,57 +38,9 @@ class ImportArchive extends AbstractImportCommand
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
-        $this->import(\App\Models\Archive\ArchiveImage::class, 'archival-images', 1);
+        $this->import(\App\Models\Archive\ArchiveImage::class, 'archival-images');
 
         $this->info("Imported all archive images from data service!");
-
-    }
-
-
-    private function import($model, $endpoint, $current = 1)
-    {
-
-        // Abort if the table is already filled
-        if( $model::count() > 0 )
-        {
-            return false;
-        }
-
-        // Query for the first page + get page count
-        $json = $this->queryService($endpoint, $current);
-
-        $pages = $json->pagination->total_pages;
-
-        while ($current <= $pages)
-        {
-
-            foreach ($json->data as $source)
-            {
-                $this->saveDatum( $source, $model );
-            }
-
-            $current++;
-
-            $json = $this->queryService($endpoint, $current);
-
-        }
-
-    }
-
-    private function queryService($endpoint, $page = 1, $limit = 1000)
-    {
-
-        $url = env('ARCHIVES_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit;
-
-        $this->info( 'Querying: ' . $url );
-
-        $result = $this->query( $url );
-
-        if( is_null( $result ) ) {
-            throw new \Exception("Cannot contact data service: " . $url);
-        }
-
-        return $result;
 
     }
 

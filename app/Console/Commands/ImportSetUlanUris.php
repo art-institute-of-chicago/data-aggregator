@@ -59,7 +59,7 @@ class ImportSetUlanUris extends AbstractImportCommand
     private function queryService($agent, $birth_date = 0, $death_date = 0)
     {
 
-        return $this->query( env('ULAN_DATA_SERVICE_URL', 'http://localhost')
+        return $this->query( env('ULAN_DATA_SERVICE_URL')
                              .'?q=' .urlencode($agent->title)
                              .($birth_date ? '&by=' .$birth_date : '')
                              .($death_date ? '&dy=' .$death_date : '')

@@ -2,11 +2,12 @@
 
 namespace App\Console\Commands;
 
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+
 use App\Models\Collections\Exhibition;
 
-class ImportLegacyExhibitions extends AbstractImportCommand
+class ImportLegacyExhibitions extends AbstractImportCommandNew
 {
 
     protected $signature = "import:exhibitions-legacy
@@ -14,20 +15,24 @@ class ImportLegacyExhibitions extends AbstractImportCommand
 
     protected $description = "Import all exhibitions from legacy Drupal 7 CMS";
 
+    protected $filename = 'drupal-7-exhibitions.json';
+
 
     public function handle()
     {
 
-        $fromBackup = $this->option('from-backup');
-
-        if (!$fromBackup)
+        if( !$this->option('from-backup') )
         {
 
             $this->info('Retrieving exhibitions JSON from artic.edu');
-            Storage::disk('local')->put('drupal-7-exhibitions.json', file_get_contents(env('LEGACY_EXHIBITIONS_JSON', 'http://localhost/exhibitions.json')));
+
+            $contents = $this->fetch( env('LEGACY_EXHIBITIONS_JSON') );
+
+            Storage::disk('local')->put( $this->filename, $contents );
 
         }
-        $contents = Storage::get('drupal-7-exhibitions.json');
+
+        $contents = Storage::get( $this->filename );
 
         $results = json_decode( $contents );
 
@@ -44,78 +49,101 @@ class ImportLegacyExhibitions extends AbstractImportCommand
         foreach( $results as $datum )
         {
 
-            $datum->title = html_entity_decode($datum->title, ENT_COMPAT | ENT_QUOTES | ENT_HTML5);
+            // Normalize title to remove HTML-encoded cruft
+            $datum->title = html_entity_decode( $datum->title, ENT_COMPAT | ENT_QUOTES | ENT_HTML5 );
             $datum->title = $this->convert_smart_quotes( $datum->title );
 
-            // Find a matching exhibitions. If there are multiple matches, skip it.
-            $query = Exhibition::where('title', $datum->title);
-            if ($query->count() > 1)
+            $exhib = $this->findExhibition( $datum );
+
+            if( $exhib )
             {
+                $this->updateExhibition( $exhib, $datum );
 
-                $dates = explode(' to ', $datum->date);
-                if (count($dates) > 0)
-                {
+                $this->info('Updated exhibition: "' . $datum->title . '"');
 
-                    $query = Exhibition::where('title', $datum->title)
-                                  ->where('date_start', new Carbon($dates[0]));
+            } else {
 
-                    if ($query->count() > 1)
-                    {
-
-                        continue;
-
-                    }
-
-                }
-
-            }
-
-            if ($query->count() == 1)
-            {
-
-                $exhib = $query->first();
-                $exhib->short_description = $datum->short_description;
-                $exhib->web_url = env('WEBSITE_URL', 'http://localhost') .$datum->path;
-
-                if (!$exhib->description && $datum->body)
-                {
-
-                    $exhib->description = $datum->body;
-
-                }
-
-                if ($datum->feature_image_desktop)
-                {
-
-                    $dom = new \DOMDocument();
-                    @$dom->loadHTML($datum->feature_image_desktop);
-                    foreach ($dom->getElementsByTagName('img') as $img)
-                    {
-
-                        $exhib->legacy_image_desktop = $img->getAttribute('src');
-
-                    }
-
-                }
-
-                if ($datum->feature_image_mobile)
-                {
-
-                    $dom = new \DOMDocument();
-                    @$dom->loadHTML($datum->feature_image_mobile);
-                    foreach ($dom->getElementsByTagName('img') as $img)
-                    {
-
-                        $exhib->legacy_image_mobile = $img->getAttribute('src');
-
-                    }
-
-                }
-                $exhib->save();
+                $this->warn('Could not find exhibition: "' . $datum->title . '"');
 
             }
 
         }
+
+    }
+
+    private function findExhibition( $datum )
+    {
+
+        // First, try matching by title only
+        $query = Exhibition::where('title', $datum->title);
+
+        if( $query->count() === 1 )
+        {
+            return $query->first();
+        }
+
+        // If that fails, try matching by title *and* start date
+        $dates = explode(' to ', $datum->date);
+
+        if( count($dates) < 1 )
+        {
+            return null;
+        }
+
+        $date_start = new Carbon( $dates[0] );
+
+        $query = Exhibition::where('title', $datum->title)->where('date_start', $date_start);
+
+        if( $query->count() === 1 )
+        {
+            return $query->first();
+        }
+
+        return null;
+
+    }
+
+    private function updateExhibition( $exhib, $datum )
+    {
+
+        $exhib->short_description = $datum->short_description;
+        $exhib->web_url = env('WEBSITE_URL') . $datum->path;
+
+        if (!$exhib->description && $datum->body)
+        {
+            $exhib->description = $datum->body;
+        }
+
+        if ($datum->feature_image_desktop)
+        {
+            $exhib->legacy_image_desktop = $this->getImgSrc( $datum->feature_image_desktop );
+        }
+
+        if ($datum->feature_image_mobile)
+        {
+            $exhib->legacy_image_mobile = $this->getImgSrc( $datum->feature_image_mobile );
+        }
+
+        $exhib->save();
+
+
+    }
+
+    // http://php.net/manual/en/domdocument.getelementsbytagname.php
+    private function getImgSrc( $html )
+    {
+
+        $dom = new \DOMDocument();
+        @$dom->loadHTML( $html );
+
+        $nodes = $dom->getElementsByTagName('img');
+
+        if( $nodes->length === 0 )
+        {
+            return null;
+        }
+
+        return $nodes->item(0)->getAttribute('src');
 
     }
 

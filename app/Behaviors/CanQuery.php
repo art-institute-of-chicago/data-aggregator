@@ -8,6 +8,9 @@ trait CanQuery
     /**
      * Convenience curl wrapper. Accepts `GET` URL. Returns decoded JSON.
      *
+     * @TODO If we use curl, we should keep the connection open, and reuse the same handle
+     * @link https://stackoverflow.com/questions/18046637/should-i-close-curl-or-not
+     *
      * @param string $url
      *
      * @return string
@@ -23,9 +26,7 @@ trait CanQuery
 
         if ($auth)
         {
-
             curl_setopt ($ch, CURLOPT_USERPWD, $auth);
-
         }
 
         ob_start();
@@ -57,12 +58,12 @@ trait CanQuery
         $url = $this->sourceUrl($source) .'/' .$endpoint .'/' .$id;
 
         $auth = '';
+
         if ($source == 'Web' && env('WEB_CMS_DATA_SERVICE_USERNAME'))
         {
-
             $auth = env('WEB_CMS_DATA_SERVICE_USERNAME') .':' .env('WEB_CMS_DATA_SERVICE_PASSWORD');
-
         }
+
         $result = $this->query( $url, $auth );
 
         if( is_null( $result ) ) {

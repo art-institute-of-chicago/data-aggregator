@@ -25,7 +25,7 @@ class ImportMobile extends AbstractImportCommand
     {
 
         $this->info('Retrieving events JSON from artic.edu');
-        Storage::disk('local')->put('appData.json', file_get_contents(env('MOBILE_JSON', 'http://localhost/appData.json')));
+        Storage::disk('local')->put('appData.json', file_get_contents(env('MOBILE_JSON')));
 
         // Spoofing this w/ local file for speed
         $contents = \Storage::get('appData.json');
