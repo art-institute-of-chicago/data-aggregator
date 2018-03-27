@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
-
-class ImportCollections extends AbstractImportCommand
+class ImportCollections extends AbstractImportCommandNew
 {
 
     protected $signature = 'import:collections';
@@ -12,79 +10,43 @@ class ImportCollections extends AbstractImportCommand
     protected $description = "Import collections data that has been updated since the last import";
 
 
+    protected $isPartial = true;
+
+
     public function handle()
     {
 
-        $this->import('agent-types');
-        $this->import('agent-places');
-        $this->import('agents');
-        $this->import('object-types');
-        $this->import('categories');
-        $this->import('places');
-        $this->import('galleries');
-        $this->import('artwork-catalogues');
-        $this->import('catalogues');
-        $this->import('artworks');
-        $this->import('links');
-        $this->import('videos');
-        $this->import('texts');
-        $this->import('sounds');
-        $this->import('images');
-        $this->import('exhibition-agents');
-        $this->import('exhibitions');
+        $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
+
+        $this->importEndpoint('agent-types');
+        $this->importEndpoint('agent-places');
+        $this->importEndpoint('agents');
+        // $this->importEndpoint('object-types');
+        $this->importEndpoint('categories');
+        $this->importEndpoint('places');
+        $this->importEndpoint('galleries');
+        $this->importEndpoint('artwork-catalogues');
+        $this->importEndpoint('catalogues');
+        $this->importEndpoint('artworks');
+        $this->importEndpoint('links');
+        $this->importEndpoint('videos');
+        $this->importEndpoint('texts');
+        $this->importEndpoint('sounds');
+        $this->importEndpoint('images');
+        $this->importEndpoint('exhibition-agents');
+        $this->importEndpoint('exhibitions');
 
     }
 
-    private function import($endpoint, $current = 1)
+
+    private function importEndpoint($endpoint, $page = 1)
     {
 
+        // TODO: This gets endpoints as outbound from our API
+        // Endpoints in the dataservice might be different!
         $model = app('Resources')->getModelForEndpoint($endpoint);
 
-        $json = $this->queryService($endpoint, $current);
-        $pages = $json->pagination->total_pages;
-
-        $this->info( 'Found ' . $pages . ' page(s) for model ' . $model );
-
-        while ($current <= $pages)
-        {
-
-            $this->info( 'Importing ' . $current . ' of ' . $pages . ' for model ' . $model );
-
-            foreach ($json->data as $source)
-            {
-                $sourceIndexedTime = new Carbon($source->indexed_at);
-                $sourceIndexedTime->timezone = config('app.timezone');
-
-                if ($this->command->last_success_at->gt($sourceIndexedTime))
-                {
-                    break 2;
-                }
-
-                $this->saveDatum( $source, $model );
-
-            }
-
-            $current++;
-            $json = $this->queryService($endpoint, $current);
-
-        }
-
-    }
-
-    private function queryService($endpoint, $page = 1, $limit = 100)
-    {
-
-        $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '?page=' . $page . '&per_page=' . $limit;
-
-        $this->info( 'Querying: ' . $url );
-
-        $result = $this->query( $url );
-
-        if( is_null( $result ) ) {
-            throw new \Exception("Cannot contact data service: " . $url);
-        }
-
-        return $result;
+        $this->import( $model, $endpoint, $page );
 
     }
 
