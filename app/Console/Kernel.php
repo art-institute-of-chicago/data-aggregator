@@ -33,6 +33,13 @@ class Kernel extends ConsoleKernel
             ->sendOutputTo(storage_path('logs/import-collections-last-run.log'))
             ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
 
+        $schedule->command('import:web --quiet')
+            ->everyFiveMinutes()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/import-web.log'))
+            ->sendOutputTo(storage_path('logs/import-web-last-run.log'))
+            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+
         $schedule->command('import:daily --quiet')
             ->dailyAt('23:00')
             ->withoutOverlapping()
