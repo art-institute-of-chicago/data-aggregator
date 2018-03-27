@@ -24,7 +24,7 @@ class ImportLegacyExhibitions extends AbstractImportCommand
         {
 
             $this->info('Retrieving exhibitions JSON from artic.edu');
-            Storage::disk('local')->put('drupal-7-exhibitions.json', file_get_contents(env('LEGACY_EXHIBITIONS_JSON', 'http://localhost/exhibitions.json')));
+            Storage::disk('local')->put('drupal-7-exhibitions.json', file_get_contents(env('LEGACY_EXHIBITIONS_JSON')));
 
         }
         $contents = Storage::get('drupal-7-exhibitions.json');
@@ -75,7 +75,7 @@ class ImportLegacyExhibitions extends AbstractImportCommand
 
                 $exhib = $query->first();
                 $exhib->short_description = $datum->short_description;
-                $exhib->web_url = env('WEBSITE_URL', 'http://localhost') .$datum->path;
+                $exhib->web_url = env('WEBSITE_URL') .$datum->path;
 
                 if (!$exhib->description && $datum->body)
                 {

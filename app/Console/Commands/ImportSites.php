@@ -36,7 +36,7 @@ class ImportSites extends AbstractImportCommand
 
         $this->info("Truncated sites tables.");
 
-        Storage::disk('local')->put('archive.json', file_get_contents(env('STATIC_ARCHIVE_JSON', 'http://localhost/archive.json')));
+        Storage::disk('local')->put('archive.json', file_get_contents(env('STATIC_ARCHIVE_JSON')));
 
         $contents = Storage::get('archive.json');
 

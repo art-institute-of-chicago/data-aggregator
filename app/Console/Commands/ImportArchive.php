@@ -76,7 +76,7 @@ class ImportArchive extends AbstractImportCommand
     private function queryService($endpoint, $page = 1, $limit = 1000)
     {
 
-        $url = env('ARCHIVES_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit;
+        $url = env('ARCHIVES_DATA_SERVICE_URL') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit;
 
         $this->info( 'Querying: ' . $url );
 
