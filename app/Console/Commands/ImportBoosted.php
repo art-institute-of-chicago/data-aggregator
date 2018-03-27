@@ -204,7 +204,7 @@ class ImportBoosted extends AbstractImportCommand
 
         // Query for the first page + get page count
         $response = $this->query($endpoint, $current);
-        $pages = $response->pagination->pages->total;
+        $pages = $response->pagination->total_pages;
 
         while ($current <= $pages)
         {

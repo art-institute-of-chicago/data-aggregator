@@ -68,7 +68,7 @@ class ImportCollectionsFull extends AbstractImportCommand
         // Query for the first page + get page count
         $json = $this->queryService($endpoint, $current);
 
-        $pages = $json->pagination->pages->total;
+        $pages = $json->pagination->total_pages;
 
         while ($current <= $pages)
         {

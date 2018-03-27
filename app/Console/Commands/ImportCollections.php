@@ -41,7 +41,7 @@ class ImportCollections extends AbstractImportCommand
         $model = app('Resources')->getModelForEndpoint($endpoint);
 
         $json = $this->queryService($endpoint, $current);
-        $pages = $json->pagination->pages->total;
+        $pages = $json->pagination->total_pages;
 
         $this->info( 'Found ' . $pages . ' page(s) for model ' . $model );
 
