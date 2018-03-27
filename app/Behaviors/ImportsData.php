@@ -80,6 +80,12 @@ trait ImportsData
     protected function import( $model, $endpoint, $current = 1 )
     {
 
+        // Abort if the table is already filled
+        if( $model::count() > 0 )
+        {
+            return false;
+        }
+
         // Query for the first page + get page count
         $json = $this->query( $endpoint, $current );
 
