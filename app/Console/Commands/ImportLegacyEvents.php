@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Storage;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Membership\LegacyEvent;
 
-class ImportLegacyEvents extends AbstractImportCommand
+class ImportLegacyEvents extends AbstractImportCommandNew
 {
 
     protected $signature = "import:events-legacy
@@ -14,20 +14,24 @@ class ImportLegacyEvents extends AbstractImportCommand
 
     protected $description = "Import all events from legacy Drupal 7 CMS";
 
+    protected $filename = 'drupal-7-events.json';
+
 
     public function handle()
     {
 
-        $fromBackup = $this->option('from-backup');
-
-        if (!$fromBackup)
+        if( !$this->option('from-backup') )
         {
 
             $this->info('Retrieving events JSON from artic.edu');
-            Storage::disk('local')->put('drupal-7-events.json', file_get_contents(env('LEGACY_EVENTS_JSON')));
+
+            $contents = $this->fetch( env('LEGACY_EVENTS_JSON') );
+
+            Storage::disk('local')->put( $this->filename, $contents );
 
         }
-        $contents = Storage::get('drupal-7-events.json');
+
+        $contents = Storage::get( $this->filename );
 
         $results = json_decode( $contents );
 
@@ -45,7 +49,8 @@ class ImportLegacyEvents extends AbstractImportCommand
         {
 
             $datum->id = $this->cantorPair( $datum->nid, $datum->repeat_delta );
-            $this->saveDatum( $datum, \App\Models\Membership\LegacyEvent::class );
+
+            $this->save( $datum, LegacyEvent::class );
 
         }
 
@@ -54,6 +59,9 @@ class ImportLegacyEvents extends AbstractImportCommand
 
     /**
      * Generate a unique ID based on a combination of two numbers.
+     *
+     * @TODO Consider moving this to `app/Helpers/Util.php`
+     *
      * @param  int   $x
      * @param  int   $y
      * @return int
