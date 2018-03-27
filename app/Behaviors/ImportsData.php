@@ -88,6 +88,10 @@ trait ImportsData
 
         ob_end_clean();
 
+        if( is_null( $contents ) ) {
+            throw new \Exception("Cannot fetch URL: " . $url);
+        }
+
         return $decode ? json_decode( $contents ) : $contents;
 
     }
