@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-use Storage;
-use DB;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\StaticArchive\Site;
 
-class ImportSites extends AbstractImportCommand
+class ImportSites extends AbstractImportCommandNew
 {
 
     protected $signature = 'import:sites
@@ -36,7 +36,9 @@ class ImportSites extends AbstractImportCommand
 
         $this->info("Truncated sites tables.");
 
-        Storage::disk('local')->put('archive.json', file_get_contents(env('STATIC_ARCHIVE_JSON')));
+        $contents = $this->fetch( env('STATIC_ARCHIVE_JSON') );
+
+        Storage::disk('local')->put('archive.json', $contents);
 
         $contents = Storage::get('archive.json');
 
@@ -55,7 +57,7 @@ class ImportSites extends AbstractImportCommand
         foreach( $results as $datum )
         {
 
-            $this->saveDatum( $datum, \App\Models\StaticArchive\Site::class );
+            $this->save( $datum, Site::class );
 
         }
 
