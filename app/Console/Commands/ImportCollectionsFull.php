@@ -2,16 +2,14 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
-
-class ImportCollectionsFull extends AbstractImportCommand
+class ImportCollectionsFull extends AbstractImportCommandNew
 {
 
     protected $signature = 'import:collections-full
-                            {endpoint? : That last portion of the URL path naming the resource to import, for example "artists"}
-                            {page? : The page to begin importing from}';
+                            {endpoint? : Last portion of the URL indicating resource to import, e.g. "artists"}
+                            {page? : Page to begin importing from}';
 
-    protected $description = "Import all collections data. If no options are passes all Collections data will be imported.";
+    protected $description = "Import all collections data. If no options are passed all Collections data will be imported.";
 
 
     public function handle()
@@ -19,88 +17,51 @@ class ImportCollectionsFull extends AbstractImportCommand
 
         ini_set("memory_limit", "-1");
 
+        $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
+
         if ($this->argument('endpoint'))
         {
 
             $page = $this->argument('page') ?: 1;
-            $this->import($this->argument('endpoint'), $page);
+
+            $this->importEndpoint($this->argument('endpoint'), $page);
 
         }
         else
         {
 
-            $this->import('agent-types');
-            $this->import('agent-places');
-            $this->import('agents');
-            $this->import('object-types');
-            $this->import('categories');
-            $this->import('places');
-            $this->import('galleries');
-            $this->import('artwork-catalogues');
-            $this->import('catalogues');
-            $this->import('artworks');
-            $this->import('links');
-            $this->import('videos');
-            $this->import('texts');
-            $this->import('sounds');
-            $this->import('images');
-            $this->import('exhibition-agents');
-            $this->import('exhibitions');
+            $this->importEndpoint('agent-types');
+            $this->importEndpoint('agent-places');
+            $this->importEndpoint('agents');
+            // $this->importEndpoint('object-types');
+            $this->importEndpoint('categories');
+            $this->importEndpoint('places');
+            $this->importEndpoint('galleries');
+            $this->importEndpoint('artwork-catalogues');
+            $this->importEndpoint('catalogues');
+            $this->importEndpoint('artworks');
+            $this->importEndpoint('links');
+            $this->importEndpoint('videos');
+            $this->importEndpoint('texts');
+            $this->importEndpoint('sounds');
+            $this->importEndpoint('images');
+            $this->importEndpoint('exhibition-agents');
+            $this->importEndpoint('exhibitions');
 
         }
 
     }
 
 
-    private function import($endpoint, $current = 1)
+    private function importEndpoint($endpoint, $page = 1)
     {
 
+        // TODO: This gets endpoints as outbound from our API
+        // Endpoints in the dataservice might be different!
         $model = app('Resources')->getModelForEndpoint($endpoint);
 
-        // Abort if the table is already filled in production.
-        // In test we want to update existing records. Once we verify this
-        // functionality we may want to take this condition completely out.
-        if( $model::count() > 0 && config('app.env') == 'production')
-        {
-            return false;
-        }
+        $this->import( $model, $endpoint, $page );
 
-        // Query for the first page + get page count
-        $json = $this->queryService($endpoint, $current);
-
-        $pages = $json->pagination->total_pages;
-
-        while ($current <= $pages)
-        {
-
-            foreach ($json->data as $source)
-            {
-
-                $this->saveDatum( $source, $model );
-
-            }
-
-            $current++;
-            $json = $this->queryService($endpoint, $current);
-
-        }
-
-    }
-
-    private function queryService($endpoint, $page = 1, $limit = 100)
-    {
-
-        $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '?page=' . $page . '&per_page=' . $limit;
-
-        $this->info( 'Querying: ' . $url );
-
-        $result = $this->query( $url );
-
-        if( is_null( $result ) ) {
-            throw new \Exception("Cannot contact data service: " . $url);
-        }
-
-        return $result;
     }
 
 }
