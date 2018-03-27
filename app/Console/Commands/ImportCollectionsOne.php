@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
-
-class ImportCollectionsOne extends AbstractImportCommand
+class ImportCollectionsOne extends AbstractImportCommandNew
 {
 
     protected $signature = 'import:collections-one
@@ -24,27 +22,21 @@ class ImportCollectionsOne extends AbstractImportCommand
 
         $model = app('Resources')->getModelForEndpoint($endpoint);
 
-        $json = $this->queryServiceForItem($endpoint, $id);
+        $json = $this->fetchItem( $endpoint, $id );
         $source = $json->data;
 
         $this->saveDatum( $source, $model );
 
     }
 
-    private function queryServiceForItem($endpoint, $id)
+    private function fetchItem( $endpoint, $id )
     {
 
         $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
 
-        $this->info( 'Querying: ' . $url );
+        $this->info( 'Fetching: ' . $url );
 
-        $result = $this->query( $url );
-
-        if( is_null( $result ) ) {
-            throw new \Exception("Cannot contact data service: " . $url);
-        }
-
-        return $result;
+        return $this->fetch( $url );
     }
 
 }
