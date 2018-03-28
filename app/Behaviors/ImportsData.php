@@ -2,6 +2,8 @@
 
 namespace App\Behaviors;
 
+use Carbon\Carbon;
+
 trait ImportsData
 {
 
