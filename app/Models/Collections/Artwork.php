@@ -256,6 +256,7 @@ class Artwork extends CollectionsModel
         return [
             'alt_titles' => $source->alt_titles,
             'artist_display' => $source->creator_display,
+            'medium_display' => $source->medium,
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
