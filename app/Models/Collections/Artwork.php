@@ -17,6 +17,10 @@ class Artwork extends CollectionsModel
         docBoostedDescription as public traitDocBoostedDescription;
     }
 
+    protected $casts = [
+        'alt_titles' => 'array',
+    ];
+
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
@@ -250,6 +254,7 @@ class Artwork extends CollectionsModel
     {
 
         return [
+            'alt_titles' => $source->alt_titles,
             'artist_display' => $source->creator_display,
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
@@ -356,7 +361,6 @@ class Artwork extends CollectionsModel
         // $source->artwork_place_ids (add ArtworkPlace, ArtworkPlaceQualifier)
         // $source->part_ids
         // $source->set_ids
-        // $source->alt_titles
 
         // @TODO Determine this logic in the dataservice?
         // $source->fiscal_year
@@ -495,7 +499,7 @@ class Artwork extends CollectionsModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return []; },
+                "value" => function() { return $this->alt_titles; },
             ],
             [
                 "name" => 'main_reference_number',
