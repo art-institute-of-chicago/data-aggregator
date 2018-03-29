@@ -13,8 +13,13 @@ class TermType extends CollectionsModel
 
     use Documentable;
 
-    protected $primaryKey = 'lake_uid';
-    protected $keyType = 'string';
+    public const CLASSIFICATION = 1;
+    public const MATERIAL = 2;
+    public const TECHNIQUE = 3;
+    public const STYLE = 4;
+    public const SUBJECT = 5;
+
+    protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
     protected $fakeIdsStartAt = 99900;
 
@@ -26,7 +31,7 @@ class TermType extends CollectionsModel
     public function exampleId()
     {
 
-        return "TT-5";
+        return 5;
 
     }
 
@@ -39,21 +44,6 @@ class TermType extends CollectionsModel
     {
 
         return false;
-
-    }
-
-    /**
-     * Ensure that the id is a valid LAKE UID.
-     *
-     * @param mixed $id
-     * @return boolean
-     */
-    public static function validateId($id)
-    {
-
-        $uid = '/^[A-Z]{2}-[0-9]+$/i';
-
-        return preg_match($uid, $id);
 
     }
 

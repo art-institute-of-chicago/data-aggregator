@@ -15,9 +15,10 @@ class AddTermTypes extends Migration
     {
 
         Schema::create('term_types', function (Blueprint $table) {
-            $table->string('lake_uid')->primary();
+            $table->integer('citi_id')->primary();
             $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
+            $table->string('lake_uid')->nullable();
             $table->timestamp('source_created_at')->nullable()->useCurrent();
             $table->timestamp('source_modified_at')->nullable()->useCurrent();
             $table->timestamp('source_indexed_at')->nullable()->useCurrent();
