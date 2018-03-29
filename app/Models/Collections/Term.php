@@ -87,6 +87,16 @@ class Term extends CollectionsModel
     }
 
 
+    protected function fillIdsFrom($source)
+    {
+
+        $this->lake_uid = $source->lake_uid;
+
+        return $this;
+
+    }
+
+
     /**
      * Ensure that the id is a valid LAKE UID.
      *
