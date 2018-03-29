@@ -23,9 +23,10 @@ class ImportCollectionsOne extends AbstractImportCommandNew
         $model = app('Resources')->getModelForEndpoint($endpoint);
 
         $json = $this->fetchItem( $endpoint, $id );
+
         $source = $json->data;
 
-        $this->saveDatum( $source, $model );
+        $this->save( $source, $model );
 
     }
 
@@ -36,7 +37,7 @@ class ImportCollectionsOne extends AbstractImportCommandNew
 
         $this->info( 'Fetching: ' . $url );
 
-        return $this->fetch( $url );
+        return $this->fetch( $url, true );
     }
 
 }
