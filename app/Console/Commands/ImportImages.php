@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Collections\Image;
+
 class ImportImages extends AbstractImportCommandNew
 {
 
@@ -15,7 +17,7 @@ class ImportImages extends AbstractImportCommandNew
 
         $this->api = env('IMAGES_DATA_SERVICE_URL');
 
-        $this->import(\App\Models\Collections\Image::class, 'images');
+        $this->import( Image::class, 'images' );
 
     }
 

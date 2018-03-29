@@ -2,10 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use App\Models\Collections\Agent;
 
-class ImportSetUlanUris extends AbstractImportCommand
+class ImportSetUlanUris extends AbstractImportCommandNew
 {
 
     protected $signature = 'import:set-ulan-uris';
@@ -16,12 +15,12 @@ class ImportSetUlanUris extends AbstractImportCommand
     {
 
         // Loop through all agents
-        foreach (\App\Models\Collections\Agent::cursor() as $agent) {
+        foreach( Agent::cursor() as $agent ) {
 
             $this->info('Trying agent #' .$agent->citi_id .', ' .$agent->title);
 
             // Query ulan service with birth date
-            $result = $this->queryService($agent, $agent->birth_date, null);
+            $result = $this->fetchUlan($agent, $agent->birth_date, null);
 
             $gotit = $this->updateUlan($agent, $result, 'with birth year');
 
@@ -29,7 +28,7 @@ class ImportSetUlanUris extends AbstractImportCommand
             if (!$gotit && $agent->death_date)
             {
 
-                $result = $this->queryService($agent, null, $agent->death_date);
+                $result = $this->fetchUlan($agent, null, $agent->death_date);
 
                 $gotit = $this->updateUlan($agent, $result, 'with death year');
 
@@ -37,14 +36,13 @@ class ImportSetUlanUris extends AbstractImportCommand
                 if (!$gotit)
                 {
 
-                    $result = $this->queryService($agent, $agent->birth_date, $agent->death_date);
+                    $result = $this->fetchUlan($agent, $agent->birth_date, $agent->death_date);
 
                     $gotit = $this->updateUlan($agent, $result, 'with birth and death year');
 
                 }
 
             }
-
 
             // If there are no results, try with just the last name or first word
             if (count($result->results) == 0)
@@ -56,10 +54,10 @@ class ImportSetUlanUris extends AbstractImportCommand
 
     }
 
-    private function queryService($agent, $birth_date = 0, $death_date = 0)
+    private function fetchUlan($agent, $birth_date = 0, $death_date = 0)
     {
 
-        return $this->query( env('ULAN_DATA_SERVICE_URL')
+        return $this->fetch( env('ULAN_DATA_SERVICE_URL')
                              .'?q=' .urlencode($agent->title)
                              .($birth_date ? '&by=' .$birth_date : '')
                              .($death_date ? '&dy=' .$death_date : '')

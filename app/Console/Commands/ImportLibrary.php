@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use DB;
+
+use App\Models\Library\Material;
+use App\Models\Library\Term;
 
 class ImportLibrary extends AbstractImportCommandNew
 {
@@ -39,11 +41,11 @@ class ImportLibrary extends AbstractImportCommandNew
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
-        $this->import(\App\Models\Library\Material::class, 'materials');
+        $this->import( Material::class, 'materials' );
 
         $this->info("Imported all library materials from data service!");
 
-        $this->import(\App\Models\Library\Term::class, 'terms');
+        $this->import( Term::class, 'terms');
 
         $this->info("Imported all library terms from data service!");
 

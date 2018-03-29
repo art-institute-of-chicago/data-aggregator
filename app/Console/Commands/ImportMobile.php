@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Collections\Artwork as BaseArtwork;
 
@@ -11,24 +11,27 @@ use App\Models\Mobile\Sound;
 use App\Models\Mobile\Tour;
 use App\Models\Mobile\TourStop;
 
-use Storage;
-
-class ImportMobile extends AbstractImportCommand
+class ImportMobile extends AbstractImportCommandNew
 {
 
     protected $signature = 'import:mobile';
 
     protected $description = "Import all data from the mobile CMS";
 
+    protected $filename = 'appData.json';
+
 
     public function handle()
     {
 
         $this->info('Retrieving events JSON from artic.edu');
-        Storage::disk('local')->put('appData.json', file_get_contents(env('MOBILE_JSON')));
+
+        $contents = $this->fetch( env('MOBILE_JSON') );
+
+        Storage::disk('local')->put($this->filename, $contents);
 
         // Spoofing this w/ local file for speed
-        $contents = \Storage::get('appData.json');
+        $contents = Storage::get($this->filename);
 
         $results = json_decode( $contents );
 
@@ -65,7 +68,7 @@ class ImportMobile extends AbstractImportCommand
 
             // $artwork->artwork()->attach( $base );
             // $artwork->artwork()->associate( $base );
-            $artwork->artwork_citi_id = isset( $datum->object_id ) ? $datum->object_id : null;
+            $artwork->artwork_citi_id = $datum->object_id ?? null;
 
             // Pull in an actual model
             // $artwork->artwork_citi_id = (int) $datum->object_id,
@@ -76,7 +79,7 @@ class ImportMobile extends AbstractImportCommand
             $artwork->latitude = (float) $location[0];
             $artwork->longitude = (float) $location[1];
 
-            $artwork->selector_number = isset( $datum->object_selector_number ) ? (bool) $datum->object_selector_number : null;
+            $artwork->selector_number = $datum->object_selector_number ?? null;
 
             $artwork->save();
 

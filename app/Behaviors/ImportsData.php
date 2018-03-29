@@ -2,6 +2,8 @@
 
 namespace App\Behaviors;
 
+use Carbon\Carbon;
+
 trait ImportsData
 {
 
@@ -21,6 +23,21 @@ trait ImportsData
      */
     protected $fields;
 
+    /**
+     * (Optional) HTTP Basic Auth string.
+     *
+     * @var string
+     */
+    protected $auth;
+
+    /**
+     * Is this a full import, or a partial? If partial, import stops when it
+     * encounters the first items older than the last successful run.
+     *
+     * @var string
+     */
+    protected $isPartial = false;
+
 
     /**
      * Downloads a file and (optionally) runs a json decode on its contents.
@@ -39,6 +56,49 @@ trait ImportsData
         return $decode ? json_decode( $contents ) : $contents;
 
     }
+
+
+    /**
+     * Convenience curl wrapper. Accepts `GET` URL. Returns decoded JSON.
+     *
+     * @TODO Figure out how to catch "fetch failed" exceptions w/ curl
+     *
+     * @TODO If we use curl, we should keep the connection open, and reuse the same handle
+     * @link https://stackoverflow.com/questions/18046637/should-i-close-curl-or-not
+     *
+     * @param string $url
+     *
+     * @return string
+     */
+    protected function fetchWithAuth( $url, $decode = false )
+    {
+
+        $ch = curl_init();
+
+        curl_setopt ($ch, CURLOPT_URL, $url);
+        curl_setopt ($ch, CURLOPT_HEADER, 0);
+
+        curl_setopt ($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+        curl_setopt ($ch, CURLOPT_USERPWD, $this->auth);
+
+        ob_start();
+
+        curl_exec ($ch);
+        curl_close ($ch);
+
+        $contents = ob_get_contents();
+
+        ob_end_clean();
+
+        if( is_null( $contents ) ) {
+            throw new \Exception("Cannot fetch URL: " . $url);
+        }
+
+        return $decode ? json_decode( $contents ) : $contents;
+
+    }
+
+
 
     /**
      * Queries a paginated JSON endpoint from `$this->api` and returns its decoded contents.
@@ -63,7 +123,10 @@ trait ImportsData
 
         $this->info( 'Querying: ' . $url );
 
-        return $this->fetch( $url, true );
+        // Determine if authentication is needed
+        $method = $this->auth ? 'fetchWithAuth' : 'fetch';
+
+        return $this->$method( $url, true );
 
     }
 
@@ -80,8 +143,10 @@ trait ImportsData
     protected function import( $model, $endpoint, $current = 1 )
     {
 
-        // Abort if the table is already filled
-        if( $model::count() > 0 )
+        // Abort if the table is already filled in production.
+        // In test we want to update existing records. Once we verify this
+        // functionality we may want to take this condition completely out.
+        if( $model::count() > 0 && config('app.env') == 'production')
         {
             return false;
         }
@@ -102,6 +167,21 @@ trait ImportsData
             // Assumes the dataservice wraps its results in a `data` field
             foreach( $json->data as $datum )
             {
+
+                // Break if this is a partial import + this datum is older than last run
+                if( $this->isPartial )
+                {
+
+                    $sourceTime = new Carbon( $datum->modified_at );
+                    $sourceTime->timezone = config('app.timezone');
+
+                    if( $this->command->last_success_at->gt( $sourceTime ) )
+                    {
+                        break 2;
+                    }
+
+                }
+
                 // Be sure to overwrite `save` to make this work!
                 $this->save( $datum, $model );
             }

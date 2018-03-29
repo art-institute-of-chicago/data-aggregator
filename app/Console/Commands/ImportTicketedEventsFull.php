@@ -2,10 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use DB;
 
-class ImportTicketedEventsFull extends AbstractImportCommand
+use App\Models\Membership\TicketedEvent;
+
+class ImportTicketedEventsFull extends AbstractImportCommandNew
 {
 
     protected $signature = 'import:events-ticketed-full
@@ -17,6 +18,8 @@ class ImportTicketedEventsFull extends AbstractImportCommand
     public function handle()
     {
 
+        $this->api = env('EVENTS_DATA_SERVICE_URL');
+
         // Return false if the user bails out
         if (!$this->option('yes') && !$this->confirm("Running this will delete all existing ticketed events from your database! Are you sure?"))
         {
@@ -24,7 +27,7 @@ class ImportTicketedEventsFull extends AbstractImportCommand
         }
 
         // Remove all events from the search index
-        $this->call("scout:flush", ['model' => \App\Models\Membership\TicketedEvent::class]);
+        $this->call("scout:flush", ['model' => TicketedEvent::class]);
 
         // Truncate tables
         DB::table('ticketed_events')->truncate();
@@ -36,50 +39,21 @@ class ImportTicketedEventsFull extends AbstractImportCommand
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
-        $this->import('events', 1);
+        $this->import( TicketedEvent::class, 'events' );
 
         $this->info("Imported all events from data service!");
 
     }
 
 
-    private function import($endpoint, $current = 1)
+    protected function save( $datum, $model )
     {
 
-        $model = \App\Models\Membership\TicketedEvent::class;
+        // TODO: Determine if this is still necessary
+        $datum->source = 'galaxy';
 
-        // Abort if the table is already filled
-        if( $model::count() > 0 )
-        {
-            return false;
-        }
+        return parent::save( $datum, $model );
 
-        // Query for the first page + get page count
-        $json = $this->queryService($endpoint, $current);
-        $pages = $json->pagination->total_pages;
-
-        while ($current <= $pages)
-        {
-
-            foreach ($json->data as $source)
-            {
-
-                $source->source = 'galaxy';
-                $this->saveDatum( $source, $model );
-
-            }
-
-            $current++;
-            $json = $this->queryService($endpoint, $current);
-
-        }
-
-    }
-
-    private function queryService($endpoint, $page = 1, $limit = 100)
-    {
-        $this->info(env('EVENTS_DATA_SERVICE_URL') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit);
-        return $this->query( env('EVENTS_DATA_SERVICE_URL') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit );
     }
 
 }

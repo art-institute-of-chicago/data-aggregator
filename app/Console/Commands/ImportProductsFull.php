@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use DB;
 
-class ImportProductsFull extends AbstractImportCommand
+use App\Models\Shop\Product;
+use App\Models\Shop\Category;
+
+class ImportProductsFull extends AbstractImportCommandNew
 {
 
     protected $signature = 'import:products-full
@@ -17,6 +19,8 @@ class ImportProductsFull extends AbstractImportCommand
     public function handle()
     {
 
+        $this->api = env('SHOP_DATA_SERVICE_URL');
+
         // Return false if the user bails out
         if (!$this->option('yes') && !$this->confirm("Running this will delete all existing products from your database! Are you sure?"))
         {
@@ -24,7 +28,7 @@ class ImportProductsFull extends AbstractImportCommand
         }
 
         // Remove all events from the search index
-        $this->call("scout:flush", ['model' => \App\Models\Shop\Product::class]);
+        $this->call("scout:flush", ['model' => Product::class]);
 
         // Truncate tables
         DB::table('products')->truncate();
@@ -37,56 +41,11 @@ class ImportProductsFull extends AbstractImportCommand
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
-        $this->import('products');
-        $this->import('categories');
+        $this->import( Product::class, 'products' );
+        $this->import( Category::class, 'categories' );
 
         $this->info("Imported all products from data service!");
 
-    }
-
-
-    private function import($endpoint, $current = 1)
-    {
-
-        $model = \App\Models\Shop\Product::class;
-        if ($endpoint == 'categories')
-        {
-
-            $model = \App\Models\Shop\Category::class;
-
-        }
-
-        // Abort if the table is already filled
-        if( $model::count() > 0 )
-        {
-            return false;
-        }
-
-        // Query for the first page + get page count
-        $json = $this->queryService($endpoint, $current);
-        $pages = $json->pagination->total_pages;
-
-        while ($current <= $pages)
-        {
-
-            foreach ($json->data as $source)
-            {
-
-                $this->saveDatum( $source, $model );
-
-            }
-
-            $current++;
-            $json = $this->queryService($endpoint, $current);
-
-        }
-
-    }
-
-    private function queryService($endpoint, $page = 1, $limit = 100)
-    {
-        $this->info(env('SHOP_DATA_SERVICE_URL') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit);
-        return $this->query( env('SHOP_DATA_SERVICE_URL') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit );
     }
 
 }

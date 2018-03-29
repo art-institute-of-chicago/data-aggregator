@@ -2,8 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use DB;
+
+use App\Models\Archive\ArchiveImage;
 
 class ImportArchive extends AbstractImportCommandNew
 {
@@ -38,7 +39,7 @@ class ImportArchive extends AbstractImportCommandNew
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
-        $this->import(\App\Models\Archive\ArchiveImage::class, 'archival-images');
+        $this->import( ArchiveImage::class, 'archival-images' );
 
         $this->info("Imported all archive images from data service!");
 
