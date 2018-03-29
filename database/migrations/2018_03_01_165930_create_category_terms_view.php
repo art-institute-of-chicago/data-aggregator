@@ -28,7 +28,7 @@ class CreateCategoryTermsView extends Migration
                lake_guid,
                title,
                {$lake_uri_line}
-               type,
+               term_type_id,
                source_created_at,
                source_modified_at,
                source_indexed_at,

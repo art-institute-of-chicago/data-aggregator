@@ -102,7 +102,7 @@ $factory->define(App\Models\Collections\Term::class, function (Faker\Generator $
     return array_merge(
         idsAndTitle($faker, ucfirst($faker->word(3, true))),
         [
-            'type' => $faker->randomElement(['Style', 'Classification', 'Subject']),
+            'term_type_id' => $faker->randomDigit,
             'lake_uid' => 'TM-' .($faker->unique()->randomNumber(6) + 999 * pow(10, 6))
         ],
         dates($faker, true)
