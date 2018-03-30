@@ -12,7 +12,20 @@ class ArtworkTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['artists', 'categories', 'parts', 'sets', 'dates', 'catalogues', 'terms', 'images', 'documents', 'publications', 'tours', 'sites'];
+    protected $availableIncludes = [
+        'artists',
+        'catalogues',
+        'categories',
+        'dates',
+        'parts',
+        'sets',
+        'terms',
+        'images',
+        'documents',
+        'publications',
+        'tours',
+        'sites',
+    ];
 
     /**
      * Include artists.
