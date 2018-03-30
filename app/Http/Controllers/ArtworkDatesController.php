@@ -9,6 +9,6 @@ class ArtworkDatesController extends BaseController
 
     protected $model = \App\Models\Collections\ArtworkDate::class;
 
-    protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
+    protected $transformer = \App\Http\Transformers\ArtworkDateTransformer::class;
 
 }
