@@ -24,8 +24,7 @@ class ImportCollectionsFull extends AbstractImportCommandNew
 
         $endpoint = $this->argument('endpoint');
 
-        if ($endpoint)
-        {
+        if ($endpoint) {
 
             $page = $this->argument('page') ?: 1;
 
@@ -68,6 +67,15 @@ class ImportCollectionsFull extends AbstractImportCommandNew
     protected function importEndpoint($endpoint, $page = 1)
     {
 
+        $model = $this->getModelForEndpoint($endpoint);
+
+        $this->import( $model, $endpoint, $page );
+
+    }
+
+    protected function getModelForEndpoint($endpoint)
+    {
+
         // TODO: Outbound endpoints don't always equal inbound endpoints
         // Consider specifying them in inbound transformers? Or config file?
         switch( $endpoint )
@@ -85,8 +93,7 @@ class ImportCollectionsFull extends AbstractImportCommandNew
             break;
         }
 
-        $this->import( $model, $endpoint, $page );
-
+        return $model;
     }
 
 }
