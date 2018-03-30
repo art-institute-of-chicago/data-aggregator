@@ -112,7 +112,7 @@ $factory->define(App\Models\Collections\Term::class, function (Faker\Generator $
 
 $factory->define(App\Models\Collections\TermType::class, function (Faker\Generator $faker) {
     return array_merge(
-        idsAndTitle($faker, ucfirst($faker->word(3, true))),
+        idsAndTitle($faker, ucfirst($faker->word(3, true)), true),
         [
             'lake_uid' => 'TT-' .($faker->unique()->randomNumber(6) + 999 * pow(10, 6))
         ],
