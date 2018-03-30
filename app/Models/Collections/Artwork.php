@@ -315,9 +315,25 @@ class Artwork extends CollectionsModel
     public function attachFrom($source)
     {
 
-        if ($source->creator_id)
+        if ($source->artwork_agents)
         {
 
+            $artists = collect( $source->artwork_agents ?? [] )->map( function( $pivot ) {
+                return [
+                    $pivot->agent_id => [
+                        'agent_role_citi_id' => $pivot->role_id,
+                        'preferred' => $pivot->is_preferred,
+                    ]
+                ];
+            });
+
+            $artists = $artists->collapse();
+
+            $this->artists()->sync($artists, false);
+
+        } elseif ($source->creator_id) {
+
+            // In migrations, we default `preferred` to true and `agent_role_citi_id` to 219
             $this->artists()->sync([ $source->creator_id ], false);
 
         }
