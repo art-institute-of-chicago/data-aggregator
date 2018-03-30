@@ -1,6 +1,70 @@
 Data Aggregator Changelog
 =============================
 
+### 0.11 – Integrate Web CMS content and adjust search for the Mobile App
+
+* Make adjustments to search behavior for the Mobile app
+* Automatically generate Swagger documentation to keep it in-line with the codebase
+* Move fake model behavior to a reusable trait
+* Add endpoints to allow source systems to let Data Hub know when a single record has been updated, to accommodate real-time updates. Only the Web CMS and Collections endpoints are set up to be able to use this functionality.
+* Add job queue for asynchronous processing of tasks
+* Import content from Web CMS and schedule incremental imports every five minutes
+* Refactor import commands to reduce duplication
+
+ARTWORKS
+* Provide relationship to documents, which are assets that are _about_ artworks, as opposed to images which are _of_ artworks
+* Remove copyright representative from API
+* The following modifications have been made to the API schema:
+  - `medium_display` - Renamed from `medium` to make room for medium-type terms, for filtering
+  - `is_highlighted_in_mobile` – Removed, since it's unused by mobile and doesn't influence `is_boosted` logic
+  - `copyright_representative_ids` – Removed, since our website designs don't require us to pull this data
+  - `copyright_representative_titles` – Removed, since our website designs don't require us to pull this data
+  - `image_iiif_url` – Removed, in favor of clients using `image_id` with any of the LAKE image servers
+  - `document_ids` – Added, an array of `assets` that are _about_ the work, as opposed to images which are _of_ a work
+
+LEGACY EVENTS
+* Clean up extra HTML styling tags and attributes from descriptions
+
+PRODUCTS
+* Display `image_url` as ImgIX URL instead of image on Shop website
+
+ARTICLES
+* Parse out description text and main image from article content
+
+NEW ENDPOINTS
+* As part of new functionality to provide an opportunity for source systems to let us know about content updates, the following endpoints have been added:
+  - `/artworks/{id}/pull`
+  - `/agents/{id}/pull`
+  - `/venues/{id}/pull`
+  - `/agent-places/{id}/pull`
+  - `/artwork-catalogues/{id}/pull`
+  - `/departments/{id}/pull`
+  - `/artwork-types/{id}/pull`
+  - `/categories/{id}/pull`
+  - `/agent-types/{id}/pull`
+  - `/places/{id}/pull`
+  - `/galleries/{id}/pull`
+  - `/exhibitions/{id}/pull`
+  - `/assets/{id}/pull`
+  - `/images/{id}/pull`
+  - `/videos/{id}/pull`
+  - `/links/{id}/pull`
+  - `/sounds/{id}/pull`
+  - `/texts/{id}/pull`
+  - `/catalogues/{id}/pull`
+  - `/terms/{id}/pull`
+  - `/tags/{id}/pull`
+  - `/locations/{id}/pull`
+  - `/hours/{id}/pull`
+  - `/closures/{id}/pull`
+  - `/web-exhibitions/{id}/pull`
+  - `/events/{id}/pull`
+  - `/articles/{id}/pull`
+  - `/selections/{id}/pull`
+  - `/web-artists/{id}/pull`
+  - `/pages/{id}/pull`
+
+
 ### 0.10.1 – Hotfix to remove ELasticsearch functionality from testing application environment
 
 ### 0.10 – CMS API integration and image thumbnail metadata
