@@ -384,10 +384,6 @@ class Artwork extends CollectionsModel
         // $source->part_ids
         // $source->set_ids
 
-        // @TODO Determine this logic in the dataservice?
-        // $source->fiscal_year
-        // $source->accquired_at
-
         $pref_terms = collect( $source->pref_term_ids ?? [] )->map( function( $term ) {
             $term = 'TM-' .$term;
             if (Term::find($term))
