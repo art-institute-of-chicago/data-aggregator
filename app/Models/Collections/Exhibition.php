@@ -197,7 +197,7 @@ class Exhibition extends CollectionsModel
                 "doc" => "Unique identifiers of the venue agent records representing who hosted the exhibition",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->venues->pluck('id')->all(); },
+                "value" => function() { return $this->venues->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'artist_ids',
