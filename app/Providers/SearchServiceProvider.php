@@ -55,6 +55,7 @@ class SearchServiceProvider extends ServiceProvider
 
                     \App\Models\Collections\Agent::class,
                     \App\Models\Collections\Artwork::class,
+                    \App\Models\Collections\ArtworkDate::class,
                     \App\Models\Collections\Category::class,
                     \App\Models\Collections\Exhibition::class,
                     \App\Models\Collections\Place::class,

@@ -98,6 +98,9 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('artwork-place-qualifiers', 'ArtworkPlaceQualifiersController@index');
     Route::get('artwork-place-qualifiers/{id}', 'ArtworkPlaceQualifiersController@show');
 
+    Route::get('artwork-dates', 'ArtworkDatesController@index');
+    Route::get('artwork-dates/{id}', 'ArtworkDatesController@show');
+
     Route::get('artwork-date-qualifiers', 'ArtworkDateQualifiersController@index');
     Route::get('artwork-date-qualifiers/{id}', 'ArtworkDateQualifiersController@show');
 
