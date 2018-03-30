@@ -53,12 +53,59 @@ class Exhibition extends CollectionsModel
 
     }
 
+    // TODO: Consider using hasManyThrough() or belongsToMany()->using()
     public function getArtistsAttribute()
     {
 
         return $this->sites->pluck('agents')->collapse()->unique();
 
     }
+
+    // TODO: These relations are shared w/ artwork – consider moving them to e.g. Behaviors/HasRepAndDoc.php?
+    // The only thing that changes is the pivot table – artwork_asset vs. exhibition_asset
+
+    // SOF HasRepAndDoc --------------->
+
+    public function images()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Asset', 'exhibition_asset')
+            ->where('type', 'image') // Do we need these if we're targeting Image i/o Asset?
+            ->withPivot('preferred')
+            ->withPivot('is_doc')
+            ->wherePivot('is_doc', '=', false);
+
+    }
+
+    public function image()
+    {
+
+        return $this->images()->isPreferred();
+
+    }
+
+    public function altImages()
+    {
+
+        return $this->images()->isAlternative();
+
+    }
+
+    public function assets()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Asset', 'exhibition_asset')->withPivot('is_doc');
+
+    }
+
+    public function documents()
+    {
+
+        return $this->assets()->wherePivot('is_doc', '=', true);
+
+    }
+
+    // EOF HasRepAndDoc --------------->
 
 
     /**
@@ -154,24 +201,6 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->place_display; },
             ],
             [
-                "name" => 'image_id',
-                "doc" => "Unique identifier of the image to use to represent this exhibition",
-                "type" => "uuid",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() {
-                    return $this->asset_lake_guid;
-                },
-            ],
-            [
-                "name" => 'image_iiif_url',
-                "doc" => "IIIF URL of the image to use to represent this exhibition",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() {
-                    return $this->image_iiif_url;
-                },
-            ],
-            [
                 "name" => 'legacy_image_desktop_url',
                 "doc" => "URL to the desktop hero image from the legacy marketing site",
                 "type" => "string",
@@ -221,6 +250,29 @@ class Exhibition extends CollectionsModel
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->legacyEvents->pluck('membership_id')->all(); },
             ],
+            // TODO: Shared fields w/ artwork – put into trait?
+            [
+                "name" => 'image_id',
+                "doc" => "Unique identifier of the preferred image to use to represent this exhibition",
+                "type" => "uuid",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->image->lake_guid ?? null; },
+            ],
+            [
+                "name" => 'alt_image_ids',
+                "doc" => "Unique identifiers of all non-preferred images of this exhibition.",
+                "type" => "array",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->altImages->pluck('lake_guid')->all(); },
+            ],
+            [
+                "name" => 'document_ids',
+                "doc" => "Unique identifiers of assets that serve as documentation for this exhibition",
+                "type" => "array",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->documents->pluck('lake_guid')->all(); },
+            ],
+            // EOF TODO
         ];
 
     }
@@ -262,7 +314,6 @@ class Exhibition extends CollectionsModel
         return [
             'type' => $source->exhibition_type,
             'status' => $source->exhibition_status,
-            'asset_lake_guid' => $source->image_guid,
             'place_citi_id' => $source->gallery_id,
             'place_display' => $source->gallery,
             'date_start' => $source->start_date ? strtotime($source->start_date) : null,
@@ -281,25 +332,52 @@ class Exhibition extends CollectionsModel
         $this->venues()->saveMany(AgentExhibition::findMany($source->exhibition_agent_ids));
         $this->artworks()->sync($source->artwork_ids);
 
-        // TODO: Add documents, i.e. links to assets, e.g. exhibition catalogues
-        // $source->document_ids
+        // TODO: This logic is shared w/ artworks - consider abstracting it elsewhere?
+        $assets = collect( $source->alt_image_guids ?? [] )->map( function( $asset ) {
+            return [
+                $asset => [
+                    'preferred' => false,
+                    'is_doc' => false,
+                ]
+            ];
+        });
+
+        if ($source->image_guid)
+        {
+
+            $assets->push([
+                $source->image_guid => [
+                    'preferred' => true,
+                    'is_doc' => false,
+                ]
+            ]);
+
+        }
+
+        // TODO: Shared logic w/ exhibitions - abstract?
+        if ($source->document_ids)
+        {
+
+            $documents = collect( $source->document_ids )->map( function( $document ) {
+                return [
+                    $document => [
+                        'preferred' => false,
+                        'is_doc' => true,
+                    ]
+                ];
+            });
+
+            $assets = $assets->concat( $documents );
+
+        }
+
+        // This only works for string keys!
+        $assets = $assets->collapse();
+
+        $this->assets()->sync($assets);
 
     }
 
-
-    /**
-     * Get the IIIF URL of the image representing this exhibition. Corresponds to the `@id` attribute in the image's `/info.json`
-     *
-     * @TODO Currently, this redirects to a non-existent `info.json'
-     *
-     * @return string
-     */
-    public function getImageIiifUrlAttribute()
-    {
-
-        return $this->asset_lake_guid ? (env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->asset_lake_guid) : null;
-
-    }
 
     /**
      * Get an example ID for documentation generation
