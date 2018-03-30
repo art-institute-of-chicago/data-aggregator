@@ -120,6 +120,15 @@ class Category extends CollectionsModel
 
     }
 
+    protected function fillIdsFrom($source)
+    {
+
+        $this->lake_uid = $source->lake_uid;
+
+        return $this;
+
+    }
+
     /**
      * Get an example ID for documentation generation
      *

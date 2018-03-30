@@ -19,6 +19,7 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
     protected function seed()
     {
 
+        $this->call(TermTypesTableSeeder::class);
         $this->call(AgentTypesTableSeeder::class);
         $this->call(AgentsTableSeeder::class);
         $this->call(ArtworkTypesTableSeeder::class);
@@ -54,6 +55,7 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         ArtworkType::fake()->delete();
         Agent::fake()->delete();
         AgentType::fake()->delete();
+        TermType::fake()->delete();
 
     }
 

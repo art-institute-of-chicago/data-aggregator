@@ -38,6 +38,8 @@ class ImportCollections extends AbstractImportCommandNew
         $this->importEndpoint('images');
         $this->importEndpoint('exhibition-agents');
         $this->importEndpoint('exhibitions');
+        $this->importEndpoint('term-types');
+        $this->importEndpoint('terms');
 
     }
 

@@ -17,6 +17,10 @@ class Artwork extends CollectionsModel
         docBoostedDescription as public traitDocBoostedDescription;
     }
 
+    protected $casts = [
+        'alt_titles' => 'array',
+    ];
+
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
 
@@ -73,7 +77,7 @@ class Artwork extends CollectionsModel
     public function styles()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'style')->withPivot('preferred');
+        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::STYLE)->withPivot('preferred');
 
     }
 
@@ -95,7 +99,7 @@ class Artwork extends CollectionsModel
     public function classifications()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'classification')->withPivot('preferred');
+        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::CLASSIFICATION)->withPivot('preferred');
 
     }
 
@@ -116,7 +120,7 @@ class Artwork extends CollectionsModel
     public function subjects()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'subject')->withPivot('preferred');
+        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::SUBJECT)->withPivot('preferred');
 
     }
 
@@ -131,6 +135,27 @@ class Artwork extends CollectionsModel
     {
 
         return $this->subjects()->isAlternative();
+
+    }
+
+    public function materials()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::MATERIAL)->withPivot('preferred');
+
+    }
+
+    public function material()
+    {
+
+        return $this->materials()->isPreferred();
+
+    }
+
+    public function altMaterials()
+    {
+
+        return $this->materials()->isAlternative();
 
     }
 
@@ -250,7 +275,9 @@ class Artwork extends CollectionsModel
     {
 
         return [
+            'alt_titles' => $source->alt_titles,
             'artist_display' => $source->creator_display,
+            'medium_display' => $source->medium,
             'publication_history' => $source->publications,
             'exhibition_history' => $source->exhibitions,
             'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
@@ -356,32 +383,34 @@ class Artwork extends CollectionsModel
         // $source->artwork_place_ids (add ArtworkPlace, ArtworkPlaceQualifier)
         // $source->part_ids
         // $source->set_ids
-        // $source->alt_titles
-
-        // @TODO Determine this logic in the dataservice?
-        // $source->fiscal_year
-        // $source->accquired_at
 
         $pref_terms = collect( $source->pref_term_ids ?? [] )->map( function( $term ) {
-            return [
-                $term => [
-                    'preferred' => true
-                ]
-            ];
+            $term = 'TM-' .$term;
+            if (Term::find($term))
+            {
+                return [
+                    $term => [
+                        'preferred' => true
+                    ]
+                ];
+            }
         });
 
         $alt_terms = collect( $source->alt_term_ids ?? [] )->map( function( $term ) {
-            return [
-                $term => [
-                    'preferred' => false
-                ]
-            ];
+            $term = 'TM-' .$term;
+            if (Term::find($term))
+            {
+                return [
+                    $term => [
+                        'preferred' => false
+                    ]
+                ];
+            }
         });
 
         $terms = $pref_terms->concat( $alt_terms );
 
-        // TODO: Re-enable this once we're ready to import terms from the dataservice
-        // $this->assets()->sync($terms, false);
+        $this->terms()->sync($terms->collapse(), false);
 
         // Galleries must be imported before artworks!
         // Waiting on Redmine #2000 to do this properly
@@ -495,7 +524,7 @@ class Artwork extends CollectionsModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return []; },
+                "value" => function() { return $this->alt_titles; },
             ],
             [
                 "name" => 'main_reference_number',
@@ -856,6 +885,26 @@ class Artwork extends CollectionsModel
                 "doc" => "The names of all subject terms related to this artwork",
                 "type" => "array",
                 "value" => function() { return $this->subjects->pluck('title')->all(); },
+            ],
+            [
+                "name" => 'material_id',
+                "doc" => "Unique identifier of the preferred material term for this work",
+                "type" => "string",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->material->lake_uid ?? null; },
+            ],
+            [
+                "name" => 'alt_material_ids',
+                "doc" => "Unique identifiers of all other non-preferred material terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->altMaterials->pluck('lake_uid')->all(); },
+            ],
+            [
+                "name" => 'material_titles',
+                "doc" => "The names of all material terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->materials->pluck('title')->all(); },
             ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
