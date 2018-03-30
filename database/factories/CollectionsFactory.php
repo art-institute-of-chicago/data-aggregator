@@ -199,8 +199,7 @@ $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Gene
             'date_latest' => $faker->dateTimeAd,
             'artwork_date_qualifier_citi_id' => $faker->randomElement(App\Models\Collections\ArtworkDateQualifier::fake()->pluck('citi_id')->all()),
             'preferred' => $faker->boolean,
-        ],
-        dates($faker, true)
+        ]
     );
 });
 
