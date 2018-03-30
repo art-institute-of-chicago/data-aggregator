@@ -77,7 +77,7 @@ class Artwork extends CollectionsModel
     public function styles()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'style')->withPivot('preferred');
+        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::STYLE)->withPivot('preferred');
 
     }
 
@@ -99,7 +99,7 @@ class Artwork extends CollectionsModel
     public function classifications()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'classification')->withPivot('preferred');
+        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::CLASSIFICATION)->withPivot('preferred');
 
     }
 
@@ -120,7 +120,7 @@ class Artwork extends CollectionsModel
     public function subjects()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('type', '=', 'subject')->withPivot('preferred');
+        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::SUBJECT)->withPivot('preferred');
 
     }
 
@@ -368,25 +368,32 @@ class Artwork extends CollectionsModel
         // $source->accquired_at
 
         $pref_terms = collect( $source->pref_term_ids ?? [] )->map( function( $term ) {
-            return [
-                $term => [
-                    'preferred' => true
-                ]
-            ];
+            $term = 'TM-' .$term;
+            if (Term::find($term))
+            {
+                return [
+                    $term => [
+                        'preferred' => true
+                    ]
+                ];
+            }
         });
 
         $alt_terms = collect( $source->alt_term_ids ?? [] )->map( function( $term ) {
-            return [
-                $term => [
-                    'preferred' => false
-                ]
-            ];
+            $term = 'TM-' .$term;
+            if (Term::find($term))
+            {
+                return [
+                    $term => [
+                        'preferred' => false
+                    ]
+                ];
+            }
         });
 
         $terms = $pref_terms->concat( $alt_terms );
 
-        // TODO: Re-enable this once we're ready to import terms from the dataservice
-        // $this->assets()->sync($terms, false);
+        $this->terms()->sync($terms->collapse(), false);
 
         // Galleries must be imported before artworks!
         // Waiting on Redmine #2000 to do this properly

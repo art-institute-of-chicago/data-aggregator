@@ -40,10 +40,16 @@ class Release0_12 extends Command
     public function handle()
     {
 
+        // Term Types
         $this->call('import:collections-full', ['endpoint' => 'term-types']);
-        $this->call('import:collections-full', ['endpoint' => 'terms']);
 
+        // Terms
+        $this->call('import:collections-full', ['endpoint' => 'terms']);
         DB::delete('delete from terms where lake_guid is null');
+
+        // Artwork Terms
+        DB::delete('delete from artwork_terms');
+        $this->call('import:collections-full', ['endpoint' => 'artworks']);
 
     }
 }
