@@ -80,6 +80,12 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('agent-places', 'AgentPlacesController@index');
     Route::get('agent-places/{id}', 'AgentPlacesController@show');
 
+    Route::get('agent-types', 'AgentTypesController@index');
+    Route::get('agent-types/{id}', 'AgentTypesController@show');
+
+    Route::get('agent-roles', 'AgentRolesController@index');
+    Route::get('agent-roles/{id}', 'AgentRolesController@show');
+
     Route::get('artwork-catalogues', 'ArtworkCataloguesController@index');
     Route::get('artwork-catalogues/{id}', 'ArtworkCataloguesController@show');
 
@@ -94,9 +100,6 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::get('category-terms', 'CategoryTermsController@index');
     Route::get('category-terms/{id}', 'CategoryTermsController@show');
-
-    Route::get('agent-types', 'AgentTypesController@index');
-    Route::get('agent-types/{id}', 'AgentTypesController@show');
 
     Route::get('places', 'PlacesController@index');
     Route::get('places/{id}', 'PlacesController@show');

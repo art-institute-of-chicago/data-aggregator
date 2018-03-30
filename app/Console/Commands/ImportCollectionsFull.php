@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Collections\AgentRole;
 use App\Models\Collections\ArtworkType;
 
 class ImportCollectionsFull extends AbstractImportCommandNew
@@ -41,6 +42,7 @@ class ImportCollectionsFull extends AbstractImportCommandNew
     protected function importEndpoints()
     {
 
+        $this->importEndpoint('artwork-agent-roles');
         $this->importEndpoint('object-types');
         $this->importEndpoint('agent-types');
         $this->importEndpoint('agent-places');
@@ -70,6 +72,9 @@ class ImportCollectionsFull extends AbstractImportCommandNew
         // Consider specifying them in inbound transformers? Or config file?
         switch( $endpoint )
         {
+            case 'artwork-agent-roles':
+                $model = AgentRole::class;
+            break;
             case 'object-types':
                 $model = ArtworkType::class;
             break;

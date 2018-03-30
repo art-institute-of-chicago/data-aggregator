@@ -68,6 +68,13 @@ $factory->define(App\Models\Collections\AgentType::class, function (Faker\Genera
     );
 });
 
+$factory->define(App\Models\Collections\AgentRole::class, function (Faker\Generator $faker) {
+    return array_merge(
+        idsAndTitle($faker, $faker->words(3, true), true, 2),
+        dates($faker, true)
+    );
+});
+
 $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator $faker) {
 
     $first_name = $faker->firstName;

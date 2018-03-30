@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Collections\AgentType;
+use App\Models\Collections\AgentRole;
 use App\Models\Collections\Agent;
 use App\Models\Collections\Category;
 use App\Models\Collections\Place;
@@ -21,6 +22,7 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
 
         $this->call(TermTypesTableSeeder::class);
         $this->call(AgentTypesTableSeeder::class);
+        $this->call(AgentRolesTableSeeder::class);
         $this->call(AgentsTableSeeder::class);
         $this->call(ArtworkTypesTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
@@ -55,6 +57,7 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         ArtworkType::fake()->delete();
         Agent::fake()->delete();
         AgentType::fake()->delete();
+        AgentRole::fake()->delete();
         TermType::fake()->delete();
 
     }
