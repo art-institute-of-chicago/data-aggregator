@@ -65,6 +65,10 @@ class ResourceServiceProvider extends ServiceProvider
                         'model' => \App\Models\Collections\ArtworkType::class,
                     ],
                     [
+                        'endpoint' => 'artwork-place-qualifiers',
+                        'model' => \App\Models\Collections\ArtworkPlaceQualifier::class,
+                    ],
+                    [
                         'endpoint' => 'categories',
                         'model' => \App\Models\Collections\Category::class,
                     ],
