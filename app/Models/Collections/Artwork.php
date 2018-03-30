@@ -476,8 +476,28 @@ class Artwork extends CollectionsModel
 
         }
 
+        if ($source->artwork_dates)
+        {
+
+            $this->dates()->delete();
+
+            foreach ( ($source->artwork_dates ?? []) as $rec)
+            {
+                ArtworkDate::create([
+                    'citi_id' => $rec->id,
+                    'artwork_citi_id' => $this->citi_id,
+                    'lake_guid' => $rec->lake_guid,
+                    'date_earliest' => $rec->date_earliest,
+                    'date_latest' => $rec->date_latest,
+                    'preferred' => $rec->is_preferred,
+                    'artwork_date_qualifier_citi_id' => $rec->date_qualifier_id,
+                ]);
+
+            }
+
+        }
+
         // @TODO The following are available for syncing:
-        // $source->artwork_date_ids
         // $source->artwork_agent_ids (add ArtworkAgent, ArtworkAgentRole)
         // $source->artwork_place_ids (add ArtworkPlace, ArtworkPlaceQualifier)
         // $source->part_ids
