@@ -15,58 +15,46 @@ A list of all artworks sorted by last updated date in descending order. For a de
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `artists`
   * `categories`
-  * `copyright_representatives`
   * `parts`
   * `sets`
   * `dates`
   * `catalogues`
   * `terms`
   * `images`
+  * `documents`
   * `publications`
   * `tours`
   * `sites`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/artworks?limit=2  
 Example output:
 
 ```
 {
     "pagination": {
-        "total": 106531,
+        "total": 106551,
         "limit": 2,
         "offset": 0,
-        "total_pages": 53266,
+        "total_pages": 53276,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/artworks?page=2&limit=2"
     },
     "data": [
         {
-            "id": 111380,
-            "title": "Seated Bodhisattva",
-            "lake_guid": "7f35d0ca-0059-f9fd-88d6-e578bd3e0739",
-            "is_boosted": true,
-            "thumbnail": {
-                "url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/8425e900-2940-ebbe-a2b3-d0406073778f",
-                "type": "iiif",
-                "lqip": "data:image\/gif;base64,R0lGODlhBAAFAPQAAE9QUFBQUWdZTGlcUWtoZm5san95c398e5B\/bIJ7dYt\/c4OAfoSCgJuTjKKak6iqq7q6ub\/AwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAEAAUAAAURIFAQweM0D4Qo0SEMzJIYTAgAOw==",
-                "width": 1776,
-                "height": 2250
-            },
+            "id": 118917,
+            "title": "Panorama, 1983\u201386",
+            "lake_guid": "4aa53f97-51dc-f897-bdbb-4c20696bf5e3",
+            "is_boosted": false,
+            "thumbnail": null,
             "alt_titles": [],
             ...
         },
         {
-            "id": 107300,
-            "title": "Tall-Case Clock",
-            "lake_guid": "7b854b17-ab7a-0539-458e-ffa0b30e6815",
-            "is_boosted": true,
-            "thumbnail": {
-                "url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/76d1e99c-43ab-82a3-1d47-53d95d2a1921",
-                "type": "iiif",
-                "lqip": "data:image\/gif;base64,R0lGODlhBAAFAPQAADAvMC8wMTU2OTU4PTg6Pjk7QTk8QEBCR0hKTEtMTlVMR1lSTmRXRWxhVGphWGhhWnpsXnttXoB1bYB1bgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAEAAUAAAURIKAsgQBNhBFJx8A0ReI8SAgAOw==",
-                "width": 1775,
-                "height": 2250
-            },
+            "id": 120543,
+            "title": "Untitled",
+            "lake_guid": "ed2d9467-ac94-c969-c1b2-e8f6eb7fbd93",
+            "is_boosted": false,
+            "thumbnail": null,
             "alt_titles": [],
             ...
         }
@@ -76,7 +64,7 @@ Example output:
 
 ### `/artworks/boosted`
 
-A list of boosted artworks sorted by last updated date in descending order. This is a subset of the `artworks/` endpoint that represents approximately 400 of our most well-known resources. This can be used to get a shorter list of artworks that will have most of its metadata filled out for testing purposes.
+A list of boosted artworks sorted by last updated date in descending order. This is a subset of the `artworks/` endpoint that represents approximately 400 of our most well-known artworks as featured in three important catalogs: Paintings at the Art Institute of Chicago: Highlights of the Collection, The Essential Guide, and Master Paintings in the Art Institute of Chicago. This can be used to get a shorter list of artworks that will have most of its metadata filled out for testing purposes.
 
 #### Available parameters:
 
@@ -87,57 +75,57 @@ A list of boosted artworks sorted by last updated date in descending order. This
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `artists`
   * `categories`
-  * `copyright_representatives`
   * `parts`
   * `sets`
   * `dates`
   * `catalogues`
   * `terms`
   * `images`
+  * `documents`
   * `publications`
   * `tours`
   * `sites`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/boosted?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/artworks/boosted?limit=2  
 Example output:
 
 ```
 {
     "pagination": {
-        "total": 413,
+        "total": 416,
         "limit": 2,
         "offset": 0,
-        "total_pages": 207,
+        "total_pages": 208,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/boosted?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/artworks\/boosted?page=2&limit=2"
     },
     "data": [
         {
-            "id": 111380,
-            "title": "Seated Bodhisattva",
-            "lake_guid": "7f35d0ca-0059-f9fd-88d6-e578bd3e0739",
+            "id": 47149,
+            "title": "Mao",
+            "lake_guid": "1c3cd317-e33b-388a-4036-6938cc1023bc",
             "is_boosted": true,
             "thumbnail": {
-                "url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/8425e900-2940-ebbe-a2b3-d0406073778f",
+                "url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/706a6428-c775-6cd5-6d8d-41f6dd04ce26",
                 "type": "iiif",
-                "lqip": "data:image\/gif;base64,R0lGODlhBAAFAPQAAE9QUFBQUWdZTGlcUWtoZm5san95c398e5B\/bIJ7dYt\/c4OAfoSCgJuTjKKak6iqq7q6ub\/AwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAEAAUAAAURIFAQweM0D4Qo0SEMzJIYTAgAOw==",
-                "width": 1776,
+                "lqip": "data:image\/gif;base64,R0lGODlhBAAFAPQAACMeJ0M\/MXZfDlJOO3lSL2RJMWxUNGRdRGpiVWdlW5xvLoJyI5poMr11Klp9nF2DonOSqXWWrXydsImvxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAEAAUAAAUR4KMYDtQwkUQUU4IEA3AsQggAOw==",
+                "width": 1741,
                 "height": 2250
             },
             "alt_titles": [],
             ...
         },
         {
-            "id": 107300,
-            "title": "Tall-Case Clock",
-            "lake_guid": "7b854b17-ab7a-0539-458e-ffa0b30e6815",
+            "id": 72728,
+            "title": "Untitled",
+            "lake_guid": "b637652f-6bfe-d94d-d285-85cfdd938f66",
             "is_boosted": true,
             "thumbnail": {
-                "url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/76d1e99c-43ab-82a3-1d47-53d95d2a1921",
+                "url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/947e1361-4118-e395-413c-9eb1c04fe92e",
                 "type": "iiif",
-                "lqip": "data:image\/gif;base64,R0lGODlhBAAFAPQAADAvMC8wMTU2OTU4PTg6Pjk7QTk8QEBCR0hKTEtMTlVMR1lSTmRXRWxhVGphWGhhWnpsXnttXoB1bYB1bgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAEAAUAAAURIKAsgQBNhBFJx8A0ReI8SAgAOw==",
-                "width": 1775,
-                "height": 2250
+                "lqip": "data:image\/gif;base64,R0lGODlhCwAFAPUAABoYGiIiJCUiJSkmKiwnLCwpLC4sLy8tMTQyNTs2Ojo4PDw4PD85PD89QkA8QEA9QUNCR1BQUldXV1tYWV1cXGdkZ2xpaXRzdHZzdXd0dnx5e3t6fHx6fIB9f4KAgYOAgoOBhoWFhYeGhoWEioqIjpKOlJKPlpSOlZiVlJaTmpycoaCaobOxsra4vb28v7++vsLBxMPFyMbFys3Kzs3L0M\/M0NHP1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAALAAUAAAYywFhLZqPVZjAX66UarVKm0okEwqAqjEnj4VgoIAiKBJAoEASDgyEQEVk+mo4nw9lcQkEAOw==",
+                "width": 3000,
+                "height": 1387
             },
             "alt_titles": [],
             ...
@@ -157,41 +145,41 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/search?q=monet  
+Example request: http://aggregator-data.artic.edu/api/v1/artworks/search?q=monet  
 Example output:
 
 ```
 {
     "preference": null,
     "pagination": {
-        "total": 334,
+        "total": 267,
         "limit": 10,
         "offset": 0,
-        "total_pages": 34,
+        "total_pages": 27,
         "current_page": 1
     },
     "data": [
         {
-            "_score": 15.363219,
-            "api_id": "64818",
+            "_score": 33.516296,
+            "api_id": "7988",
             "thumbnail": {
-                "width": 3000,
+                "width": 2024,
                 "type": "iiif",
-                "url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/9511bf7d-4f6c-f523-5fb1-ff069c17f16c",
-                "lqip": "data:image\/gif;base64,R0lGODlhCAAFAPUAAG90ZH53aXh1dItwZoxxaI98cHSEeJOEZZiDbaSQfnKAgJKHg5aNgpeZjJOXkZ+elKKajZSlnZ6jmJWqnrGujbewiq6tk6mqn7Ghk7Oym42jpKOoo6+to7OooK2xoM2\/mrbFvLjIv83PvsfQus7TvMHJwMHNwMDLxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAIAAUAAAYlQFDoVDKNSCLOxZOxUCofhSBgABAGhwYj8XAsCgiIZBLRbDqYIAA7",
-                "height": 1778
+                "url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/3f007f48-0cb7-4d65-6bff-09fff932999e",
+                "lqip": "data:image\/gif;base64,R0lGODlhBAAFAPQAACcnJyoqKjw8PEBAQEREREVFRUlJSU5OTlFRUVJSUlVVVVpaWl9fX2NjY2tra3BwcHBwcHl5eYqKipWVlQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAAIf8LSW1hZ2VNYWdpY2sOZ2FtbWE9MC40NTQ1NDUALAAAAAAEAAUAAAURILREwtEMgDMhgSIxifEQRQgAOw==",
+                "height": 2743
             },
             "api_model": "artworks",
-            "is_boosted": true,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/64818",
-            "id": 64818,
-            "title": "Stacks of Wheat (End of Summer)",
-            "timestamp": "2018-03-14T18:40:36-05:00"
+            "is_boosted": false,
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/artworks\/7988",
+            "id": 7988,
+            "title": "Claude Monet",
+            "timestamp": "2018-03-19T16:51:20-05:00"
         },
         {
-            "_score": 15.265642,
+            "_score": 30.885502,
             "api_id": "14598",
             "thumbnail": {
                 "width": 3000,
@@ -202,27 +190,27 @@ Example output:
             },
             "api_model": "artworks",
             "is_boosted": true,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/14598",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/artworks\/14598",
             "id": 14598,
             "title": "The Beach at Sainte-Adresse",
-            "timestamp": "2018-03-14T18:27:44-05:00"
+            "timestamp": "2018-03-19T16:52:58-05:00"
         },
         {
-            "_score": 13.138819,
-            "api_id": "44892",
+            "_score": 30.467085,
+            "api_id": "64818",
             "thumbnail": {
-                "width": null,
+                "width": 3000,
                 "type": "iiif",
-                "url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/4b15ce06-46cb-93d0-417b-ef84469c0811",
-                "lqip": "data:image\/gif;base64,R0lGODlhBgAFAPQAABwUEi8kGSslHysmHzMmHjUpHzYpHj0oHDcuJUg+N1pALktAM1dOP1tPPVhPP29gT39tV3x2aIpoVo11YJGKZJuPfp+NfJ+YfKWfiLCih7Koja2mlrStlr2pkwAAAAAAACH5BAAAAAAALAAAAAAGAAUAAAUYYGAgwlAsDgMcxCN1ltJAU7VdVKZxWJSEADs=",
-                "height": null
+                "url": "https:\/\/lakeimagesweb.artic.edu\/iiif\/2\/9511bf7d-4f6c-f523-5fb1-ff069c17f16c",
+                "lqip": "data:image\/gif;base64,R0lGODlhCAAFAPUAAG90ZH53aXh1dItwZoxxaI98cHSEeJOEZZiDbaSQfnKAgJKHg5aNgpeZjJOXkZ+elKKajZSlnZ6jmJWqnrGujbewiq6tk6mqn7Ghk7Oym42jpKOoo6+to7OooK2xoM2\/mrbFvLjIv83PvsfQus7TvMHJwMHNwMDLxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAIAAUAAAYlQFDoVDKNSCLOxZOxUCofhSBgABAGhwYj8XAsCgiIZBLRbDqYIAA7",
+                "height": 1778
             },
             "api_model": "artworks",
             "is_boosted": true,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artworks\/44892",
-            "id": 44892,
-            "title": "Fish (Still Life)",
-            "timestamp": "2018-03-14T18:35:36-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/artworks\/64818",
+            "id": 64818,
+            "title": "Stacks of Wheat (End of Summer)",
+            "timestamp": "2018-03-26T12:55:06-05:00"
         }
     ]
 }
@@ -230,9 +218,9 @@ Example output:
 
 ### `/artworks/{id}`
 
-A single artworks by the given identifier. {id} is the identifier from our collections managements system.
+A single artwork by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/artworks/111628?limit=2  
 Example output:
 
 ```
@@ -259,7 +247,7 @@ Example output:
 
 The artists for a given artworks. Served from the API as a type of `agent`, so their output schema is the same.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/artists?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/artworks/111628/artists?limit=2  
 Example output:
 
 ```
@@ -282,7 +270,7 @@ Example output:
 
 The categories for a given artworks.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/categories?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/artworks/111628/categories?limit=2  
 Example output:
 
 ```
@@ -458,7 +446,7 @@ Example output:
 
 The images for a given artworks.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/images?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/artworks/111628/images?limit=2  
 Example output:
 
 ```
@@ -472,15 +460,6 @@ Example output:
             "thumbnail": null,
             "type": "image",
             ...
-        },
-        {
-            "id": "e2193e3c-80dd-386e-0ae3-a0d11883d367",
-            "title": "01. <em>Fifty-third Annual Exhibition of American Paintings and Sculpture<\/em>, Plate VII",
-            "lake_guid": "e2193e3c-80dd-386e-0ae3-a0d11883d367",
-            "is_boosted": false,
-            "thumbnail": null,
-            "type": "image",
-            ...
         }
     ]
 }
@@ -490,13 +469,13 @@ Example output:
 
 The parts for a given artworks.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/parts?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/artworks/111628/parts?limit=2  
 
 ### `/artworks/{id}/sets`
 
 The sets for a given artworks.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artworks/111628/sets?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/artworks/111628/sets?limit=2  
 
 ## Agents
 
@@ -514,36 +493,36 @@ A list of all agents sorted by last updated date in descending order. For a desc
   * `places`
   * `sites`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/agents?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/agents?limit=2  
 Example output:
 
 ```
 {
     "pagination": {
-        "total": 12242,
+        "total": 12243,
         "limit": 2,
         "offset": 0,
-        "total_pages": 6121,
+        "total_pages": 6122,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/agents?page=2&limit=2"
     },
     "data": [
         {
-            "id": 30723,
-            "title": "Jean Baptiste Sim\u00e9on Chardin",
-            "lake_guid": "9cd5b353-3ed0-2d78-26e3-dd0b98138a31",
-            "is_boosted": true,
+            "id": 78367,
+            "title": "Museum of Contemporary Art",
+            "lake_guid": "f0c7c1bc-73e8-87ec-d305-04621964cce6",
+            "is_boosted": false,
             "thumbnail": null,
-            "sort_title": "Chardin, Jean Baptiste Sim\u00e9on",
+            "sort_title": "Museum of Contemporary Art",
             ...
         },
         {
-            "id": 44812,
-            "title": "Lee Krasner",
-            "lake_guid": "45e08914-a055-069b-8076-a93b4b56c433",
-            "is_boosted": true,
+            "id": 98211,
+            "title": "Elizabeth Wells Robertson",
+            "lake_guid": "ed1d160c-96a1-fbd7-2440-d030e877b540",
+            "is_boosted": false,
             "thumbnail": null,
-            "sort_title": "Krasner, Lee",
+            "sort_title": "Robertson, Elizabeth Wells",
             ...
         }
     ]
@@ -552,7 +531,7 @@ Example output:
 
 ### `/agents/boosted`
 
-A list of boosted agents sorted by last updated date in descending order. This is a subset of the `agents/` endpoint that represents approximately 400 of our most well-known resources. This can be used to get a shorter list of agents that will have most of its metadata filled out for testing purposes.
+A list of boosted agents sorted by last updated date in descending order. This is a subset of the `agents/` endpoint that represents all the artists included in boosted Artwork, in addition to the top 100 viewed artists on our website in 2017.
 
 #### Available parameters:
 
@@ -564,7 +543,7 @@ A list of boosted agents sorted by last updated date in descending order. This i
   * `places`
   * `sites`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/agents/boosted?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/agents/boosted?limit=2  
 Example output:
 
 ```
@@ -575,25 +554,25 @@ Example output:
         "offset": 0,
         "total_pages": 165,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/boosted?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/agents\/boosted?page=2&limit=2"
     },
     "data": [
         {
-            "id": 30723,
-            "title": "Jean Baptiste Sim\u00e9on Chardin",
-            "lake_guid": "9cd5b353-3ed0-2d78-26e3-dd0b98138a31",
+            "id": 15965,
+            "title": "Ren\u00e9 Magritte",
+            "lake_guid": "4c25b9f9-482a-a495-8279-3352b1e25487",
             "is_boosted": true,
             "thumbnail": null,
-            "sort_title": "Chardin, Jean Baptiste Sim\u00e9on",
+            "sort_title": "Magritte, Ren\u00e9",
             ...
         },
         {
-            "id": 44812,
-            "title": "Lee Krasner",
-            "lake_guid": "45e08914-a055-069b-8076-a93b4b56c433",
+            "id": 3829,
+            "title": "Gustave Caillebotte",
+            "lake_guid": "5e58b265-759b-1d92-d74c-3420a3c09e0d",
             "is_boosted": true,
             "thumbnail": null,
-            "sort_title": "Krasner, Lee",
+            "sort_title": "Caillebotte, Gustave",
             ...
         }
     ]
@@ -611,16 +590,16 @@ Search agents data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/agents/search  
+Example request: http://aggregator-data.artic.edu/api/v1/agents/search  
 Example output:
 
 ```
 {
     "preference": null,
     "pagination": {
-        "total": 12235,
+        "total": 12236,
         "limit": 10,
         "offset": 0,
         "total_pages": 1224,
@@ -628,37 +607,37 @@ Example output:
     },
     "data": [
         {
-            "_score": 5.755949,
-            "api_id": "34316",
+            "_score": 7.686507,
+            "api_id": "15615",
             "thumbnail": null,
             "api_model": "agents",
             "is_boosted": true,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/34316",
-            "id": 34316,
-            "title": "Marcel Duchamp",
-            "timestamp": "2018-03-14T18:24:07-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/agents\/15615",
+            "id": 15615,
+            "title": "Tiffany Studios",
+            "timestamp": "2018-03-19T16:49:01-05:00"
         },
         {
-            "_score": 5.755949,
-            "api_id": "34946",
+            "_score": 7.686507,
+            "api_id": "5383",
             "thumbnail": null,
             "api_model": "agents",
             "is_boosted": true,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/34946",
-            "id": 34946,
-            "title": "Utagawa Hiroshige",
-            "timestamp": "2018-03-14T18:24:08-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/agents\/5383",
+            "id": 5383,
+            "title": "Juan S\u00e1nchez Cot\u00e1n",
+            "timestamp": "2018-03-19T16:48:57-05:00"
         },
         {
-            "_score": 5.755949,
-            "api_id": "33376",
+            "_score": 7.686507,
+            "api_id": "7268",
             "thumbnail": null,
             "api_model": "agents",
             "is_boosted": true,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents\/33376",
-            "id": 33376,
-            "title": "Ivan Albright",
-            "timestamp": "2018-03-14T18:24:05-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/agents\/7268",
+            "id": 7268,
+            "title": "Francesco Durantino",
+            "timestamp": "2018-03-19T16:48:58-05:00"
         }
     ]
 }
@@ -666,38 +645,38 @@ Example output:
 
 ### `/agents/{id}`
 
-A single agents by the given identifier. {id} is the identifier from our collections managements system.
+A single agent by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/agents?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/agents?limit=2  
 Example output:
 
 ```
 {
     "pagination": {
-        "total": 12242,
+        "total": 12243,
         "limit": 2,
         "offset": 0,
-        "total_pages": 6121,
+        "total_pages": 6122,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agents?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/agents?page=2&limit=2"
     },
     "data": [
         {
-            "id": 30723,
-            "title": "Jean Baptiste Sim\u00e9on Chardin",
-            "lake_guid": "9cd5b353-3ed0-2d78-26e3-dd0b98138a31",
-            "is_boosted": true,
+            "id": 78367,
+            "title": "Museum of Contemporary Art",
+            "lake_guid": "f0c7c1bc-73e8-87ec-d305-04621964cce6",
+            "is_boosted": false,
             "thumbnail": null,
-            "sort_title": "Chardin, Jean Baptiste Sim\u00e9on",
+            "sort_title": "Museum of Contemporary Art",
             ...
         },
         {
-            "id": 44812,
-            "title": "Lee Krasner",
-            "lake_guid": "45e08914-a055-069b-8076-a93b4b56c433",
-            "is_boosted": true,
+            "id": 98211,
+            "title": "Elizabeth Wells Robertson",
+            "lake_guid": "ed1d160c-96a1-fbd7-2440-d030e877b540",
+            "is_boosted": false,
             "thumbnail": null,
-            "sort_title": "Krasner, Lee",
+            "sort_title": "Robertson, Elizabeth Wells",
             ...
         }
     ]
@@ -717,7 +696,7 @@ A list of all artwork-types sorted by last updated date in descending order. For
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artwork-types?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/artwork-types?limit=2  
 Example output:
 
 ```
@@ -728,7 +707,7 @@ Example output:
         "offset": 0,
         "total_pages": 21,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/artwork-types?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/artwork-types?page=2&limit=2"
     },
     "data": [
         {
@@ -755,9 +734,9 @@ Example output:
 
 ### `/artwork-types/{id}`
 
-A single artwork-types by the given identifier. {id} is the identifier from our collections managements system.
+A single artwork-type by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/artwork-types/3?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/artwork-types/3?limit=2  
 Example output:
 
 ```
@@ -787,7 +766,7 @@ A list of all categories sorted by last updated date in descending order. For a 
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/categories?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/categories?limit=2  
 Example output:
 
 ```
@@ -798,7 +777,7 @@ Example output:
         "offset": 0,
         "total_pages": 395,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/categories?page=2&limit=2"
     },
     "data": [
         {
@@ -834,9 +813,9 @@ Search categories data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/categories/search  
+Example request: http://aggregator-data.artic.edu/api/v1/categories/search  
 Example output:
 
 ```
@@ -856,10 +835,10 @@ Example output:
             "thumbnail": null,
             "api_model": "categories",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/PC-1",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/categories\/PC-1",
             "id": "PC-1",
             "title": "African",
-            "timestamp": "2018-03-14T19:14:09-05:00"
+            "timestamp": "2018-03-19T17:41:37-05:00"
         },
         {
             "_score": 2,
@@ -867,10 +846,10 @@ Example output:
             "thumbnail": null,
             "api_model": "categories",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/PC-10",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/categories\/PC-10",
             "id": "PC-10",
             "title": "European Painting and Sculpture",
-            "timestamp": "2018-03-14T19:14:09-05:00"
+            "timestamp": "2018-03-19T17:41:37-05:00"
         },
         {
             "_score": 2,
@@ -878,10 +857,10 @@ Example output:
             "thumbnail": null,
             "api_model": "categories",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/categories\/PC-103",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/categories\/PC-103",
             "id": "PC-103",
             "title": "Japanese",
-            "timestamp": "2018-03-14T19:14:09-05:00"
+            "timestamp": "2018-03-19T17:41:37-05:00"
         }
     ]
 }
@@ -889,9 +868,9 @@ Example output:
 
 ### `/categories/{id}`
 
-A single categories by the given identifier. {id} is the identifier from our collections managements system.
+A single category by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/categories/PC-3?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/categories/PC-3?limit=2  
 Example output:
 
 ```
@@ -921,7 +900,7 @@ A list of all agent-types sorted by last updated date in descending order. For a
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/agent-types?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/agent-types?limit=2  
 Example output:
 
 ```
@@ -932,7 +911,7 @@ Example output:
         "offset": 0,
         "total_pages": 13,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/agent-types?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/agent-types?page=2&limit=2"
     },
     "data": [
         {
@@ -959,9 +938,9 @@ Example output:
 
 ### `/agent-types/{id}`
 
-A single agent-types by the given identifier. {id} is the identifier from our collections managements system.
+A single agent-type by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/agent-types/1?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/agent-types/1?limit=2  
 Example output:
 
 ```
@@ -993,7 +972,7 @@ A list of all places sorted by last updated date in descending order. For a desc
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `categories`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/places?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/places?limit=2  
 Example output:
 
 ```
@@ -1004,25 +983,25 @@ Example output:
         "offset": 0,
         "total_pages": 6444,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/places?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/places?page=2&limit=2"
     },
     "data": [
         {
-            "id": 29030,
-            "title": "Red rolled unit, top shelf",
-            "lake_guid": "659d7803-2e57-10d1-af0c-e85e190c2bca",
+            "id": 2147483419,
+            "title": "Gunsaulus Hall",
+            "lake_guid": "1b4de455-fe95-2548-d972-39f88e2d88a5",
             "is_boosted": false,
             "thumbnail": null,
-            "type": "AIC Storage",
+            "type": "AIC Gallery",
             ...
         },
         {
-            "id": 6386,
-            "title": "above freezer vertical bin 001",
-            "lake_guid": "89e32333-ca54-5536-ee46-61e86bc2fd61",
+            "id": 25000,
+            "title": "Display Unit 208",
+            "lake_guid": "70f0115e-d027-0ce4-4f0d-dcef4e75953b",
             "is_boosted": false,
             "thumbnail": null,
-            "type": "AIC Storage",
+            "type": "AIC Gallery",
             ...
         }
     ]
@@ -1040,9 +1019,9 @@ Search places data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/places/search  
+Example request: http://aggregator-data.artic.edu/api/v1/places/search  
 Example output:
 
 ```
@@ -1062,10 +1041,10 @@ Example output:
             "thumbnail": null,
             "api_model": "places",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/places\/-2147480450",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/places\/-2147480450",
             "id": -2147480450,
             "title": "El Paso",
-            "timestamp": "2018-03-14T19:14:38-05:00"
+            "timestamp": "2018-03-19T17:42:07-05:00"
         },
         {
             "_score": 2,
@@ -1073,10 +1052,10 @@ Example output:
             "thumbnail": null,
             "api_model": "places",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/places\/-2147480439",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/places\/-2147480439",
             "id": -2147480439,
             "title": "San Diego",
-            "timestamp": "2018-03-14T19:14:38-05:00"
+            "timestamp": "2018-03-19T17:42:07-05:00"
         },
         {
             "_score": 2,
@@ -1084,10 +1063,10 @@ Example output:
             "thumbnail": null,
             "api_model": "places",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/places\/-2147480407",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/places\/-2147480407",
             "id": -2147480407,
             "title": "Jouy-en-Josas",
-            "timestamp": "2018-03-14T19:14:38-05:00"
+            "timestamp": "2018-03-19T17:42:07-05:00"
         }
     ]
 }
@@ -1095,9 +1074,9 @@ Example output:
 
 ### `/places/{id}`
 
-A single places by the given identifier. {id} is the identifier from our collections managements system.
+A single place by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/places/27406?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/places/27406?limit=2  
 Example output:
 
 ```
@@ -1129,7 +1108,7 @@ A list of all galleries sorted by last updated date in descending order. For a d
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `categories`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/galleries?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/galleries?limit=2  
 Example output:
 
 ```
@@ -1140,22 +1119,22 @@ Example output:
         "offset": 0,
         "total_pages": 129,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/galleries?page=2&limit=2"
     },
     "data": [
         {
-            "id": 2147478131,
-            "title": "Gallery 104",
-            "lake_guid": "e4860b90-d219-94a5-a601-c1d8388554df",
+            "id": 28498,
+            "title": "Gallery 239",
+            "lake_guid": "86cc9e3e-b494-3930-a492-ec82baa70f4e",
             "is_boosted": false,
             "thumbnail": null,
             "type": "AIC Gallery",
             ...
         },
         {
-            "id": 25288,
-            "title": "Gallery 233",
-            "lake_guid": "5201ff15-03fc-a77b-5899-ad7c21964e89",
+            "id": 28502,
+            "title": "Gallery 239A",
+            "lake_guid": "9e0ced44-b82c-05d4-a998-6d5ad9471caa",
             "is_boosted": false,
             "thumbnail": null,
             "type": "AIC Gallery",
@@ -1176,9 +1155,9 @@ Search galleries data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/galleries/search  
+Example request: http://aggregator-data.artic.edu/api/v1/galleries/search  
 Example output:
 
 ```
@@ -1194,36 +1173,36 @@ Example output:
     "data": [
         {
             "_score": 2,
-            "api_id": "2704",
+            "api_id": "2147476055",
             "thumbnail": null,
             "api_model": "galleries",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries\/2704",
-            "id": 2704,
-            "title": "Textile Seminar (TE055)",
-            "timestamp": "2018-03-14T19:14:56-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/galleries\/2147476055",
+            "id": 2147476055,
+            "title": "Gallery 167",
+            "timestamp": "2018-03-27T11:05:05-05:00"
         },
         {
             "_score": 2,
-            "api_id": "21434",
+            "api_id": "2147478066",
             "thumbnail": null,
             "api_model": "galleries",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries\/21434",
-            "id": 21434,
-            "title": "Gallery 273",
-            "timestamp": "2018-03-14T19:14:56-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/galleries\/2147478066",
+            "id": 2147478066,
+            "title": "Gallery 265",
+            "timestamp": "2018-03-27T11:05:05-05:00"
         },
         {
             "_score": 2,
-            "api_id": "21638",
+            "api_id": "2147483626",
             "thumbnail": null,
             "api_model": "galleries",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/galleries\/21638",
-            "id": 21638,
-            "title": "Museum Caf\u00e9",
-            "timestamp": "2018-03-14T19:14:56-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/galleries\/2147483626",
+            "id": 2147483626,
+            "title": "Gallery 211",
+            "timestamp": "2018-03-27T11:05:05-05:00"
         }
     ]
 }
@@ -1231,9 +1210,9 @@ Example output:
 
 ### `/galleries/{id}`
 
-A single galleries by the given identifier. {id} is the identifier from our collections managements system.
+A single gallery by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/galleries/26772?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/galleries/26772?limit=2  
 Example output:
 
 ```
@@ -1267,7 +1246,7 @@ A list of all exhibitions sorted by last updated date in descending order. For a
   * `venues`
   * `sites`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/exhibitions?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/exhibitions?limit=2  
 Example output:
 
 ```
@@ -1278,25 +1257,25 @@ Example output:
         "offset": 0,
         "total_pages": 3100,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/exhibitions?page=2&limit=2"
     },
     "data": [
         {
-            "id": 2663,
-            "title": "Charles White: A Retrospective",
-            "lake_guid": "2d8d829e-1d2f-d70e-e862-7134a9c06e5b",
+            "id": 2246,
+            "title": "Moholy-Nagy: Future Present",
+            "lake_guid": "667460e9-d2cc-1cd2-5bfb-94296bd71adc",
             "is_boosted": false,
             "thumbnail": null,
-            "description": "Charles White (1918\u20131979) powerfully interpreted African American history, culture, and lives over the course of his four-decade career.&nbsp; A superbly gifted draftsman and printmaker as well as a talented mural and easel painter, he developed a distinctive and labor-intensive approach to art making and remained committed to a representational style at a time when the art world increasingly favored abstraction. His work magnified the power of the black figure through scale and form, communicating universal human themes while also focusing attention on the lives of African Americans and the struggle for equality. This exhibition\u2014the first major retrospective of White\u2019s work in more than 35 years\u2014showcases a gifted and influential artist whose work continues to resonate amid today\u2019s national dialogues about race, work, equality and history.Born in Chicago and educated at the School of the Art Institute, White was part of the city\u2019s flourishing black artistic community of the 1930s. He was determined to employ art in the struggle for social change, declaring, \u201cPaint is the only weapon I have with which to fight what I resent.\u201d Influenced by Mexican muralists such as Diego Rivera, White completed several important mural commissions in the city, including one for a branch of the Chicago Public Library.&nbsp;White married sculptor Elizabeth Catlett in 1941, and the couple soon settled in New York. Together they traveled to Mexico City, where White honed his printmaking skills as part of the printmaking collective known as the Taller de Gr\u00e1fica Popular. In New York in the 1940s and early 1950s, White showed his work at the progressive ACA Gallery and was a prominent member of African American and leftist artist communities.&nbsp;White moved to Southern California in 1956, and his career flourished as he embraced drawing and printmaking more fully, pushing at the boundaries of his media while continuing to engage with civil rights and equality. Despite his rejection of the prevailing style of Abstract Expressionism and ongoing use of an expressive figuration, he found critical acclaim in the United States and abroad.&nbsp;Charles White: A Retrospective unites a selection of White\u2019s finest paintings, drawings, and prints, presenting the full breadth of his work and demonstrating his artistic development. The themes he explored\u2014African American history and the fight for freedom, the nobility of black people, and the dignity of labor and human nature\u2014reveal his talent and passion, and encourage viewers to consider current questions of history, politics, and identity in relation to the recent past.&nbsp;",
+            "description": "Painting, photography, film, sculpture, advertising, product design, theater sets\u2014L\u00e1szl\u00f3 Moholy-Nagy (American, born Hungary, 1895\u20131946) did it all. Future Present, the first comprehensive retrospective of Moholy-Nagy\u2019s work in the United States in nearly 50 years, brings together more than 300 works to survey the career of a multimedia artist who was always ahead of his time. Moholy, as he was known, came to prominence as a professor at the Bauhaus art school in Germany (1923\u201328). In 1937 he founded the New Bauhaus in Chicago, a school that continues today as the Institute of Design at the Illinois Institute of Technology. He remains the most renowned international modern artist ever to have resided in Chicago.\n\nA pioneer of abstraction for the industrial age, Moholy insisted that art must be developed from the materials of one\u2019s time, in his case recorded sound, photography, film, and synthetic plastics. He demonstrated that in our era of reproducibility works of art gain fresh meaning with a change in size or even reorientation, reverse printing, or a shift in lighting. For Moholy, every citizen could be creative, and every viewer could educate his or her senses by studying effects of light, transparency, and motion in common materials of everyday modern life.\n\n\u2028Future Present presents a wide body of works ranging in date from 1920, when the artist moved to Germany, until his death in Chicago in 1946. One room shows 38 photomontages\u2014nearly all known compositions in nearly every physical variant\u2014brought together for the first time. Another presents three \u201ctelephone paintings,\u201d a single abstract composition that Moholy ordered in three sizes from an enamel sign factory in 1923; this trio of industrial paintings has been separated for decades. All six of Moholy\u2019s iconic, plunging views from the Berlin Radio Tower are united in another room, while a multimedia installation, Room of the Present, which Moholy conceived in 1930 but could not finish, is brought to life as a room of its own.\n\n\u2028\u2028Special emphasis is given to Moholy\u2019s time in the United States, where his art moved from planar painterly abstractions to three-dimensional hybrids of painting and sculpture. Never have so many of the artist\u2019s late works in Plexiglas\u2014wall-mounted, freestanding, and hanging in midair\u2014been seen together. These works came from Moholy\u2019s teaching at the \u201cChicago Bauhaus,\u201d which is also highlighted through a showing of student work as well as a \u201cteaching wall\u201d that frames Moholy\u2019s greatest pedagogical ideas. The show closes with Moholy\u2019s recorded voice and a projection of abstract color slides that the artist made in part by recording the scribble-like trace of headlights and taillights on Lake Shore Drive at night.\n\nOrganizers\nMoholy-Nagy: Future Present is organized by the Art Institute of Chicago; Solomon R. Guggenheim Museum, New York; and Los Angeles County Museum of Art, Los Angeles.\n\nOther Venues\nSolomon R. Guggenheim Museum: May 27\u2013September 7, 2016\nLos Angeles County Museum of Art: February 12\u2013June 18, 2017\n\nCatalogue\nPurchase Moholy-Nagy: Future Present and experience the exhibition through its accompanying catalogue. All purchases support the many fine programs of the museum.",
             ...
         },
         {
-            "id": 257,
-            "title": "Utamaro: Aspects of Beauty",
-            "lake_guid": "37d8b387-7505-c981-3378-d7b85ae624a5",
+            "id": 3092,
+            "title": "Vanishing Beauty: Asian Jewelry and Ritual Objects from the Barbara and David Kipper Collection",
+            "lake_guid": "fcf2680b-2056-beb7-b0f7-efc78fc58f8d",
             "is_boosted": false,
             "thumbnail": null,
-            "description": "Chosen from among approximately 300 works by Kitagawa Utamaro (c. 1753\u20131806) in the Art Institute\u2019s collection, this exhibition highlights some of the artist\u2019s most celebrated prints. It was Utamaro who gave us close-up portraits of beauties with pensive expressions, scenes of women engaged in everyday activities such as cooking, and images of women of every age against backgrounds that range from gray to yellow to brilliant (and luminescent) mica of various shades. Examples of each of these types of prints as well as illustrated books are on view.",
+            "description": "Immerse yourself in the rich cultures of some of Asia\u2019s most remote regions with this summer\u2019s exhibition Vanishing Beauty. Drawn from Art Institute Trustee and accomplished photographer Barbara Levy Kipper\u2019s sweeping collection of Asian jewelry and ritual objects promised to the museum in 2014, the exhibition presents more than 300 exquisitely crafted works\u2014highlights from this expansive, diverse, and thoughtfully assembled collection\u2014that offer a panoramic view of the fast-disappearing nomadic and tribal cultures of Asia.\n\nAmong the pieces on view are a vast collection of Tibetan and greater Himalayan Buddhist ritual objects and adornments, Islamic silver jewelry from the nomadic tribes of Turkmenistan and the city-states of Uzbekistan, tribal and folk jewelry from across South Asia, personal ornaments from the Indonesian archipelago, and the monumental jewelry of southwestern China\u2019s ethnic minorities. Tying all these disparate objects together is the fact that the peoples who produced them have largely been pushed into the margins, surviving today only in the remotest of areas. In these cultures, jewelry is auspicious and holds great meaning; it is rarely mere adornment. Necklaces, pendants, earrings, and headdresses all serve social, ritual, or talismanic purposes.\n\nA highlight of this manifold use of jewelry is a cobra-like headdress (perak) from Tibet composed of long rows of turquoise stones that, when worn, cascade from a woman\u2019s forehead down the length of her back. A stone synonymous with Tibetan jewelry, turquoise is believed to hold mystical healing properties, and its quantity and quality act as status symbols for the wealth of a woman and her family. With more than 100 large turquoise stones as well as small amulet cases (gaus), this stunning perak signifies great spiritual and earthly fortune for its wearer and joins hundreds of similarly meaning-filled objects in this vibrant display of craftsmanship and culture.\n\nThe exhibition flows through five geographical areas\u2014from mountaintop monasteries in the Himalayas to oasis settlements of the Central Asian steppes marked by grand blue-tiled mosques, madrasahs, and mausolea; on to the pastoral regions and deserts of South Asia and the most secluded islands of Indonesia; and finally to the river valleys in China\u2019s mountainous Guizhou province. Providing an immersive experience with music and video installations throughout the galleries, Vanishing Beauty brings these dispersed cultures to life through a dazzling array of extraordinary objects, each rich with stories from some of the most inaccessible regions of the world.\n\nPurchase Vanishing Beauty Asian Jewelry and Ritual Objects from the Barbara and David Kipper Collection and experience the exhibition through its accompanying catalogue.  All purchases support the many fine programs of the museum.\nSponsors\nVanishing Beauty: Asian Jewelry and Ritual Objects from the Barbara and David Kipper Collection is generously sponsored by Barbara Levy Kipper and the Kipper Family Foundation.\n\nAnnual support for Art Institute exhibitions is provided by the Exhibitions Trust: Neil Bluhm and the Bluhm Family Charitable Foundation, Kenneth Griffin, Robert M. and Diane v.S. Levy, Thomas and Margot Pritzker, Anne and Chris Reyes, Betsy Bergman Rosenfield and Andrew M. Rosenfield, the Earl and Brenda Shapiro Foundation, and the Woman\u2019s Board.",
             ...
         }
     ]
@@ -1314,19 +1293,19 @@ Search exhibitions data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/exhibitions/search  
+Example request: http://aggregator-data.artic.edu/api/v1/exhibitions/search  
 Example output:
 
 ```
 {
     "preference": null,
     "pagination": {
-        "total": 6200,
+        "total": 6216,
         "limit": 10,
         "offset": 0,
-        "total_pages": 620,
+        "total_pages": 622,
         "current_page": 1
     },
     "data": [
@@ -1336,10 +1315,10 @@ Example output:
             "thumbnail": null,
             "api_model": "exhibitions",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/73",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/exhibitions\/73",
             "id": 73,
             "title": "Focus: Michael Asher",
-            "timestamp": "2018-03-14T19:14:10-05:00"
+            "timestamp": "2018-03-19T17:41:38-05:00"
         },
         {
             "_score": 2,
@@ -1347,10 +1326,10 @@ Example output:
             "thumbnail": null,
             "api_model": "exhibitions",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/84",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/exhibitions\/84",
             "id": 84,
             "title": "On the Scene: Jessica Rowe, Jason Salavon, Brian Ulrich",
-            "timestamp": "2018-03-14T19:14:10-05:00"
+            "timestamp": "2018-03-19T17:41:38-05:00"
         },
         {
             "_score": 2,
@@ -1358,10 +1337,10 @@ Example output:
             "thumbnail": null,
             "api_model": "exhibitions",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/exhibitions\/105",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/exhibitions\/105",
             "id": 105,
             "title": "Yokohama-e: Nineteenth Century Prints of Americans in Japan",
-            "timestamp": "2018-03-14T19:14:10-05:00"
+            "timestamp": "2018-03-19T17:41:38-05:00"
         }
     ]
 }
@@ -1369,9 +1348,9 @@ Example output:
 
 ### `/exhibitions/{id}`
 
-A single exhibitions by the given identifier. {id} is the identifier from our collections managements system.
+A single exhibition by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/exhibitions/1302?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/exhibitions/1302?limit=2  
 Example output:
 
 ```
@@ -1392,7 +1371,7 @@ Example output:
 
 The artworks for a given exhibitions.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/exhibitions/1302/artworks?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/exhibitions/1302/artworks?limit=2  
 Example output:
 
 ```
@@ -1405,7 +1384,7 @@ Example output:
 
 The venues for a given exhibitions.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/exhibitions/1302/venues?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/exhibitions/1302/venues?limit=2  
 Example output:
 
 ```
@@ -1458,33 +1437,33 @@ A list of all images sorted by last updated date in descending order. For a desc
   * `categories`
   * `artworks`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/images?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/images?limit=2  
 Example output:
 
 ```
 {
     "pagination": {
-        "total": 110922,
+        "total": 111007,
         "limit": 2,
         "offset": 0,
-        "total_pages": 55461,
+        "total_pages": 55504,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/images?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/images?page=2&limit=2"
     },
     "data": [
         {
-            "id": "036ef5c5-17bd-a788-7b61-7cf1c43005f0",
-            "title": "Photograph: Interior Vew of Atrium in River City II, c. 1986.",
-            "lake_guid": "036ef5c5-17bd-a788-7b61-7cf1c43005f0",
+            "id": "4f2d350e-c5e0-7ead-198e-36e177451b9a",
+            "title": "IM028462",
+            "lake_guid": "4f2d350e-c5e0-7ead-198e-36e177451b9a",
             "is_boosted": false,
             "thumbnail": null,
             "type": "image",
             ...
         },
         {
-            "id": "0ac65ee8-ee18-8a91-3a24-24453d56e4f1",
-            "title": "G29269",
-            "lake_guid": "0ac65ee8-ee18-8a91-3a24-24453d56e4f1",
+            "id": "2e0899f5-e61c-fc16-4624-7bd6ffc9629a",
+            "title": "IM028898",
+            "lake_guid": "2e0899f5-e61c-fc16-4624-7bd6ffc9629a",
             "is_boosted": false,
             "thumbnail": null,
             "type": "image",
@@ -1505,54 +1484,54 @@ Search images data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/images/search  
+Example request: http://aggregator-data.artic.edu/api/v1/images/search  
 Example output:
 
 ```
 {
     "preference": null,
     "pagination": {
-        "total": 110922,
+        "total": 111007,
         "limit": 10,
         "offset": 0,
-        "total_pages": 11093,
+        "total_pages": 11101,
         "current_page": 1
     },
     "data": [
         {
             "_score": 2,
-            "api_id": "013028c8-0727-07c9-ab17-94cd54516034",
+            "api_id": "6041969b-ee24-999c-7382-66dd3f67ab29",
             "thumbnail": null,
             "api_model": "images",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/images\/013028c8-0727-07c9-ab17-94cd54516034",
-            "id": "013028c8-0727-07c9-ab17-94cd54516034",
-            "title": "102608",
-            "timestamp": "2018-03-14T20:42:55-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/images\/6041969b-ee24-999c-7382-66dd3f67ab29",
+            "id": "6041969b-ee24-999c-7382-66dd3f67ab29",
+            "title": "G57736",
+            "timestamp": "2018-03-19T17:45:59-05:00"
         },
         {
             "_score": 2,
-            "api_id": "0136ad39-90c7-280c-19ef-0f51dee23ba5",
+            "api_id": "6045845c-3314-1c90-56a1-d90e395f2b4e",
             "thumbnail": null,
             "api_model": "images",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/images\/0136ad39-90c7-280c-19ef-0f51dee23ba5",
-            "id": "0136ad39-90c7-280c-19ef-0f51dee23ba5",
-            "title": "PH_01223",
-            "timestamp": "2018-03-14T20:42:55-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/images\/6045845c-3314-1c90-56a1-d90e395f2b4e",
+            "id": "6045845c-3314-1c90-56a1-d90e395f2b4e",
+            "title": "PD_011414_59",
+            "timestamp": "2018-03-19T17:45:59-05:00"
         },
         {
             "_score": 2,
-            "api_id": "0137b770-8c81-5aba-1df6-a1373d997a17",
+            "api_id": "6047a610-ab9c-aedb-618c-452c58678483",
             "thumbnail": null,
             "api_model": "images",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/images\/0137b770-8c81-5aba-1df6-a1373d997a17",
-            "id": "0137b770-8c81-5aba-1df6-a1373d997a17",
-            "title": "E18139",
-            "timestamp": "2018-03-14T20:42:55-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/images\/6047a610-ab9c-aedb-618c-452c58678483",
+            "id": "6047a610-ab9c-aedb-618c-452c58678483",
+            "title": "PH_11860",
+            "timestamp": "2018-03-19T17:45:59-05:00"
         }
     ]
 }
@@ -1560,9 +1539,9 @@ Example output:
 
 ### `/images/{id}`
 
-A single images by the given identifier. {id} is the identifier from our collections managements system.
+A single image by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/images/c972e5d7-0667-6904-d919-bbeefeae0a10?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/images/c972e5d7-0667-6904-d919-bbeefeae0a10?limit=2  
 Example output:
 
 ```
@@ -1595,7 +1574,7 @@ A list of all videos sorted by last updated date in descending order. For a desc
   * `categories`
   * `artworks`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/videos?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/videos?limit=2  
 Example output:
 
 ```
@@ -1606,22 +1585,22 @@ Example output:
         "offset": 0,
         "total_pages": 156,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/videos?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/videos?page=2&limit=2"
     },
     "data": [
         {
-            "id": "074737dc-b35b-420f-ce0b-3669914013d8",
-            "title": "Video: Lecture and Demonstration\u2014Ancient Roman Hairdressing",
-            "lake_guid": "074737dc-b35b-420f-ce0b-3669914013d8",
+            "id": "4286a87f-4193-0c3a-91d4-784c57ed2cd9",
+            "title": "Online Game: Claude Monet's <em>Water Lilies<\/em>",
+            "lake_guid": "4286a87f-4193-0c3a-91d4-784c57ed2cd9",
             "is_boosted": false,
             "thumbnail": null,
             "type": "video",
             ...
         },
         {
-            "id": "16b17adc-c5f0-92a4-d244-6346902fcec6",
-            "title": "Video: A Thousand and One Swabs\u2014The Transformation of <em>Paris Street; Rainy Day<\/em>",
-            "lake_guid": "16b17adc-c5f0-92a4-d244-6346902fcec6",
+            "id": "45e5e9c4-f2a5-692e-095c-6a2d4e701483",
+            "title": "Online Game: Mary Cassatt's <em>The Child's Bath<\/em>",
+            "lake_guid": "45e5e9c4-f2a5-692e-095c-6a2d4e701483",
             "is_boosted": false,
             "thumbnail": null,
             "type": "video",
@@ -1642,9 +1621,9 @@ Search videos data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/videos/search  
+Example request: http://aggregator-data.artic.edu/api/v1/videos/search  
 Example output:
 
 ```
@@ -1664,10 +1643,10 @@ Example output:
             "thumbnail": null,
             "api_model": "videos",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/videos\/031dcad7-f39f-2dae-595c-eb6730a54dc6",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/videos\/031dcad7-f39f-2dae-595c-eb6730a54dc6",
             "id": "031dcad7-f39f-2dae-595c-eb6730a54dc6",
             "title": "Video: Staff Picks: Robby S.",
-            "timestamp": "2018-03-14T20:42:26-05:00"
+            "timestamp": "2018-03-19T17:52:28-05:00"
         },
         {
             "_score": 2,
@@ -1675,10 +1654,10 @@ Example output:
             "thumbnail": null,
             "api_model": "videos",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/videos\/05ef3389-d354-0890-a840-dd836ed0c52d",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/videos\/05ef3389-d354-0890-a840-dd836ed0c52d",
             "id": "05ef3389-d354-0890-a840-dd836ed0c52d",
             "title": "Video: Moreau's Enduring Art",
-            "timestamp": "2018-03-14T20:42:26-05:00"
+            "timestamp": "2018-03-19T17:52:28-05:00"
         },
         {
             "_score": 2,
@@ -1686,10 +1665,10 @@ Example output:
             "thumbnail": null,
             "api_model": "videos",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/videos\/12f69a4d-06c5-e35c-c936-d1dc451231d1",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/videos\/12f69a4d-06c5-e35c-c936-d1dc451231d1",
             "id": "12f69a4d-06c5-e35c-c936-d1dc451231d1",
             "title": "Video: Cassatt in the Paris Art World",
-            "timestamp": "2018-03-14T20:42:26-05:00"
+            "timestamp": "2018-03-19T17:52:28-05:00"
         }
     ]
 }
@@ -1697,9 +1676,9 @@ Example output:
 
 ### `/videos/{id}`
 
-A single videos by the given identifier. {id} is the identifier from our collections managements system.
+A single video by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/videos/8199a3c6-99fa-582d-449a-bc9221db54da?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/videos/8199a3c6-99fa-582d-449a-bc9221db54da?limit=2  
 Example output:
 
 ```
@@ -1732,7 +1711,7 @@ A list of all links sorted by last updated date in descending order. For a descr
   * `categories`
   * `artworks`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/links?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/links?limit=2  
 Example output:
 
 ```
@@ -1743,22 +1722,22 @@ Example output:
         "offset": 0,
         "total_pages": 71,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/links?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/links?page=2&limit=2"
     },
     "data": [
         {
-            "id": "1ac6c73b-e560-5fc9-05fb-8e2c30eccdc0",
-            "title": "Text: The Bartletts and the Grande Jatte:  Collecting Modern Painting in the 1920s",
-            "lake_guid": "1ac6c73b-e560-5fc9-05fb-8e2c30eccdc0",
+            "id": "6d566693-97e7-ef54-f374-b772b6b93df1",
+            "title": "Website: Art Access: Renaissance and Baroque Art",
+            "lake_guid": "6d566693-97e7-ef54-f374-b772b6b93df1",
             "is_boosted": false,
             "thumbnail": null,
             "type": "link",
             ...
         },
         {
-            "id": "1be5e153-a275-da69-9210-89c4e9fbf716",
-            "title": "Website: Art Access: Indian, Himalayan, and Southeast Asian Art",
-            "lake_guid": "1be5e153-a275-da69-9210-89c4e9fbf716",
+            "id": "1ac6c73b-e560-5fc9-05fb-8e2c30eccdc0",
+            "title": "Text: The Bartletts and the Grande Jatte:  Collecting Modern Painting in the 1920s",
+            "lake_guid": "1ac6c73b-e560-5fc9-05fb-8e2c30eccdc0",
             "is_boosted": false,
             "thumbnail": null,
             "type": "link",
@@ -1779,9 +1758,9 @@ Search links data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/links/search  
+Example request: http://aggregator-data.artic.edu/api/v1/links/search  
 Example output:
 
 ```
@@ -1801,10 +1780,10 @@ Example output:
             "thumbnail": null,
             "api_model": "links",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/links\/0006576e-6a99-7ec1-9562-8a5c1085d2d9",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/links\/0006576e-6a99-7ec1-9562-8a5c1085d2d9",
             "id": "0006576e-6a99-7ec1-9562-8a5c1085d2d9",
             "title": "Timeline: When in Africa, When in the World",
-            "timestamp": "2018-03-14T20:42:01-05:00"
+            "timestamp": "2018-03-19T17:52:21-05:00"
         },
         {
             "_score": 2,
@@ -1812,10 +1791,10 @@ Example output:
             "thumbnail": null,
             "api_model": "links",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/links\/0af8be20-aebb-1193-96d5-f1045e399776",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/links\/0af8be20-aebb-1193-96d5-f1045e399776",
             "id": "0af8be20-aebb-1193-96d5-f1045e399776",
             "title": "Timeline: Irving Penn",
-            "timestamp": "2018-03-14T20:42:01-05:00"
+            "timestamp": "2018-03-19T17:52:21-05:00"
         },
         {
             "_score": 2,
@@ -1823,10 +1802,10 @@ Example output:
             "thumbnail": null,
             "api_model": "links",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/links\/12af57aa-9338-35a0-bd9c-658bb31e9d3f",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/links\/12af57aa-9338-35a0-bd9c-658bb31e9d3f",
             "id": "12af57aa-9338-35a0-bd9c-658bb31e9d3f",
             "title": "Turning the Pages: Jacques-Louis David, (French, 1748\u20131825) Sketchbook, 1809\/10",
-            "timestamp": "2018-03-14T20:42:01-05:00"
+            "timestamp": "2018-03-19T17:52:21-05:00"
         }
     ]
 }
@@ -1834,9 +1813,9 @@ Example output:
 
 ### `/links/{id}`
 
-A single links by the given identifier. {id} is the identifier from our collections managements system.
+A single link by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/links/3990a5f5-2ae9-3c7b-2fb8-1b0438962cd3?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/links/3990a5f5-2ae9-3c7b-2fb8-1b0438962cd3?limit=2  
 Example output:
 
 ```
@@ -1869,7 +1848,7 @@ A list of all sounds sorted by last updated date in descending order. For a desc
   * `categories`
   * `artworks`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/sounds?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/sounds?limit=2  
 Example output:
 
 ```
@@ -1880,22 +1859,22 @@ Example output:
         "offset": 0,
         "total_pages": 510,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sounds?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sounds?page=2&limit=2"
     },
     "data": [
         {
-            "id": "0018fcf4-cf5c-03a3-3d9c-69c4b1ac5dcc",
-            "title": "510.mp3",
-            "lake_guid": "0018fcf4-cf5c-03a3-3d9c-69c4b1ac5dcc",
+            "id": "885f816a-377c-944d-ef52-4df674a07025",
+            "title": "Audio Lecture: Artists Connect: Georgina Valverde Connects with a Talismanic Textile",
+            "lake_guid": "885f816a-377c-944d-ef52-4df674a07025",
             "is_boosted": false,
             "thumbnail": null,
             "type": "sound",
             ...
         },
         {
-            "id": "03fc135f-ae30-5dc1-ff05-68a88a73473b",
-            "title": "955.mp3",
-            "lake_guid": "03fc135f-ae30-5dc1-ff05-68a88a73473b",
+            "id": "0604bd8c-aa40-cfcf-43b0-c25e2f3cdcdd",
+            "title": "Audio Lecture: Ed Ruscha and Photography",
+            "lake_guid": "0604bd8c-aa40-cfcf-43b0-c25e2f3cdcdd",
             "is_boosted": false,
             "thumbnail": null,
             "type": "sound",
@@ -1916,9 +1895,9 @@ Search sounds data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/sounds/search  
+Example request: http://aggregator-data.artic.edu/api/v1/sounds/search  
 Example output:
 
 ```
@@ -1938,10 +1917,10 @@ Example output:
             "thumbnail": null,
             "api_model": "sounds",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/sounds\/006ee4b8-782c-6840-8309-99e456a81ff1",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sounds\/006ee4b8-782c-6840-8309-99e456a81ff1",
             "id": "006ee4b8-782c-6840-8309-99e456a81ff1",
             "title": "549.mp3",
-            "timestamp": "2018-03-14T20:42:13-05:00"
+            "timestamp": "2018-03-19T17:52:21-05:00"
         },
         {
             "_score": 2,
@@ -1949,10 +1928,10 @@ Example output:
             "thumbnail": null,
             "api_model": "sounds",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/sounds\/0194fb4d-9230-54a5-6ba1-23b7545b5028",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sounds\/0194fb4d-9230-54a5-6ba1-23b7545b5028",
             "id": "0194fb4d-9230-54a5-6ba1-23b7545b5028",
             "title": "Musecast: May 2009",
-            "timestamp": "2018-03-14T20:42:13-05:00"
+            "timestamp": "2018-03-19T17:52:21-05:00"
         },
         {
             "_score": 2,
@@ -1960,10 +1939,10 @@ Example output:
             "thumbnail": null,
             "api_model": "sounds",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/sounds\/01b0d6b8-f153-d6e5-59b6-1d5fd859dd71",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sounds\/01b0d6b8-f153-d6e5-59b6-1d5fd859dd71",
             "id": "01b0d6b8-f153-d6e5-59b6-1d5fd859dd71",
             "title": "828.mp3",
-            "timestamp": "2018-03-14T20:42:13-05:00"
+            "timestamp": "2018-03-19T17:52:21-05:00"
         }
     ]
 }
@@ -1971,9 +1950,9 @@ Example output:
 
 ### `/sounds/{id}`
 
-A single sounds by the given identifier. {id} is the identifier from our collections managements system.
+A single sound by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/sounds/0dc99580-0a4c-c047-31e9-f42d29ac020e?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/sounds/0dc99580-0a4c-c047-31e9-f42d29ac020e?limit=2  
 Example output:
 
 ```
@@ -2006,7 +1985,7 @@ A list of all texts sorted by last updated date in descending order. For a descr
   * `categories`
   * `artworks`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/texts?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/texts?limit=2  
 Example output:
 
 ```
@@ -2017,7 +1996,7 @@ Example output:
         "offset": 0,
         "total_pages": 301,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/texts?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/texts?page=2&limit=2"
     },
     "data": [
         {
@@ -2053,9 +2032,9 @@ Search texts data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/texts/search  
+Example request: http://aggregator-data.artic.edu/api/v1/texts/search  
 Example output:
 
 ```
@@ -2075,10 +2054,10 @@ Example output:
             "thumbnail": null,
             "api_model": "texts",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/texts\/00b9fbb1-0548-9f4c-e269-ebf702490f4c",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/texts\/00b9fbb1-0548-9f4c-e269-ebf702490f4c",
             "id": "00b9fbb1-0548-9f4c-e269-ebf702490f4c",
             "title": "Related Story: READ Duchamp in His Own Words",
-            "timestamp": "2018-03-14T20:42:21-05:00"
+            "timestamp": "2018-03-19T17:52:25-05:00"
         },
         {
             "_score": 2,
@@ -2086,10 +2065,10 @@ Example output:
             "thumbnail": null,
             "api_model": "texts",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/texts\/049c9547-d585-c8d5-1070-93e83b0dfb89",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/texts\/049c9547-d585-c8d5-1070-93e83b0dfb89",
             "id": "049c9547-d585-c8d5-1070-93e83b0dfb89",
             "title": "Monet's Water Garden",
-            "timestamp": "2018-03-14T20:42:21-05:00"
+            "timestamp": "2018-03-19T17:52:25-05:00"
         },
         {
             "_score": 2,
@@ -2097,10 +2076,10 @@ Example output:
             "thumbnail": null,
             "api_model": "texts",
             "is_boosted": false,
-            "api_link": "http:\/\/localhost\/api\/v1\/texts\/05873879-a659-bca6-a9be-5eec6460c09f",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/texts\/05873879-a659-bca6-a9be-5eec6460c09f",
             "id": "05873879-a659-bca6-a9be-5eec6460c09f",
             "title": "Related Story: Antioch and Early Christianity ",
-            "timestamp": "2018-03-14T20:42:21-05:00"
+            "timestamp": "2018-03-19T17:52:25-05:00"
         }
     ]
 }
@@ -2108,9 +2087,9 @@ Example output:
 
 ### `/texts/{id}`
 
-A single texts by the given identifier. {id} is the identifier from our collections managements system.
+A single text by the given identifier. {id} is the identifier from our collections managements system.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/texts/28f4641e-c040-7669-6036-f6fce1e25514?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/texts/28f4641e-c040-7669-6036-f6fce1e25514?limit=2  
 Example output:
 
 ```
@@ -2144,7 +2123,7 @@ A list of all shop-categories sorted by last updated date in descending order. F
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `children`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/shop-categories?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/shop-categories?limit=2  
 Example output:
 
 ```
@@ -2155,25 +2134,25 @@ Example output:
         "offset": 0,
         "total_pages": 43,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/shop-categories?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/shop-categories?page=2&limit=2"
     },
     "data": [
         {
             "id": 2,
-            "title": "Books",
+            "title": "Accessories",
             "is_boosted": false,
             "thumbnail": null,
             "web_url": "http:\/\/www.artinstituteshop.org\/browse.aspx?catID=2",
-            "parent_id": null,
+            "parent_id": 3,
             ...
         },
         {
             "id": 3,
-            "title": "Apparel & Accessories",
+            "title": "Scarves",
             "is_boosted": false,
             "thumbnail": null,
             "web_url": "http:\/\/www.artinstituteshop.org\/browse.aspx?catID=3",
-            "parent_id": null,
+            "parent_id": 3,
             ...
         }
     ]
@@ -2191,9 +2170,9 @@ Search shop-categories data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/shop-categories/search  
+Example request: http://aggregator-data.artic.edu/api/v1/shop-categories/search  
 Example output:
 
 ```
@@ -2213,10 +2192,10 @@ Example output:
             "thumbnail": null,
             "api_model": "shop-categories",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/shop-categories\/14",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/shop-categories\/14",
             "id": 14,
             "title": "Fountains",
-            "timestamp": "2018-03-14T19:24:55-05:00"
+            "timestamp": "2018-03-19T17:52:34-05:00"
         },
         {
             "_score": 2,
@@ -2224,10 +2203,10 @@ Example output:
             "thumbnail": null,
             "api_model": "shop-categories",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/shop-categories\/19",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/shop-categories\/19",
             "id": 19,
             "title": "Tabletop",
-            "timestamp": "2018-03-14T19:24:55-05:00"
+            "timestamp": "2018-03-19T17:52:34-05:00"
         },
         {
             "_score": 2,
@@ -2235,10 +2214,10 @@ Example output:
             "thumbnail": null,
             "api_model": "shop-categories",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/shop-categories\/22",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/shop-categories\/22",
             "id": 22,
             "title": "Holiday Ornaments",
-            "timestamp": "2018-03-14T19:24:55-05:00"
+            "timestamp": "2018-03-19T17:52:34-05:00"
         }
     ]
 }
@@ -2246,20 +2225,20 @@ Example output:
 
 ### `/shop-categories/{id}`
 
-A single shop-categories by the given identifier.
+A single shop-category by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/shop-categories/2?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/shop-categories/2?limit=2  
 Example output:
 
 ```
 {
     "data": {
         "id": 2,
-        "title": "Books",
+        "title": "Accessories",
         "is_boosted": false,
         "thumbnail": null,
         "web_url": "http:\/\/www.artinstituteshop.org\/browse.aspx?catID=2",
-        "parent_id": null,
+        "parent_id": 3,
         ...
     }
 }
@@ -2280,23 +2259,23 @@ A list of all products sorted by last updated date in descending order. For a de
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `categories`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/products?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/products?limit=2  
 Example output:
 
 ```
 {
     "pagination": {
-        "total": 5911,
+        "total": 5916,
         "limit": 2,
         "offset": 0,
-        "total_pages": 2956,
+        "total_pages": 2958,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/products?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/products?page=2&limit=2"
     },
     "data": [
         {
-            "id": 7374,
-            "title": "Aqua Dotted Pearl Earrings",
+            "id": 7049,
+            "title": "Watercolor Silk Scarf-Pink\/Purple",
             "is_boosted": false,
             "thumbnail": null,
             "title_sort": null,
@@ -2304,8 +2283,8 @@ Example output:
             ...
         },
         {
-            "id": 7640,
-            "title": "Scattered Leaves Scarf - Cranberry",
+            "id": 7306,
+            "title": "Driftwood Necklace",
             "is_boosted": false,
             "thumbnail": null,
             "title_sort": null,
@@ -2327,16 +2306,16 @@ Search products data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/products/search  
+Example request: http://aggregator-data.artic.edu/api/v1/products/search  
 Example output:
 
 ```
 {
     "preference": null,
     "pagination": {
-        "total": 5911,
+        "total": 5916,
         "limit": 10,
         "offset": 0,
         "total_pages": 592,
@@ -2345,36 +2324,36 @@ Example output:
     "data": [
         {
             "_score": 2,
-            "api_id": "40",
+            "api_id": "1128",
             "thumbnail": null,
             "api_model": "products",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/products\/40",
-            "id": 40,
-            "title": "Monet Water Lilies Scarf",
-            "timestamp": "2018-03-14T19:24:55-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/products\/1128",
+            "id": 1128,
+            "title": "Italian Glass Flower",
+            "timestamp": "2018-03-19T17:52:35-05:00"
         },
         {
             "_score": 2,
-            "api_id": "41",
+            "api_id": "1136",
             "thumbnail": null,
             "api_model": "products",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/products\/41",
-            "id": 41,
-            "title": "Asian Butterfly Scarf",
-            "timestamp": "2018-03-14T19:24:55-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/products\/1136",
+            "id": 1136,
+            "title": " Kandinsky Glass Panel",
+            "timestamp": "2018-03-19T17:52:35-05:00"
         },
         {
             "_score": 2,
-            "api_id": "44",
+            "api_id": "1145",
             "thumbnail": null,
             "api_model": "products",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/products\/44",
-            "id": 44,
-            "title": "Velvet Kimono Scarf",
-            "timestamp": "2018-03-14T19:24:55-05:00"
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/products\/1145",
+            "id": 1145,
+            "title": "Modern Masters Boxed Notecards",
+            "timestamp": "2018-03-19T17:52:35-05:00"
         }
     ]
 }
@@ -2382,16 +2361,16 @@ Example output:
 
 ### `/products/{id}`
 
-A single products by the given identifier.
+A single product by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/products/7760?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/products/7760?limit=2  
 Example output:
 
 ```
 {
     "data": {
         "id": 7760,
-        "title": "TEA SET FLORAL - S\/7",
+        "title": "Seven Piece Floral Tea Set",
         "is_boosted": false,
         "thumbnail": null,
         "title_sort": null,
@@ -2416,18 +2395,18 @@ A list of all legacy-events sorted by last updated date in descending order. For
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/legacy-events?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/legacy-events?limit=2  
 Example output:
 
 ```
 {
     "pagination": {
-        "total": 1779,
+        "total": 1797,
         "limit": 2,
         "offset": 0,
-        "total_pages": 890,
+        "total_pages": 899,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/legacy-events?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/legacy-events?page=2&limit=2"
     },
     "data": [
         {
@@ -2463,19 +2442,19 @@ Search legacy-events data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/legacy-events/search  
+Example request: http://aggregator-data.artic.edu/api/v1/legacy-events/search  
 Example output:
 
 ```
 {
     "preference": null,
     "pagination": {
-        "total": 1779,
+        "total": 1797,
         "limit": 10,
         "offset": 0,
-        "total_pages": 178,
+        "total_pages": 180,
         "current_page": 1
     },
     "data": [
@@ -2485,10 +2464,10 @@ Example output:
             "thumbnail": null,
             "api_model": "legacy-events",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/legacy-events\/717297",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/legacy-events\/717297",
             "id": 717297,
             "title": "Gallery Talk: Modern Wing Highlights",
-            "timestamp": "2018-03-14T19:25:02-05:00"
+            "timestamp": "2018-03-19T17:52:42-05:00"
         },
         {
             "_score": 2,
@@ -2496,10 +2475,10 @@ Example output:
             "thumbnail": null,
             "api_model": "legacy-events",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/legacy-events\/719696",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/legacy-events\/719696",
             "id": 719696,
             "title": "Gallery Talk: Modern Wing Highlights",
-            "timestamp": "2018-03-14T19:25:02-05:00"
+            "timestamp": "2018-03-19T17:52:42-05:00"
         },
         {
             "_score": 2,
@@ -2507,10 +2486,10 @@ Example output:
             "thumbnail": null,
             "api_model": "legacy-events",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/legacy-events\/726917",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/legacy-events\/726917",
             "id": 726917,
             "title": "Gallery Talk: Modern Wing Highlights",
-            "timestamp": "2018-03-14T19:25:02-05:00"
+            "timestamp": "2018-03-19T17:52:42-05:00"
         }
     ]
 }
@@ -2518,9 +2497,9 @@ Example output:
 
 ### `/legacy-events/{id}`
 
-A single legacy-events by the given identifier.
+A single legacy-event by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/legacy-events/2618626?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/legacy-events/2618626?limit=2  
 Example output:
 
 ```
@@ -2554,7 +2533,7 @@ A list of all tours sorted by last updated date in descending order. For a descr
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `tour_stops`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/tours?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/tours?limit=2  
 Example output:
 
 ```
@@ -2565,7 +2544,7 @@ Example output:
         "offset": 0,
         "total_pages": 5,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tours?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/tours?page=2&limit=2"
     },
     "data": [
         {
@@ -2601,9 +2580,9 @@ Search tours data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/tours/search  
+Example request: http://aggregator-data.artic.edu/api/v1/tours/search  
 Example output:
 
 ```
@@ -2623,10 +2602,10 @@ Example output:
             "thumbnail": null,
             "api_model": "tours",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tours\/2193",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/tours\/2193",
             "id": 2193,
             "title": "The Essentials Tour",
-            "timestamp": "2018-03-14T19:25:04-05:00"
+            "timestamp": "2018-03-19T17:52:45-05:00"
         },
         {
             "_score": 2,
@@ -2634,10 +2613,10 @@ Example output:
             "thumbnail": null,
             "api_model": "tours",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tours\/2220",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/tours\/2220",
             "id": 2220,
             "title": "\u7cbe\u534e\u6e38",
-            "timestamp": "2018-03-14T19:25:04-05:00"
+            "timestamp": "2018-03-19T17:52:45-05:00"
         },
         {
             "_score": 2,
@@ -2645,10 +2624,10 @@ Example output:
             "thumbnail": null,
             "api_model": "tours",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tours\/1022",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/tours\/1022",
             "id": 1022,
             "title": "The New Contemporary",
-            "timestamp": "2018-03-14T19:25:04-05:00"
+            "timestamp": "2018-03-19T17:52:45-05:00"
         }
     ]
 }
@@ -2656,9 +2635,9 @@ Example output:
 
 ### `/tours/{id}`
 
-A single tours by the given identifier.
+A single tour by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/tours/2219?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/tours/2219?limit=2  
 Example output:
 
 ```
@@ -2690,7 +2669,7 @@ A list of all tour-stops sorted by last updated date in descending order. For a 
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `sound`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/tour-stops?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/tour-stops?limit=2  
 Example output:
 
 ```
@@ -2701,25 +2680,25 @@ Example output:
         "offset": 0,
         "total_pages": 53,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tour-stops?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/tour-stops?page=2&limit=2"
     },
     "data": [
         {
-            "id": 2780,
-            "title": "Paris Street; Rainy Day",
+            "id": 3243,
+            "title": "E-12: English Drawing Room of the Georgian Period, c. 1800",
             "is_boosted": false,
             "thumbnail": null,
-            "artwork_title": "Paris Street; Rainy Day",
-            "artwork_id": 20684,
+            "artwork_title": "E-12: English Drawing Room of the Georgian Period, c. 1800",
+            "artwork_id": 43721,
             ...
         },
         {
-            "id": 2781,
-            "title": "A Sunday on La Grande Jatte \u2014 1884",
+            "id": 3304,
+            "title": null,
             "is_boosted": false,
             "thumbnail": null,
-            "artwork_title": "A Sunday on La Grande Jatte \u2014 1884",
-            "artwork_id": 27992,
+            "artwork_title": null,
+            "artwork_id": null,
             ...
         }
     ]
@@ -2737,54 +2716,54 @@ Search tour-stops data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/tour-stops/search  
+Example request: http://aggregator-data.artic.edu/api/v1/tour-stops/search  
 Example output:
 
 ```
 {
     "preference": null,
     "pagination": {
-        "total": 105,
+        "total": 315,
         "limit": 10,
         "offset": 0,
-        "total_pages": 11,
+        "total_pages": 32,
         "current_page": 1
     },
     "data": [
         {
             "_score": 2,
-            "api_id": "2787",
+            "api_id": "2678",
             "thumbnail": null,
             "api_model": "tour-stops",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tour-stops\/2787",
-            "id": 2787,
-            "title": "Buddha Shakyamuni Seated in Meditation (Dhyanamudra)",
-            "timestamp": "2018-03-14T19:25:04-05:00"
+            "api_link": "http:\/\/localhost\/api\/v1\/tour-stops\/2678",
+            "id": 2678,
+            "title": "Stacks of Wheat (End of Day, Autumn)",
+            "timestamp": "2018-03-16T15:47:57-05:00"
         },
         {
             "_score": 2,
-            "api_id": "2793",
+            "api_id": "2680",
             "thumbnail": null,
             "api_model": "tour-stops",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tour-stops\/2793",
-            "id": 2793,
-            "title": "Bathers by a River",
-            "timestamp": "2018-03-14T19:25:04-05:00"
+            "api_link": "http:\/\/localhost\/api\/v1\/tour-stops\/2680",
+            "id": 2680,
+            "title": "Coronation Stone of Motecuhzoma II (Stone of the Five Suns)",
+            "timestamp": "2018-03-16T15:47:57-05:00"
         },
         {
             "_score": 2,
-            "api_id": "2812",
+            "api_id": "2681",
             "thumbnail": null,
             "api_model": "tour-stops",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/tour-stops\/2812",
-            "id": 2812,
-            "title": "Teabowl with Mufurong (Hibiscus) and Dragonfly",
-            "timestamp": "2018-03-14T19:25:04-05:00"
+            "api_link": "http:\/\/localhost\/api\/v1\/tour-stops\/2681",
+            "id": 2681,
+            "title": "Veranda Post of Enthroned King and Senior Wife (Opo Ogoga)",
+            "timestamp": "2018-03-16T15:47:57-05:00"
         }
     ]
 }
@@ -2792,20 +2771,20 @@ Example output:
 
 ### `/tour-stops/{id}`
 
-A single tour-stops by the given identifier.
+A single tour-stop by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/tour-stops/2780?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/tour-stops/3245?limit=2  
 Example output:
 
 ```
 {
     "data": {
-        "id": 2780,
-        "title": "Paris Street; Rainy Day",
+        "id": 3245,
+        "title": "Portrait of Mrs. James Ward Thorne",
         "is_boosted": false,
         "thumbnail": null,
-        "artwork_title": "Paris Street; Rainy Day",
-        "artwork_id": 20684,
+        "artwork_title": "Portrait of Mrs. James Ward Thorne",
+        "artwork_id": 32088,
         ...
     }
 }
@@ -2824,7 +2803,7 @@ A list of all mobile-sounds sorted by last updated date in descending order. For
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/mobile-sounds?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/mobile-sounds?limit=2  
 Example output:
 
 ```
@@ -2835,7 +2814,7 @@ Example output:
         "offset": 0,
         "total_pages": 305,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/mobile-sounds?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/mobile-sounds?page=2&limit=2"
     },
     "data": [
         {
@@ -2862,9 +2841,9 @@ Example output:
 
 ### `/mobile-sounds/{id}`
 
-A single mobile-sounds by the given identifier.
+A single mobile-sound by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/mobile-sounds/1545?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/mobile-sounds/1545?limit=2  
 Example output:
 
 ```
@@ -2896,7 +2875,7 @@ A list of all publications sorted by last updated date in descending order. For 
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/publications?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/publications?limit=2  
 Example output:
 
 ```
@@ -2907,7 +2886,7 @@ Example output:
         "offset": 0,
         "total_pages": 5,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/publications?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/publications?page=2&limit=2"
     },
     "data": [
         {
@@ -2943,16 +2922,16 @@ Search publications data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/publications/search  
+Example request: http://aggregator-data.artic.edu/api/v1/publications/search  
 Example output:
 
 ```
 {
     "preference": null,
     "pagination": {
-        "total": 6,
+        "total": 10,
         "limit": 10,
         "offset": 0,
         "total_pages": 1,
@@ -2961,14 +2940,25 @@ Example output:
     "data": [
         {
             "_score": 2,
+            "api_id": "140019",
+            "thumbnail": null,
+            "api_model": "publications",
+            "is_boosted": false,
+            "api_link": "http:\/\/localhost\/api\/v1\/publications\/140019",
+            "id": 140019,
+            "title": "Manet Paintings and Works on Paper at the Art Institute of Chicago",
+            "timestamp": "2018-03-17T23:00:55-05:00"
+        },
+        {
+            "_score": 2,
             "api_id": "12",
             "thumbnail": null,
             "api_model": "publications",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/publications\/12",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/publications\/12",
             "id": 12,
             "title": "The Modern Series at the Art Institute of Chicago",
-            "timestamp": "2018-03-14T19:25:05-05:00"
+            "timestamp": "2018-03-19T17:52:45-05:00"
         },
         {
             "_score": 2,
@@ -2976,21 +2966,10 @@ Example output:
             "thumbnail": null,
             "api_model": "publications",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/publications\/226",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/publications\/226",
             "id": 226,
             "title": "James Ensor: The Temptation of Saint Anthony",
-            "timestamp": "2018-03-14T19:25:05-05:00"
-        },
-        {
-            "_score": 2,
-            "api_id": "406",
-            "thumbnail": null,
-            "api_model": "publications",
-            "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/publications\/406",
-            "id": 406,
-            "title": "Whistler and Roussel: Linked Visions",
-            "timestamp": "2018-03-14T19:25:05-05:00"
+            "timestamp": "2018-03-19T17:52:45-05:00"
         }
     ]
 }
@@ -2998,9 +2977,9 @@ Example output:
 
 ### `/publications/{id}`
 
-A single publications by the given identifier.
+A single publication by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/publications/445?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/publications/445?limit=2  
 Example output:
 
 ```
@@ -3030,7 +3009,7 @@ A list of all sections sorted by last updated date in descending order. For a de
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/sections?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/sections?limit=2  
 Example output:
 
 ```
@@ -3041,24 +3020,24 @@ Example output:
         "offset": 0,
         "total_pages": 423,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sections?page=2&limit=2"
     },
     "data": [
         {
-            "id": 518663,
-            "title": "Authors and Contributors",
+            "id": 36743809794,
+            "title": "Cat. 11 Two Sisters (On the Terrace), 1881",
             "is_boosted": false,
             "thumbnail": null,
-            "web_url": "https:\/\/publications.artic.edu\/pissarro\/reader\/paintingsandpaper\/section\/1010",
+            "web_url": "https:\/\/publications.artic.edu\/renoir\/reader\/paintingsanddrawings\/section\/135639",
             "accession": null,
             ...
         },
         {
-            "id": 520,
-            "title": "Cat. 12  Haymaking at \u00c9ragny, 1892",
+            "id": 37654267653,
+            "title": "Works of Art--Renoir 2014",
             "is_boosted": false,
             "thumbnail": null,
-            "web_url": "https:\/\/publications.artic.edu\/pissarro\/reader\/paintingsandpaper\/section\/24",
+            "web_url": "https:\/\/publications.artic.edu\/renoir\/reader\/paintingsanddrawings\/section\/138977",
             "accession": null,
             ...
         }
@@ -3077,9 +3056,9 @@ Search sections data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/sections/search  
+Example request: http://aggregator-data.artic.edu/api/v1/sections/search  
 Example output:
 
 ```
@@ -3099,10 +3078,10 @@ Example output:
             "thumbnail": null,
             "api_model": "sections",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections\/338",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sections\/338",
             "id": 338,
             "title": "Modern Series Title",
-            "timestamp": "2018-03-14T19:25:05-05:00"
+            "timestamp": "2018-03-19T17:52:45-05:00"
         },
         {
             "_score": 2,
@@ -3110,10 +3089,10 @@ Example output:
             "thumbnail": null,
             "api_model": "sections",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections\/343",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sections\/343",
             "id": 343,
             "title": "Cat. 6  Tinker with His Tools, 1874\/76",
-            "timestamp": "2018-03-14T19:25:05-05:00"
+            "timestamp": "2018-03-19T17:52:45-05:00"
         },
         {
             "_score": 2,
@@ -3121,10 +3100,10 @@ Example output:
             "thumbnail": null,
             "api_model": "sections",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sections\/365",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sections\/365",
             "id": 365,
             "title": "How to use This Catalogue",
-            "timestamp": "2018-03-14T19:25:05-05:00"
+            "timestamp": "2018-03-19T17:52:45-05:00"
         }
     ]
 }
@@ -3132,9 +3111,9 @@ Example output:
 
 ### `/sections/{id}`
 
-A single sections by the given identifier.
+A single section by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/sections/3014259?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/sections/3014259?limit=2  
 Example output:
 
 ```
@@ -3168,7 +3147,7 @@ A list of all sites sorted by last updated date in descending order. For a descr
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `artworks`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/sites?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/sites?limit=2  
 Example output:
 
 ```
@@ -3179,25 +3158,25 @@ Example output:
         "offset": 0,
         "total_pages": 48,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sites?page=2&limit=2"
     },
     "data": [
         {
-            "id": 40,
-            "title": "Belligerent Encounters: Graphic Chronicles of War and Revolution, 1500\u20131945",
+            "id": 42,
+            "title": "Beyond Golden Clouds: Japanese Screens from the Art Institute of Chicago and the Saint Louis Art Museum",
             "is_boosted": false,
             "thumbnail": null,
-            "description": "Wars and revolutions have been recorded in words and images for millennia, commemorated in architecture, sculpture, mosaics, frescoes, and tapestries. In Europe the advent of printing and printmaking in the 15th century meant that the chronicling of historical and contemporary conflicts was possible on a scale never before seen. Woodcuts, engravings, etchings, and lithographs depicting wars and revolutions can be seen as ancestors to the kinds of digital technologies that made this year\u2019s \u201cArab Spring\u201d a global event. Mainly drawn from the permanent collection of the Art Institute of Chicago\u2019s Department of Prints and Drawings, Belligerent Encounters includes European and American prints, posters, and drawings spanning almost 500 years of war and revolution. Some images\u2014by artists Jacques Callot, Albrecht D\u00fcrer, and Francisco de Goya\u2014 are quite famous; others by Otto Dix and \u00c9douard Manet may be familiar to some viewers; and a number by Frank Brangwyn, Albin Egger-Lienz, Heinrich Hoerle, and Jan Poortenaar will be unknown to many people. While some of the works on display were conceived to stand on their own, a number come from thematic portfolios whose contents were intended to be viewed together. These include Max Beckmann\u2019s Hell (Die H\u00f6lle), 1919; Otto Dix\u2019s War (Der Krieg), 1924; and Heinrich Hoerle\u2019s Cripples Portfolio (Die Kr\u00fcppel), 1920.",
-            "web_url": "http:\/\/archive.artic.edu\/b-encounters\/",
+            "description": "Japanese folding screens have captivated the imagination of the West since the 16th century, when Europeans had their first glimpse. Across their expansive decorative surfaces, the realities and imaginations of artists over hundreds of years have been charted with bright mineral pigments and precious gold and silver. More so than smaller painting formats, the screen is the canvas upon which artists have historically realized their most expansive visions, which is why they are so often career-defining masterpieces. Beyond Golden Clouds celebrates the full range of the screen format, made possible by the collaboration of the Art Institute and the Saint Louis Art Museum. Unique among past shows, this exhibition displays works dating from as early as the 16th century to contemporary screens of the past decade, and features various media, including traditional paper and silk as well as stoneware and varnish. The exhibition, which will be shown at both museums, includes a total of 32 works of art. During the week of August 10\u201314, several works in the exhibition will be rotated out and replaced by others, offering the chance to experience the exhibition anew.",
+            "web_url": "http:\/\/archive.artic.edu\/beyondgoldenclouds\/",
             ...
         },
         {
-            "id": 41,
-            "title": "Benin\u2014Kings and Rituals: Court Arts from Nigeria",
+            "id": 43,
+            "title": "Henri Cartier-Bresson: The Modern Century",
             "is_boosted": false,
             "thumbnail": null,
-            "description": "Spectacular and sophisticated, the royal sculptures and regalia from the West African Kingdom of Benin are among the continent\u2019s most acclaimed works of art. This landmark exhibition, representing six centuries of Benin's rich artistic heritage, brings together more than 220 of these masterworks from collections around the world and makes its sole North American stop at the Art Institute of Chicago. Planned with the most prominent scholars of Benin art, history, and culture, as well as the cooperation of reigning Oba Erediauwa and the National Commission for Museums and Monuments, Nigeria, Benin\u2014Kings and Rituals brings international attention and new perspectives to Benin art and history.",
-            "web_url": "http:\/\/archive.artic.edu\/benin\/",
+            "description": "The two most important developments in photography in the first half of the 20th century were the emergence of lasting artistic traditions and the rise of mass-circulation picture magazines. Henri Cartier-Bresson (1908\u20132004) was a leading figure in both domains. In the early 1930s, he helped to define photographic modernism, using a handheld camera to snatch beguiling images from fleeting moments of everyday life. After World War II, he turned to photojournalism, and the magic and mystery of his early work gave way to an equally uncanny clarity and completeness.",
+            "web_url": "http:\/\/archive.artic.edu\/cartier-bresson\/",
             ...
         }
     ]
@@ -3215,9 +3194,9 @@ Search sites data in the aggregator.
 * `sort` - Used in conjunction with `query`
 * `from` - Starting point of results. Pagination via Elasticsearch conventions
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of "count" aggregation facets to include in the results.
+* `facets` - A comma-separated list of \"count\" aggregation facets to include in the results.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/sites/search  
+Example request: http://aggregator-data.artic.edu/api/v1/sites/search  
 Example output:
 
 ```
@@ -3237,10 +3216,10 @@ Example output:
             "thumbnail": null,
             "api_model": "sites",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/14",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sites\/14",
             "id": 14,
             "title": "The Medici, Michelangelo, and the Art of Late Renaissance Florence",
-            "timestamp": "2018-03-14T19:25:08-05:00"
+            "timestamp": "2018-03-19T17:52:48-05:00"
         },
         {
             "_score": 2,
@@ -3248,10 +3227,10 @@ Example output:
             "thumbnail": null,
             "api_model": "sites",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/19",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sites\/19",
             "id": 19,
             "title": "Perpetual Glory: Medieval Islamic Ceramics from the Harvey B. Plotnick Collection",
-            "timestamp": "2018-03-14T19:25:08-05:00"
+            "timestamp": "2018-03-19T17:52:49-05:00"
         },
         {
             "_score": 2,
@@ -3259,10 +3238,10 @@ Example output:
             "thumbnail": null,
             "api_model": "sites",
             "is_boosted": false,
-            "api_link": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/sites\/22",
+            "api_link": "http:\/\/aggregator-data.artic.edu\/api\/v1\/sites\/22",
             "id": 22,
             "title": "Seurat and the Making of \"La Grande Jatte\"",
-            "timestamp": "2018-03-14T19:25:08-05:00"
+            "timestamp": "2018-03-19T17:52:49-05:00"
         }
     ]
 }
@@ -3270,9 +3249,9 @@ Example output:
 
 ### `/sites/{id}`
 
-A single sites by the given identifier.
+A single site by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/sites/1?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/sites/1?limit=2  
 Example output:
 
 ```
@@ -3304,34 +3283,34 @@ A list of all archive-images sorted by last updated date in descending order. Fo
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/archive-images?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/archive-images?limit=2  
 Example output:
 
 ```
 {
     "pagination": {
-        "total": 55591,
+        "total": 4,
         "limit": 2,
         "offset": 0,
-        "total_pages": 27796,
+        "total_pages": 2,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/archive-images?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/archive-images?page=2&limit=2"
     },
     "data": [
         {
-            "id": 10059,
-            "title": "Columbia University, Low Memorial Library",
-            "alternate_title": null,
-            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/10059",
+            "id": 10000,
+            "title": "Union Theological Seminary",
+            "alternate_title": "Union Presbyterian Seminary",
+            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/10000",
             "collection": "Inland Architect",
             "archive": null,
             ...
         },
         {
-            "id": 10060,
-            "title": "Donnelley, R.R., and Sons Co. Building",
-            "alternate_title": "Columbia College Residence Center; Plymouth-Polk Building; South Plymouth Building; Lakeside Press; Triangle Publications",
-            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/10060",
+            "id": 10001,
+            "title": "University of Pennsylvania, Quadrangle Dormitories",
+            "alternate_title": "The Quadrangle, Quad, Men's Dorms",
+            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/10001",
             "collection": "Inland Architect",
             "archive": null,
             ...
@@ -3342,36 +3321,36 @@ Example output:
 
 ### `/archive-images/{id}`
 
-A single archive-images by the given identifier.
+A single archive-image by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/archive-images?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/archive-images?limit=2  
 Example output:
 
 ```
 {
     "pagination": {
-        "total": 55591,
+        "total": 4,
         "limit": 2,
         "offset": 0,
-        "total_pages": 27796,
+        "total_pages": 2,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/archive-images?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/archive-images?page=2&limit=2"
     },
     "data": [
         {
-            "id": 10059,
-            "title": "Columbia University, Low Memorial Library",
-            "alternate_title": null,
-            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/10059",
+            "id": 10000,
+            "title": "Union Theological Seminary",
+            "alternate_title": "Union Presbyterian Seminary",
+            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/10000",
             "collection": "Inland Architect",
             "archive": null,
             ...
         },
         {
-            "id": 10060,
-            "title": "Donnelley, R.R., and Sons Co. Building",
-            "alternate_title": "Columbia College Residence Center; Plymouth-Polk Building; South Plymouth Building; Lakeside Press; Triangle Publications",
-            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/10060",
+            "id": 10001,
+            "title": "University of Pennsylvania, Quadrangle Dormitories",
+            "alternate_title": "The Quadrangle, Quad, Men's Dorms",
+            "web_url": "http:\/\/digital-libraries.saic.edu\/cdm\/ref\/collection\/mqc\/id\/10001",
             "collection": "Inland Architect",
             "archive": null,
             ...
@@ -3398,7 +3377,7 @@ A list of all library-materials sorted by last updated date in descending order.
   * `creators`
   * `subjects`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/library-materials?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/library-materials?limit=2  
 Example output:
 
 ```
@@ -3409,7 +3388,7 @@ Example output:
         "offset": 0,
         "total_pages": 3431,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/library-materials?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/library-materials?page=2&limit=2"
     },
     "data": [
         {
@@ -3458,9 +3437,9 @@ Example output:
 
 ### `/library-materials/{id}`
 
-A single library-materials by the given identifier.
+A single library-material by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/library-materials?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/library-materials?limit=2  
 Example output:
 
 ```
@@ -3471,7 +3450,7 @@ Example output:
         "offset": 0,
         "total_pages": 3431,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/library-materials?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/library-materials?page=2&limit=2"
     },
     "data": [
         {
@@ -3534,7 +3513,7 @@ A list of all library-terms sorted by last updated date in descending order. For
   * `creator_of`
   * `subject_of`
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/library-terms?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/library-terms?limit=2  
 Example output:
 
 ```
@@ -3545,19 +3524,19 @@ Example output:
         "offset": 0,
         "total_pages": 4754,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/library-terms?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/library-terms?page=2&limit=2"
     },
     "data": [
         {
-            "id": "sh85007505",
-            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85007505",
-            "title": "Art -- Study and teaching",
+            "id": "sh2008113839",
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2008113839",
+            "title": "World War, 1914-1918 -- Pictorial works",
             ...
         },
         {
-            "id": "nb2011016367",
-            "uri": "http:\/\/id.loc.gov\/authorities\/names\/nb2011016367",
-            "title": "Spiro, Alex",
+            "id": "sh85127802",
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85127802",
+            "title": "Steel, Structural -- Catalogs",
             ...
         }
     ]
@@ -3566,9 +3545,9 @@ Example output:
 
 ### `/library-terms/{id}`
 
-A single library-terms by the given identifier.
+A single library-term by the given identifier.
 
-Example request: http://aggregator-data-test.artic.edu/api/v1/library-terms?limit=2  
+Example request: http://aggregator-data.artic.edu/api/v1/library-terms?limit=2  
 Example output:
 
 ```
@@ -3579,23 +3558,23 @@ Example output:
         "offset": 0,
         "total_pages": 4754,
         "current_page": 1,
-        "next_url": "http:\/\/aggregator-data-test.artic.edu\/api\/v1\/library-terms?page=2&limit=2"
+        "next_url": "http:\/\/aggregator-data.artic.edu\/api\/v1\/library-terms?page=2&limit=2"
     },
     "data": [
         {
-            "id": "sh85007505",
-            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85007505",
-            "title": "Art -- Study and teaching",
+            "id": "sh2008113839",
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh2008113839",
+            "title": "World War, 1914-1918 -- Pictorial works",
             ...
         },
         {
-            "id": "nb2011016367",
-            "uri": "http:\/\/id.loc.gov\/authorities\/names\/nb2011016367",
-            "title": "Spiro, Alex",
+            "id": "sh85127802",
+            "uri": "http:\/\/id.loc.gov\/authorities\/subjects\/sh85127802",
+            "title": "Steel, Structural -- Catalogs",
             ...
         }
     ]
 }
 ```
 
-> Generated by `php artisan docs:endpoints` on 2018-03-14 21:43:23
+> Generated by `php artisan docs:endpoints` on 2018-03-30 16:29:37

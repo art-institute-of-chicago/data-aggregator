@@ -19,7 +19,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `department_title` *string* - Name of the curatorial department that this work belongs to
 * `department_id` *number* - Unique identifier of the curatorial department that this work belongs to
 * `dimensions` *string* - The size, shape, scale, and dimensions of the work. May include multiple dimension like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.
-* `medium` *string* - The substances or materials used in the creation of a work
+* `medium_display` *string* - The substances or materials used in the creation of a work
 * `inscriptions` *string* - A description of distinguishing or identifying physical markings that are on the work
 * `artwork_type_title` *string* - The kind of object or work (e.g. Painting, Sculpture, Book)
 * `artwork_type_id` *number* - Unique identifier of the kind of object or work
@@ -41,12 +41,10 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `latitude` *number* - Latitude coordinate of the location of this work in our galleries
 * `longitude` *number* - Longitude coordinate of the location of this work in our galleries
 * `latlon` *string* - Latitude and longitude coordinates of the location of this work in our galleries
-* `is_highlighted_in_mobile` *boolean* - Whether the work is highlighted in the mobile app
 * `selector_number` *number* - The code that can be entered in our audioguides to learn more about this work
 * `artist_id` *integer* - Unique identifier of the preferred artist/culture associated with this work
 * `alt_artist_ids` *array* - Unique identifiers of the non-preferred artists/cultures associated with this work
 * `category_ids` *array* - Unique identifiers of the categories this work is a part of
-* `copyright_representative_ids` *array* - Unique identifiers of the copyright representatives associated with this work
 * `part_ids` *array* - Unique identifiers of the individual works that make up this work
 * `set_ids` *array* - Unique identifiers of the sets this work is a part of. These are not artwork ids.
 * `date_dates` *array* - List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.
@@ -61,11 +59,10 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `subject_id` *string* - Unique identifier of the preferred subject term for this work
 * `alt_subject_ids` *array* - Unique identifiers of all other non-preferred subject terms for this work
 * `subject_titles` *array* - The names of all subject terms related to this artwork
-* `color` *object* - Dominant color of this image in HSL
+* `color` *object* - Dominant color of this artwork in HSL
 * `image_id` *uuid* - Unique identifier of the preferred image to use to represent this work
-* `image_iiif_url` *string* - IIIF URL of the preferred image to use to represent this work
-* `alt_image_ids` *array* - Unique identifiers of all non-preferred images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.
-* `alt_image_iiif_urls` *array* - IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.
+* `alt_image_ids` *array* - Unique identifiers of all non-preferred images of this work.
+* `document_ids` *array* - Unique identifiers of assets that serve as documentation for this artwork
 * `sound_ids` *uuid* - Unique identifiers of the audio about this work
 * `video_ids` *uuid* - Unique identifiers of the videos about this work
 * `link_ids` *uuid* - Unique identifiers of the links about this work
@@ -81,7 +78,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 
 ## Agents
 
-Represents a person or organization. In the API, this includes artists, venues, and copyright representatives. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agents).
+Represents a person or organization. In the API, this includes artists and venues. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#agents).
 
 * `id` *number* - Unique identifier of this resource. Taken from the source system.
 * `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
@@ -520,7 +517,6 @@ Represents an overall digital publication. For a description of all the endpoint
 * `web_url` *string* - URL to the publication
 * `site` *string* - Which site in our multi-site Drupal installation owns this publication
 * `alias` *string* - Used by Drupal in lieu of the id to generate pretty paths
-* `title` *string* - Official title of the publication
 * `section_ids` *array* - Unique identifiers of the sections of this publication
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
@@ -639,4 +635,4 @@ A Library of Congress term. For a description of all the endpoints available for
 
 
 
-> Generated by `php artisan docs:fields` on 2018-03-14 21:43:30
+> Generated by `php artisan docs:fields` on 2018-03-30 16:29:46

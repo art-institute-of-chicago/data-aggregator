@@ -127,7 +127,7 @@ trait Documentable
         // Title
         $doc = '### `' .$this->_endpointPath() ."`\n\n";
 
-        $doc .= $this->getListDescription() ." For a description of all the fields included with this response, see [here](FIELDS.md#" .$endpoint .").\n\n";
+        $doc .= $this->docListDescription() ." For a description of all the fields included with this response, see [here](FIELDS.md#" .$endpoint .").\n\n";
 
         $doc .= $this->docListParameters();
 
