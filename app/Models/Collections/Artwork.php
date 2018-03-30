@@ -294,6 +294,24 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function placePivots()
+    {
+
+        return $this->hasMany('App\Models\Collections\ArtworkPlacePivot');
+
+    }
+
+    public function places()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Place')
+            ->using('App\Models\Collections\ArtworkPlacePivot')
+            ->withPivot('preferred');
+
+    }
+
+    // Meh, we'll leave out preferred & alternative places for now
+
     public function getExtraFillFieldsFrom($source)
     {
 
@@ -346,6 +364,37 @@ class Artwork extends CollectionsModel
 
             // In migrations, we default `preferred` to true and `agent_role_citi_id` to 219
             $this->artists()->sync([ $source->creator_id ]);
+
+        }
+
+        // TODO: Abstract this repetitive logic into abstract inbound transformer methods!
+        if ($source->artwork_places)
+        {
+
+
+            $places = collect( $source->artwork_places ?? [] )->filter( function( $pivot ) {
+
+                // Some artworks don't have an agent id specified here, skip them
+                // TODO: Raise a validation alert?
+                return (bool) $pivot->place_id;
+
+            })->map( function( $pivot ) {
+                return [
+                    $pivot->place_id => [
+                        'artwork_place_qualifier_citi_id' => $pivot->place_qualifier_id,
+                        'preferred' => $pivot->is_preferred,
+                    ]
+                ];
+            });
+
+            // Using collapse or array_merge was nuking numeric keys
+            // $places = $places->collapse();
+            // $places = array_merge( ... $places  );
+
+            // https://stackoverflow.com/a/37748191/1943591
+            $places = array_reduce($places->all(), function ($carry, $item) { return $carry + $item; }, []);
+
+            $this->places()->sync($places);
 
         }
 

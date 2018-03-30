@@ -105,6 +105,14 @@ $factory->define(App\Models\Collections\ArtworkType::class, function (Faker\Gene
 });
 
 
+$factory->define(App\Models\Collections\ArtworkPlaceQualifier::class, function (Faker\Generator $faker) {
+    return array_merge(
+        idsAndTitle($faker, 'Object ' . $faker->word(1) . ' in', true, 2),
+        dates($faker, true)
+    );
+});
+
+
 $factory->define(App\Models\Collections\Term::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, ucfirst($faker->word(3, true))),

@@ -14,6 +14,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     protected $availableIncludes = [
         'artist_pivots',
+        'place_pivots',
         'artists',
         'catalogues',
         'categories',
@@ -38,6 +39,17 @@ class ArtworkTransformer extends CollectionsTransformer
     public function includeArtistPivots(Artwork $artwork)
     {
         return $this->collection($artwork->artistPivots, new ArtworkArtistPivotTransformer, false);
+    }
+
+    /**
+     * Include place with pivots.
+     *
+     * @param  \App\Models\Collections\Artwork  $artwork
+     * @return League\Fractal\ItemResource
+     */
+    public function includePlacePivots(Artwork $artwork)
+    {
+        return $this->collection($artwork->placePivots, new ArtworkPlacePivotTransformer, false);
     }
 
     /**
