@@ -32,10 +32,33 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function artistPivots()
+    {
+
+        return $this->hasMany('App\Models\Collections\ArtworkArtistPivot');
+
+    }
+
     public function artists()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_artist');
+        return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_artist')
+            ->using('App\Models\Collections\ArtworkArtistPivot')
+            ->withPivot('preferred');
+
+    }
+
+    public function artist()
+    {
+
+        return $this->artists()->isPreferred();
+
+    }
+
+    public function altArtists()
+    {
+
+        return $this->artists()->isAlternative();
 
     }
 
@@ -771,14 +794,14 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifier of the preferred artist/culture associated with this work",
                 "type" => "integer",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->artists->pluck('citi_id')->first(); },
+                "value" => function() { return $this->artist->citi_id ?? null; },
             ],
             [
                 "name" => 'alt_artist_ids',
                 "doc" => "Unique identifiers of the non-preferred artists/cultures associated with this work",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->artists->pluck('citi_id')->all(); },
+                "value" => function() { return $this->altArtists->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'category_ids',
