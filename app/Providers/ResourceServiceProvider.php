@@ -239,7 +239,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                     if( !$model )
                     {
-                        throw new \Exception('You must define a model for endpoint `' . $endpoint . '` in ResourceServiceProvider.');
+                        throw new \Exception('You must define a model for outbound endpoint `' . $endpoint . '` in ResourceServiceProvider.');
                     }
 
                     return $model;
@@ -257,7 +257,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                     if( !$endpoint )
                     {
-                        throw new \Exception('You must define an endpoint for model `' . $model . '` in ResourceServiceProvider.');
+                        throw new \Exception('You must define an outbound endpoint for model `' . $model . '` in ResourceServiceProvider.');
                     }
 
                     return $endpoint;
