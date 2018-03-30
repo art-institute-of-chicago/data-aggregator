@@ -163,15 +163,6 @@ class Exhibition extends CollectionsModel
                 },
             ],
             [
-                "name" => 'image_iiif_url',
-                "doc" => "IIIF URL of the image to use to represent this exhibition",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() {
-                    return $this->image_iiif_url;
-                },
-            ],
-            [
                 "name" => 'legacy_image_desktop_url',
                 "doc" => "URL to the desktop hero image from the legacy marketing site",
                 "type" => "string",
@@ -286,20 +277,6 @@ class Exhibition extends CollectionsModel
 
     }
 
-
-    /**
-     * Get the IIIF URL of the image representing this exhibition. Corresponds to the `@id` attribute in the image's `/info.json`
-     *
-     * @TODO Currently, this redirects to a non-existent `info.json'
-     *
-     * @return string
-     */
-    public function getImageIiifUrlAttribute()
-    {
-
-        return $this->asset_lake_guid ? (env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->asset_lake_guid) : null;
-
-    }
 
     /**
      * Get an example ID for documentation generation
