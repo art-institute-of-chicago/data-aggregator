@@ -197,7 +197,7 @@ $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Gene
             'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::fake()->pluck('citi_id')->all()),
             'date_earliest' => $faker->dateTimeAd,
             'date_latest' => $faker->dateTimeAd,
-            'qualifier' => ucfirst($faker->word) .' date',
+            'artwork_date_qualifier_citi_id' => $faker->randomElement(App\Models\Collections\ArtworkDateQualifier::fake()->pluck('citi_id')->all()),
             'preferred' => $faker->boolean,
         ],
         dates($faker, true)
