@@ -34,8 +34,8 @@ class Material extends BaseModel
         $creator_ids = collect( $source->creators )->pluck('id');
         $subject_ids = collect( $source->subjects )->pluck('id');
 
-        $this->creators()->sync( $creator_ids, false );
-        $this->subjects()->sync( $subject_ids, false );
+        $this->creators()->sync( $creator_ids );
+        $this->subjects()->sync( $subject_ids );
 
         return $this;
 

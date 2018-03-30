@@ -329,12 +329,13 @@ class Artwork extends CollectionsModel
 
             $artists = $artists->collapse();
 
-            $this->artists()->sync($artists, false);
+
+            $this->artists()->sync($artists);
 
         } elseif ($source->creator_id) {
 
             // In migrations, we default `preferred` to true and `agent_role_citi_id` to 219
-            $this->artists()->sync([ $source->creator_id ], false);
+            $this->artists()->sync([ $source->creator_id ]);
 
         }
 
@@ -367,12 +368,12 @@ class Artwork extends CollectionsModel
         // Above is how we sync w/ an additional attribute on the pivot table
         // https://stackoverflow.com/questions/27230672
 
-        $this->images()->sync($images, false);
+        $this->images()->sync($images);
 
         if ($source->category_ids)
         {
 
-            $this->categories()->sync($source->category_ids, false);
+            $this->categories()->sync($source->category_ids);
 
         }
 
@@ -412,7 +413,7 @@ class Artwork extends CollectionsModel
 
             // TODO: Account for cases where a doc was changed to a rep, or vice versa
             // Currently, two entries will be created for it in the pivot table
-            $this->documents()->sync($documents, false);
+            $this->documents()->sync($documents);
 
         }
 
