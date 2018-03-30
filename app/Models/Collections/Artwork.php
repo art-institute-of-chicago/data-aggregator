@@ -318,7 +318,13 @@ class Artwork extends CollectionsModel
         if ($source->artwork_agents)
         {
 
-            $artists = collect( $source->artwork_agents ?? [] )->map( function( $pivot ) {
+            $artists = collect( $source->artwork_agents ?? [] )->filter( function( $pivot ) {
+
+                // Some artworks don't have an agent id specified here, skip them
+                // TODO: Raise a validation alert?
+                return (bool) $pivot->agent_id;
+
+            })->map( function( $pivot ) {
                 return [
                     $pivot->agent_id => [
                         'agent_role_citi_id' => $pivot->role_id,
@@ -327,8 +333,12 @@ class Artwork extends CollectionsModel
                 ];
             });
 
-            $artists = $artists->collapse();
+            // Using collapse or array_merge was nuking numeric keys
+            // $artists = $artists->collapse();
+            // $artists = array_merge( ... $artists  );
 
+            // https://stackoverflow.com/a/37748191/1943591
+            $artists = array_reduce($artists->all(), function ($carry, $item) { return $carry + $item; }, []);
 
             $this->artists()->sync($artists);
 
