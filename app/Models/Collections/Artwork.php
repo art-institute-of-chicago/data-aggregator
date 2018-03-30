@@ -138,6 +138,27 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function materials()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::MATERIAL)->withPivot('preferred');
+
+    }
+
+    public function material()
+    {
+
+        return $this->materials()->isPreferred();
+
+    }
+
+    public function altMaterials()
+    {
+
+        return $this->materials()->isAlternative();
+
+    }
+
     public function artworkCatalogues()
     {
 
@@ -868,6 +889,26 @@ class Artwork extends CollectionsModel
                 "doc" => "The names of all subject terms related to this artwork",
                 "type" => "array",
                 "value" => function() { return $this->subjects->pluck('title')->all(); },
+            ],
+            [
+                "name" => 'material_id',
+                "doc" => "Unique identifier of the preferred material term for this work",
+                "type" => "string",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->material->lake_uid ?? null; },
+            ],
+            [
+                "name" => 'alt_material_ids',
+                "doc" => "Unique identifiers of all other non-preferred material terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->altMaterials->pluck('lake_uid')->all(); },
+            ],
+            [
+                "name" => 'material_titles',
+                "doc" => "The names of all material terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->materials->pluck('title')->all(); },
             ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
