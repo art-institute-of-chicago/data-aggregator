@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Collections\ArtworkType;
+
 class ImportCollectionsFull extends AbstractImportCommandNew
 {
 
@@ -30,10 +32,11 @@ class ImportCollectionsFull extends AbstractImportCommandNew
         else
         {
 
+            $this->import( ArtworkType::class, 'object-types');
+
             $this->importEndpoint('agent-types');
             $this->importEndpoint('agent-places');
             $this->importEndpoint('agents');
-            // $this->importEndpoint('object-types');
             $this->importEndpoint('categories');
             $this->importEndpoint('places');
             $this->importEndpoint('galleries');
