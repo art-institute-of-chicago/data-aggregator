@@ -183,6 +183,12 @@ $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generato
     );
 });
 
+$factory->define(App\Models\Collections\ArtworkDateQualifier::class, function (Faker\Generator $faker) {
+    return array_merge(
+        idsAndTitle($faker, $faker->randomElement(['Made', 'Designed', 'Reconstructed', 'Published']), true, 2),
+        dates($faker, true)
+    );
+});
 
 $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Generator $faker) {
     return [
