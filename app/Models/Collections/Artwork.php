@@ -213,7 +213,11 @@ class Artwork extends CollectionsModel
     public function images()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->withPivot('preferred')->withPivot('is_doc')->wherePivot('is_doc', '=', false);
+        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')
+            // ->where('type', 'image') // Do we need these if we're targeting Image i/o Asset?
+            ->withPivot('preferred')
+            ->withPivot('is_doc')
+            ->wherePivot('is_doc', '=', false);
 
     }
 
@@ -398,7 +402,7 @@ class Artwork extends CollectionsModel
 
         }
 
-        // TODO: Filter our documentary images from alt images!
+        // TODO: Shared logic w/ exhibitions - abstract?
         // Start building the image sync by pulling in alts first
         $images = collect( $source->alt_image_guids ?? [] )->map( function( $image ) {
             return [
@@ -456,6 +460,7 @@ class Artwork extends CollectionsModel
 
         }
 
+        // TODO: Shared logic w/ exhibitions - abstract?
         if ($source->document_ids)
         {
 
@@ -470,8 +475,6 @@ class Artwork extends CollectionsModel
 
             $documents = $documents->collapse();
 
-            // TODO: Account for cases where a doc was changed to a rep, or vice versa
-            // Currently, two entries will be created for it in the pivot table
             $this->documents()->sync($documents);
 
         }
