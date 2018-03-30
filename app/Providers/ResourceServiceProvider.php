@@ -69,6 +69,14 @@ class ResourceServiceProvider extends ServiceProvider
                         'model' => \App\Models\Collections\ArtworkPlaceQualifier::class,
                     ],
                     [
+                        'endpoint' => 'artwork-date-qualifiers',
+                        'model' => \App\Models\Collections\ArtworkDateQualifier::class,
+                    ],
+                    [
+                        'endpoint' => 'artwork-dates',
+                        'model' => \App\Models\Collections\ArtworkDate::class,
+                    ],
+                    [
                         'endpoint' => 'categories',
                         'model' => \App\Models\Collections\Category::class,
                     ],

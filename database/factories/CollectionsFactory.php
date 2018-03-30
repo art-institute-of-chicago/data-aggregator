@@ -183,14 +183,24 @@ $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generato
     );
 });
 
+$factory->define(App\Models\Collections\ArtworkDateQualifier::class, function (Faker\Generator $faker) {
+    return array_merge(
+        idsAndTitle($faker, $faker->randomElement(['Made', 'Designed', 'Reconstructed', 'Published']), true, 2),
+        dates($faker, true)
+    );
+});
 
 $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Generator $faker) {
-    return [
-        'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::fake()->pluck('citi_id')->all()),
-        'date' => $faker->dateTimeAd,
-        'qualifier' => ucfirst($faker->word) .' date',
-        'preferred' => $faker->boolean,
-    ];
+    return array_merge(
+        idsAndTitle($faker, $faker->word .' date', true),
+        [
+            'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::fake()->pluck('citi_id')->all()),
+            'date_earliest' => $faker->dateTimeAd,
+            'date_latest' => $faker->dateTimeAd,
+            'artwork_date_qualifier_citi_id' => $faker->randomElement(App\Models\Collections\ArtworkDateQualifier::fake()->pluck('citi_id')->all()),
+            'preferred' => $faker->boolean,
+        ]
+    );
 });
 
 

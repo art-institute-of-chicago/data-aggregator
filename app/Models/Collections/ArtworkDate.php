@@ -3,12 +3,17 @@
 namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
+use App\Models\ElasticSearchable;
 
 class ArtworkDate extends CollectionsModel
 {
 
-    public $incrementing = true;
+    use ElasticSearchable;
 
-    protected $dates = ['date', 'source_created_at', 'source_modified_at', 'source_indexed_at'];
+    protected $primaryKey = 'citi_id';
+    protected $casts = [
+        'date_earliest' => 'date',
+        'date_latest' => 'date',
+    ];
 
 }
