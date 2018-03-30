@@ -119,7 +119,7 @@ class LegacyEvent extends MembershipModel
                     $syncIds[] = $this->exhibitionIdFromDrupal($id);
                 }
             }
-            $this->exhibitions()->sync($syncIds, false);
+            $this->exhibitions()->sync($syncIds);
 
         }
 

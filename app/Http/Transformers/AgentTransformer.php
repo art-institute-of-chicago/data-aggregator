@@ -12,7 +12,10 @@ class AgentTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['places', 'sites'];
+    protected $availableIncludes = [
+        'places',
+        'sites',
+    ];
 
 
     /**

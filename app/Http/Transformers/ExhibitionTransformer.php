@@ -12,7 +12,11 @@ class ExhibitionTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['artworks', 'venues', 'sites'];
+    protected $availableIncludes = [
+        'artworks',
+        'venues',
+        'sites',
+    ];
 
 
     /**

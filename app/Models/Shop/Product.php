@@ -482,7 +482,7 @@ class Product extends ShopModel
                 return $this->artistMapping[$v];
             }, $source->artist_ids));
 
-            $this->artists()->sync($artistIds, false);
+            $this->artists()->sync($artistIds);
 
         }
 

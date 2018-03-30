@@ -157,6 +157,10 @@ trait ImportsData
         // Assumes the dataservice has standardized pagination
         $pages = $json->pagination->total_pages;
 
+        // TODO: [ErrorException] Undefined property: stdClass::$pagination
+        // This happens when you're trying to hit an endpoint that doesn't exist
+        // Ensure dataservice can be reached before doing this!
+
         $this->warn( 'Found ' . $pages . ' page(s) for model ' . $model );
 
         while( $current <= $pages )
@@ -168,6 +172,7 @@ trait ImportsData
             foreach( $json->data as $datum )
             {
 
+                // TODO: Careful, this conflicts w/ partial imports – running on one endpoint counts for all!
                 // Break if this is a partial import + this datum is older than last run
                 if( $this->isPartial )
                 {

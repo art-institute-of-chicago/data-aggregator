@@ -32,10 +32,33 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function artistPivots()
+    {
+
+        return $this->hasMany('App\Models\Collections\ArtworkArtistPivot');
+
+    }
+
     public function artists()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_artist');
+        return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_artist')
+            ->using('App\Models\Collections\ArtworkArtistPivot')
+            ->withPivot('preferred');
+
+    }
+
+    public function artist()
+    {
+
+        return $this->artists()->isPreferred();
+
+    }
+
+    public function altArtists()
+    {
+
+        return $this->artists()->isAlternative();
 
     }
 
@@ -292,10 +315,37 @@ class Artwork extends CollectionsModel
     public function attachFrom($source)
     {
 
-        if ($source->creator_id)
+        if ($source->artwork_agents)
         {
 
-            $this->artists()->sync([ $source->creator_id ], false);
+            $artists = collect( $source->artwork_agents ?? [] )->filter( function( $pivot ) {
+
+                // Some artworks don't have an agent id specified here, skip them
+                // TODO: Raise a validation alert?
+                return (bool) $pivot->agent_id;
+
+            })->map( function( $pivot ) {
+                return [
+                    $pivot->agent_id => [
+                        'agent_role_citi_id' => $pivot->role_id,
+                        'preferred' => $pivot->is_preferred,
+                    ]
+                ];
+            });
+
+            // Using collapse or array_merge was nuking numeric keys
+            // $artists = $artists->collapse();
+            // $artists = array_merge( ... $artists  );
+
+            // https://stackoverflow.com/a/37748191/1943591
+            $artists = array_reduce($artists->all(), function ($carry, $item) { return $carry + $item; }, []);
+
+            $this->artists()->sync($artists);
+
+        } elseif ($source->creator_id) {
+
+            // In migrations, we default `preferred` to true and `agent_role_citi_id` to 219
+            $this->artists()->sync([ $source->creator_id ]);
 
         }
 
@@ -328,12 +378,12 @@ class Artwork extends CollectionsModel
         // Above is how we sync w/ an additional attribute on the pivot table
         // https://stackoverflow.com/questions/27230672
 
-        $this->images()->sync($images, false);
+        $this->images()->sync($images);
 
         if ($source->category_ids)
         {
 
-            $this->categories()->sync($source->category_ids, false);
+            $this->categories()->sync($source->category_ids);
 
         }
 
@@ -373,7 +423,7 @@ class Artwork extends CollectionsModel
 
             // TODO: Account for cases where a doc was changed to a rep, or vice versa
             // Currently, two entries will be created for it in the pivot table
-            $this->documents()->sync($documents, false);
+            $this->documents()->sync($documents);
 
         }
 
@@ -771,14 +821,14 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifier of the preferred artist/culture associated with this work",
                 "type" => "integer",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->artists->pluck('citi_id')->first(); },
+                "value" => function() { return $this->artist->citi_id ?? null; },
             ],
             [
                 "name" => 'alt_artist_ids',
                 "doc" => "Unique identifiers of the non-preferred artists/cultures associated with this work",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->artists->pluck('citi_id')->all(); },
+                "value" => function() { return $this->altArtists->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'category_ids',

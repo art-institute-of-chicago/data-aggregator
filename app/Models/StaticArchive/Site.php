@@ -156,7 +156,7 @@ class Site extends BaseModel
         if ($source->exhibition_ids)
         {
 
-            $this->exhibitions()->sync($source->exhibition_ids, false);
+            $this->exhibitions()->sync($source->exhibition_ids);
 
         }
 
