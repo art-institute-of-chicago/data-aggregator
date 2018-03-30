@@ -13,7 +13,9 @@ class Artwork extends CollectionsModel
 {
 
     use ElasticSearchable;
-    use Documentable;
+    use Documentable {
+        docBoostedDescription as public traitDocBoostedDescription;
+    }
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
@@ -30,13 +32,6 @@ class Artwork extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_artist');
-
-    }
-
-    public function copyrightRepresentatives()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_copyright_representative');
 
     }
 
@@ -170,7 +165,7 @@ class Artwork extends CollectionsModel
     public function images()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->withPivot('preferred');
+        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->withPivot('preferred')->withPivot('is_doc')->wherePivot('is_doc', '=', false);
 
     }
 
@@ -191,7 +186,14 @@ class Artwork extends CollectionsModel
     public function assets()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Asset');
+        return $this->belongsToMany('App\Models\Collections\Asset')->withPivot('is_doc');
+
+    }
+
+    public function documents()
+    {
+
+        return $this->assets()->wherePivot('is_doc', '=', true);
 
     }
 
@@ -270,18 +272,36 @@ class Artwork extends CollectionsModel
 
         }
 
+        // TODO: Filter our documentary images from alt images!
+        // Start building the image sync by pulling in alts first
+        $images = collect( $source->alt_image_guids ?? [] )->map( function( $image ) {
+            return [
+                $image => [
+                    'preferred' => false,
+                    'is_doc' => false,
+                ]
+            ];
+        });
+
         if ($source->image_guid)
         {
 
-            // https://stackoverflow.com/questions/27230672/laravel-sync-how-to-sync-an-array-and-also-pass-additional-pivot-fields
-            // This is how we sync w/ an additional attribute on the pivot table
-            $this->images()->sync([
+            $images->push([
                 $source->image_guid => [
-                    'preferred' => true
+                    'preferred' => true,
+                    'is_doc' => false,
                 ]
-            ], false);
+            ]);
 
         }
+
+        // Collapse a collection of arrays into a single, flat collection
+        $images = $images->collapse();
+
+        // Above is how we sync w/ an additional attribute on the pivot table
+        // https://stackoverflow.com/questions/27230672
+
+        $this->images()->sync($images, false);
 
         if ($source->category_ids)
         {
@@ -313,7 +333,20 @@ class Artwork extends CollectionsModel
         if ($source->document_ids)
         {
 
-            $this->assets()->sync($source->document_ids, false);
+            $documents = collect( $source->document_ids )->map( function( $document ) {
+                return [
+                    $document => [
+                        'preferred' => false,
+                        'is_doc' => true,
+                    ]
+                ];
+            });
+
+            $documents = $documents->collapse();
+
+            // TODO: Account for cases where a doc was changed to a rep, or vice versa
+            // Currently, two entries will be created for it in the pivot table
+            $this->documents()->sync($documents, false);
 
         }
 
@@ -329,10 +362,26 @@ class Artwork extends CollectionsModel
         // $source->fiscal_year
         // $source->accquired_at
 
-        // @TODO Waiting on Redmines for the following:
-        // $source->copyright_representative_ids
-        // $source->term_ids
+        $pref_terms = collect( $source->pref_term_ids ?? [] )->map( function( $term ) {
+            return [
+                $term => [
+                    'preferred' => true
+                ]
+            ];
+        });
 
+        $alt_terms = collect( $source->alt_term_ids ?? [] )->map( function( $term ) {
+            return [
+                $term => [
+                    'preferred' => false
+                ]
+            ];
+        });
+
+        $terms = $pref_terms->concat( $alt_terms );
+
+        // TODO: Re-enable this once we're ready to import terms from the dataservice
+        // $this->assets()->sync($terms, false);
 
         // Galleries must be imported before artworks!
         // Waiting on Redmine #2000 to do this properly
@@ -401,7 +450,9 @@ class Artwork extends CollectionsModel
             23700,65868,93811,61428,64276,111617,117188,49714,125660,2189,146905,89403,127859,88793,79507,
             92975,234781,76816,76869,210511,193664,210482,16551,11393,7021,207293,156474,234972,49686,105800,
             118661,217201,191556,198809,34299,15563,220272,229354,229351,229406,223309,129884,234004,227420,24836,
-            234433,218612,199002,229510,189932,230189,225016,221885,229866
+            234433,218612,199002,229510,189932,230189,225016,221885,229866,109439,869,4081,4773,16146,23333,23700,
+            30709,31285,43145,49702,62042,62371,76240,79600,81564,105466,109926,111377,111559,119521,146701,146953,
+            150054,238749,100858
         ];
 
     }
@@ -517,14 +568,14 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->dimensions; },
             ],
             [
-                "name" => 'medium',
+                "name" => 'medium_display',
                 "doc" => "The substances or materials used in the creation of a work",
                 "type" => "string",
                 "elasticsearch" => [
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return $this->medium; },
+                "value" => function() { return $this->medium_display; },
             ],
             [
                 "name" => 'inscriptions',
@@ -679,13 +730,6 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->mobileArtwork ? ($this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude) : NULL; },
             ],
             [
-                "name" => 'is_highlighted_in_mobile',
-                "doc" => "Whether the work is highlighted in the mobile app",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->mobileArtwork ? $this->mobileArtwork->highlighted : false; },
-            ],
-            [
                 "name" => 'selector_number',
                 "doc" => "The code that can be entered in our audioguides to learn more about this work",
                 "type" => "number",
@@ -713,13 +757,6 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
-            ],
-            [
-                "name" => 'copyright_representative_ids',
-                "doc" => "Unique identifiers of the copyright representatives associated with this work",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->copyrightRepresentatives->pluck('citi_id')->all(); },
             ],
             [
                 "name" => 'part_ids',
@@ -824,7 +861,7 @@ class Artwork extends CollectionsModel
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
             [
                 "name" => 'color',
-                "doc" => "Dominant color of this image in HSL",
+                "doc" => "Dominant color of this artwork in HSL",
                 "type" => "object",
                 "value" => function() { return $this->image->metadata->color ?? null; },
             ],
@@ -836,25 +873,18 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->image->lake_guid ?? null; },
             ],
             [
-                "name" => 'image_iiif_url',
-                "doc" => "IIIF URL of the preferred image to use to represent this work",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->image->iiif_url ?? null; },
-            ],
-            [
                 "name" => 'alt_image_ids',
-                "doc" => "Unique identifiers of all non-preferred images of this work. The order of this list will not correspond to the order of `image_iiif_urls`.",
+                "doc" => "Unique identifiers of all non-preferred images of this work.",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->altImages->pluck('lake_guid')->all(); },
             ],
             [
-                "name" => 'alt_image_iiif_urls',
-                "doc" => "IIIF URLs of all the images of this work. The order of this list will not correspond to the order of `image_ids`.",
+                "name" => 'document_ids',
+                "doc" => "Unique identifiers of assets that serve as documentation for this artwork",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->altImages->pluck('iiif_url')->all(); },
+                "value" => function() { return $this->documents->pluck('lake_guid') ?? null; },
             ],
             [
                 "name" => 'sound_ids',
@@ -925,6 +955,11 @@ class Artwork extends CollectionsModel
                 "name" => 'artist_titles',
                 "doc" => "Names of the artists this artwork is a part of",
                 "type" => "array",
+                // Previously defined in StaticArchive/Site
+                "elasticsearch" => [
+                    "default" => true,
+                    "boost" => 1.05
+                ],
                 "value" => function() { return $this->artists->pluck('title')->all(); },
             ],
             [
@@ -935,13 +970,6 @@ class Artwork extends CollectionsModel
                     "default" => true,
                 ],
                 "value" => function() { return $this->categories->pluck('title')->all(); },
-            ],
-            [
-                "name" => 'copyright_representative_titles',
-                "doc" => "Names of the agents that represent copyright for this artwork",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->copyrightRepresentatives->pluck('title')->all(); },
             ],
             [
                 "name" => 'part_titles',
@@ -1017,7 +1045,7 @@ class Artwork extends CollectionsModel
     public function subresources()
     {
 
-        return ['artists', 'categories', 'images', 'parts', 'sets']; //, 'copyrightRepresentatives'
+        return ['artists', 'categories', 'images', 'parts', 'sets'];
 
     }
 
@@ -1066,6 +1094,20 @@ class Artwork extends CollectionsModel
     {
 
         return "111628";
+
+    }
+
+    /**
+     * Generate documentation for boosted endpoints
+     *
+     * @return string
+     */
+    public function docBoostedDescription()
+    {
+
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+
+        return $this->traitDocBoostedDescription() ." This is a subset of the `" .$endpoint ."/` endpoint that represents approximately 400 of our most well-known artworks as featured in three important catalogs: Paintings at the Art Institute of Chicago: Highlights of the Collection, The Essential Guide, and Master Paintings in the Art Institute of Chicago. This can be used to get a shorter list of " .$endpoint ." that will have most of its metadata filled out for testing purposes.";
 
     }
 

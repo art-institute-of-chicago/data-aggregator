@@ -138,9 +138,15 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @return array
                  */
-                public function getDefaultFields() {
+                public function getDefaultFields( $models = null ) {
 
-                    $fields = $this->models->map( function( $model ) {
+                    // Fallback to getting default fields for all models
+                    if( is_null( $models ) || $models->count() < 1 )
+                    {
+                        $models = $this->models;
+                    }
+
+                    $fields = $models->map( function( $model ) {
                         return $this->getDefaultFieldsForModel( $model );
                     });
 
@@ -162,12 +168,42 @@ class SearchServiceProvider extends ServiceProvider
                 }
 
                 /**
+                 * Returns an array containing fields to target for simple search for one endpoint.
+                 *
+                 * @return array
+                 */
+                public function getDefaultFieldsForEndpoints( $endpoints ) {
+
+                    $models = collect( $endpoints )->map( function( $endpoint ) {
+                        return app('Resources')->getModelForEndpoint( $endpoint );
+                    });
+
+                    return $this->getDefaultFields( $models );
+
+                }
+
+                /**
+                 * Returns an array containing fields to target for simple search for one endpoint.
+                 *
+                 * @return array
+                 */
+                public function getDefaultFieldsForEndpoint( $endpoint ) {
+
+                    $model = app('Resources')->getModelForEndpoint( $endpoint );
+
+                    return $this->getDefaultFieldsForModel( $model );
+
+                }
+
+                /**
                  * Returns an array containing fields to target for simple search for one model.
                  *
                  * @return array
                  */
                 public function getDefaultFieldsForModel( $model ) {
 
+                    // TODO: Class name must be a valid object or a string
+                    // Fix this error when an unknown resource gets passed
                     return $model::instance()->getDefaultSearchFields();
 
                 }

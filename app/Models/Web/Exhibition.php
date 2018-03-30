@@ -97,4 +97,13 @@ class Exhibition extends WebModel
 
     }
 
+    public function getExtraFillFieldsFrom($source)
+    {
+
+        return [
+            'title' => $source->datahub_id,
+        ];
+
+    }
+
 }

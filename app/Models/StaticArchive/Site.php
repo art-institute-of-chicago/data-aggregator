@@ -134,10 +134,6 @@ class Site extends BaseModel
                 "name" => 'artist_titles',
                 "doc" => "Names of the artists this site is associated with",
                 "type" => "array",
-                "elasticsearch" => [
-                    "default" => true,
-                    "type" => 'text',
-                ],
                 "value" => function() { return $this->agents->pluck('title')->all(); },
             ],
 

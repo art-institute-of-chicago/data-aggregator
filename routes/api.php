@@ -25,7 +25,7 @@ Route::group(['prefix' => 'v1'], function() {
     });
 
     Route::get('swagger.json', function() {
-        return response(view('swagger', ['host' => parse_url(config('app.url'), PHP_URL_HOST)]), 200, ['Content-Type' => 'application/json']);
+        return response(view('swagger'), 200, ['Content-Type' => 'application/json']);
     });
 
     // Elasticsearch
@@ -62,7 +62,6 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('artworks/{id}/categories', 'CategoriesController@forArtwork');
 
     Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
-    Route::get('artworks/{id}/copyright-representatives', 'AgentsController@scopeForArtwork');
 
     Route::get('artworks/{id}/terms', 'TermsController@forArtwork');
 
@@ -77,7 +76,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('artists/{id}', 'AgentsController@showScope');
     Route::get('venues', 'AgentExhibitionsController@index');
     Route::get('venues/{id}', 'AgentExhibitionsController@show');
-    // Route::get('copyright-representatives', 'AgentsController@indexScope');
+
     Route::get('agent-places', 'AgentPlacesController@index');
     Route::get('agent-places/{id}', 'AgentPlacesController@show');
 
@@ -202,5 +201,8 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::get('pages', 'PagesController@index');
     Route::get('pages/{id}', 'PagesController@show');
+
+    // Generic endpoint to allow source systems to let us know when a record should be updated
+    Route::get('{endpoint}/{id}/pull', 'PullController@pull');
 
 });

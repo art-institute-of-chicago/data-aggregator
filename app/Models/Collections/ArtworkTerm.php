@@ -2,18 +2,10 @@
 
 namespace App\Models\Collections;
 
-use App\Models\CollectionsModel;
+use App\Models\AbstractPivot as BasePivot;
 
-use App\Models\Fillable;
-use App\Models\Instancable;
-use App\Models\Transformable;
-
-use Illuminate\Database\Eloquent\Relations\Pivot;
-
-class ArtworkTerm extends Pivot
+class ArtworkTerm extends BasePivot
 {
-
-    use Fillable, Instancable, Transformable;
 
     public $incrementing = true;
 

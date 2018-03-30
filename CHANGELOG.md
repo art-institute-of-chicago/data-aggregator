@@ -1,6 +1,70 @@
 Data Aggregator Changelog
 =============================
 
+### 0.11 – Integrate Web CMS content and adjust search for the Mobile App
+
+* Make adjustments to search behavior for the Mobile app
+* Automatically generate Swagger documentation to keep it in-line with the codebase
+* Move fake model behavior to a reusable trait
+* Add endpoints to allow source systems to let Data Hub know when a single record has been updated, to accommodate real-time updates. Only the Web CMS and Collections endpoints are set up to be able to use this functionality.
+* Add job queue for asynchronous processing of tasks
+* Import content from Web CMS and schedule incremental imports every five minutes
+* Refactor import commands to reduce duplication
+
+ARTWORKS
+* Provide relationship to documents, which are assets that are _about_ artworks, as opposed to images which are _of_ artworks
+* Remove copyright representative from API
+* The following modifications have been made to the API schema:
+  - `medium_display` - Renamed from `medium` to make room for medium-type terms, for filtering
+  - `is_highlighted_in_mobile` – Removed, since it's unused by mobile and doesn't influence `is_boosted` logic
+  - `copyright_representative_ids` – Removed, since our website designs don't require us to pull this data
+  - `copyright_representative_titles` – Removed, since our website designs don't require us to pull this data
+  - `image_iiif_url` – Removed, in favor of clients using `image_id` with any of the LAKE image servers
+  - `document_ids` – Added, an array of `assets` that are _about_ the work, as opposed to images which are _of_ a work
+
+LEGACY EVENTS
+* Clean up extra HTML styling tags and attributes from descriptions
+
+PRODUCTS
+* Display `image_url` as ImgIX URL instead of image on Shop website
+
+ARTICLES
+* Parse out description text and main image from article content
+
+NEW ENDPOINTS
+* As part of new functionality to provide an opportunity for source systems to let us know about content updates, the following endpoints have been added:
+  - `/artworks/{id}/pull`
+  - `/agents/{id}/pull`
+  - `/venues/{id}/pull`
+  - `/agent-places/{id}/pull`
+  - `/artwork-catalogues/{id}/pull`
+  - `/departments/{id}/pull`
+  - `/artwork-types/{id}/pull`
+  - `/categories/{id}/pull`
+  - `/agent-types/{id}/pull`
+  - `/places/{id}/pull`
+  - `/galleries/{id}/pull`
+  - `/exhibitions/{id}/pull`
+  - `/assets/{id}/pull`
+  - `/images/{id}/pull`
+  - `/videos/{id}/pull`
+  - `/links/{id}/pull`
+  - `/sounds/{id}/pull`
+  - `/texts/{id}/pull`
+  - `/catalogues/{id}/pull`
+  - `/terms/{id}/pull`
+  - `/tags/{id}/pull`
+  - `/locations/{id}/pull`
+  - `/hours/{id}/pull`
+  - `/closures/{id}/pull`
+  - `/web-exhibitions/{id}/pull`
+  - `/events/{id}/pull`
+  - `/articles/{id}/pull`
+  - `/selections/{id}/pull`
+  - `/web-artists/{id}/pull`
+  - `/pages/{id}/pull`
+
+
 ### 0.10.1 – Hotfix to remove ELasticsearch functionality from testing application environment
 
 ### 0.10 – CMS API integration and image thumbnail metadata
@@ -61,6 +125,39 @@ ASSETS (including IMAGES, SOUNDS, VIDEOS, TEXTS, and LINKS)
 TOUR STOPS
 * `tour_id` now correctly displays a value
 
+NEW ENDPOINTS
+* Integration with Web CMS provides a number of endpoints, but all are currently empty:
+  - `/tags`
+  - `/tags/{id}`
+  - `/tags/search`
+  - `/locations`
+  - `/locations/{id}`
+  - `/locations/search`
+  - `/hours`
+  - `/hours/{id}`
+  - `/hours/search`
+  - `/closures`
+  - `/closures/{id}`
+  - `/closures/search`
+  - `/web-exhibitions`
+  - `/web-exhibitions/{id}`
+  - `/web-exhibitions/search`
+  - `/events`
+  - `/events/{id}`
+  - `/events/search`
+  - `/articles`
+  - `/articles/{id}`
+  - `/articles/search`
+  - `/selections`
+  - `/selections/{id}`
+  - `/selections/search`
+  - `/web-artists`
+  - `/web-artists/{id}`
+  - `/web-artists/search`
+  - `/pages`
+  - `/pages/{id}`
+  - `/pages/search`
+
 
 ### 0.9 – Autocomplete, shop data and support for mobile app
 
@@ -69,7 +166,7 @@ TOUR STOPS
 * Silent output on successful scheduled commands
 
 AUTOCOMPLETE
-* Refactor /autocomplete endpoint to simplify output
+* Refactor `/autocomplete` endpoint to simplify output
 * Only provide boosted records as results
 * Allow clients to specify which resources to include in the results
 * Find matches for both sort titles and regular titles
@@ -109,7 +206,7 @@ AGENTS
   - `agent_type_title` - Renamed from `agent_type` to match schema used by other models
 
 TERMS
-* Add search endpoint for terms at /terms/search
+* Add search endpoint for terms at `/terms/search`
 
 PRODUCTS
 * The following modifications have been made to the API schema:
@@ -153,12 +250,12 @@ SHOP CATEGORIES
 * Accept `q` and `query` in the same search request
 * Boost artists, to provide better data to the "Featured result" option on the website. We're boosting all artists in the set of boosted artworks, along with the top 100 viewed artists on our website in 2017.
 * Refactor departments to use departmental publish categories in CITI rather than our internal department structure.
-* Add includes for `sites` to /agents, /artworks and /exhibitions
-* Split /galleries and /places with a more reliable condition
+* Add includes for `sites` to `/agents`, `/artworks` and `/exhibitions`
+* Split `/galleries` and `/places` with a more reliable condition
 * Remove deprecated `theme` model, which isn't output anywhere in the API
-* Split /events up into /ticketed-events and /legacy-event endpoints, to make room for canonical events from the new website
-* Remove /members endpoint
-* Add `button_url`, `button_text` and `web_url` to /legacy-events
+* Split `/events` up into `/ticketed-events` and `/legacy-events` endpoints, to make room for canonical events from the new website
+* Remove `/members` endpoint
+* Add `button_url`, `button_text` and `web_url` to `/legacy-events`
 * Provide functionality to pass aggregation parameters to search endpoints
 * Add multi search functionality to allow multiple queries to be sent in one request
 * Make tours discoverable by the names of their tour stops

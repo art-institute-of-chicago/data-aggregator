@@ -134,27 +134,6 @@ class ArtworkTest extends ApiTestCase
     }
 
     /** @test */
-    public function it_fetches_the_copyright_representatives_for_an_artwork()
-    {
-
-        $copyRepAgentType = $this->make(AgentType::class, ['title' => 'Copyright Representative']);
-        $artworkKey = $this->attach(Agent::class, 2, 'copyrightRepresentatives', ['agent_type_citi_id' => $copyRepAgentType])->make(Artwork::class);
-
-        $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/copyright-representatives');
-        $response->assertSuccessful();
-
-        $copyrightRepresentatives = $response->json()['data'];
-        $this->assertCount(2, $copyrightRepresentatives);
-
-        foreach ($copyrightRepresentatives as $copyrightRepresentative)
-        {
-            $this->assertArrayHasKeys($copyrightRepresentative, ['id', 'title']);
-        }
-
-    }
-
-
-    /** @test */
     public function it_fetches_the_parts_for_an_artwork()
     {
 

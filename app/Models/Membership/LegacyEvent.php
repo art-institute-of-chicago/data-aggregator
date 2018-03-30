@@ -50,7 +50,6 @@ class LegacyEvent extends MembershipModel
         // +"url": "http://www.artic.edu/event/gallery-talk-modern-wing-highlights"
 
         $ret = [
-            'description' => trim($source->body) ?: null,
             'short_description' => trim($source->summary) ?: null,
             'image_url' => trim($source->image) ?: null,
             'start_at' => new Carbon($source->dates ." " .$source->start_time),
@@ -58,6 +57,23 @@ class LegacyEvent extends MembershipModel
             'resource_title' => trim($source->location) ?: null,
             'web_url' => trim($source->url) ?: null,
         ];
+
+        // Clean up the html in description
+        // TODO: Put this into a method on a transformer?
+        if( $source->body )
+        {
+
+            // https://stackoverflow.com/a/3026235/1943591
+            $html = trim($source->body);
+            $html = preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $html);
+            $html = str_replace(" ", " ", $html); // nbsp with sp
+            $html = preg_replace("/\s+<\/p>/i",'</p>', $html);
+            $html = str_replace("<p></p>",'', $html);
+            $html = trim($html);
+
+            $ret['description'] = $html;
+
+        }
 
         // Set flag is_admission_required
         $ret['is_admission_required'] = FALSE;

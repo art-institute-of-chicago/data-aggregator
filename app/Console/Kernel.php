@@ -9,6 +9,15 @@ class Kernel extends ConsoleKernel
 {
 
     /**
+     * Use this to import third-party Artisan commands.
+     *
+     * @var array
+     */
+    protected $commands = [
+        \Aic\Hub\Foundation\Commands\DatabaseReset::class
+    ];
+
+    /**
      * Define the application's command schedule.
      *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
@@ -22,6 +31,13 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-collections.log'))
             ->sendOutputTo(storage_path('logs/import-collections-last-run.log'))
+            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+
+        $schedule->command('import:web --quiet')
+            ->everyFiveMinutes()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/import-web.log'))
+            ->sendOutputTo(storage_path('logs/import-web-last-run.log'))
             ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
 
         $schedule->command('import:daily --quiet')

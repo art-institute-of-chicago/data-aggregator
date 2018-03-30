@@ -30,7 +30,7 @@ class AddExtraLegacyEventFields extends Migration
     public function down()
     {
 
-        Schema::table('events', function (Blueprint $table) {
+        Schema::table('legacy_events', function (Blueprint $table) {
             $table->dropColumn(['button_text',
                                 'button_url',
                                 'web_url']);

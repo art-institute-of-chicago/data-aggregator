@@ -2,19 +2,13 @@
 
 namespace App\Models\Collections;
 
-use App\Models\Fillable;
-use App\Models\Instancable;
-use App\Models\Transformable;
-
-use Illuminate\Database\Eloquent\Relations\Pivot;
+use App\Models\AbstractPivot as BasePivot;
 
 /**
  * A place that an agent is connected with
  */
-class AgentPlace extends Pivot
+class AgentPlace extends BasePivot
 {
-
-    use Fillable, Instancable, Transformable;
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];

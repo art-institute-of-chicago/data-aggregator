@@ -67,4 +67,14 @@ class Hour extends WebModel
 
     }
 
+
+    protected function fillTitleFrom($source)
+    {
+
+        $this->title = $source->id;
+
+        return $this;
+
+    }
+
 }

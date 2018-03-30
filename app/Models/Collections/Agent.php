@@ -7,13 +7,15 @@ use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
 /**
- * Represents a person or organization. In the API, this includes artists, venues, and copyright representatives.
+ * Represents a person or organization. In the API, this includes artists and venues.
  */
 class Agent extends CollectionsModel
 {
 
     use ElasticSearchable;
-    use Documentable;
+    use Documentable {
+        docBoostedDescription as public traitDocBoostedDescription;
+    }
 
     protected $primaryKey = 'citi_id';
     protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
@@ -33,13 +35,6 @@ class Agent extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist');
-
-    }
-
-    public function copyrightedArtworks()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_copyright_representative');
 
     }
 
@@ -90,19 +85,6 @@ class Agent extends CollectionsModel
                 'field' => 'artwork_ids'
             ]
         ];
-
-    }
-
-    /**
-     * Scope a query to only include agents that are copyright representatives for an artwork.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeCopyrightRepresentatives($query)
-    {
-
-        return $query->whereHas('copyrightedArtworks');
 
     }
 
@@ -367,6 +349,20 @@ class Agent extends CollectionsModel
         }
 
         return $fields;
+
+    }
+
+    /**
+     * Generate documentation for boosted endpoints
+     *
+     * @return string
+     */
+    public function docBoostedDescription()
+    {
+
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+
+        return $this->traitDocBoostedDescription() ." This is a subset of the `" .$endpoint ."/` endpoint that represents all the artists included in boosted Artwork, in addition to the top 100 viewed artists on our website in 2017.";
 
     }
 

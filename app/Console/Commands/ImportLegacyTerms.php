@@ -29,13 +29,17 @@ class ImportLegacyTerms extends BaseCommand
         $csv = Reader::createFromPath( $path, 'r' );
         $csv->setHeaderOffset(0);
 
+        $types = [
+            'classification' => 'classifications',
+            'style' => 'style/periods',
+            'subject' => 'subjects'
+        ];
+
         // First, go through all the records and insert new Terms
         foreach( $csv->getRecords() as $row )
         {
 
-            foreach (['classification' => 'classifications',
-                      'style' => 'style/periods',
-                      'subject' => 'subjects'] as $type => $termField)
+            foreach ( $types as $type => $termField)
             {
 
                 $terms = array_map('trim', explode(',', $row[$termField]));
@@ -43,8 +47,10 @@ class ImportLegacyTerms extends BaseCommand
                 foreach ($terms as $t)
                 {
 
-                    Term::firstOrCreate(['type' => $type,
-                                         'title' => $t]);
+                    Term::firstOrCreate([
+                        'type' => $type,
+                        'title' => $t
+                    ]);
 
                 }
 
@@ -58,16 +64,12 @@ class ImportLegacyTerms extends BaseCommand
 
             $artwork = Artwork::where('main_id', $row['main ref'])->first();
 
-            foreach (['classification' => 'classifications',
-                      'style' => 'style/periods',
-                      'subject' => 'subjects'] as $type => $termField)
+            foreach ( $types as $type => $termField)
             {
 
                 $terms = array_map('trim', explode(',', $row[$termField]));
 
-                $terms = Term::where('type', $type)
-                       ->whereIn('title', $terms)
-                       ->get();
+                $terms = Term::where('type', $type)->whereIn('title', $terms)->get();
 
                 foreach ($terms as $ind => $term)
                 {
@@ -75,9 +77,12 @@ class ImportLegacyTerms extends BaseCommand
                     if ($artwork && $term)
                     {
 
-                        $artworkTerm = ArtworkTerm::firstOrCreate(['artwork_citi_id' => $artwork->citi_id,
-                                                                   'term_citi_id' => $term->citi_id],
-                                                                  $ind == 0 ? ['preferred' => true] : []
+                        $artworkTerm = ArtworkTerm::firstOrCreate(
+                            [
+                                'artwork_citi_id' => $artwork->citi_id,
+                                'term_citi_id' => $term->citi_id
+                            ],
+                            $ind == 0 ? ['preferred' => true] : []
                         );
 
                     }

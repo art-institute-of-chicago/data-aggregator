@@ -35,8 +35,6 @@ class CollectionsModel extends BaseModel
 
         }
 
-        $fill['lake_uri'] = $source->lake_uri;
-
         $this->fill($fill);
 
         return $this;
@@ -126,6 +124,21 @@ class CollectionsModel extends BaseModel
         ];
 
         return $ret;
+
+    }
+
+    // Not actually used anywhere, but saving it here for posterity
+    public function getLakeUriAttribute()
+    {
+
+        $lake_id = $this->lake_guid;
+
+        return env('LAKE_URL', 'https://localhost')
+            . '/' . substr($lake_id, 0, 2)
+            . '/' . substr($lake_id, 2, 2)
+            . '/' . substr($lake_id, 4, 2)
+            . '/' .substr($lake_id, 6, 2)
+            . '/' .$lake_id;
 
     }
 

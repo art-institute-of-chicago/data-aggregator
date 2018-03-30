@@ -28,7 +28,6 @@ class AgentsController extends BaseController
     }
 
     // artworks/{id}/artists
-    // artworks/{id}/copyright-representatives
     public function scopeForArtwork(Request $request, $id) {
 
         // Technically, this is a relation, not a scope. Better naming?

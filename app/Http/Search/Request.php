@@ -8,11 +8,12 @@ class Request
 {
 
     /**
-     * The API resource through which search was accessed.
+     * Resource targeted by this search request. Derived from API endpoint, or from `resources` param.
+     * Accepted as comma-separated string, or as array. Converted to array shortly after `__construct()`.
      *
-     * @var string
+     * @var array|string
      */
-    protected $resource = null;
+    protected $resources = null;
 
     /**
      * Identifier, e.g. for `_explain` queries
@@ -106,7 +107,8 @@ class Request
      */
     public function __construct( $resource = null, $id = null )
     {
-        $this->resource = $resource;
+        // TODO: Add $input here too..?
+        $this->resources = $resource;
         $this->id = $id;
     }
 
@@ -121,7 +123,16 @@ class Request
     public function getBaseParams( array $input ) {
 
         // Grab resource target from resource endpoint or `resources` param
-        $resources = $this->resource ?? $input['resources'] ?? null;
+        $resources = $this->resources ?? $input['resources'] ?? null;
+
+        // Ensure that resources is an array, not string
+        if( is_string( $resources ) )
+        {
+            $resources = explode(',', $resources);
+        }
+
+        // Save unfiltered $resources for e.g. getting default fields
+        $this->resources = $resources;
 
         if( is_null( $resources ) )
         {
@@ -129,12 +140,6 @@ class Request
             $indexes = env('ELASTICSEARCH_ALIAS');
 
         } else {
-
-            // Ensure that resources is an array, not string
-            if( !is_array( $resources ) )
-            {
-                $resources = explode(',', $resources);
-            }
 
             // Filter out any resources that have a parent resource requested as well
             // So e.g. if places and galleries are requested, we'll show places only
@@ -442,10 +447,25 @@ class Request
             return $params;
         }
 
-        // Boost anthing with `is_boosted` true
+        // Boost anything with `is_boosted` true
         $params['body']['query']['bool']['should'][] = [
             'term' => [
-                'is_boosted' => true
+                'is_boosted' => [
+                    'value' => true,
+                    'boost' => 1.5,
+                ]
+            ]
+        ];
+
+        // Boost anything that's on view
+        // TODO: Move this to the Artwork model?
+        // TODO: Only do this when artworks are searched?
+        $params['body']['query']['bool']['should'][] = [
+            'term' => [
+                'is_on_view' => [
+                    'value' => true,
+                    'boost' => 1.25,
+                ]
             ]
         ];
 
@@ -498,9 +518,12 @@ class Request
 
 
     /**
-     * Append the query params for a simple search
+     * Append the query params for a simple search. Assumes that `$input['q']` is not null.
+     *
+     * @TODO Determine which fields to query w/ is_numeric()? See also `lenient` param.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/common-options.html#fuzziness
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.htm
      *
      * @param $params array
      * @param $input array
@@ -509,20 +532,48 @@ class Request
      */
     private function addSimpleSearchParams( array $params, array $input ) {
 
-        // TODO: Determine if defaults for `fuzziness` and `prefix_length` are sufficient
-        // https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.htm
+        // Only pull default fields for the resources targeted by this request
+        $fields = app('Search')->getDefaultFieldsForEndpoints( $this->resources );
 
-        // TODO: Determine which fields to query w/ is_numeric()?
-        // See also `lenient` param
-
+        // Pull all docs that match fuzzily into the results
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
-                'query' => array_get( $input, 'q' ),
+                'query' => $input['q'],
                 'fuzziness' => 'AUTO',
                 'prefix_length' => 1,
-                'fields' => app('Search')->getDefaultFields()
+                'fields' => $fields,
             ]
         ];
+
+        // Queries below depend on `q`, but act as relevany tweaks
+        // Don't tweak relevancy further if sort is passed
+        if( isset( $input['sort'] ) )
+        {
+            return $params;
+        }
+
+        // This acts as a boost for docs that match precisely
+        $params['body']['query']['bool']['should'][] = [
+            'multi_match' => [
+                'query' => $input['q'],
+                'fields' => $fields,
+            ]
+        ];
+
+        // This boosts docs that have multiple terms in close proximity
+        // `phrase` queries are relatively expensive, so check for spaces first
+        // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
+        if( strpos( $input['q'], ' ' ) )
+        {
+            $params['body']['query']['bool']['should'][] = [
+                'multi_match' => [
+                    'query' => $input['q'],
+                    'type' => 'phrase',
+                    'slop' => 3, // account for e.g. middle names
+                    'fields' => $fields,
+                ]
+            ];
+        }
 
         return $params;
 

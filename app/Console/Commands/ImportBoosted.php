@@ -204,7 +204,7 @@ class ImportBoosted extends AbstractImportCommand
 
         // Query for the first page + get page count
         $response = $this->query($endpoint, $current);
-        $pages = $response->pagination->pages->total;
+        $pages = $response->pagination->total_pages;
 
         while ($current <= $pages)
         {
@@ -245,7 +245,7 @@ class ImportBoosted extends AbstractImportCommand
 
             $urls = array_map( function( $ids ) use ($type) {
 
-                return env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost')
+                return env('COLLECTIONS_DATA_SERVICE_URL')
                     . '/' . $type
                     . '?per_page=' . count( $ids )
                     . '&ids=' . implode(',', $ids);

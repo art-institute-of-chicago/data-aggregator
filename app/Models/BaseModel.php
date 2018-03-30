@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 class BaseModel extends AbstractModel
 {
 
-    use Transformable, Fillable, Instancable;
+    use Transformable, Fillable, Instancable, Fakeable;
 
 
     /**
@@ -45,38 +45,6 @@ class BaseModel extends AbstractModel
 
 
     /**
-     * The smallest number that fake IDs start at for this model
-     *
-     * @var integer
-     */
-    protected $fakeIdsStartAt = 999000;
-
-
-    /**
-     * Scope a query to only include fake records.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeFake($query)
-    {
-        if ($this->getKeyType() == 'int')
-        {
-
-            return $query->where($this->getKeyName(), '>=', $this->fakeIdsStartAt);
-
-        }
-        else
-        {
-
-            return $query->where($this->getKeyName(), 'like', '99999999-9999-9999-9999-%');
-
-        }
-
-    }
-
-
-    /**
      * Find the record matching the given id or create it.
      *
      * @TODO Remove this in favor of Laravel's built-in findOrCreate.
@@ -89,19 +57,6 @@ class BaseModel extends AbstractModel
 
         $model = static::find($id);
         return $model ?: static::create([static::instance()->getKeyName() => $id]);
-
-    }
-
-
-    /**
-     * The smallest number that fake IDs start at for this model
-     *
-     * @return integer
-     */
-    public static function fakeIdsStartAt()
-    {
-
-        return $this->instance()->fakeIdsStartAt;
 
     }
 
@@ -193,7 +148,7 @@ class BaseModel extends AbstractModel
                 'elasticsearch' => [
                     'type' => 'text',
                     'default' => true,
-                    'boost' => 2,
+                    'boost' => 1.5,
                 ],
                 'value' => function() { return $this->title; },
             ]
@@ -228,6 +183,13 @@ class BaseModel extends AbstractModel
     {
 
         return false;
+
+    }
+
+    public static function source()
+    {
+
+        return static::$source;
 
     }
 

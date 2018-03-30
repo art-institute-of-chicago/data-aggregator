@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use DB;
 
-class ImportLibrary extends AbstractImportCommand
+use App\Models\Library\Material;
+use App\Models\Library\Term;
+
+class ImportLibrary extends AbstractImportCommandNew
 {
 
     protected $signature = 'import:library
@@ -16,6 +18,8 @@ class ImportLibrary extends AbstractImportCommand
 
     public function handle()
     {
+
+        $this->api = env('LIBRARY_DATA_SERVICE_URL');
 
         // Return false if the user bails out
         if (!$this->option('yes') && !$this->confirm("Running this will delete all existing library data from your database! Are you sure?"))
@@ -37,61 +41,13 @@ class ImportLibrary extends AbstractImportCommand
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
-        $this->import(\App\Models\Library\Material::class, 'materials', 1);
+        $this->import( Material::class, 'materials' );
 
         $this->info("Imported all library materials from data service!");
 
-        $this->import(\App\Models\Library\Term::class, 'terms', 1);
+        $this->import( Term::class, 'terms');
 
         $this->info("Imported all library terms from data service!");
-
-    }
-
-
-    private function import($model, $endpoint, $current = 1)
-    {
-
-        // Abort if the table is already filled
-        if( $model::count() > 0 )
-        {
-            return false;
-        }
-
-        // Query for the first page + get page count
-        $json = $this->queryService($endpoint, $current);
-
-        $pages = $json->pagination->total_pages;
-
-        while ($current <= $pages)
-        {
-
-            foreach ($json->data as $source)
-            {
-                $this->saveDatum( $source, $model );
-            }
-
-            $current++;
-
-            $json = $this->queryService($endpoint, $current);
-
-        }
-
-    }
-
-    private function queryService($endpoint, $page = 1, $limit = 1000)
-    {
-
-        $url = env('LIBRARY_DATA_SERVICE_URL', 'http://localhost') . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit;
-
-        $this->info( 'Querying: ' . $url );
-
-        $result = $this->query( $url );
-
-        if( is_null( $result ) ) {
-            throw new \Exception("Cannot contact data service: " . $url);
-        }
-
-        return $result;
 
     }
 
