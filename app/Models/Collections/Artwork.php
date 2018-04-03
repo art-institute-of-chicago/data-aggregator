@@ -958,7 +958,8 @@ class Artwork extends CollectionsModel
                 // Previously defined in StaticArchive/Site
                 "elasticsearch" => [
                     "default" => true,
-                    "boost" => 1.05
+                    // This is controllable via .env so we can tweak it without pushing to prod
+                    "boost" => (float) ( env('SEARCH_BOOST_ARTIST_TITLES') ?: 2 ),
                 ],
                 "value" => function() { return $this->artists->pluck('title')->all(); },
             ],
