@@ -60,8 +60,8 @@ class ImportSetUlanUris extends AbstractImportCommandNew
         return $this->fetch( env('ULAN_DATA_SERVICE_URL')
                              .'?q=' .urlencode($agent->title)
                              .($birth_date ? '&by=' .$birth_date : '')
-                             .($death_date ? '&dy=' .$death_date : '')
-        );
+                             .($death_date ? '&dy=' .$death_date : ''),
+        true);
 
     }
 
