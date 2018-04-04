@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Shop\Product;
-
-class ImportProducts extends AbstractImportCommandNew
+class ImportProducts extends ImportProductsFull
 {
 
     protected $signature = 'import:products';
@@ -18,7 +16,7 @@ class ImportProducts extends AbstractImportCommandNew
 
         $this->api = env('SHOP_DATA_SERVICE_URL');
 
-        $this->import( Product::class, 'products' );
+        $this->importResources();
 
     }
 

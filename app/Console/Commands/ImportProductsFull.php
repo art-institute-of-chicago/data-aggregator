@@ -23,8 +23,7 @@ class ImportProductsFull extends AbstractImportCommandNew
             return false;
         }
 
-        $this->import( Product::class, 'products' );
-        $this->import( Category::class, 'categories' );
+        $this->importResources();
 
     }
 
@@ -41,6 +40,14 @@ class ImportProductsFull extends AbstractImportCommandNew
                 'shop_categories',
             ]
         );
+
+    }
+
+    protected function importResources()
+    {
+
+        $this->import( Product::class, 'products' );
+        $this->import( Category::class, 'categories' );
 
     }
 
