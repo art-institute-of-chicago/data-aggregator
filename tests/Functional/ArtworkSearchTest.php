@@ -62,7 +62,7 @@ class ArtworkSearchTest extends TestCase
             ['georges seurat', 27992],
             ['hopper', 111628],
             ['edward hopper', 111628],
-            ['rodin', [11320]],
+            ['rodin', 11320],
             ['grant wood', 6565],
             ['pollock', 83642],
             ['jackson pollock', 83642],
