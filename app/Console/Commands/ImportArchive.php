@@ -30,7 +30,14 @@ class ImportArchive extends AbstractImportCommandNew
     protected function reset()
     {
 
-        return $this->resetData( ArchiveImage::class, 'archival_images' );
+        return $this->resetData(
+            [
+                // ArchiveImage::class,
+            ],
+            [
+                'archival_images'
+            ]
+        );
 
     }
 
