@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Membership\TicketedEvent;
 
-class ImportTicketedEvents extends AbstractImportCommandNew
+class ImportTicketedEvents extends ImportTicketedEventsFull
 {
 
     protected $signature = 'import:events-ticketed';
@@ -21,19 +21,6 @@ class ImportTicketedEvents extends AbstractImportCommandNew
         $this->api = env('EVENTS_DATA_SERVICE_URL');
 
         $this->import( TicketedEvent::class, 'events' );
-
-        $this->info("Ran out of events to import!");
-
-    }
-
-
-    protected function save( $datum, $model )
-    {
-
-        // TODO: Determine if this is still necessary
-        $datum->source = 'galaxy';
-
-        return parent::save( $datum, $model );
 
     }
 
