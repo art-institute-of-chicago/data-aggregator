@@ -2,6 +2,8 @@
 
 namespace App\Behaviors;
 
+use Illuminate\Support\Facades\DB;
+
 use Carbon\Carbon;
 
 trait ImportsData
@@ -196,6 +198,68 @@ trait ImportsData
             $json = $this->query( $endpoint, $current );
 
         }
+
+    }
+
+    /**
+     * Helper for resetting relevant database tables and search indexes.
+     *
+     * @param array|string $modelsToFlush
+     * @param array|string $tablesToClear
+     *
+     * @return boolean
+     */
+    protected function reset( $modelsToFlush, $tablesToClear )
+    {
+
+        // Return false if the user bails out
+        if ( !$this->confirmReset() )
+        {
+            return false;
+        }
+
+        // Ensure the arguments are arrays
+        $modelsToFlush = is_array( $modelsToFlush ) ? $modelsToFlush : [ $modelsToFlush ];
+        $tablesToClear = is_array( $tablesToClear ) ? $tablesToClear : [ $tablesToClear ];
+
+        // TODO: If we dump the indexes + recreate them, we don't need to flush
+        foreach( $modelsToFlush as $model )
+        {
+            $this->call("scout:flush", ['model' => $model]);
+            $this->info("Flushed from search index: `{$model}`");
+        }
+
+        // TODO: We'd like to affect related models – consider doing an Eloquent delete instead
+        // It's much slower, but it'll ensure better data integrity
+        foreach( $tablesToClear as $table )
+        {
+            DB::table($table)->truncate();
+            $this->info("Truncated `{$table}` table.");
+        }
+
+        // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
+        $this->info("Please manually ensure that your search index mappings are up-to-date.");
+        // $this->call("search:uninstall");
+        // $this->call("search:install");
+
+        return true;
+
+    }
+
+    /**
+     * Helper method for asking the user to confirm a full import.
+     *
+     * @return boolean
+     */
+    protected function confirmReset()
+    {
+
+        return (
+            !$this->hasOption('yes') || $this->option('yes')
+        ) || (
+            // TODO: Make this less generic?
+            $this->confirm("Running this will fully overwrite some tables in your database! Are you sure?")
+        );
 
     }
 
