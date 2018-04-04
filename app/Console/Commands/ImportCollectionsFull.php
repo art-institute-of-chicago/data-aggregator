@@ -18,8 +18,6 @@ class ImportCollectionsFull extends AbstractImportCommandNew
     public function handle()
     {
 
-        ini_set("memory_limit", "-1");
-
         $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
 
         $endpoint = $this->argument('endpoint');

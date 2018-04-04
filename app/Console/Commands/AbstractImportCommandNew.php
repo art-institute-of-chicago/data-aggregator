@@ -37,6 +37,9 @@ abstract class AbstractImportCommandNew extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
+        // Not an ideal solution, but some models are really heavy
+        ini_set("memory_limit", "-1");
+
         $this->command = \App\Command::firstOrNew(['command' => $this->getName()]);
         $this->command->last_attempt_at = Carbon::now();
         $this->command->save();

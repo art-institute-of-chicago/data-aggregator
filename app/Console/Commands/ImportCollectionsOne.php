@@ -15,8 +15,6 @@ class ImportCollectionsOne extends ImportCollectionsFull
     public function handle()
     {
 
-        ini_set("memory_limit", "-1");
-
         $endpoint = $this->argument('endpoint');
         $id = $this->argument('id');
 
