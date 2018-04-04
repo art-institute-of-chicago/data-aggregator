@@ -34,16 +34,7 @@ class ImportWebFull extends AbstractImportCommandNew
             return false;
         }
 
-        $this->import(Article::class, 'articles');
-        $this->import(Artist::class, 'artists');
-        $this->import(Closure::class, 'closures');
-        $this->import(Event::class, 'events');
-        $this->import(Exhibition::class, 'exhibitions');
-        $this->import(Hour::class, 'hours');
-        $this->import(Location::class, 'locations');
-        //$this->import(Page::class, 'pages');
-        $this->import(Selection::class, 'selections');
-        $this->import(Tag::class, 'tags');
+        $this->importEndpoints();
 
         $this->info("Imported all web CMS content!");
 
@@ -89,6 +80,22 @@ class ImportWebFull extends AbstractImportCommandNew
                 'tags',
             ]
         );
+
+    }
+
+    protected function importEndpoints()
+    {
+
+        $this->import(Article::class, 'articles');
+        $this->import(Artist::class, 'artists');
+        $this->import(Closure::class, 'closures');
+        $this->import(Event::class, 'events');
+        $this->import(Exhibition::class, 'exhibitions');
+        $this->import(Hour::class, 'hours');
+        $this->import(Location::class, 'locations');
+        //$this->import(Page::class, 'pages');
+        $this->import(Selection::class, 'selections');
+        $this->import(Tag::class, 'tags');
 
     }
 
