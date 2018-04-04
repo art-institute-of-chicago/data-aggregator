@@ -25,12 +25,7 @@ class ImportLibrary extends AbstractImportCommandNew
         }
 
         $this->import( Material::class, 'materials' );
-
-        $this->info("Imported all library materials from data service!");
-
         $this->import( Term::class, 'terms');
-
-        $this->info("Imported all library terms from data service!");
 
     }
 

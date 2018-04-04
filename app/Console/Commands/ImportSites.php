@@ -35,7 +35,6 @@ class ImportSites extends AbstractImportCommandNew
 
     }
 
-
     private function importSites( $results )
     {
 

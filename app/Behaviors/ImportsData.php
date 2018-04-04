@@ -153,6 +153,17 @@ trait ImportsData
             return false;
         }
 
+        if( $this->isPartial )
+        {
+
+            // For debugging...
+            // $this->command->last_success_at = $this->command->last_success_at->subDays(10);
+
+            $this->info("Looking for resources since " . $this->command->last_success_at);
+
+        }
+
+
         // Query for the first page + get page count
         $json = $this->query( $endpoint, $current );
 
@@ -223,6 +234,7 @@ trait ImportsData
         $tablesToClear = is_array( $tablesToClear ) ? $tablesToClear : [ $tablesToClear ];
 
         // TODO: If we dump the indexes + recreate them, we don't need to flush
+        // Flush might not remove models that are present in the index, but not the database
         foreach( $modelsToFlush as $model )
         {
             $this->call("scout:flush", ['model' => $model]);

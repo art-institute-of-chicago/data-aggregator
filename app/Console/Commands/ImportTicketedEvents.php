@@ -20,11 +20,6 @@ class ImportTicketedEvents extends AbstractImportCommandNew
 
         $this->api = env('EVENTS_DATA_SERVICE_URL');
 
-        // For debugging...
-        // $this->command->last_success_at = $this->command->last_success_at->subDays(10);
-
-        $this->info("Looking for events since " . $this->command->last_success_at);
-
         $this->import( TicketedEvent::class, 'events' );
 
         $this->info("Ran out of events to import!");

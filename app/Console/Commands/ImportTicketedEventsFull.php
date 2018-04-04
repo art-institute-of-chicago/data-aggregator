@@ -27,6 +27,12 @@ class ImportTicketedEventsFull extends AbstractImportCommandNew
 
     }
 
+    protected function reset()
+    {
+
+        return $this->resetData( TicketedEvent::class, 'ticketed_events' );
+
+    }
 
     protected function save( $datum, $model )
     {
@@ -35,13 +41,6 @@ class ImportTicketedEventsFull extends AbstractImportCommandNew
         $datum->source = 'galaxy';
 
         return parent::save( $datum, $model );
-
-    }
-
-    protected function reset()
-    {
-
-        return $this->resetData( TicketedEvent::class, 'ticketed_events' );
 
     }
 

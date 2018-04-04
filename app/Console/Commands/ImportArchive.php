@@ -25,8 +25,6 @@ class ImportArchive extends AbstractImportCommandNew
 
         $this->import( ArchiveImage::class, 'archival-images' );
 
-        $this->info("Imported all archive images from data service!");
-
     }
 
     protected function reset()

@@ -27,8 +27,6 @@ class ImportCatalogues extends AbstractImportCommandNew
         $this->import(Publication::class, 'publications');
         $this->import(Section::class, 'sections');
 
-        $this->info("Imported all Publications and Sections from data service!");
-
     }
 
     protected function reset()

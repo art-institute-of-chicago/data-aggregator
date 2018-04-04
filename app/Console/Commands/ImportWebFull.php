@@ -2,8 +2,6 @@
 
 namespace App\Console\Commands;
 
-use DB;
-
 use App\Models\Web\Article;
 use App\Models\Web\Artist;
 use App\Models\Web\Closure;
@@ -38,17 +36,6 @@ class ImportWebFull extends AbstractImportCommandNew
 
         $this->info("Imported all web CMS content!");
 
-    }
-
-    protected function query( $endpoint, $page = 1, $limit = 100 )
-    {
-
-        if (env('WEB_CMS_DATA_SERVICE_USERNAME'))
-        {
-            $this->auth = env('WEB_CMS_DATA_SERVICE_USERNAME') . ':' . env('WEB_CMS_DATA_SERVICE_PASSWORD');
-        }
-
-        return parent::query( $endpoint, $page, $limit );
     }
 
     protected function reset()
@@ -97,6 +84,17 @@ class ImportWebFull extends AbstractImportCommandNew
         $this->import(Selection::class, 'selections');
         $this->import(Tag::class, 'tags');
 
+    }
+
+    protected function query( $endpoint, $page = 1, $limit = 100 )
+    {
+
+        if (env('WEB_CMS_DATA_SERVICE_USERNAME'))
+        {
+            $this->auth = env('WEB_CMS_DATA_SERVICE_USERNAME') . ':' . env('WEB_CMS_DATA_SERVICE_PASSWORD');
+        }
+
+        return parent::query( $endpoint, $page, $limit );
     }
 
 }
