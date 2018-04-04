@@ -11,7 +11,7 @@ class CreateCategoryTermsView extends Migration
      *
      * @return void
      */
-    public function up( $isNew = true, $withLakeUri = true )
+    public function up( $isNew = true, $withLakeUri = true, $withTermTypeId = false )
     {
 
         if( !$isNew )
@@ -20,6 +20,7 @@ class CreateCategoryTermsView extends Migration
         }
 
         $lake_uri_line = $withLakeUri ? 'lake_uri,' : '';
+        $term_type_id_line = $withTermTypeId ? 'term_type_id,' : 'type,';
 
         \DB::connection()->getPdo()->exec("
           CREATE VIEW `category_terms` AS
@@ -28,7 +29,7 @@ class CreateCategoryTermsView extends Migration
                lake_guid,
                title,
                {$lake_uri_line}
-               term_type_id,
+               {$term_type_id_line}
                source_created_at,
                source_modified_at,
                source_indexed_at,
