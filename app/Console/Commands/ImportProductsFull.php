@@ -15,20 +15,34 @@ class ImportProductsFull extends AbstractImportCommandNew
 
     protected $description = "Import all product data";
 
-    protected $tablesToTruncate = [
-        'products',
-        'shop_categories',
-    ];
-
-    protected $modelsToFlush = [
-        Product::class,
-        Category::class,
-    ];
-
     public function handle()
     {
 
         $this->api = env('SHOP_DATA_SERVICE_URL');
+
+        $hasReset = $this->reset(
+            [
+                Product::class,
+                Category::class,
+            ],
+            [
+                'products',
+                'shop_categories',
+            ]
+        );
+
+        if( !$hasReset )
+        {
+            return false;
+        }
+
+        $this->import( Product::class, 'products' );
+        $this->import( Category::class, 'categories' );
+
+    }
+
+    protected function reset( $modelsToFlush, $tablesToClear )
+    {
 
         // Return false if the user bails out
         if ( !$this->confirmReset() )
@@ -36,7 +50,12 @@ class ImportProductsFull extends AbstractImportCommandNew
             return false;
         }
 
-        foreach( $this->modelsToFlush as $model )
+        // Ensure the arguments are arrays
+        $modelsToFlush = is_array( $modelsToFlush ) ? $modelsToFlush : [ $modelsToFlush ];
+        $tablesToClear = is_array( $tablesToClear ) ? $tablesToClear : [ $tablesToClear ];
+
+        // TODO: If we dump the indexes + recreate them, we don't need to flush
+        foreach( $modelsToFlush as $model )
         {
             $this->call("scout:flush", ['model' => $model]);
             $this->info("Flushed from search index: `{$model}`");
@@ -44,20 +63,18 @@ class ImportProductsFull extends AbstractImportCommandNew
 
         // TODO: We'd like to affect related models – consider doing an Eloquent delete instead
         // It's much slower, but it'll ensure better data integrity
-        foreach( $this->tablesToTruncate as $table )
+        foreach( $tablesToClear as $table )
         {
             DB::table($table)->truncate();
             $this->info("Truncated `{$table}` table.");
         }
-
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
         $this->info("Please manually ensure that your search index mappings are up-to-date.");
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
-        $this->import( Product::class, 'products' );
-        $this->import( Category::class, 'categories' );
+        return true;
 
     }
 
