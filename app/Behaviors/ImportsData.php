@@ -209,7 +209,7 @@ trait ImportsData
      *
      * @return boolean
      */
-    protected function reset( $modelsToFlush, $tablesToClear )
+    protected function resetData( $modelsToFlush, $tablesToClear )
     {
 
         // Return false if the user bails out

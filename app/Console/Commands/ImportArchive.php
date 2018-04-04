@@ -18,9 +18,7 @@ class ImportArchive extends AbstractImportCommandNew
 
         $this->api = env('ARCHIVES_DATA_SERVICE_URL');
 
-        $hasReset = $this->reset( ArchiveImage::class, 'archival_images' );
-
-        if( !$hasReset )
+        if( !$this->reset() )
         {
             return false;
         }
@@ -28,6 +26,13 @@ class ImportArchive extends AbstractImportCommandNew
         $this->import( ArchiveImage::class, 'archival-images' );
 
         $this->info("Imported all archive images from data service!");
+
+    }
+
+    protected function reset()
+    {
+
+        return $this->resetData( ArchiveImage::class, 'archival_images' );
 
     }
 

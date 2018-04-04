@@ -19,18 +19,7 @@ class ImportLibrary extends AbstractImportCommandNew
 
         $this->api = env('LIBRARY_DATA_SERVICE_URL');
 
-        $hasReset = $this->reset(
-            [
-                // Material::class,
-                // Term::class,
-            ],
-            [
-                'library_materials',
-                'library_terms',
-            ]
-        );
-
-        if( !$hasReset )
+        if( !$this->reset() )
         {
             return false;
         }
@@ -42,6 +31,22 @@ class ImportLibrary extends AbstractImportCommandNew
         $this->import( Term::class, 'terms');
 
         $this->info("Imported all library terms from data service!");
+
+    }
+
+    protected function reset()
+    {
+
+        return $this->resetData(
+            [
+                // Material::class,
+                // Term::class,
+            ],
+            [
+                'library_materials',
+                'library_terms',
+            ]
+        );
 
     }
 

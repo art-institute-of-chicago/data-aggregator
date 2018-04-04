@@ -19,7 +19,22 @@ class ImportCatalogues extends AbstractImportCommandNew
 
         $this->api = env('DSC_DATA_SERVICE_URL');
 
-        $hasReset = $this->reset(
+        if( !$this->reset() )
+        {
+            return false;
+        }
+
+        $this->import(Publication::class, 'publications');
+        $this->import(Section::class, 'sections');
+
+        $this->info("Imported all Publications and Sections from data service!");
+
+    }
+
+    protected function reset()
+    {
+
+        return $this->resetData(
             [
                 Publication::class,
                 Section::class,
@@ -29,16 +44,6 @@ class ImportCatalogues extends AbstractImportCommandNew
                 'publications',
             ]
         );
-
-        if( !$hasReset )
-        {
-            return false;
-        }
-
-        $this->import(Publication::class, 'publications');
-        $this->import(Section::class, 'sections');
-
-        $this->info("Imported all Publications and Sections from data service!");
 
     }
 

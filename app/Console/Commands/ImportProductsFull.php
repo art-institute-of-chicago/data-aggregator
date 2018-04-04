@@ -18,7 +18,20 @@ class ImportProductsFull extends AbstractImportCommandNew
 
         $this->api = env('SHOP_DATA_SERVICE_URL');
 
-        $hasReset = $this->reset(
+        if( !$this->reset() )
+        {
+            return false;
+        }
+
+        $this->import( Product::class, 'products' );
+        $this->import( Category::class, 'categories' );
+
+    }
+
+    protected function reset()
+    {
+
+        return $this->resetData(
             [
                 Product::class,
                 Category::class,
@@ -28,14 +41,6 @@ class ImportProductsFull extends AbstractImportCommandNew
                 'shop_categories',
             ]
         );
-
-        if( !$hasReset )
-        {
-            return false;
-        }
-
-        $this->import( Product::class, 'products' );
-        $this->import( Category::class, 'categories' );
 
     }
 

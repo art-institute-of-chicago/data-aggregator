@@ -18,19 +18,7 @@ class ImportSites extends AbstractImportCommandNew
     public function handle()
     {
 
-        $hasReset = $this->reset(
-            [
-                Site::class,
-            ],
-            [
-                'artwork_site',
-                'agent_site',
-                'exhibition_site',
-                'sites',
-            ]
-        );
-
-        if( !$hasReset )
+        if( !$this->reset() )
         {
             return false;
         }
@@ -55,10 +43,25 @@ class ImportSites extends AbstractImportCommandNew
 
         foreach( $results as $datum )
         {
-
             $this->save( $datum, Site::class );
-
         }
+
+    }
+
+    protected function reset()
+    {
+
+        return $this->resetData(
+            [
+                Site::class,
+            ],
+            [
+                'artwork_site',
+                'agent_site',
+                'exhibition_site',
+                'sites',
+            ]
+        );
 
     }
 
