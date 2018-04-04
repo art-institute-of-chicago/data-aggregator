@@ -18,7 +18,7 @@ class ArtworkSearchTest extends TestCase
         $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') .'/artworks/search?q=' .urlencode($query));
 
         $resource = json_decode($response)->data[0];
-        $this->assertEquals($resource->id, $expectedFirstId);
+        $this->assertEquals($expectedFirstId, $resource->id);
 
     }
 
