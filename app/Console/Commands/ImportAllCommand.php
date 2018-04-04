@@ -30,7 +30,7 @@ class ImportAllCommand extends BaseCommand
         // TODO: Are we ready to remove this?
         // $this->call('import:terms-legacy');
         $this->call('import:products-full', ['--yes' => 'default']);
-
+        $this->call('import:images');
 
     }
 
