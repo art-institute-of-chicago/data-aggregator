@@ -27,7 +27,8 @@ class ImportAllCommand extends BaseCommand
         $this->call('import:archive', ['--yes' => 'default']);
         $this->call('import:sites', ['--yes' => 'default']);
         $this->call('import:set-ulan-uris');
-        $this->call('import:terms-legacy');
+        // TODO: Are we ready to remove this?
+        // $this->call('import:terms-legacy');
         $this->call('import:products-full', ['--yes' => 'default']);
 
 
