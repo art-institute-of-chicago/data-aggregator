@@ -2,8 +2,6 @@
 
 namespace App\Console\Commands;
 
-use DB;
-
 use App\Models\Library\Material;
 use App\Models\Library\Term;
 
@@ -21,25 +19,21 @@ class ImportLibrary extends AbstractImportCommandNew
 
         $this->api = env('LIBRARY_DATA_SERVICE_URL');
 
-        // Return false if the user bails out
-        if (!$this->option('yes') && !$this->confirm("Running this will delete all existing library data from your database! Are you sure?"))
+        $hasReset = $this->reset(
+            [
+                // Material::class,
+                // Term::class,
+            ],
+            [
+                'library_materials',
+                'library_terms',
+            ]
+        );
+
+        if( !$hasReset )
         {
             return false;
         }
-
-        // Remove all library materials from the search index
-        // $this->call("scout:flush", ['model' => \App\Models\Library\Material::class]);
-
-        // Truncate tables
-        DB::table('library_materials')->truncate();
-        DB::table('library_terms')->truncate();
-
-        $this->info("Truncated library tables.");
-
-        // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
-        $this->info("Please manually ensure that your search index mappings are up-to-date.");
-        // $this->call("search:uninstall");
-        // $this->call("search:install");
 
         $this->import( Material::class, 'materials' );
 
