@@ -15,6 +15,15 @@ class ImportProductsFull extends AbstractImportCommandNew
 
     protected $description = "Import all product data";
 
+    protected $tablesToTruncate = [
+        'products',
+        'shop_categories',
+    ];
+
+    protected $modelsToFlush = [
+        Product::class,
+        Category::class,
+    ];
 
     public function handle()
     {
@@ -22,19 +31,25 @@ class ImportProductsFull extends AbstractImportCommandNew
         $this->api = env('SHOP_DATA_SERVICE_URL');
 
         // Return false if the user bails out
-        if (!$this->option('yes') && !$this->confirm("Running this will delete all existing products from your database! Are you sure?"))
+        if ( !$this->confirmReset() )
         {
             return false;
         }
 
-        // Remove all events from the search index
-        $this->call("scout:flush", ['model' => Product::class]);
+        foreach( $this->modelsToFlush as $model )
+        {
+            $this->call("scout:flush", ['model' => $model]);
+            $this->info("Flushed from search index: `{$model}`");
+        }
 
-        // Truncate tables
-        DB::table('products')->truncate();
-        DB::table('shop_categories')->truncate();
+        // TODO: We'd like to affect related models – consider doing an Eloquent delete instead
+        // It's much slower, but it'll ensure better data integrity
+        foreach( $this->tablesToTruncate as $table )
+        {
+            DB::table($table)->truncate();
+            $this->info("Truncated `{$table}` table.");
+        }
 
-        $this->info("Truncated product table.");
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
         $this->info("Please manually ensure that your search index mappings are up-to-date.");
@@ -44,8 +59,17 @@ class ImportProductsFull extends AbstractImportCommandNew
         $this->import( Product::class, 'products' );
         $this->import( Category::class, 'categories' );
 
-        $this->info("Imported all products from data service!");
-
     }
 
+    protected function confirmReset()
+    {
+
+        return (
+            !$this->hasOption('yes') || $this->option('yes')
+        ) || (
+            // TODO: Make this less generic?
+            $this->confirm("Running this will fully overwrite some tables in your database! Are you sure?")
+        );
+
+    }
 }
