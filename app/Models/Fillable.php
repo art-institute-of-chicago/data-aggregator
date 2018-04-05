@@ -79,6 +79,9 @@ trait Fillable
     protected function fillFieldsFrom($source)
     {
 
+        // Make a copy of $source to avoid unsetting fields on the original
+        $source = clone $source;
+
         // Ignore `id`, `title`, `created_at`, `modified_at`, `citi_created_at` and `citi_modified_at`
         foreach( ['id', 'title', 'created_at', 'modified_at', 'citi_created_at', 'citi_modified_at'] as $field )
         {

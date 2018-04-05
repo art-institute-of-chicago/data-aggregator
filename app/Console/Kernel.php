@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use Illuminate\Support\Facades\App;
+
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -26,6 +28,26 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
+        $schedule->command('import:daily --quiet')
+            ->dailyAt('23:00')
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/import-daily.log'))
+            ->sendOutputTo(storage_path('logs/import-daily-last-run.log'))
+            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+
+        $schedule->command('import:monthly --quiet')
+            ->monthlyOn(1, '03:00')
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/import-monthly.log'))
+            ->sendOutputTo(storage_path('logs/import-monthly-last-run.log'))
+            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+
+        // Non-prod envs don't need 5-min imports
+        if (!App::environment('production'))
+        {
+            return;
+        }
+
         $schedule->command('import:collections --quiet')
             ->everyFiveMinutes()
             ->withoutOverlapping()
@@ -38,13 +60,6 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-web.log'))
             ->sendOutputTo(storage_path('logs/import-web-last-run.log'))
-            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
-
-        $schedule->command('import:daily --quiet')
-            ->dailyAt('23:00')
-            ->withoutOverlapping()
-            ->appendOutputTo(storage_path('logs/import-daily.log'))
-            ->sendOutputTo(storage_path('logs/import-daily-last-run.log'))
             ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
 
     }

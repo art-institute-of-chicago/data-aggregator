@@ -40,9 +40,18 @@ abstract class AbstractImportCommandNew extends BaseCommand
         // Not an ideal solution, but some models are really heavy
         ini_set("memory_limit", "-1");
 
-        $this->command = \App\Command::firstOrNew(['command' => $this->getName()]);
+        $name = $this->getName();
+
+        // Make `-full` commands share last-update time w/ their partial versions
+        $name = ends_with( $name, '-full' ) ? substr( $name, 0, -5 ) : $name;
+
+        // TODO: Track import success on a per-resource basis, rather than per-command?
+        $this->command = \App\Command::firstOrNew(['command' => $name]);
         $this->command->last_attempt_at = Carbon::now();
         $this->command->save();
+
+        // For debugging...
+        // $this->command->last_success_at = $this->command->last_success_at->subDays(3);
 
         // Call Illuminate\Console\Command::execute
         $result = parent::execute( $input, $output );

@@ -170,9 +170,6 @@ trait ImportsData
         if( $this->isPartial )
         {
 
-            // For debugging...
-            // $this->command->last_success_at = $this->command->last_success_at->subDays(10);
-
             $this->info("Looking for resources since " . $this->command->last_success_at);
 
         }
@@ -201,7 +198,7 @@ trait ImportsData
 
                 // TODO: Careful, this conflicts w/ partial imports – running on one endpoint counts for all!
                 // Break if this is a partial import + this datum is older than last run
-                if( $this->isPartial )
+                if( $this->isPartial && isset( $datum->modified_at ) )
                 {
 
                     $sourceTime = new Carbon( $datum->modified_at );
@@ -216,10 +213,12 @@ trait ImportsData
 
                 // Be sure to overwrite `save` to make this work!
                 $this->save( $datum, $model );
+
             }
 
             $current++;
 
+            // TODO: This structure causes an extra query to be run, when it might not need to be
             $json = $this->query( $endpoint, $current );
 
         }
