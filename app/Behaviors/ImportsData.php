@@ -198,7 +198,7 @@ trait ImportsData
 
                 // TODO: Careful, this conflicts w/ partial imports – running on one endpoint counts for all!
                 // Break if this is a partial import + this datum is older than last run
-                if( $this->isPartial )
+                if( $this->isPartial && isset( $datum->modified_at ) )
                 {
 
                     $sourceTime = new Carbon( $datum->modified_at );
