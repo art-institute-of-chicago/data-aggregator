@@ -34,9 +34,6 @@ class ImportCollectionsFull extends AbstractImportCommandNew
 
         }
 
-        // TODO: Set last-success date on import:collections here
-        // TODO: Track imports on a per-resource basis?
-
     }
 
     protected function importEndpoints()
