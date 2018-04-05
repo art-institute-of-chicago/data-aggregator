@@ -501,38 +501,29 @@ class Artwork extends CollectionsModel
         }
 
         // @TODO The following are available for syncing:
-        // $source->artwork_agent_ids (add ArtworkAgent, ArtworkAgentRole)
-        // $source->artwork_place_ids (add ArtworkPlace, ArtworkPlaceQualifier)
         // $source->part_ids
         // $source->set_ids
 
         $pref_terms = collect( $source->pref_term_ids ?? [] )->map( function( $term ) {
-            $term = 'TM-' .$term;
-            if (Term::find($term))
-            {
-                return [
-                    $term => [
-                        'preferred' => true
-                    ]
-                ];
-            }
+            return [
+                ( 'TM-' . $term ) => [
+                    'preferred' => true
+                ]
+            ];
         });
 
         $alt_terms = collect( $source->alt_term_ids ?? [] )->map( function( $term ) {
-            $term = 'TM-' .$term;
-            if (Term::find($term))
-            {
-                return [
-                    $term => [
-                        'preferred' => false
-                    ]
-                ];
-            }
+            return [
+                ( 'TM-' . $term ) => [
+                    'preferred' => false
+                ]
+            ];
         });
 
         $terms = $pref_terms->concat( $alt_terms );
+        $terms = $terms->collapse();
 
-        $this->terms()->sync($terms->collapse(), false);
+        $this->terms()->sync($terms);
 
         // Galleries must be imported before artworks!
         // Waiting on Redmine #2000 to do this properly

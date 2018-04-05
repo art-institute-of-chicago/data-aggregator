@@ -22,8 +22,6 @@ class ImportLegacyTerms extends BaseCommand
     public function handle()
     {
 
-        ini_set("memory_limit", "-1");
-
         $path = storage_path() . '/app/' . $this->filename;
 
         $csv = Reader::createFromPath( $path, 'r' );

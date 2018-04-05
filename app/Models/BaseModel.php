@@ -133,7 +133,7 @@ class BaseModel extends AbstractModel
                 'elasticsearch' => [
                     'type' =>  $is_id_int ? 'integer' : 'keyword',
                 ],
-                'value' => function() { return $this->getAttributeValue($this->getKeyName()); },
+                'value' => function() { return $this->getKey(); },
             ]
         ];
     }

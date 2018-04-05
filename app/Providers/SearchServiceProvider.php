@@ -76,7 +76,7 @@ class SearchServiceProvider extends ServiceProvider
                     \App\Models\Membership\TicketedEvent::class,
 
                     \App\Models\Mobile\Tour::class,
-                    \App\Models\Mobile\TourStop::class,
+                    // \App\Models\Mobile\TourStop::class,
 
                     \App\Models\Dsc\Publication::class,
                     \App\Models\Dsc\Section::class,
