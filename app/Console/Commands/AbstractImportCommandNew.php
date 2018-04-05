@@ -44,6 +44,9 @@ abstract class AbstractImportCommandNew extends BaseCommand
         $this->command->last_attempt_at = Carbon::now();
         $this->command->save();
 
+        // For debugging...
+        // $this->command->last_success_at = $this->command->last_success_at->subDays(3);
+
         // Call Illuminate\Console\Command::execute
         $result = parent::execute( $input, $output );
 

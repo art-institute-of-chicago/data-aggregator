@@ -170,9 +170,6 @@ trait ImportsData
         if( $this->isPartial )
         {
 
-            // For debugging...
-            // $this->command->last_success_at = $this->command->last_success_at->subDays(10);
-
             $this->info("Looking for resources since " . $this->command->last_success_at);
 
         }
@@ -220,6 +217,7 @@ trait ImportsData
 
             $current++;
 
+            // TODO: This structure causes an extra query to be run, when it might not need to be
             $json = $this->query( $endpoint, $current );
 
         }
