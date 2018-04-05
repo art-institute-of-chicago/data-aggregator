@@ -26,6 +26,7 @@ class ImportDailyCommand extends BaseCommand
         $this->call('import:sites', ['--yes' => 'default']);
         $this->call('import:set-ulan-uris');
         $this->call('import:products');
+        $this->call('import:web');
 
     }
 
