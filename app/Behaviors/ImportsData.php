@@ -175,9 +175,8 @@ trait ImportsData
         }
 
 
-        // Query for just the page count
-        // TODO: Update the foundation to support `limit=0`
-        $json = $this->query( $endpoint, $current, 1 );
+        // Query for the first page + get page count
+        $json = $this->query( $endpoint, $current );
 
         // Assumes the dataservice has standardized pagination
         $pages = $json->pagination->total_pages;
@@ -192,8 +191,6 @@ trait ImportsData
         {
 
             $this->warn( 'Importing ' . $current . ' of ' . $pages . ' for model ' . $model );
-
-            $json = $this->query( $endpoint, $current );
 
             // Assumes the dataservice wraps its results in a `data` field
             foreach( $json->data as $datum )
@@ -220,6 +217,9 @@ trait ImportsData
             }
 
             $current++;
+
+            // TODO: This structure causes an extra query to be run, when it might not need to be
+            $json = $this->query( $endpoint, $current );
 
         }
 
