@@ -214,16 +214,8 @@ trait ImportsData
 
                 }
 
-                try {
-
-                    // Be sure to overwrite `save` to make this work!
-                    $this->save( $datum, $model );
-
-                } catch( \Exception $e ) {
-
-                    $this->warn("Error on #{$datum->id}: " . $this->api . '/' . $endpoint . '/' . $datum->id);
-
-                }
+                // Be sure to overwrite `save` to make this work!
+                $this->save( $datum, $model );
 
             }
 
