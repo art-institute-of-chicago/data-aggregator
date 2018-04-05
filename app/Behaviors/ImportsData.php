@@ -100,7 +100,21 @@ trait ImportsData
 
     }
 
+    /**
+     * Helper for retrieving URL to query. Feel free to overwrite.
+     *
+     * @param string $endpoint
+     * @param integer $page
+     * @param limit $limit
+     *
+     * @return string
+     */
+    protected function getUrl( $endpoint, $page = 1, $limit = 1000 )
+    {
 
+        return $this->api . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit;
+
+    }
 
     /**
      * Queries a paginated JSON endpoint from `$this->api` and returns its decoded contents.
@@ -115,7 +129,7 @@ trait ImportsData
     protected function query( $endpoint, $page = 1, $limit = 1000 )
     {
 
-        $url = $this->api . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit;
+        $url = $this->getUrl( $endpoint, $page, $limit );
 
         // Allows us to specify which fields to retrieve, for performance
         if( $this->fields )
