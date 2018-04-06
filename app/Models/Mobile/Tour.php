@@ -85,6 +85,32 @@ class Tour extends MobileModel
                 ],
                 "value" => function() { return $this->intro->transcript ?? null; },
             ],
+
+            [
+                "name" => 'artwork_titles',
+                "doc" => "Names of the artworks featured in this tour's tour stops",
+                "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                ],
+                "value" => function() {
+                    // TODO: Consider filtering out nulls?
+                    return $this->tourStops->pluck('artwork')->pluck('artwork')->pluck('title')->all();
+                },
+            ],
+            [
+                "name" => 'artist_titles',
+                "doc" => "Names of the artists of the artworks featured in this tour's tour stops",
+                "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                ],
+                "value" => function() {
+                    // TODO: Consider filtering out nulls?
+                    return $this->tourStops->pluck('artwork')->pluck('artwork')->pluck('artist')->pluck('title')->all();
+                },
+            ],
+
         ];
 
     }
