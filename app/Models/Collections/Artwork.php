@@ -639,6 +639,12 @@ class Artwork extends CollectionsModel
                     ]
                 ]
             ],
+            // Boost anything that has an image
+            [
+                'exists' => [
+                    'field' => 'image_id',
+                ]
+            ],
         ];
 
     }
