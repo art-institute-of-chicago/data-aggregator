@@ -51,6 +51,15 @@ class Category extends CollectionsModel
 
     }
 
+    public function getExtraFillFieldsFrom($source)
+    {
+
+        return [
+            'parent_id' => 'PC-' . $source->parent_id,
+        ];
+
+    }
+
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
@@ -63,7 +72,7 @@ class Category extends CollectionsModel
                 "doc" => "Unique identifier of this category's parent",
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->parent ? $this->parent->lake_uid : null; },
+                "value" => function() { return $this->parent->lake_uid ?? null; },
             ],
             [
                 "name" => 'is_in_nav',
