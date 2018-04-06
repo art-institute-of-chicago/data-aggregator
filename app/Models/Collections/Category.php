@@ -80,7 +80,7 @@ class Category extends CollectionsModel
     {
 
         return [
-            'parent_id' => 'PC-' . $source->parent_id,
+            'parent_id' => $source->parent_id ? 'PC-' . $source->parent_id : null,
         ];
 
     }
