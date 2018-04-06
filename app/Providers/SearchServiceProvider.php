@@ -268,37 +268,56 @@ class SearchServiceProvider extends ServiceProvider
 
                         $scope = $model::$searchScopeMethod();
 
-                        $settings['scope'] = [
-                            'bool' => [
-                                'should' => [
-                                    [
-                                        'bool' => [
-                                            'must' => [
-                                                [
-                                                    'term' => [
-                                                        'api_model' => $resource
-                                                    ],
-                                                ],
-                                                $scope,
-                                            ]
-                                        ]
-                                    ],
-                                    [
-                                        'bool' => [
-                                            'must_not' => [
-                                                'term' => [
-                                                    'api_model' => $resource
-                                                ],
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ];
+                        $settings['scope'] = $this->getScopedQuery( $resource, $scope );
+
+                    }
+
+                    // ex. `searchBoostArtworks` for `artworks` endpoint boosts `is_on_view`
+                    $searchBoostMethod = 'searchBoost' . studly_case( $endpoint );
+
+                    if( method_exists( $model, $searchBoostMethod ) )
+                    {
+
+                        $boost = $model::$searchBoostMethod();
+
+                        $settings['boost'] = $this->getScopedQuery( $resource, $boost );
 
                     }
 
                     return $settings;
+
+                }
+
+                protected function getScopedQuery( $resource, $scope )
+                {
+
+                    return [
+                        'bool' => [
+                            'should' => [
+                                [
+                                    'bool' => [
+                                        'must' => [
+                                            [
+                                                'term' => [
+                                                    'api_model' => $resource
+                                                ],
+                                            ],
+                                            $scope,
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    'bool' => [
+                                        'must_not' => [
+                                            'term' => [
+                                                'api_model' => $resource
+                                            ],
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ];
 
                 }
 

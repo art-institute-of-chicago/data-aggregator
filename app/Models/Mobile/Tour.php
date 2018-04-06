@@ -85,6 +85,30 @@ class Tour extends MobileModel
                 ],
                 "value" => function() { return $this->intro->transcript ?? null; },
             ],
+
+            [
+                "name" => 'artwork_titles',
+                "doc" => "Names of the artworks featured in this tour's tour stops",
+                "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                ],
+                "value" => function() {
+                    return $this->tourStops->pluck('artwork')->pluck('artwork')->pluck('title')->filter()->values()->all();
+                },
+            ],
+            [
+                "name" => 'artist_titles',
+                "doc" => "Names of the artists of the artworks featured in this tour's tour stops",
+                "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                ],
+                "value" => function() {
+                    return $this->tourStops->pluck('artwork')->pluck('artwork')->pluck('artists')->collapse()->pluck('title')->all();
+                },
+            ],
+
         ];
 
     }
@@ -99,17 +123,7 @@ class Tour extends MobileModel
     {
 
         return [
-
-            [
-                "name" => 'tour_stop_titles',
-                "doc" => "Names of the tour stops that make up this tour",
-                "type" => "array",
-                "elasticsearch" => [
-                    "default" => true,
-                ],
-                "value" => function() { return $this->tourStops->pluck('artwork')->pluck('title')->all(); },
-            ],
-
+            //
         ];
 
     }

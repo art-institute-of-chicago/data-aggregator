@@ -621,6 +621,33 @@ class Artwork extends CollectionsModel
 
     }
 
+    /**
+     * Add relevancy tweaks to artworks.
+     *
+     * @return array
+     */
+    public static function searchBoostArtworks()
+    {
+
+        return [
+            // Boost anything that's on view
+            [
+                'term' => [
+                    'is_on_view' => [
+                        'value' => true,
+                        'boost' => 1.25,
+                    ]
+                ]
+            ],
+            // Boost anything that has an image
+            [
+                'exists' => [
+                    'field' => 'image_id',
+                ]
+            ],
+        ];
+
+    }
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.

@@ -146,7 +146,6 @@ class BaseModel extends AbstractModel
                 'doc' => 'Name of this resource',
                 'type' => 'string',
                 'elasticsearch' => [
-                    'type' => 'text',
                     'default' => true,
                     'boost' => 1.5,
                 ],
