@@ -94,8 +94,7 @@ class Tour extends MobileModel
                     "default" => true,
                 ],
                 "value" => function() {
-                    // TODO: Consider filtering out nulls?
-                    return $this->tourStops->pluck('artwork')->pluck('artwork')->pluck('title')->all();
+                    return $this->tourStops->pluck('artwork')->pluck('artwork')->pluck('title')->filter()->values()->all();
                 },
             ],
             [
@@ -106,8 +105,7 @@ class Tour extends MobileModel
                     "default" => true,
                 ],
                 "value" => function() {
-                    // TODO: Consider filtering out nulls?
-                    return $this->tourStops->pluck('artwork')->pluck('artwork')->pluck('artist')->pluck('title')->all();
+                    return $this->tourStops->pluck('artwork')->pluck('artwork')->pluck('artists')->collapse()->pluck('title')->all();
                 },
             ],
 
