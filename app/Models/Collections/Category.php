@@ -51,6 +51,31 @@ class Category extends CollectionsModel
 
     }
 
+    /**
+     * Scope a search to only include top-level departmental categories.
+     *
+     * @return array
+     */
+    public static function searchDepartments()
+    {
+
+        return [
+            'bool' => [
+                'must' => [
+                    'term' => [
+                        'type' => 1
+                    ],
+                ],
+                'must_not' => [
+                    'exists' => [
+                        'field' => 'parent_id'
+                    ]
+                ]
+            ]
+        ];
+
+    }
+
     public function getExtraFillFieldsFrom($source)
     {
 
