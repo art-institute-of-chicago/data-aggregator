@@ -34,7 +34,7 @@ class Request
      *
      * @var array
      */
-    protected $boosts = null;
+    protected $boosts = [];
 
     /**
      * List of allowed Input params for querying.
