@@ -15,7 +15,7 @@ class AddActiveFieldToProducts extends Migration
     {
 
         Schema::table('products', function (Blueprint $table) {
-            $table->boolean('active')->after('back_order_due_date');
+            $table->boolean('active')->after('back_order_due_date')->nullable();
         });
 
     }
