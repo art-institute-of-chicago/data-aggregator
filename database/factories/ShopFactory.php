@@ -71,6 +71,7 @@ $factory->define(App\Models\Shop\Product::class, function (Faker\Generator $fake
             'choking_hazard' => $faker->boolean,
             'back_order' => $faker->boolean,
             'back_order_due_date' => $faker->dateTimeThisYear,
+            'active' => $faker->boolean,
         ],
         shopDates($faker)
     );

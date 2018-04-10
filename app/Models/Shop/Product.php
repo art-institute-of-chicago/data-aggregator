@@ -21,6 +21,7 @@ class Product extends ShopModel
         'glass' => 'boolean',
         'choking_hazard' => 'boolean',
         'back_order' => 'boolean',
+        'active' => 'boolean',
     ];
 
     protected $artistMapping = [
@@ -456,6 +457,13 @@ class Product extends ShopModel
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->artists()->pluck('agent_citi_id'); },
+            ],
+            [
+                "name" => 'active',
+                "doc" => "Whether this product is currently available on the shop website",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return $this->active; },
             ],
         ];
 
