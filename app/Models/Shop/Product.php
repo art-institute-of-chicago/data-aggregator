@@ -459,7 +459,7 @@ class Product extends ShopModel
                 "value" => function() { return $this->artists()->pluck('agent_citi_id'); },
             ],
             [
-                "name" => 'active',
+                "name" => 'is_active',
                 "doc" => "Whether this product is currently available on the shop website",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
