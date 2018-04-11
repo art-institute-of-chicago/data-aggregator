@@ -924,6 +924,13 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->altArtists->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'artist_ids',
+                "doc" => "Unique identifier of all artist/cultures associated with this work",
+                "type" => "integer",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->artists->pluck('citi_id')->all(); },
+            ],
+            [
                 "name" => 'category_ids',
                 "doc" => "Unique identifiers of the categories this work is a part of",
                 "type" => "array",
@@ -983,6 +990,13 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->altStyles->pluck('lake_uid')->all(); },
             ],
             [
+                "name" => 'style_ids',
+                "doc" => "Unique identifiers of all style terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->styles->pluck('lake_uid')->all(); },
+            ],
+            [
                 "name" => 'style_titles',
                 "doc" => "The names of all style terms related to this artwork",
                 "type" => "array",
@@ -1001,6 +1015,13 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
                 "value" => function() { return $this->altClassifications->pluck('lake_uid')->all(); },
+            ],
+            [
+                "name" => 'classification_ids',
+                "doc" => "Unique identifiers of all classification terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->classifications->pluck('lake_uid')->all(); },
             ],
             [
                 "name" => 'classification_titles',
@@ -1023,6 +1044,13 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->altSubjects->pluck('lake_uid')->all(); },
             ],
             [
+                "name" => 'subject_ids',
+                "doc" => "Unique identifiers of all subject terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->subjects->pluck('lake_uid')->all(); },
+            ],
+            [
                 "name" => 'subject_titles',
                 "doc" => "The names of all subject terms related to this artwork",
                 "type" => "array",
@@ -1041,6 +1069,13 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
                 "value" => function() { return $this->altMaterials->pluck('lake_uid')->all(); },
+            ],
+            [
+                "name" => 'material_ids',
+                "doc" => "Unique identifiers of all material terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->materials->pluck('lake_uid')->all(); },
             ],
             [
                 "name" => 'material_titles',
