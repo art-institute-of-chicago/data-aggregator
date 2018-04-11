@@ -843,7 +843,6 @@ class Artwork extends CollectionsModel
                 "type" => "string",
                 "elasticsearch" => [
                     "default" => true,
-                    "type" => 'text',
                 ],
                 "value" => function() { return $this->place_of_origin; },
             ],
