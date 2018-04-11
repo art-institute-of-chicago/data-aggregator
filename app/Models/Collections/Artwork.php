@@ -730,8 +730,8 @@ class Artwork extends CollectionsModel
                 "name" => 'department_id',
                 "doc" => "Unique identifier of the curatorial department that this work belongs to",
                 "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->department->citi_id ?? null; },
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->department->lake_uid ?? null; },
             ],
             [
                 "name" => 'dimensions',
