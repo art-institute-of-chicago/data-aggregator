@@ -436,7 +436,11 @@ class Artwork extends CollectionsModel
         if ($source->category_ids)
         {
 
-            $this->categories()->sync($source->category_ids);
+            $category_ids = collect( $source->category_ids )->map( function( $id ) {
+                return 'PC-' . $id;
+            });
+
+            $this->categories()->sync( $category_ids );
 
         }
 
