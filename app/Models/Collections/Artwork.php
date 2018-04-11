@@ -996,7 +996,7 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->classification->lake_uid ?? null; },
             ],
             [
-                "name" => 'alt_classificaiton_ids',
+                "name" => 'alt_classification_ids',
                 "doc" => "Unique identifiers of all other non-preferred classification terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
