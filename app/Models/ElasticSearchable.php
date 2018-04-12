@@ -274,9 +274,6 @@ trait ElasticSearchable
                             'api_link' => [
                                 'type' => 'keyword',
                             ],
-                            'title' => [
-                                'type' => 'text',
-                            ],
                             'image' => [
                                 'type' => 'keyword',
                             ],
