@@ -723,7 +723,6 @@ class Artwork extends CollectionsModel
                 "name" => 'department_title',
                 "doc" => "Name of the curatorial department that this work belongs to",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->department->title ?? null; },
             ],
             [
