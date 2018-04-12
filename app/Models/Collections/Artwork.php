@@ -760,7 +760,6 @@ class Artwork extends CollectionsModel
                 "name" => 'artwork_type_title',
                 "doc" => "The kind of object or work (e.g. Painting, Sculpture, Book)",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
                 "value" => function() { return $this->artworkType->title ?? null; },
             ],
             [
