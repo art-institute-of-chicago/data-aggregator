@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 use App\Models\Collections\Exhibition;
 
-class ImportLegacyExhibitions extends AbstractImportCommandNew
+class ImportLegacyExhibitions extends AbstractImportCommand
 {
 
     protected $signature = "import:exhibitions-legacy

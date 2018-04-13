@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Membership\TicketedEvent;
 
-class ImportTicketedEventsFull extends AbstractImportCommandNew
+class ImportTicketedEventsFull extends AbstractImportCommand
 {
 
     protected $signature = 'import:events-ticketed-full

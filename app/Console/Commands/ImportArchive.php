@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Archive\ArchiveImage;
 
-class ImportArchive extends AbstractImportCommandNew
+class ImportArchive extends AbstractImportCommand
 {
 
     protected $signature = 'import:archive

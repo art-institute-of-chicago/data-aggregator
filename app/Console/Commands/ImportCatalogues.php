@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Dsc\Publication;
 use App\Models\Dsc\Section;
 
-class ImportCatalogues extends AbstractImportCommandNew
+class ImportCatalogues extends AbstractImportCommand
 {
 
     protected $signature = 'import:dsc

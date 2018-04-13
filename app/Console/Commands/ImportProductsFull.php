@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Shop\Product;
 use App\Models\Shop\Category;
 
-class ImportProductsFull extends AbstractImportCommandNew
+class ImportProductsFull extends AbstractImportCommand
 {
 
     protected $signature = 'import:products-full

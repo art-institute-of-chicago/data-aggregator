@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Collections\Agent;
 
-class ImportSetUlanUris extends AbstractImportCommandNew
+class ImportSetUlanUris extends AbstractImportCommand
 {
 
     protected $signature = 'import:set-ulan-uris';

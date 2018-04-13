@@ -13,7 +13,7 @@ use App\Models\Web\Page;
 use App\Models\Web\Selection;
 use App\Models\Web\Tag;
 
-class ImportWebFull extends AbstractImportCommandNew
+class ImportWebFull extends AbstractImportCommand
 {
 
     protected $signature = 'import:web-full
