@@ -108,46 +108,9 @@ trait CanQuery
     private function sourceUrl($source)
     {
 
-        switch ($source)
-        {
+        $sources = config('resources.sources');
 
-        case 'Archive':
-
-            return env('ARCHIVES_DATA_SERVICE_URL', 'http://localhost');
-
-        case 'Collections':
-
-            return env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost');
-
-        case 'Dsc':
-
-            return env('DSC_DATA_SERVICE_URL', 'http://localhost');
-
-        case 'Library':
-
-            return env('LIBRARY_DATA_SERVICE_URL', 'http://localhost');
-
-        case 'Membership':
-
-            return env('EVENTS_DATA_SERVICE_URL', 'http://localhost');
-
-        case 'Mobile':
-
-            return env('MOBILE_DATA_SERVICE_URL', 'http://localhost');
-
-        case 'Shop':
-
-            return env('SHOP_DATA_SERVICE_URL', 'http://localhost');
-
-        case 'Web':
-
-            return env('WEB_CMS_DATA_SERVICE_URL', 'http://localhost');
-
-        default:
-
-            return env('COLLECTIONS_DATA_SERVICE_URL', 'http://localhost');
-
-        }
+        return $sources['$source'] ?? $sources['default'];
 
     }
 
