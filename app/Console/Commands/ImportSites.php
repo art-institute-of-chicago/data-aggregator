@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\StaticArchive\Site;
 
-class ImportSites extends AbstractImportCommandNew
+class ImportSites extends AbstractImportCommand
 {
 
     protected $signature = 'import:sites

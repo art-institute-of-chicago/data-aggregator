@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Collections\AgentRole;
 use App\Models\Collections\ArtworkType;
 
-class ImportCollectionsFull extends AbstractImportCommandNew
+class ImportCollectionsFull extends AbstractImportCommand
 {
 
     protected $signature = 'import:collections-full

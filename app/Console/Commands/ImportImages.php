@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Collections\Image;
 
-class ImportImages extends AbstractImportCommandNew
+class ImportImages extends AbstractImportCommand
 {
 
     protected $signature = 'import:images';

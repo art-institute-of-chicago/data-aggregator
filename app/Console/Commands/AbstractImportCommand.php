@@ -10,7 +10,7 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 use App\Behaviors\ImportsData;
 
-abstract class AbstractImportCommandNew extends BaseCommand
+abstract class AbstractImportCommand extends BaseCommand
 {
 
     use ImportsData;

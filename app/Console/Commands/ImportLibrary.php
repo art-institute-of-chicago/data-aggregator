@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Library\Material;
 use App\Models\Library\Term;
 
-class ImportLibrary extends AbstractImportCommandNew
+class ImportLibrary extends AbstractImportCommand
 {
 
     protected $signature = 'import:library

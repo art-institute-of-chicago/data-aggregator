@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Collections\Artwork;
 
-class UpdateTerms extends AbstractImportCommandNew
+class UpdateTerms extends AbstractImportCommand
 {
 
     protected $signature = 'update:terms';
