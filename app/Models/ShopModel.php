@@ -14,7 +14,10 @@ class ShopModel extends BaseModel
 
     protected $primaryKey = 'shop_id';
 
-    protected $dates = ['source_created_at', 'source_modified_at'];
+    protected $dates = [
+        'source_created_at',
+        'source_modified_at',
+    ];
 
     protected $fakeIdsStartAt = 999000;
 

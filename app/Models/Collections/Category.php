@@ -18,7 +18,13 @@ class Category extends CollectionsModel
     protected $primaryKey = 'lake_uid';
     protected $keyType = 'string';
 
-    protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
+    protected $dates = [
+        'source_created_at',
+        'source_modified_at',
+        'source_indexed_at',
+        'citi_created_at',
+        'citi_modified_at',
+    ];
 
     /**
      * The artworks that belong to the category.

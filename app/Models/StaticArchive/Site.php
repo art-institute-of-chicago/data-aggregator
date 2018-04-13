@@ -16,7 +16,9 @@ class Site extends BaseModel
     use Documentable;
 
     protected $primaryKey = 'site_id';
+
     protected $fakeIdsStartAt = 9990000;
+
     protected $hasSourceDates = false;
 
     protected function fillIdsFrom($source)

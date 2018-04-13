@@ -13,11 +13,17 @@ class Category extends ShopModel
 
     use Documentable;
 
-    protected $primaryKey = 'shop_id';
-    protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at'];
     public $table = 'shop_categories';
 
     protected $apiCtrl = 'ShopCategoriesController';
+
+    protected $primaryKey = 'shop_id';
+
+    protected $dates = [
+        'source_created_at',
+        'source_modified_at',
+        'source_indexed_at',
+    ];
 
     public function parent()
     {
