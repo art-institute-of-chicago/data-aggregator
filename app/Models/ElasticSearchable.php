@@ -79,19 +79,6 @@ trait ElasticSearchable
 
 
     /**
-     * Generate a unique string identifying this model resource.
-     *
-     * @return string
-     */
-    public function searchableId()
-    {
-
-        return $this->searchableSource() . '.' .$this->searchableModel() . '.' . $this->getKey();
-
-    }
-
-
-    /**
      * Get an image to represent this record
      *
      * @return string
@@ -115,7 +102,6 @@ trait ElasticSearchable
         // TODO: Remove these fields: almost all of them are already defined in `transformMapping`
         $array = array_merge(
             [
-                // 'id' => $this->searchableId(),
                 'api_id' => "" .$this->getKey(),
                 'api_model' => $this->searchableModel(),
                 'api_link' => $this->searchableLink(),
