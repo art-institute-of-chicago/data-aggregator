@@ -24,8 +24,6 @@ class ResourceServiceProvider extends ServiceProvider
                  * Array of resources (endpoints), mapped to their models.
                  * Currently, only top-level endpoints are tracked.
                  *
-                 * @TODO Use this space to tag things as searchable?
-                 *
                  * @var array
                  */
                 private $resources;
