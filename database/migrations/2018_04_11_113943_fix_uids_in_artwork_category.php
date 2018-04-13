@@ -13,10 +13,18 @@ class FixUidsInArtworkCategory extends Migration
      */
     public function up()
     {
+
+        // TODO: SQLite doesn't have CONCAT()
+        if (App::environment('testing'))
+        {
+            return;
+        }
+
         DB::statement("UPDATE `artwork_category`"
             . "SET `category_lake_uid`=CONCAT('PC-', `category_lake_uid`)"
             . "WHERE `category_lake_uid` NOT LIKE 'PC-%'"
         );
+
     }
 
     /**
@@ -26,9 +34,11 @@ class FixUidsInArtworkCategory extends Migration
      */
     public function down()
     {
+
         DB::statement("UPDATE `artwork_category`"
             . " SET `category_lake_uid`=SUBSTR(`category_lake_uid`, 4)"
             . " WHERE `category_lake_uid` LIKE 'PC-%'"
         );
+
     }
 }
