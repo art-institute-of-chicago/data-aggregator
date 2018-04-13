@@ -25,7 +25,7 @@ class TourTransformer extends ApiTransformer
      */
     public function includeTourStops(Tour $tour)
     {
-        return $this->collection($tour->tourStops, new TourStopTransformer, config('constants.no_data_wrapper'));
+        return $this->collection($tour->tourStops, new TourStopTransformer, false);
     }
 
 }
