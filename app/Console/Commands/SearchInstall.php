@@ -43,6 +43,10 @@ class SearchInstall extends BaseCommand
 
             }
 
+            // TODO: Not quite enough – we also need to alias the type, bleh...
+            // TODO: What if we defaulted the type to e.g. `docs`, not `[endpoint]`?
+            $this->aliasAssets( $prefix );
+
         }
 
     }
@@ -73,6 +77,28 @@ class SearchInstall extends BaseCommand
         $this->info($this->done($return));
 
         Artisan::call('search:alias', ['source' => $index, 'alias' => $prefix, '--single' => true]);
+
+    }
+
+    private function aliasAssets( $prefix )
+    {
+
+        $endpoints = [
+            'images',
+            // 'links', // Removing this!
+            'sounds',
+            'texts',
+            'videos',
+        ];
+
+        foreach( $endpoints as $endpoint )
+        {
+
+            $index = $prefix . '-' . $endpoint;
+
+            Artisan::call('search:alias', ['source' => $index, 'alias' => $prefix . '-assets', '--single' => true]);
+
+        }
 
     }
 
