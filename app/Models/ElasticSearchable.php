@@ -56,6 +56,9 @@ trait ElasticSearchable
     /**
      * Generate a string to use in the seach index to identify this model
      *
+     * This avoids a number of bugs, including `tour_stops` vs. `tour-stops`, `agents` vs.
+     * `artists`, and `assets` vs. `images`.
+     *
      * @return string
      */
     protected function searchableModel()
@@ -63,7 +66,7 @@ trait ElasticSearchable
 
         $calledClass = get_called_class();
 
-        return str_plural(kebab_case(class_basename($calledClass)));
+        return app('Resources')->getEndpointForModel( $calledClass );
 
     }
 
