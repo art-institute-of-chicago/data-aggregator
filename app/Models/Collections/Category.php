@@ -62,7 +62,7 @@ class Category extends CollectionsModel
      *
      * @return array
      */
-    public static function searchDepartments()
+    public static function searchScopeDepartments()
     {
 
         return [

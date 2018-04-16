@@ -231,8 +231,8 @@ class SearchServiceProvider extends ServiceProvider
                         'type' => 'doc',
                     ];
 
-                    // ex. `searchGalleries` for `galleries` endpoint in model `Place`
-                    $searchScopeMethod = 'search' . studly_case( $endpoint );
+                    // ex. `searchScopeGalleries` for `galleries` endpoint in model `Place`
+                    $searchScopeMethod = 'searchScope' . studly_case( $endpoint );
 
                     if( method_exists( $model, $searchScopeMethod ) )
                     {
