@@ -16,17 +16,22 @@ trait ElasticSearchable
 
     /**
      * Get the type associated with this model. We need to overwrite the inherited method
-     * because it defaults to using the table name. We need to use the model name instead.
+     * because it defaults to using the table name. We used to use the model name, but have
+     * since changed to using `docs` across the board.
+     *
      * This method is used when a document gets indexed, not when the mappings are defined.
-     * This avoids a number of bugs, including `tour_stops` vs. `tour-stops`, `agents` vs.
-     * `artists`, and `assets` vs. `images`.
+     *
+     * @TODO Change this to `_doc` when we upgrade to ES 6.2?
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/removal-of-types.html
+     * @link https://discuss.elastic.co/t/cant-use-doc-as-type-despite-it-being-declared-the-preferred-method/113837
      *
      * @return string
      */
     public function searchableAs()
     {
 
-        return config('scout.prefix') . $this->searchableModel();
+        return 'doc';
 
     }
 

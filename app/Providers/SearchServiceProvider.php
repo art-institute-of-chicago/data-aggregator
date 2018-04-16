@@ -228,7 +228,7 @@ class SearchServiceProvider extends ServiceProvider
                     // Defaults
                     $settings = [
                         'index' => env('ELASTICSEARCH_INDEX') . '-' . $resource,
-                        'type' => $resource,
+                        'type' => 'doc',
                     ];
 
                     // ex. `searchGalleries` for `galleries` endpoint in model `Place`
