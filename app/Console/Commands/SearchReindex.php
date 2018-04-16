@@ -43,6 +43,7 @@ class SearchReindex extends BaseCommand
                     ],
                     'dest' => [
                         'index' => $dest . '-' . $endpoint,
+                        'type' => 'doc',
                     ],
                 ],
             ];
