@@ -39,7 +39,7 @@ class SearchAudit extends BaseCommand
 
         $response = Elasticsearch::search([
             'index' => $index,
-            'type' => $endpoint,
+            'type' => 'doc',
             'size' => 0
         ]);
 
