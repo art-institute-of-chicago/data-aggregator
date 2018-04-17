@@ -11,7 +11,7 @@ use App\Models\Mobile\Sound;
 use App\Models\Mobile\Tour;
 use App\Models\Mobile\TourStop;
 
-class ImportMobile extends AbstractImportCommandNew
+class ImportMobile extends AbstractImportCommand
 {
 
     protected $signature = 'import:mobile';

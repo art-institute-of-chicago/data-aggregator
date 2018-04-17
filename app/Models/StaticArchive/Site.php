@@ -16,7 +16,9 @@ class Site extends BaseModel
     use Documentable;
 
     protected $primaryKey = 'site_id';
+
     protected $fakeIdsStartAt = 9990000;
+
     protected $hasSourceDates = false;
 
     protected function fillIdsFrom($source)
@@ -156,7 +158,7 @@ class Site extends BaseModel
         if ($source->exhibition_ids)
         {
 
-            $this->exhibitions()->sync($source->exhibition_ids, false);
+            $this->exhibitions()->sync($source->exhibition_ids);
 
         }
 

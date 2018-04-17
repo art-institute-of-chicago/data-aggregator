@@ -1,6 +1,92 @@
 Data Aggregator Changelog
 =============================
 
+### 0.12 – Finish integration with new collections data
+
+* Add and fill in the final round of collections data integration
+* Further refactor import commands for consistency
+
+ARTWORKS
+* Add Materials terms
+* Replace production-quality faked terms with real data
+* Reformat department_id to follow same conventions as /categories IDs, since departments are a subset of category records. (E.g., PC-##)
+* Add `*.keyword` fields to Elasticsearch for all `*_title[s]` fields
+* Add *_ids fields to provide all IDs of fields that are split between preferred and alternate fields
+* Fill in multiple titles per artwork
+* Fill in multiple images per artwork
+* Fill in multiple agents per artwork
+* Fill in multiple places per artwork
+* Fill in multiple assets per artwork
+* Fill in multiple dates per artwork
+* The following modifications have been made to the API schema:
+  - `alt_classification_ids` - Renamed from `alt_classificaiton_ids` to correct type
+  - `material_id` - Added, unique identifier of the preferred material term for this work
+  - `alt_material_ids` - Added, unique identifiers of all other non-preferred material terms for this work
+  - `material_ids` - Added, unique identifiers of all material terms for this work
+  - `material_titles` - Added, the names of all material terms related to this artwork
+  - `artist_ids` - Added, unique identifier of all artist/cultures associated with this work
+  - `style_ids` - Added, unique identifiers of all style terms for this work
+  - `classification_ids` - Added, unique identifiers of all classification terms for this work
+  - `subject_ids` - Added, unique identifiers of all subject terms for this work
+* The following `include`s are now available in the `/artworks` endpoint:
+  - `artist_pivots` - Provides metadata about the agents in the `artists` include, e.g., role, preferred, etc.
+  - `place_pivots`
+  - `dates` - While not new, this include has now been filled in with data
+
+ASSETS (including IMAGES, SOUNDS, VIDEOS, and TEXTS)
+* Note which assets should be made available in multimedia, educational resources, etc.
+* Added `/assets/search` that targets images, videos, sounds, and texts
+* The following modifications have been made to the API schema:
+  - `content` - Added, text of URL of the contents of this asset
+  - `is_multimedia_resource` - Added, whether this resource is considered to be multimedia
+  - `is_educational_resource` - Added, whether this resource is considered to be educational
+  - `is_teacher_resource` - Added, whether this resource is considered to be educational
+
+EXHIBITIONS
+* Added installation shots and PDFs related to exhibitions
+* The following modifications have been made to the API schema:
+  - `image_iiif_url` - Removed, in favor of clients creating the URL based on `image_id`
+  - `alt_image_ids` - Added, Unique identifiers of all non-preferred images of this exhibition.
+  - `document_ids` - Added, Unique identifiers of assets that serve as documentation for this exhibition
+
+TERMS
+* Replace production-quality fake terms data with real data
+* The following modifications have been made to the API schema:
+  - `type` - Removed, `term_type_id` takes its place
+  - `term_type_id` - Added, unique identifier of term type
+
+TOURS
+* Make tours findable by the artwork and artist names of the works included in the tour
+* The following modifications have been made to the API schema:
+  - `artwork_titles` - Added, names of the artworks featured in this tour's tour stops
+  - `artist_titles` - Added, names of the artists of the artworks featured in this tour's tour stops
+  - `tour_stop_titles` - Removed, `artwork_titles` takes its place
+
+PRODUCTS
+* Make note of whether a shop product is currently available on their website
+* The following modifications have been made to the API schema:
+  - `is_active` - Added, whether this product is currently available on the shop website
+
+NEW ENDPOINTS
+* The following endpoints have been added:
+  - `agent-roles`
+  - `agent-roles/{id}`
+  - `artwork-place-qualifiers`
+  - `artwork-place-qualifiers/{id}`
+  - `artwork-dates`
+  - `artwork-dates/{id}`
+  - `artwork-date-qualifiers`
+  - `artwork-date-qualifiers/{id}`
+  - `term-types`
+  - `term-types/{id}`
+
+TO BE DEPRECATED IN 0.13
+* `/artworks` - `date_dates` - Replaced with the `dates` include, as this list doesn't provide any of the pivot fields (preferred, start date, end date, date type qualifier, etc)
+* `/links` - These entire endpoints will be removed, as a link is not a unique resource but is represented by the `content` field on assets
+* `/links/{id}`
+* `/links/{id}/pull`
+* `/artworks` - `link_ids`
+
 ### 0.11 – Integrate Web CMS content and adjust search for the Mobile App
 
 * Make adjustments to search behavior for the Mobile app

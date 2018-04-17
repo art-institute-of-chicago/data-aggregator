@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Membership\LegacyEvent;
 
-class ImportLegacyEvents extends AbstractImportCommandNew
+class ImportLegacyEvents extends AbstractImportCommand
 {
 
     protected $signature = "import:events-legacy

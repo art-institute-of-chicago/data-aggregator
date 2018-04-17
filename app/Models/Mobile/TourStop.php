@@ -12,7 +12,7 @@ use App\Models\Documentable;
 class TourStop extends MobileModel
 {
 
-    use ElasticSearchable;
+    // use ElasticSearchable;
     use Documentable;
 
     protected $primaryKey = 'id';

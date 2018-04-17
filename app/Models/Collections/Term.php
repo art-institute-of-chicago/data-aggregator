@@ -19,7 +19,13 @@ class Term extends CollectionsModel
     protected $primaryKey = 'lake_uid';
     protected $keyType = 'string';
 
-    protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
+    protected $dates = [
+        'source_created_at',
+        'source_modified_at',
+        'source_indexed_at',
+        'citi_created_at',
+        'citi_modified_at',
+    ];
 
     public function artworks()
     {
@@ -37,7 +43,7 @@ class Term extends CollectionsModel
     public function scopeStyle($query)
     {
 
-        return $query->where('type', 'style');
+        return $query->where('term_type_id', TermType::STYLE);
 
     }
 
@@ -50,7 +56,7 @@ class Term extends CollectionsModel
     public function scopeClassification($query)
     {
 
-        return $query->where('type', 'classification');
+        return $query->where('term_type_id', TermType::CLASSIFICATION);
 
     }
 
@@ -63,7 +69,20 @@ class Term extends CollectionsModel
     public function scopeSubject($query)
     {
 
-        return $query->where('type', 'subject');
+        return $query->where('term_type_id', TermType::SUBJECT);
+
+    }
+
+    /**
+     * Scope a query to only include terms that are of type 'material'.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeMaterial($query)
+    {
+
+        return $query->where('term_type_id', TermType::MATERIAL);
 
     }
 
@@ -76,13 +95,23 @@ class Term extends CollectionsModel
 
         return [
             [
-                "name" => 'type',
-                "doc" => "The type of term. Can be 'style', 'classification' or 'subject'.",
+                "name" => 'term_type_id',
+                "doc" => "The unique identifier of term type.",
                 "type" => "string",
-                "elasticsearch_type" => 'text',
-                "value" => function() { return $this->type; },
+                "elasticsearch_type" => 'keyword',
+                "value" => function() { return $this->term_type_id; },
             ],
         ];
+
+    }
+
+
+    protected function fillIdsFrom($source)
+    {
+
+        $this->lake_uid = $source->lake_uid;
+
+        return $this;
 
     }
 

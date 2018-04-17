@@ -16,15 +16,23 @@ class ExhibitionTest extends ApiTestCase
 
     protected $keys = ['lake_guid'];
 
-    protected $fieldsUsedByMobile = ['id',
-                                     'title',
-                                     'description',
-                                     'short_description',
-                                     'web_url',
-                                     'aic_start_at',
-                                     'aic_end_at',
-                                     'image_iiif_url',
-                                     'gallery_id',
+    /**
+     * @link https://github.com/art-institute-of-chicago/aic-mobile-cms/blob/b74ddc9/sites/all/modules/custom/aicapp/includes/aicapp.admin.inc#L788
+     * @link https://github.com/art-institute-of-chicago/aic-mobile-ios/blob/72bb520/aic/aic/Data/SearchDataManager.swift#L132
+     */
+    protected $fieldsUsedByMobile = [
+        'id',
+        'title',
+        'status',
+        // 'description',
+        'short_description',
+        // 'image_iiif_url',
+        'legacy_image_mobile_url',
+        'legacy_image_desktop_url',
+        'gallery_id',
+        'web_url',
+        'aic_start_at',
+        'aic_end_at',
     ];
 
     public function setUp()

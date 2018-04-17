@@ -8,14 +8,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
-use App\Behaviors\CanQuery;
+use App\Behaviors\ImportsData;
 
 abstract class AbstractImportCommand extends BaseCommand
 {
 
-    use CanQuery {
-        saveDatum as protected traitSaveDatum;
-    }
+    use ImportsData;
 
     /**
      * An instance of the \App\Command model for logging.
@@ -39,9 +37,21 @@ abstract class AbstractImportCommand extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
-        $this->command = \App\Command::firstOrNew(['command' => $this->getName()]);
+        // Not an ideal solution, but some models are really heavy
+        ini_set("memory_limit", "-1");
+
+        $name = $this->getName();
+
+        // Make `-full` commands share last-update time w/ their partial versions
+        $name = ends_with( $name, '-full' ) ? substr( $name, 0, -5 ) : $name;
+
+        // TODO: Track import success on a per-resource basis, rather than per-command?
+        $this->command = \App\Command::firstOrNew(['command' => $name]);
         $this->command->last_attempt_at = Carbon::now();
         $this->command->save();
+
+        // For debugging...
+        // $this->command->last_success_at = $this->command->last_success_at->subDays(3);
 
         // Call Illuminate\Console\Command::execute
         $result = parent::execute( $input, $output );
@@ -59,12 +69,26 @@ abstract class AbstractImportCommand extends BaseCommand
     }
 
 
-    protected function saveDatum( $datum, $model )
+    /**
+     * Save a new model instance given an object retrieved from an external source.
+     *
+     * @param object  $datum
+     * @param string  $model
+     * @param boolean $fake  Whether or not to fill missing fields w/ fake data.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function save( $datum, $model )
     {
 
         $this->info("Importing #{$datum->id}" .(property_exists($datum, 'title') ? ": {$datum->title}" : ""));
 
-        $resource = $this->traitSaveDatum($datum, $model);
+        // Don't use findOrCreate here, since it can cause errors due to Searchable
+        $resource = $model::findOrNew( $datum->id );
+
+        $resource->fillFrom($datum);
+        $resource->attachFrom($datum);
+        $resource->save();
 
         // For debugging ids and titles:
         // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");

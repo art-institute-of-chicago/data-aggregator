@@ -51,56 +51,28 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @var array
                  */
-                private $models = [
-
-                    \App\Models\Collections\Agent::class,
-                    \App\Models\Collections\Artwork::class,
-                    \App\Models\Collections\Category::class,
-                    \App\Models\Collections\Exhibition::class,
-                    \App\Models\Collections\Place::class,
-                    \App\Models\Collections\Gallery::class,
-
-                    \App\Models\Collections\Image::class,
-                    \App\Models\Collections\Link::class,
-                    \App\Models\Collections\Sound::class,
-                    \App\Models\Collections\Text::class,
-                    \App\Models\Collections\Video::class,
-                    \App\Models\Collections\Term::class,
-                    \App\Models\Collections\CategoryTerm::class,
-
-                    \App\Models\Shop\Category::class,
-                    \App\Models\Shop\Product::class,
-
-                    \App\Models\Membership\LegacyEvent::class,
-                    \App\Models\Membership\TicketedEvent::class,
-
-                    \App\Models\Mobile\Tour::class,
-                    \App\Models\Mobile\TourStop::class,
-
-                    \App\Models\Dsc\Publication::class,
-                    \App\Models\Dsc\Section::class,
-
-                    \App\Models\StaticArchive\Site::class,
-
-                    \App\Models\Web\Tag::class,
-                    \App\Models\Web\Location::class,
-                    \App\Models\Web\Hour::class,
-                    \App\Models\Web\Closure::class,
-                    \App\Models\Web\Exhibition::class,
-                    \App\Models\Web\Event::class,
-                    \App\Models\Web\Article::class,
-                    \App\Models\Web\Selection::class,
-                    \App\Models\Web\Artist::class,
-                    \App\Models\Web\Page::class,
-
-                ];
+                private $models;
 
                 /**
                  * Init this class. Transforms `$models` into an Eloquent collection.
                  */
                 public function __construct()
                 {
-                    $this->models = collect( $this->models );
+                    // TODO: Use the ResourceServiceProvider for this?
+                    $resources = config('resources.outbound.base');
+                    $resources = collect( $resources );
+
+                    // Isolate searchable resources
+                    $resources = $resources->filter( function( $resource ) {
+                        return $resource['is_searchable'] ?? false;
+                    });
+
+                    // Grab the models from resource definitions
+                    $models = $resources->map( function( $resource ) {
+                        return $resource['model'];
+                    });
+
+                    $this->models = $models;
                 }
 
                 /**
@@ -267,37 +239,56 @@ class SearchServiceProvider extends ServiceProvider
 
                         $scope = $model::$searchScopeMethod();
 
-                        $settings['scope'] = [
-                            'bool' => [
-                                'should' => [
-                                    [
-                                        'bool' => [
-                                            'must' => [
-                                                [
-                                                    'term' => [
-                                                        'api_model' => $resource
-                                                    ],
-                                                ],
-                                                $scope,
-                                            ]
-                                        ]
-                                    ],
-                                    [
-                                        'bool' => [
-                                            'must_not' => [
-                                                'term' => [
-                                                    'api_model' => $resource
-                                                ],
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ];
+                        $settings['scope'] = $this->getScopedQuery( $resource, $scope );
+
+                    }
+
+                    // ex. `searchBoostArtworks` for `artworks` endpoint boosts `is_on_view`
+                    $searchBoostMethod = 'searchBoost' . studly_case( $endpoint );
+
+                    if( method_exists( $model, $searchBoostMethod ) )
+                    {
+
+                        $boost = $model::$searchBoostMethod();
+
+                        $settings['boost'] = $this->getScopedQuery( $resource, $boost );
 
                     }
 
                     return $settings;
+
+                }
+
+                protected function getScopedQuery( $resource, $scope )
+                {
+
+                    return [
+                        'bool' => [
+                            'should' => [
+                                [
+                                    'bool' => [
+                                        'must' => [
+                                            [
+                                                'term' => [
+                                                    'api_model' => $resource
+                                                ],
+                                            ],
+                                            $scope,
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    'bool' => [
+                                        'must_not' => [
+                                            'term' => [
+                                                'api_model' => $resource
+                                            ],
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ];
 
                 }
 

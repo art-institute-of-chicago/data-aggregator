@@ -8,7 +8,6 @@ class ArtworkDateTransformer extends CollectionsTransformer
 {
 
     public $excludeDates = true;
-    public $excludeIdsAndTitle = true;
 
     /**
      * Turn this item object into a generic array.
@@ -19,8 +18,9 @@ class ArtworkDateTransformer extends CollectionsTransformer
     public function transformFields($item)
     {
         return [
-            'date' => $item->date->toDateString(),
-            'qualifier' => $item->qualifier,
+            'date_earliest' => $item->date_earliest->toDateString(),
+            'date_latest' => $item->date_latest->toDateString(),
+            'artwork_date_qualifier_id' => $item->artwork_date_qualifier_citi_id,
             'is_preferred' => (bool) $item->preferred,
         ];
     }

@@ -33,7 +33,8 @@ class ArtworkDatesTableSeeder extends AbstractSeeder
 
             // TODO: Determine if this runs the risk of "duplicating" dates
             $artwork->dates()->create([
-                'date' => app('Faker')->dateTimeAD,
+                'date_earliest' => app('Faker')->dateTimeAD,
+                'date_latest' => app('Faker')->dateTimeAD,
                 'qualifier' => ucfirst( app('Faker')->word ) . ' date',
                 'preferred' => $preferred,
             ]);

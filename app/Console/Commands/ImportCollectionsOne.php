@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-class ImportCollectionsOne extends AbstractImportCommandNew
+class ImportCollectionsOne extends ImportCollectionsFull
 {
 
     protected $signature = 'import:collections-one
-                            {endpoint : Resource type to import, e.g. `artworks`}
-                            {id : Identifier of the resource to import}';
+                            {endpoint : Endpoint on dataservice to query, e.g. `object-types` }
+                            {id : Identifier of the specific resource to import}';
 
     protected $description = "Import a single resource from the collections dataservice.";
 
@@ -15,12 +15,10 @@ class ImportCollectionsOne extends AbstractImportCommandNew
     public function handle()
     {
 
-        ini_set("memory_limit", "-1");
-
         $endpoint = $this->argument('endpoint');
         $id = $this->argument('id');
 
-        $model = app('Resources')->getModelForEndpoint($endpoint);
+        $model = $this->getModelForEndpoint($endpoint);
 
         $json = $this->fetchItem( $endpoint, $id );
 

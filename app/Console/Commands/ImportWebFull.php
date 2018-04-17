@@ -2,8 +2,6 @@
 
 namespace App\Console\Commands;
 
-use DB;
-
 use App\Models\Web\Article;
 use App\Models\Web\Artist;
 use App\Models\Web\Closure;
@@ -15,7 +13,7 @@ use App\Models\Web\Page;
 use App\Models\Web\Selection;
 use App\Models\Web\Tag;
 
-class ImportWebFull extends AbstractImportCommandNew
+class ImportWebFull extends AbstractImportCommand
 {
 
     protected $signature = 'import:web-full
@@ -29,41 +27,51 @@ class ImportWebFull extends AbstractImportCommandNew
 
         $this->api = env('WEB_CMS_DATA_SERVICE_URL');
 
-        // Return false if the user bails out
-        if (!$this->option('yes') && !$this->confirm("Running this will delete all existing web cms data from your database! Are you sure?"))
+        if( !$this->reset() )
         {
             return false;
         }
 
-        // Remove all Publications and Sections from the search index
-        $this->call("scout:flush", ['model' => Article::class]);
-        $this->call("scout:flush", ['model' => Artist::class]);
-        $this->call("scout:flush", ['model' => Closure::class]);
-        $this->call("scout:flush", ['model' => Event::class]);
-        $this->call("scout:flush", ['model' => Exhibition::class]);
-        $this->call("scout:flush", ['model' => Hour::class]);
-        $this->call("scout:flush", ['model' => Location::class]);
-        //$this->call("scout:flush", ['model' => Page::class]);
-        $this->call("scout:flush", ['model' => Selection::class]);
-        $this->call("scout:flush", ['model' => Tag::class]);
+        $this->importEndpoints();
 
-        // Truncate tables
-        DB::table('articles')->truncate();
-        DB::table('web_artists')->truncate();
-        DB::table('closures')->truncate();
-        DB::table('events')->truncate();
-        DB::table('web_exhibitions')->truncate();
-        DB::table('hours')->truncate();
-        DB::table('locations')->truncate();
-        //DB::table('pages')->truncate();
-        DB::table('selections')->truncate();
-        DB::table('tags')->truncate();
+        $this->info("Imported all web CMS content!");
 
-        $this->info("Truncated web tables.");
+    }
 
-        // Flush might not remove models that are present in the index, but not the database
-        $this->info("Please manually ensure that your search index mappings are up-to-date. If there are models present "
-                    . "in the index but not the database, they were not flushed.");
+    protected function reset()
+    {
+
+        return $this->resetData(
+            [
+                Article::class,
+                Artist::class,
+                Closure::class,
+                Event::class,
+                Exhibition::class,
+                Hour::class,
+                Location::class,
+                // Page::class,
+                Selection::class,
+                Tag::class,
+            ],
+            [
+                'articles',
+                'web_artists',
+                'closures',
+                'events',
+                'web_exhibitions',
+                'hours',
+                'locations',
+                // 'pages',
+                'selections',
+                'tags',
+            ]
+        );
+
+    }
+
+    protected function importEndpoints()
+    {
 
         $this->import(Article::class, 'articles');
         $this->import(Artist::class, 'artists');
@@ -76,8 +84,6 @@ class ImportWebFull extends AbstractImportCommandNew
         $this->import(Selection::class, 'selections');
         $this->import(Tag::class, 'tags');
 
-        $this->info("Imported all web CMS content!");
-
     }
 
     protected function query( $endpoint, $page = 1, $limit = 100 )
@@ -89,6 +95,28 @@ class ImportWebFull extends AbstractImportCommandNew
         }
 
         return parent::query( $endpoint, $page, $limit );
+    }
+
+    protected function save( $datum, $model )
+    {
+
+        // TODO: Remove this work-around after Articles have been sanitized
+        // if( $model === Article::class && $datum->id === 538 )
+        // {
+        //     $this->warn("Error on #{$datum->id}: " . $this->api . '/articles/' . $datum->id);
+        //     return;
+        // }
+
+        try {
+
+            parent::save( $datum, $model );
+
+        } catch( \Exception $e ) {
+
+            $this->warn("Error on #{$datum->id}: " . $model);
+
+        }
+
     }
 
 }

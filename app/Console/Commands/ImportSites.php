@@ -3,11 +3,10 @@
 namespace App\Console\Commands;
 
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 
 use App\Models\StaticArchive\Site;
 
-class ImportSites extends AbstractImportCommandNew
+class ImportSites extends AbstractImportCommand
 {
 
     protected $signature = 'import:sites
@@ -19,22 +18,10 @@ class ImportSites extends AbstractImportCommandNew
     public function handle()
     {
 
-        // Return false if the user bails out
-        if (!$this->option('yes') && !$this->confirm("Running this will delete all existing sites data from your database! Are you sure?"))
+        if( !$this->reset() )
         {
             return false;
         }
-
-        // Remove all Publications and Sections from the search index
-        $this->call("scout:flush", ['model' => Site::class]);
-
-        // Truncate tables
-        DB::table('artwork_site')->truncate();
-        DB::table('agent_site')->truncate();
-        DB::table('exhibition_site')->truncate();
-        DB::table('sites')->truncate();
-
-        $this->info("Truncated sites tables.");
 
         $contents = $this->fetch( env('STATIC_ARCHIVE_JSON') );
 
@@ -48,7 +35,6 @@ class ImportSites extends AbstractImportCommandNew
 
     }
 
-
     private function importSites( $results )
     {
 
@@ -56,10 +42,25 @@ class ImportSites extends AbstractImportCommandNew
 
         foreach( $results as $datum )
         {
-
             $this->save( $datum, Site::class );
-
         }
+
+    }
+
+    protected function reset()
+    {
+
+        return $this->resetData(
+            [
+                Site::class,
+            ],
+            [
+                'artwork_site',
+                'agent_site',
+                'exhibition_site',
+                'sites',
+            ]
+        );
 
     }
 

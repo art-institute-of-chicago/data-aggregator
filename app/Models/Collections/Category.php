@@ -18,7 +18,13 @@ class Category extends CollectionsModel
     protected $primaryKey = 'lake_uid';
     protected $keyType = 'string';
 
-    protected $dates = ['source_created_at', 'source_modified_at', 'source_indexed_at', 'citi_created_at', 'citi_modified_at'];
+    protected $dates = [
+        'source_created_at',
+        'source_modified_at',
+        'source_indexed_at',
+        'citi_created_at',
+        'citi_modified_at',
+    ];
 
     /**
      * The artworks that belong to the category.
@@ -52,6 +58,40 @@ class Category extends CollectionsModel
     }
 
     /**
+     * Scope a search to only include top-level departmental categories.
+     *
+     * @return array
+     */
+    public static function searchDepartments()
+    {
+
+        return [
+            'bool' => [
+                'must' => [
+                    'term' => [
+                        'type' => 1
+                    ],
+                ],
+                'must_not' => [
+                    'exists' => [
+                        'field' => 'parent_id'
+                    ]
+                ]
+            ]
+        ];
+
+    }
+
+    public function getExtraFillFieldsFrom($source)
+    {
+
+        return [
+            'parent_id' => $source->parent_id ? 'PC-' . $source->parent_id : null,
+        ];
+
+    }
+
+    /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
     protected function transformMappingInternal()
@@ -63,7 +103,7 @@ class Category extends CollectionsModel
                 "doc" => "Unique identifier of this category's parent",
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->parent ? $this->parent->lake_uid : null; },
+                "value" => function() { return $this->parent->lake_uid ?? null; },
             ],
             [
                 "name" => 'is_in_nav',
@@ -117,6 +157,15 @@ class Category extends CollectionsModel
             ]
 
         ];
+
+    }
+
+    protected function fillIdsFrom($source)
+    {
+
+        $this->lake_uid = $source->lake_uid;
+
+        return $this;
 
     }
 

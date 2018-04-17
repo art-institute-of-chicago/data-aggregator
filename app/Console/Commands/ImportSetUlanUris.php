@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Collections\Agent;
 
-class ImportSetUlanUris extends AbstractImportCommandNew
+class ImportSetUlanUris extends AbstractImportCommand
 {
 
     protected $signature = 'import:set-ulan-uris';
@@ -14,8 +14,16 @@ class ImportSetUlanUris extends AbstractImportCommandNew
     public function handle()
     {
 
-        // Loop through all agents
-        foreach( Agent::cursor() as $agent ) {
+        // TODO: Set up monthly-ish download of new data set + refresh all agents then
+
+        // Grab all agents that (1) don't have a URI
+        $agents = Agent::whereNull('ulan_uri');
+
+        // ...and (2) were updated since successful last run
+        $agents = $agents->where('source_indexed_at', '>=', $this->command->last_success_at);
+
+        // Then, loop through them in a memory-friendly way
+        foreach( $agents->cursor() as $agent ) {
 
             $this->info('Trying agent #' .$agent->citi_id .', ' .$agent->title);
 

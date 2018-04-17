@@ -20,7 +20,10 @@ class AssetTransformer extends CollectionsTransformer
      *
      * @var array
      */
-    protected $availableIncludes = ['categories', 'artworks'];
+    protected $availableIncludes = [
+        'categories',
+        'artworks',
+    ];
 
 
     /**

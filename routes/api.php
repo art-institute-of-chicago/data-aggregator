@@ -80,6 +80,12 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('agent-places', 'AgentPlacesController@index');
     Route::get('agent-places/{id}', 'AgentPlacesController@show');
 
+    Route::get('agent-types', 'AgentTypesController@index');
+    Route::get('agent-types/{id}', 'AgentTypesController@show');
+
+    Route::get('agent-roles', 'AgentRolesController@index');
+    Route::get('agent-roles/{id}', 'AgentRolesController@show');
+
     Route::get('artwork-catalogues', 'ArtworkCataloguesController@index');
     Route::get('artwork-catalogues/{id}', 'ArtworkCataloguesController@show');
 
@@ -89,14 +95,20 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('artwork-types', 'ArtworkTypesController@index');
     Route::get('artwork-types/{id}', 'ArtworkTypesController@show');
 
+    Route::get('artwork-place-qualifiers', 'ArtworkPlaceQualifiersController@index');
+    Route::get('artwork-place-qualifiers/{id}', 'ArtworkPlaceQualifiersController@show');
+
+    Route::get('artwork-dates', 'ArtworkDatesController@index');
+    Route::get('artwork-dates/{id}', 'ArtworkDatesController@show');
+
+    Route::get('artwork-date-qualifiers', 'ArtworkDateQualifiersController@index');
+    Route::get('artwork-date-qualifiers/{id}', 'ArtworkDateQualifiersController@show');
+
     Route::get('categories', 'CategoriesController@index');
     Route::get('categories/{id}', 'CategoriesController@show');
 
     Route::get('category-terms', 'CategoryTermsController@index');
     Route::get('category-terms/{id}', 'CategoryTermsController@show');
-
-    Route::get('agent-types', 'AgentTypesController@index');
-    Route::get('agent-types/{id}', 'AgentTypesController@show');
 
     Route::get('places', 'PlacesController@index');
     Route::get('places/{id}', 'PlacesController@show');
@@ -123,6 +135,9 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::get('catalogues', 'CataloguesController@index');
     Route::get('catalogues/{id}', 'CataloguesController@show');
+
+    Route::get('term-types', 'TermTypesController@index');
+    Route::get('term-types/{id}', 'TermTypesController@show');
 
     Route::get('terms', 'TermsController@index');
     Route::get('terms/{id}', 'TermsController@show');

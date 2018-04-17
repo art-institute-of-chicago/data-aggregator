@@ -30,6 +30,13 @@ class Request
     protected $scopes = null;
 
     /**
+     * Array of queries needed to boost resources in this request.
+     *
+     * @var array
+     */
+    protected $boosts = [];
+
+    /**
      * List of allowed Input params for querying.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-request-body.html
@@ -167,6 +174,9 @@ class Request
 
             // These will be injected into the must clause
             $this->scopes = $settings->pluck('scope')->filter()->all();
+
+            // These will be injected into the should clause
+            $this->boosts = $settings->pluck('boost')->filter()->all();
 
             // Looks like we don't need to implode $indexes and $types
             // PHP Elasticsearch seems to do so for us
@@ -457,17 +467,12 @@ class Request
             ]
         ];
 
-        // Boost anything that's on view
-        // TODO: Move this to the Artwork model?
-        // TODO: Only do this when artworks are searched?
-        $params['body']['query']['bool']['should'][] = [
-            'term' => [
-                'is_on_view' => [
-                    'value' => true,
-                    'boost' => 1.25,
-                ]
-            ]
-        ];
+        // Add any resource-specific boosts
+        foreach( $this->boosts as $boost ) {
+
+            $params['body']['query']['bool']['should'][] = $boost;
+
+        }
 
         return $params;
 
