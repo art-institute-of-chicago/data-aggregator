@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2b74e03f3f291cc67d535551fceab49",
+    "content-hash": "09c8e08c1d09096f9366cba0d5db9df6",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/laravel-scout-elastic.git",
-                "reference": "4d1c2f35bb0f349687ab620c1951749d9c13a396"
+                "reference": "a865330096df5e388eb2be618a028d7fb9ba0278"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/laravel-scout-elastic/zipball/4d1c2f35bb0f349687ab620c1951749d9c13a396",
-                "reference": "4d1c2f35bb0f349687ab620c1951749d9c13a396",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/laravel-scout-elastic/zipball/a865330096df5e388eb2be618a028d7fb9ba0278",
+                "reference": "a865330096df5e388eb2be618a028d7fb9ba0278",
                 "shasum": ""
             },
             "require": {
@@ -112,7 +112,7 @@
             "support": {
                 "source": "https://github.com/art-institute-of-chicago/laravel-scout-elastic/tree/master"
             },
-            "time": "2018-04-17T20:28:17+00:00"
+            "time": "2018-04-17T21:56:46+00:00"
         },
         {
             "name": "aws/aws-sdk-php",

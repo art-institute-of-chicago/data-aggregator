@@ -22,8 +22,8 @@ class SearchServiceProvider extends ServiceProvider
          */
         app(EngineManager::class)->extend('elasticsearch', function($app) {
             return new ElasticsearchEngine( Elasticsearch::connection(),
-                config('scout.elasticsearch.index') . '-', // Acts as a prefix
-                true // Use an index per model?
+                config('scout.elasticsearch.index') . '-',
+                true // Whether "index" should act like a prefix
             );
         });
 

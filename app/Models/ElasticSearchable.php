@@ -13,13 +13,21 @@ trait ElasticSearchable
 
     protected $apiCtrl;
 
+    /**
+     * We need to overwrite the inherited method because it defaults to using the table name.
+     * We need to differentiate between "index" and "type" for legacy reasons.
+     */
+    public function searchableAs()
+    {
+        throw new \Exception('ElasticSearchable does not support `searchableAs`. Use `searchableType` or `searchableIndex` instead.');
+    }
 
     /**
-     * Get the type associated with this model. We need to overwrite the inherited method
-     * because it defaults to using the table name. We used to use the model name, but have
-     * since changed to using `docs` across the board.
+     * We used to use resource names for types, but have since changed to using `doc` everywhere.
      *
-     * This method is used when a document gets indexed, not when the mappings are defined.
+     * In this trait, we specify that this method should be called to define the mapping.
+     *
+     * `\ScoutEngines\Elasticsearch\ElasticsearchEngine` uses it when indexing docs.
      *
      * @TODO Change this to `_doc` when we upgrade to ES 6.2?
      *
@@ -28,13 +36,25 @@ trait ElasticSearchable
      *
      * @return string
      */
-    public function searchableAs()
+    public function searchableType()
     {
-
         return 'doc';
-
     }
 
+    /**
+     * Similar idea to `searchableType`, except this one is always the resource name.
+     *
+     * `\ScoutEngines\Elasticsearch\ElasticsearchEngine` uses it when indexing docs.
+     *
+     * Passing `true` as the second argument when instantiating the engine makes it treat
+     * the string in its first argument as a prefix to be prepended to this string
+     *
+     * @return string
+     */
+    public function searchableIndex()
+    {
+        return $this->searchableModel();
+    }
 
     /**
      * Generate a link to the API for this model resource.
@@ -256,7 +276,7 @@ trait ElasticSearchable
         // Now bring it all together
         return
             [
-                $this->searchableAs() => [
+                $this->searchableType() => [
                     'properties' => array_merge(
                         [
                             'api_id' => [
