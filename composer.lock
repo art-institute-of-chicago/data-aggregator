@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "12b0067e9be1000e1c2f5f72bd1d0d06",
+    "content-hash": "bc7c8ed4bb890f8597b19eaa9fa4da06",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -3461,63 +3461,6 @@
             "time": "2018-01-29T09:03:43+00:00"
         },
         {
-            "name": "tamayo/laravel-scout-elastic",
-            "version": "dev-index-per-model",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/art-institute-of-chicago/laravel-scout-elastic.git",
-                "reference": "4a5ef1845b4ff66d6fcf2e2ff6d21260c3b60e71"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/laravel-scout-elastic/zipball/4a5ef1845b4ff66d6fcf2e2ff6d21260c3b60e71",
-                "reference": "4a5ef1845b4ff66d6fcf2e2ff6d21260c3b60e71",
-                "shasum": ""
-            },
-            "require": {
-                "elasticsearch/elasticsearch": "^5.0",
-                "laravel/scout": "^3.0",
-                "php": ">=5.6.4"
-            },
-            "require-dev": {
-                "fzaninotto/faker": "~1.4",
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "~5.0"
-            },
-            "suggest": {
-                "elasticsearch/elasticsearch": "Required to use the Elasticsearch engine (^5.0)."
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ScoutEngines\\Elasticsearch\\ElasticsearchProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ScoutEngines\\Elasticsearch\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "ScoutEngines\\Elasticsearch\\Test\\": "tests"
-                }
-            },
-            "description": "Elastic Driver for Laravel Scout",
-            "keywords": [
-                "elastic",
-                "elasticsearch",
-                "laravel",
-                "scout"
-            ],
-            "support": {
-                "source": "https://github.com/art-institute-of-chicago/laravel-scout-elastic/tree/index-per-model"
-            },
-            "time": "2017-12-04T02:55:03+00:00"
-        },
-        {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.1",
             "source": {
@@ -5592,8 +5535,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "aic/data-hub-foundation": 20,
-        "tamayo/laravel-scout-elastic": 20
+        "aic/data-hub-foundation": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
