@@ -17,6 +17,7 @@
     "require": {
         "php": ">=7.1.0",
         "aic/data-hub-foundation": "dev-master#308e162c4384935821ac898984527b512508c389",
+        "aic/laravel-scout-elastic": "dev-master#a865330096df5e388eb2be618a028d7fb9ba0278",
         "cviebrock/laravel-elasticsearch": "^2.0",
         "doctrine/dbal": "^2.6",
         "elasticsearch/elasticsearch": "^5.3",
@@ -27,7 +28,6 @@
         "league/csv": "^9.1",
         "league/fractal": "^0.16.0",
         "marijnvdwerf/material-palette": "^1.2",
-        "tamayo/laravel-scout-elastic": "dev-index-per-model#4a5ef1845b4ff66d6fcf2e2ff6d21260c3b60e71",
         "zendframework/zend-code": "^3.2"
     },
     "require-dev": {

@@ -39,13 +39,6 @@ class Category extends ShopModel
 
     }
 
-    protected function searchableModel()
-    {
-
-        return 'shop-categories';
-
-    }
-
     /**
      * Returns web link to the category
      *

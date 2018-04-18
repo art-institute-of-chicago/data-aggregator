@@ -84,7 +84,7 @@ class Agent extends CollectionsModel
      *
      * @return array
      */
-    public static function searchArtists()
+    public static function searchScopeArtists()
     {
 
         return [

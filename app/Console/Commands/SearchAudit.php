@@ -17,29 +17,24 @@ class SearchAudit extends BaseCommand
     public function handle()
     {
 
-        $prefix = env('ELASTICSEARCH_INDEX');
-
         $models = app('Search')->getSearchableModels();
 
         foreach ($models as $model)
         {
 
-            $endpoint = app('Resources')->getEndpointForModel($model);
-            $index = $prefix . '-' . $endpoint;
-
-            $this->audit( $model, $index, $endpoint );
+            $this->audit( $model );
 
         }
 
     }
 
 
-    public function audit( $model, $index, $endpoint )
+    public function audit( $model )
     {
 
         $response = Elasticsearch::search([
-            'index' => $index,
-            'type' => $endpoint,
+            'index' => app('Search')->getIndexForModel( $model ),
+            'type' => app('Search')->getTypeForModel( $model ),
             'size' => 0
         ]);
 
@@ -47,6 +42,8 @@ class SearchAudit extends BaseCommand
         $db_count = $model::count();
 
         $method = ( $es_count == $db_count ) ? 'info' : 'warn';
+
+        $endpoint = app('Resources')->getEndpointForModel( $model );
 
         $this->$method( "{$endpoint} = {$db_count} in db, {$es_count} in es");
 
