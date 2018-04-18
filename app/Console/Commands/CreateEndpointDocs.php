@@ -66,7 +66,6 @@ class CreateEndpointDocs extends BaseCommand
         $doc .= \App\Models\Collections\Exhibition::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Image::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Video::instance()->docEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Link::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Sound::instance()->docEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Text::instance()->docEndpoints($this->appUrl);
 

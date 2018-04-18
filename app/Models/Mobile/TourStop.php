@@ -109,7 +109,19 @@ class TourStop extends MobileModel
     public function exampleId()
     {
 
-        return "3245";
+        return "77";
+
+    }
+
+    /**
+     * Whether this resource has a `/search` endpoint
+     *
+     * @return boolean
+     */
+    public function hasSearchEndpoint()
+    {
+
+        return false;
 
     }
 

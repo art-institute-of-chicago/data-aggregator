@@ -44,7 +44,6 @@ class CreateFieldsDocs extends BaseCommand
         $doc .= \App\Models\Collections\Exhibition::instance()->docFields();
         $doc .= \App\Models\Collections\Image::instance()->docFields();
         $doc .= \App\Models\Collections\Video::instance()->docFields();
-        $doc .= \App\Models\Collections\Link::instance()->docFields();
         $doc .= \App\Models\Collections\Sound::instance()->docFields();
         $doc .= \App\Models\Collections\Text::instance()->docFields();
 

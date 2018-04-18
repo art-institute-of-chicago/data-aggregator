@@ -952,8 +952,17 @@ trait Documentable
         $doc .= $this->swaggerProduces();
         $doc .= $this->swaggerParameters(['id' => 'Resource id to retrieve']);
 
-        $subModel = app('Resources')->getModelForEndpoint($subresource);
-        $doc .= $this->swaggerResponses(class_basename($subModel));
+        try
+        {
+            $subModel = app('Resources')->getModelForEndpoint($subresource);
+            $doc .= $this->swaggerResponses(class_basename($subModel));
+        }
+        catch (\Exception $e)
+        {
+            // Fall back to using this model's own response, in cases like `parts` and `sets` where
+            // the subresource represensts a set of the same models
+            $doc .= $this->swaggerResponses();
+        }
 
         $doc .= "      }\n";
         $doc .= "    },\n";

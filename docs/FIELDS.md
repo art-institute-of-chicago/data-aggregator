@@ -44,6 +44,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `selector_number` *number* - The code that can be entered in our audioguides to learn more about this work
 * `artist_id` *integer* - Unique identifier of the preferred artist/culture associated with this work
 * `alt_artist_ids` *array* - Unique identifiers of the non-preferred artists/cultures associated with this work
+* `artist_ids` *integer* - Unique identifier of all artist/cultures associated with this work
 * `category_ids` *array* - Unique identifiers of the categories this work is a part of
 * `part_ids` *array* - Unique identifiers of the individual works that make up this work
 * `set_ids` *array* - Unique identifiers of the sets this work is a part of. These are not artwork ids.
@@ -52,13 +53,20 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `term_titles` *array* - The names of the taxonomy tags for this work
 * `style_id` *string* - Unique identifier of the preferred style term for this work
 * `alt_style_ids` *array* - Unique identifiers of all other non-preferred style terms for this work
+* `style_ids` *array* - Unique identifiers of all style terms for this work
 * `style_titles` *array* - The names of all style terms related to this artwork
 * `classification_id` *string* - Unique identifier of the preferred classification term for this work
-* `alt_classificaiton_ids` *array* - Unique identifiers of all other non-preferred classification terms for this work
+* `alt_classification_ids` *array* - Unique identifiers of all other non-preferred classification terms for this work
+* `classification_ids` *array* - Unique identifiers of all classification terms for this work
 * `classification_titles` *array* - The names of all classification terms related to this artwork
 * `subject_id` *string* - Unique identifier of the preferred subject term for this work
 * `alt_subject_ids` *array* - Unique identifiers of all other non-preferred subject terms for this work
+* `subject_ids` *array* - Unique identifiers of all subject terms for this work
 * `subject_titles` *array* - The names of all subject terms related to this artwork
+* `material_id` *string* - Unique identifier of the preferred material term for this work
+* `alt_material_ids` *array* - Unique identifiers of all other non-preferred material terms for this work
+* `material_ids` *array* - Unique identifiers of all material terms for this work
+* `material_titles` *array* - The names of all material terms related to this artwork
 * `color` *object* - Dominant color of this artwork in HSL
 * `image_id` *uuid* - Unique identifier of the preferred image to use to represent this work
 * `alt_image_ids` *array* - Unique identifiers of all non-preferred images of this work.
@@ -219,8 +227,6 @@ An organized presentation and display of a selection of artworks. For a descript
 * `department_display` *string* - The name of the department that primarily organized the exhibition
 * `gallery_id` *number* - Unique identifier of the gallery that mainly housed the exhibition
 * `gallery_title` *string* - The name of the gallery that mainly housed the exhibition
-* `image_id` *uuid* - Unique identifier of the image to use to represent this exhibition
-* `image_iiif_url` *string* - IIIF URL of the image to use to represent this exhibition
 * `legacy_image_desktop_url` *string* - URL to the desktop hero image from the legacy marketing site
 * `legacy_image_mobile_url` *string* - URL to the mobile hero image from the legacy marketing site
 * `artwork_ids` *array* - Unique identifiers of the artworks that were part of the exhibition
@@ -228,6 +234,9 @@ An organized presentation and display of a selection of artworks. For a descript
 * `artist_ids` *array* - Unique identifiers of the artist agent records representing who was shown in the exhibition
 * `site_ids` *array* - Unique identifiers of the microsites this exhibition is a part of
 * `legacy_event_ids` *array* - Unique identifiers of the legacy events featuring this exhibition. These are events that been  imported from our existing site as a placeholder, until events from our new can be pulled in.
+* `image_id` *uuid* - Unique identifier of the preferred image to use to represent this exhibition
+* `alt_image_ids` *array* - Unique identifiers of all non-preferred images of this exhibition.
+* `document_ids` *array* - Unique identifiers of assets that serve as documentation for this exhibition
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
@@ -264,27 +273,6 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 ## Videos
 
 A moving image representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#videos).
-
-* `id` *string* - Unique identifier of this resource. Taken from the source system.
-* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
-* `title` *string* - Name of this resource
-* `is_boosted` *boolean* - Whether this document should be boosted in search
-* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
-* `type` *string* - Type always takes one of the following values: image, link, sound, text, video
-* `description` *string* - Explanation of what this asset is
-* `content` *string* - Text of URL of the contents of this asset
-* `category_ids` *array* - Unique identifier of the categories associated with this asset
-* `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
-* `artwork_titles` *array* - Names of the artworks associated with this asset
-* `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
-* `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
-
-
-
-## Links
-
-A website that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#links).
 
 * `id` *string* - Unique identifier of this resource. Taken from the source system.
 * `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our digital asset management system
@@ -395,6 +383,7 @@ An item available for purchase in the museum shop. For a description of all the 
 * `back_order` *boolean* - Whether this product has been back ordered
 * `back_order_due_date` *date* - Date representing when this item is expected to be back in stock
 * `artist_ids` *array* - Unique identifiers of the artists represented in this item
+* `is_active` *boolean* - Whether this product is currently available on the shop website
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 
@@ -464,6 +453,8 @@ A collection of audio tour stops to form a tour. For a description of all the en
 * `weight` *number* - Number representing this tour's sort order
 * `intro_link` *url* - Link to the audio file of the introduction
 * `intro_transcript` *string* - Transcript of the introduction audio to the tour
+* `artwork_titles` *array* - Names of the artworks featured in this tour's tour stops
+* `artist_titles` *array* - Names of the artists of the artworks featured in this tour's tour stops
 * `last_updated_source` *string* - Date and time the resource was updated in the source system
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 
@@ -635,4 +626,4 @@ A Library of Congress term. For a description of all the endpoints available for
 
 
 
-> Generated by `php artisan docs:fields` on 2018-03-30 16:29:46
+> Generated by `php artisan docs:fields` on 2018-04-17 21:09:33

@@ -93,7 +93,6 @@ class CreateSwaggerDoc extends BaseCommand
         $doc .= \App\Models\Collections\Exhibition::instance()->swaggerEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Image::instance()->swaggerEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Video::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Link::instance()->swaggerEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Sound::instance()->swaggerEndpoints($this->appUrl);
         $doc .= \App\Models\Collections\Text::instance()->swaggerEndpoints($this->appUrl);
 
