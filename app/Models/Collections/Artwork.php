@@ -86,7 +86,7 @@ class Artwork extends CollectionsModel
     public function department()
     {
 
-        return $this->categories()->where('type', 1)->where('parent_id', null)->expectOne();
+        return $this->categories()->departments()->expectOne();
 
     }
 
