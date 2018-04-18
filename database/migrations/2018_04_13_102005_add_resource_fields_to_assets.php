@@ -22,6 +22,12 @@ class AddResourceFieldsToAssets extends Migration
 
         });
 
+        // The rest is just mockup data...
+        if( App::environment('testing') )
+        {
+            return;
+        }
+
         $resource_ids = [
             'multimedia' => [
                 '575c532c-bea8-9b88-ccda-d9a50c1f390d',
@@ -63,6 +69,7 @@ class AddResourceFieldsToAssets extends Migration
             {
 
                 // We can't just save Asset directly – it'll get sent to the wrong index!
+                // TODO: Check if $asset is null? Some of these might be unpublished later.
                 $asset = \App\Models\Collections\Asset::find( $id );
                 $type = $asset->type;
 
