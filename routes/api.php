@@ -63,8 +63,6 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
 
-    Route::get('artworks/{id}/terms', 'TermsController@forArtwork');
-
     Route::get('artworks/{id}/artwork-catalogues', 'ArtworkCataloguesController@forArtwork');
 
     // Collections

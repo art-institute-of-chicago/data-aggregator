@@ -14,16 +14,4 @@ class TermsController extends BaseController
 
     protected $transformer = \App\Http\Transformers\TermTransformer::class;
 
-
-    // artworks/{id}/terms
-    public function forArtwork(Request $request, $id) {
-
-        return $this->collect( $request, function( $limit, $id ) {
-
-            return Artwork::findOrFail($id)->terms;
-
-        });
-
-    }
-
 }
