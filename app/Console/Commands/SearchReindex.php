@@ -31,8 +31,7 @@ class SearchReindex extends BaseCommand
         foreach ($models as $model)
         {
 
-            $endpoint = app('Resources')->getEndpointForModel($model);
-            $index = $source . '-' . $endpoint;
+            $index = app('Search')->getIndexForModel( $model, $source );
 
             $params = [
                 'wait_for_completion' => false,
@@ -42,15 +41,15 @@ class SearchReindex extends BaseCommand
                         'size' => 100,
                     ],
                     'dest' => [
-                        'index' => $dest . '-' . $endpoint,
-                        'type' => 'doc',
+                        'index' => app('Search')->getIndexForModel( $model, $dest ),
+                        'type' => app('Search')->getTypeForModel( $model ),
                     ],
                 ],
             ];
 
             $return = Elasticsearch::reindex($params);
 
-            $this->info('Reindex from ' . $index . 'has started. You can monitor the process here: ' . $this->baseUrl() . '/_tasks/' . $return['task']);
+            $this->info('Reindex from ' . $index . ' has started. You can monitor the process here: ' . $this->baseUrl() . '/_tasks/' . $return['task']);
 
         }
 

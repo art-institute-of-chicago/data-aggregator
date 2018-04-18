@@ -181,6 +181,30 @@ class SearchServiceProvider extends ServiceProvider
                 }
 
                 /**
+                 * Returns a string containing the full index name for the model. Includes prefix.
+                 *
+                 * @return string
+                 */
+                public function getIndexForModel( $model, $prefix = null ) {
+
+                    $prefix = $prefix ?? env('ELASTICSEARCH_INDEX');
+
+                    return $prefix . '-' . $model::instance()->searchableIndex();
+
+                }
+
+                /**
+                 * Returns a string containing the type for the model.
+                 *
+                 * @return string
+                 */
+                public function getTypeForModel( $model ) {
+
+                    return $model::instance()->searchableType();
+
+                }
+
+                /**
                  * Returns an array containing namespaced classnames of models with the Searchable trait.
                  *
                  * @return array
@@ -227,8 +251,8 @@ class SearchServiceProvider extends ServiceProvider
 
                     // Defaults
                     $settings = [
-                        'index' => env('ELASTICSEARCH_INDEX') . '-' . $resource,
-                        'type' => 'doc',
+                        'index' => $this->getIndexForModel( $model ),
+                        'type' => $this->getTypeForModel( $model ),
                     ];
 
                     // ex. `searchScopeGalleries` for `galleries` endpoint in model `Place`

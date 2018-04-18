@@ -39,8 +39,7 @@ class SearchAlias extends BaseCommand
             foreach ($models as $model)
             {
 
-                $endpoint = app('Resources')->getEndpointForModel($model);
-                $index = $source . '-' . $endpoint;
+                $index = app('Search')->getIndexForModel( $model, $source );
 
                 $this->alias($index, $alias);
 

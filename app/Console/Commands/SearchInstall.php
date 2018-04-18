@@ -43,8 +43,6 @@ class SearchInstall extends BaseCommand
 
             }
 
-            // TODO: Not quite enough – we also need to alias the type, bleh...
-            // TODO: What if we defaulted the type to e.g. `docs`, not `[endpoint]`?
             $this->aliasAssets( $prefix );
 
         }
@@ -55,8 +53,7 @@ class SearchInstall extends BaseCommand
     private function install( $model, $prefix )
     {
 
-        $endpoint = app('Resources')->getEndpointForModel($model);
-        $index = $prefix . '-' . $endpoint;
+        $index = app('Search')->getIndexForModel( $model, $prefix );
 
         if (!$this->destroy($index, $this->option('yes')))
         {
@@ -83,19 +80,19 @@ class SearchInstall extends BaseCommand
     private function aliasAssets( $prefix )
     {
 
-        $endpoints = [
-            'images',
-            // 'links', // Removing this!
-            'sounds',
-            'texts',
-            'videos',
+        $models = [
+            \App\Models\Collections\Image::class,
+            \App\Models\Collections\Sound::class,
+            \App\Models\Collections\Text::class,
+            \App\Models\Collections\Video::class,
         ];
 
-        foreach( $endpoints as $endpoint )
+        foreach( $models as $model )
         {
 
-            $index = $prefix . '-' . $endpoint;
+            $index = app('Search')->getIndexForModel( $prefix, $model );
 
+            // Searching on `assets` only works if all aliased indexes have the same monotype, e.g. `doc`
             Artisan::call('search:alias', ['source' => $index, 'alias' => $prefix . '-assets', '--single' => true]);
 
         }
