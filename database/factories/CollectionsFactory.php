@@ -310,12 +310,6 @@ $factory->state(App\Models\Collections\Asset::class, 'image', function (Faker\Ge
     ];
 });
 
-$factory->state(App\Models\Collections\Asset::class, 'link', function (Faker\Generator $faker) {
-    return [
-        'type' => 'link',
-    ];
-});
-
 $factory->state(App\Models\Collections\Asset::class, 'sound', function (Faker\Generator $faker) {
     return [
         'type' => 'sound',
@@ -338,10 +332,6 @@ $factory->state(App\Models\Collections\Asset::class, 'video', function (Faker\Ge
 
 $factory->define(App\Models\Collections\Image::class, function (Faker\Generator $faker) {
     return factory( App\Models\Collections\Asset::class )->states('image')->raw();
-});
-
-$factory->define(App\Models\Collections\Link::class, function (Faker\Generator $faker) {
-    return factory( App\Models\Collections\Asset::class )->states('link')->raw();
 });
 
 $factory->define(App\Models\Collections\Sound::class, function (Faker\Generator $faker) {

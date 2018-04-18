@@ -135,11 +135,6 @@ return [
                 'is_searchable' => true,
             ],
             [
-                'endpoint' => 'links',
-                'model' => \App\Models\Collections\Link::class,
-                'is_searchable' => true,
-            ],
-            [
                 'endpoint' => 'sounds',
                 'model' => \App\Models\Collections\Sound::class,
                 'is_searchable' => true,

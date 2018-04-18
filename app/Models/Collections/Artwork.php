@@ -270,13 +270,6 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function links()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Link', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'link');
-
-    }
-
     public function texts()
     {
 
@@ -1130,13 +1123,6 @@ class Artwork extends CollectionsModel
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->videos->pluck('lake_guid') ?? null; },
-            ],
-            [
-                "name" => 'link_ids',
-                "doc" => "Unique identifiers of the links about this work",
-                "type" => "uuid",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->links->pluck('lake_guid') ?? null; },
             ],
             [
                 "name" => 'text_ids',

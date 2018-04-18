@@ -173,7 +173,6 @@ class CreateSwaggerDoc extends BaseCommand
         $doc .= \App\Models\Collections\Exhibition::instance()->swaggerFields($this->appUrl);
         $doc .= \App\Models\Collections\Image::instance()->swaggerFields($this->appUrl);
         $doc .= \App\Models\Collections\Video::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\Link::instance()->swaggerFields($this->appUrl);
         $doc .= \App\Models\Collections\Sound::instance()->swaggerFields($this->appUrl);
         $doc .= \App\Models\Collections\Text::instance()->swaggerFields($this->appUrl);
 

@@ -100,13 +100,13 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_resources_for_an_artwork()
     {
 
-        $artworkKey = $this->attach([Sound::class, Video::class, Text::class, Link::class], 4)->make(Artwork::class);
+        $artworkKey = $this->attach([Sound::class, Video::class, Text::class], 4)->make(Artwork::class);
 
         $response = $this->getJson('api/v1/artworks/' .$artworkKey .'/resources');
         $response->assertSuccessful();
 
         $resources = $response->json()['data'];
-        $this->assertCount(16, $resources);
+        $this->assertCount(12, $resources);
 
         foreach ($resources as $resource)
         {

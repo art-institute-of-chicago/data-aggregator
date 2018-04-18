@@ -12,7 +12,6 @@ class AssetsTableSeeder extends AbstractSeeder
         $key = ( new Asset )->getKeyName();
 
         $images = factory( Asset::class, 50 )->states('image')->create();
-        $links = factory( Asset::class, 25 )->states('link')->create();
         $texts = factory( Asset::class, 25 )->states('text')->create();
         $sounds = factory( Asset::class, 25 )->states('sound')->create();
         $videos = factory( Asset::class, 25 )->states('video')->create();

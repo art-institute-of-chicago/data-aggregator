@@ -126,8 +126,6 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('images/{id}', 'ImagesController@show');
     Route::get('videos', 'VideosController@index');
     Route::get('videos/{id}', 'VideosController@show');
-    Route::get('links', 'LinksController@index');
-    Route::get('links/{id}', 'LinksController@show');
     Route::get('sounds', 'SoundsController@index');
     Route::get('sounds/{id}', 'SoundsController@show');
     Route::get('texts', 'TextsController@index');

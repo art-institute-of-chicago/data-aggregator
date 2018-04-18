@@ -52,7 +52,6 @@ class ImportCollectionsFull extends AbstractImportCommand
         $this->importEndpoint('artwork-catalogues');
         $this->importEndpoint('catalogues');
         $this->importEndpoint('artworks');
-        // $this->importEndpoint('links'); // TODO: Deprecate links!
         $this->importEndpoint('videos');
         $this->importEndpoint('texts');
         $this->importEndpoint('sounds');
