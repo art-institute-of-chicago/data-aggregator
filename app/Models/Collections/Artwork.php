@@ -86,7 +86,7 @@ class Artwork extends CollectionsModel
     public function department()
     {
 
-        return $this->categories()->where('type', 1)->where('parent_id', null)->expectOne();
+        return $this->categories()->departments()->expectOne();
 
     }
 
@@ -100,14 +100,14 @@ class Artwork extends CollectionsModel
     public function terms()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term');
+        return $this->belongsToMany('App\Models\Collections\Term')->withPivot('preferred');
 
     }
 
     public function styles()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::STYLE)->withPivot('preferred');
+        return $this->terms()->style();
 
     }
 
@@ -129,7 +129,7 @@ class Artwork extends CollectionsModel
     public function classifications()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::CLASSIFICATION)->withPivot('preferred');
+        return $this->terms()->classification();
 
     }
 
@@ -150,7 +150,7 @@ class Artwork extends CollectionsModel
     public function subjects()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::SUBJECT)->withPivot('preferred');
+        return $this->terms()->subject();
 
     }
 
@@ -171,7 +171,7 @@ class Artwork extends CollectionsModel
     public function materials()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::MATERIAL)->withPivot('preferred');
+        return $this->terms()->material();
 
     }
 
