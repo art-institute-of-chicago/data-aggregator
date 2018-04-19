@@ -137,29 +137,6 @@ class Category extends CollectionsModel
 
     }
 
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [
-
-            [
-                "name" => 'parent_title',
-                "doc" => "Name of this category's parent",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->parent ? $this->parent->title : null; },
-            ]
-
-        ];
-
-    }
-
     protected function fillIdsFrom($source)
     {
 
