@@ -140,17 +140,6 @@ class Asset extends CollectionsModel
                     "type" => "string",
                     "elasticsearch" => [
                         "default" => true,
-                        "type" => 'text',
-                    ],
-                    "value" => function() { return $this->content; },
-                ],
-                [
-                    "name" => 'content',
-                    "doc" => "Text of URL of the contents of this asset",
-                    "type" => "string",
-                    "elasticsearch" => [
-                        "default" => true,
-                        "type" => 'text',
                     ],
                     "value" => function() { return $this->content; },
                 ],
