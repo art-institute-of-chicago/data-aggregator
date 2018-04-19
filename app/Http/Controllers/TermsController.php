@@ -12,6 +12,6 @@ class TermsController extends BaseController
 
     protected $model = \App\Models\Collections\Term::class;
 
-    protected $transformer = \App\Http\Transformers\TermTransformer::class;
+    protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
 
 }
