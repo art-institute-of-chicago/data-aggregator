@@ -117,8 +117,9 @@ $factory->define(App\Models\Collections\Term::class, function (Faker\Generator $
     return array_merge(
         idsAndTitle($faker, ucfirst($faker->word(3, true))),
         [
-            'term_type_id' => $faker->randomDigit,
-            'lake_uid' => 'TM-' .($faker->unique()->randomNumber(6) + 999 * pow(10, 6))
+            'is_category' => false,
+            'lake_uid' => 'TM-' .($faker->unique()->randomNumber(6) + 999 * pow(10, 6)),
+            'subtype' => $faker->randomElement(['TT-1','TT-2','TT-3','TT-4','TT-5']),
         ],
         dates($faker, true)
     );
@@ -129,12 +130,10 @@ $factory->define(App\Models\Collections\Category::class, function (Faker\Generat
     return array_merge(
         idsAndTitle($faker, ucfirst($faker->word(3, true))),
         [
-            'description' => $faker->paragraph(3),
-            'is_in_nav' => $faker->boolean,
-            'parent_id' => $faker->randomElement(App\Models\Collections\Category::fake()->pluck('citi_id')->all()),
-            'sort' => $faker->randomDigit * 5,
-            'type' => $faker->randomDigit,
+            'is_category' => true,
             'lake_uid' => 'PC-' .($faker->unique()->randomNumber(6) + 999 * pow(10, 6)),
+            'subtype' => $faker->randomElement(['CT-1','CT-3']),
+            'parent_id' => $faker->randomElement(App\Models\Collections\Category::fake()->pluck('lake_uid')->all()),
         ],
         dates($faker, true)
     );
