@@ -100,14 +100,14 @@ class Artwork extends CollectionsModel
     public function terms()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term');
+        return $this->belongsToMany('App\Models\Collections\Term')->withPivot('preferred');
 
     }
 
     public function styles()
     {
 
-        return $this->terms()->style()->withPivot('preferred');
+        return $this->terms()->style();
 
     }
 
@@ -129,7 +129,7 @@ class Artwork extends CollectionsModel
     public function classifications()
     {
 
-        return $this->terms()->classification()->withPivot('preferred');
+        return $this->terms()->classification();
 
     }
 
@@ -150,7 +150,7 @@ class Artwork extends CollectionsModel
     public function subjects()
     {
 
-        return $this->terms()->subject()->withPivot('preferred');
+        return $this->terms()->subject();
 
     }
 
@@ -171,7 +171,7 @@ class Artwork extends CollectionsModel
     public function materials()
     {
 
-        return $this->terms()->material()->withPivot('preferred');
+        return $this->terms()->material();
 
     }
 
