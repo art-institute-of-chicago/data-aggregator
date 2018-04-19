@@ -112,10 +112,6 @@ return [
                 'is_searchable' => true,
             ],
             [
-                'endpoint' => 'term-types',
-                'model' => \App\Models\Collections\TermType::class,
-            ],
-            [
                 'endpoint' => 'category-terms',
                 'model' => \App\Models\Collections\CategoryTerm::class,
                 'is_searchable' => true, // TODO: Verify?

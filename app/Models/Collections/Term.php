@@ -16,6 +16,12 @@ class Term extends CollectionsModel
     use ElasticSearchable;
     use Documentable;
 
+    private const CLASSIFICATION = 1;
+    private const MATERIAL = 2;
+    private const TECHNIQUE = 3;
+    private const STYLE = 4;
+    private const SUBJECT = 5;
+
     protected $primaryKey = 'lake_uid';
     protected $keyType = 'string';
 
@@ -43,7 +49,7 @@ class Term extends CollectionsModel
     public function scopeStyle($query)
     {
 
-        return $query->where('term_type_id', TermType::STYLE);
+        return $query->where('term_type_id', self::STYLE);
 
     }
 
@@ -56,7 +62,7 @@ class Term extends CollectionsModel
     public function scopeClassification($query)
     {
 
-        return $query->where('term_type_id', TermType::CLASSIFICATION);
+        return $query->where('term_type_id', self::CLASSIFICATION);
 
     }
 
@@ -69,7 +75,7 @@ class Term extends CollectionsModel
     public function scopeSubject($query)
     {
 
-        return $query->where('term_type_id', TermType::SUBJECT);
+        return $query->where('term_type_id', self::SUBJECT);
 
     }
 
@@ -82,7 +88,7 @@ class Term extends CollectionsModel
     public function scopeMaterial($query)
     {
 
-        return $query->where('term_type_id', TermType::MATERIAL);
+        return $query->where('term_type_id', self::MATERIAL);
 
     }
 
