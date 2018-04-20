@@ -4,8 +4,11 @@ namespace App\Providers;
 
 use Elasticsearch;
 use Laravel\Scout\EngineManager;
-use ScoutEngines\Elasticsearch\ElasticsearchEngine;
+// use ScoutEngines\Elasticsearch\ElasticsearchEngine;
 use Illuminate\Support\ServiceProvider;
+
+// TODO: Remove this after we're ready to handle exceptions
+use App\ElasticsearchEngine;
 
 class SearchServiceProvider extends ServiceProvider
 {
