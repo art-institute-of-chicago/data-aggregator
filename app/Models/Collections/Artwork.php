@@ -1169,6 +1169,12 @@ class Artwork extends CollectionsModel
         return [
 
             [
+                "name" => 'artist_title',
+                "doc" => "Names of the preferred artist/culture associated with this work",
+                "type" => "string",
+                "value" => function() { return $this->artist->title ?? null; },
+            ],
+            [
                 "name" => 'artist_titles',
                 "doc" => "Names of the artists this artwork is a part of",
                 "type" => "array",
