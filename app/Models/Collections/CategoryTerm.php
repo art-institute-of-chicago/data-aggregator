@@ -246,6 +246,20 @@ class CategoryTerm extends CollectionsModel
 
     }
 
+
+    /**
+     * Scope a query to only include terms that are of type 'theme'.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeTechnique($query)
+    {
+
+        return $query->terms()->where('subtype', self::TECHNIQUE);
+
+    }
+
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */

@@ -189,6 +189,13 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function techniques()
+    {
+
+        return $this->terms()->technique();
+
+    }
+
     public function artworkCatalogues()
     {
 
@@ -1080,6 +1087,13 @@ class Artwork extends CollectionsModel
                 "doc" => "The names of all material terms related to this artwork",
                 "type" => "array",
                 "value" => function() { return $this->materials->pluck('title')->all(); },
+            ],
+            [
+                "name" => 'technique_ids',
+                "doc" => "Unique identifiers of all technique terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->techniques->pluck('lake_uid')->all(); },
             ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields

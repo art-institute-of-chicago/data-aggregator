@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "73b8d14b35283d13ef9e3215cf9fa7e2",
+    "content-hash": "f23740f2830c9b59a3b0e9d2f60b2821",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -12,15 +12,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "308e162c4384935821ac898984527b512508c389"
+                "reference": "aae76619352228df473193c8b9e37369c8337512"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/308e162c4384935821ac898984527b512508c389",
-                "reference": "308e162c4384935821ac898984527b512508c389",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/aae76619352228df473193c8b9e37369c8337512",
+                "reference": "aae76619352228df473193c8b9e37369c8337512",
                 "shasum": ""
             },
             "require": {
+                "doctrine/dbal": "^2.6",
                 "laravel/framework": "^5.4",
                 "league/fractal": "^0.16.0",
                 "php": ">=7.0.0"
@@ -49,7 +50,7 @@
                 "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/master",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2018-03-27T06:26:19+00:00"
+            "time": "2018-04-23T18:51:23+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
