@@ -982,14 +982,6 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->sets->pluck('citi_id')->all(); },
             ],
             [
-                // @DEPRECATE since the list of dates isn't useful without their qualifiers
-                "name" => 'date_dates',
-                "doc" => "List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.",
-                "type" => "array",
-                'elasticsearch_type' => 'date',
-                "value" => function() { return []; },
-            ],
-            [
                 "name" => 'artwork_catalogue_ids',
                 "doc" => "This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.",
                 "type" => "array",
