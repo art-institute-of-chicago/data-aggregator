@@ -490,6 +490,12 @@ class Request
     public function addScopeParams( array $params, array $input )
     {
 
+        if( !isset( $this->scopes ) || count( $this->scopes ) < 1 ) {
+
+            return $params;
+
+        }
+
         // Assumes that `scopes` has no null members
         $params['body']['query']['bool']['must'][] = [
             'bool' => [
