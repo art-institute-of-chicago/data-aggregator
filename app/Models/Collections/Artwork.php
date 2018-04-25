@@ -656,6 +656,22 @@ class Artwork extends CollectionsModel
                     'field' => 'image_id',
                 ]
             ],
+            // Make pageviews influence score.
+            [
+                'function_score' => [
+                    'query' => [
+                        'exists' => [
+                            'field' => 'pageviews',
+                            'boost' => 1.5
+                        ]
+                    ],
+                    'field_value_factor' => [
+                        'field' => 'pageviews',
+                        'modifier' => 'log1p',
+                        'factor' => 1
+                    ],
+                ],
+            ]
         ];
 
     }
@@ -687,6 +703,15 @@ class Artwork extends CollectionsModel
                     "type" => 'keyword',
                 ],
                 "value" => function() { return $this->main_id; },
+            ],
+            [
+                "name" => 'pageviews',
+                "doc" => "Approx. number of times this artwork was viewed on our website since Jan 1st, 2010",
+                "type" => "number",
+                "elasticsearch" => [
+                    "type" => 'integer',
+                ],
+                "value" => function() { return $this->pageviews; },
             ],
             [
                 "name" => 'date_start',
