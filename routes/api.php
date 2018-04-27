@@ -63,8 +63,6 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
 
-    Route::get('artworks/{id}/terms', 'TermsController@forArtwork');
-
     Route::get('artworks/{id}/artwork-catalogues', 'ArtworkCataloguesController@forArtwork');
 
     // Collections
@@ -126,8 +124,6 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('images/{id}', 'ImagesController@show');
     Route::get('videos', 'VideosController@index');
     Route::get('videos/{id}', 'VideosController@show');
-    Route::get('links', 'LinksController@index');
-    Route::get('links/{id}', 'LinksController@show');
     Route::get('sounds', 'SoundsController@index');
     Route::get('sounds/{id}', 'SoundsController@show');
     Route::get('texts', 'TextsController@index');
@@ -135,9 +131,6 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::get('catalogues', 'CataloguesController@index');
     Route::get('catalogues/{id}', 'CataloguesController@show');
-
-    Route::get('term-types', 'TermTypesController@index');
-    Route::get('term-types/{id}', 'TermTypesController@show');
 
     Route::get('terms', 'TermsController@index');
     Route::get('terms/{id}', 'TermsController@show');

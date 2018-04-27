@@ -15,43 +15,66 @@ class SearchReindex extends BaseCommand
 
     protected $signature = 'search:reindex
                             {dest : The prefix of the indexes to copy documents to}
-                            {source? : The prefix of the indexes to copy documents from}';
+                            {source? : The prefix of the indexes to copy documents from}
+                            {model? : Classname of model to reindex}';
 
     protected $description = 'Copy documents from one set of indices to another';
+
+    protected $dest;
+
+    protected $source;
 
 
     public function handle()
     {
 
-        $dest = $this->argument('dest');
-        $source = $this->argument('source') ?? env('ELASTICSEARCH_INDEX');
+        $this->dest = $this->argument('dest');
+        $this->source = $this->argument('source') ?? env('ELASTICSEARCH_INDEX');
 
-        $models = app('Search')->getSearchableModels();
-
-        foreach ($models as $model)
+        if ($this->argument('model'))
         {
 
-            $endpoint = app('Resources')->getEndpointForModel($model);
-            $index = $source . '-' . $endpoint;
+            $this->reindex( $this->argument('model') );
 
-            $params = [
-                'wait_for_completion' => false,
-                'body' => [
-                    'source' => [
-                        'index' => $index,
-                        'size' => 100,
-                    ],
-                    'dest' => [
-                        'index' => $dest . '-' . $endpoint,
-                    ],
-                ],
-            ];
+        } else {
 
-            $return = Elasticsearch::reindex($params);
+            $models = app('Search')->getSearchableModels();
 
-            $this->info('Reindex from ' . $index . 'has started. You can monitor the process here: ' . $this->baseUrl() . '/_tasks/' . $return['task']);
+            foreach ($models as $model)
+            {
+
+                $this->reindex( $model );
+
+            }
 
         }
+
+    }
+
+
+    public function reindex( $model )
+    {
+
+        $index = app('Search')->getIndexForModel( $model, $this->source );
+
+        $params = [
+            'wait_for_completion' => false,
+            'body' => [
+                'source' => [
+                    'index' => $index,
+                    'size' => 100,
+                ],
+                'dest' => [
+                    'index' => app('Search')->getIndexForModel( $model, $this->dest ),
+                    'type' => app('Search')->getTypeForModel( $model ),
+                ],
+            ],
+        ];
+
+        $return = Elasticsearch::reindex($params);
+
+        $this->info('Reindex from ' . $index . ' has started. Monitor the process here: ' . $this->baseUrl() . '/_tasks/' . $return['task']);
+
 
     }
 

@@ -4,8 +4,11 @@ namespace App\Providers;
 
 use Elasticsearch;
 use Laravel\Scout\EngineManager;
-use ScoutEngines\Elasticsearch\ElasticsearchEngine;
+// use ScoutEngines\Elasticsearch\ElasticsearchEngine;
 use Illuminate\Support\ServiceProvider;
+
+// TODO: Remove this after we're ready to handle exceptions
+use App\ElasticsearchEngine;
 
 class SearchServiceProvider extends ServiceProvider
 {
@@ -22,8 +25,8 @@ class SearchServiceProvider extends ServiceProvider
          */
         app(EngineManager::class)->extend('elasticsearch', function($app) {
             return new ElasticsearchEngine( Elasticsearch::connection(),
-                config('scout.elasticsearch.index') . '-', // Acts as a prefix
-                true // Use an index per model?
+                config('scout.elasticsearch.index') . '-',
+                true // Whether "index" should act like a prefix
             );
         });
 
@@ -181,6 +184,30 @@ class SearchServiceProvider extends ServiceProvider
                 }
 
                 /**
+                 * Returns a string containing the full index name for the model. Includes prefix.
+                 *
+                 * @return string
+                 */
+                public function getIndexForModel( $model, $prefix = null ) {
+
+                    $prefix = $prefix ?? env('ELASTICSEARCH_INDEX');
+
+                    return $prefix . '-' . $model::instance()->searchableIndex();
+
+                }
+
+                /**
+                 * Returns a string containing the type for the model.
+                 *
+                 * @return string
+                 */
+                public function getTypeForModel( $model ) {
+
+                    return $model::instance()->searchableType();
+
+                }
+
+                /**
                  * Returns an array containing namespaced classnames of models with the Searchable trait.
                  *
                  * @return array
@@ -227,12 +254,12 @@ class SearchServiceProvider extends ServiceProvider
 
                     // Defaults
                     $settings = [
-                        'index' => env('ELASTICSEARCH_INDEX') . '-' . $resource,
-                        'type' => $resource,
+                        'index' => $this->getIndexForModel( $model ),
+                        'type' => $this->getTypeForModel( $model ),
                     ];
 
-                    // ex. `searchGalleries` for `galleries` endpoint in model `Place`
-                    $searchScopeMethod = 'search' . studly_case( $endpoint );
+                    // ex. `searchScopeGalleries` for `galleries` endpoint in model `Place`
+                    $searchScopeMethod = 'searchScope' . studly_case( $endpoint );
 
                     if( method_exists( $model, $searchScopeMethod ) )
                     {

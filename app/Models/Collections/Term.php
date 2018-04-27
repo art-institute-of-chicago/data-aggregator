@@ -2,132 +2,37 @@
 
 namespace App\Models\Collections;
 
-use App\Models\CollectionsModel;
-use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
 /**
  * Represents a term/tag on an artwork. In the API, this includes styles, classifications and subjects.
  * Terms are meant to be more specific than publish categories, and is a taxonomy taken from Getty AAT.
  */
-class Term extends CollectionsModel
+class Term extends CategoryTerm
 {
 
-    use ElasticSearchable;
     use Documentable;
 
-    protected $primaryKey = 'lake_uid';
-    protected $keyType = 'string';
+    protected static $isCategory = false;
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-        'source_indexed_at',
-        'citi_created_at',
-        'citi_modified_at',
-    ];
-
-    public function artworks()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Artwork');
-
-    }
-
-    /**
-     * Scope a query to only include terms that are of type 'style'.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeStyle($query)
-    {
-
-        return $query->where('term_type_id', TermType::STYLE);
-
-    }
-
-    /**
-     * Scope a query to only include terms that are of type 'classification'.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeClassification($query)
-    {
-
-        return $query->where('term_type_id', TermType::CLASSIFICATION);
-
-    }
-
-    /**
-     * Scope a query to only include terms that are of type 'subject'.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeSubject($query)
-    {
-
-        return $query->where('term_type_id', TermType::SUBJECT);
-
-    }
-
-    /**
-     * Scope a query to only include terms that are of type 'material'.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeMaterial($query)
-    {
-
-        return $query->where('term_type_id', TermType::MATERIAL);
-
-    }
-
-
-    /**
-     * Specific field definitions for a given class. See `transformMapping()` for more info.
-     */
-    protected function transformMappingInternal()
+    public function getExtraFillFieldsFrom($source)
     {
 
         return [
-            [
-                "name" => 'term_type_id',
-                "doc" => "The unique identifier of term type.",
-                "type" => "string",
-                "elasticsearch_type" => 'keyword',
-                "value" => function() { return $this->term_type_id; },
-            ],
+            'subtype' => $source->term_type_id ? 'TT-' . $source->term_type_id : null,
         ];
 
     }
 
-
-    protected function fillIdsFrom($source)
-    {
-
-        $this->lake_uid = $source->lake_uid;
-
-        return $this;
-
-    }
-
-
     /**
-     * Ensure that the id is a valid LAKE UID.
+     * Get an example ID for documentation generation
      *
-     * @param mixed $id
-     * @return boolean
+     * @return string
      */
-    public static function validateId($id)
+    public function exampleId()
     {
 
-        $uid = '/^[A-Z]{2}-[0-9]+$/i';
-
-        return preg_match($uid, $id);
+        return "TM-634";
 
     }
 

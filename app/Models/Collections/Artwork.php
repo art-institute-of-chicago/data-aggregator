@@ -86,7 +86,7 @@ class Artwork extends CollectionsModel
     public function department()
     {
 
-        return $this->categories()->where('type', 1)->where('parent_id', null)->expectOne();
+        return $this->categories()->departments()->expectOne();
 
     }
 
@@ -100,14 +100,14 @@ class Artwork extends CollectionsModel
     public function terms()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term');
+        return $this->belongsToMany('App\Models\Collections\Term')->withPivot('preferred');
 
     }
 
     public function styles()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::STYLE)->withPivot('preferred');
+        return $this->terms()->style();
 
     }
 
@@ -129,7 +129,7 @@ class Artwork extends CollectionsModel
     public function classifications()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::CLASSIFICATION)->withPivot('preferred');
+        return $this->terms()->classification();
 
     }
 
@@ -150,7 +150,7 @@ class Artwork extends CollectionsModel
     public function subjects()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::SUBJECT)->withPivot('preferred');
+        return $this->terms()->subject();
 
     }
 
@@ -171,7 +171,7 @@ class Artwork extends CollectionsModel
     public function materials()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Term')->where('term_type_id', '=', TermType::MATERIAL)->withPivot('preferred');
+        return $this->terms()->material();
 
     }
 
@@ -186,6 +186,13 @@ class Artwork extends CollectionsModel
     {
 
         return $this->materials()->isAlternative();
+
+    }
+
+    public function techniques()
+    {
+
+        return $this->terms()->technique();
 
     }
 
@@ -267,13 +274,6 @@ class Artwork extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Models\Collections\Video', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'video');
-
-    }
-
-    public function links()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Link', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'link');
 
     }
 
@@ -656,6 +656,22 @@ class Artwork extends CollectionsModel
                     'field' => 'image_id',
                 ]
             ],
+            // Make pageviews influence score.
+            [
+                'function_score' => [
+                    'query' => [
+                        'exists' => [
+                            'field' => 'pageviews',
+                            'boost' => 1.5
+                        ]
+                    ],
+                    'field_value_factor' => [
+                        'field' => 'pageviews',
+                        'modifier' => 'log1p',
+                        'factor' => 1
+                    ],
+                ],
+            ]
         ];
 
     }
@@ -687,6 +703,15 @@ class Artwork extends CollectionsModel
                     "type" => 'keyword',
                 ],
                 "value" => function() { return $this->main_id; },
+            ],
+            [
+                "name" => 'pageviews',
+                "doc" => "Approx. number of times this artwork was viewed on our website since Jan 1st, 2010",
+                "type" => "number",
+                "elasticsearch" => [
+                    "type" => 'integer',
+                ],
+                "value" => function() { return $this->pageviews; },
             ],
             [
                 "name" => 'date_start',
@@ -957,14 +982,6 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->sets->pluck('citi_id')->all(); },
             ],
             [
-                // @DEPRECATE since the list of dates isn't useful without their qualifiers
-                "name" => 'date_dates',
-                "doc" => "List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.",
-                "type" => "array",
-                'elasticsearch_type' => 'date',
-                "value" => function() { return []; },
-            ],
-            [
                 "name" => 'artwork_catalogue_ids',
                 "doc" => "This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.",
                 "type" => "array",
@@ -1088,6 +1105,13 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "value" => function() { return $this->materials->pluck('title')->all(); },
             ],
+            [
+                "name" => 'technique_ids',
+                "doc" => "Unique identifiers of all technique terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->techniques->pluck('lake_uid')->all(); },
+            ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
             [
@@ -1130,13 +1154,6 @@ class Artwork extends CollectionsModel
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->videos->pluck('lake_guid') ?? null; },
-            ],
-            [
-                "name" => 'link_ids',
-                "doc" => "Unique identifiers of the links about this work",
-                "type" => "uuid",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->links->pluck('lake_guid') ?? null; },
             ],
             [
                 "name" => 'text_ids',
@@ -1182,6 +1199,12 @@ class Artwork extends CollectionsModel
 
         return [
 
+            [
+                "name" => 'artist_title',
+                "doc" => "Names of the preferred artist/culture associated with this work",
+                "type" => "string",
+                "value" => function() { return $this->artist->title ?? null; },
+            ],
             [
                 "name" => 'artist_titles',
                 "doc" => "Names of the artists this artwork is a part of",

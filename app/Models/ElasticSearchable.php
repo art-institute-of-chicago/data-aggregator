@@ -13,23 +13,48 @@ trait ElasticSearchable
 
     protected $apiCtrl;
 
-
     /**
-     * Get the type associated with this model. We need to overwrite the inherited method
-     * because it defaults to using the table name. We need to use the model name instead.
-     * This method is used when a document gets indexed, not when the mappings are defined.
-     * This avoids a number of bugs, including `tour_stops` vs. `tour-stops`, `agents` vs.
-     * `artists`, and `assets` vs. `images`.
-     *
-     * @return string
+     * We need to overwrite the inherited method because it defaults to using the table name.
+     * We need to differentiate between "index" and "type" for legacy reasons.
      */
     public function searchableAs()
     {
-
-        return config('scout.prefix') . $this->searchableModel();
-
+        throw new \Exception('ElasticSearchable does not support `searchableAs`. Use `searchableType` or `searchableIndex` instead.');
     }
 
+    /**
+     * We used to use resource names for types, but have since changed to using `doc` everywhere.
+     *
+     * In this trait, we specify that this method should be called to define the mapping.
+     *
+     * `\ScoutEngines\Elasticsearch\ElasticsearchEngine` uses it when indexing docs.
+     *
+     * @TODO Change this to `_doc` when we upgrade to ES 6.2?
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/removal-of-types.html
+     * @link https://discuss.elastic.co/t/cant-use-doc-as-type-despite-it-being-declared-the-preferred-method/113837
+     *
+     * @return string
+     */
+    public function searchableType()
+    {
+        return 'doc';
+    }
+
+    /**
+     * Similar idea to `searchableType`, except this one is always the resource name.
+     *
+     * `\ScoutEngines\Elasticsearch\ElasticsearchEngine` uses it when indexing docs.
+     *
+     * Passing `true` as the second argument when instantiating the engine makes it treat
+     * the string in its first argument as a prefix to be prepended to this string
+     *
+     * @return string
+     */
+    public function searchableIndex()
+    {
+        return $this->searchableModel();
+    }
 
     /**
      * Generate a link to the API for this model resource.
@@ -51,6 +76,9 @@ trait ElasticSearchable
     /**
      * Generate a string to use in the seach index to identify this model
      *
+     * This avoids a number of bugs, including `tour_stops` vs. `tour-stops`, `agents` vs.
+     * `artists`, and `assets` vs. `images`.
+     *
      * @return string
      */
     protected function searchableModel()
@@ -58,7 +86,7 @@ trait ElasticSearchable
 
         $calledClass = get_called_class();
 
-        return str_plural(kebab_case(class_basename($calledClass)));
+        return app('Resources')->getEndpointForModel( $calledClass );
 
     }
 
@@ -74,19 +102,6 @@ trait ElasticSearchable
         $calledClass = get_called_class();
 
         return kebab_case( array_slice( explode('\\', $calledClass), -2, 1)[0] );
-
-    }
-
-
-    /**
-     * Generate a unique string identifying this model resource.
-     *
-     * @return string
-     */
-    public function searchableId()
-    {
-
-        return $this->searchableSource() . '.' .$this->searchableModel() . '.' . $this->getKey();
 
     }
 
@@ -115,7 +130,6 @@ trait ElasticSearchable
         // TODO: Remove these fields: almost all of them are already defined in `transformMapping`
         $array = array_merge(
             [
-                // 'id' => $this->searchableId(),
                 'api_id' => "" .$this->getKey(),
                 'api_model' => $this->searchableModel(),
                 'api_link' => $this->searchableLink(),
@@ -262,7 +276,7 @@ trait ElasticSearchable
         // Now bring it all together
         return
             [
-                $this->searchableAs() => [
+                $this->searchableType() => [
                     'properties' => array_merge(
                         [
                             'api_id' => [

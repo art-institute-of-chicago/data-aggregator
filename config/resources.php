@@ -70,16 +70,6 @@ return [
                 'is_searchable' => true, // TODO: Verify?
             ],
             [
-                'endpoint' => 'categories',
-                'model' => \App\Models\Collections\Category::class,
-                'is_searchable' => true,
-            ],
-            [
-                'endpoint' => 'departments',
-                'model' => \App\Models\Collections\Category::class,
-                'scope_of' => 'categories',
-            ],
-            [
                 'endpoint' => 'places',
                 'model' => \App\Models\Collections\Place::class,
                 'is_searchable' => true,
@@ -107,18 +97,24 @@ return [
                 'model' => \App\Models\Collections\AgentExhibition::class,
             ],
             [
-                'endpoint' => 'terms',
-                'model' => \App\Models\Collections\Term::class,
+                'endpoint' => 'category-terms',
+                'model' => \App\Models\Collections\CategoryTerm::class,
                 'is_searchable' => true,
             ],
             [
-                'endpoint' => 'term-types',
-                'model' => \App\Models\Collections\TermType::class,
+                'endpoint' => 'terms',
+                'model' => \App\Models\Collections\Term::class,
+                'scope_of' => 'category-terms',
             ],
             [
-                'endpoint' => 'category-terms',
-                'model' => \App\Models\Collections\CategoryTerm::class,
-                'is_searchable' => true, // TODO: Verify?
+                'endpoint' => 'categories',
+                'model' => \App\Models\Collections\Category::class,
+                'scope_of' => 'category-terms',
+            ],
+            [
+                'endpoint' => 'departments',
+                'model' => \App\Models\Collections\Category::class,
+                'scope_of' => 'categories',
             ],
             [
                 'endpoint' => 'assets',
@@ -132,11 +128,6 @@ return [
             [
                 'endpoint' => 'videos',
                 'model' => \App\Models\Collections\Video::class,
-                'is_searchable' => true,
-            ],
-            [
-                'endpoint' => 'links',
-                'model' => \App\Models\Collections\Link::class,
                 'is_searchable' => true,
             ],
             [

@@ -22,7 +22,6 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->call(TermTypesTableSeeder::class);
         $this->call(AgentTypesTableSeeder::class);
         $this->call(AgentRolesTableSeeder::class);
         $this->call(AgentsTableSeeder::class);
@@ -64,7 +63,6 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         Agent::fake()->delete();
         AgentType::fake()->delete();
         AgentRole::fake()->delete();
-        TermType::fake()->delete();
 
     }
 

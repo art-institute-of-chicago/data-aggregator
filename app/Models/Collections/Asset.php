@@ -26,6 +26,9 @@ class Asset extends CollectionsModel
 
     protected $casts = [
         'metadata' => 'object',
+        'is_multimedia_resource' => 'boolean',
+        'is_educational_resource' => 'boolean',
+        'is_teacher_resource' => 'boolean',
     ];
 
     protected static $assetType = null;
@@ -119,7 +122,7 @@ class Asset extends CollectionsModel
 
                 [
                     "name" => 'type',
-                    "doc" => "Type always takes one of the following values: image, link, sound, text, video",
+                    "doc" => "Type always takes one of the following values: image, sound, text, video",
                     "type" => "string",
                     'elasticsearch_type' => 'keyword',
                     "value" => function() { return $this->type; },
@@ -137,9 +140,35 @@ class Asset extends CollectionsModel
                     "type" => "string",
                     "elasticsearch" => [
                         "default" => true,
-                        "type" => 'text',
                     ],
                     "value" => function() { return $this->content; },
+                ],
+                [
+                    "name" => 'is_multimedia_resource',
+                    "doc" => "Whether this resource is considered to be multimedia",
+                    "type" => "boolean",
+                    "elasticsearch" => [
+                        "type" => 'boolean',
+                    ],
+                    "value" => function() { return $this->is_multimedia_resource; },
+                ],
+                [
+                    "name" => 'is_educational_resource',
+                    "doc" => "Whether this resource is considered to be educational",
+                    "type" => "boolean",
+                    "elasticsearch" => [
+                        "type" => 'boolean',
+                    ],
+                    "value" => function() { return $this->is_educational_resource; },
+                ],
+                [
+                    "name" => 'is_teacher_resource',
+                    "doc" => "Whether this resource is considered to be educational",
+                    "type" => "boolean",
+                    "elasticsearch" => [
+                        "type" => 'boolean',
+                    ],
+                    "value" => function() { return $this->is_teacher_resource; },
                 ],
                 // @TODO Re-enable this once the artist association is fixed
                 // 'artist' => [
