@@ -20,19 +20,19 @@ ARTWORKS
 CATEGORY-TERMS (including CATEGORIES and TERMS)
 
  * The following modifications have been made to the API schema:
-  - `term_id` - Removed, as this is duplicating the `id` field
-  - `category_id` - Removed, as this is duplicating the `id` field
-  - `term_type_id` - Removed, replaced with `subtype`, since this list is short and very static
-  - `subtype` - Added, takes one of the following values: classification, material, technique, style, subject, department, theme
+   - `term_id` - Removed, as this is duplicating the `id` field
+   - `category_id` - Removed, as this is duplicating the `id` field
+   - `term_type_id` - Removed, replaced with `subtype`, since this list is short and very static
+   - `subtype` - Added, takes one of the following values: classification, material, technique, style, subject, department, theme
 
 
 ASSETS (including IMAGES, SOUNDS, VIDEOS, and TEXTS)
 
  * Added `content.keyword` field to search, for filtering assets with URLs
  * The following modifications have been made to the API schema:
-  - `is_multimedia_resource` - Added, whether this resource is considered to be multimedia
-  - `is_educational_resource` - Added, whether this resource is considered to be educational
-  - `is_teacher_resource` - Added, whether this resource is considered to be educational
+   - `is_multimedia_resource` - Added, whether this resource is considered to be multimedia
+   - `is_educational_resource` - Added, whether this resource is considered to be educational
+   - `is_teacher_resource` - Added, whether this resource is considered to be educational
 
 
 DEPRECATED ENDPOINTS
@@ -41,13 +41,13 @@ DEPRECATED ENDPOINTS
  * Term types models have been removed and replaced with a static string list
  * Removed `/artworks/{id}/terms` since it doesn't provide "pivot" information about which terms are preferred
  * These endpoints have been removed:
-  - /links
-  - /links/{id}
-  - /links/{id}/pull
-  - /term-types
-  - /term-types/{id}
-  - /term-types/{id}/pull
-  - /artworks/{id}/terms
+   - `/links`
+   - `/links/{id}`
+   - `/links/{id}/pull`
+   - `/term-types`
+   - `/term-types/{id}`
+   - `/term-types/{id}/pull`
+   - `/artworks/{id}/terms`
 
 
 ### 0.12 – Finish integration with new collections data
