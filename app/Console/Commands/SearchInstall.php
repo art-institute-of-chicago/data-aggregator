@@ -90,7 +90,7 @@ class SearchInstall extends BaseCommand
         foreach( $models as $model )
         {
 
-            $index = app('Search')->getIndexForModel( $prefix, $model );
+            $index = app('Search')->getIndexForModel( $model, $prefix );
 
             // Searching on `assets` only works if all aliased indexes have the same monotype, e.g. `doc`
             Artisan::call('search:alias', ['source' => $index, 'alias' => $prefix . '-assets', '--single' => true]);
