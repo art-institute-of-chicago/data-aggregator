@@ -11,6 +11,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
 * `alt_titles` *array* - Altername names for this work
 * `main_reference_number` *string* - Unique identifier assigned to the artwork upon acquisition
+* `pageviews` *number* - Approx. number of times this artwork was viewed on our website since Jan 1st, 2010
 * `date_start` *number* - The year of the period of time associated with the creation of this work
 * `date_end` *number* - The year of the period of time associated with the creation of this work
 * `date_display` *string* - Readable, free-text description of the period of time associated with the creation of this work. This might include date terms like Dynasty, Era etc. Written by curators and editors in house style, and is the preferred field for display on websites and apps. 
@@ -48,7 +49,6 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `category_ids` *array* - Unique identifiers of the categories this work is a part of
 * `part_ids` *array* - Unique identifiers of the individual works that make up this work
 * `set_ids` *array* - Unique identifiers of the sets this work is a part of. These are not artwork ids.
-* `date_dates` *array* - List of all the dates associated with this work. Includes creation dates, and may also include publication dates for works on paper, exhibition dates for provenance, found dates for archaeological finds, etc.
 * `artwork_catalogue_ids` *array* - This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.
 * `term_titles` *array* - The names of the taxonomy tags for this work
 * `style_id` *string* - Unique identifier of the preferred style term for this work
@@ -67,13 +67,13 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `alt_material_ids` *array* - Unique identifiers of all other non-preferred material terms for this work
 * `material_ids` *array* - Unique identifiers of all material terms for this work
 * `material_titles` *array* - The names of all material terms related to this artwork
+* `technique_ids` *array* - Unique identifiers of all technique terms for this work
 * `color` *object* - Dominant color of this artwork in HSL
 * `image_id` *uuid* - Unique identifier of the preferred image to use to represent this work
 * `alt_image_ids` *array* - Unique identifiers of all non-preferred images of this work.
 * `document_ids` *array* - Unique identifiers of assets that serve as documentation for this artwork
 * `sound_ids` *uuid* - Unique identifiers of the audio about this work
 * `video_ids` *uuid* - Unique identifiers of the videos about this work
-* `link_ids` *uuid* - Unique identifiers of the links about this work
 * `text_ids` *uuid* - Unique identifiers of the texts about this work
 * `tour_stop_ids` *array* - Unique identifiers of the tour stops this work is included in
 * `section_ids` *array* - Unique identifiers of the digital publication chaptes this work in included in
@@ -137,11 +137,8 @@ Tag-like classifications of artworks and other resources. For a description of a
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
 * `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
+* `subtype` *string* - Takes one of the following values: classification, material, technique, style, subject, department, theme
 * `parent_id` *string* - Unique identifier of this category's parent
-* `is_in_nav` *boolean* - Whether this category was included in the departmental navigation in the old collections site
-* `description` *string* - Explanation of what this category is
-* `sort` *number* - Number representing this category's sort order
-* `type` *number* - Number representing the type of category. 1 is departmental, 2 is subject, 3 is theme, 5 is multimedia.
 * `last_updated_source` *string* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
 * `last_updated` *string* - Date and time the resource was updated in the Data Aggregator
 * `last_updated_fedora` *ISO 8601 date and time* - Date and time the resource was updated in LAKE, our digital asset management system
@@ -252,9 +249,12 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
 * `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
-* `type` *string* - Type always takes one of the following values: image, link, sound, text, video
+* `type` *string* - Type always takes one of the following values: image, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
+* `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
+* `is_educational_resource` *boolean* - Whether this resource is considered to be educational
+* `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `category_ids` *array* - Unique identifier of the categories associated with this asset
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
@@ -279,9 +279,12 @@ A moving image representation of a collections resource, like an artwork, artist
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
 * `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
-* `type` *string* - Type always takes one of the following values: image, link, sound, text, video
+* `type` *string* - Type always takes one of the following values: image, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
+* `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
+* `is_educational_resource` *boolean* - Whether this resource is considered to be educational
+* `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `category_ids` *array* - Unique identifier of the categories associated with this asset
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
@@ -300,9 +303,12 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
 * `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
-* `type` *string* - Type always takes one of the following values: image, link, sound, text, video
+* `type` *string* - Type always takes one of the following values: image, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
+* `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
+* `is_educational_resource` *boolean* - Whether this resource is considered to be educational
+* `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `category_ids` *array* - Unique identifier of the categories associated with this asset
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
@@ -321,9 +327,12 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 * `title` *string* - Name of this resource
 * `is_boosted` *boolean* - Whether this document should be boosted in search
 * `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
-* `type` *string* - Type always takes one of the following values: image, link, sound, text, video
+* `type` *string* - Type always takes one of the following values: image, sound, text, video
 * `description` *string* - Explanation of what this asset is
 * `content` *string* - Text of URL of the contents of this asset
+* `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
+* `is_educational_resource` *boolean* - Whether this resource is considered to be educational
+* `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `category_ids` *array* - Unique identifier of the categories associated with this asset
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
@@ -626,4 +635,4 @@ A Library of Congress term. For a description of all the endpoints available for
 
 
 
-> Generated by `php artisan docs:fields` on 2018-04-17 21:09:33
+> Generated by `php artisan docs:fields` on 2018-04-27 17:02:33
