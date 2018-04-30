@@ -170,6 +170,13 @@ class Asset extends CollectionsModel
                     ],
                     "value" => function() { return $this->is_teacher_resource; },
                 ],
+                [
+                    "name" => 'copyright_notice',
+                    "doc" => "Statement notifying how the asset is protected by copyright. Applies to the asset itself, not artwork it may be related to.",
+                    "type" => "string",
+                    'elasticsearch_type' => 'text',
+                    "value" => function() { return $this->copyright_notice; },
+                ],
                 // @TODO Re-enable this once the artist association is fixed
                 // 'artist' => [
                 //     "doc" => "Name of the artist associated with this asset",
