@@ -16,7 +16,7 @@ class ArtworkTransformer extends CollectionsTransformer
         'artist_pivots',
         'place_pivots',
         'artists',
-        'catalogues',
+        'catalogue_pivots',
         'categories',
         'dates',
         'parts',
@@ -113,9 +113,9 @@ class ArtworkTransformer extends CollectionsTransformer
      * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
-    public function includeCatalogues(Artwork $artwork)
+    public function includeCataloguePivots(Artwork $artwork)
     {
-        return $this->collection($artwork->catalogues, new ArtworkCatalogueTransformer, false);
+        return $this->collection($artwork->artworkCatalogues, new ArtworkCatalogueTransformer, false);
     }
 
     /**
