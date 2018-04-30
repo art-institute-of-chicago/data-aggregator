@@ -994,6 +994,7 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "elasticsearch" => [
                     "default" => true,
+                    "boost" => 2,
                 ],
                 "value" => function() { return $this->terms->pluck('title')->all(); },
             ],
