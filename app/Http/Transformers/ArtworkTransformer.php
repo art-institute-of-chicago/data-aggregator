@@ -115,7 +115,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCataloguePivots(Artwork $artwork)
     {
-        return $this->collection($artwork->artworkCatalogues, new ArtworkCatalogueTransformer, false);
+        return $this->collection($artwork->artworkCatalogues, new PivotTransformer, false);
     }
 
     /**
