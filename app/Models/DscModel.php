@@ -13,6 +13,8 @@ class DscModel extends BaseModel
 
     protected $fakeIdsStartAt = 9990000;
 
+    protected $hasSourceDates = false;
+
     protected function fillIdsFrom($source)
     {
 

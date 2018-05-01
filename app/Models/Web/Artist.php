@@ -17,8 +17,6 @@ class Artist extends WebModel
     protected $apiCtrl = 'WebArtistsController';
 
     protected $casts = [
-        'source_created_at' => 'date',
-        'source_modified_at' => 'date',
         'published' => 'boolean',
         'also_known_as' => 'boolean',
     ];

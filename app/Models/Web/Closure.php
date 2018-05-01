@@ -13,8 +13,6 @@ class Closure extends WebModel
 {
 
     protected $casts = [
-        'source_created_at' => 'date',
-        'source_modified_at' => 'date',
         'published' => 'boolean',
         'date_start' => 'date',
         'date_end' => 'date',

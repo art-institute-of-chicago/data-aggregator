@@ -29,14 +29,6 @@ class CategoryTerm extends CollectionsModel
     protected $primaryKey = 'lake_uid';
     protected $keyType = 'string';
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-        'source_indexed_at',
-        'citi_created_at',
-        'citi_modified_at',
-    ];
-
     // This propogates to Category and Term
     protected $table = 'category_terms';
 

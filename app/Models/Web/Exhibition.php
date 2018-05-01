@@ -17,8 +17,6 @@ class Exhibition extends WebModel
     protected $apiCtrl = 'WebExhibitionsController';
 
     protected $casts = [
-        'source_created_at' => 'date',
-        'source_modified_at' => 'date',
         'published' => 'boolean',
         'is_visible' => 'boolean',
     ];

@@ -15,8 +15,6 @@ class WebModel extends BaseModel
     use Documentable, ElasticSearchable;
 
     protected $casts = [
-        'source_created_at' => 'date',
-        'source_modified_at' => 'date',
         'published' => 'boolean',
     ];
 
@@ -25,9 +23,9 @@ class WebModel extends BaseModel
     protected function getMappingForDates()
     {
 
-        if ($this->excludeDates)
+        if (!$this->hasSourceDates)
         {
-            return $ret;
+            return [];
         }
 
         $ret = parent::getMappingForDates();

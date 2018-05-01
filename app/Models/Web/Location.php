@@ -12,6 +12,8 @@ use App\Models\ElasticSearchable;
 class Location extends WebModel
 {
 
+    protected $hasSourceDates = false;
+
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */

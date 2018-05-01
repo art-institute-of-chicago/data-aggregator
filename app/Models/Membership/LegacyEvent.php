@@ -19,13 +19,6 @@ class LegacyEvent extends MembershipModel
     use ElasticSearchable;
     use Documentable;
 
-    protected $dates = [
-        'start_at',
-        'end_at',
-        'source_created_at',
-        'source_modified_at',
-    ];
-
     public function exhibitions()
     {
 
