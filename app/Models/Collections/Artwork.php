@@ -1176,7 +1176,7 @@ class Artwork extends CollectionsModel
                 "name" => 'section_ids',
                 "doc" => "Unique identifiers of the digital publication chaptes this work in included in",
                 "type" => "array",
-                'elasticsearch_type' => 'integer',
+                'elasticsearch_type' => 'long',
                 "value" => function() { return $this->sections->pluck('dsc_id')->all(); },
             ],
             [
