@@ -88,7 +88,7 @@ class CollectionsModel extends BaseModel
 
         if ($this->excludeDates)
         {
-            return $ret;
+            return [];
         }
 
         $ret = parent::getMappingForDates();
