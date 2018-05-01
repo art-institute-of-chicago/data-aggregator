@@ -65,11 +65,6 @@ return [
                 'model' => \App\Models\Collections\ArtworkDateQualifier::class,
             ],
             [
-                'endpoint' => 'artwork-dates',
-                'model' => \App\Models\Collections\ArtworkDate::class,
-                'is_searchable' => true, // TODO: Verify?
-            ],
-            [
                 'endpoint' => 'places',
                 'model' => \App\Models\Collections\Place::class,
                 'is_searchable' => true,

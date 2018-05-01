@@ -498,6 +498,7 @@ class Artwork extends CollectionsModel
             foreach ( ($source->artwork_dates ?? []) as $rec)
             {
                 ArtworkDate::create([
+                    // TODO: Use automatic id so that we can create parity b/w web-basic and web-everything
                     'citi_id' => $rec->id,
                     'artwork_citi_id' => $this->citi_id,
                     'lake_guid' => $rec->lake_guid,
