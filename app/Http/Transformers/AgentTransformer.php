@@ -26,7 +26,7 @@ class AgentTransformer extends CollectionsTransformer
      */
     public function includePlaces(Agent $agent)
     {
-        return $this->collection($agent->places, new CollectionsTransformer, false);
+        return $this->collection($agent->places, new PivotTransformer, false);
     }
 
     /**

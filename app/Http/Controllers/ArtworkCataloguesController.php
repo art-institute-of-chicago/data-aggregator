@@ -13,7 +13,7 @@ class ArtworkCataloguesController extends BaseController
 
     protected $model = \App\Models\Collections\ArtworkCatalogue::class;
 
-    protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
+    protected $transformer = \App\Http\Transformers\PivotTransformer::class;
 
     // artwork/{id}/artwork-catalogues
     public function forArtwork(Request $request, $id) {

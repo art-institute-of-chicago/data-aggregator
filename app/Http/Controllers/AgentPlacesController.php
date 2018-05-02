@@ -13,7 +13,7 @@ class AgentPlacesController extends BaseController
 
     protected $model = \App\Models\Collections\AgentPlace::class;
 
-    protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
+    protected $transformer = \App\Http\Transformers\PivotTransformer::class;
 
     // agent/{id}/places
     public function forAgent(Request $request, $id) {

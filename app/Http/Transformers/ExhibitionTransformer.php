@@ -39,7 +39,7 @@ class ExhibitionTransformer extends CollectionsTransformer
      */
     public function includeVenues(Exhibition $exhibition)
     {
-        return $this->collection($exhibition->venues, new CollectionsTransformer, false);
+        return $this->collection($exhibition->venues, new PivotTransformer, false);
     }
 
 

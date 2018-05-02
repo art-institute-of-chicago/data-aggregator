@@ -188,6 +188,9 @@ class Agent extends CollectionsModel
         if ($source->agent_place_ids)
         {
 
+            // TODO: Change this to target agent_places, i/o agent_place_ids
+            // Ignore the CITI IDs, change primary key to be incremental
+            // This is b/c we'll need to normalize "Web Everything" w/ "Web Basic"
             foreach ($source->agent_place_ids as $id)
             {
 
