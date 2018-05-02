@@ -20,7 +20,7 @@ class TourTransformer extends ApiTransformer
     /**
      * Include tour stops.
      *
-     * @param  \App\Models\Mobile\TourStop  $artwork
+     * @param  \App\Models\Mobile\Tour  $tour
      * @return League\Fractal\ItemResource
      */
     public function includeTourStops(Tour $tour)

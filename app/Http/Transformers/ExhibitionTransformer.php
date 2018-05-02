@@ -32,7 +32,7 @@ class ExhibitionTransformer extends CollectionsTransformer
 
 
     /**
-     * Include venues.
+     * Include venues (pivots).
      *
      * @param  \App\Models\Collections\Exhibition  $exhibition
      * @return League\Fractal\ItemResource

@@ -3,7 +3,6 @@
 namespace App\Http\Transformers;
 
 use App\Models\Mobile\TourStop;
-use App\Models\Mobile\Sound;
 
 class TourStopTransformer extends ApiTransformer
 {
@@ -26,9 +25,9 @@ class TourStopTransformer extends ApiTransformer
     public $excludeDates = true;
 
     /**
-     * Include sound.
+     * Include mobile sound.
      *
-     * @param  \App\Models\Mobile\Sound  $sound
+     * @param  \App\Models\Mobile\TourStop  $tourStop
      * @return League\Fractal\ItemResource
      */
     public function includeSound(TourStop $tourStop)

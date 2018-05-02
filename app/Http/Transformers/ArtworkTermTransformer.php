@@ -13,7 +13,9 @@ class ArtworkTermTransformer extends CollectionsTransformer
     /**
      * Turn this item object into a generic array.
      *
-     * @param  \App\Agent  $item
+     * @TODO Verify this is actually being called..?
+     *
+     * @param  \App\Models\Collections\ArtworkTerm  $item
      * @return array
      */
     public function transformFields($item)

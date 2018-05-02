@@ -2,8 +2,6 @@
 
 namespace App\Http\Transformers;
 
-use Illuminate\Support\Facades\Log;
-
 use Aic\Hub\Foundation\AbstractTransformer;
 
 class ApiTransformer extends AbstractTransformer
