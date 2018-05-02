@@ -22,7 +22,6 @@ class TourStopTransformer extends ApiTransformer
     protected $defaultIncludes = ['sound'];
 
     public $excludeIdsAndTitle = true;
-    public $excludeDates = true;
 
     /**
      * Include mobile sound.

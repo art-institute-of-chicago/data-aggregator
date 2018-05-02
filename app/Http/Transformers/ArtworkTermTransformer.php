@@ -7,7 +7,6 @@ use App\Models\Collections\ArtworkTerm;
 class ArtworkTermTransformer extends CollectionsTransformer
 {
 
-    public $excludeDates = true;
     public $excludeIdsAndTitle = true;
 
     /**
