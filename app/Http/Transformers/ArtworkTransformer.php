@@ -126,7 +126,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeTerms(Artwork $artwork)
     {
-        return $this->collection($artwork->terms, new ArtworkTermTransformer, false);
+        return $this->collection($artwork->terms, new TermTransformer, false);
     }
 
     /**
