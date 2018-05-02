@@ -8,7 +8,6 @@ use App\Models\Collections\Place;
 use App\Models\Collections\Gallery;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\ArtworkType;
-use App\Models\Collections\ArtworkTerm;
 use App\Models\Collections\ArtworkDate;
 use App\Models\Collections\ArtworkDateQualifier;
 use App\Models\Collections\ArtworkCatalogue;
@@ -33,7 +32,6 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         $this->call(ArtworksTableSeeder::class);
         $this->call(ArtistArtworksTableSeeder::class);
         $this->call(ArtworkCategoriesTableSeeder::class);
-        $this->call(ArtworkTermsTableSeeder::class);
         $this->call(ArtworkDateQualifersTableSeeder::class);
         $this->call(ArtworkDatesTableSeeder::class);
         $this->call(ArtworkCataloguesTableSeeder::class);
@@ -53,7 +51,6 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         ArtworkCatalogue::fake()->delete();
         ArtworkDate::fake()->delete();
         ArtworkDateQualifier::fake()->delete();
-        ArtworkTerm::fake()->delete();
         Artwork::fake()->delete();
         Place::fake()->delete();
         Gallery::fake()->delete();

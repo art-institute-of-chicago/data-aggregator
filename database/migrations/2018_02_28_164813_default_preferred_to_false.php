@@ -15,7 +15,7 @@ class DefaultPreferredToFalse extends Migration
     {
 
         Schema::table('artwork_term', function (Blueprint $table) {
-            $table->boolean('preferred')->default(false)->change();
+            $table->boolean('preferred')->default(0)->change();
         });
 
         Schema::table('artwork_catalogue', function (Blueprint $table) {
@@ -33,9 +33,6 @@ class DefaultPreferredToFalse extends Migration
         Schema::table('artwork_asset', function(Blueprint $table) {
             $table->boolean('preferred')->default(false)->change();
         });
-
-        \App\Models\Collections\ArtworkTerm::where('preferred', null)
-            ->update(['preferred' => 0]);
 
         \App\Models\Collections\ArtworkCatalogue::where('preferred', null)
             ->update(['preferred' => 0]);
