@@ -11,10 +11,7 @@ class MobileModel extends BaseModel
 
     protected $primaryKey = 'mobile_id';
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-    ];
+    protected $hasSourceDates = false;
 
     protected $fakeIdsStartAt = 9990000;
 

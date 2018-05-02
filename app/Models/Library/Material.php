@@ -10,8 +10,6 @@ use App\Models\LibraryModel as BaseModel;
 class Material extends BaseModel
 {
 
-    protected $hasSourceDates = false;
-
     protected $table = 'library_materials';
 
     public function creators()

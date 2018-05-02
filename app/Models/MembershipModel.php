@@ -11,12 +11,17 @@ class MembershipModel extends BaseModel
 
     protected $primaryKey = 'membership_id';
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-    ];
-
     protected $fakeIdsStartAt = 99900000;
+
+    public function getDates()
+    {
+
+        return array_merge( parent::getDates(), [
+            'start_at',
+            'end_at',
+        ]);
+
+    }
 
     protected function fillIdsFrom($source)
     {

@@ -77,7 +77,8 @@ class ExhibitionTest extends ApiTestCase
 
         foreach ($venues as $venue)
         {
-            $this->assertArrayHasKeys($venue, ['id', 'title']);
+            // This uses PivotTransformer, so it doesn't have `id` and `title`
+            $this->assertArrayHasKeys($venue, ['agent_id', 'exhibition_id']);
         }
     }
 

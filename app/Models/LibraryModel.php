@@ -17,6 +17,6 @@ class LibraryModel extends BaseModel
     // protected $fakeIdsStartAt = 9990000;
 
     // TODO: Centralize source date logic. This conflicts with Fillable
-    // protected $hasSourceDates = false;
+    protected $hasSourceDates = false;
 
 }

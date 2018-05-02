@@ -15,8 +15,6 @@ class Publication extends DscModel
     use ElasticSearchable;
     use Documentable;
 
-    protected $hasSourceDates = false;
-
     public function sections()
     {
 

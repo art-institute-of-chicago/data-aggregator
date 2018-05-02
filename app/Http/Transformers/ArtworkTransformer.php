@@ -42,7 +42,7 @@ class ArtworkTransformer extends CollectionsTransformer
     }
 
     /**
-     * Include place with pivots.
+     * Include places with pivots.
      *
      * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
@@ -126,7 +126,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeTerms(Artwork $artwork)
     {
-        return $this->collection($artwork->terms, new ArtworkTermTransformer, false);
+        return $this->collection($artwork->terms, new TermTransformer, false);
     }
 
     /**

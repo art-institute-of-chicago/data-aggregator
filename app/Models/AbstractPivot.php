@@ -14,4 +14,6 @@ class AbstractPivot extends Pivot
 
     use Fillable, Instancable, Transformable, Fakeable;
 
+    // TODO: Abstract `getDate` logic from BaseModel into Trait, so that we can `use` it here?
+
 }

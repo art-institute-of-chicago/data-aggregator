@@ -8,7 +8,35 @@ class CollectionsModel extends BaseModel
 {
 
     protected static $source = 'Collections';
+
     protected $fakeIdsStartAt = 999000000;
+
+    protected $isInCiti = true;
+
+    public function getDates()
+    {
+
+        $dates = parent::getDates();
+
+        if (!$this->hasSourceDates)
+        {
+            return $dates;
+        }
+
+        // This accounts for Assets, which are in LAKE, but not in CITI
+        if ($this->isInCiti)
+        {
+            $dates = array_merge( $dates, [
+                'citi_created_at',
+                'citi_modified_at',
+            ]);
+        }
+
+        return array_merge( $dates, [
+            'source_indexed_at',
+        ]);
+
+    }
 
     /**
      * Fill in this model's IDs from the given resource, or fill it in with fake data.
@@ -86,7 +114,7 @@ class CollectionsModel extends BaseModel
     protected function getMappingForDates()
     {
 
-        if ($this->excludeDates)
+        if (!$this->hasSourceDates)
         {
             return [];
         }
@@ -111,7 +139,7 @@ class CollectionsModel extends BaseModel
             }
         }
 
-        if (!$this->citiObject)
+        if (!$this->isInCiti)
         {
             return $ret;
         }
@@ -120,7 +148,7 @@ class CollectionsModel extends BaseModel
            "name" => 'last_updated_citi',
            'doc' => "Date and time the resource was updated in CITI, our collections management system",
            "type" => "ISO 8601 date and time",
-           'value' => function() { return $this->citi_modified_at->toIso8601String(); },
+           'value' => function() { return $this->citi_modified_at ? $this->citi_modified_at->toIso8601String() : null; },
         ];
 
         return $ret;

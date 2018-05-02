@@ -16,7 +16,7 @@ class SiteTransformer extends ApiTransformer
 
 
     /**
-     * Include categories.
+     * Include artworks.
      *
      * @param  \App\Models\StaticArchive\Site  $site
      * @return League\Fractal\ItemResource

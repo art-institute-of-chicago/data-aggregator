@@ -16,13 +16,10 @@ class Asset extends CollectionsModel
     use Documentable;
 
     protected $primaryKey = 'lake_guid';
+
     protected $keyType = 'string';
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-        'source_indexed_at',
-    ];
+    protected $isInCiti = false;
 
     protected $casts = [
         'metadata' => 'object',

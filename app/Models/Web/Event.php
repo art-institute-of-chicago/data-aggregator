@@ -13,8 +13,6 @@ class Event extends WebModel
 {
 
     protected $casts = [
-        'source_created_at' => 'date',
-        'source_modified_at' => 'date',
         'published' => 'boolean',
         'is_private' => 'boolean',
         'is_after_hours' => 'boolean',

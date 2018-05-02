@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Schema;
 trait Fillable
 {
 
-    protected $hasSourceDates = true;
     protected $availableAttributes = [];
 
     /**
@@ -25,7 +24,7 @@ trait Fillable
             ->fillIdsFrom($source)
             ->fillTitleFrom($source);
 
-        if( $this->hasSourceDates )
+        if ($this->hasSourceDates)
         {
             $this->fillDatesFrom($source);
         }

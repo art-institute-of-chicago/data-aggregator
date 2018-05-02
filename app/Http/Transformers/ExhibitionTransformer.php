@@ -32,14 +32,14 @@ class ExhibitionTransformer extends CollectionsTransformer
 
 
     /**
-     * Include venues.
+     * Include venues (pivots).
      *
      * @param  \App\Models\Collections\Exhibition  $exhibition
      * @return League\Fractal\ItemResource
      */
     public function includeVenues(Exhibition $exhibition)
     {
-        return $this->collection($exhibition->venues, new CollectionsTransformer, false);
+        return $this->collection($exhibition->venues, new PivotTransformer, false);
     }
 
 

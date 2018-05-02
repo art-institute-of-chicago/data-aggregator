@@ -19,14 +19,6 @@ class Agent extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-        'source_indexed_at',
-        'citi_created_at',
-        'citi_modified_at',
-    ];
-
     protected $casts = [
         'alt_titles' => 'array',
     ];
@@ -196,6 +188,9 @@ class Agent extends CollectionsModel
         if ($source->agent_place_ids)
         {
 
+            // TODO: Change this to target agent_places, i/o agent_place_ids
+            // Ignore the CITI IDs, change primary key to be incremental
+            // This is b/c we'll need to normalize "Web Everything" w/ "Web Basic"
             foreach ($source->agent_place_ids as $id)
             {
 

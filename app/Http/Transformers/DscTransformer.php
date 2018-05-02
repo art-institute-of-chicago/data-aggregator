@@ -5,8 +5,6 @@ namespace App\Http\Transformers;
 class DscTransformer extends ApiTransformer
 {
 
-    public $excludeDates = true;
-
     protected function transformIdsAndTitle($item)
     {
 

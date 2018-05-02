@@ -39,26 +39,23 @@ class CollectionsTransformer extends ApiTransformer
     protected function transformDates($item)
     {
 
-        if ($this->excludeDates)
-        {
-            return [];
-        }
+        $dates = parent::transformDates($item);
 
-        $ret = [];
+        $dates = $this->renameFields( $dates, [
 
-        if ($this->citiObject)
-        {
-            $ret['last_updated_citi'] = $item->citi_modified_at ? $item->citi_modified_at->toIso8601String() : null;
-        }
+            // For models that don't have this, nothing happens
+            'citi_modified_at' => 'last_updated_citi',
+            'citi_created_at' => null,
 
-        return array_merge(
-            $ret,
-            [
-                'last_updated_fedora' => $item->source_modified_at->toIso8601String(),
-                'last_updated_source' => $item->source_indexed_at->toIso8601String(),
-                'last_updated' => $item->updated_at->toIso8601String(),
-            ]
-        );
+            // This transformation is relative to parent class
+            'last_updated_source' => 'last_updated_fedora',
+
+            // This replaces the field removed above
+            'source_indexed_at' => 'last_updated_source',
+
+        ]);
+
+        return $dates;
 
     }
 

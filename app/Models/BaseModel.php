@@ -13,6 +13,7 @@ class BaseModel extends AbstractModel
 
     use Transformable, Fillable, Instancable, Fakeable;
 
+    protected $hasSourceDates = true;
 
     /**
      * Instantiate a new BelongsToMany relationship.
@@ -39,6 +40,8 @@ class BaseModel extends AbstractModel
     /**
      * String that indicates the sub-namespace of the child models. Used for dynamic model retrieval.
      *
+     * TODO: This isn't entirely accurate, since a model might be drawn from multiple sources.
+     *
      * @var string
      */
     protected static $source;
@@ -60,6 +63,28 @@ class BaseModel extends AbstractModel
 
     }
 
+    /**
+     * This getter is in Laravel's base `Model` class, or rather, in its `HasAttributes` trait.
+     * We override it here as a convenient way to "append" dates. If we were to use the `$dates`
+     * property for this, we'd have to overwrite it in its entirety. This way, dates are additive.
+     * If you need to remove dates, just overwrite this method in a child model.
+     */
+    public function getDates()
+    {
+
+        $dates = parent::getDates();
+
+        if (!$this->hasSourceDates)
+        {
+            return $dates;
+        }
+
+        return array_merge( $dates, [
+            'source_created_at',
+            'source_modified_at',
+        ]);
+
+    }
 
     /**
      * Define how the fields in the API are mapped to model properties.
@@ -157,7 +182,7 @@ class BaseModel extends AbstractModel
     protected function getMappingForDates()
     {
 
-        if ($this->excludeDates)
+        if (!$this->hasSourceDates)
         {
             return [];
         }

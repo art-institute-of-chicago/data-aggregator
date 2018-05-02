@@ -15,12 +15,9 @@ class ArchiveImage extends BaseModel
     use Fillable;
     use Documentable;
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at'
+    protected $casts = [
+        'subject_terms' => 'array'
     ];
-
-    protected $casts = ['subject_terms' => 'array'];
 
     protected static $source = 'Archive';
 

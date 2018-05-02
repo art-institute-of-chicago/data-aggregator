@@ -16,7 +16,7 @@ class CatalogueTransformer extends CollectionsTransformer
 
 
     /**
-     * Include categories.
+     * Include artworks.
      *
      * @param  \App\Models\Collections\Catalogue  $catalogue
      * @return League\Fractal\ItemResource
