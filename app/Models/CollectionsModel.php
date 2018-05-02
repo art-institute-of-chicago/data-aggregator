@@ -148,7 +148,7 @@ class CollectionsModel extends BaseModel
            "name" => 'last_updated_citi',
            'doc' => "Date and time the resource was updated in CITI, our collections management system",
            "type" => "ISO 8601 date and time",
-           'value' => function() { return $this->citi_modified_at->toIso8601String(); },
+           'value' => function() { return $this->citi_modified_at ? $this->citi_modified_at->toIso8601String() : null; },
         ];
 
         return $ret;
