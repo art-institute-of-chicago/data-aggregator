@@ -192,6 +192,14 @@ $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Gene
 });
 
 
+$factory->define(App\Models\Collections\ArtworkTerm::class, function (Faker\Generator $faker) {
+    return [
+        'term' => $faker->words(2, true),
+        'type' => ucfirst($faker->word)
+    ];
+});
+
+
 $factory->define(App\Models\Collections\ArtworkCatalogue::class, function (Faker\Generator $faker) {
     return [
         'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::fake()->pluck('citi_id')->all()),
