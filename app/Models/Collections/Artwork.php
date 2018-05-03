@@ -125,48 +125,13 @@ class Artwork extends CollectionsModel
     }
 
     /**
-     * Helper method to get terms of a specified type from the eager-loaded array
-     * instead of executing a new SQL query.
-     */
-    public function termsBy($type = '')
-    {
-
-        // If no type is passed return an empty array
-        if (!$type)
-        {
-
-            return [];
-
-        }
-
-        $this->loadMissing('terms');
-
-        // Loop through all the terms, and return just the ones of the specified type
-        $ret = [];
-        foreach ($this->terms as $term)
-        {
-
-            if ($term->subtype == $type)
-            {
-
-                $ret[] = $term;
-
-            }
-
-        }
-
-        return $ret;
-
-    }
-
-    /**
      * Helper method to get the preferred term of a specified type from the eager-loaded array
      * instead of executing a new SQL query.
      */
-    public function preferred($resource = 'term', $type = '')
+    public function preferred($resource = 'term', $type = '', $typeField = 'type')
     {
 
-        $resources = $this->relatedResources($resource, $type);
+        $resources = $this->relatedResources($resource, $type, $typeField);
 
         if (!$resources) return [];
 
@@ -204,10 +169,10 @@ class Artwork extends CollectionsModel
      * Helper method to get the alternate term of a specified type from the eager-loaded array
      * instead of executing a new SQL query.
      */
-    public function alts($resource, $type = '')
+    public function alts($resource, $type = '', $typeField = 'type')
     {
 
-        $resources = $this->relatedResources($resource, $type);
+        $resources = $this->relatedResources($resource, $type, $typeField);
 
         if (!$resources) return [];
 
@@ -244,19 +209,43 @@ class Artwork extends CollectionsModel
 
     /**
      * Get all the resources to look through. If there is a subset of resource we're
-     * concerned with, as defined by $type, only get those.
+     * concerned with, as defined by $type, only get those. This is a helper method to
+     * get resources of a specified type from an eager-loaded array instead of executing
+     * a new SQL query.
      */
-    private function relatedResources($resource, $type)
+    private function relatedResources($resource, $type, $typeField = 'type')
     {
+
+        // If no type is passed return an empty array
+        if (!$resource)
+        {
+
+            return [];
+
+        }
 
         $this->loadMissing(str_plural($resource));
 
-        if ($type)
+        if (!$type)
         {
-            return $this->{str_plural($resource) .'By'}($type);
+            return $this->{str_plural($resource)}->all();
         }
 
-        return $this->{str_plural($resource)}->all();
+        // Loop through all the resources, and return just the ones of the specified type
+        $ret = [];
+        foreach ($this->{str_plural($resource)} as $res)
+        {
+
+            if ($res->{$typeField} == $type)
+            {
+
+                $ret[] = $res;
+
+            }
+
+        }
+
+        return $ret;
 
     }
 
@@ -275,25 +264,24 @@ class Artwork extends CollectionsModel
 
     }
 
-
     public function styles()
     {
 
-        return $this->termsBy(CategoryTerm::STYLE);
+        return $this->relatedResources('term', CategoryTerm::STYLE, 'subtype');
 
     }
 
     public function style()
     {
 
-        return $this->preferred('term', CategoryTerm::STYLE);
+        return $this->preferred('term', CategoryTerm::STYLE, 'subtype');
 
     }
 
     public function altStyles()
     {
 
-        return $this->alts('term', CategoryTerm::STYLE);
+        return $this->alts('term', CategoryTerm::STYLE, 'subtype');
 
     }
 
@@ -301,84 +289,84 @@ class Artwork extends CollectionsModel
     public function classifications()
     {
 
-        return $this->termsBy(CategoryTerm::CLASSIFICATION);
+        return $this->relatedResources('term', CategoryTerm::CLASSIFICATION, 'subtype');
 
     }
 
     public function classification()
     {
 
-        return $this->preferred('term', CategoryTerm::CLASSIFICATION);
+        return $this->preferred('term', CategoryTerm::CLASSIFICATION, 'subtype');
 
     }
 
     public function altClassifications()
     {
 
-        return $this->alts('term', CategoryTerm::CLASSIFICATION);
+        return $this->alts('term', CategoryTerm::CLASSIFICATION, 'subtype');
 
     }
 
     public function subjects()
     {
 
-        return $this->termsBy(CategoryTerm::SUBJECT);
+        return $this->relatedResources('term', CategoryTerm::SUBJECT, 'subtype');
 
     }
 
     public function subject()
     {
 
-        return $this->preferred('term', CategoryTerm::SUBJECT);
+        return $this->preferred('term', CategoryTerm::SUBJECT, 'subtype');
 
     }
 
     public function altSubjects()
     {
 
-        return $this->alts('term', CategoryTerm::SUBJECT);
+        return $this->alts('term', CategoryTerm::SUBJECT, 'subtype');
 
     }
 
     public function materials()
     {
 
-        return $this->termsBy(CategoryTerm::MATERIAL);
+        return $this->relatedResources('term', CategoryTerm::MATERIAL, 'subtype');
 
     }
 
     public function material()
     {
 
-        return $this->preferred('term', CategoryTerm::MATERIAL);
+        return $this->preferred('term', CategoryTerm::MATERIAL, 'subtype');
 
     }
 
     public function altMaterials()
     {
 
-        return $this->alts('term', CategoryTerm::MATERIAL);
+        return $this->alts('term', CategoryTerm::MATERIAL, 'subtype');
 
     }
 
     public function techniques()
     {
 
-        return $this->termsBy(CategoryTerm::TECHNIQUE);
+        return $this->relatedResources('term', CategoryTerm::TECHNIQUE, 'subtype');
 
     }
 
     public function technique()
     {
 
-        return $this->preferred('term', CategoryTerm::TECHNIQUE);
+        return $this->preferred('term', CategoryTerm::TECHNIQUE, 'subtype');
 
     }
 
     public function altTechniques()
     {
 
-        return $this->alts('term', CategoryTerm::TECHNIQUE);
+        return $this->alts('term', CategoryTerm::TECHNIQUE, 'subtype');
 
     }
 
