@@ -37,9 +37,6 @@ class Artwork extends CollectionsModel
         'sets',
         'images',
         'assets',
-        'sounds',
-        'videos',
-        'texts',
         'mobileArtwork',
         'sections',
         'sites',
@@ -51,7 +48,7 @@ class Artwork extends CollectionsModel
     {
 
         // TODO: Change this to be polymorphic + use its own table?
-        return $this->image();
+        return $this->images()->isPreferred();
 
     }
 
@@ -424,17 +421,24 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function imagePivots()
+    {
+
+        return $this->hasMany('App\Models\Collections\ArtworkImagePivot');
+
+    }
+
     public function image()
     {
 
-        return $this->images()->isPreferred();
+        return $this->preferred('image');
 
     }
 
     public function altImages()
     {
 
-        return $this->images()->isAlternative();
+        return $this->alts('image');
 
     }
 
@@ -445,31 +449,38 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function assetPivots()
+    {
+
+        return $this->hasMany('App\Models\Collections\ArtworkAssetPivot');
+
+    }
+
     public function documents()
     {
 
-        return $this->assets()->wherePivot('is_doc', '=', true);
+        return $this->belongsToMany('App\Models\Collections\Asset')->withPivot('is_doc')->wherePivot('is_doc', '=', true);
 
     }
 
     public function sounds()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Sound', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'sound');
+        return $this->relatedResources('asset', Asset::SOUND);
 
     }
 
     public function videos()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Video', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'video');
+        return $this->relatedResources('asset', Asset::VIDEO);
 
     }
 
     public function texts()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Text', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'text');
+        return $this->relatedResources('asset', Asset::TEXT);
 
     }
 
@@ -1329,21 +1340,21 @@ class Artwork extends CollectionsModel
                 "name" => 'color',
                 "doc" => "Dominant color of this artwork in HSL",
                 "type" => "object",
-                "value" => function() { return $this->image->metadata->color ?? null; },
+                "value" => function() { return $this->image()->metadata->color ?? null; },
             ],
             [
                 "name" => 'image_id',
                 "doc" => "Unique identifier of the preferred image to use to represent this work",
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->image->lake_guid ?? null; },
+                "value" => function() { return $this->image()->lake_guid ?? null; },
             ],
             [
                 "name" => 'alt_image_ids',
                 "doc" => "Unique identifiers of all non-preferred images of this work.",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->altImages->pluck('lake_guid')->all(); },
+                "value" => function() { return array_pluck($this->altImages(), 'lake_guid'); },
             ],
             [
                 "name" => 'document_ids',
@@ -1357,21 +1368,21 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifiers of the audio about this work",
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->sounds->pluck('lake_guid') ?? null; },
+                "value" => function() { return array_pluck($this->sounds(), 'lake_guid') ?? null; },
             ],
             [
                 "name" => 'video_ids',
                 "doc" => "Unique identifiers of the videos about this work",
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->videos->pluck('lake_guid') ?? null; },
+                "value" => function() { return array_pluck($this->videos(), 'lake_guid') ?? null; },
             ],
             [
                 "name" => 'text_ids',
                 "doc" => "Unique identifiers of the texts about this work",
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->texts->pluck('lake_guid') ?? null; },
+                "value" => function() { return array_pluck($this->texts(), 'lake_guid') ?? null; },
             ],
             // TODO: Move these to Mobile\Artwork
             [
