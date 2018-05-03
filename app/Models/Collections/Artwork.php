@@ -166,28 +166,31 @@ class Artwork extends CollectionsModel
      * Helper method to get the preferred term of a specified type from the eager-loaded array
      * instead of executing a new SQL query.
      */
-    public function preferred($type = '')
+    public function preferred($resource = 'term', $type = '')
     {
 
-        // Get all the terms of the specified type
-        $terms = $this->termsBy($type);
-        $term_ids = array_pluck($terms, 'lake_uid');
+        $resources = $this->relatedResources($resource, $type);
 
-        $this->loadMissing('termPivots');
+        if (!$resources) return [];
+
+        $resources_ids = $this->relatedIds($resources);
+
+        $this->loadMissing($resource .'Pivots');
 
         // Loop through all the term pivot models, only look at the ones
         // of the specified type, and return the preferred one
-        foreach ($this->termPivots as $pivot)
+        foreach ($this->{$resource .'Pivots'} as $pivot)
         {
 
-            if (in_array($pivot->term_lake_uid, $term_ids))
+            $key = $pivot->{$resource}()->getForeignKey();
+            if (in_array($pivot->{$key}, $resources_ids))
             {
 
                 if ($pivot->preferred)
                 {
 
-                    return head(array_where($terms, function ($value) use ($pivot) {
-                        return $value->lake_uid == $pivot->term_lake_uid;
+                    return head(array_where($resources, function ($value) use ($pivot, $key) {
+                        return $value->getKey() == $pivot->{$key};
                     }));
 
                 }
@@ -204,30 +207,33 @@ class Artwork extends CollectionsModel
      * Helper method to get the alternate term of a specified type from the eager-loaded array
      * instead of executing a new SQL query.
      */
-    public function alts($type = '')
+    public function alts($resource, $type = '')
     {
 
-        // Get all the terms of the specified type
-        $terms = $this->termsBy($type);
-        $term_ids = array_pluck($terms, 'lake_uid');
+        $resources = $this->relatedResources($resource, $type);
 
-        $this->loadMissing('termPivots');
+        if (!$resources) return [];
+
+        $resources_ids = $this->relatedIds($resources);
+
+        $this->loadMissing($resource .'Pivots');
 
         // Loop through all the term pivot models, only look at the ones
         // of the specified type, and return an array of the non-preferred ones
         $ret = [];
-        foreach ($this->termPivots as $pivot)
+        foreach ($this->{$resource .'Pivots'} as $pivot)
         {
 
-            if (in_array($pivot->term_lake_uid, $term_ids))
+            $key = $pivot->{$resource}()->getForeignKey();
+            if (in_array($pivot->{$key}, $resources_ids))
             {
 
                 if (!$pivot->preferred)
                 {
 
-                    $ret[] = array_where($terms, function ($value) use ($pivot) {
-                        $value->lake_uid == $pivot->term_lake_uid;
-                    });
+                    $ret[] = head(array_where($resources, function ($value) use ($pivot, $key) {
+                        return $value->getKey() == $pivot->{$key};
+                    }));
 
                 }
 
@@ -239,6 +245,40 @@ class Artwork extends CollectionsModel
 
     }
 
+    /**
+     * Get all the resources to look through. If there is a subset of resource we're
+     * concerned with, as defined by $type, only get those.
+     */
+    private function relatedResources($resource, $type)
+    {
+
+        $this->loadMissing(str_plural($resource));
+
+        if ($type)
+        {
+            return $this->{str_plural($resource) .'By'}($type);
+        }
+
+        return $this->{str_plural($resource)}->all();
+
+    }
+
+    private function relatedIds($resources)
+    {
+
+        if ($resources)
+        {
+
+            $key = head($resources)->getKeyName();
+            return array_pluck($resources, $key);
+
+        }
+
+        return [];
+
+    }
+
+
     public function styles()
     {
 
@@ -249,14 +289,14 @@ class Artwork extends CollectionsModel
     public function style()
     {
 
-        return $this->preferred(CategoryTerm::STYLE);
+        return $this->preferred('term', CategoryTerm::STYLE);
 
     }
 
     public function altStyles()
     {
 
-        return $this->alts(CategoryTerm::STYLE);
+        return $this->alts('term', CategoryTerm::STYLE);
 
     }
 
@@ -271,14 +311,14 @@ class Artwork extends CollectionsModel
     public function classification()
     {
 
-        return $this->preferred(CategoryTerm::CLASSIFICATION);
+        return $this->preferred('term', CategoryTerm::CLASSIFICATION);
 
     }
 
     public function altClassifications()
     {
 
-        return $this->alts(CategoryTerm::CLASSIFICATION);
+        return $this->alts('term', CategoryTerm::CLASSIFICATION);
 
     }
 
@@ -292,14 +332,14 @@ class Artwork extends CollectionsModel
     public function subject()
     {
 
-        return $this->preferred(CategoryTerm::SUBJECT);
+        return $this->preferred('term', CategoryTerm::SUBJECT);
 
     }
 
     public function altSubjects()
     {
 
-        return $this->alts(CategoryTerm::SUBJECT);
+        return $this->alts('term', CategoryTerm::SUBJECT);
 
     }
 
@@ -313,14 +353,14 @@ class Artwork extends CollectionsModel
     public function material()
     {
 
-        return $this->preferred(CategoryTerm::MATERIAL);
+        return $this->preferred('term', CategoryTerm::MATERIAL);
 
     }
 
     public function altMaterials()
     {
 
-        return $this->alts(CategoryTerm::MATERIAL);
+        return $this->alts('term', CategoryTerm::MATERIAL);
 
     }
 
@@ -334,14 +374,14 @@ class Artwork extends CollectionsModel
     public function technique()
     {
 
-        return $this->preferred(CategoryTerm::TECHNIQUE);
+        return $this->preferred('term', CategoryTerm::TECHNIQUE);
 
     }
 
     public function altTechniques()
     {
 
-        return $this->alts(CategoryTerm::TECHNIQUE);
+        return $this->alts('term', CategoryTerm::TECHNIQUE);
 
     }
 
