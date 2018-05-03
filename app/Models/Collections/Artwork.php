@@ -23,11 +23,32 @@ class Artwork extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
+    protected $with = [
+        'artistPivots',
+        'artists',
+        'artworkType',
+        'categories',
+        'dates',
+        'terms',
+        'termPivots',
+        'artworkCatalogues',
+        'gallery',
+        'parts',
+        'sets',
+        'images',
+        'assets',
+        'mobileArtwork',
+        'sections',
+        'sites',
+        'placePivots',
+        'places',
+    ];
+
     public function thumbnail()
     {
 
         // TODO: Change this to be polymorphic + use its own table?
-        return $this->image();
+        return $this->images()->isPreferred();
 
     }
 
@@ -50,14 +71,14 @@ class Artwork extends CollectionsModel
     public function artist()
     {
 
-        return $this->artists()->isPreferred();
+        return $this->preferred('artist');
 
     }
 
     public function altArtists()
     {
 
-        return $this->artists()->isAlternative();
+        return $this->alts('artist');
 
     }
 
@@ -96,24 +117,171 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function termPivots()
+    {
+
+        return $this->hasMany('App\Models\Collections\ArtworkTerm');
+
+    }
+
+    /**
+     * Helper method to get the preferred term of a specified type from the eager-loaded array
+     * instead of executing a new SQL query.
+     */
+    public function preferred($resource = 'term', $type = '', $typeField = 'type')
+    {
+
+        $resources = $this->relatedResources($resource, $type, $typeField);
+
+        if (!$resources) return [];
+
+        $resources_ids = $this->relatedIds($resources);
+
+        $this->loadMissing($resource .'Pivots');
+
+        // Loop through all the term pivot models, only look at the ones
+        // of the specified type, and return the preferred one
+        foreach ($this->{$resource .'Pivots'} as $pivot)
+        {
+
+            $key = $pivot->{$resource}()->getForeignKey();
+            if (in_array($pivot->{$key}, $resources_ids))
+            {
+
+                if ($pivot->preferred)
+                {
+
+                    return head(array_where($resources, function ($value) use ($pivot, $key) {
+                        return $value->getKey() == $pivot->{$key};
+                    }));
+
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    /**
+     * Helper method to get the alternate term of a specified type from the eager-loaded array
+     * instead of executing a new SQL query.
+     */
+    public function alts($resource, $type = '', $typeField = 'type')
+    {
+
+        $resources = $this->relatedResources($resource, $type, $typeField);
+
+        if (!$resources) return [];
+
+        $resources_ids = $this->relatedIds($resources);
+
+        $this->loadMissing($resource .'Pivots');
+
+        // Loop through all the term pivot models, only look at the ones
+        // of the specified type, and return an array of the non-preferred ones
+        $ret = [];
+        foreach ($this->{$resource .'Pivots'} as $pivot)
+        {
+
+            $key = $pivot->{$resource}()->getForeignKey();
+            if (in_array($pivot->{$key}, $resources_ids))
+            {
+
+                if (!$pivot->preferred)
+                {
+
+                    $ret[] = head(array_where($resources, function ($value) use ($pivot, $key) {
+                        return $value->getKey() == $pivot->{$key};
+                    }));
+
+                }
+
+            }
+
+        }
+
+        return $ret;
+
+    }
+
+    /**
+     * Get all the resources to look through. If there is a subset of resource we're
+     * concerned with, as defined by $type, only get those. This is a helper method to
+     * get resources of a specified type from an eager-loaded array instead of executing
+     * a new SQL query.
+     */
+    private function relatedResources($resource, $type, $typeField = 'type')
+    {
+
+        // If no type is passed return an empty array
+        if (!$resource)
+        {
+
+            return [];
+
+        }
+
+        $this->loadMissing(str_plural($resource));
+
+        if (!$type)
+        {
+            return $this->{str_plural($resource)}->all();
+        }
+
+        // Loop through all the resources, and return just the ones of the specified type
+        $ret = [];
+        foreach ($this->{str_plural($resource)} as $res)
+        {
+
+            if ($res->{$typeField} == $type)
+            {
+
+                $ret[] = $res;
+
+            }
+
+        }
+
+        return $ret;
+
+    }
+
+    private function relatedIds($resources)
+    {
+
+        if ($resources)
+        {
+
+            $key = head($resources)->getKeyName();
+            return array_pluck($resources, $key);
+
+        }
+
+        return [];
+
+    }
+
     public function styles()
     {
 
-        return $this->terms()->style();
+        return $this->relatedResources('term', CategoryTerm::STYLE, 'subtype');
 
     }
 
     public function style()
     {
 
-        return $this->styles()->isPreferred();
+        return $this->preferred('term', CategoryTerm::STYLE, 'subtype');
 
     }
 
     public function altStyles()
     {
 
-        return $this->styles()->isAlternative();
+        return $this->alts('term', CategoryTerm::STYLE, 'subtype');
 
     }
 
@@ -121,70 +289,84 @@ class Artwork extends CollectionsModel
     public function classifications()
     {
 
-        return $this->terms()->classification();
+        return $this->relatedResources('term', CategoryTerm::CLASSIFICATION, 'subtype');
 
     }
 
     public function classification()
     {
 
-        return $this->classifications()->isPreferred();
+        return $this->preferred('term', CategoryTerm::CLASSIFICATION, 'subtype');
 
     }
 
     public function altClassifications()
     {
 
-        return $this->classifications()->isAlternative();
+        return $this->alts('term', CategoryTerm::CLASSIFICATION, 'subtype');
 
     }
 
     public function subjects()
     {
 
-        return $this->terms()->subject();
+        return $this->relatedResources('term', CategoryTerm::SUBJECT, 'subtype');
 
     }
 
     public function subject()
     {
 
-        return $this->subjects()->isPreferred();
+        return $this->preferred('term', CategoryTerm::SUBJECT, 'subtype');
 
     }
 
     public function altSubjects()
     {
 
-        return $this->subjects()->isAlternative();
+        return $this->alts('term', CategoryTerm::SUBJECT, 'subtype');
 
     }
 
     public function materials()
     {
 
-        return $this->terms()->material();
+        return $this->relatedResources('term', CategoryTerm::MATERIAL, 'subtype');
 
     }
 
     public function material()
     {
 
-        return $this->materials()->isPreferred();
+        return $this->preferred('term', CategoryTerm::MATERIAL, 'subtype');
 
     }
 
     public function altMaterials()
     {
 
-        return $this->materials()->isAlternative();
+        return $this->alts('term', CategoryTerm::MATERIAL, 'subtype');
 
     }
 
     public function techniques()
     {
 
-        return $this->terms()->technique();
+        return $this->relatedResources('term', CategoryTerm::TECHNIQUE, 'subtype');
+
+    }
+
+    public function technique()
+    {
+
+        return $this->preferred('term', CategoryTerm::TECHNIQUE, 'subtype');
+
+    }
+
+    public function altTechniques()
+    {
+
+        return $this->alts('term', CategoryTerm::TECHNIQUE, 'subtype');
 
     }
 
@@ -227,17 +409,24 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function imagePivots()
+    {
+
+        return $this->hasMany('App\Models\Collections\ArtworkImagePivot');
+
+    }
+
     public function image()
     {
 
-        return $this->images()->isPreferred();
+        return $this->preferred('image');
 
     }
 
     public function altImages()
     {
 
-        return $this->images()->isAlternative();
+        return $this->alts('image');
 
     }
 
@@ -248,31 +437,38 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function assetPivots()
+    {
+
+        return $this->hasMany('App\Models\Collections\ArtworkAssetPivot');
+
+    }
+
     public function documents()
     {
 
-        return $this->assets()->wherePivot('is_doc', '=', true);
+        return $this->belongsToMany('App\Models\Collections\Asset')->withPivot('is_doc')->wherePivot('is_doc', '=', true);
 
     }
 
     public function sounds()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Sound', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'sound');
+        return $this->relatedResources('asset', Asset::SOUND);
 
     }
 
     public function videos()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Video', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'video');
+        return $this->relatedResources('asset', Asset::VIDEO);
 
     }
 
     public function texts()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Text', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')->where('type', 'text');
+        return $this->relatedResources('asset', Asset::TEXT);
 
     }
 
@@ -937,14 +1133,14 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifier of the preferred artist/culture associated with this work",
                 "type" => "integer",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->artist->citi_id ?? null; },
+                "value" => function() { return $this->artist()->citi_id ?? null; },
             ],
             [
                 "name" => 'alt_artist_ids',
                 "doc" => "Unique identifiers of the non-preferred artists/cultures associated with this work",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->altArtists->pluck('citi_id')->all(); },
+                "value" => function() { return array_pluck($this->altArtists(), 'citi_id'); },
             ],
             [
                 "name" => 'artist_ids',
@@ -996,115 +1192,135 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifier of the preferred style term for this work",
                 "type" => "string",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->style->lake_uid ?? null; },
+                "value" => function() { return $this->style()->lake_uid ?? null; },
             ],
             [
                 "name" => 'alt_style_ids',
                 "doc" => "Unique identifiers of all other non-preferred style terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->altStyles->pluck('lake_uid')->all(); },
+                "value" => function() { return array_pluck($this->altStyles(), 'lake_uid'); },
             ],
             [
                 "name" => 'style_ids',
                 "doc" => "Unique identifiers of all style terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->styles->pluck('lake_uid')->all(); },
+                "value" => function() { return array_pluck($this->styles(), 'lake_uid'); },
             ],
             [
                 "name" => 'style_titles',
                 "doc" => "The names of all style terms related to this artwork",
                 "type" => "array",
-                "value" => function() { return $this->styles->pluck('title')->all(); },
+                "value" => function() { return array_pluck($this->styles(), 'title'); },
             ],
             [
                 "name" => 'classification_id',
                 "doc" => "Unique identifier of the preferred classification term for this work",
                 "type" => "string",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->classification->lake_uid ?? null; },
+                "value" => function() { return $this->classification()->lake_uid ?? null; },
             ],
             [
                 "name" => 'alt_classification_ids',
                 "doc" => "Unique identifiers of all other non-preferred classification terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->altClassifications->pluck('lake_uid')->all(); },
+                "value" => function() { return array_pluck($this->altClassifications(), 'lake_uid'); },
             ],
             [
                 "name" => 'classification_ids',
                 "doc" => "Unique identifiers of all classification terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->classifications->pluck('lake_uid')->all(); },
+                "value" => function() { return array_pluck($this->classifications(), 'lake_uid'); },
             ],
             [
                 "name" => 'classification_titles',
                 "doc" => "The names of all classification terms related to this artwork",
                 "type" => "array",
-                "value" => function() { return $this->classifications->pluck('title')->all(); },
+                "value" => function() { return array_pluck($this->classifications(), 'title'); },
             ],
             [
                 "name" => 'subject_id',
                 "doc" => "Unique identifier of the preferred subject term for this work",
                 "type" => "string",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->subject->lake_uid ?? null; },
+                "value" => function() { return $this->subject()->lake_uid ?? null; },
             ],
             [
                 "name" => 'alt_subject_ids',
                 "doc" => "Unique identifiers of all other non-preferred subject terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->altSubjects->pluck('lake_uid')->all(); },
+                "value" => function() { return array_pluck($this->altSubjects(), 'lake_uid'); },
             ],
             [
                 "name" => 'subject_ids',
                 "doc" => "Unique identifiers of all subject terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->subjects->pluck('lake_uid')->all(); },
+                "value" => function() { return array_pluck($this->subjects(), 'lake_uid'); },
             ],
             [
                 "name" => 'subject_titles',
                 "doc" => "The names of all subject terms related to this artwork",
                 "type" => "array",
-                "value" => function() { return $this->subjects->pluck('title')->all(); },
+                "value" => function() { return array_pluck($this->subjects(), 'title'); },
             ],
             [
                 "name" => 'material_id',
                 "doc" => "Unique identifier of the preferred material term for this work",
                 "type" => "string",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->material->lake_uid ?? null; },
+                "value" => function() { return $this->material()->lake_uid ?? null; },
             ],
             [
                 "name" => 'alt_material_ids',
                 "doc" => "Unique identifiers of all other non-preferred material terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->altMaterials->pluck('lake_uid')->all(); },
+                "value" => function() { return array_pluck($this->altMaterials(), 'lake_uid'); },
             ],
             [
                 "name" => 'material_ids',
                 "doc" => "Unique identifiers of all material terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->materials->pluck('lake_uid')->all(); },
+                "value" => function() { return array_pluck($this->materials(), 'lake_uid'); },
             ],
             [
                 "name" => 'material_titles',
                 "doc" => "The names of all material terms related to this artwork",
                 "type" => "array",
-                "value" => function() { return $this->materials->pluck('title')->all(); },
+                "value" => function() { return array_pluck($this->materials(), 'title'); },
+            ],
+            [
+                "name" => 'technique_id',
+                "doc" => "Unique identifier of the preferred technique term for this work",
+                "type" => "string",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return $this->technique()->lake_uid ?? null; },
+            ],
+            [
+                "name" => 'alt_technique_ids',
+                "doc" => "Unique identifiers of all other non-preferred technique terms for this work",
+                "type" => "array",
+                "elasticsearch_type" => "keyword",
+                "value" => function() { return array_pluck($this->altTechniques(), 'lake_uid'); },
             ],
             [
                 "name" => 'technique_ids',
                 "doc" => "Unique identifiers of all technique terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->techniques->pluck('lake_uid')->all(); },
+                "value" => function() { return array_pluck($this->techniques(), 'lake_uid'); },
+            ],
+            [
+                "name" => 'technique_titles',
+                "doc" => "The names of all technique terms related to this artwork",
+                "type" => "array",
+                "value" => function() { return array_pluck($this->techniques(), 'title'); },
             ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
@@ -1112,21 +1328,21 @@ class Artwork extends CollectionsModel
                 "name" => 'color',
                 "doc" => "Dominant color of this artwork in HSL",
                 "type" => "object",
-                "value" => function() { return $this->image->metadata->color ?? null; },
+                "value" => function() { return $this->image()->metadata->color ?? null; },
             ],
             [
                 "name" => 'image_id',
                 "doc" => "Unique identifier of the preferred image to use to represent this work",
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->image->lake_guid ?? null; },
+                "value" => function() { return $this->image()->lake_guid ?? null; },
             ],
             [
                 "name" => 'alt_image_ids',
                 "doc" => "Unique identifiers of all non-preferred images of this work.",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->altImages->pluck('lake_guid')->all(); },
+                "value" => function() { return array_pluck($this->altImages(), 'lake_guid'); },
             ],
             [
                 "name" => 'document_ids',
@@ -1140,21 +1356,21 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifiers of the audio about this work",
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->sounds->pluck('lake_guid') ?? null; },
+                "value" => function() { return array_pluck($this->sounds(), 'lake_guid') ?? null; },
             ],
             [
                 "name" => 'video_ids',
                 "doc" => "Unique identifiers of the videos about this work",
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->videos->pluck('lake_guid') ?? null; },
+                "value" => function() { return array_pluck($this->videos(), 'lake_guid') ?? null; },
             ],
             [
                 "name" => 'text_ids',
                 "doc" => "Unique identifiers of the texts about this work",
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->texts->pluck('lake_guid') ?? null; },
+                "value" => function() { return array_pluck($this->texts(), 'lake_guid') ?? null; },
             ],
             // TODO: Move these to Mobile\Artwork
             [
@@ -1197,7 +1413,7 @@ class Artwork extends CollectionsModel
                 "name" => 'artist_title',
                 "doc" => "Names of the preferred artist/culture associated with this work",
                 "type" => "string",
-                "value" => function() { return $this->artist->title ?? null; },
+                "value" => function() { return $this->artist()->title ?? null; },
             ],
             [
                 "name" => 'artist_titles',
@@ -1209,7 +1425,7 @@ class Artwork extends CollectionsModel
                     // This is controllable via .env so we can tweak it without pushing to prod
                     "boost" => (float) ( env('SEARCH_BOOST_ARTIST_TITLES') ?: 2 ),
                 ],
-                "value" => function() { return $this->artists->pluck('title')->all(); },
+                "value" => function() { return array_pluck($this->artists(), 'title'); },
             ],
             [
                 "name" => 'category_titles',

@@ -15,6 +15,11 @@ class Asset extends CollectionsModel
     use ElasticSearchable;
     use Documentable;
 
+    public const IMAGE = 'image';
+    public const SOUND = 'sound';
+    public const TEXT = 'text';
+    public const VIDEO = 'video';
+
     protected $primaryKey = 'lake_guid';
 
     protected $keyType = 'string';
