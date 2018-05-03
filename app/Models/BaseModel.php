@@ -48,22 +48,6 @@ class BaseModel extends AbstractModel
 
 
     /**
-     * Find the record matching the given id or create it.
-     *
-     * @TODO Remove this in favor of Laravel's built-in findOrCreate.
-     *
-     * @param  int    $id
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public static function findOrCreate($id)
-    {
-
-        $model = static::find($id);
-        return $model ?: static::create([static::instance()->getKeyName() => $id]);
-
-    }
-
-    /**
      * This getter is in Laravel's base `Model` class, or rather, in its `HasAttributes` trait.
      * We override it here as a convenient way to "append" dates. If we were to use the `$dates`
      * property for this, we'd have to overwrite it in its entirety. This way, dates are additive.
