@@ -74,14 +74,14 @@ class Artwork extends CollectionsModel
     public function artist()
     {
 
-        return $this->artists()->isPreferred();
+        return $this->preferred('artist');
 
     }
 
     public function altArtists()
     {
 
-        return $this->artists()->isAlternative();
+        return $this->alts('artist');
 
     }
 
@@ -1134,14 +1134,14 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifier of the preferred artist/culture associated with this work",
                 "type" => "integer",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->artist->citi_id ?? null; },
+                "value" => function() { return $this->artist()->citi_id ?? null; },
             ],
             [
                 "name" => 'alt_artist_ids',
                 "doc" => "Unique identifiers of the non-preferred artists/cultures associated with this work",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->altArtists->pluck('citi_id')->all(); },
+                "value" => function() { return array_pluck($this->altArtists(), 'citi_id'); },
             ],
             [
                 "name" => 'artist_ids',
@@ -1414,7 +1414,7 @@ class Artwork extends CollectionsModel
                 "name" => 'artist_title',
                 "doc" => "Names of the preferred artist/culture associated with this work",
                 "type" => "string",
-                "value" => function() { return $this->artist->title ?? null; },
+                "value" => function() { return $this->artist()->title ?? null; },
             ],
             [
                 "name" => 'artist_titles',
@@ -1426,7 +1426,7 @@ class Artwork extends CollectionsModel
                     // This is controllable via .env so we can tweak it without pushing to prod
                     "boost" => (float) ( env('SEARCH_BOOST_ARTIST_TITLES') ?: 2 ),
                 ],
-                "value" => function() { return $this->artists->pluck('title')->all(); },
+                "value" => function() { return array_pluck($this->artists(), 'title'); },
             ],
             [
                 "name" => 'category_titles',
