@@ -18,13 +18,4 @@ class MembershipModel extends BaseModel
         'end_at' => 'datetime',
     ];
 
-    protected function fillIdsFrom($source)
-    {
-
-        $this->membership_id = $source->id;
-
-        return $this;
-
-    }
-
 }

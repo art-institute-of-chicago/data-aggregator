@@ -15,15 +15,6 @@ class Term extends CategoryTerm
 
     protected static $isCategory = false;
 
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'subtype' => $source->term_type_id ? 'TT-' . $source->term_type_id : null,
-        ];
-
-    }
-
     /**
      * Get an example ID for documentation generation
      *

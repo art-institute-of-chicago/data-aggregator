@@ -39,33 +39,6 @@ class AgentExhibition extends BasePivot
     }
 
     /**
-     * Fill in this model's identifiers from source data.
-     * Meant to be overridden, especially by CollectionsModel, etc.
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillIdsFrom($source)
-    {
-
-        $this->citi_id = $source->citi_id;
-
-        return $this;
-
-    }
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'agent_citi_id' => $source->agent_id,
-            'date_start' => $source->start_date ? strtotime($source->start_date) : null,
-            'date_end' => $source->end_date ? strtotime($source->end_date) : null,
-        ];
-
-    }
-
-    /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
     protected function transformMappingInternal()

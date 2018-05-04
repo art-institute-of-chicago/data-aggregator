@@ -17,11 +17,12 @@ class ImportImages extends AbstractImportCommand
 
         $this->api = env('IMAGES_DATA_SERVICE_URL');
 
-        $this->import( Image::class, 'images' );
+        $this->import( null, Image::class, 'images' );
 
     }
 
-    protected function save( $datum, $model )
+    // TODO: Optionally, use an inbound transformer here?
+    protected function save( $datum, $model, $transformer )
     {
 
         $this->info("Importing #{$datum->id}: {$datum->title}");

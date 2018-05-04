@@ -23,7 +23,7 @@ class ImportArchive extends AbstractImportCommand
             return false;
         }
 
-        $this->import( ArchiveImage::class, 'archival-images' );
+        $this->import( 'Archive', ArchiveImage::class, 'archival-images' );
 
     }
 

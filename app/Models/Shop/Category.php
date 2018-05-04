@@ -107,15 +107,6 @@ class Category extends ShopModel
 
     }
 
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'parent_category_shop_id' => $source->parent_id,
-        ];
-
-    }
-
     /**
      * Get an example ID for documentation generation
      *

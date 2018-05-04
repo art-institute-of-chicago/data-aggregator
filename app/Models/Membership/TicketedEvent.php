@@ -19,18 +19,6 @@ class TicketedEvent extends MembershipModel
     use ElasticSearchable;
     use Documentable;
 
-    protected function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-
-            'start_at' => strtotime($source->start_at),
-            'end_at' => strtotime($source->end_at),
-
-        ];
-
-    }
-
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */

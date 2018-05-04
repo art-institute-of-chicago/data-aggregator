@@ -180,20 +180,4 @@ class Event extends WebModel
 
     }
 
-    /**
-     * Provide child classes a space to implement fill functionality for arrays and objects
-     * returned from source APIs
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillArraysAndObjectsFrom($source)
-    {
-
-        $this->all_dates = $source->all_dates;
-
-        return $this;
-
-    }
-
 }

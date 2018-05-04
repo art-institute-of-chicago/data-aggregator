@@ -15,13 +15,4 @@ class DscModel extends BaseModel
 
     protected $hasSourceDates = false;
 
-    protected function fillIdsFrom($source)
-    {
-
-        $this->dsc_id = $source->id;
-
-        return $this;
-
-    }
-
 }

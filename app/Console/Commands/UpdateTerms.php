@@ -17,7 +17,7 @@ class UpdateTerms extends AbstractImportCommand
 
         $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
 
-        $this->import(Artwork::class, 'artworks');
+        $this->import( 'Collections', Artwork::class, 'artworks' );
 
     }
 
@@ -32,7 +32,7 @@ class UpdateTerms extends AbstractImportCommand
 
     }
 
-    protected function save( $datum, $model )
+    protected function save( $datum, $model, $transformer )
     {
 
         $this->info("Importing #{$datum->id}: {$datum->title}");

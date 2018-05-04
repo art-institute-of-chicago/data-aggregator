@@ -20,11 +20,13 @@ class ImportCollectionsOne extends ImportCollectionsFull
 
         $model = $this->getModelForEndpoint($endpoint);
 
+        $transformer = app('Resources')->getInboundTransformerForModel( $model, 'Collections' );
+
         $json = $this->fetchItem( $endpoint, $id );
 
-        $source = $json->data;
+        $datum = $json->data;
 
-        $this->save( $source, $model );
+        $this->save( $datum, $model, $transformer );
 
     }
 

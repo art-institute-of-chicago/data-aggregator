@@ -25,15 +25,6 @@ class Site extends BaseModel
         'artworks',
     ];
 
-    protected function fillIdsFrom($source)
-    {
-
-        $this->site_id = $source->id;
-
-        return $this;
-
-    }
-
     public function exhibitions()
     {
 
@@ -146,44 +137,6 @@ class Site extends BaseModel
         ];
 
     }
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'web_url' => $source->link,
-        ];
-
-    }
-
-    public function attachFrom($source)
-    {
-
-        if ($source->exhibition_ids)
-        {
-
-            $this->exhibitions()->sync($source->exhibition_ids);
-
-        }
-
-        if ($source->agent_ids)
-        {
-
-            $this->agents()->sync($source->agent_ids, false);
-
-        }
-
-        if ($source->artwork_ids)
-        {
-
-            $this->artworks()->sync($source->artwork_ids, false);
-
-        }
-
-        return $this;
-
-    }
-
 
     /**
      * Get an example ID for documentation generation

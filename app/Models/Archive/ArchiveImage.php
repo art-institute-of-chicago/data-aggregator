@@ -206,26 +206,6 @@ class ArchiveImage extends BaseModel
 
     }
 
-
-    /**
-     * Define functionality to import subject_terms
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillArraysAndObjectsFrom($source)
-    {
-
-        $fill = [];
-
-        $fill['subject_terms'] = $source->subject_terms;
-
-        $this->fill($fill);
-
-        return $this;
-
-    }
-
     /**
      * Whether this resource has a `/search` endpoint
      *

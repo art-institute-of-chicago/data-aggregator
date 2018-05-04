@@ -42,18 +42,6 @@ class Section extends DscModel
 
     }
 
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'publication_dsc_id' => $source->publication_id,
-            'artwork_citi_id' => $source->citi_id ?? null,
-        ];
-
-    }
-
-
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
