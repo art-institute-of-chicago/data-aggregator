@@ -33,8 +33,6 @@ class Artwork extends CollectionsModel
         'termPivots',
         'artworkCatalogues',
         'gallery',
-        'parts',
-        'sets',
         'images',
         'assets',
         'mobileArtwork',

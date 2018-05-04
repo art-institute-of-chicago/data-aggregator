@@ -9,10 +9,6 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Functional">
-            <directory suffix="Test.php">./tests/Functional</directory>
-        </testsuite>
-
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>

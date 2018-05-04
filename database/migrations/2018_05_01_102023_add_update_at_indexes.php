@@ -14,6 +14,12 @@ class AddUpdateAtIndexes extends Migration
     public function up()
     {
 
+        // TODO: Creating indexes isn't friendly with SQLite
+        if (App::environment('testing'))
+        {
+            return;
+        }
+
         Schema::table('agent_exhibition', function(Blueprint $table) {
             $table->index('updated_at');
         });
@@ -79,10 +85,6 @@ class AddUpdateAtIndexes extends Migration
         });
 
         Schema::table('catalogues', function(Blueprint $table) {
-            $table->index('updated_at');
-        });
-
-        Schema::table('categories', function(Blueprint $table) {
             $table->index('updated_at');
         });
 
@@ -286,10 +288,6 @@ class AddUpdateAtIndexes extends Migration
         });
 
         Schema::table('catalogues', function(Blueprint $table) {
-            $table->dropIndex(['updated_at']);
-        });
-
-        Schema::table('categories', function(Blueprint $table) {
             $table->dropIndex(['updated_at']);
         });
 
