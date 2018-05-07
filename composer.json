@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "aic/data-hub-foundation": "dev-master#0.1",
+        "aic/data-hub-foundation": "dev-master#0.2",
         "aic/laravel-scout-elastic": "dev-master#3.0.9-aic",
         "cviebrock/laravel-elasticsearch": "^2.0",
         "doctrine/dbal": "^2.6",
