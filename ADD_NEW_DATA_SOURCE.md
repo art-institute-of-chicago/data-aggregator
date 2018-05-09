@@ -79,17 +79,16 @@ your model to return an array of the fields that are unique to your model.
 
 [Routes](https://laravel.com/docs/5.5/routing) are registered in [routes/api.php](routes/api.php).
 
-### 9. Add new models to providers
+### 9. Add new models to resource config
 
-Be sure to add your models to the [ResourceServiceProvider](app/Providers/ResourceServiceProvider) and, if the model
-is searchable in Elasticsearch, the [SearchServiceProvider](app/Providers/SearchServiceProvider).
+Be sure to add your models to the [resources](config/resources.php) config.
 
 ### 10. Make your tests pass
 
 You can run the following to only test one set of unit tests:
 
 ```shell
-phpunit --filter ResourceTest
+phpunit tests/Unit/ResourceTest.php
 ```
 
 Keep going until all your tests pass. You can use the following to run all tests:

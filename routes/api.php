@@ -204,8 +204,23 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('web-artists', 'WebArtistsController@index');
     Route::get('web-artists/{id}', 'WebArtistsController@show');
 
-    Route::get('pages', 'PagesController@index');
-    Route::get('pages/{id}', 'PagesController@show');
+    Route::get('generic-pages', 'GenericPagesController@index');
+    Route::get('generic-pages/{id}', 'GenericPagesController@show');
+
+    Route::get('press-releases', 'PressReleasesController@index');
+    Route::get('press-releases/{id}', 'PressReleasesController@show');
+
+    Route::get('research-guides', 'ResearchGuidesController@index');
+    Route::get('research-guides/{id}', 'ResearchGuidesController@show');
+
+    Route::get('educator-resources', 'EducatorResourcesController@index');
+    Route::get('educator-resources/{id}', 'EducatorResourcesController@show');
+
+    Route::get('digital-catalogs', 'DigitalCatalogsController@index');
+    Route::get('digital-catalogs/{id}', 'DigitalCatalogsController@show');
+
+    Route::get('printed-catalogs', 'PrintedCatalogsController@index');
+    Route::get('printed-catalogs/{id}', 'PrintedCatalogsController@show');
 
     // Generic endpoint to allow source systems to let us know when a record should be updated
     Route::get('{endpoint}/{id}/pull', 'PullController@pull');

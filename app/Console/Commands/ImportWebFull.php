@@ -12,6 +12,12 @@ use App\Models\Web\Location;
 use App\Models\Web\Page;
 use App\Models\Web\Selection;
 use App\Models\Web\Tag;
+use App\Models\Web\GenericPage;
+use App\Models\Web\PressRelease;
+use App\Models\Web\ResearchGuide;
+use App\Models\Web\EducatorResource;
+use App\Models\Web\DigitalCatalog;
+use App\Models\Web\PrintedCatalog;
 
 class ImportWebFull extends AbstractImportCommand
 {
@@ -50,9 +56,14 @@ class ImportWebFull extends AbstractImportCommand
                 Exhibition::class,
                 Hour::class,
                 Location::class,
-                // Page::class,
                 Selection::class,
                 Tag::class,
+                GenericPage::class,
+                PressRelease::class,
+                ResearchGuide::class,
+                EducatorResource::class,
+                DigitalCatalog::class,
+                PrintedCatalog::class,
             ],
             [
                 'articles',
@@ -62,9 +73,14 @@ class ImportWebFull extends AbstractImportCommand
                 'web_exhibitions',
                 'hours',
                 'locations',
-                // 'pages',
                 'selections',
                 'tags',
+                'generic_pages',
+                'press_releases',
+                'research_guides',
+                'educator_resources',
+                'digital_catalogs',
+                'printed_catalogs',
             ]
         );
 
@@ -80,9 +96,14 @@ class ImportWebFull extends AbstractImportCommand
         $this->import(Exhibition::class, 'exhibitions');
         $this->import(Hour::class, 'hours');
         $this->import(Location::class, 'locations');
-        //$this->import(Page::class, 'pages');
         $this->import(Selection::class, 'selections');
         $this->import(Tag::class, 'tags');
+        $this->import(GenericPage::class, 'genericpages');
+        $this->import(PressRelease::class, 'pressreleases');
+        $this->import(ResearchGuide::class, 'researchguides');
+        $this->import(EducatorResource::class, 'educatorresources');
+        $this->import(DigitalCatalog::class, 'digitalcatalogs');
+        $this->import(PrintedCatalog::class, 'printedcatalogs');
 
     }
 
@@ -114,6 +135,7 @@ class ImportWebFull extends AbstractImportCommand
         } catch( \Exception $e ) {
 
             $this->warn("Error on #{$datum->id}: " . $model);
+            $this->info($e->getMessage());
 
         }
 
