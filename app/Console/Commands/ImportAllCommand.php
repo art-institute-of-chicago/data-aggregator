@@ -31,6 +31,7 @@ class ImportAllCommand extends BaseCommand
         // $this->call('import:terms-legacy');
         $this->call('import:products-full', ['--yes' => 'default']);
         $this->call('import:images');
+        $this->call('import:analytics');
 
     }
 
