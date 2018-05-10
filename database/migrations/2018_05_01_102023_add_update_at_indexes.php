@@ -184,14 +184,6 @@ class AddUpdateAtIndexes extends Migration
             $table->index('updated_at');
         });
 
-        Schema::table('term_types', function(Blueprint $table) {
-            $table->index('updated_at');
-        });
-
-        Schema::table('terms', function(Blueprint $table) {
-            $table->index('updated_at');
-        });
-
         Schema::table('ticketed_events', function(Blueprint $table) {
             $table->index('updated_at');
         });
@@ -384,14 +376,6 @@ class AddUpdateAtIndexes extends Migration
         });
 
         Schema::table('tags', function(Blueprint $table) {
-            $table->dropIndex(['updated_at']);
-        });
-
-        Schema::table('term_types', function(Blueprint $table) {
-            $table->dropIndex(['updated_at']);
-        });
-
-        Schema::table('terms', function(Blueprint $table) {
             $table->dropIndex(['updated_at']);
         });
 
