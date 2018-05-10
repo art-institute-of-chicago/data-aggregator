@@ -141,6 +141,13 @@ class Asset extends CollectionsModel
                     "value" => function() { return $this->description; },
                 ],
                 [
+                    "name" => 'alt_text',
+                    "doc" => "Alternative text for the asset to describe it to people with low or no vision",
+                    "type" => "string",
+                    'elasticsearch_type' => 'text',
+                    "value" => function() { return $this->alt_text; },
+                ],
+                [
                     "name" => 'content',
                     "doc" => "Text of URL of the contents of this asset",
                     "type" => "string",
