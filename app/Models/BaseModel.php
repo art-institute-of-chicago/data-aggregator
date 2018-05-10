@@ -64,7 +64,14 @@ class BaseModel extends AbstractModel
     public function getDates()
     {
 
+        // Traverse through the class hierarchy of all the child classes and merge together their
+        // definitions of the `$dates` attribute. This allows child classes to simple use `$dates`
+        // as an additive property without needing to worry about merging with the parent array.
         $dates = parent::getDates();
+        $class = get_called_class();
+        while ($class = get_parent_class($class)) {
+            $dates = array_merge($dates, get_class_vars($class)['dates']);
+        }
 
         if (!$this->hasSourceDates)
         {

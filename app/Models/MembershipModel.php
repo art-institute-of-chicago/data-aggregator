@@ -13,15 +13,10 @@ class MembershipModel extends BaseModel
 
     protected $fakeIdsStartAt = 99900000;
 
-    public function getDates()
-    {
-
-        return array_merge( parent::getDates(), [
-            'start_at',
-            'end_at',
-        ]);
-
-    }
+    protected $dates = [
+        'start_at',
+        'end_at',
+    ];
 
     protected function fillIdsFrom($source)
     {

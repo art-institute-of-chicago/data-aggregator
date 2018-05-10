@@ -12,15 +12,10 @@ class ArtworkCatalogue extends BasePivot
 
     protected $primaryKey = 'citi_id';
 
-    public function getDates()
-    {
-
-        return array_merge( parent::getDates(), [
-            'date_start',
-            'date_end',
-        ]);
-
-    }
+    protected $dates = [
+        'date_start',
+        'date_end',
+    ];
 
     public function artwork()
     {

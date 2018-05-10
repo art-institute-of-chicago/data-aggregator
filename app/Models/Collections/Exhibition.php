@@ -17,15 +17,12 @@ class Exhibition extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
-    public function getDates()
-    {
-        return array_merge( parent::getDates(), [
-            'date_start',
-            'date_end',
-            'date_aic_start',
-            'date_aic_end',
-        ]);
-    }
+    protected $dates = [
+        'date_start',
+        'date_end',
+        'date_aic_start',
+        'date_aic_end',
+    ];
 
     public function artworks()
     {

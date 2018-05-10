@@ -9,15 +9,10 @@ class ArtworkDate extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
-    public function getDates()
-    {
-
-        return array_merge( parent::getDates(), [
-            'date_earliest',
-            'date_latest',
-        ]);
-
-    }
+    protected $dates = [
+        'date_earliest',
+        'date_latest',
+    ];
 
     protected $casts = [
         'preferred' => 'boolean',
