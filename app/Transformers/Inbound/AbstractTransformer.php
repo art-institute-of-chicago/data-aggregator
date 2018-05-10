@@ -26,7 +26,7 @@ class AbstractTransformer
      *
      * @var boolean
      */
-    private $is_safe = true;
+    private $is_safe = false;
 
     /**
      * Fill in a model instance's fields from the given datum, typically from another system.

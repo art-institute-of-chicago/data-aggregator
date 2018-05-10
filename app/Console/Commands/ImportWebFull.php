@@ -126,27 +126,4 @@ class ImportWebFull extends AbstractImportCommand
         return parent::query( $endpoint, $page, $limit );
     }
 
-    protected function save( $datum, $model, $transformer )
-    {
-
-        // TODO: Remove this work-around after Articles have been sanitized
-        // if( $model === Article::class && $datum->id === 538 )
-        // {
-        //     $this->warn("Error on #{$datum->id}: " . $this->api . '/articles/' . $datum->id);
-        //     return;
-        // }
-
-        try {
-
-            parent::save( $datum, $model, $transformer );
-
-        } catch( \Exception $e ) {
-
-            $this->warn("Error on #{$datum->id}: " . $model);
-            $this->info($e->getMessage());
-
-        }
-
-    }
-
 }
