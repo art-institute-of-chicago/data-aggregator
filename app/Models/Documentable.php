@@ -125,7 +125,7 @@ trait Documentable
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
         // Title
-        $doc = '### `' .$this->_endpointPath() ."`\n\n";
+        $doc = '### `GET ' .$this->_endpointPath() ."`\n\n";
 
         $doc .= $this->docListDescription() ." For a description of all the fields included with this response, see [here](FIELDS.md#" .$endpoint .").\n\n";
 
@@ -186,7 +186,7 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `' .$this->_endpointPath(['extraPath' => 'boosted']) ."`\n\n";
+        $doc = '### `GET ' .$this->_endpointPath(['extraPath' => 'boosted']) ."`\n\n";
 
         $doc .= $this->docBoostedDescription() ."\n\n";
 
@@ -222,7 +222,7 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `' .$this->_endpointPath(['extraPath' => 'search']) ."`\n\n";
+        $doc = '### `GET ' .$this->_endpointPath(['extraPath' => 'search']) ."`\n\n";
 
         $doc .= $this->docSearchDescription() ."\n\n";
 
@@ -258,7 +258,7 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `' .$this->_endpointPath(['extraPath' => '{id}']) ."`\n\n";
+        $doc = '### `GET ' .$this->_endpointPath(['extraPath' => '{id}']) ."`\n\n";
 
         $doc .= $this->docSingleDescription() ."\n\n";
 
@@ -302,7 +302,7 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `' .$this->_endpointPath(['extraPath' => '{id}/' .$subEndpoint]) ."`\n\n";
+        $doc = '### `GET ' .$this->_endpointPath(['extraPath' => '{id}/' .$subEndpoint]) ."`\n\n";
 
         $doc .= "The " .$this->_endpointAsCopyText($subEndpoint) ." for a given " .$endpointAsCopyText .".";
         if ($subEndpoint == 'artists')
