@@ -81,7 +81,19 @@ class Datum implements JsonSerializable
     {
 
         // Note how we're getting __get() to fire here
-        return $this->$field ? strtotime($this->$field) : null;
+        $date = $this->$field;
+
+        if( is_string( $date ) )
+        {
+            return strtotime($date);
+        }
+
+        if( is_object( $date ) )
+        {
+            return new \DateTime( $date->date, new \DateTimeZone( $date->timezone ) );
+        }
+
+        return null;
 
     }
 
