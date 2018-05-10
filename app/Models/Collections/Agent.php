@@ -23,6 +23,10 @@ class Agent extends CollectionsModel
         'alt_titles' => 'array',
     ];
 
+    protected $touches = [
+        'createdArtworks',
+    ];
+
     public function agentType()
     {
 

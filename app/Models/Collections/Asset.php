@@ -33,6 +33,10 @@ class Asset extends CollectionsModel
         'is_teacher_resource' => 'boolean',
     ];
 
+    protected $touches = [
+        'artworks',
+    ];
+
     protected static $assetType = null;
 
     public function categories()

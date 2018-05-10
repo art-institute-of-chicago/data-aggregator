@@ -21,6 +21,10 @@ class Site extends BaseModel
 
     protected $hasSourceDates = false;
 
+    protected $touches = [
+        'artworks',
+    ];
+
     protected function fillIdsFrom($source)
     {
 

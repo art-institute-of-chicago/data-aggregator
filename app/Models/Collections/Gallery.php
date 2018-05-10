@@ -17,10 +17,21 @@ class Gallery extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
+    protected $touches =[
+        'artworks',
+    ];
+
     public function categories()
     {
 
         return $this->belongsToMany('App\Models\Collections\Category', 'category_place', 'place_citi_id', 'category_lake_uid');
+
+    }
+
+    public function artworks()
+    {
+
+        return $this->hasMany('App\Models\Collections\Artwork');
 
     }
 

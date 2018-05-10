@@ -32,6 +32,10 @@ class CategoryTerm extends CollectionsModel
     // This propogates to Category and Term
     protected $table = 'category_terms';
 
+    protected $touches = [
+        'artworks',
+    ];
+
     // This also propogates to Category and Term
     // Affects `searchableIndex` and `api_model`
     public function searchableModel()
