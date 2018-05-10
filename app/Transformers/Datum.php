@@ -27,27 +27,8 @@ class Datum implements JsonSerializable
 
         $value = $this->datum->$field ?? null;
 
-        if( !isset( $value ) )
-        {
-            return null;
-        }
+        return $this->getCleanValue( $value );
 
-        if( is_string( $value ) )
-        {
-            // If it's a string, trim before returning
-            $value = trim( $value );
-
-            // If it's an empty string, return null
-            return empty( $value ) ? null : $value;
-        }
-
-        if( is_object( $value ) )
-        {
-            // If it's an object, return new datum
-            return $this->getSubDatum( $value );
-        }
-
-        return $value;
     }
 
     /**
@@ -62,7 +43,9 @@ class Datum implements JsonSerializable
 
         if( !isset( $field ) )
         {
-            return (array) $this->datum;
+            $datum = (array) $this->datum;
+
+            return array_map( [$this, 'getCleanValue'], $datum );
         }
 
         // Note how we're getting __get() to fire here
@@ -123,12 +106,44 @@ class Datum implements JsonSerializable
 
         $hash = spl_object_hash( $object );
 
-        if( !isset( $this->subobjects[ $hash ] ) )
+        if( !isset( $this->subdatums[ $hash ] ) )
         {
-            $this->subobjects[ $hash ] = new Datum( $object );
+            $this->subdatums[ $hash ] = new Datum( $object );
         }
 
-        return $this->subobjects[ $hash ];
+        return $this->subdatums[ $hash ];
+
+    }
+
+    /**
+     * A place to standardize values, e.g. return null instead of empty strings.
+     *
+     * @return mixed;
+     */
+    private function getCleanValue( $value )
+    {
+
+        if( !isset( $value ) )
+        {
+            return null;
+        }
+
+        if( is_string( $value ) )
+        {
+            // If it's a string, trim before returning
+            $value = trim( $value );
+
+            // If it's an empty string, return null
+            return empty( $value ) ? null : $value;
+        }
+
+        if( is_object( $value ) )
+        {
+            // If it's an object, return new datum
+            return $this->getSubDatum( $value );
+        }
+
+        return $value;
 
     }
 
