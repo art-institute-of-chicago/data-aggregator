@@ -1056,7 +1056,7 @@ class Artwork extends CollectionsModel
                 "doc" => "The fiscal year in which the work was acquired.",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return null; },
+                "value" => function() { return $this->fiscal_year; },
             ],
             [
                 "name" => 'place_of_origin',
