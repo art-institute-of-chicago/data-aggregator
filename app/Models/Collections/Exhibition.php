@@ -17,11 +17,11 @@ class Exhibition extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
-    protected $dates = [
-        'date_start',
-        'date_end',
-        'date_aic_start',
-        'date_aic_end',
+    protected $casts = [
+        'date_start' => 'datetime',
+        'date_end' => 'datetime',
+        'date_aic_start' => 'datetime',
+        'date_aic_end' => 'datetime',
     ];
 
     public function artworks()

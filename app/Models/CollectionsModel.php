@@ -13,27 +13,27 @@ class CollectionsModel extends BaseModel
 
     protected $isInCiti = true;
 
-    public function getDates()
+    public function getCasts()
     {
 
-        $dates = parent::getDates();
+        $casts = parent::getCasts();
 
         if (!$this->hasSourceDates)
         {
-            return $dates;
+            return $casts;
         }
 
         // This accounts for Assets, which are in LAKE, but not in CITI
         if ($this->isInCiti)
         {
-            $dates = array_merge( $dates, [
-                'citi_created_at',
-                'citi_modified_at',
+            $casts = array_merge( $casts, [
+                'citi_created_at' => 'datetime',
+                'citi_modified_at' => 'datetime',
             ]);
         }
 
-        return array_merge( $dates, [
-            'source_indexed_at',
+        return array_merge( $casts, [
+            'source_indexed_at' => 'datetime',
         ]);
 
     }

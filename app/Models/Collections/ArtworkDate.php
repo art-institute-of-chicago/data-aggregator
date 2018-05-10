@@ -9,12 +9,9 @@ class ArtworkDate extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
-    protected $dates = [
-        'date_earliest',
-        'date_latest',
-    ];
-
     protected $casts = [
+        'date_earliest' => 'datetime',
+        'date_latest' => 'datetime',
         'preferred' => 'boolean',
     ];
 

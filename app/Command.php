@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Command extends Model
 {
 
-    protected $dates = ['last_attempt_at', 'last_success_at'];
+    protected $casts = [
+        'last_attempt_at' => 'datetime',
+        'last_success_at' => 'datetime',
+    ];
 
     /**
      * The attributes that aren't mass assignable.

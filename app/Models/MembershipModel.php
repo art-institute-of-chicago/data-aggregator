@@ -13,9 +13,9 @@ class MembershipModel extends BaseModel
 
     protected $fakeIdsStartAt = 99900000;
 
-    protected $dates = [
-        'start_at',
-        'end_at',
+    protected $casts = [
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
     ];
 
     protected function fillIdsFrom($source)

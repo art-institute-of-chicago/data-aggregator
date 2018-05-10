@@ -57,30 +57,31 @@ class BaseModel extends AbstractModel
 
     /**
      * This getter is in Laravel's base `Model` class, or rather, in its `HasAttributes` trait.
-     * We override it here as a convenient way to "append" dates. If we were to use the `$dates`
-     * property for this, we'd have to overwrite it in its entirety. This way, dates are additive.
-     * If you need to remove dates, just overwrite this method in a child model.
+     * We override it here as a convenient way to "append" dates. This allows child classes to
+     * use the `$casts` property without worrying about overwriting parent definitions in their
+     * entirety. This way, casts are additive. If you need to remove dates, just overwrite this
+     * method in a child model.
      */
-    public function getDates()
+    public function getCasts()
     {
 
         // Traverse through the class hierarchy of all the child classes and merge together their
-        // definitions of the `$dates` attribute. This allows child classes to simple use `$dates`
+        // definitions of the `$casts` attribute. This allows child classes to simple use `$casts`
         // as an additive property without needing to worry about merging with the parent array.
-        $dates = parent::getDates();
+        $casts = parent::getCasts();
         $class = get_called_class();
         while ($class = get_parent_class($class)) {
-            $dates = array_merge($dates, get_class_vars($class)['dates']);
+            $casts = array_merge($casts, get_class_vars($class)['casts']);
         }
 
         if (!$this->hasSourceDates)
         {
-            return $dates;
+            return $casts;
         }
 
-        return array_merge( $dates, [
-            'source_created_at',
-            'source_modified_at',
+        return array_merge( $casts, [
+            'source_created_at' => 'datetime',
+            'source_modified_at' => 'datetime',
         ]);
 
     }
