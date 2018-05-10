@@ -98,7 +98,7 @@ class Event extends WebModel
                 "doc" => "Whether the event should appear in listings and in search",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->hidden; },
+                "value" => function() { return (bool) $this->hidden; },
             ],
             [
                 "name" => 'rsvp_link',
