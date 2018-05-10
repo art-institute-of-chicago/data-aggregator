@@ -157,7 +157,6 @@ $factory->define(App\Models\Web\GenericPage::class, function (Faker\Generator $f
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
         'title' => ucfirst($faker->words(3, true)),
-        'type' => $faker->word,
         'web_url' => $faker->url,
         'slug' => $faker->slug,
         'listing_description' => $faker->paragraph(),
@@ -176,7 +175,6 @@ $factory->define(App\Models\Web\PressRelease::class, function (Faker\Generator $
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
         'title' => ucfirst($faker->words(3, true)),
-        'type' => $faker->word,
         'web_url' => $faker->url,
         'slug' => $faker->slug,
         'listing_description' => $faker->paragraph(),
@@ -195,7 +193,6 @@ $factory->define(App\Models\Web\ResearchGuide::class, function (Faker\Generator 
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
         'title' => ucfirst($faker->words(3, true)),
-        'type' => $faker->word,
         'web_url' => $faker->url,
         'slug' => $faker->slug,
         'listing_description' => $faker->paragraph(),
@@ -214,7 +211,6 @@ $factory->define(App\Models\Web\EducatorResource::class, function (Faker\Generat
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
         'title' => ucfirst($faker->words(3, true)),
-        'type' => $faker->word,
         'web_url' => $faker->url,
         'slug' => $faker->slug,
         'listing_description' => $faker->paragraph(),
@@ -233,7 +229,6 @@ $factory->define(App\Models\Web\DigitalCatalog::class, function (Faker\Generator
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
         'title' => ucfirst($faker->words(3, true)),
-        'type' => $faker->word,
         'web_url' => $faker->url,
         'slug' => $faker->slug,
         'listing_description' => $faker->paragraph(),
@@ -252,7 +247,6 @@ $factory->define(App\Models\Web\PrintedCatalog::class, function (Faker\Generator
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
         'title' => ucfirst($faker->words(3, true)),
-        'type' => $faker->word,
         'web_url' => $faker->url,
         'slug' => $faker->slug,
         'listing_description' => $faker->paragraph(),
