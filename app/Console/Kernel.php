@@ -62,6 +62,13 @@ class Kernel extends ConsoleKernel
             ->sendOutputTo(storage_path('logs/import-web-last-run.log'))
             ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
 
+        $schedule->command('import:collections-delete --quiet')
+            ->everyHour()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/import-collections-delete.log'))
+            ->sendOutputTo(storage_path('logs/import-collections-delete-last-run.log'))
+            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+
     }
 
     /**
