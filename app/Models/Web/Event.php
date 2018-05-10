@@ -125,7 +125,6 @@ class Event extends WebModel
                 "name" => 'all_dates',
                 "doc" => "All the dates this event takes place",
                 "type" => "array",
-                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->all_dates; },
             ],
             [
