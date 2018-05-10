@@ -114,7 +114,10 @@ trait Fillable
             }
 
         }
-
+        if (static::class == '\App\Models\Web\Artist')
+        {
+            dd($data);
+        }
         $this->fill($data);
         return $this;
 

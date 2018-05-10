@@ -153,16 +153,115 @@ $factory->define(App\Models\Web\Artist::class, function (Faker\Generator $faker)
     ];
 });
 
-
-$factory->define(App\Models\Web\Page::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Web\GenericPage::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
         'title' => ucfirst($faker->words(3, true)),
-        'type' => $faker->randomDigit,
-        'home_intro' => $faker->paragraph(),
-        'exhibition_intro' => $faker->paragraph(),
-        'art_intro' => $faker->paragraph(),
-        'visit_intro' => $faker->paragraph(),
+        'type' => $faker->word,
+        'web_url' => $faker->url,
+        'slug' => $faker->slug,
+        'listing_description' => $faker->paragraph(),
+        'short_description' => $faker->paragraph(),
+        'published' => $faker->boolean,
+        'publish_start_date' => $faker->dateTimeThisYear,
+        'publish_end_date' => $faker->dateTimeThisYear,
+        'text' => $faker->paragraph(4),
+        'image_url' => $faker->imageUrl(),
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});
+
+$factory->define(App\Models\Web\PressRelease::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'type' => $faker->word,
+        'web_url' => $faker->url,
+        'slug' => $faker->slug,
+        'listing_description' => $faker->paragraph(),
+        'short_description' => $faker->paragraph(),
+        'published' => $faker->boolean,
+        'publish_start_date' => $faker->dateTimeThisYear,
+        'publish_end_date' => $faker->dateTimeThisYear,
+        'text' => $faker->paragraph(4),
+        'image_url' => $faker->imageUrl(),
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});
+
+$factory->define(App\Models\Web\ResearchGuide::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'type' => $faker->word,
+        'web_url' => $faker->url,
+        'slug' => $faker->slug,
+        'listing_description' => $faker->paragraph(),
+        'short_description' => $faker->paragraph(),
+        'published' => $faker->boolean,
+        'publish_start_date' => $faker->dateTimeThisYear,
+        'publish_end_date' => $faker->dateTimeThisYear,
+        'text' => $faker->paragraph(4),
+        'image_url' => $faker->imageUrl(),
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});
+
+$factory->define(App\Models\Web\EducatorResource::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'type' => $faker->word,
+        'web_url' => $faker->url,
+        'slug' => $faker->slug,
+        'listing_description' => $faker->paragraph(),
+        'short_description' => $faker->paragraph(),
+        'published' => $faker->boolean,
+        'publish_start_date' => $faker->dateTimeThisYear,
+        'publish_end_date' => $faker->dateTimeThisYear,
+        'text' => $faker->paragraph(4),
+        'image_url' => $faker->imageUrl(),
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});
+
+$factory->define(App\Models\Web\DigitalCatalog::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'type' => $faker->word,
+        'web_url' => $faker->url,
+        'slug' => $faker->slug,
+        'listing_description' => $faker->paragraph(),
+        'short_description' => $faker->paragraph(),
+        'published' => $faker->boolean,
+        'publish_start_date' => $faker->dateTimeThisYear,
+        'publish_end_date' => $faker->dateTimeThisYear,
+        'text' => $faker->paragraph(4),
+        'image_url' => $faker->imageUrl(),
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});
+
+$factory->define(App\Models\Web\PrintedCatalog::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'type' => $faker->word,
+        'web_url' => $faker->url,
+        'slug' => $faker->slug,
+        'listing_description' => $faker->paragraph(),
+        'short_description' => $faker->paragraph(),
+        'published' => $faker->boolean,
+        'publish_start_date' => $faker->dateTimeThisYear,
+        'publish_end_date' => $faker->dateTimeThisYear,
+        'text' => $faker->paragraph(4),
+        'image_url' => $faker->imageUrl(),
         'created_at' => $faker->dateTimeThisYear,
         'updated_at' => $faker->dateTimeThisYear,
     ];
