@@ -198,10 +198,10 @@ trait ImportsData
 
                 // TODO: Careful, this conflicts w/ partial imports – running on one endpoint counts for all!
                 // Break if this is a partial import + this datum is older than last run
-                if( $this->isPartial && isset( $datum->modified_at ) )
+                if( $this->isPartial && isset( $datum->{$model::$sourceLastUpdateDateField} ) )
                 {
 
-                    $sourceTime = new Carbon( $datum->modified_at );
+                    $sourceTime = new Carbon( $datum->{$model::$sourceLastUpdateDateField} );
                     $sourceTime->timezone = config('app.timezone');
 
                     if( $this->command->last_success_at->gt( $sourceTime ) )

@@ -48,6 +48,14 @@ class BaseModel extends AbstractModel
 
 
     /**
+     * The name of the field that the source API provides a last updated timestamp in.
+     *
+     * @var string
+     */
+    public static $sourceLastUpdateDateField = 'modified_at';
+
+
+    /**
      * This getter is in Laravel's base `Model` class, or rather, in its `HasAttributes` trait.
      * We override it here as a convenient way to "append" dates. If we were to use the `$dates`
      * property for this, we'd have to overwrite it in its entirety. This way, dates are additive.

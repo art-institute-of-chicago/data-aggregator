@@ -20,6 +20,8 @@ class WebModel extends BaseModel
 
     protected static $source = 'Web';
 
+    public static $sourceLastUpdateDateField = 'last_updated';
+
     protected function getMappingForDates()
     {
 
