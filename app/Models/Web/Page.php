@@ -84,11 +84,11 @@ class Page extends WebModel
                 "value" => function() { return $this->publish_end_date ? $this->publish_end_date->toIso8601String() : null; },
             ],
             [
-                "name" => 'text',
+                "name" => 'copy',
                 "doc" => "The text of the page",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->text; },
+                "value" => function() { return $this->copy; },
             ],
             [
                 "name" => 'image_url',
