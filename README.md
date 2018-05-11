@@ -31,7 +31,7 @@ digital publications, and historic static sites.
 
 The project has been built in Laravel, and includes the following requirements:
 
-* Laravel 5.5
+* Laravel 5.6
 * PHP 7.1 (may work in earlier versions but hasn't been tested)
 * MySQL 5.7 (may work in earlier versions but hasn't been tested)
 * [Composer](https://getcomposer.org/)
