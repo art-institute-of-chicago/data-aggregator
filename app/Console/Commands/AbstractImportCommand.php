@@ -13,7 +13,7 @@ use App\Behaviors\ImportsData;
 abstract class AbstractImportCommand extends BaseCommand
 {
 
-    use ImportsData { query as queryFromTrait; }
+    use ImportsData;
 
     /**
      * An instance of the \App\Command model for logging.
@@ -66,14 +66,6 @@ abstract class AbstractImportCommand extends BaseCommand
 
         return $result;
 
-    }
-
-    /**
-     * Temporarily overriding this to have control over the `$limit` default here.
-     */
-    protected function query( $endpoint, $page = 1, $limit = 10 )
-    {
-        return $this->queryFromTrait( $endpoint, $page, $limit );
     }
 
     /**
