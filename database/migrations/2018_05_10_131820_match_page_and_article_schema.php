@@ -21,11 +21,17 @@ class MatchPageAndArticleSchema extends Migration
 
         foreach( $this->tables as $tableName )
         {
+
             Schema::table($tableName, function (Blueprint $table) {
                 $table->dropColumn('image_url');
                 $table->string('imgix_uuid')->nullable()->after('text');
+
+            });
+
+            Schema::table($tableName, function (Blueprint $table) {
                 $table->renameColumn('text', 'copy');
             });
+
         }
 
     }
@@ -36,11 +42,16 @@ class MatchPageAndArticleSchema extends Migration
 
         foreach( $this->tables as $tableName )
         {
+
             Schema::table($tableName, function (Blueprint $table) {
                 $table->dropColumn('imgix_uuid');
                 $table->string('image_url')->nullable()->after('copy');
+            });
+
+            Schema::table($tableName, function (Blueprint $table) {
                 $table->renameColumn('copy', 'text');
             });
+
         }
 
     }
