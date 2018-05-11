@@ -46,8 +46,8 @@ class ImportProductsFull extends AbstractImportCommand
     protected function importResources()
     {
 
-        $this->import( Product::class, 'products' );
-        $this->import( Category::class, 'categories' );
+        $this->import( 'Shop', Product::class, 'products' );
+        $this->import( 'Shop', Category::class, 'categories' );
 
     }
 

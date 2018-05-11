@@ -368,10 +368,20 @@ class Artwork extends CollectionsModel
 
     }
 
+    // TODO: rename this to cataloguePivots
     public function artworkCatalogues()
     {
 
         return $this->hasMany('App\Models\Collections\ArtworkCatalogue');
+
+    }
+
+    public function catalogues()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Catalogue', 'artwork_catalogue')
+            ->using('App\Models\Collections\ArtworkCatalogue')
+            ->withPivot('is_preferred');
 
     }
 
@@ -508,249 +518,6 @@ class Artwork extends CollectionsModel
     }
 
     // Meh, we'll leave out preferred & alternative places for now
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'alt_titles' => $source->alt_titles,
-            'artist_display' => $source->creator_display,
-            'medium_display' => $source->medium,
-            'publication_history' => $source->publications,
-            'exhibition_history' => $source->exhibitions,
-            'copyright_notice' => $source->copyright ? reset($source->copyright) : null,
-            // TODO: ArtworkTypes will need to be attached via string comparison
-            //'artwork_type_citi_id' => , // Redmine #2431
-            //'gallery_citi_id' => , // Redmine #2000
-            'source_indexed_at' => strtotime($source->indexed_at),
-        ];
-
-    }
-
-    public function attachFrom($source)
-    {
-
-        if ($source->artwork_agents)
-        {
-
-            $artists = collect( $source->artwork_agents ?? [] )->filter( function( $pivot ) {
-
-                // Some artworks don't have an agent id specified here, skip them
-                // TODO: Raise a validation alert?
-                return (bool) $pivot->agent_id;
-
-            })->map( function( $pivot ) {
-                return [
-                    $pivot->agent_id => [
-                        'agent_role_citi_id' => $pivot->role_id,
-                        'preferred' => $pivot->is_preferred,
-                    ]
-                ];
-            });
-
-            // Using collapse or array_merge was nuking numeric keys
-            // $artists = $artists->collapse();
-            // $artists = array_merge( ... $artists  );
-
-            // https://stackoverflow.com/a/37748191/1943591
-            $artists = array_reduce($artists->all(), function ($carry, $item) { return $carry + $item; }, []);
-
-            $this->artists()->sync($artists);
-
-        } elseif ($source->creator_id) {
-
-            // In migrations, we default `preferred` to true and `agent_role_citi_id` to 219
-            $this->artists()->sync([ $source->creator_id ]);
-
-        }
-
-        // TODO: Abstract this repetitive logic into abstract inbound transformer methods!
-        if ($source->artwork_places)
-        {
-
-
-            $places = collect( $source->artwork_places ?? [] )->filter( function( $pivot ) {
-
-                // Some artworks don't have an agent id specified here, skip them
-                // TODO: Raise a validation alert?
-                return (bool) $pivot->place_id;
-
-            })->map( function( $pivot ) {
-                return [
-                    $pivot->place_id => [
-                        'artwork_place_qualifier_citi_id' => $pivot->place_qualifier_id,
-                        'preferred' => $pivot->is_preferred,
-                    ]
-                ];
-            });
-
-            // Using collapse or array_merge was nuking numeric keys
-            // $places = $places->collapse();
-            // $places = array_merge( ... $places  );
-
-            // https://stackoverflow.com/a/37748191/1943591
-            $places = array_reduce($places->all(), function ($carry, $item) { return $carry + $item; }, []);
-
-            $this->places()->sync($places);
-
-        }
-
-        // TODO: Shared logic w/ exhibitions - abstract?
-        // Start building the image sync by pulling in alts first
-        $images = collect( $source->alt_image_guids ?? [] )->map( function( $image ) {
-            return [
-                $image => [
-                    'preferred' => false,
-                    'is_doc' => false,
-                ]
-            ];
-        });
-
-        if ($source->image_guid)
-        {
-
-            $images->push([
-                $source->image_guid => [
-                    'preferred' => true,
-                    'is_doc' => false,
-                ]
-            ]);
-
-        }
-
-        // Collapse a collection of arrays into a single, flat collection
-        $images = $images->collapse();
-
-        // Above is how we sync w/ an additional attribute on the pivot table
-        // https://stackoverflow.com/questions/27230672
-
-        $this->images()->sync($images);
-
-        if ($source->category_ids)
-        {
-
-            $category_ids = collect( $source->category_ids )->map( function( $id ) {
-                return 'PC-' . $id;
-            });
-
-            $this->categories()->sync( $category_ids );
-
-        }
-
-        // This is a case where the source pivot model lack an artwork id
-        if ($source->artwork_catalogue_ids)
-        {
-
-            foreach ($source->artwork_catalogue_ids as $id)
-            {
-
-                $ae = ArtworkCatalogue::find($id);
-                if ($ae)
-                {
-
-                    $ae->artwork_citi_id = $this->citi_id;
-                    $ae->save();
-
-                }
-
-            }
-
-        }
-
-        // TODO: Shared logic w/ exhibitions - abstract?
-        if ($source->document_ids)
-        {
-
-            $documents = collect( $source->document_ids )->map( function( $document ) {
-                return [
-                    $document => [
-                        'preferred' => false,
-                        'is_doc' => true,
-                    ]
-                ];
-            });
-
-            $documents = $documents->collapse();
-
-            $this->documents()->sync($documents);
-
-        }
-
-        if ($source->artwork_dates)
-        {
-
-            $this->dates()->delete();
-
-            foreach ( ($source->artwork_dates ?? []) as $rec)
-            {
-                ArtworkDate::create([
-                    // TODO: Use automatic id so that we can create parity b/w web-basic and web-everything
-                    'citi_id' => $rec->id,
-                    'artwork_citi_id' => $this->citi_id,
-                    'lake_guid' => $rec->lake_guid,
-                    'date_earliest' => $rec->date_earliest,
-                    'date_latest' => $rec->date_latest,
-                    'preferred' => $rec->is_preferred,
-                    'artwork_date_qualifier_citi_id' => $rec->date_qualifier_id,
-                ]);
-
-            }
-
-        }
-
-        // @TODO The following are available for syncing:
-        // $source->part_ids
-        // $source->set_ids
-
-        $pref_terms = collect( $source->pref_term_ids ?? [] )->map( function( $term ) {
-            return [
-                ( 'TM-' . $term ) => [
-                    'preferred' => true
-                ]
-            ];
-        });
-
-        $alt_terms = collect( $source->alt_term_ids ?? [] )->map( function( $term ) {
-            return [
-                ( 'TM-' . $term ) => [
-                    'preferred' => false
-                ]
-            ];
-        });
-
-        $terms = $pref_terms->concat( $alt_terms );
-        $terms = $terms->collapse();
-
-        $this->terms()->sync($terms);
-
-        // Galleries must be imported before artworks!
-        // Waiting on Redmine #2000 to do this properly
-        // Also: should Galleries be their own model?
-        if ($source->location)
-        {
-
-            $gallery = \App\Models\Collections\Gallery::where('title', $source->location)->first();
-
-            // Sometimes we get oddballs like 'Currently not on display'
-            if( $gallery )
-            {
-
-                // Tag this place as a gallery ;)
-                $gallery->type = 'AIC Gallery';
-                $gallery->save();
-
-                $this->gallery_citi_id = $gallery ? $gallery->citi_id : null;
-
-            }
-
-        }
-
-        // update artworks with object type id
-
-        return $this;
-
-    }
-
 
     /**
      * Get the models representing our essential artworks from the database.

@@ -48,10 +48,19 @@ class Agent extends CollectionsModel
 
     }
 
-    public function places()
+    public function placePivots()
     {
 
         return $this->hasMany('App\Models\Collections\AgentPlace');
+
+    }
+
+    public function places()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Place', 'agent_place')
+            ->using('App\Models\Collections\AgentPlace')
+            ->withPivot('is_preferred');
 
     }
 
@@ -166,45 +175,6 @@ class Agent extends CollectionsModel
     {
 
         return (new static)->newQuery()->whereKey( static::boostedIds() );
-
-    }
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            // TODO: Determine if the "pretty" name should be in `title`
-            // TODO: Remove this hotfix after CDS deployment issues are resolved
-            'sort_title' => $source->sort_title ?? $source->title_sort ?? null,
-            'alt_titles' => $source->alt_titles,
-            'birth_date' => $source->date_birth,
-            'death_date' => $source->date_death,
-            'licensing_restricted' => (bool) $source->is_licensing_restricted,
-            'agent_type_citi_id' => $source->agent_type_id,
-        ];
-
-    }
-
-    public function attachFrom($source)
-    {
-
-        // AgentPlace's source doesn't have an agent id
-        if ($source->agent_place_ids)
-        {
-
-            // TODO: Change this to target agent_places, i/o agent_place_ids
-            // Ignore the CITI IDs, change primary key to be incremental
-            // This is b/c we'll need to normalize "Web Everything" w/ "Web Basic"
-            foreach ($source->agent_place_ids as $id)
-            {
-
-                $ae = AgentPlace::find($id);
-                $ae->agent_citi_id = $this->citi_id;
-                $ae->save();
-
-            }
-
-        }
 
     }
 

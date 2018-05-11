@@ -242,7 +242,6 @@ class CategoryTerm extends CollectionsModel
 
     }
 
-
     /**
      * Scope a query to only include terms that are of type 'theme'.
      *
@@ -295,15 +294,6 @@ class CategoryTerm extends CollectionsModel
 
     }
 
-    protected function fillIdsFrom($source)
-    {
-
-        $this->lake_uid = $source->lake_uid;
-
-        return $this;
-
-    }
-
     /**
      * Get an example ID for documentation generation
      *
@@ -315,7 +305,6 @@ class CategoryTerm extends CollectionsModel
         return "PC-466";
 
     }
-
 
     /**
      * Ensure that the id is a valid LAKE UID.

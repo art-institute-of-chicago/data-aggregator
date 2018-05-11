@@ -24,8 +24,8 @@ class ImportCatalogues extends AbstractImportCommand
             return false;
         }
 
-        $this->import(Publication::class, 'publications');
-        $this->import(Section::class, 'sections');
+        $this->import( 'Dsc', Publication::class, 'publications' );
+        $this->import( 'Dsc', Section::class, 'sections' );
 
     }
 

@@ -23,7 +23,14 @@ class ImportTicketedEventsFull extends AbstractImportCommand
             return false;
         }
 
-        $this->import( TicketedEvent::class, 'events' );
+        $this->importTicketedEvents();
+
+    }
+
+    protected function importTicketedEvents()
+    {
+
+        return $this->import( 'Membership', TicketedEvent::class, 'events' );
 
     }
 
@@ -34,13 +41,13 @@ class ImportTicketedEventsFull extends AbstractImportCommand
 
     }
 
-    protected function save( $datum, $model )
+    protected function save( $datum, $model, $transformer )
     {
 
         // TODO: Determine if this is still necessary
         $datum->source = 'galaxy';
 
-        return parent::save( $datum, $model );
+        return parent::save( $datum, $model, $transformer );
 
     }
 

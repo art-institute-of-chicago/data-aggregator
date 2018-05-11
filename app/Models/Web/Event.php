@@ -98,7 +98,7 @@ class Event extends WebModel
                 "doc" => "Whether the event should appear in listings and in search",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->hidden; },
+                "value" => function() { return (bool) $this->hidden; },
             ],
             [
                 "name" => 'rsvp_link',
@@ -177,22 +177,6 @@ class Event extends WebModel
                 "value" => function() { return $this->published; },
             ],
         ];
-
-    }
-
-    /**
-     * Provide child classes a space to implement fill functionality for arrays and objects
-     * returned from source APIs
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillArraysAndObjectsFrom($source)
-    {
-
-        $this->all_dates = $source->all_dates;
-
-        return $this;
 
     }
 

@@ -38,61 +38,6 @@ class CollectionsModel extends BaseModel
 
     }
 
-    /**
-     * Fill in this model's IDs from the given resource, or fill it in with fake data.
-     * This method is used primarily when the given resource is provided by the source
-     * system.
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillIdsFrom($source)
-    {
-
-        $fill = [];
-
-        if ($this->getKeyName() == 'citi_id')
-        {
-
-            $fill['citi_id'] = $source->id;
-            $fill['lake_guid'] = $source->lake_guid;
-
-        } else {
-
-            $fill['lake_guid'] = $source->id;
-
-        }
-
-        $this->fill($fill);
-
-        return $this;
-
-    }
-
-
-    /**
-     * Fill in this model's dates from the given resource, or fill it in with fake data.
-     * This method is used primarily when the given resource is provided by the source
-     * system.
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillDatesFrom($source)
-    {
-
-        $fill = [];
-
-        $fill['source_created_at'] = strtotime($source->created_at);
-        $fill['source_modified_at'] = strtotime($source->modified_at);
-        $fill['source_indexed_at'] = strtotime($source->indexed_at);
-
-        $this->fill($fill);
-
-        return $this;
-
-    }
-
     protected function getMappingForIds()
     {
 

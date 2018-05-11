@@ -102,6 +102,7 @@ class Asset extends CollectionsModel
 
     }
 
+    // TODO: Remove this!
     public function attachFrom($source)
     {
 

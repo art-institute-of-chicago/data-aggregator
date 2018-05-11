@@ -24,8 +24,8 @@ class ImportLibrary extends AbstractImportCommand
             return false;
         }
 
-        $this->import( Material::class, 'materials' );
-        $this->import( Term::class, 'terms');
+        $this->import( 'Library', Material::class, 'materials' );
+        $this->import( 'Library', Term::class, 'terms');
 
     }
 

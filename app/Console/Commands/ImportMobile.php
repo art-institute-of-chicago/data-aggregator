@@ -60,9 +60,6 @@ class ImportMobile extends AbstractImportCommand
 
             $artwork = MobileArtwork::findOrNew( (int) $datum->nid );
 
-            // For now, we will create an artwork by the CITI ID if it doesn't exist
-            // $base = BaseArtwork::findOrCreate( (int) $datum->object_id );
-
             $artwork->mobile_id = (int) $datum->nid;
             $artwork->title = $datum->title;
 

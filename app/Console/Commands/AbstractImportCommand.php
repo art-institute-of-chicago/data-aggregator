@@ -68,17 +68,17 @@ abstract class AbstractImportCommand extends BaseCommand
 
     }
 
-
     /**
      * Save a new model instance given an object retrieved from an external source.
      *
      * @param object  $datum
      * @param string  $model
+     * @param string  $transformer
      * @param boolean $fake  Whether or not to fill missing fields w/ fake data.
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    protected function save( $datum, $model )
+    protected function save( $datum, $model, $transformer )
     {
 
         $this->info("Importing #{$datum->id}" .(property_exists($datum, 'title') ? ": {$datum->title}" : ""));
@@ -86,8 +86,13 @@ abstract class AbstractImportCommand extends BaseCommand
         // Don't use findOrCreate here, since it can cause errors due to Searchable
         $resource = $model::findOrNew( $datum->id );
 
-        $resource->fillFrom($datum);
-        $resource->attachFrom($datum);
+        $transformer = new $transformer();
+
+        // Fill should always be called before sync
+        // Syncing some relations requires `$instance->getKey()` to work (i.e. id is set)
+        $fills = $transformer->fill( $resource, $datum );
+        $syncs = $transformer->sync( $resource, $datum );
+
         $resource->save();
 
         // For debugging ids and titles:

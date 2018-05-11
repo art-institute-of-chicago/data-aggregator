@@ -31,10 +31,18 @@ class Exhibition extends CollectionsModel
 
     }
 
-    public function venues()
+    public function venuePivots()
     {
 
         return $this->hasMany('App\Models\Collections\AgentExhibition');
+
+    }
+
+    public function venues()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Agent', 'agent_exhibition')
+            ->using('App\Models\Collections\AgentExhibition');
 
     }
 
@@ -312,78 +320,6 @@ class Exhibition extends CollectionsModel
         ];
 
     }
-
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'type' => $source->exhibition_type,
-            'status' => $source->exhibition_status,
-            'place_citi_id' => $source->gallery_id,
-            'place_display' => $source->gallery,
-            'date_start' => $source->start_date ? strtotime($source->start_date) : null,
-            'date_end' => $source->end_date ? strtotime($source->end_date) : null,
-            'date_aic_start' => $source->aic_start_date ? strtotime($source->aic_start_date) : null,
-            'date_aic_end' => $source->aic_end_date ? strtotime($source->aic_end_date) : null,
-            'source_indexed_at' => strtotime($source->indexed_at),
-        ];
-
-    }
-
-
-    public function attachFrom($source)
-    {
-
-        $this->venues()->saveMany(AgentExhibition::findMany($source->exhibition_agent_ids));
-        $this->artworks()->sync($source->artwork_ids);
-
-        // TODO: This logic is shared w/ artworks - consider abstracting it elsewhere?
-        $assets = collect( $source->alt_image_guids ?? [] )->map( function( $asset ) {
-            return [
-                $asset => [
-                    'preferred' => false,
-                    'is_doc' => false,
-                ]
-            ];
-        });
-
-        if ($source->image_guid)
-        {
-
-            $assets->push([
-                $source->image_guid => [
-                    'preferred' => true,
-                    'is_doc' => false,
-                ]
-            ]);
-
-        }
-
-        // TODO: Shared logic w/ exhibitions - abstract?
-        if ($source->document_ids)
-        {
-
-            $documents = collect( $source->document_ids )->map( function( $document ) {
-                return [
-                    $document => [
-                        'preferred' => false,
-                        'is_doc' => true,
-                    ]
-                ];
-            });
-
-            $assets = $assets->concat( $documents );
-
-        }
-
-        // This only works for string keys!
-        $assets = $assets->collapse();
-
-        $this->assets()->sync($assets);
-
-    }
-
 
     /**
      * Get an example ID for documentation generation

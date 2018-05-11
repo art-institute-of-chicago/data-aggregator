@@ -17,6 +17,19 @@ return [
 
     ],
 
+    // 'inbound' => [
+    //     [
+    //         'source' => 'Collections',
+    //         'model' => \App\Models\Collections\Agent::class,
+    //         'transformer' => \App\Transformers\Inbound\Agent::class,
+    //     ],
+    //     [
+    //         'source' => 'Collections',
+    //         'model' => \App\Models\Collections\AgentExhibition::class,
+    //         'transformer' => \App\Transformers\Inbound\AgentExhibition::class,
+    //     ],
+    // ],
+
     'outbound' => [
 
         'base' => [

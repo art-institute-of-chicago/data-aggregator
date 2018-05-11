@@ -42,7 +42,11 @@ class ImportSites extends AbstractImportCommand
 
         foreach( $results as $datum )
         {
-            $this->save( $datum, Site::class );
+
+            $transformer = app('Resources')->getInboundTransformerForModel( Site::class, 'StaticArchive' );
+
+            $this->save( $datum, Site::class, $transformer );
+
         }
 
     }

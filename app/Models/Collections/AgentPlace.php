@@ -43,31 +43,6 @@ class AgentPlace extends BasePivot
     }
 
     /**
-     * Fill in this model's identifiers from source data.
-     * Meant to be overridden, especially by CollectionsModel, etc.
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillIdsFrom($source)
-    {
-
-        $this->citi_id = $source->citi_id;
-
-        return $this;
-
-    }
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'place_citi_id' => $source->place_id,
-        ];
-
-    }
-
-    /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
     protected function transformMappingInternal()
