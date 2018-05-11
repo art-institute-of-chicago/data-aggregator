@@ -24,10 +24,10 @@ class MatchPageAndArticleSchema extends Migration
 
             Schema::table($tableName, function (Blueprint $table) {
                 $table->dropColumn('image_url');
-                $table->string('imgix_uuid')->nullable()->after('text');
-
             });
-
+            Schema::table($tableName, function (Blueprint $table) {
+                $table->string('imgix_uuid')->nullable()->after('text');
+            });
             Schema::table($tableName, function (Blueprint $table) {
                 $table->renameColumn('text', 'copy');
             });
@@ -45,9 +45,10 @@ class MatchPageAndArticleSchema extends Migration
 
             Schema::table($tableName, function (Blueprint $table) {
                 $table->dropColumn('imgix_uuid');
+            });
+            Schema::table($tableName, function (Blueprint $table) {
                 $table->string('image_url')->nullable()->after('copy');
             });
-
             Schema::table($tableName, function (Blueprint $table) {
                 $table->renameColumn('copy', 'text');
             });

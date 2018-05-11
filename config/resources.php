@@ -264,7 +264,7 @@ return [
                 'is_searchable' => true,
             ],
             [
-                'endpoint' => 'resource-guides',
+                'endpoint' => 'research-guides',
                 'model' => \App\Models\Web\ResearchGuide::class,
                 'is_searchable' => true,
             ],
