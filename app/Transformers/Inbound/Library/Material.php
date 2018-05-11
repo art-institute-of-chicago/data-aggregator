@@ -8,7 +8,7 @@ use App\Transformers\Inbound\AbstractTransformer;
 class Material extends AbstractTransformer
 {
 
-    protected function attachFrom( Datum $datum )
+    protected function getSync( Datum $datum )
     {
 
         return [
