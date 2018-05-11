@@ -20,7 +20,7 @@ class AgentExhibitionsController extends BaseController
 
         return $this->collect( $request, function( $limit, $id ) {
 
-            return Exhibition::findOrFail($id)->venues;
+            return Exhibition::findOrFail($id)->venuePivots;
 
         });
 

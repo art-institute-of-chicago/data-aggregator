@@ -67,7 +67,7 @@ class ExhibitionTest extends ApiTestCase
     public function it_fetches_venues_for_an_exhibition()
     {
 
-        $exhibitionId = $this->attach(AgentExhibition::class, 4, 'venues')->make(Exhibition::class);
+        $exhibitionId = $this->attach(AgentExhibition::class, 4, 'venuePivots')->make(Exhibition::class);
 
         $response = $this->getJson('api/v1/exhibitions/' .$exhibitionId .'/venues');
         $response->assertSuccessful();

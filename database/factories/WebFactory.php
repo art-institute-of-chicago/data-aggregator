@@ -132,7 +132,7 @@ $factory->define(App\Models\Web\Selection::class, function (Faker\Generator $fak
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
         'title' => ucfirst($faker->words(3, true)),
         'short_copy' => $faker->sentence(),
-        'content' => $faker->paragraph(2),
+        'copy' => $faker->paragraph(2),
         'published' => $faker->boolean,
         'source_modified_at' => $faker->dateTimeThisYear,
         'created_at' => $faker->dateTimeThisYear,
