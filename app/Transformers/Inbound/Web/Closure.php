@@ -8,8 +8,6 @@ use App\Transformers\Inbound\AbstractTransformer;
 class Closure extends AbstractTransformer
 {
 
-    use HasBlocks { getExtraFields as getBlockFields; }
-
     protected function getTitle( Datum $datum )
     {
 
