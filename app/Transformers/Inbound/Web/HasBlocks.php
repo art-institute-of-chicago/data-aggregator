@@ -50,24 +50,35 @@ trait HasBlocks
     private function getCopy( Collection $blocks )
     {
 
-        // Keep only filled-out paragraph blocks
-        $blocks = $blocks->filter( function( $block ) {
-            return $block->type == 'paragraph' && isset( $block->content->paragraph );
+        // Get our rules for extracting copy from blocks
+        $rules = $this->getCopyRules();
+
+        // Loop through the rules to see which apply
+        $texts = $blocks->map( function( $block ) use ( $rules ) {
+
+            foreach( $rules as $rule )
+            {
+                if( $rule['filter']($block) )
+                {
+                    return $rule['extract']($block);
+                }
+            }
+
+            return null;
+
         });
 
-        // Ensure there's valid paragraphs here
-        if( $blocks->count() < 1 )
+        // Filter out any null texts
+        $texts = $texts->filter();
+
+        // Ensure there's valid texts here
+        if( $texts->count() < 1 )
         {
             return null;
         }
 
-        // Extract the paragraphs
-        $paragraphs = $blocks->map( function( $block ) {
-            return strip_tags( $block->content->paragraph );
-        });
-
-        // Return all paragraphs as one string
-        return $paragraphs->implode(' ');
+        // Return all texts as one string
+        return $texts->implode(' ');
 
     }
 
@@ -81,6 +92,35 @@ trait HasBlocks
 
         // Get a URL to the first large image
         return $blocks->firstWhere('type', 'image')->medias[0]->uuid ?? null;
+
+    }
+
+    /**
+     * A place to define rules for identifying blocks with eligible copy, and for extracting
+     * that copy. Used in the `getCopy` method. Has to be a function, not a class property.
+     *
+     * @var array
+     */
+    private function getCopyRules() {
+
+        return [
+            [
+                'filter' => function( $block ) {
+                    return $block->type == 'paragraph' && isset( $block->content->paragraph );
+                },
+                'extract' => function( $block ) {
+                    return strip_tags( $block->content->paragraph );
+                },
+            ],
+            [
+                'filter' => function( $block ) {
+                    return $block->type == 'artworks' && isset( $block->content->subhead );
+                },
+                'extract' => function( $block ) {
+                    return strip_tags( $block->content->subhead );
+                },
+            ]
+        ];
 
     }
 

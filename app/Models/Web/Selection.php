@@ -27,11 +27,11 @@ class Selection extends WebModel
                 "value" => function() { return $this->short_copy; },
             ],
             [
-                "name" => 'content',
+                "name" => 'copy',
                 "doc" => "The text of the selection description",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->content; },
+                "value" => function() { return $this->copy; },
             ],
             [
                 "name" => 'published',
