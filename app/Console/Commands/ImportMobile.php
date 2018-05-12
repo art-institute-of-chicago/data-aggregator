@@ -70,8 +70,21 @@ class ImportMobile extends AbstractImportCommand
             // Pull in an actual model
             // $artwork->artwork_citi_id = (int) $datum->object_id,
 
-            // https://stackoverflow.com/questions/17472128/preventing-laravel-adding-multiple-records-to-a-pivot-table
-            $artwork->sounds()->sync( $datum->audio, false );
+            // In some rare cases the mobile app returns this value as an array of obejcts instead of an array of
+            // simple integers. We'll account for both:
+            if ($datum->audio == array_filter($datum->audio, 'is_numeric'))
+            {
+
+                // https://stackoverflow.com/questions/17472128/preventing-laravel-adding-multiple-records-to-a-pivot-table
+                $artwork->sounds()->sync( $datum->audio, false );
+
+            }
+            else
+            {
+
+                $artwork->sounds()->sync( collect($datum->audio)->pluck('audio')->all(), false );
+
+            }
 
             $artwork->latitude = (float) $location[0];
             $artwork->longitude = (float) $location[1];
