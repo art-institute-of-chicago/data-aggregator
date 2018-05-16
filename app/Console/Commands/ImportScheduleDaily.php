@@ -23,6 +23,7 @@ class ImportScheduleDaily extends BaseCommand
         $this->call('import:set-ulan-uris');
         $this->call('import:products');
         $this->call('import:web');
+        $this->call('import:analytics');
 
     }
 

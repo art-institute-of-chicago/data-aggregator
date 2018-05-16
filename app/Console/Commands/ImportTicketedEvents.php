@@ -20,7 +20,7 @@ class ImportTicketedEvents extends ImportTicketedEventsFull
 
         $this->api = env('EVENTS_DATA_SERVICE_URL');
 
-        $this->import( TicketedEvent::class, 'events' );
+        $this->importTicketedEvents();
 
     }
 

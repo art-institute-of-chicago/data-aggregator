@@ -13,6 +13,7 @@ class BaseModel extends AbstractModel
 
     use Transformable, Fillable, Instancable, Fakeable;
 
+    protected $hasSourceDates = true;
 
     /**
      * Instantiate a new BelongsToMany relationship.
@@ -39,27 +40,51 @@ class BaseModel extends AbstractModel
     /**
      * String that indicates the sub-namespace of the child models. Used for dynamic model retrieval.
      *
+     * TODO: This isn't entirely accurate, since a model might be drawn from multiple sources.
+     *
      * @var string
      */
     protected static $source;
 
 
     /**
-     * Find the record matching the given id or create it.
+     * The name of the field that the source API provides a last updated timestamp in.
      *
-     * @TODO Remove this in favor of Laravel's built-in findOrCreate.
-     *
-     * @param  int    $id
-     * @return \Illuminate\Database\Eloquent\Model
+     * @var string
      */
-    public static function findOrCreate($id)
+    public static $sourceLastUpdateDateField = 'modified_at';
+
+
+    /**
+     * This getter is in Laravel's base `Model` class, or rather, in its `HasAttributes` trait.
+     * We override it here as a convenient way to "append" dates. This allows child classes to
+     * use the `$casts` property without worrying about overwriting parent definitions in their
+     * entirety. This way, casts are additive. If you need to remove dates, just overwrite this
+     * method in a child model.
+     */
+    public function getCasts()
     {
 
-        $model = static::find($id);
-        return $model ?: static::create([static::instance()->getKeyName() => $id]);
+        // Traverse through the class hierarchy of all the child classes and merge together their
+        // definitions of the `$casts` attribute. This allows child classes to simple use `$casts`
+        // as an additive property without needing to worry about merging with the parent array.
+        $casts = parent::getCasts();
+        $class = get_called_class();
+        while ($class = get_parent_class($class)) {
+            $casts = array_merge($casts, get_class_vars($class)['casts']);
+        }
+
+        if (!$this->hasSourceDates)
+        {
+            return $casts;
+        }
+
+        return array_merge( $casts, [
+            'source_created_at' => 'datetime',
+            'source_modified_at' => 'datetime',
+        ]);
 
     }
-
 
     /**
      * Define how the fields in the API are mapped to model properties.
@@ -157,7 +182,7 @@ class BaseModel extends AbstractModel
     protected function getMappingForDates()
     {
 
-        if ($this->excludeDates)
+        if (!$this->hasSourceDates)
         {
             return [];
         }

@@ -9,14 +9,6 @@ class ArtworkArtistPivot extends BasePivot
 
     protected $table = 'artwork_artist';
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-        'source_indexed_at',
-        'citi_created_at',
-        'citi_modified_at',
-    ];
-
     protected $casts = [
         'preferred' => 'boolean',
     ];

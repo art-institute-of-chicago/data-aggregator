@@ -15,12 +15,9 @@ class ArchiveImage extends BaseModel
     use Fillable;
     use Documentable;
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at'
+    protected $casts = [
+        'subject_terms' => 'array'
     ];
-
-    protected $casts = ['subject_terms' => 'array'];
 
     protected static $source = 'Archive';
 
@@ -206,26 +203,6 @@ class ArchiveImage extends BaseModel
                 "value" => function() { return $this->source_modified_at; },
             ],
         ];
-
-    }
-
-
-    /**
-     * Define functionality to import subject_terms
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillArraysAndObjectsFrom($source)
-    {
-
-        $fill = [];
-
-        $fill['subject_terms'] = $source->subject_terms;
-
-        $this->fill($fill);
-
-        return $this;
 
     }
 

@@ -63,20 +63,20 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
 
-    Route::get('artworks/{id}/artwork-catalogues', 'ArtworkCataloguesController@forArtwork');
+    Route::get('artworks/{id}/artwork-catalogues', 'ArtworkCataloguesController@forArtwork'); // pivot
 
     // Collections
     Route::get('agents', 'AgentsController@index');
     Route::get('agents/boosted', 'AgentsController@boosted');
     Route::get('agents/{id}', 'AgentsController@show');
-    Route::get('agents/{id}/places', 'AgentPlacesController@forAgent');
+    Route::get('agents/{id}/places', 'AgentPlacesController@forAgent'); // pivot
     Route::get('artists', 'AgentsController@indexScope');
     Route::get('artists/{id}', 'AgentsController@showScope');
     Route::get('venues', 'AgentExhibitionsController@index');
     Route::get('venues/{id}', 'AgentExhibitionsController@show');
 
-    Route::get('agent-places', 'AgentPlacesController@index');
-    Route::get('agent-places/{id}', 'AgentPlacesController@show');
+    Route::get('agent-places', 'AgentPlacesController@index'); // pivot
+    Route::get('agent-places/{id}', 'AgentPlacesController@show'); // pivot
 
     Route::get('agent-types', 'AgentTypesController@index');
     Route::get('agent-types/{id}', 'AgentTypesController@show');
@@ -84,8 +84,8 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('agent-roles', 'AgentRolesController@index');
     Route::get('agent-roles/{id}', 'AgentRolesController@show');
 
-    Route::get('artwork-catalogues', 'ArtworkCataloguesController@index');
-    Route::get('artwork-catalogues/{id}', 'ArtworkCataloguesController@show');
+    Route::get('artwork-catalogues', 'ArtworkCataloguesController@index'); // pivot
+    Route::get('artwork-catalogues/{id}', 'ArtworkCataloguesController@show'); // pivot
 
     Route::get('departments', 'CategoriesController@departments');
     Route::get('departments/{id}', 'CategoriesController@show');
@@ -95,9 +95,6 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::get('artwork-place-qualifiers', 'ArtworkPlaceQualifiersController@index');
     Route::get('artwork-place-qualifiers/{id}', 'ArtworkPlaceQualifiersController@show');
-
-    Route::get('artwork-dates', 'ArtworkDatesController@index');
-    Route::get('artwork-dates/{id}', 'ArtworkDatesController@show');
 
     Route::get('artwork-date-qualifiers', 'ArtworkDateQualifiersController@index');
     Route::get('artwork-date-qualifiers/{id}', 'ArtworkDateQualifiersController@show');
@@ -116,7 +113,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('exhibitions', 'ExhibitionsController@index');
     Route::get('exhibitions/{id}', 'ExhibitionsController@show');
     Route::get('exhibitions/{id}/artworks', 'ArtworksController@forExhibition');
-    Route::get('exhibitions/{id}/venues', 'AgentExhibitionsController@forExhibition');
+    Route::get('exhibitions/{id}/venues', 'AgentExhibitionsController@forExhibition');  // pivot
 
     Route::get('assets', 'AssetsController@index');
     Route::get('assets/{id}', 'AssetsController@show');
@@ -207,8 +204,23 @@ Route::group(['prefix' => 'v1'], function() {
     Route::get('web-artists', 'WebArtistsController@index');
     Route::get('web-artists/{id}', 'WebArtistsController@show');
 
-    Route::get('pages', 'PagesController@index');
-    Route::get('pages/{id}', 'PagesController@show');
+    Route::get('generic-pages', 'GenericPagesController@index');
+    Route::get('generic-pages/{id}', 'GenericPagesController@show');
+
+    Route::get('press-releases', 'PressReleasesController@index');
+    Route::get('press-releases/{id}', 'PressReleasesController@show');
+
+    Route::get('research-guides', 'ResearchGuidesController@index');
+    Route::get('research-guides/{id}', 'ResearchGuidesController@show');
+
+    Route::get('educator-resources', 'EducatorResourcesController@index');
+    Route::get('educator-resources/{id}', 'EducatorResourcesController@show');
+
+    Route::get('digital-catalogs', 'DigitalCatalogsController@index');
+    Route::get('digital-catalogs/{id}', 'DigitalCatalogsController@show');
+
+    Route::get('printed-catalogs', 'PrintedCatalogsController@index');
+    Route::get('printed-catalogs/{id}', 'PrintedCatalogsController@show');
 
     // Generic endpoint to allow source systems to let us know when a record should be updated
     Route::get('{endpoint}/{id}/pull', 'PullController@pull');

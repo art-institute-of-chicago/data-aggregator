@@ -17,7 +17,9 @@ class Section extends DscModel
 
     protected $fakeIdsStartAt = 90000000000;
 
-    protected $hasSourceDates = false;
+    protected $touches = [
+        'artwork',
+    ];
 
     public function publication()
     {
@@ -39,18 +41,6 @@ class Section extends DscModel
         return $this->belongsTo('App\Models\Collections\Artwork', 'artwork_citi_id');
 
     }
-
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'publication_dsc_id' => $source->publication_id,
-            'artwork_citi_id' => $source->citi_id ?? null,
-        ];
-
-    }
-
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.

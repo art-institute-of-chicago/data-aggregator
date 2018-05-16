@@ -17,28 +17,24 @@ class CategoryTerm extends CollectionsModel
 
     protected static $isCategory = null;
 
-    private const CLASSIFICATION = 'TT-1';
-    private const MATERIAL = 'TT-2';
-    private const TECHNIQUE = 'TT-3';
-    private const STYLE = 'TT-4';
-    private const SUBJECT = 'TT-5';
+    public const CLASSIFICATION = 'TT-1';
+    public const MATERIAL = 'TT-2';
+    public const TECHNIQUE = 'TT-3';
+    public const STYLE = 'TT-4';
+    public const SUBJECT = 'TT-5';
 
-    private const DEPARTMENT = 'CT-1';
-    private const THEME = 'CT-3';
+    public const DEPARTMENT = 'CT-1';
+    public const THEME = 'CT-3';
 
     protected $primaryKey = 'lake_uid';
     protected $keyType = 'string';
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-        'source_indexed_at',
-        'citi_created_at',
-        'citi_modified_at',
-    ];
-
     // This propogates to Category and Term
     protected $table = 'category_terms';
+
+    protected $touches = [
+        'artworks',
+    ];
 
     // This also propogates to Category and Term
     // Affects `searchableIndex` and `api_model`
@@ -246,7 +242,6 @@ class CategoryTerm extends CollectionsModel
 
     }
 
-
     /**
      * Scope a query to only include terms that are of type 'theme'.
      *
@@ -299,15 +294,6 @@ class CategoryTerm extends CollectionsModel
 
     }
 
-    protected function fillIdsFrom($source)
-    {
-
-        $this->lake_uid = $source->lake_uid;
-
-        return $this;
-
-    }
-
     /**
      * Get an example ID for documentation generation
      *
@@ -319,7 +305,6 @@ class CategoryTerm extends CollectionsModel
         return "PC-466";
 
     }
-
 
     /**
      * Ensure that the id is a valid LAKE UID.

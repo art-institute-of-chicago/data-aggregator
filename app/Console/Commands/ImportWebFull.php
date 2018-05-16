@@ -12,6 +12,12 @@ use App\Models\Web\Location;
 use App\Models\Web\Page;
 use App\Models\Web\Selection;
 use App\Models\Web\Tag;
+use App\Models\Web\GenericPage;
+use App\Models\Web\PressRelease;
+use App\Models\Web\ResearchGuide;
+use App\Models\Web\EducatorResource;
+use App\Models\Web\DigitalCatalog;
+use App\Models\Web\PrintedCatalog;
 
 class ImportWebFull extends AbstractImportCommand
 {
@@ -50,9 +56,14 @@ class ImportWebFull extends AbstractImportCommand
                 Exhibition::class,
                 Hour::class,
                 Location::class,
-                // Page::class,
                 Selection::class,
                 Tag::class,
+                GenericPage::class,
+                PressRelease::class,
+                ResearchGuide::class,
+                EducatorResource::class,
+                DigitalCatalog::class,
+                PrintedCatalog::class,
             ],
             [
                 'articles',
@@ -62,9 +73,14 @@ class ImportWebFull extends AbstractImportCommand
                 'web_exhibitions',
                 'hours',
                 'locations',
-                // 'pages',
                 'selections',
                 'tags',
+                'generic_pages',
+                'press_releases',
+                'research_guides',
+                'educator_resources',
+                'digital_catalogs',
+                'printed_catalogs',
             ]
         );
 
@@ -73,16 +89,30 @@ class ImportWebFull extends AbstractImportCommand
     protected function importEndpoints()
     {
 
-        $this->import(Article::class, 'articles');
-        $this->import(Artist::class, 'artists');
-        $this->import(Closure::class, 'closures');
-        $this->import(Event::class, 'events');
-        $this->import(Exhibition::class, 'exhibitions');
-        $this->import(Hour::class, 'hours');
-        $this->import(Location::class, 'locations');
-        //$this->import(Page::class, 'pages');
-        $this->import(Selection::class, 'selections');
-        $this->import(Tag::class, 'tags');
+        $this->importFromWeb(Article::class, 'articles');
+        // Incorrect integer value: 'Also known as' for column 'also_known_as'
+        // $this->importFromWeb(Artist::class, 'artists');
+        $this->importFromWeb(Closure::class, 'closures');
+        $this->importFromWeb(Event::class, 'events');
+        $this->importFromWeb(Exhibition::class, 'exhibitions');
+        $this->importFromWeb(Hour::class, 'hours');
+        $this->importFromWeb(Location::class, 'locations');
+        $this->importFromWeb(Selection::class, 'selections');
+        $this->importFromWeb(Tag::class, 'tags');
+
+        $this->importFromWeb(GenericPage::class, 'genericpages');
+        $this->importFromWeb(PressRelease::class, 'pressreleases');
+        $this->importFromWeb(ResearchGuide::class, 'researchguides');
+        $this->importFromWeb(EducatorResource::class, 'educatorresources');
+        $this->importFromWeb(DigitalCatalog::class, 'digitalcatalogs');
+        $this->importFromWeb(PrintedCatalog::class, 'printedcatalogs');
+
+    }
+
+    protected function importFromWeb($model, $endpoint)
+    {
+
+        return $this->import( 'Web', $model, $endpoint );
 
     }
 
@@ -95,28 +125,6 @@ class ImportWebFull extends AbstractImportCommand
         }
 
         return parent::query( $endpoint, $page, $limit );
-    }
-
-    protected function save( $datum, $model )
-    {
-
-        // TODO: Remove this work-around after Articles have been sanitized
-        // if( $model === Article::class && $datum->id === 538 )
-        // {
-        //     $this->warn("Error on #{$datum->id}: " . $this->api . '/articles/' . $datum->id);
-        //     return;
-        // }
-
-        try {
-
-            parent::save( $datum, $model );
-
-        } catch( \Exception $e ) {
-
-            $this->warn("Error on #{$datum->id}: " . $model);
-
-        }
-
     }
 
 }

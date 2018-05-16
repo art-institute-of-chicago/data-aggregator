@@ -19,12 +19,6 @@ class Category extends ShopModel
 
     protected $primaryKey = 'shop_id';
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-        'source_indexed_at',
-    ];
-
     public function parent()
     {
 
@@ -109,15 +103,6 @@ class Category extends ShopModel
                 "value" => function() { return $this->children->pluck('title')->all(); },
             ],
 
-        ];
-
-    }
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'parent_category_shop_id' => $source->parent_id,
         ];
 
     }

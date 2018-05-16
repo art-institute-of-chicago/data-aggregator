@@ -67,7 +67,7 @@ class ExhibitionTest extends ApiTestCase
     public function it_fetches_venues_for_an_exhibition()
     {
 
-        $exhibitionId = $this->attach(AgentExhibition::class, 4, 'venues')->make(Exhibition::class);
+        $exhibitionId = $this->attach(AgentExhibition::class, 4, 'venuePivots')->make(Exhibition::class);
 
         $response = $this->getJson('api/v1/exhibitions/' .$exhibitionId .'/venues');
         $response->assertSuccessful();
@@ -77,7 +77,8 @@ class ExhibitionTest extends ApiTestCase
 
         foreach ($venues as $venue)
         {
-            $this->assertArrayHasKeys($venue, ['id', 'title']);
+            // This uses PivotTransformer, so it doesn't have `id` and `title`
+            $this->assertArrayHasKeys($venue, ['agent_id', 'exhibition_id']);
         }
     }
 

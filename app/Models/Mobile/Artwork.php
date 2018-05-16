@@ -14,6 +14,10 @@ class Artwork extends MobileModel
      */
     protected $table = 'mobile_artworks';
 
+    protected $touches = [
+        'artwork',
+    ];
+
     public function artwork()
     {
 

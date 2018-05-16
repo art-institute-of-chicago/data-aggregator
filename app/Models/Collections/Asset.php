@@ -15,20 +15,26 @@ class Asset extends CollectionsModel
     use ElasticSearchable;
     use Documentable;
 
+    public const IMAGE = 'image';
+    public const SOUND = 'sound';
+    public const TEXT = 'text';
+    public const VIDEO = 'video';
+
     protected $primaryKey = 'lake_guid';
+
     protected $keyType = 'string';
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-        'source_indexed_at',
-    ];
+    protected $isInCiti = false;
 
     protected $casts = [
         'metadata' => 'object',
         'is_multimedia_resource' => 'boolean',
         'is_educational_resource' => 'boolean',
         'is_teacher_resource' => 'boolean',
+    ];
+
+    protected $touches = [
+        'artworks',
     ];
 
     protected static $assetType = null;
@@ -96,6 +102,7 @@ class Asset extends CollectionsModel
 
     }
 
+    // TODO: Remove this!
     public function attachFrom($source)
     {
 
@@ -135,6 +142,13 @@ class Asset extends CollectionsModel
                     "value" => function() { return $this->description; },
                 ],
                 [
+                    "name" => 'alt_text',
+                    "doc" => "Alternative text for the asset to describe it to people with low or no vision",
+                    "type" => "string",
+                    'elasticsearch_type' => 'text',
+                    "value" => function() { return $this->alt_text; },
+                ],
+                [
                     "name" => 'content',
                     "doc" => "Text of URL of the contents of this asset",
                     "type" => "string",
@@ -169,6 +183,13 @@ class Asset extends CollectionsModel
                         "type" => 'boolean',
                     ],
                     "value" => function() { return $this->is_teacher_resource; },
+                ],
+                [
+                    "name" => 'copyright_notice',
+                    "doc" => "Statement notifying how the asset is protected by copyright. Applies to the asset itself, not artwork it may be related to.",
+                    "type" => "string",
+                    'elasticsearch_type' => 'text',
+                    "value" => function() { return $this->copyright_notice; },
                 ],
                 // @TODO Re-enable this once the artist association is fixed
                 // 'artist' => [

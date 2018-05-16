@@ -280,8 +280,10 @@ $factory->define(App\Models\Collections\Asset::class, function (Faker\Generator 
         idsAndTitle($faker, ucwords($faker->words(3, true))),
         [
             'content' => $faker->url,
+            'copyright_notice' => '© ' .$faker->year .' ' .ucfirst($faker->words(3, true)),
             'published' => $faker->boolean,
             'description' => $faker->paragraph(3),
+            'alt_text' => $faker->paragraph(3),
             'agent_citi_id' => $faker->randomElement(App\Models\Collections\Agent::fake()->pluck('citi_id')->all()),
         ],
         dates($faker)

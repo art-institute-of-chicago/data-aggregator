@@ -14,20 +14,6 @@ class ShopModel extends BaseModel
 
     protected $primaryKey = 'shop_id';
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-    ];
-
     protected $fakeIdsStartAt = 999000;
-
-    protected function fillIdsFrom($source)
-    {
-
-        $this->shop_id = $source->id;
-
-        return $this;
-
-    }
 
 }

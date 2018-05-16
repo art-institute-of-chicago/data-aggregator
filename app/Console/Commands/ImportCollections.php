@@ -34,4 +34,14 @@ class ImportCollections extends ImportCollectionsFull
 
     }
 
+    /**
+     * Temporarily overriding this to have control over the `$limit` default here.
+     *
+     * @TODO Implement eager loading for pivot fields in the dataservice.
+     */
+    protected function query( $endpoint, $page = 1, $limit = 500 )
+    {
+        return parent::query( $endpoint, $page, $limit );
+    }
+
 }

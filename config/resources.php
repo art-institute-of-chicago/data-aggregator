@@ -17,6 +17,19 @@ return [
 
     ],
 
+    // 'inbound' => [
+    //     [
+    //         'source' => 'Collections',
+    //         'model' => \App\Models\Collections\Agent::class,
+    //         'transformer' => \App\Transformers\Inbound\Agent::class,
+    //     ],
+    //     [
+    //         'source' => 'Collections',
+    //         'model' => \App\Models\Collections\AgentExhibition::class,
+    //         'transformer' => \App\Transformers\Inbound\AgentExhibition::class,
+    //     ],
+    // ],
+
     'outbound' => [
 
         'base' => [
@@ -63,11 +76,6 @@ return [
             [
                 'endpoint' => 'artwork-date-qualifiers',
                 'model' => \App\Models\Collections\ArtworkDateQualifier::class,
-            ],
-            [
-                'endpoint' => 'artwork-dates',
-                'model' => \App\Models\Collections\ArtworkDate::class,
-                'is_searchable' => true, // TODO: Verify?
             ],
             [
                 'endpoint' => 'places',
@@ -246,8 +254,33 @@ return [
                 'is_searchable' => true,
             ],
             [
-                'endpoint' => 'pages',
-                'model' => \App\Models\Web\Page::class,
+                'endpoint' => 'generic-pages',
+                'model' => \App\Models\Web\GenericPage::class,
+                'is_searchable' => true,
+            ],
+            [
+                'endpoint' => 'press-releases',
+                'model' => \App\Models\Web\PressRelease::class,
+                'is_searchable' => true,
+            ],
+            [
+                'endpoint' => 'research-guides',
+                'model' => \App\Models\Web\ResearchGuide::class,
+                'is_searchable' => true,
+            ],
+            [
+                'endpoint' => 'educator-resources',
+                'model' => \App\Models\Web\EducatorResource::class,
+                'is_searchable' => true,
+            ],
+            [
+                'endpoint' => 'digital-catalogs',
+                'model' => \App\Models\Web\DigitalCatalog::class,
+                'is_searchable' => true,
+            ],
+            [
+                'endpoint' => 'printed-catalogs',
+                'model' => \App\Models\Web\PrintedCatalog::class,
                 'is_searchable' => true,
             ],
         ],

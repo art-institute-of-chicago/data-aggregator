@@ -4,8 +4,6 @@ namespace App\Http\Transformers;
 
 use Aic\Hub\Foundation\AbstractTransformer;
 
-use App\ArchiveImage;
-
 class ArchiveImageTransformer extends AbstractTransformer
 {
 

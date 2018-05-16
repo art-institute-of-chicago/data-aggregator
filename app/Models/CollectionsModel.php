@@ -8,60 +8,33 @@ class CollectionsModel extends BaseModel
 {
 
     protected static $source = 'Collections';
+
     protected $fakeIdsStartAt = 999000000;
 
-    /**
-     * Fill in this model's IDs from the given resource, or fill it in with fake data.
-     * This method is used primarily when the given resource is provided by the source
-     * system.
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillIdsFrom($source)
+    protected $isInCiti = true;
+
+    public function getCasts()
     {
 
-        $fill = [];
+        $casts = parent::getCasts();
 
-        if ($this->getKeyName() == 'citi_id')
+        if (!$this->hasSourceDates)
         {
-
-            $fill['citi_id'] = $source->id;
-            $fill['lake_guid'] = $source->lake_guid;
-
-        } else {
-
-            $fill['lake_guid'] = $source->id;
-
+            return $casts;
         }
 
-        $this->fill($fill);
+        // This accounts for Assets, which are in LAKE, but not in CITI
+        if ($this->isInCiti)
+        {
+            $casts = array_merge( $casts, [
+                'citi_created_at' => 'datetime',
+                'citi_modified_at' => 'datetime',
+            ]);
+        }
 
-        return $this;
-
-    }
-
-
-    /**
-     * Fill in this model's dates from the given resource, or fill it in with fake data.
-     * This method is used primarily when the given resource is provided by the source
-     * system.
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillDatesFrom($source)
-    {
-
-        $fill = [];
-
-        $fill['source_created_at'] = strtotime($source->created_at);
-        $fill['source_modified_at'] = strtotime($source->modified_at);
-        $fill['source_indexed_at'] = strtotime($source->indexed_at);
-
-        $this->fill($fill);
-
-        return $this;
+        return array_merge( $casts, [
+            'source_indexed_at' => 'datetime',
+        ]);
 
     }
 
@@ -86,9 +59,9 @@ class CollectionsModel extends BaseModel
     protected function getMappingForDates()
     {
 
-        if ($this->excludeDates)
+        if (!$this->hasSourceDates)
         {
-            return $ret;
+            return [];
         }
 
         $ret = parent::getMappingForDates();
@@ -111,7 +84,7 @@ class CollectionsModel extends BaseModel
             }
         }
 
-        if (!$this->citiObject)
+        if (!$this->isInCiti)
         {
             return $ret;
         }
@@ -120,7 +93,7 @@ class CollectionsModel extends BaseModel
            "name" => 'last_updated_citi',
            'doc' => "Date and time the resource was updated in CITI, our collections management system",
            "type" => "ISO 8601 date and time",
-           'value' => function() { return $this->citi_modified_at->toIso8601String(); },
+           'value' => function() { return $this->citi_modified_at ? $this->citi_modified_at->toIso8601String() : null; },
         ];
 
         return $ret;

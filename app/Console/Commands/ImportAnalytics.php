@@ -38,7 +38,7 @@ class ImportAnalytics extends AbstractImportCommand
         $this->csv->setHeaderOffset(5);
 
         // Offset past the comment
-        $stmt = (new Statement())->offset(6);
+        $stmt = (new Statement())->offset(5);
 
         $records = $stmt->process($this->csv);
 

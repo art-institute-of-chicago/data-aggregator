@@ -16,7 +16,7 @@ class ProductTransformer extends ApiTransformer
 
 
     /**
-     * Include categories.
+     * Include shop categories.
      *
      * @param  \App\Models\Shop\Product  $product
      * @return League\Fractal\ItemResource

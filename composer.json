@@ -16,14 +16,14 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "aic/data-hub-foundation": "dev-master#aae76619352228df473193c8b9e37369c8337512",
-        "aic/laravel-scout-elastic": "dev-master#a865330096df5e388eb2be618a028d7fb9ba0278",
+        "aic/data-hub-foundation": "dev-master#0.2",
+        "aic/laravel-scout-elastic": "dev-master#3.0.9-aic",
         "cviebrock/laravel-elasticsearch": "^2.0",
         "doctrine/dbal": "^2.6",
         "elasticsearch/elasticsearch": "^5.3",
         "jsq/amazon-es-php": "^0.2.0",
-        "laravel/framework": "5.5.*",
-        "laravel/scout": "^3.0",
+        "laravel/framework": "5.6.*",
+        "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
         "league/csv": "^9.1",
         "league/fractal": "^0.16.0",
@@ -36,7 +36,7 @@
         "fzaninotto/faker": "~1.4",
         "itsgoingd/clockwork": "^2.1",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~6.0",
+        "phpunit/phpunit": "^7.0",
         "xethron/migrations-generator": "^2.0"
     },
     "autoload": {

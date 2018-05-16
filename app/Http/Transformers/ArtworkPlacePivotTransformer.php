@@ -19,7 +19,7 @@ class ArtworkPlacePivotTransformer extends PivotTransformer
     ];
 
     /**
-     * Include artists with pivots.
+     * Include artwork.
      *
      * @param  \App\Models\Collections\ArtworkPlacePivot  $pivot
      * @return League\Fractal\ItemResource
@@ -30,7 +30,7 @@ class ArtworkPlacePivotTransformer extends PivotTransformer
     }
 
     /**
-     * Include artists with pivots.
+     * Include place.
      *
      * @param  \App\Models\Collections\ArtworkPlacePivot  $pivot
      * @return League\Fractal\ItemResource
@@ -41,7 +41,7 @@ class ArtworkPlacePivotTransformer extends PivotTransformer
     }
 
     /**
-     * Include artists with pivots.
+     * Include artwork place qualifier.
      *
      * @param  \App\Models\Collections\ArtworkPlacePivot  $pivot
      * @return League\Fractal\ItemResource

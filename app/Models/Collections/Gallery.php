@@ -17,18 +17,21 @@ class Gallery extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
-    protected $dates = [
-        'source_created_at',
-        'source_modified_at',
-        'source_indexed_at',
-        'citi_created_at',
-        'citi_modified_at',
+    protected $touches =[
+        'artworks',
     ];
 
     public function categories()
     {
 
         return $this->belongsToMany('App\Models\Collections\Category', 'category_place', 'place_citi_id', 'category_lake_uid');
+
+    }
+
+    public function artworks()
+    {
+
+        return $this->hasMany('App\Models\Collections\Artwork');
 
     }
 

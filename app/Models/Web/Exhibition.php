@@ -17,8 +17,6 @@ class Exhibition extends WebModel
     protected $apiCtrl = 'WebExhibitionsController';
 
     protected $casts = [
-        'source_created_at' => 'date',
-        'source_modified_at' => 'date',
         'published' => 'boolean',
         'is_visible' => 'boolean',
     ];
@@ -93,15 +91,6 @@ class Exhibition extends WebModel
                 'elasticsearch_type' => 'boolean',
                 "value" => function() { return $this->published; },
             ],
-        ];
-
-    }
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'title' => $source->datahub_id,
         ];
 
     }

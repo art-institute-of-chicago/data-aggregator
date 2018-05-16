@@ -12,14 +12,9 @@ class AgentExhibition extends BasePivot
 
     protected $primaryKey = 'citi_id';
 
-    protected $dates = [
-        'date_start',
-        'date_end',
-        'source_created_at',
-        'source_modified_at',
-        'source_indexed_at',
-        'citi_created_at',
-        'citi_modified_at',
+    protected $casts =[
+        'date_start' => 'datetime',
+        'date_end' => 'datetime',
     ];
 
     public function agent()
@@ -40,33 +35,6 @@ class AgentExhibition extends BasePivot
     {
 
         return 'updated_at';
-
-    }
-
-    /**
-     * Fill in this model's identifiers from source data.
-     * Meant to be overridden, especially by CollectionsModel, etc.
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillIdsFrom($source)
-    {
-
-        $this->citi_id = $source->citi_id;
-
-        return $this;
-
-    }
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'agent_citi_id' => $source->agent_id,
-            'date_start' => $source->start_date ? strtotime($source->start_date) : null,
-            'date_end' => $source->end_date ? strtotime($source->end_date) : null,
-        ];
 
     }
 

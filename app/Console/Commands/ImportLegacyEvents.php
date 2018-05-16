@@ -45,12 +45,14 @@ class ImportLegacyEvents extends AbstractImportCommand
 
         $this->info("Importing legacy events");
 
+        $transformer = app('Resources')->getInboundTransformerForModel( LegacyEvent::class, 'Membership' );
+
         foreach( $results as $datum )
         {
 
             $datum->id = $this->cantorPair( $datum->nid, $datum->repeat_delta );
 
-            $this->save( $datum, LegacyEvent::class );
+            $this->save( $datum, LegacyEvent::class, $transformer );
 
         }
 

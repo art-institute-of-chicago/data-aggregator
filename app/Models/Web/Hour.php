@@ -13,8 +13,6 @@ class Hour extends WebModel
 {
 
     protected $casts = [
-        'source_created_at' => 'date',
-        'source_modified_at' => 'date',
         'published' => 'boolean',
         'opening_time' => 'date',
         'closing_time' => 'date',
@@ -64,16 +62,6 @@ class Hour extends WebModel
                 "value" => function() { return $this->closed; },
             ],
         ];
-
-    }
-
-
-    protected function fillTitleFrom($source)
-    {
-
-        $this->title = $source->id;
-
-        return $this;
 
     }
 

@@ -262,7 +262,8 @@ return [
                                 'english_possessive_stemmer',
                                 'lowercase',
                                 'english_stop',
-                                'english_stemmer'
+                                'english_stemmer',
+                                'asciifolding',
                             ],
                         ],
                         'article' => [
@@ -270,8 +271,10 @@ return [
                             'filter' => [
                                 'lowercase',
                                 'english_article_stop',
+                                'asciifolding',
                             ],
                         ],
+                        /* TODO: Delete these definitions that we copied over from initial example
                         'trigram' => [
                             'tokenizer' => 'standard',
                             'filter' => [
@@ -286,6 +289,7 @@ return [
                                 'reverse'
                             ],
                         ],
+                        */
                     ],
                 ],
             ],

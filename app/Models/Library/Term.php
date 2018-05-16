@@ -10,8 +10,6 @@ use App\Models\LibraryModel as BaseModel;
 class Term extends BaseModel
 {
 
-    protected $hasSourceDates = false;
-
     protected $table = 'library_terms';
 
     protected $keyType = 'string';

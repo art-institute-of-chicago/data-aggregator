@@ -17,8 +17,6 @@ class Artist extends WebModel
     protected $apiCtrl = 'WebArtistsController';
 
     protected $casts = [
-        'source_created_at' => 'date',
-        'source_modified_at' => 'date',
         'published' => 'boolean',
         'also_known_as' => 'boolean',
     ];
@@ -51,15 +49,6 @@ class Artist extends WebModel
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->datahub_id; },
             ],
-        ];
-
-    }
-
-    public function getExtraFillFieldsFrom($source)
-    {
-
-        return [
-            'title' => $source->datahub_id,
         ];
 
     }

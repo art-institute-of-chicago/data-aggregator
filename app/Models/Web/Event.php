@@ -13,8 +13,6 @@ class Event extends WebModel
 {
 
     protected $casts = [
-        'source_created_at' => 'date',
-        'source_modified_at' => 'date',
         'published' => 'boolean',
         'is_private' => 'boolean',
         'is_after_hours' => 'boolean',
@@ -100,7 +98,7 @@ class Event extends WebModel
                 "doc" => "Whether the event should appear in listings and in search",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->hidden; },
+                "value" => function() { return (bool) $this->hidden; },
             ],
             [
                 "name" => 'rsvp_link',
@@ -127,7 +125,6 @@ class Event extends WebModel
                 "name" => 'all_dates',
                 "doc" => "All the dates this event takes place",
                 "type" => "array",
-                'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->all_dates; },
             ],
             [
@@ -180,22 +177,6 @@ class Event extends WebModel
                 "value" => function() { return $this->published; },
             ],
         ];
-
-    }
-
-    /**
-     * Provide child classes a space to implement fill functionality for arrays and objects
-     * returned from source APIs
-     *
-     * @param  object  $source
-     * @return $this
-     */
-    protected function fillArraysAndObjectsFrom($source)
-    {
-
-        $this->all_dates = $source->all_dates;
-
-        return $this;
 
     }
 

@@ -126,7 +126,7 @@ trait ImportsData
      *
      * @return object
      */
-    protected function query( $endpoint, $page = 1, $limit = 1000 )
+    protected function query( $endpoint, $page = 1, $limit = 500 )
     {
 
         $url = $this->getUrl( $endpoint, $page, $limit );
@@ -150,13 +150,14 @@ trait ImportsData
      * Queries a paginated JSON endpoint from `$this->api` and returns its decoded contents.
      * Assumes that the endpoint follows our dataservice conventions for pagination.
      *
+     * @param string $source
      * @param string $model
      * @param string $endpoint
      * @param integer $current  Current page for offset start
      *
      * @return object
      */
-    protected function import( $model, $endpoint, $current = 1 )
+    protected function import( $source, $model, $endpoint, $current = 1 )
     {
 
         // Abort if the table is already filled in production.
@@ -174,6 +175,8 @@ trait ImportsData
 
         }
 
+        // Figure out which transformer to use for this import operation
+        $transformer = app('Resources')->getInboundTransformerForModel( $model, $source );
 
         // Query for the first page + get page count
         $json = $this->query( $endpoint, $current );
@@ -198,10 +201,10 @@ trait ImportsData
 
                 // TODO: Careful, this conflicts w/ partial imports – running on one endpoint counts for all!
                 // Break if this is a partial import + this datum is older than last run
-                if( $this->isPartial && isset( $datum->modified_at ) )
+                if( $this->isPartial && isset( $datum->{$model::$sourceLastUpdateDateField} ) )
                 {
 
-                    $sourceTime = new Carbon( $datum->modified_at );
+                    $sourceTime = new Carbon( $datum->{$model::$sourceLastUpdateDateField} );
                     $sourceTime->timezone = config('app.timezone');
 
                     if( $this->command->last_success_at->gt( $sourceTime ) )
@@ -212,7 +215,7 @@ trait ImportsData
                 }
 
                 // Be sure to overwrite `save` to make this work!
-                $this->save( $datum, $model );
+                $this->save( $datum, $model, $transformer );
 
             }
 
@@ -291,12 +294,11 @@ trait ImportsData
     /**
      * This method is meant to be overwritten in a class that uses this trait.
      *
-     * @TODO Abstract this into an inbound transformer
-     *
      * @param array $datum
      * @param string $model
+     * @param string $transformer
      */
-    protected function save( $datum, $model )
+    protected function save( $datum, $model, $transformer )
     {
 
         throw \Exception('You must overwrite the `save` method.');
