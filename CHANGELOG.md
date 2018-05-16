@@ -1,6 +1,69 @@
 Data Aggregator Changelog
 =============================
 
+### 1.0-beta1 – Final cleanup before beta and bug fixes
+
+* Upgrade to Laravel 5.6
+* Unpublished all documentation
+* Performance improvements to artwork endpoints
+* Add hourly command to delete unpublished collections data
+* Refactor transformations from source systems into a shared code set to reduce duplication
+* Add functional tests to monitor artwork search behavior
+* Clean up duplication in casting model value types
+* Update models when related records are updated. E.g., update artwork `is_on_view` when the gallery `is_closed` flag is updated.
+* Standardize how source dates are output in the API
+* Add `info` and `config` block to the bottom of each request, to convert version number and URLs needed to use paths that reference other systems
+
+
+ARTWORKS
+
+* Output `fiscal_year` values
+* The following modifications have been made to the API schema:
+  - `technique_id` - Added, unique identifier of the preferred technique term for this work
+  - `alt_technique_ids` – Added, unique identifiers of all other non-preferred technique terms for this work
+  - `technique_titles` – Added, the names of all technique terms related to this artwork
+* The following includes are now available in the /artworks endpoint:
+  - `catalogue_pivots` – Renamed from `catalogues` to more accurately reflect what it returns
+
+
+ASSETS (including IMAGES, SOUNDS, VIDEOS, and TEXTS)
+
+* The following modifications have been made to the API schema:
+  - `alt_text` – Added, alternative text for the asset to describe it to people with low or no vision
+  - `copyright_notice` - Added, statement notifying how the asset is protected by copyright. Applies to the asset itself, not artwork it may be related to.
+
+
+SELECTIONS
+
+* The following modifications have been made to the API schema:
+  - `copy` – Renamed from `content` to more accurately name its content
+
+
+DEPRECATED ENDPOINTS
+
+* `artwork-dates` – Removed due to lack of use cases for accessing or searching this data directly
+* `artwork-dates/{id}`
+* `pages` – Deprecated from the Web CMS API
+* `pages/{id}`
+
+
+NEW ENDPOINTS
+
+* A number of new resources types have been made available in the Web CMS, and we've added corresponding endpoints in the Data Hub:
+  - `generic-pages`
+  - `generic-pages/{id}`
+  - `press-releases`
+  - `press-releases/{id}`
+  - `research-guides`
+  - `research-guides/{id}`
+  - `educator-resources`
+  - `educator-resources/{id}`
+  - `digital-catalogs`
+  - `digital-catalogs/{id}`
+  - `printed-catalogs`
+  - `printed-catalogs/{id}`
+
+
 ### 0.13 – Tweak search and filters
 
 * Refactor CategoryTerm to store all their data in the same table and use scope models to make distinctions between the two, rather than combining the table data in a view
