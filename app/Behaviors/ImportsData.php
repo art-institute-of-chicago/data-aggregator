@@ -160,14 +160,6 @@ trait ImportsData
     protected function import( $source, $model, $endpoint, $current = 1 )
     {
 
-        // Abort if the table is already filled in production.
-        // In test we want to update existing records. Once we verify this
-        // functionality we may want to take this condition completely out.
-        if( !$this->isPartial && $model::count() > 0 && config('app.env') == 'production')
-        {
-            return false;
-        }
-
         if( $this->isPartial )
         {
 
