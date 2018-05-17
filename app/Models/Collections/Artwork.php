@@ -929,6 +929,12 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->artist()->citi_id ?? null; },
             ],
             [
+                "name" => 'artist_title',
+                "doc" => "Names of the preferred artist/culture associated with this work",
+                "type" => "string",
+                "value" => function() { return $this->artist()->title ?? null; },
+            ],
+            [
                 "name" => 'alt_artist_ids',
                 "doc" => "Unique identifiers of the non-preferred artists/cultures associated with this work",
                 "type" => "array",
@@ -943,11 +949,32 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->artists->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'artist_titles',
+                "doc" => "Names of the artists this artwork is a part of",
+                "type" => "array",
+                // Previously defined in StaticArchive/Site
+                "elasticsearch" => [
+                    "default" => true,
+                    // This is controllable via .env so we can tweak it without pushing to prod
+                    "boost" => (float) ( env('SEARCH_BOOST_ARTIST_TITLES') ?: 2 ),
+                ],
+                "value" => function() { return $this->artists->pluck('citi_id')->all(); },
+            ],
+            [
                 "name" => 'category_ids',
                 "doc" => "Unique identifiers of the categories this work is a part of",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
+            ],
+            [
+                "name" => 'category_titles',
+                "doc" => "Names of the categories this artwork is a part of",
+                "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                ],
+                "value" => function() { return $this->categories->pluck('title')->all(); },
             ],
             [
                 "name" => 'part_ids',
@@ -957,11 +984,25 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->parts->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'part_titles',
+                "doc" => "Names of the artworks that make up this work",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->parts->pluck('title')->all(); },
+            ],
+            [
                 "name" => 'set_ids',
                 "doc" => "Unique identifiers of the sets this work is a part of. These are not artwork ids.",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->sets->pluck('citi_id')->all(); },
+            ],
+            [
+                "name" => 'set_titles',
+                "doc" => "Names of the sets this work is a part of",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->sets->pluck('title')->all(); },
             ],
             [
                 "name" => 'artwork_catalogue_ids',
@@ -1174,82 +1215,18 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->mobileArtwork ? ( $this->mobileArtwork->stops->pluck('id')->all() ) : []; },
             ],
             [
-                "name" => 'section_ids',
-                "doc" => "Unique identifiers of the digital publication chaptes this work in included in",
-                "type" => "array",
-                'elasticsearch_type' => 'long',
-                "value" => function() { return $this->sections->pluck('dsc_id')->all(); },
-            ],
-            [
-                "name" => 'site_ids',
-                "doc" => "Unique identifiers of the microsites this work is a part of",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->sites->pluck('site_id')->all(); },
-            ],
-        ];
-
-    }
-
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [
-
-            [
-                "name" => 'artist_title',
-                "doc" => "Names of the preferred artist/culture associated with this work",
-                "type" => "string",
-                "value" => function() { return $this->artist()->title ?? null; },
-            ],
-            [
-                "name" => 'artist_titles',
-                "doc" => "Names of the artists this artwork is a part of",
-                "type" => "array",
-                // Previously defined in StaticArchive/Site
-                "elasticsearch" => [
-                    "default" => true,
-                    // This is controllable via .env so we can tweak it without pushing to prod
-                    "boost" => (float) ( env('SEARCH_BOOST_ARTIST_TITLES') ?: 2 ),
-                ],
-                "value" => function() { return $this->artists->pluck('title')->all(); },
-            ],
-            [
-                "name" => 'category_titles',
-                "doc" => "Names of the categories this artwork is a part of",
-                "type" => "array",
-                "elasticsearch" => [
-                    "default" => true,
-                ],
-                "value" => function() { return $this->categories->pluck('title')->all(); },
-            ],
-            [
-                "name" => 'part_titles',
-                "doc" => "Names of the artworks that make up this work",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->parts->pluck('title')->all(); },
-            ],
-            [
-                "name" => 'set_titles',
-                "doc" => "Names of the sets this work is a part of",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->sets->pluck('title')->all(); },
-            ],
-            // TODO: Move these to Mobile\Artwork
-            [
                 "name" => 'tour_titles',
                 "doc" => "Names of the tours this work is a part of",
                 "type" => "array",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->mobileArtwork && $this->mobileArtwork->tours ? $this->mobileArtwork->tours->pluck('title')->all() ?? null : null; },
+            ],
+            [
+                "name" => 'section_ids',
+                "doc" => "Unique identifiers of the digital publication chaptes this work in included in",
+                "type" => "array",
+                'elasticsearch_type' => 'long',
+                "value" => function() { return $this->sections->pluck('dsc_id')->all(); },
             ],
             [
                 "name" => 'section_titles',
@@ -1258,7 +1235,13 @@ class Artwork extends CollectionsModel
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->sections->pluck('title')->all(); },
             ],
-
+            [
+                "name" => 'site_ids',
+                "doc" => "Unique identifiers of the microsites this work is a part of",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->sites->pluck('site_id')->all(); },
+            ],
         ];
 
     }

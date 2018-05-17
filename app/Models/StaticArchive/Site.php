@@ -79,45 +79,6 @@ class Site extends BaseModel
                 "value" => function() { return $this->exhibitions->pluck('citi_id')->all(); },
             ],
             [
-                "name" => 'artist_ids',
-                "doc" => "Unique identifiers of the artists this site is associated with",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->agents->pluck('citi_id')->all(); },
-            ],
-            [
-                "name" => 'artwork_ids',
-                "doc" => "Unique identifiers of the artworks this site is associated with",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
-            ],
-        ];
-
-    }
-
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [
-
-            [
-                "name" => 'artwork_titles',
-                "doc" => "Names of the artworks this site is associated with",
-                "type" => "array",
-                "elasticsearch" => [
-                    "default" => true,
-                    "type" => 'text',
-                ],
-                "value" => function() { return $this->artworks->pluck('title')->all(); },
-            ],
-            [
                 "name" => 'exhibition_titles',
                 "doc" => "Names of the exhibitions this site is associated with",
                 "type" => "array",
@@ -128,15 +89,39 @@ class Site extends BaseModel
                 "value" => function() { return $this->exhibitions->pluck('title')->all(); },
             ],
             [
+                "name" => 'artist_ids',
+                "doc" => "Unique identifiers of the artists this site is associated with",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->agents->pluck('citi_id')->all(); },
+            ],
+            [
                 "name" => 'artist_titles',
                 "doc" => "Names of the artists this site is associated with",
                 "type" => "array",
                 "value" => function() { return $this->agents->pluck('title')->all(); },
             ],
-
+            [
+                "name" => 'artwork_ids',
+                "doc" => "Unique identifiers of the artworks this site is associated with",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
+            ],
+            [
+                "name" => 'artwork_titles',
+                "doc" => "Names of the artworks this site is associated with",
+                "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
+                "value" => function() { return $this->artworks->pluck('title')->all(); },
+            ],
         ];
 
     }
+
 
     /**
      * Get an example ID for documentation generation

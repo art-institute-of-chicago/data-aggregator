@@ -99,21 +99,6 @@ class Gallery extends CollectionsModel
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
             ],
-        ];
-
-    }
-
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [
-
             [
                 "name" => 'category_titles',
                 "doc" => "Names of the categories this gallery is a part of",
@@ -121,7 +106,6 @@ class Gallery extends CollectionsModel
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->categories->pluck('title')->all(); },
             ],
-
         ];
 
     }

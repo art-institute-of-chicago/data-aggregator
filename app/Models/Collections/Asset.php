@@ -210,6 +210,13 @@ class Asset extends CollectionsModel
                     "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
                 ],
                 [
+                    "name" => 'category_titles',
+                    "doc" => "Names of the categories associated with this asset",
+                    "type" => "array",
+                    'elasticsearch_type' => 'text',
+                    "value" => function() { return $this->categories->pluck('title')->all(); },
+                ],
+                [
                     "name" => 'artwork_ids',
                     "doc" => "Unique identifiers of the artworks associated with this asset",
                     "type" => "array",
@@ -238,28 +245,6 @@ class Asset extends CollectionsModel
     {
 
         return [];
-
-    }
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [
-
-            [
-                "name" => 'category_titles',
-                "doc" => "Names of the categories associated with this asset",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->categories->pluck('title')->all(); },
-            ],
-
-        ];
 
     }
 

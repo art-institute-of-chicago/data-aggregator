@@ -66,21 +66,6 @@ class Place extends CollectionsModel
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->categories->pluck('citi_id')->all(); },
             ],
-        ];
-
-    }
-
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [
-
             [
                 "name" => 'category_titles',
                 "doc" => "Names of the categories this place is a part of",
@@ -88,7 +73,6 @@ class Place extends CollectionsModel
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->categories->pluck('title')->all(); },
             ],
-
         ];
 
     }

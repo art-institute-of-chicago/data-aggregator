@@ -29,11 +29,6 @@ trait Transformable
 
         $fields = $this->transformMapping();
 
-        if ($withTitles)
-        {
-            $fields = array_merge( $fields, $this->transformTitles() );
-        }
-
         $out = [];
 
         foreach ($fields as $field)
@@ -44,19 +39,6 @@ trait Transformable
         }
 
         return $out;
-
-    }
-
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [];
 
     }
 
