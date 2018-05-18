@@ -57,7 +57,7 @@ class DeleteCollectionsRecords extends Command
         $this->deleteUnpublished(\App\Models\Collections\Sound::class);
         $this->deleteUnpublished(\App\Models\Collections\AgentExhibition::class);
         $this->deleteUnpublished(\App\Models\Collections\Exhibition::class);
-        //$this->deleteUnpublished(\App\Models\Collections\Image::class);
+        $this->deleteUnpublished(\App\Models\Collections\Image::class);
 
     }
 
