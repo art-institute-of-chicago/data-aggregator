@@ -55,9 +55,9 @@ class DeleteCollectionsRecords extends Command
         $this->deleteUnpublished(\App\Models\Collections\Video::class);
         $this->deleteUnpublished(\App\Models\Collections\Text::class);
         $this->deleteUnpublished(\App\Models\Collections\Sound::class);
-        $this->deleteUnpublished(\App\Models\Collections\Image::class);
         $this->deleteUnpublished(\App\Models\Collections\AgentExhibition::class);
         $this->deleteUnpublished(\App\Models\Collections\Exhibition::class);
+        //$this->deleteUnpublished(\App\Models\Collections\Image::class);
 
     }
 
@@ -71,18 +71,28 @@ class DeleteCollectionsRecords extends Command
 
         }
 
-        $model::chunk($this->size, function ($resources) use ($model, $endpoint) {
+        $size = $this->size;
+        if ($model::instance()->getKeyName() == 'lake_guid')
+        {
+            $size = $size / 10;
+        }
+        $model::chunk($size, function ($resources) use ($model, $endpoint) {
             $this->info( 'Working on ' . $endpoint . ' starting at ' .$resources->pluck($model::instance()->getKeyName())->first());
 
             // Get a list of CITI IDs of works in the Data Aggregator
             $daIds = $resources->pluck($model::instance()->getKeyName());
 
-            // Use those IDs to retrieve a list from the Collections Data Service
             $json = json_decode(file_get_contents(env('COLLECTIONS_DATA_SERVICE_URL')
                                                   .'/'
                                                   .$endpoint
                                                   .'?flo=id&limit=' .$this->size .'&ids='
-                                                  .implode(',',$daIds->all())));
+                                                  .implode(',',$daIds->all()),
+                                                  false,
+                                                  stream_context_create([
+                                                      'http'=> [
+                                                          'timeout' => 120,  //120 Seconds is 2 Minutes
+                                                      ]
+                                                  ])));
 
             $cdsIds = collect($json->data)->pluck('id');
 
