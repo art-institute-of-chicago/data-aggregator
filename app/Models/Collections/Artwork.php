@@ -826,6 +826,30 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->fiscal_year; },
             ],
             [
+                # TODO: Consider renaming this to `has_multimedia_documents`
+                "name" => 'has_multimedia_resources',
+                "doc" => "Whether this artwork has any associated microsites, digital publications, or documents tagged as multimedia",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() {
+                    return (
+                        $this->documents->where('is_multimedia_resource', true)->count() > 0
+                    ) || (
+                        $this->sections->count() > 0
+                    ) || (
+                        $this->sites->count() > 0
+                    );
+                },
+            ],
+            [
+                # TODO: Consider renaming this to `has_educational_documents`
+                "name" => 'has_educational_resources',
+                "doc" => "Whether this artwork has any documents tagged as educational",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return $this->documents->where('is_educational_resource', true)->count() > 0; },
+            ],
+            [
                 "name" => 'place_of_origin',
                 "doc" => "The location where the creation, design, or production of the work took place, or the original location of the work",
                 "type" => "string",
