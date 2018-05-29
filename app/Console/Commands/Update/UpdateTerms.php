@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Update;
 
 use App\Models\Collections\Artwork;
 
-class UpdateTerms extends AbstractImportCommand
+use App\Console\Commands\AbstractImportCommand as BaseCommand;
+
+class UpdateTerms extends BaseCommand
 {
 
     protected $signature = 'update:terms';

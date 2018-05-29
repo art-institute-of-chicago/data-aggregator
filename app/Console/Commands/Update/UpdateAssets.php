@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Update;
 
 use App\Models\Collections\Asset;
 
