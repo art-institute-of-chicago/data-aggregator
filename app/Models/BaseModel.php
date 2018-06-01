@@ -271,7 +271,7 @@ class BaseModel extends AbstractModel
 
             if ($this->$relation instanceof self) {
 
-                $this->touchOwner( $relation );
+                $this->touchOwner( $this->$relation );
 
             } elseif ($this->$relation instanceof Collection) {
 
