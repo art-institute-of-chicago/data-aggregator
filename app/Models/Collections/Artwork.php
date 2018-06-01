@@ -97,7 +97,11 @@ class Artwork extends CollectionsModel
     public function department()
     {
 
-        return $this->categories()->departments()->expectOne();
+        // We assumed this was a many-to-one relationship; this is a patch. Put `null` first:
+        // https://stackoverflow.com/questions/2051602/mysql-orderby-a-number-nulls-last
+        // This doesn't work great b/c the ids are alphanumeric, not numeric
+        // https://stackoverflow.com/questions/153633/natural-sort-in-mysql
+        return $this->categories()->departments()->orderBy('parent_id', 'asc')->orderBy('id', 'asc')->expectOne();
 
     }
 
