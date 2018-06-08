@@ -1190,7 +1190,7 @@ class Artwork extends CollectionsModel
                     // This is controllable via .env so we can tweak it without pushing to prod
                     "boost" => (float) ( env('SEARCH_BOOST_ARTIST_TITLES') ?: 2 ),
                 ],
-                "value" => function() { return $this->artists->pluck('citi_id')->all(); },
+                "value" => function() { return $this->artists->pluck('title')->all(); },
             ],
             [
                 "name" => 'category_titles',
