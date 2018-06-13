@@ -192,7 +192,7 @@ trait ElasticSearchable
     public function getDefaultSearchFieldMapping()
     {
 
-        $fields = array_merge($this->transformMapping(), $this->transformTitles());
+        $fields = $this->transformMapping();
 
         $fields = array_filter( $fields, function($field) {
 

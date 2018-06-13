@@ -67,33 +67,18 @@ class Category extends ShopModel
                 "value" => function() { return $this->parent->shop_id ?? null; },
             ],
             [
-                "name" => 'child_ids',
-                "doc" => "Unique identifiers of this category's children",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->children->pluck('shop_id')->all(); },
-            ],
-        ];
-
-    }
-
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [
-
-            [
                 "name" => 'parent_title',
                 "doc" => "Name of this category's parent",
                 "type" => "string",
                 "elasticsearch_type" => "text",
                 "value" => function() { return $this->parent->title ?? null; },
+            ],
+            [
+                "name" => 'child_ids',
+                "doc" => "Unique identifiers of this category's children",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->children->pluck('shop_id')->all(); },
             ],
             [
                 "name" => 'child_titles',
@@ -102,10 +87,10 @@ class Category extends ShopModel
                 "elasticsearch_type" => "text",
                 "value" => function() { return $this->children->pluck('title')->all(); },
             ],
-
         ];
 
     }
+
 
     /**
      * Get an example ID for documentation generation

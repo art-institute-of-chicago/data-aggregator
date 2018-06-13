@@ -236,11 +236,25 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'artwork_titles',
+                "doc" => "Names of the artworks that were part of the exhibition",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->artworks->pluck('title')->all(); },
+            ],
+            [
                 "name" => 'venue_ids',
                 "doc" => "Unique identifiers of the venue agent records representing who hosted the exhibition",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->venues->pluck('citi_id')->all(); },
+            ],
+            [
+                "name" => 'venue_titles',
+                "doc" => "Names of the venue agent records representing who hosted the exhibition",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->venues->pluck('title')->all(); },
             ],
             [
                 "name" => 'artist_ids',
@@ -287,36 +301,6 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->documents->pluck('lake_guid')->all(); },
             ],
             // EOF TODO
-        ];
-
-    }
-
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [
-
-            [
-                "name" => 'artwork_titles',
-                "doc" => "Names of the artworks that were part of the exhibition",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->artworks->pluck('title')->all(); },
-            ],
-            [
-                "name" => 'venue_titles',
-                "doc" => "Names of the venue agent records representing who hosted the exhibition",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->venues->pluck('title')->all(); },
-            ],
-
         ];
 
     }
