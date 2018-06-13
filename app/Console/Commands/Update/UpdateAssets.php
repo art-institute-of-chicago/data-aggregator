@@ -23,6 +23,10 @@ class UpdateAssets extends BaseCommand
                 '45f59e53-9d9f-9d67-c168-758cc8db6633',
                 '367c0218-d7a9-474d-902f-19c8132c01aa',
                 '80822072-0357-2803-7e3a-7a8a4c1a3f62',
+
+                // Paris Street; Rainy Day - YouTube URLs
+                '46423041-a9f6-54b8-5e64-8106cda87e63',
+                'f9a367ce-38ec-e366-2c80-f33f2ed41da1',
             ],
             'educational' => [
                 '45f59e53-9d9f-9d67-c168-758cc8db6633',
