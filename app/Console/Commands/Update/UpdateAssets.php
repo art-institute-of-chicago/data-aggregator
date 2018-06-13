@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands\Update;
 
+use Carbon\Carbon;
+
 use App\Models\Collections\Asset;
+use App\Models\Collections\Sound;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
@@ -81,6 +84,34 @@ class UpdateAssets extends BaseCommand
             }
 
         }
+
+        // Add SoundCloud link to Paris Street; Rainy Day
+        $this->addManualSoundCloudAsset();
+
+    }
+
+    private function addManualSoundCloudAsset()
+    {
+
+        $id = '86178b00-4229-4295-bb06-15edef83c023';
+
+        $sound = Sound::findOrNew( $id );
+        $sound->lake_guid = $id;
+        $sound->title = "Paris Street; Rainy Day, Gustave Caillebotte";
+
+        $sound->is_multimedia_resource = true;
+        $sound->is_educational_resource = false;
+        $sound->is_teacher_resource = false;
+
+        $sound->description = 'Indulge in the sunlit bank of the River Seine in Georges Seurat’s "A Sunday on La Grande Jatte" or make a late-night stop at a New York City diner in Edward Hopper’s "Nighthawks" in this tour of the museum’s iconic collection. Founded in 1879, the Art Institute of Chicago is home to a massive collection spanning nearly all of human history. As you explore centuries of art, this tour highlights some essential landmarks—with lesser known, but equally engaging artworks—along the way. The soundtrack features the music of Andrew Bird, another Chicago essential.';
+
+        $sound->content = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/326298581&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>';
+
+        $sound->source_indexed_at = $sound->source_modified_at = Carbon::now();
+
+        $sound->save();
+
+        $sound->artworks()->sync([20684]);
 
     }
 
