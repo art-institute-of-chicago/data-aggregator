@@ -27,7 +27,7 @@ class Event extends WebModel
     public function ticketedEvent()
     {
 
-        return $this->belongsTo('App\Models\Membership\TicketedEvent');
+        return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'membership_id');
 
     }
 
@@ -189,7 +189,7 @@ class Event extends WebModel
                 "doc" => "Unique identifer of the event in the ticketing system this website event is tied to",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->ticketedEvent ? $this->ticketedEvent->id : NULL; },
+                "value" => function() { return $this->ticketedEvent ? $this->ticketedEvent->membership_id : NULL; },
             ],
             [
                 "name" => 'survey_url',
