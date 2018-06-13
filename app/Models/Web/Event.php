@@ -19,9 +19,17 @@ class Event extends WebModel
         'is_ticketed' => 'boolean',
         'is_free' => 'boolean',
         'is_member_exclusive' => 'boolean',
+        'is_admission_required' => 'boolean',
         'hidden' => 'boolean',
         'all_dates' => 'array',
     ];
+
+    public function ticketedEvent()
+    {
+
+        return $this->belongsTo('App\Models\Membership\TicketedEvent');
+
+    }
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
@@ -168,6 +176,41 @@ class Event extends WebModel
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->buy_button_caption; },
+            ],
+            [
+                "name" => 'is_admission_required',
+                "doc" => "Whether admission to the museum is required to attend this event",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return $this->is_admission_required; },
+            ],
+            [
+                "name" => 'ticketed_event_id',
+                "doc" => "Unique identifer of the event in the ticketing system this website event is tied to",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->ticketedEvent ? $this->ticketedEvent->id : NULL; },
+            ],
+            [
+                "name" => 'survey_url',
+                "doc" => "URL to the survey associated with this event",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->survey_url; },
+            ],
+            [
+                "name" => 'email_series',
+                "doc" => "The email series associated with this event",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->email_series; },
+            ],
+            [
+                "name" => 'door_time',
+                "doc" => "The time the doors open for this event",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->door_time; },
             ],
             [
                 "name" => 'published',
