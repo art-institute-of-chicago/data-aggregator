@@ -6,6 +6,7 @@ use Carbon\Carbon;
 
 use App\Models\Collections\Asset;
 use App\Models\Collections\Sound;
+use App\Models\Collections\Image;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
@@ -88,6 +89,9 @@ class UpdateAssets extends BaseCommand
         // Add SoundCloud link to Paris Street; Rainy Day
         $this->addManualSoundCloudAsset();
 
+        // Add `alt_text` to the two alt images on 111380
+        $this->addManualAltText();
+
     }
 
     private function addManualSoundCloudAsset()
@@ -115,6 +119,23 @@ class UpdateAssets extends BaseCommand
         $sound->save();
 
         $sound->artworks()->sync([20684]);
+
+    }
+
+    private function addManualAltText()
+    {
+
+        if( $image = Image::find('567d6ecc-ea0a-af1e-e2eb-00fd959bec2c') )
+        {
+            $image->alt_text = 'Rear view of the Seated Bodhisattva. A broad, weathered line of gold runs down along the spine.';
+            $image->save();
+        }
+
+        if( $image = Image::find('9943321d-31f6-3f63-212b-0f66fc4024e4') )
+        {
+            $image->alt_text = 'Side view of the Seated Bodhisattva. A crest is visible on a band around his upper arm.';
+            $image->save();
+        }
 
     }
 
