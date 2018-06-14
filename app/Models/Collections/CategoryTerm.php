@@ -191,6 +191,19 @@ class CategoryTerm extends CollectionsModel
     }
 
     /**
+     * Scope a query to only include categories that represent themes
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeThemes($query)
+    {
+
+        return $query->categories()->where('subtype', self::THEME);
+
+    }
+
+    /**
      * Scope a query to only include terms that are of type 'style'.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

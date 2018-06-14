@@ -108,6 +108,13 @@ class Artwork extends CollectionsModel
 
     }
 
+    public function themes()
+    {
+
+        return $this->categories()->themes();
+
+    }
+
     public function dates()
     {
 
@@ -1018,6 +1025,12 @@ class Artwork extends CollectionsModel
                 "doc" => "The names of all technique terms related to this artwork",
                 "type" => "array",
                 "value" => function() { return array_pluck($this->techniques(), 'title'); },
+            ],
+            [
+                "name" => 'theme_titles',
+                "doc" => "The names of all thematic publish categories related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->themes()->pluck('title'); },
             ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
