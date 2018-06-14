@@ -105,7 +105,10 @@ class UpdateAssets extends BaseCommand
 
         $sound->description = 'Indulge in the sunlit bank of the River Seine in Georges Seurat’s "A Sunday on La Grande Jatte" or make a late-night stop at a New York City diner in Edward Hopper’s "Nighthawks" in this tour of the museum’s iconic collection. Founded in 1879, the Art Institute of Chicago is home to a massive collection spanning nearly all of human history. As you explore centuries of art, this tour highlights some essential landmarks—with lesser known, but equally engaging artworks—along the way. The soundtrack features the music of Andrew Bird, another Chicago essential.';
 
-        $sound->content = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/326298581&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>';
+        // https://stackoverflow.com/questions/26289927/how-to-get-track-id-from-url-using-the-soundcloud-api
+        // https://stackoverflow.com/questions/29495775/get-soundcloud-url-for-a-track-using-only-its-id
+        // https://stackoverflow.com/questions/19513977/force-a-soundcloud-track-to-open-in-soundcloud-app-on-android
+        $sound->content = 'soundcloud://sounds:326298581';
 
         $sound->source_indexed_at = $sound->source_modified_at = Carbon::now();
 
