@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands\Update;
 
+use Carbon\Carbon;
+
 use App\Models\Collections\Asset;
+use App\Models\Collections\Sound;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
@@ -23,6 +26,10 @@ class UpdateAssets extends BaseCommand
                 '45f59e53-9d9f-9d67-c168-758cc8db6633',
                 '367c0218-d7a9-474d-902f-19c8132c01aa',
                 '80822072-0357-2803-7e3a-7a8a4c1a3f62',
+
+                // Paris Street; Rainy Day - YouTube URLs
+                '46423041-a9f6-54b8-5e64-8106cda87e63',
+                'f9a367ce-38ec-e366-2c80-f33f2ed41da1',
             ],
             'educational' => [
                 '45f59e53-9d9f-9d67-c168-758cc8db6633',
@@ -77,6 +84,37 @@ class UpdateAssets extends BaseCommand
             }
 
         }
+
+        // Add SoundCloud link to Paris Street; Rainy Day
+        $this->addManualSoundCloudAsset();
+
+    }
+
+    private function addManualSoundCloudAsset()
+    {
+
+        $id = '86178b00-4229-4295-bb06-15edef83c023';
+
+        $sound = Sound::findOrNew( $id );
+        $sound->lake_guid = $id;
+        $sound->title = "Paris Street; Rainy Day, Gustave Caillebotte";
+
+        $sound->is_multimedia_resource = true;
+        $sound->is_educational_resource = false;
+        $sound->is_teacher_resource = false;
+
+        $sound->description = 'Indulge in the sunlit bank of the River Seine in Georges Seurat’s "A Sunday on La Grande Jatte" or make a late-night stop at a New York City diner in Edward Hopper’s "Nighthawks" in this tour of the museum’s iconic collection. Founded in 1879, the Art Institute of Chicago is home to a massive collection spanning nearly all of human history. As you explore centuries of art, this tour highlights some essential landmarks—with lesser known, but equally engaging artworks—along the way. The soundtrack features the music of Andrew Bird, another Chicago essential.';
+
+        // https://stackoverflow.com/questions/26289927/how-to-get-track-id-from-url-using-the-soundcloud-api
+        // https://stackoverflow.com/questions/29495775/get-soundcloud-url-for-a-track-using-only-its-id
+        // https://stackoverflow.com/questions/19513977/force-a-soundcloud-track-to-open-in-soundcloud-app-on-android
+        $sound->content = 'soundcloud://sounds:326298581';
+
+        $sound->source_indexed_at = $sound->source_modified_at = Carbon::now();
+
+        $sound->save();
+
+        $sound->artworks()->sync([20684]);
 
     }
 
