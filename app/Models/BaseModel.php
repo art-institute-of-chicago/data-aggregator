@@ -127,6 +127,7 @@ class BaseModel extends AbstractModel
                                 'lqip' => [ 'enabled' => false ],
                                 'width' => [ 'type' => 'integer' ],
                                 'height' => [ 'type' => 'integer' ],
+                                'alt_text' => [ 'type' => 'string' ],
                             ]
                         ]
                     ],
@@ -137,6 +138,7 @@ class BaseModel extends AbstractModel
                             'lqip' => $this->thumbnail->metadata->lqip ?? null,
                             'width' => $this->thumbnail->metadata->width ?? null,
                             'height' => $this->thumbnail->metadata->height ?? null,
+                            'alt_text' => $this->thumbnail->alt_text ?? null,
                         ];
                     },
                 ],
