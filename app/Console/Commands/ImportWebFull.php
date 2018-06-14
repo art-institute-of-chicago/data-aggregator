@@ -163,7 +163,7 @@ class ImportWebFull extends AbstractImportCommand
             case 'researchguides':
                 return ResearchGuide::class;
             break;
-            case 'researchguides':
+            case 'educatorresources':
                 return EducatorResource::class;
             break;
             case 'digitalcatalogs':
