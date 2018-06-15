@@ -140,6 +140,7 @@ trait ElasticSearchable
                     'lqip' => $this->thumbnail->metadata->lqip ?? null,
                     'width' => $this->thumbnail->metadata->width ?? null,
                     'height' => $this->thumbnail->metadata->height ?? null,
+                    'alt_text' => $this->thumbnail->alt_text ?? null,
                 ],
                 'timestamp' => Carbon::now()->toIso8601String(),
             ],

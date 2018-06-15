@@ -127,7 +127,7 @@ class BaseModel extends AbstractModel
                                 'lqip' => [ 'enabled' => false ],
                                 'width' => [ 'type' => 'integer' ],
                                 'height' => [ 'type' => 'integer' ],
-                                'alt_text' => [ 'type' => 'string' ],
+                                'alt_text' => [ 'type' => 'text' ],
                             ]
                         ]
                     ],
