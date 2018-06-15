@@ -186,7 +186,7 @@ class Event extends WebModel
             ],
             [
                 "name" => 'ticketed_event_id',
-                "doc" => "Unique identifer of the event in the ticketing system this website event is tied to",
+                "doc" => "Unique identifier of the event in the ticketing system this website event is tied to",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->ticketedEvent ? $this->ticketedEvent->membership_id : NULL; },
