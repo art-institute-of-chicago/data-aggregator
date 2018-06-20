@@ -3,8 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Carbon\Carbon;
 
-class DeleteCollectionsRecords extends Command
+class DeleteCollectionsRecords extends AbstractImportCommand
 {
     /**
      * The name and signature of the console command.
@@ -20,7 +21,22 @@ class DeleteCollectionsRecords extends Command
      */
     protected $description = 'Delete records that have been removed from the source system';
 
-    protected $size = 100;
+    protected $models = [
+        \App\Models\Collections\ArtworkPlaceQualifier::class,
+        \App\Models\Collections\ArtworkDateQualifier::class,
+        \App\Models\Collections\AgentRole::class,
+        \App\Models\Collections\ArtworkType::class,
+        \App\Models\Collections\AgentType::class,
+        \App\Models\Collections\Agent::class,
+        \App\Models\Collections\Category::class,
+        \App\Models\Collections\Term::class,
+        \App\Models\Collections\Place::class,
+        \App\Models\Collections\Gallery::class,
+        \App\Models\Collections\Catalogue::class,
+        \App\Models\Collections\Asset::class,
+        \App\Models\Collections\Artwork::class,
+        \App\Models\Collections\Exhibition::class,
+    ];
 
     /**
      * Create a new command instance.
@@ -29,7 +45,10 @@ class DeleteCollectionsRecords extends Command
      */
     public function __construct()
     {
+
+        $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
         parent::__construct();
+
     }
 
     /**
@@ -40,63 +59,56 @@ class DeleteCollectionsRecords extends Command
     public function handle()
     {
 
-        $this->deleteUnpublished(\App\Models\Collections\ArtworkDateQualifier::class);
-        $this->deleteUnpublished(\App\Models\Collections\ArtworkType::class, 'object-types');
-        $this->deleteUnpublished(\App\Models\Collections\AgentType::class);
-        $this->deleteUnpublished(\App\Models\Collections\AgentPlace::class);
-        $this->deleteUnpublished(\App\Models\Collections\Agent::class);
-        $this->deleteUnpublished(\App\Models\Collections\Category::class);
-        $this->deleteUnpublished(\App\Models\Collections\Term::class);
-        $this->deleteUnpublished(\App\Models\Collections\Place::class);
-        $this->deleteUnpublished(\App\Models\Collections\Gallery::class);
-        $this->deleteUnpublished(\App\Models\Collections\ArtworkCatalogue::class);
-        $this->deleteUnpublished(\App\Models\Collections\Catalogue::class);
-        $this->deleteUnpublished(\App\Models\Collections\Artwork::class);
-        $this->deleteUnpublished(\App\Models\Collections\Video::class);
-        $this->deleteUnpublished(\App\Models\Collections\Text::class);
-        $this->deleteUnpublished(\App\Models\Collections\Sound::class);
-        $this->deleteUnpublished(\App\Models\Collections\Image::class);
-        $this->deleteUnpublished(\App\Models\Collections\AgentExhibition::class);
-        $this->deleteUnpublished(\App\Models\Collections\Exhibition::class);
+        $current = 1;
 
-    }
+        $json = $this->query('deletes', $current);
+        $pages = $json->pagination->total_pages;
 
-    private function deleteUnpublished($model = \App\Models\Collections\Artwork::class, $endpoint = '')
-    {
+        $this->warn( 'Found ' . $pages . ' pages' );
 
-        if (!$endpoint)
+        while( $current <= $pages )
         {
 
-            $endpoint = app('Resources')->getEndpointForModel($model);
+            $this->warn( 'Deleteing ' . $current . ' of ' . $pages);
 
-        }
-
-        $model::chunk($this->size, function ($resources) use ($model, $endpoint) {
-            $this->info( 'Working on ' . $endpoint . ' starting at ' .$resources->pluck($model::instance()->getKeyName())->first());
-
-            // Get a list of CITI IDs of works in the Data Aggregator
-            $daIds = $resources->pluck($model::instance()->getKeyName());
-
-            // Use those IDs to retrieve a list from the Collections Data Service
-            $json = json_decode(file_get_contents(env('COLLECTIONS_DATA_SERVICE_URL')
-                                                  .'/'
-                                                  .$endpoint
-                                                  .'?flo=id&limit=' .$this->size .'&ids='
-                                                  .implode(',',$daIds->all())));
-
-            $cdsIds = collect($json->data)->pluck('id');
-
-            // Compare those two lists, and delete anything in the Data Hub that's not in the CSD
-            $diff = $daIds->diff($cdsIds)->all();
-            if ($diff)
+            // Assumes the dataservice wraps its results in a `data` field
+            foreach( $json->data as $datum )
             {
 
-                $this->warn( 'Deleting ' . implode(',', $diff) );
-                $model::destroy($diff);
+                // Break if we're past the last time we checked
+                $sourceTime = new Carbon( $datum->indexed_at );
+                $sourceTime->timezone = config('app.timezone');
+
+                if( $this->command->last_success_at->gt( $sourceTime ) )
+                {
+                    break 2;
+                }
+
+                // Now execute an actual delete
+                // Loop through all model types
+                foreach ( $this->models as $model)
+                {
+
+                    // Check if a resource with a matching lake_guid exists
+                    if ($m = $model::where('lake_guid', '=', $datum->lake_guid)->first())
+                    {
+                        // If it does, destroy the model and break
+                        $this->warn( 'Deleteing ' . $model . ' ' . $datum->lake_guid);
+                        $m->delete();
+                        break;
+                    }
+
+                }
 
             }
 
-        });
+            $current++;
+
+            // TODO: This structure causes an extra query to be run, when it might not need to be
+            $json = $this->query( 'deletes', $current );
+
+        }
 
     }
+
 }

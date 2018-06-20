@@ -1,6 +1,32 @@
 Data Aggregator Changelog
 =============================
 
+### 1.0-beta2 – Minor enhancements, code cleanup and reorganization
+
+* Refactor deletes from LAKE so they can run every five minutes instead of hourly
+* Move titles into all listing endpoints, where previously they were only indexed in search
+* Add `alt_text` to `thumbnail` block of all resources
+
+
+ARTWORKS
+
+* The following modifications have been made to the API schema:
+  - `has_multimedia_resources` - Added, whether this artwork has any associated microsites, digital publications, or documents tagged as multimedia
+  - `has_educational_resources` - Added, whether this artwork has any documents tagged as educational
+  - `theme_titles` - Added, the names of all thematic publish categories related to this artwork
+
+
+EVENTS
+
+* Add fields to support sales.artic.edu
+* The following modifications have been made to the API schema:
+  - `is_admission_required` - Added, whether admission to the museum is required to attend this event
+  - `ticketed_event_id` - Added, unique identifier of the event in the ticketing system this website event is tied to
+  - `survey_url` - Added, URL to the survey associated with this event
+  - `email_series` - Added, the email series associated with this event
+  - `door_time` - Added, the time the doors open for this event
+
+
 ### 1.0-beta1 – Final cleanup before beta and bug fixes
 
 * Upgrade to Laravel 5.6

@@ -115,21 +115,6 @@ class Tour extends MobileModel
 
 
     /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [
-            //
-        ];
-
-    }
-
-
-    /**
      * Overrides method from ElasticSearchable. Tours should always contribute to autocomplete.
      *
      * @return array

@@ -5,6 +5,8 @@ namespace App\Models\Collections;
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\Documentable;
+use App\Models\HasRelationships;
+
 
 /**
  * Represents a work of art in our collections.
@@ -12,6 +14,7 @@ use App\Models\Documentable;
 class Artwork extends CollectionsModel
 {
 
+    use HasRelationships;
     use ElasticSearchable;
     use Documentable {
         docBoostedDescription as public traitDocBoostedDescription;
@@ -97,7 +100,18 @@ class Artwork extends CollectionsModel
     public function department()
     {
 
-        return $this->categories()->departments()->expectOne();
+        // We assumed this was a many-to-one relationship; this is a patch. Put `null` first:
+        // https://stackoverflow.com/questions/2051602/mysql-orderby-a-number-nulls-last
+        // This doesn't work great b/c the ids are alphanumeric, not numeric
+        // https://stackoverflow.com/questions/153633/natural-sort-in-mysql
+        return $this->categories()->departments()->orderBy('parent_id', 'asc')->orderBy('id', 'asc')->expectOne();
+
+    }
+
+    public function themes()
+    {
+
+        return $this->categories()->themes();
 
     }
 
@@ -119,146 +133,6 @@ class Artwork extends CollectionsModel
     {
 
         return $this->hasMany('App\Models\Collections\ArtworkTerm');
-
-    }
-
-    /**
-     * Helper method to get the preferred term of a specified type from the eager-loaded array
-     * instead of executing a new SQL query.
-     */
-    public function preferred($resource = 'term', $type = '', $typeField = 'type')
-    {
-
-        $resources = $this->relatedResources($resource, $type, $typeField);
-
-        if (!$resources) return [];
-
-        $resources_ids = $this->relatedIds($resources);
-
-        $this->loadMissing($resource .'Pivots');
-
-        // Loop through all the term pivot models, only look at the ones
-        // of the specified type, and return the preferred one
-        foreach ($this->{$resource .'Pivots'} as $pivot)
-        {
-
-            $key = $pivot->{$resource}()->getForeignKey();
-            if (in_array($pivot->{$key}, $resources_ids))
-            {
-
-                if ($pivot->preferred)
-                {
-
-                    return head(array_where($resources, function ($value) use ($pivot, $key) {
-                        return $value->getKey() == $pivot->{$key};
-                    }));
-
-                }
-
-            }
-
-        }
-
-        return null;
-
-    }
-
-    /**
-     * Helper method to get the alternate term of a specified type from the eager-loaded array
-     * instead of executing a new SQL query.
-     */
-    public function alts($resource, $type = '', $typeField = 'type')
-    {
-
-        $resources = $this->relatedResources($resource, $type, $typeField);
-
-        if (!$resources) return [];
-
-        $resources_ids = $this->relatedIds($resources);
-
-        $this->loadMissing($resource .'Pivots');
-
-        // Loop through all the term pivot models, only look at the ones
-        // of the specified type, and return an array of the non-preferred ones
-        $ret = [];
-        foreach ($this->{$resource .'Pivots'} as $pivot)
-        {
-
-            $key = $pivot->{$resource}()->getForeignKey();
-            if (in_array($pivot->{$key}, $resources_ids))
-            {
-
-                if (!$pivot->preferred)
-                {
-
-                    $ret[] = head(array_where($resources, function ($value) use ($pivot, $key) {
-                        return $value->getKey() == $pivot->{$key};
-                    }));
-
-                }
-
-            }
-
-        }
-
-        return $ret;
-
-    }
-
-    /**
-     * Get all the resources to look through. If there is a subset of resource we're
-     * concerned with, as defined by $type, only get those. This is a helper method to
-     * get resources of a specified type from an eager-loaded array instead of executing
-     * a new SQL query.
-     */
-    private function relatedResources($resource, $type, $typeField = 'type')
-    {
-
-        // If no type is passed return an empty array
-        if (!$resource)
-        {
-
-            return [];
-
-        }
-
-        $this->loadMissing(str_plural($resource));
-
-        if (!$type)
-        {
-            return $this->{str_plural($resource)}->all();
-        }
-
-        // Loop through all the resources, and return just the ones of the specified type
-        $ret = [];
-        foreach ($this->{str_plural($resource)} as $res)
-        {
-
-            if ($res->{$typeField} == $type)
-            {
-
-                $ret[] = $res;
-
-            }
-
-        }
-
-        return $ret;
-
-    }
-
-    private function relatedIds($resources)
-    {
-
-        if ($resources)
-        {
-
-            $key = head($resources)->getKeyName();
-            return array_pluck($resources, $key);
-
-        }
-
-        return [];
 
     }
 
@@ -826,6 +700,30 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->fiscal_year; },
             ],
             [
+                # TODO: Consider renaming this to `has_multimedia_documents`
+                "name" => 'has_multimedia_resources',
+                "doc" => "Whether this artwork has any associated microsites, digital publications, or documents tagged as multimedia",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() {
+                    return (
+                        $this->documents->where('is_multimedia_resource', true)->count() > 0
+                    ) || (
+                        $this->sections->count() > 0
+                    ) || (
+                        $this->sites->count() > 0
+                    );
+                },
+            ],
+            [
+                # TODO: Consider renaming this to `has_educational_documents`
+                "name" => 'has_educational_resources',
+                "doc" => "Whether this artwork has any documents tagged as educational",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return $this->documents->where('is_educational_resource', true)->count() > 0; },
+            ],
+            [
                 "name" => 'place_of_origin',
                 "doc" => "The location where the creation, design, or production of the work took place, or the original location of the work",
                 "type" => "string",
@@ -901,6 +799,12 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->artist()->citi_id ?? null; },
             ],
             [
+                "name" => 'artist_title',
+                "doc" => "Name of the preferred artist/culture associated with this work",
+                "type" => "string",
+                "value" => function() { return $this->artist()->title ?? null; },
+            ],
+            [
                 "name" => 'alt_artist_ids',
                 "doc" => "Unique identifiers of the non-preferred artists/cultures associated with this work",
                 "type" => "array",
@@ -915,11 +819,32 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->artists->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'artist_titles',
+                "doc" => "Names of the artists this artwork is a part of",
+                "type" => "array",
+                // Previously defined in StaticArchive/Site
+                "elasticsearch" => [
+                    "default" => true,
+                    // This is controllable via .env so we can tweak it without pushing to prod
+                    "boost" => (float) ( env('SEARCH_BOOST_ARTIST_TITLES') ?: 2 ),
+                ],
+                "value" => function() { return $this->artists->pluck('title')->all(); },
+            ],
+            [
                 "name" => 'category_ids',
                 "doc" => "Unique identifiers of the categories this work is a part of",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
+            ],
+            [
+                "name" => 'category_titles',
+                "doc" => "Names of the categories this artwork is a part of",
+                "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                ],
+                "value" => function() { return $this->categories->pluck('title')->all(); },
             ],
             [
                 "name" => 'part_ids',
@@ -929,11 +854,25 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->parts->pluck('citi_id')->all(); },
             ],
             [
+                "name" => 'part_titles',
+                "doc" => "Names of the artworks that make up this work",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->parts->pluck('title')->all(); },
+            ],
+            [
                 "name" => 'set_ids',
                 "doc" => "Unique identifiers of the sets this work is a part of. These are not artwork ids.",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->sets->pluck('citi_id')->all(); },
+            ],
+            [
+                "name" => 'set_titles',
+                "doc" => "Names of the sets this work is a part of",
+                "type" => "array",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->sets->pluck('title')->all(); },
             ],
             [
                 "name" => 'artwork_catalogue_ids',
@@ -1087,6 +1026,12 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "value" => function() { return array_pluck($this->techniques(), 'title'); },
             ],
+            [
+                "name" => 'theme_titles',
+                "doc" => "The names of all thematic publish categories related to this artwork",
+                "type" => "array",
+                "value" => function() { return $this->themes()->pluck('title'); },
+            ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
             [
@@ -1146,82 +1091,18 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->mobileArtwork ? ( $this->mobileArtwork->stops->pluck('id')->all() ) : []; },
             ],
             [
-                "name" => 'section_ids',
-                "doc" => "Unique identifiers of the digital publication chaptes this work in included in",
-                "type" => "array",
-                'elasticsearch_type' => 'long',
-                "value" => function() { return $this->sections->pluck('dsc_id')->all(); },
-            ],
-            [
-                "name" => 'site_ids',
-                "doc" => "Unique identifiers of the microsites this work is a part of",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->sites->pluck('site_id')->all(); },
-            ],
-        ];
-
-    }
-
-
-    /**
-     * Turn the titles for related models into a generic array
-     *
-     * @return array
-     */
-    protected function transformTitles()
-    {
-
-        return [
-
-            [
-                "name" => 'artist_title',
-                "doc" => "Names of the preferred artist/culture associated with this work",
-                "type" => "string",
-                "value" => function() { return $this->artist()->title ?? null; },
-            ],
-            [
-                "name" => 'artist_titles',
-                "doc" => "Names of the artists this artwork is a part of",
-                "type" => "array",
-                // Previously defined in StaticArchive/Site
-                "elasticsearch" => [
-                    "default" => true,
-                    // This is controllable via .env so we can tweak it without pushing to prod
-                    "boost" => (float) ( env('SEARCH_BOOST_ARTIST_TITLES') ?: 2 ),
-                ],
-                "value" => function() { return $this->artists->pluck('title')->all(); },
-            ],
-            [
-                "name" => 'category_titles',
-                "doc" => "Names of the categories this artwork is a part of",
-                "type" => "array",
-                "elasticsearch" => [
-                    "default" => true,
-                ],
-                "value" => function() { return $this->categories->pluck('title')->all(); },
-            ],
-            [
-                "name" => 'part_titles',
-                "doc" => "Names of the artworks that make up this work",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->parts->pluck('title')->all(); },
-            ],
-            [
-                "name" => 'set_titles',
-                "doc" => "Names of the sets this work is a part of",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->sets->pluck('title')->all(); },
-            ],
-            // TODO: Move these to Mobile\Artwork
-            [
                 "name" => 'tour_titles',
                 "doc" => "Names of the tours this work is a part of",
                 "type" => "array",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->mobileArtwork && $this->mobileArtwork->tours ? $this->mobileArtwork->tours->pluck('title')->all() ?? null : null; },
+            ],
+            [
+                "name" => 'section_ids',
+                "doc" => "Unique identifiers of the digital publication chaptes this work in included in",
+                "type" => "array",
+                'elasticsearch_type' => 'long',
+                "value" => function() { return $this->sections->pluck('dsc_id')->all(); },
             ],
             [
                 "name" => 'section_titles',
@@ -1230,7 +1111,13 @@ class Artwork extends CollectionsModel
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->sections->pluck('title')->all(); },
             ],
-
+            [
+                "name" => 'site_ids',
+                "doc" => "Unique identifiers of the microsites this work is a part of",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->sites->pluck('site_id')->all(); },
+            ],
         ];
 
     }

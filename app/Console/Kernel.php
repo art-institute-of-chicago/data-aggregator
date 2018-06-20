@@ -63,7 +63,7 @@ class Kernel extends ConsoleKernel
             ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
 
         $schedule->command('import:collections-delete --quiet')
-            ->hourly()
+            ->everyFiveMinutes()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-collections-delete.log'))
             ->sendOutputTo(storage_path('logs/import-collections-delete-last-run.log'))
@@ -79,7 +79,9 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
 
+        // TODO: Consider adding recursive load here?
         $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__.'/Update');
 
     }
 }

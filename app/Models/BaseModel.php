@@ -7,6 +7,7 @@ use App\BelongsToManyOrOne;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class BaseModel extends AbstractModel
 {
@@ -126,6 +127,7 @@ class BaseModel extends AbstractModel
                                 'lqip' => [ 'enabled' => false ],
                                 'width' => [ 'type' => 'integer' ],
                                 'height' => [ 'type' => 'integer' ],
+                                'alt_text' => [ 'type' => 'text' ],
                             ]
                         ]
                     ],
@@ -136,6 +138,7 @@ class BaseModel extends AbstractModel
                             'lqip' => $this->thumbnail->metadata->lqip ?? null,
                             'width' => $this->thumbnail->metadata->width ?? null,
                             'height' => $this->thumbnail->metadata->height ?? null,
+                            'alt_text' => $this->thumbnail->alt_text ?? null,
                         ];
                     },
                 ],
@@ -242,6 +245,57 @@ class BaseModel extends AbstractModel
         $x = $t * ($t + 3) / 2 - $z;
         $y = $z - $t * ($t + 1) / 2;
         return [$x, $y];
+
+    }
+
+    /**
+     * Touch the owning relations of the model.
+     *
+     * We override this method, because Laravel doesn't fire the `saved` event
+     * for `*Many` (e.g. `BelongsToMany`) relationships by default.
+     *
+     * @see Illuminate\Database\Eloquent\Concerns\HasRelationships::touchOwners()
+     *
+     * @link https://github.com/laravel/framework/issues/11198
+     * @link https://github.com/laravel/framework/pull/11400
+     * @link https://github.com/laravel/framework/pull/19275
+     *
+     * @TODO Add protection against infinite loops. Try adding `$touches` w/ `images` to Artwork.
+     *       One solution is to have some sort of centralized tracker of what's been touched, and
+     *       run the `touch` (or `searchable`) in batches.
+     *
+     * @return void
+     */
+    public function touchOwners()
+    {
+
+        foreach ($this->touches as $relation) {
+
+            if ($this->$relation instanceof self) {
+
+                $this->touchOwner( $this->$relation );
+
+            } elseif ($this->$relation instanceof Collection) {
+
+                $this->$relation->each( [$this, 'touchOwner'] );
+
+            }
+        }
+    }
+
+    /**
+     * Helper for `touchOwners` method.
+     */
+    public function touchOwner( Model $relation )
+    {
+
+        // TODO: In the original method, this was called on the instance of the relation, not on the model
+        // We should figure out why this was the case... See `touch` method in `BelongsToMany`.
+        $relation->touch();
+
+        $relation->fireModelEvent('saved', false);
+
+        $relation->touchOwners();
 
     }
 
