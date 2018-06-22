@@ -438,6 +438,66 @@ class Artwork extends CollectionsModel
 
     }
 
+    /**
+     * Get ids for artworks that must always be returned in a specific order.
+     * This returns an array of arrays of ids. The request is that the artworks
+     * always stay within their buckets, but the buckets do not overlap.
+     *
+     * @TODO: Make this controllable via the CMS
+     *
+     * @return array
+     */
+    public static function getFeaturedIds() {
+
+        return [
+            27992, // La Grande Jatte
+            111628, // Nighthawks
+            6565, // American Gothic
+            28560, // The Bedroom
+
+            117266, // Nightlife
+            28067, // The Old Guitarist
+            20684, // Paris Street
+            21023, // Buddha Shakyamuni Seated in Meditation
+
+            87479, // The Assumption of the Virgin
+            109439, // America Windows
+            75644, // Coronation Stone
+            86385, // City Landscape
+
+            79307, // Bathers by a River
+            64818, // Stacks of Wheat
+            102611, // Veranda Post of Enthroned
+            8991, // Improvisation No. 30
+         ];
+
+    }
+
+    /**
+     * Provides a bucketed rank number for this artwork. Only featured artworks
+     * are given a rank number. Rank is noncontiguous.
+     *
+     * @return int
+     */
+    public function getBoostRank() {
+
+        $ids = $this->getFeaturedIds();
+
+        if( !in_array( $this->getKey(), $ids ) )
+        {
+            return null;
+        }
+
+        // Get index of this artwork in the array
+        $rank = array_flip($ids)[ $this->getKey() ];
+
+        // Subdivide them into buckets of 4
+        $rank = ( intdiv( $rank, 4 ) + 1 ) * ( $rank + 1 );
+
+        return $rank;
+
+    }
+
     public function isBoosted()
     {
 
@@ -479,6 +539,19 @@ class Artwork extends CollectionsModel
                     'field' => 'pageviews',
                     'modifier' => 'log1p',
                     'factor' => 1.5
+                ],
+            ],
+            // Make `boost_rank` influence score
+            [
+                'filter' => [
+                    'exists' => [
+                        'field' => 'boost_rank',
+                    ],
+                ],
+                'field_value_factor' => [
+                    'field' => 'boost_rank',
+                    'modifier' => 'reciprocal',
+                    'factor' => 1/512 // buckets of 4 for 16 items!
                 ],
             ],
         ];
@@ -548,6 +621,15 @@ class Artwork extends CollectionsModel
                     "type" => 'integer',
                 ],
                 "value" => function() { return $this->pageviews; },
+            ],
+            [
+                "name" => 'boost_rank',
+                "doc" => "Manual indication of what rank this artwork should take in search results. Noncontiguous.",
+                "type" => "number",
+                "elasticsearch" => [
+                    "type" => 'integer',
+                ],
+                "value" => function() { return $this->getBoostRank(); },
             ],
             [
                 "name" => 'date_start',
