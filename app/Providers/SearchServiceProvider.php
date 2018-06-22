@@ -282,6 +282,17 @@ class SearchServiceProvider extends ServiceProvider
 
                     }
 
+                    // ex. `searchFunctionScoreArtworks` for `artworks` endpoint applies `pageviews` and `boost_rank`
+                    $searchFunctionScoreMethod = 'searchFunctionScore' . studly_case( $endpoint );
+
+                    if( method_exists( $model, $searchFunctionScoreMethod ) )
+                    {
+
+                        // TODO: Inject `getScopedQuery` into the filter..?
+                        $settings['function_score'] = $model::$searchFunctionScoreMethod();
+
+                    }
+
                     return $settings;
 
                 }

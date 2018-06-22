@@ -37,6 +37,13 @@ class Request
     protected $boosts = [];
 
     /**
+     * Array of queries used in a `function_score` wrapper.
+     *
+     * @var array
+     */
+    protected $functionScores = [];
+
+    /**
      * List of allowed Input params for querying.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-request-body.html
@@ -178,6 +185,9 @@ class Request
             // These will be injected into the should clause
             $this->boosts = $settings->pluck('boost')->filter()->all();
 
+            // These will be used to wrap the query in `function_score`
+            $this->functionScores = $settings->pluck('function_score')->filter()->collapse()->all();
+
             // Looks like we don't need to implode $indexes and $types
             // PHP Elasticsearch seems to do so for us
 
@@ -298,6 +308,9 @@ class Request
             $params = $this->addAggregationParams( $params, $input );
 
         }
+
+        // Apply `function_score` (if any)
+        $params = $this->addFunctionScore( $params );
 
         return $params;
 
@@ -473,6 +486,37 @@ class Request
             $params['body']['query']['bool']['should'][] = $boost;
 
         }
+
+        return $params;
+
+    }
+
+    /**
+     * Wrap the current query in a `function_score` query. Typically, this should be the last method called.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl-function-score-query.html
+     *
+     * @param $params array
+     *
+     * @return array
+     */
+    public function addFunctionScore( $params )
+    {
+
+        if( !isset( $this->functionScores ) || count( $this->functionScores ) < 1 ) {
+
+            return $params;
+
+        }
+
+        $params['body']['query'] = [
+            'function_score' => [
+                'query' => $params['body']['query'],
+                'functions' => $this->functionScores,
+                'score_mode' => 'max',
+                'boost_mode' => 'multiply',
+            ]
+        ];
 
         return $params;
 

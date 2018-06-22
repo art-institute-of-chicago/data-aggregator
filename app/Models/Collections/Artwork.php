@@ -461,6 +461,30 @@ class Artwork extends CollectionsModel
     }
 
     /**
+     * Apply score adjustments to the entire query using `function_score`.
+     *
+     * @return array
+     */
+    public static function searchFunctionScoreArtworks()
+    {
+        return [
+            // Make pageviews influence score
+            [
+                'filter' => [
+                    'exists' => [
+                        'field' => 'pageviews',
+                    ],
+                ],
+                'field_value_factor' => [
+                    'field' => 'pageviews',
+                    'modifier' => 'log1p',
+                    'factor' => 1.5
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Add relevancy tweaks to artworks.
      *
      * @return array
@@ -484,22 +508,6 @@ class Artwork extends CollectionsModel
                     'field' => 'image_id',
                 ]
             ],
-            // Make pageviews influence score.
-            [
-                'function_score' => [
-                    'query' => [
-                        'exists' => [
-                            'field' => 'pageviews',
-                            'boost' => 1.5
-                        ]
-                    ],
-                    'field_value_factor' => [
-                        'field' => 'pageviews',
-                        'modifier' => 'log1p',
-                        'factor' => 1
-                    ],
-                ],
-            ]
         ];
 
     }
