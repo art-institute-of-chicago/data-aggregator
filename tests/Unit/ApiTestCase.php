@@ -157,15 +157,6 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-    /** @test */
-    public function it_405s_if_a_request_is_posted()
-    {
-
-        $this->it_405s();
-
-    }
-
-
     public function it_fetches_all()
     {
 
@@ -266,20 +257,6 @@ abstract class ApiTestCase extends TestCase
         $response = $this->getJson('api/v1/' . $endpoint . '/' . $this->getRandomId());
 
         $response->assertStatus(404);
-
-    }
-
-    public function it_405s()
-    {
-
-        $class = $this->model();
-        $endpoint = $this->route($class);
-
-        $this->make($class);
-
-        $response = $this->postJson('api/v1/' .$endpoint);
-
-        $response->assertStatus(405);
 
     }
 
