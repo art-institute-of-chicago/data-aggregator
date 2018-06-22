@@ -13,18 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
+Route::any('/', function () {
     return redirect('/api/v1');
 });
 
 
 Route::group(['prefix' => 'v1'], function() {
 
-    Route::get('/', function () {
+    Route::any('/', function () {
         return redirect('/api/v1/swagger.json');
     });
 
-    Route::get('swagger.json', function() {
+    Route::any('swagger.json', function() {
         return response(view('swagger'), 200, ['Content-Type' => 'application/json']);
     });
 
@@ -51,178 +51,178 @@ Route::group(['prefix' => 'v1'], function() {
 
 
     // Artwork related stuff
-    Route::get('artworks', 'ArtworksController@index');
-    Route::get('artworks/boosted', 'ArtworksController@boosted');
+    Route::any('artworks', 'ArtworksController@index');
+    Route::any('artworks/boosted', 'ArtworksController@boosted');
 
-    Route::get('artworks/{id}', 'ArtworksController@show');
-    Route::get('artworks/{id}/parts', 'ArtworksController@parts');
-    Route::get('artworks/{id}/sets', 'ArtworksController@sets');
+    Route::any('artworks/{id}', 'ArtworksController@show');
+    Route::any('artworks/{id}/parts', 'ArtworksController@parts');
+    Route::any('artworks/{id}/sets', 'ArtworksController@sets');
 
-    Route::get('artworks/{id}/images', 'ImagesController@forArtwork');
-    Route::get('artworks/{id}/categories', 'CategoriesController@forArtwork');
+    Route::any('artworks/{id}/images', 'ImagesController@forArtwork');
+    Route::any('artworks/{id}/categories', 'CategoriesController@forArtwork');
 
-    Route::get('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
+    Route::any('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
 
-    Route::get('artworks/{id}/artwork-catalogues', 'ArtworkCataloguesController@forArtwork'); // pivot
+    Route::any('artworks/{id}/artwork-catalogues', 'ArtworkCataloguesController@forArtwork'); // pivot
 
     // Collections
-    Route::get('agents', 'AgentsController@index');
-    Route::get('agents/boosted', 'AgentsController@boosted');
-    Route::get('agents/{id}', 'AgentsController@show');
-    Route::get('agents/{id}/places', 'AgentPlacesController@forAgent'); // pivot
-    Route::get('artists', 'AgentsController@indexScope');
-    Route::get('artists/{id}', 'AgentsController@showScope');
-    Route::get('venues', 'AgentExhibitionsController@index');
-    Route::get('venues/{id}', 'AgentExhibitionsController@show');
+    Route::any('agents', 'AgentsController@index');
+    Route::any('agents/boosted', 'AgentsController@boosted');
+    Route::any('agents/{id}', 'AgentsController@show');
+    Route::any('agents/{id}/places', 'AgentPlacesController@forAgent'); // pivot
+    Route::any('artists', 'AgentsController@indexScope');
+    Route::any('artists/{id}', 'AgentsController@showScope');
+    Route::any('venues', 'AgentExhibitionsController@index');
+    Route::any('venues/{id}', 'AgentExhibitionsController@show');
 
-    Route::get('agent-places', 'AgentPlacesController@index'); // pivot
-    Route::get('agent-places/{id}', 'AgentPlacesController@show'); // pivot
+    Route::any('agent-places', 'AgentPlacesController@index'); // pivot
+    Route::any('agent-places/{id}', 'AgentPlacesController@show'); // pivot
 
-    Route::get('agent-types', 'AgentTypesController@index');
-    Route::get('agent-types/{id}', 'AgentTypesController@show');
+    Route::any('agent-types', 'AgentTypesController@index');
+    Route::any('agent-types/{id}', 'AgentTypesController@show');
 
-    Route::get('agent-roles', 'AgentRolesController@index');
-    Route::get('agent-roles/{id}', 'AgentRolesController@show');
+    Route::any('agent-roles', 'AgentRolesController@index');
+    Route::any('agent-roles/{id}', 'AgentRolesController@show');
 
-    Route::get('artwork-catalogues', 'ArtworkCataloguesController@index'); // pivot
-    Route::get('artwork-catalogues/{id}', 'ArtworkCataloguesController@show'); // pivot
+    Route::any('artwork-catalogues', 'ArtworkCataloguesController@index'); // pivot
+    Route::any('artwork-catalogues/{id}', 'ArtworkCataloguesController@show'); // pivot
 
-    Route::get('departments', 'CategoriesController@departments');
-    Route::get('departments/{id}', 'CategoriesController@show');
+    Route::any('departments', 'CategoriesController@departments');
+    Route::any('departments/{id}', 'CategoriesController@show');
 
-    Route::get('artwork-types', 'ArtworkTypesController@index');
-    Route::get('artwork-types/{id}', 'ArtworkTypesController@show');
+    Route::any('artwork-types', 'ArtworkTypesController@index');
+    Route::any('artwork-types/{id}', 'ArtworkTypesController@show');
 
-    Route::get('artwork-place-qualifiers', 'ArtworkPlaceQualifiersController@index');
-    Route::get('artwork-place-qualifiers/{id}', 'ArtworkPlaceQualifiersController@show');
+    Route::any('artwork-place-qualifiers', 'ArtworkPlaceQualifiersController@index');
+    Route::any('artwork-place-qualifiers/{id}', 'ArtworkPlaceQualifiersController@show');
 
-    Route::get('artwork-date-qualifiers', 'ArtworkDateQualifiersController@index');
-    Route::get('artwork-date-qualifiers/{id}', 'ArtworkDateQualifiersController@show');
+    Route::any('artwork-date-qualifiers', 'ArtworkDateQualifiersController@index');
+    Route::any('artwork-date-qualifiers/{id}', 'ArtworkDateQualifiersController@show');
 
-    Route::get('categories', 'CategoriesController@index');
-    Route::get('categories/{id}', 'CategoriesController@show');
+    Route::any('categories', 'CategoriesController@index');
+    Route::any('categories/{id}', 'CategoriesController@show');
 
-    Route::get('category-terms', 'CategoryTermsController@index');
-    Route::get('category-terms/{id}', 'CategoryTermsController@show');
+    Route::any('category-terms', 'CategoryTermsController@index');
+    Route::any('category-terms/{id}', 'CategoryTermsController@show');
 
-    Route::get('places', 'PlacesController@index');
-    Route::get('places/{id}', 'PlacesController@show');
-    Route::get('galleries', 'GalleriesController@index');
-    Route::get('galleries/{id}', 'GalleriesController@show');
+    Route::any('places', 'PlacesController@index');
+    Route::any('places/{id}', 'PlacesController@show');
+    Route::any('galleries', 'GalleriesController@index');
+    Route::any('galleries/{id}', 'GalleriesController@show');
 
-    Route::get('exhibitions', 'ExhibitionsController@index');
-    Route::get('exhibitions/{id}', 'ExhibitionsController@show');
-    Route::get('exhibitions/{id}/artworks', 'ArtworksController@forExhibition');
-    Route::get('exhibitions/{id}/venues', 'AgentExhibitionsController@forExhibition');  // pivot
+    Route::any('exhibitions', 'ExhibitionsController@index');
+    Route::any('exhibitions/{id}', 'ExhibitionsController@show');
+    Route::any('exhibitions/{id}/artworks', 'ArtworksController@forExhibition');
+    Route::any('exhibitions/{id}/venues', 'AgentExhibitionsController@forExhibition');  // pivot
 
-    Route::get('assets', 'AssetsController@index');
-    Route::get('assets/{id}', 'AssetsController@show');
-    Route::get('images', 'ImagesController@index');
-    Route::get('images/{id}', 'ImagesController@show');
-    Route::get('videos', 'VideosController@index');
-    Route::get('videos/{id}', 'VideosController@show');
-    Route::get('sounds', 'SoundsController@index');
-    Route::get('sounds/{id}', 'SoundsController@show');
-    Route::get('texts', 'TextsController@index');
-    Route::get('texts/{id}', 'TextsController@show');
+    Route::any('assets', 'AssetsController@index');
+    Route::any('assets/{id}', 'AssetsController@show');
+    Route::any('images', 'ImagesController@index');
+    Route::any('images/{id}', 'ImagesController@show');
+    Route::any('videos', 'VideosController@index');
+    Route::any('videos/{id}', 'VideosController@show');
+    Route::any('sounds', 'SoundsController@index');
+    Route::any('sounds/{id}', 'SoundsController@show');
+    Route::any('texts', 'TextsController@index');
+    Route::any('texts/{id}', 'TextsController@show');
 
-    Route::get('catalogues', 'CataloguesController@index');
-    Route::get('catalogues/{id}', 'CataloguesController@show');
+    Route::any('catalogues', 'CataloguesController@index');
+    Route::any('catalogues/{id}', 'CataloguesController@show');
 
-    Route::get('terms', 'TermsController@index');
-    Route::get('terms/{id}', 'TermsController@show');
+    Route::any('terms', 'TermsController@index');
+    Route::any('terms/{id}', 'TermsController@show');
 
     // Shop
-    Route::get('shop-categories', 'ShopCategoriesController@index');
-    Route::get('shop-categories/{id}', 'ShopCategoriesController@show');
+    Route::any('shop-categories', 'ShopCategoriesController@index');
+    Route::any('shop-categories/{id}', 'ShopCategoriesController@show');
 
-    Route::get('products', 'ProductsController@index');
-    Route::get('products/{id}', 'ProductsController@show');
+    Route::any('products', 'ProductsController@index');
+    Route::any('products/{id}', 'ProductsController@show');
 
     // Events
-    Route::get('legacy-events', 'LegacyEventsController@index');
-    Route::get('legacy-events/{id}', 'LegacyEventsController@show');
-    Route::get('ticketed-events', 'TicketedEventsController@index');
-    Route::get('ticketed-events/{id}', 'TicketedEventsController@show');
+    Route::any('legacy-events', 'LegacyEventsController@index');
+    Route::any('legacy-events/{id}', 'LegacyEventsController@show');
+    Route::any('ticketed-events', 'TicketedEventsController@index');
+    Route::any('ticketed-events/{id}', 'TicketedEventsController@show');
 
     // Mobile App
-    Route::get('tours', 'ToursController@index');
-    Route::get('tours/{id}', 'ToursController@show');
+    Route::any('tours', 'ToursController@index');
+    Route::any('tours/{id}', 'ToursController@show');
 
-    Route::get('tour-stops', 'TourStopsController@index');
-    Route::get('tour-stops/{id}', 'TourStopsController@show');
+    Route::any('tour-stops', 'TourStopsController@index');
+    Route::any('tour-stops/{id}', 'TourStopsController@show');
 
-    Route::get('mobile-sounds', 'MobileSoundsController@index');
-    Route::get('mobile-sounds/{id}', 'MobileSoundsController@show');
+    Route::any('mobile-sounds', 'MobileSoundsController@index');
+    Route::any('mobile-sounds/{id}', 'MobileSoundsController@show');
 
     //DSC
-    Route::get('publications', 'PublicationsController@index');
-    Route::get('publications/{id}', 'PublicationsController@show');
+    Route::any('publications', 'PublicationsController@index');
+    Route::any('publications/{id}', 'PublicationsController@show');
 
-    Route::get('sections', 'SectionsController@index');
-    Route::get('sections/{id}', 'SectionsController@show');
+    Route::any('sections', 'SectionsController@index');
+    Route::any('sections/{id}', 'SectionsController@show');
 
-    Route::get('sites', 'SitesController@index');
-    Route::get('sites/{id}', 'SitesController@show');
+    Route::any('sites', 'SitesController@index');
+    Route::any('sites/{id}', 'SitesController@show');
 
     // Library
-    Route::get('library-materials', 'LibraryMaterialController@index');
-    Route::get('library-materials/{id}', 'LibraryMaterialController@show');
+    Route::any('library-materials', 'LibraryMaterialController@index');
+    Route::any('library-materials/{id}', 'LibraryMaterialController@show');
 
-    Route::get('library-terms', 'LibraryTermController@index');
-    Route::get('library-terms/{id}', 'LibraryTermController@show');
+    Route::any('library-terms', 'LibraryTermController@index');
+    Route::any('library-terms/{id}', 'LibraryTermController@show');
 
     // Archive
-    Route::get('archive-images', 'ArchiveImagesController@index');
-    Route::get('archive-images/{id}', 'ArchiveImagesController@show');
+    Route::any('archive-images', 'ArchiveImagesController@index');
+    Route::any('archive-images/{id}', 'ArchiveImagesController@show');
 
     // Web
-    Route::get('tags', 'TagsController@index');
-    Route::get('tags/{id}', 'TagsController@show');
+    Route::any('tags', 'TagsController@index');
+    Route::any('tags/{id}', 'TagsController@show');
 
-    Route::get('locations', 'LocationsController@index');
-    Route::get('locations/{id}', 'LocationsController@show');
+    Route::any('locations', 'LocationsController@index');
+    Route::any('locations/{id}', 'LocationsController@show');
 
-    Route::get('hours', 'HoursController@index');
-    Route::get('hours/{id}', 'HoursController@show');
+    Route::any('hours', 'HoursController@index');
+    Route::any('hours/{id}', 'HoursController@show');
 
-    Route::get('closures', 'ClosuresController@index');
-    Route::get('closures/{id}', 'ClosuresController@show');
+    Route::any('closures', 'ClosuresController@index');
+    Route::any('closures/{id}', 'ClosuresController@show');
 
-    Route::get('web-exhibitions', 'WebExhibitionsController@index');
-    Route::get('web-exhibitions/{id}', 'WebExhibitionsController@show');
+    Route::any('web-exhibitions', 'WebExhibitionsController@index');
+    Route::any('web-exhibitions/{id}', 'WebExhibitionsController@show');
 
-    Route::get('events', 'EventsController@index');
-    Route::get('events/{id}', 'EventsController@show');
+    Route::any('events', 'EventsController@index');
+    Route::any('events/{id}', 'EventsController@show');
 
-    Route::get('articles', 'ArticlesController@index');
-    Route::get('articles/{id}', 'ArticlesController@show');
+    Route::any('articles', 'ArticlesController@index');
+    Route::any('articles/{id}', 'ArticlesController@show');
 
-    Route::get('selections', 'SelectionsController@index');
-    Route::get('selections/{id}', 'SelectionsController@show');
+    Route::any('selections', 'SelectionsController@index');
+    Route::any('selections/{id}', 'SelectionsController@show');
 
-    Route::get('web-artists', 'WebArtistsController@index');
-    Route::get('web-artists/{id}', 'WebArtistsController@show');
+    Route::any('web-artists', 'WebArtistsController@index');
+    Route::any('web-artists/{id}', 'WebArtistsController@show');
 
-    Route::get('generic-pages', 'GenericPagesController@index');
-    Route::get('generic-pages/{id}', 'GenericPagesController@show');
+    Route::any('generic-pages', 'GenericPagesController@index');
+    Route::any('generic-pages/{id}', 'GenericPagesController@show');
 
-    Route::get('press-releases', 'PressReleasesController@index');
-    Route::get('press-releases/{id}', 'PressReleasesController@show');
+    Route::any('press-releases', 'PressReleasesController@index');
+    Route::any('press-releases/{id}', 'PressReleasesController@show');
 
-    Route::get('research-guides', 'ResearchGuidesController@index');
-    Route::get('research-guides/{id}', 'ResearchGuidesController@show');
+    Route::any('research-guides', 'ResearchGuidesController@index');
+    Route::any('research-guides/{id}', 'ResearchGuidesController@show');
 
-    Route::get('educator-resources', 'EducatorResourcesController@index');
-    Route::get('educator-resources/{id}', 'EducatorResourcesController@show');
+    Route::any('educator-resources', 'EducatorResourcesController@index');
+    Route::any('educator-resources/{id}', 'EducatorResourcesController@show');
 
-    Route::get('digital-catalogs', 'DigitalCatalogsController@index');
-    Route::get('digital-catalogs/{id}', 'DigitalCatalogsController@show');
+    Route::any('digital-catalogs', 'DigitalCatalogsController@index');
+    Route::any('digital-catalogs/{id}', 'DigitalCatalogsController@show');
 
-    Route::get('printed-catalogs', 'PrintedCatalogsController@index');
-    Route::get('printed-catalogs/{id}', 'PrintedCatalogsController@show');
+    Route::any('printed-catalogs', 'PrintedCatalogsController@index');
+    Route::any('printed-catalogs/{id}', 'PrintedCatalogsController@show');
 
     // Generic endpoint to allow source systems to let us know when a record should be updated
-    Route::get('{endpoint}/{id}/pull', 'PullController@pull');
+    Route::any('{endpoint}/{id}/pull', 'PullController@pull');
 
 });

@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
+Route::any('/', function () {
     return redirect('api');
 });
