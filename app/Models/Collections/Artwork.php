@@ -989,6 +989,12 @@ class Artwork extends CollectionsModel
                 "value" => function() { return $this->style()->lake_uid ?? null; },
             ],
             [
+                "name" => 'style_title',
+                "doc" => "The name of the preferred style term for this work",
+                "type" => "string",
+                "value" => function() { return $this->style()->title ?? null; },
+            ],
+            [
                 "name" => 'alt_style_ids',
                 "doc" => "Unique identifiers of all other non-preferred style terms for this work",
                 "type" => "array",
@@ -1014,6 +1020,12 @@ class Artwork extends CollectionsModel
                 "type" => "string",
                 "elasticsearch_type" => "keyword",
                 "value" => function() { return $this->classification()->lake_uid ?? null; },
+            ],
+            [
+                "name" => 'classification_title',
+                "doc" => "The name of the preferred classification term for this work",
+                "type" => "string",
+                "value" => function() { return $this->classification()->title ?? null; },
             ],
             [
                 "name" => 'alt_classification_ids',
