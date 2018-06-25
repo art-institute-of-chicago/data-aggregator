@@ -37,11 +37,6 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocomplete');
 
-    // ...following Elasticsearch conventions
-    // TODO: Deprecate these since we're not following ES conventions anymore?
-    Route::match( array('GET', 'POST'), '_search', 'Search\SearchController@search');
-    Route::match( array('GET', 'POST'), '{resource}/_search', 'Search\SearchController@search');
-
     // For debugging search, show generated request
     if( env('APP_ENV') === 'local' ) {
         Route::match( array('GET', 'POST'), 'echo', 'Search\SearchController@echo');
