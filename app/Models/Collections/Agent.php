@@ -13,9 +13,7 @@ class Agent extends CollectionsModel
 {
 
     use ElasticSearchable;
-    use Documentable {
-        docBoostedDescription as public traitDocBoostedDescription;
-    }
+    use Documentable;
 
     protected $primaryKey = 'citi_id';
 
@@ -325,20 +323,6 @@ class Agent extends CollectionsModel
         }
 
         return $fields;
-
-    }
-
-    /**
-     * Generate documentation for boosted endpoints
-     *
-     * @return string
-     */
-    public function docBoostedDescription()
-    {
-
-        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
-
-        return $this->traitDocBoostedDescription() ." This is a subset of the `" .$endpoint ."/` endpoint that represents all the artists included in boosted Artwork, in addition to the top 100 viewed artists on our website in 2017.";
 
     }
 

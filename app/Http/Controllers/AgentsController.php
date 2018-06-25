@@ -16,17 +16,6 @@ class AgentsController extends BaseController
 
     protected $transformer = \App\Http\Transformers\AgentTransformer::class;
 
-    // agents/boosted
-    public function boosted(Request $request) {
-
-        return $this->collect( $request, function( $limit ) {
-
-            return Agent::boosted()->paginate($limit);
-
-        });
-
-    }
-
     // artworks/{id}/artists
     public function scopeForArtwork(Request $request, $id) {
 

@@ -52,7 +52,6 @@ Route::group(['prefix' => 'v1'], function() {
 
     // Artwork related stuff
     Route::any('artworks', 'ArtworksController@index');
-    Route::any('artworks/boosted', 'ArtworksController@boosted');
 
     Route::any('artworks/{id}', 'ArtworksController@show');
     Route::any('artworks/{id}/parts', 'ArtworksController@parts');
@@ -67,7 +66,6 @@ Route::group(['prefix' => 'v1'], function() {
 
     // Collections
     Route::any('agents', 'AgentsController@index');
-    Route::any('agents/boosted', 'AgentsController@boosted');
     Route::any('agents/{id}', 'AgentsController@show');
     Route::any('agents/{id}/places', 'AgentPlacesController@forAgent'); // pivot
     Route::any('artists', 'AgentsController@indexScope');

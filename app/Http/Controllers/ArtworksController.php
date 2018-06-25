@@ -16,18 +16,6 @@ class ArtworksController extends BaseController
 
     protected $transformer = \App\Http\Transformers\ArtworkTransformer::class;
 
-
-    // artworks/boosted
-    public function boosted(Request $request) {
-
-        return $this->collect( $request, function( $limit ) {
-
-            return Artwork::boosted()->paginate($limit);
-
-        });
-
-    }
-
     // artworks/{id}/sets
     public function sets(Request $request, $id) {
 

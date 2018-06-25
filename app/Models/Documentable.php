@@ -33,13 +33,6 @@ trait Documentable
         $doc .= $this->docTitle() ."\n\n";
         $doc .= $this->docList($appUrl) ."\n";
 
-        if (get_called_class() == Collections\Artwork::class || get_called_class() == Collections\Agent::class)
-        {
-
-            $doc .= $this->docBoosted($appUrl) ."\n";
-
-        }
-
         if ($this->hasSearchEndpoint())
         {
 
@@ -170,44 +163,6 @@ trait Documentable
         $doc .= "\n";
 
         return $doc;
-
-    }
-
-
-    /**
-     * Generate documentation for boosted endpoints
-     *
-     * @return string
-     */
-    public function docBoosted($appUrl)
-    {
-
-        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
-        $endpointAsCopyText = $this->_endpointAsCopyText();
-
-        // Title
-        $doc = '### `GET ' .$this->_endpointPath(['extraPath' => 'boosted']) ."`\n\n";
-
-        $doc .= $this->docBoostedDescription() ."\n\n";
-
-        $doc .= $this->docListParameters();
-
-        $doc .= $this->docExampleOutput($appUrl, ['extraPath' => 'boosted']);
-
-        return $doc;
-    }
-
-    /**
-     * Generate documentation for boosted endpoints
-     *
-     * @return string
-     */
-    public function docBoostedDescription()
-    {
-
-        $endpointAsCopyText = $this->_endpointAsCopyText();
-
-        return "A list of boosted " .$endpointAsCopyText ." sorted by last updated date in descending order.";
 
     }
 
@@ -753,13 +708,6 @@ trait Documentable
 
         $doc = $this->swaggerList() ."\n";
 
-        if (get_called_class() == Collections\Artwork::class || get_called_class() == Collections\Agent::class)
-        {
-
-            $doc .= $this->swaggerBoosted() ."\n";
-
-        }
-
         if ($this->hasSearchEndpoint())
         {
 
@@ -861,28 +809,6 @@ trait Documentable
         $doc .= "      \"get\": {\n";
         $doc .= $this->swaggerTags();
         $doc .= "        \"summary\": \"" .$this->docListDescription($endpoint) . "\",\n";
-        $doc .= $this->swaggerProduces();
-        $doc .= $this->swaggerParameters();
-        $doc .= $this->swaggerResponses();
-        $doc .= "      }\n";
-        $doc .= "    },\n";
-
-        return $doc;
-
-    }
-
-    /**
-     * Generate swagger boosted endpoint documentation for this model
-     *
-     * @return string
-     */
-    public function swaggerBoosted()
-    {
-
-        $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."/boosted\": {\n";
-        $doc .= "      \"get\": {\n";
-        $doc .= $this->swaggerTags();
-        $doc .= "        \"summary\": \"" .$this->docBoostedDescription() ."\",\n";
         $doc .= $this->swaggerProduces();
         $doc .= $this->swaggerParameters();
         $doc .= $this->swaggerResponses();
