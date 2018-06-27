@@ -67,6 +67,13 @@ class Event extends WebModel
                 "value" => function() { return $this->hero_caption; },
             ],
             [
+                "name" => 'image_url',
+                "doc" => "The URL of an image representing this page",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->image_url; },
+            ],
+            [
                 "name" => 'is_private',
                 "doc" => "Whether the event is private",
                 "type" => "boolean",
