@@ -112,6 +112,7 @@ $factory->define(App\Models\Web\Event::class, function (Faker\Generator $faker) 
         'survey_url' => $faker->url,
         'email_series' => $faker->randomElement(['Yes', 'No']),
         'door_time' => $faker->time('H:i'),
+        'image_url' => $faker->imageUrl,
         'published' => $faker->boolean,
         'created_at' => $faker->dateTimeThisYear,
         'updated_at' => $faker->dateTimeThisYear,

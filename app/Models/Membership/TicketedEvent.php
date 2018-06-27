@@ -112,7 +112,7 @@ class TicketedEvent extends MembershipModel
                 "doc" => "Unique identifier of web events associated with this ticketed event",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->event->id; },
+                "value" => function() { return $this->event->id ?? NULL; },
             ],
 
         ];
