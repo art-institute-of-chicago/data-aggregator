@@ -19,6 +19,13 @@ class TicketedEvent extends MembershipModel
     use ElasticSearchable;
     use Documentable;
 
+    public function event()
+    {
+
+        return $this->hasOne('App\Models\Web\Event', 'ticketed_event_id', 'membership_id');
+
+    }
+
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
@@ -99,6 +106,13 @@ class TicketedEvent extends MembershipModel
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->total_capacity; },
+            ],
+            [
+                "name" => 'event_id',
+                "doc" => "Unique identifier of web events associated with this ticketed event",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->event->id; },
             ],
 
         ];

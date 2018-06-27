@@ -9,6 +9,6 @@ class TicketedEventsController extends BaseController
 
     protected $model = \App\Models\Membership\TicketedEvent::class;
 
-    protected $transformer = \App\Http\Transformers\ApiTransformer::class;
+    protected $transformer = \App\Http\Transformers\TicketedEventTransformer::class;
 
 }
