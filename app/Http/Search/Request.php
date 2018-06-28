@@ -186,7 +186,13 @@ class Request
             $this->boosts = $settings->pluck('boost')->filter()->all();
 
             // These will be used to wrap the query in `function_score`
-            $this->functionScores = $settings->pluck('function_score')->filter()->collapse()->all();
+            $keyedFunctionScores = $settings->pluck('function_score')->filter();
+
+            // Don't forget to call `all()` on these collections below
+            $this->functionScores = [
+                'all' => $keyedFunctionScores->pluck('all')->collapse(),
+                'except_full_text' => $keyedFunctionScores->pluck('except_full_text')->collapse(),
+            ];
 
             // Looks like we don't need to implode $indexes and $types
             // PHP Elasticsearch seems to do so for us
@@ -310,7 +316,7 @@ class Request
         }
 
         // Apply `function_score` (if any)
-        $params = $this->addFunctionScore( $params );
+        $params = $this->addFunctionScore( $params, $input );
 
         return $params;
 
@@ -500,19 +506,30 @@ class Request
      *
      * @return array
      */
-    public function addFunctionScore( $params )
+    public function addFunctionScore( $params, $input )
     {
 
-        if( !isset( $this->functionScores ) || count( $this->functionScores ) < 1 ) {
-
+        if( !isset($this->functionScores) )
+        {
             return $params;
+        }
 
+        $functions = $this->functionScores['all'];
+
+        if( !isset( $input['q'] ) )
+        {
+            $functions = $functions->concat( $this->functionScores['except_full_text'] );
+        }
+
+        if( $functions->count() < 1 )
+        {
+            return $params;
         }
 
         $params['body']['query'] = [
             'function_score' => [
                 'query' => $params['body']['query'],
-                'functions' => $this->functionScores,
+                'functions' => $functions,
                 'score_mode' => 'max',
                 'boost_mode' => 'multiply',
             ]

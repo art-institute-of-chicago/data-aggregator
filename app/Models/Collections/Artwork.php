@@ -526,32 +526,41 @@ class Artwork extends CollectionsModel
     public static function searchFunctionScoreArtworks()
     {
         return [
-            // Make pageviews influence score
-            [
-                'filter' => [
-                    'exists' => [
+            'all' => [
+
+                // Make pageviews influence score
+                [
+                    'filter' => [
+                        'exists' => [
+                            'field' => 'pageviews',
+                        ],
+                    ],
+                    'field_value_factor' => [
                         'field' => 'pageviews',
+                        'modifier' => 'log1p',
+                        'factor' => 1.5
                     ],
                 ],
-                'field_value_factor' => [
-                    'field' => 'pageviews',
-                    'modifier' => 'log1p',
-                    'factor' => 1.5
-                ],
+
             ],
-            // Make `boost_rank` influence score
-            [
-                'filter' => [
-                    'exists' => [
+            'except_full_text' => [
+
+                // Make `boost_rank` influence score
+                [
+                    'filter' => [
+                        'exists' => [
+                            'field' => 'boost_rank',
+                        ],
+                    ],
+                    'field_value_factor' => [
                         'field' => 'boost_rank',
+                        'modifier' => 'reciprocal',
+                        'factor' => 1/512 // buckets of 4 for 16 items!
                     ],
                 ],
-                'field_value_factor' => [
-                    'field' => 'boost_rank',
-                    'modifier' => 'reciprocal',
-                    'factor' => 1/512 // buckets of 4 for 16 items!
-                ],
+
             ],
+
         ];
     }
 
