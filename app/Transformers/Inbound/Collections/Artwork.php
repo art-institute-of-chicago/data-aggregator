@@ -4,6 +4,8 @@ namespace App\Transformers\Inbound\Collections;
 
 use Illuminate\Database\Eloquent\Model;
 
+use League\CommonMark\CommonMarkConverter;
+
 use App\Models\Collections\ArtworkDate;
 use App\Models\Collections\Gallery;
 
@@ -19,7 +21,11 @@ class Artwork extends CollectionsTransformer
         // TODO: This is supposed to be a string, not an array...
         $copyright_notice = is_array( $datum->copyright ) ? $datum->copyright[0] : $datum->copyright;
 
+        // Standarize HTML/non-HTML descriptions
+        $description = self::getDescription( $datum->description );
+
         return [
+            'description' => $description,
             'alt_titles' => $datum->alt_titles,
             'artist_display' => $datum->creator_display,
             'medium_display' => $datum->medium,
@@ -60,6 +66,30 @@ class Artwork extends CollectionsTransformer
     {
 
         $this->syncDates( $instance, $datum );
+
+    }
+
+    /**
+     * This function takes a field that may or may not be HTML, and converts it to HTML
+     * using CommonMark rules. Use for standardizing mixed-format fields for places that
+     * expect HTML output.
+     *
+     * This method is public for use in \App\Console\Commands\Update\UpdateAssets
+     *
+     * @TODO: Consider moving this higher up in the class hierarchy or to a helper?
+     */
+    public static function getDescription( $description )
+    {
+
+        $converter = new CommonMarkConverter([
+            'renderer' => [
+                'soft_break' => '<br>',
+            ]
+        ]);
+
+        $description = $converter->convertToHtml($description);
+
+        return $description;
 
     }
 

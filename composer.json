@@ -25,6 +25,7 @@
         "laravel/framework": "5.6.*",
         "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
+        "league/commonmark": "^0.17.5",
         "league/csv": "^9.1",
         "league/fractal": "^0.16.0",
         "marijnvdwerf/material-palette": "^1.2",
