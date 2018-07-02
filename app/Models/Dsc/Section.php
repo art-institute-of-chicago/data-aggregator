@@ -88,7 +88,7 @@ class Section extends DscModel
                 "name" => 'parent_id',
                 "doc" => "Uniquer identifier of the parent section",
                 "type" => "number",
-                'elasticsearch_type' => 'integer',
+                'elasticsearch_type' => 'long',
                 "value" => function() { return $this->parent->dsc_id ?? null; },
             ],
             [
@@ -127,6 +127,17 @@ class Section extends DscModel
 
     }
 
+    /**
+     * Overwriting this inherited method to use `long` instead of `integer`.
+     */
+    protected function getMappingForIds()
+    {
+        $mapping = parent::getMappingForIds();
+
+        $mapping[0]['elasticsearch']['type'] = 'long';
+
+        return $mapping;
+    }
 
     /**
      * Get an example ID for documentation generation

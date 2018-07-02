@@ -159,6 +159,7 @@ class BaseModel extends AbstractModel
                 'doc' => 'Unique identifier of this resource. Taken from the source system.',
                 'type' => $is_id_int ? 'number' : 'string',
                 'elasticsearch' => [
+                    // TODO: Account for `long` vs `integer` here?
                     'type' =>  $is_id_int ? 'integer' : 'keyword',
                 ],
                 'value' => function() { return $this->getKey(); },
