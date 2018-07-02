@@ -137,6 +137,8 @@ Route::group(['prefix' => 'v1'], function() {
     Route::any('legacy-events/{id}', 'LegacyEventsController@show');
     Route::any('ticketed-events', 'TicketedEventsController@index');
     Route::any('ticketed-events/{id}', 'TicketedEventsController@show');
+    Route::any('ticketed-event-types', 'TicketedEventTypesController@index');
+    Route::any('ticketed-event-types/{id}', 'TicketedEventTypesController@show');
 
     // Mobile App
     Route::any('tours', 'ToursController@index');

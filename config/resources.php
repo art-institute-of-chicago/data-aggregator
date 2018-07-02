@@ -169,6 +169,10 @@ return [
                 'is_searchable' => true,
             ],
             [
+                'endpoint' => 'ticketed-event-types',
+                'model' => \App\Models\Membership\TicketedEventType::class,
+            ],
+            [
                 'endpoint' => 'tours',
                 'model' => \App\Models\Mobile\Tour::class,
                 'is_searchable' => true,

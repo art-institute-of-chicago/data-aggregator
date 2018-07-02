@@ -25,7 +25,7 @@ class TicketedEventTransformer extends ApiTransformer
      */
     public function includeEvent(TicketedEvent $ticketedEvent)
     {
-        return $this->item($ticketedEvent->event, new ApiTransformer, false);
+        return $ticketedEvent->event ? $this->item($ticketedEvent->event, new ApiTransformer, false) : NULL;
     }
 
 }
