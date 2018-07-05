@@ -41,7 +41,7 @@ class Request
      *
      * @var array
      */
-    protected $functionScores = [];
+    protected $functionScores = null;
 
     /**
      * List of allowed Input params for querying.
