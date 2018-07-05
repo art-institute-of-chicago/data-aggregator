@@ -33,7 +33,10 @@ class DeleteCollectionsRecords extends AbstractImportCommand
         \App\Models\Collections\Place::class,
         \App\Models\Collections\Gallery::class,
         \App\Models\Collections\Catalogue::class,
-        \App\Models\Collections\Asset::class,
+        \App\Models\Collections\Image::class,
+        \App\Models\Collections\Sound::class,
+        \App\Models\Collections\Text::class,
+        \App\Models\Collections\Video::class,
         \App\Models\Collections\Artwork::class,
         \App\Models\Collections\Exhibition::class,
     ];
