@@ -83,6 +83,8 @@ trait ImportsData
         curl_setopt ($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
         curl_setopt ($ch, CURLOPT_USERPWD, $this->auth);
 
+        curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
         ob_start();
 
         curl_exec ($ch);
