@@ -21,6 +21,18 @@ class DeleteCollectionsRecords extends AbstractImportCommand
      */
     protected $description = 'Delete records that have been removed from the source system';
 
+    /**
+     * For id-based deletes, how many to check at a time.
+     *
+     * @var int
+     */
+    protected $size = 100;
+
+    /**
+     * Which models to cross-reference against tombstones.
+     *
+     * @var array
+     */
     protected $models = [
         \App\Models\Collections\ArtworkPlaceQualifier::class,
         \App\Models\Collections\ArtworkDateQualifier::class,
@@ -50,6 +62,7 @@ class DeleteCollectionsRecords extends AbstractImportCommand
     {
 
         $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
+
         parent::__construct();
 
     }
@@ -60,6 +73,22 @@ class DeleteCollectionsRecords extends AbstractImportCommand
      * @return mixed
      */
     public function handle()
+    {
+        $this->deleteByTombstone();
+
+        // Galleries can be unpublished via "untagging"
+        $this->deleteById(\App\Models\Collections\Gallery::class);
+    }
+
+    /**
+     * LAKE creates "tombstone" records with `deleted:true` for any record that has been
+     * unpublished. These records are minimal, containing only the timestamp, deleted
+     * status, and the LAKE UUID. This function will loop through all tombstone records
+     * ordered by timestamp descending until it reaches one that's older than its last
+     * successful run. It'll take the UUID of each record, loop through the `$models`
+     * until it finds a match, and delete that record.
+     */
+    private function deleteByTombstone()
     {
 
         $current = 1;
@@ -72,7 +101,7 @@ class DeleteCollectionsRecords extends AbstractImportCommand
         while( $current <= $pages )
         {
 
-            $this->warn( 'Deleteing ' . $current . ' of ' . $pages);
+            $this->warn( 'Deleting ' . $current . ' of ' . $pages);
 
             // Assumes the dataservice wraps its results in a `data` field
             foreach( $json->data as $datum )
@@ -96,7 +125,7 @@ class DeleteCollectionsRecords extends AbstractImportCommand
                     if ($m = $model::where('lake_guid', '=', $datum->lake_guid)->first())
                     {
                         // If it does, destroy the model and break
-                        $this->warn( 'Deleteing ' . $model . ' ' . $datum->lake_guid);
+                        $this->warn( 'Deleting ' . $model . ' ' . $datum->lake_guid);
                         $m->delete();
                         break;
                     }
@@ -111,6 +140,69 @@ class DeleteCollectionsRecords extends AbstractImportCommand
             $json = $this->query( 'deletes', $current );
 
         }
+
+    }
+
+    /**
+     * This is how we used to handle deletes, before LAKE created "tombstone" records.
+     * For each model, we take all of the UUIDs (in batches), and issue a multi-id
+     * query to LAKE via the CDS. We then loop through the results, and check if there
+     * are any ids in our query set that aren't in the results. If so, we delete those
+     * records.
+     *
+     * This function still has a purpose, despite being less effecient than the tombstone
+     * one. In certain cases, models are "untagged" rather than being unpublished. When
+     * this happens, LAKE doesn't generate a tombstone for them, even though they are no
+     * longer picked up by our LPM Solr query filters. They become orphaned in our system.
+     */
+    private function deleteById($model, $endpoint = null)
+    {
+        if (!$endpoint)
+        {
+            $endpoint = app('Resources')->getEndpointForModel($model);
+        }
+
+        $size = $this->size;
+
+        // Try to not go over any potential URL-length limits
+        if ($model::instance()->getKeyName() == 'lake_guid')
+        {
+            $size = $size / 10;
+        }
+
+        $model::chunk($size, function ($resources) use ($model, $endpoint) {
+
+            $this->info( 'Working on ' . $endpoint . ' starting at ' .$resources->pluck($model::instance()->getKeyName())->first());
+
+            // Get a list of CITI IDs of works in the Data Aggregator
+            $daIds = $resources->pluck($model::instance()->getKeyName());
+
+            $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '?' . http_build_query([
+                'flo' => 'id',
+                'limit' => $this->size,
+                'ids' => implode(',', $daIds->all()),
+            ]);
+
+            $contents = file_get_contents( $url, false, stream_context_create([
+              'http'=> [
+                  'timeout' => 120,  //120 Seconds is 2 Minutes
+              ]
+            ]));
+
+            $json = json_decode( $contents );
+
+            $cdsIds = collect($json->data)->pluck('id');
+
+            // Compare those two lists, and delete anything in the Data Hub that's not in the CSD
+            $diff = $daIds->diff($cdsIds)->all();
+
+            if ($diff)
+            {
+                $this->warn( 'Deleting ' . implode(',', $diff) );
+                $model::destroy($diff);
+            }
+
+        });
 
     }
 
