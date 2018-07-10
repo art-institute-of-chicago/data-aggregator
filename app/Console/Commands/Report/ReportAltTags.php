@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Update;
+namespace App\Console\Commands\Report;
 
 use App\Models\Collections\Artwork;
 
