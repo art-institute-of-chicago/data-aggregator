@@ -41,16 +41,20 @@ class ReportAltTags extends BaseCommand
 
             foreach( $artwork->images as $image ) {
 
-                $row = [
-                    'artwork_id' => $artwork->citi_id,
-                    'artwork_citi_url' => env('CITI_ARTWORK_URL') . $artwork->citi_id,
-                    'artwork_lakeshore_url' => $this->getLakeShoreLink( $artwork->lake_guid, 'works' ),
-                    'image_id' => $image->lake_guid,
-                    'image_lakeshore_url' => $this->getLakeShoreLink( $image->lake_guid, 'generic_works' ),
-                    'alt_text' => $image->alt_text
-                ];
+                if( $image->alt_text ) {
 
-                $csv->insertOne($row);
+                    $row = [
+                        'artwork_id' => $artwork->citi_id,
+                        'artwork_citi_url' => env('CITI_ARTWORK_URL') . $artwork->citi_id,
+                        'artwork_lakeshore_url' => $this->getLakeShoreLink( $artwork->lake_guid, 'works' ),
+                        'image_id' => $image->lake_guid,
+                        'image_lakeshore_url' => $this->getLakeShoreLink( $image->lake_guid, 'generic_works' ),
+                        'alt_text' => $image->alt_text
+                    ];
+
+                    $csv->insertOne($row);
+
+                }
 
             }
 
