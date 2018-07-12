@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Storage;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
-class ReportAltTags extends BaseCommand
+class ReportAltText extends BaseCommand
 {
 
-    protected $signature = 'report:alt-tags';
+    protected $signature = 'report:alt-text';
 
     protected $description = "Report all artworks and images that have visual descriptions";
 
