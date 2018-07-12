@@ -13,6 +13,7 @@ class Event extends AbstractTransformer
 
         return [
             'hidden' => (bool) $datum->hidden, // TODO: Why is this an array?!
+            'type' => $datum->event_type,
         ];
 
     }
