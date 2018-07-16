@@ -573,15 +573,6 @@ class Artwork extends CollectionsModel
     {
 
         return [
-            // Boost anything that's on view
-            [
-                'term' => [
-                    'is_on_view' => [
-                        'value' => true,
-                        'boost' => 1.25,
-                    ]
-                ]
-            ],
             // Boost anything that has an image
             [
                 'exists' => [
