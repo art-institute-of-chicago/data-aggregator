@@ -6,6 +6,7 @@ use Elasticsearch;
 use Laravel\Scout\EngineManager;
 // use ScoutEngines\Elasticsearch\ElasticsearchEngine;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Arr;
 
 // TODO: Remove this after we're ready to handle exceptions
 use App\ElasticsearchEngine;
@@ -297,30 +298,40 @@ class SearchServiceProvider extends ServiceProvider
 
                 }
 
-                protected function getScopedQuery( $resource, $scope )
+                public function getScopedQuery( $resource, $scope )
                 {
+
+                    if (is_array($resource))
+                    {
+                        $query = [
+                            'terms' => [
+                                'api_model' => $resource
+                            ],
+                        ];
+                    } else {
+                        $query = [
+                            'term' => [
+                                'api_model' => $resource
+                            ],
+                        ];
+                    }
+
+                    if (Arr::isAssoc($scope)) {
+                        $scope = [ $scope ];
+                    }
 
                     return [
                         'bool' => [
                             'should' => [
                                 [
                                     'bool' => [
-                                        'must' => [
-                                            [
-                                                'term' => [
-                                                    'api_model' => $resource
-                                                ],
-                                            ],
-                                            $scope,
-                                        ]
+                                        'must' => array_merge([ $query ], $scope),
                                     ]
                                 ],
                                 [
                                     'bool' => [
                                         'must_not' => [
-                                            'term' => [
-                                                'api_model' => $resource
-                                            ],
+                                            $query,
                                         ]
                                     ]
                                 ]
