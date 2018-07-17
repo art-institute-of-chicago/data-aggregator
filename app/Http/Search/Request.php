@@ -182,10 +182,10 @@ class Request
             $types = $settings->pluck('type')->unique()->all();
 
             // These will be injected into the must clause
-            $this->scopes = $settings->pluck('scope')->filter()->all();
+            $this->scopes = $settings->pluck('scope')->filter()->values()->all();
 
             // These will be injected into the should clause
-            $this->boosts = $settings->pluck('boost')->filter()->all();
+            $this->boosts = $settings->pluck('boost')->filter()->values()->all();
 
             // These will be used to wrap the query in `function_score`
             $this->functionScores = $settings->filter( function( $value, $key ) {
@@ -552,14 +552,14 @@ class Request
             ];
 
             // Wrap the query in a scope
-            $scopedQuery = app('Search')->getScopedQuery( $resource, [$resourceQuery] );
+            $scopedQuery = app('Search')->getScopedQuery( $resource, $resourceQuery );
 
             $scopedQueries->push( $scopedQuery );
 
         }
 
         // Add a query for all the leftover resources
-        $scopedQuery = app('Search')->getScopedQuery( $resourcesWithoutFunctions->all(), [$baseQuery] );
+        $scopedQuery = app('Search')->getScopedQuery( $resourcesWithoutFunctions->all(), $baseQuery );
 
         $scopedQueries->push( $scopedQuery );
 

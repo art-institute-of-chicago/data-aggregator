@@ -325,7 +325,10 @@ class SearchServiceProvider extends ServiceProvider
                             'should' => [
                                 [
                                     'bool' => [
-                                        'must' => array_merge([ $query ], $scope),
+                                        'must' => [
+                                            [$query],
+                                            $scope,
+                                        ],
                                     ]
                                 ],
                                 [
