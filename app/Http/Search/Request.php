@@ -165,15 +165,17 @@ class Request
 
             });
 
+            // Make resources into a Laravel collection
+            $resources = collect( $resources );
+
             // Grab settings from our models via the service provider
-            $settings = array_map( function($resource) {
+            $settings = $resources->map( function($resource) {
 
-                return app('Search')->getSearchScopeForEndpoint( $resource );
+                return [
+                    $resource => app('Search')->getSearchScopeForEndpoint( $resource ),
+                ];
 
-            }, $resources);
-
-            // Make settings into a Laravel collection
-            $settings = collect($settings);
+            })->collapse();
 
             // Collate our indexes and types
             $indexes = $settings->pluck('index')->unique()->all();
@@ -186,13 +188,11 @@ class Request
             $this->boosts = $settings->pluck('boost')->filter()->all();
 
             // These will be used to wrap the query in `function_score`
-            $keyedFunctionScores = $settings->pluck('function_score')->filter();
-
-            // Don't forget to call `all()` on these collections below
-            $this->functionScores = [
-                'all' => $keyedFunctionScores->pluck('all')->collapse(),
-                'except_full_text' => $keyedFunctionScores->pluck('except_full_text')->collapse(),
-            ];
+            $this->functionScores = $settings->filter( function( $value, $key ) {
+                return isset($value['function_score']);
+            })->map( function( $item, $key ) {
+                return $item['function_score'];
+            });
 
             // Looks like we don't need to implode $indexes and $types
             // PHP Elasticsearch seems to do so for us
@@ -509,29 +509,64 @@ class Request
     public function addFunctionScore( $params, $input )
     {
 
-        if( !isset($this->functionScores) )
+        if( $this->functionScores && $this->functionScores->count() < 1 || !isset( $this->resources ) )
         {
             return $params;
         }
 
-        $functions = $this->functionScores['all'];
+        // We'll duplicate this, nesting it in `function_score` queries
+        $baseQuery = $params['body']['query'];
 
-        if( !isset( $input['q'] ) )
-        {
-            $functions = $functions->concat( $this->functionScores['except_full_text'] );
+        // Keep track of this to create a "left over" non-scored query
+        $resourcesWithoutFunctions = collect([]);
+
+        $scopedQueries = collect([]);
+
+        foreach( $this->resources as $resource ) {
+
+            // Grab the functions for this resource
+            $rawFunctions = $this->functionScores->get($resource);
+
+            // Move on if there are no functions declared for this model
+            if( !isset( $rawFunctions ) ) {
+                $resourcesWithoutFunctions->push($resource);
+                continue;
+            }
+
+            // Start building the outbound function score array
+            $outFunctions = $rawFunctions['all'];
+
+            if( !isset( $input['q'] ) && isset( $rawFunctions['except_full_text'] ) )
+            {
+                $outFunctions = array_merge( $outFunctions, $rawFunctions['except_full_text'] );
+            }
+
+            // Build our function score query
+            $resourceQuery = [
+                'function_score' => [
+                    'query' => $baseQuery,
+                    'functions' => $outFunctions,
+                    'score_mode' => 'max',
+                    'boost_mode' => 'multiply',
+                ]
+            ];
+
+            // Wrap the query in a scope
+            $scopedQuery = app('Search')->getScopedQuery( $resource, [$resourceQuery] );
+
+            $scopedQueries->push( $scopedQuery );
+
         }
 
-        if( $functions->count() < 1 )
-        {
-            return $params;
-        }
+        // Add a query for all the leftover resources
+        $scopedQuery = app('Search')->getScopedQuery( $resourcesWithoutFunctions->all(), [$baseQuery] );
 
+        $scopedQueries->push( $scopedQuery );
+
+        // Override the existing query with our queries
         $params['body']['query'] = [
-            'function_score' => [
-                'query' => $params['body']['query'],
-                'functions' => $functions,
-                'score_mode' => 'max',
-                'boost_mode' => 'multiply',
+            'bool' => [
+                'must' => $scopedQueries->all(),
             ]
         ];
 
