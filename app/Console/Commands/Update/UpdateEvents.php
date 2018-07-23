@@ -7,7 +7,7 @@ use App\Transformers\Inbound\Collections\Artwork as ArtworkTransformer;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
-class UpdateDescriptions extends BaseCommand
+class UpdateEvents extends BaseCommand
 {
 
     protected $signature = 'update:events';
