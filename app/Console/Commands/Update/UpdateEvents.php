@@ -18,25 +18,35 @@ class UpdateEvents extends BaseCommand
     public function handle()
     {
 
-        $event = Event::find(61);
-        $event->ticketed_event_id = 16859;
+        // Teacher Tour: Water Lillies
+        $event = Event::find(2);
+        $event->ticketed_event_id = 16914;
         $event->ticketed_event_type_id = 73;
-        $event->image_url = 'https://cms-toolkit-dev.imgix.net/migrated-7f1e401bb00884f94cd16e52e4fc9aad/cal_ArtPlay_12022017.jpg';
+        $event->image_url = 'https://cms-toolkit-dev.imgix.net/migrated-11bd6212cf18f309f465195b159e54c2/exh_vangogh_bedroom_featured_480croped.jpg';
         $event->save();
 
+        // Teach Tour: Van Gogh's Bedrooms
         $event = Event::find(24);
-        $event->ticketed_event_id = 16865;
+        $event->ticketed_event_id = 16915;
         $event->ticketed_event_type_id = 73;
         $event->image_url = 'https://cms-toolkit-dev.imgix.net/migrated-bed0f3a8ac6867c3ba5371fa90325158/2922_355206_480x360.png';
         $event->save();
 
-        $event = Event::find(2);
-        $event->ticketed_event_id = 16862;
+        // Teacher Tour: Chagall Windows
+        $event = Event::find(61);
+        $event->ticketed_event_id = 16916;
         $event->ticketed_event_type_id = 73;
         $event->image_url = '';
         $event->save();
 
-        $this->info( "Updated 3 events" );
+        // Teacher Tour: American Gothic
+        $event = Event::find(1);
+        $event->ticketed_event_id = 16913;
+        $event->ticketed_event_type_id = 73;
+        $event->image_url = 'https://cms-toolkit-dev.imgix.net/ecd4e3b1-e8fd-4ddb-aec6-0cfb87a0ad4d/p02wf9z7.jpg';
+        $event->save();
+
+        $this->info( "Updated 4 events" );
 
     }
 
