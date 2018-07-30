@@ -301,26 +301,27 @@ class Agent extends CollectionsModel
     public function getSuggestSearchFields()
     {
 
-        $fields = [
-            'suggest_autocomplete' => $this->title,
+        $fields = [];
+
+        $withTitles = [
+            'input' => array_merge(
+                [
+                    $this->title,
+                    $this->sort_title,
+                ],
+                $this->alt_titles ?? []
+            ),
+            // Boosts agents higher than unweighted items
+            'weight' => 2,
         ];
 
         if( $this->isBoosted() )
         {
-
-            $fields['suggest_autocomplete_boosted'] = [
-                'input' => array_merge(
-                    [
-                        $this->title,
-                        $this->sort_title,
-                    ],
-                    $this->alt_titles ?? []
-                ),
-                // Boosts agents higher than unweighted items
-                'weight' => 2,
-            ];
-
+            $fields['suggest_autocomplete_boosted'] = $withTitles;
         }
+
+        // For autocomplete v2
+        $fields['suggest_autocomplete_all'] = $withTitles;
 
         return $fields;
 
