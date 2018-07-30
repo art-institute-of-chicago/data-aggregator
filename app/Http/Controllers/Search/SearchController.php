@@ -82,7 +82,7 @@ class SearchController extends BaseController
     public function explain( Request $request, $resource, $id )
     {
 
-        return $this->query( 'getExplainParams', 'getExplainResponse', 'explain', $resource, $id );
+        return $this->query( 'getExplainParams', 'getRawResponse', 'explain', $resource, $id );
 
     }
 

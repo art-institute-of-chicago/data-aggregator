@@ -76,7 +76,7 @@ class Response
      *
      * @return array
      */
-    public function getExplainResponse()
+    public function getRawResponse()
     {
 
         return $this->searchResponse;
@@ -186,9 +186,6 @@ class Response
     {
 
         $suggest = [];
-
-        // For debugging purposes, use this to see the original response:
-        // return array_get($this->searchResponse, 'suggest' );
 
         // Autocomplete suggestions
         $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
