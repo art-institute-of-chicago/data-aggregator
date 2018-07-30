@@ -334,4 +334,18 @@ class CategoryTerm extends CollectionsModel
 
     }
 
+    /**
+     * Add suggest fields and values. For v2, category-terms contribute to autocomplete.
+     *
+     * @return array
+     */
+    public function getSuggestSearchFields()
+    {
+
+        return [
+            'suggest_autocomplete_all' => $this->title,
+        ];
+
+    }
+
 }
