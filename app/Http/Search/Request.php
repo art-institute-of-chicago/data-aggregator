@@ -228,6 +228,7 @@ class Request
             'id',
             'title',
             'api_model',
+            'subtype', // TODO: Allow each model to specify exposed autocomplete fields?
         ];
 
         // Suggest also returns `_source`, which we can parse to get the cannonical title
