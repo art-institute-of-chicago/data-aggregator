@@ -317,6 +317,10 @@ class Agent extends CollectionsModel
 
         if( $this->isBoosted() )
         {
+            // Boosts popular agents higher than normal agents
+            // Cascades to `suggest_autocomplete_all`
+            $withTitles['weight'] = 3;
+
             $fields['suggest_autocomplete_boosted'] = $withTitles;
         }
 
