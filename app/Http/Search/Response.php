@@ -102,7 +102,7 @@ class Response
      *
      * @return array
      */
-    public function paginate()
+    private function paginate()
     {
 
         // We assume that `size` and `from` have been set via getPaginationParams()
@@ -146,7 +146,7 @@ class Response
      *
      * @return array
      */
-    public function data()
+    private function data()
     {
 
         $hits = $this->searchResponse['hits']['hits'];
@@ -182,7 +182,7 @@ class Response
      *
      * @return array
      */
-    public function suggest()
+    private function suggest()
     {
 
         $suggest = [];
@@ -212,7 +212,7 @@ class Response
      *
      * @return array
      */
-    public function aggregate()
+    private function aggregate()
     {
 
         $aggregations = $this->searchResponse['aggregations'] ?? null;
