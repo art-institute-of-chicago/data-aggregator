@@ -47,8 +47,6 @@ class SearchController extends BaseController
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-uri-request.html
-     *
-     * @return void
      */
     public function search( Request $request, $resource = null )
     {
@@ -64,8 +62,6 @@ class SearchController extends BaseController
      * though most of them will not be used.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-completion.html
-     *
-     * @return void
      */
     public function autocomplete( Request $request, $resource = null )
     {
@@ -76,8 +72,6 @@ class SearchController extends BaseController
 
     /**
      * Perform Elasticsearch explain query. Meant for local debugging.
-     *
-     * @return void
      */
     public function explain( Request $request, $resource, $id )
     {
@@ -89,8 +83,6 @@ class SearchController extends BaseController
     /**
      * Perform Elasticsearch search, but show last request sent to Elasticsearch instead.
      * Meant for local debugging.
-     *
-     * @return void
      */
     public function echo( Request $request, $resource = null )
     {
