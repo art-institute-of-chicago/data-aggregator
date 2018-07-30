@@ -213,7 +213,7 @@ class Request
      *
      * @return array
      */
-    public function getAutocompleteParams( ) {
+    public function getAutocompleteParams( $requestArgs = null ) {
 
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput();
@@ -237,7 +237,7 @@ class Request
         );
 
         // `q` is required here, but we won't send an actual `query`
-        $params = $this->addSuggestParams( $params, $input );
+        $params = $this->addSuggestParams( $params, $input, $requestArgs );
 
         return $params;
 
@@ -721,14 +721,14 @@ class Request
      *
      * @return array
      */
-    public function addSuggestParams( array $params, array $input )
+    public function addSuggestParams( array $params, array $input, $requestArgs = null)
     {
 
         $params['body']['suggest'] = [
             'text' => array_get( $input, 'q' ),
         ];
 
-        $params = $this->addAutocompleteSuggestParams( $params, $input );
+        $params = $this->addAutocompleteSuggestParams( $params, $input, $requestArgs );
 
         return $params;
 
@@ -745,13 +745,19 @@ class Request
      *
      * @return array
      */
-    private function addAutocompleteSuggestParams( array $params, array $input)
+    private function addAutocompleteSuggestParams( array $params, array $input, $requestArgs = null)
     {
+
+        if ($requestArgs && is_array($requestArgs) && $requestArgs['use_suggest_autocomplete_all'] ) {
+            $field = 'suggest_autocomplete_all';
+        } else {
+            $field = 'suggest_autocomplete_boosted';
+        }
 
         $params['body']['suggest']['autocomplete'] = [
             'prefix' =>  array_get( $input, 'q' ),
             'completion' => [
-                'field' => 'suggest_autocomplete_boosted',
+                'field' => $field,
                 'fuzzy' => [
                     'fuzziness' => 'AUTO',
                     'min_length' => 5,
