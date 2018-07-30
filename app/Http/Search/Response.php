@@ -51,7 +51,7 @@ class Response
 
         $response = array_merge(
             $response,
-            $this->suggest()
+            $this->getAutocompleteWithTitle()
         );
 
         $response = array_merge(
@@ -89,10 +89,28 @@ class Response
      *
      * @return array
      */
-    public function getAutocompleteResponse() {
+    public function getAutocompleteWithTitleResponse() {
 
         // Defaulting to [] is safe, but ineffecient: catch empty `q` earlier!
-        return $this->suggest()['suggest']['autocomplete'] ?? [];
+        return $this->getAutocompleteWithTitle()['suggest']['autocomplete'] ?? [];
+
+    }
+
+
+    /**
+     * Transform response for autocomplete queries. Pass-through the source.
+     *
+     * @return array
+     */
+    public function getAutocompleteWithSourceResponse() {
+
+        $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
+
+        if ($options) {
+            return array_pluck($options, '_source');
+        }
+
+        return [];
 
     }
 
@@ -182,12 +200,11 @@ class Response
      *
      * @return array
      */
-    private function suggest()
+    private function getAutocompleteWithTitle()
     {
 
         $suggest = [];
 
-        // Autocomplete suggestions
         $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
 
         if ($options) {

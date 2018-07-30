@@ -56,17 +56,31 @@ class SearchController extends BaseController
     }
 
     /**
-     * Return only the `suggest` field of search. This method optimizes both our request
+     * Return autocomplete suggestions, via an array of title strings.
+     *
+     * Relies on the `suggest` field of search. This method optimizes both our request
      * to Elasticsearch and the outgoing results for the minimum required to provide
      * autocomplete suggestions. It accepts the same params as the `search` method,
      * though most of them will not be used.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-completion.html
      */
-    public function autocomplete( Request $request, $resource = null )
+    public function autocompleteWithTitle( Request $request, $resource = null )
     {
 
-        return $this->query( 'getAutocompleteParams', 'getAutocompleteResponse', 'search', $resource );
+        return $this->query( 'getAutocompleteParams', 'getAutocompleteWithTitleResponse', 'search', $resource );
+
+    }
+
+
+    /**
+     * Return autocomplete suggestions, but passes through `_source` from each result.
+     * Allows us to return an array of objects: id, title, api_model.
+     */
+    public function autocompleteWithSource( Request $request, $resource = null )
+    {
+
+        return $this->query( 'getAutocompleteParams', 'getAutocompleteWithSourceResponse', 'search', $resource );
 
     }
 

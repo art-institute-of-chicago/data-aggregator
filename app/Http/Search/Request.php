@@ -225,7 +225,9 @@ class Request
 
         // Hardcode $input to only return the fields we want
         $input['fields'] = [
-            'title'
+            'id',
+            'title',
+            'api_model',
         ];
 
         // Suggest also returns `_source`, which we can parse to get the cannonical title
