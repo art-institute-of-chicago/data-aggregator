@@ -219,6 +219,7 @@ trait ImportsData
             $json = $this->query( $endpoint, $current );
 
         }
+        unset($json);
 
     }
 
