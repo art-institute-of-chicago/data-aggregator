@@ -301,6 +301,10 @@ class Agent extends CollectionsModel
     public function getSuggestSearchFields()
     {
 
+        if ($this->createdArtworks()->count() < 1) {
+            return [];
+        }
+
         $fields = [];
 
         $withTitles = [
