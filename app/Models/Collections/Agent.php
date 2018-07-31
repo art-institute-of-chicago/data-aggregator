@@ -247,7 +247,7 @@ class Agent extends CollectionsModel
                 "doc" => "Whether the agent is an artist. Soley based on whether the agent is listed as an artist for an artwork record.",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->createdArtworks; },
+                "value" => function() { return $this->createdArtworks()->count() > 0; },
             ],
             [
                 "name" => 'agent_type_title',
