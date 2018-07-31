@@ -92,7 +92,8 @@ class CategoryTerm extends CollectionsModel
     public function artworks()
     {
         $table = self::$isCategory ? 'artwork_category' : 'artwork_term';
-        return $this->belongsToMany('App\Models\Collections\Artwork', $table);
+        $column = self::$isCategory ? 'category_lake_uid' : 'term_lake_uid';
+        return $this->belongsToMany('App\Models\Collections\Artwork', $table, $column);
     }
 
     public function parent()
