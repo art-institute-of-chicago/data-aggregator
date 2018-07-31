@@ -91,7 +91,8 @@ class CategoryTerm extends CollectionsModel
      */
     public function artworks()
     {
-        return $this->belongsToMany('App\Models\Collections\Artwork');
+        $table = self::$isCategory ? 'artwork_category' : 'artwork_term';
+        return $this->belongsToMany('App\Models\Collections\Artwork', $table);
     }
 
     public function parent()
