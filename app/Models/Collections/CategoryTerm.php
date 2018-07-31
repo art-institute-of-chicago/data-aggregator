@@ -342,6 +342,10 @@ class CategoryTerm extends CollectionsModel
     public function getSuggestSearchFields()
     {
 
+        if ($this->artworks()->count() < 1) {
+            return [];
+        }
+
         return [
             'suggest_autocomplete_all' => $this->title,
         ];
