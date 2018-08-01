@@ -138,7 +138,7 @@ class BaseModel extends AbstractModel
                             'lqip' => $this->thumbnail->metadata->lqip ?? null,
                             'width' => $this->thumbnail->metadata->width ?? null,
                             'height' => $this->thumbnail->metadata->height ?? null,
-                            'alt_text' => $this->thumbnail->alt_text ?? null,
+                            'alt_text' => $this->thumbnail->alt_text ?? ($this->alt_text ?? null),
                         ];
                     },
                 ],
