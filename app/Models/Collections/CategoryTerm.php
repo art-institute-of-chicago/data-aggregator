@@ -91,7 +91,9 @@ class CategoryTerm extends CollectionsModel
      */
     public function artworks()
     {
-        return $this->belongsToMany('App\Models\Collections\Artwork');
+        $table = self::$isCategory ? 'artwork_category' : 'artwork_term';
+        $column = self::$isCategory ? 'category_lake_uid' : 'term_lake_uid';
+        return $this->belongsToMany('App\Models\Collections\Artwork', $table, $column);
     }
 
     public function parent()
@@ -331,6 +333,24 @@ class CategoryTerm extends CollectionsModel
         $uid = '/^[A-Z]{2}-[0-9]+$/i';
 
         return preg_match($uid, $id);
+
+    }
+
+    /**
+     * Add suggest fields and values. For v2, category-terms contribute to autocomplete.
+     *
+     * @return array
+     */
+    public function getSuggestSearchFields()
+    {
+
+        if ($this->artworks()->count() < 1) {
+            return [];
+        }
+
+        return [
+            'suggest_autocomplete_all' => $this->title,
+        ];
 
     }
 

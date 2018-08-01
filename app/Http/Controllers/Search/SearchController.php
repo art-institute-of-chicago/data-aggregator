@@ -80,7 +80,9 @@ class SearchController extends BaseController
     public function autocompleteWithSource( Request $request, $resource = null )
     {
 
-        return $this->query( 'getAutocompleteParams', 'getAutocompleteWithSourceResponse', 'search', $resource );
+        return $this->query( 'getAutocompleteParams', 'getAutocompleteWithSourceResponse', 'search', $resource, null, [
+            'use_suggest_autocomplete_all' => true,
+        ]);
 
     }
 
@@ -117,11 +119,11 @@ class SearchController extends BaseController
      *
      * @return array
      */
-    private function query( $requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null )
+    private function query( $requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null, $requestArgs = null )
     {
 
         // Transform our API's syntax into an Elasticsearch params array
-        $params = ( new SearchRequest( $resource, $id ) )->$requestMethod();
+        $params = ( new SearchRequest( $resource, $id ) )->$requestMethod( $requestArgs );
 
         try {
             $results = Elasticsearch::$elasticsearchMethod( $params );

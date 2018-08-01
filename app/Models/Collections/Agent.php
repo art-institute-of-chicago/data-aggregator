@@ -247,7 +247,7 @@ class Agent extends CollectionsModel
                 "doc" => "Whether the agent is an artist. Soley based on whether the agent is listed as an artist for an artwork record.",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->createdArtworks; },
+                "value" => function() { return $this->createdArtworks()->count() > 0; },
             ],
             [
                 "name" => 'agent_type_title',
@@ -301,26 +301,35 @@ class Agent extends CollectionsModel
     public function getSuggestSearchFields()
     {
 
-        $fields = [
-            'suggest_autocomplete' => $this->title,
+        if ($this->createdArtworks()->count() < 1) {
+            return [];
+        }
+
+        $fields = [];
+
+        $withTitles = [
+            'input' => array_merge(
+                [
+                    $this->title,
+                    $this->sort_title,
+                ],
+                $this->alt_titles ?? []
+            ),
+            // Boosts agents higher than unweighted items
+            'weight' => 2,
         ];
 
         if( $this->isBoosted() )
         {
+            // Boosts popular agents higher than normal agents
+            // Cascades to `suggest_autocomplete_all`
+            $withTitles['weight'] = 3;
 
-            $fields['suggest_autocomplete_boosted'] = [
-                'input' => array_merge(
-                    [
-                        $this->title,
-                        $this->sort_title,
-                    ],
-                    $this->alt_titles ?? []
-                ),
-                // Boosts agents higher than unweighted items
-                'weight' => 2,
-            ];
-
+            $fields['suggest_autocomplete_boosted'] = $withTitles;
         }
+
+        // For autocomplete v2
+        $fields['suggest_autocomplete_all'] = $withTitles;
 
         return $fields;
 
