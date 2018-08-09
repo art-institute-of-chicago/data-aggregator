@@ -42,6 +42,15 @@ class Kernel extends ConsoleKernel
             ->sendOutputTo(storage_path('logs/import-monthly-last-run.log'))
             ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
 
+        // Because in the CMS Events don't get touched when a ticketed event
+        // is added. Remove this once that's in place.
+        $schedule->command('import:web-full events')
+            ->hourly()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/import-web-full.log'))
+            ->sendOutputTo(storage_path('logs/import-web-full-last-run.log'))
+            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+
         // Non-prod envs don't need 5-min imports
         if (!App::environment('production'))
         {

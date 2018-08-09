@@ -24,11 +24,6 @@ class ImportScheduleDaily extends BaseCommand
         $this->call('import:products');
         $this->call('import:web');
         $this->call('import:analytics');
-
-        // Because in the CMS Events don't get touched when a ticketed event
-        // is added. Remove this once that's in place.
-        $this->call('import:web-full', ['endpoint' => 'events']);
-
     }
 
 }
