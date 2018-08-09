@@ -36,6 +36,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::match( array('GET', 'POST'), 'msearch', 'Search\SearchController@msearch');
 
     Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocompleteWithTitle');
+    Route::match( array('GET', 'POST'), 'autosuggest', 'Search\SearchController@autocompleteWithSource');
 
     // For debugging search, show generated request
     if( env('APP_ENV') === 'local' ) {
@@ -219,11 +220,5 @@ Route::group(['prefix' => 'v1'], function() {
 
     // Generic endpoint to allow source systems to let us know when a record should be updated
     Route::any('{endpoint}/{id}/pull', 'PullController@pull');
-
-});
-
-Route::group(['prefix' => 'v2'], function() {
-
-    Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocompleteWithSource');
 
 });
