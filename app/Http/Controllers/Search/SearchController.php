@@ -47,8 +47,6 @@ class SearchController extends BaseController
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-uri-request.html
-     *
-     * @return void
      */
     public function search( Request $request, $resource = null )
     {
@@ -58,39 +56,49 @@ class SearchController extends BaseController
     }
 
     /**
-     * Return only the `suggest` field of search. This method optimizes both our request
+     * Return autocomplete suggestions, via an array of title strings.
+     *
+     * Relies on the `suggest` field of search. This method optimizes both our request
      * to Elasticsearch and the outgoing results for the minimum required to provide
      * autocomplete suggestions. It accepts the same params as the `search` method,
      * though most of them will not be used.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-completion.html
-     *
-     * @return void
      */
-    public function autocomplete( Request $request, $resource = null )
+    public function autocompleteWithTitle( Request $request, $resource = null )
     {
 
-        return $this->query( 'getAutocompleteParams', 'getAutocompleteResponse', 'search', $resource );
+        return $this->query( 'getAutocompleteParams', 'getAutocompleteWithTitleResponse', 'search', $resource );
+
+    }
+
+
+    /**
+     * Return autocomplete suggestions, but passes through `_source` from each result.
+     * Allows us to return an array of objects: id, title, api_model.
+     */
+    public function autocompleteWithSource( Request $request, $resource = null )
+    {
+
+        return $this->query( 'getAutocompleteParams', 'getAutocompleteWithSourceResponse', 'search', $resource, null, [
+            'use_suggest_autocomplete_all' => true,
+        ]);
 
     }
 
     /**
      * Perform Elasticsearch explain query. Meant for local debugging.
-     *
-     * @return void
      */
     public function explain( Request $request, $resource, $id )
     {
 
-        return $this->query( 'getExplainParams', 'getExplainResponse', 'explain', $resource, $id );
+        return $this->query( 'getExplainParams', 'getRawResponse', 'explain', $resource, $id );
 
     }
 
     /**
      * Perform Elasticsearch search, but show last request sent to Elasticsearch instead.
      * Meant for local debugging.
-     *
-     * @return void
      */
     public function echo( Request $request, $resource = null )
     {
@@ -111,11 +119,11 @@ class SearchController extends BaseController
      *
      * @return array
      */
-    private function query( $requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null )
+    private function query( $requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null, $requestArgs = null )
     {
 
         // Transform our API's syntax into an Elasticsearch params array
-        $params = ( new SearchRequest( $resource, $id ) )->$requestMethod();
+        $params = ( new SearchRequest( $resource, $id ) )->$requestMethod( $requestArgs );
 
         try {
             $results = Elasticsearch::$elasticsearchMethod( $params );

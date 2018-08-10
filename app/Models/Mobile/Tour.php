@@ -123,7 +123,7 @@ class Tour extends MobileModel
     {
 
         return [
-            'suggest_autocomplete' => $this->title,
+            'suggest_autocomplete_all' => $this->title,
             'suggest_autocomplete_boosted' => $this->title,
         ];
 

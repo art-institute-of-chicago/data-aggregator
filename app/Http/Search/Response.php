@@ -51,7 +51,7 @@ class Response
 
         $response = array_merge(
             $response,
-            $this->suggest()
+            $this->getAutocompleteWithTitle()
         );
 
         $response = array_merge(
@@ -76,7 +76,7 @@ class Response
      *
      * @return array
      */
-    public function getExplainResponse()
+    public function getRawResponse()
     {
 
         return $this->searchResponse;
@@ -89,10 +89,28 @@ class Response
      *
      * @return array
      */
-    public function getAutocompleteResponse() {
+    public function getAutocompleteWithTitleResponse() {
 
         // Defaulting to [] is safe, but ineffecient: catch empty `q` earlier!
-        return $this->suggest()['suggest']['autocomplete'] ?? [];
+        return $this->getAutocompleteWithTitle()['suggest']['autocomplete'] ?? [];
+
+    }
+
+
+    /**
+     * Transform response for autocomplete queries. Pass-through the source.
+     *
+     * @return array
+     */
+    public function getAutocompleteWithSourceResponse() {
+
+        $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
+
+        if ($options) {
+            return array_pluck($options, '_source');
+        }
+
+        return [];
 
     }
 
@@ -102,7 +120,7 @@ class Response
      *
      * @return array
      */
-    public function paginate()
+    private function paginate()
     {
 
         // We assume that `size` and `from` have been set via getPaginationParams()
@@ -146,7 +164,7 @@ class Response
      *
      * @return array
      */
-    public function data()
+    private function data()
     {
 
         $hits = $this->searchResponse['hits']['hits'];
@@ -182,15 +200,11 @@ class Response
      *
      * @return array
      */
-    public function suggest()
+    private function getAutocompleteWithTitle()
     {
 
         $suggest = [];
 
-        // For debugging purposes, use this to see the original response:
-        // return array_get($this->searchResponse, 'suggest' );
-
-        // Autocomplete suggestions
         $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
 
         if ($options) {
@@ -212,7 +226,7 @@ class Response
      *
      * @return array
      */
-    public function aggregate()
+    private function aggregate()
     {
 
         $aggregations = $this->searchResponse['aggregations'] ?? null;

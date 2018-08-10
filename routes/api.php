@@ -35,7 +35,8 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::match( array('GET', 'POST'), 'msearch', 'Search\SearchController@msearch');
 
-    Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocomplete');
+    Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocompleteWithTitle');
+    Route::match( array('GET', 'POST'), 'autosuggest', 'Search\SearchController@autocompleteWithSource');
 
     // For debugging search, show generated request
     if( env('APP_ENV') === 'local' ) {

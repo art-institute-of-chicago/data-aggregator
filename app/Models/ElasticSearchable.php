@@ -164,16 +164,16 @@ trait ElasticSearchable
     {
 
         // This happens when the title is empty (e.g. TourStops)
-        // Fixes: completion field [suggest_autocomplete] does not support null values
+        // Fixes: completion field [suggest_autocomplete_all] does not support null values
         if( empty( $this->title ) )
         {
             return [];
         }
 
-        // TODO: Move `suggest_autocomplete_boosted` into `suggest_autocomplete`, and re-index everything from database?
-        $fields = [
-            'suggest_autocomplete' => $this->title,
-        ];
+        $fields = [];
+
+        // TODO: Move `suggest_autocomplete_all` into `suggest_autocomplete`, and re-index everything from database?
+        $fields['suggest_autocomplete_all'] = $this->title;
 
         if( $this->isBoosted() )
         {
@@ -298,11 +298,12 @@ trait ElasticSearchable
                             'timestamp' => [
                                 'type' => 'date',
                             ],
-                            'suggest_autocomplete' => [
-                                'type' => 'completion',
-                            ],
-                            // TODO: Remove this after we regenerate all search indexes?
                             'suggest_autocomplete_boosted' => [
+                                'type' => 'completion',
+                                'analyzer' => 'article', // Custom: targets only `a`, `an`, `the`
+                                'preserve_position_increments' => false, // Strips leading whitespace, leftover from articles
+                            ],
+                            'suggest_autocomplete_all' => [
                                 'type' => 'completion',
                                 'analyzer' => 'article', // Custom: targets only `a`, `an`, `the`
                                 'preserve_position_increments' => false, // Strips leading whitespace, leftover from articles
