@@ -16,6 +16,7 @@ class ImportScheduleDaily extends BaseCommand
     {
 
         $this->call('import:collections');
+        $this->call('import:collections-delete');
         $this->call('import:exhibitions-legacy');
         $this->call('import:events-ticketed');
         $this->call('import:events-legacy');

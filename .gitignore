@@ -11,3 +11,4 @@ npm-debug.log
 .env
 .env.testing
 /storage/clockwork
+Envoy.blade.php
