@@ -543,7 +543,11 @@ class Artwork extends CollectionsModel
             79307, // Bathers by a River
             64818, // Stacks of Wheat
             102611, // Veranda Post of Enthroned
-            8991, // Improvisation No. 30
+
+            129884, // Starry Night and the Astronauts
+            229351, // Target
+            229393, // Untitled
+            151363, // The Weaver
          ];
 
     }
