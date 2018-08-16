@@ -287,6 +287,11 @@ return [
                 'model' => \App\Models\Web\PrintedCatalog::class,
                 'is_searchable' => true,
             ],
+            [
+                'endpoint' => 'digital-labels',
+                'model' => \App\Models\DigitalLabel\Label::class,
+                'is_searchable' => true,
+            ],
         ],
 
     ],
