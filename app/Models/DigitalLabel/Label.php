@@ -92,7 +92,7 @@ class Label extends DigitalLabelModel
                 "doc" => "Whether the label is available to view",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->is_published && $this->exhibition->is_published; },
+                "value" => function() { return (bool) $this->is_published && ($this->exhibition->is_published ?? true); },
             ],
             [
                 "name" => 'source_created_at',
