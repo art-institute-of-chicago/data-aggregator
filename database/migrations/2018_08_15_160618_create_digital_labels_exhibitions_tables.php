@@ -15,20 +15,20 @@ class CreateDigitalLabelsExhibitionsTables extends Migration
     {
         Schema::create('digital_label_exhibitions', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->integer('exhibition_citi_id');
-            $table->string('color');
-            $table->string('background_color');
-            $table->boolean('published');
+            $table->integer('exhibition_citi_id')->nullable();
+            $table->string('color')->nullable();
+            $table->string('background_color')->nullable();
+            $table->boolean('is_published')->nullable();
             $table = $this->_addDates($table);
         });
 
         Schema::create('digital_labels', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->integer('digital_label_exhibition_id');
-            $table->string('type');
-            $table->text('copy_text');
-            $table->string('image_url');
-            $table->boolean('published');
+            $table->integer('digital_label_exhibition_id')->nullable();
+            $table->string('type')->nullable();
+            $table->text('copy_text')->nullable();
+            $table->string('image_url')->nullable();
+            $table->boolean('is_published')->nullable();
             $table = $this->_addDates($table);
         });
 
@@ -67,7 +67,7 @@ class CreateDigitalLabelsExhibitionsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('digital_labels_exhibitions');
+        Schema::dropIfExists('digital_label_exhibitions');
         Schema::dropIfExists('digital_labels');
         Schema::dropIfExists('artwork_digital_label');
         Schema::dropIfExists('artist_digital_label');

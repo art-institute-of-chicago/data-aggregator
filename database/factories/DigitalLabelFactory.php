@@ -17,7 +17,7 @@ $factory->define(App\Models\DigitalLabel\Exhibition::class, function (Faker\Gene
         'exhibition_citi_id' => $faker->randomElement(App\Models\Collections\Exhibition::fake()->pluck('citi_id')->all()),
         'color' => $faker->hexcolor,
         'background_color' => $faker->hexcolor,
-        'published' => $faker->boolean,
+        'is_published' => $faker->boolean,
         'source_created_at' => $faker->date($format = 'Y-m-d'),
         'source_modified_at' => $faker->date($format = 'Y-m-d'),
     ];
@@ -32,7 +32,7 @@ $factory->define(App\Models\DigitalLabel\Label::class, function (Faker\Generator
         'type' => $faker->randomElement(['IMAGE', 'EXPLORER']),
         'copy_text' => $faker->sentences(2, true),
         'image_url' => $faker->imageUrl,
-        'published' => $faker->boolean,
+        'is_published' => $faker->boolean,
         'source_created_at' => $faker->date($format = 'Y-m-d'),
         'source_modified_at' => $faker->date($format = 'Y-m-d'),
     ];
