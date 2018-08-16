@@ -251,53 +251,26 @@ class BaseModel extends AbstractModel
 
     /**
      * Touch the owning relations of the model.
-     *
-     * We override this method, because Laravel doesn't fire the `saved` event
-     * for `*Many` (e.g. `BelongsToMany`) relationships by default.
-     *
-     * @see Illuminate\Database\Eloquent\Concerns\HasRelationships::touchOwners()
-     *
-     * @link https://github.com/laravel/framework/issues/11198
-     * @link https://github.com/laravel/framework/pull/11400
-     * @link https://github.com/laravel/framework/pull/19275
-     *
-     * @TODO Add protection against infinite loops. Try adding `$touches` w/ `images` to Artwork.
-     *       One solution is to have some sort of centralized tracker of what's been touched, and
-     *       run the `touch` (or `searchable`) in batches.
+     * Reindex related models in search index.
      *
      * @return void
      */
     public function touchOwners()
     {
 
+        parent::touchOwners();
+
         foreach ($this->touches as $relation) {
 
             if ($this->$relation instanceof self) {
 
-                $this->touchOwner( $this->$relation );
+                $this->$relation()->searchable();
 
             } elseif ($this->$relation instanceof Collection) {
 
-                $this->$relation->each( [$this, 'touchOwner'] );
+                $this->$relation->each( [$this, 'searchable'] );
 
             }
         }
     }
-
-    /**
-     * Helper for `touchOwners` method.
-     */
-    public function touchOwner( Model $relation )
-    {
-
-        // TODO: In the original method, this was called on the instance of the relation, not on the model
-        // We should figure out why this was the case... See `touch` method in `BelongsToMany`.
-        $relation->touch();
-
-        $relation->fireModelEvent('saved', false);
-
-        $relation->touchOwners();
-
-    }
-
 }
