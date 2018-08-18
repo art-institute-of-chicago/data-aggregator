@@ -14,6 +14,7 @@ class Label extends DigitalLabelModel
     use Documentable;
 
     protected $table = 'digital_labels';
+    protected $apiCtrl = 'DigitalLabelsController';
 
     protected $casts = [
         'published' => 'boolean',
