@@ -25,9 +25,6 @@ class LegacyEvent extends MembershipTransformer
     protected function getExtraFields( Datum $datum )
     {
 
-        // Available fields we haven't done anything with yet:
-        // "url": "http://www.artic.edu/event/gallery-talk-modern-wing-highlights"
-
         return array_merge( $this->getButtonFields( $datum ), [
 
             'short_description' => $datum->summary,

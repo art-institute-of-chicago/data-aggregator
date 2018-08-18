@@ -25,6 +25,7 @@ class ImportScheduleDaily extends BaseCommand
         $this->call('import:products');
         $this->call('import:web');
         $this->call('import:analytics');
+        $this->call('import:digital-labels');
     }
 
 }

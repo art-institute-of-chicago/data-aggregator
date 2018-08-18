@@ -76,6 +76,11 @@ class Datum implements JsonSerializable
             return new \DateTime( $date->date, new \DateTimeZone( $date->timezone ) );
         }
 
+        if( is_numeric( $date ) )
+        {
+            return $date;
+        }
+
         return null;
 
     }
