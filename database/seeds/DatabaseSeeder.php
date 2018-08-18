@@ -13,6 +13,7 @@ class DatabaseSeeder extends AbstractSeeder
         $this->call(DscDatabaseSeeder::class);
         $this->call(StaticArchiveDatabaseSeeder::class);
         $this->call(WebDatabaseSeeder::class);
+        $this->call(DigitalLabelDatabaseSeeder::class);
 
     }
 
@@ -26,6 +27,7 @@ class DatabaseSeeder extends AbstractSeeder
         DscDatabaseSeeder::clean();
         StaticArchiveDatabaseSeeder::clean();
         WebDatabaseSeeder::clean();
+        DigitalLabelDatabaseSeeder::clean();
 
     }
 

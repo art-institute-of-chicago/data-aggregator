@@ -115,6 +115,16 @@ abstract class AbstractSeeder extends Seeder
 
     }
 
+    /**
+     * Helper for seeding BelongsToManyOrOne relations.
+     */
+    private function seedBelongsToManyOrOne( $subject, $objects, $method )
+    {
+
+        $subject->$method()->sync( $objects );
+
+    }
+
 
     /**
      * Helper for seeding HasMany relations.

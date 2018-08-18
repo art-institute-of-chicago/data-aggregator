@@ -13,7 +13,8 @@ class ImportAllCategoriesAgain extends Migration
      */
     public function up()
     {
-        Artisan::call('import:collections-full', ['endpoint' => 'categories']);
+        // Remove experimental migration
+        //Artisan::call('import:collections-full', ['endpoint' => 'categories']);
     }
 
     /**

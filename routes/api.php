@@ -218,6 +218,10 @@ Route::group(['prefix' => 'v1'], function() {
     Route::any('printed-catalogs', 'PrintedCatalogsController@index');
     Route::any('printed-catalogs/{id}', 'PrintedCatalogsController@show');
 
+    // Digital Labels
+    Route::any('digital-labels', 'DigitalLabelsController@index');
+    Route::any('digital-labels/{id}', 'DigitalLabelsController@show');
+
     // Generic endpoint to allow source systems to let us know when a record should be updated
     Route::any('{endpoint}/{id}/pull', 'PullController@pull');
 
