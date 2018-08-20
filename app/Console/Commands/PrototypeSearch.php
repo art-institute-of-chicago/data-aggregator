@@ -47,9 +47,6 @@ class PrototypeSearch extends Command
             "cats",
             "nocturne",
             "walker evans",
-        ], 5);
-
-        $ret .= $this->results([
             'nighthawks',
             'the old guitarist',
             'time transfixed',
@@ -60,25 +57,32 @@ class PrototypeSearch extends Command
             'hydra',
             'the childs bath',
             'reclining woman',
-            '1942.51',
-            '1926.224',
-            'seurat',
-            'georges seurat',
-            'hopper',
-            'edward hopper',
-            'rodin',
             'american gothic',
-            'pollock',
-            'jackson pollock',
-            'rothko',
-            'kandinsky',
             'creche',
             'the weaver',
+
+            'thorne rooms',
+            'thorne',
+            'cubism',
+            'still life',
+            'ceramic',
+            'impressionism',
+            'renaissance',
+            'paintings',
+            'photography',
+            'pop art',
+            'furniture',
+            'armor',
+            'charcoal',
+
+            'seurat',
+            'hopper',
+            'rodin',
+            'pollock',
+            'rothko',
+            'kandinsky',
             'grant wood',
             'van gogh',
-        ], 3);
-
-        $ret .= $this->results([
             'monet',
             'picasso',
             'renoir',
@@ -101,19 +105,12 @@ class PrototypeSearch extends Command
             'goya',
             'winslow homer',
             'david smith',
-            'thorne rooms',
-            'thorne',
-            'cubism',
-            'still life',
-            'ceramic',
-            'impressionism',
-            'renaissance',
-            'paintings',
-            'photography',
-            'pop art',
-            'furniture',
-            'armor',
-            'charcoal',
+
+            '1942.51',
+            '1926.224',
+            "1962.824",
+            "1959.615",
+            "2007.347",
         ]);
 
         $ret .= $this->footer();
@@ -127,16 +124,17 @@ class PrototypeSearch extends Command
         foreach ($queries as $query)
         {
             $ret .= "<h2>{$query}</h2>\n";
-            $response = file_get_contents(config('app.url') .'/api/v1/artworks/search?limit=' .$limit .'&q=' .urlencode($query));
+            $response = file_get_contents(config('app.url') .'/api/v1/artworks/search?limit=' .$limit .'&fields=thumbnail,id,title,main_reference_number&q=' .urlencode($query));
 
             $ret .= "<table>\n";
             foreach (json_decode($response)->data as $item)
             {
                 $ret .= "<a href=\"http://www-2018.artic.edu/artworks/{$item->id}\">";
                 $ret .= "<tr>";
-                $ret .= "<td><img src=\"" .($item->thumbnail->url ?? '') ."/full/75,/0/default.jpg\" /></td>";
-                $ret .= "<td>{$item->id}</td>";
-                $ret .= "<td>{$item->title}</td>";
+                $ret .= "<td style=\"padding:0 8px\"><img src=\"" .($item->thumbnail->url ?? '') ."/full/75,/0/default.jpg\" /></td>";
+                $ret .= "<td style=\"padding:0 8px\">{$item->id}</td>";
+                $ret .= "<td style=\"padding:0 8px\">{$item->main_reference_number}</td>";
+                $ret .= "<td style=\"padding:0 8px\">{$item->title}</td>";
                 $ret .= "</tr>\n";
                 $ret .= "</a>\n";
             }
