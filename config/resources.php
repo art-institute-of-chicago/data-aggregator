@@ -85,7 +85,6 @@ return [
             [
                 'endpoint' => 'catalogues',
                 'model' => \App\Models\Collections\Catalogue::class,
-                'is_searchable' => true,
             ],
             [
                 'endpoint' => 'artwork-catalogues',
@@ -172,7 +171,6 @@ return [
             [
                 'endpoint' => 'ticketed-event-types',
                 'model' => \App\Models\Membership\TicketedEventType::class,
-                'is_searchable' => true, // TODO: Verify?
             ],
             [
                 'endpoint' => 'tours',
@@ -299,7 +297,6 @@ return [
             [
                 'endpoint' => 'digital-label-exhibitions',
                 'model' => \App\Models\DigitalLabel\Exhibition::class,
-                'is_searchable' => true, // Marked as such to ease reindex
             ],
         ],
 

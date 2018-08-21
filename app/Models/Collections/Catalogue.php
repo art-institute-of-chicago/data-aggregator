@@ -3,7 +3,6 @@
 namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
-use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
 /**
@@ -12,7 +11,6 @@ use App\Models\Documentable;
 class Catalogue extends CollectionsModel
 {
 
-    use ElasticSearchable;
     use Documentable;
 
     protected $primaryKey = 'citi_id';

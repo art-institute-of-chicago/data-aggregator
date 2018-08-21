@@ -3,7 +3,6 @@
 namespace App\Models\Membership;
 
 use App\Models\MembershipModel;
-use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
 use Illuminate\Support\Facades\Log;
@@ -16,7 +15,6 @@ use Carbon\Carbon;
 class TicketedEventType extends MembershipModel
 {
 
-    use ElasticSearchable;
     use Documentable;
 
     /**
