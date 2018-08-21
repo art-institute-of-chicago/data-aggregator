@@ -15,7 +15,6 @@ class Label extends DigitalLabelModel
     use ElasticSearchable, Documentable;
 
     protected $table = 'digital_labels';
-    protected $apiCtrl = 'DigitalLabelsController';
 
     protected $casts = [
         'published' => 'boolean',

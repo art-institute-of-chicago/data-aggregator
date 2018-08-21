@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Aic\Hub\Foundation\AbstractController as BaseController;
 
-class DigitalLabelsController extends BaseController
+class LabelsController extends BaseController
 {
 
     protected $model = \App\Models\DigitalLabel\Label::class;
