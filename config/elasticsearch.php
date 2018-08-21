@@ -252,7 +252,7 @@ return [
                         'shingle' => [
                             'type' => 'shingle',
                             'min_shingle_size' => 2, // default
-                            'max_shingle_size' => 3, // default is 2
+                            'max_shingle_size' => 2, // default
                         ],
                     ],
                     'analyzer' => [
