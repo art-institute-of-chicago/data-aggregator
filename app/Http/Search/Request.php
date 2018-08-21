@@ -185,7 +185,10 @@ class Request
             $this->scopes = $settings->pluck('scope')->filter()->values()->all();
 
             // These will be injected into the should clause
-            $this->boosts = $settings->pluck('boost')->filter()->values()->all();
+            if (!isset($input['q']))
+            {
+                $this->boosts = $settings->pluck('boost')->filter()->values()->all();
+            }
 
             // These will be used to wrap the query in `function_score`
             $this->functionScores = $settings->filter( function( $value, $key ) {
@@ -479,20 +482,24 @@ class Request
             return $params;
         }
 
-        // Boost anything with `is_boosted` true
-        $params['body']['query']['bool']['should'][] = [
-            'term' => [
-                'is_boosted' => [
-                    'value' => true,
-                    'boost' => 1.5,
+        if (!isset($input['q']))
+        {
+            // Boost anything with `is_boosted` true
+            $params['body']['query']['bool']['should'][] = [
+                'term' => [
+                    'is_boosted' => [
+                        'value' => true,
+                        'boost' => 1.5,
+                    ]
                 ]
-            ]
-        ];
+            ];
 
-        // Add any resource-specific boosts
-        foreach( $this->boosts as $boost ) {
+            // Add any resource-specific boosts
+            foreach( $this->boosts as $boost ) {
 
-            $params['body']['query']['bool']['should'][] = $boost;
+                $params['body']['query']['bool']['should'][] = $boost;
+
+            }
 
         }
 
