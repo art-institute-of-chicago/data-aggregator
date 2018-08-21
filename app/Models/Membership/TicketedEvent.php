@@ -49,6 +49,13 @@ class TicketedEvent extends MembershipModel
                 "value" => function() { return $this->start_at ? $this->start_at->toIso8601String() : NULL; },
             ],
             [
+                "name" => 'ticketed_event_type_id',
+                "doc" => "Unique identifier of the event type in the ticketing system this website event is tied to",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->event_type_id ?: NULL; },
+            ],
+            [
                 "name" => 'end_at',
                 "doc" => "Date and time the event ends",
                 "type" => "ISO 8601 date and time",
