@@ -129,14 +129,12 @@ class PrototypeSearch extends Command
             $ret .= "<table>\n";
             foreach (json_decode($response)->data as $item)
             {
-                $ret .= "<a href=\"http://www-2018.artic.edu/artworks/{$item->id}\">";
-                $ret .= "<tr>";
+                $ret .= "<tr class='clickable-row' data-href='http://www-2018.artic.edu/artworks/{$item->id}'>";
                 $ret .= "<td style=\"padding:0 8px\"><img src=\"" .($item->thumbnail->url ?? '') ."/full/75,/0/default.jpg\" /></td>";
                 $ret .= "<td style=\"padding:0 8px\">{$item->id}</td>";
                 $ret .= "<td style=\"padding:0 8px\">{$item->main_reference_number}</td>";
                 $ret .= "<td style=\"padding:0 8px\">{$item->title}</td>";
                 $ret .= "</tr>\n";
-                $ret .= "</a>\n";
             }
             $ret .= "</table>\n";
             $ret .= "<br/><br/>\n";
@@ -147,7 +145,12 @@ class PrototypeSearch extends Command
 
     public function header($title = '')
     {
-        $ret = "<html>\n<body>\n";
+        $ret = "<html>\n";
+        $ret .= "<head>\n";
+        $ret .= "<script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=\" crossorigin=\"anonymous\"></script>\n";
+        $ret .= "<style>tr.clickable-row { cursor: pointer; }</style>\n";
+        $ret .= "</head>\n";
+        $ret .= "<body>\n";
         if ($title)
         {
             $ret .= "<h1>{$title}</h1>\n";
@@ -157,6 +160,13 @@ class PrototypeSearch extends Command
 
     public function footer()
     {
-        return "</body>\n</html>\n";
+        return "<script>\n"
+            . "  jQuery(document).ready(function($) {\n"
+            . "    $(\".clickable-row\").click(function() {\n"
+            . "      window.location = $(this).data(\"href\");\n"
+            . "    });\n"
+            . "  });\n"
+            . "</script>\n"
+            . "</body>\n</html>\n";
     }
 }
