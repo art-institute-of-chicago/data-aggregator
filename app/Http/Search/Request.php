@@ -382,6 +382,8 @@ class Request
     /**
      * Get pagination params.
      *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html
+     *
      * @param $input array
      *
      * @return array
@@ -390,8 +392,13 @@ class Request
 
         // Elasticsearch params take precedence
         // If that doesn't work, attempt to convert Laravel's pagination into ES params
-        $size = $input['size'] ?? $input['limit'] ?? null;
-        $from = $input['from'] ?? $input['page'] ??  null;
+        $size = $input['size'] ?? $input['limit'] ?? 10;
+        $from = $input['from'] ?? null;
+
+        // `from` takes precedence over `page`
+        if (!$from && isset($input['page'])) {
+            $from = $input['page'] * $size;
+        }
 
         // ES is robust: it can accept `size` or `from` independently
 
