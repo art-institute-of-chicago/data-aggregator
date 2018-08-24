@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
-
 use Aic\Hub\Foundation\AbstractController as BaseController;
 
 class AssetsController extends BaseController

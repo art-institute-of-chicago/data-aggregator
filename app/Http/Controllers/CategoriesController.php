@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Category;
+
 use Illuminate\Http\Request;
 
 use Aic\Hub\Foundation\AbstractController as BaseController;
