@@ -305,8 +305,6 @@ class Agent extends CollectionsModel
             return [];
         }
 
-        $fields = [];
-
         $withTitles = [
             'input' => array_merge(
                 [
@@ -319,6 +317,8 @@ class Agent extends CollectionsModel
             'weight' => 2,
         ];
 
+        $fields = [];
+
         if( $this->isBoosted() )
         {
             // Boosts popular agents higher than normal agents
@@ -329,6 +329,11 @@ class Agent extends CollectionsModel
         }
 
         // For autocomplete v2
+        $withTitles['contexts'] = [
+            'groupings' => [
+                'title',
+            ]
+        ];
         $fields['suggest_autocomplete_all'] = $withTitles;
 
         return $fields;

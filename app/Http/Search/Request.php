@@ -77,6 +77,9 @@ class Request
         // Choose which fields to return
         'fields',
 
+        // Contexts for autosuggest
+        'contexts',
+
         // Fields to use for aggregations
         'aggs',
         'aggregations',
@@ -230,6 +233,7 @@ class Request
         $input['fields'] = [
             'id',
             'title',
+            'main_reference_number',
             'api_model',
             'subtype', // TODO: Allow each model to specify exposed autocomplete fields?
         ];
@@ -763,7 +767,9 @@ class Request
     private function addAutocompleteSuggestParams( array $params, array $input, $requestArgs = null)
     {
 
-        if ($requestArgs && is_array($requestArgs) && $requestArgs['use_suggest_autocomplete_all'] ) {
+        $isThisAutosuggest = $requestArgs && is_array($requestArgs) && $requestArgs['use_suggest_autocomplete_all'];
+
+        if ($isThisAutosuggest) {
             $field = 'suggest_autocomplete_all';
         } else {
             $field = 'suggest_autocomplete_boosted';
@@ -776,9 +782,23 @@ class Request
                 'fuzzy' => [
                     'fuzziness' => 'AUTO',
                     'min_length' => 5,
-                ]
+                ],
             ],
         ];
+
+        if ($isThisAutosuggest && isset($input['contexts'])) {
+            $contexts = $input['contexts'];
+
+            // Ensure that resources is an array, not string
+            if( is_string( $contexts ) )
+            {
+                $contexts = explode(',', $contexts);
+            }
+
+            $params['body']['suggest']['autocomplete']['completion']['contexts'] = [
+                'groupings' => $contexts,
+            ];
+        }
 
         return $params;
 

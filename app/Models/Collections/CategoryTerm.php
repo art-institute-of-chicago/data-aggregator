@@ -13,7 +13,9 @@ class CategoryTerm extends CollectionsModel
 {
 
     use Documentable;
-    use ElasticSearchable;
+    use ElasticSearchable {
+        getSuggestSearchFields as public traitGetSuggestSearchFields;
+    }
 
     protected static $isCategory = null;
 
@@ -348,9 +350,7 @@ class CategoryTerm extends CollectionsModel
             return [];
         }
 
-        return [
-            'suggest_autocomplete_all' => $this->title,
-        ];
+        return $this->traitGetSuggestSearchFields();
 
     }
 
