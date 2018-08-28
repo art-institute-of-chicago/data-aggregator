@@ -400,8 +400,8 @@ class Request
         $from = $input['from'] ?? null;
 
         // `from` takes precedence over `page`
-        if (!$from && isset($input['page'])) {
-            $from = $input['page'] * $size;
+        if (!$from && isset($input['page']) && $input['page'] > 0) {
+            $from = ($input['page'] - 1) * $size;
         }
 
         // ES is robust: it can accept `size` or `from` independently
