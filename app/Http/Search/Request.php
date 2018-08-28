@@ -87,6 +87,8 @@ class Request
         // Determines which shards to use, ensures consistent result order
         'preference',
 
+        // Allow clients to turn fuzzy off
+        'fuzzy',
     ];
 
     /**
@@ -667,7 +669,7 @@ class Request
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
                 'query' => $input['q'],
-                'fuzziness' => 'AUTO',
+                'fuzziness' => $input['fuzzy'] === 'false' ? 0 : 'AUTO',
                 'prefix_length' => 1,
                 'fields' => $fields,
             ]
@@ -780,7 +782,7 @@ class Request
             'completion' => [
                 'field' => $field,
                 'fuzzy' => [
-                    'fuzziness' => 'AUTO',
+                    'fuzziness' => $input['fuzzy'] === 'false' ? 0 : 'AUTO',
                     'min_length' => 5,
                 ],
             ],
