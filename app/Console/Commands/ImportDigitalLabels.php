@@ -113,7 +113,6 @@ class ImportDigitalLabels extends AbstractImportCommand
 
         return $this->resetData(
             [
-                Exhibition::class,
                 Label::class,
             ],
             [
