@@ -251,8 +251,8 @@ return [
                         ],
                         'shingle' => [
                             'type' => 'shingle',
-                            'min_shingle_size' => 2,
-                            'max_shingle_size' => 3
+                            'min_shingle_size' => 2, // default
+                            'max_shingle_size' => 2, // default
                         ],
                     ],
                     'analyzer' => [
@@ -264,6 +264,7 @@ return [
                                 'english_stop',
                                 'english_stemmer',
                                 'asciifolding',
+                                'shingle',
                             ],
                         ],
                         'article' => [
@@ -272,6 +273,7 @@ return [
                                 'lowercase',
                                 'english_article_stop',
                                 'asciifolding',
+                                'shingle',
                             ],
                         ],
                         /* TODO: Delete these definitions that we copied over from initial example

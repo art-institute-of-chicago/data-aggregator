@@ -1329,6 +1329,46 @@ class Artwork extends CollectionsModel
     }
 
 
+    /**
+     * Add suggest fields and values. By default, only boosted works are added to the autocomplete.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
+     * @link https://www.elastic.co/blog/you-complete-me
+     *
+     * @return array
+     */
+    public function getSuggestSearchFields()
+    {
+
+        // This happens when the title is empty (e.g. TourStops)
+        // Fixes: completion field [suggest_autocomplete_all] does not support null values
+        if( empty( $this->title ) )
+        {
+            return [];
+        }
+
+        $fields = [];
+
+        // TODO: Move `suggest_autocomplete_all` into `suggest_autocomplete`, and re-index everything from database?
+        $fields['suggest_autocomplete_all'] = [
+            'input' => [$this->main_id],
+            'contexts' => [
+                'groupings' => [
+                    'accession',
+                ]
+            ],
+        ];
+
+        if( $this->isBoosted() )
+        {
+            $fields['suggest_autocomplete_boosted'] = $this->title;
+        }
+
+        return $fields;
+
+    }
+
+
     public function searchableImage()
     {
 

@@ -77,6 +77,9 @@ class Request
         // Choose which fields to return
         'fields',
 
+        // Contexts for autosuggest
+        'contexts',
+
         // Fields to use for aggregations
         'aggs',
         'aggregations',
@@ -84,6 +87,8 @@ class Request
         // Determines which shards to use, ensures consistent result order
         'preference',
 
+        // Allow clients to turn fuzzy off
+        'fuzzy',
     ];
 
     /**
@@ -185,7 +190,10 @@ class Request
             $this->scopes = $settings->pluck('scope')->filter()->values()->all();
 
             // These will be injected into the should clause
-            $this->boosts = $settings->pluck('boost')->filter()->values()->all();
+            if (!isset($input['q']))
+            {
+                $this->boosts = $settings->pluck('boost')->filter()->values()->all();
+            }
 
             // These will be used to wrap the query in `function_score`
             $this->functionScores = $settings->filter( function( $value, $key ) {
@@ -227,6 +235,7 @@ class Request
         $input['fields'] = [
             'id',
             'title',
+            'main_reference_number',
             'api_model',
             'subtype', // TODO: Allow each model to specify exposed autocomplete fields?
         ];
@@ -379,6 +388,8 @@ class Request
     /**
      * Get pagination params.
      *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html
+     *
      * @param $input array
      *
      * @return array
@@ -387,8 +398,13 @@ class Request
 
         // Elasticsearch params take precedence
         // If that doesn't work, attempt to convert Laravel's pagination into ES params
-        $size = $input['size'] ?? $input['limit'] ?? null;
-        $from = $input['from'] ?? $input['page'] ??  null;
+        $size = $input['size'] ?? $input['limit'] ?? 10;
+        $from = $input['from'] ?? null;
+
+        // `from` takes precedence over `page`
+        if (!$from && isset($input['page']) && $input['page'] > 0) {
+            $from = ($input['page'] - 1) * $size;
+        }
 
         // ES is robust: it can accept `size` or `from` independently
 
@@ -479,20 +495,24 @@ class Request
             return $params;
         }
 
-        // Boost anything with `is_boosted` true
-        $params['body']['query']['bool']['should'][] = [
-            'term' => [
-                'is_boosted' => [
-                    'value' => true,
-                    'boost' => 1.5,
+        if (!isset($input['q']))
+        {
+            // Boost anything with `is_boosted` true
+            $params['body']['query']['bool']['should'][] = [
+                'term' => [
+                    'is_boosted' => [
+                        'value' => true,
+                        'boost' => 1.5,
+                    ]
                 ]
-            ]
-        ];
+            ];
 
-        // Add any resource-specific boosts
-        foreach( $this->boosts as $boost ) {
+            // Add any resource-specific boosts
+            foreach( $this->boosts as $boost ) {
 
-            $params['body']['query']['bool']['should'][] = $boost;
+                $params['body']['query']['bool']['should'][] = $boost;
+
+            }
 
         }
 
@@ -649,7 +669,7 @@ class Request
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
                 'query' => $input['q'],
-                'fuzziness' => 'AUTO',
+                'fuzziness' => $input['fuzzy'] === 'false' ? 0 : 'AUTO',
                 'prefix_length' => 1,
                 'fields' => $fields,
             ]
@@ -749,7 +769,9 @@ class Request
     private function addAutocompleteSuggestParams( array $params, array $input, $requestArgs = null)
     {
 
-        if ($requestArgs && is_array($requestArgs) && $requestArgs['use_suggest_autocomplete_all'] ) {
+        $isThisAutosuggest = $requestArgs && is_array($requestArgs) && $requestArgs['use_suggest_autocomplete_all'];
+
+        if ($isThisAutosuggest) {
             $field = 'suggest_autocomplete_all';
         } else {
             $field = 'suggest_autocomplete_boosted';
@@ -760,11 +782,25 @@ class Request
             'completion' => [
                 'field' => $field,
                 'fuzzy' => [
-                    'fuzziness' => 'AUTO',
+                    'fuzziness' => $input['fuzzy'] === 'false' ? 0 : 'AUTO',
                     'min_length' => 5,
-                ]
+                ],
             ],
         ];
+
+        if ($isThisAutosuggest && isset($input['contexts'])) {
+            $contexts = $input['contexts'];
+
+            // Ensure that resources is an array, not string
+            if( is_string( $contexts ) )
+            {
+                $contexts = explode(',', $contexts);
+            }
+
+            $params['body']['suggest']['autocomplete']['completion']['contexts'] = [
+                'groupings' => $contexts,
+            ];
+        }
 
         return $params;
 

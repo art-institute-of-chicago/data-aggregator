@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-use Aic\Hub\Foundation\AbstractController as BaseController;
+use App\Jobs\PullRecord;
+
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 
-use App\Jobs\PullRecord;
+use Aic\Hub\Foundation\AbstractController as BaseController;
 
 class PullController extends BaseController
 {

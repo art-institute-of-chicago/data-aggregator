@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collections\Exhibition;
+
 use Illuminate\Http\Request;
 
 use Aic\Hub\Foundation\AbstractController as BaseController;
-
-use App\Models\Collections\Exhibition;
 
 class AgentExhibitionsController extends BaseController
 {

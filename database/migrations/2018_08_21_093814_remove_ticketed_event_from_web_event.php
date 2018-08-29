@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ImportAllCategoriesAgain extends Migration
+class RemoveTicketedEventFromWebEvent extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class ImportAllCategoriesAgain extends Migration
      */
     public function up()
     {
-        // Remove experimental migration
-        //Artisan::call('import:collections-full', ['endpoint' => 'categories']);
+        Schema::table('events', function (Blueprint $table) {
+            $table->dropColumn('ticketed_event_type_id');
+        });
     }
 
     /**
@@ -24,6 +25,8 @@ class ImportAllCategoriesAgain extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('events', function (Blueprint $table) {
+            $table->string('ticketed_event_type_id')->nullable()->after('image_url');
+        });
     }
 }

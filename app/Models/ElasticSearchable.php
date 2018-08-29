@@ -173,7 +173,14 @@ trait ElasticSearchable
         $fields = [];
 
         // TODO: Move `suggest_autocomplete_all` into `suggest_autocomplete`, and re-index everything from database?
-        $fields['suggest_autocomplete_all'] = $this->title;
+        $fields['suggest_autocomplete_all'] = [
+            'input' => [$this->title],
+            'contexts' => [
+                'groupings' => [
+                    'title',
+                ]
+            ],
+        ];
 
         if( $this->isBoosted() )
         {
@@ -307,6 +314,12 @@ trait ElasticSearchable
                                 'type' => 'completion',
                                 'analyzer' => 'article', // Custom: targets only `a`, `an`, `the`
                                 'preserve_position_increments' => false, // Strips leading whitespace, leftover from articles
+                                'contexts' => [
+                                    [
+                                        'name' => 'groupings',
+                                        'type' => 'category', // accession, title, boosted
+                                    ],
+                                ],
                             ],
                         ],
                         $default,

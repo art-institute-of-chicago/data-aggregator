@@ -12,8 +12,10 @@ use App\Models\Documentable;
 class Tour extends MobileModel
 {
 
-    use ElasticSearchable;
     use Documentable;
+    use ElasticSearchable {
+        getSuggestSearchFields as public traitGetSuggestSearchFields;
+    }
 
     public function intro()
     {
@@ -122,10 +124,10 @@ class Tour extends MobileModel
     public function getSuggestSearchFields()
     {
 
-        return [
-            'suggest_autocomplete_all' => $this->title,
-            'suggest_autocomplete_boosted' => $this->title,
-        ];
+        $ret = $this->traitGetSuggestSearchFields();
+        $ret['suggest_autocomplete_boosted'] = $this->title;
+
+        return $ret;
 
     }
 

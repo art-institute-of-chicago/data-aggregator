@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Aic\Hub\Foundation\AbstractController as BaseController;
-
 use App\Models\Collections\Agent;
+
+use Aic\Hub\Foundation\AbstractController as BaseController;
 
 class AgentPlacesController extends BaseController
 {

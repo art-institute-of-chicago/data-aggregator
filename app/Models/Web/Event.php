@@ -31,13 +31,6 @@ class Event extends WebModel
 
     }
 
-    public function ticketedEventType()
-    {
-
-        return $this->belongsTo('App\Models\Membership\TicketedEventType', 'ticketed_event_type_id', 'membership_id');
-
-    }
-
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
@@ -204,13 +197,6 @@ class Event extends WebModel
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->ticketedEvent ? $this->ticketedEvent->membership_id : NULL; },
-            ],
-            [
-                "name" => 'ticketed_event_type_id',
-                "doc" => "Unique identifier of the event type in the ticketing system this website event is tied to",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->ticketedEventType ? $this->ticketedEventType->membership_id : NULL; },
             ],
             [
                 "name" => 'survey_url',
