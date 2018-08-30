@@ -21,7 +21,8 @@ class Event extends WebModel
         'is_member_exclusive' => 'boolean',
         'is_admission_required' => 'boolean',
         'hidden' => 'boolean',
-        'all_dates' => 'array',
+        'start_date' => 'date',
+        'end_date' => 'date',
     ];
 
     public function ticketedEvent()
@@ -125,22 +126,16 @@ class Event extends WebModel
             [
                 "name" => 'start_date',
                 "doc" => "The date the event begins",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->start_date; },
+                "type" => "ISO 8601 date and time",
+                'elasticsearch_type' => 'date',
+                "value" => function() { return $this->start_date ? $this->start_date->toIso8601String() : null; },
             ],
             [
                 "name" => 'end_date',
                 "doc" => "The date the event ends",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->end_date; },
-            ],
-            [
-                "name" => 'all_dates',
-                "doc" => "All the dates this event takes place",
-                "type" => "array",
-                "value" => function() { return $this->all_dates; },
+                "type" => "ISO 8601 date and time",
+                'elasticsearch_type' => 'date',
+                "value" => function() { return $this->end_date ? $this->start_date->toIso8601String() : null; },
             ],
             [
                 "name" => 'location',
@@ -148,20 +143,6 @@ class Event extends WebModel
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->location; },
-            ],
-            [
-                "name" => 'sponsors_description',
-                "doc" => "A description of who sponsors the event",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->sponsors_description; },
-            ],
-            [
-                "name" => 'sponsors_sub_copy',
-                "doc" => "Further details on who sponsors the event",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->sponsors_sub_copy; },
             ],
             [
                 "name" => 'layout_type',
