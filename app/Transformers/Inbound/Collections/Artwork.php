@@ -12,6 +12,8 @@ use App\Models\Collections\Gallery;
 use App\Transformers\Datum;
 use App\Transformers\Inbound\CollectionsTransformer;
 
+use Carbon\Carbon;
+
 class Artwork extends CollectionsTransformer
 {
 
@@ -306,8 +308,8 @@ class Artwork extends CollectionsTransformer
                 'citi_id' => $date->id,
                 'artwork_citi_id' => $datum->citi_id, // draw from the artwork record
                 'lake_guid' => $date->lake_guid,
-                'date_earliest' => $date->date_earliest,
-                'date_latest' => $date->date_latest,
+                'date_earliest' => Carbon::parse($date->date_earliest),
+                'date_latest' => Carbon::parse($date->date_latest),
                 'preferred' => $date->is_preferred,
                 'artwork_date_qualifier_citi_id' => $date->date_qualifier_id,
             ]);
