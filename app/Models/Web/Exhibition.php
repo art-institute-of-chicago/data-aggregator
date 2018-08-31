@@ -20,6 +20,8 @@ class Exhibition extends WebModel
         'published' => 'boolean',
     ];
 
+    protected $touches = ['exhibition'];
+
     public function exhibition()
     {
 
@@ -34,6 +36,13 @@ class Exhibition extends WebModel
     {
 
         return [
+            [
+                "name" => 'is_featured',
+                "doc" => "Is this exhibition currently featured on our website?",
+                "type" => "boolean",
+                "elasticsearch_type" => 'boolean',
+                "value" => function() { return (bool) $this->is_featured ?? false; },
+            ],
             [
                 "name" => 'header_copy',
                 "doc" => "The text at the top of the exhibition page",

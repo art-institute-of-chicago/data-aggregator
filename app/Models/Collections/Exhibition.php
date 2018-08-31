@@ -67,6 +67,14 @@ class Exhibition extends CollectionsModel
 
     }
 
+
+    public function webExhibition()
+    {
+
+        return $this->hasOne('App\Models\Web\Exhibition', 'datahub_id');
+
+    }
+
     // TODO: Consider using hasManyThrough() or belongsToMany()->using()
     public function getArtistsAttribute()
     {
@@ -129,6 +137,13 @@ class Exhibition extends CollectionsModel
     {
 
         return [
+            [
+                "name" => 'is_featured',
+                "doc" => "Is this exhibition currently featured on our website?",
+                "type" => "boolean",
+                "elasticsearch_type" => 'boolean',
+                "value" => function() { return (bool) $this->webExhibition->is_featured ?? false; },
+            ],
             [
                 "name" => 'description',
                 "doc" => "Explanation of what this exhibition is",
