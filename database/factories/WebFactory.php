@@ -73,7 +73,6 @@ $factory->define(App\Models\Web\Exhibition::class, function (Faker\Generator $fa
         'title' => ucfirst($faker->words(3, true)),
         'header_copy' => $faker->sentence(),
         'datahub_id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
-        'is_visible' => $faker->boolean,
         'exhibition_message' => $faker->sentence(),
         'sponsors_sub_copy' => $faker->sentence(),
         'cms_exhibition_type' => $faker->randomDigit,

@@ -18,7 +18,6 @@ class Exhibition extends WebModel
 
     protected $casts = [
         'published' => 'boolean',
-        'is_visible' => 'boolean',
     ];
 
     public function exhibition()
@@ -48,13 +47,6 @@ class Exhibition extends WebModel
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->exhibition ? $this->exhibition->citi_id : NULL; },
-            ],
-            [
-                "name" => 'is_visible',
-                "doc" => "Whether the web exhibition is visible on the website",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->is_visible; },
             ],
             [
                 "name" => 'type',
