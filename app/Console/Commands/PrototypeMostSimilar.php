@@ -26,9 +26,12 @@ class PrototypeMostSimilar extends Command
                          'date_start','date_end',
                          'color',
     ];
+
     protected $size = 12;
 
-    private $increments = [
+    protected $sizeRenderPerQuery = 4;
+
+    protected $increments = [
         -8000,
         -7000,
         -6000,
@@ -124,7 +127,7 @@ class PrototypeMostSimilar extends Command
                         $ret .= "</tr>\n";
                         $ids[] = $item->id;
                         $count++;
-                        if ($count == 4)
+                        if ($count == $this->sizeRenderPerQuery)
                         {
                             break;
                         }
@@ -247,7 +250,7 @@ class PrototypeMostSimilar extends Command
         return $ret;
     }
 
-    private function curl($query)
+    protected function curl($query)
     {
         $queryString = json_encode($query);
 
@@ -271,7 +274,7 @@ class PrototypeMostSimilar extends Command
 
     }
 
-    private function basicQuery($field, $value)
+    protected function basicQuery($field, $value)
     {
         if (!$value)
         {
@@ -289,7 +292,7 @@ class PrototypeMostSimilar extends Command
         ];
     }
 
-    private function dateQuery($date_start, $date_end)
+    protected function dateQuery($date_start, $date_end)
     {
         return [
             "resources" => "artworks",
@@ -318,7 +321,7 @@ class PrototypeMostSimilar extends Command
         ];
     }
 
-    private function colorQuery($color)
+    protected function colorQuery($color)
     {
         if (!$color) {
             return [];
