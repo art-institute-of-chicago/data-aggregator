@@ -142,7 +142,7 @@ class Exhibition extends CollectionsModel
                 "doc" => "Is this exhibition currently featured on our website?",
                 "type" => "boolean",
                 "elasticsearch_type" => 'boolean',
-                "value" => function() { return (bool) $this->webExhibition->is_featured ?? false; },
+                "value" => function() { return $this->webExhibition ? (bool) $this->webExhibition->is_featured : false; },
             ],
             [
                 "name" => 'description',
