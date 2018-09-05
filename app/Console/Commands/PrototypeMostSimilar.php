@@ -111,9 +111,10 @@ class PrototypeMostSimilar extends Command
             $ids = [$id];
             $ret .= "<table>\n";
 
+            $count = 0;
             foreach ($responses as $response)
             {
-                $count = 0;
+                $countForCurrentQuery = 0;
                 foreach ($response->data as $item)
                 {
                     if (!in_array($item->id, $ids))
@@ -127,7 +128,12 @@ class PrototypeMostSimilar extends Command
                         $ret .= "</tr>\n";
                         $ids[] = $item->id;
                         $count++;
-                        if ($count == $this->sizeRenderPerQuery)
+                        $countForCurrentQuery++;
+                        if ($count == $this->size)
+                        {
+                            break 2;
+                        }
+                        if ($countForCurrentQuery == $this->sizeRenderPerQuery)
                         {
                             break;
                         }
