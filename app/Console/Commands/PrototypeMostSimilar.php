@@ -22,7 +22,7 @@ class PrototypeMostSimilar extends Command
     protected $description = 'Output sharable file to demonstrate list of artworks "most similar" to another artwork';
 
     protected $fields = ['thumbnail','id','title','main_reference_number',
-                         'artist_id','style_id','classification_id',
+                         'artist_id','style_ids','classification_ids',
                          'date_start','date_end',
                          'color',
     ];
@@ -150,15 +150,21 @@ class PrototypeMostSimilar extends Command
             $ret ? $ret .= ', ' : '';
             $ret .= 'Same artist';
         }
-        if ($item->style_id == $artw->style->lake_uid) {
-            $ret ? $ret .= ', ' : '';
-            $ret .= 'Same style';
+        foreach ($item->style_ids as $style) {
+            if (in_array($style, array_pluck($artw->styles, 'lake_uid'))) {
+                $ret ? $ret .= ', ' : '';
+                $ret .= 'Same style';
+                break;
+            }
         }
-        if ($item->classification_id == $artw->classification->lake_uid) {
-            $ret ? $ret .= ', ' : '';
-            $ret .= 'Same classification';
+        foreach ($item->classification_ids as $classification) {
+            if (in_array($classification, array_pluck($artw->classifications, 'lake_uid'))) {
+                $ret ? $ret .= ', ' : '';
+                $ret .= 'Same classification';
+                break;
+            }
         }
-        if ($item->date_start >= $date_start && $item->date_end >= $date_end) {
+        if ($item->date_start >= $date_start && $item->date_end <= $date_end) {
             $ret ? $ret .= ', ' : '';
             $ret .= 'Similar point in time';
         }
