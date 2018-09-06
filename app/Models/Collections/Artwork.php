@@ -67,14 +67,14 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function artist()
+    public function getArtistAttribute()
     {
 
         return $this->preferred('artist');
 
     }
 
-    public function altArtists()
+    public function getAltArtistsAttribute()
     {
 
         return $this->alts('artist');
@@ -134,21 +134,21 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function styles()
+    public function getStylesAttribute()
     {
 
         return $this->relatedResources('term', CategoryTerm::STYLE, 'subtype');
 
     }
 
-    public function style()
+    public function getStyleAttribute()
     {
 
         return $this->preferred('term', CategoryTerm::STYLE, 'subtype');
 
     }
 
-    public function altStyles()
+    public function getAltStylesAttribute()
     {
 
         return $this->alts('term', CategoryTerm::STYLE, 'subtype');
@@ -156,84 +156,84 @@ class Artwork extends CollectionsModel
     }
 
 
-    public function classifications()
+    public function getClassificationsAttribute()
     {
 
         return $this->relatedResources('term', CategoryTerm::CLASSIFICATION, 'subtype');
 
     }
 
-    public function classification()
+    public function getClassificationAttribute()
     {
 
         return $this->preferred('term', CategoryTerm::CLASSIFICATION, 'subtype');
 
     }
 
-    public function altClassifications()
+    public function getAltClassificationsAttribute()
     {
 
         return $this->alts('term', CategoryTerm::CLASSIFICATION, 'subtype');
 
     }
 
-    public function subjects()
+    public function getSubjectsAttribute()
     {
 
         return $this->relatedResources('term', CategoryTerm::SUBJECT, 'subtype');
 
     }
 
-    public function subject()
+    public function getSubjectAttribute()
     {
 
         return $this->preferred('term', CategoryTerm::SUBJECT, 'subtype');
 
     }
 
-    public function altSubjects()
+    public function getAltSubjectsAttribute()
     {
 
         return $this->alts('term', CategoryTerm::SUBJECT, 'subtype');
 
     }
 
-    public function materials()
+    public function getMaterialsAttribute()
     {
 
         return $this->relatedResources('term', CategoryTerm::MATERIAL, 'subtype');
 
     }
 
-    public function material()
+    public function getMaterialAttribute()
     {
 
         return $this->preferred('term', CategoryTerm::MATERIAL, 'subtype');
 
     }
 
-    public function altMaterials()
+    public function getAltMaterialsAttribute()
     {
 
         return $this->alts('term', CategoryTerm::MATERIAL, 'subtype');
 
     }
 
-    public function techniques()
+    public function getTechniquesAttribute()
     {
 
         return $this->relatedResources('term', CategoryTerm::TECHNIQUE, 'subtype');
 
     }
 
-    public function technique()
+    public function getTechniqueAttribute()
     {
 
         return $this->preferred('term', CategoryTerm::TECHNIQUE, 'subtype');
 
     }
 
-    public function altTechniques()
+    public function getAltTechniquesAttribute()
     {
 
         return $this->alts('term', CategoryTerm::TECHNIQUE, 'subtype');
@@ -296,14 +296,14 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function image()
+    public function getImageAttribute()
     {
 
         return $this->preferred('image');
 
     }
 
-    public function altImages()
+    public function getAltImagesAttribute()
     {
 
         return $this->alts('image');
@@ -967,20 +967,20 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifier of the preferred artist/culture associated with this work",
                 "type" => "integer",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->artist()->citi_id ?? null; },
+                "value" => function() { return $this->artist->citi_id ?? null; },
             ],
             [
                 "name" => 'artist_title',
                 "doc" => "Name of the preferred artist/culture associated with this work",
                 "type" => "string",
-                "value" => function() { return $this->artist()->title ?? null; },
+                "value" => function() { return $this->artist->title ?? null; },
             ],
             [
                 "name" => 'alt_artist_ids',
                 "doc" => "Unique identifiers of the non-preferred artists/cultures associated with this work",
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
-                "value" => function() { return array_pluck($this->altArtists(), 'citi_id'); },
+                "value" => function() { return array_pluck($this->altArtists, 'citi_id'); },
             ],
             [
                 "name" => 'artist_ids',
@@ -1067,147 +1067,147 @@ class Artwork extends CollectionsModel
                 "doc" => "Unique identifier of the preferred style term for this work",
                 "type" => "string",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->style()->lake_uid ?? null; },
+                "value" => function() { return $this->style->lake_uid ?? null; },
             ],
             [
                 "name" => 'style_title',
                 "doc" => "The name of the preferred style term for this work",
                 "type" => "string",
-                "value" => function() { return $this->style()->title ?? null; },
+                "value" => function() { return $this->style->title ?? null; },
             ],
             [
                 "name" => 'alt_style_ids',
                 "doc" => "Unique identifiers of all other non-preferred style terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return array_pluck($this->altStyles(), 'lake_uid'); },
+                "value" => function() { return array_pluck($this->altStyles, 'lake_uid'); },
             ],
             [
                 "name" => 'style_ids',
                 "doc" => "Unique identifiers of all style terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return array_pluck($this->styles(), 'lake_uid'); },
+                "value" => function() { return array_pluck($this->styles, 'lake_uid'); },
             ],
             [
                 "name" => 'style_titles',
                 "doc" => "The names of all style terms related to this artwork",
                 "type" => "array",
-                "value" => function() { return array_pluck($this->styles(), 'title'); },
+                "value" => function() { return array_pluck($this->styles, 'title'); },
             ],
             [
                 "name" => 'classification_id',
                 "doc" => "Unique identifier of the preferred classification term for this work",
                 "type" => "string",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->classification()->lake_uid ?? null; },
+                "value" => function() { return $this->classification->lake_uid ?? null; },
             ],
             [
                 "name" => 'classification_title',
                 "doc" => "The name of the preferred classification term for this work",
                 "type" => "string",
-                "value" => function() { return $this->classification()->title ?? null; },
+                "value" => function() { return $this->classification->title ?? null; },
             ],
             [
                 "name" => 'alt_classification_ids',
                 "doc" => "Unique identifiers of all other non-preferred classification terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return array_pluck($this->altClassifications(), 'lake_uid'); },
+                "value" => function() { return array_pluck($this->altClassifications, 'lake_uid'); },
             ],
             [
                 "name" => 'classification_ids',
                 "doc" => "Unique identifiers of all classification terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return array_pluck($this->classifications(), 'lake_uid'); },
+                "value" => function() { return array_pluck($this->classifications, 'lake_uid'); },
             ],
             [
                 "name" => 'classification_titles',
                 "doc" => "The names of all classification terms related to this artwork",
                 "type" => "array",
-                "value" => function() { return array_pluck($this->classifications(), 'title'); },
+                "value" => function() { return array_pluck($this->classifications, 'title'); },
             ],
             [
                 "name" => 'subject_id',
                 "doc" => "Unique identifier of the preferred subject term for this work",
                 "type" => "string",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->subject()->lake_uid ?? null; },
+                "value" => function() { return $this->subject->lake_uid ?? null; },
             ],
             [
                 "name" => 'alt_subject_ids',
                 "doc" => "Unique identifiers of all other non-preferred subject terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return array_pluck($this->altSubjects(), 'lake_uid'); },
+                "value" => function() { return array_pluck($this->altSubjects, 'lake_uid'); },
             ],
             [
                 "name" => 'subject_ids',
                 "doc" => "Unique identifiers of all subject terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return array_pluck($this->subjects(), 'lake_uid'); },
+                "value" => function() { return array_pluck($this->subjects, 'lake_uid'); },
             ],
             [
                 "name" => 'subject_titles',
                 "doc" => "The names of all subject terms related to this artwork",
                 "type" => "array",
-                "value" => function() { return array_pluck($this->subjects(), 'title'); },
+                "value" => function() { return array_pluck($this->subjects, 'title'); },
             ],
             [
                 "name" => 'material_id',
                 "doc" => "Unique identifier of the preferred material term for this work",
                 "type" => "string",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->material()->lake_uid ?? null; },
+                "value" => function() { return $this->material->lake_uid ?? null; },
             ],
             [
                 "name" => 'alt_material_ids',
                 "doc" => "Unique identifiers of all other non-preferred material terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return array_pluck($this->altMaterials(), 'lake_uid'); },
+                "value" => function() { return array_pluck($this->altMaterials, 'lake_uid'); },
             ],
             [
                 "name" => 'material_ids',
                 "doc" => "Unique identifiers of all material terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return array_pluck($this->materials(), 'lake_uid'); },
+                "value" => function() { return array_pluck($this->materials, 'lake_uid'); },
             ],
             [
                 "name" => 'material_titles',
                 "doc" => "The names of all material terms related to this artwork",
                 "type" => "array",
-                "value" => function() { return array_pluck($this->materials(), 'title'); },
+                "value" => function() { return array_pluck($this->materials, 'title'); },
             ],
             [
                 "name" => 'technique_id',
                 "doc" => "Unique identifier of the preferred technique term for this work",
                 "type" => "string",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->technique()->lake_uid ?? null; },
+                "value" => function() { return $this->technique->lake_uid ?? null; },
             ],
             [
                 "name" => 'alt_technique_ids',
                 "doc" => "Unique identifiers of all other non-preferred technique terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return array_pluck($this->altTechniques(), 'lake_uid'); },
+                "value" => function() { return array_pluck($this->altTechniques, 'lake_uid'); },
             ],
             [
                 "name" => 'technique_ids',
                 "doc" => "Unique identifiers of all technique terms for this work",
                 "type" => "array",
                 "elasticsearch_type" => "keyword",
-                "value" => function() { return array_pluck($this->techniques(), 'lake_uid'); },
+                "value" => function() { return array_pluck($this->techniques, 'lake_uid'); },
             ],
             [
                 "name" => 'technique_titles',
                 "doc" => "The names of all technique terms related to this artwork",
                 "type" => "array",
-                "value" => function() { return array_pluck($this->techniques(), 'title'); },
+                "value" => function() { return array_pluck($this->techniques, 'title'); },
             ],
             [
                 "name" => 'theme_titles',
@@ -1221,21 +1221,21 @@ class Artwork extends CollectionsModel
                 "name" => 'color',
                 "doc" => "Dominant color of this artwork in HSL",
                 "type" => "object",
-                "value" => function() { return $this->image()->metadata->color ?? null; },
+                "value" => function() { return $this->image->metadata->color ?? null; },
             ],
             [
                 "name" => 'image_id',
                 "doc" => "Unique identifier of the preferred image to use to represent this work",
                 "type" => "uuid",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->image()->lake_guid ?? null; },
+                "value" => function() { return $this->image->lake_guid ?? null; },
             ],
             [
                 "name" => 'alt_image_ids',
                 "doc" => "Unique identifiers of all non-preferred images of this work.",
                 "type" => "array",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return array_pluck($this->altImages(), 'lake_guid'); },
+                "value" => function() { return array_pluck($this->altImages, 'lake_guid'); },
             ],
             [
                 "name" => 'document_ids',

@@ -85,6 +85,14 @@ class Datum implements JsonSerializable
 
     }
 
+    public function datetime( $field ) {
+
+        $timestamp = $this->date( $field );
+
+        return isset($timestamp) ? date("Y-m-d H:i:s", $timestamp) : null;
+
+    }
+
     /**
      * Exposes the `datum` property when serialized into JSON.
      *

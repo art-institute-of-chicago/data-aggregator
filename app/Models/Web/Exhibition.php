@@ -18,8 +18,9 @@ class Exhibition extends WebModel
 
     protected $casts = [
         'published' => 'boolean',
-        'is_visible' => 'boolean',
     ];
+
+    protected $touches = ['exhibition'];
 
     public function exhibition()
     {
@@ -36,6 +37,13 @@ class Exhibition extends WebModel
 
         return [
             [
+                "name" => 'is_featured',
+                "doc" => "Is this exhibition currently featured on our website?",
+                "type" => "boolean",
+                "elasticsearch_type" => 'boolean',
+                "value" => function() { return (bool) $this->is_featured ?? false; },
+            ],
+            [
                 "name" => 'header_copy',
                 "doc" => "The text at the top of the exhibition page",
                 "type" => "string",
@@ -48,13 +56,6 @@ class Exhibition extends WebModel
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->exhibition ? $this->exhibition->citi_id : NULL; },
-            ],
-            [
-                "name" => 'is_visible',
-                "doc" => "Whether the web exhibition is visible on the website",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->is_visible; },
             ],
             [
                 "name" => 'type',

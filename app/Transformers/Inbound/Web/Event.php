@@ -12,6 +12,8 @@ class Event extends AbstractTransformer
     {
 
         return [
+            'start_date' => $datum->datetime('start_date'),
+            'end_date' => $datum->datetime('end_date'),
             'hidden' => (bool) $datum->hidden, // TODO: Why is this an array?!
             'type' => $datum->event_type,
         ];
