@@ -701,6 +701,7 @@ class Request
                     'type' => 'phrase',
                     'slop' => 3, // account for e.g. middle names
                     'fields' => $fields,
+                    'boost' => 10, // See WEB-22
                 ]
             ];
         }
