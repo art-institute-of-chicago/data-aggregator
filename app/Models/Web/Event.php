@@ -135,7 +135,7 @@ class Event extends WebModel
                 "doc" => "The date the event ends",
                 "type" => "ISO 8601 date and time",
                 'elasticsearch_type' => 'date',
-                "value" => function() { return $this->end_date ? $this->start_date->toIso8601String() : null; },
+                "value" => function() { return $this->end_date ? $this->end_date->toIso8601String() : null; },
             ],
             [
                 "name" => 'location',
