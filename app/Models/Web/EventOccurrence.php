@@ -63,6 +63,8 @@ class EventOccurrence extends WebModel
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->image_url; },
             ],
+            /*
+            // TODO: Re-enable this field after fixing image_caption truncation [WEB-507]
             [
                 "name" => 'image_caption',
                 "doc" => "Text displayed with the hero image on the event",
@@ -70,6 +72,7 @@ class EventOccurrence extends WebModel
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->image_caption; },
             ],
+            */
             [
                 "name" => 'is_private',
                 "doc" => "Whether the event is private. Private events should be omitted from listings.",

@@ -26,6 +26,8 @@ class EventOccurrence extends AbstractTransformer
         return [
             'start_at' => $datum->datetime('start_at'),
             'end_at' => $datum->datetime('end_at'),
+            // TODO: Fix ellipsis issue upstream [WEB-507]
+            'image_caption' => $datum->image_caption ? html_entity_decode( $datum->image_caption ) : null,
         ];
 
     }
