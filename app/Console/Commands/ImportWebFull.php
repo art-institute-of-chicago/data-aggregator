@@ -6,6 +6,7 @@ use App\Models\Web\Article;
 use App\Models\Web\Artist;
 use App\Models\Web\Closure;
 use App\Models\Web\Event;
+use App\Models\Web\EventOccurrence;
 use App\Models\Web\Exhibition;
 use App\Models\Web\Hour;
 use App\Models\Web\Location;
@@ -37,6 +38,11 @@ class ImportWebFull extends AbstractImportCommand
 
         $endpoint = $this->argument('endpoint');
 
+        if( !$this->reset($endpoint) )
+        {
+            return false;
+        }
+
         if ($endpoint) {
 
             $page = $this->argument('page') ?: 1;
@@ -46,10 +52,6 @@ class ImportWebFull extends AbstractImportCommand
 
         } else {
 
-            if( !$this->reset() )
-            {
-                return false;
-            }
             $this->importEndpoints();
             $this->info("Imported all web CMS content!");
 
@@ -57,45 +59,35 @@ class ImportWebFull extends AbstractImportCommand
 
     }
 
-    protected function reset()
+    protected function reset($endpoint = null)
     {
 
-        return $this->resetData(
-            [
-                Article::class,
-                Artist::class,
-                Closure::class,
-                Event::class,
-                Exhibition::class,
-                Hour::class,
-                Location::class,
-                Selection::class,
-                Tag::class,
-                GenericPage::class,
-                PressRelease::class,
-                ResearchGuide::class,
-                EducatorResource::class,
-                DigitalCatalog::class,
-                PrintedCatalog::class,
-            ],
-            [
-                'articles',
-                'web_artists',
-                'closures',
-                'events',
-                'web_exhibitions',
-                'hours',
-                'locations',
-                'selections',
-                'tags',
-                'generic_pages',
-                'press_releases',
-                'research_guides',
-                'educator_resources',
-                'digital_catalogs',
-                'printed_catalogs',
-            ]
-        );
+        $hash = [
+            Article::class => 'articles',
+            Artist::class => 'web_artists',
+            Closure::class => 'closures',
+            Event::class => 'events',
+            EventOccurrence::class => 'event_occurrences',
+            Exhibition::class => 'web_exhibitions',
+            Hour::class => 'hours',
+            Location::class => 'locations',
+            Selection::class => 'selections',
+            Tag::class => 'tags',
+            GenericPage::class => 'generic_pages',
+            PressRelease::class => 'press_releases',
+            ResearchGuide::class => 'research_guides',
+            EducatorResource::class => 'educator_resources',
+            DigitalCatalog::class => 'digital_catalogs',
+            PrintedCatalog::class => 'printed_catalogs',
+        ];
+
+        if ($endpoint) {
+            $model = $this->getModelForEndpoint($endpoint);
+
+            return $this->resetData( [ $model ], [ $hash[$model] ] );
+        }
+
+        return $this->resetData( array_keys( $hash ), array_values( $hash ) );
 
     }
 
@@ -107,6 +99,7 @@ class ImportWebFull extends AbstractImportCommand
         // $this->importFromWeb('artists');
         $this->importFromWeb('closures');
         $this->importFromWeb('events');
+        // we do not import events/occurrences here to avoid import:web cascade
         $this->importFromWeb('exhibitions');
         $this->importFromWeb('hours');
         $this->importFromWeb('locations');
@@ -138,6 +131,9 @@ class ImportWebFull extends AbstractImportCommand
             break;
             case 'events':
                 return Event::class;
+            break;
+            case 'events/occurrences':
+                return EventOccurrence::class;
             break;
             case 'exhibitions':
                 return Exhibition::class;
