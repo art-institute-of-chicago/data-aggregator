@@ -22,6 +22,17 @@ class AbstractTransformer
     protected $passthrough = true;
 
     /**
+     * If passthrough is true, fields listed here will not be passed through. Meant to avoid
+     * conflicts when overriding getIds, getTitle, etc.
+     *
+     * @var array
+     */
+    protected $passthroughExceptions = [
+        'id',
+        'title',
+    ];
+
+    /**
      * If `is_safe` is true, exceptions will be logged to file, but execution will continue.
      *
      * @var boolean
@@ -47,7 +58,7 @@ class AbstractTransformer
 
         // Remove any fields that aren't present in the model
         // $datum changes from Datum to array after this call
-        $datum = $this->prune( $datum, $instance );
+        $datum = $this->prune( $datum, $this->getAttributes( $instance ) );
 
         // Fill the instance with mapped source data
         if( !$is_test )
@@ -265,6 +276,9 @@ class AbstractTransformer
         // Use the stored datum as the base - we can prune it later!
         $base = $this->passthrough ? $datum->all() : [];
 
+        // Remove any blacklisted fields
+        $base = $this->prune( $base, $this->passthroughExceptions, true );
+
         return array_merge( $base,
 
             // For convenience, you can overwrite these methods, so that you don't
@@ -282,20 +296,23 @@ class AbstractTransformer
     }
 
     /**
-     * Given an array of key-values, remove any fields that aren't columns in the database.
+     * Given an array of key-values and an array of strings, remove any keys from
+     * the first which aren't present in the second.
+     *
+     * You can use this to remove any fields that aren't columns in the database.
      * Meant to be run as a penultimate step, right before filling the instance.
      *
      * @param array $datum
-     * @param \Illuminate\Database\Eloquent\Model $instance
+     * @param array $attributes
+     * @param bool $isBlacklist
      * @return array
      */
-    private function prune( array $datum, Model $instance )
+    private function prune( array $datum, array $attributes, bool $isBlacklist = false )
     {
 
-        $attributes = $this->getAttributes( $instance );
-
-        return array_filter( $datum, function( $key ) use ( $attributes ) {
-            return in_array( $key, $attributes );
+        return array_filter( $datum, function( $key ) use ( $attributes, $isBlacklist ) {
+            $match = in_array( $key, $attributes );
+            return $isBlacklist ? !$match : $match;
         }, ARRAY_FILTER_USE_KEY);
 
     }

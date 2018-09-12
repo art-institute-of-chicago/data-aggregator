@@ -243,6 +243,11 @@ return [
                 'is_searchable' => true,
             ],
             [
+                'endpoint' => 'event-occurrences',
+                'model' => \App\Models\Web\EventOccurrence::class,
+                'is_searchable' => true,
+            ],
+            [
                 'endpoint' => 'articles',
                 'model' => \App\Models\Web\Article::class,
                 'is_searchable' => true,
