@@ -78,18 +78,31 @@ class BelongsToManyOrOne extends BelongsToMany
     {
         $dictionary = $this->buildDictionary($results);
 
-        // Once we have an array dictionary of child objects we can easily match the
-        // children back to their parent using the dictionary and the keys on the
-        // the parent models. Then we will return the hydrated models back out.
         foreach ($models as $model) {
             if (isset($dictionary[$key = $model->{$this->parentKey}])) {
                 $model->setRelation(
-                    $relation, $this->isMany ? $this->related->newCollection($dictionary[$key]) : $dictionary[$key]
+                    $relation, $this->getRelationValue($dictionary, $key)
                 );
             }
+            else $model->setRelation($relation, $this->getDefaultFor($this->parent));
         }
 
         return $models;
+    }
+    
+    
+    /**
+     * Get the value of a relationship by one or many type.
+     *
+     * @param  array   $dictionary
+     * @param  string  $key
+     * @return mixed
+     */
+    protected function getRelationValue(array $dictionary, $key)
+    {
+        $value = $dictionary[$key];
+
+        return $this->isMany ? $this->related->newCollection($value) : reset($value);
     }
 
 }
