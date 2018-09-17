@@ -78,14 +78,9 @@ class BelongsToManyOrOne extends BelongsToMany
     {
         $dictionary = $this->buildDictionary($results);
 
-        foreach ($models as $model) {
-            if (isset($dictionary[$key = $model->{$this->parentKey}])) {
-                $model->setRelation(
-                    $relation, $this->getRelationValue($dictionary, $key)
-                );
-            }
-            else $model->setRelation($relation, null);
-        }
+	    foreach ($models as $model) {
+		    $model->setRelation($relation, $this->getRelationValue($dictionary, $model->{$this->parentKey}));
+	    }
 
         return $models;
     }
@@ -100,9 +95,9 @@ class BelongsToManyOrOne extends BelongsToMany
      */
     protected function getRelationValue(array $dictionary, $key)
     {
-        $value = $dictionary[$key];
+        $value = $dictionary[$key] ?? [];
 
-        return $this->isMany ? $this->related->newCollection($value) : reset($value);
+        return $this->isMany ? $this->related->newCollection($value) : (count($value) ? reset($value) : null);
     }
 
 }
