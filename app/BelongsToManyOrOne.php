@@ -84,7 +84,7 @@ class BelongsToManyOrOne extends BelongsToMany
                     $relation, $this->getRelationValue($dictionary, $key)
                 );
             }
-            else $model->setRelation($relation, $this->getDefaultFor($this->parent));
+            else $model->setRelation($relation, null);
         }
 
         return $models;
