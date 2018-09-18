@@ -159,7 +159,7 @@ class Exhibition extends CollectionsModel
                 "doc" => "Brief explanation of what this exhibition is",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
-                "value" => function() { return $this->short_description; },
+                "value" => function() { return ($this->webExhibition && $this->webExhibition->list_description) ? $this->webExhibition->list_description : $this->short_description; },
             ],
             [
                 "name" => 'web_url',
