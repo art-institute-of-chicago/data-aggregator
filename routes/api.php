@@ -63,14 +63,10 @@ Route::group(['prefix' => 'v1'], function() {
     // Collections
     Route::any('agents', 'AgentsController@index');
     Route::any('agents/{id}', 'AgentsController@show');
-    Route::any('agents/{id}/places', 'AgentPlacesController@forAgent'); // pivot
     Route::any('artists', 'AgentsController@indexScope');
     Route::any('artists/{id}', 'AgentsController@showScope');
     Route::any('venues', 'AgentExhibitionsController@index');
     Route::any('venues/{id}', 'AgentExhibitionsController@show');
-
-    Route::any('agent-places', 'AgentPlacesController@index'); // pivot
-    Route::any('agent-places/{id}', 'AgentPlacesController@show'); // pivot
 
     Route::any('agent-types', 'AgentTypesController@index');
     Route::any('agent-types/{id}', 'AgentTypesController@show');

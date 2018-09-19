@@ -46,22 +46,6 @@ class Agent extends CollectionsModel
 
     }
 
-    public function placePivots()
-    {
-
-        return $this->hasMany('App\Models\Collections\AgentPlace');
-
-    }
-
-    public function places()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Place', 'agent_place')
-            ->using('App\Models\Collections\AgentPlace')
-            ->withPivot('is_preferred');
-
-    }
-
     public function sites()
     {
 
@@ -269,13 +253,6 @@ class Agent extends CollectionsModel
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->createdArtworks->pluck('citi_id'); },
-            ],
-            [
-                "name" => 'agent_place_ids',
-                "doc" => "Unique identifiers of the places this artist is associated with.",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->places->pluck('citi_id'); },
             ],
             [
                 "name" => 'site_ids',

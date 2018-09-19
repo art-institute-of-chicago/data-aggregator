@@ -54,10 +54,6 @@ return [
                 'scope_of' => 'agents',
             ],
             [
-                'endpoint' => 'agent-places',
-                'model' => \App\Models\Collections\AgentPlace::class,
-            ],
-            [
                 'endpoint' => 'agent-types',
                 'model' => \App\Models\Collections\AgentType::class,
             ],

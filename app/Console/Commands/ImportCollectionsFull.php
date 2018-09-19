@@ -44,7 +44,6 @@ class ImportCollectionsFull extends AbstractImportCommand
         $this->importEndpoint('artwork-agent-roles');
         $this->importEndpoint('object-types');
         $this->importEndpoint('agent-types');
-        // $this->importEndpoint('agent-places'); // pivot
         $this->importEndpoint('agents');
         $this->importEndpoint('categories');
         $this->importEndpoint('terms');

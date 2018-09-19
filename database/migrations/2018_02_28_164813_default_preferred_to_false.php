@@ -40,8 +40,9 @@ class DefaultPreferredToFalse extends Migration
         \App\Models\Collections\ArtworkCatalogue::where('preferred', null)
             ->update(['preferred' => 0]);
 
-        \App\Models\Collections\AgentPlace::where('is_preferred', null)
-            ->update(['is_preferred' => 0]);
+        // TODO: This class has been removed. Flatten migrations?
+        // \App\Models\Collections\AgentPlace::where('is_preferred', null)
+        //     ->update(['is_preferred' => 0]);
 
         \App\Models\Collections\ArtworkDate::where('preferred', null)
             ->update(['preferred' => 0]);

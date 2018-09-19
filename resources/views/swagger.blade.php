@@ -3403,9 +3403,6 @@
         "artwork_ids": {
           "description": "Unique identifiers of the works this artist created."
         },
-        "agent_place_ids": {
-          "description": "Unique identifiers of the places this artist is associated with."
-        },
         "site_ids": {
           "description": "Unique identifiers of the microsites this exhibition is a part of"
         },
