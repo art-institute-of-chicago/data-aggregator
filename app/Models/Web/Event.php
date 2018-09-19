@@ -20,7 +20,6 @@ class Event extends WebModel
         'is_free' => 'boolean',
         'is_member_exclusive' => 'boolean',
         'is_admission_required' => 'boolean',
-        'hidden' => 'boolean',
         'start_date' => 'date',
         'end_date' => 'date',
         'alt_event_types' => 'array',
@@ -206,14 +205,6 @@ class Event extends WebModel
                 'elasticsearch_type' => 'boolean',
                 "value" => function() { return $this->is_after_hours; },
             ],
-            // hidden has been deprecated in the Web CMS
-            [
-                "name" => 'hidden',
-                "doc" => "Whether the event should appear in listings and in search",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->hidden; },
-            ],
             [
                 "name" => 'email_series',
                 "doc" => "The email series associated with this event",
@@ -269,15 +260,6 @@ class Event extends WebModel
             ],
             // slug
             // web_url
-
-            // event_type_id has been deperacated in the Web CMS
-            [
-                "name" => 'event_type_id',
-                "doc" => "Unique identifer of the preferred type for this event",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->event_type_id; },
-            ],
         ];
 
     }

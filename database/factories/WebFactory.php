@@ -95,7 +95,6 @@ $factory->define(App\Models\Web\Event::class, function (Faker\Generator $faker) 
         'is_ticketed' => $faker->boolean,
         'is_free' => $faker->boolean,
         'is_member_exclusive' => $faker->boolean,
-        'hidden' => $faker->boolean,
         'rsvp_link' => $faker->url,
         'start_date' => $faker->dateTimeThisYear,
         'end_date' => $faker->dateTimeThisYear,
