@@ -20,6 +20,8 @@ class Event extends WebModel
         'is_free' => 'boolean',
         'is_member_exclusive' => 'boolean',
         'is_admission_required' => 'boolean',
+        'is_registration_required' => 'boolean',
+        'is_sold_out' => 'boolean',
         'start_date' => 'date',
         'end_date' => 'date',
         'alt_event_types' => 'array',
@@ -146,7 +148,6 @@ class Event extends WebModel
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->ticketedEvent ? $this->ticketedEvent->membership_id : NULL; },
             ],
-            // buy_tickets_link
             [
                 "name" => 'rsvp_link',
                 "doc" => "The URL to the sales site for this event",
@@ -168,7 +169,13 @@ class Event extends WebModel
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->buy_button_caption; },
             ],
-            // is_registration_required
+            [
+                "name" => 'is_registration_required',
+                "doc" => "Whether registration is required to attend the event",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return $this->is_registration_required; },
+            ],
             [
                 "name" => 'is_member_exclusive',
                 "doc" => "Whether the event is exclusive to members of the museum",
@@ -176,7 +183,13 @@ class Event extends WebModel
                 'elasticsearch_type' => 'boolean',
                 "value" => function() { return $this->is_member_exclusive; },
             ],
-            // is_sold_out
+            [
+                "name" => 'is_sold_out',
+                "doc" => "Whether the event is sold out",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return $this->is_sold_out; },
+            ],
             [
                 "name" => 'is_free',
                 "doc" => "Whether the event is free",
@@ -233,9 +246,27 @@ class Event extends WebModel
                 'elasticsearch_type' => 'date',
                 "value" => function() { return $this->end_date ? $this->end_date->toIso8601String() : null; },
             ],
-            // start time
-            // end time
-            // forced_date
+            [
+                "name" => 'start_time',
+                "doc" => "The time the event starts",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->start_time; },
+            ],
+            [
+                "name" => 'end_time',
+                "doc" => "The time the event ends",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->end_time; },
+            ],
+            [
+                "name" => 'date_display',
+                "doc" => "A readable display of the event dates",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->forced_date; },
+            ],
             [
                 "name" => 'door_time',
                 "doc" => "The time the doors open for this event",
@@ -252,14 +283,19 @@ class Event extends WebModel
                 "value" => function() { return $this->layout_type; },
             ],
             [
+                "name" => 'slug',
+                "doc" => "A string used in the URL for this event",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->slug; },
+            ],
+            [
                 "name" => 'published',
                 "doc" => "Whether the location is published on the website",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
                 "value" => function() { return $this->published; },
             ],
-            // slug
-            // web_url
         ];
 
     }

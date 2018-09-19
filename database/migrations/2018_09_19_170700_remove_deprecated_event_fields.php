@@ -15,8 +15,7 @@ class RemoveDeprecatedEventFields extends Migration
     {
 
         Schema::table('events', function (Blueprint $table) {
-            $table->dropColumn(['ticketed_event_type_id',
-                                'hidden']);
+            $table->dropColumn('hidden');
         });
 
     }
@@ -30,7 +29,6 @@ class RemoveDeprecatedEventFields extends Migration
     {
 
         Schema::create('events', function (Blueprint $table) {
-            $table->string('ticketed_event_type_id')->nullable()->after('image_url');
             $table->boolean('hidden')->after('is_member_exclusive');
         });
 
