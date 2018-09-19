@@ -17,7 +17,7 @@ class Label extends DigitalLabelModel
     protected $table = 'digital_labels';
 
     protected $casts = [
-        'published' => 'boolean',
+        'published' => 'boolean', // TODO: Verify name of field?
     ];
 
     public function artworks()
