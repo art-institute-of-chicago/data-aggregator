@@ -33,6 +33,10 @@ class UpdateWebExhibitionsTable extends Migration
             // TODO: Think about how to handle content properly...
             // $table->json('content')->nullable();
 
+        });
+
+        // TODO: Abandon SQLite. Tests break if this is combined w/ above!
+        Schema::table('web_exhibitions', function (Blueprint $table) use ($column) {
             $table->text('list_description')->nullable()->after('header_copy');
         });
 
