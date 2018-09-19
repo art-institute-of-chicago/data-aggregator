@@ -23,6 +23,9 @@ class Event extends WebModel
         'hidden' => 'boolean',
         'start_date' => 'date',
         'end_date' => 'date',
+        'alt_event_types' => 'array',
+        'alt_audiences' => 'array',
+        'programs' => 'array',
     ];
 
     public function ticketedEvent()
@@ -40,11 +43,46 @@ class Event extends WebModel
 
         return [
             [
-                "name" => 'type',
-                "doc" => "Number indicating the type of event",
+                "name" => 'title_display',
+                "doc" => "Name of this event formatted with HTML (optional)",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->title_display; },
+            ],
+            [
+                "name" => 'event_type_id',
+                "doc" => "Unique identifier indicating the preferred type of this event",
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->type; },
+            ],
+            [
+                "name" => 'alt_event_type_ids',
+                "doc" => "Unique identifiers indicating the alternate types of this event",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->alt_event_types; },
+            ],
+            [
+                "name" => 'audience_id',
+                "doc" => "Unique identifier indicating the preferred audience for this event",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->audience; },
+            ],
+            [
+                "name" => 'alt_audience_ids',
+                "doc" => "Unique identifiers indicating the alternate audiences for this event",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->alt_audiences; },
+            ],
+            [
+                "name" => 'program_ids',
+                "doc" => "Unique identifiers indicating the programs this event is a part of",
+                "type" => "array",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->programs; },
             ],
             [
                 "name" => 'short_description',
@@ -54,8 +92,22 @@ class Event extends WebModel
                 "value" => function() { return $this->short_description; },
             ],
             [
+                "name" => 'header_description',
+                "doc" => "Brief description of the event displayed below the title",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->header_description; },
+            ],
+            [
+                "name" => 'list_description',
+                "doc" => "One-sentence description of the event displayed in listings",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->list_description; },
+            ],
+            [
                 "name" => 'description',
-                "doc" => "Description of the event",
+                "doc" => "All copy text of the event",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->description; },
@@ -171,6 +223,13 @@ class Event extends WebModel
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
                 "value" => function() { return $this->is_admission_required; },
+            ],
+            [
+                "name" => 'event_type_id',
+                "doc" => "Unique identifer of the preferred type for this event",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->event_type_id; },
             ],
             [
                 "name" => 'ticketed_event_id',
