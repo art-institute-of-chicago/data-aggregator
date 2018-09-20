@@ -48,12 +48,6 @@ class Kernel extends ConsoleKernel
             ->appendOutputTo(storage_path('logs/import-web-full.log'))
             ->sendOutputTo(storage_path('logs/import-web-full-last-run.log'));
 
-        // Non-prod envs don't need 5-min imports
-        if (!App::environment('production'))
-        {
-            return;
-        }
-
         $schedule->command('import:collections --quiet')
             ->everyFiveMinutes()
             ->withoutOverlapping()
