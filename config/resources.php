@@ -230,6 +230,11 @@ return [
                 'is_searchable' => true,
             ],
             [
+                'endpoint' => 'event-programs',
+                'model' => \App\Models\Web\EventProgram::class,
+                'is_searchable' => true,
+            ],
+            [
                 'endpoint' => 'articles',
                 'model' => \App\Models\Web\Article::class,
                 'is_searchable' => true,

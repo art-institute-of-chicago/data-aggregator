@@ -114,6 +114,14 @@ $factory->define(App\Models\Web\Event::class, function (Faker\Generator $faker) 
     ];
 });
 
+$factory->define(App\Models\Web\EventProgram::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});
 
 $factory->define(App\Models\Web\Article::class, function (Faker\Generator $faker) {
     return [

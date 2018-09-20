@@ -184,6 +184,9 @@ Route::group(['prefix' => 'v1'], function() {
     Route::any('events', 'EventsController@index');
     Route::any('events/{id}', 'EventsController@show');
 
+    Route::any('event-programs', 'EventProgramsController@index');
+    Route::any('event-programs/{id}', 'EventProgramsController@show');
+
     Route::any('event-occurrences', 'EventOccurrencesController@index');
     Route::any('event-occurrences/{id}', 'EventOccurrencesController@show');
 
