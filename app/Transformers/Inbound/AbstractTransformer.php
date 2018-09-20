@@ -228,7 +228,9 @@ class AbstractTransformer
     protected function getSyncPivots( Datum $datum, $pivot_field, $id_field, $mapping_fn )
     {
 
-        if( !$datum->$pivot_field )
+        // This method assumes that the pivot field's value is an array, not an object!
+        // TODO: Improve error reporting in the latter case..?
+        if( !$datum->$pivot_field || !is_array($datum->$pivot_field) )
         {
             return [];
         }
