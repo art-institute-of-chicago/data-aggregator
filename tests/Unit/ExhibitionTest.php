@@ -7,7 +7,6 @@ use App\Models\Collections\Place;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\AgentType;
 use App\Models\Collections\Agent;
-use App\Models\Collections\AgentExhibition;
 
 class ExhibitionTest extends ApiTestCase
 {
@@ -59,26 +58,6 @@ class ExhibitionTest extends ApiTestCase
         foreach ($artworks as $artwork)
         {
             $this->assertArrayHasKeys($artwork, ['id', 'title']);
-        }
-    }
-
-
-    /** @test */
-    public function it_fetches_venues_for_an_exhibition()
-    {
-
-        $exhibitionId = $this->attach(AgentExhibition::class, 4, 'venuePivots')->make(Exhibition::class);
-
-        $response = $this->getJson('api/v1/exhibitions/' .$exhibitionId .'/venues');
-        $response->assertSuccessful();
-
-        $venues = $response->json()['data'];
-        $this->assertCount(4, $venues);
-
-        foreach ($venues as $venue)
-        {
-            // This uses PivotTransformer, so it doesn't have `id` and `title`
-            $this->assertArrayHasKeys($venue, ['agent_id', 'exhibition_id']);
         }
     }
 

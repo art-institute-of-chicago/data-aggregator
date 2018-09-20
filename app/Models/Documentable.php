@@ -731,10 +731,6 @@ trait Documentable
             $doc .= $this->swaggerList('artists') ."\n";
             $doc .= $this->swaggerSingle('artists') ."\n";
 
-            // Venues
-            $doc .= $this->swaggerList('venues') ."\n";
-            $doc .= $this->swaggerSingle('venues') ."\n";
-
         }
         elseif (get_called_class() == Collections\Category::class)
         {

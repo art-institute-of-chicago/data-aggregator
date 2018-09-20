@@ -31,21 +31,6 @@ class Exhibition extends CollectionsModel
 
     }
 
-    public function venuePivots()
-    {
-
-        return $this->hasMany('App\Models\Collections\AgentExhibition');
-
-    }
-
-    public function venues()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Agent', 'agent_exhibition')
-            ->using('App\Models\Collections\AgentExhibition');
-
-    }
-
     public function gallery()
     {
 
@@ -258,20 +243,6 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->artworks->pluck('title')->all(); },
             ],
             [
-                "name" => 'venue_ids',
-                "doc" => "Unique identifiers of the venue agent records representing who hosted the exhibition",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->venues->pluck('citi_id')->all(); },
-            ],
-            [
-                "name" => 'venue_titles',
-                "doc" => "Names of the venue agent records representing who hosted the exhibition",
-                "type" => "array",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->venues->pluck('title')->all(); },
-            ],
-            [
                 "name" => 'artist_ids',
                 "doc" => "Unique identifiers of the artist agent records representing who was shown in the exhibition",
                 "type" => "array",
@@ -340,7 +311,7 @@ class Exhibition extends CollectionsModel
     public function subresources()
     {
 
-        return ['artworks', 'venues'];
+        return ['artworks'];
 
     }
 

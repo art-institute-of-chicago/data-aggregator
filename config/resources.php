@@ -23,11 +23,6 @@ return [
     //         'model' => \App\Models\Collections\Agent::class,
     //         'transformer' => \App\Transformers\Inbound\Agent::class,
     //     ],
-    //     [
-    //         'source' => 'Collections',
-    //         'model' => \App\Models\Collections\AgentExhibition::class,
-    //         'transformer' => \App\Transformers\Inbound\AgentExhibition::class,
-    //     ],
     // ],
 
     'outbound' => [
@@ -45,11 +40,6 @@ return [
             ],
             [
                 'endpoint' => 'artists',
-                'model' => \App\Models\Collections\Agent::class,
-                'scope_of' => 'agents',
-            ],
-            [
-                'endpoint' => 'venues',
                 'model' => \App\Models\Collections\Agent::class,
                 'scope_of' => 'agents',
             ],
@@ -95,10 +85,6 @@ return [
                 'endpoint' => 'exhibitions',
                 'model' => \App\Models\Collections\Exhibition::class,
                 'is_searchable' => true,
-            ],
-            [
-                'endpoint' => 'exhibition-agents',
-                'model' => \App\Models\Collections\AgentExhibition::class,
             ],
             [
                 'endpoint' => 'category-terms',

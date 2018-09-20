@@ -7,7 +7,7 @@ use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
 /**
- * Represents a person or organization. In the API, this includes artists and venues.
+ * Represents a person or organization. In the API, this includes artists.
  */
 class Agent extends CollectionsModel
 {
@@ -36,13 +36,6 @@ class Agent extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist');
-
-    }
-
-    public function exhibitions()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Exhibition');
 
     }
 
@@ -79,19 +72,6 @@ class Agent extends CollectionsModel
                 'field' => 'artwork_ids'
             ]
         ];
-
-    }
-
-    /**
-     * Scope a query to only include agents that have hosted an exhibition.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeVenues($query)
-    {
-
-        return $query->whereHas('exhibitions');
 
     }
 

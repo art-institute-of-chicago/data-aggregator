@@ -560,73 +560,6 @@
       }
     },
 
-    "/venues": {
-      "get": {
-        "tags": [
-            "agents",
-            "collections"
-        ],
-        "summary": "A list of all venues sorted by last updated date in descending order.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Agent"
-              }
-            }
-          },
-          "default": {
-            "description": "error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-
-    "/venues/{id}": {
-      "get": {
-        "tags": [
-            "agents",
-            "collections"
-        ],
-        "summary": "A single venue by the given identifier. {id} is the identifier from our collections managements system.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/id"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Agent"
-              }
-            }
-          },
-          "default": {
-            "description": "error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-
     "/artwork-types": {
       "get": {
         "tags": [
@@ -1322,41 +1255,6 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Artwork"
-              }
-            }
-          },
-          "default": {
-            "description": "error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-
-    "/exhibitions/{id}/venues": {
-      "get": {
-        "tags": [
-            "exhibitions",
-            "collections"
-        ],
-        "summary": "The venues for a given exhibitions.",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/id"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Agent"
               }
             }
           },
