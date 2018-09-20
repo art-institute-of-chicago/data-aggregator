@@ -28,7 +28,7 @@ class RemoveDeprecatedEventFields extends Migration
     public function down()
     {
 
-        Schema::create('events', function (Blueprint $table) {
+        Schema::table('events', function (Blueprint $table) {
             $table->boolean('hidden')->after('is_member_exclusive');
         });
 
