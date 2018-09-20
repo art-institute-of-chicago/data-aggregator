@@ -48,17 +48,23 @@ class Kernel extends ConsoleKernel
             ->appendOutputTo(storage_path('logs/import-web-full.log'))
             ->sendOutputTo(storage_path('logs/import-web-full-last-run.log'));
 
-        $schedule->command('import:collections')
-            ->everyFiveMinutes()
-            ->withoutOverlapping()
-            ->appendOutputTo(storage_path('logs/import-collections.log'))
-            ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
-
         $schedule->command('import:web')
             ->everyFiveMinutes()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-web.log'))
             ->sendOutputTo(storage_path('logs/import-web-last-run.log'));
+
+        // Non-prod envs don't need 5-min imports on collections
+        if (!App::environment('production'))
+        {
+            return;
+        }
+
+        $schedule->command('import:collections')
+            ->everyFiveMinutes()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/import-collections.log'))
+            ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
 
         $schedule->command('import:collections-delete')
             ->everyFiveMinutes()
