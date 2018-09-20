@@ -31,6 +31,8 @@ class ImportWebOne extends ImportWebFull
 
         $datum = $json->data;
 
+        $this->updateSentryTags( $datum, $endpoint, 'Web' );
+
         $this->save( $datum, $model, $transformer );
 
     }

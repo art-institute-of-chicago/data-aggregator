@@ -26,6 +26,8 @@ class ImportCollectionsOne extends ImportCollectionsFull
 
         $datum = $json->data;
 
+        $this->updateSentryTags( $datum, $endpoint, 'Collections' );
+
         $this->save( $datum, $model, $transformer );
 
     }

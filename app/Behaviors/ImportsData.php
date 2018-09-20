@@ -208,6 +208,8 @@ trait ImportsData
 
                 }
 
+                $this->updateSentryTags( $datum, $endpoint, $source );
+
                 // Be sure to overwrite `save` to make this work!
                 $this->save( $datum, $model, $transformer );
 
@@ -298,6 +300,22 @@ trait ImportsData
 
         throw \Exception('You must overwrite the `save` method.');
 
+    }
+
+    protected function updateSentryTags($datum = null, $endpoint = null, $source = null)
+    {
+        if (app()->bound('sentry'))
+        {
+            $sentry = app('sentry');
+
+            $sentry->tags_context(
+                array_merge([],
+                    isset($datum->id) ? ['id' => $datum->id] : [],
+                    isset($endpoint) ? ['endpoint' => $endpoint] : [],
+                    isset($source) ? ['source' => $source] : []
+                )
+            );
+        }
     }
 
 }
