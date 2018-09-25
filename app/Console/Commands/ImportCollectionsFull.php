@@ -160,7 +160,7 @@ class ImportCollectionsFull extends AbstractImportCommand
     /**
      * Temporarily overriding this to have control over the `$limit` default here.
      */
-    protected function query( $endpoint, $page = 1, $limit = 500 )
+    protected function query( $endpoint, $page = 1, $limit = 100 )
     {
         return parent::query( $endpoint, $page, $limit );
     }
