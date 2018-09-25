@@ -13,6 +13,7 @@ class Exhibition extends AbstractTransformer
 
         return [
             'title' => $datum->datahub_id,
+            'is_published' => $datum->published,
         ];
 
     }

@@ -13,21 +13,9 @@ class AgentTransformer extends CollectionsTransformer
      * @var array
      */
     protected $availableIncludes = [
-        'places',
         'sites',
     ];
 
-
-    /**
-     * Include places.
-     *
-     * @param  \App\Models\Collections\Agent  $agent
-     * @return League\Fractal\ItemResource
-     */
-    public function includePlaces(Agent $agent)
-    {
-        return $this->collection($agent->places, new PivotTransformer, false);
-    }
 
     /**
      * Include sites.

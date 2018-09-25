@@ -6,6 +6,7 @@ use App\Models\Web\Hour;
 use App\Models\Web\Closure;
 use App\Models\Web\Exhibition;
 use App\Models\Web\Event;
+use App\Models\Web\EventProgram;
 use App\Models\Web\Article;
 use App\Models\Web\Selection;
 use App\Models\Web\Artist;
@@ -28,6 +29,7 @@ class WebDatabaseSeeder extends AbstractSeeder
         $this->call(ClosuresTableSeeder::class);
         $this->call(WebExhibitionsTableSeeder::class);
         $this->call(EventsTableSeeder::class);
+        $this->call(EventProgramsTableSeeder::class);
         $this->call(ArticlesTableSeeder::class);
         $this->call(SelectionsTableSeeder::class);
         $this->call(ArtistsTableSeeder::class);
@@ -48,6 +50,7 @@ class WebDatabaseSeeder extends AbstractSeeder
         Hour::fake()->delete();
         Closure::fake()->delete();
         Exhibition::fake()->delete();
+        EventProgram::fake()->delete();
         Event::fake()->delete();
         Article::fake()->delete();
         Selection::fake()->delete();

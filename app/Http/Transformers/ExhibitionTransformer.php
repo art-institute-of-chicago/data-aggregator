@@ -14,7 +14,6 @@ class ExhibitionTransformer extends CollectionsTransformer
      */
     protected $availableIncludes = [
         'artworks',
-        'venues',
         'sites',
     ];
 
@@ -28,18 +27,6 @@ class ExhibitionTransformer extends CollectionsTransformer
     public function includeArtworks(Exhibition $exhibition)
     {
         return $this->collection($exhibition->artworks, new ArtworkTransformer, false);
-    }
-
-
-    /**
-     * Include venues (pivots).
-     *
-     * @param  \App\Models\Collections\Exhibition  $exhibition
-     * @return League\Fractal\ItemResource
-     */
-    public function includeVenues(Exhibition $exhibition)
-    {
-        return $this->collection($exhibition->venues, new PivotTransformer, false);
     }
 
 

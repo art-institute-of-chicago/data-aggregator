@@ -44,7 +44,6 @@ class ImportCollectionsFull extends AbstractImportCommand
         $this->importEndpoint('artwork-agent-roles');
         $this->importEndpoint('object-types');
         $this->importEndpoint('agent-types');
-        // $this->importEndpoint('agent-places'); // pivot
         $this->importEndpoint('agents');
         $this->importEndpoint('categories');
         $this->importEndpoint('terms');
@@ -156,6 +155,14 @@ class ImportCollectionsFull extends AbstractImportCommand
             $mark += $incr;
         }
         return $partition;
+    }
+
+    /**
+     * Temporarily overriding this to have control over the `$limit` default here.
+     */
+    protected function query( $endpoint, $page = 1, $limit = 100 )
+    {
+        return parent::query( $endpoint, $page, $limit );
     }
 
 }

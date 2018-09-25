@@ -31,7 +31,6 @@ class Exhibition extends CollectionsTransformer
         return [
             'artworks' => $datum->all('artwork_ids'),
             'assets' => $this->getSyncAssets( $datum ),
-            'venues' => $this->getSyncVenues( $datum ),
         ];
 
     }
@@ -77,30 +76,6 @@ class Exhibition extends CollectionsTransformer
         $assets = $assets->collapse();
 
         return $assets;
-
-    }
-
-    private function getSyncVenues( Datum $datum )
-    {
-
-        return $this->getSyncPivots( $datum, 'exhibition_agents', 'agent_id', function( $pivot ) {
-
-            // Needed for the `date` call
-            $pivot = new Datum( $pivot );
-
-            // TODO: Consider adding that to AbstractTransformer?
-
-            return [
-                $pivot->agent_id => [
-                    'citi_id' => $pivot->citi_id, // TODO: Make this incremental?
-                    'date_start' => $pivot->date('start_date'),
-                    'date_end' => $pivot->date('end_date'),
-                    'is_host' => $pivot->is_host,
-                    'is_organizer' => $pivot->is_organizer,
-                ]
-            ];
-
-        });
 
     }
 

@@ -28,55 +28,49 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
-        $schedule->command('import:daily --quiet')
+        $schedule->command('import:daily')
             ->dailyAt('23:00')
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-daily.log'))
-            ->sendOutputTo(storage_path('logs/import-daily-last-run.log'))
-            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+            ->sendOutputTo(storage_path('logs/import-daily-last-run.log'));
 
-        $schedule->command('import:monthly --quiet')
+        $schedule->command('import:monthly')
             ->monthlyOn(1, '03:00')
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-monthly.log'))
-            ->sendOutputTo(storage_path('logs/import-monthly-last-run.log'))
-            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+            ->sendOutputTo(storage_path('logs/import-monthly-last-run.log'));
 
         // Because in the CMS Events don't get touched when a ticketed event
         // is added. Remove this once that's in place.
-        $schedule->command('import:web-full events --quiet')
+        $schedule->command('import:web-full events')
             ->hourly()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-web-full.log'))
-            ->sendOutputTo(storage_path('logs/import-web-full-last-run.log'))
-            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+            ->sendOutputTo(storage_path('logs/import-web-full-last-run.log'));
 
-        // Non-prod envs don't need 5-min imports
+        $schedule->command('import:web')
+            ->everyFiveMinutes()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/import-web.log'))
+            ->sendOutputTo(storage_path('logs/import-web-last-run.log'));
+
+        // Non-prod envs don't need 5-min imports on collections
         if (!App::environment('production'))
         {
             return;
         }
 
-        $schedule->command('import:collections --quiet')
+        $schedule->command('import:collections')
             ->everyFiveMinutes()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-collections.log'))
-            ->sendOutputTo(storage_path('logs/import-collections-last-run.log'))
-            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+            ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
 
-        $schedule->command('import:web --quiet')
-            ->everyFiveMinutes()
-            ->withoutOverlapping()
-            ->appendOutputTo(storage_path('logs/import-web.log'))
-            ->sendOutputTo(storage_path('logs/import-web-last-run.log'))
-            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
-
-        $schedule->command('import:collections-delete --quiet')
+        $schedule->command('import:collections-delete')
             ->everyFiveMinutes()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-collections-delete.log'))
-            ->sendOutputTo(storage_path('logs/import-collections-delete-last-run.log'))
-            ->emailOutputTo([env('LOG_EMAIL_1'), env('LOG_EMAIL_2')], true);
+            ->sendOutputTo(storage_path('logs/import-collections-delete-last-run.log'));
 
     }
 

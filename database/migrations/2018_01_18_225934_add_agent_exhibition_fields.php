@@ -52,11 +52,12 @@ class AddAgentExhibitionFields extends Migration
 
             $table->dropTimestamps();
 
-            App\Models\Collections\AgentExhibition::where('agent_citi_id', null)->delete();
-            $table->integer('agent_citi_id')->unsigned()->nullable(false)->change();
+            // TODO: This model no longer exists, so... migration issues!
+            // App\Models\Collections\AgentExhibition::where('agent_citi_id', null)->delete();
+            // $table->integer('agent_citi_id')->unsigned()->nullable(false)->change();
 
-            App\Models\Collections\AgentExhibition::where('exhibition_citi_id', null)->delete();
-            $table->integer('exhibition_citi_id')->unsigned()->nullable(false)->change();
+            // App\Models\Collections\AgentExhibition::where('exhibition_citi_id', null)->delete();
+            // $table->integer('exhibition_citi_id')->unsigned()->nullable(false)->change();
         });
 
     }

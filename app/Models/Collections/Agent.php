@@ -7,7 +7,7 @@ use App\Models\ElasticSearchable;
 use App\Models\Documentable;
 
 /**
- * Represents a person or organization. In the API, this includes artists and venues.
+ * Represents a person or organization. In the API, this includes artists.
  */
 class Agent extends CollectionsModel
 {
@@ -36,29 +36,6 @@ class Agent extends CollectionsModel
     {
 
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist');
-
-    }
-
-    public function exhibitions()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Exhibition');
-
-    }
-
-    public function placePivots()
-    {
-
-        return $this->hasMany('App\Models\Collections\AgentPlace');
-
-    }
-
-    public function places()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Place', 'agent_place')
-            ->using('App\Models\Collections\AgentPlace')
-            ->withPivot('is_preferred');
 
     }
 
@@ -95,19 +72,6 @@ class Agent extends CollectionsModel
                 'field' => 'artwork_ids'
             ]
         ];
-
-    }
-
-    /**
-     * Scope a query to only include agents that have hosted an exhibition.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeVenues($query)
-    {
-
-        return $query->whereHas('exhibitions');
 
     }
 
@@ -269,13 +233,6 @@ class Agent extends CollectionsModel
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->createdArtworks->pluck('citi_id'); },
-            ],
-            [
-                "name" => 'agent_place_ids',
-                "doc" => "Unique identifiers of the places this artist is associated with.",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->places->pluck('citi_id'); },
             ],
             [
                 "name" => 'site_ids',

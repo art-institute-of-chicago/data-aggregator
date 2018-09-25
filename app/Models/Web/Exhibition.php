@@ -37,7 +37,7 @@ class Exhibition extends WebModel
 
         return [
             [
-                "name" => 'is_featured',
+                "name" => 'is_featured', // TODO: Dedupe w/ is_boosted?
                 "doc" => "Is this exhibition currently featured on our website?",
                 "type" => "boolean",
                 "elasticsearch_type" => 'boolean',
@@ -58,39 +58,25 @@ class Exhibition extends WebModel
                 "value" => function() { return $this->exhibition ? $this->exhibition->citi_id : NULL; },
             ],
             [
-                "name" => 'type',
-                "doc" => "Number indicating the type of closure",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->type; },
+                "name" => 'list_description',
+                "doc" => "Short description to be used for exhibition listings",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->list_description; },
             ],
             [
                 "name" => 'exhibition_message',
-                "doc" => "The sub copy on the exhibition page",
+                "doc" => "Pricing or attendance information",
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->exhibition_message; },
             ],
             [
-                "name" => 'sponsors_sub_copy',
-                "doc" => "The sponsors copy on the exhibition",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->sponsors_sub_copy; },
-            ],
-            [
-                "name" => 'cms_exhibition_type',
-                "doc" => "Number indicating the type of exhibition",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->cms_exhibition_type; },
-            ],
-            [
-                "name" => 'published',
+                "name" => 'published', // TODO: Rename to is_published!
                 "doc" => "Whether the location is published on the website",
                 "type" => "boolean",
                 'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->published; },
+                "value" => function() { return $this->is_published; },
             ],
         ];
 

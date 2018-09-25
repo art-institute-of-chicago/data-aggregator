@@ -73,10 +73,9 @@ $factory->define(App\Models\Web\Exhibition::class, function (Faker\Generator $fa
         'title' => ucfirst($faker->words(3, true)),
         'header_copy' => $faker->sentence(),
         'datahub_id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'list_description' => $faker->sentence(),
         'exhibition_message' => $faker->sentence(),
-        'sponsors_sub_copy' => $faker->sentence(),
-        'cms_exhibition_type' => $faker->randomDigit,
-        'published' => $faker->boolean,
+        'is_published' => $faker->boolean,
         'created_at' => $faker->dateTimeThisYear,
         'updated_at' => $faker->dateTimeThisYear,
     ];
@@ -96,7 +95,6 @@ $factory->define(App\Models\Web\Event::class, function (Faker\Generator $faker) 
         'is_ticketed' => $faker->boolean,
         'is_free' => $faker->boolean,
         'is_member_exclusive' => $faker->boolean,
-        'hidden' => $faker->boolean,
         'rsvp_link' => $faker->url,
         'start_date' => $faker->dateTimeThisYear,
         'end_date' => $faker->dateTimeThisYear,
@@ -116,6 +114,14 @@ $factory->define(App\Models\Web\Event::class, function (Faker\Generator $faker) 
     ];
 });
 
+$factory->define(App\Models\Web\EventProgram::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+        'title' => ucfirst($faker->words(3, true)),
+        'created_at' => $faker->dateTimeThisYear,
+        'updated_at' => $faker->dateTimeThisYear,
+    ];
+});
 
 $factory->define(App\Models\Web\Article::class, function (Faker\Generator $faker) {
     return [

@@ -7,6 +7,7 @@ use App\Models\Web\Artist;
 use App\Models\Web\Closure;
 use App\Models\Web\Event;
 use App\Models\Web\EventOccurrence;
+use App\Models\Web\EventProgram;
 use App\Models\Web\Exhibition;
 use App\Models\Web\Hour;
 use App\Models\Web\Location;
@@ -68,6 +69,7 @@ class ImportWebFull extends AbstractImportCommand
             Closure::class => 'closures',
             Event::class => 'events',
             EventOccurrence::class => 'event_occurrences',
+            EventProgram::class => 'event_programs',
             Exhibition::class => 'web_exhibitions',
             Hour::class => 'hours',
             Location::class => 'locations',
@@ -100,6 +102,7 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('closures');
         $this->importFromWeb('events');
         // we do not import events/occurrences here to avoid import:web cascade
+        $this->importFromWeb('event-programs');
         $this->importFromWeb('exhibitions');
         $this->importFromWeb('hours');
         $this->importFromWeb('locations');
@@ -134,6 +137,9 @@ class ImportWebFull extends AbstractImportCommand
             break;
             case 'events/occurrences':
                 return EventOccurrence::class;
+            break;
+            case 'event-programs':
+                return EventProgram::class;
             break;
             case 'exhibitions':
                 return Exhibition::class;
