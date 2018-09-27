@@ -16,7 +16,9 @@ use Carbon\Carbon;
 class TicketedEvent extends MembershipModel
 {
 
-    use ElasticSearchable;
+    use ElasticSearchable {
+        getDefaultSearchFields as public traitGetDefaultSearchFields;
+    }
     use Documentable;
 
     public function event()
@@ -147,4 +149,12 @@ class TicketedEvent extends MembershipModel
 
     }
 
+    public function getDefaultSearchFields()
+    {
+
+        $fields = $this->traitGetDefaultSearchFields();
+
+        return array_merge(['api_id^1.0'], $fields);
+
+    }
 }
