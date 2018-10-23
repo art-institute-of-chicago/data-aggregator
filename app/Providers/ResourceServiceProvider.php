@@ -51,6 +51,9 @@ class ResourceServiceProvider extends ServiceProvider
                 {
                     $this->resources = config('resources.outbound.base');
                     $this->resources = collect( $this->resources );
+
+                    $this->inbound = config('resources.inbound');
+                    $this->inbound = collect( $this->inbound );
                 }
 
                 public function getModelForEndpoint( $endpoint )
@@ -135,23 +138,33 @@ class ResourceServiceProvider extends ServiceProvider
                         $source = explode('\\', $model)[2]; // e.g. Collections
                         // $class = explode('\\', $model)[3]; // e.g. Artwork
 
-                        $transformer = str_replace('Models', 'Transformers\\Inbound', $model);
+                        $inbound = $this->inbound->where('model', $model)->where('source', $source )->first();
 
-                        if( !class_exists( $transformer ) )
+                        if (isset($inbound))
                         {
+                            $transformer = $inbound['transformer'];
 
-                            $parent = array_slice( explode('\\', get_parent_class( $model )), -1, 1)[0];
+                        } else {
 
-                            $transformer = '\\App\\Transformers\\Inbound\\' . $source . '\\' . $parent;
+                            $transformer = str_replace('Models', 'Transformers\\Inbound', $model);
 
                             if( !class_exists( $transformer ) )
                             {
 
-                                $transformer = '\\App\\Transformers\\Inbound\\' . $source . 'Transformer';
+                                $parent = array_slice( explode('\\', get_parent_class( $model )), -1, 1)[0];
+
+                                $transformer = '\\App\\Transformers\\Inbound\\' . $source . '\\' . $parent;
 
                                 if( !class_exists( $transformer ) )
                                 {
-                                    $transformer = \App\Transformers\Inbound\AbstractTransformer::class;
+
+                                    $transformer = '\\App\\Transformers\\Inbound\\' . $source . 'Transformer';
+
+                                    if( !class_exists( $transformer ) )
+                                    {
+                                        $transformer = \App\Transformers\Inbound\AbstractTransformer::class;
+                                    }
+
                                 }
 
                             }

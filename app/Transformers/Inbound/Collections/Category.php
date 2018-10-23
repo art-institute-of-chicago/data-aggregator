@@ -3,9 +3,8 @@
 namespace App\Transformers\Inbound\Collections;
 
 use App\Transformers\Datum;
-use App\Transformers\Inbound\CollectionsTransformer;
 
-class Category extends CollectionsTransformer
+class Category extends BaseList
 {
 
     protected function getExtraFields( Datum $datum )
