@@ -62,17 +62,11 @@ if (!function_exists('idsAndTitle'))
 
 
 $factory->define(App\Models\Collections\AgentType::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, $faker->unique()->randomElement(['Individual', 'Corporate Body', $faker->words(2, true)]), true, 2),
-        dates($faker, true)
-    );
+    return idsAndTitle($faker, $faker->unique()->randomElement(['Individual', 'Corporate Body', $faker->words(2, true)]), true, 2);
 });
 
 $factory->define(App\Models\Collections\AgentRole::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, $faker->words(3, true), true, 2),
-        dates($faker, true)
-    );
+    return idsAndTitle($faker, $faker->words(3, true), true, 2);
 });
 
 $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator $faker) {
@@ -98,18 +92,12 @@ $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator 
 
 
 $factory->define(App\Models\Collections\ArtworkType::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, $faker->randomElement(['Painting', 'Design', 'Drawing and ' .ucfirst($faker->word), ucfirst($faker->word) .' Arts', 'Sculpture']), true, 2),
-        dates($faker, true)
-    );
+    return idsAndTitle($faker, $faker->randomElement(['Painting', 'Design', 'Drawing and ' .ucfirst($faker->word), ucfirst($faker->word) .' Arts', 'Sculpture']), true, 2);
 });
 
 
 $factory->define(App\Models\Collections\ArtworkPlaceQualifier::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, 'Object ' . $faker->word(1) . ' in', true, 2),
-        dates($faker, true)
-    );
+    return idsAndTitle($faker, 'Object ' . $faker->word(1) . ' in', true, 2);
 });
 
 
@@ -120,8 +108,7 @@ $factory->define(App\Models\Collections\Term::class, function (Faker\Generator $
             'is_category' => false,
             'lake_uid' => 'TM-' .($faker->unique()->randomNumber(6) + 999 * pow(10, 6)),
             'subtype' => $faker->randomElement(['TT-1','TT-2','TT-3','TT-4','TT-5']),
-        ],
-        dates($faker, true)
+        ]
     );
 });
 
@@ -134,8 +121,7 @@ $factory->define(App\Models\Collections\Category::class, function (Faker\Generat
             'lake_uid' => 'PC-' .($faker->unique()->randomNumber(6) + 999 * pow(10, 6)),
             'subtype' => $faker->randomElement(['CT-1','CT-3']),
             'parent_id' => $faker->randomElement(App\Models\Collections\Category::fake()->pluck('lake_uid')->all()),
-        ],
-        dates($faker, true)
+        ]
     );
 });
 
@@ -172,10 +158,7 @@ $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generato
 });
 
 $factory->define(App\Models\Collections\ArtworkDateQualifier::class, function (Faker\Generator $faker) {
-    return array_merge(
-        idsAndTitle($faker, $faker->randomElement(['Made', 'Designed', 'Reconstructed', 'Published']), true, 2),
-        dates($faker, true)
-    );
+    return idsAndTitle($faker, $faker->randomElement(['Made', 'Designed', 'Reconstructed', 'Published']), true, 2);
 });
 
 $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Generator $faker) {
