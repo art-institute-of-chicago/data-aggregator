@@ -21,10 +21,8 @@ class ImportScheduleDaily extends BaseCommand
         $this->call('import:events-ticketed');
         $this->call('import:events-legacy');
         $this->call('import:mobile');
-        $this->call('import:set-ulan-uris');
         $this->call('import:products');
         $this->call('import:web');
-        $this->call('import:analytics');
         $this->call('import:digital-labels');
 
         // EventOccurrence is not included in import:web to avoid duplication

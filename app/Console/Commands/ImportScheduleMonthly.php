@@ -15,6 +15,9 @@ class ImportScheduleMonthly extends BaseCommand
     public function handle()
     {
 
+        $this->call('import:set-ulan-uris');
+        $this->call('import:analytics');
+
         $this->call('import:library', ['--yes' => 'default']);
         $this->call('import:archive', ['--yes' => 'default']);
         $this->call('import:sites', ['--yes' => 'default']);
