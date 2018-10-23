@@ -88,6 +88,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
         Cviebrock\LaravelElasticsearch\ServiceProvider::class,
+        MarkTopper\DoctrineDBALTimestampType\Laravel5ServiceProvider::class,
 
         /*
          * Foundation Service Providers...

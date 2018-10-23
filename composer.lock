@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3a62adb418189c1cc1a35d47420d33f",
+    "content-hash": "8e55b32f3509e2d498b91e80506c898a",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -2058,6 +2058,45 @@
                 "palette"
             ],
             "time": "2017-04-14T00:26:37+00:00"
+        },
+        {
+            "name": "marktopper/doctrine-dbal-timestamp-type",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marktopper/doctrine-dbal-timestamp-type.git",
+                "reference": "1139c5fe1c855f7c3e329820355d2486ecc70f29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marktopper/doctrine-dbal-timestamp-type/zipball/1139c5fe1c855f7c3e329820355d2486ecc70f29",
+                "reference": "1139c5fe1c855f7c3e329820355d2486ecc70f29",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.5",
+                "php": ">=5.6.4"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "MarkTopper\\DoctrineDBALTimestampType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Add the timestamp type for Doctrine/DBAL",
+            "keywords": [
+                "database",
+                "dbal",
+                "doctrine",
+                "laravel",
+                "mysql",
+                "timestamp"
+            ],
+            "time": "2016-11-28T12:42:32+00:00"
         },
         {
             "name": "monolog/monolog",
