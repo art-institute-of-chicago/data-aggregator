@@ -17,13 +17,57 @@ return [
 
     ],
 
-    // 'inbound' => [
-    //     [
-    //         'source' => 'Collections',
-    //         'model' => \App\Models\Collections\Agent::class,
-    //         'transformer' => \App\Transformers\Inbound\Agent::class,
-    //     ],
-    // ],
+    // Currently, you can use these selectively to override inbound transformer inferences
+    'inbound' => [
+        //artwork-place-qualifiers
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\ArtworkPlaceQualifier::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
+        //artwork-date-qualifiers
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\ArtworkDateQualifier::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
+        //artwork-agent-roles
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\AgentRole::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
+        //object-types
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\ArtworkType::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
+        //agent-types
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\AgentType::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
+        //categories
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\Category::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
+        //terms
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\Term::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
+        //catalogues
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\Catalogue::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
+    ],
 
     'outbound' => [
 

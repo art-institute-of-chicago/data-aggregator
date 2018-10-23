@@ -40,6 +40,17 @@ class AbstractTransformer
     private $is_safe = false;
 
     /**
+     * Returns true by default, but override if additional logic is required.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $instance
+     * @param mixed $datum
+     */
+    public function shouldSave( Model $instance, $datum )
+    {
+        return true;
+    }
+
+    /**
      * Fill in a model instance's fields from the given datum, typically from another system.
      * Pass `true` as the third argument to do a test run, without changing anything.
      *

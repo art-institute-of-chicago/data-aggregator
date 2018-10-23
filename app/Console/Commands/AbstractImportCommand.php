@@ -88,12 +88,16 @@ abstract class AbstractImportCommand extends BaseCommand
 
         $transformer = new $transformer();
 
-        // Fill should always be called before sync
-        // Syncing some relations requires `$instance->getKey()` to work (i.e. id is set)
-        $fills = $transformer->fill( $resource, $datum );
-        $syncs = $transformer->sync( $resource, $datum );
+        // This will be true almost always, except for lists
+        if ($transformer->shouldSave( $resource, $datum ))
+        {
+            // Fill should always be called before sync
+            // Syncing some relations requires `$instance->getKey()` to work (i.e. id is set)
+            $fills = $transformer->fill( $resource, $datum );
+            $syncs = $transformer->sync( $resource, $datum );
 
-        $resource->save();
+            $resource->save();
+        }
 
         // For debugging ids and titles:
         // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");
