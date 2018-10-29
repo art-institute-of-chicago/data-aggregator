@@ -29,7 +29,7 @@ class LegacyEvent extends MembershipTransformer
 
             'short_description' => $datum->summary,
             'resource_title' => $datum->location,
-            'image_url' => $datum->image,
+            'image_url' => str_replace('http://drupal-aic', 'https://www', $datum->image),
             'web_url' => $datum->url,
 
             'start_at' => new Carbon($datum->dates . " " . $datum->start_time),
