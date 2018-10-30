@@ -1,5 +1,23 @@
 <?php
 
+use Illuminate\Support\Debug\HtmlDumper;
+use Symfony\Component\VarDumper\Cloner\VarCloner;
+use Symfony\Component\VarDumper\Dumper\CliDumper;
+
+/**
+ * https://tighten.co/blog/a-better-dd-for-your-tdd
+ */
+function ddd($variable)
+{
+    $cloner = new VarCloner();
+    $cloner->setMaxItems(10);
+
+    $dumper = 'cli' === PHP_SAPI ? new CliDumper() : new HtmlDumper();
+    $dumper->dump($cloner->cloneVar($variable));
+
+    die(1);
+}
+
 /**
  * TODO: Everything below this is unused. However, these methods could be useful in testing.
  */
