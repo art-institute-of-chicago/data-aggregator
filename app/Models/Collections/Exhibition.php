@@ -151,7 +151,7 @@ class Exhibition extends CollectionsModel
                 "doc" => "URL to this exhibition on our website",
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->web_url; },
+                "value" => function() { return $this->webExhibition ? $this->webExhibition->web_url : null; },
             ],
             [
                 "name" => 'type',
@@ -219,14 +219,21 @@ class Exhibition extends CollectionsModel
                 "doc" => "URL to the desktop hero image from the legacy marketing site",
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->legacy_image_desktop; },
+                "value" => function() { return null; },
             ],
             [
                 "name" => 'legacy_image_mobile_url',
                 "doc" => "URL to the mobile hero image from the legacy marketing site",
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->legacy_image_mobile; },
+                "value" => function() { return null; },
+            ],
+            [
+                "name" => 'image_url',
+                "doc" => "URL to the hero image from the website",
+                "type" => "string",
+                'elasticsearch_type' => 'keyword',
+                "value" => function() { return $this->webExhibition ? $this->webExhibition->image_url : null; },
             ],
             [
                 "name" => 'artwork_ids',
