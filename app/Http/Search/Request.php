@@ -665,11 +665,14 @@ class Request
         // Only pull default fields for the resources targeted by this request
         $fields = app('Search')->getDefaultFieldsForEndpoints( $this->resources );
 
+        // Determing if fuzzy searching should be used on this query
+        $fuzziness = $input['fuzzy'] === 'false' || count(explode(' ', $input['q'])) > 7 ? 0 : 'AUTO';
+
         // Pull all docs that match fuzzily into the results
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
                 'query' => $input['q'],
-                'fuzziness' => $input['fuzzy'] === 'false' || count(explode(' ', $input['q'])) > 7 ? 0 : 'AUTO',
+                'fuzziness' => $fuzziness,
                 'prefix_length' => 1,
                 'fields' => $fields,
             ],
@@ -682,13 +685,16 @@ class Request
             return $params;
         }
 
-        // This acts as a boost for docs that match precisely
-        $params['body']['query']['bool']['should'][] = [
-            'multi_match' => [
-                'query' => $input['q'],
-                'fields' => $fields,
-            ]
-        ];
+        // This acts as a boost for docs that match precisely, if fuzzy search is enabled
+        if ($fuzziness)
+        {
+            $params['body']['query']['bool']['should'][] = [
+                'multi_match' => [
+                    'query' => $input['q'],
+                    'fields' => $fields,
+                ]
+            ];
+        }
 
         // This boosts docs that have multiple terms in close proximity
         // `phrase` queries are relatively expensive, so check for spaces first
