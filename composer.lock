@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e55b32f3509e2d498b91e80506c898a",
+    "content-hash": "65eeccfb6ab8cccdbf1340aee2aee02f",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "cbb7fe059dd5452d327a464f29e5803daaaf189e"
+                "reference": "827208834cd3eea5b5e94d4b5d347861f2ac7c35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/cbb7fe059dd5452d327a464f29e5803daaaf189e",
-                "reference": "cbb7fe059dd5452d327a464f29e5803daaaf189e",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/827208834cd3eea5b5e94d4b5d347861f2ac7c35",
+                "reference": "827208834cd3eea5b5e94d4b5d347861f2ac7c35",
                 "shasum": ""
             },
             "require": {
@@ -47,10 +47,10 @@
             ],
             "description": "Shared components for our data hub services.",
             "support": {
-                "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/0.4",
+                "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/0.5",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2018-09-13T14:23:26+00:00"
+            "time": "2018-11-02T16:37:51+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
