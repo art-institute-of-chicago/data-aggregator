@@ -277,6 +277,6 @@ class SearchController extends BaseController
     }
 
     protected function buildCacheKey() {
-        return json_encode(func_get_args());
+        return md5(json_encode(func_get_args()));
     }
 }
