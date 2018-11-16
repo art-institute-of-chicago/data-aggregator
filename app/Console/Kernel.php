@@ -48,7 +48,7 @@ class Kernel extends ConsoleKernel
 
         // Because in the CMS Events don't get touched when a ticketed event
         // is added. Remove this once that's in place.
-        $schedule->command('import:web-full events')
+        $schedule->command('import:web-full', ['endpoint' => 'events', '--yes' => 'default'])
             ->hourly()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-web-full.log'))
