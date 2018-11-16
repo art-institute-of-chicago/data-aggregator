@@ -89,6 +89,9 @@ class Request
 
         // Allow clients to turn fuzzy off
         'fuzzy',
+
+        // Allow clients to turn boost off
+        'boost',
     ];
 
     /**
@@ -264,6 +267,10 @@ class Request
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput( $input );
 
+        // Normalize the `boost` param
+        $input['boost'] = $input['boost'] ?? true;
+        $input['boost'] === 'false' ? $input['boost'] = false : null;
+
         $params = array_merge(
             $this->getBaseParams( $input ),
             $this->getFieldParams( $input ),
@@ -287,7 +294,11 @@ class Request
         $params = $this->addSortParams( $params, $input );
 
         // Add our custom relevancy tweaks into `should`
-        $params = $this->addRelevancyParams( $params, $input );
+        if ( !$input['boost'] ) {
+
+            $params = $this->addRelevancyParams( $params, $input );
+
+        }
 
         // Add params to isolate "scoped" resources into `must`
         $params = $this->addScopeParams( $params, $input );
@@ -328,7 +339,11 @@ class Request
         }
 
         // Apply `function_score` (if any)
-        $params = $this->addFunctionScore( $params, $input );
+        if ( !$input['boost'] ) {
+
+            $params = $this->addFunctionScore( $params, $input );
+
+        }
 
         return $params;
 
