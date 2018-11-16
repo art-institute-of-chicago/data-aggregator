@@ -34,6 +34,12 @@ class Kernel extends ConsoleKernel
             ->appendOutputTo(storage_path('logs/import-daily.log'))
             ->sendOutputTo(storage_path('logs/import-daily-last-run.log'));
 
+        $schedule->command('scout:import-all')
+            ->dailyAt('03:00')
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/scout-import-all.log'))
+            ->sendOutputTo(storage_path('logs/scout-import-all-last-run.log'));
+
         $schedule->command('import:monthly')
             ->monthlyOn(1, '03:00')
             ->withoutOverlapping()
@@ -42,7 +48,7 @@ class Kernel extends ConsoleKernel
 
         // Because in the CMS Events don't get touched when a ticketed event
         // is added. Remove this once that's in place.
-        $schedule->command('import:web-full events')
+        $schedule->command('import:web-full events --yes')
             ->hourly()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/import-web-full.log'))

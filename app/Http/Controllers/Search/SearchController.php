@@ -124,13 +124,27 @@ class SearchController extends BaseController
 
         // Transform our API's syntax into an Elasticsearch params array
         $params = ( new SearchRequest( $resource, $id ) )->$requestMethod( $requestArgs );
+        $cacheKey = $this->buildCacheKey($elasticsearchMethod, $params, config('elasticsearch.cache_version'));
+        $results = null;
 
         try {
-            $results = Elasticsearch::$elasticsearchMethod( $params );
+            // Perform API request and caching
+            if (config('elasticsearch.cache_enabled')) {
+                $results = \Cache::remember($cacheKey, config('elasticsearch.cache_ttl'), function () use ($elasticsearchMethod, $params) {
+                    return Elasticsearch::$elasticsearchMethod( $params );
+                });
+            }
+            else {
+                $results = Elasticsearch::$elasticsearchMethod( $params );
+            }
         } catch (\Exception $e) {
 
             // Elasticsearch occasionally returns a status code of zero
             $code = $e->getCode() > 0 ? $e->getCode() : 500;
+
+            if (config('elasticsearch.cache_enabled')) {
+                \Cache::forget($cacheKey);
+            }
 
             return response( $e->getMessage(), $code )->header('Content-Type', 'application/json');
         }
@@ -205,12 +219,28 @@ class SearchController extends BaseController
             $transformedParams[] = $body;
         }
 
+        $params = ['body' => $transformedParams];
+        $cacheKey = $this->buildCacheKey('msearch', $params, config('elasticsearch.cache_version'));
+        $results = null;
+
         try {
-            $results = Elasticsearch::msearch( ['body' => $transformedParams] );
+            // Perform API request and caching
+            if (config('elasticsearch.cache_enabled')) {
+                $results = \Cache::remember($cacheKey, config('elasticsearch.cache_ttl'), function () use ($params) {
+                    return Elasticsearch::msearch( $params );
+                });
+            }
+            else {
+                $results = Elasticsearch::msearch( $params );
+            }
         } catch (\Exception $e) {
 
             // Elasticsearch occasionally returns a status code of zero
             $code = $e->getCode() > 0 ? $e->getCode() : 500;
+
+            if (config('elasticsearch.cache_enabled')) {
+                \Cache::forget($cacheKey);
+            }
 
             return response( $e->getMessage(), $code )->header('Content-Type', 'application/json');
         }
@@ -246,4 +276,7 @@ class SearchController extends BaseController
 
     }
 
+    protected function buildCacheKey() {
+        return md5(json_encode(func_get_args()));
+    }
 }
