@@ -24,6 +24,7 @@ class Label extends DigitalLabelTransformer
 
         return [
 
+            'title' => $this->headline(json_decode($datum->contentBundle)),
             'type' => $datum->experienceType,
             'copy_text' => $this->text(json_decode($datum->contentBundle)),
             'image_url' => $this->image(json_decode($datum->contentBundle)),
@@ -31,6 +32,20 @@ class Label extends DigitalLabelTransformer
 
         ];
 
+    }
+
+    private function headline( $contentBundle )
+    {
+
+        foreach ($contentBundle as $slide)
+        {
+            if (property_exists($slide, 'headline'))
+            {
+                return $slide->headline;
+            }
+        }
+
+        return '';
     }
 
     private function text( $contentBundle )
