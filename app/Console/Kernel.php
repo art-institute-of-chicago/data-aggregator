@@ -88,10 +88,7 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
 
-        // TODO: Consider adding recursive load here?
         $this->load(__DIR__.'/Commands');
-        $this->load(__DIR__.'/Update');
-        $this->load(__DIR__.'/Report');
 
     }
 }
