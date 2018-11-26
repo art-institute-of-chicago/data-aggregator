@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Search;
 
 use League\Csv\Reader;
 use Illuminate\Support\Facades\Storage;

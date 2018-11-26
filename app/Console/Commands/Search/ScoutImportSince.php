@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Search;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
