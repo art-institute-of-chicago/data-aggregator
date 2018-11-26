@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 class ResourceServiceProvider extends ServiceProvider
 {
 
-
     public function boot()
     {
         //
@@ -72,7 +71,6 @@ class ResourceServiceProvider extends ServiceProvider
 
                 public function getEndpointForModel( $model )
                 {
-
                     $model = $this->getCleanModel( $model );
 
                     $resource = $this->resources->firstWhere('model', $model);
@@ -106,7 +104,10 @@ class ResourceServiceProvider extends ServiceProvider
                     $model = $this->getCleanModel( $model );
 
                     // Get the right transformer mapping
-                    $mapping = $this->transformers->where('model', $model)->where('source', $source )->first();
+                    $mapping = $this->transformers
+                        ->where('model', $model)
+                        ->where('source', $source)
+                        ->first();
 
                     return $mapping['transformer'];
 
@@ -136,12 +137,14 @@ class ResourceServiceProvider extends ServiceProvider
                         $model = $this->getCleanModel( $model );
 
                         $source = explode('\\', $model)[2]; // e.g. Collections
-                        // $class = explode('\\', $model)[3]; // e.g. Artwork
 
-                        $inbound = $this->inbound->where('model', $model)->where('source', $source )->first();
+                        $inbound = $this->inbound
+                            ->where('model', $model)
+                            ->where('source', $source )
+                            ->first();
 
-                        if (isset($inbound))
-                        {
+                        if (isset($inbound)) {
+
                             $transformer = $inbound['transformer'];
 
                         } else {
@@ -150,25 +153,20 @@ class ResourceServiceProvider extends ServiceProvider
 
                             if( !class_exists( $transformer ) )
                             {
-
                                 $parent = array_slice( explode('\\', get_parent_class( $model )), -1, 1)[0];
 
                                 $transformer = '\\App\\Transformers\\Inbound\\' . $source . '\\' . $parent;
 
                                 if( !class_exists( $transformer ) )
                                 {
-
                                     $transformer = '\\App\\Transformers\\Inbound\\' . $source . 'Transformer';
 
                                     if( !class_exists( $transformer ) )
                                     {
                                         $transformer = \App\Transformers\Inbound\AbstractTransformer::class;
                                     }
-
                                 }
-
                             }
-
                         }
 
                         return [
