@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Import;
 
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;

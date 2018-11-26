@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Import;
 
 use App\Models\Library\Material;
 use App\Models\Library\Term;

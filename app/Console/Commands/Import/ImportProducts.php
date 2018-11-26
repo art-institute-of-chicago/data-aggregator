@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Import;
 
 class ImportProducts extends ImportProductsFull
 {

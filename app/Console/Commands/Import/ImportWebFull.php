@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Import;
 
 use App\Models\Web\Article;
 use App\Models\Web\Artist;

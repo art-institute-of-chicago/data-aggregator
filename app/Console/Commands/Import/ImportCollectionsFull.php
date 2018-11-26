@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Import;
 
 use App\Models\Collections\AgentRole;
 use App\Models\Collections\ArtworkType;
