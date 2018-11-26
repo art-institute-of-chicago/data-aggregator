@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Prototype;
 
 use App\Models\Collections\Artwork;
 

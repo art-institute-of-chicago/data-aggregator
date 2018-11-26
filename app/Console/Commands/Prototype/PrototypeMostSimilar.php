@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Prototype;
 
-use Illuminate\Console\Command;
 use App\Models\Collections\Artwork;
 
-class PrototypeMostSimilar extends Command
+use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
+
+class PrototypeMostSimilar extends BaseCommand
 {
     /**
      * The name and signature of the console command.
