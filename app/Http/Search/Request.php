@@ -267,9 +267,12 @@ class Request
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput( $input );
 
-        // Normalize the `boost` param
-        $input['boost'] = $input['boost'] ?? true;
-        $input['boost'] === 'false' ? $input['boost'] = false : null;
+        // Normalize the `boost` param to bool (default: true)
+        if (!isset($input['boost'])) {
+            $input['boost'] = true;
+        } elseif (is_string($input['boost'])) {
+            $input['boost'] = filter_var($input['boost'], FILTER_VALIDATE_BOOLEAN);
+        }
 
         $params = array_merge(
             $this->getBaseParams( $input ),
@@ -294,7 +297,7 @@ class Request
         $params = $this->addSortParams( $params, $input );
 
         // Add our custom relevancy tweaks into `should`
-        if ( !$input['boost'] ) {
+        if ( $input['boost'] ) {
 
             $params = $this->addRelevancyParams( $params, $input );
 
@@ -339,7 +342,7 @@ class Request
         }
 
         // Apply `function_score` (if any)
-        if ( !$input['boost'] ) {
+        if ( $input['boost'] ) {
 
             $params = $this->addFunctionScore( $params, $input );
 
