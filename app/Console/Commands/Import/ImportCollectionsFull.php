@@ -160,8 +160,11 @@ class ImportCollectionsFull extends AbstractImportCommand
     /**
      * Temporarily overriding this to have control over the `$limit` default here.
      */
-    protected function query( $endpoint, $page = 1, $limit = 100 )
+    protected function query( $endpoint, $page = 1, $limit = 500 )
     {
+        // Avoid retrieving too many assets at once
+        $limit = in_array($endpoint, ['videos', 'texts', 'sounds', 'images']) ? 10 : 100;
+
         return parent::query( $endpoint, $page, $limit );
     }
 
