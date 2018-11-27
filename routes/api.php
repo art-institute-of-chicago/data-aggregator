@@ -221,7 +221,4 @@ Route::group(['prefix' => 'v1'], function() {
     Route::any('digital-labels', 'LabelsController@index');
     Route::any('digital-labels/{id}', 'LabelsController@show');
 
-    // Generic endpoint to allow source systems to let us know when a record should be updated
-    Route::any('{endpoint}/{id}/pull', 'PullController@pull');
-
 });

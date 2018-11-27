@@ -4,7 +4,7 @@ namespace App\Console\Commands\Update;
 
 use App\Models\Collections\Artwork;
 
-use App\Console\Commands\AbstractImportCommand as BaseCommand;
+use App\Console\Commands\Import\AbstractImportCommand as BaseCommand;
 
 class UpdateTerms extends BaseCommand
 {
