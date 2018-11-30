@@ -53,13 +53,13 @@ return [
         [
             'source' => 'Collections',
             'model' => \App\Models\Collections\Category::class,
-            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+            'transformer' => \App\Transformers\Inbound\Collections\Category::class,
         ],
         //terms
         [
             'source' => 'Collections',
             'model' => \App\Models\Collections\Term::class,
-            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+            'transformer' => \App\Transformers\Inbound\Collections\Term::class,
         ],
         //catalogues
         [
