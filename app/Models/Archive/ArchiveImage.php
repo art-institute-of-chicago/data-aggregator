@@ -3,7 +3,6 @@
 namespace App\Models\Archive;
 
 use App\Models\BaseModel;
-use App\Models\Fillable;
 use App\Models\Documentable;
 
 /**
@@ -12,7 +11,6 @@ use App\Models\Documentable;
 class ArchiveImage extends BaseModel
 {
 
-    use Fillable;
     use Documentable;
 
     protected $casts = [
