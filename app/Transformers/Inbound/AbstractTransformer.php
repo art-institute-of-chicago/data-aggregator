@@ -4,8 +4,6 @@ namespace App\Transformers\Inbound;
 
 use App\Transformers\Datum;
 
-use League\Csv\Writer;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 
@@ -31,13 +29,6 @@ class AbstractTransformer
         'id',
         'title',
     ];
-
-    /**
-     * If `is_safe` is true, exceptions will be logged to file, but execution will continue.
-     *
-     * @var boolean
-     */
-    private $is_safe = false;
 
     /**
      * Returns true by default, but override if additional logic is required.
@@ -72,16 +63,7 @@ class AbstractTransformer
         $datum = $this->prune( $datum, $this->getAttributes( $instance ) );
 
         // Fill the instance with mapped source data
-        if( !$is_test )
-        {
-            // TODO: Remove this once things are confirmed stable
-            $this->safe( $instance, 'fill', null, function() use ( $instance, $datum ) {
-
-                $instance->fill( $datum );
-
-            });
-
-        }
+        $instance->fill( $datum );
 
         return $datum;
 
@@ -116,14 +98,7 @@ class AbstractTransformer
         // Sync many-to-many relationships
         foreach( $relations as $relation => $ids )
         {
-
-            // TODO: Remove this once things are confirmed stable
-            $this->safe( $instance, 'sync', $relation, function() use ( $instance, $relation, $ids ) {
-
-                $instance->$relation()->sync( $ids );
-
-            });
-
+            $instance->$relation()->sync( $ids );
         }
 
         return $relations;
@@ -352,51 +327,6 @@ class AbstractTransformer
         $columns = array_values( $columns );
 
         return $columns;
-
-    }
-
-    /**
-     * Wrapper for `fill` and `sync` calls that forces the program to continue even
-     * if an exception is encountered. Exceptions are written to a log file.
-     *
-     * @param \Illuminate\Database\Eloquent\Model $instance
-     * @param string $mode  Either `fill` or `sync`
-     * @param string $extra  String to store in the `extra` column of the CSV
-     * @param callable $callable  Function to call safely
-     */
-    private function safe( Model $instance, $mode, $extra, $callable )
-    {
-
-        if( !$this->is_safe )
-        {
-            return $callable();
-        }
-
-        try {
-
-            return $callable();
-
-        } catch( \Exception $e ) {
-
-            $out = [
-                'class' => get_class( $instance ),
-                'id' => $instance->getKey(),
-                'mode' => $mode,
-                'extra' => $extra,
-                'timestamp' => time(),
-            ];
-
-            // Harcoded exception file
-            $path = storage_path() . '/app/exceptions-inbound-transformer.csv';
-
-            // Open the file in append mode
-            $csv = Writer::createFromPath( $path, 'a' );
-
-            $csv->insertOne($out);
-
-            unset( $csv );
-
-        }
 
     }
 
