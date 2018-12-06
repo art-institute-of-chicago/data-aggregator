@@ -7,7 +7,9 @@ use App\Transformers\Datum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 
-class BaseTransformer
+use App\Transformers\AbstractTransformer;
+
+class BaseTransformer extends AbstractTransformer
 {
 
     /**
