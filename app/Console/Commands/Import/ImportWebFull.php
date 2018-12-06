@@ -97,8 +97,7 @@ class ImportWebFull extends AbstractImportCommand
     {
 
         $this->importFromWeb('articles');
-        // Incorrect integer value: 'Also known as' for column 'also_known_as'
-        // $this->importFromWeb('artists');
+        $this->importFromWeb('artists');
         $this->importFromWeb('closures');
         $this->importFromWeb('events');
         // we do not import events/occurrences here to avoid import:web cascade
