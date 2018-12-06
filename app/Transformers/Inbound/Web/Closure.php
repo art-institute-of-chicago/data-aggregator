@@ -3,9 +3,9 @@
 namespace App\Transformers\Inbound\Web;
 
 use App\Transformers\Datum;
-use App\Transformers\Inbound\AbstractTransformer;
+use App\Transformers\Inbound\WebTransformer;
 
-class Closure extends AbstractTransformer
+class Closure extends WebTransformer
 {
 
     protected function getTitle( Datum $datum )

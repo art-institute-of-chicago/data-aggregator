@@ -3,9 +3,9 @@
 namespace App\Transformers\Inbound\Web;
 
 use App\Transformers\Datum;
-use App\Transformers\Inbound\AbstractTransformer;
+use App\Transformers\Inbound\WebTransformer;
 
-class Article extends AbstractTransformer
+class Article extends WebTransformer
 {
 
     use HasBlocks { getExtraFields as getBlockFields; }
