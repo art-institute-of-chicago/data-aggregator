@@ -3,8 +3,6 @@
 namespace App\Models\Web;
 
 use App\Models\WebModel;
-use App\Models\Documentable;
-use App\Models\ElasticSearchable;
 
 /**
  * Hours on the website
