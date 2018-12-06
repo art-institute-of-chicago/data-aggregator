@@ -3,9 +3,9 @@
 namespace App\Transformers\Inbound\StaticArchive;
 
 use App\Transformers\Datum;
-use App\Transformers\Inbound\AbstractTransformer;
+use App\Transformers\Inbound\BaseTransformer;
 
-class Site extends AbstractTransformer
+class Site extends BaseTransformer
 {
 
     protected function getIds( Datum $datum )

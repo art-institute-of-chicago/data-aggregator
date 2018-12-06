@@ -8,7 +8,7 @@ use App\Models\Fakeable;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class AbstractPivot extends Pivot
+abstract class AbstractPivot extends Pivot
 {
 
     use Instancable, Transformable, Fakeable;

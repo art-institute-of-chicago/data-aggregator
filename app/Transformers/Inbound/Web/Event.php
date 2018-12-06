@@ -3,9 +3,9 @@
 namespace App\Transformers\Inbound\Web;
 
 use App\Transformers\Datum;
-use App\Transformers\Inbound\AbstractTransformer;
+use App\Transformers\Inbound\WebTransformer;
 
-class Event extends AbstractTransformer
+class Event extends WebTransformer
 {
 
     protected function getExtraFields( Datum $datum )
