@@ -4,7 +4,7 @@ namespace App\Transformers\Inbound;
 
 use App\Transformers\Datum;
 
-class MembershipTransformer extends AbstractTransformer
+class MembershipTransformer extends BaseTransformer
 {
 
     protected function getIds( Datum $datum )

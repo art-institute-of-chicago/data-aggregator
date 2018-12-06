@@ -2,12 +2,9 @@
 
 namespace App\Transformers\Inbound;
 
-use Carbon\Carbon;
-
 use App\Transformers\Datum;
-use App\Transformers\Inbound\AbstractTransformer;
 
-class DigitalLabelTransformer extends AbstractTransformer
+class DigitalLabelTransformer extends BaseTransformer
 {
 
     protected function getDates( Datum $datum )

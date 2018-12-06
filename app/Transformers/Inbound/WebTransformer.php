@@ -2,7 +2,7 @@
 
 namespace App\Transformers\Inbound;
 
-class WebTransformer extends AbstractTransformer
+class WebTransformer extends BaseTransformer
 {
     /**
      * Currently, this class is empty. However, there are enough models

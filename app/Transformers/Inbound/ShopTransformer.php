@@ -4,7 +4,7 @@ namespace App\Transformers\Inbound;
 
 use App\Transformers\Datum;
 
-class ShopTransformer extends AbstractTransformer
+class ShopTransformer extends BaseTransformer
 {
 
     protected function getIds( Datum $datum )

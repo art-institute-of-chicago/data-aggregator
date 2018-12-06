@@ -163,7 +163,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                                     if( !class_exists( $transformer ) )
                                     {
-                                        $transformer = \App\Transformers\Inbound\AbstractTransformer::class;
+                                        $transformer = \App\Transformers\Inbound\BaseTransformer::class;
                                     }
                                 }
                             }
