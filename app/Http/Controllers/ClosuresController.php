@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Aic\Hub\Foundation\AbstractController as BaseController;
+use App\Http\Controllers\AbstractController as BaseController;
 
 class ClosuresController extends BaseController
 {

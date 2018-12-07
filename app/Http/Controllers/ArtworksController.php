@@ -7,7 +7,7 @@ use App\Models\Collections\Exhibition;
 
 use Illuminate\Http\Request;
 
-use Aic\Hub\Foundation\AbstractController as BaseController;
+use App\Http\Controllers\AbstractController as BaseController;
 
 class ArtworksController extends BaseController
 {

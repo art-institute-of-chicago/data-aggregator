@@ -6,7 +6,7 @@ use App\Models\Collections\Artwork;
 
 use Illuminate\Http\Request;
 
-use Aic\Hub\Foundation\AbstractController as BaseController;
+use App\Http\Controllers\AbstractController as BaseController;
 
 class AgentsController extends BaseController
 {
