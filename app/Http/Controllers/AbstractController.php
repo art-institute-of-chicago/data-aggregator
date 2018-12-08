@@ -84,11 +84,8 @@ abstract class AbstractController extends BaseController
      */
     protected function getItemResponse(Model $item, $fields = null)
     {
-        $transformer = new $this->transformer($fields);
-        $resource = new Item($item, $transformer);
-
         return response()->json(
-            $this->fractal->createData($resource)->toArray()
+            $this->getGenericResponse($item, $fields, Item::class)
         );
     }
 
@@ -104,10 +101,7 @@ abstract class AbstractController extends BaseController
      */
     protected function getCollectionResponse(Arrayable $collection, $fields = null)
     {
-        $transformer = new $this->transformer($fields);
-        $resource = new Collection($collection, $transformer);
-        $data = $this->fractal->createData($resource)->toArray();
-        $response = isset($data['data']) ? $data : ['data' => $data];
+        $response = $this->getGenericResponse($collection, $fields, Collection::class);
 
         if ($collection instanceof LengthAwarePaginator)
         {
@@ -127,8 +121,25 @@ abstract class AbstractController extends BaseController
                 $paginator['next_url'] = $collection->nextPageUrl() . '&limit=' . $collection->perPage();
             }
 
-            $response['pagination'] = $paginator;
+            $response = ['pagination' => $paginator] + $response;
         }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Helper to fill data and attach metadata for items and collections.
+     * @param  \Illuminate\Contracts\Support\Arrayable $inputData
+     * @param  array|string|null $fields
+     * @param  string $resourceClass  Must implement \League\Fractal\Resource\ResourceAbstract
+     * @return array
+     */
+    protected function getGenericResponse(Arrayable $inputData, $fields, string $resourceClass)
+    {
+        $transformer = new $this->transformer($fields);
+        $resource = new $resourceClass($inputData, $transformer);
+        $data = $this->fractal->createData($resource)->toArray();
+        $response = isset($data['data']) ? $data : ['data' => $data];
 
         $info = [
             'version' => config('app.version')
@@ -151,7 +162,7 @@ abstract class AbstractController extends BaseController
             $response['config'] = $config;
         }
 
-        return response()->json($response);
+        return $response;
     }
 
 
