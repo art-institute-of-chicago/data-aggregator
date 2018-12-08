@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 use Closure;
 
+use League\Fractal\TransformerAbstract;
+use League\Fractal\Resource\Item;
+use League\Fractal\Resource\Collection;
+
+use Aic\Hub\Foundation\ResourceSerializer;
 use Aic\Hub\Foundation\Exceptions\BigLimitException;
 use Aic\Hub\Foundation\Exceptions\InvalidSyntaxException;
 use Aic\Hub\Foundation\Exceptions\ItemNotFoundException;
@@ -20,6 +26,56 @@ abstract class AbstractController extends BaseController
 {
 
     /**
+     * @var \League\Fractal\Manager
+     */
+    private $fractal;
+
+    public function __construct()
+    {
+        $this->fractal = app()->make('League\Fractal\Manager');
+        $this->fractal->setSerializer(new ResourceSerializer);
+
+        // Parse fractal includes and excludes
+        $this->parseFractalParam('include', 'parseIncludes');
+        $this->parseFractalParam('exclude', 'parseExcludes');
+    }
+
+
+    /**
+     * Helper to parse Fractal includes or excludes.
+     *
+     * @link http://fractal.thephpleague.com/transformers/
+     *
+     * @param \League\Fractal\Manager $fractal
+     * @param string $param  Name of query string param to parse
+     * @param string $method  Either `parseIncludes` or `parseExcludes`
+     */
+    private function parseFractalParam( $param, $method )
+    {
+        $values = Input::get($param);
+
+        if(!isset($values))
+        {
+            return;
+        }
+
+        // Fractal handles this internally, but we do it early for preprocessing
+        if(is_string($values))
+        {
+            $values = explode(',', $values);
+        }
+
+        // Allows for camel, snake, and kebab cases
+        foreach($values as &$value)
+        {
+            $value = snake_case(camel_case($value));
+        }
+
+        $this->fractal->$method($values);
+    }
+
+
+    /**
      * Return a response with a single resource, given an Eloquent Model.
      *
      * @param  \Illuminate\Database\Eloquent\Model $item
@@ -28,7 +84,12 @@ abstract class AbstractController extends BaseController
      */
     protected function itemResponse(Model $item, $fields = null)
     {
-        return response()->item($item, new $this->transformer($fields));
+        $transformer = new $this->transformer($fields);
+        $resource = new Item($item, $transformer);
+
+        return response()->json(
+            $this->fractal->createData($resource)->toArray()
+        );
     }
 
 
@@ -41,9 +102,53 @@ abstract class AbstractController extends BaseController
      * @param  array|string|null $fields
      * @return \Illuminate\Http\Response
      */
-    protected function collectionResponse(Arrayable $arrayable, $fields = null)
+    protected function collectionResponse(Arrayable $collection, $fields = null)
     {
-        return response()->collection($arrayable, new $this->transformer($fields));
+        $transformer = new $this->transformer($fields);
+        $resource = new Collection($collection, $transformer);
+        $data = $this->fractal->createData($resource)->toArray();
+
+        if ($collection instanceof LengthAwarePaginator)
+        {
+            $paginator = [
+                'total' => $collection->total(),
+                'limit' => (int) $collection->perPage(),
+                'offset' => (int) $collection->perPage() * ( $collection->currentPage() - 1 ),
+                'total_pages' => $collection->lastPage(),
+                'current_page' => $collection->currentPage(),
+            ];
+
+            if ($collection->previousPageUrl()) {
+                $paginator['prev_url'] = $collection->previousPageUrl() . '&limit=' . $collection->perPage();
+            }
+
+            if ($collection->hasMorePages()) {
+                $paginator['next_url'] = $collection->nextPageUrl() . '&limit=' . $collection->perPage();
+            }
+
+            $info = [
+                'version' => config('app.version')
+            ];
+            if (config('app.documentation_url'))
+            {
+                $info['documentation'] = config('app.documentation_url');
+            }
+            if (config('app.message'))
+            {
+                $info['message'] = config('app.message');
+            }
+
+            $data = array_merge(['pagination' => $paginator], $data, ['info' => $info]);
+
+            $config = config('app.config_documentation');
+
+            if ($config)
+            {
+                $data = array_merge($data, ['config' => $config]);
+            }
+        }
+
+        return response()->json($data);
     }
 
 
