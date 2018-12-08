@@ -107,6 +107,7 @@ abstract class AbstractController extends BaseController
         $transformer = new $this->transformer($fields);
         $resource = new Collection($collection, $transformer);
         $data = $this->fractal->createData($resource)->toArray();
+        $response = isset($data['data']) ? $data : ['data' => $data];
 
         if ($collection instanceof LengthAwarePaginator)
         {
@@ -126,29 +127,31 @@ abstract class AbstractController extends BaseController
                 $paginator['next_url'] = $collection->nextPageUrl() . '&limit=' . $collection->perPage();
             }
 
-            $info = [
-                'version' => config('app.version')
-            ];
-            if (config('app.documentation_url'))
-            {
-                $info['documentation'] = config('app.documentation_url');
-            }
-            if (config('app.message'))
-            {
-                $info['message'] = config('app.message');
-            }
-
-            $data = array_merge(['pagination' => $paginator], $data, ['info' => $info]);
-
-            $config = config('app.config_documentation');
-
-            if ($config)
-            {
-                $data = array_merge($data, ['config' => $config]);
-            }
+            $response['pagination'] = $paginator;
         }
 
-        return response()->json($data);
+        $info = [
+            'version' => config('app.version')
+        ];
+        if (config('app.documentation_url'))
+        {
+            $info['documentation'] = config('app.documentation_url');
+        }
+        if (config('app.message'))
+        {
+            $info['message'] = config('app.message');
+        }
+
+        $response['info'] = $info;
+
+        $config = config('app.config_documentation');
+
+        if ($config)
+        {
+            $response['config'] = $config;
+        }
+
+        return response()->json($response);
     }
 
 
