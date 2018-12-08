@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 use Closure;
 
@@ -16,6 +18,34 @@ use Aic\Hub\Foundation\AbstractController as BaseController;
 
 abstract class AbstractController extends BaseController
 {
+
+    /**
+     * Return a response with a single resource, given an Eloquent Model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model $item
+     * @param  array|string|null $fields
+     * @return \Illuminate\Http\Response
+     */
+    protected function itemResponse(Model $item, $fields = null)
+    {
+        return response()->item($item, new $this->transformer($fields));
+    }
+
+
+    /**
+     * Return a response with multiple resources, given an arrayable object.
+     * For multiple ids, this is a an Eloquent Collection.
+     * For pagination, this is LengthAwarePaginator.
+     *
+     * @param  \Illuminate\Contracts\Support\Arrayable $arrayable
+     * @param  array|string|null $fields
+     * @return \Illuminate\Http\Response
+     */
+    protected function collectionResponse(Arrayable $arrayable, $fields = null)
+    {
+        return response()->collection($arrayable, new $this->transformer($fields));
+    }
+
 
     /**
      * Return a single resource. Not meant to be called directly in routes.
@@ -46,14 +76,14 @@ abstract class AbstractController extends BaseController
 
         $fields = Input::get('fields');
 
-        return response()->item($item, new $this->transformer($fields) );
+        return $this->itemResponse($item, $fields);
 
     }
 
 
     /**
      * Return a list of resources. Not meant to be called directly in routes.
-     * `$callback` should return an Eloquent Collection.
+     * `$callback` should return LengthAwarePaginator.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $callback
@@ -84,11 +114,12 @@ abstract class AbstractController extends BaseController
         $id = $request->route('id');
 
         // Assumes the inheriting class set model and transformer
+        // \Illuminate\Contracts\Pagination\LengthAwarePaginator
         $all = $callback( $limit, $id );
 
         $fields = Input::get('fields');
 
-        return response()->collection($all, new $this->transformer($fields) );
+        return $this->collectionResponse($all, $fields);
 
     }
 
@@ -121,11 +152,12 @@ abstract class AbstractController extends BaseController
 
         }
 
+        // Illuminate\Database\Eloquent\Collection
         $all = $this->find($ids);
 
         $fields = Input::get('fields');
 
-        return response()->collection($all, new $this->transformer($fields) );
+        return $this->collectionResponse($all, $fields);
 
     }
 
