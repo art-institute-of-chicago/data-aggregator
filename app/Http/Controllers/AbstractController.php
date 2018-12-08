@@ -82,7 +82,7 @@ abstract class AbstractController extends BaseController
      * @param  array|string|null $fields
      * @return \Illuminate\Http\Response
      */
-    protected function itemResponse(Model $item, $fields = null)
+    protected function getItemResponse(Model $item, $fields = null)
     {
         $transformer = new $this->transformer($fields);
         $resource = new Item($item, $transformer);
@@ -98,11 +98,11 @@ abstract class AbstractController extends BaseController
      * For multiple ids, this is a an Eloquent Collection.
      * For pagination, this is LengthAwarePaginator.
      *
-     * @param  \Illuminate\Contracts\Support\Arrayable $arrayable
+     * @param  \Illuminate\Contracts\Support\Arrayable $collection
      * @param  array|string|null $fields
      * @return \Illuminate\Http\Response
      */
-    protected function collectionResponse(Arrayable $collection, $fields = null)
+    protected function getCollectionResponse(Arrayable $collection, $fields = null)
     {
         $transformer = new $this->transformer($fields);
         $resource = new Collection($collection, $transformer);
@@ -184,7 +184,7 @@ abstract class AbstractController extends BaseController
 
         $fields = Input::get('fields');
 
-        return $this->itemResponse($item, $fields);
+        return $this->getItemResponse($item, $fields);
 
     }
 
@@ -227,7 +227,7 @@ abstract class AbstractController extends BaseController
 
         $fields = Input::get('fields');
 
-        return $this->collectionResponse($all, $fields);
+        return $this->getCollectionResponse($all, $fields);
 
     }
 
@@ -265,7 +265,7 @@ abstract class AbstractController extends BaseController
 
         $fields = Input::get('fields');
 
-        return $this->collectionResponse($all, $fields);
+        return $this->getCollectionResponse($all, $fields);
 
     }
 
