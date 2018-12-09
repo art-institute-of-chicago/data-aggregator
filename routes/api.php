@@ -75,14 +75,17 @@ Route::group(['prefix' => 'v1'], function() {
     Route::any('artwork-date-qualifiers', 'ResourceController@index');
     Route::any('artwork-date-qualifiers/{id}', 'ResourceController@show');
 
-    Route::any('categories', 'ResourceController@index');
-    Route::any('categories/{id}', 'ResourceController@show');
+    Route::any('category-terms', 'ResourceController@index');
+    Route::any('category-terms/{id}', 'ResourceController@show');
+
+    Route::any('terms', 'ResourceController@indexScope');
+    Route::any('terms/{id}', 'ResourceController@showScope');
+
+    Route::any('categories', 'ResourceController@indexScope');
+    Route::any('categories/{id}', 'ResourceController@showScope');
 
     Route::any('departments', 'ResourceController@indexScope');
     Route::any('departments/{id}', 'ResourceController@showScope');
-
-    Route::any('category-terms', 'ResourceController@index');
-    Route::any('category-terms/{id}', 'ResourceController@show');
 
     Route::any('places', 'ResourceController@index');
     Route::any('places/{id}', 'ResourceController@show');
@@ -106,9 +109,6 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::any('catalogues', 'ResourceController@index');
     Route::any('catalogues/{id}', 'ResourceController@show');
-
-    Route::any('terms', 'ResourceController@index');
-    Route::any('terms/{id}', 'ResourceController@show');
 
     // Shop
     Route::any('shop-categories', 'ResourceController@index');
