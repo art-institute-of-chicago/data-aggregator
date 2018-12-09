@@ -65,8 +65,8 @@ Route::group(['prefix' => 'v1'], function() {
     Route::any('artwork-catalogues', 'Refactor\ConfigController@index'); // pivot
     Route::any('artwork-catalogues/{id}', 'Refactor\ConfigController@show'); // pivot
 
-    Route::any('departments', 'CategoriesController@departments');
-    Route::any('departments/{id}', 'CategoriesController@show');
+    Route::any('departments', 'CategoriesController@indexScope');
+    Route::any('departments/{id}', 'CategoriesController@showScope');
 
     Route::any('artwork-types', 'Refactor\ConfigController@index');
     Route::any('artwork-types/{id}', 'Refactor\ConfigController@show');

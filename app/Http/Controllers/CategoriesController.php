@@ -15,16 +15,4 @@ class CategoriesController extends BaseController
 
     protected $transformer = \App\Http\Transformers\CollectionsTransformer::class;
 
-
-    // departments
-    public function departments(Request $request) {
-
-        return $this->collect( $request, function( $limit ) {
-
-            return Category::departments()->paginate($limit);
-
-        });
-
-    }
-
 }
