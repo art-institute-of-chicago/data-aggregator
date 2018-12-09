@@ -79,13 +79,12 @@ abstract class AbstractController extends BaseController
      * Return a response with a single resource, given an Eloquent Model.
      *
      * @param  \Illuminate\Database\Eloquent\Model $item
-     * @param  array|string|null $fields
      * @return \Illuminate\Http\Response
      */
-    protected function getItemResponse(Model $item, $fields = null)
+    protected function getItemResponse(Model $item)
     {
         return response()->json(
-            $this->getGenericResponse($item, $fields, Item::class)
+            $this->getGenericResponse($item, Item::class)
         );
     }
 
@@ -96,12 +95,11 @@ abstract class AbstractController extends BaseController
      * For pagination, this is LengthAwarePaginator.
      *
      * @param  \Illuminate\Contracts\Support\Arrayable $collection
-     * @param  array|string|null $fields
      * @return \Illuminate\Http\Response
      */
-    protected function getCollectionResponse(Arrayable $collection, $fields = null)
+    protected function getCollectionResponse(Arrayable $collection)
     {
-        $response = $this->getGenericResponse($collection, $fields, Collection::class);
+        $response = $this->getGenericResponse($collection, Collection::class);
 
         if ($collection instanceof LengthAwarePaginator)
         {
@@ -130,12 +128,12 @@ abstract class AbstractController extends BaseController
     /**
      * Helper to fill data and attach metadata for items and collections.
      * @param  \Illuminate\Contracts\Support\Arrayable $inputData
-     * @param  array|string|null $fields
      * @param  string $resourceClass  Must implement \League\Fractal\Resource\ResourceAbstract
      * @return array
      */
-    protected function getGenericResponse(Arrayable $inputData, $fields, string $resourceClass)
+    protected function getGenericResponse(Arrayable $inputData, string $resourceClass)
     {
+        $fields = Input::get('fields');
         $transformer = new $this->transformer($fields);
         $resource = new $resourceClass($inputData, $transformer);
         $data = $this->fractal->createData($resource)->toArray();
@@ -193,9 +191,7 @@ abstract class AbstractController extends BaseController
             throw new ItemNotFoundException();
         }
 
-        $fields = Input::get('fields');
-
-        return $this->getItemResponse($item, $fields);
+        return $this->getItemResponse($item);
 
     }
 
@@ -236,9 +232,7 @@ abstract class AbstractController extends BaseController
         // \Illuminate\Contracts\Pagination\LengthAwarePaginator
         $all = $callback( $limit, $id );
 
-        $fields = Input::get('fields');
-
-        return $this->getCollectionResponse($all, $fields);
+        return $this->getCollectionResponse($all);
 
     }
 
@@ -274,9 +268,7 @@ abstract class AbstractController extends BaseController
         // Illuminate\Database\Eloquent\Collection
         $all = $this->find($ids);
 
-        $fields = Input::get('fields');
-
-        return $this->getCollectionResponse($all, $fields);
+        return $this->getCollectionResponse($all);
 
     }
 
