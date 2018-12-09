@@ -222,34 +222,6 @@ class BaseModel extends AbstractModel
     }
 
     /**
-     * Generate a unique ID based on a combination of two numbers.
-     * @param  int   $x
-     * @param  int   $y
-     * @return int
-     */
-    public function cantorPair($x, $y)
-    {
-
-        return (($x + $y) * ($x + $y + 1)) / 2 + $y;
-
-    }
-
-    /**
-     * Get the two numbers that a cantor ID was based on
-     * @param  int   $z
-     * @return array
-     */
-    public function reverseCantorPair($z)
-    {
-
-        $t = floor((-1 + sqrt(1 + 8 * $z))/2);
-        $x = $t * ($t + 3) / 2 - $z;
-        $y = $z - $t * ($t + 1) / 2;
-        return [$x, $y];
-
-    }
-
-    /**
      * Touch the owning relations of the model.
      * Reindex related models in search index.
      *
