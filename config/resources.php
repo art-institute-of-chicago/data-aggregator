@@ -81,11 +81,13 @@ return [
             [
                 'endpoint' => 'agents',
                 'model' => \App\Models\Collections\Agent::class,
+                'transformer' => \App\Http\Transformers\AgentTransformer::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'artists',
                 'model' => \App\Models\Collections\Agent::class,
+                'transformer' => \App\Http\Transformers\AgentTransformer::class,
                 'scope_of' => 'agents',
             ],
             [
@@ -156,11 +158,13 @@ return [
             [
                 'endpoint' => 'categories',
                 'model' => \App\Models\Collections\Category::class,
+                'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
                 'scope_of' => 'category-terms',
             ],
             [
                 'endpoint' => 'departments',
                 'model' => \App\Models\Collections\Category::class,
+                'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
                 'scope_of' => 'categories',
             ],
             [

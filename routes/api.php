@@ -51,10 +51,11 @@ Route::group(['prefix' => 'v1'], function() {
     Route::any('artworks/{id}', 'Refactor\ConfigController@show');
 
     // Collections
-    Route::any('agents', 'AgentsController@index');
-    Route::any('agents/{id}', 'AgentsController@show');
-    Route::any('artists', 'AgentsController@indexScope');
-    Route::any('artists/{id}', 'AgentsController@showScope');
+    Route::any('agents', 'Refactor\ConfigController@index');
+    Route::any('agents/{id}', 'Refactor\ConfigController@show');
+
+    Route::any('artists', 'Refactor\ConfigController@indexScope');
+    Route::any('artists/{id}', 'Refactor\ConfigController@showScope');
 
     Route::any('agent-types', 'Refactor\ConfigController@index');
     Route::any('agent-types/{id}', 'Refactor\ConfigController@show');
@@ -65,9 +66,6 @@ Route::group(['prefix' => 'v1'], function() {
     Route::any('artwork-catalogues', 'Refactor\ConfigController@index'); // pivot
     Route::any('artwork-catalogues/{id}', 'Refactor\ConfigController@show'); // pivot
 
-    Route::any('departments', 'CategoriesController@indexScope');
-    Route::any('departments/{id}', 'CategoriesController@showScope');
-
     Route::any('artwork-types', 'Refactor\ConfigController@index');
     Route::any('artwork-types/{id}', 'Refactor\ConfigController@show');
 
@@ -77,8 +75,11 @@ Route::group(['prefix' => 'v1'], function() {
     Route::any('artwork-date-qualifiers', 'Refactor\ConfigController@index');
     Route::any('artwork-date-qualifiers/{id}', 'Refactor\ConfigController@show');
 
-    Route::any('categories', 'CategoriesController@index');
-    Route::any('categories/{id}', 'CategoriesController@show');
+    Route::any('categories', 'Refactor\ConfigController@index');
+    Route::any('categories/{id}', 'Refactor\ConfigController@show');
+
+    Route::any('departments', 'Refactor\ConfigController@indexScope');
+    Route::any('departments/{id}', 'Refactor\ConfigController@showScope');
 
     Route::any('category-terms', 'Refactor\ConfigController@index');
     Route::any('category-terms/{id}', 'Refactor\ConfigController@show');
