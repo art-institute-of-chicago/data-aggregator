@@ -12,8 +12,6 @@ class Artist extends WebModel
 
     public $table = 'web_artists';
 
-    protected $apiCtrl = 'WebArtistsController';
-
     protected $casts = [
         'published' => 'boolean',
         'also_known_as' => 'boolean',

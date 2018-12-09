@@ -15,8 +15,6 @@ class Category extends ShopModel
 
     public $table = 'shop_categories';
 
-    protected $apiCtrl = 'ShopCategoriesController';
-
     protected $primaryKey = 'shop_id';
 
     public function parent()

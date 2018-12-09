@@ -12,8 +12,6 @@ class Exhibition extends WebModel
 
     public $table = 'web_exhibitions';
 
-    protected $apiCtrl = 'WebExhibitionsController';
-
     protected $casts = [
         'published' => 'boolean',
     ];
