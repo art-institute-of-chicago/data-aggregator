@@ -94,7 +94,7 @@ class ArtworkDate extends CollectionsModel
      *
      * @return array
      */
-    public function transform()
+    public function transform(array $requestedFields = null)
     {
 
         // In the original method, this calls `transformMapping`
