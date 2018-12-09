@@ -47,8 +47,8 @@ Route::group(['prefix' => 'v1'], function() {
 
 
     // Artwork related stuff
-    Route::any('artworks', 'ArtworksController@index');
-    Route::any('artworks/{id}', 'ArtworksController@show');
+    Route::any('artworks', 'Refactor\ConfigController@index');
+    Route::any('artworks/{id}', 'Refactor\ConfigController@show');
 
     // Collections
     Route::any('agents', 'AgentsController@index');

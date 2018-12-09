@@ -69,6 +69,20 @@ class ResourceServiceProvider extends ServiceProvider
                     return $model;
                 }
 
+                public function getTransformerForEndpoint( $endpoint )
+                {
+                    $resource = $this->resources->firstWhere('endpoint', $endpoint);
+
+                    $transformer = $resource['transformer'] ?? null;
+
+                    if( !$transformer )
+                    {
+                        throw new \Exception('You must define a transformer for outbound endpoint `' . $endpoint . '` in ResourceServiceProvider.');
+                    }
+
+                    return $transformer;
+                }
+
                 public function getEndpointForModel( $model )
                 {
                     $model = $this->getCleanModel( $model );

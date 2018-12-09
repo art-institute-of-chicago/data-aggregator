@@ -75,6 +75,7 @@ return [
             [
                 'endpoint' => 'artworks',
                 'model' => \App\Models\Collections\Artwork::class,
+                'transformer' => \App\Http\Transformers\ArtworkTransformer::class,
                 'is_searchable' => true,
             ],
             [
