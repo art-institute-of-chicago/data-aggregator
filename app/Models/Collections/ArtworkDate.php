@@ -92,10 +92,9 @@ class ArtworkDate extends CollectionsModel
     /**
      * We are overriding this so that we can skip showing search, id, title, and date fields.
      *
-     * @param boolean  withTitles  Ignore this – it's only here for compatibility
      * @return array
      */
-    public function transform($withTitles = false)
+    public function transform()
     {
 
         // In the original method, this calls `transformMapping`
