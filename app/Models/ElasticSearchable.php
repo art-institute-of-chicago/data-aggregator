@@ -145,7 +145,7 @@ trait ElasticSearchable
                 'timestamp' => Carbon::now()->toIso8601String(),
             ],
             $this->getSuggestSearchFields(),
-            $this->transform($withTitles = true)
+            $this->transform()
         );
 
         return $array;
