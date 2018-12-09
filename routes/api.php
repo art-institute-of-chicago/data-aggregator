@@ -29,20 +29,20 @@ Route::group(['prefix' => 'v1'], function() {
     });
 
     // Elasticsearch
-    Route::match( array('GET', 'POST'), 'search', 'Search\SearchController@search');
-    Route::match( array('GET', 'POST'), '{resource}/search', 'Search\SearchController@search');
+    Route::match( array('GET', 'POST'), 'search', 'SearchController@search');
+    Route::match( array('GET', 'POST'), '{resource}/search', 'SearchController@search');
     // We can do ->where('resource', '(foo|bar)') to limit {resource}, but it's not necessary...
 
-    Route::match( array('GET', 'POST'), 'msearch', 'Search\SearchController@msearch');
+    Route::match( array('GET', 'POST'), 'msearch', 'SearchController@msearch');
 
-    Route::match( array('GET', 'POST'), 'autocomplete', 'Search\SearchController@autocompleteWithTitle');
-    Route::match( array('GET', 'POST'), 'autosuggest', 'Search\SearchController@autocompleteWithSource');
+    Route::match( array('GET', 'POST'), 'autocomplete', 'SearchController@autocompleteWithTitle');
+    Route::match( array('GET', 'POST'), 'autosuggest', 'SearchController@autocompleteWithSource');
 
     // For debugging search, show generated request
     if( env('APP_ENV') === 'local' ) {
-        Route::match( array('GET', 'POST'), 'echo', 'Search\SearchController@echo');
-        Route::match( array('GET', 'POST'), '{resource}/echo', 'Search\SearchController@echo');
-        Route::match( array('GET', 'POST'), '{resource}/{id}/explain', 'Search\SearchController@explain');
+        Route::match( array('GET', 'POST'), 'echo', 'SearchController@echo');
+        Route::match( array('GET', 'POST'), '{resource}/echo', 'SearchController@echo');
+        Route::match( array('GET', 'POST'), '{resource}/{id}/explain', 'SearchController@explain');
     }
 
 

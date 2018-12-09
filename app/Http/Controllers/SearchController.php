@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Search;
+namespace App\Http\Controllers;
 
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 
