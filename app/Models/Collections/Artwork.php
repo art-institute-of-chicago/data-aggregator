@@ -29,13 +29,18 @@ class Artwork extends CollectionsModel
         'artists',
         'artworkType',
         'categories',
+        'departments',
+        'themes',
         'dates',
         'terms',
         'termPivots',
         'artworkCatalogues',
+        // 'catalogues', // unused!
         'gallery',
         'images',
+        'imagePivots', // improves, but why?
         'assets',
+        'assetPivots', // improves, but why?
         'mobileArtwork',
         'sections',
         'sites',
@@ -95,14 +100,14 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function department()
+    public function departments()
     {
 
         // We assumed this was a many-to-one relationship; this is a patch. Put `null` first:
         // https://stackoverflow.com/questions/2051602/mysql-orderby-a-number-nulls-last
         // This doesn't work great b/c the ids are alphanumeric, not numeric
         // https://stackoverflow.com/questions/153633/natural-sort-in-mysql
-        return $this->categories()->departments()->orderBy('parent_id', 'asc')->orderBy('id', 'asc')->expectOne();
+        return $this->categories()->departments()->orderBy('parent_id', 'asc')->orderBy('id', 'asc');
 
     }
 
@@ -248,12 +253,13 @@ class Artwork extends CollectionsModel
 
     }
 
+    // TODO: Unused. Delete?
     public function catalogues()
     {
 
         return $this->belongsToMany('App\Models\Collections\Catalogue', 'artwork_catalogue')
             ->using('App\Models\Collections\ArtworkCatalogue')
-            ->withPivot('is_preferred');
+            ->withPivot('preferred');
 
     }
 
@@ -754,14 +760,14 @@ class Artwork extends CollectionsModel
                 "name" => 'department_title',
                 "doc" => "Name of the curatorial department that this work belongs to",
                 "type" => "string",
-                "value" => function() { return $this->department->title ?? null; },
+                "value" => function() { return $this->departments->first()->title ?? null; },
             ],
             [
                 "name" => 'department_id',
                 "doc" => "Unique identifier of the curatorial department that this work belongs to",
                 "type" => "number",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->department->lake_uid ?? null; },
+                "value" => function() { return $this->departments->first()->lake_uid ?? null; },
             ],
             [
                 "name" => 'dimensions',
@@ -1213,7 +1219,7 @@ class Artwork extends CollectionsModel
                 "name" => 'theme_titles',
                 "doc" => "The names of all thematic publish categories related to this artwork",
                 "type" => "array",
-                "value" => function() { return $this->themes()->pluck('title'); },
+                "value" => function() { return $this->themes->pluck('title'); },
             ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
