@@ -4,8 +4,6 @@ namespace Tests\Unit;
 
 use App\Models\Collections\Exhibition;
 use App\Models\Collections\Place;
-use App\Models\Collections\Artwork;
-use App\Models\Collections\AgentType;
 use App\Models\Collections\Agent;
 
 class ExhibitionTest extends ApiTestCase
@@ -41,24 +39,6 @@ class ExhibitionTest extends ApiTestCase
         $this->make(Place::class, ['type' => 'AIC Gallery']);
         $this->times(5)->make(Agent::class);
 
-    }
-
-    /** @test */
-    public function it_fetches_artworks_for_an_exhibition()
-    {
-
-        $exhibitionId = $this->attach(Artwork::class, 4)->make(Exhibition::class);
-
-        $response = $this->getJson('api/v1/exhibitions/' .$exhibitionId .'/artworks');
-        $response->assertSuccessful();
-
-        $artworks = $response->json()['data'];
-        $this->assertCount(4, $artworks);
-
-        foreach ($artworks as $artwork)
-        {
-            $this->assertArrayHasKeys($artwork, ['id', 'title']);
-        }
     }
 
 }

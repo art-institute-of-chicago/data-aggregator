@@ -48,17 +48,7 @@ Route::group(['prefix' => 'v1'], function() {
 
     // Artwork related stuff
     Route::any('artworks', 'ArtworksController@index');
-
     Route::any('artworks/{id}', 'ArtworksController@show');
-    Route::any('artworks/{id}/parts', 'ArtworksController@parts');
-    Route::any('artworks/{id}/sets', 'ArtworksController@sets');
-
-    Route::any('artworks/{id}/images', 'ImagesController@forArtwork');
-    Route::any('artworks/{id}/categories', 'CategoriesController@forArtwork');
-
-    Route::any('artworks/{id}/artists', 'AgentsController@scopeForArtwork');
-
-    Route::any('artworks/{id}/artwork-catalogues', 'ArtworkCataloguesController@forArtwork'); // pivot
 
     // Collections
     Route::any('agents', 'AgentsController@index');
@@ -100,7 +90,6 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::any('exhibitions', 'ExhibitionsController@index');
     Route::any('exhibitions/{id}', 'ExhibitionsController@show');
-    Route::any('exhibitions/{id}/artworks', 'ArtworksController@forExhibition');
 
     Route::any('assets', 'AssetsController@index');
     Route::any('assets/{id}', 'AssetsController@show');
