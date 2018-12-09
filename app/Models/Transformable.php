@@ -14,19 +14,6 @@ trait Transformable
     public function transform($withTitles = false)
     {
 
-        return $this->transformFields($withTitles);
-
-    }
-
-
-    /**
-     * Turn this model object into a generic array.
-     *
-     * @return array
-     */
-    public function transformFields($withTitles = false)
-    {
-
         $fields = $this->transformMapping();
 
         $out = [];
