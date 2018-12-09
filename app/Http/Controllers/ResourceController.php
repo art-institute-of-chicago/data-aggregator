@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Refactor;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\AbstractController;
 
-class ConfigController extends AbstractController
+class ResourceController extends AbstractController
 {
 
     public function show(Request $request, $id)

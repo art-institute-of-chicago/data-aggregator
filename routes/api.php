@@ -47,169 +47,169 @@ Route::group(['prefix' => 'v1'], function() {
 
 
     // Artwork related stuff
-    Route::any('artworks', 'Refactor\ConfigController@index');
-    Route::any('artworks/{id}', 'Refactor\ConfigController@show');
+    Route::any('artworks', 'ResourceController@index');
+    Route::any('artworks/{id}', 'ResourceController@show');
 
     // Collections
-    Route::any('agents', 'Refactor\ConfigController@index');
-    Route::any('agents/{id}', 'Refactor\ConfigController@show');
+    Route::any('agents', 'ResourceController@index');
+    Route::any('agents/{id}', 'ResourceController@show');
 
-    Route::any('artists', 'Refactor\ConfigController@indexScope');
-    Route::any('artists/{id}', 'Refactor\ConfigController@showScope');
+    Route::any('artists', 'ResourceController@indexScope');
+    Route::any('artists/{id}', 'ResourceController@showScope');
 
-    Route::any('agent-types', 'Refactor\ConfigController@index');
-    Route::any('agent-types/{id}', 'Refactor\ConfigController@show');
+    Route::any('agent-types', 'ResourceController@index');
+    Route::any('agent-types/{id}', 'ResourceController@show');
 
-    Route::any('agent-roles', 'Refactor\ConfigController@index');
-    Route::any('agent-roles/{id}', 'Refactor\ConfigController@show');
+    Route::any('agent-roles', 'ResourceController@index');
+    Route::any('agent-roles/{id}', 'ResourceController@show');
 
-    Route::any('artwork-catalogues', 'Refactor\ConfigController@index'); // pivot
-    Route::any('artwork-catalogues/{id}', 'Refactor\ConfigController@show'); // pivot
+    Route::any('artwork-catalogues', 'ResourceController@index'); // pivot
+    Route::any('artwork-catalogues/{id}', 'ResourceController@show'); // pivot
 
-    Route::any('artwork-types', 'Refactor\ConfigController@index');
-    Route::any('artwork-types/{id}', 'Refactor\ConfigController@show');
+    Route::any('artwork-types', 'ResourceController@index');
+    Route::any('artwork-types/{id}', 'ResourceController@show');
 
-    Route::any('artwork-place-qualifiers', 'Refactor\ConfigController@index');
-    Route::any('artwork-place-qualifiers/{id}', 'Refactor\ConfigController@show');
+    Route::any('artwork-place-qualifiers', 'ResourceController@index');
+    Route::any('artwork-place-qualifiers/{id}', 'ResourceController@show');
 
-    Route::any('artwork-date-qualifiers', 'Refactor\ConfigController@index');
-    Route::any('artwork-date-qualifiers/{id}', 'Refactor\ConfigController@show');
+    Route::any('artwork-date-qualifiers', 'ResourceController@index');
+    Route::any('artwork-date-qualifiers/{id}', 'ResourceController@show');
 
-    Route::any('categories', 'Refactor\ConfigController@index');
-    Route::any('categories/{id}', 'Refactor\ConfigController@show');
+    Route::any('categories', 'ResourceController@index');
+    Route::any('categories/{id}', 'ResourceController@show');
 
-    Route::any('departments', 'Refactor\ConfigController@indexScope');
-    Route::any('departments/{id}', 'Refactor\ConfigController@showScope');
+    Route::any('departments', 'ResourceController@indexScope');
+    Route::any('departments/{id}', 'ResourceController@showScope');
 
-    Route::any('category-terms', 'Refactor\ConfigController@index');
-    Route::any('category-terms/{id}', 'Refactor\ConfigController@show');
+    Route::any('category-terms', 'ResourceController@index');
+    Route::any('category-terms/{id}', 'ResourceController@show');
 
-    Route::any('places', 'Refactor\ConfigController@index');
-    Route::any('places/{id}', 'Refactor\ConfigController@show');
+    Route::any('places', 'ResourceController@index');
+    Route::any('places/{id}', 'ResourceController@show');
 
-    Route::any('galleries', 'Refactor\ConfigController@index');
-    Route::any('galleries/{id}', 'Refactor\ConfigController@show');
+    Route::any('galleries', 'ResourceController@index');
+    Route::any('galleries/{id}', 'ResourceController@show');
 
-    Route::any('exhibitions', 'Refactor\ConfigController@index');
-    Route::any('exhibitions/{id}', 'Refactor\ConfigController@show');
+    Route::any('exhibitions', 'ResourceController@index');
+    Route::any('exhibitions/{id}', 'ResourceController@show');
 
-    Route::any('assets', 'Refactor\ConfigController@index');
-    Route::any('assets/{id}', 'Refactor\ConfigController@show');
-    Route::any('images', 'Refactor\ConfigController@index');
-    Route::any('images/{id}', 'Refactor\ConfigController@show');
-    Route::any('videos', 'Refactor\ConfigController@index');
-    Route::any('videos/{id}', 'Refactor\ConfigController@show');
-    Route::any('sounds', 'Refactor\ConfigController@index');
-    Route::any('sounds/{id}', 'Refactor\ConfigController@show');
-    Route::any('texts', 'Refactor\ConfigController@index');
-    Route::any('texts/{id}', 'Refactor\ConfigController@show');
+    Route::any('assets', 'ResourceController@index');
+    Route::any('assets/{id}', 'ResourceController@show');
+    Route::any('images', 'ResourceController@index');
+    Route::any('images/{id}', 'ResourceController@show');
+    Route::any('videos', 'ResourceController@index');
+    Route::any('videos/{id}', 'ResourceController@show');
+    Route::any('sounds', 'ResourceController@index');
+    Route::any('sounds/{id}', 'ResourceController@show');
+    Route::any('texts', 'ResourceController@index');
+    Route::any('texts/{id}', 'ResourceController@show');
 
-    Route::any('catalogues', 'Refactor\ConfigController@index');
-    Route::any('catalogues/{id}', 'Refactor\ConfigController@show');
+    Route::any('catalogues', 'ResourceController@index');
+    Route::any('catalogues/{id}', 'ResourceController@show');
 
-    Route::any('terms', 'Refactor\ConfigController@index');
-    Route::any('terms/{id}', 'Refactor\ConfigController@show');
+    Route::any('terms', 'ResourceController@index');
+    Route::any('terms/{id}', 'ResourceController@show');
 
     // Shop
-    Route::any('shop-categories', 'Refactor\ConfigController@index');
-    Route::any('shop-categories/{id}', 'Refactor\ConfigController@show');
+    Route::any('shop-categories', 'ResourceController@index');
+    Route::any('shop-categories/{id}', 'ResourceController@show');
 
-    Route::any('products', 'Refactor\ConfigController@index');
-    Route::any('products/{id}', 'Refactor\ConfigController@show');
+    Route::any('products', 'ResourceController@index');
+    Route::any('products/{id}', 'ResourceController@show');
 
     // Events
-    Route::any('legacy-events', 'Refactor\ConfigController@index');
-    Route::any('legacy-events/{id}', 'Refactor\ConfigController@show');
-    Route::any('ticketed-events', 'Refactor\ConfigController@index');
-    Route::any('ticketed-events/{id}', 'Refactor\ConfigController@show');
-    Route::any('ticketed-event-types', 'Refactor\ConfigController@index');
-    Route::any('ticketed-event-types/{id}', 'Refactor\ConfigController@show');
+    Route::any('legacy-events', 'ResourceController@index');
+    Route::any('legacy-events/{id}', 'ResourceController@show');
+    Route::any('ticketed-events', 'ResourceController@index');
+    Route::any('ticketed-events/{id}', 'ResourceController@show');
+    Route::any('ticketed-event-types', 'ResourceController@index');
+    Route::any('ticketed-event-types/{id}', 'ResourceController@show');
 
     // Mobile App
-    Route::any('tours', 'Refactor\ConfigController@index');
-    Route::any('tours/{id}', 'Refactor\ConfigController@show');
+    Route::any('tours', 'ResourceController@index');
+    Route::any('tours/{id}', 'ResourceController@show');
 
-    Route::any('tour-stops', 'Refactor\ConfigController@index');
-    Route::any('tour-stops/{id}', 'Refactor\ConfigController@show');
+    Route::any('tour-stops', 'ResourceController@index');
+    Route::any('tour-stops/{id}', 'ResourceController@show');
 
-    Route::any('mobile-sounds', 'Refactor\ConfigController@index');
-    Route::any('mobile-sounds/{id}', 'Refactor\ConfigController@show');
+    Route::any('mobile-sounds', 'ResourceController@index');
+    Route::any('mobile-sounds/{id}', 'ResourceController@show');
 
     //DSC
-    Route::any('publications', 'Refactor\ConfigController@index');
-    Route::any('publications/{id}', 'Refactor\ConfigController@show');
+    Route::any('publications', 'ResourceController@index');
+    Route::any('publications/{id}', 'ResourceController@show');
 
-    Route::any('sections', 'Refactor\ConfigController@index');
-    Route::any('sections/{id}', 'Refactor\ConfigController@show');
+    Route::any('sections', 'ResourceController@index');
+    Route::any('sections/{id}', 'ResourceController@show');
 
-    Route::any('sites', 'Refactor\ConfigController@index');
-    Route::any('sites/{id}', 'Refactor\ConfigController@show');
+    Route::any('sites', 'ResourceController@index');
+    Route::any('sites/{id}', 'ResourceController@show');
 
     // Library
-    Route::any('library-materials', 'Refactor\ConfigController@index');
-    Route::any('library-materials/{id}', 'Refactor\ConfigController@show');
+    Route::any('library-materials', 'ResourceController@index');
+    Route::any('library-materials/{id}', 'ResourceController@show');
 
-    Route::any('library-terms', 'Refactor\ConfigController@index');
-    Route::any('library-terms/{id}', 'Refactor\ConfigController@show');
+    Route::any('library-terms', 'ResourceController@index');
+    Route::any('library-terms/{id}', 'ResourceController@show');
 
     // Archive
-    Route::any('archive-images', 'Refactor\ConfigController@index');
-    Route::any('archive-images/{id}', 'Refactor\ConfigController@show');
+    Route::any('archive-images', 'ResourceController@index');
+    Route::any('archive-images/{id}', 'ResourceController@show');
 
     // Web
-    Route::any('tags', 'Refactor\ConfigController@index');
-    Route::any('tags/{id}', 'Refactor\ConfigController@show');
+    Route::any('tags', 'ResourceController@index');
+    Route::any('tags/{id}', 'ResourceController@show');
 
-    Route::any('locations', 'Refactor\ConfigController@index');
-    Route::any('locations/{id}', 'Refactor\ConfigController@show');
+    Route::any('locations', 'ResourceController@index');
+    Route::any('locations/{id}', 'ResourceController@show');
 
-    Route::any('hours', 'Refactor\ConfigController@index');
-    Route::any('hours/{id}', 'Refactor\ConfigController@show');
+    Route::any('hours', 'ResourceController@index');
+    Route::any('hours/{id}', 'ResourceController@show');
 
-    Route::any('closures', 'Refactor\ConfigController@index');
-    Route::any('closures/{id}', 'Refactor\ConfigController@show');
+    Route::any('closures', 'ResourceController@index');
+    Route::any('closures/{id}', 'ResourceController@show');
 
-    Route::any('web-exhibitions', 'Refactor\ConfigController@index');
-    Route::any('web-exhibitions/{id}', 'Refactor\ConfigController@show');
+    Route::any('web-exhibitions', 'ResourceController@index');
+    Route::any('web-exhibitions/{id}', 'ResourceController@show');
 
-    Route::any('events', 'Refactor\ConfigController@index');
-    Route::any('events/{id}', 'Refactor\ConfigController@show');
+    Route::any('events', 'ResourceController@index');
+    Route::any('events/{id}', 'ResourceController@show');
 
-    Route::any('event-programs', 'Refactor\ConfigController@index');
-    Route::any('event-programs/{id}', 'Refactor\ConfigController@show');
+    Route::any('event-programs', 'ResourceController@index');
+    Route::any('event-programs/{id}', 'ResourceController@show');
 
-    Route::any('event-occurrences', 'Refactor\ConfigController@index');
-    Route::any('event-occurrences/{id}', 'Refactor\ConfigController@show');
+    Route::any('event-occurrences', 'ResourceController@index');
+    Route::any('event-occurrences/{id}', 'ResourceController@show');
 
-    Route::any('articles', 'Refactor\ConfigController@index');
-    Route::any('articles/{id}', 'Refactor\ConfigController@show');
+    Route::any('articles', 'ResourceController@index');
+    Route::any('articles/{id}', 'ResourceController@show');
 
-    Route::any('selections', 'Refactor\ConfigController@index');
-    Route::any('selections/{id}', 'Refactor\ConfigController@show');
+    Route::any('selections', 'ResourceController@index');
+    Route::any('selections/{id}', 'ResourceController@show');
 
-    Route::any('web-artists', 'Refactor\ConfigController@index');
-    Route::any('web-artists/{id}', 'Refactor\ConfigController@show');
+    Route::any('web-artists', 'ResourceController@index');
+    Route::any('web-artists/{id}', 'ResourceController@show');
 
-    Route::any('generic-pages', 'Refactor\ConfigController@index');
-    Route::any('generic-pages/{id}', 'Refactor\ConfigController@show');
+    Route::any('generic-pages', 'ResourceController@index');
+    Route::any('generic-pages/{id}', 'ResourceController@show');
 
-    Route::any('press-releases', 'Refactor\ConfigController@index');
-    Route::any('press-releases/{id}', 'Refactor\ConfigController@show');
+    Route::any('press-releases', 'ResourceController@index');
+    Route::any('press-releases/{id}', 'ResourceController@show');
 
-    Route::any('research-guides', 'Refactor\ConfigController@index');
-    Route::any('research-guides/{id}', 'Refactor\ConfigController@show');
+    Route::any('research-guides', 'ResourceController@index');
+    Route::any('research-guides/{id}', 'ResourceController@show');
 
-    Route::any('educator-resources', 'Refactor\ConfigController@index');
-    Route::any('educator-resources/{id}', 'Refactor\ConfigController@show');
+    Route::any('educator-resources', 'ResourceController@index');
+    Route::any('educator-resources/{id}', 'ResourceController@show');
 
-    Route::any('digital-catalogs', 'Refactor\ConfigController@index');
-    Route::any('digital-catalogs/{id}', 'Refactor\ConfigController@show');
+    Route::any('digital-catalogs', 'ResourceController@index');
+    Route::any('digital-catalogs/{id}', 'ResourceController@show');
 
-    Route::any('printed-catalogs', 'Refactor\ConfigController@index');
-    Route::any('printed-catalogs/{id}', 'Refactor\ConfigController@show');
+    Route::any('printed-catalogs', 'ResourceController@index');
+    Route::any('printed-catalogs/{id}', 'ResourceController@show');
 
     // Digital Labels
-    Route::any('digital-labels', 'Refactor\ConfigController@index');
-    Route::any('digital-labels/{id}', 'Refactor\ConfigController@show');
+    Route::any('digital-labels', 'ResourceController@index');
+    Route::any('digital-labels/{id}', 'ResourceController@show');
 
 });
