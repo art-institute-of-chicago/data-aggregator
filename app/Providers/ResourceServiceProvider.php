@@ -99,6 +99,22 @@ class ResourceServiceProvider extends ServiceProvider
                     return $endpoint;
                 }
 
+                public function getTransformerForModel( $model )
+                {
+                    $model = $this->getCleanModel( $model );
+
+                    $resource = $this->resources->firstWhere('model', $model);
+
+                    $transformer = $resource['transformer'] ?? null;
+
+                    if( !$transformer )
+                    {
+                        throw new \Exception('You must define a transformer for model `' . $model . '` in ResourceServiceProvider.');
+                    }
+
+                    return $transformer;
+                }
+
                 public function getParent( $endpoint )
                 {
 

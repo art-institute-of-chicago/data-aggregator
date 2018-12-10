@@ -392,27 +392,10 @@ trait Documentable
     public function docIncludeParameters()
     {
 
-        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+        $transformerClass = app('Resources')->getTransformerForModel(get_called_class());
+        $transformer = new $transformerClass;
 
         $doc = '';
-        $controllerClass = "\\App\\Http\\Controllers\\" .ucfirst( camel_case( $endpoint ) ) ."Controller";
-
-        // TODO: Make all this more declarative!
-        // Alternatively, rename the controllers to plural?
-        if( $controllerClass == '\App\Http\Controllers\LibraryMaterialsController' )
-        {
-            $controllerClass = '\App\Http\Controllers\LibraryMaterialController';
-        }
-
-        // TODO: Make all this more declarative!
-        if( $controllerClass == '\App\Http\Controllers\LibraryTermsController' )
-        {
-            $controllerClass = '\App\Http\Controllers\LibraryTermController';
-        }
-
-        $controller = new $controllerClass;
-        $transformerClass = $controller->transformer();
-        $transformer = new $transformerClass;
         if ($transformer->getAvailableIncludes())
         {
 
