@@ -233,16 +233,4 @@ class Product extends ShopModel
 
     }
 
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "7760";
-
-    }
-
 }

@@ -139,17 +139,4 @@ class Tour extends MobileModel
 
     }
 
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "2219";
-
-    }
-
 }

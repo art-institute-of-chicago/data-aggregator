@@ -63,18 +63,6 @@ class Sound extends MobileModel
     }
 
     /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "1545";
-
-    }
-
-    /**
      * Whether this resource has a `/search` endpoint
      *
      * @return boolean

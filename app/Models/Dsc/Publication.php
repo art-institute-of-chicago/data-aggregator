@@ -61,17 +61,4 @@ class Publication extends DscModel
 
     }
 
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "445";
-
-    }
-
 }

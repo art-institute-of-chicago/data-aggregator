@@ -128,24 +128,10 @@ class TicketedEvent extends MembershipModel
 
     }
 
-
     public function searchableImage()
     {
 
         return $this->image_url;
-
-    }
-
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "28990343";
 
     }
 

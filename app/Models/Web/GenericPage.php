@@ -10,16 +10,4 @@ class GenericPage extends Page
 
     protected $table = 'generic_pages';
 
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "17";
-
-    }
-
 }

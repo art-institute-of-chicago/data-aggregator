@@ -18,18 +18,6 @@ class ArtworkType extends CollectionsModel
     protected $fakeIdsStartAt = 99900;
 
     /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "3";
-
-    }
-
-    /**
      * Whether this resource has a `/search` endpoint
      *
      * @return boolean

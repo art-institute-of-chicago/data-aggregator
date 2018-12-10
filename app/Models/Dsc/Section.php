@@ -139,16 +139,4 @@ class Section extends DscModel
         return $mapping;
     }
 
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "3014259";
-
-    }
-
 }

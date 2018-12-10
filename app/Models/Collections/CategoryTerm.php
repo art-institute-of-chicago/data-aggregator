@@ -312,18 +312,6 @@ class CategoryTerm extends CollectionsModel
     }
 
     /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "PC-466";
-
-    }
-
-    /**
      * Ensure that the id is a valid LAKE UID.
      *
      * @param mixed $id

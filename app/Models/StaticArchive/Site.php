@@ -122,17 +122,4 @@ class Site extends BaseModel
 
     }
 
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "1";
-
-    }
-
 }

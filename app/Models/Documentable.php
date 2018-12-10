@@ -556,7 +556,7 @@ trait Documentable
     public function exampleId()
     {
 
-        return "";
+        return self::first()->getKey();
 
     }
 

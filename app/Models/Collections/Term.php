@@ -15,16 +15,4 @@ class Term extends CategoryTerm
 
     protected static $isCategory = false;
 
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "TM-634";
-
-    }
-
 }

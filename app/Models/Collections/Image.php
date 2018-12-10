@@ -109,18 +109,6 @@ class Image extends Asset
 
 
     /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "c972e5d7-0667-6904-d919-bbeefeae0a10";
-
-    }
-
-    /**
      * Generate model-specific fields for an array representing the schema for this object.
      *
      * @return array
