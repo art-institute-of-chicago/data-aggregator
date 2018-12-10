@@ -3,15 +3,12 @@
 namespace App\Models\Archive;
 
 use App\Models\BaseModel;
-use App\Models\Documentable;
 
 /**
  * An image from the archives.
  */
 class ArchiveImage extends BaseModel
 {
-
-    use Documentable;
 
     protected $casts = [
         'subject_terms' => 'array'

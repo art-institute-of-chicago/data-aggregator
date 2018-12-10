@@ -3,15 +3,12 @@
 namespace App\Models\Shop;
 
 use App\Models\ShopModel;
-use App\Models\Documentable;
 
 /**
  * Tag-like classifications of shop products.
  */
 class Category extends ShopModel
 {
-
-    use Documentable;
 
     public $table = 'shop_categories';
 

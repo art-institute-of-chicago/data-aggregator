@@ -4,7 +4,6 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 use App\Models\HasRelationships;
 
 
@@ -16,7 +15,6 @@ class Artwork extends CollectionsModel
 
     use HasRelationships;
     use ElasticSearchable;
-    use Documentable;
 
     protected $casts = [
         'alt_titles' => 'array',

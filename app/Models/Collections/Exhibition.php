@@ -4,7 +4,6 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * An organized presentation and display of a selection of artworks.
@@ -13,7 +12,6 @@ class Exhibition extends CollectionsModel
 {
 
     use ElasticSearchable;
-    use Documentable;
 
     protected $primaryKey = 'citi_id';
 

@@ -4,7 +4,6 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * Tag-like classifications of artworks and other resources.
@@ -12,7 +11,6 @@ use App\Models\Documentable;
 class CategoryTerm extends CollectionsModel
 {
 
-    use Documentable;
     use ElasticSearchable {
         getSuggestSearchFields as public traitGetSuggestSearchFields;
     }

@@ -3,15 +3,12 @@
 namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
-use App\Models\Documentable;
 
 /**
  * The audio file for a stops on a tour.
  */
 class Sound extends MobileModel
 {
-
-    use Documentable;
 
     /**
      * The table associated with the model.

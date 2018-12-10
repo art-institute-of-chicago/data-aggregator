@@ -7,8 +7,6 @@ use App\Models\BaseModel as BaseModel;
 class LibraryModel extends BaseModel
 {
 
-    use Documentable;
-
     protected static $source = 'Library';
 
     protected $primaryKey = 'id';
