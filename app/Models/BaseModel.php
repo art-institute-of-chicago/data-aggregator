@@ -229,12 +229,14 @@ class BaseModel extends AbstractModel
 
             if ($this->$relation instanceof self) {
 
-                $this->$relation()->searchable();
+                $this->$relation->searchable();
 
             } elseif ($this->$relation instanceof Collection) {
 
-                $this->$relation->each( [$this, 'searchable'] );
-
+                foreach ($this->$relation->chunk(50) as $chunk)
+                {
+                    $chunk->searchable();
+                }
             }
         }
     }
