@@ -214,13 +214,6 @@ class BaseModel extends AbstractModel
 
     }
 
-    public static function source()
-    {
-
-        return static::$source;
-
-    }
-
     /**
      * Touch the owning relations of the model.
      * Reindex related models in search index.

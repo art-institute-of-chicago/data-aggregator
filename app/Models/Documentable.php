@@ -531,6 +531,18 @@ trait Documentable
     }
 
     /**
+     * Helper to retrieve the source attribute, i.e. where the model comes from.
+     *
+     * @return string
+     */
+    public static function source()
+    {
+
+        return static::$source;
+
+    }
+
+    /**
      * Get any extra descriptions of the search endpoint for this resource
      *
      * @return string
