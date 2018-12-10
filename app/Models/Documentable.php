@@ -88,15 +88,18 @@ trait Documentable
     /**
      * Generate a description of this resource
      *
-     * @TODO Raise informative exception if the doc block is missing.
-     *
      * @return string
      */
     public function docDescription()
     {
 
         $rc = new ClassReflection(get_called_class());
-        return $rc->getDocBlock()->getShortDescription();
+
+        try {
+            return $rc->getDocBlock()->getShortDescription();
+        } catch (\Throwable $e) {
+            throw new \Exception('DocBlock is missing for model ' . get_called_class());
+        }
 
     }
 
