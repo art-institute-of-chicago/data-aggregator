@@ -3,15 +3,12 @@
 namespace App\Models\Shop;
 
 use App\Models\ShopModel;
-use App\Models\Documentable;
 
 /**
  * Tag-like classifications of shop products.
  */
 class Category extends ShopModel
 {
-
-    use Documentable;
 
     public $table = 'shop_categories';
 
@@ -86,19 +83,6 @@ class Category extends ShopModel
                 "value" => function() { return $this->children->pluck('title')->all(); },
             ],
         ];
-
-    }
-
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "2";
 
     }
 

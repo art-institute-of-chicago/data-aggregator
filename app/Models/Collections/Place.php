@@ -4,7 +4,6 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * A room or hall that works of art are displayed in.
@@ -13,7 +12,6 @@ class Place extends CollectionsModel
 {
 
     use ElasticSearchable;
-    use Documentable;
 
     protected $primaryKey = 'citi_id';
 
@@ -74,19 +72,6 @@ class Place extends CollectionsModel
                 "value" => function() { return $this->categories->pluck('title')->all(); },
             ],
         ];
-
-    }
-
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "27406";
 
     }
 

@@ -2,6 +2,8 @@
 
 namespace App\Models\Collections;
 
+use App\Models\Documentable;
+
 use App\Models\AbstractPivot as BasePivot;
 
 /**
@@ -9,6 +11,10 @@ use App\Models\AbstractPivot as BasePivot;
  */
 class ArtworkCatalogue extends BasePivot
 {
+
+    use Documentable;
+
+    protected static $source = 'Collections';
 
     protected $primaryKey = 'citi_id';
 

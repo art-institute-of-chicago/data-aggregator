@@ -4,7 +4,6 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * Tag-like classifications of artworks and other resources.
@@ -12,7 +11,6 @@ use App\Models\Documentable;
 class CategoryTerm extends CollectionsModel
 {
 
-    use Documentable;
     use ElasticSearchable {
         getSuggestSearchFields as public traitGetSuggestSearchFields;
     }
@@ -308,18 +306,6 @@ class CategoryTerm extends CollectionsModel
                 "value" => function() { return $this->parent->lake_uid ?? null; },
             ]
         ];
-
-    }
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "PC-466";
 
     }
 

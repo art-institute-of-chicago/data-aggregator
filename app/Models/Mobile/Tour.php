@@ -4,7 +4,6 @@ namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * A collection of audio tour stops to form a tour.
@@ -12,7 +11,6 @@ use App\Models\Documentable;
 class Tour extends MobileModel
 {
 
-    use Documentable;
     use ElasticSearchable {
         getSuggestSearchFields as public traitGetSuggestSearchFields;
     }
@@ -136,19 +134,6 @@ class Tour extends MobileModel
     {
 
         return $this->image;
-
-    }
-
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "2219";
 
     }
 

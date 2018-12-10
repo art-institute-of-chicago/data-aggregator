@@ -3,15 +3,12 @@
 namespace App\Models\DigitalLabel;
 
 use App\Models\DigitalLabelModel;
-use App\Models\Documentable;
 
 /**
  * An exhibition in which a number of labels are featured.
  */
 class Exhibition extends DigitalLabelModel
 {
-
-    use Documentable;
 
     protected $table = 'digital_label_exhibitions';
 
@@ -30,18 +27,6 @@ class Exhibition extends DigitalLabelModel
     {
 
         return $this->hasMany('App\Models\DigitalLabel\Label');
-
-    }
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "114";
 
     }
 

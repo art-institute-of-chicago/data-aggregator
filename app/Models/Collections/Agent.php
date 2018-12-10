@@ -4,7 +4,6 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * Represents a person or organization. In the API, this includes artists.
@@ -13,7 +12,6 @@ class Agent extends CollectionsModel
 {
 
     use ElasticSearchable;
-    use Documentable;
 
     protected $primaryKey = 'citi_id';
 

@@ -4,7 +4,6 @@ namespace App\Models\Dsc;
 
 use App\Models\DscModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * Represents an overall digital publication.
@@ -13,7 +12,6 @@ class Publication extends DscModel
 {
 
     use ElasticSearchable;
-    use Documentable;
 
     public function sections()
     {
@@ -58,19 +56,6 @@ class Publication extends DscModel
                 "value" => function() { return $this->sections->pluck('dsc_id'); },
             ],
         ];
-
-    }
-
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "445";
 
     }
 

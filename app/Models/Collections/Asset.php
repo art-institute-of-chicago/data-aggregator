@@ -4,7 +4,6 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * A binary representation of a collections resource, like an artwork, artist, exhibition, etc.
@@ -13,7 +12,6 @@ class Asset extends CollectionsModel
 {
 
     use ElasticSearchable;
-    use Documentable;
 
     public const IMAGE = 'image';
     public const SOUND = 'sound';

@@ -2,8 +2,6 @@
 
 namespace App\Models\Collections;
 
-use App\Models\Documentable;
-
 /**
  * Represents a term/tag on an artwork. In the API, this includes styles, classifications and subjects.
  * Terms are meant to be more specific than publish categories, and is a taxonomy taken from Getty AAT.
@@ -11,20 +9,6 @@ use App\Models\Documentable;
 class Term extends CategoryTerm
 {
 
-    use Documentable;
-
     protected static $isCategory = false;
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "TM-634";
-
-    }
 
 }

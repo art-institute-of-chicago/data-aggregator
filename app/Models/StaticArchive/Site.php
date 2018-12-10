@@ -4,7 +4,6 @@ namespace App\Models\StaticArchive;
 
 use App\Models\BaseModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * An archived static microsite.
@@ -13,7 +12,6 @@ class Site extends BaseModel
 {
 
     use ElasticSearchable;
-    use Documentable;
 
     protected $primaryKey = 'site_id';
 
@@ -119,19 +117,6 @@ class Site extends BaseModel
                 "value" => function() { return $this->artworks->pluck('title')->all(); },
             ],
         ];
-
-    }
-
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "1";
 
     }
 

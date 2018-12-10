@@ -4,7 +4,6 @@ namespace App\Models\Membership;
 
 use App\Models\MembershipModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 use Illuminate\Support\Facades\Log;
 
@@ -19,7 +18,6 @@ class TicketedEvent extends MembershipModel
     use ElasticSearchable {
         getDefaultSearchFields as public traitGetDefaultSearchFields;
     }
-    use Documentable;
 
     public function event()
     {
@@ -128,24 +126,10 @@ class TicketedEvent extends MembershipModel
 
     }
 
-
     public function searchableImage()
     {
 
         return $this->image_url;
-
-    }
-
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "28990343";
 
     }
 

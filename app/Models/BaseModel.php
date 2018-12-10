@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 class BaseModel extends AbstractModel
 {
 
-    use Transformable, Instancable, Fakeable;
+    use Transformable, Instancable, Fakeable, Documentable;
 
     protected $hasSourceDates = true;
 
@@ -211,13 +211,6 @@ class BaseModel extends AbstractModel
     {
 
         return false;
-
-    }
-
-    public static function source()
-    {
-
-        return static::$source;
 
     }
 

@@ -387,6 +387,7 @@ return [
             [
                 'endpoint' => 'digital-label-exhibitions',
                 'model' => \App\Models\DigitalLabel\Exhibition::class,
+                'transformer' => \App\Http\Transformers\ApiTransformer::class,
             ],
         ],
 

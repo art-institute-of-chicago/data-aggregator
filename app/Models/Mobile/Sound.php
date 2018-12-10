@@ -3,15 +3,12 @@
 namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
-use App\Models\Documentable;
 
 /**
  * The audio file for a stops on a tour.
  */
 class Sound extends MobileModel
 {
-
-    use Documentable;
 
     /**
      * The table associated with the model.
@@ -59,30 +56,6 @@ class Sound extends MobileModel
                 "value" => function() { return $this->transcript; },
             ],
         ];
-
-    }
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "1545";
-
-    }
-
-    /**
-     * Whether this resource has a `/search` endpoint
-     *
-     * @return boolean
-     */
-    public function hasSearchEndpoint()
-    {
-
-        return false;
 
     }
 
