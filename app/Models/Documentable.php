@@ -210,7 +210,10 @@ trait Documentable
 
         $doc .= $this->docSingleDescription() ."\n\n";
 
-        $doc .= $this->docExampleOutput($appUrl, ['id' => $this->exampleId()]);
+        if ($id = $this->exampleId())
+        {
+            $doc .= $this->docExampleOutput($appUrl, ['id' => $id]);
+        }
 
         return $doc;
 
@@ -556,7 +559,9 @@ trait Documentable
     public function exampleId()
     {
 
-        return self::first()->getKey();
+        $exampleRecord = self::first();
+
+        return $exampleRecord ? $exampleRecord->getKey() : null;
 
     }
 
