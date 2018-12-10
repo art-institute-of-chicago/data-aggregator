@@ -87,7 +87,10 @@ class Event extends WebModel
                 "name" => 'description',
                 "doc" => "All copy text of the event",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->description; },
             ],
             [
