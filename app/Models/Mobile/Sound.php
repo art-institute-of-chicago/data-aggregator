@@ -62,16 +62,4 @@ class Sound extends MobileModel
 
     }
 
-    /**
-     * Whether this resource has a `/search` endpoint
-     *
-     * @return boolean
-     */
-    public function hasSearchEndpoint()
-    {
-
-        return false;
-
-    }
-
 }

@@ -580,7 +580,7 @@ trait Documentable
     public function hasSearchEndpoint()
     {
 
-        return true;
+        return app('Resources')->isModelSearchable(get_called_class());
 
     }
 

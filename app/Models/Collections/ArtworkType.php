@@ -17,16 +17,4 @@ class ArtworkType extends CollectionsModel
 
     protected $fakeIdsStartAt = 99900;
 
-    /**
-     * Whether this resource has a `/search` endpoint
-     *
-     * @return boolean
-     */
-    public function hasSearchEndpoint()
-    {
-
-        return false;
-
-    }
-
 }

@@ -115,6 +115,15 @@ class ResourceServiceProvider extends ServiceProvider
                     return $transformer;
                 }
 
+                public function isModelSearchable( $model )
+                {
+                    $model = $this->getCleanModel( $model );
+
+                    $resource = $this->resources->firstWhere('model', $model);
+
+                    return $resource['is_searchable'] ?? false;
+                }
+
                 public function getParent( $endpoint )
                 {
 
