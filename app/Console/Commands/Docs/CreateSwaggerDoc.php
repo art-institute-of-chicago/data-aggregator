@@ -25,18 +25,6 @@ class CreateSwaggerDoc extends AbstractDocCommand
     protected $appUrl;
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->appUrl = config("app.url");
-
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
