@@ -341,6 +341,12 @@ return [
                 'is_searchable' => true,
             ],
             [
+                'endpoint' => 'static-pages',
+                'model' => \App\Models\Web\StaticPage::class,
+                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'is_searchable' => true,
+            ],
+            [
                 'endpoint' => 'generic-pages',
                 'model' => \App\Models\Web\GenericPage::class,
                 'transformer' => \App\Http\Transformers\ApiTransformer::class,
