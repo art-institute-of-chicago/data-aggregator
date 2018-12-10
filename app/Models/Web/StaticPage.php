@@ -18,6 +18,13 @@ class StaticPage extends WebModel
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->web_url; },
             ],
+            [
+                "name" => 'is_published',
+                "doc" => "Whether this static page is available to view (always true)",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return true; },
+            ],
         ];
 
     }
