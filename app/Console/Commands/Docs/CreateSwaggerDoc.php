@@ -31,8 +31,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
      */
     public function __construct()
     {
-
-        $appUrl = config("app.url");
+        $this->appUrl = config("app.url");
 
         parent::__construct();
     }
@@ -47,9 +46,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
 
         if ($this->argument('appUrl'))
         {
-
             $this->appUrl = $this->argument('appUrl');
-
         }
 
         /*
