@@ -65,46 +65,13 @@ class CreateSwaggerDoc extends AbstractDocCommand
         /*
          * Endpoints
          */
-        // Collections
-        $doc .= \App\Models\Collections\Artwork::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Agent::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\ArtworkType::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Category::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\AgentType::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Place::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Gallery::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Exhibition::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Image::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Video::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Sound::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Collections\Text::instance()->swaggerEndpoints($this->appUrl);
-
-        // Shop
-        $doc .= \App\Models\Shop\Category::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Shop\Product::instance()->swaggerEndpoints($this->appUrl);
-
-        // Events
-        $doc .= \App\Models\Membership\LegacyEvent::instance()->swaggerEndpoints($this->appUrl);
-        //$doc .= \App\Models\Membership\TicketedEvent::instance()->swaggerEndpoints($this->appUrl);
-
-        // Mobile
-        $doc .= \App\Models\Mobile\Tour::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Mobile\TourStop::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Mobile\Sound::instance()->swaggerEndpoints($this->appUrl);
-
-        // Digital Scholarly Catalogs
-        $doc .= \App\Models\Dsc\Publication::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Dsc\Section::instance()->swaggerEndpoints($this->appUrl);
-
-        // Static Archive
-        $doc .= \App\Models\StaticArchive\Site::instance()->swaggerEndpoints($this->appUrl);
-
-        // Archive
-        $doc .= \App\Models\Archive\ArchiveImage::instance()->swaggerEndpoints($this->appUrl);
-
-        // Library
-        $doc .= \App\Models\Library\Material::instance()->swaggerEndpoints($this->appUrl);
-        $doc .= \App\Models\Library\Term::instance()->swaggerEndpoints($this->appUrl);
+        foreach ($this->getCategories() as $namespace => $heading)
+        {
+            foreach ($this->getModelsForNamespace($namespace) as $model)
+            {
+                $doc .= $model::instance()->swaggerEndpoints($this->appUrl);
+            }
+        }
 
         // Search
         $doc .= "    \"/search\": {\n";
@@ -145,46 +112,13 @@ class CreateSwaggerDoc extends AbstractDocCommand
         $doc .= "      }\n";
         $doc .= "    },\n";
 
-        // Collections
-        $doc .= \App\Models\Collections\Artwork::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\Agent::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\ArtworkType::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\Category::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\AgentType::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\Place::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\Gallery::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\Exhibition::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\Image::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\Video::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\Sound::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Collections\Text::instance()->swaggerFields($this->appUrl);
-
-        // Shop
-        $doc .= \App\Models\Shop\Category::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Shop\Product::instance()->swaggerFields($this->appUrl);
-
-        // Events
-        $doc .= \App\Models\Membership\LegacyEvent::instance()->swaggerFields($this->appUrl);
-        //$doc .= \App\Models\Membership\TicketedEvent::instance()->swaggerFields($this->appUrl);
-
-        // Mobile
-        $doc .= \App\Models\Mobile\Tour::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Mobile\TourStop::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Mobile\Sound::instance()->swaggerFields($this->appUrl);
-
-        // Digital Scholarly Catalogs
-        $doc .= \App\Models\Dsc\Publication::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Dsc\Section::instance()->swaggerFields($this->appUrl);
-
-        // Static Archive
-        $doc .= \App\Models\StaticArchive\Site::instance()->swaggerFields($this->appUrl);
-
-        // Archive
-        $doc .= \App\Models\Archive\ArchiveImage::instance()->swaggerFields($this->appUrl);
-
-        // Library
-        $doc .= \App\Models\Library\Material::instance()->swaggerFields($this->appUrl);
-        $doc .= \App\Models\Library\Term::instance()->swaggerFields($this->appUrl);
+        foreach ($this->getCategories() as $namespace => $heading)
+        {
+            foreach ($this->getModelsForNamespace($namespace) as $model)
+            {
+                $doc .= $model::instance()->swaggerFields($this->appUrl);
+            }
+        }
 
         $doc .= "    \"SearchResult\": {\n";
         $doc .= "      \"properties\": {\n";
