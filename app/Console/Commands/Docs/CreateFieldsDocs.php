@@ -5,9 +5,7 @@ namespace App\Console\Commands\Docs;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
-use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
-
-class CreateFieldsDocs extends BaseCommand
+class CreateFieldsDocs extends AbstractDocCommand
 {
     /**
      * The name and signature of the console command.
