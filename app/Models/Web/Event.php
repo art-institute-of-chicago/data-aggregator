@@ -133,6 +133,16 @@ class Event extends WebModel
                 "value" => function() { return $this->programs; },
             ],
             [
+                "name" => 'program_titles',
+                "doc" => "Titles of the programs this event is a part of",
+                "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
+                "value" => function() { if ($this->programs) { return EventProgram::find($this->programs)->pluck('title')->all(); } return []; },
+            ],
+            [
                 "name" => 'is_ticketed',
                 "doc" => "Whether a ticket is required to attend the event",
                 "type" => "boolean",
