@@ -42,13 +42,6 @@ trait Documentable
 
         $doc .= $this->docSingle($appUrl) ."\n";
 
-        foreach ($this->subresources() as $subresource)
-        {
-
-            $doc .= $this->docSubresource($appUrl, $subresource, !in_array($subresource, $this->subresourcesToSkipExampleOutput())) ."\n";
-
-        }
-
         return $doc;
 
     }
@@ -246,59 +239,6 @@ trait Documentable
 
     }
 
-    /**
-     * Generate documentation for subresource endpoint
-     *
-     * @return string
-     */
-    public function docSubresource($appUrl, $subEndpoint, $includeExampleOutput = true)
-    {
-
-        $endpointAsCopyText = $this->_endpointAsCopyText();
-
-        // Title
-        $doc = '### `GET ' .$this->_endpointPath(['extraPath' => '{id}/' .$subEndpoint]) ."`\n\n";
-
-        $doc .= "The " .$this->_endpointAsCopyText($subEndpoint) ." for a given " .$endpointAsCopyText .".";
-        if ($subEndpoint == 'artists')
-        {
-
-            $doc .= " Served from the API as a type of `agent`, so their output schema is the same.";
-
-        }
-        $doc .= "\n\n";
-
-        $doc .= $this->docExampleOutput($appUrl, ['id' => $this->exampleId(),
-                                                  'subresource' => $subEndpoint,
-                                                  'includeExampleOutput' => $includeExampleOutput]);
-
-        return $doc;
-
-    }
-
-    /**
-     * Generate description for subresource endpoint
-     *
-     * @return string
-     */
-    public function docSubresourceDescription($subEndpoint)
-    {
-
-        $endpointAsCopyText = $this->_endpointAsCopyText();
-
-        $doc = "The " .$this->_endpointAsCopyText($subEndpoint) ." for a given " .$endpointAsCopyText .".";
-        if ($subEndpoint == 'artists')
-        {
-
-            $doc .= " Served from the API as a type of `agent`, so their output schema is the same.";
-
-        }
-
-        return $doc;
-
-    }
-
-
 
     /**
      * Generate documentation for parameters for list endpoints
@@ -426,7 +366,6 @@ trait Documentable
             'extraPath' => '',
             'getParams' => 'limit=2',
             'id' => '',
-            'subresource' => '',
             'includeExampleOutput' => true,
         ];
 
@@ -540,7 +479,6 @@ trait Documentable
         $defaults = [
             'extraPath' => '',
             'id' => '',
-            'subresource' => '',
         ];
 
         $options = array_merge($defaults, $options);
@@ -556,10 +494,6 @@ trait Documentable
         if ($options['id'])
         {
             $path .= '/' .$options['id'];
-        }
-        if ($options['subresource'])
-        {
-            $path .= '/' .$options['subresource'];
         }
 
         return $path;
@@ -587,30 +521,6 @@ trait Documentable
         $obj->{"..."} = null;
 
         return $obj;
-
-    }
-
-    /**
-     * Get the subresources for the resource.
-     *
-     * @return array
-     */
-    public function subresources()
-    {
-
-        return [];
-
-    }
-
-    /**
-     * Get the subresources to skip the example output for.
-     *
-     * @return array
-     */
-    public function subresourcesToSkipExampleOutput()
-    {
-
-        return [];
 
     }
 
@@ -699,13 +609,6 @@ trait Documentable
         }
 
         $doc .= $this->swaggerSingle() ."\n";
-
-        foreach ($this->subresources() as $subresource)
-        {
-
-            $doc .= $this->swaggerSubresource($subresource, !in_array($subresource, $this->subresourcesToSkipExampleOutput())) ."\n";
-
-        }
 
         if (get_called_class() == Collections\Agent::class)
         {
@@ -835,40 +738,6 @@ trait Documentable
         $doc .= $this->swaggerProduces();
         $doc .= $this->swaggerParameters(['id' => 'Resource id to retrieve']);
         $doc .= $this->swaggerResponses();
-        $doc .= "      }\n";
-        $doc .= "    },\n";
-
-        return $doc;
-
-    }
-
-    /**
-     * Generate swagger subresource endpoint documentation for this model
-     *
-     * @return string
-     */
-    public function swaggerSubresource($subresource, $includeExampleOutput = true)
-    {
-
-        $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."/{id}/" .$subresource ."\": {\n";
-        $doc .= "      \"get\": {\n";
-        $doc .= $this->swaggerTags();
-        $doc .= "        \"summary\": \"" .$this->docSubresourceDescription($subresource) ."\",\n";
-        $doc .= $this->swaggerProduces();
-        $doc .= $this->swaggerParameters(['id' => 'Resource id to retrieve']);
-
-        try
-        {
-            $subModel = app('Resources')->getModelForEndpoint($subresource);
-            $doc .= $this->swaggerResponses(class_basename($subModel));
-        }
-        catch (\Exception $e)
-        {
-            // Fall back to using this model's own response, in cases like `parts` and `sets` where
-            // the subresource represensts a set of the same models
-            $doc .= $this->swaggerResponses();
-        }
-
         $doc .= "      }\n";
         $doc .= "    },\n";
 

@@ -310,16 +310,4 @@ class Exhibition extends CollectionsModel
 
     }
 
-    /**
-     * Get the subresources for the resource.
-     *
-     * @return array
-     */
-    public function subresources()
-    {
-
-        return ['artworks'];
-
-    }
-
 }

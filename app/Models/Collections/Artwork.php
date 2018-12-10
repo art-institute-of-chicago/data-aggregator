@@ -1384,30 +1384,6 @@ class Artwork extends CollectionsModel
 
 
     /**
-     * Get the subresources for the resource.
-     *
-     * @return array
-     */
-    public function subresources()
-    {
-
-        return ['artists', 'categories', 'images', 'parts', 'sets'];
-
-    }
-
-    /**
-     * Get the subresources to skip the example output for.
-     *
-     * @return array
-     */
-    public function subresourcesToSkipExampleOutput()
-    {
-
-        return ['parts', 'sets'];
-
-    }
-
-    /**
      * Get any extra descriptions of the search endpoint for this resource
      *
      * @return string
