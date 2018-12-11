@@ -1364,6 +1364,15 @@ class Artwork extends CollectionsModel
                     ]
                 ],
             ],
+            [
+                'input' => [$this->title],
+                'weight' => $this->pageviews,
+                'contexts' => [
+                    'groupings' => [
+                        'title',
+                    ]
+                ],
+            ],
         ];
 
         if( $this->isBoosted() )
