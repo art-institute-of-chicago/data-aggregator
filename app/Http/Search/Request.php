@@ -227,7 +227,7 @@ class Request
     public function getAutocompleteParams( $requestArgs = null ) {
 
         // Strip down the (top-level) params to what our thin client supports
-        $input = self::getValidInput();
+        $input = self::getValidInput($requestArgs);
 
         // TODO: Handle case where no `q` param is present?
         if( is_null( array_get( $input, 'q' ) ) ) {
