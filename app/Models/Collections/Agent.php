@@ -284,7 +284,6 @@ class Agent extends CollectionsModel
         }
 
         // For autocomplete v2
-        $withTitles['weight'] = (int) $this->createdArtworks()->sum('pageviews');
         $withTitles['contexts'] = [
             'groupings' => [
                 'title',

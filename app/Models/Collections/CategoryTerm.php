@@ -336,11 +336,7 @@ class CategoryTerm extends CollectionsModel
             return [];
         }
 
-        $fields = $this->traitGetSuggestSearchFields();
-
-        $fields['suggest_autocomplete_all']['weight'] = (int) $this->artworks()->sum('pageviews');
-
-        return $fields;
+        return $this->traitGetSuggestSearchFields();
 
     }
 

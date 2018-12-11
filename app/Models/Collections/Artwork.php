@@ -1357,7 +1357,6 @@ class Artwork extends CollectionsModel
         $fields['suggest_autocomplete_all'] = [
             [
                 'input' => [$this->main_id],
-                'weight' => $this->pageviews,
                 'contexts' => [
                     'groupings' => [
                         'accession',
