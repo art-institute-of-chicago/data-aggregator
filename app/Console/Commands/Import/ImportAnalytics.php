@@ -8,6 +8,9 @@ use League\Csv\Reader;
 use League\Csv\Statement;
 
 use App\Models\Collections\Artwork;
+use App\Models\Collections\Agent;
+use App\Models\Collections\Category;
+use App\Models\Collections\Term;
 
 class ImportAnalytics extends AbstractImportCommand
 {
@@ -61,6 +64,10 @@ class ImportAnalytics extends AbstractImportCommand
 
         }
 
+        // Reindex agents and category-terms so that their suggestion weights get updated
+        $this->call('scout:import', ['model' => Agent::class]);
+        $this->call('scout:import', ['model' => Category::class]);
+        $this->call('scout:import', ['model' => Term::class]);
 
     }
 

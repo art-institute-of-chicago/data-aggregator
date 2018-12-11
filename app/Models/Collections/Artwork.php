@@ -1355,11 +1355,14 @@ class Artwork extends CollectionsModel
 
         // TODO: Move `suggest_autocomplete_all` into `suggest_autocomplete`, and re-index everything from database?
         $fields['suggest_autocomplete_all'] = [
-            'input' => [$this->main_id],
-            'contexts' => [
-                'groupings' => [
-                    'accession',
-                ]
+            [
+                'input' => [$this->main_id],
+                'weight' => $this->pageviews,
+                'contexts' => [
+                    'groupings' => [
+                        'accession',
+                    ]
+                ],
             ],
         ];
 
