@@ -205,7 +205,8 @@ class SearchController extends BaseController
 
         foreach( $queries as $query )
         {
-            $originalParams[] = ( new SearchRequest() )->$requestMethod( array_merge($query, $requestArgs) );
+            $input = $requestArgs ? array_merge($query, $requestArgs) : $query;
+            $originalParams[] = ( new SearchRequest() )->$requestMethod( $input );
         }
 
         $transformedParams = [];
