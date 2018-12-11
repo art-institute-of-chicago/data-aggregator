@@ -42,18 +42,6 @@ class Material extends BaseModel
     }
 
     /**
-     * Whether this resource has a `/search` endpoint
-     *
-     * @return boolean
-     */
-    public function hasSearchEndpoint()
-    {
-
-        return false;
-
-    }
-
-    /**
      * Ensure that the id is a valid Primo doc id.
      *
      * @param string $id

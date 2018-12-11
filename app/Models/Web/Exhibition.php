@@ -3,8 +3,6 @@
 namespace App\Models\Web;
 
 use App\Models\WebModel;
-use App\Models\Documentable;
-use App\Models\ElasticSearchable;
 
 /**
  * An enhanced exhibition on the website
@@ -13,8 +11,6 @@ class Exhibition extends WebModel
 {
 
     public $table = 'web_exhibitions';
-
-    protected $apiCtrl = 'WebExhibitionsController';
 
     protected $casts = [
         'published' => 'boolean',

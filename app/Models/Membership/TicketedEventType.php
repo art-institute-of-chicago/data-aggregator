@@ -3,7 +3,6 @@
 namespace App\Models\Membership;
 
 use App\Models\MembershipModel;
-use App\Models\Documentable;
 
 use Illuminate\Support\Facades\Log;
 
@@ -14,8 +13,6 @@ use Carbon\Carbon;
  */
 class TicketedEventType extends MembershipModel
 {
-
-    use Documentable;
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
@@ -41,19 +38,6 @@ class TicketedEventType extends MembershipModel
             ],
 
         ];
-
-    }
-
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "2";
 
     }
 

@@ -3,17 +3,12 @@
 namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
-use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * An audio tour stops on a tour.
  */
 class TourStop extends MobileModel
 {
-
-    // use ElasticSearchable;
-    use Documentable;
 
     protected $primaryKey = 'id';
 
@@ -97,31 +92,6 @@ class TourStop extends MobileModel
                 "value" => function() { return $this->weight; },
             ],
         ];
-
-    }
-
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "77";
-
-    }
-
-    /**
-     * Whether this resource has a `/search` endpoint
-     *
-     * @return boolean
-     */
-    public function hasSearchEndpoint()
-    {
-
-        return false;
 
     }
 

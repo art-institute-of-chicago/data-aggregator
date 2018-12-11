@@ -20,6 +20,7 @@ use App\Models\Web\ResearchGuide;
 use App\Models\Web\EducatorResource;
 use App\Models\Web\DigitalCatalog;
 use App\Models\Web\PrintedCatalog;
+use App\Models\Web\StaticPage;
 
 class ImportWebFull extends AbstractImportCommand
 {
@@ -81,6 +82,7 @@ class ImportWebFull extends AbstractImportCommand
             EducatorResource::class => 'educator_resources',
             DigitalCatalog::class => 'digital_catalogs',
             PrintedCatalog::class => 'printed_catalogs',
+            StaticPage::class => 'static_pages',
         ];
 
         if ($endpoint) {
@@ -97,8 +99,7 @@ class ImportWebFull extends AbstractImportCommand
     {
 
         $this->importFromWeb('articles');
-        // Incorrect integer value: 'Also known as' for column 'also_known_as'
-        // $this->importFromWeb('artists');
+        $this->importFromWeb('artists');
         $this->importFromWeb('closures');
         $this->importFromWeb('events');
         // we do not import events/occurrences here to avoid import:web cascade
@@ -115,6 +116,8 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('educatorresources');
         $this->importFromWeb('digitalcatalogs');
         $this->importFromWeb('printedcatalogs');
+
+        $this->importFromWeb('staticpages');
 
     }
 
@@ -173,6 +176,9 @@ class ImportWebFull extends AbstractImportCommand
             break;
             case 'printedcatalogs':
                 return PrintedCatalog::class;
+            break;
+            case 'staticpages':
+                return StaticPage::class;
             break;
             default:
                 // TODO: This gets endpoints as outbound from our API

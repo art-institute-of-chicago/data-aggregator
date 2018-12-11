@@ -11,8 +11,6 @@ trait ElasticSearchable
 
     use Searchable;
 
-    protected $apiCtrl;
-
     /**
      * We need to overwrite the inherited method because it defaults to using the table name.
      * We need to differentiate between "index" and "type" for legacy reasons.
@@ -59,16 +57,14 @@ trait ElasticSearchable
     /**
      * Generate a link to the API for this model resource.
      *
+     * @TODO Revisit when API versioning is in place.
+     *
      * @return string
      */
     protected function searchableLink()
     {
 
-        $calledClass = get_called_class();
-
-        $this->apiCtrl = $this->apiCtrl ?: str_plural( class_basename($calledClass) ) . 'Controller';
-
-        return action($this->apiCtrl . '@show', ['id' => $this->getKey()]);
+        return url('api/v1/' . $this->searchableModel() . '/' . $this->getKey());
 
     }
 
@@ -145,7 +141,7 @@ trait ElasticSearchable
                 'timestamp' => Carbon::now()->toIso8601String(),
             ],
             $this->getSuggestSearchFields(),
-            $this->transform($withTitles = true)
+            $this->transform()
         );
 
         return $array;

@@ -4,7 +4,6 @@ namespace App\Models\DigitalLabel;
 
 use App\Models\DigitalLabelModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * An individual interactive label in our galleries.
@@ -12,7 +11,7 @@ use App\Models\Documentable;
 class Label extends DigitalLabelModel
 {
 
-    use ElasticSearchable, Documentable;
+    use ElasticSearchable;
 
     protected $table = 'digital_labels';
 
@@ -110,18 +109,6 @@ class Label extends DigitalLabelModel
                 "value" => function() { return $this->source_modified_at->toIso8601String(); },
             ],
         ];
-
-    }
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "593";
 
     }
 

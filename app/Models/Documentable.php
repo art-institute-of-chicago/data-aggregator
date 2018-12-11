@@ -42,13 +42,6 @@ trait Documentable
 
         $doc .= $this->docSingle($appUrl) ."\n";
 
-        foreach ($this->subresources() as $subresource)
-        {
-
-            $doc .= $this->docSubresource($appUrl, $subresource, !in_array($subresource, $this->subresourcesToSkipExampleOutput())) ."\n";
-
-        }
-
         return $doc;
 
     }
@@ -95,15 +88,18 @@ trait Documentable
     /**
      * Generate a description of this resource
      *
-     * @TODO Raise informative exception if the doc block is missing.
-     *
      * @return string
      */
     public function docDescription()
     {
 
         $rc = new ClassReflection(get_called_class());
-        return $rc->getDocBlock()->getShortDescription();
+
+        try {
+            return $rc->getDocBlock()->getShortDescription();
+        } catch (\Throwable $e) {
+            throw new \Exception('DocBlock is missing for model ' . get_called_class());
+        }
 
     }
 
@@ -217,7 +213,10 @@ trait Documentable
 
         $doc .= $this->docSingleDescription() ."\n\n";
 
-        $doc .= $this->docExampleOutput($appUrl, ['id' => $this->exampleId()]);
+        if ($id = $this->exampleId())
+        {
+            $doc .= $this->docExampleOutput($appUrl, ['id' => $id]);
+        }
 
         return $doc;
 
@@ -245,59 +244,6 @@ trait Documentable
         return $doc;
 
     }
-
-    /**
-     * Generate documentation for subresource endpoint
-     *
-     * @return string
-     */
-    public function docSubresource($appUrl, $subEndpoint, $includeExampleOutput = true)
-    {
-
-        $endpointAsCopyText = $this->_endpointAsCopyText();
-
-        // Title
-        $doc = '### `GET ' .$this->_endpointPath(['extraPath' => '{id}/' .$subEndpoint]) ."`\n\n";
-
-        $doc .= "The " .$this->_endpointAsCopyText($subEndpoint) ." for a given " .$endpointAsCopyText .".";
-        if ($subEndpoint == 'artists')
-        {
-
-            $doc .= " Served from the API as a type of `agent`, so their output schema is the same.";
-
-        }
-        $doc .= "\n\n";
-
-        $doc .= $this->docExampleOutput($appUrl, ['id' => $this->exampleId(),
-                                                  'subresource' => $subEndpoint,
-                                                  'includeExampleOutput' => $includeExampleOutput]);
-
-        return $doc;
-
-    }
-
-    /**
-     * Generate description for subresource endpoint
-     *
-     * @return string
-     */
-    public function docSubresourceDescription($subEndpoint)
-    {
-
-        $endpointAsCopyText = $this->_endpointAsCopyText();
-
-        $doc = "The " .$this->_endpointAsCopyText($subEndpoint) ." for a given " .$endpointAsCopyText .".";
-        if ($subEndpoint == 'artists')
-        {
-
-            $doc .= " Served from the API as a type of `agent`, so their output schema is the same.";
-
-        }
-
-        return $doc;
-
-    }
-
 
 
     /**
@@ -392,27 +338,10 @@ trait Documentable
     public function docIncludeParameters()
     {
 
-        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+        $transformerClass = app('Resources')->getTransformerForModel(get_called_class());
+        $transformer = new $transformerClass;
 
         $doc = '';
-        $controllerClass = "\\App\\Http\\Controllers\\" .ucfirst( camel_case( $endpoint ) ) ."Controller";
-
-        // TODO: Make all this more declarative!
-        // Alternatively, rename the controllers to plural?
-        if( $controllerClass == '\App\Http\Controllers\LibraryMaterialsController' )
-        {
-            $controllerClass = '\App\Http\Controllers\LibraryMaterialController';
-        }
-
-        // TODO: Make all this more declarative!
-        if( $controllerClass == '\App\Http\Controllers\LibraryTermsController' )
-        {
-            $controllerClass = '\App\Http\Controllers\LibraryTermController';
-        }
-
-        $controller = new $controllerClass;
-        $transformerClass = $controller->transformer();
-        $transformer = new $transformerClass;
         if ($transformer->getAvailableIncludes())
         {
 
@@ -443,7 +372,6 @@ trait Documentable
             'extraPath' => '',
             'getParams' => 'limit=2',
             'id' => '',
-            'subresource' => '',
             'includeExampleOutput' => true,
         ];
 
@@ -557,7 +485,6 @@ trait Documentable
         $defaults = [
             'extraPath' => '',
             'id' => '',
-            'subresource' => '',
         ];
 
         $options = array_merge($defaults, $options);
@@ -573,10 +500,6 @@ trait Documentable
         if ($options['id'])
         {
             $path .= '/' .$options['id'];
-        }
-        if ($options['subresource'])
-        {
-            $path .= '/' .$options['subresource'];
         }
 
         return $path;
@@ -608,26 +531,14 @@ trait Documentable
     }
 
     /**
-     * Get the subresources for the resource.
+     * Helper to retrieve the source attribute, i.e. where the model comes from.
      *
-     * @return array
+     * @return string
      */
-    public function subresources()
+    public static function source()
     {
 
-        return [];
-
-    }
-
-    /**
-     * Get the subresources to skip the example output for.
-     *
-     * @return array
-     */
-    public function subresourcesToSkipExampleOutput()
-    {
-
-        return [];
+        return static::$source;
 
     }
 
@@ -663,7 +574,9 @@ trait Documentable
     public function exampleId()
     {
 
-        return "";
+        $exampleRecord = self::first();
+
+        return $exampleRecord ? $exampleRecord->getKey() : null;
 
     }
 
@@ -687,7 +600,7 @@ trait Documentable
     public function hasSearchEndpoint()
     {
 
-        return true;
+        return app('Resources')->isModelSearchable(get_called_class());
 
     }
 
@@ -716,13 +629,6 @@ trait Documentable
         }
 
         $doc .= $this->swaggerSingle() ."\n";
-
-        foreach ($this->subresources() as $subresource)
-        {
-
-            $doc .= $this->swaggerSubresource($subresource, !in_array($subresource, $this->subresourcesToSkipExampleOutput())) ."\n";
-
-        }
 
         if (get_called_class() == Collections\Agent::class)
         {
@@ -852,40 +758,6 @@ trait Documentable
         $doc .= $this->swaggerProduces();
         $doc .= $this->swaggerParameters(['id' => 'Resource id to retrieve']);
         $doc .= $this->swaggerResponses();
-        $doc .= "      }\n";
-        $doc .= "    },\n";
-
-        return $doc;
-
-    }
-
-    /**
-     * Generate swagger subresource endpoint documentation for this model
-     *
-     * @return string
-     */
-    public function swaggerSubresource($subresource, $includeExampleOutput = true)
-    {
-
-        $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."/{id}/" .$subresource ."\": {\n";
-        $doc .= "      \"get\": {\n";
-        $doc .= $this->swaggerTags();
-        $doc .= "        \"summary\": \"" .$this->docSubresourceDescription($subresource) ."\",\n";
-        $doc .= $this->swaggerProduces();
-        $doc .= $this->swaggerParameters(['id' => 'Resource id to retrieve']);
-
-        try
-        {
-            $subModel = app('Resources')->getModelForEndpoint($subresource);
-            $doc .= $this->swaggerResponses(class_basename($subModel));
-        }
-        catch (\Exception $e)
-        {
-            // Fall back to using this model's own response, in cases like `parts` and `sets` where
-            // the subresource represensts a set of the same models
-            $doc .= $this->swaggerResponses();
-        }
-
         $doc .= "      }\n";
         $doc .= "    },\n";
 

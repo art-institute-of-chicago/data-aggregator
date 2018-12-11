@@ -44,18 +44,6 @@ class Term extends BaseModel
     }
 
     /**
-     * Whether this resource has a `/search` endpoint
-     *
-     * @return boolean
-     */
-    public function hasSearchEndpoint()
-    {
-
-        return false;
-
-    }
-
-    /**
      * Ensure that the id is a valid Library of Congress control number (LCCN).
      *
      * @param string $id

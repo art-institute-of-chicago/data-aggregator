@@ -4,7 +4,6 @@ namespace App\Models\Dsc;
 
 use App\Models\DscModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * Represents a chapter of publication.
@@ -13,7 +12,6 @@ class Section extends DscModel
 {
 
     use ElasticSearchable;
-    use Documentable;
 
     protected $fakeIdsStartAt = 90000000000;
 
@@ -137,18 +135,6 @@ class Section extends DscModel
         $mapping[0]['elasticsearch']['type'] = 'long';
 
         return $mapping;
-    }
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "3014259";
-
     }
 
 }

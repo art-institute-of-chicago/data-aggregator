@@ -3,8 +3,6 @@
 namespace App\Models\Web;
 
 use App\Models\WebModel;
-use App\Models\Documentable;
-use App\Models\ElasticSearchable;
 
 /**
  * An event on the website
@@ -89,7 +87,10 @@ class Event extends WebModel
                 "name" => 'description',
                 "doc" => "All copy text of the event",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->description; },
             ],
             [
@@ -133,6 +134,16 @@ class Event extends WebModel
                 "type" => "array",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->programs; },
+            ],
+            [
+                "name" => 'program_titles',
+                "doc" => "Titles of the programs this event is a part of",
+                "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
+                "value" => function() { if ($this->programs) { return EventProgram::find($this->programs)->pluck('title')->all(); } return []; },
             ],
             [
                 "name" => 'is_ticketed',

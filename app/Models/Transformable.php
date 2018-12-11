@@ -8,38 +8,24 @@ trait Transformable
     /**
      * Turn this model object into a generic array.
      *
-     * @param boolean  withTitles
+     * @param array $requestedFields
      * @return array
      */
-    public function transform($withTitles = false)
+    public function transform(array $requestedFields = null)
     {
-
-        return $this->transformFields($withTitles);
-
-    }
-
-
-    /**
-     * Turn this model object into a generic array.
-     *
-     * @return array
-     */
-    public function transformFields($withTitles = false)
-    {
-
-        $fields = $this->transformMapping();
+        $availableFields = $this->transformMapping();
 
         $out = [];
 
-        foreach ($fields as $field)
+        foreach ($availableFields as $field)
         {
-
-            $out[ $field["name"] ] = call_user_func( $field["value"] );
-
+            if (!isset($requestedFields) || in_array($field['name'], $requestedFields))
+            {
+                $out[ $field['name'] ] = call_user_func( $field['value'] );
+            }
         }
 
         return $out;
-
     }
 
 

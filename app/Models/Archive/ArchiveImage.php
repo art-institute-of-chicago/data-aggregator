@@ -3,15 +3,12 @@
 namespace App\Models\Archive;
 
 use App\Models\BaseModel;
-use App\Models\Documentable;
 
 /**
  * An image from the archives.
  */
 class ArchiveImage extends BaseModel
 {
-
-    use Documentable;
 
     protected $casts = [
         'subject_terms' => 'array'
@@ -201,18 +198,6 @@ class ArchiveImage extends BaseModel
                 "value" => function() { return $this->source_modified_at; },
             ],
         ];
-
-    }
-
-    /**
-     * Whether this resource has a `/search` endpoint
-     *
-     * @return boolean
-     */
-    public function hasSearchEndpoint()
-    {
-
-        return false;
 
     }
 

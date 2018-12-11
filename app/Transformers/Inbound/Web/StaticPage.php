@@ -5,14 +5,14 @@ namespace App\Transformers\Inbound\Web;
 use App\Transformers\Datum;
 use App\Transformers\Inbound\WebTransformer;
 
-class Artist extends WebTransformer
+class StaticPage extends WebTransformer
 {
 
-    protected function getTitle( Datum $datum )
+    protected function getExtraFields( Datum $datum )
     {
 
         return [
-            'title' => $datum->datahub_id,
+            'web_url' => $datum->url,
         ];
 
     }

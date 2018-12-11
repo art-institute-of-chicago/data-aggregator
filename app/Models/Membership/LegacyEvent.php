@@ -4,7 +4,6 @@ namespace App\Models\Membership;
 
 use App\Models\MembershipModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 use Illuminate\Support\Facades\Log;
 
@@ -17,7 +16,6 @@ class LegacyEvent extends MembershipModel
 {
 
     use ElasticSearchable;
-    use Documentable;
 
     public function exhibitions()
     {
@@ -116,19 +114,6 @@ class LegacyEvent extends MembershipModel
     {
 
         return $this->image_url;
-
-    }
-
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "2618626";
 
     }
 

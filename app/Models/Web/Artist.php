@@ -3,8 +3,6 @@
 namespace App\Models\Web;
 
 use App\Models\WebModel;
-use App\Models\Documentable;
-use App\Models\ElasticSearchable;
 
 /**
  * Article on the website
@@ -13,8 +11,6 @@ class Artist extends WebModel
 {
 
     public $table = 'web_artists';
-
-    protected $apiCtrl = 'WebArtistsController';
 
     protected $casts = [
         'published' => 'boolean',

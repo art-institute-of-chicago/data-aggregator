@@ -19,6 +19,30 @@ function ddd($variable)
 }
 
 /**
+ * Generate a unique ID based on a combination of two numbers.
+ * @param  int   $x
+ * @param  int   $y
+ * @return int
+ */
+function cantorPair($x, $y)
+{
+    return (($x + $y) * ($x + $y + 1)) / 2 + $y;
+}
+
+/**
+ * Get the two numbers that a cantor ID was based on
+ * @param  int   $z
+ * @return array
+ */
+function reverseCantorPair($z)
+{
+    $t = floor((-1 + sqrt(1 + 8 * $z))/2);
+    $x = $t * ($t + 3) / 2 - $z;
+    $y = $z - $t * ($t + 1) / 2;
+    return [$x, $y];
+}
+
+/**
  * TODO: Everything below this is unused. However, these methods could be useful in testing.
  */
 

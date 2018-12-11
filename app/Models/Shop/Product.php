@@ -3,15 +3,12 @@
 namespace App\Models\Shop;
 
 use App\Models\ShopModel;
-use App\Models\Documentable;
 
 /**
  * An item available for purchase in the museum shop.
  */
 class Product extends ShopModel
 {
-
-    use Documentable;
 
     protected $casts = [
         'aic_collection' => 'boolean',
@@ -230,18 +227,6 @@ class Product extends ShopModel
                 "value" => function() { return $this->active; },
             ],
         ];
-
-    }
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "7760";
 
     }
 

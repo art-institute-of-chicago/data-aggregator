@@ -61,7 +61,6 @@ class ImportAnalytics extends AbstractImportCommand
 
         }
 
-
     }
 
     protected function getCsvPath()

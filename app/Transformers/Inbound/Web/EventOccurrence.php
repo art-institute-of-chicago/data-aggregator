@@ -3,9 +3,9 @@
 namespace App\Transformers\Inbound\Web;
 
 use App\Transformers\Datum;
-use App\Transformers\Inbound\AbstractTransformer;
+use App\Transformers\Inbound\WebTransformer;
 
-class EventOccurrence extends AbstractTransformer
+class EventOccurrence extends WebTransformer
 {
 
     protected $passthrough = true;
@@ -52,20 +52,7 @@ class EventOccurrence extends AbstractTransformer
 
         $timestamp = floor( $timestamp ); // this is still a float here. int bounds?
 
-        return $this->cantorPair( $datum->id, $timestamp );
-    }
-
-    /**
-     * Generate a unique ID based on a combination of two numbers.
-     * @param  int   $x
-     * @param  int   $y
-     * @return int
-     */
-    private function cantorPair($x, $y)
-    {
-
-        return (($x + $y) * ($x + $y + 1)) / 2 + $y;
-
+        return cantorPair( $datum->id, $timestamp );
     }
 
 }

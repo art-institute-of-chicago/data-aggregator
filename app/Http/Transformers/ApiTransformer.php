@@ -25,7 +25,8 @@ class ApiTransformer extends AbstractTransformer
             $this->transformDates($item)
         );
 
-        // Filters fields, etc.
+        // TODO: Prevent attachment of e.g. `lake_guid`, so that this post-fact filtering is unnecessary?
+        // Look into how `transformIdsAndTitle` are handled in descendants.
         $data = parent::transform( $data );
 
         return $data;
@@ -35,7 +36,7 @@ class ApiTransformer extends AbstractTransformer
     protected function transformFields($item)
     {
 
-        return $item->transform();
+        return $item->transform($this->fields);
 
     }
 

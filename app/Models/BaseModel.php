@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 class BaseModel extends AbstractModel
 {
 
-    use Transformable, Instancable, Fakeable;
+    use Transformable, Instancable, Fakeable, Documentable;
 
     protected $hasSourceDates = true;
 
@@ -214,41 +214,6 @@ class BaseModel extends AbstractModel
 
     }
 
-    public static function source()
-    {
-
-        return static::$source;
-
-    }
-
-    /**
-     * Generate a unique ID based on a combination of two numbers.
-     * @param  int   $x
-     * @param  int   $y
-     * @return int
-     */
-    public function cantorPair($x, $y)
-    {
-
-        return (($x + $y) * ($x + $y + 1)) / 2 + $y;
-
-    }
-
-    /**
-     * Get the two numbers that a cantor ID was based on
-     * @param  int   $z
-     * @return array
-     */
-    public function reverseCantorPair($z)
-    {
-
-        $t = floor((-1 + sqrt(1 + 8 * $z))/2);
-        $x = $t * ($t + 3) / 2 - $z;
-        $y = $z - $t * ($t + 1) / 2;
-        return [$x, $y];
-
-    }
-
     /**
      * Touch the owning relations of the model.
      * Reindex related models in search index.
@@ -264,12 +229,14 @@ class BaseModel extends AbstractModel
 
             if ($this->$relation instanceof self) {
 
-                $this->$relation()->searchable();
+                $this->$relation->searchable();
 
             } elseif ($this->$relation instanceof Collection) {
 
-                $this->$relation->each( [$this, 'searchable'] );
-
+                foreach ($this->$relation->chunk(50) as $chunk)
+                {
+                    $chunk->searchable();
+                }
             }
         }
     }

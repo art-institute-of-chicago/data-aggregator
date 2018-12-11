@@ -50,28 +50,11 @@ class ImportLegacyEvents extends AbstractImportCommand
         foreach( $results as $datum )
         {
 
-            $datum->id = $this->cantorPair( $datum->nid, $datum->repeat_delta );
+            $datum->id = cantorPair( $datum->nid, $datum->repeat_delta );
 
             $this->save( $datum, LegacyEvent::class, $transformer );
 
         }
-
-    }
-
-
-    /**
-     * Generate a unique ID based on a combination of two numbers.
-     *
-     * @TODO Consider moving this to `app/Helpers/Util.php`
-     *
-     * @param  int   $x
-     * @param  int   $y
-     * @return int
-     */
-    public function cantorPair($x, $y)
-    {
-
-        return (($x + $y) * ($x + $y + 1)) / 2 + $y;
 
     }
 

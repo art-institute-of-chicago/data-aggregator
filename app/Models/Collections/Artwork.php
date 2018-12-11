@@ -4,7 +4,6 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 use App\Models\HasRelationships;
 
 
@@ -16,7 +15,6 @@ class Artwork extends CollectionsModel
 
     use HasRelationships;
     use ElasticSearchable;
-    use Documentable;
 
     protected $casts = [
         'alt_titles' => 'array',
@@ -29,13 +27,18 @@ class Artwork extends CollectionsModel
         'artists',
         'artworkType',
         'categories',
+        'departments',
+        'themes',
         'dates',
         'terms',
         'termPivots',
         'artworkCatalogues',
+        // 'catalogues', // unused!
         'gallery',
         'images',
+        'imagePivots', // improves, but why?
         'assets',
+        'assetPivots', // improves, but why?
         'mobileArtwork',
         'sections',
         'sites',
@@ -95,14 +98,14 @@ class Artwork extends CollectionsModel
 
     }
 
-    public function department()
+    public function departments()
     {
 
         // We assumed this was a many-to-one relationship; this is a patch. Put `null` first:
         // https://stackoverflow.com/questions/2051602/mysql-orderby-a-number-nulls-last
         // This doesn't work great b/c the ids are alphanumeric, not numeric
         // https://stackoverflow.com/questions/153633/natural-sort-in-mysql
-        return $this->categories()->departments()->orderBy('parent_id', 'asc')->orderBy('id', 'asc')->expectOne();
+        return $this->categories()->departments()->orderBy('parent_id', 'asc')->orderBy('id', 'asc');
 
     }
 
@@ -248,12 +251,13 @@ class Artwork extends CollectionsModel
 
     }
 
+    // TODO: Unused. Delete?
     public function catalogues()
     {
 
         return $this->belongsToMany('App\Models\Collections\Catalogue', 'artwork_catalogue')
             ->using('App\Models\Collections\ArtworkCatalogue')
-            ->withPivot('is_preferred');
+            ->withPivot('preferred');
 
     }
 
@@ -754,14 +758,14 @@ class Artwork extends CollectionsModel
                 "name" => 'department_title',
                 "doc" => "Name of the curatorial department that this work belongs to",
                 "type" => "string",
-                "value" => function() { return $this->department->title ?? null; },
+                "value" => function() { return $this->departments->first()->title ?? null; },
             ],
             [
                 "name" => 'department_id',
                 "doc" => "Unique identifier of the curatorial department that this work belongs to",
                 "type" => "number",
                 'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->department->lake_uid ?? null; },
+                "value" => function() { return $this->departments->first()->lake_uid ?? null; },
             ],
             [
                 "name" => 'dimensions',
@@ -1213,7 +1217,7 @@ class Artwork extends CollectionsModel
                 "name" => 'theme_titles',
                 "doc" => "The names of all thematic publish categories related to this artwork",
                 "type" => "array",
-                "value" => function() { return $this->themes()->pluck('title'); },
+                "value" => function() { return $this->themes->pluck('title'); },
             ],
 
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
@@ -1351,11 +1355,22 @@ class Artwork extends CollectionsModel
 
         // TODO: Move `suggest_autocomplete_all` into `suggest_autocomplete`, and re-index everything from database?
         $fields['suggest_autocomplete_all'] = [
-            'input' => [$this->main_id],
-            'contexts' => [
-                'groupings' => [
-                    'accession',
-                ]
+            [
+                'input' => [$this->main_id],
+                'contexts' => [
+                    'groupings' => [
+                        'accession',
+                    ]
+                ],
+            ],
+            [
+                'input' => [$this->title],
+                'weight' => $this->pageviews,
+                'contexts' => [
+                    'groupings' => [
+                        'title',
+                    ]
+                ],
             ],
         ];
 
@@ -1378,30 +1393,6 @@ class Artwork extends CollectionsModel
 
 
     /**
-     * Get the subresources for the resource.
-     *
-     * @return array
-     */
-    public function subresources()
-    {
-
-        return ['artists', 'categories', 'images', 'parts', 'sets'];
-
-    }
-
-    /**
-     * Get the subresources to skip the example output for.
-     *
-     * @return array
-     */
-    public function subresourcesToSkipExampleOutput()
-    {
-
-        return ['parts', 'sets'];
-
-    }
-
-    /**
      * Get any extra descriptions of the search endpoint for this resource
      *
      * @return string
@@ -1422,18 +1413,6 @@ class Artwork extends CollectionsModel
     {
 
         return 'q=monet';
-
-    }
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "111628";
 
     }
 

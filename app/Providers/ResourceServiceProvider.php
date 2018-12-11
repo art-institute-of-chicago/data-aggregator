@@ -69,6 +69,20 @@ class ResourceServiceProvider extends ServiceProvider
                     return $model;
                 }
 
+                public function getTransformerForEndpoint( $endpoint )
+                {
+                    $resource = $this->resources->firstWhere('endpoint', $endpoint);
+
+                    $transformer = $resource['transformer'] ?? null;
+
+                    if( !$transformer )
+                    {
+                        throw new \Exception('You must define a transformer for outbound endpoint `' . $endpoint . '` in ResourceServiceProvider.');
+                    }
+
+                    return $transformer;
+                }
+
                 public function getEndpointForModel( $model )
                 {
                     $model = $this->getCleanModel( $model );
@@ -83,6 +97,31 @@ class ResourceServiceProvider extends ServiceProvider
                     }
 
                     return $endpoint;
+                }
+
+                public function getTransformerForModel( $model )
+                {
+                    $model = $this->getCleanModel( $model );
+
+                    $resource = $this->resources->firstWhere('model', $model);
+
+                    $transformer = $resource['transformer'] ?? null;
+
+                    if( !$transformer )
+                    {
+                        throw new \Exception('You must define a transformer for model `' . $model . '` in ResourceServiceProvider.');
+                    }
+
+                    return $transformer;
+                }
+
+                public function isModelSearchable( $model )
+                {
+                    $model = $this->getCleanModel( $model );
+
+                    $resource = $this->resources->firstWhere('model', $model);
+
+                    return $resource['is_searchable'] ?? false;
                 }
 
                 public function getParent( $endpoint )
@@ -163,7 +202,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                                     if( !class_exists( $transformer ) )
                                     {
-                                        $transformer = \App\Transformers\Inbound\AbstractTransformer::class;
+                                        $transformer = \App\Transformers\Inbound\BaseTransformer::class;
                                     }
                                 }
                             }

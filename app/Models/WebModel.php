@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
-use App\Models\Documentable;
 use App\Models\ElasticSearchable;
 
 /**
@@ -12,7 +11,7 @@ use App\Models\ElasticSearchable;
 class WebModel extends BaseModel
 {
 
-    use Documentable, ElasticSearchable;
+    use ElasticSearchable;
 
     protected $casts = [
         'published' => 'boolean',

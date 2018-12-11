@@ -4,7 +4,6 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
-use App\Models\Documentable;
 
 /**
  * An organized presentation and display of a selection of artworks.
@@ -13,7 +12,6 @@ class Exhibition extends CollectionsModel
 {
 
     use ElasticSearchable;
-    use Documentable;
 
     protected $primaryKey = 'citi_id';
 
@@ -295,30 +293,6 @@ class Exhibition extends CollectionsModel
             ],
             // EOF TODO
         ];
-
-    }
-
-    /**
-     * Get an example ID for documentation generation
-     *
-     * @return string
-     */
-    public function exampleId()
-    {
-
-        return "1302";
-
-    }
-
-    /**
-     * Get the subresources for the resource.
-     *
-     * @return array
-     */
-    public function subresources()
-    {
-
-        return ['artworks'];
 
     }
 

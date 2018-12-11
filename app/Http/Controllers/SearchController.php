@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Search;
+namespace App\Http\Controllers;
 
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 
@@ -55,6 +55,22 @@ class SearchController extends BaseController
 
     }
 
+
+    /**
+     * Multisearch functionality. Send multiple queries in one request by wrapping them in a
+     * top-level indexed array.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-multi-search.html
+     * @link https://discuss.elastic.co/t/elasticsearch-5-0-php-msearch/66716
+     *
+     * @return array
+     */
+    public function msearch( Request $request )
+    {
+        return $this->mquery( 'getSearchParams', 'getSearchResponse', $request );
+    }
+
+
     /**
      * Return autocomplete suggestions, via an array of title strings.
      *
@@ -85,6 +101,18 @@ class SearchController extends BaseController
         ]);
 
     }
+
+
+    /**
+     * Multi-suggest functionality. Like `autocompleteWithSource` but with `msearch` syntax.
+     */
+    public function msuggest( Request $request )
+    {
+        return $this->mquery( 'getAutocompleteParams', 'getAutocompleteWithSourceResponse', $request,[
+            'use_suggest_autocomplete_all' => true,
+        ]);
+    }
+
 
     /**
      * Perform Elasticsearch explain query. Meant for local debugging.
@@ -157,14 +185,11 @@ class SearchController extends BaseController
     }
 
     /**
-     * Multisearch stub functionality.
-     *
-     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-multi-search.html
-     * @link https://discuss.elastic.co/t/elasticsearch-5-0-php-msearch/66716
+     * Helper for shared multi-query functionality.
      *
      * @return array
      */
-    public function msearch( Request $request )
+    private function mquery($requestMethod, $responseMethod, Request $request, $requestArgs = null)
     {
 
         $queries = json_decode($request->getContent(), true);
@@ -180,7 +205,8 @@ class SearchController extends BaseController
 
         foreach( $queries as $query )
         {
-            $originalParams[] = ( new SearchRequest() )->getSearchParams( $query );
+            $input = $requestArgs ? array_merge($query, $requestArgs) : $query;
+            $originalParams[] = ( new SearchRequest() )->$requestMethod( $input );
         }
 
         $transformedParams = [];
@@ -253,13 +279,14 @@ class SearchController extends BaseController
         foreach( $results as $result ) {
 
             // Transform Elasticsearch results into our API standard
-            $responses[] = ( new SearchResponse( $result, $originalParams ) )->getSearchResponse();
+            $responses[] = ( new SearchResponse( $result, $originalParams ) )->$responseMethod();
 
         }
 
         return $responses;
 
     }
+
 
     /**
      * Retrieve the last query sent by this client to Elasticsearch.
