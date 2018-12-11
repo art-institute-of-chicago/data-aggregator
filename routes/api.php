@@ -31,9 +31,9 @@ Route::group(['prefix' => 'v1'], function() {
     // Elasticsearch
     Route::match( array('GET', 'POST'), 'search', 'SearchController@search');
     Route::match( array('GET', 'POST'), '{resource}/search', 'SearchController@search');
-    // We can do ->where('resource', '(foo|bar)') to limit {resource}, but it's not necessary...
 
     Route::match( array('GET', 'POST'), 'msearch', 'SearchController@msearch');
+    Route::match( array('GET', 'POST'), 'msuggest', 'SearchController@msuggest');
 
     Route::match( array('GET', 'POST'), 'autocomplete', 'SearchController@autocompleteWithTitle');
     Route::match( array('GET', 'POST'), 'autosuggest', 'SearchController@autocompleteWithSource');
