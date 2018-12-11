@@ -273,25 +273,8 @@ return [
                                 'lowercase',
                                 'english_article_stop',
                                 'asciifolding',
-                                'shingle',
                             ],
                         ],
-                        /* TODO: Delete these definitions that we copied over from initial example
-                        'trigram' => [
-                            'tokenizer' => 'standard',
-                            'filter' => [
-                                'standard',
-                                'shingle'
-                            ],
-                        ],
-                        'reverse' => [
-                            'tokenizer' => 'standard',
-                            'filter' => [
-                                'standard',
-                                'reverse'
-                            ],
-                        ],
-                        */
                     ],
                 ],
             ],
