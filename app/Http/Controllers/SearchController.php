@@ -6,6 +6,7 @@ use Aic\Hub\Foundation\Exceptions\DetailedException;
 
 use App\Http\Search\Request as SearchRequest;
 use App\Http\Search\Response as SearchResponse;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Elasticsearch;
 
@@ -192,7 +193,7 @@ class SearchController extends BaseController
     private function mquery($requestMethod, $responseMethod, Request $request, $requestArgs = null)
     {
 
-        $queries = json_decode($request->getContent(), true);
+        $queries = Input::all();
 
         if( !is_array( $queries ) || count( array_filter( array_keys( $queries ), 'is_string') ) > 0 ) {
 
