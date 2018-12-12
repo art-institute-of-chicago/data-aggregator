@@ -33,7 +33,10 @@ class Article extends WebModel
                 "name" => 'copy',
                 "doc" => "The text of the article",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->copy; },
             ],
         ];
