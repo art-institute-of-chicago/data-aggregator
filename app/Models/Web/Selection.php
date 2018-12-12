@@ -28,7 +28,10 @@ class Selection extends WebModel
                 "name" => 'copy',
                 "doc" => "The text of the selection description",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->copy; },
             ],
             [
