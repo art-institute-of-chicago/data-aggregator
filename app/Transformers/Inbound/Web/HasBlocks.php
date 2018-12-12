@@ -99,9 +99,10 @@ trait HasBlocks
      * A place to define rules for identifying blocks with eligible copy, and for extracting
      * that copy. Used in the `getCopy` method. Has to be a function, not a class property.
      *
-     * @var array
+     * @return array
      */
-    private function getCopyRules() {
+    private function getCopyRules()
+    {
 
         return [
             [
@@ -109,7 +110,7 @@ trait HasBlocks
                     return $block->type == 'paragraph' && isset( $block->content->paragraph );
                 },
                 'extract' => function( $block ) {
-                    return html_entity_decode( strip_tags( $block->content->paragraph ) );
+                    return $this->cleanRichText( $block->content->paragraph );
                 },
             ],
             [
@@ -117,10 +118,33 @@ trait HasBlocks
                     return $block->type == 'artworks' && isset( $block->content->subhead );
                 },
                 'extract' => function( $block ) {
-                    return html_entity_decode( strip_tags( $block->content->subhead ) );
+                    return $this->cleanRichText( $block->content->subhead );
                 },
             ]
         ];
+
+    }
+
+
+    /**
+     * Transforms our website's WYSIWYG output to searchable plaintext.
+     *
+     * @return string
+     */
+    private function cleanRichText( string $content )
+    {
+
+        // PHP's `strip_tags` has no way to replace tags with spaces
+        $content = preg_replace('#<[^>]+>#', ' ', $content);
+
+        // Decode HTML entities, but simplify &nbsp; to normal spaces
+        $content = str_replace('&nbsp;', ' ', $content);
+        $content = html_entity_decode($content);
+
+        // Collapse multiple spaces into one
+        $content = preg_replace('/\s+/', ' ', $content);
+
+        return $content;
 
     }
 
