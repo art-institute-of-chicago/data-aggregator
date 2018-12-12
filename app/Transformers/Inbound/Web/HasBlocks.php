@@ -109,7 +109,7 @@ trait HasBlocks
                     return $block->type == 'paragraph' && isset( $block->content->paragraph );
                 },
                 'extract' => function( $block ) {
-                    return strip_tags( $block->content->paragraph );
+                    return html_entity_decode( strip_tags( $block->content->paragraph ) );
                 },
             ],
             [
@@ -117,7 +117,7 @@ trait HasBlocks
                     return $block->type == 'artworks' && isset( $block->content->subhead );
                 },
                 'extract' => function( $block ) {
-                    return strip_tags( $block->content->subhead );
+                    return html_entity_decode( strip_tags( $block->content->subhead ) );
                 },
             ]
         ];
