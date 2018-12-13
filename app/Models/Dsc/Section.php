@@ -104,6 +104,13 @@ class Section extends DscModel
                 "value" => function() { return $this->publication->dsc_id ?? null; },
             ],
             [
+                "name" => 'generic_page_id',
+                "doc" => "Unique identifier of the page on the website that represents the publication this section belongs to",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->publication->generic_page_id ?? null; },
+            ],
+            [
                 "name" => 'artwork_id',
                 "doc" => "Unique identifier of the artwork with which this section is associated",
                 "type" => "number",

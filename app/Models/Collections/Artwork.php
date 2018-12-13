@@ -734,7 +734,10 @@ class Artwork extends CollectionsModel
                 "name" => 'date_display',
                 "doc" => "Readable, free-text description of the period of time associated with the creation of this work. This might include date terms like Dynasty, Era etc. Written by curators and editors in house style, and is the preferred field for display on websites and apps. ",
                 "type" => "string",
-                'elasticsearch_type' => 'keyword',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->date_display; },
             ],
             [
@@ -808,7 +811,10 @@ class Artwork extends CollectionsModel
                 "name" => 'credit_line',
                 "doc" => "Brief statement indicating how the work came into the collection",
                 "type" => "string",
-                'elasticsearch_type' => 'text',
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
                 "value" => function() { return $this->credit_line; },
             ],
             [

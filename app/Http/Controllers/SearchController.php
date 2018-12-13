@@ -6,6 +6,7 @@ use Aic\Hub\Foundation\Exceptions\DetailedException;
 
 use App\Http\Search\Request as SearchRequest;
 use App\Http\Search\Response as SearchResponse;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Elasticsearch;
 
@@ -150,8 +151,12 @@ class SearchController extends BaseController
     private function query( $requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null, $requestArgs = null )
     {
 
+        // Combine any configuration params
+        $input = Input::all();
+        $input = $requestArgs ? array_merge($input, $requestArgs) : $input;
+
         // Transform our API's syntax into an Elasticsearch params array
-        $params = ( new SearchRequest( $resource, $id ) )->$requestMethod( $requestArgs );
+        $params = ( new SearchRequest( $resource, $id ) )->$requestMethod( $input );
         $cacheKey = $this->buildCacheKey($elasticsearchMethod, $params, config('elasticsearch.cache_version'));
         $results = null;
 
@@ -192,7 +197,7 @@ class SearchController extends BaseController
     private function mquery($requestMethod, $responseMethod, Request $request, $requestArgs = null)
     {
 
-        $queries = json_decode($request->getContent(), true);
+        $queries = Input::all();
 
         if( !is_array( $queries ) || count( array_filter( array_keys( $queries ), 'is_string') ) > 0 ) {
 
