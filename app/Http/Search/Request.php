@@ -794,7 +794,7 @@ class Request
     private function addAutocompleteSuggestParams( array $params, array $input, $requestArgs = null)
     {
 
-        $isThisAutosuggest = $requestArgs && is_array($requestArgs) && $requestArgs['use_suggest_autocomplete_all'];
+        $isThisAutosuggest = $requestArgs && is_array($requestArgs) && ($requestArgs['use_suggest_autocomplete_all'] ?? false);
 
         if ($isThisAutosuggest) {
             $field = 'suggest_autocomplete_all';
