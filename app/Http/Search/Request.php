@@ -683,11 +683,14 @@ class Request
         // Only pull default fields for the resources targeted by this request
         $fields = app('Search')->getDefaultFieldsForEndpoints( $this->resources );
 
+        // Determing if fuzzy searching should be used on this query
+        $fuzziness = $this->getFuzzy($input);
+
         // Pull all docs that match fuzzily into the results
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
                 'query' => $input['q'],
-                'fuzziness' => $this->getFuzzy($input),
+                'fuzziness' => $fuzziness,
                 'prefix_length' => 1,
                 'fields' => $fields,
             ],
