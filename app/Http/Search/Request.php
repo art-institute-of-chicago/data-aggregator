@@ -683,14 +683,11 @@ class Request
         // Only pull default fields for the resources targeted by this request
         $fields = app('Search')->getDefaultFieldsForEndpoints( $this->resources );
 
-        // Determing if fuzzy searching should be used on this query
-        $fuzziness = $input['fuzzy'] === 'false' || count(explode(' ', $input['q'])) > 7 ? 0 : 'AUTO';
-
         // Pull all docs that match fuzzily into the results
         $params['body']['query']['bool']['must'][] = [
             'multi_match' => [
                 'query' => $input['q'],
-                'fuzziness' => $fuzziness,
+                'fuzziness' => $this->getFuzzy($input),
                 'prefix_length' => 1,
                 'fields' => $fields,
             ],
@@ -807,7 +804,7 @@ class Request
             'completion' => [
                 'field' => $field,
                 'fuzzy' => [
-                    'fuzziness' => $input['fuzzy'] === 'false' || count(explode(' ', $input['q'])) > 7 ? 0 : 'AUTO',
+                    'fuzziness' => $this->getFuzzy($input),
                     'min_length' => 5,
                 ],
             ],
@@ -856,5 +853,24 @@ class Request
 
     }
 
+    private function getFuzzy( array $input )
+    {
+        if (count(explode(' ', $input['q'] ?? '')) > 7)
+        {
+            return 0;
+        }
+
+        if (!isset($input['fuzzy']))
+        {
+            return 'AUTO';
+        }
+
+        if ($input['fuzzy'] === 'AUTO')
+        {
+            return 'AUTO';
+        }
+
+        return min([2, (int) $input['fuzzy']]);
+    }
 
 }
