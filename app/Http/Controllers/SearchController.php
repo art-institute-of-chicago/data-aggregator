@@ -151,8 +151,12 @@ class SearchController extends BaseController
     private function query( $requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null, $requestArgs = null )
     {
 
+        // Combine any configuration params
+        $input = Input::all();
+        $input = $requestArgs ? array_merge($input, $requestArgs) : $input;
+
         // Transform our API's syntax into an Elasticsearch params array
-        $params = ( new SearchRequest( $resource, $id ) )->$requestMethod( $requestArgs );
+        $params = ( new SearchRequest( $resource, $id ) )->$requestMethod( $input );
         $cacheKey = $this->buildCacheKey($elasticsearchMethod, $params, config('elasticsearch.cache_version'));
         $results = null;
 
