@@ -89,6 +89,12 @@ class Kernel extends ConsoleKernel
     {
 
         $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__.'/Commands/Docs');
+        $this->load(__DIR__.'/Commands/Import');
+        $this->load(__DIR__.'/Commands/Prototype');
+        $this->load(__DIR__.'/Commands/Report');
+        $this->load(__DIR__.'/Commands/Search');
+        $this->load(__DIR__.'/Commands/Update');
 
     }
 }
