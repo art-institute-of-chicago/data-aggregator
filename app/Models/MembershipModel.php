@@ -13,9 +13,4 @@ class MembershipModel extends BaseModel
 
     protected $fakeIdsStartAt = 99900000;
 
-    protected $casts = [
-        'start_at' => 'datetime',
-        'end_at' => 'datetime',
-    ];
-
 }

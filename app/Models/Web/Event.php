@@ -307,6 +307,25 @@ class Event extends WebModel
                 'elasticsearch_type' => 'boolean',
                 "value" => function() { return $this->published; },
             ],
+            [
+                "name" => 'search_tags',
+                "doc" => "Editor-specified list of tags to aid in internal search",
+                "type" => "array",
+                "elasticsearch" => [
+                    "default" => true,
+                    "type" => 'text',
+                ],
+                "value" => function() {
+                    if (!$this->search_tags) {
+                        return null;
+                    }
+
+                    return collect(explode(',', $this->search_tags))
+                        ->map(function($item) {
+                            return trim($item);
+                        });
+                },
+            ],
         ];
 
     }
