@@ -19,6 +19,13 @@ class TicketedEvent extends MembershipModel
         getDefaultSearchFields as public traitGetDefaultSearchFields;
     }
 
+    protected $casts = [
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
+        'on_sale_at' => 'datetime',
+        'off_sale_at' => 'datetime',
+    ];
+
     public function event()
     {
 
@@ -49,18 +56,32 @@ class TicketedEvent extends MembershipModel
                 "value" => function() { return $this->start_at ? $this->start_at->toIso8601String() : NULL; },
             ],
             [
-                "name" => 'ticketed_event_type_id',
-                "doc" => "Unique identifier of the event type in the ticketing system this website event is tied to",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->event_type_id ?: NULL; },
-            ],
-            [
                 "name" => 'end_at',
                 "doc" => "Date and time the event ends",
                 "type" => "ISO 8601 date and time",
                 'elasticsearch_type' => 'date',
                 "value" => function() { return $this->end_at ? $this->end_at->toIso8601String() : NULL; },
+            ],
+            [
+                "name" => 'on_sale_at',
+                "doc" => "Date and time the event goes on sale",
+                "type" => "ISO 8601 date and time",
+                'elasticsearch_type' => 'date',
+                "value" => function() { return $this->on_sale_at ? $this->on_sale_at->toIso8601String() : NULL; },
+            ],
+            [
+                "name" => 'off_sale_at',
+                "doc" => "Date and time the event goes off sale",
+                "type" => "ISO 8601 date and time",
+                'elasticsearch_type' => 'date',
+                "value" => function() { return $this->off_sale_at ? $this->off_sale_at->toIso8601String() : NULL; },
+            ],
+            [
+                "name" => 'ticketed_event_type_id',
+                "doc" => "Unique identifier of the event type in the ticketing system this website event is tied to",
+                "type" => "number",
+                'elasticsearch_type' => 'integer',
+                "value" => function() { return $this->event_type_id ?: NULL; },
             ],
             [
                 "name" => 'resource_id',
