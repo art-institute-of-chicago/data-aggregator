@@ -12,7 +12,7 @@ class TicketedEvent extends MembershipTransformer
     {
 
         return [
-            'event_type_id' => $datum->date('type_id'),
+            'event_type_id' => $datum->type_id,
             'start_at' => $datum->date('start_at'),
             'end_at' => $datum->date('end_at'),
         ];
