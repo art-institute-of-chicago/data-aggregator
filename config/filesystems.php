@@ -48,6 +48,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'dumps' => [
+            'driver' => 'local',
+            'root' => database_path('dumps'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
