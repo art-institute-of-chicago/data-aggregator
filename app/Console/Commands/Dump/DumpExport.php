@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Dump;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use League\Csv\Writer;
 use Exception;
 use Throwable;
@@ -71,7 +70,7 @@ class DumpExport extends AbstractDumpCommand
 
             } catch (Throwable $e) {
 
-                throw new Exception('Could not determine primary key for table ' . $tableName);
+                throw new Exception('Primary key missing in table ' . $tableName);
 
             }
 
@@ -84,13 +83,6 @@ class DumpExport extends AbstractDumpCommand
             ];
 
         });
-
-    }
-
-    private function getCsvPath($subpath)
-    {
-
-        return Storage::disk('dumps')->getDriver()->getAdapter()->getPathPrefix() . $subpath;
 
     }
 

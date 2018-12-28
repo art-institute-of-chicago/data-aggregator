@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands\Dump;
 
+use Illuminate\Support\Facades\Storage;
+
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 abstract class AbstractDumpCommand extends BaseCommand
@@ -87,5 +89,19 @@ abstract class AbstractDumpCommand extends BaseCommand
         'web_artists',
         'web_exhibitions',
     ];
+
+    /**
+     * All of the data dumps live in `database/dumps` per `config/filesystems.php`.
+     * Use this to generate absolute paths to CSV files for `createFromPath` calls.
+     *
+     * @param string $subpath  ...to CSV file, relative to `database/dumps`
+     * @return string
+     */
+    protected function getCsvPath(string $subpath) : string
+    {
+
+        return Storage::disk('dumps')->getDriver()->getAdapter()->getPathPrefix() . $subpath;
+
+    }
 
 }
