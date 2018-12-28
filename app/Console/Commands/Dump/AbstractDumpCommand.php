@@ -81,6 +81,7 @@ abstract class AbstractDumpCommand extends BaseCommand
         'selections',
         'shop_categories',
         'sites',
+        'static_pages',
         'tags',
         // 'ticketed_event_types',
         // 'ticketed_events',
