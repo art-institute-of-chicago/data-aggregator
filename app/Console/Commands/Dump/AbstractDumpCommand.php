@@ -98,7 +98,7 @@ abstract class AbstractDumpCommand extends BaseCommand
      * @param string $subpath  ...to CSV file, relative to `database/dumps`
      * @return string
      */
-    protected function getCsvPath(string $subpath) : string
+    protected function getDumpPath(string $subpath) : string
     {
 
         return Storage::disk('dumps')->getDriver()->getAdapter()->getPathPrefix() . $subpath;

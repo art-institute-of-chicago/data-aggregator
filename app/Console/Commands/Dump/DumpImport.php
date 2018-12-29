@@ -21,7 +21,7 @@ class DumpImport extends AbstractDumpCommand
         {
             $this->info($tableName);
 
-            $csvPath = $this->getCsvPath('tables/' . $tableName . '.csv');
+            $csvPath = $this->getDumpPath('tables/' . $tableName . '.csv');
 
             if (!file_exists($csvPath))
             {

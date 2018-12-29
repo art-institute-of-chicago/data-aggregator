@@ -76,7 +76,7 @@ class DumpExport extends AbstractDumpCommand
 
             return [
                 'name' => $tableName,
-                'csvPath' => $this->getCsvPath('tables/' . $tableName . '.csv'),
+                'csvPath' => $this->getDumpPath('tables/' . $tableName . '.csv'),
                 'allColumns' => array_keys($table->getColumns()), // Doctrine\DBAL\Schema\Column values
                 'keyColumns' => $keyColumns,
                 'count' => DB::table($tableName)->count(),
