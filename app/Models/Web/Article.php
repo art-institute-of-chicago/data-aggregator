@@ -23,6 +23,13 @@ class Article extends WebModel
 
         return [
             [
+                "name" => 'is_published',
+                "doc" => "Whether the article has been published",
+                "type" => "boolean",
+                'elasticsearch_type' => 'boolean',
+                "value" => function() { return $this->published; },
+            ],
+            [
                 "name" => 'date',
                 "doc" => "The date the article was published",
                 "type" => "ISO 8601 date and time",
