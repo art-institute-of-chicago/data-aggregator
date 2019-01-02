@@ -28,9 +28,14 @@ class FixPrimaryKeys extends Migration
 
         DB::statement('
             INSERT INTO `artwork_catalogue_temp`
-            SELECT `citi_id`, `artwork_citi_id`, `catalogue_citi_id`, `number`, `state_edition`, `preferred`
+            SELECT `citi_id`,
+                ANY_VALUE(`artwork_citi_id`),
+                ANY_VALUE(`catalogue_citi_id`),
+                ANY_VALUE(`number`),
+                ANY_VALUE(`state_edition`),
+                ANY_VALUE(`preferred`)
             FROM `artwork_catalogue`
-            GROUP BY `citi_id`, `artwork_citi_id`, `catalogue_citi_id`, `number`, `state_edition`, `preferred`
+            GROUP BY `citi_id`
             ORDER BY `citi_id`
         ');
 
