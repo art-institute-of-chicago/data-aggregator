@@ -55,7 +55,12 @@ class Place extends CollectionsModel
                 "doc" => "Latitude and longitude coordinates of the center of the room",
                 "type" => "string",
                 'elasticsearch_type' => 'geo_point',
-                "value" => function() { return $this->latitude .',' .$this->longitude; },
+                "value" => function() {
+                    if ($this->latitude && $this->longitude)
+                    {
+                        return $this->latitude . ',' . $this->longitude;
+                    }
+                },
             ],
             [
                 "name" => 'category_ids',

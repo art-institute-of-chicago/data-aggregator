@@ -962,7 +962,14 @@ class Artwork extends CollectionsModel
                 "doc" => "Latitude and longitude coordinates of the location of this work in our galleries",
                 "type" => "string",
                 'elasticsearch_type' => 'geo_point',
-                "value" => function() { return $this->mobileArtwork ? ($this->mobileArtwork->latitude .',' .$this->mobileArtwork->longitude) : NULL; },
+                "value" => function() {
+                    $latitude = $this->mobileArtwork->latitude ?? null;
+                    $longitude = $this->mobileArtwork->latitude ?? null;
+                    if ($latitude && $longitude)
+                    {
+                        return $latitude . ',' . $longitude;
+                    }
+                },
             ],
             [
                 "name" => 'selector_number',
