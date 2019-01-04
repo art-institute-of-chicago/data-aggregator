@@ -28,16 +28,13 @@ class ElasticsearchEngine extends BaseEngine
             ];
         });
 
-        // dd( $params );
-
         $result = $this->elastic->bulk($params);
 
-        // Unfortunately, we aren't quite ready to handle these exceptions.
-
-        // if (isset($result['errors']) === true && $result['errors'] === true)
-        // {
-        //     throw new \Exception(json_encode($result));
-        // }
+        // TODO: Requeue only the models that failed?
+        if (isset($result['errors']) && $result['errors'] === true)
+        {
+            throw new \Exception(json_encode($result));
+        }
     }
 
 }
