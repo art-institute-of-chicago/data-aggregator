@@ -224,6 +224,8 @@ return [
         'index' => env('ELASTICSEARCH_INDEX'),
         'body' => [
             'settings' => [
+                'number_of_shards' => env('ELASTICSEARCH_SHARDS_PRIMARY', 1),
+                'number_of_replicas' => env('ELASTICSEARCH_SHARDS_REPLICA', 0),
                 'analysis' => [
                     'filter' => [
                         'english_stop' => [
