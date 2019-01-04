@@ -1371,7 +1371,7 @@ class Artwork extends CollectionsModel
             ],
             [
                 'input' => [$this->title],
-                'weight' => $this->pageviews,
+                'weight' => $this->pageviews ?? 1,
                 'contexts' => [
                     'groupings' => [
                         'title',
