@@ -8,11 +8,10 @@ use App\Transformers\Inbound\WebTransformer;
 class Exhibition extends WebTransformer
 {
 
-    protected function getTitle( Datum $datum )
+    protected function getExtraFields( Datum $datum )
     {
 
         return [
-            'title' => $datum->datahub_id,
             'is_published' => $datum->published,
         ];
 
