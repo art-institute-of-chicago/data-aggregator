@@ -40,11 +40,11 @@ class Exhibition extends WebModel
                 "value" => function() { return (bool) $this->is_featured ?? false; },
             ],
             [
-                "name" => 'header_copy',
-                "doc" => "The text at the top of the exhibition page",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->header_copy; },
+                "name" => 'is_published',
+                "doc" => "Is this exhibition currently published on our website? Only relevant for non-past exhibitions.",
+                "type" => "boolean",
+                "elasticsearch_type" => 'boolean',
+                "value" => function() { return (bool) $this->is_published ?? false; },
             ],
             [
                 "name" => 'exhibition_id',
@@ -52,6 +52,13 @@ class Exhibition extends WebModel
                 "type" => "number",
                 'elasticsearch_type' => 'integer',
                 "value" => function() { return $this->exhibition ? $this->exhibition->citi_id : NULL; },
+            ],
+            [
+                "name" => 'header_copy',
+                "doc" => "The text at the top of the exhibition page",
+                "type" => "string",
+                'elasticsearch_type' => 'text',
+                "value" => function() { return $this->header_copy; },
             ],
             [
                 "name" => 'list_description',
@@ -66,13 +73,6 @@ class Exhibition extends WebModel
                 "type" => "string",
                 'elasticsearch_type' => 'text',
                 "value" => function() { return $this->exhibition_message; },
-            ],
-            [
-                "name" => 'published', // TODO: Rename to is_published!
-                "doc" => "Whether the location is published on the website",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->is_published; },
             ],
         ];
 

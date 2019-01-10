@@ -128,6 +128,13 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->webExhibition ? (bool) $this->webExhibition->is_featured : false; },
             ],
             [
+                "name" => 'is_published',
+                "doc" => "Is this exhibition currently published on our website? Only relevant for non-past exhibitions.",
+                "type" => "boolean",
+                "elasticsearch_type" => 'boolean',
+                "value" => function() { return $this->webExhibition ? (bool) $this->webExhibition->is_published : false; },
+            ],
+            [
                 "name" => 'description',
                 "doc" => "Explanation of what this exhibition is",
                 "type" => "string",
