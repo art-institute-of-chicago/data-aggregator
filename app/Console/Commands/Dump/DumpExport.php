@@ -10,19 +10,22 @@ use Throwable;
 class DumpExport extends AbstractDumpCommand
 {
 
-    protected $signature = 'dump:export';
+    protected $signature = 'dump:export
+                            {--path= : Directory where to save dump, with `tables` subdir }';
 
-    protected $description = "Create CSV data dumps of all whitelisted tables";
+    protected $description = 'Create CSV dumps of all whitelisted tables';
 
     public function handle()
     {
+        // Export to database/dumps/local unless specified otherwise
+        $dumpPath = $this->getDumpPathOption();
 
         // Ensure all tables are ready for export
         $tables = $this->getPreparedTables();
 
         foreach($tables as $table)
         {
-            $csv = Writer::createFromPath($table['csvPath'], 'w');
+            $csv = Writer::createFromPath($dumpPath . $table['csvPath'], 'w');
 
             // Create the CSV header
             $csv->insertOne($table['allColumns']);
@@ -76,7 +79,7 @@ class DumpExport extends AbstractDumpCommand
 
             return [
                 'name' => $tableName,
-                'csvPath' => $this->getDumpPath('tables/' . $tableName . '.csv'),
+                'csvPath' => 'tables/' . $tableName . '.csv',
                 'allColumns' => array_keys($table->getColumns()), // Doctrine\DBAL\Schema\Column values
                 'keyColumns' => $keyColumns,
                 'count' => DB::table($tableName)->count(),

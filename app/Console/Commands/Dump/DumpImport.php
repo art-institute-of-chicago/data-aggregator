@@ -8,20 +8,23 @@ use League\Csv\Reader;
 class DumpImport extends AbstractDumpCommand
 {
 
-    protected $signature = 'dump:import';
+    protected $signature = 'dump:import
+                            {--path= : Directory from where to import dump, with `tables` subdir }';
 
-    protected $description = "Import CSV data dumps of all whitelisted tables";
+    protected $description = "Import CSV dumps of all whitelisted tables";
 
     protected $chunkSize = 100;
 
     public function handle()
     {
+        // Export to database/dumps/local unless specified otherwise
+        $dumpPath = $this->getDumpPathOption();
 
         foreach ($this->whitelistedTables as $tableName)
         {
             $this->info($tableName);
 
-            $csvPath = $this->getDumpPath('tables/' . $tableName . '.csv');
+            $csvPath = $dumpPath . 'tables/' . $tableName . '.csv';
 
             if (!file_exists($csvPath))
             {

@@ -9,7 +9,7 @@ class DumpAudit extends AbstractDumpCommand
 
     protected $signature = 'dump:audit';
 
-    protected $description = "Shows which tables will be excluded from the dump";
+    protected $description = 'Shows which tables will be excluded from the dump';
 
 
     public function handle()

@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Dump;
 
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
@@ -95,7 +96,7 @@ abstract class AbstractDumpCommand extends BaseCommand
      * All of the data dumps live in `database/dumps` per `config/filesystems.php`.
      * Use this to generate absolute paths to CSV files for `createFromPath` calls.
      *
-     * @param string $subpath  ...to CSV file, relative to `database/dumps`
+     * @param string $subpath  ...e.g. to CSV file, relative to `database/dumps`
      * @return string
      */
     protected function getDumpPath(string $subpath) : string
@@ -103,6 +104,36 @@ abstract class AbstractDumpCommand extends BaseCommand
 
         return Storage::disk('dumps')->getDriver()->getAdapter()->getPathPrefix() . $subpath;
 
+    }
+
+    /**
+     * If command has `--path=` option, return it. Fall back to `database/dumps/local`.
+     * Enforces correct structure in dump directory.
+     *
+     * @return string
+     */
+    protected function getDumpPathOption() : string
+    {
+        $dumpPath = $this->hasOption('path') ? $this->option('path') : null;
+        $dumpPath = $dumpPath ?? $this->getDumpPath('local');
+        $dumpPath = rtrim($dumpPath, '/') . '/';
+
+        if (!file_exists($dumpPath))
+        {
+            throw new Exception('Directory does not exist: ' . $dumpPath);
+        }
+
+        foreach (['tables'] as $subdir)
+        {
+            $subdirPath = $dumpPath . '/' . $subdir;
+
+            if (!file_exists($subdirPath))
+            {
+                mkdir($subdirPath, 0755);
+            }
+        }
+
+        return $dumpPath;
     }
 
     /**
@@ -168,7 +199,6 @@ abstract class AbstractDumpCommand extends BaseCommand
                 throw new Exception('Please specify `' . $var . '` in .env');
             }
         }
-
     }
 
 }

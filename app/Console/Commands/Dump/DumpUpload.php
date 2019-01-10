@@ -10,7 +10,7 @@ class DumpUpload extends AbstractDumpCommand
     protected $signature = 'dump:upload
                             {--reset : Reset repo to initial commit}';
 
-    protected $description = "Pushes the current dump to a remote repo";
+    protected $description = 'Pushes the current dump to a remote repo';
 
 
     public function handle()
@@ -20,10 +20,10 @@ class DumpUpload extends AbstractDumpCommand
         $this->validateEnv(['DUMP_REPO_REMOTE', 'DUMP_REPO_NAME', 'DUMP_REPO_EMAIL']);
 
         $repoRemote = env('DUMP_REPO_REMOTE');
-        $repoPath = $this->getDumpPath('repo');
+        $repoPath = $this->getDumpPath('remote');
 
         # If you change these, you'll need to clean up the repo manually
-        $tablesSrcPath = $this->getDumpPath('tables');
+        $tablesSrcPath = $this->getDumpPath('local/tables');
         $tablesDestPath = $repoPath . '/tables';
 
         if (count(glob($tablesSrcPath . '/*.csv') ?: []) < 1)
@@ -64,9 +64,7 @@ class DumpUpload extends AbstractDumpCommand
         # Copy our dumps into the repo
         $this->passthru('cp -r %s %s', $tablesSrcPath, $repoPath);
 
-        # Remove all .gitignore files in subfolders of repo
-        $this->passthru('find %s ! -path %s -name .gitignore | xargs rm', $repoPath, $repoPath);
-
+        # Add all files to index, commit, and push
         $this->passthru('git -C %s add -A', $repoPath);
 
         $this->passthru(
