@@ -21,7 +21,7 @@ class ImportScheduleDaily extends BaseCommand
         $this->call('import:events-ticketed');
         $this->call('import:events-legacy');
         $this->call('import:mobile');
-        $this->call('import:products');
+        $this->call('import:products-full --yes');
         $this->call('import:web');
         $this->call('import:digital-labels');
 
