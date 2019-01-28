@@ -55,6 +55,11 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/import-web-last-run.log'));
 
+        $schedule->command('import:events-ticketed')
+            ->everyFiveMinutes()
+            ->withoutOverlapping()
+            ->sendOutputTo(storage_path('logs/import-events-ticketed-last-run.log'));
+
         // Non-prod envs don't need 5-min imports on collections
         if (!App::environment('production'))
         {
