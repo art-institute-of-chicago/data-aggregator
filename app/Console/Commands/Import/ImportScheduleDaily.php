@@ -24,7 +24,7 @@ class ImportScheduleDaily extends BaseCommand
         $this->call('import:digital-labels');
 
         // EventOccurrence is not included in import:web to avoid duplication
-        $this->call('import:web-full', ['endpoint' => 'events/occurrences', '--yes' => 'default']);
+        $this->call('import:web-full events/occurrences --yes');
     }
 
 }
