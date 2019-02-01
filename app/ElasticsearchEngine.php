@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Exception;
+
 use ScoutEngines\Elasticsearch\ElasticsearchEngine as BaseEngine;
 
 class ElasticsearchEngine extends BaseEngine
@@ -33,7 +35,10 @@ class ElasticsearchEngine extends BaseEngine
         // TODO: Requeue only the models that failed?
         if (isset($result['errors']) && $result['errors'] === true)
         {
-            throw new \Exception(json_encode($result));
+            // Filter out docs that succeeded
+            throw new Exception(json_encode(array_values(array_filter($result['items'], function($item) {
+                return isset($item['update']['error']);
+            }))));
         }
     }
 
