@@ -39,6 +39,12 @@ class ElasticsearchEngine extends BaseEngine
                 return isset($item['update']['error']);
             }));
 
+            // If all docs failed, throw an uncaught exception
+            if (count($failedDocs) === count($result['items']))
+            {
+                throw new Exception(json_encode($result));
+            }
+
             foreach ($failedDocs as $doc)
             {
                 try {
