@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Exception;
+
 use ScoutEngines\Elasticsearch\ElasticsearchEngine as BaseEngine;
 
 class ElasticsearchEngine extends BaseEngine
@@ -33,7 +35,25 @@ class ElasticsearchEngine extends BaseEngine
         // TODO: Requeue only the models that failed?
         if (isset($result['errors']) && $result['errors'] === true)
         {
-            throw new \Exception(json_encode($result));
+            $failedDocs = array_values(array_filter($result['items'], function($item) {
+                return isset($item['update']['error']);
+            }));
+
+            // If all docs failed, throw an uncaught exception
+            if (count($failedDocs) === count($result['items']))
+            {
+                throw new Exception(json_encode($result));
+            }
+
+            foreach ($failedDocs as $doc)
+            {
+                try {
+                    throw new Exception(json_encode($doc));
+                } catch (Exception $e) {
+                    // https://laravel.com/docs/5.7/errors - The `report` Helper
+                    report($e);
+                }
+            }
         }
     }
 

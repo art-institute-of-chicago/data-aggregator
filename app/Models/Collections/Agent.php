@@ -160,7 +160,10 @@ class Agent extends CollectionsModel
                     "default" => true,
                     "type" => 'text',
                 ],
-                "value" => function() { return $this->alt_titles; },
+                "value" => function() {
+                    // Remove [""] and other nonsense
+                    return array_filter($this->alt_titles, 'strlen');
+                },
             ],
             [
                 "name" => 'birth_date',
