@@ -161,8 +161,14 @@ class Agent extends CollectionsModel
                     "type" => 'text',
                 ],
                 "value" => function() {
+                    if (!isset($this->alt_titles)) {
+                        return null;
+                    }
+
                     // Remove [""] and other nonsense
-                    return array_filter($this->alt_titles, 'strlen');
+                    $alt_titles = array_filter($this->alt_titles, 'strlen');
+
+                    return count($alt_titles) > 0 ? $alt_titles : null;
                 },
             ],
             [
