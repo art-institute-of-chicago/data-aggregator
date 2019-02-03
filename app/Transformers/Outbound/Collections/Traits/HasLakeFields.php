@@ -20,6 +20,7 @@ trait HasLakeFields
     {
         $dates = parent::getDates();
 
+        $dates['last_updated_source']['doc'] = 'Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data';
         $dates['last_updated_source']['value'] = $this->getDateValue('source_indexed_at');
 
         return $dates;
