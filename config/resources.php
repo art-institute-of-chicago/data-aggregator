@@ -191,6 +191,10 @@ return [
                 'model' => \App\Models\Collections\ArtworkDate::class,
                 'transformer' => \App\Transformers\Outbound\Collections\ArtworkDate::class,
             ],
+            [
+                'model' => \App\Models\Collections\ArtworkPlacePivot::class,
+                'transformer' => \App\Transformers\Outbound\Collections\ArtworkPlacePivot::class,
+            ],
 
             /**
              * Assets from DAMS:

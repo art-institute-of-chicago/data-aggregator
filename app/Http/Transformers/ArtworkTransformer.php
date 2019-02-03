@@ -3,12 +3,11 @@
 namespace App\Http\Transformers;
 
 use App\Models\Collections\Artwork;
-use App\Http\Transformers\ArtworkPlacePivotTransformer;
 
 use App\Transformers\Outbound\Collections\ArtworkArtistPivot as ArtworkArtistPivotTransformer;
 use App\Transformers\Outbound\Collections\ArtworkCatalogue as ArtworkCatalogueTransformer;
 use App\Transformers\Outbound\Collections\ArtworkDate as ArtworkDateTransformer;
-
+use App\Transformers\Outbound\Collections\ArtworkPlacePivot as ArtworkPlacePivotTransformer;
 
 class ArtworkTransformer extends CollectionsTransformer
 {

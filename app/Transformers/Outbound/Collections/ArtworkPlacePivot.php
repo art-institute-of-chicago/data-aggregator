@@ -3,15 +3,16 @@
 namespace App\Transformers\Outbound\Collections;
 
 use App\Http\Transformers\ArtworkTransformer;
-use App\Transformers\Outbound\Collections\Agent as AgentTransformer;
+use App\Http\Transformers\PlaceTransformer;
 use App\Transformers\Outbound\CollectionsTransformer;
 
 use App\Transformers\Outbound\Collections\Traits\HidesDefaultFields;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
-class ArtworkArtistPivot extends BaseTransformer
+class ArtworkPlacePivot extends BaseTransformer
 {
+
     use HidesDefaultFields;
 
     /**
@@ -20,26 +21,15 @@ class ArtworkArtistPivot extends BaseTransformer
      * @var array
      */
     protected $availableIncludes = [
-        'artist',
         'artwork',
-        'role',
+        'place',
+        'qualifier',
     ];
-
-    /**
-     * Include artist.
-     *
-     * @param  \App\Models\Collections\ArtworkArtistPivot  $pivot
-     * @return League\Fractal\ItemResource
-     */
-    public function includeArtist($pivot)
-    {
-        return $this->item($pivot->artist, new AgentTransformer, false);
-    }
 
     /**
      * Include artwork.
      *
-     * @param  \App\Models\Collections\ArtworkArtistPivot  $pivot
+     * @param  \App\Models\Collections\ArtworkPlacePivot  $pivot
      * @return League\Fractal\ItemResource
      */
     public function includeArtwork($pivot)
@@ -48,14 +38,25 @@ class ArtworkArtistPivot extends BaseTransformer
     }
 
     /**
-     * Include agent role.
+     * Include place.
      *
-     * @param  \App\Models\Collections\ArtworkArtistPivot  $pivot
+     * @param  \App\Models\Collections\ArtworkPlacePivot  $pivot
      * @return League\Fractal\ItemResource
      */
-    public function includeRole($pivot)
+    public function includePlace($pivot)
     {
-        return $this->item($pivot->role, new CollectionsTransformer, false);
+        return $this->item($pivot->place, new PlaceTransformer, false);
+    }
+
+    /**
+     * Include artwork place qualifier.
+     *
+     * @param  \App\Models\Collections\ArtworkPlacePivot  $pivot
+     * @return League\Fractal\ItemResource
+     */
+    public function includeQualifier($pivot)
+    {
+        return $this->item($pivot->qualifier, new CollectionsTransformer, false);
     }
 
     protected function getFields()
@@ -63,51 +64,51 @@ class ArtworkArtistPivot extends BaseTransformer
         return [
             // TODO: Rename to `is_preferred`
             'preferred' => [
-                'doc' => 'Whether this is a preferred artist',
+                'doc' => 'Whether this is the preferred place to represent this work',
                 'type' => 'boolean',
             ],
 
             // TODO: Refactor relationships:
             'artwork_title' => [
-                'doc' => 'Name of the work this artist made',
+                'doc' => 'Name of the work associated with this place',
                 'type' => 'string',
                 'value' => function ($item) {
                     return $item->artwork->title ?? null;
                 },
             ],
             'artwork_id' => [
-                'doc' => 'Unique identifier of the work this artist made',
+                'doc' => 'Unique identifier of the work associated with this place',
                 'type' => 'number',
                 'value' => function ($item) {
                     return $item->artwork->citi_id ?? null;
                 },
             ],
-            'artist_title' => [
-                'doc' => 'Name of the artist',
+            'place_title' => [
+                'doc' => 'Name of the place associated with this work',
                 'type' => 'string',
                 'value' => function ($item) {
-                    return $item->artist->title ?? null;
+                    return $item->place->title ?? null;
                 },
             ],
-            'artist_id' => [
-                'doc' => 'Unique identifier of the artist',
+            'place_id' => [
+                'doc' => 'Unique identifier of the place associated with this work',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->artist->citi_id ?? null;
+                    return $item->place->citi_id ?? null;
                 },
             ],
-            'role_title' => [
-                'doc' => 'Name of the role this artist played in the making of the work',
+            'qualifier_title' => [
+                'doc' => 'Name of the qualifier indicating what happened to the work here',
                 'type' => 'string',
                 'value' => function ($item) {
-                    return $item->role->title ?? null;
+                    return $item->qualifier->title ?? null;
                 },
             ],
-            'role_id' => [
-                'doc' => 'Unique identifier of the role this artist played in the making of the work',
+            'qualifier_id' => [
+                'doc' => 'Unique identifier of the qualifier indicating what happened to the work here',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->role->citi_id ?? null;
+                    return $item->qualifier->citi_id ?? null;
                 },
             ],
         ];
