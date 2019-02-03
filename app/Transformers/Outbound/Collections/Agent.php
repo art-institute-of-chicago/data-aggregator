@@ -120,7 +120,7 @@ class Agent extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->sites->pluck('site_id')->all();
+                    return $item->sites->pluck('site_id');
                 },
             ],
         ];

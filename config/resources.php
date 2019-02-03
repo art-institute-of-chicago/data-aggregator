@@ -142,15 +142,15 @@ return [
                 'model' => \App\Models\Collections\ArtworkDateQualifier::class,
                 'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
             ],
-
-            /**
-             * Lists with additional fields:
-             */
             [
                 'endpoint' => 'catalogues',
                 'model' => \App\Models\Collections\Catalogue::class,
                 'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
             ],
+
+            /**
+             * Lists with additional fields:
+             */
             [
                 'endpoint' => 'category-terms',
                 'model' => \App\Models\Collections\CategoryTerm::class,
@@ -202,30 +202,30 @@ return [
             [
                 'endpoint' => 'assets',
                 'model' => \App\Models\Collections\Asset::class,
-                'transformer' => \App\Http\Transformers\AssetTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\Asset::class,
             ],
             [
                 'endpoint' => 'images',
                 'model' => \App\Models\Collections\Image::class,
-                'transformer' => \App\Http\Transformers\AssetTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\Image::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'videos',
                 'model' => \App\Models\Collections\Video::class,
-                'transformer' => \App\Http\Transformers\AssetTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\Asset::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'sounds',
                 'model' => \App\Models\Collections\Sound::class,
-                'transformer' => \App\Http\Transformers\AssetTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\Asset::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'texts',
                 'model' => \App\Models\Collections\Text::class,
-                'transformer' => \App\Http\Transformers\AssetTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\Asset::class,
                 'is_searchable' => true,
             ],
 

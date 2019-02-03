@@ -4,6 +4,7 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
+use App\Models\TransformableRefactor;
 
 /**
  * A binary representation of a collections resource, like an artwork, artist, exhibition, etc.
@@ -11,7 +12,7 @@ use App\Models\ElasticSearchable;
 class Asset extends CollectionsModel
 {
 
-    use ElasticSearchable;
+    use ElasticSearchable, TransformableRefactor;
 
     public const IMAGE = 'image';
     public const SOUND = 'sound';
@@ -89,125 +90,6 @@ class Asset extends CollectionsModel
         $model = parent::newInstance($attributes, $exists);
         $model->type = static::$assetType;
         return $model;
-
-    }
-
-    /**
-     * Specific field definitions for a given class. See `transformMapping()` for more info.
-     */
-    protected function transformMappingInternal()
-    {
-
-        return array_merge(
-            [
-
-                [
-                    "name" => 'type',
-                    "doc" => "Type always takes one of the following values: image, sound, text, video",
-                    "type" => "string",
-                    'elasticsearch_type' => 'keyword',
-                    "value" => function() { return $this->type; },
-                ],
-                [
-                    "name" => 'description',
-                    "doc" => "Explanation of what this asset is",
-                    "type" => "string",
-                    'elasticsearch_type' => 'text',
-                    "value" => function() { return $this->description; },
-                ],
-                [
-                    "name" => 'alt_text',
-                    "doc" => "Alternative text for the asset to describe it to people with low or no vision",
-                    "type" => "string",
-                    'elasticsearch_type' => 'text',
-                    "value" => function() { return $this->alt_text; },
-                ],
-                [
-                    "name" => 'content',
-                    "doc" => "Text of URL of the contents of this asset",
-                    "type" => "string",
-                    "elasticsearch" => [
-                        "default" => true,
-                    ],
-                    "value" => function() { return $this->content; },
-                ],
-                [
-                    "name" => 'is_multimedia_resource',
-                    "doc" => "Whether this resource is considered to be multimedia",
-                    "type" => "boolean",
-                    "elasticsearch" => [
-                        "type" => 'boolean',
-                    ],
-                    "value" => function() { return $this->is_multimedia_resource; },
-                ],
-                [
-                    "name" => 'is_educational_resource',
-                    "doc" => "Whether this resource is considered to be educational",
-                    "type" => "boolean",
-                    "elasticsearch" => [
-                        "type" => 'boolean',
-                    ],
-                    "value" => function() { return $this->is_educational_resource; },
-                ],
-                [
-                    "name" => 'is_teacher_resource',
-                    "doc" => "Whether this resource is considered to be educational",
-                    "type" => "boolean",
-                    "elasticsearch" => [
-                        "type" => 'boolean',
-                    ],
-                    "value" => function() { return $this->is_teacher_resource; },
-                ],
-                [
-                    "name" => 'copyright_notice',
-                    "doc" => "Statement notifying how the asset is protected by copyright. Applies to the asset itself, not artwork it may be related to.",
-                    "type" => "string",
-                    'elasticsearch_type' => 'text',
-                    "value" => function() { return $this->copyright_notice; },
-                ],
-                [
-                    "name" => 'category_ids',
-                    "doc" => "Unique identifier of the categories associated with this asset",
-                    "type" => "array",
-                    'elasticsearch_type' => 'keyword',
-                    "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
-                ],
-                [
-                    "name" => 'category_titles',
-                    "doc" => "Names of the categories associated with this asset",
-                    "type" => "array",
-                    'elasticsearch_type' => 'text',
-                    "value" => function() { return $this->categories->pluck('title')->all(); },
-                ],
-                [
-                    "name" => 'artwork_ids',
-                    "doc" => "Unique identifiers of the artworks associated with this asset",
-                    "type" => "array",
-                    'elasticsearch_type' => 'integer',
-                    "value" => function() { return $this->artworks->pluck('citi_id')->all(); },
-                ],
-                [
-                    "name" => 'artwork_titles',
-                    "doc" => "Names of the artworks associated with this asset",
-                    "type" => "array",
-                    'elasticsearch_type' => 'text',
-                    "value" => function() { return $this->artworks()->pluck('title'); },
-                ],
-            ],
-            $this->transformAsset()
-        );
-
-    }
-
-    /**
-     * Provide a way for child classes add fields to the transformation.
-     *
-     * @return array
-     */
-    public function transformAsset()
-    {
-
-        return [];
 
     }
 
