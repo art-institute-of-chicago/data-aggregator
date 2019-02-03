@@ -19,13 +19,6 @@ class Gallery extends CollectionsModel
         'artworks',
     ];
 
-    public function categories()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Category', 'category_place', 'place_citi_id', 'category_lake_uid');
-
-    }
-
     public function artworks()
     {
 
@@ -94,20 +87,6 @@ class Gallery extends CollectionsModel
                         return $this->latitude . ',' . $this->longitude;
                     }
                 },
-            ],
-            [
-                "name" => 'category_ids',
-                "doc" => "Unique identifiers of the categories this gallery is a part of",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->categories->pluck('lake_uid')->all(); },
-            ],
-            [
-                "name" => 'category_titles',
-                "doc" => "Names of the categories this gallery is a part of",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->categories->pluck('title')->all(); },
             ],
         ];
 

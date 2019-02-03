@@ -15,13 +15,6 @@ class Place extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
-    public function categories()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Category');
-
-    }
-
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
      */
@@ -35,20 +28,6 @@ class Place extends CollectionsModel
                 "type" => "string",
                 'elasticsearch_type' => 'keyword',
                 "value" => function() { return $this->type; },
-            ],
-            [
-                "name" => 'category_ids',
-                "doc" => "Unique identifiers of the categories this place is a part of",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->categories->pluck('citi_id')->all(); },
-            ],
-            [
-                "name" => 'category_titles',
-                "doc" => "Names of the categories this place is a part of",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->categories->pluck('title')->all(); },
             ],
         ];
 
