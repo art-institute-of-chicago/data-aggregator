@@ -23,8 +23,6 @@ class ArtworkTransformer extends CollectionsTransformer
         'catalogue_pivots',
         'categories',
         'dates',
-        'parts',
-        'sets',
         'terms',
         'images',
         'documents',
@@ -65,28 +63,6 @@ class ArtworkTransformer extends CollectionsTransformer
     public function includeCategories(Artwork $artwork)
     {
         return $this->collection($artwork->categories, new CollectionsTransformer, false);
-    }
-
-    /**
-     * Include parts.
-     *
-     * @param  \App\Models\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeParts(Artwork $artwork)
-    {
-        return $this->collection($artwork->parts, new ArtworkTransformer, false);
-    }
-
-    /**
-     * Include sets.
-     *
-     * @param  \App\Models\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeSets(Artwork $artwork)
-    {
-        return $this->collection($artwork->sets, new ArtworkTransformer, false);
     }
 
     /**
