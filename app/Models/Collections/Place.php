@@ -37,32 +37,6 @@ class Place extends CollectionsModel
                 "value" => function() { return $this->type; },
             ],
             [
-                "name" => 'latitude',
-                "doc" => "Latitude coordinate of the center of the room",
-                "type" => "number",
-                'elasticsearch_type' => 'float',
-                "value" => function() { return $this->latitude; },
-            ],
-            [
-                "name" => 'longitude',
-                "doc" => "Longitude coordinate of the center of the room",
-                "type" => "number",
-                'elasticsearch_type' => 'float',
-                "value" => function() { return $this->longitude; },
-            ],
-            [
-                "name" => 'latlon',
-                "doc" => "Latitude and longitude coordinates of the center of the room",
-                "type" => "string",
-                'elasticsearch_type' => 'geo_point',
-                "value" => function() {
-                    if ($this->latitude && $this->longitude)
-                    {
-                        return $this->latitude . ',' . $this->longitude;
-                    }
-                },
-            ],
-            [
                 "name" => 'category_ids',
                 "doc" => "Unique identifiers of the categories this place is a part of",
                 "type" => "number",
