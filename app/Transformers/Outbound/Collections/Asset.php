@@ -56,22 +56,6 @@ class Asset extends BaseTransformer
 
         // TODO: Refactor relationships:
         $relationshipFields = [
-            'category_ids' => [
-                'doc' => 'Unique identifier of the categories associated with this asset',
-                'type' => 'array',
-                'elasticsearch' => 'keyword',
-                'value' => function ($item) {
-                    return $item->categories->pluck('lake_uid');
-                },
-            ],
-            'category_titles' => [
-                'doc' => 'Names of the categories associated with this asset',
-                'type' => 'array',
-                'elasticsearch' => 'text',
-                'value' => function ($item) {
-                    return $item->categories->pluck('title');
-                },
-            ],
             'artwork_ids' => [
                 'doc' => 'Unique identifiers of the artworks associated with this asset',
                 'type' => 'array',

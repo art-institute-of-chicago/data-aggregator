@@ -38,14 +38,6 @@ class Asset extends CollectionsModel
 
     protected static $assetType = null;
 
-    public function categories()
-    {
-
-        return $this->belongsToMany('App\Models\Collections\Category', 'asset_category', 'asset_lake_guid');
-
-    }
-
-    // Note: Not all Images are meant to be associated w/ Artworks
     public function artworks()
     {
 
