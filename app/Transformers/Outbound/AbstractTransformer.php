@@ -9,11 +9,51 @@ use League\Fractal\TransformerAbstract as BaseTransformer;
 abstract class AbstractTransformer extends BaseTransformer
 {
     /**
-     * TODO: Restore ?fields= functionality
+     * Used for only returning a subset of fields.
+     *
+     * @link https://github.com/thephpleague/fractal/issues/226
+     * @var string
      */
     private $requestedFields;
 
+    /**
+     * Caches the complete field mapping.
+     *
+     * @var array
+     */
     private $mappedFields;
+
+    /**
+     * Be sure to call parent::__construct() if you overwrite this.
+     * Otherwise, you will lose field-filtering functionality.
+     */
+    public function __construct($requestedFields = null)
+    {
+        $this->requestedFields = $this->getRequestedFields($requestedFields);
+    }
+
+    /**
+     * Helper to parse out the fields variable passed via constructor.
+     * Expects a comma-separated string or an array.
+     *
+     * @var array|null
+     */
+    private function getRequestedFields($requestedFields = null)
+    {
+        if (!isset($requestedFields)) {
+            return null;
+        }
+
+        if (is_array($requestedFields)) {
+            return $requestedFields;
+        }
+
+        if (is_string($requestedFields)) {
+            return explode(',', $requestedFields);
+        }
+
+        return null;
+    }
 
     /**
      * Consumers should call this. Let's never modify this method in child classes.
@@ -45,6 +85,11 @@ abstract class AbstractTransformer extends BaseTransformer
             $this->getFields(),
             $this->getDates()
         );
+
+        if (isset($this->requestedFields))
+        {
+            $mappedFields = array_intersect_key($mappedFields, array_flip($this->requestedFields));
+        }
 
         foreach ($mappedFields as $fieldName => $mappedField)
         {
