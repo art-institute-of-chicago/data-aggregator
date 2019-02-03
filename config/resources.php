@@ -81,13 +81,15 @@ return [
             [
                 'endpoint' => 'agents',
                 'model' => \App\Models\Collections\Agent::class,
-                'transformer' => \App\Http\Transformers\AgentTransformer::class,
+                // 'transformer' => \App\Http\Transformers\AgentTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\Agent::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'artists',
                 'model' => \App\Models\Collections\Agent::class,
-                'transformer' => \App\Http\Transformers\AgentTransformer::class,
+                // 'transformer' => \App\Http\Transformers\AgentTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\Agent::class,
                 'scope_of' => 'agents',
             ],
             [
