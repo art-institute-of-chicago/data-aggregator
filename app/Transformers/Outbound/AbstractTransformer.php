@@ -142,17 +142,19 @@ abstract class AbstractTransformer extends BaseTransformer
     protected function getDates()
     {
         return [
-            'source_created_at' => [
-                'doc' => 'Date the source record was created',
-                'type' => 'ISO 8601 date and time',
-                'elasticsearch' => 'date',
-                'value' => $this->getDateValue('source_created_at'),
-            ],
-            'source_modified_at' => [
+            // TODO: Rename field to follow _at convention
+            'last_updated_source' => [
                 'doc' => 'Date the source record was modified',
                 'type' => 'ISO 8601 date and time',
                 'elasticsearch' => 'date',
                 'value' => $this->getDateValue('source_modified_at'),
+            ],
+            // TODO: Rename field to follow _at convention
+            'last_updated' => [
+                'doc' => 'Date the record was modified',
+                'type' => 'ISO 8601 date and time',
+                'elasticsearch' => 'date',
+                'value' => $this->getDateValue('updated_at'),
             ],
         ];
     }
