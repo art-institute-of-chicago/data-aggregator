@@ -177,6 +177,14 @@ return [
             ],
 
             /**
+             * Pivot transformer mappings w/o endpoints:
+             */
+            [
+                'model' => \App\Models\Collections\ArtworkArtistPivot::class,
+                'transformer' => \App\Transformers\Outbound\Collections\ArtworkArtistPivot::class,
+            ],
+
+            /**
              * Assets from DAMS:
              */
             [

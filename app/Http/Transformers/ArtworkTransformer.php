@@ -3,6 +3,9 @@
 namespace App\Http\Transformers;
 
 use App\Models\Collections\Artwork;
+use App\Http\Transformers\ArtworkPlacePivotTransformer;
+
+use App\Transformers\Outbound\Collections\ArtworkArtistPivot as ArtworkArtistPivotTransformer;
 
 class ArtworkTransformer extends CollectionsTransformer
 {

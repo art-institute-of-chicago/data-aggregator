@@ -3,7 +3,6 @@
 namespace App\Transformers\Outbound\Collections;
 
 use App\Http\Transformers\SiteTransformer;
-use App\Transformers\Outbound\Collections\Traits\HasLakeFields;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
