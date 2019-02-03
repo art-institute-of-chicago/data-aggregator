@@ -52,14 +52,6 @@ class Asset extends CollectionsModel
 
     }
 
-    // @TODO: It looks like the agent_citi_id field is missing...
-    // public function artist()
-    // {
-    //
-    //     return $this->belongsTo('App\Models\Collections\Agent', 'agent_citi_id');
-    //
-    // }
-
     /**
      * Filters the `assets` table by `type` to match `$assetType` of the model.
      * Uses the inline method for scope definition, rather than creating new classes.
@@ -99,22 +91,6 @@ class Asset extends CollectionsModel
         return $model;
 
     }
-
-    // TODO: Remove this!
-    public function attachFrom($source)
-    {
-
-        // if ($source->artist_id)
-        // {
-        //
-        //     $this->agent_citi_id = $source->artist_id;
-        //
-        // }
-
-        return $this;
-
-    }
-
 
     /**
      * Specific field definitions for a given class. See `transformMapping()` for more info.
@@ -189,17 +165,6 @@ class Asset extends CollectionsModel
                     'elasticsearch_type' => 'text',
                     "value" => function() { return $this->copyright_notice; },
                 ],
-                // @TODO Re-enable this once the artist association is fixed
-                // 'artist' => [
-                //     "doc" => "Name of the artist associated with this asset",
-                //     'elasticsearch_type' => 'text',
-                //     "value" => function() { return $this->artist()->getResults() ? $this->artist()->getResults()->title : ''; },
-                // ],
-                // 'artist_id' => [
-                //     "doc" => "Unique identifier of the artist associated with this asset",
-                //     'elasticsearch_type' => 'integer',
-                //     "value" => function() { return $this->agent_citi_id; },
-                // ],
                 [
                     "name" => 'category_ids',
                     "doc" => "Unique identifier of the categories associated with this asset",
