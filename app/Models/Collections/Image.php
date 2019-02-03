@@ -64,7 +64,18 @@ class Image extends Asset
                 ],
                 "value" => function() { return $this->metadata->lqip ?? null; },
             ],
-
+            [
+                "name" => 'colorfulness',
+                "doc" => 'Unbounded positive float representing an abstract measure of colorfulness.',
+                "type" => 'float',
+                'elasticsearch' => [
+                    'mapping' => [
+                        'type' => 'scaled_float',
+                        'scaling_factor' => 10000,
+                    ]
+                ],
+                "value" => function() { return $this->metadata->colorfulness ?? null; },
+            ],
             // These two fields are added to the Elasticsearch schema manually via elasticsearchMappingFields
             // TODO: Use `elasticsearch.mapping` to move those definitions into this array?
             [

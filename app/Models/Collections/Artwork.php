@@ -1232,7 +1232,18 @@ class Artwork extends CollectionsModel
                 "type" => "array",
                 "value" => function() { return $this->themes->pluck('title'); },
             ],
-
+            [
+                "name" => 'colorfulness',
+                "doc" => 'Unbounded positive float representing an abstract measure of colorfulness.',
+                "type" => 'float',
+                'elasticsearch' => [
+                    'mapping' => [
+                        'type' => 'scaled_float',
+                        'scaling_factor' => 10000,
+                    ]
+                ],
+                "value" => function() { return $this->image->metadata->colorfulness ?? null; },
+            ],
             // This field is added to the Elasticsearch schema manually via elasticsearchMappingFields
             [
                 "name" => 'color',
