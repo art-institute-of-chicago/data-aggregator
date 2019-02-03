@@ -72,6 +72,10 @@ return [
     'outbound' => [
 
         'base' => [
+
+            /**
+             * Complex collection models:
+             */
             [
                 'endpoint' => 'artworks',
                 'model' => \App\Models\Collections\Artwork::class,
@@ -90,6 +94,29 @@ return [
                 'transformer' => \App\Transformers\Outbound\Collections\Agent::class,
                 'scope_of' => 'agents',
             ],
+            [
+                'endpoint' => 'places',
+                'model' => \App\Models\Collections\Place::class,
+                'transformer' => \App\Http\Transformers\PlaceTransformer::class,
+                'is_searchable' => true,
+            ],
+            [
+                'endpoint' => 'galleries',
+                'model' => \App\Models\Collections\Gallery::class,
+                'transformer' => \App\Http\Transformers\GalleryTransformer::class,
+                'is_searchable' => true,
+            ],
+            [
+                'endpoint' => 'exhibitions',
+                'model' => \App\Models\Collections\Exhibition::class,
+                'transformer' => \App\Http\Transformers\ExhibitionTransformer::class,
+                'is_searchable' => true,
+            ],
+
+
+            /**
+             * Lists with just id + title:
+             */
             [
                 'endpoint' => 'agent-types',
                 'model' => \App\Models\Collections\AgentType::class,
@@ -115,28 +142,14 @@ return [
                 'model' => \App\Models\Collections\ArtworkDateQualifier::class,
                 'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
             ],
+
+            /**
+             * Lists with additional fields:
+             */
             [
                 'endpoint' => 'catalogues',
                 'model' => \App\Models\Collections\Catalogue::class,
                 'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
-            ],
-            [
-                'endpoint' => 'places',
-                'model' => \App\Models\Collections\Place::class,
-                'transformer' => \App\Http\Transformers\PlaceTransformer::class,
-                'is_searchable' => true,
-            ],
-            [
-                'endpoint' => 'galleries',
-                'model' => \App\Models\Collections\Gallery::class,
-                'transformer' => \App\Http\Transformers\GalleryTransformer::class,
-                'is_searchable' => true,
-            ],
-            [
-                'endpoint' => 'exhibitions',
-                'model' => \App\Models\Collections\Exhibition::class,
-                'transformer' => \App\Http\Transformers\ExhibitionTransformer::class,
-                'is_searchable' => true,
             ],
             [
                 'endpoint' => 'category-terms',
@@ -162,6 +175,10 @@ return [
                 'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
                 'scope_of' => 'categories',
             ],
+
+            /**
+             * Assets from DAMS:
+             */
             [
                 'endpoint' => 'assets',
                 'model' => \App\Models\Collections\Asset::class,
@@ -191,6 +208,10 @@ return [
                 'transformer' => \App\Http\Transformers\AssetTransformer::class,
                 'is_searchable' => true,
             ],
+
+            /**
+             * Shop:
+             */
             [
                 'endpoint' => 'shop-categories',
                 'model' => \App\Models\Shop\Category::class,
@@ -203,12 +224,20 @@ return [
                 'transformer' => \App\Http\Transformers\ProductTransformer::class,
                 'is_searchable' => true,
             ],
+
+            /**
+             * Legacy website:
+             */
             [
                 'endpoint' => 'legacy-events',
                 'model' => \App\Models\Membership\LegacyEvent::class,
                 'transformer' => \App\Http\Transformers\ApiTransformer::class,
                 'is_searchable' => true,
             ],
+
+            /**
+             * Ticketing:
+             */
             [
                 'endpoint' => 'ticketed-events',
                 'model' => \App\Models\Membership\TicketedEvent::class,
@@ -220,6 +249,10 @@ return [
                 'model' => \App\Models\Membership\TicketedEventType::class,
                 'transformer' => \App\Http\Transformers\ApiTransformer::class,
             ],
+
+            /**
+             * Mobile:
+             */
             [
                 'endpoint' => 'tours',
                 'model' => \App\Models\Mobile\Tour::class,
@@ -236,6 +269,10 @@ return [
                 'model' => \App\Models\Mobile\Sound::class,
                 'transformer' => \App\Http\Transformers\ApiTransformer::class,
             ],
+
+            /**
+             * Digital scholarly publications:
+             */
             [
                 'endpoint' => 'publications',
                 'model' => \App\Models\Dsc\Publication::class,
@@ -248,12 +285,20 @@ return [
                 'transformer' => \App\Http\Transformers\DscTransformer::class,
                 'is_searchable' => true,
             ],
+
+            /**
+             * Static site archive:
+             */
             [
                 'endpoint' => 'sites',
                 'model' => \App\Models\StaticArchive\Site::class,
                 'transformer' => \App\Http\Transformers\SiteTransformer::class,
                 'is_searchable' => true,
             ],
+
+            /**
+             * Library and archives:
+             */
             [
                 'endpoint' => 'library-materials',
                 'model' => \App\Models\Library\Material::class,
@@ -269,6 +314,10 @@ return [
                 'model' => \App\Models\Archive\ArchiveImage::class,
                 'transformer' => \App\Transformers\Outbound\Archive\ArchiveImage::class,
             ],
+
+            /**
+             * Website:
+             */
             [
                 'endpoint' => 'tags',
                 'model' => \App\Models\Web\Tag::class,
@@ -377,6 +426,10 @@ return [
                 'transformer' => \App\Http\Transformers\ApiTransformer::class,
                 'is_searchable' => true,
             ],
+
+            /**
+             * Digital labels:
+             */
             [
                 'endpoint' => 'digital-labels',
                 'model' => \App\Models\DigitalLabel\Label::class,
