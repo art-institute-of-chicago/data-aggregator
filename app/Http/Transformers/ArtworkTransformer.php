@@ -24,8 +24,6 @@ class ArtworkTransformer extends CollectionsTransformer
         'dates',
         'categories',
         'terms',
-        'images',
-        'documents',
         'tours',
         'sites',
     ];
@@ -95,28 +93,6 @@ class ArtworkTransformer extends CollectionsTransformer
     public function includeTerms(Artwork $artwork)
     {
         return $this->collection($artwork->terms, new TermTransformer, false);
-    }
-
-    /**
-     * Include images.
-     *
-     * @param  \App\Models\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeImages(Artwork $artwork)
-    {
-        return $this->collection($artwork->images, new AssetTransformer, false);
-    }
-
-    /**
-     * Include documents.
-     *
-     * @param  \App\Models\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeDocuments(Artwork $artwork)
-    {
-        return $this->collection($artwork->documents, new AssetTransformer, false);
     }
 
     /**
