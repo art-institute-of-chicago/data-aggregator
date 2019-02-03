@@ -6,6 +6,8 @@ use App\Models\Collections\Artwork;
 use App\Http\Transformers\ArtworkPlacePivotTransformer;
 
 use App\Transformers\Outbound\Collections\ArtworkArtistPivot as ArtworkArtistPivotTransformer;
+use App\Transformers\Outbound\Collections\ArtworkCatalogue as ArtworkCatalogueTransformer;
+
 
 class ArtworkTransformer extends CollectionsTransformer
 {
@@ -118,7 +120,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeCataloguePivots(Artwork $artwork)
     {
-        return $this->collection($artwork->artworkCatalogues, new PivotTransformer, false);
+        return $this->collection($artwork->artworkCatalogues, new ArtworkCatalogueTransformer, false);
     }
 
     /**

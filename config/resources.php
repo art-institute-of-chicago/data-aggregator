@@ -183,6 +183,10 @@ return [
                 'model' => \App\Models\Collections\ArtworkArtistPivot::class,
                 'transformer' => \App\Transformers\Outbound\Collections\ArtworkArtistPivot::class,
             ],
+            [
+                'model' => \App\Models\Collections\ArtworkCatalogue::class,
+                'transformer' => \App\Transformers\Outbound\Collections\ArtworkCatalogue::class,
+            ],
 
             /**
              * Assets from DAMS:
