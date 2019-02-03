@@ -9,6 +9,14 @@ use League\Fractal\TransformerAbstract as BaseTransformer;
 abstract class AbstractTransformer extends BaseTransformer
 {
     /**
+     * Data type of the primary key field. Use Elasticsearch types
+     * (keyword, integer, long) instead of PHP (string, integer).
+     *
+     * @var string
+     */
+    protected $keyType = 'integer';
+
+    /**
      * Used for only returning a subset of fields.
      *
      * @link https://github.com/thephpleague/fractal/issues/226
@@ -108,9 +116,9 @@ abstract class AbstractTransformer extends BaseTransformer
     {
         return [
             'id' => [
-                'doc' => 'Date the source record was created',
-                'type' => 'ISO 8601 date and time',
-                'elasticsearch' => 'date',
+                'doc' => 'Unique identifier of this resource. Taken from the source system.',
+                'type' => $this->keyType,
+                'elasticsearch' => $this->keyType,
                 'value' => function ($item) {
                     return $item->getAttributeValue($item->getKeyName());
                 },
@@ -144,14 +152,14 @@ abstract class AbstractTransformer extends BaseTransformer
         return [
             // TODO: Rename field to follow _at convention
             'last_updated_source' => [
-                'doc' => 'Date the source record was modified',
+                'doc' => 'Date and time the resource was updated in the source system',
                 'type' => 'ISO 8601 date and time',
                 'elasticsearch' => 'date',
                 'value' => $this->getDateValue('source_modified_at'),
             ],
             // TODO: Rename field to follow _at convention
             'last_updated' => [
-                'doc' => 'Date the record was modified',
+                'doc' => 'Date and time the record was updated in the aggregator',
                 'type' => 'ISO 8601 date and time',
                 'elasticsearch' => 'date',
                 'value' => $this->getDateValue('updated_at'),
