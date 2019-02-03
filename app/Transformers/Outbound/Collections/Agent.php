@@ -3,11 +3,13 @@
 namespace App\Transformers\Outbound\Collections;
 
 use App\Http\Transformers\SiteTransformer;
+use App\Transformers\Outbound\Collections\Traits\HasLakeFields;
 
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Agent extends BaseTransformer
 {
+    use HasLakeFields;
 
     protected $availableIncludes = [
         'sites',
