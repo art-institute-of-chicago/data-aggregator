@@ -129,11 +129,6 @@ return [
                 'transformer' => \App\Http\Transformers\CatalogueTransformer::class,
             ],
             [
-                'endpoint' => 'artwork-catalogues',
-                'model' => \App\Models\Collections\ArtworkCatalogue::class,
-                'transformer' => \App\Http\Transformers\PivotTransformer::class,
-            ],
-            [
                 'endpoint' => 'galleries',
                 'model' => \App\Models\Collections\Gallery::class,
                 'transformer' => \App\Http\Transformers\GalleryTransformer::class,
