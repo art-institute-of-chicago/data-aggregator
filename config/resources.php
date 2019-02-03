@@ -81,52 +81,50 @@ return [
             [
                 'endpoint' => 'agents',
                 'model' => \App\Models\Collections\Agent::class,
-                // 'transformer' => \App\Http\Transformers\AgentTransformer::class,
                 'transformer' => \App\Transformers\Outbound\Collections\Agent::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'artists',
                 'model' => \App\Models\Collections\Agent::class,
-                // 'transformer' => \App\Http\Transformers\AgentTransformer::class,
                 'transformer' => \App\Transformers\Outbound\Collections\Agent::class,
                 'scope_of' => 'agents',
             ],
             [
                 'endpoint' => 'agent-types',
                 'model' => \App\Models\Collections\AgentType::class,
-                'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
+                'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
             ],
             [
                 'endpoint' => 'agent-roles',
                 'model' => \App\Models\Collections\AgentRole::class,
-                'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
+                'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
             ],
             [
                 'endpoint' => 'artwork-types',
                 'model' => \App\Models\Collections\ArtworkType::class,
-                'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
+                'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
             ],
             [
                 'endpoint' => 'artwork-place-qualifiers',
                 'model' => \App\Models\Collections\ArtworkPlaceQualifier::class,
-                'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
+                'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
             ],
             [
                 'endpoint' => 'artwork-date-qualifiers',
                 'model' => \App\Models\Collections\ArtworkDateQualifier::class,
-                'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
+                'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
+            ],
+            [
+                'endpoint' => 'catalogues',
+                'model' => \App\Models\Collections\Catalogue::class,
+                'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
             ],
             [
                 'endpoint' => 'places',
                 'model' => \App\Models\Collections\Place::class,
                 'transformer' => \App\Http\Transformers\PlaceTransformer::class,
                 'is_searchable' => true,
-            ],
-            [
-                'endpoint' => 'catalogues',
-                'model' => \App\Models\Collections\Catalogue::class,
-                'transformer' => \App\Http\Transformers\CatalogueTransformer::class,
             ],
             [
                 'endpoint' => 'galleries',
@@ -269,7 +267,6 @@ return [
             [
                 'endpoint' => 'archive-images',
                 'model' => \App\Models\Archive\ArchiveImage::class,
-                // 'transformer' => \App\Http\Transformers\ArchiveImageTransformer::class,
                 'transformer' => \App\Transformers\Outbound\Archive\ArchiveImage::class,
             ],
             [
