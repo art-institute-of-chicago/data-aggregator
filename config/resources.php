@@ -272,7 +272,8 @@ return [
             [
                 'endpoint' => 'archive-images',
                 'model' => \App\Models\Archive\ArchiveImage::class,
-                'transformer' => \App\Http\Transformers\ArchiveImageTransformer::class,
+                // 'transformer' => \App\Http\Transformers\ArchiveImageTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Archive\ArchiveImage::class,
             ],
             [
                 'endpoint' => 'tags',
