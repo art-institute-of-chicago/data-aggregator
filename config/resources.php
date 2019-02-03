@@ -187,6 +187,10 @@ return [
                 'model' => \App\Models\Collections\ArtworkCatalogue::class,
                 'transformer' => \App\Transformers\Outbound\Collections\ArtworkCatalogue::class,
             ],
+            [
+                'model' => \App\Models\Collections\ArtworkDate::class,
+                'transformer' => \App\Transformers\Outbound\Collections\ArtworkDate::class,
+            ],
 
             /**
              * Assets from DAMS:

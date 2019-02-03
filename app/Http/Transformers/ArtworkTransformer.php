@@ -7,6 +7,7 @@ use App\Http\Transformers\ArtworkPlacePivotTransformer;
 
 use App\Transformers\Outbound\Collections\ArtworkArtistPivot as ArtworkArtistPivotTransformer;
 use App\Transformers\Outbound\Collections\ArtworkCatalogue as ArtworkCatalogueTransformer;
+use App\Transformers\Outbound\Collections\ArtworkDate as ArtworkDateTransformer;
 
 
 class ArtworkTransformer extends CollectionsTransformer
@@ -109,7 +110,7 @@ class ArtworkTransformer extends CollectionsTransformer
      */
     public function includeDates(Artwork $artwork)
     {
-        return $this->collection($artwork->dates, new PivotTransformer, false);
+        return $this->collection($artwork->dates, new ArtworkDateTransformer, false);
     }
 
     /**
