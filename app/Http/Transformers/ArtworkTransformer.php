@@ -21,12 +21,11 @@ class ArtworkTransformer extends CollectionsTransformer
         'artist_pivots',
         'place_pivots',
         'catalogue_pivots',
-        'categories',
         'dates',
+        'categories',
         'terms',
         'images',
         'documents',
-        'publications',
         'tours',
         'sites',
     ];
@@ -55,14 +54,14 @@ class ArtworkTransformer extends CollectionsTransformer
     }
 
     /**
-     * Include categories.
+     * Include catalogues.
      *
      * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
-    public function includeCategories(Artwork $artwork)
+    public function includeCataloguePivots(Artwork $artwork)
     {
-        return $this->collection($artwork->categories, new CollectionsTransformer, false);
+        return $this->collection($artwork->artworkCatalogues, new ArtworkCatalogueTransformer, false);
     }
 
     /**
@@ -77,14 +76,14 @@ class ArtworkTransformer extends CollectionsTransformer
     }
 
     /**
-     * Include catalogues.
+     * Include categories.
      *
      * @param  \App\Models\Collections\Artwork  $artwork
      * @return League\Fractal\ItemResource
      */
-    public function includeCataloguePivots(Artwork $artwork)
+    public function includeCategories(Artwork $artwork)
     {
-        return $this->collection($artwork->artworkCatalogues, new ArtworkCatalogueTransformer, false);
+        return $this->collection($artwork->categories, new CollectionsTransformer, false);
     }
 
     /**
