@@ -271,45 +271,6 @@ class CategoryTerm extends CollectionsModel
     }
 
     /**
-     * Specific field definitions for a given class. See `transformMapping()` for more info.
-     */
-    protected function transformMappingInternal()
-    {
-
-        return [
-            [
-                "name" => 'subtype',
-                "doc" => "Takes one of the following values: classification, material, technique, style, subject, department, theme",
-                "type" => "string",
-                "elasticsearch_type" => 'keyword',
-                "value" => function() {
-
-                    $mapping = [
-                        self::CLASSIFICATION => 'classification',
-                        self::MATERIAL => 'material',
-                        self::TECHNIQUE => 'technique',
-                        self::STYLE => 'style',
-                        self::SUBJECT => 'subject',
-                        self::DEPARTMENT => 'department',
-                        self::THEME => 'theme',
-                    ];
-
-                    return $mapping[ $this->subtype ] ?? null;
-
-                },
-            ],
-            [
-                "name" => 'parent_id',
-                "doc" => "Unique identifier of this category's parent",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->parent->lake_uid ?? null; },
-            ]
-        ];
-
-    }
-
-    /**
      * Ensure that the id is a valid LAKE UID.
      *
      * @param mixed $id

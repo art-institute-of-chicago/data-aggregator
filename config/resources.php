@@ -154,25 +154,25 @@ return [
             [
                 'endpoint' => 'category-terms',
                 'model' => \App\Models\Collections\CategoryTerm::class,
-                'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\CategoryTerm::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'terms',
                 'model' => \App\Models\Collections\Term::class,
-                'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\CategoryTerm::class,
                 'scope_of' => 'category-terms',
             ],
             [
                 'endpoint' => 'categories',
                 'model' => \App\Models\Collections\Category::class,
-                'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\CategoryTerm::class,
                 'scope_of' => 'category-terms',
             ],
             [
                 'endpoint' => 'departments',
                 'model' => \App\Models\Collections\Category::class,
-                'transformer' => \App\Http\Transformers\CollectionsTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\CategoryTerm::class,
                 'scope_of' => 'categories',
             ],
 
