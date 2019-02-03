@@ -159,7 +159,7 @@ class TicketedEvent extends MembershipModel
 
         $fields = $this->traitGetDefaultSearchFields();
 
-        return array_merge(['api_id^1.0'], $fields);
+        return array_merge(['id^1.0'], $fields);
 
     }
 }

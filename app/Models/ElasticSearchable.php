@@ -126,7 +126,6 @@ trait ElasticSearchable
         // TODO: Remove these fields: almost all of them are already defined in `transformMapping`
         $array = array_merge(
             [
-                'api_id' => "" .$this->getKey(),
                 'api_model' => $this->searchableModel(),
                 'api_link' => $this->searchableLink(),
                 'title' => $this->title,
@@ -283,9 +282,6 @@ trait ElasticSearchable
                 $this->searchableType() => [
                     'properties' => array_merge(
                         [
-                            'api_id' => [
-                                'type' => 'keyword',
-                            ],
                             'api_model' => [
                                 'type' => 'keyword',
                             ],
