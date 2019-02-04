@@ -408,7 +408,7 @@ return [
             [
                 'endpoint' => 'static-pages',
                 'model' => \App\Models\Web\StaticPage::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\StaticPage::class,
                 'is_searchable' => true,
             ],
             [
