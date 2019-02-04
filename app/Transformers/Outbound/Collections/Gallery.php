@@ -2,7 +2,7 @@
 
 namespace App\Transformers\Outbound\Collections;
 
-use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
+use App\Transformers\Outbound\Collections\Place as BaseTransformer;
 
 class Gallery extends BaseTransformer
 {

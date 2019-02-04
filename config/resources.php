@@ -97,7 +97,7 @@ return [
             [
                 'endpoint' => 'places',
                 'model' => \App\Models\Collections\Place::class,
-                'transformer' => \App\Http\Transformers\PlaceTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\Place::class,
                 'is_searchable' => true,
             ],
             [

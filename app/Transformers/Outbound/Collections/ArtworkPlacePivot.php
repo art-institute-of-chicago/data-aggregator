@@ -3,7 +3,7 @@
 namespace App\Transformers\Outbound\Collections;
 
 use App\Http\Transformers\ArtworkTransformer;
-use App\Http\Transformers\PlaceTransformer;
+use App\Transformers\Outbound\Collections\Place as PlaceTransformer;
 use App\Transformers\Outbound\CollectionsTransformer;
 
 use App\Transformers\Outbound\Collections\Traits\HidesDefaultFields;
