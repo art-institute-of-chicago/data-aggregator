@@ -220,20 +220,6 @@ class Exhibition extends CollectionsModel
                 "value" => function() { return $this->place_display; },
             ],
             [
-                "name" => 'legacy_image_desktop_url',
-                "doc" => "URL to the desktop hero image from the legacy marketing site",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return null; },
-            ],
-            [
-                "name" => 'legacy_image_mobile_url',
-                "doc" => "URL to the mobile hero image from the legacy marketing site",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return null; },
-            ],
-            [
                 "name" => 'image_url',
                 "doc" => "URL to the hero image from the website",
                 "type" => "string",
