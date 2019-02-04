@@ -353,7 +353,7 @@ return [
             [
                 'endpoint' => 'hours',
                 'model' => \App\Models\Web\Hour::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Hour::class,
                 'is_searchable' => true,
             ],
             [
