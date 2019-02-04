@@ -13,7 +13,8 @@ class Exhibition extends WebModel
     public $table = 'web_exhibitions';
 
     protected $casts = [
-        'published' => 'boolean',
+        'is_featured' => 'boolean',
+        'is_published' => 'boolean',
     ];
 
     protected $touches = ['exhibition'];
@@ -37,14 +38,14 @@ class Exhibition extends WebModel
                 "doc" => "Is this exhibition currently featured on our website?",
                 "type" => "boolean",
                 "elasticsearch_type" => 'boolean',
-                "value" => function() { return (bool) $this->is_featured ?? false; },
+                "value" => function() { return $this->is_featured ?? false; },
             ],
             [
                 "name" => 'is_published',
                 "doc" => "Is this exhibition currently published on our website? Only relevant for non-past exhibitions.",
                 "type" => "boolean",
                 "elasticsearch_type" => 'boolean',
-                "value" => function() { return (bool) $this->is_published ?? false; },
+                "value" => function() { return $this->is_published ?? false; },
             ],
             [
                 "name" => 'exhibition_id',

@@ -91,6 +91,8 @@ class Agent extends BaseTransformer
                     return $item->createdArtworks()->count() > 0;
                 },
             ],
+
+            // TODO: Refactor relationships:
             'agent_type_title' => [
                 'doc' => 'Name of the type of agent, e.g. individual, fund, school, organization, etc.',
                 'type' => 'string',

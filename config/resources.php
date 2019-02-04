@@ -109,7 +109,7 @@ return [
             [
                 'endpoint' => 'exhibitions',
                 'model' => \App\Models\Collections\Exhibition::class,
-                'transformer' => \App\Http\Transformers\ExhibitionTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\Exhibition::class,
                 'is_searchable' => true,
             ],
 
