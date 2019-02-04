@@ -10,6 +10,7 @@ class GenericPage extends BaseTransformer
     protected function getPageFields()
     {
         return [
+            // TODO: Add `HasSearchTags` trait? See Event.
             'search_tags' => [
                 'doc' => 'Editor-specified list of tags to aid in internal search',
                 'type' => 'array',

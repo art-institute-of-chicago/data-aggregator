@@ -373,19 +373,19 @@ return [
             [
                 'endpoint' => 'events',
                 'model' => \App\Models\Web\Event::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Event::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'event-occurrences',
                 'model' => \App\Models\Web\EventOccurrence::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\EventOccurrence::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'event-programs',
                 'model' => \App\Models\Web\EventProgram::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\GenericTransformer::class,
                 'is_searchable' => true,
             ],
             [
