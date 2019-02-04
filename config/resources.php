@@ -389,7 +389,7 @@ return [
             [
                 'endpoint' => 'articles',
                 'model' => \App\Models\Web\Article::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Article::class,
                 'is_searchable' => true,
             ],
             [
