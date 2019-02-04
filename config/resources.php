@@ -346,9 +346,10 @@ return [
                 'is_searchable' => true,
             ],
             [
+                // TODO: Delete this endpoint and model? It's not used for events.
                 'endpoint' => 'locations',
                 'model' => \App\Models\Web\Location::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Location::class,
                 'is_searchable' => true,
             ],
             [
