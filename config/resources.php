@@ -261,7 +261,7 @@ return [
             [
                 'endpoint' => 'ticketed-events',
                 'model' => \App\Models\Membership\TicketedEvent::class,
-                'transformer' => \App\Http\Transformers\TicketedEventTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Membership\TicketedEvent::class,
                 'is_searchable' => true,
             ],
             [
