@@ -2,7 +2,7 @@
 
 namespace App\Transformers\Outbound\Collections;
 
-use App\Http\Transformers\ArtworkTransformer;
+use App\Transformers\Outbound\Collections\Artwork as ArtworkTransformer;
 use App\Transformers\Outbound\Collections\Agent as AgentTransformer;
 use App\Transformers\Outbound\CollectionsTransformer;
 

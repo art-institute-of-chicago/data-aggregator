@@ -4,6 +4,8 @@ namespace App\Http\Transformers;
 
 use App\Models\StaticArchive\Site;
 
+use App\Transformers\Outbound\Collections\Artwork as ArtworkTransformer;
+
 class SiteTransformer extends ApiTransformer
 {
 
