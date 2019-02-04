@@ -22,7 +22,6 @@ class ArtworkTransformer extends CollectionsTransformer
         'place_pivots',
         'catalogue_pivots',
         'dates',
-        'tours',
         'sites',
     ];
 
@@ -69,17 +68,6 @@ class ArtworkTransformer extends CollectionsTransformer
     public function includeDates(Artwork $artwork)
     {
         return $this->collection($artwork->dates, new ArtworkDateTransformer, false);
-    }
-
-    /**
-     * Include tours.
-     *
-     * @param  \App\Models\Collections\Artwork  $artwork
-     * @return League\Fractal\ItemResource
-     */
-    public function includeTours(Artwork $artwork)
-    {
-        return $this->collection($artwork->tours, new TourTransformer, false);
     }
 
     /**
