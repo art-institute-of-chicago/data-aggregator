@@ -24,8 +24,6 @@ class ExhibitionTest extends ApiTestCase
         // 'description',
         'short_description',
         // 'image_iiif_url',
-        'legacy_image_mobile_url',
-        'legacy_image_desktop_url',
         'gallery_id',
         'web_url',
         'aic_start_at',
