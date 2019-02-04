@@ -322,12 +322,12 @@ return [
             [
                 'endpoint' => 'library-materials',
                 'model' => \App\Models\Library\Material::class,
-                'transformer' => \App\Http\Transformers\LibraryMaterialTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Library\Material::class,
             ],
             [
                 'endpoint' => 'library-terms',
                 'model' => \App\Models\Library\Term::class,
-                'transformer' => \App\Http\Transformers\LibraryTermTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Library\Term::class,
             ],
             [
                 'endpoint' => 'archive-images',

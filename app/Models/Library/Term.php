@@ -28,21 +28,6 @@ class Term extends BaseModel
 
     }
 
-    protected function transformMappingInternal()
-    {
-
-        return [
-            [
-                "name" => 'uri',
-                "doc" => "Full Library of Congress URI for identification",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->uri; },
-            ],
-        ];
-
-    }
-
     /**
      * Ensure that the id is a valid Library of Congress control number (LCCN).
      *
