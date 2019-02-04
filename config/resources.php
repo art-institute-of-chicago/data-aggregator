@@ -365,7 +365,7 @@ return [
             [
                 'endpoint' => 'web-exhibitions',
                 'model' => \App\Models\Web\Exhibition::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Exhibition::class,
                 'is_searchable' => true,
             ],
             [
