@@ -312,7 +312,7 @@ return [
             [
                 'endpoint' => 'sites',
                 'model' => \App\Models\StaticArchive\Site::class,
-                'transformer' => \App\Http\Transformers\SiteTransformer::class,
+                'transformer' => \App\Transformers\Outbound\StaticArchive\Site::class,
                 'is_searchable' => true,
             ],
 

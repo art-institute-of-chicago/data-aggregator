@@ -3,7 +3,7 @@
 namespace App\Transformers\Outbound\Collections;
 
 use App\Transformers\Outbound\Collections\Artwork as ArtworkTransformer;
-use App\Http\Transformers\SiteTransformer;
+use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 

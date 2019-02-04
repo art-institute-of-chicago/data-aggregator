@@ -2,12 +2,11 @@
 
 namespace App\Transformers\Outbound\Collections;
 
-use App\Http\Transformers\SiteTransformer;
-
 use App\Transformers\Outbound\Collections\ArtworkArtistPivot as ArtworkArtistPivotTransformer;
 use App\Transformers\Outbound\Collections\ArtworkCatalogue as ArtworkCatalogueTransformer;
 use App\Transformers\Outbound\Collections\ArtworkDate as ArtworkDateTransformer;
 use App\Transformers\Outbound\Collections\ArtworkPlacePivot as ArtworkPlacePivotTransformer;
+use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
