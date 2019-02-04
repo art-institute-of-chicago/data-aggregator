@@ -5,13 +5,16 @@ namespace App\Transformers\Outbound\Collections;
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
 
 use App\Transformers\Outbound\Collections\Traits\HasBoosted;
+use App\Transformers\Outbound\HasSuggestFields;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Agent extends BaseTransformer
 {
 
-    use HasBoosted;
+    use HasSuggestFields {
+        getSuggestFields as traitGetSuggestFields;
+    }
 
     protected $availableIncludes = [
         'sites',
@@ -130,6 +133,63 @@ class Agent extends BaseTransformer
                 },
             ],
         ];
+    }
+
+    /**
+     * Agents are a special case, wherein multiple names are common.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
+     * @link https://www.elastic.co/blog/you-complete-me (obsolete)
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.0/breaking_50_suggester.html
+     *
+     * @return array
+     */
+    public function getSuggestFields()
+    {
+        $suggestFields = $this->traitGetSuggestFields();
+
+        $newFilter = function($item) {
+            return $item->createdArtworks()->count() > 1;
+        };
+
+        foreach (['suggest_autocomplete_all', 'suggest_autocomplete_boosted'] as $fieldName)
+        {
+            $oldFilter = $suggestFields[$fieldName]['filter'];
+            $suggestFields[$fieldName]['filter'] = function ($item) use ($oldFilter, $newFilter) {
+                return $oldFilter($item) && $newFilter($item);
+            };
+        }
+
+        $suggestFields['suggest_autocomplete_boosted']['value'] = function ($item) {
+            return [
+                'input' => array_merge(
+                    [
+                        $item->title,
+                        $item->sort_title,
+                    ],
+                    $item->alt_titles ?? []
+                ),
+                'weight' => $item->isBoosted() ? 3 : 2,
+            ];
+        };
+
+        $suggestFields['suggest_autocomplete_all']['value'] = function ($item) {
+            return [
+                'input' => array_merge(
+                    [
+                        $item->title,
+                        $item->sort_title,
+                    ],
+                    $item->alt_titles ?? []
+                ),
+                'weight' => $item->isBoosted() ? 3 : 2,
+                'contexts' => [
+                    'title'
+                ],
+            ];
+        };
+
+        return $suggestFields;
     }
 
 }

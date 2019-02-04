@@ -12,6 +12,11 @@ class TourStop extends MobileModel
 
     protected $primaryKey = 'id';
 
+    protected $with = [
+        'artwork',
+        'sound',
+    ];
+
     public function tour()
     {
 

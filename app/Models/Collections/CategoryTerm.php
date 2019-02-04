@@ -11,9 +11,7 @@ use App\Models\ElasticSearchable;
 class CategoryTerm extends CollectionsModel
 {
 
-    use ElasticSearchable {
-        getSuggestSearchFields as public traitGetSuggestSearchFields;
-    }
+    use ElasticSearchable;
 
     protected static $isCategory = null;
 
@@ -282,22 +280,6 @@ class CategoryTerm extends CollectionsModel
         $uid = '/^[A-Z]{2}-[0-9]+$/i';
 
         return preg_match($uid, $id);
-
-    }
-
-    /**
-     * Add suggest fields and values. For v2, category-terms contribute to autocomplete.
-     *
-     * @return array
-     */
-    public function getSuggestSearchFields()
-    {
-
-        if ($this->artworks()->count() < 1) {
-            return [];
-        }
-
-        return $this->traitGetSuggestSearchFields();
 
     }
 

@@ -9,6 +9,7 @@ use App\Transformers\Outbound\Collections\ArtworkPlacePivot as ArtworkPlacePivot
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
 
 use App\Transformers\Outbound\Collections\Traits\HasBoosted;
+use App\Transformers\Outbound\HasSuggestFields;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
@@ -16,6 +17,9 @@ class Artwork extends BaseTransformer
 {
 
     use HasBoosted;
+    use HasSuggestFields {
+        getSuggestFields as traitGetSuggestFields;
+    }
 
     protected $availableIncludes = [
         'artist_pivots',
@@ -798,6 +802,50 @@ class Artwork extends BaseTransformer
                 },
             ],
         ];
+    }
+
+    /**
+     * Add suggest fields and values. By default, only boosted works are added to the autocomplete.
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
+     * @link https://www.elastic.co/blog/you-complete-me
+     *
+     * @return array
+     */
+    protected function getSuggestFields()
+    {
+        $suggestFields = $this->traitGetSuggestFields();
+
+        $suggestFields['suggest_autocomplete_all']['value'] = function ($item) {
+            return [
+                [
+                    'input' => [
+                        $item->main_id
+                    ],
+                    'contexts' => [
+                        'groupings' => [
+                            'accession',
+                        ]
+                    ],
+                ],
+                [
+                    'input' => [
+                        $item->title
+                    ],
+                    'weight' => [
+                        $item->pageviews ?? 1
+                    ],
+                    'contexts' => [
+                        'groupings' => [
+                            'title',
+                        ]
+                    ],
+                ],
+            ];
+        };
+
+        return $suggestFields;
+
     }
 
 }

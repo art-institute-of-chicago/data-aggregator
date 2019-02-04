@@ -4,10 +4,16 @@ namespace App\Transformers\Outbound\Mobile;
 
 use App\Transformers\Outbound\Mobile\TourStop as TourStopTransformer;
 
+use App\Transformers\Outbound\HasSuggestFields;
+
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Tour extends BaseTransformer
 {
+
+    use HasSuggestFields {
+        getSuggestFields as traitGetSuggestFields;
+    }
 
     protected $availableIncludes = ['tour_stops'];
 
@@ -85,6 +91,20 @@ class Tour extends BaseTransformer
                 },
             ],
         ];
+    }
+
+    /**
+     * Tours should always contribute to autosuggest, regardless of boost.
+     */
+    protected function getSuggestFields()
+    {
+        $suggestFields = $this->traitGetSuggestFields();
+
+        $suggestFields['suggest_autocomplete_boosted']['filter'] = function ($item) {
+            return isset($item->title);
+        };
+
+        return $suggestFields;
     }
 
 }

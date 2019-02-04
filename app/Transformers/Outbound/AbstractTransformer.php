@@ -3,6 +3,7 @@
 namespace App\Transformers\Outbound;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 use League\Fractal\TransformerAbstract as BaseTransformer;
 
@@ -70,9 +71,15 @@ abstract class AbstractTransformer extends BaseTransformer
      */
     public final function transform(Model $model)
     {
+        $mappedFields = $this->getMappedFields();
+
+        $filteredFields = array_filter($mappedFields, function ($mappedField) use ($model) {
+            return !isset($mappedField['filter']) || call_user_func($mappedField['filter'], $model);
+        });
+
         return array_map(function ($mappedField) use ($model) {
             return call_user_func($mappedField['value'], $model);
-        }, $this->getMappedFields());
+        }, $filteredFields);
     }
 
     /**
@@ -89,9 +96,10 @@ abstract class AbstractTransformer extends BaseTransformer
     {
         $mappedFields = array_merge(
             $this->getIds(),
-            $this->getTitles(),
             $this->getSearchFields(),
+            $this->getTitles(),
             $this->getFields(),
+            $this->getSuggestFields(),
             $this->getDates()
         );
 
@@ -160,10 +168,18 @@ abstract class AbstractTransformer extends BaseTransformer
             ],
             // TODO: Rename field to follow _at convention
             'last_updated' => [
-                'doc' => 'Date and time the record was updated in the aggregator',
+                'doc' => 'Date and time the record was updated in the aggregator database',
                 'type' => 'ISO 8601 date and time',
                 'elasticsearch' => 'date',
                 'value' => $this->getDateValue('updated_at'),
+            ],
+            'timestamp' => [
+                'doc' => 'Date and time the record was updated in the aggregator search index',
+                'type' => 'ISO 8601 date and time',
+                'elasticsearch' => 'date',
+                'value' => function ($item) {
+                    return Carbon::now()->toIso8601String();
+                },
             ],
         ];
     }
@@ -171,7 +187,38 @@ abstract class AbstractTransformer extends BaseTransformer
     protected function getSearchFields()
     {
         return [
-            // Define in child classes
+            'api_model' => [
+                'doc' => 'REST API resource type or endpoint',
+                'type' => 'string',
+                'elasticsearch' => 'keyword',
+                'value' => function ($item) {
+                    return $item->searchableModel();
+                },
+            ],
+            'api_link' => [
+                'doc' => 'REST API link for this resource',
+                'type' => 'string',
+                'elasticsearch' => 'keyword',
+                'value' => function ($item) {
+                    return $item->searchableLink();
+                },
+            ],
+        ];
+    }
+
+    /**
+     * Add suggest fields and values. By default, nothing adds to autocomplete.
+     *
+     * @TODO Audit: completion field [suggest_autocomplete_all] does not support null values
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
+     * @link https://www.elastic.co/blog/you-complete-me
+     *
+     * @return array
+     */
+    protected function getSuggestFields()
+    {
+        return [
+            // Define in child classes or use HasSuggestFields trait
         ];
     }
 

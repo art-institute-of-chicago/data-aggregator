@@ -2,10 +2,16 @@
 
 namespace App\Transformers\Outbound\Collections;
 
+use App\Transformers\Outbound\HasSuggestFields;
+
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class CategoryTerm extends BaseTransformer
 {
+
+    use HasSuggestFields {
+        getSuggestFields as traitGetSuggestFields;
+    }
 
     protected function getFields()
     {
@@ -37,6 +43,24 @@ class CategoryTerm extends BaseTransformer
                 },
             ]
         ];
+    }
+
+    /**
+     * Omit `category-terms` from autosuggest if they have no artworks.
+     * `category-terms` do not contribute to autocomplete.
+     */
+    protected function getSuggestFields()
+    {
+        $suggestFields = $this->traitGetSuggestFields();
+
+        unset($suggestFields['suggest_autocomplete_boosted']);
+
+        $oldFilter = $suggestFields['suggest_autocomplete_all']['filter'];
+        $suggestFields['suggest_autocomplete_all']['filter'] = function ($item) use ($oldFilter) {
+            return $oldFilter($item) && $item->artworks()->count() > 1;
+        };
+
+        return $suggestFields;
     }
 
 }
