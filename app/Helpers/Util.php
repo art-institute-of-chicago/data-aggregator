@@ -42,6 +42,26 @@ function reverseCantorPair($z)
     return [$x, $y];
 }
 
+
+/**
+ * Helper method that converts `['item', 'hey', 'wow']` to `item, hey, and wow`.
+ *
+ * @param array
+ * @return string
+ */
+function summation(array $array)
+{
+    $last = array_pop($array);
+
+    if (empty($array))
+    {
+        return $last;
+    }
+
+    return implode(', ', $array) . ', and ' . $last;
+}
+
+
 /**
  * TODO: Everything below this is unused. However, these methods could be useful in testing.
  */

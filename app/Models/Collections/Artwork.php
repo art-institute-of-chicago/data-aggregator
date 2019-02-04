@@ -397,79 +397,46 @@ class Artwork extends CollectionsModel
 
     public function getAltTextAttribute()
     {
+        $ret = 'A';
 
-        $ret = "A";
         if ($this->classification_title)
         {
             if (ends_with($this->classification_title, 'ing'))
             {
-
                 if (preg_match('/^[aeiouAEIOU]/', $this->classification_title, $matches))
                 {
-
-                    $ret .= "n";
-
+                    $ret .= 'n';
                 }
-                $ret .= " {$this->classification_title}";
 
+                $ret .= " {$this->classification_title}";
             }
             else
             {
-
                 $ret .= " work of {$this->classification_title}";
-
             }
         }
         else
         {
-            $ret .= " work";
+            $ret .= ' work';
         }
 
         if ($this->material_titles)
         {
-
-            $ret .= " made of " .$this->summation($this->material_titles);
-
+            $ret .= ' made of ' . summation($this->material_titles);
         }
         elseif ($this->medium_display)
         {
-
-            $ret .= " made of " .strtolower($this->medium_display);
-
+            $ret .= ' made of ' . strtolower($this->medium_display);
         }
 
-        $ret .= ".";
+        $ret .= '.';
 
         if ($this->subject_titles)
         {
-
-            $ret .= " The work includes " .$this->summation($this->subject_titles) .".";
-
+            $ret .= ' The work includes ' . summation($this->subject_titles) . '.';
         }
 
         return $ret;
-
-    }
-
-    /**
-     * Helper method that converts `['item', 'hey', 'wow']` to `item, hey and wow`.
-     *
-     * @param array
-     * @return string
-     */
-    function summation(array $array)
-    {
-
-        $last = array_pop($array);
-
-        if (empty($array)) {
-
-            return $last;
-
-        }
-
-        return implode(', ', $array) . ' and ' . $last;
-
     }
 
     /**
