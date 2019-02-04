@@ -401,7 +401,7 @@ return [
             [
                 'endpoint' => 'web-artists',
                 'model' => \App\Models\Web\Artist::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Artist::class,
                 'is_searchable' => true,
             ],
             [
