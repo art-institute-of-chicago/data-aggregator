@@ -359,7 +359,7 @@ return [
             [
                 'endpoint' => 'closures',
                 'model' => \App\Models\Web\Closure::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Closure::class,
                 'is_searchable' => true, // TODO: Verify?
             ],
             [
