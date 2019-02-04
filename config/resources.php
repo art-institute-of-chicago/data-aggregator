@@ -397,7 +397,7 @@ return [
             [
                 'endpoint' => 'selections',
                 'model' => \App\Models\Web\Selection::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Selection::class,
                 'is_searchable' => true,
             ],
             [
