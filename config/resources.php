@@ -276,18 +276,18 @@ return [
             [
                 'endpoint' => 'tours',
                 'model' => \App\Models\Mobile\Tour::class,
-                'transformer' => \App\Http\Transformers\TourTransformer::class,
+                'transformer' =>\App\Transformers\Outbound\Mobile\Tour::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'tour-stops',
                 'model' => \App\Models\Mobile\TourStop::class,
-                'transformer' => \App\Http\Transformers\TourStopTransformer::class,
+                'transformer' =>\App\Transformers\Outbound\Mobile\TourStop::class,
             ],
             [
                 'endpoint' => 'mobile-sounds',
                 'model' => \App\Models\Mobile\Sound::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' =>\App\Transformers\Outbound\Mobile\Sound::class,
             ],
 
             /**
