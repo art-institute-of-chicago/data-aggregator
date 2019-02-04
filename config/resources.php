@@ -296,13 +296,13 @@ return [
             [
                 'endpoint' => 'publications',
                 'model' => \App\Models\Dsc\Publication::class,
-                'transformer' => \App\Http\Transformers\DscTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Dsc\Publication::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'sections',
                 'model' => \App\Models\Dsc\Section::class,
-                'transformer' => \App\Http\Transformers\DscTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Dsc\Section::class,
                 'is_searchable' => true,
             ],
 
