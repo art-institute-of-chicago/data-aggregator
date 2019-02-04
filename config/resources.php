@@ -453,15 +453,8 @@ return [
             [
                 'endpoint' => 'digital-labels',
                 'model' => \App\Models\DigitalLabel\Label::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\DigitalLabel\Label::class,
                 'is_searchable' => true,
-            ],
-            // The following is needed for our inbound transformers, even though the
-            // endpoint hasn't and doesn't need to be built out
-            [
-                'endpoint' => 'digital-label-exhibitions',
-                'model' => \App\Models\DigitalLabel\Exhibition::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
             ],
         ],
 
