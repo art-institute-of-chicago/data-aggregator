@@ -88,7 +88,7 @@ class Asset extends BaseTransformer
     }
 
     /**
-     * Provide a way for child classes add fields to the transformation.
+     * Provide a way for child classes to add fields to the transformation.
      *
      * @return array
      */

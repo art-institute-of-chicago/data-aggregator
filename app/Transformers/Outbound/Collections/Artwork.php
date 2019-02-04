@@ -8,10 +8,14 @@ use App\Transformers\Outbound\Collections\ArtworkDate as ArtworkDateTransformer;
 use App\Transformers\Outbound\Collections\ArtworkPlacePivot as ArtworkPlacePivotTransformer;
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
 
+use App\Transformers\Outbound\Collections\Traits\HasBoosted;
+
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Artwork extends BaseTransformer
 {
+
+    use HasBoosted;
 
     protected $availableIncludes = [
         'artist_pivots',
@@ -63,6 +67,37 @@ class Artwork extends BaseTransformer
     protected function getFields()
     {
         return [
+            /**
+             * TODO: Abstract thumbnail to trait?
+             */
+            'thumbnail' => [
+                'doc' => 'Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.',
+                'type' => 'array',
+                'elasticsearch' => [
+                    'mapping' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'url' => [ 'type' => 'keyword' ],
+                            'type' => [ 'type' => 'keyword' ],
+                            'lqip' => [ 'enabled' => false ],
+                            'width' => [ 'type' => 'integer' ],
+                            'height' => [ 'type' => 'integer' ],
+                            'alt_text' => [ 'type' => 'text' ],
+                        ]
+                    ]
+                ],
+                'value' => function ($item) {
+                    return !$item->thumbnail ? null : [
+                        'url' => $item->thumbnail->iiif_url ?? null,
+                        'type' => 'iiif',
+                        'lqip' => $item->thumbnail->metadata->lqip ?? null,
+                        'width' => $item->thumbnail->metadata->width ?? null,
+                        'height' => $item->thumbnail->metadata->height ?? null,
+                        'alt_text' => $item->thumbnail->alt_text ?? ($item->alt_text ?? null),
+                    ];
+                },
+            ],
+
             /**
              * Finding aids:
              */

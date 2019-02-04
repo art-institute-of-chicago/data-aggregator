@@ -90,6 +90,7 @@ abstract class AbstractTransformer extends BaseTransformer
         $mappedFields = array_merge(
             $this->getIds(),
             $this->getTitles(),
+            $this->getSearchFields(),
             $this->getFields(),
             $this->getDates()
         );
@@ -164,6 +165,13 @@ abstract class AbstractTransformer extends BaseTransformer
                 'elasticsearch' => 'date',
                 'value' => $this->getDateValue('updated_at'),
             ],
+        ];
+    }
+
+    protected function getSearchFields()
+    {
+        return [
+            // Define in child classes
         ];
     }
 

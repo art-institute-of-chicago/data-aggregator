@@ -61,10 +61,20 @@ function summation(array $array)
     return implode(', ', $array) . ', and ' . $last;
 }
 
-
 /**
  * TODO: Everything below this is unused. However, these methods could be useful in testing.
  */
+
+function getLakeUri($lake_id)
+{
+    return env('LAKE_URL', 'https://localhost')
+        . '/' . substr($lake_id, 0, 2)
+        . '/' . substr($lake_id, 2, 2)
+        . '/' . substr($lake_id, 4, 2)
+        . '/' .substr($lake_id, 6, 2)
+        . '/' .$lake_id;
+}
+
 
 /**
  * Get a list of all the models used in the application

@@ -2,13 +2,10 @@
 
 namespace App\Models\Collections;
 
-use App\Models\TransformableRefactor;
 use App\Models\CollectionsModel;
 
 class ArtworkDate extends CollectionsModel
 {
-
-    use TransformableRefactor;
 
     protected $primaryKey = 'citi_id';
 

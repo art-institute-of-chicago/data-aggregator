@@ -4,7 +4,6 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
-use App\Models\TransformableRefactor;
 
 /**
  * A binary representation of a collections resource, like an artwork, artist, exhibition, etc.
@@ -12,7 +11,7 @@ use App\Models\TransformableRefactor;
 class Asset extends CollectionsModel
 {
 
-    use ElasticSearchable, TransformableRefactor;
+    use ElasticSearchable;
 
     public const IMAGE = 'image';
     public const SOUND = 'sound';

@@ -2,14 +2,10 @@
 
 namespace App\Models\Collections;
 
-use App\Models\TransformableRefactor;
-
 use App\Models\AbstractPivot as BasePivot;
 
 class ArtworkCatalogue extends BasePivot
 {
-
-    use TransformableRefactor;
 
     protected static $source = 'Collections';
 

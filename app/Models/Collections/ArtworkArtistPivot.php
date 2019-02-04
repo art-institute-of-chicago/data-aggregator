@@ -2,14 +2,10 @@
 
 namespace App\Models\Collections;
 
-use App\Models\TransformableRefactor;
-
 use App\Models\AbstractPivot as BasePivot;
 
 class ArtworkArtistPivot extends BasePivot
 {
-
-    use TransformableRefactor;
 
     protected $table = 'artwork_artist';
 

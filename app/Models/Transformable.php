@@ -5,59 +5,32 @@ namespace App\Models;
 trait Transformable
 {
 
-    /**
-     * Turn this model object into a generic array.
-     *
-     * @param array $requestedFields
-     * @return array
-     */
     public function transform(array $requestedFields = null)
     {
-        $availableFields = $this->transformMapping();
+        $transformer = app('Resources')->getTransformerForModel(get_called_class());
 
-        $out = [];
-
-        foreach ($availableFields as $field)
-        {
-            if (!isset($requestedFields) || in_array($field['name'], $requestedFields))
-            {
-                $out[ $field['name'] ] = call_user_func( $field['value'] );
-            }
-        }
-
-        return $out;
+        return (new $transformer)->transform($this);
     }
 
 
     /**
-     * Define how the fields in the API are mapped to model properties.
-     *
-     * Acts as a wrapper method to common attributes across a range of resources. Each method should
-     * override `transformMappingInternal()` with their specific field definitions.
-     *
-     * The keys in the returned array represent the property name as it appears in the API. The value of
-     * each pair is an array that includes the following:
-     *
-     * - "doc" => The documentation for this API field
-     * - "value" => An anoymous function that returns the value for this field
+     * Jury-rig a connection to the transformer class.
      *
      * @return array
      */
     protected function transformMapping()
     {
+        $transformerClass = app('Resources')->getTransformerForModel(get_called_class());
 
-        return $this->transformMappingInternal();
+        $fields = (new $transformerClass)->getMappedFields();
 
-    }
+        // TODO: Fix references to transformMapping to use keys instead of 'name'
+        foreach ($fields as $fieldName => $fieldMapping)
+        {
+            $fields[$fieldName]['name'] = $fieldName;
+        }
 
-    /**
-     * Specific field definitions for a given class. See `transformMapping()` for more info.
-     */
-    protected function transformMappingInternal()
-    {
-
-        return [];
-
+        return $fields;
     }
 
 }

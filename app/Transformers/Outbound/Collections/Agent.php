@@ -4,10 +4,14 @@ namespace App\Transformers\Outbound\Collections;
 
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
 
+use App\Transformers\Outbound\Collections\Traits\HasBoosted;
+
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Agent extends BaseTransformer
 {
+
+    use HasBoosted;
 
     protected $availableIncludes = [
         'sites',
