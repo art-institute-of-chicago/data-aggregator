@@ -29,7 +29,7 @@ class TicketedEvent extends BaseTransformer
                 'type' => 'url',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $this->image_url;
+                    return $item->image_url;
                 },
             ],
             'start_at' => [
