@@ -2,7 +2,7 @@
 
 namespace App\Transformers\Outbound\Membership;
 
-use App\Http\Transformers\ApiTransformer as EventTransformer;
+use App\Transformers\Outbound\Web\Event as EventTransformer;
 
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
