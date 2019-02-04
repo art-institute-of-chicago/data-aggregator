@@ -9,13 +9,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 class Product extends BaseTransformer
 {
 
-    protected $availableIncludes = ['categories'];
-
-    public function includeCategories($product)
-    {
-        return $this->collection($product->categories, new ShopCategoryTransformer, false);
-    }
-
     protected function getFields()
     {
         return [
