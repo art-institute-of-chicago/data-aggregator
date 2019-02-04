@@ -413,37 +413,37 @@ return [
             [
                 'endpoint' => 'generic-pages',
                 'model' => \App\Models\Web\GenericPage::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\GenericPage::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'press-releases',
                 'model' => \App\Models\Web\PressRelease::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Page::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'research-guides',
                 'model' => \App\Models\Web\ResearchGuide::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Page::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'educator-resources',
                 'model' => \App\Models\Web\EducatorResource::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Page::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'digital-catalogs',
                 'model' => \App\Models\Web\DigitalCatalog::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Page::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'printed-catalogs',
                 'model' => \App\Models\Web\PrintedCatalog::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Page::class,
                 'is_searchable' => true,
             ],
 
