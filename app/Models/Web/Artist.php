@@ -17,4 +17,13 @@ class Artist extends WebModel
         'also_known_as' => 'boolean',
     ];
 
+    protected $with = [
+        'agent',
+    ];
+
+    public function agent()
+    {
+        return $this->belongsTo('App\Models\Collections\Agent', 'datahub_id');
+    }
+
 }
