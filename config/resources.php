@@ -339,9 +339,10 @@ return [
              * Website:
              */
             [
+                // TODO: Delete this endpoint and model? It's empty.
                 'endpoint' => 'tags',
                 'model' => \App\Models\Web\Tag::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Web\Tag::class,
                 'is_searchable' => true,
             ],
             [
