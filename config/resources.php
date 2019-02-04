@@ -103,7 +103,7 @@ return [
             [
                 'endpoint' => 'galleries',
                 'model' => \App\Models\Collections\Gallery::class,
-                'transformer' => \App\Http\Transformers\GalleryTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Collections\Gallery::class,
                 'is_searchable' => true,
             ],
             [
