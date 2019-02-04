@@ -174,4 +174,11 @@ abstract class AbstractTransformer extends BaseTransformer
         };
     }
 
+    protected function getEmptyValue($fieldName)
+    {
+        return function ($item) use ($fieldName) {
+            return $item->$fieldName ?: null;
+        };
+    }
+
 }

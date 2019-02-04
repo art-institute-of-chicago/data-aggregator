@@ -251,7 +251,7 @@ return [
             [
                 'endpoint' => 'legacy-events',
                 'model' => \App\Models\Membership\LegacyEvent::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Membership\LegacyEvent::class,
                 'is_searchable' => true,
             ],
 
