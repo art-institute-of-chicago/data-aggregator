@@ -51,41 +51,8 @@ trait ElasticSearchable
      */
     public function searchableIndex()
     {
-        return $this->searchableModel();
+        return app('Resources')->getEndpointForModel(get_called_class());
     }
-
-    /**
-     * Generate a link to the API for this model resource.
-     *
-     * @TODO Revisit when API versioning is in place.
-     *
-     * @return string
-     */
-    public function searchableLink()
-    {
-
-        return url('api/v1/' . $this->searchableModel() . '/' . $this->getKey());
-
-    }
-
-
-    /**
-     * Generate a string to use in the seach index to identify this model
-     *
-     * This avoids a number of bugs, including `tour_stops` vs. `tour-stops`, `agents` vs.
-     * `artists`, and `assets` vs. `images`.
-     *
-     * @return string
-     */
-    public function searchableModel()
-    {
-
-        $calledClass = get_called_class();
-
-        return app('Resources')->getEndpointForModel( $calledClass );
-
-    }
-
 
     /**
      * Generate a string identifying this model's data source.

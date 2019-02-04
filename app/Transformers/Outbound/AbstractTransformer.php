@@ -192,7 +192,7 @@ abstract class AbstractTransformer extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->searchableModel();
+                    return app('Resources')->getEndpointForModel(get_class($item));
                 },
             ],
             'api_link' => [
@@ -200,7 +200,8 @@ abstract class AbstractTransformer extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->searchableLink();
+                    $endpoint = app('Resources')->getEndpointForModel(get_class($item));
+                    return url('api/v1/' . $endpoint . '/' . $item->getKey());
                 },
             ],
         ];
