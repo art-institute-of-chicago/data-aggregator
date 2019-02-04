@@ -267,7 +267,7 @@ return [
             [
                 'endpoint' => 'ticketed-event-types',
                 'model' => \App\Models\Membership\TicketedEventType::class,
-                'transformer' => \App\Http\Transformers\ApiTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Membership\TicketedEventType::class,
             ],
 
             /**
