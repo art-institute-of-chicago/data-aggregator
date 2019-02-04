@@ -235,13 +235,13 @@ return [
             [
                 'endpoint' => 'shop-categories',
                 'model' => \App\Models\Shop\Category::class,
-                'transformer' => \App\Http\Transformers\ShopCategoryTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Shop\Category::class,
                 'is_searchable' => true,
             ],
             [
                 'endpoint' => 'products',
                 'model' => \App\Models\Shop\Product::class,
-                'transformer' => \App\Http\Transformers\ProductTransformer::class,
+                'transformer' => \App\Transformers\Outbound\Shop\Product::class,
                 'is_searchable' => true,
             ],
 
