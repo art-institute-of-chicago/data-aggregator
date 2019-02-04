@@ -15,13 +15,13 @@ class Material extends BaseTransformer
 
     public function includeSubjects($material)
     {
-        return $this->collection($material->subjects, new TermTransformer, false);
+        return count($material->subjects) > 0 ? $this->collection($material->subjects, new TermTransformer, false) : null;
     }
 
 
     public function includeCreators($material)
     {
-        return $this->collection($material->creators, new TermTransformer, false);
+        return count($material->creators) > 0 ? $this->collection($material->creators, new TermTransformer, false) : null;
     }
 
     protected function getFields()
