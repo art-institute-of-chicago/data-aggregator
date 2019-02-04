@@ -6,6 +6,12 @@ use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Asset extends BaseTransformer
 {
+    /**
+     * LAKE-native resources use UUIDs, not integers.
+     *
+     * @var string
+     */
+    protected $keyType = 'keyword';
 
     protected function getFields()
     {
