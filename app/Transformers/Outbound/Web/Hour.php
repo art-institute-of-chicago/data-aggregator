@@ -7,14 +7,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 class Hour extends BaseTransformer
 {
 
-    /**
-     * Hours don't have titles. Prevents Elasticsearch error.
-     */
-    protected function getTitles()
-    {
-        return [];
-    }
-
     protected function getFields()
     {
         return [

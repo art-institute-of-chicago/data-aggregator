@@ -17,4 +17,12 @@ class Hour extends WebModel
         'closed' => 'boolean',
     ];
 
+    /**
+     * Hours don't have titles. Prevents Elasticsearch error.
+     */
+    public function getTitleAttribute($value)
+    {
+        return 'Not Available';
+    }
+
 }
