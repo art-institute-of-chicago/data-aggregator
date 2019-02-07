@@ -26,21 +26,6 @@ class Material extends BaseModel
 
     }
 
-    protected function transformMappingInternal()
-    {
-
-        return [
-            [
-                "name" => 'date',
-                "doc" => "Publication year of this library material",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->date; },
-            ],
-        ];
-
-    }
-
     /**
      * Ensure that the id is a valid Primo doc id.
      *

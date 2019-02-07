@@ -4486,9 +4486,6 @@
         "id": {
           "description": "Unique identifier within the search index"
         },
-        "api_id": {
-          "description": "API unique identifier"
-        },
         "api_model": {
           "description": "Name of the model the resource represents"
         },

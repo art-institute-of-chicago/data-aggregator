@@ -51,41 +51,8 @@ trait ElasticSearchable
      */
     public function searchableIndex()
     {
-        return $this->searchableModel();
+        return app('Resources')->getEndpointForModel(get_called_class());
     }
-
-    /**
-     * Generate a link to the API for this model resource.
-     *
-     * @TODO Revisit when API versioning is in place.
-     *
-     * @return string
-     */
-    protected function searchableLink()
-    {
-
-        return url('api/v1/' . $this->searchableModel() . '/' . $this->getKey());
-
-    }
-
-
-    /**
-     * Generate a string to use in the seach index to identify this model
-     *
-     * This avoids a number of bugs, including `tour_stops` vs. `tour-stops`, `agents` vs.
-     * `artists`, and `assets` vs. `images`.
-     *
-     * @return string
-     */
-    protected function searchableModel()
-    {
-
-        $calledClass = get_called_class();
-
-        return app('Resources')->getEndpointForModel( $calledClass );
-
-    }
-
 
     /**
      * Generate a string identifying this model's data source.
@@ -123,70 +90,9 @@ trait ElasticSearchable
     public function toSearchableArray()
     {
 
-        // TODO: Remove these fields: almost all of them are already defined in `transformMapping`
-        $array = array_merge(
-            [
-                'api_id' => "" .$this->getKey(),
-                'api_model' => $this->searchableModel(),
-                'api_link' => $this->searchableLink(),
-                'title' => $this->title,
-                'thumbnail' => !$this->thumbnail ? null : [
-                    'url' => $this->thumbnail->iiif_url ?? null,
-                    'type' => 'iiif',
-                    'lqip' => $this->thumbnail->metadata->lqip ?? null,
-                    'width' => $this->thumbnail->metadata->width ?? null,
-                    'height' => $this->thumbnail->metadata->height ?? null,
-                    'alt_text' => $this->thumbnail->alt_text ?? null,
-                ],
-                'timestamp' => Carbon::now()->toIso8601String(),
-            ],
-            $this->getSuggestSearchFields(),
-            $this->transform()
-        );
-
-        return $array;
+        return $this->transform();
 
     }
-
-    /**
-     * Add suggest fields and values. By default, only boosted works are added to the autocomplete.
-     *
-     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
-     * @link https://www.elastic.co/blog/you-complete-me
-     *
-     * @return array
-     */
-    public function getSuggestSearchFields()
-    {
-
-        // This happens when the title is empty (e.g. TourStops)
-        // Fixes: completion field [suggest_autocomplete_all] does not support null values
-        if( empty( $this->title ) )
-        {
-            return [];
-        }
-
-        $fields = [];
-
-        // TODO: Move `suggest_autocomplete_all` into `suggest_autocomplete`, and re-index everything from database?
-        $fields['suggest_autocomplete_all'] = [
-            'input' => [$this->title],
-            'contexts' => [
-                'groupings' => [
-                    'title',
-                ]
-            ],
-        ];
-
-        if( $this->isBoosted() )
-        {
-            $fields['suggest_autocomplete_boosted'] = $this->title;
-        }
-
-        return $fields;
-
-    }
-
 
     /**
      * Return mapping of fields marked as default, for simple search.
@@ -231,7 +137,6 @@ trait ElasticSearchable
      */
     public function getDefaultSearchFields()
     {
-
         $fields = $this->getDefaultSearchFieldMapping();
 
         $fields = array_map( function( $field ) {
@@ -248,7 +153,6 @@ trait ElasticSearchable
         }, $fields);
 
         return $fields;
-
     }
 
     /**
@@ -258,7 +162,6 @@ trait ElasticSearchable
      */
     public function elasticsearchMapping()
     {
-
         // Get a default list of field names for this model
         $fieldMappings = $this->transformMapping();
 
@@ -266,7 +169,6 @@ trait ElasticSearchable
 
         foreach( $fieldMappings as $field )
         {
-
             $mapping = $this->getMappingForField( $field );
 
             // TODO: Determine if we can just pass null here
@@ -274,69 +176,14 @@ trait ElasticSearchable
             {
                 $default[ $field['name'] ] = $mapping;
             }
-
         }
 
         // Now bring it all together
-        return
-            [
-                $this->searchableType() => [
-                    'properties' => array_merge(
-                        [
-                            'api_id' => [
-                                'type' => 'keyword',
-                            ],
-                            'api_model' => [
-                                'type' => 'keyword',
-                            ],
-                            'api_link' => [
-                                'type' => 'keyword',
-                            ],
-                            'image' => [
-                                'type' => 'keyword',
-                            ],
-                            'description' => [
-                                'type' => 'text',
-                            ],
-                            'timestamp' => [
-                                'type' => 'date',
-                            ],
-                            'suggest_autocomplete_boosted' => [
-                                'type' => 'completion',
-                                'analyzer' => 'article', // Custom: targets only `a`, `an`, `the`
-                                'preserve_position_increments' => false, // Strips leading whitespace, leftover from articles
-                            ],
-                            'suggest_autocomplete_all' => [
-                                'type' => 'completion',
-                                'analyzer' => 'article', // Custom: targets only `a`, `an`, `the`
-                                'preserve_position_increments' => false, // Strips leading whitespace, leftover from articles
-                                'contexts' => [
-                                    [
-                                        'name' => 'groupings',
-                                        'type' => 'category', // accession, title, boosted
-                                    ],
-                                ],
-                            ],
-                        ],
-                        $default,
-                        $this->elasticsearchMappingFields()
-                    )
-                ],
-            ];
-
-    }
-
-
-    /**
-     * Pluggable function to generate model-specific fields for an array representing the schema for this object.
-     *
-     * @return array
-     */
-    public function elasticsearchMappingFields()
-    {
-
-        return [];
-
+        return [
+            $this->searchableType() => [
+                'properties' => $default,
+            ],
+        ];
     }
 
     /**

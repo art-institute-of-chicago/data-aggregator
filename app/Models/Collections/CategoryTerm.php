@@ -11,9 +11,7 @@ use App\Models\ElasticSearchable;
 class CategoryTerm extends CollectionsModel
 {
 
-    use ElasticSearchable {
-        getSuggestSearchFields as public traitGetSuggestSearchFields;
-    }
+    use ElasticSearchable;
 
     protected static $isCategory = null;
 
@@ -271,45 +269,6 @@ class CategoryTerm extends CollectionsModel
     }
 
     /**
-     * Specific field definitions for a given class. See `transformMapping()` for more info.
-     */
-    protected function transformMappingInternal()
-    {
-
-        return [
-            [
-                "name" => 'subtype',
-                "doc" => "Takes one of the following values: classification, material, technique, style, subject, department, theme",
-                "type" => "string",
-                "elasticsearch_type" => 'keyword',
-                "value" => function() {
-
-                    $mapping = [
-                        self::CLASSIFICATION => 'classification',
-                        self::MATERIAL => 'material',
-                        self::TECHNIQUE => 'technique',
-                        self::STYLE => 'style',
-                        self::SUBJECT => 'subject',
-                        self::DEPARTMENT => 'department',
-                        self::THEME => 'theme',
-                    ];
-
-                    return $mapping[ $this->subtype ] ?? null;
-
-                },
-            ],
-            [
-                "name" => 'parent_id',
-                "doc" => "Unique identifier of this category's parent",
-                "type" => "string",
-                'elasticsearch_type' => 'keyword',
-                "value" => function() { return $this->parent->lake_uid ?? null; },
-            ]
-        ];
-
-    }
-
-    /**
      * Ensure that the id is a valid LAKE UID.
      *
      * @param mixed $id
@@ -321,22 +280,6 @@ class CategoryTerm extends CollectionsModel
         $uid = '/^[A-Z]{2}-[0-9]+$/i';
 
         return preg_match($uid, $id);
-
-    }
-
-    /**
-     * Add suggest fields and values. For v2, category-terms contribute to autocomplete.
-     *
-     * @return array
-     */
-    public function getSuggestSearchFields()
-    {
-
-        if ($this->artworks()->count() < 1) {
-            return [];
-        }
-
-        return $this->traitGetSuggestSearchFields();
 
     }
 
