@@ -5,40 +5,25 @@ namespace App\Transformers\Outbound\Collections;
 use App\Transformers\Outbound\Collections\Artwork as ArtworkTransformer;
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
 
+use App\Transformers\Outbound\HasSuggestFields;
+
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Exhibition extends BaseTransformer
 {
 
-    /**
-     * List of resources possible to include
-     *
-     * @var array
-     */
+    use HasSuggestFields;
+
     protected $availableIncludes = [
         'artworks',
         'sites',
     ];
 
-
-    /**
-     * Include artworks.
-     *
-     * @param  \App\Models\Collections\Exhibition  $exhibition
-     * @return League\Fractal\ItemResource
-     */
     public function includeArtworks($exhibition)
     {
         return $this->collection($exhibition->artworks, new ArtworkTransformer, false);
     }
 
-
-    /**
-     * Include sites.
-     *
-     * @param  \App\Models\Collections\Exhibition  $exhibition
-     * @return League\Fractal\ItemResource
-     */
     public function includeSites($exhibition)
     {
         return $this->collection($exhibition->sites, new SiteTransformer, false);
