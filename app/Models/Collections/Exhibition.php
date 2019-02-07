@@ -43,14 +43,6 @@ class Exhibition extends CollectionsModel
 
     }
 
-    public function legacyEvents()
-    {
-
-        return $this->belongsToMany('App\Models\Membership\LegacyEvent', 'legacy_event_exhibition');
-
-    }
-
-
     public function webExhibition()
     {
 

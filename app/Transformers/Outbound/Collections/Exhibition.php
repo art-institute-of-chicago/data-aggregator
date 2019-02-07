@@ -168,15 +168,6 @@ class Exhibition extends BaseTransformer
                     return $item->sites->pluck('site_id');
                 },
             ],
-            'legacy_event_ids' => [
-                'doc' => 'Unique identifiers of the legacy events featuring this exhibition. These are events that been '
-                        .' imported from our existing site as a placeholder, until events from our new can be pulled in.',
-                'type' => 'array',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->legacyEvents->pluck('membership_id');
-                },
-            ],
             // TODO: Shared fields w/ artwork – put into trait?
             'image_id' => [
                 'doc' => 'Unique identifier of the preferred image to use to represent this exhibition',

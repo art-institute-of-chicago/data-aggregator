@@ -246,16 +246,6 @@ return [
             ],
 
             /**
-             * Legacy website:
-             */
-            [
-                'endpoint' => 'legacy-events',
-                'model' => \App\Models\Membership\LegacyEvent::class,
-                'transformer' => \App\Transformers\Outbound\Membership\LegacyEvent::class,
-                'is_searchable' => true,
-            ],
-
-            /**
              * Ticketing:
              */
             [
