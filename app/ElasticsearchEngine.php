@@ -9,6 +9,10 @@ use ScoutEngines\Elasticsearch\ElasticsearchEngine as BaseEngine;
 class ElasticsearchEngine extends BaseEngine
 {
 
+    private $errorStreak = 0;
+
+    private $maxErrorStreak = 3;
+
     /**
      * Update the given model in the index.
      *
@@ -39,14 +43,15 @@ class ElasticsearchEngine extends BaseEngine
                 return isset($item['update']['error']);
             }));
 
-            // If all docs failed, throw an uncaught exception
-            if (count($failedDocs) === count($result['items']))
-            {
-                throw new Exception(json_encode($result));
-            }
-
             foreach ($failedDocs as $doc)
             {
+                $this->errorStreak += 1;
+
+                if ($this->errorStreak > $this->maxErrorStreak)
+                {
+                    throw new Exception(json_encode($result));
+                }
+
                 try {
                     throw new Exception(json_encode($doc));
                 } catch (Exception $e) {
@@ -54,6 +59,11 @@ class ElasticsearchEngine extends BaseEngine
                     report($e);
                 }
             }
+
+        } else {
+
+            $this->errorStreak = 0;
+
         }
     }
 
