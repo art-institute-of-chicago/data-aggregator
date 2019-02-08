@@ -832,9 +832,7 @@ class Artwork extends BaseTransformer
                     'input' => [
                         $item->title
                     ],
-                    'weight' => [
-                        $item->pageviews ?? 1
-                    ],
+                    'weight' => $item->pageviews ?? 1,
                     'contexts' => [
                         'groupings' => [
                             'title',
