@@ -20,4 +20,14 @@ trait HidesDefaultFields
         return [];
     }
 
+    protected function getSearchFields()
+    {
+        return [];
+    }
+
+    protected function getSuggestFields()
+    {
+        return [];
+    }
+
 }
