@@ -17,4 +17,13 @@ class Artist extends WebTransformer
 
     }
 
+    protected function getExtraFields( Datum $datum )
+    {
+
+        return [
+            'intro_copy' => $datum->intro,
+        ];
+
+    }
+
 }
