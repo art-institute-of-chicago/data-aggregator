@@ -55,10 +55,6 @@ class Artwork extends CollectionsTransformer
             'places'        => $this->getSyncPlaces( $datum ),
             'catalogues'    => $this->getSyncCatalogues( $datum ),
 
-            // TODO: Verify this actually works!
-            'parts'         => $datum->all('part_ids'),
-            'sets'          => $datum->all('set_ids'),
-
         ];
 
     }
