@@ -77,6 +77,14 @@ class Agent extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
+            'description' =>[
+                'doc' => 'A biographical description of the agent',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+                'value' => function ($item) {
+                    return $item->webArtist->intro_copy ?? null;
+                },
+            ],
             'ulan_uri' => [
                 'doc' => 'Unique identifier of this agent in Getty\'s ULAN',
                 'type' => 'uri',
