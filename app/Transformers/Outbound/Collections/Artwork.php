@@ -487,38 +487,6 @@ class Artwork extends BaseTransformer
                     return $item->categories->pluck('title');
                 },
             ],
-            'part_ids' => [
-                'doc' => 'Unique identifiers of the individual works that make up this work',
-                'type' => 'array',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->parts->pluck('citi_id');
-                },
-            ],
-            'part_titles' => [
-                'doc' => 'Names of the artworks that make up this work',
-                'type' => 'array',
-                'elasticsearch' => 'text',
-                'value' => function ($item) {
-                    return $item->parts->pluck('title');
-                },
-            ],
-            'set_ids' => [
-                'doc' => 'Unique identifiers of the sets this work is a part of. These are not artwork ids.',
-                'type' => 'array',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->sets->pluck('citi_id');
-                },
-            ],
-            'set_titles' => [
-                'doc' => 'Names of the sets this work is a part of',
-                'type' => 'array',
-                'elasticsearch' => 'text',
-                'value' => function ($item) {
-                    return $item->sets->pluck('title');
-                },
-            ],
             'artwork_catalogue_ids' => [
                 'doc' => 'This list represents all the catalogues this work is included in. This isn\'t an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.',
                 'type' => 'array',
