@@ -61,7 +61,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
                 'value' => function ($item) {
-                    return $item->webExhibition->list_description ?? $item->short_description;
+                    return $item->webExhibition->list_description ?? null;
                 },
             ],
             'web_url' => [
