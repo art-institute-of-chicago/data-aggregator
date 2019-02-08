@@ -428,7 +428,7 @@ class Artwork extends CollectionsModel
         }
         elseif ($this->medium_display)
         {
-            $ret .= ' made of ' . strtolower($this->medium_display);
+            $ret .= ' made of ' . mb_strtolower($this->medium_display);
         }
 
         $ret .= '.';
