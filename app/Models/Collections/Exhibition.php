@@ -104,4 +104,11 @@ class Exhibition extends CollectionsModel
 
     // EOF HasRepAndDoc --------------->
 
+    public function isBoosted()
+    {
+
+        return $this->webExhibition->is_featured ?? false;
+
+    }
+
 }

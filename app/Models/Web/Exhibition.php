@@ -17,7 +17,9 @@ class Exhibition extends WebModel
         'is_published' => 'boolean',
     ];
 
-    protected $touches = ['exhibition'];
+    protected $touches = [
+        'exhibition',
+    ];
 
     public function exhibition()
     {
