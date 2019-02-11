@@ -13,6 +13,9 @@ class ScoutTest extends BaseCommand
 
     public function handle()
     {
+        // Not an ideal solution, but some models are really heavy
+        ini_set('memory_limit', '-1');
+
         $models = app('Search')->getSearchableModels();
 
         foreach ($models as $model)

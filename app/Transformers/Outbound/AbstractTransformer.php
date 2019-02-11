@@ -210,16 +210,79 @@ abstract class AbstractTransformer extends BaseTransformer
     /**
      * Add suggest fields and values. By default, nothing adds to autocomplete.
      *
-     * @TODO Audit: completion field [suggest_autocomplete_all] does not support null values
-     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
-     * @link https://www.elastic.co/blog/you-complete-me
+     * However, due to a fluke in Elasticsearch, all resources should have these fields
+     * defined in their index mapping. Otherwise, you may see this error:
+     *
+     *     no mapping found for field [suggest_autocomplete_boosted]
+     *
+     * Here, we add this field to all indexes, but make it so that the `filter` function
+     * always returns `false` by default. No document will actually contain this field.
+     *
+     * If a resource needs these fields, look into the `HasSuggestFields` trait.
+     * The trick is to override `filter` to return true as appropriate.
+     *
+     * Weirdly, we also cannot just set this field to `null`. Different error:
+     *
+     *     completion field [suggest_autocomplete_all] does not support null values
+     *
+     * Basically, this is the one case where we must omit fields, rather than nulling them.
+     *
+     * Uses custom `article` analyzer, which removes `a`, `an`, and `the`.
+     * Uses `preserve_position_increments` to strip leftover leading whitespace.
      *
      * @return array
      */
     protected function getSuggestFields()
     {
         return [
-            // Define in child classes or use HasSuggestFields trait
+            'suggest_autocomplete_boosted' => [
+                'doc' => 'Internal field to power the `/autocomplete` endpoint. Do not use directly.',
+                'type' => 'object',
+                'elasticsearch' => [
+                    'type' => 'completion',
+                    'analyzer' => 'article',
+                    'preserve_position_increments' => false,
+                ],
+                'filter' => function ($item) {
+                    return false;
+                },
+                'value' => function ($item) {
+                    return $item->title;
+                },
+            ],
+            'suggest_autocomplete_all' => [
+                'doc' => 'Internal field to power the `/autosuggest` endpoint. Do not use directly.',
+                'type' => 'object',
+                'elasticsearch' => [
+                    'mapping' => [
+                        'type' => 'completion',
+                        'analyzer' => 'article',
+                        'preserve_position_increments' => false,
+                        'contexts' => [
+                            [
+                                // accession, title, boosted
+                                'name' => 'groupings',
+                                'type' => 'category',
+                            ],
+                        ],
+                    ],
+                ],
+                'filter' => function ($item) {
+                    return false;
+                },
+                'value' => function ($item) {
+                    return [
+                        'input' => [
+                            $item->title
+                        ],
+                        'contexts' => [
+                            'groupings' => [
+                                'title',
+                            ]
+                        ],
+                    ];
+                },
+            ],
         ];
     }
 
