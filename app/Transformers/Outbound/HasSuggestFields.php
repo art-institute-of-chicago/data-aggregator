@@ -7,7 +7,7 @@ trait HasSuggestFields
 
     protected function getSuggestFields()
     {
-        return array_replace_recursive(parent::getSearchFields(), [
+        return array_replace_recursive(parent::getSuggestFields(), [
 
             'suggest_autocomplete_boosted' => [
                 'filter' => function ($item) {
