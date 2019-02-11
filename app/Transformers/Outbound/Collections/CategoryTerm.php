@@ -13,6 +13,8 @@ class CategoryTerm extends BaseTransformer
         getSuggestFields as traitGetSuggestFields;
     }
 
+    protected $keyType = 'keyword';
+
     protected function getFields()
     {
         return [
