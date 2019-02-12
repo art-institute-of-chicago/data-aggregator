@@ -31,32 +31,4 @@ class Sound extends MobileModel
 
     }
 
-    /**
-     * Specific field definitions for a given class. See `transformMapping()` for more info.
-     */
-    protected function transformMappingInternal()
-    {
-
-        return [
-            [
-                "name" => 'link',
-                "doc" => "URL to the audio file",
-                "type" => "url",
-                "elasticsearch_type" => "keyword",
-                "value" => function() { return $this->link; },
-            ],
-            [
-                "name" => 'transcript',
-                "doc" => "Text transcription of the audio file",
-                "type" => "string",
-                "elasticsearch" => [
-                    "default" => true,
-                    "type" => 'text',
-                ],
-                "value" => function() { return $this->transcript; },
-            ],
-        ];
-
-    }
-
 }

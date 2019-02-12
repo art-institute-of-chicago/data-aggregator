@@ -17,6 +17,7 @@ class Agent extends CollectionsModel
 
     protected $casts = [
         'alt_titles' => 'array',
+        'licensing_restricted' => 'boolean',
     ];
 
     protected $touches = [
@@ -27,6 +28,13 @@ class Agent extends CollectionsModel
     {
 
         return $this->belongsTo('App\Models\Collections\AgentType');
+
+    }
+
+    public function webArtist()
+    {
+
+        return $this->belongsTo('App\Models\Web\Artist', 'citi_id', 'datahub_id');
 
     }
 
@@ -135,163 +143,6 @@ class Agent extends CollectionsModel
     {
 
         return (new static)->newQuery()->whereKey( static::boostedIds() );
-
-    }
-
-    /**
-     * Specific field definitions for a given class. See `transformMapping()` for more info.
-     */
-    protected function transformMappingInternal()
-    {
-
-        return [
-            [
-                "name" => 'sort_title',
-                "doc" => "Sortable name for this agent, typically with last name first.",
-                "type" => "string",
-                "elasticsearch_type" => 'text',
-                "value" => function() { return $this->sort_title; },
-            ],
-            [
-                "name" => 'alt_titles',
-                "doc" => "Altername names for this agent",
-                "type" => "array",
-                "elasticsearch" => [
-                    "default" => true,
-                    "type" => 'text',
-                ],
-                "value" => function() { return $this->alt_titles; },
-            ],
-            [
-                "name" => 'birth_date',
-                "doc" => "The year this agent was born",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->birth_date; },
-            ],
-            [
-                "name" => 'birth_place',
-                "doc" => "Name of the place this agent was born",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->birth_place; },
-            ],
-            [
-                "name" => 'death_date',
-                "doc" => "The year this agent died",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->death_date; },
-            ],
-            [
-                "name" => 'death_place',
-                "doc" => "Name of the place this agent died",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->death_place; },
-            ],
-            [
-                "name" => 'ulan_uri',
-                "doc" => "Unique identifier of this agent in Getty's ULAN",
-                "type" => "uri",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->ulan_uri; },
-            ],
-            [
-                "name" => 'is_licensing_restricted',
-                "doc" => "Whether the use of the images of works by this artist are restricted by licensing",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return (bool) $this->licensing_restricted; },
-            ],
-            [
-                "name" => 'is_artist',
-                "doc" => "Whether the agent is an artist. Soley based on whether the agent is listed as an artist for an artwork record.",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->createdArtworks()->count() > 0; },
-            ],
-            [
-                "name" => 'agent_type_title',
-                "doc" => "Name of the type of agent, e.g. individual, fund, school, organization, etc.",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->agentType->title ?? null; },
-            ],
-            [
-                "name" => 'agent_type_id',
-                "doc" => "Unique identifier of the type of agent, e.g. individual, fund, school, organization, etc.",
-                "type" => "number",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->agentType->citi_id ?? null; },
-            ],
-            [
-                "name" => 'artwork_ids',
-                "doc" => "Unique identifiers of the works this artist created.",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->createdArtworks->pluck('citi_id'); },
-            ],
-            [
-                "name" => 'site_ids',
-                "doc" => "Unique identifiers of the microsites this exhibition is a part of",
-                "type" => "array",
-                'elasticsearch_type' => 'integer',
-                "value" => function() { return $this->sites->pluck('site_id')->all(); },
-            ],
-        ];
-
-    }
-
-    /**
-     * Add suggest fields and values. By default, only boosted works are added to the autocomplete.
-     * Agents are a special case, wherein multiple names are common.
-     *
-     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
-     * @link https://www.elastic.co/blog/you-complete-me (obsolete)
-     * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.0/breaking_50_suggester.html
-     *
-     * @return array
-     */
-    public function getSuggestSearchFields()
-    {
-
-        if ($this->createdArtworks()->count() < 1) {
-            return [];
-        }
-
-        $withTitles = [
-            'input' => array_merge(
-                [
-                    $this->title,
-                    $this->sort_title,
-                ],
-                $this->alt_titles ?? []
-            ),
-            // Boosts agents higher than unweighted items
-            'weight' => 2,
-        ];
-
-        $fields = [];
-
-        if( $this->isBoosted() )
-        {
-            // Boosts popular agents higher than normal agents
-            // Cascades to `suggest_autocomplete_all`
-            $withTitles['weight'] = 3;
-
-            $fields['suggest_autocomplete_boosted'] = $withTitles;
-        }
-
-        // For autocomplete v2
-        $withTitles['contexts'] = [
-            'groupings' => [
-                'title',
-            ]
-        ];
-        $fields['suggest_autocomplete_all'] = $withTitles;
-
-        return $fields;
 
     }
 

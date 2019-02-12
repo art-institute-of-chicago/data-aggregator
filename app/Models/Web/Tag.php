@@ -10,22 +10,4 @@ use App\Models\WebModel;
 class Tag extends WebModel
 {
 
-    /**
-     * Specific field definitions for a given class. See `transformMapping()` for more info.
-     */
-    protected function transformMappingInternal()
-    {
-
-        return [
-            [
-                "name" => 'name',
-                "doc" => "Name of the tag",
-                "type" => "string",
-                'elasticsearch_type' => 'text',
-                "value" => function() { return $this->name; },
-            ],
-        ];
-
-    }
-
 }

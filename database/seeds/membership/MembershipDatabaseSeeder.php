@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Membership\LegacyEvent;
 use App\Models\Membership\TicketedEvent;
 
 class MembershipDatabaseSeeder extends AbstractSeeder
@@ -9,7 +8,6 @@ class MembershipDatabaseSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $this->call(LegacyEventsTableSeeder::class);
         $this->call(TicketedEventsTableSeeder::class);
 
     }
@@ -17,7 +15,6 @@ class MembershipDatabaseSeeder extends AbstractSeeder
     protected static function unseed()
     {
 
-        LegacyEvent::fake()->delete();
         TicketedEvent::fake()->delete();
 
     }

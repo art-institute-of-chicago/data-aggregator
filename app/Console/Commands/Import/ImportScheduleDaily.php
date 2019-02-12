@@ -17,16 +17,14 @@ class ImportScheduleDaily extends BaseCommand
 
         $this->call('import:collections');
         $this->call('import:collections-delete');
-        $this->call('import:exhibitions-legacy');
         $this->call('import:events-ticketed-full', ['--yes' => 'default']);
-        $this->call('import:events-legacy');
         $this->call('import:mobile');
         $this->call('import:products-full --yes');
         $this->call('import:web');
         $this->call('import:digital-labels');
 
         // EventOccurrence is not included in import:web to avoid duplication
-        $this->call('import:web-full', ['endpoint' => 'events/occurrences', '--yes' => 'default']);
+        $this->call('import:web-full events/occurrences --yes');
     }
 
 }

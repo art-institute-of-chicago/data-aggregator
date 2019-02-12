@@ -101,7 +101,6 @@ class Request
      */
     private static $defaultFields = [
         'id',
-        'api_id',
         'api_model',
         'api_link',
         'is_boosted',

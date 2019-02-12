@@ -48,6 +48,11 @@ Route::group(['prefix' => 'v1'], function() {
     // Define all of our resource routes by looping through config
     foreach(config('resources.outbound.base') as $resource)
     {
+        if (!isset($resource['endpoint']))
+        {
+            continue;
+        }
+
         $isScoped = $resource['scope_of'] ?? false;
 
         Route::any($resource['endpoint'], 'ResourceController@' . ($isScoped ? 'indexScope' : 'index'));

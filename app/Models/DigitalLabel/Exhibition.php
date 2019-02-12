@@ -13,7 +13,7 @@ class Exhibition extends DigitalLabelModel
     protected $table = 'digital_label_exhibitions';
 
     protected $casts = [
-        'published' => 'boolean',
+        'is_published' => 'boolean',
     ];
 
     public function exhibition()

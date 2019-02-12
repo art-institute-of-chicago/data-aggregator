@@ -18,17 +18,13 @@ class ImportAllCommand extends BaseCommand
         $this->call('db:reset'); // Add --yes flag?
         $this->call('migrate');
         $this->call('import:collections-full');
-        $this->call('import:exhibitions-legacy');
         $this->call('import:events-ticketed-full', ['--yes' => 'default']);
-        $this->call('import:events-legacy');
         $this->call('import:dsc', ['--yes' => 'default', '-v' => 'default']);
         $this->call('import:mobile');
         $this->call('import:library', ['--yes' => 'default']);
         $this->call('import:archive', ['--yes' => 'default']);
         $this->call('import:sites', ['--yes' => 'default']);
         $this->call('import:set-ulan-uris');
-        // TODO: Are we ready to remove this?
-        // $this->call('import:terms-legacy');
         $this->call('import:products-full', ['--yes' => 'default']);
         $this->call('import:images');
         $this->call('import:analytics');

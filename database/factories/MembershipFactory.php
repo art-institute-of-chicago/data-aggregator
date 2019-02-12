@@ -34,26 +34,6 @@ if (!function_exists('membershipIdsAndTitle'))
 
 }
 
-
-$factory->define(App\Models\Membership\LegacyEvent::class, function (Faker\Generator $faker) {
-
-    return array_merge(
-        membershipIdsAndTitle($faker),
-        [
-            'description' => $faker->paragraph(2),
-            'short_description' => $faker->sentence(6),
-            'image_url' => $faker->imageUrl,
-            'type' => ucfirst($faker->words(3, true)),
-            'start_at' => $faker->dateTimeThisYear,
-            'end_at' => $faker->dateTimeThisYear,
-            'resource_title' => ucfirst($faker->words(3, true)),
-            'is_admission_required' => $faker->boolean,
-        ],
-        membershipDates($faker)
-    );
-
-});
-
 $factory->define(App\Models\Membership\TicketedEvent::class, function (Faker\Generator $faker) {
 
     $has_capacity = rand(0,1) == 1;

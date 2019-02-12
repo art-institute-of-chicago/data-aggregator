@@ -11,6 +11,10 @@ class ScoutImportAll extends BaseCommand
 
     protected $description = 'Import all models into the search index';
 
+    private $excludeModels = [
+        // 'App\\Models\\Collections\\Artwork',
+        // 'App\\Models\\Collections\\Image',
+    ];
 
     public function handle()
     {
@@ -18,6 +22,8 @@ class ScoutImportAll extends BaseCommand
         ini_set("memory_limit", "-1");
 
         $models = app('Search')->getSearchableModels();
+
+        $models = array_diff($models, $this->excludeModels);
 
         foreach( $models as $model ) {
 

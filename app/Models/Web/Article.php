@@ -15,39 +15,4 @@ class Article extends WebModel
         'date' => 'date',
     ];
 
-    /**
-     * Specific field definitions for a given class. See `transformMapping()` for more info.
-     */
-    protected function transformMappingInternal()
-    {
-
-        return [
-            [
-                "name" => 'is_published',
-                "doc" => "Whether the article has been published",
-                "type" => "boolean",
-                'elasticsearch_type' => 'boolean',
-                "value" => function() { return $this->published; },
-            ],
-            [
-                "name" => 'date',
-                "doc" => "The date the article was published",
-                "type" => "ISO 8601 date and time",
-                'elasticsearch_type' => 'date',
-                "value" => function() { return $this->date ? $this->date->toIso8601String() : NULL; },
-            ],
-            [
-                "name" => 'copy',
-                "doc" => "The text of the article",
-                "type" => "string",
-                "elasticsearch" => [
-                    "default" => true,
-                    "type" => 'text',
-                ],
-                "value" => function() { return $this->copy; },
-            ],
-        ];
-
-    }
-
 }
