@@ -259,6 +259,10 @@ return [
                 'model' => \App\Models\Membership\TicketedEventType::class,
                 'transformer' => \App\Transformers\Outbound\Membership\TicketedEventType::class,
             ],
+            [
+                'endpoint' => 'legacy-events',
+                'alias_of' => 'event-occurrences',
+            ],
 
             /**
              * Mobile:

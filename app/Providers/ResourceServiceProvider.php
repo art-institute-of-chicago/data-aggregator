@@ -55,9 +55,19 @@ class ResourceServiceProvider extends ServiceProvider
                     $this->inbound = collect( $this->inbound );
                 }
 
+                private function getResourceForEndpoint($endpoint)
+                {
+                    do {
+                        $resource = $this->resources->firstWhere('endpoint', $endpoint);
+                        $endpoint = $resource['alias_of'] ?? $endpoint;
+                    } while (isset($resource['alias_of']));
+
+                    return $resource;
+                }
+
                 public function getModelForEndpoint( $endpoint )
                 {
-                    $resource = $this->resources->firstWhere('endpoint', $endpoint);
+                    $resource = $this->getResourceForEndpoint($endpoint);
 
                     $model = $resource['model'] ?? null;
 
@@ -71,7 +81,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                 public function getTransformerForEndpoint( $endpoint )
                 {
-                    $resource = $this->resources->firstWhere('endpoint', $endpoint);
+                    $resource = $this->getResourceForEndpoint($endpoint);
 
                     $transformer = $resource['transformer'] ?? null;
 
@@ -127,7 +137,7 @@ class ResourceServiceProvider extends ServiceProvider
                 public function getParent( $endpoint )
                 {
 
-                    $resource = $this->resources->firstWhere('endpoint', $endpoint);
+                    $resource = $this->getResourceForEndpoint($endpoint);
 
                     return $resource['scope_of'] ?? null;
                 }
