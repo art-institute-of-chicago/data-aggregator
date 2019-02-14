@@ -36,6 +36,13 @@ class TicketedEvent extends MembershipModel
 
     }
 
+    public function ticketedEventType()
+    {
+
+        return $this->belongsTo('App\Models\Membership\TicketedEventType', 'event_type_id');
+
+    }
+
     public function searchableImage()
     {
 

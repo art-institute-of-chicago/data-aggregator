@@ -100,7 +100,7 @@ class TicketedEvent extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->event_type->id ?? null;
+                    return $item->ticketedEventType->membership_id ?? null;
                 },
             ],
             'event_id' => [
