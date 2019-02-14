@@ -21,6 +21,10 @@ class Artist extends WebModel
         'agent',
     ];
 
+    protected $touches = [
+        'agent',
+    ];
+
     public function agent()
     {
         return $this->belongsTo('App\Models\Collections\Agent', 'datahub_id');
