@@ -37,7 +37,8 @@ class ImportTicketedEventTypesFull extends AbstractImportCommand
     protected function reset()
     {
 
-        return $this->resetData( TicketedEventType::class, 'ticketed_event_types' );
+        // We only need to clear a table, not flush a search index
+        return $this->resetData( [], 'ticketed_event_types' );
 
     }
 
