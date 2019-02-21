@@ -12,6 +12,4 @@ class ArtworkDateQualifier extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
-    protected $fakeIdsStartAt = 9900;
-
 }
