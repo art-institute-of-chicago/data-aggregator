@@ -46,8 +46,10 @@ class Artwork extends CollectionsTransformer
 
         return [
 
+            // TODO: Deprecated. Relationship provided by Assets.
             'images'        => $this->getSyncImages( $datum ),
             'documents'     => $this->getSyncDocuments( $datum ),
+
             'categories'    => $this->getSyncCategories( $datum ),
             'terms'         => $this->getSyncTerms( $datum ),
 
