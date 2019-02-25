@@ -24,8 +24,17 @@ class DropLakeUriColumn extends Migration
 
         $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
 
+        $table_prefix = DB::getTablePrefix();
+
         foreach( $tables as $table_name )
         {
+
+            if (!empty($table_prefix) && !starts_with($table_name, $table_prefix))
+            {
+                continue;
+            }
+
+            $table_name = substr($table_name, strlen($table_prefix));
 
             Schema::table($table_name, function (Blueprint $table) use ($table_name, $output) {
 
@@ -79,8 +88,17 @@ class DropLakeUriColumn extends Migration
             'terms',
         ];
 
+        $table_prefix = DB::getTablePrefix();
+
         foreach( $tables as $table_name )
         {
+
+            if (!empty($table_prefix) && !starts_with($table_name, $table_prefix))
+            {
+                continue;
+            }
+
+            $table_name = substr($table_name, strlen($table_prefix));
 
             Schema::table($table_name, function (Blueprint $table) use ($table_name) {
 
