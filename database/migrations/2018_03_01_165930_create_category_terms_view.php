@@ -22,8 +22,10 @@ class CreateCategoryTermsView extends Migration
         $lake_uri_line = $withLakeUri ? 'lake_uri,' : '';
         $term_type_id_line = $withTermTypeId ? 'term_type_id,' : 'type,';
 
+        $prefixed_table = \DB::getTablePrefix() . 'category_terms';
+
         \DB::connection()->getPdo()->exec("
-          CREATE VIEW `category_terms` AS
+          CREATE VIEW `${prefixed_table}` AS
             SELECT DISTINCT
                lake_uid,
                lake_guid,
