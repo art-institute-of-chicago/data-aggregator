@@ -23,6 +23,7 @@ class SearchAudit extends BaseCommand
         {
 
             $this->compareTotals( $model );
+            $this->compareLatest( $model );
 
         }
 
@@ -46,6 +47,39 @@ class SearchAudit extends BaseCommand
 
             $method = ( abs($es_count - $db_count) > 10 ) ? 'warn' : 'info';
             $this->info( "{$endpoint} = {$db_count} in database, {$es_count} in elasticsearch");
+        }
+    }
+
+    public function compareLatest( $model )
+    {
+
+        if ($model::count() == 0) {
+            return;
+        }
+
+        $response = Elasticsearch::search([
+            'index' => app('Search')->getIndexForModel( $model ),
+            'type' => app('Search')->getTypeForModel( $model ),
+            'size' => 1,
+            'body' => [
+                'sort' => 'timestamp',
+            ],
+        ]);
+
+        if (count($response['hits']['hits']) == 0) {
+            if ($model::count() != 0) {
+                $this->info( "Elasticsearch index in empty. {$model::count()} in database");
+            }
+            return;
+        }
+
+        $es_latest = $response['hits']['hits'][0]['_source']['last_updated'];
+        $db_latest = $model::first()->updated_at;
+
+        if ($es_latest != $db_latest) {
+            $endpoint = app('Resources')->getEndpointForModel( $model );
+
+            $this->info( "{$endpoint} = {$db_latest} in database, {$es_latest} in elasticsearch");
         }
     }
 }
