@@ -78,7 +78,7 @@ class DefaultPreferredToFalse extends Migration
     private function dropDefault( $table, $column )
     {
 
-        \DB::statement('ALTER TABLE `' . $table . '` ALTER COLUMN `' . $column . '` DROP DEFAULT');
+        \DB::statement('ALTER TABLE `' . \DB::getTablePrefix() . $table . '` ALTER COLUMN `' . $column . '` DROP DEFAULT');
 
     }
 }
