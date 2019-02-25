@@ -30,52 +30,7 @@ class Exhibition extends CollectionsTransformer
 
         return [
             'artworks' => $datum->all('artwork_ids'),
-            'assets' => $this->getSyncAssets( $datum ),
         ];
-
-    }
-
-    private function getSyncAssets( Datum $datum )
-    {
-
-        // TODO: This logic is shared w/ artworks - consider abstracting it elsewhere?
-        $assets = collect( $datum->alt_image_guids ?? [] )->map( function( $asset ) {
-            return [
-                $asset => [
-                    'preferred' => false,
-                    'is_doc' => false,
-                ]
-            ];
-        });
-
-        if ($datum->image_guid)
-        {
-
-            $assets->push([
-                $datum->image_guid => [
-                    'preferred' => true,
-                    'is_doc' => false,
-                ]
-            ]);
-
-        }
-
-        // TODO: Shared logic w/ exhibitions - abstract?
-        $documents = collect( $datum->document_ids ?? [] )->map( function( $document ) {
-            return [
-                $document => [
-                    'preferred' => false,
-                    'is_doc' => true,
-                ]
-            ];
-        });
-
-        $assets = $assets->concat( $documents );
-
-        // This only works for string keys!
-        $assets = $assets->collapse();
-
-        return $assets;
 
     }
 
