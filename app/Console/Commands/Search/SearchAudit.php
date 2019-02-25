@@ -22,14 +22,14 @@ class SearchAudit extends BaseCommand
         foreach ($models as $model)
         {
 
-            $this->audit( $model );
+            $this->compareTotals( $model );
 
         }
 
     }
 
 
-    public function audit( $model )
+    public function compareTotals( $model )
     {
 
         $response = Elasticsearch::search([
@@ -41,12 +41,11 @@ class SearchAudit extends BaseCommand
         $es_count = $response['hits']['total'];
         $db_count = $model::count();
 
-        $method = ( $es_count == $db_count ) ? 'info' : 'warn';
+        if ($es_count != $db_count) {
+            $endpoint = app('Resources')->getEndpointForModel( $model );
 
-        $endpoint = app('Resources')->getEndpointForModel( $model );
-
-        $this->$method( "{$endpoint} = {$db_count} in db, {$es_count} in es");
-
+            $method = ( abs($es_count - $db_count) > 10 ) ? 'warn' : 'info';
+            $this->info( "{$endpoint} = {$db_count} in database, {$es_count} in elasticsearch");
+        }
     }
-
 }
