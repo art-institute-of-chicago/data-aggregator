@@ -74,10 +74,10 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate"
         ],
-	"post-autoload-dump": [
+        "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
-	]
+        ]
     },
     "config": {
         "preferred-install": "dist",

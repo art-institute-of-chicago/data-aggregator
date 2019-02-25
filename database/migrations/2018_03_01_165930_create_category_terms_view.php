@@ -16,7 +16,7 @@ class CreateCategoryTermsView extends Migration
 
         if( !$isNew )
         {
-            DB::statement('DROP VIEW IF EXISTS `category_terms`;');
+            \DB::statement('DROP VIEW IF EXISTS `' . \DB::getTablePrefix() . 'category_terms`;');
         }
 
         $lake_uri_line = $withLakeUri ? 'lake_uri,' : '';
@@ -65,7 +65,7 @@ class CreateCategoryTermsView extends Migration
     public function down()
     {
 
-        \DB::statement('DROP VIEW IF EXISTS category_terms');
+        \DB::statement('DROP VIEW IF EXISTS `' . \DB::getTablePrefix() . 'category_terms`;');
 
     }
 }
