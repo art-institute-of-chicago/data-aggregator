@@ -27,7 +27,7 @@ class Product extends ShopTransformer
 
         return array_filter( array_map( function( $id ) {
 
-            return $this->artistMapping[ $id ];
+            return $this->artistMapping[ $id ] ?? null;
 
         }, $datum->artist_ids ) );
 
@@ -267,6 +267,7 @@ class Product extends ShopTransformer
         238 => null, // erte
         239 => 60445,
         240 => null, // anna staritsky
+        241 => 87087,
     ];
 
 }
