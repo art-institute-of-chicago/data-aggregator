@@ -17,10 +17,19 @@ class RemoveForeignKeys extends Migration
 
         $tables = $conn->listTableNames();
 
+        $table_prefix = DB::getTablePrefix();
+
         foreach( $tables as $table_name )
         {
 
+            if (!empty($table_prefix) && !starts_with($table_name, $table_prefix))
+            {
+                continue;
+            }
+
             $foreign_keys = $conn->listTableForeignKeys( $table_name );
+
+            $table_name = substr($table_name, strlen($table_prefix));
 
             Schema::table($table_name, function (Blueprint $table) use ($output, $table_name, $foreign_keys) {
 

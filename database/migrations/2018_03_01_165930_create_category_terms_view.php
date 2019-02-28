@@ -16,14 +16,14 @@ class CreateCategoryTermsView extends Migration
 
         if( !$isNew )
         {
-            DB::statement('DROP VIEW IF EXISTS `category_terms`;');
+            DB::statement('DROP VIEW IF EXISTS `' . DB::getTablePrefix() . 'category_terms`;');
         }
 
         $lake_uri_line = $withLakeUri ? 'lake_uri,' : '';
         $term_type_id_line = $withTermTypeId ? 'term_type_id,' : 'type,';
 
         \DB::connection()->getPdo()->exec("
-          CREATE VIEW `category_terms` AS
+          CREATE VIEW `" . DB::getTablePrefix() . "category_terms` AS
             SELECT DISTINCT
                lake_uid,
                lake_guid,
@@ -37,7 +37,7 @@ class CreateCategoryTermsView extends Migration
                citi_modified_at,
                created_at,
                updated_at
-            FROM `terms`
+            FROM `" . DB::getTablePrefix() . "terms`
             UNION
             SELECT DISTINCT
                lake_uid,
@@ -52,7 +52,7 @@ class CreateCategoryTermsView extends Migration
                citi_modified_at,
                created_at,
                updated_at
-            FROM `categories`
+            FROM `" . DB::getTablePrefix() . "categories`
           ");
 
     }
@@ -65,7 +65,7 @@ class CreateCategoryTermsView extends Migration
     public function down()
     {
 
-        \DB::statement('DROP VIEW IF EXISTS category_terms');
+        \DB::statement('DROP VIEW IF EXISTS `' . DB::getTablePrefix() . 'category_terms`;');
 
     }
 }
