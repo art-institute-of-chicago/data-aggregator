@@ -46,7 +46,7 @@ class SearchAudit extends BaseCommand
             $endpoint = app('Resources')->getEndpointForModel( $model );
 
             $method = ( abs($es_count - $db_count) > 10 ) ? 'warn' : 'info';
-            $this->info( "{$endpoint} = {$db_count} in database, {$es_count} in elasticsearch");
+            $this->info( "{$endpoint} = {$db_count} in database, {$es_count} in search index");
         }
     }
 
@@ -79,7 +79,7 @@ class SearchAudit extends BaseCommand
         if ($es_latest != $db_latest) {
             $endpoint = app('Resources')->getEndpointForModel( $model );
 
-            $this->info( "{$endpoint} = {$db_latest} in database, {$es_latest} in elasticsearch");
+            $this->info( "{$endpoint} = {$db_latest} in database, {$es_latest} in search index");
         }
     }
 }
