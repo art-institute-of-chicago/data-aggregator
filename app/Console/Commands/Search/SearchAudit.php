@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Search;
 
+use Carbon\Carbon;
 use Elasticsearch;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
@@ -71,10 +72,11 @@ class SearchAudit extends BaseCommand
             return;
         }
 
-        $es_latest = $response['hits']['hits'][0]['_source']['last_updated'];
+        $es_latest = new Carbon($response['hits']['hits'][0]['_source']['last_updated']);
         $db_latest = $model::first()->updated_at;
 
-        if ($es_latest != $db_latest) {
+        // Only report if the database is more than a day ahead of the search index
+        if ($db_latest->subDay()->gte($es_latest)) {
             $endpoint = app('Resources')->getEndpointForModel( $model );
 
             $this->info( "{$endpoint} = {$db_latest} in database, {$es_latest} in search index");
