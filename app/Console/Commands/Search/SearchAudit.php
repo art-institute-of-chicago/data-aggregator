@@ -66,10 +66,8 @@ class SearchAudit extends BaseCommand
             ],
         ]);
 
+        // Nothing to compare to. Jump out and let compareTotal report the quantity discrepancy.
         if (count($response['hits']['hits']) == 0) {
-            if ($model::count() != 0) {
-                $this->info( "Elasticsearch index in empty. {$model::count()} in database");
-            }
             return;
         }
 
