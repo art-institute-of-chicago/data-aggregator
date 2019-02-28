@@ -19,13 +19,21 @@ class SearchAudit extends BaseCommand
     {
 
         $models = app('Search')->getSearchableModels();
-
+        $output = "";
         foreach ($models as $model)
         {
 
-            $this->compareTotals( $model );
-            $this->compareLatest( $model );
+            $output .= $this->compareTotals( $model );
+            $output .= $this->compareLatest( $model );
 
+        }
+
+        if ($output) {
+            $this->info($output);
+
+            $sentry = app('sentry');
+            $sentry->extra_context(['console.output' => $output]);
+            throw new \Exception("Search index and database are out fo sync");
         }
 
     }
@@ -46,8 +54,7 @@ class SearchAudit extends BaseCommand
         if ($es_count != $db_count) {
             $endpoint = app('Resources')->getEndpointForModel( $model );
 
-            $method = ( abs($es_count - $db_count) > 10 ) ? 'warn' : 'info';
-            $this->info( "{$endpoint} = {$db_count} in database, {$es_count} in search index");
+            return "{$endpoint} = {$db_count} in db, {$es_count} in index\n";
         }
     }
 
@@ -79,7 +86,7 @@ class SearchAudit extends BaseCommand
         if ($db_latest->subDay()->gte($es_latest)) {
             $endpoint = app('Resources')->getEndpointForModel( $model );
 
-            $this->info( "{$endpoint} = {$db_latest} in database, {$es_latest} in search index");
+            return "{$endpoint} = {$db_latest} in db, {$es_latest} in index\n";
         }
     }
 }
