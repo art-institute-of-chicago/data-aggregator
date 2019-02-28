@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "827208834cd3eea5b5e94d4b5d347861f2ac7c35"
+                "reference": "3369717d599a3e73fef0c622cd8297f30c17d86f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/827208834cd3eea5b5e94d4b5d347861f2ac7c35",
-                "reference": "827208834cd3eea5b5e94d4b5d347861f2ac7c35",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/3369717d599a3e73fef0c622cd8297f30c17d86f",
+                "reference": "3369717d599a3e73fef0c622cd8297f30c17d86f",
                 "shasum": ""
             },
             "require": {
@@ -47,10 +47,10 @@
             ],
             "description": "Shared components for our data hub services.",
             "support": {
-                "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/0.5",
+                "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/master",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2018-11-02T16:37:51+00:00"
+            "time": "2019-02-25T20:51:38+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
@@ -5177,6 +5177,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2018-04-11T04:50:36+00:00"
         },
         {
