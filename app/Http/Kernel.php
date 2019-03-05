@@ -21,6 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Aic\Hub\Foundation\Middleware\CORS::class,
         \Aic\Hub\Foundation\Middleware\ETagMiddleware::class,
+        \App\Http\Middleware\TrustProxies::class,
     ];
 
     /**
