@@ -216,7 +216,6 @@ class Artwork extends CollectionsTransformer
                 // TODO: Use automatic id so that we can create parity b/w web-basic and web-everything?
                 'citi_id' => $date->id,
                 'artwork_citi_id' => $datum->citi_id, // draw from the artwork record
-                'lake_guid' => $date->lake_guid,
                 'date_earliest' => Carbon::parse($date->date_earliest),
                 'date_latest' => Carbon::parse($date->date_latest),
                 'preferred' => $date->is_preferred,

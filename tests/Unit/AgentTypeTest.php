@@ -9,6 +9,4 @@ class AgentTypeTest extends ApiTestCase
 
     protected $model = AgentType::class;
 
-    protected $keys = ['lake_guid'];
-
 }

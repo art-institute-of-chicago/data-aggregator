@@ -9,6 +9,4 @@ class PlaceTest extends ApiTestCase
 
     protected $model = Place::class;
 
-    protected $keys = ['lake_guid'];
-
 }
