@@ -51,11 +51,6 @@ class Response
 
         $response = array_merge(
             $response,
-            $this->getAutocompleteWithTitle()
-        );
-
-        $response = array_merge(
-            $response,
             $this->aggregate()
         );
 

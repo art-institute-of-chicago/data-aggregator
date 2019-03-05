@@ -261,7 +261,7 @@ class Request
      *
      * @return array
      */
-    public function getSearchParams( $input = null, $withSuggestions = true, $withAggregations = true ) {
+    public function getSearchParams( $input = null, $withAggregations = true ) {
 
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput( $input );
@@ -326,13 +326,6 @@ class Request
 
         }
 
-        // If `q` is present, use it for search suggestions
-        if( isset( $input['q'] ) && $withSuggestions ) {
-
-            $params = $this->addSuggestParams( $params, $input );
-
-        }
-
         // Add Aggregations (facets)
         if( $withAggregations ) {
 
@@ -360,7 +353,7 @@ class Request
      */
     public function getExplainParams( $input = [] ) {
 
-        $params = $this->getSearchParams( $input, false, false );
+        $params = $this->getSearchParams( $input, false );
 
         $params['id'] = $this->id;
 
