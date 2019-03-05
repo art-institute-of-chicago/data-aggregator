@@ -36,21 +36,9 @@ if (!function_exists('idsAndTitle'))
     {
 
         $ret = [
-            'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
-            'source_indexed_at' => $faker->dateTimeThisYear,
         ];
 
-        if ($citiField)
-        {
-            $ret = array_merge(
-                $ret,
-                [
-                    'citi_created_at' => $faker->dateTimeThisYear,
-                    'citi_modified_at' => $faker->dateTimeThisYear,
-                ]
-            );
-        }
         return $ret;
 
     }
@@ -249,6 +237,8 @@ $factory->define(App\Models\Collections\Asset::class, function (Faker\Generator 
             'published' => $faker->boolean,
             'description' => $faker->paragraph(3),
             'alt_text' => $faker->paragraph(3),
+            'source_created_at' => $faker->dateTimeThisYear,
+            'source_indexed_at' => $faker->dateTimeThisYear,
         ],
         dates($faker)
     );

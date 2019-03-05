@@ -18,17 +18,4 @@ class CollectionsTransformer extends BaseTransformer
 
     }
 
-    protected function getDates( Datum $datum )
-    {
-
-        $dates = parent::getDates( $datum );
-
-        return array_merge( $dates, [
-            'source_indexed_at' => $datum->date('indexed_at'),
-            'citi_created_at' => $datum->date('citi_created_at'),
-            'citi_modified_at' => $datum->date('citi_modified_at'),
-        ]);
-
-    }
-
 }
