@@ -198,4 +198,17 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Proxy URL
+    |--------------------------------------------------------------------------
+    |
+    | This URL is used by the frontend to properly generate URLs when using
+    | the app behind a CDN or load balancer.
+    |
+    */
+
+    'proxy_url' => env('PROXY_URL', env('APP_URL', 'http://localhost')),
+    'proxy_scheme' => env('PROXY_SCHEME', 'http'),
+
 ];
