@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
+app('url')->forceRootUrl(config('app.proxy_url'));
+app('url')->forceScheme(config('app.proxy_scheme'));
+
 Route::any('/', function () {
     return redirect('/api/v1');
 });
