@@ -185,7 +185,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
         $doc .= "  },\n";
         $doc .= "  \"externalDocs\": {\n";
         $doc .= "    \"description\": \"See more documentation on our API here:\",\n";
-        $doc .= "    \"url\": \"http://www.github.com/art-insititute-of-chicago/data-aggregator\"\n";
+        $doc .= "    \"url\": \"https://www.github.com/art-institute-of-chicago/data-aggregator\"\n";
         $doc .= "  }\n";
         $doc .= "}\n";
 
