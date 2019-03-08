@@ -4600,6 +4600,6 @@
   },
   "externalDocs": {
     "description": "See more documentation on our API here:",
-    "url": "http://www.github.com/art-insititute-of-chicago/data-aggregator"
+    "url": "https://www.github.com/art-institute-of-chicago/data-aggregator"
   }
 }
