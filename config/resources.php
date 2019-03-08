@@ -49,6 +49,12 @@ return [
             'model' => \App\Models\Collections\AgentType::class,
             'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
         ],
+        //catalogues
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\Catalogue::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
         //categories
         [
             'source' => 'Collections',
@@ -61,11 +67,29 @@ return [
             'model' => \App\Models\Collections\Term::class,
             'transformer' => \App\Transformers\Inbound\Collections\Term::class,
         ],
-        //catalogues
+        //images
         [
             'source' => 'Collections',
-            'model' => \App\Models\Collections\Catalogue::class,
-            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+            'model' => \App\Models\Collections\Image::class,
+            'transformer' => \App\Transformers\Inbound\Collections\Asset::class,
+        ],
+        // sounds
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\Sound::class,
+            'transformer' => \App\Transformers\Inbound\Collections\Asset::class,
+        ],
+        // videos
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\Video::class,
+            'transformer' => \App\Transformers\Inbound\Collections\Asset::class,
+        ],
+        // texts
+        [
+            'source' => 'Collections',
+            'model' => \App\Models\Collections\Text::class,
+            'transformer' => \App\Transformers\Inbound\Collections\Asset::class,
         ],
     ],
 
