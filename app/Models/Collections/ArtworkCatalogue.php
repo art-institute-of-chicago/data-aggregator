@@ -9,14 +9,13 @@ class ArtworkCatalogue extends BasePivot
 
     protected static $source = 'Collections';
 
-    protected $primaryKey = 'citi_id';
-
     protected $casts = [
         'date_start' => 'datetime',
         'date_end' => 'datetime',
         'source_modified_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'preferred' => 'boolean',
     ];
 
     public function artwork()

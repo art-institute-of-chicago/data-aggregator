@@ -15,8 +15,6 @@ class Asset extends CollectionsTransformer
 
         return  [
             'lake_guid' => $datum->lake_guid,
-            'lake_uid' => $datum->lake_uid,
-            'citi_id' => $datum->citi_id,
         ];
 
     }

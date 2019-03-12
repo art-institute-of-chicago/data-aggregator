@@ -7,8 +7,6 @@ use App\Models\CollectionsModel;
 class ArtworkDate extends CollectionsModel
 {
 
-    protected $primaryKey = 'citi_id';
-
     protected $casts = [
         'date_earliest' => 'datetime',
         'date_latest' => 'datetime',

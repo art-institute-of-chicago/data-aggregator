@@ -11,9 +11,7 @@ class CollectionsTransformer extends BaseTransformer
     {
 
         return  [
-            'citi_id' => $datum->citi_id,
-            'lake_uid' => $datum->lake_uid,
-            'lake_guid' => $datum->lake_guid,
+            'citi_id' => $datum->id,
         ];
 
     }

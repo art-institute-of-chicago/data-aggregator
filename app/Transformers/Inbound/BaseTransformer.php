@@ -241,7 +241,7 @@ class BaseTransformer extends AbstractTransformer
 
         $pivots = collect( $datum->$pivot_field )->filter( function( $pivot ) use ( $id_field ) {
 
-            return (bool) $pivot->$id_field ?? false;
+            return (bool) ($pivot->$id_field ?? false);
 
         })->map( $mapping_fn );
 
