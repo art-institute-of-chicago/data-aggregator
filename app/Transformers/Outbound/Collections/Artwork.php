@@ -383,7 +383,6 @@ class Artwork extends BaseTransformer
             'gallery_title' => [
                 'doc' => 'The location of this work in our museum',
                 'type' => 'string',
-                'elasticsearch' => 'text',
                 'value' => function ($item) {
                     return $item->gallery->title ?? null;
                 },
@@ -741,7 +740,6 @@ class Artwork extends BaseTransformer
             'tour_titles' => [
                 'doc' => 'Names of the tours this work is a part of',
                 'type' => 'array',
-                'elasticsearch' => 'text',
                 'value' => function ($item) {
                     return $item->mobileArtwork && $item->mobileArtwork->tours ? $item->mobileArtwork->tours->pluck('title') ?? null : null; },
             ],
@@ -756,7 +754,6 @@ class Artwork extends BaseTransformer
             'section_titles' => [
                 'doc' => 'Names of the digital publication chapters this work is included in',
                 'type' => 'array',
-                'elasticsearch' => 'text',
                 'value' => function ($item) {
                     return $item->sections->pluck('title');
                 },
