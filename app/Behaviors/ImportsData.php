@@ -42,6 +42,13 @@ trait ImportsData
 
 
     /**
+     * Set to `true` to only import a single page.
+     *
+     * @var boolean
+     */
+    protected $isTest = false;
+
+    /**
      * Downloads a file and (optionally) runs a json decode on its contents.
      *
      * @TODO Use `curl` w/ shared handler & basic auth
@@ -175,14 +182,24 @@ trait ImportsData
         // Query for the first page + get page count
         $json = $this->query( $endpoint, $current );
 
-        // Assumes the dataservice has standardized pagination
-        $pages = $json->pagination->total_pages;
+        if ($this->isTest) {
 
-        // TODO: [ErrorException] Undefined property: stdClass::$pagination
-        // This happens when you're trying to hit an endpoint that doesn't exist
-        // Ensure dataservice can be reached before doing this!
+            $pages = 1;
 
-        $this->warn( 'Found ' . $pages . ' page(s) for model ' . $model );
+            $this->warn( 'Testing import of a single page for model ' . $model );
+
+        } else {
+
+            // Assumes the dataservice has standardized pagination
+            $pages = $json->pagination->total_pages;
+
+            // TODO: [ErrorException] Undefined property: stdClass::$pagination
+            // This happens when you're trying to hit an endpoint that doesn't exist
+            // Ensure dataservice can be reached before doing this!
+
+            $this->warn( 'Found ' . $pages . ' page(s) for model ' . $model );
+
+        }
 
         while( $current <= $pages )
         {

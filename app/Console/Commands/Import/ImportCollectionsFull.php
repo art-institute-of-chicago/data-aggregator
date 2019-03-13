@@ -10,13 +10,18 @@ class ImportCollectionsFull extends AbstractImportCommand
 
     protected $signature = 'import:collections-full
                             {endpoint? : Endpoint on dataservice to query, e.g. `object-types`}
-                            {page? : Page to begin importing from}';
+                            {page? : Page to begin importing from}
+                            {--test : Only import one page from each endpoint}';
 
     protected $description = "Import all collections data. If no options are passed all Collections data will be imported.";
 
 
     public function handle()
     {
+
+        if ($this->option('test')) {
+            $this->isTest = true;
+        }
 
         $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
 
