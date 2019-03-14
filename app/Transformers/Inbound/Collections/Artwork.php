@@ -4,18 +4,20 @@ namespace App\Transformers\Inbound\Collections;
 
 use Illuminate\Database\Eloquent\Model;
 
-use League\CommonMark\CommonMarkConverter;
-
 use App\Models\Collections\ArtworkDate;
 use App\Models\Collections\Gallery;
 
 use App\Transformers\Datum;
 use App\Transformers\Inbound\CollectionsTransformer;
 
+use App\Transformers\Traits\ConvertsToHtml;
+
 use Carbon\Carbon;
 
 class Artwork extends CollectionsTransformer
 {
+
+    use ConvertsToHtml;
 
     protected function getExtraFields( Datum $datum )
     {
@@ -71,21 +73,11 @@ class Artwork extends CollectionsTransformer
      * expect HTML output.
      *
      * This method is public for use in \App\Console\Commands\Update\UpdateAssets
-     *
-     * @TODO: Consider moving this higher up in the class hierarchy or to a helper?
      */
     public static function getDescription( $description )
     {
 
-        $converter = new CommonMarkConverter([
-            'renderer' => [
-                'soft_break' => '<br>',
-            ]
-        ]);
-
-        $description = $converter->convertToHtml($description);
-
-        return $description;
+        return $this->convertToHtml($description);
 
     }
 

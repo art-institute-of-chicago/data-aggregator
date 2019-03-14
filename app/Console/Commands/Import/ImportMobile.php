@@ -11,8 +11,11 @@ use App\Models\Mobile\Sound;
 use App\Models\Mobile\Tour;
 use App\Models\Mobile\TourStop;
 
+use App\Transformers\Traits\ConvertsToHtml;
+
 class ImportMobile extends AbstractImportCommand
 {
+    use ConvertsToHtml;
 
     protected $signature = 'import:mobile';
 
@@ -114,7 +117,7 @@ class ImportMobile extends AbstractImportCommand
             $sound->title = $datum->title;
 
             $sound->link = $datum->audio_file_url;
-            $sound->transcript = $datum->audio_transcript;
+            $sound->transcript = $this->convertToHtml($datum->audio_transcript);
 
             $sound->save();
 
@@ -141,8 +144,8 @@ class ImportMobile extends AbstractImportCommand
             $tour->title = $datum->title;
 
             $tour->image = $datum->image_url;
-            $tour->intro_text = $datum->intro;
-            $tour->description = $datum->description;
+            $tour->intro_text = $this->convertToHtml($datum->intro);
+            $tour->description = $this->convertToHtml($datum->description);
 
             $tour->intro()->associate( $datum->tour_audio );
 
@@ -169,13 +172,16 @@ class ImportMobile extends AbstractImportCommand
 
             $this->info("Importing tour stop [ {$tour->mobile_id} / {$datum->object} / {$datum->audio} ]");
 
-            $stop = new TourStop();
+            $id = cantorTuple( $tour->mobile_id, $datum->object, $datum->audio );
+
+            $stop = TourStop::findOrNew( $id );
+
+            $stop->id = $id;
+            $stop->weight = $datum->sort;
 
             $stop->tour()->associate( $tour->mobile_id );
             $stop->artwork()->associate( $datum->object );
             $stop->sound()->associate( $datum->audio );
-
-            $stop->weight = $datum->sort;
 
             $stop->save();
 

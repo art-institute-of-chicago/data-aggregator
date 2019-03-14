@@ -143,6 +143,9 @@ class Datum implements JsonSerializable
 
         if( is_string( $value ) )
         {
+            // Standardize on \n newlines
+            $value = str_replace(["\r\n", "\r"], "\n", $value);
+
             // If it's a string, trim before returning
             $value = trim( $value );
 
