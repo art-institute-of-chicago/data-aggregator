@@ -6,8 +6,12 @@ use App\Transformers\Outbound\Mobile\Sound as SoundTransformer;
 
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
+use App\Transformers\Traits\ConvertsToHtml;
+
 class TourStop extends BaseTransformer
 {
+
+    use ConvertsToHtml;
 
     protected function getFields()
     {
@@ -47,7 +51,7 @@ class TourStop extends BaseTransformer
                     'type' => 'text',
                 ],
                 'value' => function ($item) {
-                    return $item->sound->transcript ?? null;
+                    return $this->convertToHtml($item->sound->transcript ?? null);
                 },
             ],
 
