@@ -18,6 +18,29 @@ function ddd($variable)
     die(1);
 }
 
+
+/**
+ * Calculates the Cantor tuple function for variable length arguments.
+ * Accepts an unlimited amount of ids, each as its own argument.
+ *
+ * @author code-kobold (Ron Metten) (www.code-kobold.de)
+ * @link http://codetalk.code-kobold.de/cantor-tuple-function/
+ */
+function cantorTuple( ...$list )
+{
+    if (count($list) == 0) {
+        return null;
+    }
+
+    if (count($list) == 1) {
+        return $list[0];
+    }
+
+    $lastElement = array_pop($list);
+
+    return (0.5 * (cantorTuple(...$list) + $lastElement) * (cantorTuple(...$list) + $lastElement + 1) + $lastElement);
+}
+
 /**
  * Generate a unique ID based on a combination of two numbers.
  * @param  int   $x

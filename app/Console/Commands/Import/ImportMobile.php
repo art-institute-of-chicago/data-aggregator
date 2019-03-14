@@ -172,13 +172,16 @@ class ImportMobile extends AbstractImportCommand
 
             $this->info("Importing tour stop [ {$tour->mobile_id} / {$datum->object} / {$datum->audio} ]");
 
-            $stop = new TourStop();
+            $id = cantorTuple( $tour->mobile_id, $datum->object, $datum->audio );
+
+            $stop = TourStop::findOrNew( $id );
+
+            $stop->id = $id;
+            $stop->weight = $datum->sort;
 
             $stop->tour()->associate( $tour->mobile_id );
             $stop->artwork()->associate( $datum->object );
             $stop->sound()->associate( $datum->audio );
-
-            $stop->weight = $datum->sort;
 
             $stop->save();
 

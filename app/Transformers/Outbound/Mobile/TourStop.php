@@ -9,6 +9,7 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 class TourStop extends BaseTransformer
 {
 
+    protected $keyType = 'long';
 
     protected function getFields()
     {
