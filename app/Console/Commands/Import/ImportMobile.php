@@ -116,7 +116,7 @@ class ImportMobile extends AbstractImportCommand
             $sound->mobile_id = (int) $datum->nid;
             $sound->title = $datum->title;
 
-            $sound->link = $datum->audio_file_url;
+            $sound->link = env('MOBILE_AUDIO_CDN_URL') . array_slice(explode('/', $datum->audio_file_url), -1)[0];
             $sound->transcript = $this->convertToHtml($datum->audio_transcript);
 
             $sound->save();
