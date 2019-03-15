@@ -10,6 +10,17 @@ use App\Transformers\Inbound\CollectionsTransformer;
 class Asset extends CollectionsTransformer
 {
 
+    protected function getIds( Datum $datum )
+    {
+
+        return  [
+            'lake_guid' => $datum->lake_guid,
+            'lake_uid' => $datum->lake_uid,
+            'citi_id' => $datum->citi_id,
+        ];
+
+    }
+
     protected function getDates( Datum $datum )
     {
         $dates = parent::getDates( $datum );

@@ -81,12 +81,16 @@ abstract class AbstractImportCommand extends BaseCommand
     protected function save( $datum, $model, $transformer )
     {
 
-        $this->info("Importing #{$datum->id}" .(property_exists($datum, 'title') ? ": {$datum->title}" : ""));
+        $transformer = new $transformer();
+
+        // Use the id and title after they are transformed, not before!
+        $id = $transformer->getId($datum);
+
+        // TODO: Use transformed title
+        $this->info("Importing #{$id}" . (property_exists($datum, 'title') ? ": {$datum->title}" : ""));
 
         // Don't use findOrCreate here, since it can cause errors due to Searchable
-        $resource = $model::findOrNew( $datum->id );
-
-        $transformer = new $transformer();
+        $resource = $model::findOrNew( $id );
 
         // This will be true almost always, except for lists
         if ($transformer->shouldSave( $resource, $datum ))

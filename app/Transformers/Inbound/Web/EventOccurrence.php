@@ -14,7 +14,7 @@ class EventOccurrence extends WebTransformer
     {
 
         return [
-            // 'id' => $this->getId( $datum ),
+            // 'id' => $this->getCantorId( $datum ),
             'event_id' => $datum->id,
         ];
 
@@ -24,6 +24,7 @@ class EventOccurrence extends WebTransformer
     {
 
         return [
+            'event_id' => $datum->id,
             'start_at' => $datum->datetime('start_at'),
             'end_at' => $datum->datetime('end_at'),
             // TODO: Fix ellipsis issue upstream [WEB-507]
@@ -44,7 +45,7 @@ class EventOccurrence extends WebTransformer
      *
      * Not using this because it runs into PHP int-bound issues.
      */
-    private function getId( $datum )
+    private function getCantorId( $datum )
     {
         $timestamp = $datum->date('start_at'); // max one occurrence of a given master event per second
         $timestamp = $timestamp / 60; // max one occurrence per minute
