@@ -21,6 +21,27 @@ class TicketedEvent extends BaseTransformer
         return $ticketedEvent->event ? $this->item($ticketedEvent->event, new EventTransformer, false) : null;
     }
 
+    /**
+     * WEB-542: Give the `id` field an `id.text` subfield for default text search.
+     */
+    protected function getIds()
+    {
+        $fields = parent::getIds();
+
+        $fields['id']['elasticsearch'] = [
+            'mapping' => [
+                'type' => $this->keyType,
+                'fields' => [
+                    'text' => [
+                        'type' => 'text'
+                    ]
+                ],
+            ],
+        ];
+
+        return $fields;
+    }
+
     protected function getFields()
     {
         return [
