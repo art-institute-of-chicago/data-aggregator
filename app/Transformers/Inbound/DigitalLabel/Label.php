@@ -173,6 +173,9 @@ class Label extends DigitalLabelTransformer
                 'main_reference_number',
                 'artist_id',
             ],
+            'resources' => [
+                'artworks',
+            ],
             'query' => [
                 'prefix' => [
                     'main_reference_number' => $accession
