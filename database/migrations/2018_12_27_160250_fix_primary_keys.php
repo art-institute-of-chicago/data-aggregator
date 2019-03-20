@@ -27,14 +27,14 @@ class FixPrimaryKeys extends Migration
         });
 
         DB::statement('
-            INSERT INTO `artwork_catalogue_temp`
+            INSERT INTO `' . DB::getTablePrefix() . 'artwork_catalogue_temp`
             SELECT `citi_id`,
                 ANY_VALUE(`artwork_citi_id`),
                 ANY_VALUE(`catalogue_citi_id`),
                 ANY_VALUE(`number`),
                 ANY_VALUE(`state_edition`),
                 ANY_VALUE(`preferred`)
-            FROM `artwork_catalogue`
+            FROM `' . DB::getTablePrefix() . 'artwork_catalogue`
             GROUP BY `citi_id`
             ORDER BY `citi_id`
         ');
