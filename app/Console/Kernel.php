@@ -38,6 +38,11 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/scout-import-all-last-run.log'));
 
+        $schedule->command('search:audit')
+            ->dailyAt('05:00')
+            ->withoutOverlapping()
+            ->sendOutputTo(storage_path('logs/search-audit-last-run.log'));
+
         $schedule->command('import:monthly')
             ->monthlyOn(1, '03:00')
             ->withoutOverlapping()

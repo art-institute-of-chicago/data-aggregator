@@ -360,14 +360,16 @@ class Artwork extends BaseTransformer
                     }
                 },
             ],
-            'selector_number' => [
-                'doc' => 'The code that can be entered in our audioguides to learn more about this work',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->mobileArtwork->selector_number ?? null;
-                },
-            ],
+            // Currently unused by the mobile app. It is provided by the CMS.
+            // https://github.com/art-institute-of-chicago/aic-mobile-cms/blob/34d884a/sites/all/modules/custom/aicapp/aicapp.module#L1856-L1860
+            // 'selector_number' => [
+            //     'doc' => 'The code that can be entered in our audioguides to learn more about this work',
+            //     'type' => 'number',
+            //     'elasticsearch' => 'integer',
+            //     'value' => function ($item) {
+            //         return $item->mobileArtwork->selector_number ?? null;
+            //     },
+            // ],
             'is_on_view' => [
                 'doc' => 'Whether the work is on display',
                 'type' => 'boolean',
@@ -383,7 +385,6 @@ class Artwork extends BaseTransformer
             'gallery_title' => [
                 'doc' => 'The location of this work in our museum',
                 'type' => 'string',
-                'elasticsearch' => 'text',
                 'value' => function ($item) {
                     return $item->gallery->title ?? null;
                 },
@@ -730,21 +731,22 @@ class Artwork extends BaseTransformer
                     return array_pluck($item->texts(), 'lake_guid') ?? null;
                 },
             ],
-            'tour_stop_ids' => [
-                'doc' => 'Unique identifiers of the tour stops this work is included in',
-                'type' => 'array',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->mobileArtwork ? ( $item->mobileArtwork->stops->pluck('id') ) : [];
-                },
-            ],
-            'tour_titles' => [
-                'doc' => 'Names of the tours this work is a part of',
-                'type' => 'array',
-                'elasticsearch' => 'text',
-                'value' => function ($item) {
-                    return $item->mobileArtwork && $item->mobileArtwork->tours ? $item->mobileArtwork->tours->pluck('title') ?? null : null; },
-            ],
+            // Currently unused by the mobile app. Disabling until needed. Reindex required for long.
+            // 'tour_stop_ids' => [
+            //     'doc' => 'Unique identifiers of the tour stops this work is included in',
+            //     'type' => 'array',
+            //     'elasticsearch' => 'long',
+            //     'value' => function ($item) {
+            //         return $item->mobileArtwork ? ( $item->mobileArtwork->stops->pluck('id') ) : [];
+            //     },
+            // ],
+            // Currently unused by the mobile app. Disabling until needed.
+            // 'tour_titles' => [
+            //     'doc' => 'Names of the tours this work is a part of',
+            //     'type' => 'array',
+            //     'value' => function ($item) {
+            //         return $item->mobileArtwork && $item->mobileArtwork->tours ? $item->mobileArtwork->tours->pluck('title') ?? null : null; },
+            // ],
             'section_ids' => [
                 'doc' => 'Unique identifiers of the digital publication chaptes this work in included in',
                 'type' => 'array',
@@ -756,7 +758,6 @@ class Artwork extends BaseTransformer
             'section_titles' => [
                 'doc' => 'Names of the digital publication chapters this work is included in',
                 'type' => 'array',
-                'elasticsearch' => 'text',
                 'value' => function ($item) {
                     return $item->sections->pluck('title');
                 },

@@ -4,18 +4,20 @@ namespace App\Transformers\Inbound\Collections;
 
 use Illuminate\Database\Eloquent\Model;
 
-use League\CommonMark\CommonMarkConverter;
-
 use App\Models\Collections\ArtworkDate;
 use App\Models\Collections\Gallery;
 
 use App\Transformers\Datum;
 use App\Transformers\Inbound\CollectionsTransformer;
 
+use App\Transformers\Traits\ConvertsToHtml;
+
 use Carbon\Carbon;
 
 class Artwork extends CollectionsTransformer
 {
+
+    use ConvertsToHtml;
 
     protected function getExtraFields( Datum $datum )
     {
@@ -46,8 +48,6 @@ class Artwork extends CollectionsTransformer
 
         return [
 
-            'images'        => $this->getSyncImages( $datum ),
-            'documents'     => $this->getSyncDocuments( $datum ),
             'categories'    => $this->getSyncCategories( $datum ),
             'terms'         => $this->getSyncTerms( $datum ),
 
@@ -73,84 +73,11 @@ class Artwork extends CollectionsTransformer
      * expect HTML output.
      *
      * This method is public for use in \App\Console\Commands\Update\UpdateAssets
-     *
-     * @TODO: Consider moving this higher up in the class hierarchy or to a helper?
      */
     public static function getDescription( $description )
     {
 
-        $converter = new CommonMarkConverter([
-            'renderer' => [
-                'soft_break' => '<br>',
-            ]
-        ]);
-
-        $description = $converter->convertToHtml($description);
-
-        return $description;
-
-    }
-
-    /**
-     * Attach artwork images – both preferred, and alternative.
-     * Differentiate representations from documentation.
-     *
-     * @TODO: Shared logic w/ exhibitions - abstract?
-     */
-    private function getSyncImages( Datum $datum )
-    {
-
-        // Start building the image sync by adding alts first
-        $images = collect( $datum->alt_image_guids )->map( function( $image ) {
-            return [
-                $image => [
-                    'preferred' => false,
-                    'is_doc' => false,
-                ]
-            ];
-        });
-
-        // Add the preferred representation, if it's available
-        if ($datum->image_guid)
-        {
-
-            $images->push([
-                $datum->image_guid => [
-                    'preferred' => true,
-                    'is_doc' => false,
-                ]
-            ]);
-
-        }
-
-        // Collapse a collection of arrays into a single, flat collection
-        $images = $images->collapse();
-
-        return $images;
-
-    }
-
-    /**
-     * Get an artwork's documentary assets for syncing.
-     *
-     * @param \App\Transformers\Datum $datum
-     * @return array
-     */
-    private function getSyncDocuments( Datum $datum )
-    {
-
-        $documents = collect( $datum->document_ids )->map( function( $document ) {
-            return [
-                $document => [
-                    'preferred' => false,
-                    'is_doc' => true,
-                ]
-            ];
-        });
-
-        $documents = $documents->collapse();
-
-        return $documents;
+        return $this->convertToHtml($description);
 
     }
 

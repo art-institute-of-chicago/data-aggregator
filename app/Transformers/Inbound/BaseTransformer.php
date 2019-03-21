@@ -108,6 +108,22 @@ class BaseTransformer extends AbstractTransformer
     }
 
     /**
+     * Sometimes, the `id` with which we'll store a record here won't match the `id` that
+     * has been provided by the source system. When checking if a record already exists,
+     * we should use the `id` as it is after it has been transformed, not before.
+     *
+     * @TODO: Make `getIds` return only a single element?
+     *
+     * @param mixed $datum
+     */
+    public function getId( $datum )
+    {
+        $ids = $this->getIds($this->getDatum($datum));
+
+        return reset($ids);
+    }
+
+    /**
      * Overwrite this method in child transformers. It should return an array, wherein the keys are
      * names of relation methods on the model, and the values are things that the model's `sync`
      * method would accept as its first argument.

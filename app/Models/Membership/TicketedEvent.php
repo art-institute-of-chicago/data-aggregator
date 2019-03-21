@@ -55,7 +55,7 @@ class TicketedEvent extends MembershipModel
 
         $fields = $this->traitGetDefaultSearchFields();
 
-        return array_merge(['id^1.0'], $fields);
+        return array_merge(['id.text^1.0'], $fields);
 
     }
 }

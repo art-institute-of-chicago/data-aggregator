@@ -21,6 +21,7 @@
         "cviebrock/laravel-elasticsearch": "^2.0",
         "doctrine/dbal": "^2.6",
         "elasticsearch/elasticsearch": "^5.3",
+        "fideloper/proxy": "~4.0",
         "jsq/amazon-es-php": "^0.2.0",
         "laravel/framework": "5.6.*",
         "laravel/scout": "^4.0",
@@ -74,10 +75,10 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate"
         ],
-	"post-autoload-dump": [
+        "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
-	]
+        ]
     },
     "config": {
         "preferred-install": "dist",

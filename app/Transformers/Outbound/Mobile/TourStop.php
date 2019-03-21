@@ -9,25 +9,23 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 class TourStop extends BaseTransformer
 {
 
-    protected $availableIncludes = ['sound'];
-
-    protected $defaultIncludes = ['sound'];
-
-    public function includeSound($tourStop)
-    {
-        return $this->item($tourStop->sound, new SoundTransformer, false);
-    }
+    protected $keyType = 'long';
 
     protected function getFields()
     {
         return [
             // TODO: Determine if tour stops have dedicated titles?
             'title' => [
-                'doc' => 'Name of this tour stop – derived from the artwork title',
+                'doc' => 'Name of this tour stop – derived from the artwork and tour titles',
                 'type' => 'string',
-                'elasticsearch' => 'text',
+                'elasticsearch' => [
+                    'default' => true,
+                    'type' => 'text',
+                ],
                 'value' => function ($item) {
-                    return $item->artwork->title ?? null;
+                    $title = $item->artwork->title ?? null;
+                    $title .= ($item->tour->title ?? false) ? ' (' . $item->tour->title . ')' : null;
+                    return $title;
                 },
             ],
             'weight' => [
@@ -35,20 +33,43 @@ class TourStop extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
             ],
-            'artwork_title' => [
-                'doc' => 'Name of the artwork for this tour stop',
-                'type' => 'string',
-                'elasticsearch' => 'text',
+            'web_url' => [
+                'doc' => 'URL to the audio file for this tour stop',
+                'type' => 'url',
+                'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->artwork->title ?? null;
+                    return $item->sound->link ?? null;
                 },
             ],
+            'transcript' => [
+                'doc' => 'Text transcription of the audio file',
+                'type' => 'string',
+                'elasticsearch' => [
+                    'default' => true,
+                    'type' => 'text',
+                ],
+                'value' => function ($item) {
+                    return $item->sound->transcript ?? null;
+                },
+            ],
+
+            /**
+             * TODO: Refactor relationships:
+             */
             'artwork_id' => [
                 'doc' => 'Unique identifier of the artwork for this tour stop',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
                     return $item->artwork->artwork->citi_id ?? null;
+                },
+            ],
+            'artwork_title' => [
+                'doc' => 'Name of the artwork for this tour stop',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+                'value' => function ($item) {
+                    return $item->artwork->title ?? null;
                 },
             ],
             'tour_id' => [
@@ -59,20 +80,12 @@ class TourStop extends BaseTransformer
                     return $item->tour->mobile_id ?? null;
                 },
             ],
-            'mobile_sound' => [
-                'doc' => 'URL to the audio file for this tour stop',
-                'type' => 'url',
-                'elasticsearch' => 'keyword',
+            'tour_title' => [
+                'doc' => 'Name of the tour this stop is a part of',
+                'type' => 'string',
+                'elasticsearch' => 'text',
                 'value' => function ($item) {
-                    return $item->sound->link ?? null;
-                },
-            ],
-            'mobile_sound_id' => [
-                'doc' => 'Unique identifier of the audio file for this tour stop',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->sound->mobile_id ?? null;
+                    return $item->tour->title ?? null;
                 },
             ],
         ];

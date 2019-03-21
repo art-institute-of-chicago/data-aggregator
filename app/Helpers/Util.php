@@ -18,6 +18,29 @@ function ddd($variable)
     die(1);
 }
 
+
+/**
+ * Calculates the Cantor tuple function for variable length arguments.
+ * Accepts an unlimited amount of ids, each as its own argument.
+ *
+ * @author code-kobold (Ron Metten) (www.code-kobold.de)
+ * @link http://codetalk.code-kobold.de/cantor-tuple-function/
+ */
+function cantorTuple( ...$list )
+{
+    if (count($list) == 0) {
+        return null;
+    }
+
+    if (count($list) == 1) {
+        return $list[0];
+    }
+
+    $lastElement = array_pop($list);
+
+    return (0.5 * (cantorTuple(...$list) + $lastElement) * (cantorTuple(...$list) + $lastElement + 1) + $lastElement);
+}
+
 /**
  * Generate a unique ID based on a combination of two numbers.
  * @param  int   $x
@@ -61,9 +84,36 @@ function summation(array $array)
     return implode(', ', $array) . ', and ' . $last;
 }
 
+
 /**
  * TODO: Everything below this is unused. However, these methods could be useful in testing.
  */
+
+
+/**
+ * Splits an array into a given number of (approximately) equal-sized parts.
+ *
+ * @link http://www.php.net/manual/en/function.array-chunk.php#75022
+ *
+ * @param Array $list
+ * @param int $p
+ *
+ * @return multitype:multitype:
+ */
+function partition(Array $list, $p) {
+    $listlen = count($list);
+    $partlen = floor($listlen / $p);
+    $partrem = $listlen % $p;
+    $partition = array();
+    $mark = 0;
+    for($px = 0; $px < $p; $px ++) {
+        $incr = ($px < $partrem) ? $partlen + 1 : $partlen;
+        $partition[$px] = array_slice($list, $mark, $incr);
+        $mark += $incr;
+    }
+    return $partition;
+}
+
 
 function getLakeUri($lake_id)
 {

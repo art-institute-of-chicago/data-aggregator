@@ -92,6 +92,9 @@ class Request
 
         // Allow clients to turn boost off
         'boost',
+
+        // Allow clients to pass custom `function_score` functions
+        'functions',
     ];
 
     /**
@@ -202,7 +205,18 @@ class Request
                 return isset($value['function_score']);
             })->map( function( $item, $key ) {
                 return $item['function_score'];
-            });
+            })->all();
+
+            if (isset($input['functions']))
+            {
+                $customScoreFunctions = collect($input['functions'])->filter(function($value, $key) use ($resources) {
+                    return $resources->contains($key);
+                });
+
+                foreach ($customScoreFunctions as $resource => $function) {
+                    $this->functionScores[$resource]['custom'][] = $function;
+                }
+            }
 
             // Looks like we don't need to implode $indexes and $types
             // PHP Elasticsearch seems to do so for us
@@ -261,7 +275,7 @@ class Request
      *
      * @return array
      */
-    public function getSearchParams( $input = null, $withSuggestions = true, $withAggregations = true ) {
+    public function getSearchParams( $input = null, $withAggregations = true ) {
 
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput( $input );
@@ -326,13 +340,6 @@ class Request
 
         }
 
-        // If `q` is present, use it for search suggestions
-        if( isset( $input['q'] ) && $withSuggestions ) {
-
-            $params = $this->addSuggestParams( $params, $input );
-
-        }
-
         // Add Aggregations (facets)
         if( $withAggregations ) {
 
@@ -341,11 +348,7 @@ class Request
         }
 
         // Apply `function_score` (if any)
-        if ( $input['boost'] ) {
-
-            $params = $this->addFunctionScore( $params, $input );
-
-        }
+        $params = $this->addFunctionScore( $params, $input );
 
         return $params;
 
@@ -360,7 +363,7 @@ class Request
      */
     public function getExplainParams( $input = [] ) {
 
-        $params = $this->getSearchParams( $input, false, false );
+        $params = $this->getSearchParams( $input, false );
 
         $params['id'] = $this->id;
 
@@ -549,7 +552,7 @@ class Request
     public function addFunctionScore( $params, $input )
     {
 
-        if( $this->functionScores && $this->functionScores->count() < 1 || !isset( $this->resources ) )
+        if( empty($this->functionScores) || !isset( $this->resources ) )
         {
             return $params;
         }
@@ -565,20 +568,37 @@ class Request
         foreach( $this->resources as $resource ) {
 
             // Grab the functions for this resource
-            $rawFunctions = $this->functionScores->get($resource);
+            $rawFunctions = $this->functionScores[$resource] ?? null;
 
             // Move on if there are no functions declared for this model
-            if( !isset( $rawFunctions ) ) {
+            if (empty($rawFunctions))
+            {
                 $resourcesWithoutFunctions->push($resource);
                 continue;
             }
 
             // Start building the outbound function score array
-            $outFunctions = $rawFunctions['all'];
+            $outFunctions = [];
 
-            if( !isset( $input['q'] ) && isset( $rawFunctions['except_full_text'] ) )
+            if ($input['boost'])
             {
-                $outFunctions = array_merge( $outFunctions, $rawFunctions['except_full_text'] );
+                $outFunctions = array_merge($outFunctions, $rawFunctions['all']);
+            }
+
+            if ($input['boost'] && !isset($input['q']) && isset($rawFunctions['except_full_text']))
+            {
+                $outFunctions = array_merge($outFunctions, $rawFunctions['except_full_text'] );
+            }
+
+            if (isset($rawFunctions['custom']))
+            {
+                $outFunctions = array_merge($outFunctions, $rawFunctions['custom']);
+            }
+
+            if (empty($outFunctions))
+            {
+                $resourcesWithoutFunctions->push($resource);
+                continue;
             }
 
             // Build our function score query
@@ -586,7 +606,7 @@ class Request
                 'function_score' => [
                     'query' => $baseQuery,
                     'functions' => $outFunctions,
-                    'score_mode' => 'max',
+                    'score_mode' => 'max', // TODO: Consider making this an option?
                     'boost_mode' => 'multiply',
                 ]
             ];

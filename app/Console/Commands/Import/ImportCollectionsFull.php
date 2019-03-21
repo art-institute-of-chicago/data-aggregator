@@ -113,7 +113,7 @@ class ImportCollectionsFull extends AbstractImportCommand
 
             $n++;
 
-            $chunked_ids = self::partition( $ids, $n );
+            $chunked_ids = partition( $ids, $n );
 
             $urls = array_map( function( $ids ) use ($endpoint) {
 
@@ -131,30 +131,6 @@ class ImportCollectionsFull extends AbstractImportCommand
 
         return $urls;
 
-    }
-
-    /**
-     * Splits an array into a given number of (approximately) equal-sized parts.
-     *
-     * @link http://www.php.net/manual/en/function.array-chunk.php#75022
-     *
-     * @param Array $list
-     * @param int $p
-     *
-     * @return multitype:multitype:
-     */
-    private static function partition(Array $list, $p) {
-        $listlen = count($list);
-        $partlen = floor($listlen / $p);
-        $partrem = $listlen % $p;
-        $partition = array();
-        $mark = 0;
-        for($px = 0; $px < $p; $px ++) {
-            $incr = ($px < $partrem) ? $partlen + 1 : $partlen;
-            $partition[$px] = array_slice($list, $mark, $incr);
-            $mark += $incr;
-        }
-        return $partition;
     }
 
     /**

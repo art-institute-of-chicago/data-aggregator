@@ -29,6 +29,7 @@ class Asset extends CollectionsModel
         'is_multimedia_resource' => 'boolean',
         'is_educational_resource' => 'boolean',
         'is_teacher_resource' => 'boolean',
+        'content_modified_at' => 'datetime',
     ];
 
     protected $touches = [
@@ -40,9 +41,49 @@ class Asset extends CollectionsModel
     public function artworks()
     {
 
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_lake_guid');
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_lake_guid')
+            ->withPivot('preferred')
+            ->withPivot('is_doc');
 
     }
+
+    public function exhibitions()
+    {
+
+        return $this->belongsToMany('App\Models\Collections\Exhibition', 'exhibition_asset', 'asset_lake_guid')
+            ->withPivot('preferred')
+            ->withPivot('is_doc');
+
+    }
+
+    public function imagedArtworks()
+    {
+
+        return $this->artworks()->wherePivot('is_doc', '=', false);
+
+    }
+
+    public function documentedArtworks()
+    {
+
+        return $this->artworks()->wherePivot('is_doc', '=', true);
+
+    }
+
+    public function imagedExhibitions()
+    {
+
+        return $this->exhibitions()->wherePivot('is_doc', '=', false);
+
+    }
+
+    public function documentedExhibitions()
+    {
+
+        return $this->exhibitions()->wherePivot('is_doc', '=', true);
+
+    }
+
 
     /**
      * Filters the `assets` table by `type` to match `$assetType` of the model.
