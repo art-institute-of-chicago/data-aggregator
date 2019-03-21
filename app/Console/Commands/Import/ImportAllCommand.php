@@ -15,8 +15,9 @@ class ImportAllCommand extends BaseCommand
     public function handle()
     {
 
-        $this->call('db:reset'); // Add --yes flag?
-        $this->call('migrate');
+        // TODO: This causes issues with writing to the `commands` table!
+        // $this->call('db:reset'); // Add --yes flag?
+        // $this->call('migrate');
         $this->call('import:collections-full');
         $this->call('import:events-ticketed-full', ['--yes' => 'default']);
         $this->call('import:dsc', ['--yes' => 'default', '-v' => 'default']);
