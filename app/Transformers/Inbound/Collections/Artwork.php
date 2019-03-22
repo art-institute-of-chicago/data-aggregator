@@ -26,7 +26,7 @@ class Artwork extends CollectionsTransformer
         $copyright_notice = is_array( $datum->copyright ) ? $datum->copyright[0] : $datum->copyright;
 
         // Standarize HTML/non-HTML descriptions
-        $description = self::getDescription( $datum->description );
+        $description = $this->convertToHtml( $datum->description );
 
         return [
             'description' => $description,
@@ -64,20 +64,6 @@ class Artwork extends CollectionsTransformer
     {
 
         $this->syncDates( $instance, $datum );
-
-    }
-
-    /**
-     * This function takes a field that may or may not be HTML, and converts it to HTML
-     * using CommonMark rules. Use for standardizing mixed-format fields for places that
-     * expect HTML output.
-     *
-     * This method is public for use in \App\Console\Commands\Update\UpdateAssets
-     */
-    public static function getDescription( $description )
-    {
-
-        return $this->convertToHtml($description);
 
     }
 
