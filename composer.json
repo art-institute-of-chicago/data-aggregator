@@ -23,7 +23,7 @@
         "elasticsearch/elasticsearch": "^5.3",
         "fideloper/proxy": "~4.0",
         "jsq/amazon-es-php": "^0.2.0",
-        "laravel/framework": "5.6.*",
+        "laravel/framework": "5.7.*",
         "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
         "league/commonmark": "^0.17.5",
@@ -35,7 +35,7 @@
         "zendframework/zend-code": "^3.2"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.1",
+        "barryvdh/laravel-debugbar": "^3.2",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "itsgoingd/clockwork": "^2.1",

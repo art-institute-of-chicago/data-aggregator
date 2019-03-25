@@ -211,6 +211,7 @@ return [
             'is_searchable' => true,
         ],
         [
+            'endpoint' => 'mobile-sounds',
             'model' => \App\Models\Mobile\Sound::class,
             'transformer' =>\App\Transformers\Outbound\Mobile\Sound::class,
         ],
