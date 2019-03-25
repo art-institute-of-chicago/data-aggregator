@@ -13,6 +13,8 @@ use App\Transformers\Outbound\HasSuggestFields;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
+use Illuminate\Support\Arr;
+
 class Artwork extends BaseTransformer
 {
 
@@ -447,7 +449,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return array_pluck($item->altArtists, 'citi_id');
+                    return Arr::pluck($item->altArtists, 'citi_id');
                 },
             ],
             'artist_ids' => [
@@ -527,7 +529,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->altStyles, 'lake_uid');
+                    return Arr::pluck($item->altStyles, 'lake_uid');
                 },
             ],
             'style_ids' => [
@@ -535,14 +537,14 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->styles, 'lake_uid');
+                    return Arr::pluck($item->styles, 'lake_uid');
                 },
             ],
             'style_titles' => [
                 'doc' => 'The names of all style terms related to this artwork',
                 'type' => 'array',
                 'value' => function ($item) {
-                    return array_pluck($item->styles, 'title');
+                    return Arr::pluck($item->styles, 'title');
                 },
             ],
             'classification_id' => [
@@ -565,7 +567,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->altClassifications, 'lake_uid');
+                    return Arr::pluck($item->altClassifications, 'lake_uid');
                 },
             ],
             'classification_ids' => [
@@ -573,14 +575,14 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->classifications, 'lake_uid');
+                    return Arr::pluck($item->classifications, 'lake_uid');
                 },
             ],
             'classification_titles' => [
                 'doc' => 'The names of all classification terms related to this artwork',
                 'type' => 'array',
                 'value' => function ($item) {
-                    return array_pluck($item->classifications, 'title');
+                    return Arr::pluck($item->classifications, 'title');
                 },
             ],
             'subject_id' => [
@@ -596,7 +598,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->altSubjects, 'lake_uid');
+                    return Arr::pluck($item->altSubjects, 'lake_uid');
                 },
             ],
             'subject_ids' => [
@@ -604,14 +606,14 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->subjects, 'lake_uid');
+                    return Arr::pluck($item->subjects, 'lake_uid');
                 },
             ],
             'subject_titles' => [
                 'doc' => 'The names of all subject terms related to this artwork',
                 'type' => 'array',
                 'value' => function ($item) {
-                    return array_pluck($item->subjects, 'title');
+                    return Arr::pluck($item->subjects, 'title');
                 },
             ],
             'material_id' => [
@@ -627,7 +629,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->altMaterials, 'lake_uid');
+                    return Arr::pluck($item->altMaterials, 'lake_uid');
                 },
             ],
             'material_ids' => [
@@ -635,14 +637,14 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->materials, 'lake_uid');
+                    return Arr::pluck($item->materials, 'lake_uid');
                 },
             ],
             'material_titles' => [
                 'doc' => 'The names of all material terms related to this artwork',
                 'type' => 'array',
                 'value' => function ($item) {
-                    return array_pluck($item->materials, 'title');
+                    return Arr::pluck($item->materials, 'title');
                 },
             ],
             'technique_id' => [
@@ -658,7 +660,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->altTechniques, 'lake_uid');
+                    return Arr::pluck($item->altTechniques, 'lake_uid');
                 },
             ],
             'technique_ids' => [
@@ -666,14 +668,14 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->techniques, 'lake_uid');
+                    return Arr::pluck($item->techniques, 'lake_uid');
                 },
             ],
             'technique_titles' => [
                 'doc' => 'The names of all technique terms related to this artwork',
                 'type' => 'array',
                 'value' => function ($item) {
-                    return array_pluck($item->techniques, 'title');
+                    return Arr::pluck($item->techniques, 'title');
                 },
             ],
             'theme_titles' => [
@@ -696,7 +698,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->altImages, 'lake_guid');
+                    return Arr::pluck($item->altImages, 'lake_guid');
                 },
             ],
             'document_ids' => [
@@ -712,7 +714,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->sounds(), 'lake_guid') ?? null;
+                    return Arr::pluck($item->sounds(), 'lake_guid') ?? null;
                 },
             ],
             'video_ids' => [
@@ -720,7 +722,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->videos(), 'lake_guid') ?? null;
+                    return Arr::pluck($item->videos(), 'lake_guid') ?? null;
                 },
             ],
             'text_ids' => [
@@ -728,7 +730,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return array_pluck($item->texts(), 'lake_guid') ?? null;
+                    return Arr::pluck($item->texts(), 'lake_guid') ?? null;
                 },
             ],
             // Currently unused by the mobile app. Disabling until needed. Reindex required for long.

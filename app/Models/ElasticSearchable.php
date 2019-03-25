@@ -6,6 +6,8 @@ use Laravel\Scout\Searchable;
 
 use Carbon\Carbon;
 
+use Illuminate\Support\Str;
+
 trait ElasticSearchable
 {
 
@@ -64,7 +66,7 @@ trait ElasticSearchable
 
         $calledClass = get_called_class();
 
-        return kebab_case( array_slice( explode('\\', $calledClass), -2, 1)[0] );
+        return Str::kebab( array_slice( explode('\\', $calledClass), -2, 1)[0] );
 
     }
 

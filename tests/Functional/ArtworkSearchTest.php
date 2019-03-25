@@ -4,6 +4,8 @@ namespace Tests\Functional;
 
 use Tests\TestCase;
 
+use Illuminate\Support\Arr;
+
 class ArtworkSearchTest extends TestCase
 {
 
@@ -32,7 +34,7 @@ class ArtworkSearchTest extends TestCase
         $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') .'/artworks/search?limit=' .$inTheTop .'&q=' .urlencode($query));
 
         $resources = array_slice(json_decode($response)->data, 0, $inTheTop);
-        $ids = array_pluck($resources, 'id');
+        $ids = Arr::pluck($resources, 'id');
         $this->assertArrayContainsArray($expectToSee, $ids);
 
     }

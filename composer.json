@@ -23,7 +23,7 @@
         "elasticsearch/elasticsearch": "^5.3",
         "fideloper/proxy": "~4.0",
         "jsq/amazon-es-php": "^0.2.0",
-        "laravel/framework": "5.7.*",
+        "laravel/framework": "5.8.*",
         "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
         "league/commonmark": "^0.17.5",
@@ -31,7 +31,7 @@
         "league/fractal": "^0.16.0",
         "marijnvdwerf/material-palette": "^1.2",
         "marktopper/doctrine-dbal-timestamp-type": "^1.0",
-        "sentry/sentry-laravel": "^0.10.0",
+        "sentry/sentry-laravel": "^1.0",
         "zendframework/zend-code": "^3.2"
     },
     "require-dev": {

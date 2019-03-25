@@ -10,6 +10,8 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 use App\Behaviors\ImportsData;
 
+use Illuminate\Support\Str;
+
 abstract class AbstractImportCommand extends BaseCommand
 {
 
@@ -49,7 +51,7 @@ abstract class AbstractImportCommand extends BaseCommand
         $name = $this->getName();
 
         // Make `-full` commands share last-update time w/ their partial versions
-        $name = ends_with( $name, '-full' ) ? substr( $name, 0, -5 ) : $name;
+        $name = Str::endsWith( $name, '-full' ) ? substr( $name, 0, -5 ) : $name;
 
         // TODO: Track import success on a per-resource basis, rather than per-command?
         $this->command = \App\Command::firstOrNew(['command' => $name]);

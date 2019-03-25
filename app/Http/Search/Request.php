@@ -4,6 +4,7 @@ namespace App\Http\Search;
 
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Input;
 
 class Request
@@ -228,7 +229,7 @@ class Request
         return [
             'index' => $indexes,
             'type' => $types ?? null,
-            'preference' => array_get( $input, 'preference' ),
+            'preference' => Arr::get( $input, 'preference' ),
         ];
 
     }
@@ -245,7 +246,7 @@ class Request
         $input = self::getValidInput($requestArgs);
 
         // TODO: Handle case where no `q` param is present?
-        if( is_null( array_get( $input, 'q' ) ) ) {
+        if( is_null( Arr::get( $input, 'q' ) ) ) {
             return [];
         }
 
@@ -769,7 +770,7 @@ class Request
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
         $params['body']['query']['bool']['must'][] = [
-            array_get( $input, 'query' ),
+            Arr::get( $input, 'query' ),
         ];
 
         return $params;
@@ -792,7 +793,7 @@ class Request
     {
 
         $params['body']['suggest'] = [
-            'text' => array_get( $input, 'q' ),
+            'text' => Arr::get( $input, 'q' ),
         ];
 
         $params = $this->addAutocompleteSuggestParams( $params, $input, $requestArgs );
@@ -824,7 +825,7 @@ class Request
         }
 
         $params['body']['suggest']['autocomplete'] = [
-            'prefix' =>  array_get( $input, 'q' ),
+            'prefix' =>  Arr::get( $input, 'q' ),
             'completion' => [
                 'field' => $field,
                 'fuzzy' => [

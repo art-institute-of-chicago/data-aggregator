@@ -10,7 +10,7 @@ class TourTest extends ApiTestCase
 
     protected $model = Tour::class;
 
-    public function setUp()
+    protected function setUp(): void
     {
 
         parent::setUp();

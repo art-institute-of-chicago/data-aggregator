@@ -30,7 +30,7 @@ class ExhibitionTest extends ApiTestCase
         'aic_end_at',
     ];
 
-    public function setUp()
+    protected function setUp(): void
     {
 
         parent::setUp();

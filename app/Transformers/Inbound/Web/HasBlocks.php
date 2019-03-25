@@ -2,6 +2,7 @@
 
 namespace App\Transformers\Inbound\Web;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 use App\Transformers\Datum;
@@ -33,7 +34,7 @@ trait HasBlocks
         $field = $datum->copy ?? $datum->content ?? [];
 
         // Ensure blocks are sorted by their position
-        $blocks = array_sort( $field, function( $block ) {
+        $blocks = Arr::sort( $field, function( $block ) {
             return $block->position;
         });
 

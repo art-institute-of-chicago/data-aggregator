@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+
 trait HasRelationships
 {
 
@@ -25,14 +28,14 @@ trait HasRelationships
         foreach ($this->{$resource .'Pivots'} as $pivot)
         {
 
-            $key = $pivot->{$resource}()->getForeignKey();
+            $key = $pivot->{$resource}()->getForeignKeyName();
             if (in_array($pivot->{$key}, $resources_ids))
             {
 
                 if ($pivot->preferred)
                 {
 
-                    return head(array_where($resources, function ($value) use ($pivot, $key) {
+                    return head(Arr::where($resources, function ($value) use ($pivot, $key) {
                         return $value->getKey() == $pivot->{$key};
                     }));
 
@@ -67,14 +70,14 @@ trait HasRelationships
         foreach ($this->{$resource .'Pivots'} as $pivot)
         {
 
-            $key = $pivot->{$resource}()->getForeignKey();
+            $key = $pivot->{$resource}()->getForeignKeyName();
             if (in_array($pivot->{$key}, $resources_ids))
             {
 
                 if (!$pivot->preferred)
                 {
 
-                    $ret[] = head(array_where($resources, function ($value) use ($pivot, $key) {
+                    $ret[] = head(Arr::where($resources, function ($value) use ($pivot, $key) {
                         return $value->getKey() == $pivot->{$key};
                     }));
 
@@ -105,16 +108,16 @@ trait HasRelationships
 
         }
 
-        $this->loadMissing(str_plural($resource));
+        $this->loadMissing(Str::plural($resource));
 
         if (!$type)
         {
-            return $this->{str_plural($resource)}->all();
+            return $this->{Str::plural($resource)}->all();
         }
 
         // Loop through all the resources, and return just the ones of the specified type
         $ret = [];
-        foreach ($this->{str_plural($resource)} as $res)
+        foreach ($this->{Str::plural($resource)} as $res)
         {
 
             if ($res->{$typeField} == $type)
@@ -137,7 +140,7 @@ trait HasRelationships
         {
 
             $key = head($resources)->getKeyName();
-            return array_pluck($resources, $key);
+            return Arr::pluck($resources, $key);
 
         }
 

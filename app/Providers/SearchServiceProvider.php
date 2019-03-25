@@ -7,6 +7,7 @@ use Laravel\Scout\EngineManager;
 // use ScoutEngines\Elasticsearch\ElasticsearchEngine;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 // TODO: Remove this after we're ready to handle exceptions
 use App\ElasticsearchEngine;
@@ -260,7 +261,7 @@ class SearchServiceProvider extends ServiceProvider
                     ];
 
                     // ex. `searchScopeGalleries` for `galleries` endpoint in model `Place`
-                    $searchScopeMethod = 'searchScope' . studly_case( $endpoint );
+                    $searchScopeMethod = 'searchScope' . Str::studly( $endpoint );
 
                     if( method_exists( $model, $searchScopeMethod ) )
                     {
@@ -272,7 +273,7 @@ class SearchServiceProvider extends ServiceProvider
                     }
 
                     // ex. `searchBoostArtworks` for `artworks` endpoint boosts `is_on_view`
-                    $searchBoostMethod = 'searchBoost' . studly_case( $endpoint );
+                    $searchBoostMethod = 'searchBoost' . Str::studly( $endpoint );
 
                     if( method_exists( $model, $searchBoostMethod ) )
                     {
@@ -284,7 +285,7 @@ class SearchServiceProvider extends ServiceProvider
                     }
 
                     // ex. `searchFunctionScoreArtworks` for `artworks` endpoint applies `pageviews` and `boost_rank`
-                    $searchFunctionScoreMethod = 'searchFunctionScore' . studly_case( $endpoint );
+                    $searchFunctionScoreMethod = 'searchFunctionScore' . Str::studly( $endpoint );
 
                     if( method_exists( $model, $searchFunctionScoreMethod ) )
                     {

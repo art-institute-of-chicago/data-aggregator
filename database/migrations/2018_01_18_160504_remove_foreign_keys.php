@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -22,7 +23,7 @@ class RemoveForeignKeys extends Migration
         foreach( $tables as $table_name )
         {
 
-            if (!empty($table_prefix) && !starts_with($table_name, $table_prefix))
+            if (!empty($table_prefix) && !Str::startsWith($table_name, $table_prefix))
             {
                 continue;
             }

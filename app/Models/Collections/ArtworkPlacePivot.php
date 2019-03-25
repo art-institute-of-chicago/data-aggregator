@@ -7,6 +7,8 @@ use App\Models\AbstractPivot as BasePivot;
 class ArtworkPlacePivot extends BasePivot
 {
 
+    public $incrementing = true;
+
     protected $table = 'artwork_place';
 
     protected $casts = [

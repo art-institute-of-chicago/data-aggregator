@@ -4,6 +4,8 @@ namespace App\Console\Commands\Prototype;
 
 use App\Models\Collections\Artwork;
 
+use Illuminate\Support\Arr;
+
 class PrototypeMostSimilarCombo extends PrototypeMostSimilar
 {
     /**
@@ -28,10 +30,10 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
         $date_end = $this->dateEnd($artw->date_start);
 
         $query = [
-            $this->basicQueryBoosted('artist_ids', array_pluck($artw->artists, 'citi_id'), 5),
-            $this->basicQueryBoosted('style_ids', array_pluck($artw->styles, 'lake_uid'), 1),
-            // $this->basicQueryBoosted('subject_ids', array_pluck($artw->subjects, 'lake_uid'), 5),
-            $this->basicQueryBoosted('classification_ids', array_pluck($artw->classifications, 'lake_uid'), 1),
+            $this->basicQueryBoosted('artist_ids', Arr::pluck($artw->artists, 'citi_id'), 5),
+            $this->basicQueryBoosted('style_ids', Arr::pluck($artw->styles, 'lake_uid'), 1),
+            // $this->basicQueryBoosted('subject_ids', Arr::pluck($artw->subjects, 'lake_uid'), 5),
+            $this->basicQueryBoosted('classification_ids', Arr::pluck($artw->classifications, 'lake_uid'), 1),
         ];
 
         $dateQuery = $this->dateQuery($date_start, $date_end);

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -21,7 +22,7 @@ class SignCitiIds extends Migration
         foreach( $tables as $table_name )
         {
 
-            if (!empty($table_prefix) && !starts_with($table_name, $table_prefix))
+            if (!empty($table_prefix) && !Str::startsWith($table_name, $table_prefix))
             {
                 continue;
             }
@@ -37,7 +38,7 @@ class SignCitiIds extends Migration
 
                 foreach( Schema::getColumnListing($table_name) as $column )
                 {
-                    if( ends_with($column, 'citi_id') )
+                    if( Str::endsWith($column, 'citi_id') )
                     {
                         $table->integer($column)->signed()->change();
 

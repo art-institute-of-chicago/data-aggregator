@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Zend\Code\Reflection\ClassReflection;
 
+use Illuminate\Support\Str;
+
 trait Documentable
 {
 
@@ -81,7 +83,7 @@ trait Documentable
 
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
-        return '## ' .str_replace('-', ' ', title_case( $endpoint ) );
+        return '## ' .str_replace('-', ' ', Str::title( $endpoint ) );
 
     }
 
@@ -232,7 +234,7 @@ trait Documentable
 
         $endpointAsCopyText = $this->_endpointAsCopyText($endpoint);
 
-        $doc = "A single " .str_singular($endpointAsCopyText) ." by the given identifier.";
+        $doc = "A single " .Str::singular($endpointAsCopyText) ." by the given identifier.";
 
         if (static::$source == 'Collections')
         {
@@ -470,7 +472,7 @@ trait Documentable
             $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         }
 
-        return strtolower( title_case( $endpoint ) );
+        return strtolower( Str::title( $endpoint ) );
 
     }
 

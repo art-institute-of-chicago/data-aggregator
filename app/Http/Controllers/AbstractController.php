@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Input;
 use Closure;
 
@@ -68,7 +69,7 @@ abstract class AbstractController extends BaseController
         // Allows for camel, snake, and kebab cases
         foreach($values as &$value)
         {
-            $value = snake_case(camel_case($value));
+            $value = Str::snake(Str::camel($value));
         }
 
         $this->fractal->$method($values);

@@ -10,7 +10,7 @@ class SectionTest extends ApiTestCase
 
     protected $model = Section::class;
 
-    public function setUp()
+    protected function setUp(): void
     {
 
         parent::setUp();
