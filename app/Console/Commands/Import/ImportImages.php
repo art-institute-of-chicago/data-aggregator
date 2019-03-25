@@ -7,7 +7,8 @@ use App\Models\Collections\Image;
 class ImportImages extends AbstractImportCommand
 {
 
-    protected $signature = 'import:images';
+    protected $signature = 'import:images
+                            {page? : Page to begin importing from}';
 
     protected $description = "Import all image data from data-service-images";
 
@@ -17,7 +18,7 @@ class ImportImages extends AbstractImportCommand
 
         $this->api = env('IMAGES_DATA_SERVICE_URL');
 
-        $this->import( null, Image::class, 'images' );
+        $this->import( null, Image::class, 'images', $this->argument('page') ?: 1 );
 
     }
 
