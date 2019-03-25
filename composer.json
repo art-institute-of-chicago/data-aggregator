@@ -28,6 +28,7 @@
         "fideloper/proxy": "~4.0",
         "jsq/amazon-es-php": "dev-master",
         "laravel/framework": "5.8.*",
+        "laravel/passport": "^7.2",
         "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
         "league/commonmark": "^0.17.5",
