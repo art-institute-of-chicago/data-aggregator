@@ -33,7 +33,7 @@ class SearchAudit extends BaseCommand
 
             $sentry = app('sentry');
             $sentry->extra_context(['console.output' => $output]);
-            throw new \Exception("Search index and database are out fo sync");
+            throw new \Exception("Search index and database are out of sync");
         }
 
     }
@@ -70,7 +70,7 @@ class SearchAudit extends BaseCommand
             'type' => app('Search')->getTypeForModel( $model ),
             'size' => 1,
             'body' => [
-                'sort' => 'timestamp',
+                'sort' => 'last_updated',
             ],
         ]);
 
