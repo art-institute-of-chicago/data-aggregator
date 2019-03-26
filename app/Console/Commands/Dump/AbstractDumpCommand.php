@@ -39,7 +39,6 @@ abstract class AbstractDumpCommand extends BaseCommand
         'artwork_term',
         'artwork_types',
         'artworks',
-        'asset_category',
         'assets',
         'catalogues',
         'category_place',
