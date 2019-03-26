@@ -1,3 +1,7 @@
+@extends('layout')
+
+@section('content')
+
 <example-component></example-component>
 hello
 <passport-clients></passport-clients>
@@ -6,3 +10,5 @@ yea
 saturday
 <passport-personal-access-tokens></passport-personal-access-tokens>
 bye
+
+@endsection
