@@ -12,3 +12,6 @@ npm-debug.log
 !.env.*example
 /storage/clockwork
 Envoy.blade.php
+
+/public/js
+/public/css
