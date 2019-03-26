@@ -4,45 +4,122 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Merging config with DefaultConfigServiceProvider
+    | Application Name
     |--------------------------------------------------------------------------
     |
-    | Check Aic\Hub\Foundation\DefaultConfigServiceProvider for more info on
-    | how config merging is meant to work.
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
     |
     */
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
-    | Application Version
+    | Application Environment
     |--------------------------------------------------------------------------
     |
-    | This value is the version of your application. This value is used when
-    | the framework needs to place the application's version in a notification
-    | or any other location as required by the application or its packages.
+    | This value determines the "environment" your application is currently
+    | running in. This may determine how you prefer to configure various
+    | services the application utilizes. Set this in your ".env" file.
+    |
     */
-    'version' => '1.0-beta16',
-
+    'env' => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
-    | Configuration Documentation
+    | Application Debug Mode
     |--------------------------------------------------------------------------
     |
-    | An array of key-value pairs that will be output at the bottom of each
-    | call to the API. This is useful to convey things like URLs to other
-    | systems the returned data relies on to function. For example, if one of
-    | the fields is `image` and the file name needs to be retrieved from a
-    | particular server, you can document the server here.
+    | When your application is in debug mode, detailed error messages with
+    | stack traces will be shown on every error that occurs within your
+    | application. If disabled, a simple generic error page is shown.
+    |
+    */
+    'debug' => env('APP_DEBUG', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application URL
+    |--------------------------------------------------------------------------
+    |
+    | This URL is used by the console to properly generate URLs when using
+    | the Artisan command line tool. You should set this to the root of
+    | your application so that it is used when running Artisan tasks.
+    |
     */
 
-    'config_documentation' => [
-        'lake_url' => env('LAKE_URL', null),
-        'iiif_url' => env('IIIF_URL', null),
-        'shop_image_url' => env('SHOP_IMGIX_URL', null),
-        'shop_product_url' => env('PRODUCT_URL', null),
-        'shop_category_url' => env('PRODUCT_URL', null),
-    ],
+    'url' => env('APP_URL', 'http://localhost'),
+
+    'asset_url' => env('ASSET_URL', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Timezone
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the default timezone for your application, which
+    | will be used by the PHP date and date-time functions. We have gone
+    | ahead and set this to a sensible default for you out of the box.
+    |
+    */
+
+    'timezone' => 'America/Chicago',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Locale Configuration
+    |--------------------------------------------------------------------------
+    |
+    | The application locale determines the default locale that will be used
+    | by the translation service provider. You are free to set this value
+    | to any of the locales which will be supported by the application.
+    |
+    */
+
+    'locale' => 'en',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Fallback Locale
+    |--------------------------------------------------------------------------
+    |
+    | The fallback locale determines the locale to use when the current one
+    | is not available. You may change the value to correspond to any of
+    | the language folders that are provided through your application.
+    |
+    */
+
+    'fallback_locale' => 'en',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Faker Locale
+    |--------------------------------------------------------------------------
+    |
+    | This locale will be used by the Faker PHP library when generating fake
+    | data for your database seeds. For example, this will be used to get
+    | localized telephone numbers, street address information and more.
+    |
+    */
+
+    'faker_locale' => 'en_US',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Encryption Key
+    |--------------------------------------------------------------------------
+    |
+    | This key is used by the Illuminate encrypter service and should be set
+    | to a random, 32 character string, otherwise these encrypted strings
+    | will not be safe. Please do this before deploying an application!
+    |
+    */
+
+    'key' => env('APP_KEY'),
+
+    'cipher' => 'AES-256-CBC',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +170,6 @@ return [
         /*
          * Foundation Service Providers...
          */
-        Aic\Hub\Foundation\DefaultConfigServiceProvider::class,
         Aic\Hub\Foundation\ResourceServiceProvider::class,
 
         /*
@@ -160,57 +236,5 @@ return [
         'Elasticsearch' => Cviebrock\LaravelElasticsearch\Facade::class,
 
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Application Timezone
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify the default timezone for your application, which
-    | will be used by the PHP date and date-time functions. We have gone
-    | ahead and set this to a sensible default for you out of the box.
-    |
-    */
-
-    'timezone' => 'America/Chicago',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Application Environment
-    |--------------------------------------------------------------------------
-    |
-    | This value determines the "environment" your application is currently
-    | running in. This may determine how you prefer to configure various
-    | services your application utilizes. Set this in your ".env" file.
-    |
-    */
-
-    'env' => env('APP_ENV', 'production'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Application URL
-    |--------------------------------------------------------------------------
-    |
-    | This URL is used by the console to properly generate URLs when using
-    | the Artisan command line tool. You should set this to the root of
-    | your application so that it is used when running Artisan tasks.
-    |
-    */
-
-    'url' => env('APP_URL', 'http://localhost'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Proxy URL
-    |--------------------------------------------------------------------------
-    |
-    | This URL is used by the frontend to properly generate URLs when using
-    | the app behind a CDN or load balancer.
-    |
-    */
-
-    'proxy_url' => env('PROXY_URL', env('APP_URL', 'http://localhost')),
-    'proxy_scheme' => env('PROXY_SCHEME', 'http'),
 
 ];
