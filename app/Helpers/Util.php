@@ -104,7 +104,7 @@ function partition(Array $list, $p) {
     $listlen = count($list);
     $partlen = floor($listlen / $p);
     $partrem = $listlen % $p;
-    $partition = array();
+    $partition = [];
     $mark = 0;
     for($px = 0; $px < $p; $px ++) {
         $incr = ($px < $partrem) ? $partlen + 1 : $partlen;

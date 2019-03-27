@@ -32,20 +32,20 @@ Route::group(['prefix' => 'v1'], function() {
     });
 
     // Elasticsearch
-    Route::match( array('GET', 'POST'), 'search', 'SearchController@search');
-    Route::match( array('GET', 'POST'), '{resource}/search', 'SearchController@search');
+    Route::match(['GET', 'POST'], 'search', 'SearchController@search');
+    Route::match(['GET', 'POST'], '{resource}/search', 'SearchController@search');
 
-    Route::match( array('GET', 'POST'), 'msearch', 'SearchController@msearch');
-    Route::match( array('GET', 'POST'), 'msuggest', 'SearchController@msuggest');
+    Route::match(['GET', 'POST'], 'msearch', 'SearchController@msearch');
+    Route::match(['GET', 'POST'], 'msuggest', 'SearchController@msuggest');
 
-    Route::match( array('GET', 'POST'), 'autocomplete', 'SearchController@autocompleteWithTitle');
-    Route::match( array('GET', 'POST'), 'autosuggest', 'SearchController@autocompleteWithSource');
+    Route::match(['GET', 'POST'], 'autocomplete', 'SearchController@autocompleteWithTitle');
+    Route::match(['GET', 'POST'], 'autosuggest', 'SearchController@autocompleteWithSource');
 
     // For debugging search, show generated request
     if( env('APP_ENV') === 'local' ) {
-        Route::match( array('GET', 'POST'), 'echo', 'SearchController@echo');
-        Route::match( array('GET', 'POST'), '{resource}/echo', 'SearchController@echo');
-        Route::match( array('GET', 'POST'), '{resource}/{id}/explain', 'SearchController@explain');
+        Route::match(['GET', 'POST'], 'echo', 'SearchController@echo');
+        Route::match(['GET', 'POST'], '{resource}/echo', 'SearchController@echo');
+        Route::match(['GET', 'POST'], '{resource}/{id}/explain', 'SearchController@explain');
     }
 
     // Define all of our resource routes by looping through config

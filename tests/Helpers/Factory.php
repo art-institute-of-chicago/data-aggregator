@@ -23,7 +23,7 @@ trait Factory
 
         if( !is_array($types) )
         {
-            $types = array( $types );
+            $types = [$types];
         }
 
         $this->attachTypes = $types;

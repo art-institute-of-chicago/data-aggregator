@@ -15,7 +15,7 @@ trait Instancable
     public static function instance()
     {
 
-        static $instances = array();
+        static $instances = [];
 
         $calledClass = get_called_class();
 
