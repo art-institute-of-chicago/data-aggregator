@@ -12,7 +12,8 @@ class DeleteCollectionsRecords extends AbstractImportCommand
      *
      * @var string
      */
-    protected $signature = 'import:collections-delete';
+    protected $signature = 'import:collections-delete
+                            {--since= : How far back to scan for deleted records}';
 
     /**
      * The console command description.
@@ -27,6 +28,13 @@ class DeleteCollectionsRecords extends AbstractImportCommand
      * @var int
      */
     protected $size = 100;
+
+    /**
+     * How far back to scan for deletes.
+     *
+     * @var \Carbon\Carbon
+     */
+    protected $since;
 
     /**
      * Which models to cross-reference against tombstones.
@@ -74,6 +82,16 @@ class DeleteCollectionsRecords extends AbstractImportCommand
      */
     public function handle()
     {
+        $this->since = $this->command->last_success_at;
+
+        if ($this->hasOption('since') && !empty($this->option('since'))) {
+            try {
+                $this->since = Carbon::parse($this->option('since'));
+            } catch (\Exception $e) {
+                echo 'Cannot parse date in --since option';
+            }
+        }
+
         $this->deleteByTombstone();
 
         // Galleries can be unpublished via "untagging"
@@ -111,7 +129,7 @@ class DeleteCollectionsRecords extends AbstractImportCommand
                 $sourceTime = new Carbon( $datum->indexed_at );
                 $sourceTime->timezone = config('app.timezone');
 
-                if( $this->command->last_success_at->gt( $sourceTime ) )
+                if( $this->since->gt( $sourceTime ) )
                 {
                     break 2;
                 }

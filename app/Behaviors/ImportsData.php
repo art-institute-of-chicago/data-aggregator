@@ -40,6 +40,12 @@ trait ImportsData
      */
     protected $isPartial = false;
 
+    /**
+     * How far back to scan for items? Only relevant if `$isPartial` is true.
+     *
+     * @var \Carbon\Carbon
+     */
+    protected $since;
 
     /**
      * Set to `true` to only import a single page.
@@ -169,10 +175,20 @@ trait ImportsData
     protected function import( $source, $model, $endpoint, $current = 1 )
     {
 
+        $this->since = $this->command->last_success_at;
+
+        if ($this->hasOption('since') && !empty($this->option('since'))) {
+            try {
+                $this->since = Carbon::parse($this->option('since'));
+            } catch (\Exception $e) {
+                echo 'Cannot parse date in --since option';
+            }
+        }
+
         if( $this->isPartial )
         {
 
-            $this->info("Looking for resources since " . $this->command->last_success_at);
+            $this->info("Looking for resources since " . $this->since->toIso8601String());
 
         }
 
@@ -218,7 +234,7 @@ trait ImportsData
                     $sourceTime = new Carbon( $datum->{$model::$sourceLastUpdateDateField} );
                     $sourceTime->timezone = config('app.timezone');
 
-                    if( $this->command->last_success_at->gt( $sourceTime ) )
+                    if( $this->since->gt( $sourceTime ) )
                     {
                         break 2;
                     }
