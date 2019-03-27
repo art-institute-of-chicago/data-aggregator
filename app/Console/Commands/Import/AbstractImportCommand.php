@@ -22,6 +22,12 @@ abstract class AbstractImportCommand extends BaseCommand
      */
     protected $command;
 
+    /**
+     * How far back in time to scan for records.
+     *
+     * @var \Carbon\Carbon
+     */
+    protected $since;
 
     /**
      * Here, we've extended the inherited execute method, which allows us to log times
@@ -50,8 +56,16 @@ abstract class AbstractImportCommand extends BaseCommand
         $this->command->last_attempt_at = Carbon::now();
         $this->command->save();
 
-        // For debugging...
-        // $this->command->last_success_at = $this->command->last_success_at->subDays(3);
+        // Get records `--since=` or since last successful run
+        $this->since = $this->command->last_success_at;
+
+        if ($this->hasOption('since') && !empty($this->option('since'))) {
+            try {
+                $this->since = Carbon::parse($this->option('since'));
+            } catch (\Exception $e) {
+                echo 'Cannot parse date in --since option';
+            }
+        }
 
         // Call Illuminate\Console\Command::execute
         $result = parent::execute( $input, $output );
