@@ -41,6 +41,7 @@
         "itsgoingd/clockwork": "^2.1",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "^7.0",
+        "wnx/laravel-stats": "^1.9",
         "xethron/migrations-generator": "^2.0"
     },
     "autoload": {
