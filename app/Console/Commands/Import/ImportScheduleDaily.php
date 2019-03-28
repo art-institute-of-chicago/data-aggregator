@@ -26,8 +26,7 @@ class ImportScheduleDaily extends BaseCommand
         // EventOccurrence is not included in import:web to avoid duplication
         $this->call('import:web-full', [
             '--yes' => 'default',
-            // TODO: Change to 'event-occurrences' after WEB-6.0-beta40 is deployed
-            'endpoint' => 'events/occurrences'
+            'endpoint' => 'event-occurrences'
         ]);
     }
 
