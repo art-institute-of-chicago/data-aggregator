@@ -2,6 +2,8 @@
 
 namespace App\Http\Search;
 
+use Aic\Hub\Foundation\Exceptions\DetailedException;
+
 use Illuminate\Support\Facades\Input;
 
 class Request
@@ -161,7 +163,7 @@ class Request
         if( is_null( $resources ) )
         {
 
-            $indexes = env('ELASTICSEARCH_ALIAS');
+            throw new DetailedException('Missing Parameter', 'You must specify the `resources` parameter.', 400);
 
         } else {
 
