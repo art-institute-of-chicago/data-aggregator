@@ -14,8 +14,8 @@ class SearchAlias extends BaseCommand
     use Indexer;
 
     protected $signature = 'search:alias
+                            {alias : The name of alias}
                             {source? : The prefix of the indexes to create the alias from}
-                            {alias? : The name of alias}
                             {--single : Treat the source as a single index, not a prefix for a collection of indicies}';
 
     protected $description = 'Create an alias for an index';
@@ -24,8 +24,8 @@ class SearchAlias extends BaseCommand
     public function handle()
     {
 
+        $alias = $this->argument('alias');
         $source = $this->argument('source') ?? env('ELASTICSEARCH_INDEX');
-        $alias = $this->argument('alias') ?? env('ELASTICSEARCH_ALIAS');
 
         if ($this->option('single'))
         {

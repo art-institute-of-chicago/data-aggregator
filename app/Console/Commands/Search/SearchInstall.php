@@ -73,8 +73,6 @@ class SearchInstall extends BaseCommand
 
         $this->info($this->done($return));
 
-        Artisan::call('search:alias', ['source' => $index, 'alias' => $prefix, '--single' => true]);
-
     }
 
     private function aliasAssets( $prefix )
@@ -92,8 +90,13 @@ class SearchInstall extends BaseCommand
 
             $index = app('Search')->getIndexForModel( $model, $prefix );
 
-            // Searching on `assets` only works if all aliased indexes have the same monotype, e.g. `doc`
-            Artisan::call('search:alias', ['source' => $index, 'alias' => $prefix . '-assets', '--single' => true]);
+            // Searching on `assets` only works if all aliased indexes have the same type, e.g. `doc`
+            // TODO: Consider removing this? It causes unexpected results w/ some queries
+            Artisan::call('search:alias', [
+                'source' => $index,
+                'alias' => $prefix . '-assets',
+                '--single' => true
+            ]);
 
         }
 
