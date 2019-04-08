@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "65f7a6276bd7457bf83395585679a922",
+    "content-hash": "f5ae60d2f20ba9e1a60714fba33ade71",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -5596,20 +5596,20 @@
         },
         {
             "name": "itsgoingd/clockwork",
-            "version": "v2.1.1",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itsgoingd/clockwork.git",
-                "reference": "badad80006dca2d2e07b0953c2abb24579b9a5dc"
+                "reference": "529b6f9e2ce487b900213cf1d0694d0aebd5977f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itsgoingd/clockwork/zipball/badad80006dca2d2e07b0953c2abb24579b9a5dc",
-                "reference": "badad80006dca2d2e07b0953c2abb24579b9a5dc",
+                "url": "https://api.github.com/repos/itsgoingd/clockwork/zipball/529b6f9e2ce487b900213cf1d0694d0aebd5977f",
+                "reference": "529b6f9e2ce487b900213cf1d0694d0aebd5977f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4",
+                "php": ">=5.5",
                 "psr/log": "1.*"
             },
             "type": "library",
@@ -5650,7 +5650,7 @@
                 "profiling",
                 "slim"
             ],
-            "time": "2018-02-26T11:26:21+00:00"
+            "time": "2019-03-21T20:24:39+00:00"
         },
         {
             "name": "maximebf/debugbar",
