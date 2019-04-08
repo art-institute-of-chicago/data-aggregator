@@ -2,9 +2,6 @@
 
 namespace App\Console\Commands\Import;
 
-use App\Models\Collections\AgentRole;
-use App\Models\Collections\ArtworkType;
-
 class ImportAssetsFull extends AbstractImportCommand
 {
 

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Import;
 
-class ImportAssets extends AbstractImportCommand
+class ImportAssets extends ImportAssetsFull
 {
 
     protected $signature = 'import:assets
