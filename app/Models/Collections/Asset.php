@@ -30,6 +30,8 @@ class Asset extends CollectionsModel
         'is_educational_resource' => 'boolean',
         'is_teacher_resource' => 'boolean',
         'content_modified_at' => 'datetime',
+        'source_created_at' => 'datetime',
+        'source_indexed_at' => 'datetime',
     ];
 
     protected $touches = [
