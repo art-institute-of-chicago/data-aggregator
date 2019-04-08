@@ -57,11 +57,6 @@ class ImportCollectionsFull extends AbstractImportCommand
         $this->importEndpoint('places');
         $this->importEndpoint('galleries');
 
-        // $this->importEndpoint('videos');
-        // $this->importEndpoint('texts');
-        // $this->importEndpoint('sounds');
-        // $this->importEndpoint('images');
-
         $this->importEndpoint('agents');
         $this->importEndpoint('exhibitions');
         $this->importEndpoint('artworks');
@@ -144,10 +139,7 @@ class ImportCollectionsFull extends AbstractImportCommand
      */
     protected function query( $endpoint, $page = 1, $limit = 500 )
     {
-        // Avoid retrieving too many assets at once
-        $limit = in_array($endpoint, ['videos', 'texts', 'sounds', 'images']) ? 10 : 100;
-
-        return parent::query( $endpoint, $page, $limit );
+        return parent::query( $endpoint, $page, 100 );
     }
 
 }
