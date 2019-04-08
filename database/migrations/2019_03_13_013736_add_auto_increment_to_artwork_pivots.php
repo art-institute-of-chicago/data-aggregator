@@ -11,8 +11,11 @@ class AddAutoIncrementToArtworkPivots extends Migration
     public function up()
     {
         Schema::table('artwork_catalogue', function (Blueprint $table) {
-            $table->increments('id')->first();
             $table->dropColumn('citi_id');
+        });
+
+        Schema::table('artwork_catalogue', function (Blueprint $table) {
+            $table->increments('id')->first();
         });
 
         Schema::table('artwork_dates', function (Blueprint $table) {
@@ -26,13 +29,17 @@ class AddAutoIncrementToArtworkPivots extends Migration
 
     public function down()
     {
+        // the `citi_id` change is irreversible
+        DB::table('artwork_catalogue')->truncate();
+        DB::table('artwork_dates')->truncate();
+
         Schema::table('artwork_catalogue', function (Blueprint $table) {
             $table->dropColumn('id');
-            $table->integer('citi_id')->nullable()->first();
         });
 
-        // the `citi_id` change is irreversible
-        DB::table('artwork_dates')->truncate();
+        Schema::table('artwork_catalogue', function (Blueprint $table) {
+            $table->integer('citi_id')->primary()->first();
+        });
 
         Schema::table('artwork_dates', function (Blueprint $table) {
             $table->dropColumn('id');
