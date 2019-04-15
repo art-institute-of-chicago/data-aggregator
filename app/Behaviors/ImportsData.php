@@ -49,6 +49,13 @@ trait ImportsData
     protected $since;
 
     /**
+     * Seconds to sleep between requests.
+     *
+     * @var int
+     */
+    protected $sleepFor = 1;
+
+    /**
      * Set to `true` to only import a single page.
      *
      * @var boolean
@@ -251,10 +258,13 @@ trait ImportsData
 
             $current++;
 
+            usleep($this->sleepFor * 1000000);
+
             // TODO: This structure causes an extra query to be run, when it might not need to be
             $json = $this->query( $endpoint, $current );
 
         }
+
         unset($json);
 
     }
