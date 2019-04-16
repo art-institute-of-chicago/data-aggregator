@@ -4,6 +4,8 @@ namespace App\Transformers\Outbound\Web;
 
 use App\Models\Web\EventProgram;
 use App\Transformers\Outbound\Web\Traits\HasPublishDates;
+use App\Transformers\Outbound\Web\Traits\HasSearchTags;
+
 
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
@@ -11,6 +13,7 @@ class Event extends BaseTransformer
 {
 
     use HasPublishDates;
+    use HasSearchTags;
 
     protected function getTitles()
     {
@@ -251,25 +254,6 @@ class Event extends BaseTransformer
                 'doc' => 'A string used in the URL for this event',
                 'type' => 'string',
                 'elasticsearch' => 'text',
-            ],
-
-            // TODO: Add `HasSearchTags` trait? See GenericPage.
-            'search_tags' => [
-                'doc' => 'Editor-specified list of tags to aid in internal search',
-                'type' => 'array',
-                'elasticsearch' => [
-                    'default' => true,
-                    'type' => 'text',
-                ],
-                'value' => function ($item) {
-                    if (!$item->search_tags) {
-                        return null;
-                    }
-
-                    return collect(explode(',', $item->search_tags))->map(function ($item) {
-                        return trim($item);
-                    });
-                },
             ],
         ];
     }
