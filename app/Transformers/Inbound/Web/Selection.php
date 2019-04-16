@@ -16,6 +16,10 @@ class Selection extends WebTransformer
 
         return [
             'title' => $datum->slug,
+
+            // TODO: Move these to trait?
+            'publish_start_date' => $datum->date('publish_start_date'),
+            'publish_end_date' => $datum->date('publish_end_date'),
         ];
 
     }

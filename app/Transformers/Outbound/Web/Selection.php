@@ -2,10 +2,14 @@
 
 namespace App\Transformers\Outbound\Web;
 
+use App\Transformers\Outbound\Web\Traits\HasPublishDates;
+
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Selection extends BaseTransformer
 {
+
+    use HasPublishDates;
 
     protected function getFields()
     {
