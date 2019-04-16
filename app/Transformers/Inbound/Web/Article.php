@@ -24,6 +24,10 @@ class Article extends WebTransformer
 
         return array_merge( $this->getBlockFields( $datum ), [
             'date' => $datum->date('date'),
+
+            // TODO: Move these to trait?
+            'publish_start_date' => $datum->date('publish_start_date'),
+            'publish_end_date' => $datum->date('publish_end_date'),
         ]);
 
     }
