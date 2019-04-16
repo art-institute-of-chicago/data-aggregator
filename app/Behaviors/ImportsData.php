@@ -5,6 +5,7 @@ namespace App\Behaviors;
 use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
+use Sentry\State\Scope;
 
 trait ImportsData
 {
@@ -341,13 +342,11 @@ trait ImportsData
         {
             $sentry = app('sentry');
 
-            $sentry->tags_context(
-                array_merge([],
-                    isset($datum->id) ? ['id' => $datum->id] : [],
-                    isset($endpoint) ? ['endpoint' => $endpoint] : [],
-                    isset($source) ? ['source' => $source] : []
-                )
-            );
+            $sentry->configureScope(function (Scope $scope) use ($datum, $endpoint, $source) {
+                isset($datum->id) && $scope->setTag('id', $datum->id);
+                isset($endpoint) && $scope->setTag('endpoint', $endpoint);
+                isset($source) && $scope->setTag('source', $source);
+            });
         }
     }
 
