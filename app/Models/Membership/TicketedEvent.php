@@ -27,6 +27,7 @@ class TicketedEvent extends MembershipModel
         'is_after_hours' => 'boolean',
         'is_private_event' => 'boolean',
         'is_admission_required' => 'boolean',
+        'source_created_at' => 'datetime',
     ];
 
     public function event()
