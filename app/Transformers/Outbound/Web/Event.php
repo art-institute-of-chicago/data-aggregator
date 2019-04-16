@@ -3,11 +3,14 @@
 namespace App\Transformers\Outbound\Web;
 
 use App\Models\Web\EventProgram;
+use App\Transformers\Outbound\Web\Traits\HasPublishDates;
 
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Event extends BaseTransformer
 {
+
+    use HasPublishDates;
 
     protected function getTitles()
     {
@@ -23,7 +26,7 @@ class Event extends BaseTransformer
     protected function getFields()
     {
         return [
-            // TODO: Rename to `is_published` and move to trait?
+            // TODO: Rename to `is_published` and move to HasPublishDates?
             'published' => [
                 'doc' => 'Whether the event is published on the website',
                 'type' => 'boolean',

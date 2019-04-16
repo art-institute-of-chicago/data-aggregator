@@ -2,15 +2,19 @@
 
 namespace App\Transformers\Outbound\Web;
 
+use App\Transformers\Outbound\Web\Traits\HasPublishDates;
+
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Page extends BaseTransformer
 {
 
+    use HasPublishDates;
+
     protected function getFields()
     {
         $sharedFields = [
-            // TODO: Ensure consistent naming and move to trait with below
+            // TODO: Ensure consistent naming and move to HasPublishDates
             'is_published' => [
                 'doc' => 'Whether the page has been published',
                 'type' => 'boolean',
@@ -18,20 +22,6 @@ class Page extends BaseTransformer
                 'value' => function ($item) {
                     return $item->published;
                 },
-            ],
-
-            // TODO: Move these to trait?
-            'publish_start_date' => [
-                'doc' => 'The date a page was, or will be, published',
-                'type' => 'ISO 8601 date and time',
-                'elasticsearch' => 'date',
-                'value' => $this->getDateValue('publish_start_date'),
-            ],
-            'publish_end_date' => [
-                'doc' => 'The date a page was, or will be, unpublished',
-                'type' => 'ISO 8601 date and time',
-                'elasticsearch' => 'date',
-                'value' => $this->getDateValue('publish_end_date'),
             ],
 
             // TODO: This seems to always be null. Remove?

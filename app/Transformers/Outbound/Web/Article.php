@@ -2,15 +2,19 @@
 
 namespace App\Transformers\Outbound\Web;
 
+use App\Transformers\Outbound\Web\Traits\HasPublishDates;
+
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Article extends BaseTransformer
 {
 
+    use HasPublishDates;
+
     protected function getFields()
     {
         return [
-            // TODO: Remame column to `is_published`
+            // TODO: Remame column to `is_published` and move to HasPublishDates?
             'is_published' => [
                 'doc' => 'Whether the article has been published',
                 'type' => 'boolean',
