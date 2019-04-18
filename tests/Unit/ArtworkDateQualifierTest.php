@@ -9,6 +9,4 @@ class ArtworkDateQualifierTest extends ApiTestCase
 
     protected $model = ArtworkDateQualifier::class;
 
-    protected $keys = ['lake_guid'];
-
 }

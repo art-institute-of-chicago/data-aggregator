@@ -376,9 +376,6 @@ class Artwork extends BaseTransformer
                 'doc' => 'Whether the work is on display',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->gallery && !$item->gallery->closed ? true : false;
-                },
             ],
 
             /**

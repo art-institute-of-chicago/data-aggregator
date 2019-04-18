@@ -11,9 +11,7 @@ class Category extends BaseList
     {
 
         return  [
-            'lake_uid' => $datum->lake_uid,
-            'citi_id' => $datum->citi_id,
-            'lake_guid' => $datum->lake_guid,
+            'lake_uid' => $datum->id,
         ];
 
     }
@@ -22,7 +20,6 @@ class Category extends BaseList
     {
 
         return [
-            'parent_id' => $datum->parent_id ? 'PC-' . $datum->parent_id : null,
             'subtype' => $datum->type ? 'CT-' . $datum->type : null,
         ];
 

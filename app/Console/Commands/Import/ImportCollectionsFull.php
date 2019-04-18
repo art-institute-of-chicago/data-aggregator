@@ -44,26 +44,22 @@ class ImportCollectionsFull extends AbstractImportCommand
     protected function importEndpoints()
     {
 
-        $this->importEndpoint('artwork-place-qualifiers'); // list
-        $this->importEndpoint('artwork-date-qualifiers'); // list
-        $this->importEndpoint('artwork-agent-roles'); // list
-        $this->importEndpoint('object-types'); // list
-        $this->importEndpoint('agent-types'); // list
-        $this->importEndpoint('agents');
-        $this->importEndpoint('categories'); // list
-        $this->importEndpoint('terms'); // list
+        // Lists:
+        $this->importEndpoint('artwork-agent-roles');
+        $this->importEndpoint('artwork-date-qualifiers');
+        $this->importEndpoint('artwork-place-qualifiers');
+        $this->importEndpoint('object-types');
+        $this->importEndpoint('agent-types');
+        $this->importEndpoint('catalogues');
+        $this->importEndpoint('categories');
+        $this->importEndpoint('terms');
+
         $this->importEndpoint('places');
         $this->importEndpoint('galleries');
-        // $this->importEndpoint('artwork-catalogues'); // pivot
-        $this->importEndpoint('catalogues'); // list
-        $this->importEndpoint('videos');
-        $this->importEndpoint('texts');
-        $this->importEndpoint('sounds');
-        $this->importEndpoint('images');
-        $this->importEndpoint('artworks');
-        // $this->importEndpoint('exhibition-agents'); // pivot
-        $this->importEndpoint('exhibitions');
 
+        $this->importEndpoint('agents');
+        $this->importEndpoint('exhibitions');
+        $this->importEndpoint('artworks');
 
     }
 
@@ -143,10 +139,7 @@ class ImportCollectionsFull extends AbstractImportCommand
      */
     protected function query( $endpoint, $page = 1, $limit = 500 )
     {
-        // Avoid retrieving too many assets at once
-        $limit = in_array($endpoint, ['videos', 'texts', 'sounds', 'images']) ? 10 : 100;
-
-        return parent::query( $endpoint, $page, $limit );
+        return parent::query( $endpoint, $page, 100 );
     }
 
 }

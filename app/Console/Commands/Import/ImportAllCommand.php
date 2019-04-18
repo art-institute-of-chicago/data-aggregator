@@ -19,6 +19,7 @@ class ImportAllCommand extends BaseCommand
         // $this->call('db:reset'); // Add --yes flag?
         // $this->call('migrate');
         $this->call('import:collections-full');
+        $this->call('import:assets-full');
         $this->call('import:events-ticketed-full', ['--yes' => 'default']);
         $this->call('import:dsc', ['--yes' => 'default', '-v' => 'default']);
         $this->call('import:mobile');

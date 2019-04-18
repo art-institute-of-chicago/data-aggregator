@@ -19,6 +19,7 @@ class Product extends ShopModel
         'choking_hazard' => 'boolean',
         'back_order' => 'boolean',
         'active' => 'boolean',
+        'source_created_at' => 'datetime',
     ];
 
     public function artists()

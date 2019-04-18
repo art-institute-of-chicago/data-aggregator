@@ -20,7 +20,7 @@ class ImportSetUlanUris extends AbstractImportCommand
         $agents = Agent::whereNull('ulan_uri');
 
         // ...and (2) were updated since successful last run
-        $agents = $agents->where('source_indexed_at', '>=', $this->command->last_success_at);
+        $agents = $agents->where('source_modified_at', '>=', $this->command->last_success_at);
 
         // Then, loop through them in a memory-friendly way
         foreach( $agents->cursor() as $agent ) {
