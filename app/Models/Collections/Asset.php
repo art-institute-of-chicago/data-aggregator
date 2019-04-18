@@ -13,6 +13,8 @@ class Asset extends CollectionsModel
 
     use ElasticSearchable;
 
+    public static $sourceLastUpdateDateField = 'indexed_at';
+
     public const IMAGE = 'image';
     public const SOUND = 'sound';
     public const TEXT = 'text';
