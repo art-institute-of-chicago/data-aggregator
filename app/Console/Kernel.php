@@ -70,12 +70,6 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/import-assets-last-run.log'));
 
-        // Non-prod envs don't need 5-min imports on collections
-        if (!App::environment('production'))
-        {
-            return;
-        }
-
         $schedule->command('import:collections')
             ->everyFiveMinutes()
             ->withoutOverlapping()
