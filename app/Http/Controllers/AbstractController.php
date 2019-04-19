@@ -141,20 +141,20 @@ abstract class AbstractController extends BaseController
         $response = isset($data['data']) ? $data : ['data' => $data];
 
         $info = [
-            'version' => config('app.version')
+            'version' => config('aic.version')
         ];
-        if (config('app.documentation_url'))
+        if (config('aic.documentation_url'))
         {
-            $info['documentation'] = config('app.documentation_url');
+            $info['documentation'] = config('aic.documentation_url');
         }
-        if (config('app.message'))
+        if (config('aic.message'))
         {
-            $info['message'] = config('app.message');
+            $info['message'] = config('aic.message');
         }
 
         $response['info'] = $info;
 
-        $config = config('app.config_documentation');
+        $config = config('aic.config_documentation');
 
         if ($config)
         {

@@ -53,7 +53,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
         $doc .= "    \"license\": {\n";
         $doc .= "      \"name\": \"\"\n";
         $doc .= "    },\n";
-        $doc .= "    \"version\": \"" .config('app.version', '1.0.0') ."\"\n";
+        $doc .= "    \"version\": \"" .config('aic.version', '1.0.0') ."\"\n";
         $doc .= "  },\n";
         $doc .= "  \"host\": \"" .parse_url(config('app.url'), PHP_URL_HOST) ."\",\n";
         $doc .= "  \"basePath\": \"/api/v1\",\n";
