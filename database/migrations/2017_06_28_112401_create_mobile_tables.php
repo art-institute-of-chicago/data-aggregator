@@ -21,8 +21,6 @@ class CreateMobileTables extends Migration
             $table = $this->_addIdsAndTitle($table);
             $table->integer('artwork_citi_id')->unsigned()->nullable()->index();
 
-            // Disabling foreign key checks in order to decouple mobile import from collections import
-            // $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
 
             // https://laracasts.com/discuss/channels/laravel/schema-float-function-generated-a-double-type
             $table->double('latitude', 16, 13)->nullable();
@@ -43,9 +41,7 @@ class CreateMobileTables extends Migration
         Schema::create('mobile_artwork_mobile_sound', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('mobile_artwork_mobile_id')->unsigned()->index();
-            $table->foreign('mobile_artwork_mobile_id')->references('mobile_id')->on('mobile_artworks')->onDelete('cascade');
             $table->integer('mobile_sound_mobile_id')->unsigned()->index();
-            $table->foreign('mobile_sound_mobile_id')->references('mobile_id')->on('mobile_sounds')->onDelete('cascade');
         });
 
         Schema::create('tours', function(Blueprint $table) {
@@ -54,7 +50,6 @@ class CreateMobileTables extends Migration
             $table->text('description')->nullable();
             $table->text('intro_text')->nullable();
             $table->integer('intro_mobile_id')->unsigned()->index();
-            $table->foreign('intro_mobile_id')->references('mobile_id')->on('mobile_sounds')->onDelete('cascade');
             $table->integer('weight')->nullable();
             $table->timestamps();
         });
@@ -62,11 +57,8 @@ class CreateMobileTables extends Migration
         Schema::create('tour_stops', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('tour_mobile_id')->unsigned()->index();
-            $table->foreign('tour_mobile_id')->references('mobile_id')->on('tours')->onDelete('cascade');
             $table->integer('mobile_artwork_mobile_id')->unsigned()->index();
-            $table->foreign('mobile_artwork_mobile_id')->references('mobile_id')->on('mobile_artworks')->onDelete('cascade');
             $table->integer('mobile_sound_mobile_id')->unsigned()->index();
-            $table->foreign('mobile_sound_mobile_id')->references('mobile_id')->on('mobile_sounds')->onDelete('cascade');
             $table->integer('weight')->unsigned()->nullable();
             // A TourStop's description is its Sound's transcription
             $table->timestamps();

@@ -36,9 +36,7 @@ class CreateLibraryTables extends Migration
             Schema::create($material_term, function(Blueprint $table) {
                 $table->increments('id');
                 $table->string('material_id')->index();
-                $table->foreign('material_id')->references('id')->on('library_materials')->onDelete('cascade');
                 $table->string('term_id')->index();
-                $table->foreign('term_id')->references('id')->on('library_terms')->onDelete('cascade');
                 $table->timestamps();
             });
 

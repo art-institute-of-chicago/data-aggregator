@@ -31,7 +31,6 @@ class CreateCollectionsTables extends Migration
             $table->boolean('licensing_restricted')->nullable();
             $table->string('ulan_uri')->nullable();
             $table->integer('agent_type_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('agent_type_citi_id')->references('citi_id')->on('agent_types');
             $table = $this->_addDates($table);
         });
 
@@ -68,9 +67,7 @@ class CreateCollectionsTables extends Migration
         Schema::create('category_gallery', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('gallery_citi_id')->unsigned()->index();
-            $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
             $table->integer('category_citi_id')->unsigned()->index();
-            $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
         Schema::create('artworks', function (Blueprint $table) {
@@ -94,20 +91,15 @@ class CreateCollectionsTables extends Migration
             $table->string('place_of_origin')->nullable();
             $table->string('collection_status')->nullable();
             $table->integer('department_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('department_citi_id')->references('citi_id')->on('departments');
             $table->integer('object_type_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('object_type_citi_id')->references('citi_id')->on('object_types');
             $table->integer('gallery_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries');
             $table = $this->_addDates($table);
         });
 
         Schema::create('artwork_category', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->unsigned()->index();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->integer('category_citi_id')->unsigned()->index();
-            $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
         foreach( ['artwork_artist', 'artwork_copyright_representative'] as $artwork_agent ) {
@@ -115,9 +107,7 @@ class CreateCollectionsTables extends Migration
             Schema::create($artwork_agent, function(Blueprint $table) {
                 $table->increments('id');
                 $table->integer('artwork_citi_id')->unsigned()->index();
-                $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
                 $table->integer('agent_citi_id')->unsigned()->index();
-                $table->foreign('agent_citi_id')->references('citi_id')->on('agents')->onDelete('cascade');
             });
 
         }
@@ -125,7 +115,6 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_dates', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->unsigned()->index();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->date('date')->nullable();
             $table->string('qualifier')->nullable();
             $table->boolean('preferred')->nullable();
@@ -135,7 +124,6 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_committees', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->unsigned()->index();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->string('committee')->nullable();
             $table->date('date')->nullable();
             $table->string('action')->nullable();
@@ -145,7 +133,6 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_terms', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->unsigned()->index();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->string('term')->nullable();
             $table->string('type')->nullable();
             $table->timestamps();
@@ -154,7 +141,6 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_catalogues', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->unsigned()->index();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->boolean('preferred')->nullable();
             $table->string('catalogue')->nullable();
             $table->integer('number')->nullable();
@@ -165,9 +151,7 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_artwork', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('set_citi_id')->unsigned()->index();
-            $table->foreign('set_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->integer('part_citi_id')->unsigned()->index();
-            $table->foreign('part_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -190,17 +174,13 @@ class CreateCollectionsTables extends Migration
         Schema::create('asset_category', function(Blueprint $table) {
             $table->increments('id');
             $table->uuid('asset_lake_guid');
-            $table->foreign('asset_lake_guid')->references('lake_guid')->on('assets')->onDelete('cascade');
             $table->integer('category_citi_id')->unsigned()->index();
-            $table->foreign('category_citi_id')->references('citi_id')->on('categories')->onDelete('cascade');
         });
 
         Schema::create('artwork_asset', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->unsigned()->index();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
-            $table->uuid('asset_lake_guid');
-            $table->foreign('asset_lake_guid')->references('lake_guid')->on('assets')->onDelete('cascade');
+            $table->uuid('asset_lake_guid')->index('artwork_asset_asset_lake_guid_foreign');
             $table->boolean('preferred')->nullable();
         });
 
@@ -209,9 +189,7 @@ class CreateCollectionsTables extends Migration
             $table->text('description')->nullable();
             $table->string('type')->nullable();
             $table->integer('department_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('department_citi_id')->references('citi_id')->on('departments');
             $table->integer('gallery_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('gallery_citi_id')->references('citi_id')->on('galleries')->onDelete('cascade');
             $table->string('exhibition_dates')->nullable();
             $table->boolean('active')->nullable();
             $table = $this->_addDates($table);
@@ -220,17 +198,13 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_exhibition', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->unsigned()->index();
-            $table->foreign('artwork_citi_id')->references('citi_id')->on('artworks')->onDelete('cascade');
             $table->integer('exhibition_citi_id')->unsigned()->index();
-            $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
         });
 
         Schema::create('agent_exhibition', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('agent_citi_id')->unsigned()->index();
-            $table->foreign('agent_citi_id')->references('citi_id')->on('agents')->onDelete('cascade');
             $table->integer('exhibition_citi_id')->unsigned()->index();
-            $table->foreign('exhibition_citi_id')->references('citi_id')->on('exhibitions')->onDelete('cascade');
         });
 
 
@@ -243,7 +217,6 @@ class CreateCollectionsTables extends Migration
         $table->text('content')->nullable();
         $table->string('published')->nullable();
         $table->integer('agent_citi_id')->nullable()->unsigned()->index();
-        $table->foreign('agent_citi_id')->references('citi_id')->on('agents');
 
         return $table;
     }

@@ -26,10 +26,6 @@ class CreateShopTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::table('shop_categories', function($table) {
-            $table->foreign('parent_category_shop_id')->references('shop_id')->on('shop_categories');
-        });
-
         Schema::create('products', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('sku')->nullable();
@@ -49,9 +45,7 @@ class CreateShopTables extends Migration
         Schema::create('product_shop_category', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_shop_id')->unsigned()->index();
-            $table->foreign('product_shop_id')->references('shop_id')->on('products')->onDelete('cascade');
             $table->integer('category_shop_id')->unsigned()->index();
-            $table->foreign('category_shop_id')->references('shop_id')->on('shop_categories')->onDelete('cascade');
         });
 
     }
