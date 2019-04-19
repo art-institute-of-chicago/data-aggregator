@@ -10,7 +10,7 @@ class ReportMigrations extends BaseCommand
 {
     use InteractsWithShell;
 
-    protected $signature = 'report:migrations';
+    protected $signature = 'report:migrations {--refresh}';
 
     protected $description = 'Run migrate:generate and compare results with saved run';
 
@@ -19,7 +19,17 @@ class ReportMigrations extends BaseCommand
         $oldDir = storage_path('app/migrations/old');
         $newDir = storage_path('app/migrations/new');
 
+        if ($this->option('refresh')) {
+            $this->callSilent('db:reset', [
+                '--force' => 'default',
+            ]);
+        }
+
         array_map('unlink', $this->getFiles($newDir));
+
+        $this->callSilent('migrate', [
+            '--step' => 'default',
+        ]);
 
         $this->callSilent('migrate:generate', [
             '--path' => $newDir,
@@ -35,11 +45,11 @@ class ReportMigrations extends BaseCommand
             $oldFiles = $this->getFiles($oldDir, '*' . $filename);
 
             if (count($oldFiles) < 1) {
-                throw \Exception('Old migration not found: ' . $filename);
+                throw new \Exception('Old migration not found: ' . $filename);
             }
 
             if (count($oldFiles) > 1) {
-                throw \Exception('Too many old migrations found: ' . $filename);
+                throw new \Exception('Too many old migrations found: ' . $filename);
             }
 
             $oldFile = $oldFiles[0];
