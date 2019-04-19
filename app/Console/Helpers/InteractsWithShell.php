@@ -40,18 +40,18 @@ trait InteractsWithShell
         $args = array_map('escapeshellarg', $args);
         $cmd = vsprintf($template, $args);
 
-        $this->warn($cmd);
+        // $this->warn($cmd);
 
         $return = $callback($cmd);
 
-        $this->warn('Status: ' . $return['status']);
+        // $this->warn('Status: ' . $return['status']);
 
-        if ($return['status'] !== 0)
-        {
-            $this->warn('Something went wrong. Exiting early.');
-            exit(1);
-        }
+        // TODO: Restore this for dump commands!
+        // if ($return['status'] !== 0)
+        // {
+        //     throw new \Exception('Non-zero status', $return['status']);
+        // }
 
-        return $return['output'];
+        return $return;
     }
 }
