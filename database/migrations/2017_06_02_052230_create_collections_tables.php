@@ -190,8 +190,13 @@ class CreateCollectionsTables extends Migration
             $table->string('type')->nullable();
             $table->integer('department_citi_id')->nullable()->unsigned()->index();
             $table->integer('gallery_citi_id')->nullable()->unsigned()->index();
-            $table->string('exhibition_dates')->nullable();
-            $table->boolean('active')->nullable();
+            $table->string('gallery_display')->nullable();
+            $table->string('status')->nullable();
+            $table->uuid('asset_lake_guid')->nullable();
+            $table->date('date_start')->nullable();
+            $table->date('date_end')->nullable();
+            $table->date('date_aic_start')->nullable();
+            $table->date('date_aic_end')->nullable();
             $table = $this->_addDates($table);
         });
 
