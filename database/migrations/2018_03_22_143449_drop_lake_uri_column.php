@@ -50,12 +50,6 @@ class DropLakeUriColumn extends Migration
                     }
 
                     $table->dropColumn('lake_uri');
-
-                    if (!App::environment('testing'))
-                    {
-                        $output->writeln( 'Removed `lake_uri` from ' . $table_name);
-                    }
-
                 }
 
             });
@@ -121,12 +115,6 @@ class DropLakeUriColumn extends Migration
                         . ", '/', `lake_guid` )"
                 )
             ]);
-
-            if (!App::environment('testing'))
-            {
-                $output->writeln( 'Added `lake_uri` to ' . $table_name);
-            }
-
         }
 
         // We need to alter the category_terms view to add lake_uri

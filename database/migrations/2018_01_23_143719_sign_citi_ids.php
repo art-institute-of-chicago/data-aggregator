@@ -41,13 +41,6 @@ class SignCitiIds extends Migration
                     if( Str::endsWith($column, 'citi_id') )
                     {
                         $table->integer($column)->signed()->change();
-
-                        if (!App::environment('testing'))
-                        {
-
-                            $output->writeln( 'Signed in ' . $table_name . ': ' . $column);
-
-                        }
                     }
                 }
 

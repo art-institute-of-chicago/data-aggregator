@@ -36,20 +36,11 @@ class RemoveForeignKeys extends Migration
 
                 foreach( $foreign_keys as $key )
                 {
-
                     $key_name = $key->getName();
 
                     if (\DB::getDriverName() != 'sqlite') {
                         $table->dropForeign( $key_name );
                     }
-
-                    if (!App::environment('testing'))
-                    {
-
-                        $output->writeln( 'Dropped `' . $key_name . '` from table `' . $table_name . '` ');
-
-                    }
-
                 }
 
             });
