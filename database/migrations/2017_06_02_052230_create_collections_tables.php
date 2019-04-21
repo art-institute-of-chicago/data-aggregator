@@ -54,7 +54,7 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('galleries', function (Blueprint $table) {
+        Schema::create('places', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
@@ -62,11 +62,12 @@ class CreateCollectionsTables extends Migration
             $table->double('latitude', 16, 13)->nullable();
             $table->double('longitude', 16, 13)->nullable();
             $table = $this->_addDates($table);
+            $table->string('type')->nullable();
         });
 
-        Schema::create('category_gallery', function(Blueprint $table) {
+        Schema::create('category_place', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('gallery_citi_id')->unsigned()->index();
+            $table->integer('place_citi_id')->unsigned()->index();
             $table->integer('category_citi_id')->unsigned()->index();
         });
 
@@ -92,7 +93,7 @@ class CreateCollectionsTables extends Migration
             $table->string('collection_status')->nullable();
             $table->integer('department_citi_id')->nullable()->unsigned()->index();
             $table->integer('object_type_citi_id')->nullable()->unsigned()->index();
-            $table->integer('gallery_citi_id')->nullable()->unsigned()->index();
+            $table->integer('place_citi_id')->nullable()->unsigned()->index('artworks_gallery_citi_id_index');
             $table = $this->_addDates($table);
         });
 
@@ -189,8 +190,8 @@ class CreateCollectionsTables extends Migration
             $table->text('description')->nullable();
             $table->string('type')->nullable();
             $table->integer('department_citi_id')->nullable()->unsigned()->index();
-            $table->integer('gallery_citi_id')->nullable()->unsigned()->index();
-            $table->string('gallery_display')->nullable();
+            $table->integer('place_citi_id')->nullable()->unsigned()->index('exhibitions_gallery_citi_id_index');
+            $table->string('place_display')->nullable();
             $table->string('status')->nullable();
             $table->uuid('asset_lake_guid')->nullable();
             $table->date('date_start')->nullable();
@@ -303,7 +304,7 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('artwork_category');
         Schema::dropIfExists('artworks');
         Schema::dropIfExists('category_gallery');
-        Schema::dropIfExists('galleries');
+        Schema::dropIfExists('places');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('object_types');
         Schema::dropIfExists('departments');
