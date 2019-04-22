@@ -257,7 +257,11 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('assets', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false, 'text');
-            $table = $this->_addInterpretiveResourceFileds($table);
+            $table->text('description')->nullable();
+            $table->text('content')->nullable();
+            $table->integer('copyright_notice')->nullable();
+            $table->string('published')->nullable();
+            $table->integer('agent_citi_id')->nullable()->index();
             $table->boolean('is_multimedia_resource')->default(false)->index();
             $table->boolean('is_educational_resource')->default(false)->index();
             $table->boolean('is_teacher_resource')->default(false)->index();
@@ -332,17 +336,6 @@ class CreateCollectionsTables extends Migration
         });
 
 
-    }
-
-    private function _addInterpretiveResourceFileds($table)
-    {
-
-        $table->text('description')->nullable();
-        $table->text('content')->nullable();
-        $table->string('published')->nullable();
-        $table->integer('agent_citi_id')->nullable()->index();
-
-        return $table;
     }
 
     private function _addIdsAndTitle($table, $citiField = true, $titleField = 'string')
