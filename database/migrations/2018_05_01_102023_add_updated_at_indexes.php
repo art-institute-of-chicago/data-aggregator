@@ -10,7 +10,6 @@ class AddUpdatedAtIndexes extends Migration
      * TODO: Create custom `timestamps()` function?
      */
     private $tableNames = [
-        'agent_exhibition',
         'agent_roles',
         'agent_types',
         'agents',
