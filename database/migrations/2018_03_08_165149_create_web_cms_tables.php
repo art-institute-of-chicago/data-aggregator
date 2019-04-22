@@ -16,7 +16,6 @@ class CreateWebCmsTables extends Migration
 
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
             $table->string('name');
             $table->timestamp('source_modified_at')->nullable()->useCurrent();
             $table->timestamps();
