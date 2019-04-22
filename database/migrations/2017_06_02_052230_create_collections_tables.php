@@ -55,14 +55,6 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        // Temporary workaround for index naming bug
-        Schema::table('artwork_types', function (Blueprint $table) {
-            $table->dropUnique(['lake_guid']);
-            $table->dropUnique(['lake_uri']);
-            $table->unique('lake_guid', 'object_types_lake_guid_unique');
-            $table->unique('lake_uri', 'object_types_lake_uri_unique');
-        });
-
         Schema::create('categories', function (Blueprint $table) {
             $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
