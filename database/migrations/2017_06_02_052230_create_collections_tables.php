@@ -220,14 +220,6 @@ class CreateCollectionsTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('themes', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
-            $table->text('description')->nullable();
-            $table->string('is_in_navigation')->nullable();
-            $table->string('sort')->nullable();
-            $table = $this->_addDates($table);
-        });
-
         Schema::create('assets', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false, 'text');
             $table = $this->_addInterpretiveResourceFileds($table);
@@ -360,7 +352,6 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('artwork_asset');
         Schema::dropIfExists('asset_category');
         Schema::dropIfExists('assets');
-        Schema::dropIfExists('themes');
         Schema::dropIfExists('artwork_artwork');
         Schema::dropIfExists('artwork_committees');
         Schema::dropIfExists('artwork_dates');
