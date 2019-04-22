@@ -22,6 +22,13 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
+        Schema::create('agent_roles', function (Blueprint $table) {
+            $table->integer('citi_id')->signed()->primary();
+            $table->uuid('lake_guid')->nullable()->unique()->index();
+            $table->string('title')->nullable();
+            $table = $this->_addDates($table);
+        });
+
         Schema::create('agents', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('sort_title')->nullable();
@@ -352,7 +359,6 @@ class CreateCollectionsTables extends Migration
      */
     public function down()
     {
-
         Schema::dropIfExists('agent_exhibition');
         Schema::dropIfExists('agent_place');
         Schema::dropIfExists('artwork_exhibition');
@@ -375,8 +381,8 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('categories');
         Schema::dropIfExists('artwork_types');
         Schema::dropIfExists('agents');
+        Schema::dropIfExists('agent_roles');
         Schema::dropIfExists('agent_types');
-
     }
 
 
