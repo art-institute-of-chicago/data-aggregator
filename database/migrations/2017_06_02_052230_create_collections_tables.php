@@ -187,7 +187,7 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('artwork_dates', function(Blueprint $table) {
             $table->integer('citi_id')->default(0)->primary();
-            $table->uuid('lake_guid')->unique()->nullable()->index();
+            $table->string('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
             $table->string('lake_uri')->unique()->nullable();
             $table->integer('artwork_citi_id')->index();
