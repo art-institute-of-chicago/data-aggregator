@@ -35,7 +35,7 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('agent_place', function(Blueprint $table) {
-            $table->increments('id');
+            $table->increments('citi_id');
             $table->integer('agent_citi_id')->nullable()->index();
             $table->integer('place_citi_id')->nullable()->index();
             $table->string('qualifier')->nullable();
@@ -222,7 +222,7 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('agent_exhibition', function(Blueprint $table) {
-            $table->increments('id');
+            $table->increments('citi_id');
             $table->integer('agent_citi_id')->index();
             $table->integer('exhibition_citi_id')->index();
             $table->date('date_start')->nullable();
