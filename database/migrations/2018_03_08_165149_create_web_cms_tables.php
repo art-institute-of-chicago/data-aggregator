@@ -77,7 +77,7 @@ class CreateWebCmsTables extends Migration
             $table->increments('id');
             $table->text('title');
             $table->text('title_display')->nullable();
-            $table->integer('type');
+            $table->integer('type')->nullable();
             $table->json('alt_event_types')->nullable();
             $table->integer('audience')->nullable();
             $table->json('alt_audiences')->nullable();
