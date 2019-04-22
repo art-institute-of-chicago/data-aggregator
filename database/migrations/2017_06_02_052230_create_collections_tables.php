@@ -176,9 +176,9 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('artwork_term', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('artwork_citi_id')->nullable();
-            $table->integer('term_citi_id')->nullable();
-            $table->boolean('preferred')->nullable();
+            $table->integer('artwork_citi_id')->nullable()->index();
+            $table->integer('term_citi_id')->nullable()->index();
+            $table->boolean('preferred')->nullable()->index();
             $table->timestamp('source_created_at')->nullable();
             $table->timestamp('source_modified_at')->nullable();
             $table->timestamp('source_indexed_at')->nullable();
