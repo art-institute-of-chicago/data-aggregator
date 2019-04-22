@@ -65,6 +65,7 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('categories', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
+            $table->string('lake_uid')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_in_nav')->nullable();
             $table->string('parent_id')->nullable();
@@ -165,6 +166,7 @@ class CreateCollectionsTables extends Migration
             $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
             $table->string('lake_uri')->unique()->nullable();
+            $table->string('lake_uid')->nullable();
             $table->string('type')->nullable();
             $table->timestamp('source_created_at')->nullable()->useCurrent();
             $table->timestamp('source_modified_at')->nullable()->useCurrent();
