@@ -231,6 +231,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('artwork_citi_id')->index();
             $table->uuid('asset_lake_guid')->index('artwork_asset_asset_lake_guid_foreign');
             $table->boolean('preferred')->default(false)->nullable();
+            $table->boolean('is_doc')->default(false)->index();
         });
 
         Schema::create('exhibitions', function (Blueprint $table) {
