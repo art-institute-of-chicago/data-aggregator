@@ -22,8 +22,6 @@ class UpdateTypeOnTerms extends Migration
             $table->string('term_type_id')->nullable()->after('lake_uid');
         });
 
-        ( new CreateCategoryTermsView() )->up( false, false, true );
-
     }
 
     /**

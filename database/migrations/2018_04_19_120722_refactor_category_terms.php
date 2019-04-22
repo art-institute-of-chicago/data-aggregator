@@ -14,9 +14,6 @@ class RefactorCategoryTerms extends Migration
     public function up()
     {
 
-        // From 2018_03_01_165930_create_category_terms_view
-        ( new CreateCategoryTermsView() )->down();
-
         // Remove existing tables
         Schema::dropIfExists('categories');
         Schema::dropIfExists('terms');
@@ -94,10 +91,6 @@ class RefactorCategoryTerms extends Migration
             $table->timestamp('citi_modified_at')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();
         });
-
-        // As in 2018_03_29_140254_update_type_on_terms
-        // From 2018_03_01_165930_create_category_terms_view
-        ( new CreateCategoryTermsView() )->up( false, false, true );
 
         // You're gonna have to rerun the imports if you revert:
         // php artisan import:collections-full terms

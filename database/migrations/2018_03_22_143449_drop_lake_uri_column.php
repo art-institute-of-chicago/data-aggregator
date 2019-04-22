@@ -17,9 +17,6 @@ class DropLakeUriColumn extends Migration
     public function up()
     {
 
-        // We need to alter the category_terms view to remove lake_uri
-        ( new CreateCategoryTermsView() )->up( false, false );
-
         // Loop through all tables, and drop the lake_uri column
         $output = new ConsoleOutput();
 
@@ -116,9 +113,6 @@ class DropLakeUriColumn extends Migration
                 )
             ]);
         }
-
-        // We need to alter the category_terms view to add lake_uri
-        ( new CreateCategoryTermsView() )->up( false, true );
 
     }
 }
