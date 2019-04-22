@@ -101,6 +101,7 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, true, 'text');
+            $table->json('alt_titles')->nullable();
             $table->string('main_id')->nullable();
             $table->text('date_display')->nullable();
             $table->integer('date_start')->nullable();
