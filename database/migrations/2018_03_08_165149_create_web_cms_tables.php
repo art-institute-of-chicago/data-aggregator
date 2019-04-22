@@ -137,6 +137,13 @@ class CreateWebCmsTables extends Migration
             $table->timestamps();
         });
 
+        Schema::create('event_programs', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
@@ -208,6 +215,7 @@ class CreateWebCmsTables extends Migration
         Schema::dropIfExists('web_exhibitions');
         Schema::dropIfExists('events');
         Schema::dropIfExists('event_occurrences');
+        Schema::dropIfExists('event_programs');
         Schema::dropIfExists('articles');
         Schema::dropIfExists('selections');
         Schema::dropIfExists('web_artists');
