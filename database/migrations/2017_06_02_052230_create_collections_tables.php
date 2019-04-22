@@ -147,6 +147,12 @@ class CreateCollectionsTables extends Migration
                 $table->increments('id');
                 $table->integer('artwork_citi_id')->index();
                 $table->integer('agent_citi_id')->index();
+
+                // Should default to id of Artist (219) - in code?
+                $table->integer('agent_role_citi_id')->default(219)->unsigned()->index();
+
+                // Should default to true - in code?
+                $table->boolean('preferred')->default(true)->index();
             });
 
         }
