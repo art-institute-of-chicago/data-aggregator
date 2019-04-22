@@ -39,6 +39,7 @@ class CreateMembershipTables extends Migration
 
         Schema::create('ticketed_events', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
+            $table->integer('event_type_id')->nullable();
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
             $table->integer('resource_id')->nullable();
