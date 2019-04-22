@@ -268,6 +268,7 @@ class CreateCollectionsTables extends Migration
             $table->string('type')->nullable()->index();
             $table->json('metadata')->nullable();
             $table = $this->_addDates($table, false);
+            $table->text('alt_text')->nullable();
         });
 
         Schema::create('asset_category', function(Blueprint $table) {
