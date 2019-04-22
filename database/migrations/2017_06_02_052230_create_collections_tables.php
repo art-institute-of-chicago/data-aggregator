@@ -167,7 +167,8 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_dates', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->index();
-            $table->date('date')->nullable();
+            $table->date('date_earliest')->nullable();
+            $table->date('date_latest')->nullable();
             $table->string('qualifier')->nullable();
             $table->boolean('preferred')->default(false)->nullable();
             $table->timestamps();
