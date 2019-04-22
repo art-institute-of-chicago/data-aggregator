@@ -143,7 +143,7 @@ class CreateCollectionsTables extends Migration
             $table->string('category_lake_uid')->nullable()->index();
         });
 
-        foreach( ['artwork_artist', 'artwork_copyright_representative'] as $artwork_agent ) {
+        foreach( ['artwork_artist'] as $artwork_agent ) {
 
             Schema::create($artwork_agent, function(Blueprint $table) {
                 $table->increments('id');
@@ -365,7 +365,6 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('catalogues');
         Schema::dropIfExists('artwork_catalogue');
         Schema::dropIfExists('artwork_artist');
-        Schema::dropIfExists('artwork_copyright_representative');
         Schema::dropIfExists('artwork_category');
         Schema::dropIfExists('artworks');
         Schema::dropIfExists('category_gallery');
