@@ -11,7 +11,6 @@ class AddUpdatedAtIndexes extends Migration
      */
     private $tableNames = [
         'agent_exhibition',
-        'agent_place',
         'agent_roles',
         'agent_types',
         'agents',
