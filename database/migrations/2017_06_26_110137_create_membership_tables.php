@@ -25,6 +25,9 @@ class CreateMembershipTables extends Migration
             $table->string('image_url')->nullable();
             $table->text('description')->nullable();
             $table->text('short_description')->nullable();
+            $table->string('button_text')->nullable();
+            $table->string('button_url')->nullable();
+            $table->string('web_url')->nullable();
             $table = $this->_addDates($table);
         });
 
