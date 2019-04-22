@@ -145,11 +145,31 @@ class CreateCollectionsTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('artwork_terms', function(Blueprint $table) {
-            $table->increments('id');
-            $table->integer('artwork_citi_id')->index();
-            $table->string('term')->nullable();
+        Schema::create('terms', function (Blueprint $table) {
+            $table->increments('citi_id');
+            //$table->integer('citi_id')->unique()->primary();
+            $table->uuid('lake_guid')->unique()->nullable()->index();
+            $table->string('title')->nullable();
+            $table->string('lake_uri')->unique()->nullable();
             $table->string('type')->nullable();
+            $table->timestamp('source_created_at')->nullable()->useCurrent();
+            $table->timestamp('source_modified_at')->nullable()->useCurrent();
+            $table->timestamp('source_indexed_at')->nullable()->useCurrent();
+            $table->timestamp('citi_created_at')->nullable()->useCurrent();
+            $table->timestamp('citi_modified_at')->nullable()->useCurrent();
+            $table->timestamps();
+        });
+
+        Schema::create('artwork_term', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('artwork_citi_id')->nullable();
+            $table->integer('term_citi_id')->nullable();
+            $table->boolean('preferred')->nullable();
+            $table->timestamp('source_created_at')->nullable();
+            $table->timestamp('source_modified_at')->nullable();
+            $table->timestamp('source_indexed_at')->nullable();
+            $table->timestamp('citi_created_at')->nullable();
+            $table->timestamp('citi_modified_at')->nullable();
             $table->timestamps();
         });
 
@@ -314,7 +334,8 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('artwork_artwork');
         Schema::dropIfExists('artwork_committees');
         Schema::dropIfExists('artwork_dates');
-        Schema::dropIfExists('artwork_terms');
+        Schema::dropIfExists('terms');
+        Schema::dropIfExists('artwork_term');
         Schema::dropIfExists('artwork_catalogues');
         Schema::dropIfExists('artwork_artist');
         Schema::dropIfExists('artwork_copyright_representative');
