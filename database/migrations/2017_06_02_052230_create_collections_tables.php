@@ -108,7 +108,7 @@ class CreateCollectionsTables extends Migration
             $table->text('description')->nullable();
             $table->text('artist_display')->nullable();
             $table->text('dimensions')->nullable();
-            $table->text('medium')->nullable();
+            $table->text('medium_display')->nullable();
             $table->text('credit_line')->nullable();
             $table->text('inscriptions')->nullable();
             $table->text('publication_history')->nullable();
