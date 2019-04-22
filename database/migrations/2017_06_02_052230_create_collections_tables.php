@@ -193,7 +193,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('artwork_citi_id')->index();
             $table->date('date_earliest')->nullable();
             $table->date('date_latest')->nullable();
-            $table->string('qualifier')->nullable();
+            $table->integer('artwork_date_qualifier_citi_id')->nullable();
             $table->boolean('preferred')->default(false)->nullable();
             $table->timestamp('source_created_at')->nullable();
             $table->timestamp('source_modified_at')->nullable();
