@@ -102,6 +102,8 @@ class CreateCollectionsTables extends Migration
             $table->text('provenance')->nullable();
             $table->string('publishing_verification_level')->nullable();
             $table->boolean('is_public_domain')->nullable();
+            $table->boolean('is_zoomable')->nullable();
+            $table->integer('max_zoom_window_size')->nullable();
             $table->string('copyright_notice')->nullable();
             $table->string('place_of_origin')->nullable();
             $table->string('collection_status')->nullable();
