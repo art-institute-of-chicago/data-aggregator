@@ -34,6 +34,20 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
+        Schema::create('agent_place', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('agent_citi_id')->unsigned()->nullable()->index();
+            $table->integer('place_citi_id')->nullable()->index();
+            $table->string('qualifier')->nullable();
+            $table->boolean('is_preferred')->nullable();
+            $table->timestamp('source_created_at')->nullable();
+            $table->timestamp('source_modified_at')->nullable();
+            $table->timestamp('source_indexed_at')->nullable();
+            $table->timestamp('citi_created_at')->nullable();
+            $table->timestamp('citi_modified_at')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('departments', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table = $this->_addDates($table);
@@ -288,6 +302,7 @@ class CreateCollectionsTables extends Migration
     {
 
         Schema::dropIfExists('agent_exhibition');
+        Schema::dropIfExists('agent_place');
         Schema::dropIfExists('artwork_exhibition');
         Schema::dropIfExists('exhibitions');
         Schema::dropIfExists('artwork_asset');
