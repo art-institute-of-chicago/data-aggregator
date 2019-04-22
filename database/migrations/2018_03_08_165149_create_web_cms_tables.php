@@ -109,6 +109,7 @@ class CreateWebCmsTables extends Migration
             $table->string('title');
             $table->timestamp('date')->nullable();
             $table->text('copy')->nullable();
+            $table->string('imgix_uuid')->nullable();
             $table->boolean('published');
             $table->timestamps();
             $table->softDeletes();
