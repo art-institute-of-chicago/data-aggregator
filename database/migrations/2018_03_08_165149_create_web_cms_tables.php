@@ -76,27 +76,24 @@ class CreateWebCmsTables extends Migration
 
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->text('title');
             $table->integer('type');
-            $table->string('short_description')->nullable();
+            $table->text('short_description')->nullable();
             $table->text('description')->nullable();
-            $table->string('hero_caption')->nullable();
+            $table->text('hero_caption')->nullable();
             $table->boolean('is_private')->default(false);
             $table->boolean('is_after_hours')->default(false);
             $table->boolean('is_ticketed')->default(false);
             $table->boolean('is_free')->default(false);
             $table->boolean('is_member_exclusive')->default(false);
             $table->boolean('hidden')->default(false);
-            $table->string('rsvp_link')->nullable();
-            $table->string('start_date')->nullable();
-            $table->string('end_date')->nullable();
-            $table->json('all_dates')->nullable();
-            $table->string('location')->nullable();
-            $table->text('sponsors_description')->nullable();
-            $table->text('sponsors_sub_copy')->nullable();
+            $table->text('rsvp_link')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            $table->text('location')->nullable();
             $table->json('content')->nullable();
             $table->integer('layout_type');
-            $table->string('buy_button_text')->nullable();
+            $table->text('buy_button_text')->nullable();
             $table->text('buy_button_caption')->nullable();
             $table->boolean('is_admission_required')->default(false);
             $table->integer('ticketed_event_id')->unsigned()->nullable();
