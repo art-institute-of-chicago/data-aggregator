@@ -92,7 +92,6 @@ class CreateWebCmsTables extends Migration
             $table->boolean('is_ticketed')->default(false);
             $table->boolean('is_free')->default(false);
             $table->boolean('is_member_exclusive')->default(false);
-            $table->boolean('hidden')->default(false);
             $table->text('rsvp_link')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
