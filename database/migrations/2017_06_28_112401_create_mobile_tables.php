@@ -26,7 +26,6 @@ class CreateMobileTables extends Migration
             $table->double('latitude', 16, 13)->nullable();
             $table->double('longitude', 16, 13)->nullable();
 
-            $table->boolean('highlighted')->nullable();
             $table->integer('selector_number')->nullable();
             $table->timestamps();
         });
