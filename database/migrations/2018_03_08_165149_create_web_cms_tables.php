@@ -69,6 +69,7 @@ class CreateWebCmsTables extends Migration
             $table->string('sponsors_sub_copy')->nullable();
             $table->integer('cms_exhibition_type');
             $table->boolean('published');
+            $table->boolean('is_featured')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
