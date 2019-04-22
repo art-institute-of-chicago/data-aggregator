@@ -120,6 +120,14 @@ class CreateCollectionsTables extends Migration
             $table->string('type')->nullable();
         });
 
+        Schema::create('artwork_place', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('artwork_citi_id')->signed()->index();
+            $table->integer('place_citi_id')->signed()->index();
+            $table->integer('artwork_place_qualifier_citi_id')->signed()->index();
+            $table->boolean('preferred')->index();
+        });
+
         Schema::create('category_place', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('place_citi_id')->index();
@@ -406,6 +414,7 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('artwork_category');
         Schema::dropIfExists('artworks');
         Schema::dropIfExists('category_gallery');
+        Schema::dropIfExists('artwork_place');
         Schema::dropIfExists('places');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('artwork_types');
