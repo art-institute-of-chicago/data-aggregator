@@ -198,19 +198,6 @@ class CreateCollectionsTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('term_types', function (Blueprint $table) {
-            $table->integer('citi_id')->primary();
-            $table->uuid('lake_guid')->unique()->nullable()->index();
-            $table->string('title')->nullable();
-            $table->string('lake_uid')->nullable();
-            $table->timestamp('source_created_at')->nullable()->useCurrent();
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
-            $table->timestamp('source_indexed_at')->nullable()->useCurrent();
-            $table->timestamp('citi_created_at')->nullable()->useCurrent();
-            $table->timestamp('citi_modified_at')->nullable()->useCurrent();
-            $table->timestamps();
-        });
-
         Schema::create('terms', function (Blueprint $table) {
             $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
@@ -419,7 +406,6 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('assets');
         Schema::dropIfExists('artwork_artwork');
         Schema::dropIfExists('artwork_dates');
-        Schema::dropIfExists('term_types');
         Schema::dropIfExists('terms');
         Schema::dropIfExists('artwork_term');
         Schema::dropIfExists('catalogues');
