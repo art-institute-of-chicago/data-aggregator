@@ -58,7 +58,6 @@ class CreateCollectionsTables extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
-            $table->string('lake_uri')->unique()->nullable();
             $table->string('lake_uid')->nullable()->primary();
             $table->text('description')->nullable();
             $table->boolean('is_in_nav')->nullable();
@@ -72,7 +71,6 @@ class CreateCollectionsTables extends Migration
             $table->integer('citi_id')->unsigned()->unique()->primary();
             $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
-            $table->string('lake_uri')->unique()->nullable();
             $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
             $table->string('floor')->nullable();
@@ -157,7 +155,6 @@ class CreateCollectionsTables extends Migration
         Schema::create('terms', function (Blueprint $table) {
             $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
-            $table->string('lake_uri')->unique()->nullable();
             $table->string('lake_uid')->nullable()->primary();
             $table->string('type')->nullable();
             $table->timestamp('source_created_at')->nullable()->useCurrent();
@@ -185,7 +182,6 @@ class CreateCollectionsTables extends Migration
             $table->integer('citi_id')->unique()->primary();
             $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
-            $table->string('lake_uri')->unique()->nullable();
             $table->timestamp('source_created_at')->nullable()->useCurrent();
             $table->timestamp('source_modified_at')->nullable()->useCurrent();
             $table->timestamp('source_indexed_at')->nullable()->useCurrent();
@@ -313,7 +309,6 @@ class CreateCollectionsTables extends Migration
         }
 
         $table->{$titleField}('title')->nullable();
-        $table->string('lake_uri')->unique()->nullable();
         return $table;
     }
 
