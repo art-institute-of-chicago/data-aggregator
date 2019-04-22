@@ -186,12 +186,20 @@ class CreateCollectionsTables extends Migration
         }
 
         Schema::create('artwork_dates', function(Blueprint $table) {
-            $table->increments('id');
+            $table->integer('citi_id')->default(0)->primary();
+            $table->uuid('lake_guid')->unique()->nullable()->index();
+            $table->string('title')->nullable();
+            $table->string('lake_uri')->unique()->nullable();
             $table->integer('artwork_citi_id')->index();
             $table->date('date_earliest')->nullable();
             $table->date('date_latest')->nullable();
             $table->string('qualifier')->nullable();
             $table->boolean('preferred')->default(false)->nullable();
+            $table->timestamp('source_created_at')->nullable();
+            $table->timestamp('source_modified_at')->nullable();
+            $table->timestamp('source_indexed_at')->nullable();
+            $table->timestamp('citi_created_at')->nullable();
+            $table->timestamp('citi_modified_at')->nullable();
             $table->timestamps();
         });
 
