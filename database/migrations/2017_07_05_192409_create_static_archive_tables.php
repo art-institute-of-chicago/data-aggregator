@@ -27,19 +27,19 @@ class CreateStaticArchiveTables extends Migration
 
         Schema::create('artwork_site', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('artwork_citi_id')->unsigned()->index();
+            $table->integer('artwork_citi_id')->index();
             $table->integer('site_site_id')->unsigned()->index();
         });
 
         Schema::create('exhibition_site', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('exhibition_citi_id')->unsigned()->index();
+            $table->integer('exhibition_citi_id')->index();
             $table->integer('site_site_id')->unsigned()->index();
         });
 
         Schema::create('agent_site', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('agent_citi_id')->unsigned()->index();
+            $table->integer('agent_citi_id')->index();
             $table->integer('site_site_id')->unsigned()->index();
         });
 

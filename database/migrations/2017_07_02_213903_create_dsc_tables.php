@@ -32,7 +32,7 @@ class CreateDscTables extends Migration
             $table->integer('source_id')->nullable()->index();
             $table->integer('weight')->nullable()->index();
             $table->integer('publication_dsc_id')->unsigned()->index();
-            $table->integer('artwork_citi_id')->nullable()->unsigned()->index();
+            $table->integer('artwork_citi_id')->nullable()->index();
             $table->longText('content')->nullable();
             $table->timestamps();
         });

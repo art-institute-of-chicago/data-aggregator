@@ -19,7 +19,7 @@ class CreateMobileTables extends Migration
 
         Schema::create('mobile_artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->integer('artwork_citi_id')->unsigned()->nullable()->index();
+            $table->integer('artwork_citi_id')->nullable()->index();
 
 
             // https://laracasts.com/discuss/channels/laravel/schema-float-function-generated-a-double-type

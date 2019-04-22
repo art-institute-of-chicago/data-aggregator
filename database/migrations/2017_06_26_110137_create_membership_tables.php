@@ -31,7 +31,7 @@ class CreateMembershipTables extends Migration
         Schema::create('legacy_event_exhibition', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('legacy_event_membership_id')->unsigned()->index();
-            $table->integer('exhibition_citi_id')->unsigned()->index();
+            $table->integer('exhibition_citi_id')->index();
         });
 
         Schema::create('ticketed_events', function (Blueprint $table) {
