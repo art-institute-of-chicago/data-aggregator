@@ -252,6 +252,8 @@ class CreateCollectionsTables extends Migration
             $table->string('department_display')->nullable();
             $table->string('status')->nullable();
             $table->uuid('asset_lake_guid')->nullable();
+            $table->string('legacy_image_desktop')->nullable();
+            $table->string('legacy_image_mobile')->nullable();
             $table->date('date_start')->nullable();
             $table->date('date_end')->nullable();
             $table->date('date_aic_start')->nullable();
