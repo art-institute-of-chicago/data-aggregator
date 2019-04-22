@@ -118,7 +118,7 @@ class CreateWebCmsTables extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('short_copy')->nullable();
-            $table->text('content')->nullable();
+            $table->text('copy')->nullable();
             $table->boolean('published');
             $table->timestamp('source_modified_at')->nullable()->useCurrent();
             $table->timestamps();
