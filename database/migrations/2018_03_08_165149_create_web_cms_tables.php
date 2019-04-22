@@ -104,7 +104,6 @@ class CreateWebCmsTables extends Migration
             $table->string('email_series')->nullable();
             $table->string('door_time')->nullable();
             $table->string('image_url')->nullable();
-            $table->string('ticketed_event_type_id')->nullable();
             $table->boolean('published')->default(false);
             $table->timestamps();
             $table->softDeletes();
