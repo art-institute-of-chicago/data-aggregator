@@ -187,6 +187,7 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('artwork_catalogue', function (Blueprint $table) {
+            $table->integer('citi_id')->nullable();
             $table->integer('artwork_citi_id')->nullable();
             $table->integer('catalogue_citi_id')->nullable();
             $table->string('number')->nullable();
