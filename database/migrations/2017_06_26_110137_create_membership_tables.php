@@ -52,6 +52,15 @@ class CreateMembershipTables extends Migration
             $table = $this->_addDates($table);
         });
 
+        Schema::create('ticketed_event_types', function (Blueprint $table) {
+            $table->integer('membership_id')->unsigned()->unique()->primary();
+            $table->string('title')->nullable();
+            $table->string('category')->nullable();
+            $table->text('description')->nullable();
+            $table->timestamp('source_created_at')->nullable();
+            $table->timestamp('source_modified_at')->nullable();
+            $table->timestamps();
+        });
     }
 
     private function _addIdsAndTitle($table)
@@ -82,6 +91,7 @@ class CreateMembershipTables extends Migration
         Schema::dropIfExists('legacy_event_exhibition');
         Schema::dropIfExists('legacy_events');
         Schema::dropIfExists('ticketed_events');
+        Schema::dropIfExists('ticketed_event_types');
 
     }
 
