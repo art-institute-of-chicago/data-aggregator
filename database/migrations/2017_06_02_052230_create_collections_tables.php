@@ -170,7 +170,7 @@ class CreateCollectionsTables extends Migration
             $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
             $table->string('lake_uid')->nullable()->primary();
-            $table->string('type')->nullable();
+            $table->string('term_type_id')->nullable();
             $table->timestamp('source_created_at')->nullable()->useCurrent();
             $table->timestamp('source_modified_at')->nullable()->useCurrent();
             $table->timestamp('source_indexed_at')->nullable()->useCurrent();
