@@ -41,7 +41,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('agent_citi_id')->nullable()->index();
             $table->integer('place_citi_id')->nullable()->index();
             $table->string('qualifier')->nullable();
-            $table->boolean('is_preferred')->nullable();
+            $table->boolean('is_preferred')->default(false)->nullable();
             $table->timestamp('source_created_at')->nullable();
             $table->timestamp('source_modified_at')->nullable();
             $table->timestamp('source_indexed_at')->nullable();
@@ -155,7 +155,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('artwork_citi_id')->index();
             $table->date('date')->nullable();
             $table->string('qualifier')->nullable();
-            $table->boolean('preferred')->nullable();
+            $table->boolean('preferred')->default(false)->nullable();
             $table->timestamps();
         });
 
@@ -178,7 +178,7 @@ class CreateCollectionsTables extends Migration
             $table->increments('id');
             $table->integer('artwork_citi_id')->nullable()->index();
             $table->integer('term_citi_id')->nullable()->index();
-            $table->boolean('preferred')->nullable()->index();
+            $table->boolean('preferred')->nullable()->default(false)->index();
             $table->timestamp('source_created_at')->nullable();
             $table->timestamp('source_modified_at')->nullable();
             $table->timestamp('source_indexed_at')->nullable();
@@ -206,7 +206,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('catalogue_citi_id')->nullable();
             $table->string('number')->nullable();
             $table->string('state_edition')->nullable();
-            $table->boolean('preferred')->nullable();
+            $table->boolean('preferred')->default(false)->nullable();
             $table->timestamp('source_created_at')->nullable();
             $table->timestamp('source_modified_at')->nullable();
             $table->timestamp('source_indexed_at')->nullable();
@@ -240,7 +240,7 @@ class CreateCollectionsTables extends Migration
             $table->increments('id');
             $table->integer('artwork_citi_id')->index();
             $table->uuid('asset_lake_guid')->index('artwork_asset_asset_lake_guid_foreign');
-            $table->boolean('preferred')->nullable();
+            $table->boolean('preferred')->default(false)->nullable();
         });
 
         Schema::create('exhibitions', function (Blueprint $table) {
