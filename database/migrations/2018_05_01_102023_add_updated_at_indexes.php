@@ -42,7 +42,6 @@ class AddUpdatedAtIndexes extends Migration
         'locations',
         'mobile_artworks',
         'mobile_sounds',
-        'pages',
         'places',
         'products',
         'publications',
