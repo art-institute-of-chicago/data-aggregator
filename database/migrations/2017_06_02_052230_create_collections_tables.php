@@ -63,11 +63,27 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('places', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+        Schema::create('galleries', function (Blueprint $table) {
+            $table->integer('citi_id')->unsigned()->unique()->primary();
+            $table->uuid('lake_guid')->unique()->nullable()->index();
+            $table->string('title')->nullable();
+            $table->string('lake_uri')->unique()->nullable();
             $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
             $table->string('floor')->nullable();
+            $table->double('latitude', 16, 13)->nullable();
+            $table->double('longitude', 16, 13)->nullable();
+            $table->string('type')->nullable();
+            $table->timestamp('source_created_at')->nullable()->useCurrent();
+            $table->timestamp('source_modified_at')->nullable()->useCurrent();
+            $table->timestamp('source_indexed_at')->nullable()->useCurrent();
+            $table->timestamp('citi_created_at')->nullable()->useCurrent();
+            $table->timestamp('citi_modified_at')->nullable()->useCurrent();
+            $table->timestamps();
+        });
+
+        Schema::create('places', function (Blueprint $table) {
+            $table = $this->_addIdsAndTitle($table);
             $table->double('latitude', 16, 13)->nullable();
             $table->double('longitude', 16, 13)->nullable();
             $table = $this->_addDates($table);
@@ -103,7 +119,7 @@ class CreateCollectionsTables extends Migration
             $table->string('place_of_origin')->nullable();
             $table->string('collection_status')->nullable();
             $table->integer('object_type_citi_id')->nullable()->index();
-            $table->integer('place_citi_id')->nullable()->index('artworks_gallery_citi_id_index');
+            $table->integer('gallery_citi_id')->nullable()->index();
             $table = $this->_addDates($table);
         });
 
