@@ -61,14 +61,13 @@ class CreateWebCmsTables extends Migration
 
         Schema::create('web_exhibitions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('header_copy')->nullable();
+            $table->text('title');
+            $table->text('header_copy')->nullable();
+            $table->text('list_description')->nullable();
             $table->json('content')->nullable();
-            $table->string('datahub_id')->nullable();
-            $table->string('exhibition_message')->nullable();
-            $table->string('sponsors_sub_copy')->nullable();
-            $table->integer('cms_exhibition_type');
-            $table->boolean('published');
+            $table->integer('datahub_id')->nullable();
+            $table->text('exhibition_message')->nullable();
+            $table->boolean('is_published');
             $table->boolean('is_featured')->nullable();
             $table->timestamps();
             $table->softDeletes();
