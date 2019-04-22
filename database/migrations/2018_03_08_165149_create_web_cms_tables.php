@@ -76,10 +76,17 @@ class CreateWebCmsTables extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
             $table->text('title');
+            $table->text('title_display')->nullable();
             $table->integer('type');
+            $table->json('alt_event_types')->nullable();
+            $table->integer('audience')->nullable();
+            $table->json('alt_audiences')->nullable();
+            $table->json('programs')->nullable();
             $table->text('short_description')->nullable();
             $table->text('description')->nullable();
             $table->text('hero_caption')->nullable();
+            $table->text('header_description')->nullable();
+            $table->text('list_description')->nullable();
             $table->boolean('is_private')->default(false);
             $table->boolean('is_after_hours')->default(false);
             $table->boolean('is_ticketed')->default(false);
@@ -99,7 +106,7 @@ class CreateWebCmsTables extends Migration
             $table->string('survey_url')->nullable();
             $table->string('email_series')->nullable();
             $table->string('door_time')->nullable();
-            $table->string('image_url')->nullable();
+            $table->text('image_url')->nullable();
             $table->boolean('published')->default(false);
             $table->timestamps();
             $table->softDeletes();
