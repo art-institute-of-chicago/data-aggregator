@@ -48,9 +48,17 @@ class CreateCollectionsTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('object_types', function (Blueprint $table) {
+        Schema::create('artwork_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table = $this->_addDates($table);
+        });
+
+        // Temporary workaround for index naming bug
+        Schema::table('artwork_types', function (Blueprint $table) {
+            $table->dropUnique(['lake_guid']);
+            $table->dropUnique(['lake_uri']);
+            $table->unique('lake_guid', 'object_types_lake_guid_unique');
+            $table->unique('lake_uri', 'object_types_lake_uri_unique');
         });
 
         Schema::create('categories', function (Blueprint $table) {
@@ -118,7 +126,7 @@ class CreateCollectionsTables extends Migration
             $table->string('copyright_notice')->nullable();
             $table->string('place_of_origin')->nullable();
             $table->string('collection_status')->nullable();
-            $table->integer('object_type_citi_id')->nullable()->index();
+            $table->integer('artwork_type_citi_id')->nullable()->index('artworks_object_type_citi_id_index');
             $table->integer('gallery_citi_id')->nullable()->index();
             $table = $this->_addDates($table);
         });
@@ -368,7 +376,7 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('category_gallery');
         Schema::dropIfExists('places');
         Schema::dropIfExists('categories');
-        Schema::dropIfExists('object_types');
+        Schema::dropIfExists('artwork_types');
         Schema::dropIfExists('agents');
         Schema::dropIfExists('agent_types');
 
