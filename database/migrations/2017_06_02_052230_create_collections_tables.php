@@ -24,12 +24,14 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('agents', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
+            $table->string('sort_title')->nullable();
             $table->integer('birth_date')->nullable();
             $table->string('birth_place')->nullable();
             $table->integer('death_date')->nullable();
             $table->string('death_place')->nullable();
             $table->boolean('licensing_restricted')->nullable();
             $table->string('ulan_uri')->nullable();
+            $table->json('alt_titles')->nullable();
             $table->integer('agent_type_citi_id')->nullable()->index();
             $table = $this->_addDates($table);
         });
