@@ -145,8 +145,8 @@ class CreateWebCmsTables extends Migration
             $table->boolean('published')->nullable();
             $table->datetime('publish_start_date')->nullable();
             $table->datetime('publish_end_date')->nullable();
-            $table->text('text')->nullable();
-            $table->string('image_url')->nullable();
+            $table->text('copy')->nullable();
+            $table->string('imgix_uuid')->nullable();
             $table->timestamps();
             $table->softDeletes();
         };
