@@ -98,6 +98,11 @@ class CreateWebCmsTables extends Migration
             $table->integer('layout_type');
             $table->string('buy_button_text')->nullable();
             $table->text('buy_button_caption')->nullable();
+            $table->boolean('is_admission_required')->default(false);
+            $table->integer('ticketed_event_id')->unsigned()->nullable();
+            $table->string('survey_url')->nullable();
+            $table->string('email_series')->nullable();
+            $table->string('door_time')->nullable();
             $table->boolean('published')->default(false);
             $table->timestamps();
             $table->softDeletes();
