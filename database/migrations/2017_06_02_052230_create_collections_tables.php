@@ -202,6 +202,8 @@ class CreateCollectionsTables extends Migration
         Schema::create('exhibitions', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, true, 'text');
             $table->text('description')->nullable();
+            $table->text('short_description')->nullable();
+            $table->string('web_url')->nullable();
             $table->string('type')->nullable();
             $table->integer('department_citi_id')->nullable()->index();
             $table->integer('place_citi_id')->nullable()->index('exhibitions_gallery_citi_id_index');
