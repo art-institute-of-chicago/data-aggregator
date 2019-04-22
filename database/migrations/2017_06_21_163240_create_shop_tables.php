@@ -18,43 +18,51 @@ class CreateShopTables extends Migration
         $this->down();
 
         Schema::create('shop_categories', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
-            $table->string('link')->nullable();
+            $table = $this->_addId($table);
+            $table->string('title');
             $table->integer('parent_category_shop_id')->unsigned()->index()->nullable();
-            $table->string('type')->nullable();
-            $table->integer('source_id')->nullable()->unsigned()->index();
             $table = $this->_addDates($table);
         });
 
         Schema::create('products', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+            $table = $this->_addId($table);
+            $table->string('title')->nullable();
+            $table->string('title_sort')->nullable();
+            $table->integer('parent_id')->nullable();
+            $table->integer('category_id')->nullable();
             $table->string('sku')->nullable();
-            $table->string('title_display')->nullable();
-            $table->string('link')->nullable();
-            $table->string('image')->nullable();
+            $table->integer('external_sku')->nullable();
+            $table->string('image_url')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('on_sale')->nullable();
             $table->integer('priority')->nullable();
             $table->float('price')->nullable();
-            $table->integer('review_count')->nullable();
-            $table->integer('items_sold')->nullable();
-            $table->float('rating')->nullable();
+            $table->float('sale_price')->nullable();
+            $table->float('member_price')->nullable();
+            $table->boolean('aic_collection')->nullable();
+            $table->integer('gift_box')->nullable();
+            $table->string('recipient')->nullable();
+            $table->boolean('holiday')->nullable();
+            $table->boolean('architecture')->nullable();
+            $table->boolean('glass')->nullable();
+            $table->integer('x_shipping_charge')->nullable();
+            $table->integer('inventory')->nullable();
+            $table->boolean('choking_hazard')->nullable();
+            $table->boolean('back_order')->nullable();
+            $table->date('back_order_due_date')->nullable();
             $table = $this->_addDates($table);
         });
 
-        Schema::create('product_shop_category', function (Blueprint $table) {
+        Schema::create('artist_product', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_shop_id')->unsigned()->index();
-            $table->integer('category_shop_id')->unsigned()->index();
+            $table->integer('agent_citi_id')->index();
+            $table->integer('product_shop_id')->index();
         });
 
     }
 
-    private function _addIdsAndTitle($table)
+    private function _addId($table)
     {
-
         $table->integer('shop_id')->unsigned()->unique()->primary();
-        $table->string('title');
         return $table;
     }
 
@@ -74,7 +82,6 @@ class CreateShopTables extends Migration
     public function down()
     {
 
-        Schema::dropIfExists('product_shop_category');
         Schema::dropIfExists('products');
         Schema::dropIfExists('shop_categories');
 
