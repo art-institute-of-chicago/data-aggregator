@@ -82,12 +82,12 @@ class CreateWebCmsTables extends Migration
             $table->string('short_description')->nullable();
             $table->text('description')->nullable();
             $table->string('hero_caption')->nullable();
-            $table->boolean('is_private');
-            $table->boolean('is_after_hours');
-            $table->boolean('is_ticketed');
-            $table->boolean('is_free');
-            $table->boolean('is_member_exclusive');
-            $table->boolean('hidden');
+            $table->boolean('is_private')->default(false);
+            $table->boolean('is_after_hours')->default(false);
+            $table->boolean('is_ticketed')->default(false);
+            $table->boolean('is_free')->default(false);
+            $table->boolean('is_member_exclusive')->default(false);
+            $table->boolean('hidden')->default(false);
             $table->string('rsvp_link')->nullable();
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
@@ -99,7 +99,7 @@ class CreateWebCmsTables extends Migration
             $table->integer('layout_type');
             $table->string('buy_button_text')->nullable();
             $table->text('buy_button_caption')->nullable();
-            $table->boolean('published');
+            $table->boolean('published')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
