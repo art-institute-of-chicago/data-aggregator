@@ -45,7 +45,7 @@ class CreateMobileTables extends Migration
         });
 
         Schema::create('tours', function(Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+            $table = $this->_addIdsAndTitle($table, 'string');
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->text('intro_text')->nullable();
@@ -66,11 +66,11 @@ class CreateMobileTables extends Migration
 
     }
 
-    private function _addIdsAndTitle($table)
+    private function _addIdsAndTitle($table, $titleType = 'text')
     {
 
         $table->integer('mobile_id')->unsigned()->unique()->primary();
-        $table->string('title');
+        $table->$titleType('title');
         return $table;
     }
 
