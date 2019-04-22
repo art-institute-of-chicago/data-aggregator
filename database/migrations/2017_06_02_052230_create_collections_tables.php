@@ -274,6 +274,9 @@ class CreateCollectionsTables extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false, 'text');
             $table = $this->_addInterpretiveResourceFileds($table);
+            $table->boolean('is_multimedia_resource')->default(false)->index();
+            $table->boolean('is_educational_resource')->default(false)->index();
+            $table->boolean('is_teacher_resource')->default(false)->index();
             $table->string('type')->nullable()->index();
             $table->json('metadata')->nullable();
             $table = $this->_addDates($table, false);
