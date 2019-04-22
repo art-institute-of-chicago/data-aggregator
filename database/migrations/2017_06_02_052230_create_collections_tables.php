@@ -147,6 +147,7 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addIdsAndTitle($table, true, 'text');
             $table->json('alt_titles')->nullable();
             $table->string('main_id')->nullable();
+            $table->integer('pageviews')->nullable()->index();
             $table->text('date_display')->nullable();
             $table->integer('date_start')->nullable();
             $table->integer('date_end')->nullable();
