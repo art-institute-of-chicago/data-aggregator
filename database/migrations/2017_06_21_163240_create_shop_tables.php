@@ -49,6 +49,7 @@ class CreateShopTables extends Migration
             $table->boolean('choking_hazard')->nullable();
             $table->boolean('back_order')->nullable();
             $table->date('back_order_due_date')->nullable();
+            $table->boolean('active')->nullable();
             $table = $this->_addDates($table);
         });
 
