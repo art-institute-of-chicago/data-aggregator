@@ -64,6 +64,19 @@ class CreateCollectionsTables extends Migration
             $this->_addDates( $table );
         });
 
+        Schema::create('artwork_date_qualifiers', function (Blueprint $table) {
+            $table->integer('citi_id')->unsigned()->unique()->primary();
+            $table->uuid('lake_guid')->unique()->nullable()->index();
+            $table->string('title')->nullable();
+            $table->string('lake_uri')->unique()->nullable();
+            $table->timestamp('source_created_at')->nullable()->useCurrent();
+            $table->timestamp('source_modified_at')->nullable()->useCurrent();
+            $table->timestamp('source_indexed_at')->nullable()->useCurrent();
+            $table->timestamp('citi_created_at')->nullable()->useCurrent();
+            $table->timestamp('citi_modified_at')->nullable()->useCurrent();
+            $table->timestamps();
+        });
+
         Schema::create('artwork_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table = $this->_addDates($table);
@@ -376,6 +389,7 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('agent_exhibition');
         Schema::dropIfExists('agent_place');
         Schema::dropIfExists('artwork_place_qualifiers');
+        Schema::dropIfExists('artwork_date_qualifiers');
         Schema::dropIfExists('artwork_exhibition');
         Schema::dropIfExists('exhibitions');
         Schema::dropIfExists('artwork_asset');
