@@ -65,6 +65,7 @@ class CreateWebCmsTables extends Migration
             $table->text('header_copy')->nullable();
             $table->text('list_description')->nullable();
             $table->json('content')->nullable();
+            $table->text('web_url')->nullable();
             $table->text('image_url')->nullable();
             $table->integer('datahub_id')->nullable();
             $table->text('exhibition_message')->nullable();
