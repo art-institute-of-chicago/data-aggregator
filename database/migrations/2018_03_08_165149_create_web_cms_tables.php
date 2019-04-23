@@ -212,6 +212,15 @@ class CreateWebCmsTables extends Migration
         Schema::table('generic_pages', function (Blueprint $table) {
             $table->text('search_tags')->nullable()->after('copy');
         });
+
+        $addPublishDates = function (Blueprint $table) {
+            $table->datetime('publish_start_date')->nullable()->after('published');
+            $table->datetime('publish_end_date')->nullable()->after('publish_start_date');
+        };
+
+        Schema::table('articles', $addPublishDates);
+        Schema::table('events', $addPublishDates);
+        Schema::table('selections', $addPublishDates);
     }
 
     /**
