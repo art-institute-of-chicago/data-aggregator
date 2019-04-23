@@ -362,16 +362,6 @@ class Artwork extends BaseTransformer
                     }
                 },
             ],
-            // Currently unused by the mobile app. It is provided by the CMS.
-            // https://github.com/art-institute-of-chicago/aic-mobile-cms/blob/34d884a/sites/all/modules/custom/aicapp/aicapp.module#L1856-L1860
-            // 'selector_number' => [
-            //     'doc' => 'The code that can be entered in our audioguides to learn more about this work',
-            //     'type' => 'number',
-            //     'elasticsearch' => 'integer',
-            //     'value' => function ($item) {
-            //         return $item->mobileArtwork->selector_number ?? null;
-            //     },
-            // ],
             'is_on_view' => [
                 'doc' => 'Whether the work is on display',
                 'type' => 'boolean',
