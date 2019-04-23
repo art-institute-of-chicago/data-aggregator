@@ -173,7 +173,7 @@ class CreateWebCmsTables extends Migration
             $table->increments('id');
             $table->string('title');
             $table->boolean('also_known_as')->nullable();
-            $table->timestamp('intro_copy')->nullable();
+            $table->text('intro_copy')->nullable();
             $table->integer('datahub_id');
             $table->timestamps();
             $table->softDeletes();
