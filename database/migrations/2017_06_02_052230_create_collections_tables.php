@@ -111,12 +111,6 @@ class CreateCollectionsTables extends Migration
             $table->boolean('preferred')->index();
         });
 
-        Schema::create('category_place', function(Blueprint $table) {
-            $table->increments('id');
-            $table->integer('place_citi_id')->index();
-            $table->string('category_lake_uid')->nullable()->index();
-        });
-
         Schema::create('artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, true, 'text');
             $table->json('alt_titles')->nullable();
@@ -338,7 +332,6 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('artwork_artist');
         Schema::dropIfExists('artwork_category');
         Schema::dropIfExists('artworks');
-        Schema::dropIfExists('category_gallery');
         Schema::dropIfExists('artwork_place');
         Schema::dropIfExists('places');
         Schema::dropIfExists('artwork_types');
