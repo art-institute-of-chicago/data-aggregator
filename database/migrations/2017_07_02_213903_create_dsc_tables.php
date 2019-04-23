@@ -32,9 +32,7 @@ class CreateDscTables extends Migration
             $table->integer('source_id')->nullable()->index();
             $table->integer('weight')->nullable()->index();
             $table->integer('publication_dsc_id')->unsigned()->index();
-            $table->foreign('publication_dsc_id')->references('dsc_id')->on('publications')->onDelete('cascade');
-            $table->integer('artwork_citi_id')->nullable()->unsigned()->index();
-            $table->foreign('artwork_citi_id')->nullable()->references('citi_id')->on('artworks')->onDelete('cascade');
+            $table->integer('artwork_citi_id')->nullable()->index();
             $table->longText('content')->nullable();
             $table->timestamps();
         });
@@ -42,7 +40,6 @@ class CreateDscTables extends Migration
         // Because these are self-referential, the table must be created first
         Schema::table('sections', function (Blueprint $table) {
             $table->bigInteger('parent_id')->nullable()->unsigned()->index();
-            $table->foreign('parent_id')->references('dsc_id')->on('sections')->onDelete('cascade');
         });
 
     }
@@ -58,7 +55,7 @@ class CreateDscTables extends Migration
         {
             $table->$idType('dsc_id')->unique()->primary();
         }
-        $table->string('title');
+        $table->text('title');
         return $table;
     }
 
