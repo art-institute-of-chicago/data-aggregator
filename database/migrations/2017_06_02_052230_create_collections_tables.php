@@ -51,7 +51,6 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_date_qualifiers', function (Blueprint $table) {
             $table->integer('citi_id')->unsigned()->unique()->primary();
             $table->string('title')->nullable();
-            $table->string('lake_uri')->unique()->nullable();
             $table->timestamps();
         });
 
@@ -161,7 +160,6 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_dates', function(Blueprint $table) {
             $table->integer('citi_id')->default(0)->primary();
             $table->string('title')->nullable();
-            $table->string('lake_uri')->unique()->nullable();
             $table->integer('artwork_citi_id')->index();
             $table->date('date_earliest')->nullable();
             $table->date('date_latest')->nullable();
