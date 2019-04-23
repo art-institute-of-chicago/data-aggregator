@@ -220,12 +220,6 @@ class CreateCollectionsTables extends Migration
             $table->text('alt_text')->nullable();
         });
 
-        Schema::create('asset_category', function(Blueprint $table) {
-            $table->increments('id');
-            $table->uuid('asset_lake_guid');
-            $table->string('category_lake_uid')->nullable()->index();
-        });
-
         Schema::create('artwork_asset', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->index();
@@ -321,7 +315,6 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('exhibitions');
         Schema::dropIfExists('exhibition_asset');
         Schema::dropIfExists('artwork_asset');
-        Schema::dropIfExists('asset_category');
         Schema::dropIfExists('assets');
         Schema::dropIfExists('artwork_artwork');
         Schema::dropIfExists('artwork_dates');
