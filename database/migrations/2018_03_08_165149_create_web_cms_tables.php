@@ -89,6 +89,7 @@ class CreateWebCmsTables extends Migration
             $table->text('hero_caption')->nullable();
             $table->text('header_description')->nullable();
             $table->text('list_description')->nullable();
+            $table->text('search_tags')->nullable();
             $table->boolean('is_private')->default(false);
             $table->boolean('is_after_hours')->default(false);
             $table->boolean('is_ticketed')->default(false);
