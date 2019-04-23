@@ -208,6 +208,10 @@ class CreateWebCmsTables extends Migration
         Schema::create('educator_resources', $createPagesTable);
         Schema::create('digital_catalogs', $createPagesTable);
         Schema::create('printed_catalogs', $createPagesTable);
+
+        Schema::table('generic_pages', function (Blueprint $table) {
+            $table->text('search_tags')->nullable()->after('copy');
+        });
     }
 
     /**
