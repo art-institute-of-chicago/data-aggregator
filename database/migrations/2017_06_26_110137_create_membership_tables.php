@@ -14,29 +14,6 @@ class CreateMembershipTables extends Migration
      */
     public function up()
     {
-
-        Schema::create('legacy_events', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
-            $table->string('type')->nullable();
-            $table->timestamp('start_at')->nullable();
-            $table->timestamp('end_at')->nullable();
-            $table->string('resource_title')->nullable();
-            $table->boolean('is_admission_required')->nullable();
-            $table->string('image_url')->nullable();
-            $table->text('description')->nullable();
-            $table->text('short_description')->nullable();
-            $table->string('button_text')->nullable();
-            $table->text('button_url')->nullable();
-            $table->string('web_url')->nullable();
-            $table = $this->_addDates($table);
-        });
-
-        Schema::create('legacy_event_exhibition', function(Blueprint $table) {
-            $table->increments('id');
-            $table->integer('legacy_event_membership_id')->unsigned()->index();
-            $table->integer('exhibition_citi_id')->index();
-        });
-
         Schema::create('ticketed_events', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->integer('event_type_id')->nullable();
@@ -68,11 +45,9 @@ class CreateMembershipTables extends Migration
 
     private function _addIdsAndTitle($table)
     {
-
         $table->integer('membership_id')->unsigned()->unique()->primary();
         $table->string('title')->nullable();
         return $table;
-
     }
 
     private function _addDates($table, $citiField = true)
@@ -90,12 +65,8 @@ class CreateMembershipTables extends Migration
      */
     public function down()
     {
-
-        Schema::dropIfExists('legacy_event_exhibition');
-        Schema::dropIfExists('legacy_events');
         Schema::dropIfExists('ticketed_events');
         Schema::dropIfExists('ticketed_event_types');
-
     }
 
 }

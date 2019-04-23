@@ -29,7 +29,6 @@ class AddUpdatedAtIndexes extends Migration
         'exhibitions',
         'galleries',
         'hours',
-        'legacy_events',
         'library_material_creator',
         'library_material_subject',
         'library_materials',
