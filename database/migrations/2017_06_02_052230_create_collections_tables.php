@@ -202,6 +202,8 @@ class CreateCollectionsTables extends Migration
             $table->boolean('is_teacher_resource')->default(false)->index();
             $table->string('type')->nullable()->index();
             $table->json('metadata')->nullable();
+            $table->string('content_e_tag', 40)->nullable();
+            $table->timestamp('content_modified_at')->nullable();
             $table = $this->_addDates($table, false);
             $table->text('alt_text')->nullable();
         });
