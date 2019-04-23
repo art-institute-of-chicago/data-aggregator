@@ -54,7 +54,7 @@ class CreateMobileTables extends Migration
         });
 
         Schema::create('tour_stops', function(Blueprint $table) {
-            $table->increments('id');
+            $table->bigInteger('id')->unsigned()->primary();
             $table->integer('tour_mobile_id')->unsigned()->index();
             $table->integer('mobile_artwork_mobile_id')->unsigned()->index();
             $table->integer('mobile_sound_mobile_id')->unsigned()->index();
