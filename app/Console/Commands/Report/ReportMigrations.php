@@ -14,6 +14,28 @@ class ReportMigrations extends BaseCommand
 
     protected $description = 'Run migrate:generate and compare results with saved run';
 
+    /**
+     * This command is meant to aid in refactoring migrations. Specifically, use this
+     * when you want to squash or otherwise optimize migrations while keeping the end
+     * schema the same. Workflow:
+     *
+     *  1. Checkout whatever commit contains the "reference" schema you want to keep.
+     *  2. Set `DB_DATABASE` to point at a new, empty database. Alternatively, if you
+     *     don't care about the data in your current database, you can run `db:reset`.
+     *  3. Run `php artisan migrate`.
+     *  4. Ensure the following directories exist:
+     *       storate/app/migrations/old
+     *       storate/app/migrations/new
+     *  5. Run `php artisan migrate:generate --path storage/app/migrations/old`.
+     *     Answer "no" to prompt. This is your reference schema. When you want to make
+     *     a new reference schema, manually empty out `storage/app/migrations/old` and
+     *     rerun this step.
+     *  6. (Sanity check.) Run `php artisan report:migrations --refresh`. It should return empty.
+     *  7. Modify some migrations and re-run `php artisan report:migrations --refresh`.
+     *     If the schema changed, it'll return the difference. Else, it'll return empty.
+     *
+     * Repeat last step until refactoring is complete!
+     **/
     public function handle()
     {
         $oldDir = storage_path('app/migrations/old');
@@ -67,5 +89,4 @@ class ReportMigrations extends BaseCommand
     {
         return array_filter((array) glob($dir . '/' . $suffix));
     }
-
 }
