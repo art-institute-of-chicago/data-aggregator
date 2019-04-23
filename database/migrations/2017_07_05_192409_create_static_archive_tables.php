@@ -14,9 +14,6 @@ class CreateStaticArchiveTables extends Migration
      */
     public function up()
     {
-
-        $this->down();
-
         Schema::create('sites', function (Blueprint $table) {
             $table->integer('site_id')->unsigned()->unique()->primary();
             $table->string('title');

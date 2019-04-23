@@ -14,9 +14,6 @@ class CreateCollectionsTables extends Migration
      */
     public function up()
     {
-
-        $this->down();
-
         Schema::create('artwork_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table = $this->_addDates($table);

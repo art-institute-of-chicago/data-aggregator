@@ -13,9 +13,6 @@ class CreateDscTables extends Migration
      */
     public function up()
     {
-
-        $this->down();
-
         Schema::create('publications', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('site')->nullable();
