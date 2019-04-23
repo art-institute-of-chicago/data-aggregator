@@ -24,7 +24,6 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('agent_roles', function (Blueprint $table) {
             $table->integer('citi_id')->signed()->primary();
-            $table->uuid('lake_guid')->nullable()->unique()->index();
             $table->string('title')->nullable();
             $table->timestamps();
         });
@@ -45,14 +44,12 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('artwork_place_qualifiers', function (Blueprint $table) {
             $table->integer('citi_id')->signed()->primary();
-            $table->uuid('lake_guid')->nullable()->unique()->index();
             $table->string('title')->nullable();
             $table->timestamps();
         });
 
         Schema::create('artwork_date_qualifiers', function (Blueprint $table) {
             $table->integer('citi_id')->unsigned()->unique()->primary();
-            $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
             $table->string('lake_uri')->unique()->nullable();
             $table->timestamps();
@@ -65,7 +62,6 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('category_terms', function(Blueprint $table) {
             $table->string('lake_uid')->primary();
-            $table->uuid('lake_guid')->unique();
             $table->string('title')->nullable();
 
             $table->boolean('is_category')->index();
@@ -79,7 +75,6 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('galleries', function (Blueprint $table) {
             $table->integer('citi_id')->unsigned()->unique()->primary();
-            $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
             $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
@@ -165,7 +160,6 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('artwork_dates', function(Blueprint $table) {
             $table->integer('citi_id')->default(0)->primary();
-            $table->string('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
             $table->string('lake_uri')->unique()->nullable();
             $table->integer('artwork_citi_id')->index();
@@ -185,7 +179,6 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('catalogues', function (Blueprint $table) {
             $table->integer('citi_id')->unique()->primary();
-            $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
             $table->timestamps();
         });
@@ -200,7 +193,8 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('assets', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table, false, 'text');
+            $table->uuid('lake_guid')->primary();
+            $table->text('title')->nullable();
             $table->text('description')->nullable();
             $table->text('content')->nullable();
             $table->integer('copyright_notice')->nullable();
@@ -255,21 +249,7 @@ class CreateCollectionsTables extends Migration
 
     private function _addIdsAndTitle($table, $citiField = true, $titleField = 'string')
     {
-
-        if ($citiField)
-        {
-
-            $table->integer('citi_id')->unique()->primary();
-            $table->uuid('lake_guid')->unique()->nullable()->index();
-
-        }
-        else
-        {
-
-            $table->uuid('lake_guid')->unique()->primary();
-
-        }
-
+        $table->integer('citi_id')->unique()->primary();
         $table->{$titleField}('title')->nullable();
         return $table;
     }
