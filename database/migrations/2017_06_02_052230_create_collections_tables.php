@@ -199,12 +199,6 @@ class CreateCollectionsTables extends Migration
             $table->boolean('preferred')->default(false);
         });
 
-        Schema::create('artwork_artwork', function(Blueprint $table) {
-            $table->increments('id');
-            $table->integer('set_citi_id')->index();
-            $table->integer('part_citi_id')->index();
-        });
-
         Schema::create('assets', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, false, 'text');
             $table->text('description')->nullable();
@@ -312,7 +306,6 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('exhibition_asset');
         Schema::dropIfExists('artwork_asset');
         Schema::dropIfExists('assets');
-        Schema::dropIfExists('artwork_artwork');
         Schema::dropIfExists('artwork_dates');
         Schema::dropIfExists('artwork_term');
         Schema::dropIfExists('category_terms');
