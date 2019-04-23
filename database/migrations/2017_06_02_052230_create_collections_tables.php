@@ -158,7 +158,7 @@ class CreateCollectionsTables extends Migration
         }
 
         Schema::create('artwork_dates', function(Blueprint $table) {
-            $table->integer('citi_id')->default(0)->primary();
+            $table->increments('id');
             $table->string('title')->nullable();
             $table->integer('artwork_citi_id')->index();
             $table->date('date_earliest')->nullable();
@@ -182,7 +182,7 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('artwork_catalogue', function (Blueprint $table) {
-            $table->integer('citi_id')->primary();
+            $table->increments('id');
             $table->integer('artwork_citi_id')->nullable();
             $table->integer('catalogue_citi_id')->nullable();
             $table->text('number')->nullable();
