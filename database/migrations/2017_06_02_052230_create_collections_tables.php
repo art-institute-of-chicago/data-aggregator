@@ -197,17 +197,12 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('artwork_catalogue', function (Blueprint $table) {
-            $table->integer('citi_id')->nullable();
+            $table->integer('citi_id')->primary();
             $table->integer('artwork_citi_id')->nullable();
             $table->integer('catalogue_citi_id')->nullable();
-            $table->string('number')->nullable();
-            $table->string('state_edition')->nullable();
-            $table->boolean('preferred')->default(false)->nullable();
-            $table->timestamp('source_created_at')->nullable();
-            $table->timestamp('source_modified_at')->nullable();
-            $table->timestamp('source_indexed_at')->nullable();
-            $table->timestamp('citi_created_at')->nullable();
-            $table->timestamp('citi_modified_at')->nullable();
+            $table->text('number')->nullable();
+            $table->text('state_edition')->nullable();
+            $table->boolean('preferred')->default(false);
         });
 
         Schema::create('artwork_artwork', function(Blueprint $table) {

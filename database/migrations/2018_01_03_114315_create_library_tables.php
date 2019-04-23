@@ -18,14 +18,14 @@ class CreateLibraryTables extends Migration
         $this->down();
 
         Schema::create('library_materials', function(Blueprint $table) {
-            $table->string('id')->index();
+            $table->string('id')->primary();
             $table->text('title')->nullable();
             $table->integer('date')->nullable()->index();
             $table->timestamps();
         });
 
         Schema::create('library_terms', function(Blueprint $table) {
-            $table->string('id')->index();
+            $table->string('id')->primary();
             $table->string('uri')->nullable()->index();
             $table->text('title')->nullable();
             $table->timestamps();
