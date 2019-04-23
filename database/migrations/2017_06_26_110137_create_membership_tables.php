@@ -42,6 +42,8 @@ class CreateMembershipTables extends Migration
             $table->integer('event_type_id')->nullable();
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
+            $table->timestamp('on_sale_at')->nullable();
+            $table->timestamp('off_sale_at')->nullable();
             $table->integer('resource_id')->nullable();
             $table->string('resource_title')->nullable();
             $table->boolean('is_after_hours')->nullable();
