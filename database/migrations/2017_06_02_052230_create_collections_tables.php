@@ -19,13 +19,13 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('agent_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->timestamps();
+            $table = $this->_addDates($table);
         });
 
         Schema::create('agent_roles', function (Blueprint $table) {
             $table->integer('citi_id')->signed()->primary();
             $table->string('title')->nullable();
-            $table->timestamps();
+            $table = $this->_addDates($table);
         });
 
         Schema::create('agents', function (Blueprint $table) {
@@ -45,18 +45,18 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_place_qualifiers', function (Blueprint $table) {
             $table->integer('citi_id')->signed()->primary();
             $table->string('title')->nullable();
-            $table->timestamps();
+            $table = $this->_addDates($table);
         });
 
         Schema::create('artwork_date_qualifiers', function (Blueprint $table) {
             $table->integer('citi_id')->unsigned()->unique()->primary();
             $table->string('title')->nullable();
-            $table->timestamps();
+            $table = $this->_addDates($table);
         });
 
         Schema::create('artwork_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->timestamps();
+            $table = $this->_addDates($table);
         });
 
         Schema::create('category_terms', function(Blueprint $table) {
@@ -69,7 +69,7 @@ class CreateCollectionsTables extends Migration
             // Category fields
             $table->string('parent_id')->nullable()->index();
 
-            $table->timestamps();
+            $table = $this->_addDates($table);
         });
 
         Schema::create('galleries', function (Blueprint $table) {
@@ -81,12 +81,7 @@ class CreateCollectionsTables extends Migration
             $table->double('latitude', 16, 13)->nullable();
             $table->double('longitude', 16, 13)->nullable();
             $table->string('type')->nullable();
-            $table->timestamp('source_created_at')->nullable()->useCurrent();
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
-            $table->timestamp('source_indexed_at')->nullable()->useCurrent();
-            $table->timestamp('citi_created_at')->nullable()->useCurrent();
-            $table->timestamp('citi_modified_at')->nullable()->useCurrent();
-            $table->timestamps();
+            $table = $this->_addDates($table);
         });
 
         Schema::create('places', function (Blueprint $table) {
@@ -179,7 +174,7 @@ class CreateCollectionsTables extends Migration
         Schema::create('catalogues', function (Blueprint $table) {
             $table->integer('citi_id')->unique()->primary();
             $table->string('title')->nullable();
-            $table->timestamps();
+            $table = $this->_addDates($table);
         });
 
         Schema::create('artwork_catalogue', function (Blueprint $table) {
@@ -205,7 +200,10 @@ class CreateCollectionsTables extends Migration
             $table->json('metadata')->nullable();
             $table->string('content_e_tag', 40)->nullable();
             $table->timestamp('content_modified_at')->nullable();
-            $table = $this->_addDates($table, false);
+            $table->timestamp('source_created_at')->nullable()->useCurrent();
+            $table->timestamp('source_modified_at')->nullable()->useCurrent();
+            $table->timestamp('source_indexed_at')->nullable()->useCurrent();
+            $table->timestamps();
             $table->text('alt_text')->nullable();
         });
 
@@ -257,18 +255,7 @@ class CreateCollectionsTables extends Migration
 
     private function _addDates($table, $citiField = true)
     {
-        $table->timestamp('source_created_at')->nullable()->useCurrent();
         $table->timestamp('source_modified_at')->nullable()->useCurrent();
-        $table->timestamp('source_indexed_at')->nullable()->useCurrent();
-
-        if ($citiField)
-        {
-
-            $table->timestamp('citi_created_at')->nullable()->useCurrent();
-            $table->timestamp('citi_modified_at')->nullable()->useCurrent();
-
-        }
-
         $table->timestamps();
         return $table;
     }
