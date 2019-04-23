@@ -217,7 +217,6 @@ class CreateCollectionsTables extends Migration
             $table->text('content')->nullable();
             $table->integer('copyright_notice')->nullable();
             $table->string('published')->nullable();
-            $table->integer('agent_citi_id')->nullable()->index();
             $table->boolean('is_multimedia_resource')->default(false)->index();
             $table->boolean('is_educational_resource')->default(false)->index();
             $table->boolean('is_teacher_resource')->default(false)->index();
