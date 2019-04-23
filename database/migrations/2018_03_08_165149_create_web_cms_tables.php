@@ -178,6 +178,13 @@ class CreateWebCmsTables extends Migration
             $table->softDeletes();
         });
 
+        Schema::create('static_pages', function (Blueprint $table) {
+            $table->integer('id')->unsigned()->unique()->primary();
+            $table->text('title')->nullable();
+            $table->text('web_url')->nullable();
+            $table->timestamps();
+        });
+
         $createPagesTable = function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
@@ -221,6 +228,7 @@ class CreateWebCmsTables extends Migration
         Schema::dropIfExists('articles');
         Schema::dropIfExists('selections');
         Schema::dropIfExists('web_artists');
+        Schema::dropIfExists('static_pages');
 
         Schema::dropIfExists('generic_pages');
         Schema::dropIfExists('press_releases');
