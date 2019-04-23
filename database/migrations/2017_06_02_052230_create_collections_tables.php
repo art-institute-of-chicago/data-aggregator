@@ -19,14 +19,14 @@ class CreateCollectionsTables extends Migration
 
         Schema::create('agent_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table = $this->_addDates($table);
+            $table->timestamps();
         });
 
         Schema::create('agent_roles', function (Blueprint $table) {
             $table->integer('citi_id')->signed()->primary();
             $table->uuid('lake_guid')->nullable()->unique()->index();
             $table->string('title')->nullable();
-            $table = $this->_addDates($table);
+            $table->timestamps();
         });
 
         Schema::create('agents', function (Blueprint $table) {
@@ -47,7 +47,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('citi_id')->signed()->primary();
             $table->uuid('lake_guid')->nullable()->unique()->index();
             $table->string('title')->nullable();
-            $this->_addDates( $table );
+            $table->timestamps();
         });
 
         Schema::create('artwork_date_qualifiers', function (Blueprint $table) {
@@ -55,17 +55,12 @@ class CreateCollectionsTables extends Migration
             $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
             $table->string('lake_uri')->unique()->nullable();
-            $table->timestamp('source_created_at')->nullable()->useCurrent();
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
-            $table->timestamp('source_indexed_at')->nullable()->useCurrent();
-            $table->timestamp('citi_created_at')->nullable()->useCurrent();
-            $table->timestamp('citi_modified_at')->nullable()->useCurrent();
             $table->timestamps();
         });
 
         Schema::create('artwork_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table = $this->_addDates($table);
+            $table->timestamps();
         });
 
         Schema::create('category_terms', function(Blueprint $table) {
@@ -78,13 +73,6 @@ class CreateCollectionsTables extends Migration
 
             // Category fields
             $table->string('parent_id')->nullable()->index();
-
-            // TODO: Move source dates to their own table?
-            $table->timestamp('source_created_at')->nullable()->default(null);
-            $table->timestamp('source_modified_at')->nullable()->default(null);
-            $table->timestamp('source_indexed_at')->nullable()->default(null);
-            $table->timestamp('citi_created_at')->nullable()->default(null);
-            $table->timestamp('citi_modified_at')->nullable()->default(null);
 
             $table->timestamps();
         });
@@ -199,23 +187,12 @@ class CreateCollectionsTables extends Migration
             $table->integer('artwork_citi_id')->nullable()->index();
             $table->string('term_lake_uid')->nullable()->index();
             $table->boolean('preferred')->nullable()->default(false)->index();
-            $table->timestamp('source_created_at')->nullable();
-            $table->timestamp('source_modified_at')->nullable();
-            $table->timestamp('source_indexed_at')->nullable();
-            $table->timestamp('citi_created_at')->nullable();
-            $table->timestamp('citi_modified_at')->nullable();
-            $table->timestamps();
         });
 
         Schema::create('catalogues', function (Blueprint $table) {
             $table->integer('citi_id')->unique()->primary();
             $table->uuid('lake_guid')->unique()->nullable()->index();
             $table->string('title')->nullable();
-            $table->timestamp('source_created_at')->nullable()->useCurrent();
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
-            $table->timestamp('source_indexed_at')->nullable()->useCurrent();
-            $table->timestamp('citi_created_at')->nullable()->useCurrent();
-            $table->timestamp('citi_modified_at')->nullable()->useCurrent();
             $table->timestamps();
         });
 
@@ -231,14 +208,12 @@ class CreateCollectionsTables extends Migration
             $table->timestamp('source_indexed_at')->nullable();
             $table->timestamp('citi_created_at')->nullable();
             $table->timestamp('citi_modified_at')->nullable();
-            $table->timestamps();
         });
 
         Schema::create('artwork_artwork', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('set_citi_id')->index();
             $table->integer('part_citi_id')->index();
-            $table->timestamps();
         });
 
         Schema::create('assets', function (Blueprint $table) {
