@@ -55,7 +55,7 @@ class CreateDscTables extends Migration
         {
             $table->$idType('dsc_id')->unique()->primary();
         }
-        $table->string('title');
+        $table->text('title');
         return $table;
     }
 
