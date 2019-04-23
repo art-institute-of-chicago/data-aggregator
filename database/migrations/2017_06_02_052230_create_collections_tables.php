@@ -132,6 +132,7 @@ class CreateCollectionsTables extends Migration
             $table->string('collection_status')->nullable();
             $table->integer('artwork_type_citi_id')->nullable()->index('artworks_object_type_citi_id_index');
             $table->integer('gallery_citi_id')->nullable()->index();
+            $table->boolean('is_on_view')->nullable();
             $table = $this->_addDates($table);
         });
 
