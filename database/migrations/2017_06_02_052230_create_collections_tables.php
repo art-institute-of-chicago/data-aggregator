@@ -239,15 +239,11 @@ class CreateCollectionsTables extends Migration
         Schema::create('exhibitions', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, true, 'text');
             $table->text('description')->nullable();
-            $table->text('short_description')->nullable();
-            $table->string('web_url')->nullable();
             $table->string('type')->nullable();
             $table->integer('place_citi_id')->nullable()->index('exhibitions_gallery_citi_id_index');
             $table->string('place_display')->nullable();
             $table->string('department_display')->nullable();
             $table->string('status')->nullable();
-            $table->string('legacy_image_desktop')->nullable();
-            $table->string('legacy_image_mobile')->nullable();
             $table->date('date_start')->nullable();
             $table->date('date_end')->nullable();
             $table->date('date_aic_start')->nullable();
