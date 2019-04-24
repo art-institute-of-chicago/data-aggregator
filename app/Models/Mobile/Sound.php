@@ -31,4 +31,11 @@ class Sound extends MobileModel
 
     }
 
+    public function introducedTours()
+    {
+
+        return $this->hasMany('App\Models\Mobile\Tour', 'intro_mobile_id');
+
+    }
+
 }

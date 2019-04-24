@@ -14,20 +14,6 @@ class TourStop extends BaseTransformer
     protected function getFields()
     {
         return [
-            // TODO: Determine if tour stops have dedicated titles?
-            'title' => [
-                'doc' => 'Name of this tour stop – derived from the artwork and tour titles',
-                'type' => 'string',
-                'elasticsearch' => [
-                    'default' => true,
-                    'type' => 'text',
-                ],
-                'value' => function ($item) {
-                    $title = $item->artwork->title ?? null;
-                    $title .= ($item->tour->title ?? false) ? ' (' . $item->tour->title . ')' : null;
-                    return $title;
-                },
-            ],
             'weight' => [
                 'doc' => 'Number representing this tour stop\'s sort order',
                 'type' => 'number',
