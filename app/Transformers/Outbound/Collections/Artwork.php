@@ -377,15 +377,11 @@ class Artwork extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
-
-            /**
-             * TODO: Refactor relationships:
-             */
             'gallery_title' => [
                 'doc' => 'The location of this work in our museum',
                 'type' => 'string',
                 'value' => function ($item) {
-                    return $item->gallery->title ?? null;
+                    return $item->is_on_view ? ($item->gallery->title ?? null) : null;
                 },
             ],
             'gallery_id' => [
@@ -393,9 +389,14 @@ class Artwork extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->gallery->citi_id ?? null;
+                    return $item->is_on_view ? ($item->gallery->citi_id ?? null) : null;
                 },
             ],
+
+
+            /**
+             * TODO: Refactor relationships:
+             */
             'artwork_type_title' => [
                 'doc' => 'The kind of object or work (e.g. Painting, Sculpture, Book)',
                 'type' => 'string',
