@@ -3,15 +3,12 @@
 namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
-use App\Models\ElasticSearchable;
 
 /**
  * An audio tour stops on a tour.
  */
 class TourStop extends MobileModel
 {
-
-    use ElasticSearchable;
 
     protected $primaryKey = 'id';
 
