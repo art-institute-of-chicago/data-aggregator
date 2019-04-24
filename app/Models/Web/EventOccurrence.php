@@ -16,6 +16,7 @@ class EventOccurrence extends WebModel
         'is_private' => 'boolean',
         'start_at' => 'datetime',
         'end_at' => 'datetime',
+        'source_created_at' => 'datetime',
     ];
 
     public function event()
