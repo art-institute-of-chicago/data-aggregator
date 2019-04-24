@@ -14,9 +14,6 @@ class Gallery extends BaseTransformer
                 'doc' => 'Whether the gallery is currently closed',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->closed;
-                }
             ],
             'number' => [
                 'doc' => 'The gallery\'s room number. For "Gallery 100A", this would be "100A".',

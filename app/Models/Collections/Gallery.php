@@ -16,7 +16,7 @@ class Gallery extends CollectionsModel
     protected $primaryKey = 'citi_id';
 
     protected $casts = [
-        'closed' => 'boolean',
+        'is_closed' => 'boolean',
     ];
 
     protected $touches =[
