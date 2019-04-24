@@ -30,7 +30,13 @@ class ImportAllCommand extends BaseCommand
         $this->call('import:products-full', ['--yes' => 'default']);
         $this->call('import:images');
         $this->call('import:analytics');
+        $this->call('import:web-full', ['--yes' => 'default']);
 
+        // EventOccurrence is not included in import:web to avoid duplication
+        $this->call('import:web-full', [
+            '--yes' => 'default',
+            'endpoint' => 'event-occurrences'
+        ]);
     }
 
 }
