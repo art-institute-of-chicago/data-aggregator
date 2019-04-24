@@ -8,7 +8,7 @@
 Homestead.json
 Homestead.yaml
 npm-debug.log
-.env
-.env.testing
+.env*
+!.env.*example
 /storage/clockwork
 Envoy.blade.php
