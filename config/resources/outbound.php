@@ -205,7 +205,6 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'tour-stops',
             'model' => \App\Models\Mobile\TourStop::class,
             'transformer' =>\App\Transformers\Outbound\Mobile\TourStop::class,
             'is_searchable' => true,
