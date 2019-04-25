@@ -36,7 +36,7 @@ class Sound extends BaseTransformer
                     return $title;
                 },
             ],
-            'link' => [
+            'web_url' => [
                 'doc' => 'URL to the audio file',
                 'type' => 'url',
                 'elasticsearch' => 'keyword',
