@@ -17,7 +17,6 @@ class ImportScheduleDaily extends BaseCommand
 
         $this->call('import:collections');
         $this->call('import:collections-delete');
-        $this->call('import:events-ticketed-full', ['--yes' => 'default']);
         $this->call('import:mobile');
         $this->call('import:products-full', ['--yes' => 'default']);
         $this->call('import:web');
