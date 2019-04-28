@@ -25,40 +25,45 @@ class ResourceServiceProvider extends ServiceProvider
                  *
                  * @var array
                  */
-                private $resources;
+                private $outbound;
 
                 /**
                  * Array of class names for inbound transformers mapped to models.
-                 * For now, generated on first call by scanning the directory.
                  *
                  * Each object in the array looks like this:
                  *
                  *     [
-                 *        'source' => 'Collections',
+                 *        'source' => 'collections',
                  *        'model' => \App\Models\Collections\Artwork::class,
                  *        'transformer' => \App\Transformers\Inbound\Collections\Artwork::class,
                  *     ]
                  *
                  * @var array
                  */
-                private $transformers;
+                private $inbound;
 
-                /**
-                 * Init this class. Transforms `$resources` into an Eloquent collection.
-                 */
                 public function __construct()
                 {
-                    $this->resources = config('resources.outbound.base');
-                    $this->resources = collect( $this->resources );
+                    $this->outbound = config('resources.outbound.base');
+                    $this->outbound = collect($this->outbound);
 
                     $this->inbound = config('resources.inbound');
-                    $this->inbound = collect( $this->inbound );
+                    $this->inbound = collect($this->inbound)->map(function($resources, $source) {
+                        return array_map(function($resource, $endpoint) use ($source) {
+                            return [
+                                'source' => strtolower($source),
+                                'endpoint' => $endpoint,
+                                'model' => $resource['model'],
+                                'transformer' => $resource['transformer'],
+                            ];
+                        }, $resources, array_keys($resources));
+                    })->values()->collapse();
                 }
 
                 private function getResourceForEndpoint($endpoint)
                 {
                     do {
-                        $resource = $this->resources->firstWhere('endpoint', $endpoint);
+                        $resource = $this->outbound->firstWhere('endpoint', $endpoint);
                         $endpoint = $resource['alias_of'] ?? $endpoint;
                     } while (isset($resource['alias_of']));
 
@@ -97,7 +102,7 @@ class ResourceServiceProvider extends ServiceProvider
                 {
                     $model = $this->getCleanModel( $model );
 
-                    $resource = $this->resources->firstWhere('model', $model);
+                    $resource = $this->outbound->firstWhere('model', $model);
 
                     $endpoint = $resource['endpoint'] ?? null;
 
@@ -113,7 +118,7 @@ class ResourceServiceProvider extends ServiceProvider
                 {
                     $model = $this->getCleanModel( $model );
 
-                    $resource = $this->resources->firstWhere('model', $model);
+                    $resource = $this->outbound->firstWhere('model', $model);
 
                     $transformer = $resource['transformer'] ?? null;
 
@@ -129,14 +134,13 @@ class ResourceServiceProvider extends ServiceProvider
                 {
                     $model = $this->getCleanModel( $model );
 
-                    $resource = $this->resources->firstWhere('model', $model);
+                    $resource = $this->outbound->firstWhere('model', $model);
 
                     return $resource['is_searchable'] ?? false;
                 }
 
                 public function getParent( $endpoint )
                 {
-
                     $resource = $this->getResourceForEndpoint($endpoint);
 
                     return $resource['scope_of'] ?? null;
@@ -144,94 +148,47 @@ class ResourceServiceProvider extends ServiceProvider
 
                 public function getInboundTransformerForModel( $model, $source )
                 {
-
-                    if( !$this->transformers )
-                    {
-                        $this->transformers = $this->getInboundTransformerMapping();
-                    }
-
                     $model = $this->getCleanModel( $model );
 
-                    // Get the right transformer mapping
-                    $mapping = $this->transformers
+                    $resource = $this->inbound
                         ->where('model', $model)
-                        ->where('source', $source)
+                        ->where('source', strtolower($source))
                         ->first();
 
-                    return $mapping['transformer'];
+                    $transformer = $resource['transformer'] ?? null;
 
+                    if( !$transformer )
+                    {
+                        throw new \Exception('Define an inbound transformer for model `' . $model . '` and source `' . $source . '` in ResourceServiceProvider.');
+                    }
+
+                    return $transformer;
+                }
+
+                public function getModelForInboundEndpoint( $endpoint, $source )
+                {
+                    $resource = $this->inbound
+                        ->where('endpoint', $endpoint)
+                        ->where('source', strtolower($source))
+                        ->first();
+
+                    $model = $resource['model'] ?? null;
+
+                    if( !$model )
+                    {
+                        throw new \Exception('Define an inbound model for endpoint `' . $endpoint . '` and source `' . $source . '` in ResourceServiceProvider.');
+                    }
+
+                    return $model;
                 }
 
                 private function getCleanModel( $model )
                 {
-
                     // Remove \ from start of $model if present
                     $model = ltrim( $model, '\\' );
 
                     return $model;
-
                 }
-
-                public function getInboundTransformerMapping()
-                {
-
-                    // TODO: Re-examine this helper
-                    $models = allModels();
-
-                    // We want this to be a collection
-                    $models = collect( $models );
-
-                    $transformers = $models->map( function( $model ) {
-
-                        $model = $this->getCleanModel( $model );
-
-                        $source = explode('\\', $model)[2]; // e.g. Collections
-
-                        $inbound = $this->inbound
-                            ->where('model', $model)
-                            ->where('source', $source )
-                            ->first();
-
-                        if (isset($inbound)) {
-
-                            $transformer = $inbound['transformer'];
-
-                        } else {
-
-                            $transformer = str_replace('Models', 'Transformers\\Inbound', $model);
-
-                            if( !class_exists( $transformer ) )
-                            {
-                                $parent = array_slice( explode('\\', get_parent_class( $model )), -1, 1)[0];
-
-                                $transformer = '\\App\\Transformers\\Inbound\\' . $source . '\\' . $parent;
-
-                                if( !class_exists( $transformer ) )
-                                {
-                                    $transformer = '\\App\\Transformers\\Inbound\\' . $source . 'Transformer';
-
-                                    if( !class_exists( $transformer ) )
-                                    {
-                                        $transformer = \App\Transformers\Inbound\BaseTransformer::class;
-                                    }
-                                }
-                            }
-                        }
-
-                        return [
-                            'model' => $model,
-                            'transformer' => $transformer,
-                            'source' => $source,
-                        ];
-
-                    });
-
-                    $transformers = $transformers->filter();
-
-                    return $transformers;
-
-                }
-
             };
 
         });

@@ -129,70 +129,7 @@ class ImportWebFull extends AbstractImportCommand
 
     protected function getModelForEndpoint($endpoint)
     {
-
-        switch( $endpoint )
-        {
-            case 'articles':
-                return Article::class;
-            break;
-            case 'artists':
-                return Artist::class;
-            break;
-            case 'closures':
-                return Closure::class;
-            break;
-            case 'events':
-                return Event::class;
-            break;
-            case 'event-occurrences':
-                return EventOccurrence::class;
-            break;
-            case 'event-programs':
-                return EventProgram::class;
-            break;
-            case 'exhibitions':
-                return Exhibition::class;
-            break;
-            case 'hours':
-                return Hour::class;
-            break;
-            case 'locations':
-                return Location::class;
-            break;
-            case 'selections':
-                return Selection::class;
-            break;
-            case 'tags':
-                return Tag::class;
-            break;
-            case 'genericpages':
-                return GenericPage::class;
-            break;
-            case 'pressreleases':
-                return PressRelease::class;
-            break;
-            case 'researchguides':
-                return ResearchGuide::class;
-            break;
-            case 'educatorresources':
-                return EducatorResource::class;
-            break;
-            case 'digitalcatalogs':
-                return DigitalCatalog::class;
-            break;
-            case 'printedcatalogs':
-                return PrintedCatalog::class;
-            break;
-            case 'staticpages':
-                return StaticPage::class;
-            break;
-            default:
-                // TODO: This gets endpoints as outbound from our API
-                // Endpoints in the dataservice might be different!
-                return app('Resources')->getModelForEndpoint($endpoint);
-            break;
-        }
-
+        return app('Resources')->getModelForInboundEndpoint($endpoint, 'web');
     }
 
     protected function importFromWeb($endpoint, $page = 1)
