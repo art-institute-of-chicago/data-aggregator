@@ -99,7 +99,7 @@ class CreateCollectionsTables extends Migration
             $table = $this->_addIdsAndTitle($table, true, 'text');
             $table->text('description')->nullable();
             $table->string('type')->nullable();
-            $table->integer('place_citi_id')->nullable()->index('exhibitions_gallery_citi_id_index');
+            $table->integer('place_citi_id')->nullable()->index();
             $table->string('place_display')->nullable();
             $table->string('department_display')->nullable();
             $table->string('status')->nullable();
@@ -135,7 +135,7 @@ class CreateCollectionsTables extends Migration
             $table->string('copyright_notice')->nullable();
             $table->string('place_of_origin')->nullable();
             $table->string('collection_status')->nullable();
-            $table->integer('artwork_type_citi_id')->nullable()->index('artworks_object_type_citi_id_index');
+            $table->integer('artwork_type_citi_id')->nullable()->index();
             $table->integer('gallery_citi_id')->nullable()->index();
             $table->boolean('is_on_view')->nullable();
             $table = $this->_addDates($table);
@@ -224,7 +224,7 @@ class CreateCollectionsTables extends Migration
         Schema::create('artwork_asset', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->index();
-            $table->uuid('asset_lake_guid')->index('artwork_asset_asset_lake_guid_foreign');
+            $table->uuid('asset_lake_guid')->index();
             $table->boolean('preferred')->default(false)->nullable();
             $table->boolean('is_doc')->default(false)->index();
         });

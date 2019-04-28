@@ -17,7 +17,7 @@ class CreateShopTables extends Migration
         Schema::create('shop_categories', function (Blueprint $table) {
             $table = $this->_addId($table);
             $table->string('title');
-            $table->integer('parent_category_shop_id')->unsigned()->index()->nullable();
+            $table->integer('parent_category_shop_id')->unsigned()->nullable()->index();
             $table = $this->_addDates($table);
         });
 
