@@ -134,6 +134,12 @@ return [
     'providers' => [
 
         /*
+         * Override default Laravel Service Providers...
+         */
+        Aic\Hub\Foundation\DatabaseServiceProvider::class,
+
+
+        /*
          * Laravel Framework Service Providers...
          */
         Illuminate\Auth\AuthServiceProvider::class,
