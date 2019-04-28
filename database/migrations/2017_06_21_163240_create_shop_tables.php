@@ -14,13 +14,10 @@ class CreateShopTables extends Migration
      */
     public function up()
     {
-
-        $this->down();
-
         Schema::create('shop_categories', function (Blueprint $table) {
             $table = $this->_addId($table);
             $table->string('title');
-            $table->integer('parent_category_shop_id')->unsigned()->index()->nullable();
+            $table->integer('parent_category_shop_id')->unsigned()->nullable()->index();
             $table = $this->_addDates($table);
         });
 
@@ -63,7 +60,7 @@ class CreateShopTables extends Migration
 
     private function _addId($table)
     {
-        $table->integer('shop_id')->unsigned()->unique()->primary();
+        $table->integer('shop_id')->unsigned()->primary();
         return $table;
     }
 

@@ -14,9 +14,6 @@ class CreateMobileTables extends Migration
      */
     public function up()
     {
-
-        $this->down();
-
         Schema::create('mobile_artworks', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->integer('artwork_citi_id')->nullable()->index();
@@ -68,7 +65,7 @@ class CreateMobileTables extends Migration
     private function _addIdsAndTitle($table, $titleType = 'text')
     {
 
-        $table->integer('mobile_id')->unsigned()->unique()->primary();
+        $table->integer('mobile_id')->unsigned()->primary();
         $table->$titleType('title');
         return $table;
     }

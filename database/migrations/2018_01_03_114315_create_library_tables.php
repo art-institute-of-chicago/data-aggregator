@@ -14,9 +14,6 @@ class CreateLibraryTables extends Migration
 
     public function up()
     {
-
-        $this->down();
-
         Schema::create('library_materials', function(Blueprint $table) {
             $table->string('id')->primary();
             $table->text('title')->nullable();
