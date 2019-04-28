@@ -31,7 +31,7 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('artwork_date_qualifiers', function (Blueprint $table) {
-            $table->integer('citi_id')->unsigned()->unique()->primary();
+            $table->integer('citi_id')->unsigned()->primary();
             $table->string('title')->nullable();
             $table = $this->_addDates($table);
         });
@@ -43,7 +43,7 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('catalogues', function (Blueprint $table) {
-            $table->integer('citi_id')->unique()->primary();
+            $table->integer('citi_id')->primary();
             $table->string('title')->nullable();
             $table = $this->_addDates($table);
         });
@@ -70,7 +70,7 @@ class CreateCollectionsTables extends Migration
         });
 
         Schema::create('galleries', function (Blueprint $table) {
-            $table->integer('citi_id')->unsigned()->unique()->primary();
+            $table->integer('citi_id')->unsigned()->primary();
             $table->string('title')->nullable();
             $table->boolean('closed')->nullable();
             $table->string('number')->nullable();
@@ -241,7 +241,7 @@ class CreateCollectionsTables extends Migration
 
     private function _addIdsAndTitle($table, $citiField = true, $titleField = 'string')
     {
-        $table->integer('citi_id')->unique()->primary();
+        $table->integer('citi_id')->primary();
         $table->{$titleField}('title')->nullable();
         return $table;
     }

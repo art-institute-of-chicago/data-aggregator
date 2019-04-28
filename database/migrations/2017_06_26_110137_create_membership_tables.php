@@ -33,7 +33,7 @@ class CreateMembershipTables extends Migration
         });
 
         Schema::create('ticketed_event_types', function (Blueprint $table) {
-            $table->integer('membership_id')->unsigned()->unique()->primary();
+            $table->integer('membership_id')->unsigned()->primary();
             $table->string('title')->nullable();
             $table->string('category')->nullable();
             $table->text('description')->nullable();
@@ -45,7 +45,7 @@ class CreateMembershipTables extends Migration
 
     private function _addIdsAndTitle($table)
     {
-        $table->integer('membership_id')->unsigned()->unique()->primary();
+        $table->integer('membership_id')->unsigned()->primary();
         $table->string('title')->nullable();
         return $table;
     }

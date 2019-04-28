@@ -60,7 +60,7 @@ class CreateShopTables extends Migration
 
     private function _addId($table)
     {
-        $table->integer('shop_id')->unsigned()->unique()->primary();
+        $table->integer('shop_id')->unsigned()->primary();
         return $table;
     }
 

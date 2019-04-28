@@ -65,7 +65,7 @@ class CreateMobileTables extends Migration
     private function _addIdsAndTitle($table, $titleType = 'text')
     {
 
-        $table->integer('mobile_id')->unsigned()->unique()->primary();
+        $table->integer('mobile_id')->unsigned()->primary();
         $table->$titleType('title');
         return $table;
     }

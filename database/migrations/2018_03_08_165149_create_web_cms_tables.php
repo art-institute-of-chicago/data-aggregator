@@ -179,7 +179,7 @@ class CreateWebCmsTables extends Migration
         });
 
         Schema::create('static_pages', function (Blueprint $table) {
-            $table->integer('id')->unsigned()->unique()->primary();
+            $table->integer('id')->unsigned()->primary();
             $table->text('title')->nullable();
             $table->text('web_url')->nullable();
             $table->timestamps();
