@@ -27,14 +27,19 @@ class ImportWebFull extends AbstractImportCommand
 
     protected $signature = 'import:web-full
                             {endpoint? : Endpoint on dataservice to query, e.g. `events`}
+                            {page? : Page to begin importing from}
                             {--y|yes : Answer "yes" to all prompts}
-                            {page? : Page to begin importing from}';
+                            {--test : Only import one page from each endpoint}';
 
     protected $description = "Import all Web CMS data";
 
 
     public function handle()
     {
+
+        if ($this->option('test')) {
+            $this->isTest = true;
+        }
 
         $this->api = env('WEB_CMS_DATA_SERVICE_URL');
 
