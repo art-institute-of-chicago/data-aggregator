@@ -133,8 +133,13 @@ class Artwork extends CollectionsTransformer
         // No pivots, but basic artist
         if( !$datum->artwork_agents && $datum->creator_id )
         {
-            // In migrations, we default `preferred` to true and `agent_role_citi_id` to 219
-            return [ $datum->creator_id ];
+            // Default `preferred` to true and `agent_role_citi_id` to 219
+            return [
+                $datum->creator_id => [
+                    'agent_role_citi_id' => 219,
+                    'preferred' => true,
+                ]
+            ];
         }
 
         return $this->getSyncPivots( $datum, 'artwork_agents', 'agent_id', function( $pivot ) {

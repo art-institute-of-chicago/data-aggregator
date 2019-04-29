@@ -44,16 +44,31 @@ class BaseTransformer extends AbstractTransformer
     }
 
     /**
-     * Fill in a model instance's fields from the given datum, typically from another system.
-     * Pass `true` as the third argument to do a test run, without changing anything.
+     * Given an array, get relationships to sync.
      *
-     * @param \Illuminate\Database\Eloquent\Model $instance
      * @param mixed $datum
-     * @param boolean $test
+     * @return array
      */
-    public function fill( Model $instance, $datum, $is_test = false )
+    public function getSyncNew( $datum )
     {
+        // Transform $datum into instanceof Datum
+        $datum = $this->getDatum( $datum );
 
+        // Defined in child transformers that extend this class
+        $relations = $this->getSync( $datum );
+
+        return $relations;
+    }
+
+    /**
+     * Given a model instance or a table name, transform incoming array into one for import.
+     *
+     * @param string|\Illuminate\Database\Eloquent\Model $instance
+     * @param mixed $datum
+     * @return array
+     */
+    public function getFill( $instance, $datum )
+    {
         // Transform $datum into instanceof Datum
         $datum = $this->getDatum( $datum );
 
@@ -63,6 +78,22 @@ class BaseTransformer extends AbstractTransformer
         // Remove any fields that aren't present in the model
         // $datum changes from Datum to array after this call
         $datum = $this->prune( $datum, $this->getAttributes( $instance ) );
+
+        return $datum;
+    }
+
+    /**
+     * Fill in a model instance's fields from the given datum, typically from another system.
+     * Pass `true` as the third argument to do a test run, without changing anything.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $instance
+     * @param mixed $datum
+     * @return array
+     */
+    public function fill( Model $instance, $datum )
+    {
+
+        $datum = $this->getFill( $instance, $datum );
 
         // Fill the instance with mapped source data
         $instance->fill( $datum );
@@ -77,22 +108,14 @@ class BaseTransformer extends AbstractTransformer
      *
      * @param \Illuminate\Database\Eloquent\Model $instance
      * @param mixed $datum
-     * @param boolean $test
      */
-    public function sync( Model $instance, $datum, $is_test = false )
+    public function sync( Model $instance, $datum )
     {
-
         // Transform $datum into instanceof Datum
         $datum = $this->getDatum( $datum );
 
         // Defined in child transformers that extend this class
         $relations = $this->getSync( $datum );
-
-        // Return what would be changed for debug
-        if( $is_test )
-        {
-            return $relations;
-        }
 
         // Run hard-wired attachments
         $this->syncEx( $instance, $datum );
@@ -261,12 +284,7 @@ class BaseTransformer extends AbstractTransformer
     private function getDatum( $datum )
     {
 
-        if( $datum instanceof Datum )
-        {
-            return $datum;
-        }
-
-        return new Datum( $datum );
+        return $datum instanceof Datum ? $datum : new Datum( $datum );
 
     }
 
@@ -324,6 +342,26 @@ class BaseTransformer extends AbstractTransformer
     }
 
     /**
+     * Polymorphic method to retrieve allowed attributes.
+     *
+     * @param string|\Illuminate\Database\Eloquent\Model $entity
+     * @return array
+     */
+    private function getAttributes( $entity )
+    {
+
+        if (is_string($entity)) {
+            return $this->getTableAttributes($entity);
+        }
+
+        if ($entity instanceof Model) {
+            return $this->getModelAttributes($entity);
+        }
+
+        throw new \Exception('Invalid $entity passed to getAttributes');
+    }
+
+    /**
      * Helper method to retrieve names of "fillable" attributes from the saved model.
      * Note that this is essentially a field listing – it doesn't include relations.
      *
@@ -332,10 +370,22 @@ class BaseTransformer extends AbstractTransformer
      * @param \Illuminate\Database\Eloquent\Model $instance
      * @return array
      */
-    private function getAttributes( Model $instance )
+    private function getModelAttributes( Model $instance )
+    {
+        return $this->getTableAttributes( $instance->getTable() );
+    }
+
+    /**
+     * Helper method to retrieve names of fillable columns in table.
+     * Note that this is essentially a field listing – it doesn't include relations.
+     *
+     * @param string $tableName
+     * @return array
+     */
+    private function getTableAttributes( string $tableName )
     {
 
-        $columns = Schema::getColumnListing( $instance->getTable() );
+        $columns = Schema::getColumnListing( $tableName );
 
         // We generally don't want the source data polluting our timestamps
         $columns = array_diff( $columns, ['created_at', 'updated_at'] );
