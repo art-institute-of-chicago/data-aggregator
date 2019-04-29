@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUpdatedAtIndexes extends Migration
+class AddUpdateAtIndexes extends Migration
 {
     /**
      * TODO: Create custom `timestamps()` function?
