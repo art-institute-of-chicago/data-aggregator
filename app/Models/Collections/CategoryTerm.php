@@ -69,19 +69,13 @@ class CategoryTerm extends CollectionsModel
     }
 
     /**
-     * Create a new instance of the given model. For CategoryTerms, we use this to set `is_category`.
-     *
-     * @param  array  $attributes
-     * @param  bool  $exists
-     * @return static
+     * Create a new instance of the given model. For Assets, we use this to set a default `type`.
      */
-    public function newInstance($attributes = [], $exists = false)
+    public function __construct(array $attributes = [])
     {
+        parent::__construct(...func_get_args());
 
-        $model = parent::newInstance($attributes, $exists);
-        $model->is_category = static::$isCategory;
-        return $model;
-
+        $this->is_category = static::$isCategory ?? null;
     }
 
     /**
