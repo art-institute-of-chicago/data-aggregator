@@ -34,7 +34,8 @@ class BulkImport extends BaseCommand
         $transformer = new $resource['transformer'];
 
         // Query for the first page + get total
-        $json = $this->query($source, $endpoint, 1, 0);
+        // Limit has to be 1 due to a few 🐞's
+        $json = $this->query($source, $endpoint, 1, 1);
 
         // Assumes the dataservice has standardized pagination
         $total = $json->pagination->total;
