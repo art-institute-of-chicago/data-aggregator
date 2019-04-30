@@ -108,7 +108,7 @@ class BulkImport extends BaseCommand
             });
 
             // Merge an indexed collection of assoc. collections w/o overwriting
-            $syncs = $syncs->first()->map(function($items, $table) use ($syncs) {
+            $syncs = ($syncs->first() ?? collect([]))->map(function($items, $table) use ($syncs) {
                 return $syncs->pluck($table)->collapse()->all();
             });
 
