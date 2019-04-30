@@ -12,7 +12,8 @@ class BulkImport extends BaseCommand
 
     protected $signature = 'bulk:import
                             {source : Name of dataservice to query}
-                            {endpoint : Endpoint on dataservice to import}';
+                            {endpoint : Endpoint on dataservice to import}
+                            {ids? : Comma-separated ids to import}';
 
     protected $description = "Upsert resources from a data service";
 
@@ -28,6 +29,8 @@ class BulkImport extends BaseCommand
         $resource = config('resources.inbound.' . $this->argument('source') . '.' . $this->argument('endpoint'));
 
         $endpoint = $this->argument('endpoint');
+        $ids = $this->argument('ids');
+
         $model = new $resource['model'];
         $table = $model->getTable();
 
@@ -35,7 +38,7 @@ class BulkImport extends BaseCommand
 
         // Query for the first page + get total
         // Limit has to be 1 due to a few 🐞's
-        $json = $this->query($source, $endpoint, 1, 1);
+        $json = $this->query($source, $endpoint, 1, 1, $ids);
 
         // Assumes the dataservice has standardized pagination
         $total = $json->pagination->total;
@@ -45,7 +48,7 @@ class BulkImport extends BaseCommand
 
         for ($currentPage = 1; $currentPage <= $totalPages; $currentPage++)
         {
-            $json = $this->query($source, $endpoint, $currentPage, $this->chunkSize);
+            $json = $this->query($source, $endpoint, $currentPage, $this->chunkSize, $ids);
 
             $data = collect($json->data)->map(function($datum) use ($transformer, $table) {
                 return [
@@ -110,9 +113,9 @@ class BulkImport extends BaseCommand
         $this->output->newLine(1);
     }
 
-    protected function query($source, $endpoint, $page, $limit)
+    protected function query($source, $endpoint, $page, $limit, $ids = null)
     {
-        return json_decode($this->fetch(sprintf($this->getUrlFormat(), $source, $endpoint, $page, $limit)));
+        return json_decode($this->fetch(sprintf($this->getUrlFormat(), $source, $endpoint, $page, $limit, $ids)));
     }
 
     protected function getUrlFormat()
@@ -121,6 +124,7 @@ class BulkImport extends BaseCommand
         return $this->urlFormat ?? $this->urlFormat = '%s/%s?' . urldecode(http_build_query([
             'page' => '%d',
             'limit' => '%d',
+            'ids' => '%s',
         ]));
     }
 
