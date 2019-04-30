@@ -76,9 +76,9 @@ class BulkImport extends BaseCommand
                 ]);
             });
 
-            // Flatten relations, index by table name
+            // Flatten relations, index by table name. Please refactor me.
             $syncs = $data->pluck('sync')->map(function($datum) use ($model) {
-                return collect($datum['relations'])->map(function($items, $relationMethod) use ($model, $datum) {
+                $relations = collect($datum['relations'])->map(function($items, $relationMethod) use ($model, $datum) {
                     $relation = $model->$relationMethod();
                     return [
                         $relation->getTable() => collect($items)->map(function($value, $key) use ($relation, $datum) {
@@ -91,7 +91,16 @@ class BulkImport extends BaseCommand
                             ];
                         })->values()->all(),
                     ];
-                })->values()->collapse();
+                })->values();
+
+                $tables = array_unique(array_merge(...array_map('array_keys', $relations->all())));
+
+                return collect($tables)->map(function($table) use ($relations) {
+                    $values = $relations->pluck($table)->filter()->all();
+                    return [
+                        $table => empty($values) ? [] : array_merge(...$values),
+                    ];
+                })->collapse();
             });
 
             // Merge an indexed collection of assoc. collections w/o overwriting
