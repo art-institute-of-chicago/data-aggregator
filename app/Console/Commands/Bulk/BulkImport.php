@@ -57,11 +57,20 @@ class BulkImport extends BaseCommand
                 ];
             });
 
-            // TODO: Take care of dates and JSON in transformer?
+            // TODO: Take care of date and JSON columns in transformer?
             $fills = $data->pluck('fill')->map(function($datum) use ($model) {
                 $clone = clone $model;
                 array_map([$clone, 'setAttribute'], array_keys($datum), array_values($datum));
                 return $clone->getAttributes();
+            });
+
+            // Manually append timestamps
+            $now = date("Y-m-d H:i:s");
+            $fills = $fills->map(function($datum) use ($now) {
+                return array_merge($datum, [
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ]);
             });
 
             // Flatten relations, index by table name
