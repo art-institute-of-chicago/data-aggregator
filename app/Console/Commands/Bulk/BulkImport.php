@@ -93,6 +93,10 @@ class BulkImport extends BaseCommand
                     ];
                 })->values();
 
+                if ($relations->count() < 1) {
+                    return $relations;
+                }
+
                 $tables = array_unique(array_merge(...array_map('array_keys', $relations->all())));
 
                 return collect($tables)->map(function($table) use ($relations) {
