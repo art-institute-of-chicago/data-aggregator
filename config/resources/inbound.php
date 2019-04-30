@@ -136,6 +136,7 @@ return [
             'model' => \App\Models\Web\Artist::class,
             'transformer' => \App\Transformers\Inbound\Web\Artist::class,
         ],
+        // TODO: Consider deleting until needed.
         'closures' => [
             'model' => \App\Models\Web\Closure::class,
             'transformer' => \App\Transformers\Inbound\Web\Closure::class,
@@ -152,10 +153,12 @@ return [
             'model' => \App\Models\Web\Exhibition::class,
             'transformer' => \App\Transformers\Inbound\Web\Exhibition::class,
         ],
+        // TODO: Consider deleting until needed.
         'hours' => [
             'model' => \App\Models\Web\Hour::class,
             'transformer' => \App\Transformers\Inbound\Web\Hour::class
         ],
+        // TODO: Consider deleting until needed.
         'locations' => [
             'model' => \App\Models\Web\Location::class,
             'transformer' => \App\Transformers\Inbound\WebTransformer::class,
@@ -164,6 +167,7 @@ return [
             'model' => \App\Models\Web\Selection::class,
             'transformer' => \App\Transformers\Inbound\Web\Selection::class
         ],
+        // TODO: This is empty and has no stakeholders. Let's delete.
         'tags' => [
             'model' => \App\Models\Web\Tag::class,
             'transformer' => \App\Transformers\Inbound\WebTransformer::class,
