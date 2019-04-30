@@ -118,11 +118,11 @@ return [
 
     'membership' => [
         'event-types' => [
-            'model' => \App\Models\Membership\Category::class,
+            'model' => \App\Models\Membership\TicketedEventType::class,
             'transformer' => \App\Transformers\Inbound\MembershipTransformer::class,
         ],
         'events' => [
-            'model' => \App\Models\Membership\Product::class,
+            'model' => \App\Models\Membership\TicketedEvent::class,
             'transformer' => \App\Transformers\Inbound\Membership\TicketedEvent::class,
         ],
     ],
