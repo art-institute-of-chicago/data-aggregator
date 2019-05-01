@@ -218,4 +218,22 @@ class Artwork extends CollectionsTransformer
         }
     }
 
+    protected function getSyncEx( Datum $datum )
+    {
+        $now = date("Y-m-d H:i:s");
+        return [
+            'artwork_dates' => collect($datum->artwork_dates ?? [])->map( function($date) use ($datum, $now) {
+                return [
+                    'artwork_citi_id' => $datum->id,
+                    'date_earliest' => Carbon::parse($date->date_earliest),
+                    'date_latest' => Carbon::parse($date->date_latest),
+                    'preferred' => $date->is_preferred,
+                    'artwork_date_qualifier_citi_id' => $date->date_qualifier_id,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ];
+            })->all(),
+        ];
+    }
+
 }

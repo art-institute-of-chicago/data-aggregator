@@ -57,6 +57,7 @@ class BulkImport extends BaseCommand
                         'id' => $transformer->getId($datum),
                         'relations' => $transformer->getSyncNew($datum),
                     ],
+                    'syncEx' => $transformer->getSyncExNew($datum),
                 ];
             });
 
@@ -105,6 +106,11 @@ class BulkImport extends BaseCommand
                         $table => empty($values) ? [] : array_merge(...$values),
                     ];
                 })->collapse();
+            });
+
+            $syncEx = $data->pluck('syncEx');
+            $syncs = $syncs->map(function($datum, $key) use ($syncEx) {
+                return $datum->merge($syncEx->get($key));
             });
 
             // Merge an indexed collection of assoc. collections w/o overwriting

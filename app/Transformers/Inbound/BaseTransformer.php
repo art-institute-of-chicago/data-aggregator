@@ -61,6 +61,44 @@ class BaseTransformer extends AbstractTransformer
     }
 
     /**
+     * It's like `getSync` and `syncEx` combined. Use this to fill out tables. Return format:
+     *
+     *  [
+     *      "artwork_category" => [
+     *          [
+     *              "artwork_citi_id" => 111628,
+     *              "category_lake_uid" => "PC-2",
+     *              "preferred" => true
+     *          ]
+     *      ]
+     *  ]
+     *
+     * Use this for cases where there are multiple relationships to the same entity.
+     *
+     * @param \App\Transformers\Datum  $datum
+     */
+    public function getSyncExNew( $datum )
+    {
+        // Transform $datum into instanceof Datum
+        $datum = $this->getDatum( $datum );
+
+        // Defined in child transformers that extend this class
+        $relations = $this->getSyncEx( $datum );
+
+        return $relations;
+    }
+
+    /**
+     * Override in child classes to supply `getSyncExNew`.
+     *
+     * @param \App\Transformers\Datum  $datum
+     */
+    protected function getSyncEx( Datum $datum )
+    {
+        return [];
+    }
+
+    /**
      * Given a model instance or a table name, transform incoming array into one for import.
      *
      * @param string|\Illuminate\Database\Eloquent\Model $instance
