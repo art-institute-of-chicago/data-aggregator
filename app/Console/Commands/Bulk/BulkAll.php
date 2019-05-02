@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands\Bulk;
 
+use App\Command;
+
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class BulkAll extends BaseCommand
@@ -52,7 +54,31 @@ class BulkAll extends BaseCommand
         // TODO: Use bulking for import:images
         $this->call('import:images');
 
-        // TODO: Spoof \App\Command records for partial imports
+        // Spoof \App\Command records for partial imports
+        foreach ([
+            'import:collections',
+            'import:assets',
+            'import:events',
+            'import:dsc',
+            'import:mobile',
+            'import:library',
+            'import:archive',
+            'import:sites',
+            'import:ulan',
+            'import:products',
+            'import:images',
+            'import:analytics',
+            'import:web',
+        ] as $commandName) {
+            $command = Command::where('command', $commandName) ?: new Command([
+                'title' => $commandName,
+            ]);
+
+            $command->last_attempt_at = $this->command->last_attempt_at;
+            $command->last_success_at = $this->command->last_attempt_at;
+
+            $command->save();
+        }
     }
 
 }
