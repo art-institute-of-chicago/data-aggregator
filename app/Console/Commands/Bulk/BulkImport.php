@@ -120,9 +120,8 @@ class BulkImport extends BaseCommand
 
             $inserts = array_merge([$table => $fills->all()], $syncs->all());
 
-            // https://gist.github.com/VinceG/0fb570925748ab35bc53f2a798cb517c
             foreach ($inserts as $tableName => $items) {
-                DB::table($tableName)->insertUpdate($items);
+                $this->upsert($tableName, $items);
             }
 
             $bar->advance(count($data));
@@ -130,6 +129,25 @@ class BulkImport extends BaseCommand
 
         $bar->finish();
         $this->output->newLine(1);
+    }
+
+    /**
+     * @link https://gist.github.com/VinceG/0fb570925748ab35bc53f2a798cb517c
+     */
+    protected function upsert($tableName, $items)
+    {
+        try {
+            DB::table($tableName)->insertUpdate($items);
+        } catch (\Illuminate\Database\QueryException $e) {
+            // SQLSTATE[08S01]: Communication link failure: 1153 Got a packet bigger than 'max_allowed_packet' bytes
+            if ($e->errorInfo[1] === 1153) {
+                array_map(function ($subitems) use ($tableName) {
+                    $this->upsert($tableName, $subitems);
+                }, array_chunk($items, ceil(count($items)/2)));
+            } else {
+                throw $e;
+            }
+        }
     }
 
     protected function query($source, $endpoint, $page, $limit, $ids = null)
