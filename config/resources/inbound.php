@@ -192,11 +192,11 @@ return [
             'model' => \App\Models\Web\EducatorResource::class,
             'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
-        'digitalcatalogs' => [
+        'digitalpublications' => [
             'model' => \App\Models\Web\DigitalCatalog::class,
             'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
-        'printedcatalogs' => [
+        'printedpublications' => [
             'model' => \App\Models\Web\PrintedCatalog::class,
             'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
