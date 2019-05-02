@@ -75,10 +75,10 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
 
-        $schedule->command('import:collections-delete')
+        $schedule->command('delete:assets')
             ->everyFiveMinutes()
             ->withoutOverlapping()
-            ->sendOutputTo(storage_path('logs/import-collections-delete-last-run.log'));
+            ->sendOutputTo(storage_path('logs/delete-assets-last-run.log'));
 
     }
 
