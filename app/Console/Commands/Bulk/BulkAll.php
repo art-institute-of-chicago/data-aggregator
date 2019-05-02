@@ -7,20 +7,30 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 class BulkAll extends BaseCommand
 {
 
-    protected $signature = 'bulk:all';
+    protected $signature = 'bulk:all {skip?}';
 
     protected $description = "Reset database and import everything";
 
     public function handle()
     {
+        $shouldSkipTo = $this->argument('skip') ?? false;
+
         // Import all bulkable resources from compliant data services
         foreach (config('resources.inbound') as $source => $endpoints) {
             foreach ($endpoints as $endpoint => $resource) {
                 dump("$source >> $endpoint");
+
+                if ($shouldSkipTo && $source !== $shouldSkipTo) {
+                    dump("Skipping...");
+                    continue;
+                }
+
                 $this->call('bulk:import', [
                     'source' => $source,
                     'endpoint' => $endpoint,
                 ]);
+
+                $shouldSkipTo = false;
             }
         }
 
