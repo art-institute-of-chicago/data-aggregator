@@ -10,4 +10,8 @@ use App\Models\MembershipModel;
 class TicketedEventType extends MembershipModel
 {
 
+    protected $casts = [
+        'source_created_at' => 'datetime',
+    ];
+
 }

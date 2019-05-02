@@ -4,10 +4,10 @@ namespace App\Console\Commands\Import;
 
 use App\Models\Collections\Agent;
 
-class ImportSetUlanUris extends AbstractImportCommand
+class ImportUlan extends AbstractImportCommand
 {
 
-    protected $signature = 'import:set-ulan-uris';
+    protected $signature = 'import:ulan';
 
     protected $description = "Set the `ulan_uri` for Agents.";
 

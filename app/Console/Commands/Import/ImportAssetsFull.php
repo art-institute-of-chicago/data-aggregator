@@ -51,9 +51,9 @@ class ImportAssetsFull extends AbstractImportCommand
     protected function importEndpoint($endpoint, $page = 1)
     {
 
-        $model = app('Resources')->getModelForEndpoint($endpoint);
+        $model = app('Resources')->getModelForInboundEndpoint($endpoint, 'assets');
 
-        $this->import( 'Collections', $model, $endpoint, $page );
+        $this->import( 'assets', $model, $endpoint, $page );
 
     }
 

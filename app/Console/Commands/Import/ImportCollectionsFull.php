@@ -74,25 +74,7 @@ class ImportCollectionsFull extends AbstractImportCommand
 
     protected function getModelForEndpoint($endpoint)
     {
-
-        // TODO: Outbound endpoints don't always equal inbound endpoints
-        // Consider specifying them in inbound transformers? Or config file?
-        switch( $endpoint )
-        {
-            case 'artwork-agent-roles':
-                $model = AgentRole::class;
-            break;
-            case 'object-types':
-                $model = ArtworkType::class;
-            break;
-            default:
-                // TODO: This gets endpoints as outbound from our API
-                // Endpoints in the dataservice might be different!
-                $model = app('Resources')->getModelForEndpoint($endpoint);
-            break;
-        }
-
-        return $model;
+        return app('Resources')->getModelForInboundEndpoint($endpoint, 'collections');
     }
 
     /**

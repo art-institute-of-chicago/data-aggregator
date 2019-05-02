@@ -133,8 +133,13 @@ class Artwork extends CollectionsTransformer
         // No pivots, but basic artist
         if( !$datum->artwork_agents && $datum->creator_id )
         {
-            // In migrations, we default `preferred` to true and `agent_role_citi_id` to 219
-            return [ $datum->creator_id ];
+            // Default `preferred` to true and `agent_role_citi_id` to 219
+            return [
+                $datum->creator_id => [
+                    'agent_role_citi_id' => 219,
+                    'preferred' => true,
+                ]
+            ];
         }
 
         return $this->getSyncPivots( $datum, 'artwork_agents', 'agent_id', function( $pivot ) {
@@ -211,6 +216,24 @@ class Artwork extends CollectionsTransformer
                 'artwork_date_qualifier_citi_id' => $date->date_qualifier_id,
             ]);
         }
+    }
+
+    protected function getSyncEx( Datum $datum )
+    {
+        $now = date("Y-m-d H:i:s");
+        return [
+            'artwork_dates' => collect($datum->artwork_dates ?? [])->map( function($date) use ($datum, $now) {
+                return [
+                    'artwork_citi_id' => $datum->id,
+                    'date_earliest' => Carbon::parse($date->date_earliest),
+                    'date_latest' => Carbon::parse($date->date_latest),
+                    'preferred' => $date->is_preferred,
+                    'artwork_date_qualifier_citi_id' => $date->date_qualifier_id,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ];
+            })->all(),
+        ];
     }
 
 }

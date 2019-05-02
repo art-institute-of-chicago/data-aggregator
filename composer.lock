@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "f5ae60d2f20ba9e1a60714fba33ade71",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "06d6f0b1306bf727da65c39a7f793445dfa9a5c8"
+                "reference": "90abb2ddc69bbaef218e7e07698059b4d70b77b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/06d6f0b1306bf727da65c39a7f793445dfa9a5c8",
-                "reference": "06d6f0b1306bf727da65c39a7f793445dfa9a5c8",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/90abb2ddc69bbaef218e7e07698059b4d70b77b1",
+                "reference": "90abb2ddc69bbaef218e7e07698059b4d70b77b1",
                 "shasum": ""
             },
             "require": {
