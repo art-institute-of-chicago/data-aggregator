@@ -34,22 +34,22 @@ class BulkAll extends BaseCommand
             }
         }
 
-        /*
+        // EventOccurrence is not included in import:web to avoid duplication
+        $this->call('import:web-full', ['--yes' => 'default', 'endpoint' => 'event-occurrences']);
 
-        // TODO: Use bulking for import:images
-        // TODO: Use upserts for import:analytics
+        // Run scout now for faster uptime
+        $this->call('scout:import-all');
 
         // Import non-standard data
         $this->call('import:mobile');
         $this->call('import:sites', ['--yes' => 'default']);
         $this->call('import:ulan');
+
+        // TODO: Use upserts for import:analytics
         $this->call('import:analytics');
 
-        // EventOccurrence is not included in import:web to avoid duplication
-        $this->call('import:web-full', ['--yes' => 'default', 'endpoint' => 'event-occurrences']);
-
-        */
-
+        // TODO: Use bulking for import:images
+        $this->call('import:images');
     }
 
 }
