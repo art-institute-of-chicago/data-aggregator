@@ -151,7 +151,10 @@ class BulkImport extends BaseCommand
     {
         if(!$contents = @file_get_contents($file))
         {
-            throw new \Exception('Fetch failed: ' . $file);
+            // throw new \Exception('Fetch failed: ' . $file);
+
+            sleep(90);
+            return $this->fetch(...func_get_args());
         }
 
         if (isset($http_response_header))
