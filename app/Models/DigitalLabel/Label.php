@@ -17,6 +17,7 @@ class Label extends DigitalLabelModel
 
     protected $casts = [
         'is_published' => 'boolean',
+        'source_created_at' => 'datetime',
     ];
 
     public function artworks()
