@@ -36,6 +36,8 @@ class DeleteAssets extends AbstractImportCommand
      */
     public function handle()
     {
+        $this->api = env('ASSETS_DATA_SERVICE_URL');
+
         $current = 1;
 
         $json = $this->query('deletes', $current);
