@@ -120,8 +120,8 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('pressreleases');
         $this->importFromWeb('researchguides');
         $this->importFromWeb('educatorresources');
-        $this->importFromWeb('digitalcatalogs');
-        $this->importFromWeb('printedcatalogs');
+        $this->importFromWeb('digitalpublications');
+        $this->importFromWeb('printedpublications');
 
         $this->importFromWeb('staticpages');
 
