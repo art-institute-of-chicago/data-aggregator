@@ -111,6 +111,13 @@ class ResourceServiceProvider extends ServiceProvider
                         throw new \Exception('You must define an outbound endpoint for model `' . $model . '` in ResourceServiceProvider.');
                     }
 
+                    if (isset($resource['scope_of'])) {
+                        do {
+                            $resource = $this->outbound->firstWhere('endpoint', $endpoint);
+                            $endpoint = $resource['scope_of'] ?? $endpoint;
+                        } while (isset($resource['scope_of']));
+                    }
+
                     return $endpoint;
                 }
 
