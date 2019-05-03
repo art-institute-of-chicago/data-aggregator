@@ -172,17 +172,27 @@ class ResourceServiceProvider extends ServiceProvider
                     return $transformer;
                 }
 
-                public function getModelForInboundEndpoint( $endpoint, $source )
+                public function getResourceForInboundEndpoint($endpoint, $source)
                 {
                     $resource = $this->inbound
                         ->where('endpoint', $endpoint)
                         ->where('source', strtolower($source))
                         ->first();
 
+                    if (!$resource) {
+                        throw new \Exception('Define a resource for endpoint `' . $endpoint . '` and source `' . $source . '` in ResourceServiceProvider.');
+                    }
+
+                    return $resource;
+                }
+
+                public function getModelForInboundEndpoint( $endpoint, $source )
+                {
+                    $resource = $this->getResourceForInboundEndpoint($endpoint, $source);
+
                     $model = $resource['model'] ?? null;
 
-                    if( !$model )
-                    {
+                    if (!$model) {
                         throw new \Exception('Define an inbound model for endpoint `' . $endpoint . '` and source `' . $source . '` in ResourceServiceProvider.');
                     }
 

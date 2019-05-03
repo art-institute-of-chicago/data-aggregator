@@ -32,7 +32,8 @@ class DeleteCollections extends AbstractImportCommand
             foreach ($json->data as $datum)
             {
                 try {
-                    $model = app('Resources')->getModelForInboundEndpoint($datum->type, 'collections');
+                    $resource = app('Resources')->getResourceForInboundEndpoint($datum->type, 'collections');
+                    $modelClass = $resource['model'];
                 } catch (\Throwable $e) {
                     // Assume that this `type` isn't being imported
                     continue;
@@ -45,7 +46,7 @@ class DeleteCollections extends AbstractImportCommand
                     break 2;
                 }
 
-                $entity = $model::find($datum->deleted_id);
+                $entity = $modelClass::find($this->getId($datum->deleted_id, $datum->type));
 
                 if (!$entity) {
                     continue;
@@ -58,6 +59,21 @@ class DeleteCollections extends AbstractImportCommand
 
                 $entity->delete();
             }
+        }
+    }
+
+    // TODO: Move this to inbound transformer!
+    private function getId($id, $type)
+    {
+        switch ($type) {
+            case 'categories':
+                return 'PC-' . $id;
+                break;
+            case 'terms':
+                return 'TM-' . $id;
+                break;
+            default:
+                return $id;
         }
     }
 
