@@ -17,7 +17,7 @@ class BulkImport extends BaseCommand
 
     protected $description = "Upsert resources from a data service";
 
-    protected $chunkSize = 100; // Approx. 5 sec per 100 artworks
+    protected $chunkSize = 1; // Approx. 5 sec per 100 artworks
 
     protected $urlFormat;
 
@@ -60,6 +60,11 @@ class BulkImport extends BaseCommand
                     'syncEx' => $transformer->getSyncExNew($datum),
                 ];
             });
+
+            $syncEx = $data->pluck('syncEx');
+
+            // Prevent duplication in pivot tables
+            $deletes = $this->getDeletes($data, $model);
 
             // TODO: Take care of date and JSON columns in transformer?
             $fills = $data->pluck('fill')->map(function($datum) use ($model) {
@@ -108,7 +113,7 @@ class BulkImport extends BaseCommand
                 })->collapse();
             });
 
-            $syncEx = $data->pluck('syncEx');
+
             $syncs = $syncs->map(function($datum, $key) use ($syncEx) {
                 return $datum->merge($syncEx->get($key));
             });
@@ -120,6 +125,7 @@ class BulkImport extends BaseCommand
 
             $inserts = array_merge([$table => $fills->all()], $syncs->all());
 
+
             foreach ($inserts as $tableName => $items) {
                 $this->upsert($tableName, $items);
             }
@@ -129,6 +135,48 @@ class BulkImport extends BaseCommand
 
         $bar->finish();
         $this->output->newLine(1);
+    }
+
+    protected function getDeletes($data, $model)
+    {
+        $datum = $data->first();
+
+        if (!isset($datum)) {
+            return [];
+        }
+
+        // Collect all ids here for performance
+        $ids = $data->pluck('sync')->pluck('id');
+
+        // Array of relation method names
+        collect(array_keys($datum['sync']['relations']))
+
+        // Array of table names to pivot id column names
+        ->map(function($relationMethod) use ($model) {
+            $relation = $model->$relationMethod();
+
+            // TODO: HasMany uses `getForeignKeyName`
+
+            return [
+                $relation->getTable() => $relation->getForeignPivotKeyName(),
+            ];
+        })->collapse()
+
+        // Run the cleanup
+        ->map(function($idColumn, $tableName) use ($ids) {
+            DB::table($tableName)->whereIn($idColumn, $ids)->delete();
+        });
+
+        $deletes = $deletes->map(function($datum, $key) use ($syncEx) {
+            return $datum->merge($syncEx->get($key));
+        });
+
+        dd($deletes);
+
+        // Merge an indexed collection of assoc. collections w/o overwriting
+        $deletes = ($deletes->first() ?? collect([]))->map(function($items, $table) use ($deletes) {
+            return $deletes->pluck($table)->collapse()->all();
+        });
     }
 
     /**
