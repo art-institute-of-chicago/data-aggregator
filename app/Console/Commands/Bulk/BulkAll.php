@@ -27,6 +27,11 @@ class BulkAll extends BaseCommand
                     continue;
                 }
 
+                if ($resource['exclude_from_import'] ?? false) {
+                    dump("Skipping from config...");
+                    continue;
+                }
+
                 $this->call('bulk:import', [
                     'source' => $source,
                     'endpoint' => $endpoint,

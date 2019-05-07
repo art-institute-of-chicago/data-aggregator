@@ -145,6 +145,11 @@ return [
             'model' => \App\Models\Web\Event::class,
             'transformer' => \App\Transformers\Inbound\Web\Event::class,
         ],
+        'event-occurrences' => [
+            'model' => \App\Models\Web\EventOccurrence::class,
+            'transformer' => \App\Transformers\Inbound\Web\EventOccurrence::class,
+            'exclude_from_import' => true,
+        ],
         'event-programs' => [
             'model' => \App\Models\Web\EventProgram::class,
             'transformer' => \App\Transformers\Inbound\Web\EventProgram::class,
