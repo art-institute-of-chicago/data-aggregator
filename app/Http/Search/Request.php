@@ -718,12 +718,12 @@ class Request
         $withoutQuotes = array_filter(array_map('trim', $withoutQuotes));
 
         // Used for silencing an extra phrase query below
-        $hasQuotes = count($withQuotes) > 1;
+        $hasQuotes = count($withQuotes) > 0;
 
         foreach ($withQuotes as $subquery) {
             $params['body']['query']['bool']['must'][] = [
                 'multi_match' => [
-                    'query' => trim($subquery[0], '"'),
+                    'query' => str_replace('"', '', $subquery),
                     'fields' => $fields,
                     'type' => 'phrase',
                     'boost' => 10,
@@ -754,7 +754,7 @@ class Request
         }
 
         // This acts as a boost for docs that match precisely, if fuzzy search is enabled
-        if (!$hasQuotes && $fuzziness ?? false)
+        if (!$hasQuotes && ($fuzziness ?? false))
         {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
@@ -771,7 +771,7 @@ class Request
         {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
-                    'query' => $input['q'],
+                    'query' => str_replace('"', '', $input['q']),
                     'type' => 'phrase',
                     'slop' => 3, // account for e.g. middle names
                     'fields' => $fields,
