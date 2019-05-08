@@ -705,18 +705,46 @@ class Request
         // Only pull default fields for the resources targeted by this request
         $fields = app('Search')->getDefaultFieldsForEndpoints( $this->resources );
 
-        // Determing if fuzzy searching should be used on this query
-        $fuzziness = $this->getFuzzy($input);
+        // Check for quoted substrings
+        $subqueries = explode('"', $input['q']);
 
-        // Pull all docs that match fuzzily into the results
-        $params['body']['query']['bool']['must'][] = [
-            'multi_match' => [
-                'query' => $input['q'],
-                'fuzziness' => $fuzziness,
-                'prefix_length' => 1,
-                'fields' => $fields,
-            ],
-        ];
+        // Assumes that there are no trailing quotes
+        // https://stackoverflow.com/a/2076399/1943591
+        $withQuotes = array_filter($subqueries, function ($i) {return $i & 1;}, ARRAY_FILTER_USE_KEY);
+        $withoutQuotes = array_filter($subqueries, function ($i) {return !($i & 1);}, ARRAY_FILTER_USE_KEY);
+
+        // Remove trailing whitespace
+        $withQuotes = array_filter(array_map('trim', $withQuotes));
+        $withoutQuotes = array_filter(array_map('trim', $withoutQuotes));
+
+        // Used for silencing an extra phrase query below
+        $hasQuotes = count($withQuotes) > 1;
+
+        foreach ($withQuotes as $subquery) {
+            $params['body']['query']['bool']['must'][] = [
+                'multi_match' => [
+                    'query' => trim($subquery[0], '"'),
+                    'fields' => $fields,
+                    'type' => 'phrase',
+                    'boost' => 10,
+                ],
+            ];
+        }
+
+        // Determing if fuzzy searching should be used on this query
+        $fuzziness = $this->getFuzzy($input, $input['q']);
+
+        foreach ($withoutQuotes as $subquery) {
+            // Pull all docs that match fuzzily into the results
+            $params['body']['query']['bool']['must'][] = [
+                'multi_match' => [
+                    'query' => $subquery,
+                    'fuzziness' => $fuzziness,
+                    'prefix_length' => 1,
+                    'fields' => $fields,
+                ],
+            ];
+        }
 
         // Queries below depend on `q`, but act as relevany tweaks
         // Don't tweak relevancy further if sort is passed
@@ -726,7 +754,7 @@ class Request
         }
 
         // This acts as a boost for docs that match precisely, if fuzzy search is enabled
-        if ($fuzziness)
+        if (!$hasQuotes && $fuzziness ?? false)
         {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
@@ -878,9 +906,9 @@ class Request
 
     }
 
-    private function getFuzzy( array $input )
+    private function getFuzzy( array $input, string $query = null )
     {
-        if (count(explode(' ', $input['q'] ?? '')) > 7)
+        if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7)
         {
             return 0;
         }
