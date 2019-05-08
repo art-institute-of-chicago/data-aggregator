@@ -76,6 +76,13 @@ return [
         ],
     ],
 
+    'images' => [
+        'images' => [
+            'model' => \App\Models\Collections\Image::class,
+            'transformer' => \App\Transformers\Inbound\Images\Image::class,
+        ],
+    ],
+
     'archive' => [
         'archival-images' => [
             'model' => \App\Models\Archive\ArchiveImage::class,

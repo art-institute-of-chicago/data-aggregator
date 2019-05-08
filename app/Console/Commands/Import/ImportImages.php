@@ -18,7 +18,7 @@ class ImportImages extends AbstractImportCommand
 
         $this->api = env('IMAGES_DATA_SERVICE_URL');
 
-        $this->import( null, Image::class, 'images', $this->argument('page') ?: 1 );
+        $this->import( 'images', Image::class, 'images', $this->argument('page') ?: 1 );
 
     }
 
