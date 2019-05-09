@@ -13,12 +13,20 @@ class DeleteCollections extends AbstractImportCommand
 
     protected $description = 'Delete records that have been removed from CITI';
 
-    protected $chunkSize = 20;
+    protected $chunkSize = 100;
 
     public function handle()
     {
         $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
 
+        $this->deleteByEndpoint();
+
+        // TODO: See Redmine CITI-3400 for gallery unpublishing
+        $this->deleteById('galleries');
+    }
+
+    private function deleteByEndpoint()
+    {
         $json = $this->query('deletes', 1, 1);
 
         // Assumes the dataservice has standardized pagination
@@ -60,6 +68,41 @@ class DeleteCollections extends AbstractImportCommand
                 $entity->delete();
             }
         }
+    }
+
+    private function deleteById(string $endpoint)
+    {
+        $resource = app('Resources')->getResourceForInboundEndpoint($endpoint, 'collections');
+        $modelClass = $resource['model'];
+
+        $modelClass::chunk($this->chunkSize, function ($resources) use ($modelClass, $endpoint) {
+            $this->info('Checking ' . $endpoint . ' at ' . $resources->pluck($modelClass::instance()->getKeyName())->first());
+
+            $daIds = $resources->pluck($modelClass::instance()->getKeyName());
+
+            $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '?' . http_build_query([
+                'fields' => 'id',
+                'limit' => $this->chunkSize,
+                'ids' => implode(',', $daIds->all()),
+            ]);
+
+            $contents = file_get_contents($url, false, stream_context_create([
+              'http'=> [
+                  'timeout' => 10,
+              ]
+            ]));
+
+            $json = json_decode($contents);
+
+            $cdsIds = collect($json->data)->pluck('id');
+
+            $diff = $daIds->diff($cdsIds)->all();
+
+            if ($diff) {
+                $this->warn('Deleting ' . implode(', ', $diff));
+                $modelClass::destroy($diff);
+            }
+        });
     }
 
     // TODO: Move this to inbound transformer!
