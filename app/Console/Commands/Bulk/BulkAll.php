@@ -71,6 +71,8 @@ class BulkAll extends BaseCommand
             'import:images',
             'import:analytics',
             'import:web',
+            'delete:assets',
+            'delete:collections',
         ] as $commandName) {
             $command = Command::where('command', $commandName) ?: new Command([
                 'title' => $commandName,
