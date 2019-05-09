@@ -56,9 +56,6 @@ class BulkAll extends BaseCommand
         // TODO: Use upserts for import:analytics
         $this->call('import:analytics');
 
-        // TODO: Use bulking for import:images
-        $this->call('import:images');
-
         // Spoof \App\Command records for partial imports
         foreach ([
             'import:collections',
