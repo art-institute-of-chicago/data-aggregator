@@ -92,8 +92,8 @@ class BulkAll extends BaseCommand
             'delete:assets',
             'delete:collections',
         ] as $commandName) {
-            $command = Command::where('command', $commandName) ?: new Command([
-                'title' => $commandName,
+            $command = Command::where('command', $commandName)->first() ?: new Command([
+                'command' => $commandName,
             ]);
 
             $command->last_attempt_at = $this->startedAt ?? $this->command->last_attempt_at;
