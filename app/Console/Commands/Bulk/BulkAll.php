@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Bulk;
 
+use Carbon\Carbon;
 use App\Command;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
@@ -9,20 +10,36 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 class BulkAll extends BaseCommand
 {
 
-    protected $signature = 'bulk:all {skip?}';
+    protected $signature = 'bulk:all {skip-to-source?} {skip-to-endpoint?} {--at=}';
 
     protected $description = "Reset database and import everything";
 
+    private $startedAt;
+
     public function handle()
     {
-        $shouldSkipTo = $this->argument('skip') ?? false;
+        if ($this->hasOption('at') && !empty($this->option('at'))) {
+            try {
+                $this->startedAt = Carbon::parse($this->option('at'));
+            } catch (\Exception $e) {
+                echo 'Cannot parse date in --at option';
+            }
+        }
+
+        $shouldSkipToSource = $this->argument('skip-to-source') ?? false;
+        $shouldSkipToEndpoint = $this->argument('skip-to-endpoint') ?? false;
 
         // Import all bulkable resources from compliant data services
         foreach (config('resources.inbound') as $source => $endpoints) {
+
             foreach ($endpoints as $endpoint => $resource) {
                 dump("$source >> $endpoint");
 
-                if ($shouldSkipTo && $source !== $shouldSkipTo) {
+                if ((
+                    $shouldSkipToSource && $source !== $shouldSkipToSource
+                ) || (
+                    $shouldSkipToEndpoint && $endpoint !== $shouldSkipToEndpoint
+                )) {
                     dump("Skipping...");
                     continue;
                 }
@@ -37,7 +54,8 @@ class BulkAll extends BaseCommand
                     'endpoint' => $endpoint,
                 ]);
 
-                $shouldSkipTo = false;
+                $shouldSkipToSource = false;
+                $shouldSkipToEndpoint = false;
             }
         }
 
@@ -78,8 +96,8 @@ class BulkAll extends BaseCommand
                 'title' => $commandName,
             ]);
 
-            $command->last_attempt_at = $this->command->last_attempt_at;
-            $command->last_success_at = $this->command->last_attempt_at;
+            $command->last_attempt_at = $this->startedAt ?? $this->command->last_attempt_at;
+            $command->last_success_at = $this->startedAt ?? $this->command->last_attempt_at;
 
             $command->save();
         }
