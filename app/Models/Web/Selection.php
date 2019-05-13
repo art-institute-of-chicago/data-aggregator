@@ -12,6 +12,8 @@ class Selection extends WebModel
 
     protected $casts = [
         'published' => 'boolean',
+        'publish_start_date' => 'datetime',
+        'publish_end_date' => 'datetime',
     ];
 
 }

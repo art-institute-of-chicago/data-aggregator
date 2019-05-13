@@ -99,6 +99,7 @@ abstract class AbstractTransformer extends BaseTransformer
             $this->getSearchFields(),
             $this->getTitles(),
             $this->getFields(),
+            $this->getTraitFields(),
             $this->getSuggestFields(),
             $this->getDates()
         );
@@ -154,6 +155,23 @@ abstract class AbstractTransformer extends BaseTransformer
         return [
             // Define in child classes
         ];
+    }
+
+    /**
+     * cf. Illuminate\Database\Eloquent\Model::bootTraits()
+     */
+    protected function getTraitFields()
+    {
+        $class = static::class;
+        $fields = [];
+
+        foreach (class_uses_recursive($this) as $trait) {
+            if (method_exists($this, $method = 'getFieldsFor'.class_basename($trait))) {
+                $fields = array_merge($fields, $this->$method());
+            }
+        }
+
+        return $fields;
     }
 
     protected function getDates()

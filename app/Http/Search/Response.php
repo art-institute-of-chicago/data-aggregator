@@ -2,6 +2,8 @@
 
 namespace App\Http\Search;
 
+use Illuminate\Support\Arr;
+
 class Response
 {
 
@@ -99,10 +101,10 @@ class Response
      */
     public function getAutocompleteWithSourceResponse() {
 
-        $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
+        $options = Arr::get($this->searchResponse, 'suggest.autocomplete.0.options');
 
         if ($options) {
-            return array_pluck($options, '_source');
+            return Arr::pluck($options, '_source');
         }
 
         return [];
@@ -200,10 +202,10 @@ class Response
 
         $suggest = [];
 
-        $options = array_get($this->searchResponse, 'suggest.autocomplete.0.options');
+        $options = Arr::get($this->searchResponse, 'suggest.autocomplete.0.options');
 
         if ($options) {
-            $suggest['autocomplete'] = array_pluck($options, '_source.title');
+            $suggest['autocomplete'] = Arr::pluck($options, '_source.title');
         }
 
         if ($suggest)

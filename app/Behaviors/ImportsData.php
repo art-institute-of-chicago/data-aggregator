@@ -5,6 +5,7 @@ namespace App\Behaviors;
 use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
+use Sentry\State\Scope;
 
 trait ImportsData
 {
@@ -46,6 +47,13 @@ trait ImportsData
      * @var \Carbon\Carbon
      */
     protected $since;
+
+    /**
+     * Seconds to sleep between requests.
+     *
+     * @var int
+     */
+    protected $sleepFor = 1;
 
     /**
      * Set to `true` to only import a single page.
@@ -250,10 +258,13 @@ trait ImportsData
 
             $current++;
 
+            usleep($this->sleepFor * 1000000);
+
             // TODO: This structure causes an extra query to be run, when it might not need to be
             $json = $this->query( $endpoint, $current );
 
         }
+
         unset($json);
 
     }
@@ -341,13 +352,11 @@ trait ImportsData
         {
             $sentry = app('sentry');
 
-            $sentry->tags_context(
-                array_merge([],
-                    isset($datum->id) ? ['id' => $datum->id] : [],
-                    isset($endpoint) ? ['endpoint' => $endpoint] : [],
-                    isset($source) ? ['source' => $source] : []
-                )
-            );
+            $sentry->configureScope(function (Scope $scope) use ($datum, $endpoint, $source) {
+                isset($datum->id) && $scope->setTag('id', $datum->id);
+                isset($endpoint) && $scope->setTag('endpoint', $endpoint);
+                isset($source) && $scope->setTag('source', $source);
+            });
         }
     }
 

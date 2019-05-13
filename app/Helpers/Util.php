@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Debug\HtmlDumper;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\CliDumper;
+use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 
 /**
  * https://tighten.co/blog/a-better-dd-for-your-tdd
@@ -129,6 +129,9 @@ function getLakeUri($lake_id)
 /**
  * Get a list of all the models used in the application
  *
+ * @TODO: This might break b/c it counts traits as models.
+ * @TODO: This might break b/c it counts abstract models.
+ *
  * @return array
  */
 function allModels()
@@ -176,6 +179,8 @@ function allModels()
 /**
  * Get a list of all the models that use the the given trait.
  *
+ * @TODO: Currently unused, delete?
+ *
  * @return array
  */
 function allModelsThatUse($trait)
@@ -203,6 +208,8 @@ function allModelsThatUse($trait)
 
 /**
  * Get a list of all the traits this class uses, include the class's parents and traits' parents
+ *
+ * @TODO: Use `class_uses_recursive` instead?
  *
  * @param string Optional model class. Otherwise it will use `get_called_class()`.
  * @param boolean Autoload flag to pass to `class_uses()` calls.

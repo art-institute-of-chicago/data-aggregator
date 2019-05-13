@@ -11,8 +11,6 @@ class ExhibitionTest extends ApiTestCase
 
     protected $model = Exhibition::class;
 
-    protected $keys = ['lake_guid'];
-
     /**
      * @link https://github.com/art-institute-of-chicago/aic-mobile-cms/blob/b74ddc9/sites/all/modules/custom/aicapp/includes/aicapp.admin.inc#L788
      * @link https://github.com/art-institute-of-chicago/aic-mobile-ios/blob/72bb520/aic/aic/Data/SearchDataManager.swift#L132
@@ -30,7 +28,7 @@ class ExhibitionTest extends ApiTestCase
         'aic_end_at',
     ];
 
-    public function setUp()
+    protected function setUp(): void
     {
 
         parent::setUp();

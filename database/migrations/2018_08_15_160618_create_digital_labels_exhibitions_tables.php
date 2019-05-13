@@ -47,7 +47,7 @@ class CreateDigitalLabelsExhibitionsTables extends Migration
 
     private function _addIdsAndTitle($table)
     {
-        $table->integer('id')->unsigned()->unique()->primary();
+        $table->integer('id')->unsigned()->primary();
         $table->string('title');
         return $table;
     }

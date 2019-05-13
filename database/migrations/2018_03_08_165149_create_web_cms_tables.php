@@ -13,10 +13,8 @@ class CreateWebCmsTables extends Migration
      */
     public function up()
     {
-
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
             $table->string('name');
             $table->timestamp('source_modified_at')->nullable()->useCurrent();
             $table->timestamps();
@@ -24,7 +22,7 @@ class CreateWebCmsTables extends Migration
 
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('name')->nullable();
             $table->string('street')->nullable();
             $table->string('address')->nullable();
@@ -62,44 +60,88 @@ class CreateWebCmsTables extends Migration
 
         Schema::create('web_exhibitions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('header_copy')->nullable();
+            $table->text('title');
+            $table->text('header_copy')->nullable();
+            $table->text('list_description')->nullable();
             $table->json('content')->nullable();
-            $table->string('datahub_id')->nullable();
-            $table->boolean('is_visible');
-            $table->string('exhibition_message')->nullable();
-            $table->string('sponsors_sub_copy')->nullable();
-            $table->integer('cms_exhibition_type');
-            $table->boolean('published');
+            $table->text('web_url')->nullable();
+            $table->text('image_url')->nullable();
+            $table->integer('datahub_id')->nullable();
+            $table->text('exhibition_message')->nullable();
+            $table->boolean('is_published');
+            $table->boolean('is_featured')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
 
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->integer('type');
-            $table->string('short_description')->nullable();
+            $table->text('title');
+            $table->text('title_display')->nullable();
+            $table->integer('type')->nullable();
+            $table->json('alt_event_types')->nullable();
+            $table->integer('audience')->nullable();
+            $table->json('alt_audiences')->nullable();
+            $table->json('programs')->nullable();
+            $table->text('short_description')->nullable();
             $table->text('description')->nullable();
-            $table->string('hero_caption')->nullable();
-            $table->boolean('is_private');
-            $table->boolean('is_after_hours');
-            $table->boolean('is_ticketed');
-            $table->boolean('is_free');
-            $table->boolean('is_member_exclusive');
-            $table->boolean('hidden');
-            $table->string('rsvp_link')->nullable();
-            $table->string('start_date')->nullable();
-            $table->string('end_date')->nullable();
-            $table->json('all_dates')->nullable();
-            $table->string('location')->nullable();
-            $table->text('sponsors_description')->nullable();
-            $table->text('sponsors_sub_copy')->nullable();
+            $table->text('hero_caption')->nullable();
+            $table->text('header_description')->nullable();
+            $table->text('list_description')->nullable();
+            $table->text('search_tags')->nullable();
+            $table->boolean('is_private')->default(false);
+            $table->boolean('is_after_hours')->default(false);
+            $table->boolean('is_ticketed')->default(false);
+            $table->boolean('is_free')->default(false);
+            $table->boolean('is_member_exclusive')->default(false);
+            $table->boolean('is_sold_out')->nullable();
+            $table->text('rsvp_link')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            $table->string('start_time')->nullable();
+            $table->string('end_time')->nullable();
+            $table->string('forced_date')->nullable();
+            $table->text('location')->nullable();
             $table->json('content')->nullable();
             $table->integer('layout_type');
-            $table->string('buy_button_text')->nullable();
+            $table->string('slug')->nullable();
+            $table->text('buy_button_text')->nullable();
             $table->text('buy_button_caption')->nullable();
-            $table->boolean('published');
+            $table->boolean('is_registration_required')->nullable();
+            $table->boolean('is_admission_required')->default(false);
+            $table->integer('ticketed_event_id')->unsigned()->nullable();
+            $table->string('survey_url')->nullable();
+            $table->string('email_series')->nullable();
+            $table->string('door_time')->nullable();
+            $table->text('image_url')->nullable();
+            $table->boolean('published')->default(false);
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('event_occurrences', function (Blueprint $table) {
+            $table->increments('id');
+            $table->text('title')->nullable();
+            $table->integer('event_id')->nullable();
+            $table->text('short_description')->nullable();
+            $table->text('description')->nullable();
+            $table->text('image_url')->nullable();
+            $table->text('image_caption')->nullable();
+            $table->boolean('is_private')->nullable();
+            $table->text('location')->nullable();
+            $table->timestamp('start_at')->nullable();
+            $table->timestamp('end_at')->nullable();
+            $table->text('button_text')->nullable();
+            $table->text('button_url')->nullable();
+            $table->text('button_caption')->nullable();
+            $table->timestamp('source_created_at')->nullable();
+            $table->timestamp('source_modified_at')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('event_programs', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -109,6 +151,7 @@ class CreateWebCmsTables extends Migration
             $table->string('title');
             $table->timestamp('date')->nullable();
             $table->text('copy')->nullable();
+            $table->string('imgix_uuid')->nullable();
             $table->boolean('published');
             $table->timestamps();
             $table->softDeletes();
@@ -117,8 +160,8 @@ class CreateWebCmsTables extends Migration
         Schema::create('selections', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('short_copy')->nullable();
-            $table->text('content')->nullable();
+            $table->text('short_copy')->nullable();
+            $table->text('copy')->nullable();
             $table->boolean('published');
             $table->timestamp('source_modified_at')->nullable()->useCurrent();
             $table->timestamps();
@@ -129,24 +172,54 @@ class CreateWebCmsTables extends Migration
             $table->increments('id');
             $table->string('title');
             $table->boolean('also_known_as')->nullable();
-            $table->timestamp('intro_copy')->nullable();
+            $table->text('intro_copy')->nullable();
             $table->integer('datahub_id');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::create('pages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->integer('type');
-            $table->string('home_intro')->nullable();
-            $table->string('exhibition_intro')->nullable();
-            $table->string('art_intro')->nullable();
-            $table->string('visit_intro')->nullable();
+        Schema::create('static_pages', function (Blueprint $table) {
+            $table->integer('id')->unsigned()->primary();
+            $table->text('title')->nullable();
+            $table->text('web_url')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
 
+        $createPagesTable = function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->string('web_url', 512)->nullable();
+            $table->string('slug')->nullable();
+            $table->text('listing_description')->nullable();
+            $table->text('short_description')->nullable();
+            $table->boolean('published')->nullable();
+            $table->datetime('publish_start_date')->nullable();
+            $table->datetime('publish_end_date')->nullable();
+            $table->text('copy')->nullable();
+            $table->string('imgix_uuid')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        };
+
+        Schema::create('generic_pages', $createPagesTable);
+        Schema::create('press_releases', $createPagesTable);
+        Schema::create('research_guides', $createPagesTable);
+        Schema::create('educator_resources', $createPagesTable);
+        Schema::create('digital_catalogs', $createPagesTable);
+        Schema::create('printed_catalogs', $createPagesTable);
+
+        Schema::table('generic_pages', function (Blueprint $table) {
+            $table->text('search_tags')->nullable()->after('copy');
+        });
+
+        $addPublishDates = function (Blueprint $table) {
+            $table->datetime('publish_start_date')->nullable()->after('published');
+            $table->datetime('publish_end_date')->nullable()->after('publish_start_date');
+        };
+
+        Schema::table('articles', $addPublishDates);
+        Schema::table('events', $addPublishDates);
+        Schema::table('selections', $addPublishDates);
     }
 
     /**
@@ -163,10 +236,19 @@ class CreateWebCmsTables extends Migration
         Schema::dropIfExists('closures');
         Schema::dropIfExists('web_exhibitions');
         Schema::dropIfExists('events');
+        Schema::dropIfExists('event_occurrences');
+        Schema::dropIfExists('event_programs');
         Schema::dropIfExists('articles');
         Schema::dropIfExists('selections');
         Schema::dropIfExists('web_artists');
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('static_pages');
+
+        Schema::dropIfExists('generic_pages');
+        Schema::dropIfExists('press_releases');
+        Schema::dropIfExists('research_guides');
+        Schema::dropIfExists('educator_resources');
+        Schema::dropIfExists('digital_catalogs');
+        Schema::dropIfExists('printed_catalogs');
 
     }
 }

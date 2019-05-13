@@ -6,6 +6,7 @@ use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\HasRelationships;
 
+use Illuminate\Support\Str;
 
 /**
  * Represents a work of art in our collections.
@@ -20,6 +21,7 @@ class Artwork extends CollectionsModel
         'alt_titles' => 'array',
         'is_public_domain' => 'boolean',
         'is_zoomable' => 'boolean',
+        'is_on_view' => 'boolean',
     ];
 
     protected $primaryKey = 'citi_id';
@@ -388,7 +390,7 @@ class Artwork extends CollectionsModel
 
         if ($this->classification_title)
         {
-            if (ends_with($this->classification_title, 'ing'))
+            if (Str::endsWith($this->classification_title, 'ing'))
             {
                 if (preg_match('/^[aeiouAEIOU]/', $this->classification_title, $matches))
                 {

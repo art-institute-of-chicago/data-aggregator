@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Input;
 use Closure;
 
@@ -68,7 +69,7 @@ abstract class AbstractController extends BaseController
         // Allows for camel, snake, and kebab cases
         foreach($values as &$value)
         {
-            $value = snake_case(camel_case($value));
+            $value = Str::snake(Str::camel($value));
         }
 
         $this->fractal->$method($values);
@@ -140,20 +141,20 @@ abstract class AbstractController extends BaseController
         $response = isset($data['data']) ? $data : ['data' => $data];
 
         $info = [
-            'version' => config('app.version')
+            'version' => config('aic.version')
         ];
-        if (config('app.documentation_url'))
+        if (config('aic.documentation_url'))
         {
-            $info['documentation'] = config('app.documentation_url');
+            $info['documentation'] = config('aic.documentation_url');
         }
-        if (config('app.message'))
+        if (config('aic.message'))
         {
-            $info['message'] = config('app.message');
+            $info['message'] = config('aic.message');
         }
 
         $response['info'] = $info;
 
-        $config = config('app.config_documentation');
+        $config = config('aic.config_documentation');
 
         if ($config)
         {

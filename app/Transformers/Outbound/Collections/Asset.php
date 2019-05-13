@@ -2,10 +2,14 @@
 
 namespace App\Transformers\Outbound\Collections;
 
+use App\Transformers\Outbound\Collections\Traits\HasLakeFields;
+
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Asset extends BaseTransformer
 {
+    use HasLakeFields;
+
     /**
      * LAKE-native resources use UUIDs, not integers.
      *

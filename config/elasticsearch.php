@@ -287,7 +287,7 @@ return [
     ],
 
     'cache_enabled' => env('ELASTICSEARCH_CACHE_ENABLED', false),
-    'cache_ttl'     => env('ELASTICSEARCH_CACHE_TTL', 30), // Half an hour default
+    'cache_ttl'     => env('ELASTICSEARCH_CACHE_TTL', 60 * 30), // Half an hour default
     'cache_version' => env('ELASTICSEARCH_CACHE_VERSION', 1),
 
 ];

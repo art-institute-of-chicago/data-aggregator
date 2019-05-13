@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\DigitalLabel\Label;
 use App\Models\DigitalLabel\Exhibition;
 
+use App\Transformers\Inbound\DigitalLabel\Exhibition as ExhibitionTransformer;
+use App\Transformers\Inbound\DigitalLabel\Label as LabelTransformer;
+
 class ImportDigitalLabels extends AbstractImportCommand
 {
 
@@ -79,15 +82,12 @@ class ImportDigitalLabels extends AbstractImportCommand
     {
         $this->info("Importing digital labels");
 
-        $exhibitionTransformer = app('Resources')->getInboundTransformerForModel( Exhibition::class, 'DigitalLabel' );
-        $labelTransformer = app('Resources')->getInboundTransformerForModel( Label::class, 'DigitalLabel' );
-
         $contents = Storage::get( $this->exhibitionJson() );
         $results = json_decode( $contents );
         foreach ($results as $datum)
         {
             $datum->id = $datum->objectId;
-            $this->save( $datum, Exhibition::class, $exhibitionTransformer );
+            $this->save( $datum, Exhibition::class, ExhibitionTransformer::class );
 
             foreach ($datum->experiences as $d)
             {
@@ -101,7 +101,7 @@ class ImportDigitalLabels extends AbstractImportCommand
                     $r->whenCreated = $d->whenCreated;
                     $r->whenChanged = $d->whenChanged;
                     $r->digital_label_exhibition_id = $datum->objectId;
-                    $this->save( $r, Label::class, $labelTransformer );
+                    $this->save( $r, Label::class, LabelTransformer::class );
                 }
             }
         }

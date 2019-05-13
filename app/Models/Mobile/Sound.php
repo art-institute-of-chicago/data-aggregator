@@ -3,6 +3,7 @@
 namespace App\Models\Mobile;
 
 use App\Models\MobileModel;
+use App\Models\ElasticSearchable;
 
 /**
  * The audio file for a stops on a tour.
@@ -10,11 +11,8 @@ use App\Models\MobileModel;
 class Sound extends MobileModel
 {
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
+    use ElasticSearchable;
+
     protected $table = 'mobile_sounds';
 
     public function artworks()
@@ -28,6 +26,13 @@ class Sound extends MobileModel
     {
 
         return $this->hasMany('App\Models\Mobile\TourStop', 'mobile_sound_mobile_id');
+
+    }
+
+    public function introducedTours()
+    {
+
+        return $this->hasMany('App\Models\Mobile\Tour', 'intro_mobile_id');
 
     }
 

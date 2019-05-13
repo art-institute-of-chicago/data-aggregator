@@ -2,6 +2,8 @@
 
 namespace Tests\Helpers;
 
+use Illuminate\Support\Str;
+
 trait Factory
 {
 
@@ -52,7 +54,7 @@ trait Factory
 
                         $class = $this->classFrom($attachType);
 
-                        $relation = $this->attachRelation ? $this->attachRelation : lcfirst(str_plural($class));
+                        $relation = $this->attachRelation ? $this->attachRelation : lcfirst(Str::plural($class));
 
                         $attach = factory($attachType)->create($this->attachFields);
 

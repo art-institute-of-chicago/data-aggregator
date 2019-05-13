@@ -60,26 +60,30 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/import-web-last-run.log'));
 
-        $schedule->command('import:events-ticketed')
+        $schedule->command('import:events-ticketed-full --yes')
             ->everyFiveMinutes()
             ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/import-events-ticketed-last-run.log'));
 
-        // Non-prod envs don't need 5-min imports on collections
-        if (!App::environment('production'))
-        {
-            return;
-        }
+        $schedule->command('delete:assets')
+            ->everyFiveMinutes()
+            ->withoutOverlapping()
+            ->sendOutputTo(storage_path('logs/delete-assets-last-run.log'));
+
+        $schedule->command('delete:collections')
+            ->everyFiveMinutes()
+            ->withoutOverlapping()
+            ->sendOutputTo(storage_path('logs/delete-collections-last-run.log'));
+
+        $schedule->command('import:assets')
+            ->everyFiveMinutes()
+            ->withoutOverlapping()
+            ->sendOutputTo(storage_path('logs/import-assets-last-run.log'));
 
         $schedule->command('import:collections')
             ->everyFiveMinutes()
             ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
-
-        $schedule->command('import:collections-delete')
-            ->everyFiveMinutes()
-            ->withoutOverlapping()
-            ->sendOutputTo(storage_path('logs/import-collections-delete-last-run.log'));
 
     }
 

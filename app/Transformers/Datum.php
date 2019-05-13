@@ -2,6 +2,7 @@
 
 namespace App\Transformers;
 
+use Carbon\Carbon;
 use JsonSerializable;
 
 class Datum implements JsonSerializable
@@ -73,7 +74,7 @@ class Datum implements JsonSerializable
 
         if( is_object( $date ) )
         {
-            return new \DateTime( $date->date, new \DateTimeZone( $date->timezone ) );
+            return new Carbon( $date->date, new \DateTimeZone( $date->timezone ) );
         }
 
         if( is_numeric( $date ) )

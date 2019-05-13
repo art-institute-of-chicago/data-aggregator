@@ -14,9 +14,6 @@ class CreateCommandTable extends Migration
      */
     public function up()
     {
-
-        $this->down();
-
         Schema::create('commands', function (Blueprint $table) {
             $table->increments('id');
             $table->string('command')->nullable();

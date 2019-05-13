@@ -81,7 +81,6 @@ class BaseModel extends AbstractModel
         }
 
         return array_merge( $casts, [
-            'source_created_at' => 'datetime',
             'source_modified_at' => 'datetime',
         ]);
 

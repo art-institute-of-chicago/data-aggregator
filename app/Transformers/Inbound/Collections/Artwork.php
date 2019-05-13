@@ -59,7 +59,6 @@ class Artwork extends CollectionsTransformer
 
     }
 
-    // TODO: Ensure that removing gallery.type update is kosher
     public function syncEx( Model $instance, Datum $datum )
     {
 
@@ -134,8 +133,13 @@ class Artwork extends CollectionsTransformer
         // No pivots, but basic artist
         if( !$datum->artwork_agents && $datum->creator_id )
         {
-            // In migrations, we default `preferred` to true and `agent_role_citi_id` to 219
-            return [ $datum->creator_id ];
+            // Default `preferred` to true and `agent_role_citi_id` to 219
+            return [
+                $datum->creator_id => [
+                    'agent_role_citi_id' => 219,
+                    'preferred' => true,
+                ]
+            ];
         }
 
         return $this->getSyncPivots( $datum, 'artwork_agents', 'agent_id', function( $pivot ) {
@@ -181,15 +185,13 @@ class Artwork extends CollectionsTransformer
     private function getSyncCatalogues( Datum $datum )
     {
 
-        return $this->getSyncPivots( $datum, 'artwork_catalogues', 'catalog_id', function( $pivot ) {
+        return $this->getSyncPivots( $datum, 'artwork_catalogues', 'catalogue_id', function( $pivot ) {
 
             return [
-                $pivot->catalog_id => [
-                    'citi_id' => $pivot->citi_id, // TODO: Make this incremental?
+                $pivot->catalogue_id => [
                     'number' => $pivot->number,
                     'state_edition' => $pivot->state_edition,
-                    // 'catalogue_citi_id' => $pivot->catalog_id, // TODO: Verify?
-                    'preferred' => (bool) $pivot->is_preferred,
+                    'preferred' => $pivot->is_preferred,
                 ]
             ];
 
@@ -202,28 +204,36 @@ class Artwork extends CollectionsTransformer
      */
     private function syncDates( Model $instance, Datum $datum )
     {
-
         $instance->dates()->delete();
 
-        if (!$datum->artwork_dates)
-        {
-            return;
-        }
-
-        foreach ( ($datum->artwork_dates ?? []) as $date)
+        foreach (($datum->artwork_dates ?? []) as $date)
         {
             ArtworkDate::create([
-                // TODO: Use automatic id so that we can create parity b/w web-basic and web-everything?
-                'citi_id' => $date->id,
-                'artwork_citi_id' => $datum->citi_id, // draw from the artwork record
-                'lake_guid' => $date->lake_guid,
+                'artwork_citi_id' => $datum->id,
                 'date_earliest' => Carbon::parse($date->date_earliest),
                 'date_latest' => Carbon::parse($date->date_latest),
                 'preferred' => $date->is_preferred,
                 'artwork_date_qualifier_citi_id' => $date->date_qualifier_id,
             ]);
         }
+    }
 
+    protected function getSyncEx( Datum $datum )
+    {
+        $now = date("Y-m-d H:i:s");
+        return [
+            'artwork_dates' => collect($datum->artwork_dates ?? [])->map( function($date) use ($datum, $now) {
+                return [
+                    'artwork_citi_id' => $datum->id,
+                    'date_earliest' => Carbon::parse($date->date_earliest),
+                    'date_latest' => Carbon::parse($date->date_latest),
+                    'preferred' => $date->is_preferred,
+                    'artwork_date_qualifier_citi_id' => $date->date_qualifier_id,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ];
+            })->all(),
+        ];
     }
 
 }

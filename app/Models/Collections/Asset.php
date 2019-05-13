@@ -13,6 +13,8 @@ class Asset extends CollectionsModel
 
     use ElasticSearchable;
 
+    public static $sourceLastUpdateDateField = 'indexed_at';
+
     public const IMAGE = 'image';
     public const SOUND = 'sound';
     public const TEXT = 'text';
@@ -30,6 +32,8 @@ class Asset extends CollectionsModel
         'is_educational_resource' => 'boolean',
         'is_teacher_resource' => 'boolean',
         'content_modified_at' => 'datetime',
+        'source_created_at' => 'datetime',
+        'source_indexed_at' => 'datetime',
     ];
 
     protected $touches = [
@@ -111,18 +115,12 @@ class Asset extends CollectionsModel
 
     /**
      * Create a new instance of the given model. For Assets, we use this to set a default `type`.
-     *
-     * @param  array  $attributes
-     * @param  bool  $exists
-     * @return static
      */
-    public function newInstance($attributes = [], $exists = false)
+    public function __construct(array $attributes = [])
     {
+        parent::__construct(...func_get_args());
 
-        $model = parent::newInstance($attributes, $exists);
-        $model->type = static::$assetType;
-        return $model;
-
+        $this->type = static::$assetType ?? null;
     }
 
     /**

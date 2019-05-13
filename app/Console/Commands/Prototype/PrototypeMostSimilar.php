@@ -6,6 +6,8 @@ use App\Models\Collections\Artwork;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
+use Illuminate\Support\Arr;
+
 class PrototypeMostSimilar extends BaseCommand
 {
     /**
@@ -158,14 +160,14 @@ class PrototypeMostSimilar extends BaseCommand
             $ret .= 'Same artist';
         }
         foreach ($item->style_ids as $style) {
-            if (in_array($style, array_pluck($artw->styles, 'lake_uid'))) {
+            if (in_array($style, Arr::pluck($artw->styles, 'lake_uid'))) {
                 $ret ? $ret .= ', ' : '';
                 $ret .= 'Same style';
                 break;
             }
         }
         foreach ($item->classification_ids as $classification) {
-            if (in_array($classification, array_pluck($artw->classifications, 'lake_uid'))) {
+            if (in_array($classification, Arr::pluck($artw->classifications, 'lake_uid'))) {
                 $ret ? $ret .= ', ' : '';
                 $ret .= 'Same classification';
                 break;

@@ -14,9 +14,6 @@ class CreateArchiveTables extends Migration
      */
     public function up()
     {
-
-        $this->down();
-
         Schema::create('archival_images', function (Blueprint $table) {
             $table->integer('id')->unsigned()->primary();
             $table->string('title')->nullable();

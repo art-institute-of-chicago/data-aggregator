@@ -14,8 +14,6 @@ if (!function_exists('idsAndTitle'))
 {
     function idsAndTitle($faker, $title, $citiField = false, $idLength = 6)
     {
-
-        $lake_id = '99999999-9999-9999-9999-999999' .$faker->randomNumber(6, true);
         $ret = [];
 
         if ($citiField)
@@ -29,7 +27,6 @@ if (!function_exists('idsAndTitle'))
             $ret,
             [
                 'title' => $title,
-                'lake_guid' => $lake_id,
             ]
         );
 
@@ -39,21 +36,9 @@ if (!function_exists('idsAndTitle'))
     {
 
         $ret = [
-            'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
-            'source_indexed_at' => $faker->dateTimeThisYear,
         ];
 
-        if ($citiField)
-        {
-            $ret = array_merge(
-                $ret,
-                [
-                    'citi_created_at' => $faker->dateTimeThisYear,
-                    'citi_modified_at' => $faker->dateTimeThisYear,
-                ]
-            );
-        }
         return $ret;
 
     }
@@ -246,11 +231,14 @@ $factory->define(App\Models\Collections\Asset::class, function (Faker\Generator 
     return array_merge(
         idsAndTitle($faker, ucwords($faker->words(3, true))),
         [
+            'lake_guid' => '99999999-9999-9999-9999-999999' .$faker->randomNumber(6, true),
             'content' => $faker->url,
             'copyright_notice' => '© ' .$faker->year .' ' .ucfirst($faker->words(3, true)),
             'published' => $faker->boolean,
             'description' => $faker->paragraph(3),
             'alt_text' => $faker->paragraph(3),
+            'source_created_at' => $faker->dateTimeThisYear,
+            'source_indexed_at' => $faker->dateTimeThisYear,
         ],
         dates($faker)
     );
