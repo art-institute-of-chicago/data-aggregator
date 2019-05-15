@@ -112,7 +112,7 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'boost' => 3,
+                    'boost' => 5,
                     'type' => 'keyword',
                 ],
                 'value' => function ($item) {
