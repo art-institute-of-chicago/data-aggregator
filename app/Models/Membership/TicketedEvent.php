@@ -51,10 +51,10 @@ class TicketedEvent extends MembershipModel
 
     }
 
-    public function getDefaultSearchFields()
+    public function getDefaultSearchFields($isExact)
     {
 
-        $fields = $this->traitGetDefaultSearchFields();
+        $fields = $this->traitGetDefaultSearchFields($isExact);
 
         return array_merge(['id.text^1.0'], $fields);
 

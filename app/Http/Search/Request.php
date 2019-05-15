@@ -702,9 +702,6 @@ class Request
      */
     private function addSimpleSearchParams( array $params, array $input ) {
 
-        // Only pull default fields for the resources targeted by this request
-        $fields = app('Search')->getDefaultFieldsForEndpoints( $this->resources );
-
         // Check for quoted substrings
         $subqueries = explode('"', $input['q']);
 
@@ -718,13 +715,17 @@ class Request
         $withoutQuotes = array_filter(array_map('trim', $withoutQuotes));
 
         // Used for silencing an extra phrase query below
-        $hasQuotes = count($withQuotes) > 0;
+        $isExact = count($withQuotes) > 0;
+
+        // Only pull default fields for the resources targeted by this request
+        $allFields = app('Search')->getDefaultFieldsForEndpoints( $this->resources, false );
+        $exactFields = app('Search')->getDefaultFieldsForEndpoints( $this->resources, true );
 
         foreach ($withQuotes as $subquery) {
             $params['body']['query']['bool']['must'][] = [
                 'multi_match' => [
                     'query' => str_replace('"', '', $subquery),
-                    'fields' => $fields,
+                    'fields' => $exactFields,
                     'type' => 'phrase',
                     'boost' => 10,
                 ],
@@ -741,7 +742,7 @@ class Request
                     'query' => $subquery,
                     'fuzziness' => $fuzziness,
                     'prefix_length' => 1,
-                    'fields' => $fields,
+                    'fields' => $allFields,
                 ],
             ];
         }
@@ -754,12 +755,12 @@ class Request
         }
 
         // This acts as a boost for docs that match precisely, if fuzzy search is enabled
-        if (!$hasQuotes && ($fuzziness ?? false))
+        if (!$isExact && ($fuzziness ?? false))
         {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $input['q'],
-                    'fields' => $fields,
+                    'fields' => $allFields,
                 ]
             ];
         }
@@ -774,7 +775,7 @@ class Request
                     'query' => str_replace('"', '', $input['q']),
                     'type' => 'phrase',
                     'slop' => 3, // account for e.g. middle names
-                    'fields' => $fields,
+                    'fields' => $allFields,
                     'boost' => 10, // See WEB-22
                 ]
             ];

@@ -115,7 +115,7 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @return array
                  */
-                public function getDefaultFields( $models = null ) {
+                public function getDefaultFields( $models = null, $isExact = false ) {
 
                     // Fallback to getting default fields for all models
                     if( is_null( $models ) || $models->count() < 1 )
@@ -123,8 +123,8 @@ class SearchServiceProvider extends ServiceProvider
                         $models = $this->models;
                     }
 
-                    $fields = $models->map( function( $model ) {
-                        return $this->getDefaultFieldsForModel( $model );
+                    $fields = $models->map( function( $model ) use ( $isExact ) {
+                        return $this->getDefaultFieldsForModel( $model, $isExact );
                     });
 
                     $fields = $fields->isNotEmpty() ? array_merge( ... $fields ) : [];
@@ -149,13 +149,13 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @return array
                  */
-                public function getDefaultFieldsForEndpoints( $endpoints ) {
+                public function getDefaultFieldsForEndpoints( $endpoints, $isExact = false ) {
 
                     $models = collect( $endpoints )->map( function( $endpoint ) {
                         return app('Resources')->getModelForEndpoint( $endpoint );
                     });
 
-                    return $this->getDefaultFields( $models );
+                    return $this->getDefaultFields( $models, $isExact );
 
                 }
 
@@ -177,11 +177,11 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @return array
                  */
-                public function getDefaultFieldsForModel( $model ) {
+                private function getDefaultFieldsForModel( $model, $isExact = false ) {
 
                     // TODO: Class name must be a valid object or a string
                     // Fix this error when an unknown resource gets passed
-                    return $model::instance()->getDefaultSearchFields();
+                    return $model::instance()->getDefaultSearchFields( $isExact );
 
                 }
 
