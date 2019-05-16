@@ -714,6 +714,24 @@ class Request
         $withQuotes = array_filter(array_map('trim', $withQuotes));
         $withoutQuotes = array_filter(array_map('trim', $withoutQuotes));
 
+        // Exact-match any numeric substrings or accession numbers
+        $withoutQuotes = array_filter(array_map(function ($subquery) use (&$withQuotes) {
+            $substrings = explode(' ', $subquery);
+
+            $substrings = array_filter(array_map(function ($substring) use (&$withQuotes) {
+                if (is_numeric(substr($substring, 0, 1))) {
+                    $withQuotes[] = $substring;
+                    return null;
+                }
+
+                return $substring;
+            }, $substrings));
+
+            if (count($substrings) > 0) {
+                return implode(' ', $substrings);
+            }
+        }, $withoutQuotes));
+
         // Used for silencing an extra phrase query below
         $isExact = count($withQuotes) > 0;
 
