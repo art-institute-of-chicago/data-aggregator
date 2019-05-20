@@ -579,6 +579,21 @@ class Artwork extends CollectionsModel
                     'field_value_factor' => [
                         'field' => 'pageviews',
                         'modifier' => 'log1p',
+                        'factor' => 1.2,
+                        'missing' => 1,
+                    ],
+                ],
+
+                // Make pageviews_shortterm influence score
+                [
+                    'filter' => [
+                        'exists' => [
+                            'field' => 'pageviews_shortterm',
+                        ],
+                    ],
+                    'field_value_factor' => [
+                        'field' => 'pageviews_shortterm',
+                        'modifier' => 'log1p',
                         'factor' => 1.5,
                         'missing' => 1,
                     ],
