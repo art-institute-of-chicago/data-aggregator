@@ -83,6 +83,13 @@ return [
         ],
     ],
 
+    'analytics' => [
+        'artworks' => [
+            'model' => \App\Models\Collections\Artwork::class,
+            'transformer' => \App\Transformers\Inbound\Analytics\Artwork::class,
+        ],
+    ],
+
     'archive' => [
         'archival-images' => [
             'model' => \App\Models\Archive\ArchiveImage::class,
