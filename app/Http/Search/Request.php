@@ -216,8 +216,10 @@ class Request
                     return $resources->contains($key);
                 });
 
-                foreach ($customScoreFunctions as $resource => $function) {
-                    $this->functionScores[$resource]['custom'][] = $function;
+                // Accept both a single function, and an array of functions
+                foreach ($customScoreFunctions as $resource => $functions) {
+                    $functions = !isset($functions[0]) ? [$functions] : $functions;
+                    $this->functionScores[$resource]['custom'] = $functions;
                 }
             }
 
