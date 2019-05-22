@@ -4254,20 +4254,20 @@
         },
         {
             "name": "sentry/sentry-laravel",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-laravel.git",
-                "reference": "126cc5e41394d4e152cd19ff600c09688ee3efe4"
+                "reference": "f4c5544a6dc0472c6f75def70ccc4d4d96d711f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/126cc5e41394d4e152cd19ff600c09688ee3efe4",
-                "reference": "126cc5e41394d4e152cd19ff600c09688ee3efe4",
+                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/f4c5544a6dc0472c6f75def70ccc4d4d96d711f7",
+                "reference": "f4c5544a6dc0472c6f75def70ccc4d4d96d711f7",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*",
+                "illuminate/support": "5.0 - 5.8",
                 "php": "^7.1",
                 "sentry/sdk": "^2.0"
             },
@@ -4318,7 +4318,7 @@
                 "logging",
                 "sentry"
             ],
-            "time": "2019-03-15T11:50:41+00:00"
+            "time": "2019-04-24T10:48:42+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
