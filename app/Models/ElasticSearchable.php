@@ -101,16 +101,17 @@ trait ElasticSearchable
      *
      * @return array
      */
-    public function getDefaultSearchFieldMapping()
+    public function getDefaultSearchFieldMapping($isExact)
     {
 
         $fields = $this->transformMapping();
 
-        $fields = array_filter( $fields, function($field) {
+        $fields = array_filter( $fields, function($field) use ($isExact) {
 
             return isset( $field['elasticsearch'] )
                 && isset( $field['elasticsearch']['default'] )
-                && $field['elasticsearch']['default'] == true;
+                && $field['elasticsearch']['default'] == true
+                && (!$isExact || $field['elasticsearch']['default'] !== 'except_exact');
 
         });
 
@@ -137,9 +138,9 @@ trait ElasticSearchable
      *
      * @return array
      */
-    public function getDefaultSearchFields()
+    public function getDefaultSearchFields($isExact)
     {
-        $fields = $this->getDefaultSearchFieldMapping();
+        $fields = $this->getDefaultSearchFieldMapping($isExact);
 
         $fields = array_map( function( $field ) {
 

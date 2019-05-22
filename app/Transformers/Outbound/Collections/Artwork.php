@@ -112,7 +112,7 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'boost' => 3,
+                    'boost' => 5,
                     'type' => 'keyword',
                 ],
                 'value' => function ($item) {
@@ -472,7 +472,7 @@ class Artwork extends BaseTransformer
                 'doc' => 'Names of the categories this artwork is a part of',
                 'type' => 'array',
                 'elasticsearch' => [
-                    'default' => true,
+                    'default' => 'except_exact',
                 ],
                 'value' => function ($item) {
                     return $item->categories->pluck('title');
@@ -490,7 +490,7 @@ class Artwork extends BaseTransformer
                 'doc' => 'The names of the taxonomy tags for this work',
                 'type' => 'array',
                 'elasticsearch' => [
-                    'default' => true,
+                    'default' => 'except_exact',
                     'boost' => 2,
                 ],
                 'value' => function ($item) {

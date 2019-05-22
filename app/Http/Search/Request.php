@@ -216,8 +216,10 @@ class Request
                     return $resources->contains($key);
                 });
 
-                foreach ($customScoreFunctions as $resource => $function) {
-                    $this->functionScores[$resource]['custom'][] = $function;
+                // Accept both a single function, and an array of functions
+                foreach ($customScoreFunctions as $resource => $functions) {
+                    $functions = !isset($functions[0]) ? [$functions] : $functions;
+                    $this->functionScores[$resource]['custom'] = $functions;
                 }
             }
 
@@ -702,8 +704,94 @@ class Request
      */
     private function addSimpleSearchParams( array $params, array $input ) {
 
-        // Only pull default fields for the resources targeted by this request
-        $fields = app('Search')->getDefaultFieldsForEndpoints( $this->resources );
+        // If a hex color was passed, parse it and search by color
+        if ((strlen($input['q']) == 7 && preg_match("/^#[0-9a-f]{6}/i", $input['q']))
+            || (strlen($input['q']) == 4 && preg_match("/^#[0-9a-f]{3}/i", $input['q']))) {
+
+            // First, convert hex to RGB
+            $hex      = str_replace('#', '', $input['q']);
+            $length   = strlen($hex);
+            $rbg      = [];
+            $rgb['r'] = hexdec($length == 6 ? substr($hex, 0, 2) : ($length == 3 ? str_repeat(substr($hex, 0, 1), 2) : 0));
+            $rgb['g'] = hexdec($length == 6 ? substr($hex, 2, 2) : ($length == 3 ? str_repeat(substr($hex, 1, 1), 2) : 0));
+            $rgb['b'] = hexdec($length == 6 ? substr($hex, 4, 2) : ($length == 3 ? str_repeat(substr($hex, 2, 1), 2) : 0));
+
+            // Then convert RGB to HSL
+            $rgb['r'] /= 255;
+            $rgb['g'] /= 255;
+            $rgb['b'] /= 255;
+            $max = max( $rgb['r'], $rgb['g'], $rgb['b'] );
+            $min = min( $rgb['r'], $rgb['g'], $rgb['b'] );
+
+            $l = ( $max + $min ) / 2;
+            $d = $max - $min;
+            if( $d == 0 ){
+                $h = $s = 0; // achromatic
+            } else {
+                $s = $d / ( 1 - abs( 2 * $l - 1 ) );
+                switch( $max ){
+                case $rgb['r']:
+                    $h = 60 * fmod( ( ( $rgb['g'] - $rgb['b'] ) / $d ), 6 );
+                    if ($rgb['b'] > $rgb['g']) {
+                        $h += 360;
+                    }
+                    break;
+                case $rgb['g']:
+                    $h = 60 * ( ( $rgb['b'] - $rgb['r'] ) / $d + 2 );
+                    break;
+                case $rgb['b']:
+                    $h = 60 * ( ( $rgb['r'] - $rgb['g'] ) / $d + 4 );
+                    break;
+                }
+            }
+            $hsl = ['h' => round( $h, 2 ), 's' => round( $s, 2 ), 'l' => round( $l, 2 ) ];
+
+            // Add the search params and return
+            $hv = 30;
+            $sv = 40;
+            $lv = 40;
+            $params['body']['query']['bool']['must'][] = [
+                "range" => [
+                    "color.h" => [
+                        "gte" => (max($hsl['h'] - $hv/2, 0)),
+                        "lte" => (min($hsl['h'] + $hv/2, 360)),
+                    ]
+                ]
+            ];
+
+            $params['body']['query']['bool']['must'][] = [
+                "range" => [
+                    "color.s" => [
+                        "gte" => (max($hsl['s'] - $sv/2, 0)),
+                        "lte" => (min($hsl['s'] + $sv/2, 100)),
+                    ]
+                ]
+            ];
+
+            $params['body']['query']['bool']['must'][] = [
+                "range" => [
+                    "color.l" => [
+                        "gte" => (max($hsl['l'] - $lv/2, 0)),
+                        "lte" => (min($hsl['l'] + $lv/2, 100)),
+                    ]
+                ]
+            ];
+
+            // We can't do an exists[field]=lqip, b/c lqip isn't indexed
+            $params['body']['query']['bool']['must'][] = [
+                "exists" => [
+                    "field" => "thumbnail.width",
+                ]
+            ];
+
+            $params['body']['query']['bool']['must'][] = [
+                "exists" => [
+                    "field" => "thumbnail.height",
+                ]
+            ];
+
+            return $params;
+        }
 
         // Check for quoted substrings
         $subqueries = explode('"', $input['q']);
@@ -717,14 +805,36 @@ class Request
         $withQuotes = array_filter(array_map('trim', $withQuotes));
         $withoutQuotes = array_filter(array_map('trim', $withoutQuotes));
 
+        // Exact-match any numeric substrings or accession numbers
+        $withoutQuotes = array_filter(array_map(function ($subquery) use (&$withQuotes) {
+            $substrings = explode(' ', $subquery);
+
+            $substrings = array_filter(array_map(function ($substring) use (&$withQuotes) {
+                if (is_numeric(substr($substring, 0, 1))) {
+                    $withQuotes[] = $substring;
+                    return null;
+                }
+
+                return $substring;
+            }, $substrings));
+
+            if (count($substrings) > 0) {
+                return implode(' ', $substrings);
+            }
+        }, $withoutQuotes));
+
         // Used for silencing an extra phrase query below
-        $hasQuotes = count($withQuotes) > 0;
+        $isExact = count($withQuotes) > 0;
+
+        // Only pull default fields for the resources targeted by this request
+        $allFields = app('Search')->getDefaultFieldsForEndpoints( $this->resources, false );
+        $exactFields = app('Search')->getDefaultFieldsForEndpoints( $this->resources, true );
 
         foreach ($withQuotes as $subquery) {
             $params['body']['query']['bool']['must'][] = [
                 'multi_match' => [
                     'query' => str_replace('"', '', $subquery),
-                    'fields' => $fields,
+                    'fields' => $exactFields,
                     'type' => 'phrase',
                     'boost' => 10,
                 ],
@@ -741,7 +851,7 @@ class Request
                     'query' => $subquery,
                     'fuzziness' => $fuzziness,
                     'prefix_length' => 1,
-                    'fields' => $fields,
+                    'fields' => $allFields,
                 ],
             ];
         }
@@ -754,12 +864,12 @@ class Request
         }
 
         // This acts as a boost for docs that match precisely, if fuzzy search is enabled
-        if (!$hasQuotes && ($fuzziness ?? false))
+        if (!$isExact && ($fuzziness ?? false))
         {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $input['q'],
-                    'fields' => $fields,
+                    'fields' => $allFields,
                 ]
             ];
         }
@@ -774,7 +884,7 @@ class Request
                     'query' => str_replace('"', '', $input['q']),
                     'type' => 'phrase',
                     'slop' => 3, // account for e.g. middle names
-                    'fields' => $fields,
+                    'fields' => $allFields,
                     'boost' => 10, // See WEB-22
                 ]
             ];
