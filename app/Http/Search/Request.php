@@ -704,93 +704,8 @@ class Request
      */
     private function addSimpleSearchParams( array $params, array $input ) {
 
-        // If a hex color was passed, parse it and search by color
-        if ((strlen($input['q']) == 7 && preg_match("/^#[0-9a-f]{6}/i", $input['q']))
-            || (strlen($input['q']) == 4 && preg_match("/^#[0-9a-f]{3}/i", $input['q']))) {
-
-            // First, convert hex to RGB
-            $hex      = str_replace('#', '', $input['q']);
-            $length   = strlen($hex);
-            $rbg      = [];
-            $rgb['r'] = hexdec($length == 6 ? substr($hex, 0, 2) : ($length == 3 ? str_repeat(substr($hex, 0, 1), 2) : 0));
-            $rgb['g'] = hexdec($length == 6 ? substr($hex, 2, 2) : ($length == 3 ? str_repeat(substr($hex, 1, 1), 2) : 0));
-            $rgb['b'] = hexdec($length == 6 ? substr($hex, 4, 2) : ($length == 3 ? str_repeat(substr($hex, 2, 1), 2) : 0));
-
-            // Then convert RGB to HSL
-            $rgb['r'] /= 255;
-            $rgb['g'] /= 255;
-            $rgb['b'] /= 255;
-            $max = max( $rgb['r'], $rgb['g'], $rgb['b'] );
-            $min = min( $rgb['r'], $rgb['g'], $rgb['b'] );
-
-            $l = ( $max + $min ) / 2;
-            $d = $max - $min;
-            if( $d == 0 ){
-                $h = $s = 0; // achromatic
-            } else {
-                $s = $d / ( 1 - abs( 2 * $l - 1 ) );
-                switch( $max ){
-                case $rgb['r']:
-                    $h = 60 * fmod( ( ( $rgb['g'] - $rgb['b'] ) / $d ), 6 );
-                    if ($rgb['b'] > $rgb['g']) {
-                        $h += 360;
-                    }
-                    break;
-                case $rgb['g']:
-                    $h = 60 * ( ( $rgb['b'] - $rgb['r'] ) / $d + 2 );
-                    break;
-                case $rgb['b']:
-                    $h = 60 * ( ( $rgb['r'] - $rgb['g'] ) / $d + 4 );
-                    break;
-                }
-            }
-            $hsl = ['h' => round( $h, 2 ), 's' => round( $s, 2 ), 'l' => round( $l, 2 ) ];
-
-            // Add the search params and return
-            $hv = 30;
-            $sv = 40;
-            $lv = 40;
-            $params['body']['query']['bool']['must'][] = [
-                "range" => [
-                    "color.h" => [
-                        "gte" => (max($hsl['h'] - $hv/2, 0)),
-                        "lte" => (min($hsl['h'] + $hv/2, 360)),
-                    ]
-                ]
-            ];
-
-            $params['body']['query']['bool']['must'][] = [
-                "range" => [
-                    "color.s" => [
-                        "gte" => (max($hsl['s'] - $sv/2, 0)),
-                        "lte" => (min($hsl['s'] + $sv/2, 100)),
-                    ]
-                ]
-            ];
-
-            $params['body']['query']['bool']['must'][] = [
-                "range" => [
-                    "color.l" => [
-                        "gte" => (max($hsl['l'] - $lv/2, 0)),
-                        "lte" => (min($hsl['l'] + $lv/2, 100)),
-                    ]
-                ]
-            ];
-
-            // We can't do an exists[field]=lqip, b/c lqip isn't indexed
-            $params['body']['query']['bool']['must'][] = [
-                "exists" => [
-                    "field" => "thumbnail.width",
-                ]
-            ];
-
-            $params['body']['query']['bool']['must'][] = [
-                "exists" => [
-                    "field" => "thumbnail.height",
-                ]
-            ];
-
-            return $params;
+        if ($colorParams = $this->getColorParams($params, $input)) {
+            return $colorParams;
         }
 
         // Check for quoted substrings
@@ -1034,6 +949,105 @@ class Request
         }
 
         return min([2, (int) $input['fuzzy']]);
+    }
+
+    private function getColorParams( array $params, array $input )
+    {
+        // Exit early if the query is not an exact hex string
+        if (!(
+            strlen($input['q']) == 7 && preg_match("/^#[0-9a-f]{6}/i", $input['q'])
+        ) || (
+            strlen($input['q']) == 4 && preg_match("/^#[0-9a-f]{3}/i", $input['q'])
+        )) {
+            return false;
+        }
+
+        $hsl = hexToHsl(substr($input['q'], 1)); // Trim # from start
+        $hsl = [
+            'h' => $hsl[0] * 360,
+            's' => $hsl[1] * 100,
+            'l' => $hsl[2] * 100,
+        ];
+
+        // Tolerances (+/-) match those used on the website
+        $hueTolerance = 22.5; // 1/16 of 360
+        $saturationTolerance = 15;
+        $lightnessTolerance = 15;
+
+        $hueMin = ($hsl['h'] - $hueTolerance);
+        $hueMax = ($hsl['h'] + $hueTolerance);
+
+        $hueQueries = [
+            [
+                'range' => [
+                    'color.h' => [
+                        'gte' => max($hueMin, 0),
+                        'lte' => min($hueMax, 360),
+                    ]
+                ]
+            ],
+        ];
+
+        if ($hueMin < 0) {
+            $hueQueries[] = [
+                'range' => [
+                    'color.h' => [
+                        'gte' => $hueMin + 360,
+                        'lte' => 360,
+                    ]
+                ]
+            ];
+        }
+
+        if ($hueMax > 360) {
+            $hueQueries[] = [
+                'range' => [
+                    'color.h' => [
+                        'gte' => 0,
+                        'lte' => $hueMax - 360,
+                    ]
+                ]
+            ];
+        }
+
+        $params['body']['query']['bool']['must'][] = [
+            'bool' => [
+                'should' => $hueQueries,
+            ]
+        ];
+
+        $params['body']['query']['bool']['must'][] = [
+            'range' => [
+                'color.s' => [
+                    'gte' => max($hsl['s'] - $saturationTolerance, 0),
+                    'lte' => min($hsl['s'] + $saturationTolerance, 100),
+                ]
+            ]
+        ];
+
+        $params['body']['query']['bool']['must'][] = [
+            'range' => [
+                'color.l' => [
+                    'gte' => max($hsl['l'] - $lightnessTolerance, 0),
+                    'lte' => min($hsl['l'] + $lightnessTolerance, 100),
+                ]
+            ]
+        ];
+
+        // We can't do an exists[field]=lqip, b/c lqip isn't indexed
+        $params['body']['query']['bool']['must'][] = [
+            'exists' => [
+                'field' => 'thumbnail.width',
+            ]
+        ];
+
+        $params['body']['query']['bool']['must'][] = [
+            'exists' => [
+                'field' => 'thumbnail.height',
+            ]
+        ];
+
+        return $params;
     }
 
 }
