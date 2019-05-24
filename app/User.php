@@ -40,10 +40,6 @@ class User extends Authenticatable
     ];
 
     public function getRateLimitAttribute() {
-        if (Auth::check()) {
-            return 1000000000;
-        }
-
-        return 60;
+        return 1000000000;
     }
 }

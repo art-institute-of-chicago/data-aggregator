@@ -12,7 +12,7 @@ class RestrictedResourceController extends ResourceController
 
     public function show(Request $request, $id)
     {
-        if (!Auth::check()) {
+        if (!Auth::check() && config('aic.restricted')) {
             throw new UnauthorizedException();
         }
         return parent::show(...func_get_args());
@@ -20,7 +20,7 @@ class RestrictedResourceController extends ResourceController
 
     public function index(Request $request)
     {
-        if (!Auth::check()) {
+        if (!Auth::check() && config('aic.restricted')) {
             throw new UnauthorizedException();
         }
         return parent::index(...func_get_args());
@@ -28,7 +28,7 @@ class RestrictedResourceController extends ResourceController
 
     protected function showScope(Request $request, $id)
     {
-        if (!Auth::check()) {
+        if (!Auth::check() && config('aic.restricted')) {
             throw new UnauthorizedException();
         }
         return parent::showScope(...func_get_args());
@@ -36,7 +36,7 @@ class RestrictedResourceController extends ResourceController
 
     protected function indexScope(Request $request)
     {
-        if (!Auth::check()) {
+        if (!Auth::check() && config('aic.restricted')) {
             throw new UnauthorizedException();
         }
         return parent::indexScope(...func_get_args());

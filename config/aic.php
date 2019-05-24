@@ -65,6 +65,18 @@ return [
     */
 
     'proxy_url' => env('PROXY_URL', env('APP_URL', 'http://localhost')),
-
     'proxy_scheme' => env('PROXY_SCHEME', 'http'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Restrict API
+    |--------------------------------------------------------------------------
+    |
+    | This flag will turn on and off the restrictions we have in place for
+    | unauthenticated users.
+    |
+    */
+
+    'restricted' => env('APP_RESTRICTED', true),
+
 ];
