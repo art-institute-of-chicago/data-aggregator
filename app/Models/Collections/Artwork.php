@@ -633,29 +633,37 @@ class Artwork extends CollectionsModel
      */
     public function dimensions()
     {
-
         $dims;
         $unit;
 
-        if (preg_match('/[a-zA-Z():. ]*([0-9.]+) x ([0-9.]+) x ([0-9.]+) ([cm]m).*/', $this->dimensions, $matches)) {
+        if (preg_match('/[a-zA-Z():. ]*([0-9.]+) [x×] ([0-9.]+) [x×] ([0-9.]+) ([cmin]{2}).*/u', $this->dimensions, $matches)) {
 
             $dims = array_slice($matches, 1, 3);
             $unit = $matches[4];
 
         }
-        elseif (preg_match('/[a-zA-Z():. ]*([0-9.]+) x ([0-9.]+) ([cm]m).*/', $this->dimensions, $matches)) {
+        elseif (preg_match('/[a-zA-Z():. ]*([0-9.]+) [x×] ([0-9.]+) ([cmin]{2}).*/u', $this->dimensions, $matches)) {
 
             $dims = array_slice($matches, 1, 2);
             $unit = $matches[3];
 
         }
-        elseif (preg_match('/[a-zA-Z():. ]*([0-9.]+) ([cm]m) [()\/0-9a-z.; ]+ ([0-9.]+) [cm]m.*/', $this->dimensions, $matches)) {
+        elseif (preg_match('/[a-zA-Z():. ]*([0-9.]+) ([cmin]{2}) [()\/0-9a-z.; ]+ ([0-9.]+) [cmin]{2}.*/u', $this->dimensions, $matches)) {
 
             $dims[] = $matches[1];
             $dims[] = $matches[3];
             $unit = $matches[2];
 
         }
+        elseif (preg_match('/[a-zA-Z():. ]*([0-9.]+) ([cmin]{2}) [()\/0-9a-z.; ]+.*/u', $this->dimensions, $matches)) {
+
+            $dims[] = $matches[1];
+            $unit = $matches[2];
+
+        }
+
+        $dims = $dims ?? [0,0];
+        $unit = $unit ?? 'mm';
 
         return $this->_dimensionsInMillimeters($dims, $unit);
 
@@ -664,14 +672,20 @@ class Artwork extends CollectionsModel
     private function _dimensionsInMillimeters($dims, $unit)
     {
 
+        $ret = $dims;
         switch ($unit) {
         case 'mm':
-            return $dims;
+            $ret = $dims;
             break;
         case 'cm':
-            return array_map(function($dim) { return $dim * 10; }, $dims);
+            $ret = array_map(function($dim) { return $dim * 10; }, $dims);
+            break;
+        case 'in':
+            $ret = array_map(function($dim) { return $dim * 25.4; }, $dims);
             break;
         }
+
+        return array_map('intval', $ret);
 
     }
 
