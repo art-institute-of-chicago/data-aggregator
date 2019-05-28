@@ -12,6 +12,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/jeskew/amazon-es-php.git"
         }
     ],
     "require": {
@@ -22,7 +26,7 @@
         "doctrine/dbal": "^2.6",
         "elasticsearch/elasticsearch": "^5.3",
         "fideloper/proxy": "~4.0",
-        "jsq/amazon-es-php": "^0.2.0",
+        "jsq/amazon-es-php": "dev-master",
         "laravel/framework": "5.8.*",
         "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",

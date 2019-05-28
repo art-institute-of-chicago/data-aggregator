@@ -118,24 +118,23 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.52.18",
+            "version": "3.95.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "becba2be9cfb22d6394c4d7e4d8cb70807c8a6b3"
+                "reference": "ae8bb13c2f53d0f6779bafde8a10e4b857263ad7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/becba2be9cfb22d6394c4d7e4d8cb70807c8a6b3",
-                "reference": "becba2be9cfb22d6394c4d7e4d8cb70807c8a6b3",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ae8bb13c2f53d0f6779bafde8a10e4b857263ad7",
+                "reference": "ae8bb13c2f53d0f6779bafde8a10e4b857263ad7",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-pcre": "*",
                 "ext-simplexml": "*",
-                "ext-spl": "*",
-                "guzzlehttp/guzzle": "^5.3.1|^6.2.1",
+                "guzzlehttp/guzzle": "^5.3.3|^6.2.1",
                 "guzzlehttp/promises": "~1.0",
                 "guzzlehttp/psr7": "^1.4.1",
                 "mtdowling/jmespath.php": "~2.2",
@@ -148,15 +147,19 @@
                 "doctrine/cache": "~1.4",
                 "ext-dom": "*",
                 "ext-openssl": "*",
+                "ext-pcntl": "*",
+                "ext-sockets": "*",
                 "nette/neon": "^2.3",
                 "phpunit/phpunit": "^4.8.35|^5.4.3",
-                "psr/cache": "^1.0"
+                "psr/cache": "^1.0",
+                "psr/simple-cache": "^1.0"
             },
             "suggest": {
                 "aws/aws-php-sns-message-validator": "To validate incoming SNS notifications",
                 "doctrine/cache": "To use the DoctrineCacheAdapter",
                 "ext-curl": "To send requests using cURL",
-                "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages"
+                "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
+                "ext-sockets": "To use client-side monitoring"
             },
             "type": "library",
             "extra": {
@@ -194,7 +197,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-02-27T21:06:51+00:00"
+            "time": "2019-05-24T18:17:19+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1567,16 +1570,16 @@
         },
         {
             "name": "jsq/amazon-es-php",
-            "version": "0.2.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeskew/amazon-es-php.git",
-                "reference": "b5cc8c2ba2ba5e39fa7150a013077ddda8ec5151"
+                "reference": "b2b5634e4662f5d620891bda9b6d0af73954043c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeskew/amazon-es-php/zipball/b5cc8c2ba2ba5e39fa7150a013077ddda8ec5151",
-                "reference": "b5cc8c2ba2ba5e39fa7150a013077ddda8ec5151",
+                "url": "https://api.github.com/repos/jeskew/amazon-es-php/zipball/b2b5634e4662f5d620891bda9b6d0af73954043c",
+                "reference": "b2b5634e4662f5d620891bda9b6d0af73954043c",
                 "shasum": ""
             },
             "require": {
@@ -1592,7 +1595,11 @@
                     "Aws\\ElasticsearchService\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Aws\\ElasticsearchService\\": "tests"
+                }
+            },
             "license": [
                 "Apache-2.0"
             ],
@@ -1610,7 +1617,11 @@
                 "iam",
                 "search"
             ],
-            "time": "2018-01-25T17:54:48+00:00"
+            "support": {
+                "source": "https://github.com/jeskew/amazon-es-php/tree/master",
+                "issues": "https://github.com/jeskew/amazon-es-php/issues"
+            },
+            "time": "2018-07-23T00:21:07+00:00"
         },
         {
             "name": "laravel/framework",
@@ -7290,7 +7301,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "aic/data-hub-foundation": 20,
-        "aic/laravel-scout-elastic": 20
+        "aic/laravel-scout-elastic": 20,
+        "jsq/amazon-es-php": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

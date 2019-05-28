@@ -126,9 +126,10 @@ return [
              *
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_configure_the_http_handler
              * @see http://ringphp.readthedocs.org/en/latest/client_handlers.html
+             * @link https://github.com/jeskew/amazon-es-php
              */
 
-            'httpHandler' => null, //new Aws\ElasticsearchService\ElasticsearchPhpHandler('us-east-2'),
+            'httpHandler' => new Aws\ElasticsearchService\ElasticsearchPhpHandler('us-east-2'),
 
             /**
              * Connection Pool
