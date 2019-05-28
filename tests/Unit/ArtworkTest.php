@@ -31,8 +31,8 @@ class ArtworkTest extends ApiTestCase
     public function it_fetches_the_gallery_for_an_artwork()
     {
 
-        $galleryKey = $this->make(Gallery::class, ['closed' => false]);
-        $artworkKey = $this->make(Artwork::class, ['gallery_citi_id' => $galleryKey]);
+        $galleryKey = $this->make(Gallery::class, ['is_closed' => false]);
+        $artworkKey = $this->make(Artwork::class, ['gallery_citi_id' => $galleryKey, 'is_on_view' => true]);
 
         $response = $this->getJson('api/v1/artworks/' .$artworkKey);
         $response->assertSuccessful();

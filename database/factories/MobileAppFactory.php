@@ -47,7 +47,7 @@ $factory->define(App\Models\Mobile\Sound::class, function (Faker\Generator $fake
     return array_merge(
         mobileAppIdsAndTitle($faker),
         [
-            'link' => $faker->url,
+            'web_url' => $faker->url,
             'transcript' => $faker->paragraph(3),
         ]
     );
@@ -83,4 +83,3 @@ $factory->define(App\Models\Mobile\TourStop::class, function (Faker\Generator $f
         ]
     );
 });
-
