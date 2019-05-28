@@ -7,6 +7,7 @@ use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 class Request
@@ -446,7 +447,9 @@ class Request
         }
 
         if( isset( $size ) && isset( $from ) ) {
-            if ($size * $from > 1000) {
+            $maxResources = (Auth::check() || !config('aic.restricted')) ? 10000 : 1000;
+
+            if ($size * $from > $maxResources) {
                 throw new TooManyResultsException();
             }
         }
