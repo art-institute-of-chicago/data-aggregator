@@ -389,6 +389,7 @@ trait Documentable
             $doc .= "Example output:\n\n";
 
             $response = json_decode(file_get_contents($requestUrl));
+            sleep(1); // Throttle requests to the API
 
             // For brevity, only show the first fiew fields in the results
             if (is_array($response->data))
@@ -434,6 +435,7 @@ trait Documentable
         $doc .= "Example output:\n\n";
 
         $response = json_decode(file_get_contents($requestUrl));
+        sleep(1); // Throttle requests to the API
 
         // For brevity, only show the first few results
         foreach ($response->data as $index => $datum)
