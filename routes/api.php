@@ -52,8 +52,9 @@ Route::group(['prefix' => 'v1'], function() {
         }
 
         $isScoped = $resource['scope_of'] ?? false;
+        $isRestricted = $resource['is_restricted'] ?? false;
 
-        $controller = $resource['controller'] ?? 'ResourceController';
+        $controller = $isRestricted ? 'RestrictedResourceController' : 'ResourceController';
 
         Route::any($resource['endpoint'], $controller .'@' . ($isScoped ? 'indexScope' : 'index'));
         Route::any($resource['endpoint'] . '/{id}', $controller .'@' . ($isScoped ? 'showScope' : 'show'));
