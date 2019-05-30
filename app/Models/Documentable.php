@@ -60,7 +60,7 @@ trait Documentable
 
         $doc = '';
         $doc .= $this->docTitle() ."\n\n";
-        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#" .$endpoint .").\n\n";
+        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](endpoints#" .$endpoint .").\n\n";
 
         if (!$this->docOnly())
         {
@@ -118,7 +118,7 @@ trait Documentable
         // Title
         $doc = '### `GET ' .$this->_endpointPath() ."`\n\n";
 
-        $doc .= $this->docListDescription() ." For a description of all the fields included with this response, see [here](FIELDS.md#" .$endpoint .").\n\n";
+        $doc .= $this->docListDescription() ." For a description of all the fields included with this response, see [here](fields#" .$endpoint .").\n\n";
 
         $doc .= $this->docListParameters();
 
