@@ -20,6 +20,9 @@ class DumpExport extends AbstractDumpCommand
         // Export to database/dumps/local unless specified otherwise
         $dumpPath = $this->getDumpPathOption();
 
+        // Remove any old CSVs in this dump
+        array_map('unlink', glob($dumpPath . '/tables/*.csv') ?: []);
+
         // Ensure all tables are ready for export
         $tables = $this->getPreparedTables();
 
