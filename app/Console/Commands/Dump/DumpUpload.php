@@ -11,7 +11,7 @@ class DumpUpload extends AbstractDumpCommand
                             {--reset : Reset repo to initial commit}
                             {--remove : Delete and re-clone repo}';
 
-    protected $description = 'Pushes the current dump to a remote repo';
+    protected $description = 'Pushes the local dump to a remote repo';
 
 
     public function handle()
@@ -42,6 +42,7 @@ class DumpUpload extends AbstractDumpCommand
             $this->shell->passthru('git clone %s %s', $repoRemote, $repoPath);
         }
 
+        $this->shell->passthru('git -C %s remote set-url origin %s', $repoPath, $repoRemote);
         $this->shell->passthru('git -C %s checkout master', $repoPath);
         $this->shell->passthru('git -C %s fetch', $repoPath);
         $this->shell->passthru('git -C %s reset --hard origin/master', $repoPath);
