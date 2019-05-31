@@ -10,10 +10,9 @@ use Throwable;
 class DumpDownload extends AbstractDumpCommand
 {
 
-    protected $signature = 'dump:download
-                            {--no-import : Download only, do not import}';
+    protected $signature = 'dump:download';
 
-    protected $description = 'Downloads dumps from remote repo and imports them into database';
+    protected $description = 'Downloads dumps from the remote repo';
 
     public function handle()
     {
@@ -34,7 +33,6 @@ class DumpDownload extends AbstractDumpCommand
             }
 
             $this->shell->passthru('rm -r %s', $repoPath);
-
         }
 
         if (!file_exists($repoPath))
@@ -49,15 +47,15 @@ class DumpDownload extends AbstractDumpCommand
 
         $this->warn('Repo downloaded to ' . $repoPath);
 
-        if ($this->option('no-import'))
-        {
-            $this->warn('Aborting early to honor --no-import flag');
-            exit;
+        if ($this->confirm('Import downloaded data into the current database? Current data will be lost.')) {
+            $this->call('dump:import', [
+                '--path' => $repoPath,
+            ]);
+        } else {
+            $this->info('To import downloaded data later, run the following command:');
+            $this->output->newLine(1);
+            $this->info('    ' . 'php artisan dump:import --from-remote');
+            $this->output->newLine(1);
         }
-
-        $this->call('dump:import', [
-            '--path' => $repoPath,
-        ]);
-
     }
 }
