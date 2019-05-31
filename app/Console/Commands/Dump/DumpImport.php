@@ -9,7 +9,8 @@ class DumpImport extends AbstractDumpCommand
 {
 
     protected $signature = 'dump:import
-                            {--path= : Directory from where to import dump, with `tables` subdir }';
+                            {--path= : Directory from where to import dump, with `tables` subdir }
+                            {--from-remote : Shortcut to import from `database/dumps/remote` }';
 
     protected $description = "Import CSV dumps of all whitelisted tables";
 
@@ -17,7 +18,11 @@ class DumpImport extends AbstractDumpCommand
 
     public function handle()
     {
-        // Export to database/dumps/local unless specified otherwise
+        if ($this->option('from-remote')) {
+            $this->input->setOption('path', $this->getDumpPath('remote'));
+        }
+
+        // Import from database/dumps/local unless specified otherwise
         $dumpPath = $this->getDumpPathOption();
 
         foreach ($this->whitelistedTables as $tableName)
