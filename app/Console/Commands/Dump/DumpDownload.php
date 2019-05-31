@@ -33,19 +33,19 @@ class DumpDownload extends AbstractDumpCommand
                 exit(1);
             }
 
-            $this->passthru('rm -r %s', $repoPath);
+            $this->shell->passthru('rm -r %s', $repoPath);
 
         }
 
         if (!file_exists($repoPath))
         {
-            $this->passthru('git clone %s %s', $repoRemote, $repoPath);
+            $this->shell->passthru('git clone %s %s', $repoRemote, $repoPath);
         }
 
-        $this->passthru('git -C %s remote set-url origin %s', $repoPath, $repoRemote);
-        $this->passthru('git -C %s fetch', $repoPath);
-        $this->passthru('git -C %s checkout master', $repoPath);
-        $this->passthru('git -C %s reset --hard origin/master', $repoPath);
+        $this->shell->passthru('git -C %s remote set-url origin %s', $repoPath, $repoRemote);
+        $this->shell->passthru('git -C %s fetch', $repoPath);
+        $this->shell->passthru('git -C %s checkout master', $repoPath);
+        $this->shell->passthru('git -C %s reset --hard origin/master', $repoPath);
 
         $this->warn('Repo downloaded to ' . $repoPath);
 
