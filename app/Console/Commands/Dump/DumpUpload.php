@@ -62,8 +62,11 @@ class DumpUpload extends AbstractDumpCommand
             $this->shell->passthru('find %s -name *.csv | xargs rm', $tablesDestPath);
         }
 
-        # Copy our dumps into the repo
-        $this->shell->passthru('cp -r %s %s', $tablesSrcPath, $repoPath);
+        # Copy dumps of whitelisted tables into the repo
+        foreach ($this->whitelistedTables as $tableName) {
+            $csvPath = '/' . $tableName . '.csv';
+            $this->shell->passthru('cp %s %s', $tablesSrcPath . $csvPath, $repoPath . $csvPath);
+        }
 
         # Add all files to index, commit, and push
         $this->shell->passthru('git -C %s add -A', $repoPath);
