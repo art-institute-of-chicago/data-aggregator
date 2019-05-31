@@ -54,7 +54,7 @@ class Shell
 
         $return = $callback($cmd);
 
-        $this->dump('Status: ' . $return['status']);
+        // $this->dump('Status: ' . $return['status']);
 
         if ($this->options['non_zero_exit'] && $return['status'] !== 0)
         {
