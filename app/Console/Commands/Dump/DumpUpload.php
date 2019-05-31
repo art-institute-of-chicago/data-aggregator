@@ -8,7 +8,8 @@ class DumpUpload extends AbstractDumpCommand
 {
 
     protected $signature = 'dump:upload
-                            {--reset : Reset repo to initial commit}';
+                            {--reset : Reset repo to initial commit}
+                            {--remove : Delete and re-clone repo}';
 
     protected $description = 'Pushes the current dump to a remote repo';
 
@@ -31,11 +32,10 @@ class DumpUpload extends AbstractDumpCommand
             throw new Exception('No CSV files found in ' . $tablesSrcPath);
         }
 
-        // For debug: remove existing repo?
-        // if (file_exists($repoPath))
-        // {
-        //     $this->shell->passthru('rm -r %s', $repoPath);
-        // }
+        if ($this->option('remove') && file_exists($repoPath))
+        {
+            $this->shell->passthru('rm -rf %s', $repoPath);
+        }
 
         if (!file_exists($repoPath))
         {
