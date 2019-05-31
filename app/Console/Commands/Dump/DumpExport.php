@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Dump;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use League\Csv\Writer;
 use Exception;
@@ -68,7 +69,14 @@ class DumpExport extends AbstractDumpCommand
 
         return collect($this->whitelistedTables)->map( function($tableName) {
 
-            $table = DB::connection()->getDoctrineSchemaManager()->listTableDetails($tableName);
+            $prefixedTableName = DB::getTablePrefix() . $tableName;
+
+            // Illuminate\Database\Schema\MySqlBuilder auto-prepends prefix
+            if (!Schema::hasTable($tableName)) {
+                throw new Exception('Table does not exist ' . $prefixedTableName);
+            }
+
+            $table = DB::connection()->getDoctrineSchemaManager()->listTableDetails($prefixedTableName);
 
             try {
 
@@ -76,7 +84,7 @@ class DumpExport extends AbstractDumpCommand
 
             } catch (Throwable $e) {
 
-                throw new Exception('Primary key missing in table ' . $tableName);
+                throw new Exception('Primary key missing in table ' . $prefixedTableName);
 
             }
 
