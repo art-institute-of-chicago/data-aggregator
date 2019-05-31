@@ -51,7 +51,7 @@ class DumpUpload extends AbstractDumpCommand
         # If you want to modify the documentation, make sure you amend initial commit!
         if ($this->option('reset'))
         {
-            $commit = $this->shell->exec('git -C %s rev-list --max-parents=0 HEAD', $repoPath)[0];
+            $commit = $this->shell->exec('git -C %s rev-list --max-parents=0 HEAD', $repoPath)['output'][0];
             $this->shell->passthru('git -C %s reset --hard %s', $repoPath, $commit);
         }
 
