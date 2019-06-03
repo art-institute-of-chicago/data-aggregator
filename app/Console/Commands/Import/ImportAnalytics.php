@@ -41,7 +41,7 @@ class ImportAnalytics extends AbstractImportCommand
         $id = $transformer->getId($datum);
 
         // TODO: Use transformed title
-        $this->info("Importing #{$id}: {$datum->pageviews} | {$datum->pageviews_short_term}");
+        $this->info("Importing #{$id}: {$datum->pageviews} | {$datum->pageviews_recent}");
 
         $resource = $model::find( $id );
 

@@ -27,7 +27,7 @@ class Artwork extends BaseTransformer
 
         return [
             'pageviews' => $datum->pageviews,
-            'pageviews_shortterm' => $datum->pageviews_short_term,
+            'pageviews_recent' => $datum->pageviews_recent,
         ];
 
     }

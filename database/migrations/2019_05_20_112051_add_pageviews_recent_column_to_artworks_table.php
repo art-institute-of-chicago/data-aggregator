@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPageviewsShorttermColumnToArtworksTable extends Migration
+class AddPageviewsRecentColumnToArtworksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddPageviewsShorttermColumnToArtworksTable extends Migration
     public function up()
     {
         Schema::table('artworks', function (Blueprint $table) {
-            $table->integer('pageviews_shortterm')->nullable()->index();
+            $table->integer('pageviews_recent')->nullable()->index();
         });
     }
 
@@ -26,7 +26,7 @@ class AddPageviewsShorttermColumnToArtworksTable extends Migration
     public function down()
     {
         Schema::table('artworks', function (Blueprint $table) {
-            $table->dropColumn('pageviews_shortterm');
+            $table->dropColumn('pageviews_recent');
         });
     }
 }
