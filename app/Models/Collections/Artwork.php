@@ -584,15 +584,15 @@ class Artwork extends CollectionsModel
                     ],
                 ],
 
-                // Make pageviews_shortterm influence score
+                // Make pageviews_recent influence score
                 [
                     'filter' => [
                         'exists' => [
-                            'field' => 'pageviews_shortterm',
+                            'field' => 'pageviews_recent',
                         ],
                     ],
                     'field_value_factor' => [
-                        'field' => 'pageviews_shortterm',
+                        'field' => 'pageviews_recent',
                         'modifier' => 'log1p',
                         'factor' => 1.5,
                         'missing' => 1,
