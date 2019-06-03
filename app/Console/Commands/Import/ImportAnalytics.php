@@ -2,71 +2,67 @@
 
 namespace App\Console\Commands\Import;
 
-use Illuminate\Support\Facades\Storage;
-
-use League\Csv\Reader;
-use League\Csv\Statement;
-
 use App\Models\Collections\Artwork;
 
 class ImportAnalytics extends AbstractImportCommand
 {
 
-    protected $signature = 'import:analytics';
+    protected $signature = 'import:analytics
+                            {page? : Page to begin importing from}';
 
-    protected $description = "Import analytic pageviews for artworks ";
-
-    protected static $filename = 'artwork-pageviews.csv';
+    protected $description = "Import analytic pageviews for artworks";
 
 
     public function handle()
     {
 
-        // Check if the file exists
-        if( !Storage::exists(self::$filename) )
-        {
-            $this->warn('Could not find ' . $this->getCsvPath());
-            return;
-        }
+        $this->api = env('ANALYTICS_DATA_SERVICE_URL');
 
-        // Spoofing this w/ local file for speed
-        $contents = Storage::get(self::$filename);
-
-        $this->csv = Reader::createFromPath( $this->getCsvPath(), 'r' );
-
-        // What line the header's at
-        $this->csv->setHeaderOffset(5);
-
-        // Offset past the comment
-        $stmt = (new Statement())->offset(5);
-
-        $records = $stmt->process($this->csv);
-
-        foreach( $records as $record )
-        {
-
-            $citi_id = (int) substr( $record['Page'], 25 );
-
-            $artwork = Artwork::find( $citi_id );
-
-            if( !$artwork ) {
-                $this->warn( 'Not found: ' . $citi_id );
-                continue;
-            }
-
-            $artwork->pageviews = (int) str_replace(',', '', $record['Pageviews']);
-            $artwork->save();
-
-            $this->info( "Artwork {$artwork->citi_id} pageviews: {$artwork->pageviews}");
-
-        }
+        $this->import( 'analytics', Artwork::class, 'artworks', $this->argument('page') ?: 1 );
 
     }
 
-    protected function getCsvPath()
+    /**
+     * Save a new model instance given an object retrieved from an external source.
+     *
+     * @param object  $datum
+     * @param string  $model
+     * @param string  $transformer
+     * @param boolean $fake  Whether or not to fill missing fields w/ fake data.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function save( $datum, $model, $transformer )
     {
 
-        return Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . self::$filename;
+        $transformer = new $transformer();
+
+        // Use the id and title after they are transformed, not before!
+        $id = $transformer->getId($datum);
+
+        // TODO: Use transformed title
+        $this->info("Importing #{$id}: {$datum->pageviews} | {$datum->pageviews_recent}");
+
+        $resource = $model::find( $id );
+
+        // Only update works that have exist in the artworks table
+        if ($resource) {
+            // This will be true almost always, except for lists
+            if ($transformer->shouldSave( $resource, $datum ))
+            {
+                // Fill should always be called before sync
+                // Syncing some relations requires `$instance->getKey()` to work (i.e. id is set)
+                $fills = $transformer->fill( $resource, $datum );
+                $syncs = $transformer->sync( $resource, $datum );
+
+                $resource->save();
+            }
+
+            // For debugging ids and titles:
+            // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");
+        }
+
+        return $resource;
 
     }
 

@@ -126,6 +126,13 @@ class Artwork extends BaseTransformer
                     'type' => 'integer',
                 ],
             ],
+            'pageviews_recent' => [
+                'doc' => 'Approx. number of times this artwork was viewed on our website over the past three months',
+                'type' => 'number',
+                'elasticsearch' => [
+                    'type' => 'integer',
+                ],
+            ],
             'boost_rank' => [
                 'doc' => 'Manual indication of what rank this artwork should take in search results. Noncontiguous.',
                 'type' => 'number',

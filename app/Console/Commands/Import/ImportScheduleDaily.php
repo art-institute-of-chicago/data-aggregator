@@ -28,6 +28,8 @@ class ImportScheduleDaily extends BaseCommand
             '--yes' => 'default',
             'endpoint' => 'event-occurrences'
         ]);
+
+        $this->call('import:analytics');
     }
 
 }
