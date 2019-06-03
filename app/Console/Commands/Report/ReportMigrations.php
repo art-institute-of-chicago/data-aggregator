@@ -2,17 +2,17 @@
 
 namespace App\Console\Commands\Report;
 
-use App\Console\Helpers\InteractsWithShell;
+use App\Library\Shell;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ReportMigrations extends BaseCommand
 {
-    use InteractsWithShell;
-
     protected $signature = 'report:migrations {--refresh}';
 
     protected $description = 'Run migrate:generate and compare results with saved run';
+
+    private $shell;
 
     /**
      * This command is meant to aid in refactoring migrations. Specifically, use this
@@ -38,6 +38,11 @@ class ReportMigrations extends BaseCommand
      **/
     public function handle()
     {
+        $this->shell = new Shell([
+            'is_silent' => true,
+            'non_zero_exit' => false,
+        ]);
+
         $oldDir = storage_path('app/migrations/old');
         $newDir = storage_path('app/migrations/new');
 
@@ -76,7 +81,7 @@ class ReportMigrations extends BaseCommand
 
             $oldFile = $oldFiles[0];
 
-            $diff = $this->exec('diff %s %s', $oldFile, $newFile);
+            $diff = $this->shell->exec('diff %s %s', $oldFile, $newFile);
 
             if ($diff['status'] === 1) {
                 $this->warn($filename);
