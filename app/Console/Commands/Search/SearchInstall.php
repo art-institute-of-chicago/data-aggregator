@@ -15,8 +15,8 @@ class SearchInstall extends BaseCommand
     use Indexer;
 
     protected $signature = 'search:install
-                            {prefix? : Prefix for index(es) and the name of the alias to access them}
-                            {model? : Create one index for specific model and tie it to this alias}
+                            {prefix? : Prefix for index(es) for versioning}
+                            {model? : Only create an index for this specific model}
                             {--y|yes : Answer "yes" to all prompts confirming to delete index}';
 
     protected $description = 'Set up the Search Service indexes with data types and fields';
@@ -42,8 +42,6 @@ class SearchInstall extends BaseCommand
                 $this->install( $model, $prefix );
 
             }
-
-            $this->aliasAssets( $prefix );
 
         }
 
@@ -72,33 +70,6 @@ class SearchInstall extends BaseCommand
         $return = Elasticsearch::indices()->create($params);
 
         $this->info($this->done($return));
-
-    }
-
-    private function aliasAssets( $prefix )
-    {
-
-        $models = [
-            \App\Models\Collections\Image::class,
-            \App\Models\Collections\Sound::class,
-            \App\Models\Collections\Text::class,
-            \App\Models\Collections\Video::class,
-        ];
-
-        foreach( $models as $model )
-        {
-
-            $index = app('Search')->getIndexForModel( $model, $prefix );
-
-            // Searching on `assets` only works if all aliased indexes have the same type, e.g. `doc`
-            // TODO: Consider removing this? It causes unexpected results w/ some queries
-            Artisan::call('search:alias', [
-                'source' => $index,
-                'alias' => $prefix . '-assets',
-                '--single' => true
-            ]);
-
-        }
 
     }
 
