@@ -3,6 +3,7 @@
 namespace App\Transformers\Outbound\Web;
 
 use App\Models\Web\EventProgram;
+use App\Transformers\Outbound\Web\EventEmailSeriesPivot;
 use App\Transformers\Outbound\Web\Traits\HasPublishDates;
 use App\Transformers\Outbound\Web\Traits\HasSearchTags;
 
@@ -14,6 +15,15 @@ class Event extends BaseTransformer
 
     use HasPublishDates;
     use HasSearchTags;
+
+    protected $availableIncludes = [
+        'email_series_pivots',
+    ];
+
+    public function includeEmailSeriesPivots($event)
+    {
+        return $this->collection($event->emailSeriesPivots, new EventEmailSeriesPivot, false);
+    }
 
     protected function getTitles()
     {
@@ -200,16 +210,6 @@ class Event extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
-            'email_series' => [
-                'doc' => 'The email series associated with this event',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
-            'survey_url' => [
-                'doc' => 'URL to the survey associated with this event',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
             'start_date' => [
                 'doc' => 'The date the event begins',
                 'type' => 'ISO 8601 date and time',
@@ -252,6 +252,25 @@ class Event extends BaseTransformer
             ],
             'slug' => [
                 'doc' => 'A string used in the URL for this event',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+            ],
+            'entrance' => [
+                'doc' => 'Which entrance to use for this event',
+                'type' => 'string',
+            ],
+            'is_presented_by_affiliate' => [
+                'doc' => 'Whether this event is presented by an affiliate group',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+            ],
+            'join_url' => [
+                'doc' => 'URL to the membership signup page via this event',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+            ],
+            'survey_url' => [
+                'doc' => 'URL to the survey associated with this event',
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],

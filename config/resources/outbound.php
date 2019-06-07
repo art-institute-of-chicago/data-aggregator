@@ -314,6 +314,16 @@ return [
             'is_searchable' => true,
         ],
         [
+            'endpoint' => 'email-series',
+            'model' => \App\Models\Web\EmailSeries::class,
+            'transformer' => \App\Transformers\Outbound\Web\EmailSeries::class,
+            'is_searchable' => true,
+        ],
+        [
+            'model' => \App\Models\Web\EventEmailSeriesPivot::class,
+            'transformer' => \App\Transformers\Outbound\Web\EventEmailSeriesPivot::class,
+        ],
+        [
             'endpoint' => 'articles',
             'model' => \App\Models\Web\Article::class,
             'transformer' => \App\Transformers\Outbound\Web\Article::class,
