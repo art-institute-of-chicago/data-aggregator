@@ -59,49 +59,6 @@ class EventEmailSeriesPivot extends BaseTransformer
                 'doc' => 'Copy to use for Affiliate Members when communicating this event in this email series',
                 'type' => 'string',
             ],
-
-            'artwork_title' => [
-                'doc' => 'Name of the work this artist made',
-                'type' => 'string',
-                'value' => function ($item) {
-                    return $item->artwork->title ?? null;
-                },
-            ],
-            'artwork_id' => [
-                'doc' => 'Unique identifier of the work this artist made',
-                'type' => 'number',
-                'value' => function ($item) {
-                    return $item->artwork->citi_id ?? null;
-                },
-            ],
-            'artist_title' => [
-                'doc' => 'Name of the artist',
-                'type' => 'string',
-                'value' => function ($item) {
-                    return $item->artist->title ?? null;
-                },
-            ],
-            'artist_id' => [
-                'doc' => 'Unique identifier of the artist',
-                'type' => 'number',
-                'value' => function ($item) {
-                    return $item->artist->citi_id ?? null;
-                },
-            ],
-            'role_title' => [
-                'doc' => 'Name of the role this artist played in the making of the work',
-                'type' => 'string',
-                'value' => function ($item) {
-                    return $item->role->title ?? null;
-                },
-            ],
-            'role_id' => [
-                'doc' => 'Unique identifier of the role this artist played in the making of the work',
-                'type' => 'number',
-                'value' => function ($item) {
-                    return $item->role->citi_id ?? null;
-                },
-            ],
         ];
     }
 
