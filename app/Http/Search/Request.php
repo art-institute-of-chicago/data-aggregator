@@ -446,7 +446,7 @@ class Request
         }
 
         if( isset( $size ) && isset( $from ) ) {
-            if ($size * $from > 1000) {
+            if ($from + $size > 1000) {
                 throw new TooManyResultsException();
             }
         }
