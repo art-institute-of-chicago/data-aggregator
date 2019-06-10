@@ -41,7 +41,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getRateLimitAttribute() {
+    /**
+     * If a user authenticates to our API with a token, the rate limiting
+     * is set to such a high number that it is practically unlimited.
+     * Unauthenticated users are limited to 60 requests per minute.
+     *
+     * @var integer
+     */
+    public function getRateLimitAttribute()
+    {
         return 1000000000;
     }
 }
