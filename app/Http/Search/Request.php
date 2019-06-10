@@ -449,7 +449,7 @@ class Request
         if( isset( $size ) && isset( $from ) ) {
             $maxResources = (Auth::check() || !config('aic.restricted')) ? 10000 : 1000;
 
-            if ($size * $from > $maxResources) {
+            if ($from + $size > $maxResources) {
                 throw new TooManyResultsException();
             }
         }
