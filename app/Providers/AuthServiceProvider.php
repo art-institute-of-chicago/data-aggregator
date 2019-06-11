@@ -13,20 +13,20 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
+     * We create auth-related tables via a custom connection, so that it doesn't
+     * get reset when we switch to a new table version or reset our database.
+     * Due to this approach, we do not use Passport's default migrations.
      */
+    public function register()
+    {
+        Passport::ignoreMigrations();
+    }
+
     public function boot()
     {
         $this->registerPolicies();
