@@ -16,11 +16,6 @@ use Illuminate\Http\Request;
 app('url')->forceRootUrl(config('aic.proxy_url'));
 app('url')->forceScheme(config('aic.proxy_scheme'));
 
-Route::any('/', function () {
-    return redirect('/api/v1');
-});
-
-
 Route::group(['prefix' => 'v1'], function() {
 
     Route::any('/', function () {
@@ -58,8 +53,10 @@ Route::group(['prefix' => 'v1'], function() {
 
         $isScoped = $resource['scope_of'] ?? false;
 
-        Route::any($resource['endpoint'], 'ResourceController@' . ($isScoped ? 'indexScope' : 'index'));
-        Route::any($resource['endpoint'] . '/{id}', 'ResourceController@' . ($isScoped ? 'showScope' : 'show'));
+        $controller = $resource['controller'] ?? 'ResourceController';
+
+        Route::any($resource['endpoint'], $controller .'@' . ($isScoped ? 'indexScope' : 'index'));
+        Route::any($resource['endpoint'] . '/{id}', $controller .'@' . ($isScoped ? 'showScope' : 'show'));
     }
 
 });
