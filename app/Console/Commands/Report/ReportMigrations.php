@@ -12,6 +12,16 @@ class ReportMigrations extends BaseCommand
 
     protected $description = 'Run migrate:generate and compare results with saved run';
 
+    /**
+     * We store user data in tables with `auth_` prefix, which is different
+     * from our versioned prefix, so we need to reset the two separately.
+     * See config/database.php and WEB-133 for more info.
+     */
+    private $connectionsToReset = [
+        'mysql',
+        'mysql_userdata',
+    ];
+
     private $shell;
 
     /**
@@ -24,8 +34,8 @@ class ReportMigrations extends BaseCommand
      *     don't care about the data in your current database, you can run `db:reset`.
      *  3. Run `php artisan migrate`.
      *  4. Ensure the following directories exist:
-     *       storate/app/migrations/old
-     *       storate/app/migrations/new
+     *       storage/app/migrations/old
+     *       storage/app/migrations/new
      *  5. Run `php artisan migrate:generate --path storage/app/migrations/old`.
      *     Answer "no" to prompt. This is your reference schema. When you want to make
      *     a new reference schema, manually empty out `storage/app/migrations/old` and
@@ -47,9 +57,12 @@ class ReportMigrations extends BaseCommand
         $newDir = storage_path('app/migrations/new');
 
         if ($this->option('refresh')) {
-            $this->callSilent('db:reset', [
-                '--force' => 'default',
-            ]);
+            foreach($this->connectionsToReset as $connection) {
+                $this->callSilent('db:reset', [
+                    '--force' => 'default',
+                    '--connection' => $connection,
+                ]);
+            }
         }
 
         array_map('unlink', $this->getFiles($newDir));
