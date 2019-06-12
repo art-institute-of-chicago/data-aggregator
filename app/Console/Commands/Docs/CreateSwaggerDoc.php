@@ -138,7 +138,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
         $doc .= "          \"description\": \"URL to this recource in the API\"\n";
         $doc .= "        },\n";
         $doc .= "        \"title\": {\n";
-        $doc .= "          \"description\": \"Name of this resource\"\n";
+        $doc .= "          \"description\": \"The name of this resource\"\n";
         $doc .= "        },\n";
         $doc .= "        \"timestamp\": {\n";
         $doc .= "          \"description\": \"Date this record was last updated in the API\"\n";

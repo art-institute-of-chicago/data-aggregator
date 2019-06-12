@@ -239,7 +239,7 @@ trait Documentable
         if (static::$source == 'Collections')
         {
 
-            $doc .= " {id} is the identifier from our collections managements system.";
+            $doc .= " {id} is the identifier from our collections management system.";
 
         }
 

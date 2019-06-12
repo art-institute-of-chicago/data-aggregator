@@ -18,7 +18,7 @@ class Product extends BaseTransformer
                 'elasticsearch' => 'text',
             ],
             'is_active' => [
-                'doc' => 'Whether this product is currently available on the shop website',
+                'doc' => 'Whether this product is currently available on the shop\'s website',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
                 'value' => function ($item) {
@@ -36,12 +36,12 @@ class Product extends BaseTransformer
                 'elasticsearch' => 'integer',
             ],
             'sku' => [
-                'doc' => 'Numeric product identification code of a machine-readable bar code',
+                'doc' => 'Numeric product identification code of a machine-readable barcode',
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
             'external_sku' => [
-                'doc' => 'Numeric product identification code of a machine-readable bar code, when the customer sku differs from our internal one',
+                'doc' => 'Numeric product identification code of a machine-readable barcode, when the customer sku differs from our internal one',
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
@@ -67,7 +67,7 @@ class Product extends BaseTransformer
                 ],
             ],
             'priority' => [
-                'doc' => 'Used for sorting in the shop website, specifically in the \'Featured\' sort mode, which is the default. This sort mode is two-part: first, items are sorted by their `priority` ascending; then as a secondary step, items are sorted by the number of items sold, descending.',
+                'doc' => 'Used for sorting in the shop\'s website, specifically in the \'Featured\' sort mode, which is the default. This sort mode is two-part: first, items are sorted by their `priority` ascending; then as a secondary step, items are sorted by the number of items sold, descending.',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
             ],

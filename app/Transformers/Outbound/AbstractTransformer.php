@@ -140,7 +140,7 @@ abstract class AbstractTransformer extends BaseTransformer
     {
         return [
             'title' => [
-                'doc' => 'Name of this resource',
+                'doc' => 'The name of this resource',
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
