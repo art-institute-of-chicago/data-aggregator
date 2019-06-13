@@ -22,7 +22,7 @@ Route::group(['prefix' => 'v1'], function() {
         return redirect('/api/v1/swagger.json');
     });
 
-    Route::any('swagger.json', 'SwaggerController@index');
+    Route::any('swagger.json', 'SwaggerController@index')->name('doc-swagger');
 
     // Elasticsearch
     Route::match(['GET', 'POST'], 'search', 'SearchController@search');

@@ -39,6 +39,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('doc-fields') }}">{{ __('Fields') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('doc-swagger') }}">{{ __('swagger.json') }}</a>
+                            </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
