@@ -327,7 +327,7 @@ trait Documentable
             'sort' => 'Used in conjunction with `query`',
             'from' => 'Starting point of results. Pagination via Elasticsearch conventions',
             'size' => 'Number of results to return. Pagination via Elasticsearch conventions',
-            'facets' => 'A comma-separated list of "count" aggregation facets to include in the results.',
+            'facets' => 'A comma-separated list of \'count\' aggregation facets to include in the results.',
         ];
 
     }
