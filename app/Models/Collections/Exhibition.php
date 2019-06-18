@@ -54,7 +54,10 @@ class Exhibition extends CollectionsModel
     public function getArtistsAttribute()
     {
 
-        return $this->sites->pluck('agents')->collapse()->unique();
+        $artworkArtists = $this->artworks->pluck('artists')->collapse();
+        $siteArtists = $this->sites->pluck('agents')->collapse();
+
+        return $artworkArtists->merge($siteArtists)->unique('citi_id')->values();
 
     }
 
