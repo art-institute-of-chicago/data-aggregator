@@ -30,6 +30,10 @@ class TicketedEvent extends MembershipModel
         'source_created_at' => 'datetime',
     ];
 
+    protected $touches = [
+        'event',
+    ];
+
     public function event()
     {
 

@@ -189,6 +189,9 @@ class Event extends BaseTransformer
                 'doc' => 'Whether the event is sold out',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
+                'value' => function ($item) {
+                    return $item->is_sold_out || ($item->ticketedEvent->available ?? 1) < 1;
+                },
             ],
             'is_free' => [
                 'doc' => 'Whether the event is free',
