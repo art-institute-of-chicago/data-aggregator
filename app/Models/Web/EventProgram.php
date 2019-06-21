@@ -9,5 +9,7 @@ use App\Models\WebModel;
  */
 class EventProgram extends WebModel
 {
-
+    protected $casts = [
+        'is_affiliate_group' => 'boolean',
+    ];
 }

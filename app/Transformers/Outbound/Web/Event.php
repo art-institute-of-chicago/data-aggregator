@@ -262,11 +262,6 @@ class Event extends BaseTransformer
                 'doc' => 'Which entrance to use for this event',
                 'type' => 'string',
             ],
-            'is_presented_by_affiliate' => [
-                'doc' => 'Whether this event is presented by an affiliate group',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-            ],
             'affiliate_group_display' => [
                 'doc' => 'Copy to use in email to indicate affiliate presentation',
                 'type' => 'string',
