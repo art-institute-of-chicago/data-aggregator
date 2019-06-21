@@ -267,6 +267,11 @@ class Event extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
+            'affiliate_group_display' => [
+                'doc' => 'Copy to use in email to indicate affiliate presentation',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+            ],
             'join_url' => [
                 'doc' => 'URL to the membership signup page via this event',
                 'type' => 'string',

@@ -310,7 +310,7 @@ return [
         [
             'endpoint' => 'event-programs',
             'model' => \App\Models\Web\EventProgram::class,
-            'transformer' => \App\Transformers\Outbound\GenericTransformer::class,
+            'transformer' => \App\Transformers\Outbound\Web\EventProgram::class,
             'is_searchable' => true,
         ],
         [
