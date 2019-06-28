@@ -61,5 +61,12 @@ class Event extends WebModel
             );
     }
 
+    public function sponsor()
+    {
+
+        return $this->belongsTo('App\Models\Web\Sponsor');
+
+    }
+
 
 }

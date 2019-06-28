@@ -22,6 +22,7 @@ use App\Models\Web\DigitalCatalog;
 use App\Models\Web\PrintedCatalog;
 use App\Models\Web\StaticPage;
 use App\Models\Web\EmailSeries;
+use App\Models\Web\Sponsor;
 
 class ImportWebFull extends AbstractImportCommand
 {
@@ -90,6 +91,7 @@ class ImportWebFull extends AbstractImportCommand
             PrintedCatalog::class => 'printed_catalogs',
             StaticPage::class => 'static_pages',
             EmailSeries::class => 'email_series',
+            Sponsor::class => 'sponsors',
         ];
 
         if ($endpoint) {
@@ -127,6 +129,7 @@ class ImportWebFull extends AbstractImportCommand
 
         $this->importFromWeb('staticpages');
         $this->importFromWeb('emailseries');
+        $this->importFromWeb('sponsors');
 
     }
 

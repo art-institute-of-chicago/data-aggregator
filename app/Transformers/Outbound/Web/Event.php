@@ -3,7 +3,7 @@
 namespace App\Transformers\Outbound\Web;
 
 use App\Models\Web\EventProgram;
-use App\Transformers\Outbound\Web\EventEmailSeriesPivot;
+use App\Transformers\Outbound\Web\Sponsor;
 use App\Transformers\Outbound\Web\Traits\HasPublishDates;
 use App\Transformers\Outbound\Web\Traits\HasSearchTags;
 
@@ -18,11 +18,17 @@ class Event extends BaseTransformer
 
     protected $availableIncludes = [
         'email_series_pivots',
+        'sponsor',
     ];
 
     public function includeEmailSeriesPivots($event)
     {
         return $this->collection($event->emailSeriesPivots, new EventEmailSeriesPivot, false);
+    }
+
+    public function includeSponsor($event)
+    {
+        return $this->item($event->sponsor, new Sponsor, false);
     }
 
     protected function getTitles()
@@ -276,6 +282,14 @@ class Event extends BaseTransformer
                 'doc' => 'URL to the survey associated with this event',
                 'type' => 'string',
                 'elasticsearch' => 'text',
+            ],
+            'sponsor_id' => [
+                'doc' => 'Unique identifier of the sponsor this website event is tied to',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+                'value' => function ($item) {
+                    return $item->sponsor->id ?? null;
+                },
             ],
         ];
     }

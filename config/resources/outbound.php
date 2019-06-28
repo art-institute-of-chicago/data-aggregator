@@ -320,6 +320,12 @@ return [
             'is_searchable' => true,
         ],
         [
+            'endpoint' => 'sponsors',
+            'model' => \App\Models\Web\Sponsor::class,
+            'transformer' => \App\Transformers\Outbound\Web\Sponsor::class,
+            'is_searchable' => true,
+        ],
+        [
             'model' => \App\Models\Web\EventEmailSeriesPivot::class,
             'transformer' => \App\Transformers\Outbound\Web\EventEmailSeriesPivot::class,
         ],
