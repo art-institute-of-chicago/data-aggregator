@@ -161,6 +161,14 @@ return [
             'model' => \App\Models\Web\EventProgram::class,
             'transformer' => \App\Transformers\Inbound\Web\EventProgram::class,
         ],
+        'emailseries' => [
+            'model' => \App\Models\Web\EmailSeries::class,
+            'transformer' => \App\Transformers\Inbound\WebTransformer::class,
+        ],
+        'sponsors' => [
+            'model' => \App\Models\Web\Sponsor::class,
+            'transformer' => \App\Transformers\Inbound\WebTransformer::class,
+        ],
         'exhibitions' => [
             'model' => \App\Models\Web\Exhibition::class,
             'transformer' => \App\Transformers\Inbound\Web\Exhibition::class,

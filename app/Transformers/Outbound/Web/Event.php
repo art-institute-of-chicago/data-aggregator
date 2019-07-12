@@ -3,6 +3,7 @@
 namespace App\Transformers\Outbound\Web;
 
 use App\Models\Web\EventProgram;
+use App\Transformers\Outbound\Web\Sponsor;
 use App\Transformers\Outbound\Web\Traits\HasPublishDates;
 use App\Transformers\Outbound\Web\Traits\HasSearchTags;
 
@@ -14,6 +15,21 @@ class Event extends BaseTransformer
 
     use HasPublishDates;
     use HasSearchTags;
+
+    protected $availableIncludes = [
+        'email_series_pivots',
+        'sponsor',
+    ];
+
+    public function includeEmailSeriesPivots($event)
+    {
+        return $this->collection($event->emailSeriesPivots, new EventEmailSeriesPivot, false);
+    }
+
+    public function includeSponsor($event)
+    {
+        return $this->item($event->sponsor, new Sponsor, false);
+    }
 
     protected function getTitles()
     {
@@ -179,6 +195,9 @@ class Event extends BaseTransformer
                 'doc' => 'Whether the event is sold out',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
+                'value' => function ($item) {
+                    return $item->is_sold_out || ($item->ticketedEvent->available ?? 1) < 1;
+                },
             ],
             'is_free' => [
                 'doc' => 'Whether the event is free',
@@ -199,16 +218,6 @@ class Event extends BaseTransformer
                 'doc' => 'Whether the event is to be held after the museum closes',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-            ],
-            'email_series' => [
-                'doc' => 'The email series associated with this event',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
-            'survey_url' => [
-                'doc' => 'URL to the survey associated with this event',
-                'type' => 'string',
-                'elasticsearch' => 'text',
             ],
             'start_date' => [
                 'doc' => 'The date the event begins',
@@ -254,6 +263,33 @@ class Event extends BaseTransformer
                 'doc' => 'A string used in the URL for this event',
                 'type' => 'string',
                 'elasticsearch' => 'text',
+            ],
+            'entrance' => [
+                'doc' => 'Which entrance to use for this event',
+                'type' => 'string',
+            ],
+            'affiliate_group_display' => [
+                'doc' => 'Copy to use in email to indicate affiliate presentation',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+            ],
+            'join_url' => [
+                'doc' => 'URL to the membership signup page via this event',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+            ],
+            'survey_url' => [
+                'doc' => 'URL to the survey associated with this event',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+            ],
+            'sponsor_id' => [
+                'doc' => 'Unique identifier of the sponsor this website event is tied to',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+                'value' => function ($item) {
+                    return $item->sponsor->id ?? null;
+                },
             ],
         ];
     }

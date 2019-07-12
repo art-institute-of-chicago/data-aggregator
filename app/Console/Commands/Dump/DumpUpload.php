@@ -8,9 +8,10 @@ class DumpUpload extends AbstractDumpCommand
 {
 
     protected $signature = 'dump:upload
-                            {--reset : Reset repo to initial commit}';
+                            {--reset : Reset repo to initial commit}
+                            {--remove : Delete and re-clone repo}';
 
-    protected $description = 'Pushes the current dump to a remote repo';
+    protected $description = 'Pushes the local dump to a remote repo';
 
 
     public function handle()
@@ -31,43 +32,60 @@ class DumpUpload extends AbstractDumpCommand
             throw new Exception('No CSV files found in ' . $tablesSrcPath);
         }
 
-        // For debug: remove existing repo?
-        // if (file_exists($repoPath))
-        // {
-        //     $this->passthru('rm -r %s', $repoPath);
-        // }
+        if ($this->option('remove') && file_exists($repoPath))
+        {
+            $this->shell->passthru('rm -rf %s', $repoPath);
+        }
 
         if (!file_exists($repoPath))
         {
-            $this->passthru('git clone %s %s', $repoRemote, $repoPath);
+            $this->shell->passthru('git clone %s %s', $repoRemote, $repoPath);
         }
 
-        $this->passthru('git -C %s checkout master', $repoPath);
-        $this->passthru('git -C %s fetch', $repoPath);
-        $this->passthru('git -C %s reset --hard origin/master', $repoPath);
+        $this->shell->passthru('git -C %s remote set-url origin %s', $repoPath, $repoRemote);
+        $this->shell->passthru('git -C %s checkout master', $repoPath);
+        $this->shell->passthru('git -C %s fetch', $repoPath);
+        $this->shell->passthru('git -C %s reset --hard origin/master', $repoPath);
 
         # Optional: Reset repo to initial commit?
         # If you want to modify the documentation, make sure you amend initial commit!
         if ($this->option('reset'))
         {
-            $commit = $this->exec('git -C %s rev-list --max-parents=0 HEAD', $repoPath)[0];
-            $this->passthru('git -C %s reset --hard %s', $repoPath, $commit);
+            $commit = $this->shell->exec('git -C %s rev-list --max-parents=0 HEAD', $repoPath)['output'][0];
+            $this->shell->passthru('git -C %s reset --hard %s', $repoPath, $commit);
         }
 
         # Remove all existing CSVs from the repo
         # This should take care of any tables that were removed or renamed
         if (file_exists($tablesDestPath))
         {
-            $this->passthru('find %s -name *.csv | xargs rm', $tablesDestPath);
+            $this->shell->passthru('find %s -name *.csv | xargs rm', $tablesDestPath);
+        } else {
+            mkdir($tablesDestPath);
         }
 
-        # Copy our dumps into the repo
-        $this->passthru('cp -r %s %s', $tablesSrcPath, $repoPath);
+        # Copy dumps of whitelisted tables into the repo
+        foreach ($this->whitelistedTables as $tableName) {
+            $csvPaths = $this->shell->exec('find %s -name %s', $tablesSrcPath, $tableName . '*.csv')['output'];
+
+            // Fix issues e.g. with artwork_place and artwork_place_qualifiers
+            $csvPaths = array_values(array_filter($csvPaths, function ($csvPath) use ($tableName) {
+                return preg_match('/' . $tableName . '(?:-[0-9]+)?\.csv/', basename($csvPath));
+            }));
+
+            foreach($csvPaths as $csvPath) {
+                $csvSubPath = '/' . basename($csvPath);
+                $this->shell->passthru('cp %s %s', $tablesSrcPath . $csvSubPath, $tablesDestPath . $csvSubPath);
+            }
+        }
+
+        # Add VERSION file with current commit
+        $this->shell->passthru('git -C %s rev-parse HEAD > %s', base_path(), $repoPath . '/VERSION');
 
         # Add all files to index, commit, and push
-        $this->passthru('git -C %s add -A', $repoPath);
+        $this->shell->passthru('git -C %s add -A', $repoPath);
 
-        $this->passthru(
+        $this->shell->passthru(
             'git -C %s -c %s -c %s commit --author %s -m "Update CSVs"',
             $repoPath,
             'user.name=' . env('DUMP_REPO_NAME'),
@@ -75,8 +93,8 @@ class DumpUpload extends AbstractDumpCommand
             env('DUMP_REPO_NAME') . ' <' . env('DUMP_REPO_EMAIL') . '>'
         );
 
-        $this->passthru('git -C %s push %s', $repoPath, ($this->option('reset') ? '--force' : ''));
-
+        // TODO: Fix how this works without --reset?
+        $this->shell->passthru('git -C %s push %s', $repoPath, ($this->option('reset') ? '--force' : ''));
     }
 
 }

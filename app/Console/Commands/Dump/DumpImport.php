@@ -9,7 +9,8 @@ class DumpImport extends AbstractDumpCommand
 {
 
     protected $signature = 'dump:import
-                            {--path= : Directory from where to import dump, with `tables` subdir }';
+                            {--path= : Directory from where to import dump, with `tables` subdir }
+                            {--from-remote : Shortcut to import from `database/dumps/remote` }';
 
     protected $description = "Import CSV dumps of all whitelisted tables";
 
@@ -17,54 +18,64 @@ class DumpImport extends AbstractDumpCommand
 
     public function handle()
     {
-        // Export to database/dumps/local unless specified otherwise
+        if ($this->option('from-remote')) {
+            $this->input->setOption('path', $this->getDumpPath('remote'));
+        }
+
+        // Import from database/dumps/local unless specified otherwise
         $dumpPath = $this->getDumpPathOption();
 
         foreach ($this->whitelistedTables as $tableName)
         {
             $this->info($tableName);
 
-            $csvPath = $dumpPath . 'tables/' . $tableName . '.csv';
+            $csvPaths = $this->shell->exec('find %s -name %s', $dumpPath . 'tables', $tableName . '*.csv')['output'];
 
-            if (!file_exists($csvPath))
-            {
+            // Fix issues e.g. with artwork_place and artwork_place_qualifiers
+            $csvPaths = array_values(array_filter($csvPaths, function ($csvPath) use ($tableName) {
+                return preg_match('/' . $tableName . '(?:-[0-9]+)?\.csv/', basename($csvPath));
+            }));
+
+            if (count($csvPaths) < 1) {
                 $this->warn(' Skipped: CSV not found.');
                 continue;
             }
 
-            $csv = Reader::createFromPath($csvPath, 'r');
-            $csv->setHeaderOffset(0);
-
             DB::table($tableName)->truncate();
 
-            // http://csv.thephpleague.com/9.0/reader/#records-count`
-            $bar = $this->output->createProgressBar(count($csv));
-            $buffer = [];
-
-            foreach ($csv as $offset => $record)
+            foreach ($csvPaths as $csvPath)
             {
-                $record = array_map([$this, 'convertEmptyStringToNull'], $record);
+                $csv = Reader::createFromPath($csvPath, 'r');
+                $csv->setHeaderOffset(0);
 
-                $buffer[] = $record;
+                // http://csv.thephpleague.com/9.0/reader/#records-count`
+                $bar = $this->output->createProgressBar(count($csv));
+                $buffer = [];
 
-                // SQL writes are really expensive, so we'll buffer them
-                if (count($buffer) === $this->chunkSize)
+                foreach ($csv as $offset => $record)
                 {
-                    DB::table($tableName)->insert($buffer);
-                    $buffer = [];
+                    $record = array_map([$this, 'convertEmptyStringToNull'], $record);
 
-                    $bar->advance($this->chunkSize);
+                    $buffer[] = $record;
+
+                    // SQL writes are really expensive, so we'll buffer them
+                    if (count($buffer) === $this->chunkSize)
+                    {
+                        DB::table($tableName)->insert($buffer);
+                        $buffer = [];
+
+                        $bar->advance($this->chunkSize);
+                    }
                 }
+
+                // Process the last chunk
+                DB::table($tableName)->insert($buffer);
+                $buffer = [];
+
+                $bar->finish();
+                $this->output->newLine(1);
             }
-
-            // Process the last chunk
-            DB::table($tableName)->insert($buffer);
-            $buffer = [];
-
-            $bar->finish();
-            $this->output->newLine(1);
         }
-
     }
 
     /**

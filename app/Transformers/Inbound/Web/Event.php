@@ -23,4 +23,25 @@ class Event extends WebTransformer
 
     }
 
+    protected function getSync( Datum $datum, $test = false )
+    {
+
+        return [
+            'emailSeries' => $this->getSyncEmailSeries( $datum ),
+        ];
+
+    }
+
+
+    private function getSyncEmailSeries( Datum $datum )
+    {
+        return $this->getSyncPivots( $datum, 'email_series', 'email_series_id', function( $pivot ) {
+
+            return [
+                $pivot->email_series_id => array_diff_key((new Datum($pivot))->all(), array_flip(['id', 'email_series_id']))
+            ];
+
+        });
+
+    }
 }

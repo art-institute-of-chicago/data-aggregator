@@ -310,8 +310,24 @@ return [
         [
             'endpoint' => 'event-programs',
             'model' => \App\Models\Web\EventProgram::class,
-            'transformer' => \App\Transformers\Outbound\GenericTransformer::class,
+            'transformer' => \App\Transformers\Outbound\Web\EventProgram::class,
             'is_searchable' => true,
+        ],
+        [
+            'endpoint' => 'email-series',
+            'model' => \App\Models\Web\EmailSeries::class,
+            'transformer' => \App\Transformers\Outbound\Web\EmailSeries::class,
+            'is_searchable' => true,
+        ],
+        [
+            'endpoint' => 'sponsors',
+            'model' => \App\Models\Web\Sponsor::class,
+            'transformer' => \App\Transformers\Outbound\Web\Sponsor::class,
+            'is_searchable' => true,
+        ],
+        [
+            'model' => \App\Models\Web\EventEmailSeriesPivot::class,
+            'transformer' => \App\Transformers\Outbound\Web\EventEmailSeriesPivot::class,
         ],
         [
             'endpoint' => 'articles',

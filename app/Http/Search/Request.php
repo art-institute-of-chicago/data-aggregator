@@ -2,7 +2,9 @@
 
 namespace App\Http\Search;
 
+use Aic\Hub\Foundation\Exceptions\BigLimitException;
 use Aic\Hub\Foundation\Exceptions\DetailedException;
+use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Input;
@@ -438,10 +440,15 @@ class Request
         if( isset( $size ) ) { $size = (int) $size; }
         if( isset( $from ) ) { $from = (int) $from; }
 
-        // TODO: Throw an exception if `size` is too big
-        // This will have to wait until we refactor controller exceptions
+        // Throw an exception if `size` is too big
         if( $size > self::$maxSize ) {
-            //
+            throw new BigLimitException();
+        }
+
+        if( isset( $size ) && isset( $from ) ) {
+            if ($size * $from > 1000) {
+                throw new TooManyResultsException();
+            }
         }
 
         return [

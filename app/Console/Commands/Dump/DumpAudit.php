@@ -17,6 +17,7 @@ class DumpAudit extends AbstractDumpCommand
 
         $allTables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
         $excludedTables = array_diff($allTables, $this->whitelistedTables);
+        $removedTables = array_diff($this->whitelistedTables, $allTables);
 
         $this->warn('Tables excluded from the data dump:');
 
@@ -24,6 +25,11 @@ class DumpAudit extends AbstractDumpCommand
             $this->info($item);
         });
 
+        $this->warn('Tables in whitelist that have been removed:');
+
+        array_walk($removedTables, function($item, $key) {
+            $this->info($item);
+        });
     }
 
 }

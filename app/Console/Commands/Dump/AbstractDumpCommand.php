@@ -3,15 +3,13 @@
 namespace App\Console\Commands\Dump;
 
 use Illuminate\Support\Facades\Storage;
-use App\Console\Helpers\InteractsWithShell;
+use App\Library\Shell;
 use Exception;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 abstract class AbstractDumpCommand extends BaseCommand
 {
-    use InteractsWithShell;
-
     /**
      * In the interest of defensive coding, you must explicitly whitelist
      * which tables should be exported and imported. Use `dump:audit` to
@@ -27,7 +25,6 @@ abstract class AbstractDumpCommand extends BaseCommand
         'artist_digital_label',
         'artist_product',
         'artwork_artist',
-        'artwork_artwork',
         'artwork_asset',
         'artwork_catalogue',
         'artwork_category',
@@ -43,7 +40,6 @@ abstract class AbstractDumpCommand extends BaseCommand
         'artworks',
         'assets',
         'catalogues',
-        'category_place',
         'category_terms',
         'closures',
         // 'commands',
@@ -57,13 +53,9 @@ abstract class AbstractDumpCommand extends BaseCommand
         'exhibition_asset',
         'exhibition_site',
         'exhibitions',
-        // 'failed_jobs',
         'galleries',
         'generic_pages',
         'hours',
-        // 'jobs',
-        'legacy_event_exhibition',
-        'legacy_events',
         'library_material_creator',
         'library_material_subject',
         'library_materials',
@@ -92,6 +84,16 @@ abstract class AbstractDumpCommand extends BaseCommand
         'web_artists',
         'web_exhibitions',
     ];
+
+    protected $shell;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->shell = new Shell();
+    }
+
 
     /**
      * All of the data dumps live in `database/dumps` per `config/filesystems.php`.

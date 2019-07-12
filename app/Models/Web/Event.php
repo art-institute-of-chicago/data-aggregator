@@ -20,6 +20,7 @@ class Event extends WebModel
         'is_admission_required' => 'boolean',
         'is_registration_required' => 'boolean',
         'is_sold_out' => 'boolean',
+        'is_presented_by_affiliate' => 'boolean',
         'start_date' => 'date',
         'end_date' => 'date',
         'alt_event_types' => 'array',
@@ -35,5 +36,37 @@ class Event extends WebModel
         return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'membership_id');
 
     }
+
+    public function emailSeriesPivots()
+    {
+
+        return $this->hasMany('App\Models\Web\EventEmailSeriesPivot');
+
+    }
+
+    public function emailSeries()
+    {
+        return $this
+            ->belongsToMany('App\Models\Web\EmailSeries', 'event_email_series')
+            ->using('App\Models\Web\EventEmailSeriesPivot')
+            ->withPivot(
+                'send_affiliate_member',
+                'affiliate_member_copy',
+                'send_member',
+                'member_copy',
+                'send_sustaining_fellow',
+                'sustaining_fellow_copy',
+                'send_non_member',
+                'non_member_copy'
+            );
+    }
+
+    public function sponsor()
+    {
+
+        return $this->belongsTo('App\Models\Web\Sponsor');
+
+    }
+
 
 }

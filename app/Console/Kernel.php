@@ -48,13 +48,6 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/import-monthly-last-run.log'));
 
-        // Because in the CMS Events don't get touched when a ticketed event
-        // is added. Remove this once that's in place.
-        $schedule->command('import:web-full events --yes')
-            ->hourly()
-            ->withoutOverlapping()
-            ->sendOutputTo(storage_path('logs/import-web-full-last-run.log'));
-
         $schedule->command('import:web')
             ->everyFiveMinutes()
             ->withoutOverlapping()
@@ -84,6 +77,15 @@ class Kernel extends ConsoleKernel
             ->everyFiveMinutes()
             ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
+
+        $schedule->command('dump:export')
+            ->dailyAt('22:45')
+            ->withoutOverlapping()
+            ->after(function() {
+                $this->call('dump:upload',[
+                    '--reset' => 'default',
+                ]);
+            });
 
     }
 

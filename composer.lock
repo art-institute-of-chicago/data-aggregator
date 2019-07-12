@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5ae60d2f20ba9e1a60714fba33ade71",
+    "content-hash": "725846d4d4ca9b36dcd74a46fa14232b",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "90abb2ddc69bbaef218e7e07698059b4d70b77b1"
+                "reference": "a62001a1579a3b08b011b7db53224833aaa87c87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/90abb2ddc69bbaef218e7e07698059b4d70b77b1",
-                "reference": "90abb2ddc69bbaef218e7e07698059b4d70b77b1",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/a62001a1579a3b08b011b7db53224833aaa87c87",
+                "reference": "a62001a1579a3b08b011b7db53224833aaa87c87",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,7 @@
                 "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/master",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2019-04-19T20:46:18+00:00"
+            "time": "2019-05-28T22:11:15+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",

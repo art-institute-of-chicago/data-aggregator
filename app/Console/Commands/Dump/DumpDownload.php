@@ -10,10 +10,9 @@ use Throwable;
 class DumpDownload extends AbstractDumpCommand
 {
 
-    protected $signature = 'dump:download
-                            {--no-import : Download only, do not import}';
+    protected $signature = 'dump:download';
 
-    protected $description = 'Downloads dumps from remote repo and imports them into database';
+    protected $description = 'Downloads dumps from the remote repo';
 
     public function handle()
     {
@@ -33,31 +32,30 @@ class DumpDownload extends AbstractDumpCommand
                 exit(1);
             }
 
-            $this->passthru('rm -r %s', $repoPath);
-
+            $this->shell->passthru('rm -r %s', $repoPath);
         }
 
         if (!file_exists($repoPath))
         {
-            $this->passthru('git clone %s %s', $repoRemote, $repoPath);
+            $this->shell->passthru('git clone %s %s', $repoRemote, $repoPath);
         }
 
-        $this->passthru('git -C %s remote set-url origin %s', $repoPath, $repoRemote);
-        $this->passthru('git -C %s fetch', $repoPath);
-        $this->passthru('git -C %s checkout master', $repoPath);
-        $this->passthru('git -C %s reset --hard origin/master', $repoPath);
+        $this->shell->passthru('git -C %s remote set-url origin %s', $repoPath, $repoRemote);
+        $this->shell->passthru('git -C %s fetch', $repoPath);
+        $this->shell->passthru('git -C %s checkout master', $repoPath);
+        $this->shell->passthru('git -C %s reset --hard origin/master', $repoPath);
 
         $this->warn('Repo downloaded to ' . $repoPath);
 
-        if ($this->option('no-import'))
-        {
-            $this->warn('Aborting early to honor --no-import flag');
-            exit;
+        if ($this->confirm('Import downloaded data into the current database? Current data will be lost.')) {
+            $this->call('dump:import', [
+                '--path' => $repoPath,
+            ]);
+        } else {
+            $this->info('To import downloaded data later, run the following command:');
+            $this->output->newLine(1);
+            $this->info('    ' . 'php artisan dump:import --from-remote');
+            $this->output->newLine(1);
         }
-
-        $this->call('dump:import', [
-            '--path' => $repoPath,
-        ]);
-
     }
 }
