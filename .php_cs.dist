@@ -93,6 +93,24 @@ return PhpCsFixer\Config::create()
         'function_declaration' => [
             'closure_function_spacing' => 'one',
         ],
+        // function_to_constant
+        'function_typehint_space' => true,
+        // general_phpdoc_annotation_remove
+        // header_comment
+        // heredoc_indentation
+        // heredoc_to_nowdoc
+        // implode_call
+        'include' => true,
+        'increment_style' => [
+            'style' => 'post',
+        ],
+        // indentation_type
+        // is_null
+        // line_ending
+        'linebreak_after_opening_tag' => true,
+        'list_syntax' => [
+            'syntax' => 'short',
+        ],
     ])
     ->setFinder($finder)
 ;
