@@ -508,7 +508,7 @@ class Artwork extends CollectionsModel
             229351, // Target
             229393, // Untitled
             151363, // The Weaver
-         ];
+        ];
 
     }
 

@@ -17,6 +17,7 @@ return PhpCsFixer\Config::create()
         'align_multiline_comment' => [
             'comment_type' => 'phpdocs_like',
         ],
+        'array_indentation' => true,
     ])
     ->setFinder($finder)
 ;

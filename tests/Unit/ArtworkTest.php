@@ -12,19 +12,20 @@ class ArtworkTest extends ApiTestCase
 
     protected $keys = ['id'];
 
-    protected $fieldsUsedByMobile = ['title',
-                                     'gallery_title',
-                                     'id',
-                                     'main_reference_number',
-                                     'artist_display',
-                                     'credit_line',
-                                     'date_display',
-                                     'is_on_view',
-                                     'date_start',
-                                     'date_end',
-                                     'copyright_notice',
-                                     'gallery_id',
-                                     'image_id',
+    protected $fieldsUsedByMobile = [
+        'title',
+        'gallery_title',
+        'id',
+        'main_reference_number',
+        'artist_display',
+        'credit_line',
+        'date_display',
+        'is_on_view',
+        'date_start',
+        'date_end',
+        'copyright_notice',
+        'gallery_id',
+        'image_id',
     ];
 
     /** @test */
