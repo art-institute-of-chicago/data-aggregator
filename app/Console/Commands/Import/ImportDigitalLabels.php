@@ -35,22 +35,22 @@ class ImportDigitalLabels extends AbstractImportCommand
 
     private function sourceExhibitionJson()
     {
-        return env('DIGITAL_LABELS_JSON_ROOT') .'/public/exhibitions';
+        return env('DIGITAL_LABELS_JSON_ROOT') . '/public/exhibitions';
     }
 
     private function sourceLabelJson($id)
     {
-        return env('DIGITAL_LABELS_JSON_ROOT') ."/public/experience/{$id}/content/published";
+        return env('DIGITAL_LABELS_JSON_ROOT') . "/public/experience/{$id}/content/published";
     }
 
     private function exhibitionJson()
     {
-        return $this->folderName .'/exhibitions.json';
+        return $this->folderName . '/exhibitions.json';
     }
 
     private function labelJson($id)
     {
-        return $this->folderName ."/label-{$id}.json";
+        return $this->folderName . "/label-{$id}.json";
     }
 
     private function downloadLabels()

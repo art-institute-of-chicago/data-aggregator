@@ -58,6 +58,15 @@ return PhpCsFixer\Config::create()
             'single_item_single_line' => true,
             'single_line' => false,
         ],
+        'class_keyword_remove' => false,
+        'combine_consecutive_issets' => false,
+        'combine_consecutive_unsets' => false,
+        // 'combine_nested_dirname' => true,
+        // 'comment_to_phpdoc' => true,
+        'compact_nullable_typehint' => true,
+        'concat_space' => [
+            'spacing' => 'one',
+        ],
     ])
     ->setFinder($finder)
 ;

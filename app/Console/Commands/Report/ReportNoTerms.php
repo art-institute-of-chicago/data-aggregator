@@ -31,7 +31,7 @@ class ReportNoTerms extends BaseCommand
             'artist_id',
         ]);
 
-        $response = file_get_contents(config('app.url') .'/api/v1/artworks/search?limit=500&query%5Bbool%5D%5Bmust_not%5D%5B%5D%5Bexists%5D%5Bfield%5D=style_id&query%5Bbool%5D%5Bmust_not%5D%5B%5D%5Bexists%5D%5Bfield%5D=classification_id&query%5Bbool%5D%5Bmust_not%5D%5B%5D%5Bexists%5D%5Bfield%5D=artist_id&fields=id,title,artist_id,classification_id,style_id,main_reference_number');
+        $response = file_get_contents(config('app.url') . '/api/v1/artworks/search?limit=500&query%5Bbool%5D%5Bmust_not%5D%5B%5D%5Bexists%5D%5Bfield%5D=style_id&query%5Bbool%5D%5Bmust_not%5D%5B%5D%5Bexists%5D%5Bfield%5D=classification_id&query%5Bbool%5D%5Bmust_not%5D%5B%5D%5Bexists%5D%5Bfield%5D=artist_id&fields=id,title,artist_id,classification_id,style_id,main_reference_number');
 
         foreach (json_decode($response)->data as $artwork)
         {

@@ -25,7 +25,7 @@ class ImportUlan extends AbstractImportCommand
         // Then, loop through them in a memory-friendly way
         foreach( $agents->cursor() as $agent ) {
 
-            $this->info('Trying agent #' .$agent->citi_id .', ' .$agent->title);
+            $this->info('Trying agent #' . $agent->citi_id . ', ' . $agent->title);
 
             // Query ulan service with birth date
             $result = $this->fetchUlan($agent, $agent->birth_date, null);
@@ -64,13 +64,12 @@ class ImportUlan extends AbstractImportCommand
 
     private function fetchUlan($agent, $birth_date = 0, $death_date = 0)
     {
+        $url = env('ULAN_DATA_SERVICE_URL') .
+            '?q=' . urlencode($agent->title) .
+            ($birth_date ? '&by=' . $birth_date : '') .
+            ($death_date ? '&dy=' . $death_date : '');
 
-        return $this->fetch( env('ULAN_DATA_SERVICE_URL')
-                             .'?q=' .urlencode($agent->title)
-                             .($birth_date ? '&by=' .$birth_date : '')
-                             .($death_date ? '&dy=' .$death_date : ''),
-        true);
-
+        return $this->fetch($url, true);
     }
 
     private function updateUlan($agent, $result, $message = '')
@@ -80,7 +79,7 @@ class ImportUlan extends AbstractImportCommand
         if (count($result->results) == 1)
         {
 
-            $this->info('... exact name matched ' .$message .' ' .$result->results[0]->uri);
+            $this->info('... exact name matched ' . $message . ' ' . $result->results[0]->uri);
             $agent->ulan_uri = $result->results[0]->uri;
             $agent->save();
             return true;
@@ -106,7 +105,7 @@ class ImportUlan extends AbstractImportCommand
             if (count($uris) == 1)
             {
 
-                $this->info('... exact name matched distinct results' .$message);
+                $this->info('... exact name matched distinct results' . $message);
                 $agent->ulan_uri = $uris[0];
                 $agent->save();
                 return true;

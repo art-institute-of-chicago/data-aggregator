@@ -57,7 +57,7 @@ class Label extends DigitalLabelTransformer
         {
             if (property_exists($slide, 'primaryCopy'))
             {
-                $ret .= $slide->primaryCopy .' ';
+                $ret .= $slide->primaryCopy . ' ';
             }
         }
 
@@ -75,7 +75,7 @@ class Label extends DigitalLabelTransformer
                 {
                     if ($media->src)
                     {
-                        return env('DIGITAL_LABELS_IMAGE_ROOT') .'/' .$media->src;
+                        return env('DIGITAL_LABELS_IMAGE_ROOT') . '/' . $media->src;
                     }
                 }
             }
@@ -189,7 +189,7 @@ class Label extends DigitalLabelTransformer
             ]
         ];
 
-        $response = $cache[$accession] ?? $this->post( config('app.url') ."/api/v1/search", $query );
+        $response = $cache[$accession] ?? $this->post( config('app.url') . "/api/v1/search", $query );
         $cache[$accession] = $response;
         $response = json_decode( $response );
 

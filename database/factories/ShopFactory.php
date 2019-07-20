@@ -47,7 +47,7 @@ $factory->define(App\Models\Shop\Product::class, function (Faker\Generator $fake
     $part1 = ucwords($faker->words(2, true));
     $part2 = ucwords($faker->words(2, true));
     $part3 = ucwords($faker->words(2, true));
-    $title = $part1 .' ' .$part2 .' ' .$part3;
+    $title = $part1 . ' ' . $part2 . ' ' . $part3;
 
     return array_merge(
         shopIdsAndTitle($faker, $title),

@@ -36,7 +36,7 @@ class Category extends ShopModel
     public function getWebUrlAttribute()
     {
 
-        return env('SHOP_CATEGORY_URL') .$this->shop_id;
+        return env('SHOP_CATEGORY_URL') . $this->shop_id;
 
     }
 

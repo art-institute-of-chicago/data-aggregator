@@ -18,7 +18,7 @@ abstract class AbstractSeeder extends Seeder
     {
 
         if (! method_exists($this, 'seed')) {
-            throw new InvalidArgumentException('Method [seed] missing from '.get_class($this));
+            throw new InvalidArgumentException('Method [seed] missing from ' . get_class($this));
         }
 
         $this->seed();
@@ -29,7 +29,7 @@ abstract class AbstractSeeder extends Seeder
     {
 
         if (! method_exists(get_called_class(), 'unseed')) {
-            throw new InvalidArgumentException('Method [unseed] missing from '.get_called_class());
+            throw new InvalidArgumentException('Method [unseed] missing from ' . get_called_class());
         }
 
         get_called_class()::unseed();

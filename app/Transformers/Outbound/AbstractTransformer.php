@@ -166,7 +166,7 @@ abstract class AbstractTransformer extends BaseTransformer
         $fields = [];
 
         foreach (class_uses_recursive($this) as $trait) {
-            if (method_exists($this, $method = 'getFieldsFor'.class_basename($trait))) {
+            if (method_exists($this, $method = 'getFieldsFor' . class_basename($trait))) {
                 $fields = array_merge($fields, $this->$method());
             }
         }

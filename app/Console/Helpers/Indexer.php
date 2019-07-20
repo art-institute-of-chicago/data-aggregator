@@ -31,14 +31,14 @@ trait Indexer
         }
 
         // Return false if the user bails out
-        if (!$yes && !$this->confirm("The " .$index ." index already exists. Do you wish to delete it?"))
+        if (!$yes && !$this->confirm("The " . $index . " index already exists. Do you wish to delete it?"))
         {
             return false;
         }
         else
         {
 
-            $this->info('Deleting ' .$index .' index...');
+            $this->info('Deleting ' . $index . ' index...');
         }
 
         // @TODO: Catch exceptions?
@@ -56,7 +56,7 @@ trait Indexer
         $port = env('ELASTICSEARCH_PORT', 9200);
         $scheme = env('ELASTICSEARCH_SCHEME', null);
 
-        return $scheme .'://' .$host .':' .$port;
+        return $scheme . '://' . $host . ':' . $port;
 
     }
 
@@ -76,7 +76,7 @@ trait Indexer
 
         }
 
-        return "There was an error: " .print_r($return, true);
+        return "There was an error: " . print_r($return, true);
 
     }
 

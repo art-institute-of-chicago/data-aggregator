@@ -165,7 +165,7 @@ abstract class ApiTestCase extends TestCase
 
         $this->times(5)->make($class);
 
-        $response = $this->getJson('api/v1/' .$endpoint);
+        $response = $this->getJson('api/v1/' . $endpoint);
         $response->assertSuccessful();
 
         $resources = $response->json()['data'];
@@ -187,7 +187,7 @@ abstract class ApiTestCase extends TestCase
 
         $id = $this->make($class);
 
-        $response = $this->getJson('api/v1/' .$endpoint .'/' .$id .($extraValue ? '/' .$extraValue : ''));
+        $response = $this->getJson('api/v1/' . $endpoint . '/' . $id . ($extraValue ? '/' . $extraValue : ''));
         $response->assertSuccessful();
 
         $resource = $response->json()['data'];
@@ -204,7 +204,7 @@ abstract class ApiTestCase extends TestCase
 
         $this->times(5)->make($class);
 
-        $response = $this->getJson('api/v1/' .$endpoint .'?ids=' .implode(',',array_slice($this->ids, -3, 3)));
+        $response = $this->getJson('api/v1/' . $endpoint . '?ids=' . implode(',',array_slice($this->ids, -3, 3)));
         $response->assertSuccessful();
 
         $resources = $response->json()['data'];
@@ -226,7 +226,7 @@ abstract class ApiTestCase extends TestCase
 
         $this->make($class);
 
-        $response = $this->getJson('api/v1/' .$endpoint .'/fsdfdfs');
+        $response = $this->getJson('api/v1/' . $endpoint . '/fsdfdfs');
 
         $response->assertStatus(400);
 
@@ -240,7 +240,7 @@ abstract class ApiTestCase extends TestCase
 
         $this->make($class);
 
-        $response = $this->getJson('api/v1/' .$endpoint .'?limit=2000');
+        $response = $this->getJson('api/v1/' . $endpoint . '?limit=2000');
 
         $response->assertStatus(403);
 
@@ -346,7 +346,7 @@ abstract class ApiTestCase extends TestCase
             $m = $this->model();
             $this->times(5)->make($m);
 
-            $response = $this->getJson('api/v1/' .$this->route($m));
+            $response = $this->getJson('api/v1/' . $this->route($m));
             $response->assertSuccessful();
 
             $resources = $response->json()['data'];

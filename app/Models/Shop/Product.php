@@ -38,7 +38,7 @@ class Product extends ShopModel
     public function getWebUrlAttribute()
     {
 
-        return env('PRODUCT_URL') .$this->shop_id;
+        return env('PRODUCT_URL') . $this->shop_id;
 
     }
 

@@ -30,7 +30,7 @@ class DocsController extends Controller
         $content = Storage::get($this->filename);
         $markup = Markdown::parse($content);
         $markup = preg_replace_callback('/<h2>(\w+)<\/h2>/i', function ($title) {
-            return '<h2 id="' .strtolower($title[1]) .'">' .$title[1] .'</h2>';
+            return '<h2 id="' . strtolower($title[1]) . '">' . $title[1] . '</h2>';
         }, $markup);
         return view('docs', ['content' => $markup]);
     }

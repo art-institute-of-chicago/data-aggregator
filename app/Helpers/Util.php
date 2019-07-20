@@ -122,8 +122,8 @@ function getLakeUri($lake_id)
         . '/' . substr($lake_id, 0, 2)
         . '/' . substr($lake_id, 2, 2)
         . '/' . substr($lake_id, 4, 2)
-        . '/' .substr($lake_id, 6, 2)
-        . '/' .$lake_id;
+        . '/' . substr($lake_id, 6, 2)
+        . '/' . $lake_id;
 }
 
 
@@ -150,7 +150,7 @@ function allModels()
         //skip current and parent folder entries
         if ($file == '.' || $file == '..') continue;
 
-        $sourcepath = $dir .DIRECTORY_SEPARATOR .$file;
+        $sourcepath = $dir . DIRECTORY_SEPARATOR . $file;
 
         if (is_dir($sourcepath))
         {
@@ -160,10 +160,10 @@ function allModels()
             foreach($sourcefiles as $sourcefile)
             {
 
-                if (!is_dir($sourcepath .DIRECTORY_SEPARATOR .$sourcefile))
+                if (!is_dir($sourcepath . DIRECTORY_SEPARATOR . $sourcefile))
                 {
 
-                    $models[] = $namespace .$file .'\\' .preg_replace('/\.php$/', '', $sourcefile);
+                    $models[] = $namespace . $file . '\\' . preg_replace('/\.php$/', '', $sourcefile);
 
                 }
 

@@ -17,7 +17,7 @@ class ArtworkSearchTest extends TestCase
     public function it_returns_a_match_as_first_result($query, $expectedFirstId)
     {
 
-        $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') .'/artworks/search?q=' .urlencode($query));
+        $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') . '/artworks/search?q=' . urlencode($query));
 
         $resource = json_decode($response)->data[0];
         $this->assertEquals($expectedFirstId, $resource->id);
@@ -31,7 +31,7 @@ class ArtworkSearchTest extends TestCase
     public function it_returns_expected_top_matches($query, $inTheTop, $expectToSee = [])
     {
 
-        $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') .'/artworks/search?limit=' .$inTheTop .'&q=' .urlencode($query));
+        $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') . '/artworks/search?limit=' . $inTheTop . '&q=' . urlencode($query));
 
         $resources = array_slice(json_decode($response)->data, 0, $inTheTop);
         $ids = Arr::pluck($resources, 'id');

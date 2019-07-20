@@ -27,22 +27,22 @@ trait Documentable
         if (!$appUrl)
         {
 
-            $appUrl = config("app.url") ."/api/v1";
+            $appUrl = config("app.url") . "/api/v1";
 
         }
 
         $doc = '';
-        $doc .= $this->docTitle() ."\n\n";
-        $doc .= $this->docList($appUrl) ."\n";
+        $doc .= $this->docTitle() . "\n\n";
+        $doc .= $this->docList($appUrl) . "\n";
 
         if ($this->hasSearchEndpoint())
         {
 
-            $doc .= $this->docSearch($appUrl) ."\n";
+            $doc .= $this->docSearch($appUrl) . "\n";
 
         }
 
-        $doc .= $this->docSingle($appUrl) ."\n";
+        $doc .= $this->docSingle($appUrl) . "\n";
 
         return $doc;
 
@@ -59,13 +59,13 @@ trait Documentable
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
         $doc = '';
-        $doc .= $this->docTitle() ."\n\n";
-        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](endpoints#" .$endpoint .").\n\n";
+        $doc .= $this->docTitle() . "\n\n";
+        $doc .= $this->docDescription() . " For a description of all the endpoints available for this resource, see [here](endpoints#" . $endpoint . ").\n\n";
 
         if (!$this->docOnly())
         {
 
-            $doc .= $this->docListFields() ."\n\n";
+            $doc .= $this->docListFields() . "\n\n";
 
         }
 
@@ -83,7 +83,7 @@ trait Documentable
 
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
-        return '## ' .str_replace('-', ' ', Str::title( $endpoint ) );
+        return '## ' . str_replace('-', ' ', Str::title( $endpoint ) );
 
     }
 
@@ -116,9 +116,9 @@ trait Documentable
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
         // Title
-        $doc = '### `GET ' .$this->_endpointPath() ."`\n\n";
+        $doc = '### `GET ' . $this->_endpointPath() . "`\n\n";
 
-        $doc .= $this->docListDescription() ." For a description of all the fields included with this response, see [here](fields#" .$endpoint .").\n\n";
+        $doc .= $this->docListDescription() . " For a description of all the fields included with this response, see [here](fields#" . $endpoint . ").\n\n";
 
         $doc .= $this->docListParameters();
 
@@ -138,7 +138,7 @@ trait Documentable
 
         $endpointAsCopyText = $this->_endpointAsCopyText($endpoint);
 
-        return "A list of all " .$endpointAsCopyText ." sorted by last updated date in descending order.";
+        return "A list of all " . $endpointAsCopyText . " sorted by last updated date in descending order.";
 
     }
 
@@ -155,7 +155,7 @@ trait Documentable
         foreach ($this->transformMapping() as $array)
         {
 
-            $doc .= "* `" .$array["name"] ."` " .(array_key_exists("type", $array) ? "*" .$array['type'] ."* " : "") ."- " .$array['doc'] ."\n";
+            $doc .= "* `" . $array["name"] . "` " . (array_key_exists("type", $array) ? "*" . $array['type'] . "* " : "") . "- " . $array['doc'] . "\n";
 
         }
 
@@ -176,9 +176,9 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `GET ' .$this->_endpointPath(['extraPath' => 'search']) ."`\n\n";
+        $doc = '### `GET ' . $this->_endpointPath(['extraPath' => 'search']) . "`\n\n";
 
-        $doc .= $this->docSearchDescription() ."\n\n";
+        $doc .= $this->docSearchDescription() . "\n\n";
 
         $doc .= $this->docSearchParameters();
 
@@ -197,7 +197,7 @@ trait Documentable
 
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
-        return "Search " .$endpointAsCopyText ." data in the aggregator. " .$this->extraSearchDescription();
+        return "Search " . $endpointAsCopyText . " data in the aggregator. " . $this->extraSearchDescription();
 
     }
 
@@ -212,9 +212,9 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `GET ' .$this->_endpointPath(['extraPath' => '{id}']) ."`\n\n";
+        $doc = '### `GET ' . $this->_endpointPath(['extraPath' => '{id}']) . "`\n\n";
 
-        $doc .= $this->docSingleDescription() ."\n\n";
+        $doc .= $this->docSingleDescription() . "\n\n";
 
         if ($id = $this->exampleId())
         {
@@ -235,7 +235,7 @@ trait Documentable
 
         $endpointAsCopyText = $this->_endpointAsCopyText($endpoint);
 
-        $doc = "A single " .Str::singular($endpointAsCopyText) ." by the given identifier.";
+        $doc = "A single " . Str::singular($endpointAsCopyText) . " by the given identifier.";
 
         if (static::$source == 'Collections')
         {
@@ -263,7 +263,7 @@ trait Documentable
         foreach ($this->docListParametersRaw() as $param => $description)
         {
 
-            $doc .= "* `" .$param ."` - " .$description ."\n";
+            $doc .= "* `" . $param . "` - " . $description . "\n";
 
         }
 
@@ -305,7 +305,7 @@ trait Documentable
         foreach ($this->docSearchParametersRaw() as $param => $description)
         {
 
-            $doc .= "* `" .$param ."` - " .$description ."\n";
+            $doc .= "* `" . $param . "` - " . $description . "\n";
 
         }
         $doc .= "\n";
@@ -354,7 +354,7 @@ trait Documentable
             foreach ($transformer->getAvailableIncludes() as $include)
             {
 
-                $doc .= "  * `" .$include ."`\n";
+                $doc .= "  * `" . $include . "`\n";
 
             }
 
@@ -382,10 +382,10 @@ trait Documentable
 
         $options = array_merge($defaults, $options);
 
-        $requestUrl = $appUrl .$this->_endpointPath($options) .($options['getParams'] ? "?" .$options['getParams'] : "");
+        $requestUrl = $appUrl . $this->_endpointPath($options) . ($options['getParams'] ? "?" . $options['getParams'] : "");
 
         $doc = '';
-        $doc .= "Example request: " .$requestUrl ."  \n";
+        $doc .= "Example request: " . $requestUrl . "  \n";
 
         if ($options['includeExampleOutput'])
         {
@@ -415,7 +415,7 @@ trait Documentable
 
             // Output
             $doc .= "```\n";
-            $doc .= $json ."\n";
+            $doc .= $json . "\n";
             $doc .= "```\n";
 
         }
@@ -431,10 +431,10 @@ trait Documentable
     public function docExampleSearchOutput($appUrl, $getParams = '')
     {
 
-        $requestUrl = $appUrl .$this->_endpointPath() .'/search' .($getParams ? "?" .$getParams : "");
+        $requestUrl = $appUrl . $this->_endpointPath() . '/search' . ($getParams ? "?" . $getParams : "");
 
         $doc = '';
-        $doc .= "Example request: " .$requestUrl ."  \n";
+        $doc .= "Example request: " . $requestUrl . "  \n";
         $doc .= "Example output:\n\n";
 
         $response = json_decode(file_get_contents($requestUrl));
@@ -456,7 +456,7 @@ trait Documentable
 
         // Output
         $doc .= "```\n";
-        $doc .= $json ."\n";
+        $doc .= $json . "\n";
         $doc .= "```\n";
 
         return $doc;
@@ -498,16 +498,16 @@ trait Documentable
 
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
-        $path = '/' .$endpoint;
+        $path = '/' . $endpoint;
 
         if ($options['extraPath'])
         {
-            $path .= '/' .$options['extraPath'];
+            $path .= '/' . $options['extraPath'];
         }
 
         if ($options['id'])
         {
-            $path .= '/' .$options['id'];
+            $path .= '/' . $options['id'];
         }
 
         return $path;
@@ -628,31 +628,31 @@ trait Documentable
 
         }
 
-        $doc = $this->swaggerList() ."\n";
+        $doc = $this->swaggerList() . "\n";
 
         if ($this->hasSearchEndpoint())
         {
 
-            $doc .= $this->swaggerSearch() ."\n";
+            $doc .= $this->swaggerSearch() . "\n";
 
         }
 
-        $doc .= $this->swaggerSingle() ."\n";
+        $doc .= $this->swaggerSingle() . "\n";
 
         if (get_called_class() == Collections\Agent::class)
         {
 
             // Artists
-            $doc .= $this->swaggerList('artists') ."\n";
-            $doc .= $this->swaggerSingle('artists') ."\n";
+            $doc .= $this->swaggerList('artists') . "\n";
+            $doc .= $this->swaggerSingle('artists') . "\n";
 
         }
         elseif (get_called_class() == Collections\Category::class)
         {
 
             // Department
-            $doc .= $this->swaggerList('departments') ."\n";
-            $doc .= $this->swaggerSingle('departments') ."\n";
+            $doc .= $this->swaggerList('departments') . "\n";
+            $doc .= $this->swaggerSingle('departments') . "\n";
 
         }
 
@@ -672,7 +672,7 @@ trait Documentable
         $model = get_called_class();
         $modelBasename = class_basename($model);
 
-        $doc = "    \"" .$modelBasename ."\": {\n";
+        $doc = "    \"" . $modelBasename . "\": {\n";
         $doc .= "      \"properties\": {\n";
         $doc .= $this->swaggerListFields();
         $doc .= "      },\n";
@@ -699,9 +699,9 @@ trait Documentable
         foreach ($mapping as $array)
         {
 
-            $doc .= "        \"" .$array["name"] ."\": {\n";
-            $doc .= "          \"description\": \"" .str_replace('"', '\"', $array['doc']) ."\"\n";
-            $doc .= "        }" .($array !== end($mapping) ? "," : "") ."\n";
+            $doc .= "        \"" . $array["name"] . "\": {\n";
+            $doc .= "          \"description\": \"" . str_replace('"', '\"', $array['doc']) . "\"\n";
+            $doc .= "        }" . ($array !== end($mapping) ? "," : "") . "\n";
 
         }
 
@@ -717,10 +717,10 @@ trait Documentable
     public function swaggerList($endpoint = null)
     {
 
-        $doc = "    \"/" .($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) ."\": {\n";
+        $doc = "    \"/" . ($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) . "\": {\n";
         $doc .= "      \"get\": {\n";
         $doc .= $this->swaggerTags();
-        $doc .= "        \"summary\": \"" .$this->docListDescription($endpoint) . "\",\n";
+        $doc .= "        \"summary\": \"" . $this->docListDescription($endpoint) . "\",\n";
         $doc .= $this->swaggerProduces();
         $doc .= $this->swaggerParameters();
         $doc .= $this->swaggerResponses();
@@ -739,10 +739,10 @@ trait Documentable
     public function swaggerSearch()
     {
 
-        $doc = "    \"/" .app('Resources')->getEndpointForModel(get_called_class()) ."/search\": {\n";
+        $doc = "    \"/" . app('Resources')->getEndpointForModel(get_called_class()) . "/search\": {\n";
         $doc .= "      \"get\": {\n";
         $doc .= $this->swaggerTags(['search']);
-        $doc .= "        \"summary\": \"" .$this->docSearchDescription() ."\",\n";
+        $doc .= "        \"summary\": \"" . $this->docSearchDescription() . "\",\n";
         $doc .= $this->swaggerProduces();
         $doc .= $this->swaggerParameters($this->docSearchParametersRaw());
         $doc .= $this->swaggerResponses('SearchResult');
@@ -761,10 +761,10 @@ trait Documentable
     public function swaggerSingle($endpoint = null)
     {
 
-        $doc = "    \"/" .($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) ."/{id}\": {\n";
+        $doc = "    \"/" . ($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) . "/{id}\": {\n";
         $doc .= "      \"get\": {\n";
         $doc .= $this->swaggerTags();
-        $doc .= "        \"summary\": \"" .$this->docSingleDescription($endpoint) ."\",\n";
+        $doc .= "        \"summary\": \"" . $this->docSingleDescription($endpoint) . "\",\n";
         $doc .= $this->swaggerProduces();
         $doc .= $this->swaggerParameters(['id' => 'Resource id to retrieve']);
         $doc .= $this->swaggerResponses();
@@ -783,14 +783,14 @@ trait Documentable
         $source = $model::source();
 
         $doc = "        \"tags\": [\n";
-        $doc .= "            \"" .$endpoint ."\",\n";
-        $doc .= "            \"" .strtolower($source) ."\"";
+        $doc .= "            \"" . $endpoint . "\",\n";
+        $doc .= "            \"" . strtolower($source) . "\"";
 
         foreach ($extras as $tag)
         {
 
             $doc .= ",\n";
-            $doc .= "            \"" .$tag ."\"";
+            $doc .= "            \"" . $tag . "\"";
 
         }
         $doc .= "\n";
@@ -825,8 +825,8 @@ trait Documentable
         foreach ($array as $param => $description)
         {
             $doc .= "          {\n";
-            $doc .= "            \"\$ref\": \"#/parameters/" .$param ."\"\n";
-            $doc .= "          }" .($description !== end($array) ? "," : "") ."\n";
+            $doc .= "            \"\$ref\": \"#/parameters/" . $param . "\"\n";
+            $doc .= "          }" . ($description !== end($array) ? "," : "") . "\n";
         }
         $doc .= "        ],\n";
 
@@ -850,7 +850,7 @@ trait Documentable
         $doc .= "            \"schema\": {\n";
         $doc .= "              \"type\": \"array\",\n";
         $doc .= "              \"items\": {\n";
-        $doc .= "                \"\$ref\": \"#/definitions/" .$modelBasename ."\"\n";
+        $doc .= "                \"\$ref\": \"#/definitions/" . $modelBasename . "\"\n";
         $doc .= "              }\n";
         $doc .= "            }\n";
         $doc .= "          },\n";

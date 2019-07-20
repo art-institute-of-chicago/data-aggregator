@@ -21,11 +21,11 @@ trait HasRelationships
 
         $resources_ids = $this->relatedIds($resources);
 
-        $this->loadMissing($resource .'Pivots');
+        $this->loadMissing($resource . 'Pivots');
 
         // Loop through all the term pivot models, only look at the ones
         // of the specified type, and return the preferred one
-        foreach ($this->{$resource .'Pivots'} as $pivot)
+        foreach ($this->{$resource . 'Pivots'} as $pivot)
         {
 
             $key = $pivot->{$resource}()->getForeignKeyName();
@@ -63,13 +63,13 @@ trait HasRelationships
 
         $resources_ids = $this->relatedIds($resources);
 
-        $this->loadMissing($resource .'Pivots');
+        $this->loadMissing($resource . 'Pivots');
 
         // Loop through all the term pivot models, only look at the ones
         // of the specified type, and return an array of the non-preferred ones
         $ret = [];
 
-        foreach ($this->{$resource .'Pivots'} as $pivot)
+        foreach ($this->{$resource . 'Pivots'} as $pivot)
         {
 
             $key = $pivot->{$resource}()->getForeignKeyName();

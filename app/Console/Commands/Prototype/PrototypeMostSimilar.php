@@ -108,7 +108,7 @@ class PrototypeMostSimilar extends BaseCommand
 
         foreach ($artworkIds as $id => $name)
         {
-            $ret .= "<h2><a href=\"" .env('WEBSITE_ROOT') ."/artworks/{$id}\">{$name}</a></h2>\n";
+            $ret .= "<h2><a href=\"" . env('WEBSITE_ROOT') . "/artworks/{$id}\">{$name}</a></h2>\n";
 
             $artw = Artwork::find($id);
             $responses = $this->query($artw);
@@ -127,7 +127,7 @@ class PrototypeMostSimilar extends BaseCommand
                     if (!in_array($item->id, $ids))
                     {
                         $ret .= "<tr class='clickable-row' data-href='http://www-2018.artic.edu/artworks/{$item->id}'>";
-                        $ret .= "<td style=\"padding:0 8px\"><img src=\"" .($item->thumbnail->url ?? '') ."/full/75,/0/default.jpg\" /></td>";
+                        $ret .= "<td style=\"padding:0 8px\"><img src=\"" . ($item->thumbnail->url ?? '') . "/full/75,/0/default.jpg\" /></td>";
                         $ret .= "<td style=\"padding:0 8px\">{$item->id}</td>";
                         $ret .= "<td style=\"padding:0 8px\">{$item->main_reference_number}</td>";
                         $ret .= "<td style=\"padding:0 8px\">{$item->title}</td>";
@@ -282,7 +282,7 @@ class PrototypeMostSimilar extends BaseCommand
         $queryString = json_encode($query);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, config('app.url') ."/api/v1/msearch");
+        curl_setopt($ch, CURLOPT_URL, config('app.url') . "/api/v1/msearch");
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, $queryString);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
