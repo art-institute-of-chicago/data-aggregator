@@ -37,7 +37,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
             $this->appUrl = $this->argument('appUrl');
         }
 
-        /*
+        /**
          * Start off the doc
          */
         $doc = "{\n";
@@ -62,7 +62,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
         $doc .= "  ],\n";
         $doc .= "  \"paths\": {\n";
 
-        /*
+        /**
          * Endpoints
          */
         foreach ($this->getCategories() as $namespace => $heading)
@@ -73,7 +73,9 @@ class CreateSwaggerDoc extends AbstractDocCommand
             }
         }
 
-        // Search
+        /**
+         * Search
+         */
         $doc .= "    \"/search\": {\n";
         $doc .= "      \"get\": {\n";
         $doc .= "        \"tags\": [\n";
@@ -89,7 +91,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
 
         $doc .= "  },\n";
 
-        /*
+        /**
          * Fields
          */
         $doc .= "  \"definitions\": {\n";
@@ -156,7 +158,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
         $doc .= "  },\n";
         $doc .= "\n";
 
-        /*
+        /**
          * Parameters
          */
         $doc .= "  \"parameters\": {\n";
