@@ -53,12 +53,12 @@ abstract class ApiTestCase extends TestCase
 
         \Artisan::call('migrate');
 
-        if (get_class($this) != 'Tests\Unit\AgentTypeTest')
+        if (get_class($this) !== 'Tests\Unit\AgentTypeTest')
         {
 
             $agentTypeId = $this->make(AgentType::class, ['title' => 'Individual']);
 
-            if (get_class($this) != 'Tests\Unit\AgentTest')
+            if (get_class($this) !== 'Tests\Unit\AgentTest')
             {
 
                 $this->times(1)->make(Agent::class, ['agent_type_citi_id' => $agentTypeId]);

@@ -237,7 +237,7 @@ trait Documentable
 
         $doc = 'A single ' . Str::singular($endpointAsCopyText) . ' by the given identifier.';
 
-        if (static::$source == 'Collections')
+        if (static::$source === 'Collections')
         {
 
             $doc .= ' {id} is the identifier from our collections management system.';
@@ -561,7 +561,7 @@ trait Documentable
 
         $doc .= $this->swaggerSingle() . "\n";
 
-        if (get_called_class() == Collections\Agent::class)
+        if (get_called_class() === Collections\Agent::class)
         {
 
             // Artists
@@ -569,7 +569,7 @@ trait Documentable
             $doc .= $this->swaggerSingle('artists') . "\n";
 
         }
-        elseif (get_called_class() == Collections\Category::class)
+        elseif (get_called_class() === Collections\Category::class)
         {
 
             // Department

@@ -181,7 +181,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
             $doc .= "      \"in\": \"query\",\n";
             $doc .= '      "description": "' . $description . "\",\n";
             $doc .= "      \"schema\": {\n";
-            $doc .= '        "type": "' . ($param == 'limit' || $param == 'page' ? 'integer' : 'string') . "\"\n";
+            $doc .= '        "type": "' . ($param === 'limit' || $param === 'page' ? 'integer' : 'string') . "\"\n";
             $doc .= "      }\n";
             $doc .= '    }' . ($description !== end($params) ? ',' : '') . "\n";
         }

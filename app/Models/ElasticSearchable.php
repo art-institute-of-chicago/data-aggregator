@@ -92,7 +92,7 @@ trait ElasticSearchable
 
             return isset($field['elasticsearch'])
                 && isset($field['elasticsearch']['default'])
-                && $field['elasticsearch']['default'] == true
+                && $field['elasticsearch']['default'] === true
                 && (!$isExact || $field['elasticsearch']['default'] !== 'except_exact');
 
         });

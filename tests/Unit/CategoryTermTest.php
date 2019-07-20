@@ -16,7 +16,7 @@ class CategoryTermTest extends ApiTestCase
     public function model()
     {
 
-        if ($this->model == CategoryTerm::class) {
+        if ($this->model === CategoryTerm::class) {
             return random_int(0, 1) ? Category::class : Term::class;
         }
 

@@ -53,7 +53,7 @@ class ImportUlan extends AbstractImportCommand
             }
 
             // If there are no results, try with just the last name or first word
-            if (count($result->results) == 0)
+            if (count($result->results) === 0)
             {
                 continue;
             }
@@ -76,7 +76,7 @@ class ImportUlan extends AbstractImportCommand
     {
 
         // If there's only one result, set the ULAN URI
-        if (count($result->results) == 1)
+        if (count($result->results) === 1)
         {
 
             $this->info('... exact name matched ' . $message . ' ' . $result->results[0]->uri);
@@ -102,7 +102,7 @@ class ImportUlan extends AbstractImportCommand
 
             $uris = array_unique($uris);
 
-            if (count($uris) == 1)
+            if (count($uris) === 1)
             {
 
                 $this->info('... exact name matched distinct results' . $message);

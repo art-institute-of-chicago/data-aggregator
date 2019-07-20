@@ -137,12 +137,12 @@ class PrototypeMostSimilar extends BaseCommand
                         $count++;
                         $countForCurrentQuery++;
 
-                        if ($count == $this->size)
+                        if ($count === $this->size)
                         {
                             break 2;
                         }
 
-                        if ($countForCurrentQuery == $this->sizeRenderPerQuery)
+                        if ($countForCurrentQuery === $this->sizeRenderPerQuery)
                         {
                             break;
                         }
@@ -162,7 +162,7 @@ class PrototypeMostSimilar extends BaseCommand
         $date_start = $this->dateStart($artw->date_start);
         $date_end = $this->dateEnd($artw->date_start);
 
-        if ($item->artist_id == $artw->artist->citi_id) {
+        if ($item->artist_id === $artw->artist->citi_id) {
             $ret ? $ret .= ', ' : '';
             $ret .= 'Same artist';
         }

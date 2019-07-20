@@ -37,7 +37,7 @@ trait HasRelationships
                 {
 
                     return head(Arr::where($resources, function ($value) use ($pivot, $key) {
-                        return $value->getKey() == $pivot->{$key};
+                        return $value->getKey() === $pivot->{$key};
                     }));
 
                 }
@@ -81,7 +81,7 @@ trait HasRelationships
                 {
 
                     $ret[] = head(Arr::where($resources, function ($value) use ($pivot, $key) {
-                        return $value->getKey() == $pivot->{$key};
+                        return $value->getKey() === $pivot->{$key};
                     }));
 
                 }
@@ -124,7 +124,7 @@ trait HasRelationships
         foreach ($this->{Str::plural($resource)} as $res)
         {
 
-            if ($res->{$typeField} == $type)
+            if ($res->{$typeField} === $type)
             {
 
                 $ret[] = $res;

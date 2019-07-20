@@ -50,7 +50,7 @@ class SearchAudit extends BaseCommand
         $es_count = $response['hits']['total'];
         $db_count = $model::count();
 
-        if ($es_count != $db_count) {
+        if ($es_count !== $db_count) {
             $endpoint = app('Resources')->getEndpointForModel($model);
 
             return "{$endpoint} = {$db_count} in db, {$es_count} in index\n";
@@ -60,7 +60,7 @@ class SearchAudit extends BaseCommand
     public function compareLatest($model)
     {
 
-        if ($model::count() == 0) {
+        if ($model::count() === 0) {
             return;
         }
 
@@ -74,7 +74,7 @@ class SearchAudit extends BaseCommand
         ]);
 
         // Nothing to compare to. Jump out and let compareTotal report the quantity discrepancy.
-        if (count($response['hits']['hits']) == 0) {
+        if (count($response['hits']['hits']) === 0) {
             return;
         }
 

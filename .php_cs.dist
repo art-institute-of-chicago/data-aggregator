@@ -301,6 +301,12 @@ return PhpCsFixer\Config::create()
             ],
         ],
         'single_quote' => true, // Rough on CreateSwaggerDocs and Documentable
+        'single_trait_insert_per_statement' => false, // Does not multiline
+        'space_after_semicolon' => false, // Buggy with lambdas
+        'standardize_increment' => false, // Buggy with order
+        'standardize_not_equals' => true,
+        'static_lambda' => false, // But interesting...
+        'strict_comparison' => true,
     ])
     ->setFinder($finder)
 ;

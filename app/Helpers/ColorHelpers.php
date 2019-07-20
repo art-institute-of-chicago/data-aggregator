@@ -16,7 +16,7 @@ function hexToHsl($hex)
 
     $l = ($max + $min) / 2;
 
-    if ($max == $min) {
+    if ($max === $min) {
         $h = $s = 0;
     } else {
         $diff = $max - $min;
@@ -44,7 +44,7 @@ function hslToHex($hsl)
 {
     [$h, $s, $l] = $hsl;
 
-    if ($s == 0) {
+    if ($s === 0) {
         $r = $g = $b = 1;
     } else {
         $q = $l < 0.5 ? $l * (1 + $s) : $l + $s - $l * $s;

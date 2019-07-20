@@ -947,9 +947,9 @@ class Request
     {
         // Exit early if the query is not an exact hex string
         if (!(
-            strlen($input['q']) == 7 && preg_match('/^#[0-9a-f]{6}/i', $input['q'])
+            strlen($input['q']) === 7 && preg_match('/^#[0-9a-f]{6}/i', $input['q'])
         ) || (
-            strlen($input['q']) == 4 && preg_match('/^#[0-9a-f]{3}/i', $input['q'])
+            strlen($input['q']) === 4 && preg_match('/^#[0-9a-f]{3}/i', $input['q'])
         )) {
             return false;
         }

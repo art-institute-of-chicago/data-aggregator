@@ -27,11 +27,11 @@ function ddd($variable)
  */
 function cantorTuple(...$list)
 {
-    if (count($list) == 0) {
+    if (count($list) === 0) {
         return null;
     }
 
-    if (count($list) == 1) {
+    if (count($list) === 1) {
         return $list[0];
     }
 
@@ -141,7 +141,7 @@ function allModels()
     {
 
         //skip current and parent folder entries
-        if ($file == '.' || $file == '..') continue;
+        if ($file === '.' || $file === '..') continue;
 
         $sourcepath = $dir . DIRECTORY_SEPARATOR . $file;
 

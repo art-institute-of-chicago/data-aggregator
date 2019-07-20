@@ -108,7 +108,7 @@ trait HasBlocks
         return [
             [
                 'filter' => function ($block) {
-                    return $block->type == 'paragraph' && isset($block->content->paragraph);
+                    return $block->type === 'paragraph' && isset($block->content->paragraph);
                 },
                 'extract' => function ($block) {
                     return $this->cleanRichText($block->content->paragraph);
@@ -116,7 +116,7 @@ trait HasBlocks
             ],
             [
                 'filter' => function ($block) {
-                    return $block->type == 'artworks' && isset($block->content->subhead);
+                    return $block->type === 'artworks' && isset($block->content->subhead);
                 },
                 'extract' => function ($block) {
                     return $this->cleanRichText($block->content->subhead);

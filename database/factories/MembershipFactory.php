@@ -36,7 +36,7 @@ if (!function_exists('membershipIdsAndTitle'))
 
 $factory->define(App\Models\Membership\TicketedEvent::class, function (Faker\Generator $faker) {
 
-    $has_capacity = rand(0, 1) == 1;
+    $has_capacity = rand(0, 1) === 1;
 
     return array_merge(
         membershipIdsAndTitle($faker),
