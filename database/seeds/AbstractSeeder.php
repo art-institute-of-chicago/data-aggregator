@@ -17,7 +17,7 @@ abstract class AbstractSeeder extends Seeder
     public function run()
     {
 
-        if (! method_exists($this, 'seed')) {
+        if (!method_exists($this, 'seed')) {
             throw new InvalidArgumentException('Method [seed] missing from ' . get_class($this));
         }
 
@@ -28,7 +28,7 @@ abstract class AbstractSeeder extends Seeder
     public static function clean()
     {
 
-        if (! method_exists(get_called_class(), 'unseed')) {
+        if (!method_exists(get_called_class(), 'unseed')) {
             throw new InvalidArgumentException('Method [unseed] missing from ' . get_called_class());
         }
 
@@ -163,14 +163,14 @@ abstract class AbstractSeeder extends Seeder
     private function validateSeedRelation($subjectClass, $objectClass, $subjects, $objects, $method)
     {
 
-        if(! method_exists($subjectClass, $method))
+        if(!method_exists($subjectClass, $method))
         {
             throw new BadFunctionCallException('Class ' . $subjectClass . ' has no relation method `' . $method . '`');
         }
 
         $relation = ( new $subjectClass() )->{$method}();
 
-        if(! $relation instanceof Relation)
+        if(!$relation instanceof Relation)
         {
             throw new InvalidArgumentException($subjectClass . '\'s `' . $method . '` must return an instance of ' . Relation::class);
         }

@@ -94,7 +94,7 @@ class SearchServiceProvider extends ServiceProvider
                         return $this->getElasticsearchMapping($model);
                     });
 
-                    return $mappings->isNotEmpty() ? array_merge(... $mappings) : [];
+                    return $mappings->isNotEmpty() ? array_merge(...$mappings) : [];
 
                 }
 
@@ -127,7 +127,7 @@ class SearchServiceProvider extends ServiceProvider
                         return $this->getDefaultFieldsForModel($model, $isExact);
                     });
 
-                    $fields = $fields->isNotEmpty() ? array_merge(... $fields) : [];
+                    $fields = $fields->isNotEmpty() ? array_merge(...$fields) : [];
 
                     // Remove duplicate field names, e.g. `content`
                     $fields = array_unique($fields);
