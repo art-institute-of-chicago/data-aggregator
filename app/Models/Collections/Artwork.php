@@ -527,7 +527,7 @@ class Artwork extends CollectionsModel
         }
 
         // Get index of this artwork in the array
-        $rank = array_flip($ids)[ $this->getKey() ];
+        $rank = array_flip($ids)[$this->getKey()];
 
         // Subdivide them into buckets of 4
         $rank = ( intdiv( $rank, 4 ) + 1 ) * ( $rank + 1 );

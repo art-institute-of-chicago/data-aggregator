@@ -175,7 +175,7 @@ trait ElasticSearchable
             // TODO: Determine if we can just pass null here
             if( $mapping )
             {
-                $default[ $field['name'] ] = $mapping;
+                $default[$field['name']] = $mapping;
             }
         }
 

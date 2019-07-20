@@ -120,12 +120,12 @@ class Datum implements JsonSerializable
 
         $hash = spl_object_hash( $object );
 
-        if( !isset( $this->subdatums[ $hash ] ) )
+        if( !isset( $this->subdatums[$hash] ) )
         {
-            $this->subdatums[ $hash ] = new Datum( $object );
+            $this->subdatums[$hash] = new Datum( $object );
         }
 
-        return $this->subdatums[ $hash ];
+        return $this->subdatums[$hash];
 
     }
 

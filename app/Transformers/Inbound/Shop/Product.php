@@ -27,7 +27,7 @@ class Product extends ShopTransformer
 
         return array_filter( array_map( function ($id) {
 
-            return $this->artistMapping[ $id ] ?? null;
+            return $this->artistMapping[$id] ?? null;
 
         }, $datum->artist_ids ) );
 

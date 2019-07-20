@@ -161,6 +161,10 @@ return PhpCsFixer\Config::create()
         'no_short_echo_tag' => true,
         'no_singleline_whitespace_before_semicolons' => true, // TODO: Verify?
         'no_spaces_after_function_name' => true,
+        'no_spaces_around_offset' => [
+            'inside',
+            'outside'
+        ],
     ])
     ->setFinder($finder)
 ;
