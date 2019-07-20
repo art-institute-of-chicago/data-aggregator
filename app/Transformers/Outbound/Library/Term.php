@@ -11,12 +11,12 @@ class Term extends BaseTransformer
 
     protected $availableIncludes = ['creator_of', 'subject_of'];
 
-    public function includeSubjectOf(Term $term)
+    public function includeSubjectOf($term)
     {
         return $this->collection($term->subjectOf, new MaterialTransformer(), false);
     }
 
-    public function includeCreatorOf(Term $term)
+    public function includeCreatorOf($term)
     {
         return $this->collection($term->creatorOf, new MaterialTransformer(), false);
     }

@@ -15,6 +15,7 @@ $finder = PhpCsFixer\Finder::create()
 
 return PhpCsFixer\Config::create()
     ->setIndent('    ')
+    ->setUsingCache(true)
     ->setRules([
         'align_multiline_comment' => [
             'comment_type' => 'phpdocs_like',
@@ -279,7 +280,20 @@ return PhpCsFixer\Config::create()
         'return_type_declaration' => [
             'space_before' => 'one',
         ],
-
+        'self_accessor' => false, // buggy with transformers
+        'semicolon_after_instruction' => true,
+        'set_type_to_cast' => true,
+        'short_scalar_cast' => true,
+        'simple_to_complex_string_variable' => false,
+        'simplified_null_return' => false,
+        'single_blank_line_at_eof' => true,
+        'single_blank_line_before_namespace' => true,
+        'single_class_element_per_statement' => [
+            'const',
+            'property',
+        ],
+        'single_import_per_statement' => true,
+        'single_line_after_imports' => true,
     ])
     ->setFinder($finder)
 ;
