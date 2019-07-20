@@ -31,7 +31,7 @@ class ReportAltText extends BaseCommand
             'alt_text',
         ]);
 
-        $artworks = Artwork::whereHas('assets', function( $query ) {
+        $artworks = Artwork::whereHas('assets', function ($query) {
 
             $query->whereNotNull('alt_text');
 
@@ -64,7 +64,7 @@ class ReportAltText extends BaseCommand
 
     }
 
-    private function getLakeShoreLink( $guid, $type ) {
+    private function getLakeShoreLink($guid, $type) {
 
         return env('LAKESHORE_URL')
             . '/' . $type

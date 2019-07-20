@@ -32,7 +32,7 @@ class ImportAnalytics extends AbstractImportCommand
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    protected function save( $datum, $model, $transformer )
+    protected function save($datum, $model, $transformer)
     {
 
         $transformer = new $transformer();

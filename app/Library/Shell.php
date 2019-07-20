@@ -19,7 +19,7 @@ class Shell
      */
     public function passthru(string $template, string ...$args)
     {
-        return $this->command($template, $args, function(string $cmd) {
+        return $this->command($template, $args, function (string $cmd) {
             passthru($cmd, $status);
             return [
                 'output' => null,
@@ -33,7 +33,7 @@ class Shell
      */
     public function exec(string $template, string ...$args) : array
     {
-        return $this->command($template, $args, function(string $cmd) {
+        return $this->command($template, $args, function (string $cmd) {
             exec($cmd, $output, $status);
             return [
                 'output' => $output,

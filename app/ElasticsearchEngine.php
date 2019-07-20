@@ -23,7 +23,7 @@ class ElasticsearchEngine extends BaseEngine
     {
         $params['body'] = [];
 
-        $models->each(function($model) use (&$params)
+        $models->each(function ($model) use (&$params)
         {
             $params['body'][] = [
                 'update' => $this->getIdIndexType($model)
@@ -39,7 +39,7 @@ class ElasticsearchEngine extends BaseEngine
         // TODO: Requeue only the models that failed?
         if (isset($result['errors']) && $result['errors'] === true)
         {
-            $failedDocs = array_values(array_filter($result['items'], function($item) {
+            $failedDocs = array_values(array_filter($result['items'], function ($item) {
                 return isset($item['update']['error']);
             }));
 

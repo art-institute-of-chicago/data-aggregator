@@ -10,7 +10,7 @@ use App\Transformers\Inbound\DigitalLabelTransformer;
 class Label extends DigitalLabelTransformer
 {
 
-    protected function getIds( Datum $datum )
+    protected function getIds(Datum $datum)
     {
 
         return [
@@ -19,7 +19,7 @@ class Label extends DigitalLabelTransformer
 
     }
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [
@@ -34,7 +34,7 @@ class Label extends DigitalLabelTransformer
 
     }
 
-    private function headline( $contentBundle )
+    private function headline($contentBundle)
     {
 
         foreach ($contentBundle as $slide)
@@ -48,7 +48,7 @@ class Label extends DigitalLabelTransformer
         return '';
     }
 
-    private function text( $contentBundle )
+    private function text($contentBundle)
     {
 
         $ret = '';
@@ -64,7 +64,7 @@ class Label extends DigitalLabelTransformer
         return $ret;
     }
 
-    private function image( $contentBundle )
+    private function image($contentBundle)
     {
 
         foreach ($contentBundle as $slide)
@@ -84,7 +84,7 @@ class Label extends DigitalLabelTransformer
         return null;
     }
 
-    private function artworkIds( $contentBundle )
+    private function artworkIds($contentBundle)
     {
 
         // First, collect all the main reference numbers from the contentBundle
@@ -109,7 +109,7 @@ class Label extends DigitalLabelTransformer
         return $ret;
     }
 
-    private function artistIds( $contentBundle )
+    private function artistIds($contentBundle)
     {
 
         // First, collect all the main reference numbers from the contentBundle
@@ -157,7 +157,7 @@ class Label extends DigitalLabelTransformer
         return  array_unique($mainRefNums);
     }
 
-    protected function getSync( Datum $datum )
+    protected function getSync(Datum $datum)
     {
 
         return [
@@ -167,7 +167,7 @@ class Label extends DigitalLabelTransformer
 
     }
 
-    protected function search( $accession )
+    protected function search($accession)
     {
 
         static $cache = [];
@@ -196,7 +196,7 @@ class Label extends DigitalLabelTransformer
         $results = $response->data;
         $results = collect( $results );
 
-        $results = $results->filter( function( $result ) use ( $accession ) {
+        $results = $results->filter( function ($result) use ($accession) {
 
             // Check what's left after DSC accession is trimmed from result
             $mrn = $result->main_reference_number;
@@ -225,7 +225,7 @@ class Label extends DigitalLabelTransformer
         });
 
         // Sort by length of accession, so shortest is first
-        $results = $results->sortBy( function( $result ) {
+        $results = $results->sortBy( function ($result) {
             return strlen( $result->main_reference_number );
         });
 
@@ -236,7 +236,7 @@ class Label extends DigitalLabelTransformer
 
     // @TODO: Use https://github.com/FriendsOfPHP/Goutte
     // https://stackoverflow.com/questions/5647461/how-do-i-send-a-post-request-with-php
-    private function post( $url, $data )
+    private function post($url, $data)
     {
 
         // use key 'http' even if you send the request to https://...

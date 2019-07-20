@@ -8,7 +8,7 @@ use App\Transformers\Inbound\WebTransformer;
 class Closure extends WebTransformer
 {
 
-    protected function getTitle( Datum $datum )
+    protected function getTitle(Datum $datum)
     {
 
         // TODO: Make title nullable? Use date range as title?
@@ -20,7 +20,7 @@ class Closure extends WebTransformer
 
     }
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [

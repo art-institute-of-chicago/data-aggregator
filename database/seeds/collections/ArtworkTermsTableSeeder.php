@@ -20,7 +20,7 @@ class ArtworkTermsTableSeeder extends AbstractSeeder
     }
 
 
-    public function seedTerms( $artwork )
+    public function seedTerms($artwork)
     {
 
         factory( ArtworkTerm::class, rand(2,4) )->create([

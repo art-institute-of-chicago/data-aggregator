@@ -37,7 +37,7 @@ abstract class AbstractDocCommand extends BaseCommand
     protected function getModelsForNamespace($desiredNamespace)
     {
         return $this->getModels()
-            ->filter(function($modelNamespace, $model) use ($desiredNamespace) {
+            ->filter(function ($modelNamespace, $model) use ($desiredNamespace) {
                 return $modelNamespace === $desiredNamespace;
             })
             ->keys();
@@ -58,7 +58,7 @@ abstract class AbstractDocCommand extends BaseCommand
             ->unique()
             ->filter()
             ->values()
-            ->map(function($model) {
+            ->map(function ($model) {
                 $segments = explode('\\', $model);
                 return [$model => $segments[count($segments) - 2]];
             })

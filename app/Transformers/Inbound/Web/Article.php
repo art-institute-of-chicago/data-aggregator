@@ -10,7 +10,7 @@ class Article extends WebTransformer
 
     use HasBlocks { getExtraFields as getBlockFields; }
 
-    protected function getTitle( Datum $datum )
+    protected function getTitle(Datum $datum)
     {
 
         return [
@@ -19,7 +19,7 @@ class Article extends WebTransformer
 
     }
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return array_merge( $this->getBlockFields( $datum ), [

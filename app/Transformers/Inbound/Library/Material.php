@@ -8,7 +8,7 @@ use App\Transformers\Inbound\BaseTransformer;
 class Material extends BaseTransformer
 {
 
-    protected function getSync( Datum $datum )
+    protected function getSync(Datum $datum)
     {
 
         return [

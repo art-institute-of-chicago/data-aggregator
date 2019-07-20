@@ -87,7 +87,7 @@ class ImportCollectionsFull extends AbstractImportCommand
      *
      * @return array
      */
-    private function getUrls( array $ids, $endpoint )
+    private function getUrls(array $ids, $endpoint)
     {
 
         $n = 0;
@@ -98,7 +98,7 @@ class ImportCollectionsFull extends AbstractImportCommand
 
             $chunked_ids = partition( $ids, $n );
 
-            $urls = array_map( function( $ids ) use ($endpoint) {
+            $urls = array_map( function ($ids) use ($endpoint) {
 
                 return env('COLLECTIONS_DATA_SERVICE_URL')
                     . '/' . $endpoint
@@ -119,7 +119,7 @@ class ImportCollectionsFull extends AbstractImportCommand
     /**
      * Temporarily overriding this to have control over the `$limit` default here.
      */
-    protected function query( $endpoint, $page = 1, $limit = 500 )
+    protected function query($endpoint, $page = 1, $limit = 500)
     {
         return parent::query( $endpoint, $page, 100 );
     }

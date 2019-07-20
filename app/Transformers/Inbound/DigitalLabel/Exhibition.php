@@ -10,7 +10,7 @@ use App\Transformers\Inbound\DigitalLabelTransformer;
 class Exhibition extends DigitalLabelTransformer
 {
 
-    protected function getIds( Datum $datum )
+    protected function getIds(Datum $datum)
     {
 
         return [
@@ -19,7 +19,7 @@ class Exhibition extends DigitalLabelTransformer
 
     }
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [
@@ -33,7 +33,7 @@ class Exhibition extends DigitalLabelTransformer
 
     }
 
-    private function getExhibitionCitiId( $objectId )
+    private function getExhibitionCitiId($objectId)
     {
 
         static $mapping = [

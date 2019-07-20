@@ -41,7 +41,7 @@ class ImportTicketedEventsFull extends AbstractImportCommand
 
     }
 
-    protected function save( $datum, $model, $transformer )
+    protected function save($datum, $model, $transformer)
     {
 
         // TODO: Determine if this is still necessary

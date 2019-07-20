@@ -44,7 +44,7 @@ class ScoutSince extends BaseCommand
 
         $bar = $this->output->createProgressBar($models->count());
 
-        $models->chunk($this->chunkSize, function($models) use ($bar) {
+        $models->chunk($this->chunkSize, function ($models) use ($bar) {
             $models->searchable();
             $bar->advance($this->chunkSize);
         });

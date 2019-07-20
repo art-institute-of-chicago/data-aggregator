@@ -10,7 +10,7 @@ use App\Transformers\Inbound\MembershipTransformer;
 class TicketedEvent extends MembershipTransformer
 {
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [
@@ -24,7 +24,7 @@ class TicketedEvent extends MembershipTransformer
     }
 
     // TODO: Abstract this to Datum?
-    private function getDateTime( string $value = null )
+    private function getDateTime(string $value = null)
     {
         return $value ? new Carbon($value) : null;
     }

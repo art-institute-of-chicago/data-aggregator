@@ -49,7 +49,7 @@ class SearchController extends BaseController
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-uri-request.html
      */
-    public function search( Request $request, $resource = null )
+    public function search(Request $request, $resource = null)
     {
 
         return $this->query( 'getSearchParams', 'getSearchResponse', 'search', $resource );
@@ -66,7 +66,7 @@ class SearchController extends BaseController
      *
      * @return array
      */
-    public function msearch( Request $request )
+    public function msearch(Request $request)
     {
         return $this->mquery( 'getSearchParams', 'getSearchResponse', $request );
     }
@@ -82,7 +82,7 @@ class SearchController extends BaseController
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-completion.html
      */
-    public function autocompleteWithTitle( Request $request, $resource = null )
+    public function autocompleteWithTitle(Request $request, $resource = null)
     {
 
         return $this->query( 'getAutocompleteParams', 'getAutocompleteWithTitleResponse', 'search', $resource );
@@ -94,7 +94,7 @@ class SearchController extends BaseController
      * Return autocomplete suggestions, but passes through `_source` from each result.
      * Allows us to return an array of objects: id, title, api_model.
      */
-    public function autocompleteWithSource( Request $request, $resource = null )
+    public function autocompleteWithSource(Request $request, $resource = null)
     {
 
         return $this->query( 'getAutocompleteParams', 'getAutocompleteWithSourceResponse', 'search', $resource, null, [
@@ -107,7 +107,7 @@ class SearchController extends BaseController
     /**
      * Multi-suggest functionality. Like `autocompleteWithSource` but with `msearch` syntax.
      */
-    public function msuggest( Request $request )
+    public function msuggest(Request $request)
     {
         return $this->mquery( 'getAutocompleteParams', 'getAutocompleteWithSourceResponse', $request,[
             'use_suggest_autocomplete_all' => true,
@@ -118,7 +118,7 @@ class SearchController extends BaseController
     /**
      * Perform Elasticsearch explain query. Meant for local debugging.
      */
-    public function explain( Request $request, $resource, $id )
+    public function explain(Request $request, $resource, $id)
     {
 
         return $this->query( 'getExplainParams', 'getRawResponse', 'explain', $resource, $id );
@@ -129,7 +129,7 @@ class SearchController extends BaseController
      * Perform Elasticsearch search, but show last request sent to Elasticsearch instead.
      * Meant for local debugging.
      */
-    public function echo( Request $request, $resource = null )
+    public function echo(Request $request, $resource = null)
     {
 
         $this->query( 'getSearchParams', 'getSearchResponse', 'search', $resource );
@@ -148,7 +148,7 @@ class SearchController extends BaseController
      *
      * @return array
      */
-    private function query( $requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null, $requestArgs = null )
+    private function query($requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null, $requestArgs = null)
     {
 
         // Combine any configuration params

@@ -10,7 +10,7 @@ use App\Transformers\Inbound\CollectionsTransformer;
 class Asset extends CollectionsTransformer
 {
 
-    protected function getIds( Datum $datum )
+    protected function getIds(Datum $datum)
     {
 
         return  [
@@ -19,7 +19,7 @@ class Asset extends CollectionsTransformer
 
     }
 
-    protected function getDates( Datum $datum )
+    protected function getDates(Datum $datum)
     {
         $dates = parent::getDates( $datum );
 
@@ -28,7 +28,7 @@ class Asset extends CollectionsTransformer
         ]);
     }
 
-    protected function getSync( Datum $datum, $test = false )
+    protected function getSync(Datum $datum, $test = false)
     {
         return [
             'imagedArtworks' => $this->getSyncAssetOf( $datum, 'rep_of_artworks' ),
@@ -38,10 +38,10 @@ class Asset extends CollectionsTransformer
         ];
     }
 
-    private function getSyncAssetOf( Datum $datum, string $pivot_field )
+    private function getSyncAssetOf(Datum $datum, string $pivot_field)
     {
 
-        return $this->getSyncPivots( $datum, $pivot_field, 'related_id', function( $pivot ) {
+        return $this->getSyncPivots( $datum, $pivot_field, 'related_id', function ($pivot) {
 
             return [
                 $pivot->related_id => [

@@ -28,7 +28,7 @@ class MakeDatesNullByDefault extends Migration
 
         foreach( $tables as $table_name )
         {
-            Schema::table($table_name, function (Blueprint $table) use ($table_name, $columns){
+            Schema::table($table_name, function (Blueprint $table) use ($table_name, $columns) {
 
                 foreach($columns as $column)
                 {

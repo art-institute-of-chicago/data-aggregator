@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 app('url')->forceRootUrl(config('aic.proxy_url'));
 app('url')->forceScheme(config('aic.proxy_scheme'));
 
-Route::group(['prefix' => 'v1'], function() {
+Route::group(['prefix' => 'v1'], function () {
 
     Route::any('/', function () {
         return redirect('/api/v1/swagger.json');

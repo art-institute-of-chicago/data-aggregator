@@ -36,7 +36,7 @@ class ImportSites extends AbstractImportCommand
 
     }
 
-    private function importSites( $results )
+    private function importSites($results)
     {
 
         $this->info("Importing static sites");

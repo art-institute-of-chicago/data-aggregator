@@ -8,7 +8,7 @@ use App\Transformers\Inbound\BaseTransformer;
 class Image extends BaseTransformer
 {
 
-    protected function getIds( Datum $datum )
+    protected function getIds(Datum $datum)
     {
 
         return [
@@ -17,21 +17,21 @@ class Image extends BaseTransformer
 
     }
 
-    protected function getTitle( Datum $datum )
+    protected function getTitle(Datum $datum)
     {
 
         return [];
 
     }
 
-    protected function getDates( Datum $datum )
+    protected function getDates(Datum $datum)
     {
 
         return [];
 
     }
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [

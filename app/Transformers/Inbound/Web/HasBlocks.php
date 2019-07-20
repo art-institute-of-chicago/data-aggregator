@@ -10,7 +10,7 @@ use App\Transformers\Datum;
 trait HasBlocks
 {
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         $blocks = $this->getBlocks( $datum );
@@ -27,14 +27,14 @@ trait HasBlocks
      *
      * @return \Illuminate\Support\Collection
      */
-    private function getBlocks( Datum $datum )
+    private function getBlocks(Datum $datum)
     {
 
         // Articles use `copy`, but pages use `content`
         $field = $datum->copy ?? $datum->content ?? [];
 
         // Ensure blocks are sorted by their position
-        $blocks = Arr::sort( $field, function( $block ) {
+        $blocks = Arr::sort( $field, function ($block) {
             return $block->position;
         });
 
@@ -48,14 +48,14 @@ trait HasBlocks
      *
      * @return string
      */
-    private function getCopy( Collection $blocks )
+    private function getCopy(Collection $blocks)
     {
 
         // Get our rules for extracting copy from blocks
         $rules = $this->getCopyRules();
 
         // Loop through the rules to see which apply
-        $texts = $blocks->map( function( $block ) use ( $rules ) {
+        $texts = $blocks->map( function ($block) use ($rules) {
 
             foreach( $rules as $rule )
             {
@@ -88,7 +88,7 @@ trait HasBlocks
      *
      * @return string
      */
-    private function getImage( Collection $blocks )
+    private function getImage(Collection $blocks)
     {
 
         // Get a URL to the first large image
@@ -107,18 +107,18 @@ trait HasBlocks
 
         return [
             [
-                'filter' => function( $block ) {
+                'filter' => function ($block) {
                     return $block->type == 'paragraph' && isset( $block->content->paragraph );
                 },
-                'extract' => function( $block ) {
+                'extract' => function ($block) {
                     return $this->cleanRichText( $block->content->paragraph );
                 },
             ],
             [
-                'filter' => function( $block ) {
+                'filter' => function ($block) {
                     return $block->type == 'artworks' && isset( $block->content->subhead );
                 },
-                'extract' => function( $block ) {
+                'extract' => function ($block) {
                     return $this->cleanRichText( $block->content->subhead );
                 },
             ]
@@ -132,7 +132,7 @@ trait HasBlocks
      *
      * @return string
      */
-    private function cleanRichText( string $content )
+    private function cleanRichText(string $content)
     {
 
         // PHP's `strip_tags` has no way to replace tags with spaces

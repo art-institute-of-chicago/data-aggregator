@@ -8,7 +8,7 @@ use App\Transformers\Inbound\DscTransformer;
 class Section extends DscTransformer
 {
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [

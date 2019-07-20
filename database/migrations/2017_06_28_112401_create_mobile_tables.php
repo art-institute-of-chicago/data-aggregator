@@ -27,20 +27,20 @@ class CreateMobileTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('mobile_sounds', function(Blueprint $table) {
+        Schema::create('mobile_sounds', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
             $table->string('link');
             $table->text('transcript')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('mobile_artwork_mobile_sound', function(Blueprint $table) {
+        Schema::create('mobile_artwork_mobile_sound', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('mobile_artwork_mobile_id')->unsigned()->index();
             $table->integer('mobile_sound_mobile_id')->unsigned()->index();
         });
 
-        Schema::create('tours', function(Blueprint $table) {
+        Schema::create('tours', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table, 'string');
             $table->string('image')->nullable();
             $table->text('description')->nullable();
@@ -50,7 +50,7 @@ class CreateMobileTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('tour_stops', function(Blueprint $table) {
+        Schema::create('tour_stops', function (Blueprint $table) {
             $table->bigInteger('id')->unsigned()->primary();
             $table->integer('tour_mobile_id')->unsigned()->index();
             $table->integer('mobile_artwork_mobile_id')->unsigned()->index();

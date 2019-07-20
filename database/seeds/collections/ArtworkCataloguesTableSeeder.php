@@ -19,7 +19,7 @@ class ArtworkCataloguesTableSeeder extends AbstractSeeder
 
     }
 
-    public function seedCatalogues( $artwork )
+    public function seedCatalogues($artwork)
     {
 
         // There's a non-exclusive, many-to-many relationship b/w catalogues and artworks

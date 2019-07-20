@@ -15,7 +15,7 @@ class ResourceServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->singleton('Resources', function($app) {
+        $this->app->singleton('Resources', function ($app) {
 
             return new class {
 
@@ -48,8 +48,8 @@ class ResourceServiceProvider extends ServiceProvider
                     $this->outbound = collect($this->outbound);
 
                     $this->inbound = config('resources.inbound');
-                    $this->inbound = collect($this->inbound)->map(function($resources, $source) {
-                        return array_map(function($resource, $endpoint) use ($source) {
+                    $this->inbound = collect($this->inbound)->map(function ($resources, $source) {
+                        return array_map(function ($resource, $endpoint) use ($source) {
                             return [
                                 'source' => strtolower($source),
                                 'endpoint' => $endpoint,
@@ -70,7 +70,7 @@ class ResourceServiceProvider extends ServiceProvider
                     return $resource;
                 }
 
-                public function getModelForEndpoint( $endpoint )
+                public function getModelForEndpoint($endpoint)
                 {
                     $resource = $this->getResourceForEndpoint($endpoint);
 
@@ -84,7 +84,7 @@ class ResourceServiceProvider extends ServiceProvider
                     return $model;
                 }
 
-                public function getTransformerForEndpoint( $endpoint )
+                public function getTransformerForEndpoint($endpoint)
                 {
                     $resource = $this->getResourceForEndpoint($endpoint);
 
@@ -98,7 +98,7 @@ class ResourceServiceProvider extends ServiceProvider
                     return $transformer;
                 }
 
-                public function getEndpointForModel( $model )
+                public function getEndpointForModel($model)
                 {
                     $model = $this->getCleanModel( $model );
 
@@ -121,7 +121,7 @@ class ResourceServiceProvider extends ServiceProvider
                     return $endpoint;
                 }
 
-                public function getTransformerForModel( $model )
+                public function getTransformerForModel($model)
                 {
                     $model = $this->getCleanModel( $model );
 
@@ -137,7 +137,7 @@ class ResourceServiceProvider extends ServiceProvider
                     return $transformer;
                 }
 
-                public function isModelSearchable( $model )
+                public function isModelSearchable($model)
                 {
                     $model = $this->getCleanModel( $model );
 
@@ -146,14 +146,14 @@ class ResourceServiceProvider extends ServiceProvider
                     return $resource['is_searchable'] ?? false;
                 }
 
-                public function getParent( $endpoint )
+                public function getParent($endpoint)
                 {
                     $resource = $this->getResourceForEndpoint($endpoint);
 
                     return $resource['scope_of'] ?? null;
                 }
 
-                public function getInboundTransformerForModel( $model, $source )
+                public function getInboundTransformerForModel($model, $source)
                 {
                     $model = $this->getCleanModel( $model );
 
@@ -186,7 +186,7 @@ class ResourceServiceProvider extends ServiceProvider
                     return $resource;
                 }
 
-                public function getModelForInboundEndpoint( $endpoint, $source )
+                public function getModelForInboundEndpoint($endpoint, $source)
                 {
                     $resource = $this->getResourceForInboundEndpoint($endpoint, $source);
 
@@ -199,7 +199,7 @@ class ResourceServiceProvider extends ServiceProvider
                     return $model;
                 }
 
-                private function getCleanModel( $model )
+                private function getCleanModel($model)
                 {
                     // Remove \ from start of $model if present
                     $model = ltrim( $model, '\\' );

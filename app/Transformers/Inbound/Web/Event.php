@@ -8,7 +8,7 @@ use App\Transformers\Inbound\WebTransformer;
 class Event extends WebTransformer
 {
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [
@@ -23,7 +23,7 @@ class Event extends WebTransformer
 
     }
 
-    protected function getSync( Datum $datum, $test = false )
+    protected function getSync(Datum $datum, $test = false)
     {
 
         return [
@@ -33,9 +33,9 @@ class Event extends WebTransformer
     }
 
 
-    private function getSyncEmailSeries( Datum $datum )
+    private function getSyncEmailSeries(Datum $datum)
     {
-        return $this->getSyncPivots( $datum, 'email_series', 'email_series_id', function( $pivot ) {
+        return $this->getSyncPivots( $datum, 'email_series', 'email_series_id', function ($pivot) {
 
             return [
                 $pivot->email_series_id => array_diff_key((new Datum($pivot))->all(), array_flip(['id', 'email_series_id']))

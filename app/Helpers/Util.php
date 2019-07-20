@@ -26,7 +26,7 @@ function ddd($variable)
  * @author code-kobold (Ron Metten) (www.code-kobold.de)
  * @link http://codetalk.code-kobold.de/cantor-tuple-function/
  */
-function cantorTuple( ...$list )
+function cantorTuple(...$list)
 {
     if (count($list) == 0) {
         return null;

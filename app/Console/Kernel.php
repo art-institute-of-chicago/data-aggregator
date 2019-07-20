@@ -81,7 +81,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('dump:export')
             ->dailyAt('22:45')
             ->withoutOverlapping()
-            ->after(function() {
+            ->after(function () {
                 $this->call('dump:upload',[
                     '--reset' => 'default',
                 ]);

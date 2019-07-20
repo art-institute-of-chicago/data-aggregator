@@ -7,7 +7,7 @@ use App\Transformers\Datum;
 class MembershipTransformer extends BaseTransformer
 {
 
-    protected function getIds( Datum $datum )
+    protected function getIds(Datum $datum)
     {
 
         return [

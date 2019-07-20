@@ -69,7 +69,7 @@ trait ImportsData
      *
      * @return string|object
      */
-    protected function fetch( $file, $decode = false ) {
+    protected function fetch($file, $decode = false) {
 
         if( !$contents = @file_get_contents( $file ) )
         {
@@ -93,7 +93,7 @@ trait ImportsData
      *
      * @return string
      */
-    protected function fetchWithAuth( $url, $decode = false )
+    protected function fetchWithAuth($url, $decode = false)
     {
 
         $ch = curl_init();
@@ -132,7 +132,7 @@ trait ImportsData
      *
      * @return string
      */
-    protected function getUrl( $endpoint, $page = 1, $limit = 1000 )
+    protected function getUrl($endpoint, $page = 1, $limit = 1000)
     {
 
         return $this->api . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit;
@@ -149,7 +149,7 @@ trait ImportsData
      *
      * @return object
      */
-    protected function query( $endpoint, $page = 1, $limit = 500 )
+    protected function query($endpoint, $page = 1, $limit = 500)
     {
 
         $url = $this->getUrl( $endpoint, $page, $limit );
@@ -180,7 +180,7 @@ trait ImportsData
      *
      * @return object
      */
-    protected function import( $source, $model, $endpoint, $current = 1 )
+    protected function import($source, $model, $endpoint, $current = 1)
     {
 
         $this->since = $this->command->last_success_at;
@@ -277,7 +277,7 @@ trait ImportsData
      *
      * @return boolean
      */
-    protected function resetData( $modelsToFlush, $tablesToClear )
+    protected function resetData($modelsToFlush, $tablesToClear)
     {
 
         // Return false if the user bails out
@@ -339,7 +339,7 @@ trait ImportsData
      * @param string $model
      * @param string $transformer
      */
-    protected function save( $datum, $model, $transformer )
+    protected function save($datum, $model, $transformer)
     {
 
         throw \Exception('You must overwrite the `save` method.');

@@ -40,7 +40,7 @@ class ImportMobile extends AbstractImportCommand
         $this->importTours($results);
     }
 
-    private function importArtworks( $results )
+    private function importArtworks($results)
     {
         $this->info("Importing mobile artworks...");
 
@@ -65,7 +65,7 @@ class ImportMobile extends AbstractImportCommand
         }
     }
 
-    private function importSounds( $results )
+    private function importSounds($results)
     {
         $this->info("Importing mobile sounds...");
 
@@ -89,7 +89,7 @@ class ImportMobile extends AbstractImportCommand
         }
     }
 
-    private function importTours( $results )
+    private function importTours($results)
     {
         $this->info("Importing mobile tours and tour stops...");
 
@@ -116,7 +116,7 @@ class ImportMobile extends AbstractImportCommand
         }
     }
 
-    private function importTourStops( $data, $tour )
+    private function importTourStops($data, $tour)
     {
         $this->info("Flushing tour stops for tour #{$tour->mobile_id}...");
 

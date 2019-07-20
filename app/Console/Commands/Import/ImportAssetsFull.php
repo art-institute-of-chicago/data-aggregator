@@ -60,7 +60,7 @@ class ImportAssetsFull extends AbstractImportCommand
     /**
      * Temporarily overriding this to have control over the `$limit` default here.
      */
-    protected function query( $endpoint, $page = 1, $limit = 500 )
+    protected function query($endpoint, $page = 1, $limit = 500)
     {
         return parent::query( $endpoint, $page, 10 );
     }

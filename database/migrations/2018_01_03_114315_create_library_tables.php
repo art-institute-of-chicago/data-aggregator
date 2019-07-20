@@ -14,14 +14,14 @@ class CreateLibraryTables extends Migration
 
     public function up()
     {
-        Schema::create('library_materials', function(Blueprint $table) {
+        Schema::create('library_materials', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->text('title')->nullable();
             $table->integer('date')->nullable()->index();
             $table->timestamps();
         });
 
-        Schema::create('library_terms', function(Blueprint $table) {
+        Schema::create('library_terms', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('uri')->nullable()->index();
             $table->text('title')->nullable();
@@ -30,7 +30,7 @@ class CreateLibraryTables extends Migration
 
         foreach( $this->material_terms as $material_term ) {
 
-            Schema::create($material_term, function(Blueprint $table) {
+            Schema::create($material_term, function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('material_id')->index();
                 $table->string('term_id')->index();

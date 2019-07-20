@@ -17,7 +17,7 @@ class UpdateResources extends BaseCommand
     public function handle()
     {
 
-        Artwork::whereHas('documents', function( $query ) {
+        Artwork::whereHas('documents', function ($query) {
 
             $query->where('is_educational_resource', '=', true)
                  ->orWhere('is_multimedia_resource', '=', true);
@@ -25,7 +25,7 @@ class UpdateResources extends BaseCommand
         })
         ->orWhereHas('sites')
         ->orWhereHas('sections')
-        ->each( function( $artwork ) {
+        ->each( function ($artwork) {
 
             $artwork->searchable();
 

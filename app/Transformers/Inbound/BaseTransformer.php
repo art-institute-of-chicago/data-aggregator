@@ -38,7 +38,7 @@ class BaseTransformer extends AbstractTransformer
      * @param \Illuminate\Database\Eloquent\Model $instance
      * @param mixed $datum
      */
-    public function shouldSave( Model $instance, $datum )
+    public function shouldSave(Model $instance, $datum)
     {
         return true;
     }
@@ -49,7 +49,7 @@ class BaseTransformer extends AbstractTransformer
      * @param mixed $datum
      * @return array
      */
-    public function getSyncNew( $datum )
+    public function getSyncNew($datum)
     {
         // Transform $datum into instanceof Datum
         $datum = $this->getDatum( $datum );
@@ -77,7 +77,7 @@ class BaseTransformer extends AbstractTransformer
      *
      * @param \App\Transformers\Datum  $datum
      */
-    public function getSyncExNew( $datum )
+    public function getSyncExNew($datum)
     {
         // Transform $datum into instanceof Datum
         $datum = $this->getDatum( $datum );
@@ -93,7 +93,7 @@ class BaseTransformer extends AbstractTransformer
      *
      * @param \App\Transformers\Datum  $datum
      */
-    protected function getSyncEx( Datum $datum )
+    protected function getSyncEx(Datum $datum)
     {
         return [];
     }
@@ -105,7 +105,7 @@ class BaseTransformer extends AbstractTransformer
      * @param mixed $datum
      * @return array
      */
-    public function getFill( $instance, $datum )
+    public function getFill($instance, $datum)
     {
         // Transform $datum into instanceof Datum
         $datum = $this->getDatum( $datum );
@@ -128,7 +128,7 @@ class BaseTransformer extends AbstractTransformer
      * @param mixed $datum
      * @return array
      */
-    public function fill( Model $instance, $datum )
+    public function fill(Model $instance, $datum)
     {
 
         $datum = $this->getFill( $instance, $datum );
@@ -147,7 +147,7 @@ class BaseTransformer extends AbstractTransformer
      * @param \Illuminate\Database\Eloquent\Model $instance
      * @param mixed $datum
      */
-    public function sync( Model $instance, $datum )
+    public function sync(Model $instance, $datum)
     {
         // Transform $datum into instanceof Datum
         $datum = $this->getDatum( $datum );
@@ -177,7 +177,7 @@ class BaseTransformer extends AbstractTransformer
      *
      * @param mixed $datum
      */
-    public function getId( $datum )
+    public function getId($datum)
     {
         $ids = $this->getIds($this->getDatum($datum));
 
@@ -196,7 +196,7 @@ class BaseTransformer extends AbstractTransformer
      * @param  \App\Transformers\Datum  $datum
      * @return array
      */
-    protected function getSync( Datum $datum )
+    protected function getSync(Datum $datum)
     {
 
         return [];
@@ -210,7 +210,7 @@ class BaseTransformer extends AbstractTransformer
      * @param \Illuminate\Database\Eloquent\Model  $instance
      * @param \App\Transformers\Datum  $datum
      */
-    protected function syncEx( Model $instance, Datum $datum )
+    protected function syncEx(Model $instance, Datum $datum)
     {
         return;
     }
@@ -221,7 +221,7 @@ class BaseTransformer extends AbstractTransformer
      * @param  \App\Transformers\Datum  $datum
      * @return array
      */
-    protected function getIds( Datum $datum )
+    protected function getIds(Datum $datum)
     {
 
         return [
@@ -236,7 +236,7 @@ class BaseTransformer extends AbstractTransformer
      * @param  \App\Transformers\Datum  $datum
      * @return array
      */
-    protected function getTitle( Datum $datum )
+    protected function getTitle(Datum $datum)
     {
 
         return [
@@ -253,7 +253,7 @@ class BaseTransformer extends AbstractTransformer
      * @param  \App\Transformers\Datum  $datum
      * @return array
      */
-    protected function getDates( Datum $datum )
+    protected function getDates(Datum $datum)
     {
 
         return [
@@ -271,7 +271,7 @@ class BaseTransformer extends AbstractTransformer
      * @param  \App\Transformers\Datum  $datum
      * @return array
      */
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [];
@@ -290,7 +290,7 @@ class BaseTransformer extends AbstractTransformer
      *
      * @return array
      */
-    protected function getSyncPivots( Datum $datum, $pivot_field, $id_field, $mapping_fn )
+    protected function getSyncPivots(Datum $datum, $pivot_field, $id_field, $mapping_fn)
     {
 
         // This method assumes that the pivot field's value is an array, not an object!
@@ -300,7 +300,7 @@ class BaseTransformer extends AbstractTransformer
             return [];
         }
 
-        $pivots = collect( $datum->{$pivot_field} )->filter( function( $pivot ) use ( $id_field ) {
+        $pivots = collect( $datum->{$pivot_field} )->filter( function ($pivot) use ($id_field) {
 
             return (bool) ($pivot->{$id_field} ?? false);
 
@@ -319,7 +319,7 @@ class BaseTransformer extends AbstractTransformer
      * @param mixed $datum
      * @return \App\Transformers\Datum
      */
-    private function getDatum( $datum )
+    private function getDatum($datum)
     {
 
         return $datum instanceof Datum ? $datum : new Datum( $datum );
@@ -332,7 +332,7 @@ class BaseTransformer extends AbstractTransformer
      * @param \App\Transformers\Datum $datum
      * @return array
      */
-    private function transform( Datum $datum )
+    private function transform(Datum $datum)
     {
 
         // Use the stored datum as the base - we can prune it later!
@@ -369,10 +369,10 @@ class BaseTransformer extends AbstractTransformer
      * @param bool $isBlacklist
      * @return array
      */
-    private function prune( array $datum, array $attributes, bool $isBlacklist = false )
+    private function prune(array $datum, array $attributes, bool $isBlacklist = false)
     {
 
-        return array_filter( $datum, function( $key ) use ( $attributes, $isBlacklist ) {
+        return array_filter( $datum, function ($key) use ($attributes, $isBlacklist) {
             $match = in_array( $key, $attributes );
             return $isBlacklist ? !$match : $match;
         }, ARRAY_FILTER_USE_KEY);
@@ -385,7 +385,7 @@ class BaseTransformer extends AbstractTransformer
      * @param string|\Illuminate\Database\Eloquent\Model $entity
      * @return array
      */
-    private function getAttributes( $entity )
+    private function getAttributes($entity)
     {
 
         if (is_string($entity)) {
@@ -408,7 +408,7 @@ class BaseTransformer extends AbstractTransformer
      * @param \Illuminate\Database\Eloquent\Model $instance
      * @return array
      */
-    private function getModelAttributes( Model $instance )
+    private function getModelAttributes(Model $instance)
     {
         return $this->getTableAttributes( $instance->getTable() );
     }
@@ -420,7 +420,7 @@ class BaseTransformer extends AbstractTransformer
      * @param string $tableName
      * @return array
      */
-    private function getTableAttributes( string $tableName )
+    private function getTableAttributes(string $tableName)
     {
 
         $columns = Schema::getColumnListing( $tableName );

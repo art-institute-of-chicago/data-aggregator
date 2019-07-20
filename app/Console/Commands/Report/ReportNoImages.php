@@ -65,7 +65,7 @@ class ReportNoImages extends BaseCommand
         }
     }
 
-    private function insertOne( $artwork )
+    private function insertOne($artwork)
     {
         $row = [
             'artwork_id' => $artwork->citi_id,

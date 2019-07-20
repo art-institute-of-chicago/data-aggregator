@@ -10,7 +10,7 @@ class Page extends WebTransformer
 
     use HasBlocks { getExtraFields as getBlockFields; }
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         // TODO: Move these to trait?

@@ -8,7 +8,7 @@ use App\Transformers\Inbound\CollectionsTransformer;
 class Agent extends CollectionsTransformer
 {
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [

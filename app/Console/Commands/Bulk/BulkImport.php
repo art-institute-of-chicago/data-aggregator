@@ -50,7 +50,7 @@ class BulkImport extends BaseCommand
         {
             $json = $this->query($source, $endpoint, $currentPage, $this->chunkSize, $ids);
 
-            $data = collect($json->data)->map(function($datum) use ($transformer, $table) {
+            $data = collect($json->data)->map(function ($datum) use ($transformer, $table) {
                 return [
                     'fill' => $transformer->getFill($table, $datum),
                     'sync' => [
@@ -62,7 +62,7 @@ class BulkImport extends BaseCommand
             });
 
             // TODO: Take care of date and JSON columns in transformer?
-            $fills = $data->pluck('fill')->map(function($datum) use ($model) {
+            $fills = $data->pluck('fill')->map(function ($datum) use ($model) {
                 $clone = clone $model;
                 array_map([$clone, 'setAttribute'], array_keys($datum), array_values($datum));
                 return $clone->getAttributes();
@@ -70,7 +70,7 @@ class BulkImport extends BaseCommand
 
             // Manually append timestamps
             $now = date("Y-m-d H:i:s");
-            $fills = $fills->map(function($datum) use ($now) {
+            $fills = $fills->map(function ($datum) use ($now) {
                 return array_merge($datum, [
                     'created_at' => $now,
                     'updated_at' => $now,
@@ -78,11 +78,11 @@ class BulkImport extends BaseCommand
             });
 
             // Flatten relations, index by table name. Please refactor me.
-            $syncs = $data->pluck('sync')->map(function($datum) use ($model) {
-                $relations = collect($datum['relations'])->map(function($items, $relationMethod) use ($model, $datum) {
+            $syncs = $data->pluck('sync')->map(function ($datum) use ($model) {
+                $relations = collect($datum['relations'])->map(function ($items, $relationMethod) use ($model, $datum) {
                     $relation = $model->{$relationMethod}();
                     return [
-                        $relation->getTable() => collect($items)->map(function($value, $key) use ($relation, $datum) {
+                        $relation->getTable() => collect($items)->map(function ($value, $key) use ($relation, $datum) {
                             return is_array($value) ? array_merge([
                                 $relation->getForeignPivotKeyName() => $datum['id'],
                                 $relation->getRelatedPivotKeyName() => $key,
@@ -100,7 +100,7 @@ class BulkImport extends BaseCommand
 
                 $tables = array_unique(array_merge(...array_map('array_keys', $relations->all())));
 
-                return collect($tables)->map(function($table) use ($relations) {
+                return collect($tables)->map(function ($table) use ($relations) {
                     $values = $relations->pluck($table)->filter()->all();
                     return [
                         $table => empty($values) ? [] : array_merge(...$values),
@@ -109,12 +109,12 @@ class BulkImport extends BaseCommand
             });
 
             $syncEx = $data->pluck('syncEx');
-            $syncs = $syncs->map(function($datum, $key) use ($syncEx) {
+            $syncs = $syncs->map(function ($datum, $key) use ($syncEx) {
                 return $datum->merge($syncEx->get($key));
             });
 
             // Merge an indexed collection of assoc. collections w/o overwriting
-            $syncs = ($syncs->first() ?? collect([]))->map(function($items, $table) use ($syncs) {
+            $syncs = ($syncs->first() ?? collect([]))->map(function ($items, $table) use ($syncs) {
                 return $syncs->pluck($table)->collapse()->all();
             });
 

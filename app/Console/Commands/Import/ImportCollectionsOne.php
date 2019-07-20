@@ -32,7 +32,7 @@ class ImportCollectionsOne extends ImportCollectionsFull
 
     }
 
-    private function fetchItem( $endpoint, $id )
+    private function fetchItem($endpoint, $id)
     {
 
         $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;

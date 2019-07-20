@@ -8,7 +8,7 @@ use App\Transformers\Inbound\ShopTransformer;
 class Product extends ShopTransformer
 {
 
-    protected function getSync( Datum $datum )
+    protected function getSync(Datum $datum)
     {
 
         return [
@@ -17,7 +17,7 @@ class Product extends ShopTransformer
 
     }
 
-    private function getSyncArtists( Datum $datum )
+    private function getSyncArtists(Datum $datum)
     {
 
         if( !$datum->artist_ids )
@@ -25,7 +25,7 @@ class Product extends ShopTransformer
             return [];
         }
 
-        return array_filter( array_map( function( $id ) {
+        return array_filter( array_map( function ($id) {
 
             return $this->artistMapping[ $id ] ?? null;
 

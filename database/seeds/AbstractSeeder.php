@@ -56,7 +56,7 @@ abstract class AbstractSeeder extends Seeder
      * @param  string  $method        Name of method on subject, which must return an instance of
      *                                \Illuminate\Database\Eloquent\Relations\Relation
      */
-    protected function seedRelation( $subjectClass, $objectClass, $method )
+    protected function seedRelation($subjectClass, $objectClass, $method)
     {
 
         $isReflexive = ( $subjectClass === $objectClass );
@@ -88,7 +88,7 @@ abstract class AbstractSeeder extends Seeder
     /**
      * Determine which `seed___` method should be used for this relationship.
      */
-    private function getRelationMethod( $subjectClass, $method )
+    private function getRelationMethod($subjectClass, $method)
     {
 
         $relation = ( new $subjectClass )->{$method}();
@@ -108,7 +108,7 @@ abstract class AbstractSeeder extends Seeder
      *
      * @link https://laravel.com/docs/5.5/eloquent-relationships#many-to-many
      */
-    private function seedBelongsToMany( $subject, $objects, $method )
+    private function seedBelongsToMany($subject, $objects, $method)
     {
 
         $subject->{$method}()->sync( $objects );
@@ -118,7 +118,7 @@ abstract class AbstractSeeder extends Seeder
     /**
      * Helper for seeding BelongsToManyOrOne relations.
      */
-    private function seedBelongsToManyOrOne( $subject, $objects, $method )
+    private function seedBelongsToManyOrOne($subject, $objects, $method)
     {
 
         $subject->{$method}()->sync( $objects );
@@ -131,7 +131,7 @@ abstract class AbstractSeeder extends Seeder
      *
      * @link https://laravel.com/docs/5.5/eloquent-relationships#one-to-many
      */
-    private function seedHasMany( $subject, $objects, $method )
+    private function seedHasMany($subject, $objects, $method)
     {
 
         $subject->{$method}()->saveMany( $objects );
@@ -144,7 +144,7 @@ abstract class AbstractSeeder extends Seeder
      *
      * @link https://laravel.com/docs/5.5/eloquent-relationships#updating-belongs-to-relationships
      */
-    private function seedBelongsTo( $subject, $objects, $method )
+    private function seedBelongsTo($subject, $objects, $method)
     {
 
         $object = $objects->random();
@@ -165,7 +165,7 @@ abstract class AbstractSeeder extends Seeder
      * @param  string  $method        Name of method on subject, which must return an instance of
      *                                \Illuminate\Database\Eloquent\Relations\Relation
      */
-    private function validateSeedRelation( $subjectClass, $objectClass, $subjects, $objects, $method )
+    private function validateSeedRelation($subjectClass, $objectClass, $subjects, $objects, $method)
     {
 
         if( ! method_exists( $subjectClass, $method ) )

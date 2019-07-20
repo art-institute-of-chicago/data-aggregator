@@ -19,7 +19,7 @@ class Artwork extends CollectionsTransformer
 
     use ConvertsToHtml;
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         // TODO: This is supposed to be a string, not an array...
@@ -43,7 +43,7 @@ class Artwork extends CollectionsTransformer
 
     }
 
-    protected function getSync( Datum $datum, $test = false )
+    protected function getSync(Datum $datum, $test = false)
     {
 
         return [
@@ -59,7 +59,7 @@ class Artwork extends CollectionsTransformer
 
     }
 
-    public function syncEx( Model $instance, Datum $datum )
+    public function syncEx(Model $instance, Datum $datum)
     {
 
         $this->syncDates( $instance, $datum );
@@ -72,10 +72,10 @@ class Artwork extends CollectionsTransformer
      * @param \App\Transformers\Datum $datum
      * @return array
      */
-    private function getSyncCategories( Datum $datum )
+    private function getSyncCategories(Datum $datum)
     {
 
-        $categories = collect( $datum->category_ids )->map( function( $id ) {
+        $categories = collect( $datum->category_ids )->map( function ($id) {
             return 'PC-' . $id;
         });
 
@@ -89,10 +89,10 @@ class Artwork extends CollectionsTransformer
      * @param \App\Transformers\Datum $datum
      * @return array
      */
-    private function getSyncTerms( Datum $datum )
+    private function getSyncTerms(Datum $datum)
     {
 
-        $pref_terms = collect( $datum->pref_term_ids )->map( function( $term_id ) {
+        $pref_terms = collect( $datum->pref_term_ids )->map( function ($term_id) {
             return [
                 ( 'TM-' . $term_id ) => [
                     'preferred' => true
@@ -100,7 +100,7 @@ class Artwork extends CollectionsTransformer
             ];
         });
 
-        $alt_terms = collect( $datum->alt_term_ids )->map( function( $term_id ) {
+        $alt_terms = collect( $datum->alt_term_ids )->map( function ($term_id) {
             return [
                 ( 'TM-' . $term_id ) => [
                     'preferred' => false
@@ -121,7 +121,7 @@ class Artwork extends CollectionsTransformer
      * @param \App\Transformers\Datum $datum
      * @return array
      */
-    private function getSyncArtists( Datum $datum )
+    private function getSyncArtists(Datum $datum)
     {
 
         // Worst case: no pivots, nor basic artist
@@ -142,7 +142,7 @@ class Artwork extends CollectionsTransformer
             ];
         }
 
-        return $this->getSyncPivots( $datum, 'artwork_agents', 'agent_id', function( $pivot ) {
+        return $this->getSyncPivots( $datum, 'artwork_agents', 'agent_id', function ($pivot) {
 
             return [
                 $pivot->agent_id => [
@@ -163,10 +163,10 @@ class Artwork extends CollectionsTransformer
      * @param \App\Transformers\Datum $datum
      * @return array
      */
-    private function getSyncPlaces( Datum $datum )
+    private function getSyncPlaces(Datum $datum)
     {
 
-        return $this->getSyncPivots( $datum, 'artwork_places', 'place_id', function( $pivot ) {
+        return $this->getSyncPivots( $datum, 'artwork_places', 'place_id', function ($pivot) {
 
             return [
                 $pivot->place_id => [
@@ -182,10 +182,10 @@ class Artwork extends CollectionsTransformer
     /**
      * Attach catalogue raisonnes within which this artwork was published.
      */
-    private function getSyncCatalogues( Datum $datum )
+    private function getSyncCatalogues(Datum $datum)
     {
 
-        return $this->getSyncPivots( $datum, 'artwork_catalogues', 'catalogue_id', function( $pivot ) {
+        return $this->getSyncPivots( $datum, 'artwork_catalogues', 'catalogue_id', function ($pivot) {
 
             return [
                 $pivot->catalogue_id => [
@@ -202,7 +202,7 @@ class Artwork extends CollectionsTransformer
     /**
      * Attach dates to an artwork.
      */
-    private function syncDates( Model $instance, Datum $datum )
+    private function syncDates(Model $instance, Datum $datum)
     {
         $instance->dates()->delete();
 
@@ -218,11 +218,11 @@ class Artwork extends CollectionsTransformer
         }
     }
 
-    protected function getSyncEx( Datum $datum )
+    protected function getSyncEx(Datum $datum)
     {
         $now = date("Y-m-d H:i:s");
         return [
-            'artwork_dates' => collect($datum->artwork_dates ?? [])->map( function($date) use ($datum, $now) {
+            'artwork_dates' => collect($datum->artwork_dates ?? [])->map( function ($date) use ($datum, $now) {
                 return [
                     'artwork_citi_id' => $datum->id,
                     'date_earliest' => Carbon::parse($date->date_earliest),

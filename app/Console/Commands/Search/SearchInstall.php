@@ -48,7 +48,7 @@ class SearchInstall extends BaseCommand
     }
 
 
-    private function install( $model, $prefix )
+    private function install($model, $prefix)
     {
 
         $index = app('Search')->getIndexForModel( $model, $prefix );

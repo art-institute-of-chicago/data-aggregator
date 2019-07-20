@@ -15,7 +15,7 @@ class Place extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
-    public static function validateId( $id )
+    public static function validateId($id)
     {
 
         return is_numeric($id);

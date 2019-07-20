@@ -37,7 +37,7 @@ class ImportWebOne extends ImportWebFull
 
     }
 
-    private function fetchItem( $endpoint, $id )
+    private function fetchItem($endpoint, $id)
     {
 
         $url = env('WEB_CMS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;

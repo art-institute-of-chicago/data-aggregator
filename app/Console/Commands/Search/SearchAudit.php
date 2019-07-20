@@ -40,7 +40,7 @@ class SearchAudit extends BaseCommand
     }
 
 
-    public function compareTotals( $model )
+    public function compareTotals($model)
     {
 
         $response = Elasticsearch::search([
@@ -59,7 +59,7 @@ class SearchAudit extends BaseCommand
         }
     }
 
-    public function compareLatest( $model )
+    public function compareLatest($model)
     {
 
         if ($model::count() == 0) {

@@ -8,7 +8,7 @@ use App\Transformers\Inbound\BaseTransformer;
 class Site extends BaseTransformer
 {
 
-    protected function getIds( Datum $datum )
+    protected function getIds(Datum $datum)
     {
 
         return [
@@ -17,7 +17,7 @@ class Site extends BaseTransformer
 
     }
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [
@@ -26,7 +26,7 @@ class Site extends BaseTransformer
 
     }
 
-    protected function getSync( Datum $datum )
+    protected function getSync(Datum $datum)
     {
 
         return [

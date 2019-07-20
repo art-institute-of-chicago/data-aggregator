@@ -51,7 +51,7 @@ abstract class AbstractController extends BaseController
      * @param string $param  Name of query string param to parse
      * @param string $method  Either `parseIncludes` or `parseExcludes`
      */
-    private function parseFractalParam( $param, $method )
+    private function parseFractalParam($param, $method)
     {
         $values = Input::get($param);
 
@@ -175,7 +175,7 @@ abstract class AbstractController extends BaseController
      * @param  \Closure $callback
      * @return \Illuminate\Http\Response
      */
-    protected function select( Request $request, Closure $callback )
+    protected function select(Request $request, Closure $callback)
     {
 
         $this->validateMethod( $request );
@@ -207,7 +207,7 @@ abstract class AbstractController extends BaseController
      * @param  \Closure $callback
      * @return \Illuminate\Http\Response
      */
-    protected function collect( Request $request, Closure $callback )
+    protected function collect(Request $request, Closure $callback)
     {
 
         $this->validateMethod( $request );

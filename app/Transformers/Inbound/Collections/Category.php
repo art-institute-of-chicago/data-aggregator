@@ -7,7 +7,7 @@ use App\Transformers\Datum;
 class Category extends BaseList
 {
 
-    protected function getIds( Datum $datum )
+    protected function getIds(Datum $datum)
     {
 
         return  [
@@ -16,7 +16,7 @@ class Category extends BaseList
 
     }
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [

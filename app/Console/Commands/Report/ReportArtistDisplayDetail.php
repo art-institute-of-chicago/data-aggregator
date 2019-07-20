@@ -52,7 +52,7 @@ class ReportArtistDisplayDetail extends BaseCommand
 
     }
 
-    private function insertOne( $numberOfLinebreaks, $artwork )
+    private function insertOne($numberOfLinebreaks, $artwork)
     {
         $row = [
             'number_of_linebreaks' => $numberOfLinebreaks,

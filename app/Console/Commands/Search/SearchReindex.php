@@ -52,7 +52,7 @@ class SearchReindex extends BaseCommand
     }
 
 
-    public function reindex( $model )
+    public function reindex($model)
     {
 
         $index = app('Search')->getIndexForModel( $model, $this->source );

@@ -49,11 +49,11 @@ class DumpExport extends AbstractDumpCommand
             }
 
             // TODO: Consider moving some of these to instance variables?
-            $query->chunk(100, function($items) use (&$csv, &$csvPart, $dumpPath, $csvPath, $bar, $table) {
+            $query->chunk(100, function ($items) use (&$csv, &$csvPart, $dumpPath, $csvPath, $bar, $table) {
 
                 // Unfortunately there's no way to set PDO::FETCH_ASSOC
                 // https://github.com/laravel/framework/issues/17557
-                $items = $items->map(function($item) {
+                $items = $items->map(function ($item) {
                     return (array) $item;
                 });
 
@@ -89,7 +89,7 @@ class DumpExport extends AbstractDumpCommand
     private function getPreparedTables()
     {
 
-        return collect($this->whitelistedTables)->map( function($tableName) {
+        return collect($this->whitelistedTables)->map( function ($tableName) {
 
             $prefixedTableName = DB::getTablePrefix() . $tableName;
 

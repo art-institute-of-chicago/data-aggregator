@@ -12,7 +12,7 @@ class Datum implements JsonSerializable
 
     private $subdatums = [];
 
-    public function __construct( $datum )
+    public function __construct($datum)
     {
 
         if( is_array( $datum ) )
@@ -23,7 +23,7 @@ class Datum implements JsonSerializable
         $this->datum = $datum;
     }
 
-    public function __get( $field )
+    public function __get($field)
     {
 
         $value = $this->datum->{$field} ?? null;
@@ -39,7 +39,7 @@ class Datum implements JsonSerializable
      *
      * @return array
      */
-    public function all( $field = null )
+    public function all($field = null)
     {
 
         if( !isset( $field ) )
@@ -61,7 +61,7 @@ class Datum implements JsonSerializable
      *
      * @return int
      */
-    public function date( $field )
+    public function date($field)
     {
 
         // Note how we're getting __get() to fire here
@@ -86,7 +86,7 @@ class Datum implements JsonSerializable
 
     }
 
-    public function datetime( $field ) {
+    public function datetime($field) {
 
         $timestamp = $this->date( $field );
 
@@ -115,7 +115,7 @@ class Datum implements JsonSerializable
      *
      * @return \App\Transformers\Datum;
      */
-    private function getSubDatum( $object )
+    private function getSubDatum($object)
     {
 
         $hash = spl_object_hash( $object );
@@ -134,7 +134,7 @@ class Datum implements JsonSerializable
      *
      * @return mixed;
      */
-    private function getCleanValue( $value )
+    private function getCleanValue($value)
     {
 
         if( !isset( $value ) )

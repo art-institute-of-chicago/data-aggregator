@@ -146,7 +146,7 @@ class ImportWebFull extends AbstractImportCommand
 
     }
 
-    protected function query( $endpoint, $page = 1, $limit = 100 )
+    protected function query($endpoint, $page = 1, $limit = 100)
     {
 
         if (env('WEB_CMS_DATA_SERVICE_USERNAME'))

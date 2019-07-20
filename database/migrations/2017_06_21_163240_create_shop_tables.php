@@ -50,7 +50,7 @@ class CreateShopTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('artist_product', function(Blueprint $table) {
+        Schema::create('artist_product', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('agent_citi_id')->index();
             $table->integer('product_shop_id')->index();

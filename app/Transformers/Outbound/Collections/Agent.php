@@ -156,7 +156,7 @@ class Agent extends BaseTransformer
     {
         $suggestFields = $this->traitGetSuggestFields();
 
-        $newFilter = function($item) {
+        $newFilter = function ($item) {
             return $item->createdArtworks()->count() > 1;
         };
 

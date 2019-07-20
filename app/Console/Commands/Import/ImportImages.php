@@ -23,7 +23,7 @@ class ImportImages extends AbstractImportCommand
     }
 
     // TODO: Optionally, use an inbound transformer here?
-    protected function save( $datum, $model, $transformer )
+    protected function save($datum, $model, $transformer)
     {
 
         $this->info("Importing #{$datum->id}: {$datum->title}");

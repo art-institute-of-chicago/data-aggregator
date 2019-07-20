@@ -135,7 +135,7 @@ class Request
      *
      * @return void
      */
-    public function __construct( $resource = null, $id = null )
+    public function __construct($resource = null, $id = null)
     {
         // TODO: Add $input here too..?
         $this->resources = $resource;
@@ -150,7 +150,7 @@ class Request
      *
      * @return array
      */
-    public function getBaseParams( array $input ) {
+    public function getBaseParams(array $input) {
 
         // Grab resource target from resource endpoint or `resources` param
         $resources = $this->resources ?? $input['resources'] ?? null;
@@ -173,7 +173,7 @@ class Request
 
             // Filter out any resources that have a parent resource requested as well
             // So e.g. if places and galleries are requested, we'll show places only
-            $resources = array_filter( $resources, function($resource) use ($resources) {
+            $resources = array_filter( $resources, function ($resource) use ($resources) {
 
                 $parent = app('Resources')->getParent( $resource );
 
@@ -185,7 +185,7 @@ class Request
             $resources = collect( $resources );
 
             // Grab settings from our models via the service provider
-            $settings = $resources->map( function($resource) {
+            $settings = $resources->map( function ($resource) {
 
                 return [
                     $resource => app('Search')->getSearchScopeForEndpoint( $resource ),
@@ -207,15 +207,15 @@ class Request
             }
 
             // These will be used to wrap the query in `function_score`
-            $this->functionScores = $settings->filter( function( $value, $key ) {
+            $this->functionScores = $settings->filter( function ($value, $key) {
                 return isset($value['function_score']);
-            })->map( function( $item, $key ) {
+            })->map( function ($item, $key) {
                 return $item['function_score'];
             })->all();
 
             if (isset($input['functions']))
             {
-                $customScoreFunctions = collect($input['functions'])->filter(function($value, $key) use ($resources) {
+                $customScoreFunctions = collect($input['functions'])->filter(function ($value, $key) use ($resources) {
                     return $resources->contains($key);
                 });
 
@@ -245,7 +245,7 @@ class Request
      *
      * @return array
      */
-    public function getAutocompleteParams( $requestArgs = null ) {
+    public function getAutocompleteParams($requestArgs = null) {
 
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput($requestArgs);
@@ -283,7 +283,7 @@ class Request
      *
      * @return array
      */
-    public function getSearchParams( $input = null, $withAggregations = true ) {
+    public function getSearchParams($input = null, $withAggregations = true) {
 
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput( $input );
@@ -369,7 +369,7 @@ class Request
      *
      * @return array
      */
-    public function getExplainParams( $input = [] ) {
+    public function getExplainParams($input = []) {
 
         $params = $this->getSearchParams( $input, false );
 
@@ -391,7 +391,7 @@ class Request
      *
      * @return array
      */
-    public static function getValidInput( array $input = null ) {
+    public static function getValidInput(array $input = null) {
 
         // Grab all user input (query string params or json)
         $input = $input ?: Input::all();
@@ -422,7 +422,7 @@ class Request
      *
      * @return array
      */
-    private function getPaginationParams( array $input ) {
+    private function getPaginationParams(array $input) {
 
         // Elasticsearch params take precedence
         // If that doesn't work, attempt to convert Laravel's pagination into ES params
@@ -482,7 +482,7 @@ class Request
      *
      * @return array
      */
-    private function getFieldParams( array $input, $default = null ) {
+    private function getFieldParams(array $input, $default = null) {
 
         return [
             '_source' => $input['fields'] ?? ( $default ?? self::$defaultFields ),
@@ -502,7 +502,7 @@ class Request
      *
      * @return array
      */
-    private function addSortParams( array $params, array $input ) {
+    private function addSortParams(array $params, array $input) {
 
         if( isset( $input['sort'] ) )
         {
@@ -522,7 +522,7 @@ class Request
      *
      * @return array
      */
-    public function addRelevancyParams( array $params, array $input )
+    public function addRelevancyParams(array $params, array $input)
     {
 
         // Don't tweak relevancy if sort is passed
@@ -565,7 +565,7 @@ class Request
      *
      * @return array
      */
-    public function addFunctionScore( $params, $input )
+    public function addFunctionScore($params, $input)
     {
 
         if( empty($this->functionScores) || !isset( $this->resources ) )
@@ -659,7 +659,7 @@ class Request
      *
      * @return array
      */
-    public function addScopeParams( array $params, array $input )
+    public function addScopeParams(array $params, array $input)
     {
 
         if( !isset( $this->scopes ) || count( $this->scopes ) < 1 ) {
@@ -688,7 +688,7 @@ class Request
      *
      * @return array
      */
-    private function addEmptySearchParams( array $params ) {
+    private function addEmptySearchParams(array $params) {
 
         // PHP JSON-encodes empty array as [], not {}
         $params['body']['query']['bool']['must'][] = [
@@ -713,7 +713,7 @@ class Request
      *
      * @return array
      */
-    private function addSimpleSearchParams( array $params, array $input ) {
+    private function addSimpleSearchParams(array $params, array $input) {
 
         if ($colorParams = $this->getColorParams($params, $input)) {
             return $colorParams;
@@ -829,7 +829,7 @@ class Request
      *
      * @return array
      */
-    private function addFullSearchParams( array $params, array $input ) {
+    private function addFullSearchParams(array $params, array $input) {
 
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
@@ -853,7 +853,7 @@ class Request
      *
      * @return array
      */
-    public function addSuggestParams( array $params, array $input, $requestArgs = null)
+    public function addSuggestParams(array $params, array $input, $requestArgs = null)
     {
 
         $params['body']['suggest'] = [
@@ -877,7 +877,7 @@ class Request
      *
      * @return array
      */
-    private function addAutocompleteSuggestParams( array $params, array $input, $requestArgs = null)
+    private function addAutocompleteSuggestParams(array $params, array $input, $requestArgs = null)
     {
 
         $isThisAutosuggest = $requestArgs && is_array($requestArgs) && ($requestArgs['use_suggest_autocomplete_all'] ?? false);
@@ -927,7 +927,7 @@ class Request
      *
      * @return array
      */
-    public function addAggregationParams( array $params, array $input )
+    public function addAggregationParams(array $params, array $input)
     {
 
         $aggregations = $input['aggregations'] ?? $input['aggs'] ?? null;
@@ -942,7 +942,7 @@ class Request
 
     }
 
-    private function getFuzzy( array $input, string $query = null )
+    private function getFuzzy(array $input, string $query = null)
     {
         if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7)
         {
@@ -962,7 +962,7 @@ class Request
         return min([2, (int) $input['fuzzy']]);
     }
 
-    private function getColorParams( array $params, array $input )
+    private function getColorParams(array $params, array $input)
     {
         // Exit early if the query is not an exact hex string
         if (!(

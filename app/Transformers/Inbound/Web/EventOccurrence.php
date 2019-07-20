@@ -10,7 +10,7 @@ class EventOccurrence extends WebTransformer
 
     protected $passthrough = true;
 
-    protected function getIds( Datum $datum )
+    protected function getIds(Datum $datum)
     {
 
         return [
@@ -20,7 +20,7 @@ class EventOccurrence extends WebTransformer
 
     }
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
 
         return [
@@ -45,7 +45,7 @@ class EventOccurrence extends WebTransformer
      *
      * Not using this because it runs into PHP int-bound issues.
      */
-    private function getCantorId( $datum )
+    private function getCantorId($datum)
     {
         $timestamp = $datum->date('start_at'); // max one occurrence of a given master event per second
         $timestamp = $timestamp / 60; // max one occurrence per minute

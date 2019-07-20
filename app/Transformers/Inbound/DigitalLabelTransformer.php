@@ -7,7 +7,7 @@ use App\Transformers\Datum;
 class DigitalLabelTransformer extends BaseTransformer
 {
 
-    protected function getDates( Datum $datum )
+    protected function getDates(Datum $datum)
     {
 
         return [

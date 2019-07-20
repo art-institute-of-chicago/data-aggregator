@@ -106,7 +106,7 @@ trait ElasticSearchable
 
         $fields = $this->transformMapping();
 
-        $fields = array_filter( $fields, function($field) use ($isExact) {
+        $fields = array_filter( $fields, function ($field) use ($isExact) {
 
             return isset( $field['elasticsearch'] )
                 && isset( $field['elasticsearch']['default'] )
@@ -142,7 +142,7 @@ trait ElasticSearchable
     {
         $fields = $this->getDefaultSearchFieldMapping($isExact);
 
-        $fields = array_map( function( $field ) {
+        $fields = array_map( function ($field) {
 
             $label = $field['name'];
 
@@ -234,7 +234,7 @@ trait ElasticSearchable
      *
      * @return array
      */
-    private function getMappingForField( $field )
+    private function getMappingForField($field)
     {
 
         if( $field['elasticsearch'] ?? false )

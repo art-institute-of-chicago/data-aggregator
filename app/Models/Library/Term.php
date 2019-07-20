@@ -34,7 +34,7 @@ class Term extends BaseModel
      * @param string $id
      * @return boolean
      */
-    public static function validateId( $id )
+    public static function validateId($id)
     {
 
         return preg_match('/[a-z]+[0-9]+/', $id);

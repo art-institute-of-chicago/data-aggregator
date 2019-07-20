@@ -25,7 +25,7 @@ class SearchServiceProvider extends ServiceProvider
          * Override the laravel-scout-elastic package boot method so we can use
          * the connections created in laravel-elasticsearch.
          */
-        app(EngineManager::class)->extend('elasticsearch', function($app) {
+        app(EngineManager::class)->extend('elasticsearch', function ($app) {
             return new ElasticsearchEngine( Elasticsearch::connection(),
                 config('scout.elasticsearch.index') . '-',
                 true // Whether "index" should act like a prefix
@@ -44,7 +44,7 @@ class SearchServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->singleton('Search', function($app) {
+        $this->app->singleton('Search', function ($app) {
 
             return new class {
 
@@ -68,12 +68,12 @@ class SearchServiceProvider extends ServiceProvider
                     $resources = collect( $resources );
 
                     // Isolate searchable resources
-                    $resources = $resources->filter( function( $resource ) {
+                    $resources = $resources->filter( function ($resource) {
                         return $resource['is_searchable'] ?? false;
                     });
 
                     // Grab the models from resource definitions
-                    $models = $resources->map( function( $resource ) {
+                    $models = $resources->map( function ($resource) {
                         return $resource['model'];
                     });
 
@@ -90,7 +90,7 @@ class SearchServiceProvider extends ServiceProvider
                  */
                 public function getElasticsearchMappings() {
 
-                    $mappings = $this->models->map( function( $model ) {
+                    $mappings = $this->models->map( function ($model) {
                         return $this->getElasticsearchMapping( $model );
                     });
 
@@ -104,7 +104,7 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @return array
                  */
-                public function getElasticsearchMapping( $model ) {
+                public function getElasticsearchMapping($model) {
 
                     return $model::instance()->elasticsearchMapping();
 
@@ -115,7 +115,7 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @return array
                  */
-                public function getDefaultFields( $models = null, $isExact = false ) {
+                public function getDefaultFields($models = null, $isExact = false) {
 
                     // Fallback to getting default fields for all models
                     if( is_null( $models ) || $models->count() < 1 )
@@ -123,7 +123,7 @@ class SearchServiceProvider extends ServiceProvider
                         $models = $this->models;
                     }
 
-                    $fields = $models->map( function( $model ) use ( $isExact ) {
+                    $fields = $models->map( function ($model) use ($isExact) {
                         return $this->getDefaultFieldsForModel( $model, $isExact );
                     });
 
@@ -149,9 +149,9 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @return array
                  */
-                public function getDefaultFieldsForEndpoints( $endpoints, $isExact = false ) {
+                public function getDefaultFieldsForEndpoints($endpoints, $isExact = false) {
 
-                    $models = collect( $endpoints )->map( function( $endpoint ) {
+                    $models = collect( $endpoints )->map( function ($endpoint) {
                         return app('Resources')->getModelForEndpoint( $endpoint );
                     });
 
@@ -164,7 +164,7 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @return array
                  */
-                public function getDefaultFieldsForEndpoint( $endpoint ) {
+                public function getDefaultFieldsForEndpoint($endpoint) {
 
                     $model = app('Resources')->getModelForEndpoint( $endpoint );
 
@@ -177,7 +177,7 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @return array
                  */
-                private function getDefaultFieldsForModel( $model, $isExact = false ) {
+                private function getDefaultFieldsForModel($model, $isExact = false) {
 
                     // TODO: Class name must be a valid object or a string
                     // Fix this error when an unknown resource gets passed
@@ -190,7 +190,7 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @return string
                  */
-                public function getIndexForModel( $model, $prefix = null ) {
+                public function getIndexForModel($model, $prefix = null) {
 
                     $prefix = $prefix ?? env('ELASTICSEARCH_INDEX');
 
@@ -203,7 +203,7 @@ class SearchServiceProvider extends ServiceProvider
                  *
                  * @return string
                  */
-                public function getTypeForModel( $model ) {
+                public function getTypeForModel($model) {
 
                     return $model::instance()->searchableType();
 
@@ -223,7 +223,7 @@ class SearchServiceProvider extends ServiceProvider
                 /**
                  * Add model classname to searchable keychain and update the config.
                  */
-                public function addSearchableModel( $model ) {
+                public function addSearchableModel($model) {
 
                     $this->models->push( $model );
 
@@ -247,7 +247,7 @@ class SearchServiceProvider extends ServiceProvider
                  * @param $endpoint string
                  * @return array
                  */
-                public function getSearchScopeForEndpoint( $endpoint )
+                public function getSearchScopeForEndpoint($endpoint)
                 {
 
                     $model = app('Resources')->getModelForEndpoint( $endpoint );
@@ -299,7 +299,7 @@ class SearchServiceProvider extends ServiceProvider
 
                 }
 
-                public function getScopedQuery( $resource, $scope )
+                public function getScopedQuery($resource, $scope)
                 {
 
                     if (is_array($resource))

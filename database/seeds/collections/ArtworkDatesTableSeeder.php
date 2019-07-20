@@ -19,7 +19,7 @@ class ArtworkDatesTableSeeder extends AbstractSeeder
 
     }
 
-    public function seedDates( $artwork )
+    public function seedDates($artwork)
     {
 
         $hasPreferred = false;

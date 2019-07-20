@@ -59,7 +59,7 @@ class AddUpdateAtIndexes extends Migration
         }
 
         foreach ($this->tableNames as $tableName) {
-            Schema::table($tableName, function(Blueprint $table) {
+            Schema::table($tableName, function (Blueprint $table) {
                 $table->index('updated_at');
             });
         }
@@ -68,7 +68,7 @@ class AddUpdateAtIndexes extends Migration
     public function down()
     {
         foreach ($this->tableNames as $tableName) {
-            Schema::table($tableName, function(Blueprint $table) {
+            Schema::table($tableName, function (Blueprint $table) {
                 $table->dropIndex(['updated_at']);
             });
         }

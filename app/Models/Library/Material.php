@@ -32,7 +32,7 @@ class Material extends BaseModel
      * @param string $id
      * @return boolean
      */
-    public static function validateId( $id )
+    public static function validateId($id)
     {
 
         $length = strlen( env('PRIMO_API_SOURCE') );

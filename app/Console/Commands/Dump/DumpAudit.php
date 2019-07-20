@@ -21,13 +21,13 @@ class DumpAudit extends AbstractDumpCommand
 
         $this->warn('Tables excluded from the data dump:');
 
-        array_walk($excludedTables, function($item, $key) {
+        array_walk($excludedTables, function ($item, $key) {
             $this->info($item);
         });
 
         $this->warn('Tables in whitelist that have been removed:');
 
-        array_walk($removedTables, function($item, $key) {
+        array_walk($removedTables, function ($item, $key) {
             $this->info($item);
         });
     }
