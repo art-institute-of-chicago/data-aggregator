@@ -22,7 +22,7 @@ class CreateSponsorsTable extends Migration
         });
 
         Schema::table('events', function (Blueprint $table) {
-            $table->integer('sponsor_id');
+            $table->integer('sponsor_id')->nullable();
         });
     }
 
