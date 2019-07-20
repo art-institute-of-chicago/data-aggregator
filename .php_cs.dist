@@ -26,6 +26,8 @@ return PhpCsFixer\Config::create()
         'binary_operator_spaces' => [
             'default' => 'single_space',
         ],
+        'blank_line_after_namespace' => true,
+        'blank_line_after_opening_tag' => true,
     ])
     ->setFinder($finder)
 ;
