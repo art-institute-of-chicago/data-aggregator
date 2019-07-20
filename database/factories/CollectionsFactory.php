@@ -88,7 +88,7 @@ $factory->define(App\Models\Collections\Term::class, function (Faker\Generator $
         [
             'is_category' => false,
             'lake_uid' => 'TM-' . ($faker->unique()->randomNumber(6) + 999 * pow(10, 6)),
-            'subtype' => $faker->randomElement(['TT-1','TT-2','TT-3','TT-4','TT-5']),
+            'subtype' => $faker->randomElement(['TT-1', 'TT-2', 'TT-3', 'TT-4', 'TT-5']),
         ]
     );
 });
@@ -99,7 +99,7 @@ $factory->define(App\Models\Collections\Category::class, function (Faker\Generat
         [
             'is_category' => true,
             'lake_uid' => 'PC-' . ($faker->unique()->randomNumber(6) + 999 * pow(10, 6)),
-            'subtype' => $faker->randomElement(['CT-1','CT-3']),
+            'subtype' => $faker->randomElement(['CT-1', 'CT-3']),
             'parent_id' => $faker->randomElement(App\Models\Collections\Category::fake()->pluck('lake_uid')->all()),
         ]
     );
@@ -176,7 +176,7 @@ $factory->define(App\Models\Collections\Gallery::class, function (Faker\Generato
         [
             'is_closed' => $faker->boolean(25),
             'number' => $faker->randomNumber(3) . ($faker->boolean(25) ? 'A' : ''),
-            'floor' => $faker->randomElement([1,2,3, 'LL']),
+            'floor' => $faker->randomElement([1, 2, 3, 'LL']),
             'latitude' => $faker->latitude,
             'longitude' => $faker->longitude,
             'type' => 'AIC Gallery',

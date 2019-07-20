@@ -321,6 +321,8 @@ return PhpCsFixer\Config::create()
             'method',
             'const',
         ],
+        'void_return' => false, // Nice, but too much...
+        'whitespace_after_comma_in_array' => true,
     ])
     ->setFinder($finder)
 ;

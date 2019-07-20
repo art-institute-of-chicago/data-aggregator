@@ -25,9 +25,9 @@ class PrototypeMostSimilar extends BaseCommand
     protected $description = 'Output sharable file to demonstrate list of artworks "most similar" to another artwork';
 
     protected $fields = [
-        'thumbnail','id','title','main_reference_number',
-        'artist_id','style_ids','classification_ids',
-        'date_start','date_end',
+        'thumbnail', 'id', 'title', 'main_reference_number',
+        'artist_id', 'style_ids', 'classification_ids',
+        'date_start', 'date_end',
         'color',
     ];
 
