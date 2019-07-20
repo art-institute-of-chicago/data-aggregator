@@ -19,7 +19,6 @@ class SearchUninstall extends BaseCommand
 
     protected $description = 'Tear down the Search Service indexes';
 
-
     public function handle()
     {
 
@@ -59,7 +58,6 @@ class SearchUninstall extends BaseCommand
             }
 
         }
-
 
     }
 

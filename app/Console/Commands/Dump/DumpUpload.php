@@ -13,7 +13,6 @@ class DumpUpload extends AbstractDumpCommand
 
     protected $description = 'Pushes the local dump to a remote repo';
 
-
     public function handle()
     {
 

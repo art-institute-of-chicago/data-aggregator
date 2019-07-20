@@ -7,7 +7,6 @@ use App\Transformers\Outbound\Web\Sponsor;
 use App\Transformers\Outbound\Web\Traits\HasPublishDates;
 use App\Transformers\Outbound\Web\Traits\HasSearchTags;
 
-
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Event extends BaseTransformer

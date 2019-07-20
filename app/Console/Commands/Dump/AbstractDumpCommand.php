@@ -94,7 +94,6 @@ abstract class AbstractDumpCommand extends BaseCommand
         $this->shell = new Shell();
     }
 
-
     /**
      * All of the data dumps live in `database/dumps` per `config/filesystems.php`.
      * Use this to generate absolute paths to CSV files for `createFromPath` calls.

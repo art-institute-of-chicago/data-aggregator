@@ -273,7 +273,6 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => 'text',
             ],
 
-
             /**
              * Asset fields for website:
              */
@@ -336,7 +335,6 @@ class Artwork extends BaseTransformer
                 },
             ],
 
-
             /**
              * Mobile and location fields:
              */
@@ -390,7 +388,6 @@ class Artwork extends BaseTransformer
                     return $item->is_on_view ? ($item->gallery->citi_id ?? null) : null;
                 },
             ],
-
 
             /**
              * TODO: Refactor relationships:

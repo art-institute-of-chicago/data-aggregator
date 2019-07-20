@@ -12,7 +12,6 @@ trait Transformable
         return (new $transformer())->transform($this);
     }
 
-
     /**
      * Jury-rig a connection to the transformer class.
      *

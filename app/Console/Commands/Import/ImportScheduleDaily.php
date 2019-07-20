@@ -11,7 +11,6 @@ class ImportScheduleDaily extends BaseCommand
 
     protected $description = 'Run all increment commands on sources that we\'re able to, and do a full refresh on sources that require it.';
 
-
     public function handle()
     {
 

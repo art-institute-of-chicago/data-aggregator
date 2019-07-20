@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 trait Factory
 {
 
-
     protected $times = 1;
     protected $ids = [];
     protected $attachTypes = [];

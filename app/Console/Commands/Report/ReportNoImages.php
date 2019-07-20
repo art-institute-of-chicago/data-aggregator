@@ -20,7 +20,6 @@ class ReportNoImages extends BaseCommand
 
     protected $csv;
 
-
     public function handle()
     {
 

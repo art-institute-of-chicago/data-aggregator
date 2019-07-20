@@ -11,7 +11,6 @@ class DumpAudit extends AbstractDumpCommand
 
     protected $description = 'Shows which tables will be excluded from the dump';
 
-
     public function handle()
     {
 

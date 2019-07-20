@@ -19,7 +19,6 @@ class ArtworkTermsTableSeeder extends AbstractSeeder
 
     }
 
-
     public function seedTerms($artwork)
     {
 
@@ -28,6 +27,5 @@ class ArtworkTermsTableSeeder extends AbstractSeeder
         ]);
 
     }
-
 
 }

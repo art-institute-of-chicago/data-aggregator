@@ -56,7 +56,6 @@ class SearchController extends BaseController
 
     }
 
-
     /**
      * Multisearch functionality. Send multiple queries in one request by wrapping them in a
      * top-level indexed array.
@@ -70,7 +69,6 @@ class SearchController extends BaseController
     {
         return $this->mquery( 'getSearchParams', 'getSearchResponse', $request );
     }
-
 
     /**
      * Return autocomplete suggestions, via an array of title strings.
@@ -89,7 +87,6 @@ class SearchController extends BaseController
 
     }
 
-
     /**
      * Return autocomplete suggestions, but passes through `_source` from each result.
      * Allows us to return an array of objects: id, title, api_model.
@@ -103,7 +100,6 @@ class SearchController extends BaseController
 
     }
 
-
     /**
      * Multi-suggest functionality. Like `autocompleteWithSource` but with `msearch` syntax.
      */
@@ -113,7 +109,6 @@ class SearchController extends BaseController
             'use_suggest_autocomplete_all' => true,
         ]);
     }
-
 
     /**
      * Perform Elasticsearch explain query. Meant for local debugging.
@@ -291,7 +286,6 @@ class SearchController extends BaseController
         return $responses;
 
     }
-
 
     /**
      * Retrieve the last query sent by this client to Elasticsearch.

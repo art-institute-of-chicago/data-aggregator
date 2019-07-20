@@ -11,7 +11,6 @@ class ImportScheduleMonthly extends BaseCommand
 
     protected $description = 'Do a full refresh on some hefty, infrequently updated sources.';
 
-
     public function handle()
     {
 

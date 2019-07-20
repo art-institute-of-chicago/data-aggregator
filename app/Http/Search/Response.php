@@ -14,14 +14,12 @@ class Response
      */
     public $searchResponse;
 
-
     /**
      * Params passed to Elasticsearch
      *
      * @var array
      */
     public $searchParams;
-
 
     /**
      * Create a new request instance.
@@ -36,7 +34,6 @@ class Response
         $this->searchResponse = $searchResponse;
         $this->searchParams = $searchParams;
     }
-
 
     /**
      * Transform response for search queries.
@@ -67,7 +64,6 @@ class Response
 
     }
 
-
     /**
      * Transform response for explain queries.
      *
@@ -80,7 +76,6 @@ class Response
 
     }
 
-
     /**
      * Transform response for autocomplete queries.
      *
@@ -92,7 +87,6 @@ class Response
         return $this->getAutocompleteWithTitle()['suggest']['autocomplete'] ?? [];
 
     }
-
 
     /**
      * Transform response for autocomplete queries. Pass-through the source.
@@ -110,7 +104,6 @@ class Response
         return [];
 
     }
-
 
     /**
      * Add pagination to response.
@@ -155,7 +148,6 @@ class Response
 
     }
 
-
     /**
      * Add data (i.e. hits, results) to response.
      *
@@ -191,7 +183,6 @@ class Response
 
     }
 
-
     /**
      * Add suggestions (i.e. completion, phrases) to response.
      *
@@ -216,7 +207,6 @@ class Response
         return [];
 
     }
-
 
     /**
      * Add aggregations (i.e. facets) to response. Again, straight pass-through.

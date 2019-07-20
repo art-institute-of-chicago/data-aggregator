@@ -11,9 +11,7 @@ class ImportWeb extends ImportWebFull
 
     protected $description = "Import web CMS data that has been updated since the last import";
 
-
     protected $isPartial = true;
-
 
     public function handle()
     {

@@ -24,7 +24,6 @@ if (!function_exists('mobileAppIdsAndTitle'))
 
 }
 
-
 $factory->define(App\Models\Mobile\Artwork::class, function (Faker\Generator $faker) {
     static $artworks;
 

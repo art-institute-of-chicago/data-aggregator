@@ -80,7 +80,6 @@ trait ImportsData
 
     }
 
-
     /**
      * Convenience curl wrapper. Accepts `GET` URL. Returns decoded JSON.
      *

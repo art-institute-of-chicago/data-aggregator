@@ -11,7 +11,6 @@ class ScoutFlushAll extends BaseCommand
 
     protected $description = 'Remove all models from search index';
 
-
     public function handle()
     {
 

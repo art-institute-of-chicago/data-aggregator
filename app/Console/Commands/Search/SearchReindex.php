@@ -24,7 +24,6 @@ class SearchReindex extends BaseCommand
 
     protected $source;
 
-
     public function handle()
     {
 
@@ -51,7 +50,6 @@ class SearchReindex extends BaseCommand
 
     }
 
-
     public function reindex($model)
     {
 
@@ -74,7 +72,6 @@ class SearchReindex extends BaseCommand
         $return = Elasticsearch::reindex($params);
 
         $this->info('Reindex from ' . $index . ' has started. Monitor the process here: ' . $this->baseUrl() . '/_tasks/' . $return['task']);
-
 
     }
 

@@ -11,7 +11,6 @@ class ImportAllCommand extends BaseCommand
 
     protected $description = 'Run all import commands';
 
-
     public function handle()
     {
 

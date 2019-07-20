@@ -38,7 +38,6 @@ class SearchServiceProvider extends ServiceProvider
 
     }
 
-
     /**
      * Register a search application service, which tracks Searchable models.
      */

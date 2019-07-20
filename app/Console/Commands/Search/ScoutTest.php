@@ -24,7 +24,6 @@ class ScoutTest extends BaseCommand
         }
     }
 
-
     public function testSearchable($model)
     {
         $this->output->write('Testing ' . $model . '... ', false);

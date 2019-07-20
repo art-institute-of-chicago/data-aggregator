@@ -11,7 +11,6 @@ class ImportWebOne extends ImportWebFull
 
     protected $description = "Import a single resource from the web dataservice.";
 
-
     public function handle()
     {
 

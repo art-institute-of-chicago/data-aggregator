@@ -25,7 +25,6 @@ class DeleteAssets extends AbstractImportCommand
         \App\Models\Collections\Video::class,
     ];
 
-
     /**
      * LAKE creates "tombstone" records with `deleted:true` for any record that has been
      * unpublished. These records are minimal, containing only the timestamp, deleted

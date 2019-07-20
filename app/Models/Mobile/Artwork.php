@@ -39,5 +39,4 @@ class Artwork extends MobileModel
 
     }
 
-
 }

@@ -32,7 +32,6 @@ class Event extends WebTransformer
 
     }
 
-
     private function getSyncEmailSeries(Datum $datum)
     {
         return $this->getSyncPivots( $datum, 'email_series', 'email_series_id', function ($pivot) {

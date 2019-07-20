@@ -15,7 +15,6 @@ class ImportSites extends AbstractImportCommand
 
     protected $description = "Import all historic microsites";
 
-
     public function handle()
     {
 

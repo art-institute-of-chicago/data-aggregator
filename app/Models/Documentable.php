@@ -248,7 +248,6 @@ trait Documentable
 
     }
 
-
     /**
      * Generate documentation for parameters for list endpoints
      *
@@ -462,8 +461,6 @@ trait Documentable
         return $doc;
     }
 
-
-
     /**
      * Generate an endpoint name as copy text
      *
@@ -657,7 +654,6 @@ trait Documentable
         }
 
         return $doc;
-
 
     }
 

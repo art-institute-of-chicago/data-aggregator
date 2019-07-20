@@ -21,7 +21,6 @@ class SearchInstall extends BaseCommand
 
     protected $description = 'Set up the Search Service indexes with data types and fields';
 
-
     public function handle()
     {
 
@@ -46,7 +45,6 @@ class SearchInstall extends BaseCommand
         }
 
     }
-
 
     private function install($model, $prefix)
     {

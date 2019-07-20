@@ -120,7 +120,6 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -137,7 +136,6 @@ return [
          * Override default Laravel Service Providers...
          */
         Aic\Hub\Foundation\DatabaseServiceProvider::class,
-
 
         /*
          * Laravel Framework Service Providers...

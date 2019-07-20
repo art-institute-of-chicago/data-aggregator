@@ -35,7 +35,6 @@ class ScoutSince extends BaseCommand
         }
     }
 
-
     public function searchableSince($class)
     {
         $this->info($class);

@@ -29,7 +29,6 @@ class Product extends ShopModel
 
     }
 
-
     /**
      * Returns web link to the product
      *

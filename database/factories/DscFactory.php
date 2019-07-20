@@ -24,7 +24,6 @@ if (!function_exists('dscIdsAndTitle'))
 
 }
 
-
 $factory->define(App\Models\Dsc\Publication::class, function (Faker\Generator $faker) {
     return array_merge(
         dscIdsAndTitle($faker),

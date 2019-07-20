@@ -36,7 +36,6 @@ abstract class AbstractSeeder extends Seeder
 
     }
 
-
     /**
      * Helper method for seeding relations. It attaches fake instances of the "object" model to
      * fake instances of the "subject" model, using the subject's specified method.
@@ -84,7 +83,6 @@ abstract class AbstractSeeder extends Seeder
 
     }
 
-
     /**
      * Determine which `seed___` method should be used for this relationship.
      */
@@ -101,7 +99,6 @@ abstract class AbstractSeeder extends Seeder
         return 'seed' . $classname;
 
     }
-
 
     /**
      * Helper for seeding BelongsToMany relations.
@@ -125,7 +122,6 @@ abstract class AbstractSeeder extends Seeder
 
     }
 
-
     /**
      * Helper for seeding HasMany relations.
      *
@@ -137,7 +133,6 @@ abstract class AbstractSeeder extends Seeder
         $subject->{$method}()->saveMany( $objects );
 
     }
-
 
     /**
      * Helper for seeding BelongsTo relations.

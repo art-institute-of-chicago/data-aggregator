@@ -14,7 +14,6 @@ class ScoutImportSince extends BaseCommand
 
     protected $description = 'Import all instances of all searchable models since an ISO 8601 datetime';
 
-
     public function handle()
     {
         ini_set("memory_limit", "-1");

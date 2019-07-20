@@ -35,7 +35,6 @@ class ImportWebFull extends AbstractImportCommand
 
     protected $description = "Import all Web CMS data";
 
-
     public function handle()
     {
 

@@ -12,7 +12,6 @@ class ImportImages extends AbstractImportCommand
 
     protected $description = "Import all image data from data-service-images";
 
-
     public function handle()
     {
 

@@ -16,7 +16,6 @@ class ReportAltText extends BaseCommand
 
     protected $description = "Report all artworks and images that have visual descriptions";
 
-
     public function handle()
     {
 

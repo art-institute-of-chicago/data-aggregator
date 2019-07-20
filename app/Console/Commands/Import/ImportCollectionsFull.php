@@ -15,7 +15,6 @@ class ImportCollectionsFull extends AbstractImportCommand
 
     protected $description = "Import all collections data. If no options are passed all Collections data will be imported.";
 
-
     public function handle()
     {
 

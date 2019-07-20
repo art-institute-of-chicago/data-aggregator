@@ -13,7 +13,6 @@ class ImportCatalogues extends AbstractImportCommand
 
     protected $description = "Import all catalogue data";
 
-
     public function handle()
     {
 

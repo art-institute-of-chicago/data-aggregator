@@ -11,9 +11,7 @@ class ImportTicketedEvents extends ImportTicketedEventsFull
 
     protected $description = "Import events data that has been updated since the last import";
 
-
     protected $isPartial = true;
-
 
     public function handle()
     {

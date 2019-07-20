@@ -12,7 +12,6 @@ class ImportTicketedEventsFull extends AbstractImportCommand
 
     protected $description = "Import all ticketed events data";
 
-
     public function handle()
     {
 

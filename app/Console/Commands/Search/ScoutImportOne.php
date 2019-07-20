@@ -13,7 +13,6 @@ class ScoutImportOne extends BaseCommand
 
     protected $description = 'Import one instance of a model into the search index';
 
-
     public function handle()
     {
 

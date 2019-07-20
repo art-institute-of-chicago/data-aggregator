@@ -69,7 +69,6 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
 
     }
 
-
     protected function basicQueryBoosted($field, $value, $boost)
     {
         if (!$value)
@@ -88,6 +87,5 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
             "size" => $this->size,
         ];
     }
-
 
 }

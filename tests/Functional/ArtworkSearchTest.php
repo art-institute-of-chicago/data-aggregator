@@ -9,7 +9,6 @@ use Illuminate\Support\Arr;
 class ArtworkSearchTest extends TestCase
 {
 
-
     /**
      * @test
      * @dataProvider firstResultTests

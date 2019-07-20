@@ -18,7 +18,6 @@ function ddd($variable)
     die(1);
 }
 
-
 /**
  * Calculates the Cantor tuple function for variable length arguments.
  * Accepts an unlimited amount of ids, each as its own argument.
@@ -65,7 +64,6 @@ function reverseCantorPair($z)
     return [$x, $y];
 }
 
-
 /**
  * Helper method that converts `['item', 'hey', 'wow']` to `item, hey, and wow`.
  *
@@ -84,11 +82,9 @@ function summation(array $array)
     return implode(', ', $array) . ', and ' . $last;
 }
 
-
 /**
  * TODO: Everything below this is unused. However, these methods could be useful in testing.
  */
-
 
 /**
  * Splits an array into a given number of (approximately) equal-sized parts.
@@ -115,7 +111,6 @@ function partition(array $list, $p) {
     return $partition;
 }
 
-
 function getLakeUri($lake_id)
 {
     return env('LAKE_URL', 'https://localhost')
@@ -125,7 +120,6 @@ function getLakeUri($lake_id)
         . '/' . substr($lake_id, 6, 2)
         . '/' . $lake_id;
 }
-
 
 /**
  * Get a list of all the models used in the application
@@ -177,7 +171,6 @@ function allModels()
 
 }
 
-
 /**
  * Get a list of all the models that use the the given trait.
  *
@@ -207,7 +200,6 @@ function allModelsThatUse($trait)
     return $models;
 
 }
-
 
 /**
  * Get a list of all the traits this class uses, include the class's parents and traits' parents

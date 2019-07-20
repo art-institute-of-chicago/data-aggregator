@@ -26,7 +26,6 @@ class Image extends Asset
 
     }
 
-
     public function searchableImage()
     {
 

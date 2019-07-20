@@ -16,7 +16,6 @@ class ReportNoTerms extends BaseCommand
 
     protected $description = "Report all artworks that have no Expore Further preferred terms set";
 
-
     public function handle()
     {
 

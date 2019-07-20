@@ -11,7 +11,6 @@ class ScoutRefreshAll extends BaseCommand
 
     protected $description = 'Flush and re-import all models into the search index';
 
-
     public function handle()
     {
 

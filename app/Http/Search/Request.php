@@ -127,7 +127,6 @@ class Request
      */
     private static $maxSize = 1000;
 
-
     /**
      * Create a new request instance.
      *
@@ -141,7 +140,6 @@ class Request
         $this->resources = $resource;
         $this->id = $id;
     }
-
 
     /**
      * Get params that should be applied to all queries.
@@ -239,7 +237,6 @@ class Request
 
     }
 
-
     /**
      * Build full param set (request body) for autocomplete queries.
      *
@@ -276,7 +273,6 @@ class Request
         return $params;
 
     }
-
 
     /**
      * Build full param set (request body) for search queries.
@@ -362,7 +358,6 @@ class Request
 
     }
 
-
     /**
      * Gather params for an expalin query. Explain queries are identical to search,
      * but they need an id and lack pagination, aggregations, and suggestions.
@@ -381,7 +376,6 @@ class Request
         return $params;
 
     }
-
 
     /**
      * Strip down the (top-level) user-input to what our thin client supports.
@@ -411,7 +405,6 @@ class Request
         return $input;
 
     }
-
 
     /**
      * Get pagination params.
@@ -468,7 +461,6 @@ class Request
 
     }
 
-
     /**
      * Determine which fields to return. Set `fields` to `true` to return all.
      * Set `fields` to `false` to return nothing.
@@ -489,7 +481,6 @@ class Request
         ];
 
     }
-
 
     /**
      * Determine sort order. Sort must go into the request body, and it cannot be null.
@@ -512,7 +503,6 @@ class Request
         return $params;
 
     }
-
 
     /**
      * Append our own custom queries to tweak relevancy.
@@ -650,7 +640,6 @@ class Request
 
     }
 
-
     /**
      * Append any search clauses that are needed to isolate scoped resources.
      *
@@ -679,7 +668,6 @@ class Request
 
     }
 
-
     /**
      * Get the search params for an empty string search.
      * Empy search requires special handling, e.g. no suggestions.
@@ -698,7 +686,6 @@ class Request
         return $params;
 
     }
-
 
     /**
      * Append the query params for a simple search. Assumes that `$input['q']` is not null.
@@ -820,7 +807,6 @@ class Request
 
     }
 
-
     /**
      * Get the search params for a complex search
      *
@@ -840,7 +826,6 @@ class Request
         return $params;
 
     }
-
 
     /**
      * Append suggest params to query.
@@ -865,7 +850,6 @@ class Request
         return $params;
 
     }
-
 
     /**
      * Append autocomplete suggest params.
@@ -916,7 +900,6 @@ class Request
         return $params;
 
     }
-
 
     /**
      * Append aggregation parameters. This is a straight pass-through for more flexibility.

@@ -88,7 +88,6 @@ class Asset extends CollectionsModel
 
     }
 
-
     /**
      * Filters the `assets` table by `type` to match `$assetType` of the model.
      * Uses the inline method for scope definition, rather than creating new classes.

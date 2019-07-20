@@ -11,9 +11,7 @@ class ImportCollections extends ImportCollectionsFull
 
     protected $description = "Import collections data that has been updated since the last import";
 
-
     protected $isPartial = true;
-
 
     public function handle()
     {

@@ -126,7 +126,6 @@ trait HasBlocks
 
     }
 
-
     /**
      * Transforms our website's WYSIWYG output to searchable plaintext.
      *

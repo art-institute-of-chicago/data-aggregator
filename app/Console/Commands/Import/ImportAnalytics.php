@@ -12,7 +12,6 @@ class ImportAnalytics extends AbstractImportCommand
 
     protected $description = "Import analytic pageviews for artworks";
 
-
     public function handle()
     {
 

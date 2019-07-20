@@ -70,7 +70,6 @@ trait ElasticSearchable
 
     }
 
-
     /**
      * Get an image to represent this record
      *
@@ -82,7 +81,6 @@ trait ElasticSearchable
         return null;
 
     }
-
 
     /**
      * Generate an array of model data to send to the search index.

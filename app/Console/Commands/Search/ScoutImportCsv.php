@@ -17,7 +17,6 @@ class ScoutImportCsv extends BaseCommand
 
     protected $description = 'Import all IDs in CSV of a model into the search index';
 
-
     public function handle()
     {
 

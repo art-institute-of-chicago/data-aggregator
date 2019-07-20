@@ -56,7 +56,6 @@ abstract class ApiTestCase extends TestCase
         return app('Faker')->unique()->randomNumber(5);
     }
 
-
     public function model() {
 
         return $this->model;
@@ -98,7 +97,6 @@ abstract class ApiTestCase extends TestCase
 
     }
 
-
     /** @test */
     public function it_fetches_all_entities()
     {
@@ -128,8 +126,6 @@ abstract class ApiTestCase extends TestCase
         $this->assertArrayHasKeys($resources, $this->keys, true);
 
     }
-
-
 
     /** @test */
     public function it_400s_if_nonnumerid_nonuuid_is_passed()
@@ -387,7 +383,6 @@ abstract class ApiTestCase extends TestCase
         return collect( $response->json()['data'] )->keys();
 
     }
-
 
     protected function assertArrayHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
     {

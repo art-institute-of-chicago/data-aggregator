@@ -12,7 +12,6 @@ class ImportAssetsFull extends AbstractImportCommand
 
     protected $description = "Import all DAMS data";
 
-
     public function handle()
     {
 

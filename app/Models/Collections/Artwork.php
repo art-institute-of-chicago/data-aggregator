@@ -162,7 +162,6 @@ class Artwork extends CollectionsModel
 
     }
 
-
     public function getClassificationsAttribute()
     {
 

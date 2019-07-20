@@ -13,7 +13,6 @@ class ImportLibrary extends AbstractImportCommand
 
     protected $description = "Import all library data";
 
-
     public function handle()
     {
 

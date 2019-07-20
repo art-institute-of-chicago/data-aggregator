@@ -11,7 +11,6 @@ class ImportCollectionsOne extends ImportCollectionsFull
 
     protected $description = "Import a single resource from the collections dataservice.";
 
-
     public function handle()
     {
 

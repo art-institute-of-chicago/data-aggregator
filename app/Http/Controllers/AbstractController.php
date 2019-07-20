@@ -41,7 +41,6 @@ abstract class AbstractController extends BaseController
         $this->parseFractalParam('exclude', 'parseExcludes');
     }
 
-
     /**
      * Helper to parse Fractal includes or excludes.
      *
@@ -75,7 +74,6 @@ abstract class AbstractController extends BaseController
         $this->fractal->{$method}($values);
     }
 
-
     /**
      * Return a response with a single resource, given an Eloquent Model.
      *
@@ -88,7 +86,6 @@ abstract class AbstractController extends BaseController
             $this->getGenericResponse($item, Item::class)
         );
     }
-
 
     /**
      * Return a response with multiple resources, given an arrayable object.
@@ -166,7 +163,6 @@ abstract class AbstractController extends BaseController
         return $response;
     }
 
-
     /**
      * Return a single resource. Not meant to be called directly in routes.
      * `$callback` should return an Eloquent Model.
@@ -197,7 +193,6 @@ abstract class AbstractController extends BaseController
         return $this->getItemResponse($item);
 
     }
-
 
     /**
      * Return a list of resources. Not meant to be called directly in routes.
@@ -238,7 +233,6 @@ abstract class AbstractController extends BaseController
         return $this->getCollectionResponse($all);
 
     }
-
 
     /**
      * Display multiple resources.

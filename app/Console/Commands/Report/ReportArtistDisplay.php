@@ -20,7 +20,6 @@ class ReportArtistDisplay extends BaseCommand
 
     protected $csv;
 
-
     public function handle()
     {
 

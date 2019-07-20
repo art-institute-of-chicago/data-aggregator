@@ -45,7 +45,6 @@ if (!function_exists('idsAndTitle'))
 
 }
 
-
 $factory->define(App\Models\Collections\AgentType::class, function (Faker\Generator $faker) {
     return idsAndTitle($faker, $faker->unique()->randomElement(['Individual', 'Corporate Body', $faker->words(2, true)]), true, 2);
 });
@@ -75,16 +74,13 @@ $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator 
     );
 });
 
-
 $factory->define(App\Models\Collections\ArtworkType::class, function (Faker\Generator $faker) {
     return idsAndTitle($faker, $faker->randomElement(['Painting', 'Design', 'Drawing and ' . ucfirst($faker->word), ucfirst($faker->word) . ' Arts', 'Sculpture']), true, 2);
 });
 
-
 $factory->define(App\Models\Collections\ArtworkPlaceQualifier::class, function (Faker\Generator $faker) {
     return idsAndTitle($faker, 'Object ' . $faker->word(1) . ' in', true, 2);
 });
-
 
 $factory->define(App\Models\Collections\Term::class, function (Faker\Generator $faker) {
     return array_merge(
@@ -97,7 +93,6 @@ $factory->define(App\Models\Collections\Term::class, function (Faker\Generator $
     );
 });
 
-
 $factory->define(App\Models\Collections\Category::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, ucfirst($faker->word(3, true))),
@@ -109,7 +104,6 @@ $factory->define(App\Models\Collections\Category::class, function (Faker\Generat
         ]
     );
 });
-
 
 $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generator $faker) {
     $date_end = $faker->year;
@@ -159,14 +153,12 @@ $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Gene
     );
 });
 
-
 $factory->define(App\Models\Collections\ArtworkTerm::class, function (Faker\Generator $faker) {
     return [
         'term' => $faker->words(2, true),
         'type' => ucfirst($faker->word)
     ];
 });
-
 
 $factory->define(App\Models\Collections\ArtworkCatalogue::class, function (Faker\Generator $faker) {
     return [
@@ -177,7 +169,6 @@ $factory->define(App\Models\Collections\ArtworkCatalogue::class, function (Faker
         'state_edition' => $faker->words(2, true),
     ];
 });
-
 
 $factory->define(App\Models\Collections\Gallery::class, function (Faker\Generator $faker) {
     return array_merge(
@@ -194,7 +185,6 @@ $factory->define(App\Models\Collections\Gallery::class, function (Faker\Generato
     );
 });
 
-
 $factory->define(App\Models\Collections\Place::class, function (Faker\Generator $faker) {
     return array_merge(
         idsAndTitle($faker, $faker->country, true),
@@ -205,7 +195,6 @@ $factory->define(App\Models\Collections\Place::class, function (Faker\Generator 
         dates($faker, true)
     );
 });
-
 
 $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Generator $faker) {
     return array_merge(
@@ -225,7 +214,6 @@ $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Gener
         dates($faker, true)
     );
 });
-
 
 $factory->define(App\Models\Collections\Asset::class, function (Faker\Generator $faker) {
     return array_merge(

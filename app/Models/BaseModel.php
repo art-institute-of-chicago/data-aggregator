@@ -45,7 +45,6 @@ class BaseModel extends AbstractModel
         return new BelongsToManyOrOne($query, $parent, $table, $foreignPivotKey, $relatedPivotKey, $parentKey, $relatedKey, $relationName);
     }
 
-
     /**
      * String that indicates the sub-namespace of the child models. Used for dynamic model retrieval.
      *
@@ -55,14 +54,12 @@ class BaseModel extends AbstractModel
      */
     protected static $source;
 
-
     /**
      * The name of the field that the source API provides a last updated timestamp in.
      *
      * @var string
      */
     public static $sourceLastUpdateDateField = 'modified_at';
-
 
     /**
      * This getter is in Laravel's base `Model` class, or rather, in its `HasAttributes` trait.

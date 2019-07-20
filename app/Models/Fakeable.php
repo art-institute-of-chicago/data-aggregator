@@ -12,7 +12,6 @@ trait Fakeable
      */
     protected $fakeIdsStartAt = 999000;
 
-
     /**
      * Scope a query to only include fake records.
      *
@@ -35,7 +34,6 @@ trait Fakeable
         }
 
     }
-
 
     /**
      * The smallest number that fake IDs start at for this model

@@ -34,7 +34,6 @@ if (!function_exists('shopIdsAndTitle'))
 
 }
 
-
 $factory->define(App\Models\Shop\Category::class, function (Faker\Generator $faker) {
     return array_merge(
         shopIdsAndTitle($faker),

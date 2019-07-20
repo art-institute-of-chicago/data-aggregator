@@ -12,7 +12,6 @@ class ImportArchive extends AbstractImportCommand
 
     protected $description = "Import all archives data";
 
-
     public function handle()
     {
 

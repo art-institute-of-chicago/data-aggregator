@@ -23,7 +23,6 @@ class ImportMobile extends AbstractImportCommand
 
     protected $filename = 'appData.json';
 
-
     public function handle()
     {
         if (!$this->option('no-download')) {

@@ -44,7 +44,6 @@ return [
             'is_searchable' => true,
         ],
 
-
         /**
          * Lists with just id + title:
          */

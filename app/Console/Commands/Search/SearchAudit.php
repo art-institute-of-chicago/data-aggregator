@@ -14,7 +14,6 @@ class SearchAudit extends BaseCommand
 
     protected $description = 'Compare the counts of database records with those in the search index';
 
-
     public function handle()
     {
 
@@ -38,7 +37,6 @@ class SearchAudit extends BaseCommand
         }
 
     }
-
 
     public function compareTotals($model)
     {

@@ -48,7 +48,6 @@ trait Indexer
 
     }
 
-
     public function baseUrl()
     {
 
@@ -59,7 +58,6 @@ trait Indexer
         return $scheme . '://' . $host . ':' . $port;
 
     }
-
 
     /**
      * Determine message to output after the index is created.

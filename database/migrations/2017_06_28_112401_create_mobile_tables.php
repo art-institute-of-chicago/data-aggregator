@@ -18,7 +18,6 @@ class CreateMobileTables extends Migration
             $table = $this->_addIdsAndTitle($table);
             $table->integer('artwork_citi_id')->nullable()->index();
 
-
             // https://laracasts.com/discuss/channels/laravel/schema-float-function-generated-a-double-type
             $table->double('latitude', 16, 13)->nullable();
             $table->double('longitude', 16, 13)->nullable();
