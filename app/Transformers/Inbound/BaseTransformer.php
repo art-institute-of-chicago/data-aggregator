@@ -88,15 +88,6 @@ class BaseTransformer extends AbstractTransformer
     }
 
     /**
-     * Override in child classes to supply `getSyncExNew`.
-     *
-     */
-    protected function getSyncEx(Datum $datum)
-    {
-        return [];
-    }
-
-    /**
      * Given a model instance or a table name, transform incoming array into one for import.
      *
      * @param string|\Illuminate\Database\Eloquent\Model $instance
@@ -178,6 +169,15 @@ class BaseTransformer extends AbstractTransformer
         $ids = $this->getIds($this->getDatum($datum));
 
         return reset($ids);
+    }
+
+    /**
+     * Override in child classes to supply `getSyncExNew`.
+     *
+     */
+    protected function getSyncEx(Datum $datum)
+    {
+        return [];
     }
 
     /**

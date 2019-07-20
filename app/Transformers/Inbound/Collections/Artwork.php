@@ -18,6 +18,13 @@ class Artwork extends CollectionsTransformer
 
     use ConvertsToHtml;
 
+    public function syncEx(Model $instance, Datum $datum)
+    {
+
+        $this->syncDates($instance, $datum);
+
+    }
+
     protected function getExtraFields(Datum $datum)
     {
 
@@ -58,11 +65,22 @@ class Artwork extends CollectionsTransformer
 
     }
 
-    public function syncEx(Model $instance, Datum $datum)
+    protected function getSyncEx(Datum $datum)
     {
-
-        $this->syncDates($instance, $datum);
-
+        $now = date("Y-m-d H:i:s");
+        return [
+            'artwork_dates' => collect($datum->artwork_dates ?? [])->map(function ($date) use ($datum, $now) {
+                return [
+                    'artwork_citi_id' => $datum->id,
+                    'date_earliest' => Carbon::parse($date->date_earliest),
+                    'date_latest' => Carbon::parse($date->date_latest),
+                    'preferred' => $date->is_preferred,
+                    'artwork_date_qualifier_citi_id' => $date->date_qualifier_id,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ];
+            })->all(),
+        ];
     }
 
     /**
@@ -211,24 +229,6 @@ class Artwork extends CollectionsTransformer
                 'artwork_date_qualifier_citi_id' => $date->date_qualifier_id,
             ]);
         }
-    }
-
-    protected function getSyncEx(Datum $datum)
-    {
-        $now = date("Y-m-d H:i:s");
-        return [
-            'artwork_dates' => collect($datum->artwork_dates ?? [])->map(function ($date) use ($datum, $now) {
-                return [
-                    'artwork_citi_id' => $datum->id,
-                    'date_earliest' => Carbon::parse($date->date_earliest),
-                    'date_latest' => Carbon::parse($date->date_latest),
-                    'preferred' => $date->is_preferred,
-                    'artwork_date_qualifier_citi_id' => $date->date_qualifier_id,
-                    'created_at' => $now,
-                    'updated_at' => $now,
-                ];
-            })->all(),
-        ];
     }
 
 }

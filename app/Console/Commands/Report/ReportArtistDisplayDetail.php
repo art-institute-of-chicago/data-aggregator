@@ -12,11 +12,11 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 class ReportArtistDisplayDetail extends BaseCommand
 {
 
+    public static $filename = 'artwork-artist-display-linebreaks-detail.csv';
+
     protected $signature = 'report:artist-display-detail';
 
     protected $description = "Detailed breakdown of artworks by linebreak count in artist_display";
-
-    public static $filename = 'artwork-artist-display-linebreaks-detail.csv';
 
     protected $csv;
 

@@ -55,20 +55,6 @@ trait ElasticSearchable
     }
 
     /**
-     * Generate a string identifying this model's data source.
-     *
-     * @return string
-     */
-    protected function searchableSource()
-    {
-
-        $calledClass = get_called_class();
-
-        return Str::kebab(array_slice(explode('\\', $calledClass), -2, 1)[0]);
-
-    }
-
-    /**
      * Get an image to represent this record
      *
      * @return string
@@ -183,6 +169,20 @@ trait ElasticSearchable
                 'properties' => $default,
             ],
         ];
+    }
+
+    /**
+     * Generate a string identifying this model's data source.
+     *
+     * @return string
+     */
+    protected function searchableSource()
+    {
+
+        $calledClass = get_called_class();
+
+        return Str::kebab(array_slice(explode('\\', $calledClass), -2, 1)[0]);
+
     }
 
     /**

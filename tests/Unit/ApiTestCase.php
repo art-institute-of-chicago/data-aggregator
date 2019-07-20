@@ -42,32 +42,6 @@ abstract class ApiTestCase extends TestCase
      */
     protected $fieldsUsedByMobile = [];
 
-    /**
-     * Return an id that is valid, yet has a negligent likelihood of pointing at an actual object.
-     * Must pass the relevant controller's `validateId` check.
-     * Meant to be overwritten. Defaults to numeric id.
-     *
-     * @var mixed
-     */
-    protected function getRandomId()
-    {
-        return app('Faker')->unique()->randomNumber(5);
-    }
-
-    public function model() {
-
-        return $this->model;
-
-    }
-
-    public function route($model = '') {
-
-        $m = $model ?: $this->model;
-
-        return $this->route ?: app('Resources')->getEndpointForModel($m);
-
-    }
-
     protected function setUp(): void
     {
 
@@ -92,6 +66,20 @@ abstract class ApiTestCase extends TestCase
             }
 
         }
+
+    }
+
+    public function model() {
+
+        return $this->model;
+
+    }
+
+    public function route($model = '') {
+
+        $m = $model ?: $this->model;
+
+        return $this->route ?: app('Resources')->getEndpointForModel($m);
 
     }
 
@@ -358,6 +346,18 @@ abstract class ApiTestCase extends TestCase
             $this->assertEmpty($this->fieldsUsedByMobile);
 
         }
+    }
+
+    /**
+     * Return an id that is valid, yet has a negligent likelihood of pointing at an actual object.
+     * Must pass the relevant controller's `validateId` check.
+     * Meant to be overwritten. Defaults to numeric id.
+     *
+     * @var mixed
+     */
+    protected function getRandomId()
+    {
+        return app('Faker')->unique()->randomNumber(5);
     }
 
     /**

@@ -58,6 +58,19 @@ class CreateShopTables extends Migration
 
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+
+        Schema::dropIfExists('products');
+        Schema::dropIfExists('shop_categories');
+
+    }
+
     private function _addId($table)
     {
         $table->integer('shop_id')->unsigned()->primary();
@@ -70,19 +83,6 @@ class CreateShopTables extends Migration
         $table->timestamp('source_modified_at')->nullable()->useCurrent();
         $table->timestamps();
         return $table;
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-
-        Schema::dropIfExists('products');
-        Schema::dropIfExists('shop_categories');
-
     }
 
 }

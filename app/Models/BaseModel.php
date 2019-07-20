@@ -14,34 +14,12 @@ class BaseModel extends AbstractModel
 
     use Transformable, Instancable, Fakeable, Documentable;
 
-    protected $hasSourceDates = true;
-
     /**
-     * Instantiate a new BelongsToMany relationship.
+     * The name of the field that the source API provides a last updated timestamp in.
      *
-     * @TODO: Move this to the foundation?
-     *
-     * @param  string  $table
-     * @param  string  $foreignPivotKey
-     * @param  string  $relatedPivotKey
-     * @param  string  $parentKey
-     * @param  string  $relatedKey
-     * @param  string  $relationName
-     * @return \App\BelongsToManyOrOne
+     * @var string
      */
-    protected function newBelongsToMany(
-        Builder $query,
-        Model $parent,
-        $table,
-        $foreignPivotKey,
-        $relatedPivotKey,
-        $parentKey,
-        $relatedKey,
-        $relationName = null
-    )
-    {
-        return new BelongsToManyOrOne($query, $parent, $table, $foreignPivotKey, $relatedPivotKey, $parentKey, $relatedKey, $relationName);
-    }
+    public static $sourceLastUpdateDateField = 'modified_at';
 
     /**
      * String that indicates the sub-namespace of the child models. Used for dynamic model retrieval.
@@ -52,12 +30,7 @@ class BaseModel extends AbstractModel
      */
     protected static $source;
 
-    /**
-     * The name of the field that the source API provides a last updated timestamp in.
-     *
-     * @var string
-     */
-    public static $sourceLastUpdateDateField = 'modified_at';
+    protected $hasSourceDates = true;
 
     /**
      * This getter is in Laravel's base `Model` class, or rather, in its `HasAttributes` trait.
@@ -122,5 +95,32 @@ class BaseModel extends AbstractModel
                 }
             }
         }
+    }
+
+    /**
+     * Instantiate a new BelongsToMany relationship.
+     *
+     * @TODO: Move this to the foundation?
+     *
+     * @param  string  $table
+     * @param  string  $foreignPivotKey
+     * @param  string  $relatedPivotKey
+     * @param  string  $parentKey
+     * @param  string  $relatedKey
+     * @param  string  $relationName
+     * @return \App\BelongsToManyOrOne
+     */
+    protected function newBelongsToMany(
+        Builder $query,
+        Model $parent,
+        $table,
+        $foreignPivotKey,
+        $relatedPivotKey,
+        $parentKey,
+        $relatedKey,
+        $relationName = null
+    )
+    {
+        return new BelongsToManyOrOne($query, $parent, $table, $foreignPivotKey, $relatedPivotKey, $parentKey, $relatedKey, $relationName);
     }
 }

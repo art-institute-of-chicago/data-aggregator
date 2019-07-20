@@ -61,14 +61,6 @@ class CreateMobileTables extends Migration
 
     }
 
-    private function _addIdsAndTitle($table, $titleType = 'text')
-    {
-
-        $table->integer('mobile_id')->unsigned()->primary();
-        $table->{$titleType}('title');
-        return $table;
-    }
-
     /**
      * Reverse the migrations.
      *
@@ -83,6 +75,14 @@ class CreateMobileTables extends Migration
         Schema::dropIfExists('mobile_sounds');
         Schema::dropIfExists('mobile_artworks');
 
+    }
+
+    private function _addIdsAndTitle($table, $titleType = 'text')
+    {
+
+        $table->integer('mobile_id')->unsigned()->primary();
+        $table->{$titleType}('title');
+        return $table;
     }
 
 }

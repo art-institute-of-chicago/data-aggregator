@@ -42,29 +42,6 @@ abstract class AbstractTransformer extends BaseTransformer
     }
 
     /**
-     * Helper to parse out the fields variable passed via constructor.
-     * Expects a comma-separated string or an array.
-     *
-     * @var array|null
-     */
-    private function getRequestedFields($requestedFields = null)
-    {
-        if (!isset($requestedFields)) {
-            return null;
-        }
-
-        if (is_array($requestedFields)) {
-            return $requestedFields;
-        }
-
-        if (is_string($requestedFields)) {
-            return explode(',', $requestedFields);
-        }
-
-        return null;
-    }
-
-    /**
      * Consumers should call this. Let's never modify this method in child classes.
      *
      * @return array
@@ -90,36 +67,6 @@ abstract class AbstractTransformer extends BaseTransformer
     public function getMappedFields()
     {
         return $this->mappedFields ?? $this->mappedFields = $this->initMappedFields();
-    }
-
-    private function initMappedFields()
-    {
-        $mappedFields = array_merge(
-            $this->getIds(),
-            $this->getSearchFields(),
-            $this->getTitles(),
-            $this->getFields(),
-            $this->getTraitFields(),
-            $this->getSuggestFields(),
-            $this->getDates()
-        );
-
-        if (isset($this->requestedFields))
-        {
-            $mappedFields = array_intersect_key($mappedFields, array_flip($this->requestedFields));
-        }
-
-        foreach ($mappedFields as $fieldName => $mappedField)
-        {
-            if (!isset($mappedFields[$fieldName]['value']))
-            {
-                $mappedFields[$fieldName]['value'] = function ($model) use ($fieldName) {
-                    return $model->{$fieldName};
-                };
-            }
-        }
-
-        return $mappedFields;
     }
 
     protected function getIds()
@@ -316,6 +263,59 @@ abstract class AbstractTransformer extends BaseTransformer
         return function ($item) use ($fieldName) {
             return $item->{$fieldName} ?: null;
         };
+    }
+
+    /**
+     * Helper to parse out the fields variable passed via constructor.
+     * Expects a comma-separated string or an array.
+     *
+     * @var array|null
+     */
+    private function getRequestedFields($requestedFields = null)
+    {
+        if (!isset($requestedFields)) {
+            return null;
+        }
+
+        if (is_array($requestedFields)) {
+            return $requestedFields;
+        }
+
+        if (is_string($requestedFields)) {
+            return explode(',', $requestedFields);
+        }
+
+        return null;
+    }
+
+    private function initMappedFields()
+    {
+        $mappedFields = array_merge(
+            $this->getIds(),
+            $this->getSearchFields(),
+            $this->getTitles(),
+            $this->getFields(),
+            $this->getTraitFields(),
+            $this->getSuggestFields(),
+            $this->getDates()
+        );
+
+        if (isset($this->requestedFields))
+        {
+            $mappedFields = array_intersect_key($mappedFields, array_flip($this->requestedFields));
+        }
+
+        foreach ($mappedFields as $fieldName => $mappedField)
+        {
+            if (!isset($mappedFields[$fieldName]['value']))
+            {
+                $mappedFields[$fieldName]['value'] = function ($model) use ($fieldName) {
+                    return $model->{$fieldName};
+                };
+            }
+        }
+
+        return $mappedFields;
     }
 
 }

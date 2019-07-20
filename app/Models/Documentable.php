@@ -462,81 +462,6 @@ trait Documentable
     }
 
     /**
-     * Generate an endpoint name as copy text
-     *
-     * @return string
-     */
-    private function _endpointAsCopyText($endpoint = '')
-    {
-
-        if (!$endpoint)
-        {
-            $endpoint = app('Resources')->getEndpointForModel(get_called_class());
-        }
-
-        return strtolower(Str::title($endpoint));
-
-    }
-
-    /**
-     * Generate an endpoint path
-     *
-     * @return string
-     */
-    private function _endpointPath($options = [])
-    {
-
-        $defaults = [
-            'extraPath' => '',
-            'id' => '',
-        ];
-
-        $options = array_merge($defaults, $options);
-
-        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
-
-        $path = '/' . $endpoint;
-
-        if ($options['extraPath'])
-        {
-            $path .= '/' . $options['extraPath'];
-        }
-
-        if ($options['id'])
-        {
-            $path .= '/' . $options['id'];
-        }
-
-        return $path;
-
-    }
-
-    private function _addEllipsis(\stdClass $obj)
-    {
-
-        $keys = get_object_vars($obj);
-        $addEllipsis = false;
-        $i = 0;
-
-        foreach ($keys as $keyIndex => $key)
-        {
-
-            if ($i > 5)
-            {
-
-                unset($obj->{$keyIndex});
-                $addEllipsis = true;
-
-            }
-            $i++;
-        }
-        $obj->{"..."} = null;
-
-        return $obj;
-
-    }
-
-    /**
      * Helper to retrieve the source attribute, i.e. where the model comes from.
      *
      * @return string
@@ -859,6 +784,81 @@ trait Documentable
         $doc .= "        }\n";
 
         return $doc;
+
+    }
+
+    /**
+     * Generate an endpoint name as copy text
+     *
+     * @return string
+     */
+    private function _endpointAsCopyText($endpoint = '')
+    {
+
+        if (!$endpoint)
+        {
+            $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+        }
+
+        return strtolower(Str::title($endpoint));
+
+    }
+
+    /**
+     * Generate an endpoint path
+     *
+     * @return string
+     */
+    private function _endpointPath($options = [])
+    {
+
+        $defaults = [
+            'extraPath' => '',
+            'id' => '',
+        ];
+
+        $options = array_merge($defaults, $options);
+
+        $endpoint = app('Resources')->getEndpointForModel(get_called_class());
+
+        $path = '/' . $endpoint;
+
+        if ($options['extraPath'])
+        {
+            $path .= '/' . $options['extraPath'];
+        }
+
+        if ($options['id'])
+        {
+            $path .= '/' . $options['id'];
+        }
+
+        return $path;
+
+    }
+
+    private function _addEllipsis(\stdClass $obj)
+    {
+
+        $keys = get_object_vars($obj);
+        $addEllipsis = false;
+        $i = 0;
+
+        foreach ($keys as $keyIndex => $key)
+        {
+
+            if ($i > 5)
+            {
+
+                unset($obj->{$keyIndex});
+                $addEllipsis = true;
+
+            }
+            $i++;
+        }
+        $obj->{"..."} = null;
+
+        return $obj;
 
     }
 

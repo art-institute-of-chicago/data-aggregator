@@ -10,12 +10,12 @@ class WebModel extends BaseModel
 
     use ElasticSearchable;
 
-    protected $casts = [
-        'published' => 'boolean',
-    ];
+    public static $sourceLastUpdateDateField = 'last_updated';
 
     protected static $source = 'Web';
 
-    public static $sourceLastUpdateDateField = 'last_updated';
+    protected $casts = [
+        'published' => 'boolean',
+    ];
 
 }

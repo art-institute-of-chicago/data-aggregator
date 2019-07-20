@@ -33,6 +33,20 @@ class ImportDigitalLabels extends AbstractImportCommand
 
     }
 
+    protected function reset()
+    {
+
+        return $this->resetData(
+            [
+                Label::class,
+            ],
+            [
+                'digital_label_exhibitions',
+                'digital_labels'
+            ]
+        );
+    }
+
     private function sourceExhibitionJson()
     {
         return env('DIGITAL_LABELS_JSON_ROOT') . '/public/exhibitions';
@@ -108,19 +122,5 @@ class ImportDigitalLabels extends AbstractImportCommand
             }
         }
 
-    }
-
-    protected function reset()
-    {
-
-        return $this->resetData(
-            [
-                Label::class,
-            ],
-            [
-                'digital_label_exhibitions',
-                'digital_labels'
-            ]
-        );
     }
 }

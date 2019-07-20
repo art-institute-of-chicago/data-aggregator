@@ -13,12 +13,14 @@ class Asset extends CollectionsModel
 
     use ElasticSearchable;
 
-    public static $sourceLastUpdateDateField = 'indexed_at';
-
     public const IMAGE = 'image';
     public const SOUND = 'sound';
     public const TEXT = 'text';
     public const VIDEO = 'video';
+
+    public static $sourceLastUpdateDateField = 'indexed_at';
+
+    protected static $assetType = null;
 
     protected $primaryKey = 'lake_guid';
 
@@ -40,7 +42,15 @@ class Asset extends CollectionsModel
         'artworks',
     ];
 
-    protected static $assetType = null;
+    /**
+     * Create a new instance of the given model. For Assets, we use this to set a default `type`.
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct(...func_get_args());
+
+        $this->type = static::$assetType ?? null;
+    }
 
     public function artworks()
     {
@@ -89,6 +99,22 @@ class Asset extends CollectionsModel
     }
 
     /**
+     * Ensure that the id is a valid UUID.
+     *
+     * @param mixed $id
+     * @return boolean
+     */
+    public static function validateId($id)
+    {
+
+        // We must not be using UUIDv3, since the typical regex wasn't matching
+        $uuid = '/^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i';
+
+        return preg_match($uuid, $id);
+
+    }
+
+    /**
      * Filters the `assets` table by `type` to match `$assetType` of the model.
      * Uses the inline method for scope definition, rather than creating new classes.
      *
@@ -109,32 +135,6 @@ class Asset extends CollectionsModel
         static::addGlobalScope('assets', function ($builder) {
             $builder->where('type', '=', static::$assetType);
         });
-
-    }
-
-    /**
-     * Create a new instance of the given model. For Assets, we use this to set a default `type`.
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct(...func_get_args());
-
-        $this->type = static::$assetType ?? null;
-    }
-
-    /**
-     * Ensure that the id is a valid UUID.
-     *
-     * @param mixed $id
-     * @return boolean
-     */
-    public static function validateId($id)
-    {
-
-        // We must not be using UUIDv3, since the typical regex wasn't matching
-        $uuid = '/^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i';
-
-        return preg_match($uuid, $id);
 
     }
 

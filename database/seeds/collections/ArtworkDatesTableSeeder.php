@@ -5,19 +5,6 @@ use App\Models\Collections\Artwork;
 class ArtworkDatesTableSeeder extends AbstractSeeder
 {
 
-    protected function seed()
-    {
-
-        $artworks = Artwork::fake()->get();
-
-        foreach ($artworks as $artwork) {
-
-            $this->seedDates($artwork);
-
-        }
-
-    }
-
     public function seedDates($artwork)
     {
 
@@ -39,6 +26,19 @@ class ArtworkDatesTableSeeder extends AbstractSeeder
             ]);
 
             if ($preferred || $hasPreferred) $hasPreferred = true;
+
+        }
+
+    }
+
+    protected function seed()
+    {
+
+        $artworks = Artwork::fake()->get();
+
+        foreach ($artworks as $artwork) {
+
+            $this->seedDates($artwork);
 
         }
 

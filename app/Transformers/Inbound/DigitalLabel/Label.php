@@ -32,6 +32,83 @@ class Label extends DigitalLabelTransformer
 
     }
 
+    protected function getSync(Datum $datum)
+    {
+
+        return [
+            'artworks' => $this->artworkIds(json_decode($datum->contentBundle)),
+            'artists' => $this->artistIds(json_decode($datum->contentBundle)),
+        ];
+
+    }
+
+    protected function search($accession)
+    {
+
+        static $cache = [];
+
+        $query = [
+            'fields' => [
+                'id',
+                'title',
+                'main_reference_number',
+                'artist_id',
+            ],
+            'resources' => [
+                'artworks',
+            ],
+            'query' => [
+                'prefix' => [
+                    'main_reference_number' => $accession
+                ]
+            ]
+        ];
+
+        $response = $cache[$accession] ?? $this->post(config('app.url') . "/api/v1/search", $query);
+        $cache[$accession] = $response;
+        $response = json_decode($response);
+
+        $results = $response->data;
+        $results = collect($results);
+
+        $results = $results->filter(function ($result) use ($accession) {
+
+            // Check what's left after DSC accession is trimmed from result
+            $mrn = $result->main_reference_number;
+            $mrn = substr($mrn, strlen($accession));
+
+            // If there's no "leftover" string, this is an exact match
+            if(strlen($mrn) === 0)
+            {
+                return true;
+            }
+
+            // If next char is numeric, ignore, e.g. 1928.23 vs. 1928.230
+            if(is_numeric($mrn[0]))
+            {
+                return false;
+            }
+
+            // If next char is a period, ignore, e.g. 1928.23 vs. 1928.23.12
+            if($mrn[0] === '.')
+            {
+                return false;
+            }
+
+            return true;
+
+        });
+
+        // Sort by length of accession, so shortest is first
+        $results = $results->sortBy(function ($result) {
+            return strlen($result->main_reference_number);
+        });
+
+        // The first result is our match
+        return $results->first();
+
+    }
+
     private function headline($contentBundle)
     {
 
@@ -153,83 +230,6 @@ class Label extends DigitalLabelTransformer
             }
         }
         return  array_unique($mainRefNums);
-    }
-
-    protected function getSync(Datum $datum)
-    {
-
-        return [
-            'artworks' => $this->artworkIds(json_decode($datum->contentBundle)),
-            'artists' => $this->artistIds(json_decode($datum->contentBundle)),
-        ];
-
-    }
-
-    protected function search($accession)
-    {
-
-        static $cache = [];
-
-        $query = [
-            'fields' => [
-                'id',
-                'title',
-                'main_reference_number',
-                'artist_id',
-            ],
-            'resources' => [
-                'artworks',
-            ],
-            'query' => [
-                'prefix' => [
-                    'main_reference_number' => $accession
-                ]
-            ]
-        ];
-
-        $response = $cache[$accession] ?? $this->post(config('app.url') . "/api/v1/search", $query);
-        $cache[$accession] = $response;
-        $response = json_decode($response);
-
-        $results = $response->data;
-        $results = collect($results);
-
-        $results = $results->filter(function ($result) use ($accession) {
-
-            // Check what's left after DSC accession is trimmed from result
-            $mrn = $result->main_reference_number;
-            $mrn = substr($mrn, strlen($accession));
-
-            // If there's no "leftover" string, this is an exact match
-            if(strlen($mrn) === 0)
-            {
-                return true;
-            }
-
-            // If next char is numeric, ignore, e.g. 1928.23 vs. 1928.230
-            if(is_numeric($mrn[0]))
-            {
-                return false;
-            }
-
-            // If next char is a period, ignore, e.g. 1928.23 vs. 1928.23.12
-            if($mrn[0] === '.')
-            {
-                return false;
-            }
-
-            return true;
-
-        });
-
-        // Sort by length of accession, so shortest is first
-        $results = $results->sortBy(function ($result) {
-            return strlen($result->main_reference_number);
-        });
-
-        // The first result is our match
-        return $results->first();
-
     }
 
     // @TODO: Use https://github.com/FriendsOfPHP/Goutte

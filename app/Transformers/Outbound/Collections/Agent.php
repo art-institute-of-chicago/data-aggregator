@@ -151,7 +151,7 @@ class Agent extends BaseTransformer
      *
      * @return array
      */
-    public function getSuggestFields()
+    protected function getSuggestFields()
     {
         $suggestFields = $this->traitGetSuggestFields();
 

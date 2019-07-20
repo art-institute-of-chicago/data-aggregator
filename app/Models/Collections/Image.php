@@ -8,9 +8,9 @@ namespace App\Models\Collections;
 class Image extends Asset
 {
 
-    protected $table = 'assets';
-
     protected static $assetType = 'image';
+
+    protected $table = 'assets';
 
     protected $appends = ['iiif_url'];
 

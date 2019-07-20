@@ -133,6 +133,10 @@ class SearchController extends BaseController
 
     }
 
+    protected function buildCacheKey() {
+        return md5(json_encode(func_get_args()));
+    }
+
     /**
      * Helper method to perform a query against Elasticsearch endpoint.
      *
@@ -300,9 +304,5 @@ class SearchController extends BaseController
 
         return $request;
 
-    }
-
-    protected function buildCacheKey() {
-        return md5(json_encode(func_get_args()));
     }
 }

@@ -239,20 +239,6 @@ class CreateCollectionsTables extends Migration
 
     }
 
-    private function _addIdsAndTitle($table, $citiField = true, $titleField = 'string')
-    {
-        $table->integer('citi_id')->primary();
-        $table->{$titleField}('title')->nullable();
-        return $table;
-    }
-
-    private function _addDates($table, $citiField = true)
-    {
-        $table->timestamp('source_modified_at')->nullable()->useCurrent();
-        $table->timestamps();
-        return $table;
-    }
-
     /**
      * Reverse the migrations.
      *
@@ -286,5 +272,19 @@ class CreateCollectionsTables extends Migration
         Schema::dropIfExists('assets');
         Schema::dropIfExists('exhibition_asset');
         Schema::dropIfExists('artwork_asset');
+    }
+
+    private function _addIdsAndTitle($table, $citiField = true, $titleField = 'string')
+    {
+        $table->integer('citi_id')->primary();
+        $table->{$titleField}('title')->nullable();
+        return $table;
+    }
+
+    private function _addDates($table, $citiField = true)
+    {
+        $table->timestamp('source_modified_at')->nullable()->useCurrent();
+        $table->timestamps();
+        return $table;
     }
 }

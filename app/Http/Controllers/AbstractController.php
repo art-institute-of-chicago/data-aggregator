@@ -41,38 +41,6 @@ abstract class AbstractController extends BaseController
     }
 
     /**
-     * Helper to parse Fractal includes or excludes.
-     *
-     * @link http://fractal.thephpleague.com/transformers/
-     *
-     * @param string $param  Name of query string param to parse
-     * @param string $method  Either `parseIncludes` or `parseExcludes`
-     */
-    private function parseFractalParam($param, $method)
-    {
-        $values = Input::get($param);
-
-        if(!isset($values))
-        {
-            return;
-        }
-
-        // Fractal handles this internally, but we do it early for preprocessing
-        if(is_string($values))
-        {
-            $values = explode(',', $values);
-        }
-
-        // Allows for camel, snake, and kebab cases
-        foreach($values as &$value)
-        {
-            $value = Str::snake(Str::camel($value));
-        }
-
-        $this->fractal->{$method}($values);
-    }
-
-    /**
      * Return a response with a single resource, given an Eloquent Model.
      *
      * @return \Illuminate\Http\Response
@@ -258,6 +226,38 @@ abstract class AbstractController extends BaseController
 
         return $this->getCollectionResponse($all);
 
+    }
+
+    /**
+     * Helper to parse Fractal includes or excludes.
+     *
+     * @link http://fractal.thephpleague.com/transformers/
+     *
+     * @param string $param  Name of query string param to parse
+     * @param string $method  Either `parseIncludes` or `parseExcludes`
+     */
+    private function parseFractalParam($param, $method)
+    {
+        $values = Input::get($param);
+
+        if(!isset($values))
+        {
+            return;
+        }
+
+        // Fractal handles this internally, but we do it early for preprocessing
+        if(is_string($values))
+        {
+            $values = explode(',', $values);
+        }
+
+        // Allows for camel, snake, and kebab cases
+        foreach($values as &$value)
+        {
+            $value = Str::snake(Str::camel($value));
+        }
+
+        $this->fractal->{$method}($values);
     }
 
 }

@@ -6,19 +6,6 @@ use App\Models\Collections\ArtworkCatalogue;
 class ArtworkCataloguesTableSeeder extends AbstractSeeder
 {
 
-    protected function seed()
-    {
-
-        $artworks = Artwork::fake()->get();
-
-        foreach ($artworks as $artwork) {
-
-            $this->seedCatalogues($artwork);
-
-        }
-
-    }
-
     public function seedCatalogues($artwork)
     {
 
@@ -35,6 +22,19 @@ class ArtworkCataloguesTableSeeder extends AbstractSeeder
         $catalogue = $catalogues->random();
         $catalogue->preferred = true;
         $catalogue->save();
+
+    }
+
+    protected function seed()
+    {
+
+        $artworks = Artwork::fake()->get();
+
+        foreach ($artworks as $artwork) {
+
+            $this->seedCatalogues($artwork);
+
+        }
 
     }
 

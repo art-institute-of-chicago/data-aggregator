@@ -35,18 +35,6 @@ class ImportSites extends AbstractImportCommand
 
     }
 
-    private function importSites($results)
-    {
-
-        $this->info("Importing static sites");
-
-        foreach($results as $datum)
-        {
-            $this->save($datum, Site::class, SiteTransformer::class);
-        }
-
-    }
-
     protected function reset()
     {
 
@@ -61,6 +49,18 @@ class ImportSites extends AbstractImportCommand
                 'sites',
             ]
         );
+
+    }
+
+    private function importSites($results)
+    {
+
+        $this->info("Importing static sites");
+
+        foreach($results as $datum)
+        {
+            $this->save($datum, Site::class, SiteTransformer::class);
+        }
 
     }
 

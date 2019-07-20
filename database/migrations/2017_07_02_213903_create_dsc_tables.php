@@ -42,6 +42,19 @@ class CreateDscTables extends Migration
 
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+
+        Schema::dropIfExists('sections');
+        Schema::dropIfExists('publications');
+
+    }
+
     private function _addIdsAndTitle($table, $idType = 'integer')
     {
 
@@ -55,19 +68,6 @@ class CreateDscTables extends Migration
         }
         $table->text('title');
         return $table;
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-
-        Schema::dropIfExists('sections');
-        Schema::dropIfExists('publications');
-
     }
 
 }

@@ -12,11 +12,11 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 class ReportNoImages extends BaseCommand
 {
 
+    public static $filename = 'artwork-no-images.csv';
+
     protected $signature = 'report:no-images';
 
     protected $description = "Report all artworks that have no preferred images set";
-
-    public static $filename = 'artwork-no-images.csv';
 
     protected $csv;
 

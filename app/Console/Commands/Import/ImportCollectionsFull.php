@@ -74,6 +74,14 @@ class ImportCollectionsFull extends AbstractImportCommand
     }
 
     /**
+     * Temporarily overriding this to have control over the `$limit` default here.
+     */
+    protected function query($endpoint, $page = 1, $limit = 500)
+    {
+        return parent::query($endpoint, $page, 100);
+    }
+
+    /**
      * This method will take an array of ids and return an array of URLs to the CDS API,
      * which utilize the `?ids=a,b,c` syntax. It'll iterate on chunking the ids until the
      * URLs it generates all satisfy a reasonable length criteria (600 chars).
@@ -109,14 +117,6 @@ class ImportCollectionsFull extends AbstractImportCommand
 
         return $urls;
 
-    }
-
-    /**
-     * Temporarily overriding this to have control over the `$limit` default here.
-     */
-    protected function query($endpoint, $page = 1, $limit = 500)
-    {
-        return parent::query($endpoint, $page, 100);
     }
 
 }

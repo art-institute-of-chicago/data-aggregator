@@ -13,8 +13,6 @@ class CategoryTerm extends CollectionsModel
 
     use ElasticSearchable;
 
-    protected static $isCategory = null;
-
     public const CLASSIFICATION = 'TT-1';
     public const MATERIAL = 'TT-2';
     public const TECHNIQUE = 'TT-3';
@@ -23,6 +21,8 @@ class CategoryTerm extends CollectionsModel
 
     public const DEPARTMENT = 'CT-1';
     public const THEME = 'CT-3';
+
+    protected static $isCategory = null;
 
     protected $primaryKey = 'lake_uid';
     protected $keyType = 'string';
@@ -34,40 +34,6 @@ class CategoryTerm extends CollectionsModel
         'artworks',
     ];
 
-    // This also propogates to Category and Term
-    // Affects `searchableIndex` and `api_model`
-    public function searchableModel()
-    {
-
-        return 'category-terms';
-
-    }
-
-    /**
-     * Filters the `category_terms` table by `is_category` to match `$isCategory` in model.
-     * Uses the inline method for scope definition, rather than creating new classes.
-     *
-     * @link https://stackoverflow.com/questions/20701216/laravel-default-orderby
-     *
-     * {@inheritdoc}
-     */
-    protected static function boot()
-    {
-
-        parent::boot();
-
-        // Allows querying all CategoryTerms directly
-        if(!isset(static::$isCategory))
-        {
-            return;
-        }
-
-        static::addGlobalScope('caterm', function ($builder) {
-            $builder->where('is_category', '=', static::$isCategory);
-        });
-
-    }
-
     /**
      * Create a new instance of the given model. For Assets, we use this to set a default `type`.
      */
@@ -76,6 +42,15 @@ class CategoryTerm extends CollectionsModel
         parent::__construct(...func_get_args());
 
         $this->is_category = static::$isCategory ?? null;
+    }
+
+    // This also propogates to Category and Term
+    // Affects `searchableIndex` and `api_model`
+    public function searchableModel()
+    {
+
+        return 'category-terms';
+
     }
 
     /**
@@ -274,6 +249,31 @@ class CategoryTerm extends CollectionsModel
         $uid = '/^[A-Z]{2}-[0-9]+$/i';
 
         return preg_match($uid, $id);
+
+    }
+
+    /**
+     * Filters the `category_terms` table by `is_category` to match `$isCategory` in model.
+     * Uses the inline method for scope definition, rather than creating new classes.
+     *
+     * @link https://stackoverflow.com/questions/20701216/laravel-default-orderby
+     *
+     * {@inheritdoc}
+     */
+    protected static function boot()
+    {
+
+        parent::boot();
+
+        // Allows querying all CategoryTerms directly
+        if(!isset(static::$isCategory))
+        {
+            return;
+        }
+
+        static::addGlobalScope('caterm', function ($builder) {
+            $builder->where('is_category', '=', static::$isCategory);
+        });
 
     }
 

@@ -194,6 +194,33 @@ return PhpCsFixer\Config::create()
         'no_useless_return' => true,
         'no_whitespace_before_comma_in_array' => true,
         'no_whitespace_in_blank_line' => true,
+        // non_printable_character // Good, but labeled risky
+        'normalize_index_brace' => true,
+        'not_operator_with_space' => false,
+        'not_operator_with_successor_space' => false,
+        'object_operator_without_whitespace' => true,
+        'ordered_class_elements' => [
+            'order' => [
+                'use_trait',
+                'constant_public',
+                'constant_protected',
+                'constant_private',
+                // 'property_public_static',
+                // 'property_protected_static',
+                // 'property_private_static',
+                'property_public',
+                'property_protected',
+                'property_private',
+                'construct',
+                'destruct',
+                'magic',
+                'phpunit',
+                'method_public',
+                'method_protected',
+                'method_private',
+            ],
+            'sortAlgorithm' => 'none',
+        ],
     ])
     ->setFinder($finder)
 ;
