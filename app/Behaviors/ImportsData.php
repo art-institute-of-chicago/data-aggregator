@@ -97,18 +97,18 @@ trait ImportsData
 
         $ch = curl_init();
 
-        curl_setopt ($ch, CURLOPT_URL, $url);
-        curl_setopt ($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
 
-        curl_setopt ($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-        curl_setopt ($ch, CURLOPT_USERPWD, $this->auth);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+        curl_setopt($ch, CURLOPT_USERPWD, $this->auth);
 
-        curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
         ob_start();
 
-        curl_exec ($ch);
-        curl_close ($ch);
+        curl_exec($ch);
+        curl_close($ch);
 
         $contents = ob_get_contents();
 
