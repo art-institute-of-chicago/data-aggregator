@@ -19,21 +19,21 @@ class Request
      *
      * @var array|string
      */
-    protected $resources = null;
+    protected $resources;
 
     /**
      * Identifier, e.g. for `_explain` queries
      *
      * @var string
      */
-    protected $id = null;
+    protected $id;
 
     /**
      * Array of queries needed to isolate any "scoped" resources in this request.
      *
      * @var array
      */
-    protected $scopes = null;
+    protected $scopes;
 
     /**
      * Array of queries needed to boost resources in this request.
@@ -47,7 +47,7 @@ class Request
      *
      * @var array
      */
-    protected $functionScores = null;
+    protected $functionScores;
 
     /**
      * List of allowed Input params for querying.
