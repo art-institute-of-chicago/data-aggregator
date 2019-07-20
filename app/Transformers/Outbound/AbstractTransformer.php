@@ -46,7 +46,7 @@ abstract class AbstractTransformer extends BaseTransformer
      *
      * @return array
      */
-    public final function transform(Model $model)
+    final public function transform(Model $model)
     {
         $mappedFields = $this->getMappedFields();
 
