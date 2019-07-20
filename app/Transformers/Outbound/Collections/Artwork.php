@@ -60,7 +60,7 @@ class Artwork extends BaseTransformer
     {
         return array_merge(parent::getTitles(), [
             'alt_titles' => [
-                'doc' => 'Altername names for this work',
+                'doc' => 'Alternate names for this work',
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
@@ -186,7 +186,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => 'text',
             ],
             'dimensions' => [
-                'doc' => 'The size, shape, scale, and dimensions of the work. May include multiple dimension like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.',
+                'doc' => 'The size, shape, scale, and dimensions of the work. May include multiple dimensions like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.',
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
@@ -745,7 +745,7 @@ class Artwork extends BaseTransformer
             //         return $item->mobileArtwork && $item->mobileArtwork->tours ? $item->mobileArtwork->tours->pluck('title') ?? null : null; },
             // ],
             'section_ids' => [
-                'doc' => 'Unique identifiers of the digital publication chaptes this work in included in',
+                'doc' => 'Unique identifiers of the digital publication chapters this work in included in',
                 'type' => 'array',
                 'elasticsearch' => 'long',
                 'value' => function ($item) {

@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/docs/endpoints', 'EndpointsController@index')->name('doc-endpoints');
+Route::get('/docs/fields', 'FieldsController@index')->name('doc-fields');
+
 Route::middleware('auth')->get('/user', function () {
     return Auth::user();
 });

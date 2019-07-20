@@ -23,7 +23,7 @@ abstract class AbstractDocCommand extends BaseCommand
         return [
             'Collections' => 'Collections',
             'Shop' => 'Shop',
-            'Membership' => 'Membership',
+            //'Membership' => 'Membership',
             'Mobile' => 'Mobile',
             'Dsc' => 'Digital Scholarly Catalogs',
             'DigitalLabel' => 'Digital Labels',
@@ -51,8 +51,12 @@ abstract class AbstractDocCommand extends BaseCommand
         }
 
         return $this->models = collect(config('resources.outbound.base'))
+            ->filter(function ($value, $key) {
+                return array_key_exists('endpoint', $value) && (!array_key_exists('is_restricted', $value) || $value['is_restricted'] == FALSE);
+            })
             ->pluck('model')
             ->unique()
+            ->filter()
             ->values()
             ->map(function($model) {
                 $segments = explode('\\', $model);

@@ -99,7 +99,7 @@ class Agent extends BaseTransformer
                 },
             ],
             'is_artist' => [
-                'doc' => 'Whether the agent is an artist. Soley based on whether the agent is listed as an artist for an artwork record.',
+                'doc' => 'Whether the agent is an artist. Solely based on whether the agent is listed as an artist for an artwork record.',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
                 'value' => function ($item) {

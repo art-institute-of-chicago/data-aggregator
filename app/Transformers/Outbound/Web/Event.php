@@ -35,7 +35,7 @@ class Event extends BaseTransformer
     {
         return array_merge(parent::getTitles(), [
             'title_display' => [
-                'doc' => 'Name of this event formatted with HTML (optional)',
+                'doc' => 'The name of this event formatted with HTML (optional)',
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
@@ -78,7 +78,7 @@ class Event extends BaseTransformer
                 'elasticsearch' => 'text',
             ],
             'description' => [
-                'doc' => 'All copy text of the event',
+                'doc' => 'All copytext of the event',
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,

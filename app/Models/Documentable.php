@@ -60,7 +60,7 @@ trait Documentable
 
         $doc = '';
         $doc .= $this->docTitle() ."\n\n";
-        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](ENDPOINTS.md#" .$endpoint .").\n\n";
+        $doc .= $this->docDescription() ." For a description of all the endpoints available for this resource, see [here](endpoints#" .$endpoint .").\n\n";
 
         if (!$this->docOnly())
         {
@@ -118,7 +118,7 @@ trait Documentable
         // Title
         $doc = '### `GET ' .$this->_endpointPath() ."`\n\n";
 
-        $doc .= $this->docListDescription() ." For a description of all the fields included with this response, see [here](FIELDS.md#" .$endpoint .").\n\n";
+        $doc .= $this->docListDescription() ." For a description of all the fields included with this response, see [here](fields#" .$endpoint .").\n\n";
 
         $doc .= $this->docListParameters();
 
@@ -239,7 +239,7 @@ trait Documentable
         if (static::$source == 'Collections')
         {
 
-            $doc .= " {id} is the identifier from our collections managements system.";
+            $doc .= " {id} is the identifier from our collections management system.";
 
         }
 
@@ -327,7 +327,7 @@ trait Documentable
             'sort' => 'Used in conjunction with `query`',
             'from' => 'Starting point of results. Pagination via Elasticsearch conventions',
             'size' => 'Number of results to return. Pagination via Elasticsearch conventions',
-            'facets' => 'A comma-separated list of \"count\" aggregation facets to include in the results.',
+            'facets' => 'A comma-separated list of \'count\' aggregation facets to include in the results.',
         ];
 
     }
@@ -389,6 +389,7 @@ trait Documentable
             $doc .= "Example output:\n\n";
 
             $response = json_decode(file_get_contents($requestUrl));
+            sleep(1); // Throttle requests to the API
 
             // For brevity, only show the first fiew fields in the results
             if (is_array($response->data))
@@ -406,7 +407,7 @@ trait Documentable
                 $response->data = $this->_addEllipsis($response->data);
 
             }
-            $json = print_r(json_encode($response, JSON_PRETTY_PRINT), true);
+            $json = json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
             $json = str_replace('"...": null', '...', $json);
 
             // Output
@@ -434,6 +435,7 @@ trait Documentable
         $doc .= "Example output:\n\n";
 
         $response = json_decode(file_get_contents($requestUrl));
+        sleep(1); // Throttle requests to the API
 
         // For brevity, only show the first few results
         foreach ($response->data as $index => $datum)
@@ -447,7 +449,7 @@ trait Documentable
             }
 
         }
-        $json = print_r(json_encode($response, JSON_PRETTY_PRINT), true);
+        $json = json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
         // Output
         $doc .= "```\n";

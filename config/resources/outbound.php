@@ -183,14 +183,14 @@ return [
             'endpoint' => 'ticketed-events',
             'model' => \App\Models\Membership\TicketedEvent::class,
             'transformer' => \App\Transformers\Outbound\Membership\TicketedEvent::class,
-            'controller' => class_basename(\App\Http\Controller\RestrictedResourceController::class),
+            'is_restricted' => true,
             'is_searchable' => true,
         ],
         [
             'endpoint' => 'ticketed-event-types',
             'model' => \App\Models\Membership\TicketedEventType::class,
             'transformer' => \App\Transformers\Outbound\Membership\TicketedEventType::class,
-            'controller' => class_basename(\App\Http\Controller\RestrictedResourceController::class),
+            'is_restricted' => true,
         ],
         [
             'endpoint' => 'legacy-events',

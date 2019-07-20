@@ -12,7 +12,7 @@ class Exhibition extends BaseTransformer
         return [
             // TODO: Refactor relationships:
             'exhibition_id' => [
-                'doc' => 'Identifer of the CITI exhibtion this website exhibition is tied to',
+                'doc' => 'Identifier of the CITI exhibition this website exhibition is tied to',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {

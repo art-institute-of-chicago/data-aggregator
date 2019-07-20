@@ -6,7 +6,7 @@ use App\Models\MobileModel;
 use App\Models\ElasticSearchable;
 
 /**
- * The audio file for a stops on a tour.
+ * The audio file for a stop on a tour.
  */
 class Sound extends MobileModel
 {
