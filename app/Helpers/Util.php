@@ -37,7 +37,7 @@ function cantorTuple(...$list)
 
     $lastElement = array_pop($list);
 
-    return (0.5 * (cantorTuple(...$list) + $lastElement) * (cantorTuple(...$list) + $lastElement + 1) + $lastElement);
+    return 0.5 * (cantorTuple(...$list) + $lastElement) * (cantorTuple(...$list) + $lastElement + 1) + $lastElement;
 }
 
 /**
