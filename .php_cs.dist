@@ -199,28 +199,81 @@ return PhpCsFixer\Config::create()
         'not_operator_with_space' => false,
         'not_operator_with_successor_space' => false,
         'object_operator_without_whitespace' => true,
-        'ordered_class_elements' => [
-            'order' => [
-                'use_trait',
-                'constant_public',
-                'constant_protected',
-                'constant_private',
-                // 'property_public_static',
-                // 'property_protected_static',
-                // 'property_private_static',
-                'property_public',
-                'property_protected',
-                'property_private',
-                'construct',
-                'destruct',
-                'magic',
-                'phpunit',
-                'method_public',
-                'method_protected',
-                'method_private',
-            ],
-            'sortAlgorithm' => 'none',
-        ],
+        // 'ordered_class_elements' => [
+        //     'order' => [
+        //         'use_trait',
+        //         'constant_public',
+        //         'constant_protected',
+        //         'constant_private',
+        //         // 'property_public_static',
+        //         // 'property_protected_static',
+        //         // 'property_private_static',
+        //         'property_public',
+        //         'property_protected',
+        //         'property_private',
+        //         'construct',
+        //         'destruct',
+        //         'magic',
+        //         'phpunit',
+        //         'method_public',
+        //         'method_protected',
+        //         'method_private',
+        //     ],
+        //     'sortAlgorithm' => 'none',
+        // ],
+        // 'ordered_imports' => [
+        //     'imports_order' => null, // (?)
+        //     'sort_algorithm' => 'alpha',
+        // ]
+        // ordered_interfaces
+        // 'php_unit_construct' => true,
+        // php_unit_dedicate_assert
+        // php_unit_dedicate_assert_internal_type
+        // php_unit_expectation
+        // php_unit_fqcn_annotation
+        // php_unit_internal_class
+        // 'php_unit_method_casing' => [ // testSearchable conflict
+        //     'case' => 'snake_case',
+        // ],
+        // php_unit_mock
+        // php_unit_mock_short_will_return
+        // php_unit_namespaced
+        // php_unit_no_expectation_annotation
+        // php_unit_ordered_covers
+        // php_unit_set_up_tear_down_visibility
+        // php_unit_size_class
+        // php_unit_strict
+        // php_unit_test_annotation
+        // php_unit_test_case_static_method_calls
+        // php_unit_test_class_requires_covers
+        // phpdoc_add_missing_param_annotation // vs. 'no_superfluous_phpdoc_tags'
+        // phpdoc_align
+        // phpdoc_annotation_without_dot
+        // phpdoc_indent
+        // phpdoc_inline_tag
+        // phpdoc_no_access
+        // phpdoc_no_alias_tag
+        // phpdoc_no_empty_return
+        // phpdoc_no_package
+        // phpdoc_no_useless_inheritdoc
+        // phpdoc_order
+        // phpdoc_return_self_reference
+        // phpdoc_scalar
+        // phpdoc_separation
+        // phpdoc_single_line_var_spacing
+        // phpdoc_summary
+        // phpdoc_to_comment
+        // phpdoc_to_return_type
+        // phpdoc_trim
+        // phpdoc_trim_consecutive_blank_line_separation
+        // phpdoc_types
+        // phpdoc_types_order
+        // phpdoc_var_annotation_correct_order
+        // phpdoc_var_without_name
+        // pow_to_exponentiation
+        'protected_to_private' => false, // Definitely not!
+        'psr0' => false, // Lowercases 'App' => 'app', etc.
+        'psr4' => true,
     ])
     ->setFinder($finder)
 ;
