@@ -45,7 +45,7 @@ class ReportMigrations extends BaseCommand
      *     If the schema changed, it'll return the difference. Else, it'll return empty.
      *
      * Repeat last step until refactoring is complete!
-     **/
+     */
     public function handle()
     {
         $this->shell = new Shell([

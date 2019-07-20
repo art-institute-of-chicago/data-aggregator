@@ -124,6 +124,8 @@ return PhpCsFixer\Config::create()
             'on_multiline' => 'ensure_fully_multiline',
         ],
         'method_chaining_indentation' => true,
+        // modernize_types_casting
+        'multiline_comment_opening_closing' => true,
     ])
     ->setFinder($finder)
 ;
