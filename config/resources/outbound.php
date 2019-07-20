@@ -203,17 +203,17 @@ return [
         [
             'endpoint' => 'tours',
             'model' => \App\Models\Mobile\Tour::class,
-            'transformer' =>\App\Transformers\Outbound\Mobile\Tour::class,
+            'transformer' => \App\Transformers\Outbound\Mobile\Tour::class,
             'is_searchable' => true,
         ],
         [
             'model' => \App\Models\Mobile\TourStop::class,
-            'transformer' =>\App\Transformers\Outbound\Mobile\TourStop::class,
+            'transformer' => \App\Transformers\Outbound\Mobile\TourStop::class,
         ],
         [
             'endpoint' => 'mobile-sounds',
             'model' => \App\Models\Mobile\Sound::class,
-            'transformer' =>\App\Transformers\Outbound\Mobile\Sound::class,
+            'transformer' => \App\Transformers\Outbound\Mobile\Sound::class,
             'is_searchable' => true,
         ],
 

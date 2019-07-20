@@ -77,7 +77,7 @@ class Agent extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
-            'description' =>[
+            'description' => [
                 'doc' => 'A biographical description of the agent',
                 'type' => 'string',
                 'elasticsearch' => 'text',

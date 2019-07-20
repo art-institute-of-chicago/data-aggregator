@@ -6,6 +6,7 @@ $finder = PhpCsFixer\Finder::create()
         'database/dumps',
         'node_modules',
         'public',
+        'resources/lang',
         'storage',
         'vendor',
     ])
@@ -20,6 +21,10 @@ return PhpCsFixer\Config::create()
         'array_indentation' => true,
         'array_syntax' => [
             'syntax' => 'short',
+        ],
+        'backtick_to_shell_exec' => true,
+        'binary_operator_spaces' => [
+            'default' => 'single_space',
         ],
     ])
     ->setFinder($finder)

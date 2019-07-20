@@ -42,7 +42,7 @@ class BulkImport extends BaseCommand
 
         // Assumes the dataservice has standardized pagination
         $total = $json->pagination->total;
-        $totalPages = ceil($total/$this->chunkSize);
+        $totalPages = ceil($total / $this->chunkSize);
 
         $bar = $this->output->createProgressBar($total);
 
@@ -143,7 +143,7 @@ class BulkImport extends BaseCommand
             if ($e->errorInfo[1] === 1153) {
                 array_map(function ($subitems) use ($tableName) {
                     $this->upsert($tableName, $subitems);
-                }, array_chunk($items, ceil(count($items)/2)));
+                }, array_chunk($items, ceil(count($items) / 2)));
             } else {
                 throw $e;
             }

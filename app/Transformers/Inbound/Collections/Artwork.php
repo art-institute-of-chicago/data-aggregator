@@ -48,12 +48,12 @@ class Artwork extends CollectionsTransformer
 
         return [
 
-            'categories'    => $this->getSyncCategories( $datum ),
-            'terms'         => $this->getSyncTerms( $datum ),
+            'categories' => $this->getSyncCategories( $datum ),
+            'terms' => $this->getSyncTerms( $datum ),
 
-            'artists'       => $this->getSyncArtists( $datum ),
-            'places'        => $this->getSyncPlaces( $datum ),
-            'catalogues'    => $this->getSyncCatalogues( $datum ),
+            'artists' => $this->getSyncArtists( $datum ),
+            'places' => $this->getSyncPlaces( $datum ),
+            'catalogues' => $this->getSyncCatalogues( $datum ),
 
         ];
 

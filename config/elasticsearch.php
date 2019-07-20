@@ -41,11 +41,11 @@ return [
 
             'hosts' => [
                 [
-                    'host'   => env('ELASTICSEARCH_HOST', 'localhost'),
-                    'port'   => env('ELASTICSEARCH_PORT', 9200),
+                    'host' => env('ELASTICSEARCH_HOST', 'localhost'),
+                    'port' => env('ELASTICSEARCH_PORT', 9200),
                     'scheme' => env('ELASTICSEARCH_SCHEME', null),
-                    'user'   => env('ELASTICSEARCH_USER', null),
-                    'pass'   => env('ELASTICSEARCH_PASS', null),
+                    'user' => env('ELASTICSEARCH_USER', null),
+                    'pass' => env('ELASTICSEARCH_PASS', null),
                 ],
             ],
 
@@ -180,11 +180,11 @@ return [
 
             'hosts' => [
                 [
-                    'host'   => 'localhost',
-                    'port'   => 9200,
+                    'host' => 'localhost',
+                    'port' => 9200,
                     'scheme' => null,
-                    'user'   => null,
-                    'pass'   => null,
+                    'user' => null,
+                    'pass' => null,
                 ],
             ],
 
@@ -231,12 +231,12 @@ return [
                     'filter' => [
                         'english_stop' => [
                             'type' => 'stop',
-                            'stopwords' =>  '_english_',
+                            'stopwords' => '_english_',
                         ],
                         'english_article_stop' => [
                             'type' => 'stop',
                             'ignore_case' => true,
-                            'stopwords' =>  ['a', 'an', 'the'],
+                            'stopwords' => ['a', 'an', 'the'],
                         ],
                         /* This filter should be removed unless there are words which should be excluded from stemming.
                         'english_keywords' => [
@@ -288,7 +288,7 @@ return [
     ],
 
     'cache_enabled' => env('ELASTICSEARCH_CACHE_ENABLED', false),
-    'cache_ttl'     => env('ELASTICSEARCH_CACHE_TTL', 60 * 30), // Half an hour default
+    'cache_ttl' => env('ELASTICSEARCH_CACHE_TTL', 60 * 30), // Half an hour default
     'cache_version' => env('ELASTICSEARCH_CACHE_VERSION', 1),
 
 ];

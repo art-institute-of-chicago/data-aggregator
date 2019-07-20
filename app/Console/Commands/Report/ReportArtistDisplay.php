@@ -37,7 +37,7 @@ class ReportArtistDisplay extends BaseCommand
         $results = [];
 
         // Currently, 11 linebreaks is the record
-        for ($i=1; $i < 12; $i++) {
+        for ($i = 1; $i < 12; $i++) {
 
             $narr = array_fill(0, $i, '\n');
             $nstr = implode('[^\n]*', $narr);

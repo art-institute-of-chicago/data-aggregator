@@ -888,7 +888,7 @@ class Request
         }
 
         $params['body']['suggest']['autocomplete'] = [
-            'prefix' =>  Arr::get( $input, 'q' ),
+            'prefix' => Arr::get( $input, 'q' ),
             'completion' => [
                 'field' => $field,
                 'fuzzy' => [

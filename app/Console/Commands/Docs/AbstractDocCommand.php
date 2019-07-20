@@ -60,7 +60,7 @@ abstract class AbstractDocCommand extends BaseCommand
             ->values()
             ->map(function($model) {
                 $segments = explode('\\', $model);
-                return [$model => $segments[count($segments)-2]];
+                return [$model => $segments[count($segments) - 2]];
             })
             ->collapse();
     }

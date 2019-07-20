@@ -19,7 +19,7 @@ class Gallery extends CollectionsModel
         'is_closed' => 'boolean',
     ];
 
-    protected $touches =[
+    protected $touches = [
         'artworks',
     ];
 

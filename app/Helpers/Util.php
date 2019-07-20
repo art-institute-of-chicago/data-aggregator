@@ -59,7 +59,7 @@ function cantorPair($x, $y)
  */
 function reverseCantorPair($z)
 {
-    $t = floor((-1 + sqrt(1 + 8 * $z))/2);
+    $t = floor((-1 + sqrt(1 + 8 * $z)) / 2);
     $x = $t * ($t + 3) / 2 - $z;
     $y = $z - $t * ($t + 1) / 2;
     return [$x, $y];
