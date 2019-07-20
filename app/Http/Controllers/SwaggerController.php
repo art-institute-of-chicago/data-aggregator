@@ -27,8 +27,10 @@ class SwaggerController extends Controller
     public function index()
     {
         $content = Storage::get($this->filename);
-        return response(view('swagger', ['content' => $content]),
-                        200,
-                        ['Content-Type' => 'application/json']);
+        return response(
+            view('swagger', ['content' => $content]),
+            200,
+            ['Content-Type' => 'application/json']
+        );
     }
 }

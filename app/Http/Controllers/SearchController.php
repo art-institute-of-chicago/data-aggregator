@@ -109,7 +109,7 @@ class SearchController extends BaseController
      */
     public function msuggest(Request $request)
     {
-        return $this->mquery( 'getAutocompleteParams', 'getAutocompleteWithSourceResponse', $request,[
+        return $this->mquery( 'getAutocompleteParams', 'getAutocompleteWithSourceResponse', $request, [
             'use_suggest_autocomplete_all' => true,
         ]);
     }

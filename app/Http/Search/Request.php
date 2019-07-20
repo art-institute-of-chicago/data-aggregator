@@ -266,7 +266,7 @@ class Request
 
         // Suggest also returns `_source`, which we can parse to get the cannonical title
         $params = array_merge(
-            $this->getBaseParams( $input ) ,
+            $this->getBaseParams( $input ),
             $this->getFieldParams( $input, false )
         );
 

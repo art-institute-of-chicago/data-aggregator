@@ -167,8 +167,10 @@ class CreateSwaggerDoc extends AbstractDocCommand
         $doc .= "      \"required\": true\n";
         $doc .= "    },\n";
 
-        $params = array_merge($instance->docListParametersRaw(),
-                              $instance->docSearchParametersRaw());
+        $params = array_merge(
+            $instance->docListParametersRaw(),
+            $instance->docSearchParametersRaw()
+        );
 
         foreach ($params as $param => $description)
         {

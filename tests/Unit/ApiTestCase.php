@@ -204,7 +204,7 @@ abstract class ApiTestCase extends TestCase
 
         $this->times(5)->make($class);
 
-        $response = $this->getJson('api/v1/' . $endpoint . '?ids=' . implode(',',array_slice($this->ids, -3, 3)));
+        $response = $this->getJson('api/v1/' . $endpoint . '?ids=' . implode(',', array_slice($this->ids, -3, 3)));
         $response->assertSuccessful();
 
         $resources = $response->json()['data'];
@@ -319,7 +319,7 @@ abstract class ApiTestCase extends TestCase
         $m = $this->model();
         $this->times(5)->make($m);
 
-        $response = $this->getJson('api/v1/' . $this->route($m) . '?ids=' . implode(',',array_slice($this->ids, -3, 3)) . '&fields=' . $retrievedFields->implode(',') );
+        $response = $this->getJson('api/v1/' . $this->route($m) . '?ids=' . implode(',', array_slice($this->ids, -3, 3)) . '&fields=' . $retrievedFields->implode(',') );
         $response->assertSuccessful();
 
         $resources = $response->json()['data'];

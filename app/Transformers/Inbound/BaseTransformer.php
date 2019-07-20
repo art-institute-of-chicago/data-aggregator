@@ -341,7 +341,8 @@ class BaseTransformer extends AbstractTransformer
         // Remove any blacklisted fields
         $base = $this->prune( $base, $this->passthroughExceptions, true );
 
-        return array_merge( $base,
+        return array_merge(
+            $base,
 
             // For convenience, you can overwrite these methods, so that you don't
             // need to call `parent::getExtraFields` in child classes. But you can

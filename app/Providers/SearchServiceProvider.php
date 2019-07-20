@@ -26,7 +26,8 @@ class SearchServiceProvider extends ServiceProvider
          * the connections created in laravel-elasticsearch.
          */
         app(EngineManager::class)->extend('elasticsearch', function ($app) {
-            return new ElasticsearchEngine( Elasticsearch::connection(),
+            return new ElasticsearchEngine(
+                Elasticsearch::connection(),
                 config('scout.elasticsearch.index') . '-',
                 true // Whether "index" should act like a prefix
             );

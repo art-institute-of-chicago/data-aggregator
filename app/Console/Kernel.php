@@ -82,7 +82,7 @@ class Kernel extends ConsoleKernel
             ->dailyAt('22:45')
             ->withoutOverlapping()
             ->after(function () {
-                $this->call('dump:upload',[
+                $this->call('dump:upload', [
                     '--reset' => 'default',
                 ]);
             });

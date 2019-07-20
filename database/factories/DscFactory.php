@@ -45,10 +45,10 @@ $factory->define(App\Models\Dsc\Section::class, function (Faker\Generator $faker
 
             'web_url' => $faker->url,
             'accession' => $faker->accession,
-            'revision' => rand(1230768000,1483228800), // timestamp b/w 2009 and 2017
+            'revision' => rand(1230768000, 1483228800), // timestamp b/w 2009 and 2017
             'source_id' => $faker->randomNumber(5),
             'weight' => $faker->randomNumber(2),
-            'parent_id' => !rand(0,3) ? null : $faker->randomElement(App\Models\Dsc\Section::fake()->pluck('dsc_id')->all()),
+            'parent_id' => !rand(0, 3) ? null : $faker->randomElement(App\Models\Dsc\Section::fake()->pluck('dsc_id')->all()),
             'publication_dsc_id' => $faker->randomElement(App\Models\Dsc\Publication::fake()->pluck('dsc_id')->all()),
             'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::fake()->pluck('citi_id')->all()),
             'content' => $faker->paragraphs(10, true),

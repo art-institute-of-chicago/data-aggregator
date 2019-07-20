@@ -71,7 +71,7 @@ abstract class AbstractSeeder extends Seeder
         foreach ($subjects as $subject)
         {
 
-            $selected = $objects->random( rand(2,4) );
+            $selected = $objects->random( rand(2, 4) );
 
             if ($isReflexive)
             {

@@ -61,7 +61,7 @@ class ImportDigitalLabels extends AbstractImportCommand
             $this->info('Retrieving digital labels JSON');
 
             $contents = $this->fetch( $this->sourceExhibitionJson() );
-            Storage::disk('local')->put($this->exhibitionJson() , $contents );
+            Storage::disk('local')->put($this->exhibitionJson(), $contents );
 
             $results = json_decode( $contents );
 

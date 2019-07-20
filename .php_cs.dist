@@ -115,6 +115,14 @@ return PhpCsFixer\Config::create()
         'lowercase_cast' => true,
         'lowercase_constants' => true,
         'lowercase_keywords' => true,
+        'lowercase_static_reference' => true,
+        'magic_constant_casing' => true,
+        'magic_method_casing' => true,
+        // mb_str_functions
+        'method_argument_space' => [
+            'keep_multiple_spaces_after_comma' => false,
+            'on_multiline' => 'ensure_fully_multiline',
+        ],
     ])
     ->setFinder($finder)
 ;
