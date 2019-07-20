@@ -81,7 +81,6 @@ class ImportCollectionsFull extends AbstractImportCommand
      * which utilize the `?ids=a,b,c` syntax. It'll iterate on chunking the ids until the
      * URLs it generates all satisfy a reasonable length criteria (600 chars).
      *
-     * @param array $ids
      * @param string $endpoint
      *
      * @return array

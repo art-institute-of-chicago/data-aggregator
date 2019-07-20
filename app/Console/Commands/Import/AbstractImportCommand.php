@@ -38,8 +38,6 @@ abstract class AbstractImportCommand extends BaseCommand
      * @link http://api.symfony.com/3.3/Symfony/Component/Console/Command/Command.html
      * @link https://github.com/laravel/framework/blob/5.4/src/Illuminate/Console/Command.php
      *
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
      * @return mixed
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -90,7 +88,6 @@ abstract class AbstractImportCommand extends BaseCommand
      * @param object  $datum
      * @param string  $model
      * @param string  $transformer
-     * @param boolean $fake  Whether or not to fill missing fields w/ fake data.
      *
      * @return \Illuminate\Database\Eloquent\Model
      */

@@ -46,7 +46,6 @@ abstract class AbstractController extends BaseController
      *
      * @link http://fractal.thephpleague.com/transformers/
      *
-     * @param \League\Fractal\Manager $fractal
      * @param string $param  Name of query string param to parse
      * @param string $method  Either `parseIncludes` or `parseExcludes`
      */
@@ -77,7 +76,6 @@ abstract class AbstractController extends BaseController
     /**
      * Return a response with a single resource, given an Eloquent Model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model $item
      * @return \Illuminate\Http\Response
      */
     protected function getItemResponse(Model $item)
@@ -92,7 +90,6 @@ abstract class AbstractController extends BaseController
      * For multiple ids, this is a an Eloquent Collection.
      * For pagination, this is LengthAwarePaginator.
      *
-     * @param  \Illuminate\Contracts\Support\Arrayable $collection
      * @return \Illuminate\Http\Response
      */
     protected function getCollectionResponse(Arrayable $collection)
@@ -125,7 +122,6 @@ abstract class AbstractController extends BaseController
 
     /**
      * Helper to fill data and attach metadata for items and collections.
-     * @param  \Illuminate\Contracts\Support\Arrayable $inputData
      * @param  string $resourceClass  Must implement \League\Fractal\Resource\ResourceAbstract
      * @return array
      */
@@ -167,8 +163,6 @@ abstract class AbstractController extends BaseController
      * Return a single resource. Not meant to be called directly in routes.
      * `$callback` should return an Eloquent Model.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $callback
      * @return \Illuminate\Http\Response
      */
     protected function select(Request $request, Closure $callback)
@@ -198,8 +192,6 @@ abstract class AbstractController extends BaseController
      * Return a list of resources. Not meant to be called directly in routes.
      * `$callback` should return LengthAwarePaginator.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $callback
      * @return \Illuminate\Http\Response
      */
     protected function collect(Request $request, Closure $callback)

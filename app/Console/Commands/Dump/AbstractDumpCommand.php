@@ -99,7 +99,6 @@ abstract class AbstractDumpCommand extends BaseCommand
      * Use this to generate absolute paths to CSV files for `createFromPath` calls.
      *
      * @param string $subpath  ...e.g. to CSV file, relative to `database/dumps`
-     * @return string
      */
     protected function getDumpPath(string $subpath) : string
     {
@@ -112,7 +111,6 @@ abstract class AbstractDumpCommand extends BaseCommand
      * If command has `--path=` option, return it. Fall back to `database/dumps/local`.
      * Enforces correct structure in dump directory.
      *
-     * @return string
      */
     protected function getDumpPathOption() : string
     {

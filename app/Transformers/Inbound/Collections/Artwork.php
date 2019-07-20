@@ -69,7 +69,6 @@ class Artwork extends CollectionsTransformer
     /**
      * Get an artwork's publish categories for syncing.
      *
-     * @param \App\Transformers\Datum $datum
      * @return array
      */
     private function getSyncCategories(Datum $datum)
@@ -86,7 +85,6 @@ class Artwork extends CollectionsTransformer
     /**
      * Get an artwork's index terms for syncing.
      *
-     * @param \App\Transformers\Datum $datum
      * @return array
      */
     private function getSyncTerms(Datum $datum)
@@ -118,7 +116,6 @@ class Artwork extends CollectionsTransformer
     /**
      * Get an artwork's agents and their roles for syncing.
      *
-     * @param \App\Transformers\Datum $datum
      * @return array
      */
     private function getSyncArtists(Datum $datum)
@@ -160,7 +157,6 @@ class Artwork extends CollectionsTransformer
      *
      * @TODO Waiting on Redmine #2847 – place normalization for non-"Web Everything" works
      *
-     * @param \App\Transformers\Datum $datum
      * @return array
      */
     private function getSyncPlaces(Datum $datum)

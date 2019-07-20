@@ -35,7 +35,6 @@ class BaseTransformer extends AbstractTransformer
     /**
      * Returns true by default, but override if additional logic is required.
      *
-     * @param \Illuminate\Database\Eloquent\Model $instance
      * @param mixed $datum
      */
     public function shouldSave(Model $instance, $datum)
@@ -91,7 +90,6 @@ class BaseTransformer extends AbstractTransformer
     /**
      * Override in child classes to supply `getSyncExNew`.
      *
-     * @param \App\Transformers\Datum  $datum
      */
     protected function getSyncEx(Datum $datum)
     {
@@ -124,7 +122,6 @@ class BaseTransformer extends AbstractTransformer
      * Fill in a model instance's fields from the given datum, typically from another system.
      * Pass `true` as the third argument to do a test run, without changing anything.
      *
-     * @param \Illuminate\Database\Eloquent\Model $instance
      * @param mixed $datum
      * @return array
      */
@@ -144,7 +141,6 @@ class BaseTransformer extends AbstractTransformer
      * Update a model instance's relations from the given datum, typically from another system.
      * Pass `true` as the third argument to do a test run, without changing anything.
      *
-     * @param \Illuminate\Database\Eloquent\Model $instance
      * @param mixed $datum
      */
     public function sync(Model $instance, $datum)
@@ -193,7 +189,6 @@ class BaseTransformer extends AbstractTransformer
      *
      * @link https://laravel.com/docs/5.6/eloquent-relationships#updating-many-to-many-relationships
      *
-     * @param  \App\Transformers\Datum  $datum
      * @return array
      */
     protected function getSync(Datum $datum)
@@ -207,8 +202,6 @@ class BaseTransformer extends AbstractTransformer
      * Sometimes, you just need to hard-code relation creation. Overwrite this
      * method in child classes when returning an array via `getSync` won't do.
      *
-     * @param \Illuminate\Database\Eloquent\Model  $instance
-     * @param \App\Transformers\Datum  $datum
      */
     protected function syncEx(Model $instance, Datum $datum)
     {
@@ -218,7 +211,6 @@ class BaseTransformer extends AbstractTransformer
     /**
      * Get identifiers from source data. Meant to be overwritten.
      *
-     * @param  \App\Transformers\Datum  $datum
      * @return array
      */
     protected function getIds(Datum $datum)
@@ -233,7 +225,6 @@ class BaseTransformer extends AbstractTransformer
     /**
      * Get title from source data. Meant to be overwritten.
      *
-     * @param  \App\Transformers\Datum  $datum
      * @return array
      */
     protected function getTitle(Datum $datum)
@@ -250,7 +241,6 @@ class BaseTransformer extends AbstractTransformer
      *
      * @TODO Grab dates from the model's `getDates` method..?
      *
-     * @param  \App\Transformers\Datum  $datum
      * @return array
      */
     protected function getDates(Datum $datum)
@@ -268,7 +258,6 @@ class BaseTransformer extends AbstractTransformer
      * Method to allow child classes to define `fill` fields that are named differently from the API,
      * or should be treated differently. You can do all your mapping here.
      *
-     * @param  \App\Transformers\Datum  $datum
      * @return array
      */
     protected function getExtraFields(Datum $datum)
@@ -283,7 +272,6 @@ class BaseTransformer extends AbstractTransformer
      *
      * @TODO Raise validation alert when encountering pivot w/o `pivot_field`?
      *
-     * @param  \App\Transformers\Datum  $datum
      * @param  string  $pivot_field  Field on `$datum` whose value is an array that contains pivot objects
      * @param  string  $id_field     Each pivot object *must* have this field, if not, it'll be ignored
      * @param  string  $mapping_fn   Function to transform each pivot into ids for `sync`
@@ -329,7 +317,6 @@ class BaseTransformer extends AbstractTransformer
     /**
      * Unlike `getSync`, this method isn't meant to be overwritten by child classes.
      *
-     * @param \App\Transformers\Datum $datum
      * @return array
      */
     private function transform(Datum $datum)
@@ -365,9 +352,6 @@ class BaseTransformer extends AbstractTransformer
      * You can use this to remove any fields that aren't columns in the database.
      * Meant to be run as a penultimate step, right before filling the instance.
      *
-     * @param array $datum
-     * @param array $attributes
-     * @param bool $isBlacklist
      * @return array
      */
     private function prune(array $datum, array $attributes, bool $isBlacklist = false)
@@ -406,7 +390,6 @@ class BaseTransformer extends AbstractTransformer
      *
      * @TODO Make this exclude guarded attributes?
      *
-     * @param \Illuminate\Database\Eloquent\Model $instance
      * @return array
      */
     private function getModelAttributes(Model $instance)
@@ -418,7 +401,6 @@ class BaseTransformer extends AbstractTransformer
      * Helper method to retrieve names of fillable columns in table.
      * Note that this is essentially a field listing – it doesn't include relations.
      *
-     * @param string $tableName
      * @return array
      */
     private function getTableAttributes(string $tableName)

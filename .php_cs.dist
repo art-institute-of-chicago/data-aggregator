@@ -166,6 +166,10 @@ return PhpCsFixer\Config::create()
             'outside'
         ],
         'no_spaces_inside_parenthesis' => true,
+        'no_superfluous_elseif' => true,
+        'no_superfluous_phpdoc_tags' => [ // Interesting! Detects strict typing.
+            'allow_mixed' => true,
+        ],
     ])
     ->setFinder($finder)
 ;

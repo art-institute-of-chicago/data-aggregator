@@ -14,7 +14,6 @@ class Authenticate extends Middleware
      * what they can see and do.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  array  $guards
      * @return void
      *
      * @throws \Illuminate\Auth\AuthenticationException

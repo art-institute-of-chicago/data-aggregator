@@ -91,7 +91,6 @@ function summation(array $array)
  *
  * @link http://www.php.net/manual/en/function.array-chunk.php#75022
  *
- * @param Array $list
  * @param int $p
  *
  * @return multitype:multitype:

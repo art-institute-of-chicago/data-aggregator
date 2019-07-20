@@ -27,7 +27,6 @@ class ImportAnalytics extends AbstractImportCommand
      * @param object  $datum
      * @param string  $model
      * @param string  $transformer
-     * @param boolean $fake  Whether or not to fill missing fields w/ fake data.
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
