@@ -33,27 +33,27 @@ class Artwork extends BaseTransformer
 
     public function includeArtistPivots($artwork)
     {
-        return $this->collection($artwork->artistPivots, new ArtworkArtistPivotTransformer, false);
+        return $this->collection($artwork->artistPivots, new ArtworkArtistPivotTransformer(), false);
     }
 
     public function includeCataloguePivots($artwork)
     {
-        return $this->collection($artwork->artworkCatalogues, new ArtworkCatalogueTransformer, false);
+        return $this->collection($artwork->artworkCatalogues, new ArtworkCatalogueTransformer(), false);
     }
 
     public function includeDates($artwork)
     {
-        return $this->collection($artwork->dates, new ArtworkDateTransformer, false);
+        return $this->collection($artwork->dates, new ArtworkDateTransformer(), false);
     }
 
     public function includePlacePivots($artwork)
     {
-        return $this->collection($artwork->placePivots, new ArtworkPlacePivotTransformer, false);
+        return $this->collection($artwork->placePivots, new ArtworkPlacePivotTransformer(), false);
     }
 
     public function includeSites($artwork)
     {
-        return $this->collection($artwork->sites, new SiteTransformer, false);
+        return $this->collection($artwork->sites, new SiteTransformer(), false);
     }
 
     protected function getTitles()

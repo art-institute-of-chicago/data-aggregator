@@ -23,12 +23,12 @@ class Event extends BaseTransformer
 
     public function includeEmailSeriesPivots($event)
     {
-        return $this->collection($event->emailSeriesPivots, new EventEmailSeriesPivot, false);
+        return $this->collection($event->emailSeriesPivots, new EventEmailSeriesPivot(), false);
     }
 
     public function includeSponsor($event)
     {
-        return $this->item($event->sponsor, new Sponsor, false);
+        return $this->item($event->sponsor, new Sponsor(), false);
     }
 
     protected function getTitles()

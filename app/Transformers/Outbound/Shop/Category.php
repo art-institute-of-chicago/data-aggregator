@@ -13,7 +13,7 @@ class Category extends BaseTransformer
 
     public function includeChildren($category)
     {
-        return $this->collection($category->children, new ShopCategoryTransformer, false);
+        return $this->collection($category->children, new ShopCategoryTransformer(), false);
     }
 
     protected function getFields()

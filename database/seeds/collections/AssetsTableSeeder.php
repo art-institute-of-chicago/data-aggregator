@@ -9,7 +9,7 @@ class AssetsTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        $key = ( new Asset )->getKeyName();
+        $key = ( new Asset() )->getKeyName();
 
         $images = factory( Asset::class, 50 )->states('image')->create();
         $texts = factory( Asset::class, 25 )->states('text')->create();

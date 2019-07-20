@@ -27,7 +27,7 @@ class ScoutImportSince extends BaseCommand
         {
             $column = 'updated_at';
 
-            if (Schema::hasColumn(with(new $model)->getTable(), 'source_modified_at')) {
+            if (Schema::hasColumn(with(new $model())->getTable(), 'source_modified_at')) {
                 $column = 'source_modified_at';
             }
 

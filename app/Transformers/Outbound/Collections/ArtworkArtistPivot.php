@@ -33,7 +33,7 @@ class ArtworkArtistPivot extends BaseTransformer
      */
     public function includeArtist($pivot)
     {
-        return $this->item($pivot->artist, new AgentTransformer, false);
+        return $this->item($pivot->artist, new AgentTransformer(), false);
     }
 
     /**
@@ -44,7 +44,7 @@ class ArtworkArtistPivot extends BaseTransformer
      */
     public function includeArtwork($pivot)
     {
-        return $this->item($pivot->artwork, new ArtworkTransformer, false);
+        return $this->item($pivot->artwork, new ArtworkTransformer(), false);
     }
 
     /**
@@ -55,7 +55,7 @@ class ArtworkArtistPivot extends BaseTransformer
      */
     public function includeRole($pivot)
     {
-        return $this->item($pivot->role, new CollectionsTransformer, false);
+        return $this->item($pivot->role, new CollectionsTransformer(), false);
     }
 
     protected function getFields()

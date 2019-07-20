@@ -22,7 +22,7 @@ class Agent extends BaseTransformer
 
     public function includeSites($agent)
     {
-        return $this->collection($agent->sites, new SiteTransformer, false);
+        return $this->collection($agent->sites, new SiteTransformer(), false);
     }
 
     protected function getTitles()

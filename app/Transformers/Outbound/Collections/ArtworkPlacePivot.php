@@ -34,7 +34,7 @@ class ArtworkPlacePivot extends BaseTransformer
      */
     public function includeArtwork($pivot)
     {
-        return $this->item($pivot->artwork, new ArtworkTransformer, false);
+        return $this->item($pivot->artwork, new ArtworkTransformer(), false);
     }
 
     /**
@@ -45,7 +45,7 @@ class ArtworkPlacePivot extends BaseTransformer
      */
     public function includePlace($pivot)
     {
-        return $this->item($pivot->place, new PlaceTransformer, false);
+        return $this->item($pivot->place, new PlaceTransformer(), false);
     }
 
     /**
@@ -56,7 +56,7 @@ class ArtworkPlacePivot extends BaseTransformer
      */
     public function includeQualifier($pivot)
     {
-        return $this->item($pivot->qualifier, new CollectionsTransformer, false);
+        return $this->item($pivot->qualifier, new CollectionsTransformer(), false);
     }
 
     protected function getFields()

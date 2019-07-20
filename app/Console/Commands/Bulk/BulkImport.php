@@ -31,10 +31,10 @@ class BulkImport extends BaseCommand
         $endpoint = $this->argument('endpoint');
         $ids = $this->argument('ids');
 
-        $model = new $resource['model'];
+        $model = new $resource['model']();
         $table = $model->getTable();
 
-        $transformer = new $resource['transformer'];
+        $transformer = new $resource['transformer']();
 
         // Query for the first page + get total
         // Limit has to be 1 due to a few 🐞's

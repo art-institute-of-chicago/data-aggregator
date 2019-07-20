@@ -20,7 +20,7 @@ class ScoutImportOne extends BaseCommand
         $id = $this->argument('id');
         $class = $this->argument('model');
 
-        $model = new $class;
+        $model = new $class();
 
         $model::find( $id )->searchable();
 

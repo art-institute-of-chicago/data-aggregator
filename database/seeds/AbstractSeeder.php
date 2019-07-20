@@ -91,7 +91,7 @@ abstract class AbstractSeeder extends Seeder
     private function getRelationMethod($subjectClass, $method)
     {
 
-        $relation = ( new $subjectClass )->{$method}();
+        $relation = ( new $subjectClass() )->{$method}();
         $class = get_class( $relation );
 
         $classname = explode('\\', $class);
@@ -173,7 +173,7 @@ abstract class AbstractSeeder extends Seeder
             throw new BadFunctionCallException( 'Class ' . $subjectClass . ' has no relation method `' . $method . '`' );
         }
 
-        $relation = ( new $subjectClass )->{$method}();
+        $relation = ( new $subjectClass() )->{$method}();
 
         if( ! $relation instanceof Relation )
         {

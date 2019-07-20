@@ -342,7 +342,7 @@ trait Documentable
     {
 
         $transformerClass = app('Resources')->getTransformerForModel(get_called_class());
-        $transformer = new $transformerClass;
+        $transformer = new $transformerClass();
 
         $doc = '';
 

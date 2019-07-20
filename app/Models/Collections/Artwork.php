@@ -555,7 +555,7 @@ class Artwork extends CollectionsModel
     public static function boosted()
     {
 
-        return (new static)->newQuery()->whereKey( static::boostedIds() );
+        return (new static())->newQuery()->whereKey( static::boostedIds() );
 
     }
 

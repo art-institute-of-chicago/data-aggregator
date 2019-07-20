@@ -34,7 +34,7 @@ abstract class AbstractController extends BaseController
     public function __construct()
     {
         $this->fractal = app()->make('League\Fractal\Manager');
-        $this->fractal->setSerializer(new ResourceSerializer);
+        $this->fractal->setSerializer(new ResourceSerializer());
 
         // Parse fractal includes and excludes
         $this->parseFractalParam('include', 'parseIncludes');

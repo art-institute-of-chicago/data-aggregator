@@ -17,7 +17,7 @@ class ResourceServiceProvider extends ServiceProvider
 
         $this->app->singleton('Resources', function ($app) {
 
-            return new class {
+            return new class() {
 
                 /**
                  * Array of resources (endpoints), mapped to their models.
