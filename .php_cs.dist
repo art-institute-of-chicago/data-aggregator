@@ -38,6 +38,26 @@ return PhpCsFixer\Config::create()
                 'while',
             ],
         ],
+        // https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/823
+        // 'braces' => [
+        //     'allow_single_line_closure' => false,
+        //     'position_after_anonymous_constructs' => 'same',
+        //     'position_after_control_structures' => 'same',
+        //     'position_after_functions_and_oop_constructs' => 'next',
+        // ],
+        'cast_spaces' => true,
+        // 'class_attributes_separation' => [
+        //     'elements' => [
+        //         'const',
+        //         'method',
+        //         'property',
+        //     ],
+        // ],
+        'class_definition' => [
+            'multi_line_extends_each_single_line' => true,
+            'single_item_single_line' => true,
+            'single_line' => false,
+        ],
     ])
     ->setFinder($finder)
 ;
