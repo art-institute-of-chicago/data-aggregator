@@ -205,7 +205,7 @@ class BaseTransformer extends AbstractTransformer
      */
     protected function syncEx(Model $instance, Datum $datum)
     {
-        
+
     }
 
     /**
