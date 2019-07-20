@@ -105,7 +105,7 @@ class ArtworkSearchTest extends TestCase
             ['georgia o\'keefe',   6, [61428, 46327, 24687, 104031]],
             ['frank lloyd wright', 6, [105203, 190558, 144272]],
             ['el greco',           4, [87479, 21907, 67362]],
-            ['cezanne'  ,          6, [111436, 16487, 62371]],
+            ['cezanne',          6, [111436, 16487, 62371]],
             ['mary cassatt',      24, [111442, 26650]],
             ['manet',              5, [16499, 44892, 14591]],
             ['caillebotte',        4, [20684, 154121]],
