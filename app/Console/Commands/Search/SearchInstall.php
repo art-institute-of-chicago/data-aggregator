@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Search;
 
 use Elasticsearch;
-use Artisan;
 
 use App\Console\Helpers\Indexer;
 

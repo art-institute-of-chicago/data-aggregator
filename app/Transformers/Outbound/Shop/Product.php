@@ -2,8 +2,6 @@
 
 namespace App\Transformers\Outbound\Shop;
 
-use App\Transformers\Outbound\Shop\Category as ShopCategoryTransformer;
-
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Product extends BaseTransformer

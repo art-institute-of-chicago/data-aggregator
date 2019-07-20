@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Collections\Artwork;
-use App\Models\Collections\ArtworkDate;
 
 class ArtworkDatesTableSeeder extends AbstractSeeder
 {

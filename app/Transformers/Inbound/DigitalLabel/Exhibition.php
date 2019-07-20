@@ -2,8 +2,6 @@
 
 namespace App\Transformers\Inbound\DigitalLabel;
 
-use Carbon\Carbon;
-
 use App\Transformers\Datum;
 use App\Transformers\Inbound\DigitalLabelTransformer;
 

@@ -2,10 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Instancable;
-use App\Models\Transformable;
-use App\Models\Fakeable;
-
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 abstract class AbstractPivot extends Pivot

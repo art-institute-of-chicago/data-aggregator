@@ -4,8 +4,6 @@ namespace App\Console\Commands\Import;
 
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\Collections\Artwork as BaseArtwork;
-
 use App\Models\Mobile\Artwork as MobileArtwork;
 use App\Models\Mobile\Sound;
 use App\Models\Mobile\Tour;

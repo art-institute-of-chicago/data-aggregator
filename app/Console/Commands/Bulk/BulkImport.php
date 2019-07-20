@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Bulk;
 
 use Illuminate\Support\Facades\DB;
-use App\Models\Collections\Artwork;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 

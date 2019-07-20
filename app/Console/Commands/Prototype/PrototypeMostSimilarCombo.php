@@ -2,8 +2,6 @@
 
 namespace App\Console\Commands\Prototype;
 
-use App\Models\Collections\Artwork;
-
 use Illuminate\Support\Arr;
 
 class PrototypeMostSimilarCombo extends PrototypeMostSimilar

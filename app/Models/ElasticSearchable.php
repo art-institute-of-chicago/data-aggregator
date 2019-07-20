@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Laravel\Scout\Searchable;
 
-use Carbon\Carbon;
-
 use Illuminate\Support\Str;
 
 trait ElasticSearchable

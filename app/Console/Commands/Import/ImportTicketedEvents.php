@@ -2,8 +2,6 @@
 
 namespace App\Console\Commands\Import;
 
-use App\Models\Membership\TicketedEvent;
-
 class ImportTicketedEvents extends ImportTicketedEventsFull
 {
 

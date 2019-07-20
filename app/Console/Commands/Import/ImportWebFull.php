@@ -11,7 +11,6 @@ use App\Models\Web\EventProgram;
 use App\Models\Web\Exhibition;
 use App\Models\Web\Hour;
 use App\Models\Web\Location;
-use App\Models\Web\Page;
 use App\Models\Web\Selection;
 use App\Models\Web\Tag;
 use App\Models\Web\GenericPage;

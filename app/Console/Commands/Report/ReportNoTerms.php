@@ -2,8 +2,6 @@
 
 namespace App\Console\Commands\Report;
 
-use App\Models\Collections\Artwork;
-
 use League\Csv\Writer;
 use Illuminate\Support\Facades\Storage;
 

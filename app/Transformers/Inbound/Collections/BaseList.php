@@ -4,7 +4,6 @@ namespace App\Transformers\Inbound\Collections;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Transformers\Datum;
 use App\Transformers\Inbound\CollectionsTransformer;
 
 class BaseList extends CollectionsTransformer

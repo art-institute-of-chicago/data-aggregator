@@ -5,7 +5,6 @@ namespace App\Transformers\Inbound\Collections;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Collections\ArtworkDate;
-use App\Models\Collections\Gallery;
 
 use App\Transformers\Datum;
 use App\Transformers\Inbound\CollectionsTransformer;

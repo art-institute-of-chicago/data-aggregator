@@ -2,11 +2,6 @@
 
 namespace App\Console\Commands\Dump;
 
-use Illuminate\Support\Facades\DB;
-use League\Csv\Writer;
-use Exception;
-use Throwable;
-
 class DumpDownload extends AbstractDumpCommand
 {
 

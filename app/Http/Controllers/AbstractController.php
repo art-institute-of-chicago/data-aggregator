@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Input;
 use Closure;
 
-use League\Fractal\TransformerAbstract;
 use League\Fractal\Resource\Item;
 use League\Fractal\Resource\Collection;
 

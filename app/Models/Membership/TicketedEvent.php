@@ -5,10 +5,6 @@ namespace App\Models\Membership;
 use App\Models\MembershipModel;
 use App\Models\ElasticSearchable;
 
-use Illuminate\Support\Facades\Log;
-
-use Carbon\Carbon;
-
 /**
  * An occurrence of a program at the museum.
  */
