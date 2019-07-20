@@ -20,6 +20,7 @@ class SearchAudit extends BaseCommand
 
         $models = app('Search')->getSearchableModels();
         $output = "";
+
         foreach ($models as $model)
         {
 

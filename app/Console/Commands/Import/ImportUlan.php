@@ -93,6 +93,7 @@ class ImportUlan extends AbstractImportCommand
 
             // Make a distinct list of IDs, because the service sometimes returns dups
             $uris = [];
+
             foreach ($result->results as $res)
             {
 
@@ -101,6 +102,7 @@ class ImportUlan extends AbstractImportCommand
             }
 
             $uris = array_unique($uris);
+
             if (count($uris) == 1)
             {
 

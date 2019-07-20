@@ -52,6 +52,7 @@ class Label extends DigitalLabelTransformer
     {
 
         $ret = '';
+
         foreach ($contentBundle as $slide)
         {
             if (property_exists($slide, 'primaryCopy'))
@@ -91,11 +92,13 @@ class Label extends DigitalLabelTransformer
 
         // Then send them all to the data hub to get artwork ids
         $ret = [];
+
         foreach ($mainRefNums as $mainRefNum)
         {
             if ($mainRefNum)
             {
                 $r = $this->search($mainRefNum);
+
                 if ($r)
                 {
                     $ret[] = $r->id;
@@ -114,11 +117,13 @@ class Label extends DigitalLabelTransformer
 
         // Then send them all to the data hub to get artwork ids
         $ret = [];
+
         foreach ($mainRefNums as $mainRefNum)
         {
             if ($mainRefNum)
             {
                 $r = $this->search($mainRefNum);
+
                 if ($r && $r->artist_id)
                 {
                     $ret[] = $r->artist_id;
@@ -132,6 +137,7 @@ class Label extends DigitalLabelTransformer
     private function mainReferenceNumbers($contentBundle)
     {
         $mainRefNums = [];
+
         foreach ($contentBundle as $slide)
         {
             if (property_exists($slide, 'media') && is_array($slide->media))

@@ -106,6 +106,7 @@ function partition(Array $list, $p) {
     $partrem = $listlen % $p;
     $partition = [];
     $mark = 0;
+
     for($px = 0; $px < $p; $px ++) {
         $incr = ($px < $partrem) ? $partlen + 1 : $partlen;
         $partition[$px] = array_slice($list, $mark, $incr);
@@ -150,6 +151,7 @@ function allModels()
         if ($file == '.' || $file == '..') continue;
 
         $sourcepath = $dir .DIRECTORY_SEPARATOR .$file;
+
         if (is_dir($sourcepath))
         {
 
@@ -189,6 +191,7 @@ function allModelsThatUse($trait)
     $modelClasses = allModels();
 
     $models = [];
+
     foreach ($modelClasses as $model)
     {
 

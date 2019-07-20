@@ -71,6 +71,7 @@ class BaseModel extends AbstractModel
         // as an additive property without needing to worry about merging with the parent array.
         $casts = parent::getCasts();
         $class = get_called_class();
+
         while ($class = get_parent_class($class)) {
             $casts = array_merge($casts, get_class_vars($class)['casts']);
         }

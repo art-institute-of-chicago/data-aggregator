@@ -64,6 +64,7 @@ class ImportDigitalLabels extends AbstractImportCommand
             Storage::disk('local')->put($this->exhibitionJson() , $contents );
 
             $results = json_decode( $contents );
+
             foreach ($results as $exhibition)
             {
                 foreach ($exhibition->experiences as $label)
@@ -84,6 +85,7 @@ class ImportDigitalLabels extends AbstractImportCommand
 
         $contents = Storage::get( $this->exhibitionJson() );
         $results = json_decode( $contents );
+
         foreach ($results as $datum)
         {
             $datum->id = $datum->objectId;

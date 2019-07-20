@@ -105,6 +105,7 @@ class PrototypeMostSimilar extends BaseCommand
     public function results($artworkIds = [], $limit = 5)
     {
         $ret = '';
+
         foreach ($artworkIds as $id => $name)
         {
             $ret .= "<h2><a href=\"" .env('WEBSITE_ROOT') ."/artworks/{$id}\">{$name}</a></h2>\n";
@@ -116,9 +117,11 @@ class PrototypeMostSimilar extends BaseCommand
             $ret .= "<table>\n";
 
             $count = 0;
+
             foreach ($responses as $response)
             {
                 $countForCurrentQuery = 0;
+
                 foreach ($response->data as $item)
                 {
                     if (!in_array($item->id, $ids))
@@ -133,10 +136,12 @@ class PrototypeMostSimilar extends BaseCommand
                         $ids[] = $item->id;
                         $count++;
                         $countForCurrentQuery++;
+
                         if ($count == $this->size)
                         {
                             break 2;
                         }
+
                         if ($countForCurrentQuery == $this->sizeRenderPerQuery)
                         {
                             break;
@@ -156,10 +161,12 @@ class PrototypeMostSimilar extends BaseCommand
         $ret = '';
         $date_start = $this->dateStart($artw->date_start);
         $date_end = $this->dateEnd($artw->date_start);
+
         if ($item->artist_id == $artw->artist->citi_id) {
             $ret ? $ret .= ', ' : '';
             $ret .= 'Same artist';
         }
+
         foreach ($item->style_ids as $style) {
             if (in_array($style, Arr::pluck($artw->styles, 'lake_uid'))) {
                 $ret ? $ret .= ', ' : '';
@@ -167,6 +174,7 @@ class PrototypeMostSimilar extends BaseCommand
                 break;
             }
         }
+
         foreach ($item->classification_ids as $classification) {
             if (in_array($classification, Arr::pluck($artw->classifications, 'lake_uid'))) {
                 $ret ? $ret .= ', ' : '';
@@ -174,10 +182,12 @@ class PrototypeMostSimilar extends BaseCommand
                 break;
             }
         }
+
         if ($item->date_start >= $date_start && $item->date_end <= $date_end) {
             $ret ? $ret .= ', ' : '';
             $ret .= 'Similar point in time';
         }
+
         if ($artw->image && $artw->image->metadata && $artw->image->metadata->color && $item->color
             && in_array($item->color->h, range($artw->image->metadata->color->h - 5, $artw->image->metadata->color->h + 5))
             && in_array($item->color->s, range($artw->image->metadata->color->s - 5, $artw->image->metadata->color->s + 5))
@@ -196,6 +206,7 @@ class PrototypeMostSimilar extends BaseCommand
         $ret .= "<style>tr.clickable-row { cursor: pointer; }</style>\n";
         $ret .= "</head>\n";
         $ret .= "<body>\n";
+
         if ($title)
         {
             $ret .= "<h1>{$title}</h1>\n";

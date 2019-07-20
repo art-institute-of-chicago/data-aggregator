@@ -121,12 +121,14 @@ class PrototypeSearch extends BaseCommand
     public function results($queries = [], $limit = 5)
     {
         $ret = '';
+
         foreach ($queries as $query)
         {
             $ret .= "<h2>{$query}</h2>\n";
             $response = file_get_contents(config('app.url') .'/api/v1/artworks/search?limit=' .$limit .'&fields=thumbnail,id,title,main_reference_number&q=' .urlencode($query));
 
             $ret .= "<table>\n";
+
             foreach (json_decode($response)->data as $item)
             {
                 $ret .= "<tr class='clickable-row' data-href='http://www-2018.artic.edu/artworks/{$item->id}'>";
@@ -151,6 +153,7 @@ class PrototypeSearch extends BaseCommand
         $ret .= "<style>tr.clickable-row { cursor: pointer; }</style>\n";
         $ret .= "</head>\n";
         $ret .= "<body>\n";
+
         if ($title)
         {
             $ret .= "<h1>{$title}</h1>\n";

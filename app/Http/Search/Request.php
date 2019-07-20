@@ -439,6 +439,7 @@ class Request
         // If not null, cast these params to int
         // We are using isset() instead of normal ternary to avoid catching `0` as falsey
         if( isset( $size ) ) { $size = (int) $size; }
+
         if( isset( $from ) ) { $from = (int) $from; }
 
         // Throw an exception if `size` is too big

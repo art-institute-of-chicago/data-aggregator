@@ -363,6 +363,7 @@ class Artwork extends BaseTransformer
                 'value' => function ($item) {
                     $latitude = $item->mobileArtwork->latitude ?? null;
                     $longitude = $item->mobileArtwork->latitude ?? null;
+
                     if ($latitude && $longitude)
                     {
                         return $latitude . ',' . $longitude;

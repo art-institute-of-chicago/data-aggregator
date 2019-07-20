@@ -151,6 +151,7 @@ trait Documentable
     {
 
         $doc = '';
+
         foreach ($this->transformMapping() as $array)
         {
 
@@ -344,10 +345,12 @@ trait Documentable
         $transformer = new $transformerClass;
 
         $doc = '';
+
         if ($transformer->getAvailableIncludes())
         {
 
             $doc .= "* `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:\n";
+
             foreach ($transformer->getAvailableIncludes() as $include)
             {
 
@@ -501,6 +504,7 @@ trait Documentable
         {
             $path .= '/' .$options['extraPath'];
         }
+
         if ($options['id'])
         {
             $path .= '/' .$options['id'];
@@ -516,6 +520,7 @@ trait Documentable
         $keys = get_object_vars($obj);
         $addEllipsis = false;
         $i = 0;
+
         foreach ($keys as $keyIndex => $key)
         {
 
@@ -690,6 +695,7 @@ trait Documentable
 
         $doc = '';
         $mapping = $this->transformMapping();
+
         foreach ($mapping as $array)
         {
 
@@ -779,6 +785,7 @@ trait Documentable
         $doc = "        \"tags\": [\n";
         $doc .= "            \"" .$endpoint ."\",\n";
         $doc .= "            \"" .strtolower($source) ."\"";
+
         foreach ($extras as $tag)
         {
 
@@ -814,6 +821,7 @@ trait Documentable
 
         $doc = "        \"parameters\": [\n";
         $array = $params ?? $this->docListParametersRaw();
+
         foreach ($array as $param => $description)
         {
             $doc .= "          {\n";

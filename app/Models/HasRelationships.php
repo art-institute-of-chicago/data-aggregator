@@ -29,6 +29,7 @@ trait HasRelationships
         {
 
             $key = $pivot->{$resource}()->getForeignKeyName();
+
             if (in_array($pivot->{$key}, $resources_ids))
             {
 
@@ -67,10 +68,12 @@ trait HasRelationships
         // Loop through all the term pivot models, only look at the ones
         // of the specified type, and return an array of the non-preferred ones
         $ret = [];
+
         foreach ($this->{$resource .'Pivots'} as $pivot)
         {
 
             $key = $pivot->{$resource}()->getForeignKeyName();
+
             if (in_array($pivot->{$key}, $resources_ids))
             {
 
@@ -117,6 +120,7 @@ trait HasRelationships
 
         // Loop through all the resources, and return just the ones of the specified type
         $ret = [];
+
         foreach ($this->{Str::plural($resource)} as $res)
         {
 

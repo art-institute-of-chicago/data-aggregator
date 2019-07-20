@@ -61,6 +61,7 @@ class DumpExport extends AbstractDumpCommand
                 $bar->advance($items->count());
 
                 clearstatcache();
+
                 if (filesize($csvPath) > $this->maxCsvFileSize) {
                     rename($csvPath, $dumpPath . $table['name'] . '-' . $csvPart . '.csv');
                     $csv = $this->getNewWriter($csvPath, $table['allColumns']);
