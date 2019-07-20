@@ -111,6 +111,9 @@ return PhpCsFixer\Config::create()
         'list_syntax' => [
             'syntax' => 'short',
         ],
+        // 'logical_operators' => true,
+        'lowercase_cast' => true,
+        'lowercase_constants' => true,
     ])
     ->setFinder($finder)
 ;
