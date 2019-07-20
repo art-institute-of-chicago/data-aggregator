@@ -6,7 +6,7 @@
 
 function hexToHsl($hex)
 {
-    $hex = array($hex[0].$hex[1], $hex[2].$hex[3], $hex[4].$hex[5]);
+    $hex = [$hex[0].$hex[1], $hex[2].$hex[3], $hex[4].$hex[5]];
     $rgb = array_map(function($part) {
         return hexdec($part) / 255;
     }, $hex);
@@ -37,7 +37,7 @@ function hexToHsl($hex)
         $h /= 6;
     }
 
-    return array($h, $s, $l);
+    return [$h, $s, $l];
 }
 
 function hslToHex($hsl)

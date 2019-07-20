@@ -18,6 +18,9 @@ return PhpCsFixer\Config::create()
             'comment_type' => 'phpdocs_like',
         ],
         'array_indentation' => true,
+        'array_syntax' => [
+            'syntax' => 'short',
+        ],
     ])
     ->setFinder($finder)
 ;
