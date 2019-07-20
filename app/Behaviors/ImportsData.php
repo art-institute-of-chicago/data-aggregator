@@ -286,8 +286,8 @@ trait ImportsData
         }
 
         // Ensure the arguments are arrays
-        $modelsToFlush = is_array($modelsToFlush) ? $modelsToFlush : [ $modelsToFlush ];
-        $tablesToClear = is_array($tablesToClear) ? $tablesToClear : [ $tablesToClear ];
+        $modelsToFlush = is_array($modelsToFlush) ? $modelsToFlush : [$modelsToFlush];
+        $tablesToClear = is_array($tablesToClear) ? $tablesToClear : [$tablesToClear];
 
         // TODO: If we dump the indexes + recreate them, we don't need to flush
         // Flush might not remove models that are present in the index, but not the database

@@ -63,11 +63,11 @@ class Image extends BaseTransformer
                     'mapping' => [
                         'type' => 'object',
                         'properties' => [
-                            'population' => [ 'type' => 'integer' ],
-                            'percentage' => [ 'type' => 'float' ],
-                            'h' => [ 'type' => 'integer' ],
-                            's' => [ 'type' => 'integer' ],
-                            'l' => [ 'type' => 'integer' ],
+                            'population' => ['type' => 'integer'],
+                            'percentage' => ['type' => 'float'],
+                            'h' => ['type' => 'integer'],
+                            's' => ['type' => 'integer'],
+                            'l' => ['type' => 'integer'],
                         ],
                     ],
                 ],
@@ -83,10 +83,10 @@ class Image extends BaseTransformer
                     'mapping' => [
                         'type' => 'object',
                         'properties' => [
-                            'ahash' => [ 'type' => 'keyword' ],
-                            'dhash' => [ 'type' => 'keyword' ],
-                            'phash' => [ 'type' => 'keyword' ],
-                            'whash' => [ 'type' => 'keyword' ],
+                            'ahash' => ['type' => 'keyword'],
+                            'dhash' => ['type' => 'keyword'],
+                            'phash' => ['type' => 'keyword'],
+                            'whash' => ['type' => 'keyword'],
                         ],
                     ],
                 ],

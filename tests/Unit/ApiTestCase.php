@@ -388,7 +388,7 @@ abstract class ApiTestCase extends TestCase
         // Standardize $resources into an array of multiple objects
         if (!$arrayIsMultipleObjects)
         {
-            $resources = [ $resources ];
+            $resources = [$resources];
         }
 
         foreach ($keys as $key)
@@ -407,7 +407,7 @@ abstract class ApiTestCase extends TestCase
         // Standardize $resources into an array of multiple objects
         if (!$arrayIsMultipleObjects)
         {
-            $resources = [ $resources ];
+            $resources = [$resources];
         }
 
         foreach ($keys as $key)

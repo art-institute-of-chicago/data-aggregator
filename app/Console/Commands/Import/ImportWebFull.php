@@ -95,7 +95,7 @@ class ImportWebFull extends AbstractImportCommand
         if ($endpoint) {
             $model = $this->getModelForEndpoint($endpoint);
 
-            return $this->resetData([ $model ], [ $hash[$model] ]);
+            return $this->resetData([$model], [$hash[$model]]);
         }
 
         return $this->resetData(array_keys($hash), array_values($hash));

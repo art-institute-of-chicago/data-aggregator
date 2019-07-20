@@ -74,7 +74,7 @@ abstract class AbstractSeeder extends Seeder
 
             if ($isReflexive)
             {
-                $selected = $selected->diff([ $subject ]);
+                $selected = $selected->diff([$subject]);
             }
 
             $this->{$delegate}($subject, $selected, $method);

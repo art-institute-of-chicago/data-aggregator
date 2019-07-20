@@ -236,7 +236,7 @@ class SearchServiceProvider extends ServiceProvider
                  */
                 public function updateElasticsearchConfig() {
 
-                    config([ 'elasticsearch.indexParams.body.mappings' => $this->getElasticsearchMappings() ]);
+                    config(['elasticsearch.indexParams.body.mappings' => $this->getElasticsearchMappings()]);
 
                 }
 
@@ -318,7 +318,7 @@ class SearchServiceProvider extends ServiceProvider
                     }
 
                     if (Arr::isAssoc($scope)) {
-                        $scope = [ $scope ];
+                        $scope = [$scope];
                     }
 
                     return [
