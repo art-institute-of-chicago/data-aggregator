@@ -143,7 +143,7 @@ class Response
         ];
 
         return [
-            'pagination' => $pagination
+            'pagination' => $pagination,
         ];
 
     }
@@ -163,7 +163,7 @@ class Response
         foreach($hits as $hit) {
 
             $result = [
-                '_score' => $hit['_score']
+                '_score' => $hit['_score'],
             ];
 
             // Avoid filtering fields here: filter fields via `_source` in Request instead
@@ -178,7 +178,7 @@ class Response
         }
 
         return [
-            'data' => $results
+            'data' => $results,
         ];
 
     }

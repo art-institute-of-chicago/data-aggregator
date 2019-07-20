@@ -59,9 +59,9 @@ class Label extends DigitalLabelTransformer
             ],
             'query' => [
                 'prefix' => [
-                    'main_reference_number' => $accession
-                ]
-            ]
+                    'main_reference_number' => $accession,
+                ],
+            ],
         ];
 
         $response = $cache[$accession] ?? $this->post(config('app.url') . '/api/v1/search', $query);

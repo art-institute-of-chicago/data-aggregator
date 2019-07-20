@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \Aic\Hub\Foundation\Commands\DatabaseReset::class
+        \Aic\Hub\Foundation\Commands\DatabaseReset::class,
     ];
 
     /**

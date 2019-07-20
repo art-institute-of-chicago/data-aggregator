@@ -26,11 +26,11 @@ class ElasticsearchEngine extends BaseEngine
         $models->each(function ($model) use (&$params)
         {
             $params['body'][] = [
-                'update' => $this->getIdIndexType($model)
+                'update' => $this->getIdIndexType($model),
             ];
             $params['body'][] = [
                 'doc' => $model->toSearchableArray(),
-                'doc_as_upsert' => true
+                'doc_as_upsert' => true,
             ];
         });
 

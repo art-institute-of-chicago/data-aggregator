@@ -63,7 +63,8 @@ class PrototypeMostSimilar extends BaseCommand
         1980,
         1990,
         2000,
-        2010];
+        2010,
+    ];
 
     /**
      * Create a new command instance.
@@ -288,7 +289,7 @@ class PrototypeMostSimilar extends BaseCommand
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-            'Content-Length: ' . strlen($queryString)
+            'Content-Length: ' . strlen($queryString),
         ]);
 
         $contents = curl_exec($ch);
@@ -329,19 +330,19 @@ class PrototypeMostSimilar extends BaseCommand
                         [
                             'range' => [
                                 'date_start' => [
-                                    'gte' => $date_start
-                                ]
-                            ]
+                                    'gte' => $date_start,
+                                ],
+                            ],
                         ],
                         [
                             'range' => [
                                 'date_end' => [
-                                    'lte' => $date_end
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                                    'lte' => $date_end,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
             'fields' => $this->fields,
             'size' => $this->size,
@@ -363,25 +364,25 @@ class PrototypeMostSimilar extends BaseCommand
                                 'color.h' => [
                                     'gte' => ($color->h - 5),
                                     'lte' => ($color->h + 5),
-                                ]
-                            ]
+                                ],
+                            ],
                         ],
                         [
                             'range' => [
                                 'color.s' => [
                                     'gte' => ($color->s - 5),
                                     'lte' => ($color->s + 5),
-                                ]
-                            ]
+                                ],
+                            ],
                         ],
                         [
                             'range' => [
                                 'color.l' => [
                                     'gte' => ($color->l - 5),
                                     'lte' => ($color->l + 5),
-                                ]
-                            ]
-                        ]
+                                ],
+                            ],
+                        ],
                     ],
                 ],
             ],

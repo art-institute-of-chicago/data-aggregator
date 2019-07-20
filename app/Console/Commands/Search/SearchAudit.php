@@ -44,7 +44,7 @@ class SearchAudit extends BaseCommand
         $response = Elasticsearch::search([
             'index' => app('Search')->getIndexForModel($model),
             'type' => app('Search')->getTypeForModel($model),
-            'size' => 0
+            'size' => 0,
         ]);
 
         $es_count = $response['hits']['total'];

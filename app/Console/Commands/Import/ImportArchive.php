@@ -34,7 +34,7 @@ class ImportArchive extends AbstractImportCommand
                 // ArchiveImage::class,
             ],
             [
-                'archival_images'
+                'archival_images',
             ]
         );
 

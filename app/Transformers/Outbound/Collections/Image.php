@@ -37,7 +37,7 @@ class Image extends BaseTransformer
                 'elasticsearch' => [
                     'mapping' => [
                         'enabled' => false, // Exclude from indexing, retrievable via _source
-                    ]
+                    ],
                 ],
                 'value' => function ($item) {
                     return $item->metadata->lqip ?? null;
@@ -50,7 +50,7 @@ class Image extends BaseTransformer
                     'mapping' => [
                         'type' => 'scaled_float',
                         'scaling_factor' => 10000,
-                    ]
+                    ],
                 ],
                 'value' => function ($item) {
                     return $item->metadata->colorfulness ?? null;

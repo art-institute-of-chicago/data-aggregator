@@ -45,7 +45,7 @@ class Asset extends CollectionsTransformer
                 $pivot->related_id => [
                     'preferred' => $pivot->is_preferred,
                     'is_doc' => $pivot->is_doc,
-                ]
+                ],
             ];
 
         });

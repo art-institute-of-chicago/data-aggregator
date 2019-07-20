@@ -527,8 +527,8 @@ class Request
                     'is_boosted' => [
                         'value' => true,
                         'boost' => 1.5,
-                    ]
-                ]
+                    ],
+                ],
             ];
 
             // Add any resource-specific boosts
@@ -612,7 +612,7 @@ class Request
                     'functions' => $outFunctions,
                     'score_mode' => 'max', // TODO: Consider making this an option?
                     'boost_mode' => 'multiply',
-                ]
+                ],
             ];
 
             // Wrap the query in a scope
@@ -631,7 +631,7 @@ class Request
         $params['body']['query'] = [
             'bool' => [
                 'must' => $scopedQueries->all(),
-            ]
+            ],
         ];
 
         return $params;
@@ -659,7 +659,7 @@ class Request
         $params['body']['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $this->scopes,
-            ]
+            ],
         ];
 
         return $params;
@@ -678,7 +678,7 @@ class Request
 
         // PHP JSON-encodes empty array as [], not {}
         $params['body']['query']['bool']['must'][] = [
-            'match_all' => new \stdClass()
+            'match_all' => new \stdClass(),
         ];
 
         return $params;
@@ -781,7 +781,7 @@ class Request
                 'multi_match' => [
                     'query' => $input['q'],
                     'fields' => $allFields,
-                ]
+                ],
             ];
         }
 
@@ -797,7 +797,7 @@ class Request
                     'slop' => 3, // account for e.g. middle names
                     'fields' => $allFields,
                     'boost' => 10, // See WEB-22
-                ]
+                ],
             ];
         }
 
@@ -975,8 +975,8 @@ class Request
                     'color.h' => [
                         'gte' => max($hueMin, 0),
                         'lte' => min($hueMax, 360),
-                    ]
-                ]
+                    ],
+                ],
             ],
         ];
 
@@ -986,8 +986,8 @@ class Request
                     'color.h' => [
                         'gte' => $hueMin + 360,
                         'lte' => 360,
-                    ]
-                ]
+                    ],
+                ],
             ];
         }
 
@@ -997,15 +997,15 @@ class Request
                     'color.h' => [
                         'gte' => 0,
                         'lte' => $hueMax - 360,
-                    ]
-                ]
+                    ],
+                ],
             ];
         }
 
         $params['body']['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $hueQueries,
-            ]
+            ],
         ];
 
         $params['body']['query']['bool']['must'][] = [
@@ -1013,8 +1013,8 @@ class Request
                 'color.s' => [
                     'gte' => max($hsl['s'] - $saturationTolerance, 0),
                     'lte' => min($hsl['s'] + $saturationTolerance, 100),
-                ]
-            ]
+                ],
+            ],
         ];
 
         $params['body']['query']['bool']['must'][] = [
@@ -1022,21 +1022,21 @@ class Request
                 'color.l' => [
                     'gte' => max($hsl['l'] - $lightnessTolerance, 0),
                     'lte' => min($hsl['l'] + $lightnessTolerance, 100),
-                ]
-            ]
+                ],
+            ],
         ];
 
         // We can't do an exists[field]=lqip, b/c lqip isn't indexed
         $params['body']['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.width',
-            ]
+            ],
         ];
 
         $params['body']['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.height',
-            ]
+            ],
         ];
 
         return $params;

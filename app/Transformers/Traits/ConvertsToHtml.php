@@ -17,7 +17,7 @@ trait ConvertsToHtml
         return $this->htmlConverter ?? $this->htmlConverter = new CommonMarkConverter([
             'renderer' => [
                 'soft_break' => '<br>',
-            ]
+            ],
         ]);
     }
 

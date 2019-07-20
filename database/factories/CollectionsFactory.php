@@ -156,7 +156,7 @@ $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Gene
 $factory->define(App\Models\Collections\ArtworkTerm::class, function (Faker\Generator $faker) {
     return [
         'term' => $faker->words(2, true),
-        'type' => ucfirst($faker->word)
+        'type' => ucfirst($faker->word),
     ];
 });
 

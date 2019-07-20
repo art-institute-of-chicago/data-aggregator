@@ -89,7 +89,7 @@ class DeleteCollections extends AbstractImportCommand
             $contents = file_get_contents($url, false, stream_context_create([
                 'http' => [
                     'timeout' => 10,
-                ]
+                ],
             ]));
 
             $json = json_decode($contents);

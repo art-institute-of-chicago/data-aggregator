@@ -101,7 +101,7 @@ abstract class AbstractController extends BaseController
         $response = isset($data['data']) ? $data : ['data' => $data];
 
         $info = [
-            'version' => config('aic.version')
+            'version' => config('aic.version'),
         ];
 
         if (config('aic.documentation_url'))

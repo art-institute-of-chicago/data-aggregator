@@ -33,8 +33,8 @@ class TicketedEvent extends BaseTransformer
                 'type' => $this->keyType,
                 'fields' => [
                     'text' => [
-                        'type' => 'text'
-                    ]
+                        'type' => 'text',
+                    ],
                 ],
             ],
         ];

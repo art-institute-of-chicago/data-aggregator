@@ -121,7 +121,7 @@ trait HasBlocks
                 'extract' => function ($block) {
                     return $this->cleanRichText($block->content->subhead);
                 },
-            ]
+            ],
         ];
 
     }

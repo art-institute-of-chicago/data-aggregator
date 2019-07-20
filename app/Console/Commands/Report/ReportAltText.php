@@ -48,7 +48,7 @@ class ReportAltText extends BaseCommand
                         'artwork_lakeshore_url' => $this->getLakeShoreLink($artwork->lake_guid, 'works'),
                         'image_id' => $image->lake_guid,
                         'image_lakeshore_url' => $this->getLakeShoreLink($image->lake_guid, 'generic_works'),
-                        'alt_text' => $image->alt_text
+                        'alt_text' => $image->alt_text,
                     ];
 
                     $csv->insertOne($row);

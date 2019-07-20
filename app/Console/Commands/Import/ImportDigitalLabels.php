@@ -42,7 +42,7 @@ class ImportDigitalLabels extends AbstractImportCommand
             ],
             [
                 'digital_label_exhibitions',
-                'digital_labels'
+                'digital_labels',
             ]
         );
     }

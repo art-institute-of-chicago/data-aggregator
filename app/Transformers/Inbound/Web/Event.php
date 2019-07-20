@@ -37,7 +37,7 @@ class Event extends WebTransformer
         return $this->getSyncPivots($datum, 'email_series', 'email_series_id', function ($pivot) {
 
             return [
-                $pivot->email_series_id => array_diff_key((new Datum($pivot))->all(), array_flip(['id', 'email_series_id']))
+                $pivot->email_series_id => array_diff_key((new Datum($pivot))->all(), array_flip(['id', 'email_series_id'])),
             ];
 
         });

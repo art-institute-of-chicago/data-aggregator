@@ -34,7 +34,7 @@ class ImportAllCommand extends BaseCommand
         // EventOccurrence is not included in import:web to avoid duplication
         $this->call('import:web-full', [
             '--yes' => 'default',
-            'endpoint' => 'event-occurrences'
+            'endpoint' => 'event-occurrences',
         ]);
     }
 

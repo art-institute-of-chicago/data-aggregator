@@ -91,7 +91,7 @@ class CategoryTerm extends CollectionsModel
 
         return [
             'prefix' => [
-                'id' => 'TM-'
+                'id' => 'TM-',
             ],
         ];
 
@@ -115,7 +115,7 @@ class CategoryTerm extends CollectionsModel
 
         return [
             'prefix' => [
-                'id' => 'PC-'
+                'id' => 'PC-',
             ],
         ];
 
@@ -146,15 +146,15 @@ class CategoryTerm extends CollectionsModel
             'bool' => [
                 'must' => [
                     'term' => [
-                        'subtype' => self::DEPARTMENT
+                        'subtype' => self::DEPARTMENT,
                     ],
                 ],
                 'must_not' => [
                     'exists' => [
-                        'field' => 'parent_id'
-                    ]
-                ]
-            ]
+                        'field' => 'parent_id',
+                    ],
+                ],
+            ],
         ];
 
     }

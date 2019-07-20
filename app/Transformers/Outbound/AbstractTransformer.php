@@ -238,12 +238,12 @@ abstract class AbstractTransformer extends BaseTransformer
                 'value' => function ($item) {
                     return [
                         'input' => [
-                            $item->title
+                            $item->title,
                         ],
                         'contexts' => [
                             'groupings' => [
                                 'title',
-                            ]
+                            ],
                         ],
                     ];
                 },

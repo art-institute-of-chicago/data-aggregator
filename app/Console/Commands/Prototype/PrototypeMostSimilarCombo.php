@@ -55,12 +55,12 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
                 'query' => [
                     'bool' => [
                         'should' => collect($query)->pluck('query')->all(),
-                    ]
+                    ],
                 ],
                 'q' => null,
                 'fields' => $this->fields,
                 'size' => $this->size,
-            ]
+            ],
         ];
 
         return $this->curl($query);

@@ -192,7 +192,7 @@ class Agent extends BaseTransformer
                 'weight' => $item->isBoosted() ? 3 : 2,
                 'contexts' => [
                     'groupings' => [
-                        'title'
+                        'title',
                     ],
                 ],
             ];

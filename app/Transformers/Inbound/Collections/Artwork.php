@@ -110,16 +110,16 @@ class Artwork extends CollectionsTransformer
         $pref_terms = collect($datum->pref_term_ids)->map(function ($term_id) {
             return [
                 ('TM-' . $term_id) => [
-                    'preferred' => true
-                ]
+                    'preferred' => true,
+                ],
             ];
         });
 
         $alt_terms = collect($datum->alt_term_ids)->map(function ($term_id) {
             return [
                 ('TM-' . $term_id) => [
-                    'preferred' => false
-                ]
+                    'preferred' => false,
+                ],
             ];
         });
 
@@ -152,7 +152,7 @@ class Artwork extends CollectionsTransformer
                 $datum->creator_id => [
                     'agent_role_citi_id' => 219,
                     'preferred' => true,
-                ]
+                ],
             ];
         }
 
@@ -162,7 +162,7 @@ class Artwork extends CollectionsTransformer
                 $pivot->agent_id => [
                     'agent_role_citi_id' => $pivot->role_id,
                     'preferred' => $pivot->is_preferred,
-                ]
+                ],
             ];
 
         });
@@ -185,7 +185,7 @@ class Artwork extends CollectionsTransformer
                 $pivot->place_id => [
                     'artwork_place_qualifier_citi_id' => $pivot->place_qualifier_id,
                     'preferred' => $pivot->is_preferred,
-                ]
+                ],
             ];
 
         });
@@ -205,7 +205,7 @@ class Artwork extends CollectionsTransformer
                     'number' => $pivot->number,
                     'state_edition' => $pivot->state_edition,
                     'preferred' => $pivot->is_preferred,
-                ]
+                ],
             ];
 
         });

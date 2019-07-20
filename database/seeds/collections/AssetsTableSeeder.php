@@ -26,8 +26,8 @@ class AssetsTableSeeder extends AbstractSeeder
 
             $artwork->images()->sync([
                 $preferred->getKey() => [
-                    'preferred' => true
-                ]
+                    'preferred' => true,
+                ],
             ]);
 
             $artwork->images()->sync($alternate, false);

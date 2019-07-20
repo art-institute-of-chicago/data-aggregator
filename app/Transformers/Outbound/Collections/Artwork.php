@@ -89,8 +89,8 @@ class Artwork extends BaseTransformer
                             'width' => [ 'type' => 'integer' ],
                             'height' => [ 'type' => 'integer' ],
                             'alt_text' => [ 'type' => 'text' ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'value' => function ($item) {
                     return !$item->thumbnail ? null : [
@@ -309,7 +309,7 @@ class Artwork extends BaseTransformer
                     'mapping' => [
                         'type' => 'scaled_float',
                         'scaling_factor' => 10000,
-                    ]
+                    ],
                 ],
                 'value' => function ($item) {
                     return $item->image->metadata->colorfulness ?? null;
@@ -784,23 +784,23 @@ class Artwork extends BaseTransformer
             return [
                 [
                     'input' => [
-                        $item->main_id
+                        $item->main_id,
                     ],
                     'contexts' => [
                         'groupings' => [
                             'accession',
-                        ]
+                        ],
                     ],
                 ],
                 [
                     'input' => [
-                        $item->title
+                        $item->title,
                     ],
                     'weight' => $item->pageviews ?? 1,
                     'contexts' => [
                         'groupings' => [
                             'title',
-                        ]
+                        ],
                     ],
                 ],
             ];

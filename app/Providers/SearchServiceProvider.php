@@ -306,13 +306,13 @@ class SearchServiceProvider extends ServiceProvider
                     {
                         $query = [
                             'terms' => [
-                                'api_model' => $resource
+                                'api_model' => $resource,
                             ],
                         ];
                     } else {
                         $query = [
                             'term' => [
-                                'api_model' => $resource
+                                'api_model' => $resource,
                             ],
                         ];
                     }
@@ -330,17 +330,17 @@ class SearchServiceProvider extends ServiceProvider
                                             [$query],
                                             $scope,
                                         ],
-                                    ]
+                                    ],
                                 ],
                                 [
                                     'bool' => [
                                         'must_not' => [
                                             $query,
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
                     ];
 
                 }

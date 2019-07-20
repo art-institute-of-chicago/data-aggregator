@@ -250,7 +250,7 @@ return [
                         ],
                         'english_possessive_stemmer' => [
                             'type' => 'stemmer',
-                            'language' => 'possessive_english'
+                            'language' => 'possessive_english',
                         ],
                         'shingle' => [
                             'type' => 'shingle',
