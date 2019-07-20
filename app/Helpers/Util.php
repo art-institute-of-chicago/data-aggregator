@@ -100,7 +100,7 @@ function summation(array $array)
  *
  * @return multitype:multitype:
  */
-function partition(Array $list, $p) {
+function partition(array $list, $p) {
     $listlen = count($list);
     $partlen = floor($listlen / $p);
     $partrem = $listlen % $p;
