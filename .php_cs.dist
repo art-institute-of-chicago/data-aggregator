@@ -134,6 +134,15 @@ return PhpCsFixer\Config::create()
         // native_function_invocation
         'native_function_type_declaration_casing' => true,
         'new_with_braces' => true,
+        // no_alias_functions
+        'no_alternative_syntax' => true,
+        'no_binary_string' => true,
+        // 'no_blank_lines_after_class_opening' => true,
+        'no_blank_lines_after_phpdoc' => false, // for config
+        'no_blank_lines_before_namespace' => false, // cf. 'blank_line_after_namespace'
+        // 'no_break_comment' => true,
+        'no_closing_tag' => true,
+        'no_empty_comment' => true,
     ])
     ->setFinder($finder)
 ;

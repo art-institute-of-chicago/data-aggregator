@@ -7,16 +7,6 @@ use Illuminate\Support\ServiceProvider;
 class FakerServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
-
-    /**
      * Register the Faker application service.
      *
      * Peruse the following link for tips on implementing custom Faker providers:
