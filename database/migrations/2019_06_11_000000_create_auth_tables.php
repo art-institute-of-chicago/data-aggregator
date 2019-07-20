@@ -14,7 +14,7 @@ class CreateAuthTables extends Migration
      */
     public function __construct()
     {
-        $this->schema = Schema::connection('mysql_userdata');
+        $this->schema = Schema::connection('userdata');
     }
 
     public function up()

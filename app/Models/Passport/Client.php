@@ -6,6 +6,6 @@ use Laravel\Passport\Client as BaseClient;
 
 class Client extends BaseClient {
 
-    protected $connection = 'mysql_userdata';
+    protected $connection = 'userdata';
 
 }

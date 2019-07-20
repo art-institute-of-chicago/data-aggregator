@@ -6,6 +6,6 @@ use Laravel\Passport\AuthCode as BaseAuthCode;
 
 class AuthCode extends BaseAuthCode {
 
-    protected $connection = 'mysql_userdata';
+    protected $connection = 'userdata';
 
 }

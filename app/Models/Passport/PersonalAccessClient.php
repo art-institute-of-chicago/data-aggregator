@@ -6,6 +6,6 @@ use Laravel\Passport\PersonalAccessClient as BasePersonalAccessClient;
 
 class PersonalAccessClient extends BasePersonalAccessClient {
 
-    protected $connection = 'mysql_userdata';
+    protected $connection = 'userdata';
 
 }
