@@ -28,9 +28,9 @@ class Authenticate extends Middleware
             if ($this->auth->guard($guard)->check()) {
                 return $this->auth->shouldUse($guard);
             }
-            else {
+             
                 return null;
-            }
+            
         }
 
         throw new AuthenticationException(

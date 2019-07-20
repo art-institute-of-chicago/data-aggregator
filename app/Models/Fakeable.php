@@ -26,12 +26,8 @@ trait Fakeable
             return $query->where($this->getKeyName(), '>=', $this->fakeIdsStartAt);
 
         }
-        else
-        {
-
+        
             return $query->where($this->getKeyName(), 'like', '99999999-9999-9999-9999-%');
-
-        }
 
     }
 

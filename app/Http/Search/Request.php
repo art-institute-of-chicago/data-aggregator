@@ -167,7 +167,7 @@ class Request
 
             throw new DetailedException('Missing Parameter', 'You must specify the `resources` parameter.', 400);
 
-        } else {
+        }
 
             // Filter out any resources that have a parent resource requested as well
             // So e.g. if places and galleries are requested, we'll show places only
@@ -226,8 +226,6 @@ class Request
 
             // Looks like we don't need to implode $indexes and $types
             // PHP Elasticsearch seems to do so for us
-
-        }
 
         return [
             'index' => $indexes,

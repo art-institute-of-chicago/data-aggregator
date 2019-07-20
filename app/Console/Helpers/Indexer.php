@@ -35,12 +35,9 @@ trait Indexer
         {
             return false;
         }
-        else
-        {
-
+        
             $this->info('Deleting ' . $index . ' index...');
-        }
-
+        
         // @TODO: Catch exceptions?
         Elasticsearch::indices()->delete($params);
 
