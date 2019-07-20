@@ -19,7 +19,7 @@ class ReportMigrations extends BaseCommand
      */
     private $connectionsToReset = [
         'mysql',
-        'mysql_userdata',
+        'userdata',
     ];
 
     private $shell;

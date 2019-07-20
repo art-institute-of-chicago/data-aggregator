@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
-    protected $connection = 'mysql_userdata';
+    protected $connection = 'userdata';
 
     /**
      * The attributes that are mass assignable.

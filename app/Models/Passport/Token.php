@@ -6,6 +6,6 @@ use Laravel\Passport\Token as BaseToken;
 
 class Token extends BaseToken {
 
-    protected $connection = 'mysql_userdata';
+    protected $connection = 'userdata';
 
 }
