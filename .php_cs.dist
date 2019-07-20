@@ -126,14 +126,14 @@ return PhpCsFixer\Config::create()
             'on_multiline' => 'ensure_fully_multiline',
         ],
         'method_chaining_indentation' => true,
-        // modernize_types_casting
+        'modernize_types_casting' => true,
         'multiline_comment_opening_closing' => true,
         'multiline_whitespace_before_semicolons' => [
             'strategy' => 'no_multi_line', // vs. 'new_line_for_chained_calls'
         ],
-        // native_constant_invocation
+        'native_constant_invocation' => false, // Performance
         'native_function_casing' => true,
-        // native_function_invocation
+        'native_function_invocation' => false, // Performance
         'native_function_type_declaration_casing' => true,
         'new_with_braces' => true,
         // no_alias_functions
@@ -323,6 +323,7 @@ return PhpCsFixer\Config::create()
         ],
         'void_return' => false, // Nice, but too much...
         'whitespace_after_comma_in_array' => true,
+        'yoda_style' => false,
     ])
     ->setFinder($finder)
 ;

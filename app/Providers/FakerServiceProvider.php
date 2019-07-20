@@ -27,7 +27,7 @@ class FakerServiceProvider extends ServiceProvider
                 // Used in Collections\Artwork and Dsc\Section
                 public function accession()
                 {
-                    return strval($this->generator->randomFloat(3, 1900, 2018));
+                    return (string) ($this->generator->randomFloat(3, 1900, 2018));
                 }
 
             };
