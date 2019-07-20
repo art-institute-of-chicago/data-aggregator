@@ -33,7 +33,7 @@ class CreateFieldsDocs extends AbstractDocCommand
 
         foreach ($this->getCategories() as $namespace => $heading)
         {
-            $doc .= "# $heading\n\n";
+            $doc .= "# ${heading}\n\n";
 
             foreach ($this->getModelsForNamespace($namespace) as $model)
             {

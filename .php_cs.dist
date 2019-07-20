@@ -83,6 +83,7 @@ return PhpCsFixer\Config::create()
             'single_quoted' => false, // FQCN
         ],
         'explicit_indirect_variable' => true,
+        'explicit_string_variable' => true,
     ])
     ->setFinder($finder)
 ;

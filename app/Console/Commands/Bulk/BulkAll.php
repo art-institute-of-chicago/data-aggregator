@@ -33,7 +33,7 @@ class BulkAll extends BaseCommand
         foreach (config('resources.inbound') as $source => $endpoints) {
 
             foreach ($endpoints as $endpoint => $resource) {
-                dump("$source >> $endpoint");
+                dump("${source} >> ${endpoint}");
 
                 if ((
                     $shouldSkipToSource && $source !== $shouldSkipToSource
