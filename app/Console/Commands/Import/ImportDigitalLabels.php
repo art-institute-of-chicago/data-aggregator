@@ -16,7 +16,7 @@ class ImportDigitalLabels extends AbstractImportCommand
     protected $signature = "import:digital-labels
                             {--from-backup : Whether to use a previously retrieved version of Digital Label's JSON data}";
 
-    protected $description = "Import all digital labels from their CMS";
+    protected $description = 'Import all digital labels from their CMS';
 
     protected $folderName = 'digital-labels';
 
@@ -95,7 +95,7 @@ class ImportDigitalLabels extends AbstractImportCommand
 
     private function importLabels()
     {
-        $this->info("Importing digital labels");
+        $this->info('Importing digital labels');
 
         $contents = Storage::get($this->exhibitionJson());
         $results = json_decode($contents);

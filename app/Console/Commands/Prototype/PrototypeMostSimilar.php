@@ -83,18 +83,18 @@ class PrototypeMostSimilar extends BaseCommand
     public function handle()
     {
 
-        $ret = $this->header("Prototype most similar");
+        $ret = $this->header('Prototype most similar');
 
         $ret .= $this->results([
-            27992 => "La Grande Jatte",
-            20684 => "Paris Street",
-            64818 => "Stacks of Wheat",
-            16568 => "Water Lillies",
-            14655 => "Two Sisters",
-            15468 => "Saint George and the Dragon",
-            46327 => "Black Cross",
-            86780 => "Mother and Child",
-            52983 => "The Past and the Present",
+            27992 => 'La Grande Jatte',
+            20684 => 'Paris Street',
+            64818 => 'Stacks of Wheat',
+            16568 => 'Water Lillies',
+            14655 => 'Two Sisters',
+            15468 => 'Saint George and the Dragon',
+            46327 => 'Black Cross',
+            86780 => 'Mother and Child',
+            52983 => 'The Past and the Present',
         ]);
 
         $ret .= $this->footer();
@@ -108,7 +108,7 @@ class PrototypeMostSimilar extends BaseCommand
 
         foreach ($artworkIds as $id => $name)
         {
-            $ret .= "<h2><a href=\"" . env('WEBSITE_ROOT') . "/artworks/{$id}\">{$name}</a></h2>\n";
+            $ret .= '<h2><a href="' . env('WEBSITE_ROOT') . "/artworks/{$id}\">{$name}</a></h2>\n";
 
             $artw = Artwork::find($id);
             $responses = $this->query($artw);
@@ -127,7 +127,7 @@ class PrototypeMostSimilar extends BaseCommand
                     if (!in_array($item->id, $ids))
                     {
                         $ret .= "<tr class='clickable-row' data-href='http://www-2018.artic.edu/artworks/{$item->id}'>";
-                        $ret .= "<td style=\"padding:0 8px\"><img src=\"" . ($item->thumbnail->url ?? '') . "/full/75,/0/default.jpg\" /></td>";
+                        $ret .= '<td style="padding:0 8px"><img src="' . ($item->thumbnail->url ?? '') . '/full/75,/0/default.jpg" /></td>';
                         $ret .= "<td style=\"padding:0 8px\">{$item->id}</td>";
                         $ret .= "<td style=\"padding:0 8px\">{$item->main_reference_number}</td>";
                         $ret .= "<td style=\"padding:0 8px\">{$item->title}</td>";
@@ -282,8 +282,8 @@ class PrototypeMostSimilar extends BaseCommand
         $queryString = json_encode($query);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, config('app.url') . "/api/v1/msearch");
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_URL, config('app.url') . '/api/v1/msearch');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $queryString);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -308,43 +308,43 @@ class PrototypeMostSimilar extends BaseCommand
             return [];
         }
         return [
-            "resources" => "artworks",
-            "query" => [
-                "term" => [
+            'resources' => 'artworks',
+            'query' => [
+                'term' => [
                     $field => $value,
                 ],
             ],
-            "fields" => $this->fields,
-            "size" => $this->size,
+            'fields' => $this->fields,
+            'size' => $this->size,
         ];
     }
 
     protected function dateQuery($date_start, $date_end)
     {
         return [
-            "resources" => "artworks",
-            "query" => [
-                "bool" => [
-                    "must" => [
+            'resources' => 'artworks',
+            'query' => [
+                'bool' => [
+                    'must' => [
                         [
-                            "range" => [
-                                "date_start" => [
-                                    "gte" => $date_start
+                            'range' => [
+                                'date_start' => [
+                                    'gte' => $date_start
                                 ]
                             ]
                         ],
                         [
-                            "range" => [
-                                "date_end" => [
-                                    "lte" => $date_end
+                            'range' => [
+                                'date_end' => [
+                                    'lte' => $date_end
                                 ]
                             ]
                         ]
                     ]
                 ]
             ],
-            "fields" => $this->fields,
-            "size" => $this->size,
+            'fields' => $this->fields,
+            'size' => $this->size,
         ];
     }
 
@@ -354,39 +354,39 @@ class PrototypeMostSimilar extends BaseCommand
             return [];
         }
         return [
-            "resources" => "artworks",
-            "query" => [
-                "bool" => [
-                    "must" => [
+            'resources' => 'artworks',
+            'query' => [
+                'bool' => [
+                    'must' => [
                         [
-                            "range" => [
-                                "color.h" => [
-                                    "gte" => ($color->h - 5),
-                                    "lte" => ($color->h + 5),
+                            'range' => [
+                                'color.h' => [
+                                    'gte' => ($color->h - 5),
+                                    'lte' => ($color->h + 5),
                                 ]
                             ]
                         ],
                         [
-                            "range" => [
-                                "color.s" => [
-                                    "gte" => ($color->s - 5),
-                                    "lte" => ($color->s + 5),
+                            'range' => [
+                                'color.s' => [
+                                    'gte' => ($color->s - 5),
+                                    'lte' => ($color->s + 5),
                                 ]
                             ]
                         ],
                         [
-                            "range" => [
-                                "color.l" => [
-                                    "gte" => ($color->l - 5),
-                                    "lte" => ($color->l + 5),
+                            'range' => [
+                                'color.l' => [
+                                    'gte' => ($color->l - 5),
+                                    'lte' => ($color->l + 5),
                                 ]
                             ]
                         ]
                     ],
                 ],
             ],
-            "fields" => $this->fields,
-            "size" => $this->size,
+            'fields' => $this->fields,
+            'size' => $this->size,
         ];
     }
 }

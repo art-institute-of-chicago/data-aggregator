@@ -32,7 +32,7 @@ class ImportWebFull extends AbstractImportCommand
                             {--y|yes : Answer "yes" to all prompts}
                             {--test : Only import one page from each endpoint}';
 
-    protected $description = "Import all Web CMS data";
+    protected $description = 'Import all Web CMS data';
 
     public function handle()
     {
@@ -60,7 +60,7 @@ class ImportWebFull extends AbstractImportCommand
         } else {
 
             $this->importEndpoints();
-            $this->info("Imported all web CMS content!");
+            $this->info('Imported all web CMS content!');
 
         }
 

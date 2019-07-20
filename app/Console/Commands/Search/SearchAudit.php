@@ -18,7 +18,7 @@ class SearchAudit extends BaseCommand
     {
 
         $models = app('Search')->getSearchableModels();
-        $output = "";
+        $output = '';
 
         foreach ($models as $model)
         {
@@ -33,7 +33,7 @@ class SearchAudit extends BaseCommand
 
             $sentry = app('sentry');
             $sentry->extra_context(['console.output' => $output]);
-            throw new \Exception("Search index and database are out of sync");
+            throw new \Exception('Search index and database are out of sync');
         }
 
     }

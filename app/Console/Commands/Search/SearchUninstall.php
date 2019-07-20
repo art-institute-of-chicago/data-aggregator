@@ -24,7 +24,7 @@ class SearchUninstall extends BaseCommand
 
         $prefix = $this->argument('index') ?? env('ELASTICSEARCH_INDEX');
 
-        if (!$this->option('yes') && !$this->confirm("This will delete all indexes with `" . $prefix . "` prefix. Are you sure?"))
+        if (!$this->option('yes') && !$this->confirm('This will delete all indexes with `' . $prefix . '` prefix. Are you sure?'))
         {
 
             return false;
@@ -53,7 +53,7 @@ class SearchUninstall extends BaseCommand
 
             } else {
 
-                $this->info("Index " . $index . " does not exist.");
+                $this->info('Index ' . $index . ' does not exist.');
 
             }
 

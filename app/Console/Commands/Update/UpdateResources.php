@@ -11,7 +11,7 @@ class UpdateResources extends BaseCommand
 
     protected $signature = 'update:resources';
 
-    protected $description = "Re-indexes artworks that have multimedia or educational resources";
+    protected $description = 'Re-indexes artworks that have multimedia or educational resources';
 
     public function handle()
     {

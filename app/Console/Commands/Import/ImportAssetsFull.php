@@ -10,7 +10,7 @@ class ImportAssetsFull extends AbstractImportCommand
                             {page? : Page to begin importing from}
                             {--test : Only import one page from each endpoint}';
 
-    protected $description = "Import all DAMS data";
+    protected $description = 'Import all DAMS data';
 
     public function handle()
     {

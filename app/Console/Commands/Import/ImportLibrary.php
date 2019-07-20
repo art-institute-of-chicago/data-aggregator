@@ -11,7 +11,7 @@ class ImportLibrary extends AbstractImportCommand
     protected $signature = 'import:library
                             {--y|yes : Answer "yes" to all prompts}';
 
-    protected $description = "Import all library data";
+    protected $description = 'Import all library data';
 
     public function handle()
     {

@@ -10,7 +10,7 @@ class ImportTicketedEventTypesFull extends AbstractImportCommand
     protected $signature = 'import:events-ticketed-types-full
                             {--y|yes : Answer "yes" to all prompts}';
 
-    protected $description = "Import all ticketed event types data";
+    protected $description = 'Import all ticketed event types data';
 
     public function handle()
     {

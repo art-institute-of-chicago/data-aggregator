@@ -9,7 +9,7 @@ class ImportCollections extends ImportCollectionsFull
                             {endpoint? : Endpoint on dataservice to query, e.g. `object-types`}
                             {--since= : How far back to scan for records}';
 
-    protected $description = "Import collections data that has been updated since the last import";
+    protected $description = 'Import collections data that has been updated since the last import';
 
     protected $isPartial = true;
 

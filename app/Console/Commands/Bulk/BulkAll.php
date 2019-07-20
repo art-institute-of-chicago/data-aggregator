@@ -12,7 +12,7 @@ class BulkAll extends BaseCommand
 
     protected $signature = 'bulk:all {skip-to-source?} {skip-to-endpoint?} {--at=}';
 
-    protected $description = "Reset database and import everything";
+    protected $description = 'Reset database and import everything';
 
     private $startedAt;
 
@@ -40,12 +40,12 @@ class BulkAll extends BaseCommand
                 ) || (
                     $shouldSkipToEndpoint && $endpoint !== $shouldSkipToEndpoint
                 )) {
-                    dump("Skipping...");
+                    dump('Skipping...');
                     continue;
                 }
 
                 if ($resource['exclude_from_import'] ?? false) {
-                    dump("Skipping from config...");
+                    dump('Skipping from config...');
                     continue;
                 }
 

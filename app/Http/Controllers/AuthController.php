@@ -45,7 +45,7 @@ class AuthController extends Controller
                 return response($response, 200);
             }
 
-            $response = "Password missmatch";
+            $response = 'Password missmatch';
             return response($response, 422);
         }
 

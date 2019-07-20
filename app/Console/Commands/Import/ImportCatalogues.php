@@ -11,7 +11,7 @@ class ImportCatalogues extends AbstractImportCommand
     protected $signature = 'import:dsc
                             {--y|yes : Answer "yes" to all prompts}';
 
-    protected $description = "Import all catalogue data";
+    protected $description = 'Import all catalogue data';
 
     public function handle()
     {

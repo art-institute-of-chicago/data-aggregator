@@ -44,7 +44,7 @@ abstract class AbstractImportCommand extends BaseCommand
     {
 
         // Not an ideal solution, but some models are really heavy
-        ini_set("memory_limit", "-1");
+        ini_set('memory_limit', '-1');
 
         $name = $this->getName();
 
@@ -100,7 +100,7 @@ abstract class AbstractImportCommand extends BaseCommand
         $id = $transformer->getId($datum);
 
         // TODO: Use transformed title
-        $this->info("Importing #{$id}" . (property_exists($datum, 'title') ? ": {$datum->title}" : ""));
+        $this->info("Importing #{$id}" . (property_exists($datum, 'title') ? ": {$datum->title}" : ''));
 
         // Don't use findOrCreate here, since it can cause errors due to Searchable
         $resource = $model::findOrNew($id);

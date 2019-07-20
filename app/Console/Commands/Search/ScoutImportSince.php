@@ -16,7 +16,7 @@ class ScoutImportSince extends BaseCommand
 
     public function handle()
     {
-        ini_set("memory_limit", "-1");
+        ini_set('memory_limit', '-1');
 
         $chunksize = (int) $this->argument('chunksize');
         $datetime = new Carbon($this->argument('datetime'));

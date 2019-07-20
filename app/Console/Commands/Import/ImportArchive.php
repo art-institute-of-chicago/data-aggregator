@@ -10,7 +10,7 @@ class ImportArchive extends AbstractImportCommand
     protected $signature = 'import:archive
                             {--y|yes : Answer "yes" to all prompts}';
 
-    protected $description = "Import all archives data";
+    protected $description = 'Import all archives data';
 
     public function handle()
     {

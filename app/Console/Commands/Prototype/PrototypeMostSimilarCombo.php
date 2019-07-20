@@ -51,15 +51,15 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
         // Combine the queries into one (for msearch)
         $query = [
             [
-                "resources" => "artworks",
-                "query" => [
-                    "bool" => [
-                        "should" => collect($query)->pluck('query')->all(),
+                'resources' => 'artworks',
+                'query' => [
+                    'bool' => [
+                        'should' => collect($query)->pluck('query')->all(),
                     ]
                 ],
-                "q" => null,
-                "fields" => $this->fields,
-                "size" => $this->size,
+                'q' => null,
+                'fields' => $this->fields,
+                'size' => $this->size,
             ]
         ];
 
@@ -74,15 +74,15 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
             return [];
         }
         return [
-            "resources" => "artworks",
-            "query" => [
-                "terms" => [
+            'resources' => 'artworks',
+            'query' => [
+                'terms' => [
                     $field => $value,
-                    "boost" => $boost,
+                    'boost' => $boost,
                 ],
             ],
-            "fields" => $this->fields,
-            "size" => $this->size,
+            'fields' => $this->fields,
+            'size' => $this->size,
         ];
     }
 

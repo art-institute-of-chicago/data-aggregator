@@ -38,15 +38,15 @@ class PrototypeSearch extends BaseCommand
     public function handle()
     {
 
-        $ret = $this->header("Prototype search boosting");
+        $ret = $this->header('Prototype search boosting');
 
         $ret .= $this->results([
-            "african american",
-            "archibald motley",
+            'african american',
+            'archibald motley',
             "cow's skull",
-            "cats",
-            "nocturne",
-            "walker evans",
+            'cats',
+            'nocturne',
+            'walker evans',
             'nighthawks',
             'the old guitarist',
             'time transfixed',
@@ -108,9 +108,9 @@ class PrototypeSearch extends BaseCommand
 
             '1942.51',
             '1926.224',
-            "1962.824",
-            "1959.615",
-            "2007.347",
+            '1962.824',
+            '1959.615',
+            '2007.347',
         ]);
 
         $ret .= $this->footer();
@@ -132,7 +132,7 @@ class PrototypeSearch extends BaseCommand
             foreach (json_decode($response)->data as $item)
             {
                 $ret .= "<tr class='clickable-row' data-href='http://www-2018.artic.edu/artworks/{$item->id}'>";
-                $ret .= "<td style=\"padding:0 8px\"><img src=\"" . ($item->thumbnail->url ?? '') . "/full/75,/0/default.jpg\" /></td>";
+                $ret .= '<td style="padding:0 8px"><img src="' . ($item->thumbnail->url ?? '') . '/full/75,/0/default.jpg" /></td>';
                 $ret .= "<td style=\"padding:0 8px\">{$item->id}</td>";
                 $ret .= "<td style=\"padding:0 8px\">{$item->main_reference_number}</td>";
                 $ret .= "<td style=\"padding:0 8px\">{$item->title}</td>";

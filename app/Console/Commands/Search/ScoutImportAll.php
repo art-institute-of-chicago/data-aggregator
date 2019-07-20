@@ -19,7 +19,7 @@ class ScoutImportAll extends BaseCommand
     public function handle()
     {
 
-        ini_set("memory_limit", "-1");
+        ini_set('memory_limit', '-1');
 
         $models = app('Search')->getSearchableModels();
 
@@ -27,7 +27,7 @@ class ScoutImportAll extends BaseCommand
 
         foreach($models as $model) {
 
-            $this->call("scout:import", ['model' => $model]);
+            $this->call('scout:import', ['model' => $model]);
 
         }
 

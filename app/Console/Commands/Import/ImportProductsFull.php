@@ -11,7 +11,7 @@ class ImportProductsFull extends AbstractImportCommand
     protected $signature = 'import:products-full
                             {--y|yes : Answer "yes" to all prompts}';
 
-    protected $description = "Import all product data";
+    protected $description = 'Import all product data';
 
     public function handle()
     {

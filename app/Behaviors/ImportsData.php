@@ -115,7 +115,7 @@ trait ImportsData
         ob_end_clean();
 
         if(is_null($contents)) {
-            throw new \Exception("Cannot fetch URL: " . $url);
+            throw new \Exception('Cannot fetch URL: ' . $url);
         }
 
         return $decode ? json_decode($contents) : $contents;
@@ -195,7 +195,7 @@ trait ImportsData
         if($this->isPartial)
         {
 
-            $this->info("Looking for resources since " . $this->since->toIso8601String());
+            $this->info('Looking for resources since ' . $this->since->toIso8601String());
 
         }
 
@@ -293,7 +293,7 @@ trait ImportsData
         // Flush might not remove models that are present in the index, but not the database
         foreach($modelsToFlush as $model)
         {
-            $this->call("scout:flush", ['model' => $model]);
+            $this->call('scout:flush', ['model' => $model]);
             $this->info("Flushed from search index: `{$model}`");
         }
 
@@ -306,7 +306,7 @@ trait ImportsData
         }
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
-        $this->info("Please manually ensure that your search index mappings are up-to-date.");
+        $this->info('Please manually ensure that your search index mappings are up-to-date.');
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
@@ -326,7 +326,7 @@ trait ImportsData
             !$this->hasOption('yes') || $this->option('yes')
         ) || (
             // TODO: Make this less generic?
-            $this->confirm("Running this will fully overwrite some tables in your database! Are you sure?")
+            $this->confirm('Running this will fully overwrite some tables in your database! Are you sure?')
         );
 
     }

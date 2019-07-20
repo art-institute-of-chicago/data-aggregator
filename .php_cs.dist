@@ -300,6 +300,7 @@ return PhpCsFixer\Config::create()
                 'hash',
             ],
         ],
+        'single_quote' => true, // Rough on CreateSwaggerDocs and Documentable
     ])
     ->setFinder($finder)
 ;

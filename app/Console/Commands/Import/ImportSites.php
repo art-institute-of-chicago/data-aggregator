@@ -13,7 +13,7 @@ class ImportSites extends AbstractImportCommand
     protected $signature = 'import:sites
                             {--y|yes : Answer "yes" to all prompts}';
 
-    protected $description = "Import all historic microsites";
+    protected $description = 'Import all historic microsites';
 
     public function handle()
     {
@@ -55,7 +55,7 @@ class ImportSites extends AbstractImportCommand
     private function importSites($results)
     {
 
-        $this->info("Importing static sites");
+        $this->info('Importing static sites');
 
         foreach($results as $datum)
         {

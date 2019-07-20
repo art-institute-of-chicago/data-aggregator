@@ -17,7 +17,7 @@ class ImportMobile extends AbstractImportCommand
 
     protected $signature = 'import:mobile {--no-download}';
 
-    protected $description = "Import all data from the mobile CMS";
+    protected $description = 'Import all data from the mobile CMS';
 
     protected $filename = 'appData.json';
 
@@ -39,7 +39,7 @@ class ImportMobile extends AbstractImportCommand
 
     private function importArtworks($results)
     {
-        $this->info("Importing mobile artworks...");
+        $this->info('Importing mobile artworks...');
 
         foreach ($results->objects as $datum) {
             $this->info("Importing artwork #{$datum->nid}: {$datum->title}");
@@ -64,7 +64,7 @@ class ImportMobile extends AbstractImportCommand
 
     private function importSounds($results)
     {
-        $this->info("Importing mobile sounds...");
+        $this->info('Importing mobile sounds...');
 
         Sound::query()->delete();
 
@@ -88,7 +88,7 @@ class ImportMobile extends AbstractImportCommand
 
     private function importTours($results)
     {
-        $this->info("Importing mobile tours and tour stops...");
+        $this->info('Importing mobile tours and tour stops...');
 
         Tour::query()->delete();
 

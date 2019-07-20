@@ -10,7 +10,7 @@ class ImportAnalytics extends AbstractImportCommand
     protected $signature = 'import:analytics
                             {page? : Page to begin importing from}';
 
-    protected $description = "Import analytic pageviews for artworks";
+    protected $description = 'Import analytic pageviews for artworks';
 
     public function handle()
     {

@@ -16,7 +16,7 @@ class ReportNoImages extends BaseCommand
 
     protected $signature = 'report:no-images';
 
-    protected $description = "Report all artworks that have no preferred images set";
+    protected $description = 'Report all artworks that have no preferred images set';
 
     protected $csv;
 
@@ -24,7 +24,7 @@ class ReportNoImages extends BaseCommand
     {
 
         // Not an ideal solution, but some models are really heavy
-        ini_set("memory_limit", "-1");
+        ini_set('memory_limit', '-1');
 
         $this->csv = Writer::createFromPath($this->getCsvPath(), 'w');
 

@@ -64,7 +64,7 @@ class Label extends DigitalLabelTransformer
             ]
         ];
 
-        $response = $cache[$accession] ?? $this->post(config('app.url') . "/api/v1/search", $query);
+        $response = $cache[$accession] ?? $this->post(config('app.url') . '/api/v1/search', $query);
         $cache[$accession] = $response;
         $response = json_decode($response);
 

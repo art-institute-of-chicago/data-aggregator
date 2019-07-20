@@ -14,7 +14,7 @@ class BulkImport extends BaseCommand
                             {endpoint : Endpoint on dataservice to import}
                             {ids? : Comma-separated ids to import}';
 
-    protected $description = "Upsert resources from a data service";
+    protected $description = 'Upsert resources from a data service';
 
     protected $chunkSize = 100; // Approx. 5 sec per 100 artworks
 
@@ -68,7 +68,7 @@ class BulkImport extends BaseCommand
             });
 
             // Manually append timestamps
-            $now = date("Y-m-d H:i:s");
+            $now = date('Y-m-d H:i:s');
             $fills = $fills->map(function ($datum) use ($now) {
                 return array_merge($datum, [
                     'created_at' => $now,

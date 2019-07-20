@@ -18,7 +18,7 @@ class ScoutFlushAll extends BaseCommand
 
         foreach($models as $model) {
 
-            $this->call("scout:flush", ['model' => $model]);
+            $this->call('scout:flush', ['model' => $model]);
 
         }
 

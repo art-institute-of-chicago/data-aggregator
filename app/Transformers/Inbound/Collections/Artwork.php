@@ -67,7 +67,7 @@ class Artwork extends CollectionsTransformer
 
     protected function getSyncEx(Datum $datum)
     {
-        $now = date("Y-m-d H:i:s");
+        $now = date('Y-m-d H:i:s');
         return [
             'artwork_dates' => collect($datum->artwork_dates ?? [])->map(function ($date) use ($datum, $now) {
                 return [

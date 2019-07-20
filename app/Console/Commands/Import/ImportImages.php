@@ -10,7 +10,7 @@ class ImportImages extends AbstractImportCommand
     protected $signature = 'import:images
                             {page? : Page to begin importing from}';
 
-    protected $description = "Import all image data from data-service-images";
+    protected $description = 'Import all image data from data-service-images';
 
     public function handle()
     {

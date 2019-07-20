@@ -9,7 +9,7 @@ class ImportWebOne extends ImportWebFull
                             {endpoint : Endpoint on dataservice to query, e.g. `events` }
                             {id : Identifier of the specific resource to import}';
 
-    protected $description = "Import a single resource from the web dataservice.";
+    protected $description = 'Import a single resource from the web dataservice.';
 
     public function handle()
     {

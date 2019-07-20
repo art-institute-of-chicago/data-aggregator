@@ -9,7 +9,7 @@ class ImportUlan extends AbstractImportCommand
 
     protected $signature = 'import:ulan';
 
-    protected $description = "Set the `ulan_uri` for Agents.";
+    protected $description = 'Set the `ulan_uri` for Agents.';
 
     public function handle()
     {

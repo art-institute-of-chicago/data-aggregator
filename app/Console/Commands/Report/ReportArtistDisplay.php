@@ -16,7 +16,7 @@ class ReportArtistDisplay extends BaseCommand
 
     protected $signature = 'report:artist-display';
 
-    protected $description = "Breakdown artworks based on number of linebreaks in artist_display";
+    protected $description = 'Breakdown artworks based on number of linebreaks in artist_display';
 
     protected $csv;
 
@@ -24,7 +24,7 @@ class ReportArtistDisplay extends BaseCommand
     {
 
         // Not an ideal solution, but some models are really heavy
-        ini_set("memory_limit", "-1");
+        ini_set('memory_limit', '-1');
 
         $this->csv = Writer::createFromPath($this->getCsvPath(), 'w');
 

@@ -9,7 +9,7 @@ class ImportCollectionsOne extends ImportCollectionsFull
                             {endpoint : Endpoint on dataservice to query, e.g. `object-types` }
                             {id : Identifier of the specific resource to import}';
 
-    protected $description = "Import a single resource from the collections dataservice.";
+    protected $description = 'Import a single resource from the collections dataservice.';
 
     public function handle()
     {

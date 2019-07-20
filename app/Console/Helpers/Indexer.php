@@ -31,7 +31,7 @@ trait Indexer
         }
 
         // Return false if the user bails out
-        if (!$yes && !$this->confirm("The " . $index . " index already exists. Do you wish to delete it?"))
+        if (!$yes && !$this->confirm('The ' . $index . ' index already exists. Do you wish to delete it?'))
         {
             return false;
         }
@@ -71,7 +71,7 @@ trait Indexer
 
         }
 
-        return "There was an error: " . print_r($return, true);
+        return 'There was an error: ' . print_r($return, true);
 
     }
 

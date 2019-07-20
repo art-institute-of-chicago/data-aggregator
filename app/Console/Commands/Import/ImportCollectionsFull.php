@@ -10,7 +10,7 @@ class ImportCollectionsFull extends AbstractImportCommand
                             {page? : Page to begin importing from}
                             {--test : Only import one page from each endpoint}';
 
-    protected $description = "Import all collections data. If no options are passed all Collections data will be imported.";
+    protected $description = 'Import all collections data. If no options are passed all Collections data will be imported.';
 
     public function handle()
     {
