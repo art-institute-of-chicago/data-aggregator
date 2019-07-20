@@ -99,7 +99,7 @@ class PrototypeMostSimilar extends BaseCommand
 
         $ret .= $this->footer();
 
-        print $ret;
+        echo $ret;
     }
 
     public function results($artworkIds = [], $limit = 5)

@@ -115,7 +115,7 @@ class PrototypeSearch extends BaseCommand
 
         $ret .= $this->footer();
 
-        print $ret;
+        echo $ret;
     }
 
     public function results($queries = [], $limit = 5)
