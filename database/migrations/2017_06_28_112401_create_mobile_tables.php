@@ -66,7 +66,7 @@ class CreateMobileTables extends Migration
     {
 
         $table->integer('mobile_id')->unsigned()->primary();
-        $table->$titleType('title');
+        $table->{$titleType}('title');
         return $table;
     }
 

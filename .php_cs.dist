@@ -67,6 +67,22 @@ return PhpCsFixer\Config::create()
         'concat_space' => [
             'spacing' => 'one',
         ],
+        // 'date_time_immutable' => true,
+        'declare_equal_normalize' => [
+            'space' => 'single',
+        ],
+        // 'declare_strict_types' => false,
+        // 'dir_constant' => true,
+        'elseif' => true,
+        'encoding' => true,
+        // 'ereg_to_preg' => true,
+        // 'error_suppression' => false, // (?)
+        'escape_implicit_backslashes' => [
+            'double_quoted' => true,
+            'heredoc_syntax' => true,
+            'single_quoted' => false, // FQCN
+        ],
+        'explicit_indirect_variable' => true,
     ])
     ->setFinder($finder)
 ;

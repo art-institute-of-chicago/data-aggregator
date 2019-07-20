@@ -58,22 +58,22 @@ trait Factory
 
                         $attach = factory($attachType)->create($this->attachFields);
 
-                        if ($model->$relation() instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo)
+                        if ($model->{$relation}() instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo)
                         {
 
-                            $model->$relation()->associate($attach);
+                            $model->{$relation}()->associate($attach);
 
                         }
-                        elseif ($model->$relation() instanceof \Illuminate\Database\Eloquent\Relations\HasMany)
+                        elseif ($model->{$relation}() instanceof \Illuminate\Database\Eloquent\Relations\HasMany)
                         {
 
-                            $model->$relation()->save($attach);
+                            $model->{$relation}()->save($attach);
 
                         }
                         else
                         {
 
-                            $model->$relation()->attach($attach->getKey());
+                            $model->{$relation}()->attach($attach->getKey());
 
                         }
 

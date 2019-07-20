@@ -161,7 +161,7 @@ class BaseTransformer extends AbstractTransformer
         // Sync many-to-many relationships
         foreach( $relations as $relation => $ids )
         {
-            $instance->$relation()->sync( $ids );
+            $instance->{$relation}()->sync( $ids );
         }
 
         return $relations;
@@ -295,14 +295,14 @@ class BaseTransformer extends AbstractTransformer
 
         // This method assumes that the pivot field's value is an array, not an object!
         // TODO: Improve error reporting in the latter case..?
-        if( !$datum->$pivot_field || !is_array($datum->$pivot_field) )
+        if( !$datum->{$pivot_field} || !is_array($datum->{$pivot_field}) )
         {
             return [];
         }
 
-        $pivots = collect( $datum->$pivot_field )->filter( function( $pivot ) use ( $id_field ) {
+        $pivots = collect( $datum->{$pivot_field} )->filter( function( $pivot ) use ( $id_field ) {
 
-            return (bool) ($pivot->$id_field ?? false);
+            return (bool) ($pivot->{$id_field} ?? false);
 
         })->map( $mapping_fn );
 

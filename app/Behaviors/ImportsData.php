@@ -165,7 +165,7 @@ trait ImportsData
         // Determine if authentication is needed
         $method = $this->auth ? 'fetchWithAuth' : 'fetch';
 
-        return $this->$method( $url, true );
+        return $this->{$method}( $url, true );
 
     }
 

@@ -527,7 +527,7 @@ trait Documentable
             if ($i > 5)
             {
 
-                unset($obj->$keyIndex);
+                unset($obj->{$keyIndex});
                 $addEllipsis = true;
 
             }

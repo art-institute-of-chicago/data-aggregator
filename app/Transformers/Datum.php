@@ -26,7 +26,7 @@ class Datum implements JsonSerializable
     public function __get( $field )
     {
 
-        $value = $this->datum->$field ?? null;
+        $value = $this->datum->{$field} ?? null;
 
         return $this->getCleanValue( $value );
 
@@ -50,7 +50,7 @@ class Datum implements JsonSerializable
         }
 
         // Note how we're getting __get() to fire here
-        return $this->$field ?? [];
+        return $this->{$field} ?? [];
 
     }
 
@@ -65,7 +65,7 @@ class Datum implements JsonSerializable
     {
 
         // Note how we're getting __get() to fire here
-        $date = $this->$field;
+        $date = $this->{$field};
 
         if( is_string( $date ) )
         {

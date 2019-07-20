@@ -72,7 +72,7 @@ abstract class AbstractController extends BaseController
             $value = Str::snake(Str::camel($value));
         }
 
-        $this->fractal->$method($values);
+        $this->fractal->{$method}($values);
     }
 
 

@@ -107,13 +107,13 @@ class BaseModel extends AbstractModel
 
         foreach ($this->touches as $relation) {
 
-            if ($this->$relation instanceof self) {
+            if ($this->{$relation} instanceof self) {
 
-                $this->$relation->searchable();
+                $this->{$relation}->searchable();
 
-            } elseif ($this->$relation instanceof Collection) {
+            } elseif ($this->{$relation} instanceof Collection) {
 
-                foreach ($this->$relation->chunk(50) as $chunk)
+                foreach ($this->{$relation}->chunk(50) as $chunk)
                 {
                     $chunk->searchable();
                 }

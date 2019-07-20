@@ -114,7 +114,7 @@ abstract class AbstractTransformer extends BaseTransformer
             if (!isset($mappedFields[$fieldName]['value']))
             {
                 $mappedFields[$fieldName]['value'] = function ($model) use ($fieldName) {
-                    return $model->$fieldName;
+                    return $model->{$fieldName};
                 };
             }
         }
@@ -167,7 +167,7 @@ abstract class AbstractTransformer extends BaseTransformer
 
         foreach (class_uses_recursive($this) as $trait) {
             if (method_exists($this, $method = 'getFieldsFor' . class_basename($trait))) {
-                $fields = array_merge($fields, $this->$method());
+                $fields = array_merge($fields, $this->{$method}());
             }
         }
 
@@ -307,14 +307,14 @@ abstract class AbstractTransformer extends BaseTransformer
     protected function getDateValue($fieldName)
     {
         return function ($item) use ($fieldName) {
-            return $item->$fieldName ? $item->$fieldName->toIso8601String() : null;
+            return $item->{$fieldName} ? $item->{$fieldName}->toIso8601String() : null;
         };
     }
 
     protected function getEmptyValue($fieldName)
     {
         return function ($item) use ($fieldName) {
-            return $item->$fieldName ?: null;
+            return $item->{$fieldName} ?: null;
         };
     }
 

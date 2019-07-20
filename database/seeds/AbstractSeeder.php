@@ -78,7 +78,7 @@ abstract class AbstractSeeder extends Seeder
                 $selected = $selected->diff( [ $subject ] );
             }
 
-            $this->$delegate( $subject, $selected, $method );
+            $this->{$delegate}( $subject, $selected, $method );
 
         }
 
@@ -91,7 +91,7 @@ abstract class AbstractSeeder extends Seeder
     private function getRelationMethod( $subjectClass, $method )
     {
 
-        $relation = ( new $subjectClass )->$method();
+        $relation = ( new $subjectClass )->{$method}();
         $class = get_class( $relation );
 
         $classname = explode('\\', $class);
@@ -111,7 +111,7 @@ abstract class AbstractSeeder extends Seeder
     private function seedBelongsToMany( $subject, $objects, $method )
     {
 
-        $subject->$method()->sync( $objects );
+        $subject->{$method}()->sync( $objects );
 
     }
 
@@ -121,7 +121,7 @@ abstract class AbstractSeeder extends Seeder
     private function seedBelongsToManyOrOne( $subject, $objects, $method )
     {
 
-        $subject->$method()->sync( $objects );
+        $subject->{$method}()->sync( $objects );
 
     }
 
@@ -134,7 +134,7 @@ abstract class AbstractSeeder extends Seeder
     private function seedHasMany( $subject, $objects, $method )
     {
 
-        $subject->$method()->saveMany( $objects );
+        $subject->{$method}()->saveMany( $objects );
 
     }
 
@@ -149,7 +149,7 @@ abstract class AbstractSeeder extends Seeder
 
         $object = $objects->random();
 
-        $subject->$method()->associate( $object );
+        $subject->{$method}()->associate( $object );
 
         $subject->save();
 
@@ -173,7 +173,7 @@ abstract class AbstractSeeder extends Seeder
             throw new BadFunctionCallException( 'Class ' . $subjectClass . ' has no relation method `' . $method . '`' );
         }
 
-        $relation = ( new $subjectClass )->$method();
+        $relation = ( new $subjectClass )->{$method}();
 
         if( ! $relation instanceof Relation )
         {

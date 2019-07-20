@@ -80,7 +80,7 @@ class BulkImport extends BaseCommand
             // Flatten relations, index by table name. Please refactor me.
             $syncs = $data->pluck('sync')->map(function($datum) use ($model) {
                 $relations = collect($datum['relations'])->map(function($items, $relationMethod) use ($model, $datum) {
-                    $relation = $model->$relationMethod();
+                    $relation = $model->{$relationMethod}();
                     return [
                         $relation->getTable() => collect($items)->map(function($value, $key) use ($relation, $datum) {
                             return is_array($value) ? array_merge([

@@ -156,7 +156,7 @@ class SearchController extends BaseController
         $input = $requestArgs ? array_merge($input, $requestArgs) : $input;
 
         // Transform our API's syntax into an Elasticsearch params array
-        $params = ( new SearchRequest( $resource, $id ) )->$requestMethod( $input );
+        $params = ( new SearchRequest( $resource, $id ) )->{$requestMethod}( $input );
         $cacheKey = $this->buildCacheKey($elasticsearchMethod, $params, config('elasticsearch.cache_version'));
         $results = null;
 
@@ -183,7 +183,7 @@ class SearchController extends BaseController
         }
 
         // Transform Elasticsearch results into our API standard
-        $response = ( new SearchResponse( $results, $params ) )->$responseMethod();
+        $response = ( new SearchResponse( $results, $params ) )->{$responseMethod}();
 
         return $response;
 
@@ -211,7 +211,7 @@ class SearchController extends BaseController
         foreach( $queries as $query )
         {
             $input = $requestArgs ? array_merge($query, $requestArgs) : $query;
-            $originalParams[] = ( new SearchRequest() )->$requestMethod( $input );
+            $originalParams[] = ( new SearchRequest() )->{$requestMethod}( $input );
         }
 
         $transformedParams = [];
@@ -284,7 +284,7 @@ class SearchController extends BaseController
         foreach( $results as $result ) {
 
             // Transform Elasticsearch results into our API standard
-            $responses[] = ( new SearchResponse( $result, $originalParams ) )->$responseMethod();
+            $responses[] = ( new SearchResponse( $result, $originalParams ) )->{$responseMethod}();
 
         }
 

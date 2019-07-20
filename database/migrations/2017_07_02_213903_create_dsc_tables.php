@@ -47,11 +47,11 @@ class CreateDscTables extends Migration
 
         if ( in_array( $idType, ['integer', 'bigInteger']) )
         {
-            $table->$idType('dsc_id')->unsigned()->primary();
+            $table->{$idType}('dsc_id')->unsigned()->primary();
         }
         else
         {
-            $table->$idType('dsc_id')->primary();
+            $table->{$idType}('dsc_id')->primary();
         }
         $table->text('title');
         return $table;
