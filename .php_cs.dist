@@ -1,0 +1,22 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->exclude([
+        'bootstrap/cache',
+        'database/dumps',
+        'node_modules',
+        'public',
+        'storage',
+        'vendor',
+    ])
+    ->in(__DIR__)
+;
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        'align_multiline_comment' => [
+            'comment_type' => 'phpdocs_like',
+        ],
+    ])
+    ->setFinder($finder)
+;
