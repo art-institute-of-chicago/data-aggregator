@@ -386,7 +386,7 @@ class BaseTransformer extends AbstractTransformer
 
     /**
      * Helper method to retrieve names of "fillable" attributes from the saved model.
-     * Note that this is essentially a field listing – it doesn't include relations.
+     * Note that this is essentially a field listing – it doesn't include relations.
      *
      * @TODO Make this exclude guarded attributes?
      *
@@ -399,7 +399,7 @@ class BaseTransformer extends AbstractTransformer
 
     /**
      * Helper method to retrieve names of fillable columns in table.
-     * Note that this is essentially a field listing – it doesn't include relations.
+     * Note that this is essentially a field listing – it doesn't include relations.
      *
      * @return array
      */

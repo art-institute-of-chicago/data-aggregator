@@ -48,6 +48,7 @@ return PhpCsFixer\Config::create()
         //     'position_after_functions_and_oop_constructs' => 'next',
         // ],
         'cast_spaces' => true,
+        // Also removes lines around class body:
         // 'class_attributes_separation' => [
         //     'elements' => [
         //         'const',
@@ -63,39 +64,39 @@ return PhpCsFixer\Config::create()
         'class_keyword_remove' => false,
         'combine_consecutive_issets' => false,
         'combine_consecutive_unsets' => false,
-        // 'combine_nested_dirname' => true,
-        // 'comment_to_phpdoc' => true,
+        'combine_nested_dirname' => true,
+        'comment_to_phpdoc' => false,
         'compact_nullable_typehint' => true,
         'concat_space' => [
             'spacing' => 'one',
         ],
-        // 'date_time_immutable' => true,
+        'date_time_immutable' => false,
         'declare_equal_normalize' => [
             'space' => 'single',
         ],
-        // 'declare_strict_types' => false,
-        // 'dir_constant' => true,
+        'declare_strict_types' => false, // ...but consider doing later!
+        'dir_constant' => true,
         'elseif' => true,
         'encoding' => true,
-        // 'ereg_to_preg' => true,
-        // 'error_suppression' => false, // (?)
+        'ereg_to_preg' => true,
+        'error_suppression' => false, // Unsure of function
         'escape_implicit_backslashes' => [
             'double_quoted' => true,
             'heredoc_syntax' => true,
-            'single_quoted' => false, // FQCN
+            'single_quoted' => false, // FQCN conflict
         ],
         'explicit_indirect_variable' => true,
         'explicit_string_variable' => true,
         'final_class' => false,
         'final_internal_class' => false,
-        // 'fopen_flag_order' => true,
-        // 'fopen_flags' => true,
+        'fopen_flag_order' => true,
+        'fopen_flags' => true,
         'full_opening_tag' => true,
-        // 'fully_qualified_strict_types' => true, // (?)
+        'fully_qualified_strict_types' => true,
         'function_declaration' => [
             'closure_function_spacing' => 'one',
         ],
-        // function_to_constant
+        'function_to_constant' => false, // For `get_class` to be safe
         'function_typehint_space' => true,
         // general_phpdoc_annotation_remove
         // header_comment
@@ -107,13 +108,13 @@ return PhpCsFixer\Config::create()
             'style' => 'post',
         ],
         'indentation_type' => true,
-        // is_null
+        'is_null' => false, // ...but consider implementing
         // line_ending
         'linebreak_after_opening_tag' => true,
         'list_syntax' => [
             'syntax' => 'short',
         ],
-        // 'logical_operators' => true,
+        'logical_operators' => true,
         'lowercase_cast' => true,
         'lowercase_constants' => true,
         'lowercase_keywords' => true,
@@ -136,13 +137,13 @@ return PhpCsFixer\Config::create()
         'native_function_invocation' => false, // Performance
         'native_function_type_declaration_casing' => true,
         'new_with_braces' => true,
-        // no_alias_functions
+        'no_alias_functions' => false, // Read more on this...
         'no_alternative_syntax' => true,
         'no_binary_string' => true,
-        // 'no_blank_lines_after_class_opening' => true,
+        'no_blank_lines_after_class_opening' => false, // cf. 'class_attributes_separation'
         'no_blank_lines_after_phpdoc' => false, // for config
         'no_blank_lines_before_namespace' => false, // cf. 'blank_line_after_namespace'
-        // 'no_break_comment' => true,
+        'no_break_comment' => true,
         'no_closing_tag' => true,
         'no_empty_comment' => true,
         'no_empty_phpdoc' => true,
@@ -150,7 +151,7 @@ return PhpCsFixer\Config::create()
         'no_extra_blank_lines' => [
             'extra',
         ],
-        // no_homoglyph_names
+        'no_homoglyph_names' => true,
         'no_leading_import_slash' => true,
         'no_leading_namespace_whitespace' => true,
         'no_mixed_echo_print' => [
@@ -158,7 +159,7 @@ return PhpCsFixer\Config::create()
         ],
         'no_multiline_whitespace_around_double_arrow' => true,
         'no_null_property_initialization' => true,
-        // no_php4_constructor
+        'no_php4_constructor' => true,
         'no_short_bool_cast' => true,
         'no_short_echo_tag' => true,
         'no_singleline_whitespace_before_semicolons' => true, // TODO: Verify?
@@ -187,7 +188,7 @@ return PhpCsFixer\Config::create()
         ],
         'no_unneeded_curly_braces' => true,
         'no_unneeded_final_method' => true,
-        // no_unreachable_default_argument_value
+        'no_unreachable_default_argument_value' => true,
         'no_unset_cast' => true,
         'no_unset_on_property' => false,
         'no_unused_imports' => true,
@@ -195,7 +196,7 @@ return PhpCsFixer\Config::create()
         'no_useless_return' => true,
         'no_whitespace_before_comma_in_array' => true,
         'no_whitespace_in_blank_line' => true,
-        // non_printable_character // Good, but labeled risky
+        'non_printable_character' => true,
         'normalize_index_brace' => true,
         'not_operator_with_space' => false,
         'not_operator_with_successor_space' => false,
