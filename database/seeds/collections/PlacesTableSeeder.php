@@ -7,7 +7,7 @@ class PlacesTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-        factory( Place::class, 25 )->create();
+        factory(Place::class, 25)->create();
     }
 
 }

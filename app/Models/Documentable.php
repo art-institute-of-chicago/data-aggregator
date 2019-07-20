@@ -83,7 +83,7 @@ trait Documentable
 
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
-        return '## ' . str_replace('-', ' ', Str::title( $endpoint ) );
+        return '## ' . str_replace('-', ' ', Str::title($endpoint));
 
     }
 
@@ -474,7 +474,7 @@ trait Documentable
             $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         }
 
-        return strtolower( Str::title( $endpoint ) );
+        return strtolower(Str::title($endpoint));
 
     }
 

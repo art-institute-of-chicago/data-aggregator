@@ -18,13 +18,13 @@ class ImportLibrary extends AbstractImportCommand
 
         $this->api = env('LIBRARY_DATA_SERVICE_URL');
 
-        if( !$this->reset() )
+        if(!$this->reset())
         {
             return false;
         }
 
-        $this->import( 'Library', Material::class, 'materials' );
-        $this->import( 'Library', Term::class, 'terms');
+        $this->import('Library', Material::class, 'materials');
+        $this->import('Library', Term::class, 'terms');
 
     }
 

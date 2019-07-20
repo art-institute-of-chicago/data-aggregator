@@ -8,7 +8,7 @@ class GenericPagesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        factory( GenericPage::class, 25 )->create();
+        factory(GenericPage::class, 25)->create();
 
     }
 

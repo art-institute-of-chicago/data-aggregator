@@ -8,7 +8,7 @@ class DigitalCatalogsTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        factory( DigitalCatalog::class, 25 )->create();
+        factory(DigitalCatalog::class, 25)->create();
 
     }
 

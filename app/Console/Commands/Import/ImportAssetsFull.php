@@ -52,7 +52,7 @@ class ImportAssetsFull extends AbstractImportCommand
 
         $model = app('Resources')->getModelForInboundEndpoint($endpoint, 'assets');
 
-        $this->import( 'assets', $model, $endpoint, $page );
+        $this->import('assets', $model, $endpoint, $page);
 
     }
 
@@ -61,7 +61,7 @@ class ImportAssetsFull extends AbstractImportCommand
      */
     protected function query($endpoint, $page = 1, $limit = 500)
     {
-        return parent::query( $endpoint, $page, 10 );
+        return parent::query($endpoint, $page, 10);
     }
 
 }

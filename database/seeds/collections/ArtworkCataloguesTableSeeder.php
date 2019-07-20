@@ -13,7 +13,7 @@ class ArtworkCataloguesTableSeeder extends AbstractSeeder
 
         foreach ($artworks as $artwork) {
 
-            $this->seedCatalogues( $artwork );
+            $this->seedCatalogues($artwork);
 
         }
 
@@ -27,7 +27,7 @@ class ArtworkCataloguesTableSeeder extends AbstractSeeder
 
         // We shouldn't receive catalogues that aren't assoc. w/ artworks
 
-        $catalogues = factory( ArtworkCatalogue::class, rand(2, 4) )->create([
+        $catalogues = factory(ArtworkCatalogue::class, rand(2, 4))->create([
             'artwork_citi_id' => $artwork->getKey(),
             'preferred' => false,
         ]);

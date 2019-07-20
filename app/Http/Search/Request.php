@@ -154,7 +154,7 @@ class Request
         $resources = $this->resources ?? $input['resources'] ?? null;
 
         // Ensure that resources is an array, not string
-        if( is_string( $resources ) )
+        if(is_string($resources))
         {
             $resources = explode(',', $resources);
         }
@@ -162,7 +162,7 @@ class Request
         // Save unfiltered $resources for e.g. getting default fields
         $this->resources = $resources;
 
-        if( is_null( $resources ) )
+        if(is_null($resources))
         {
 
             throw new DetailedException('Missing Parameter', 'You must specify the `resources` parameter.', 400);
@@ -171,22 +171,22 @@ class Request
 
             // Filter out any resources that have a parent resource requested as well
             // So e.g. if places and galleries are requested, we'll show places only
-            $resources = array_filter( $resources, function ($resource) use ($resources) {
+            $resources = array_filter($resources, function ($resource) use ($resources) {
 
-                $parent = app('Resources')->getParent( $resource );
+                $parent = app('Resources')->getParent($resource);
 
-                return !in_array( $parent, $resources );
+                return !in_array($parent, $resources);
 
             });
 
             // Make resources into a Laravel collection
-            $resources = collect( $resources );
+            $resources = collect($resources);
 
             // Grab settings from our models via the service provider
-            $settings = $resources->map( function ($resource) {
+            $settings = $resources->map(function ($resource) {
 
                 return [
-                    $resource => app('Search')->getSearchScopeForEndpoint( $resource ),
+                    $resource => app('Search')->getSearchScopeForEndpoint($resource),
                 ];
 
             })->collapse();
@@ -205,9 +205,9 @@ class Request
             }
 
             // These will be used to wrap the query in `function_score`
-            $this->functionScores = $settings->filter( function ($value, $key) {
+            $this->functionScores = $settings->filter(function ($value, $key) {
                 return isset($value['function_score']);
-            })->map( function ($item, $key) {
+            })->map(function ($item, $key) {
                 return $item['function_score'];
             })->all();
 
@@ -232,7 +232,7 @@ class Request
         return [
             'index' => $indexes,
             'type' => $types ?? null,
-            'preference' => Arr::get( $input, 'preference' ),
+            'preference' => Arr::get($input, 'preference'),
         ];
 
     }
@@ -248,7 +248,7 @@ class Request
         $input = self::getValidInput($requestArgs);
 
         // TODO: Handle case where no `q` param is present?
-        if( is_null( Arr::get( $input, 'q' ) ) ) {
+        if(is_null(Arr::get($input, 'q'))) {
             return [];
         }
 
@@ -263,12 +263,12 @@ class Request
 
         // Suggest also returns `_source`, which we can parse to get the cannonical title
         $params = array_merge(
-            $this->getBaseParams( $input ),
-            $this->getFieldParams( $input, false )
+            $this->getBaseParams($input),
+            $this->getFieldParams($input, false)
         );
 
         // `q` is required here, but we won't send an actual `query`
-        $params = $this->addSuggestParams( $params, $input, $requestArgs );
+        $params = $this->addSuggestParams($params, $input, $requestArgs);
 
         return $params;
 
@@ -282,7 +282,7 @@ class Request
     public function getSearchParams($input = null, $withAggregations = true) {
 
         // Strip down the (top-level) params to what our thin client supports
-        $input = self::getValidInput( $input );
+        $input = self::getValidInput($input);
 
         // Normalize the `boost` param to bool (default: true)
         if (!isset($input['boost'])) {
@@ -292,9 +292,9 @@ class Request
         }
 
         $params = array_merge(
-            $this->getBaseParams( $input ),
-            $this->getFieldParams( $input ),
-            $this->getPaginationParams( $input )
+            $this->getBaseParams($input),
+            $this->getFieldParams($input),
+            $this->getPaginationParams($input)
         );
 
         // This is the canonical body structure. It is required.
@@ -311,48 +311,48 @@ class Request
         ];
 
         // Add sort into the body, not the request
-        $params = $this->addSortParams( $params, $input );
+        $params = $this->addSortParams($params, $input);
 
         // Add our custom relevancy tweaks into `should`
-        if ( $input['boost'] ) {
+        if ($input['boost']) {
 
-            $params = $this->addRelevancyParams( $params, $input );
+            $params = $this->addRelevancyParams($params, $input);
 
         }
 
         // Add params to isolate "scoped" resources into `must`
-        $params = $this->addScopeParams( $params, $input );
+        $params = $this->addScopeParams($params, $input);
 
         /**
          * 1. If `query` is present, append it to the `must` clause.
          * 2. If `q` is present, add full-text search to the `must` clause.
          * 3. If `q` is absent, show all results.
          */
-        if( isset( $input['query'] ) ) {
+        if(isset($input['query'])) {
 
-            $params = $this->addFullSearchParams( $params, $input );
+            $params = $this->addFullSearchParams($params, $input);
 
         }
 
-        if( isset( $input['q'] ) ) {
+        if(isset($input['q'])) {
 
-            $params = $this->addSimpleSearchParams( $params, $input );
+            $params = $this->addSimpleSearchParams($params, $input);
 
         } else {
 
-            $params = $this->addEmptySearchParams( $params );
+            $params = $this->addEmptySearchParams($params);
 
         }
 
         // Add Aggregations (facets)
-        if( $withAggregations ) {
+        if($withAggregations) {
 
-            $params = $this->addAggregationParams( $params, $input );
+            $params = $this->addAggregationParams($params, $input);
 
         }
 
         // Apply `function_score` (if any)
-        $params = $this->addFunctionScore( $params, $input );
+        $params = $this->addFunctionScore($params, $input);
 
         return $params;
 
@@ -366,12 +366,12 @@ class Request
      */
     public function getExplainParams($input = []) {
 
-        $params = $this->getSearchParams( $input, false );
+        $params = $this->getSearchParams($input, false);
 
         $params['id'] = $this->id;
 
-        unset( $params['from'] );
-        unset( $params['size'] );
+        unset($params['from']);
+        unset($params['size']);
 
         return $params;
 
@@ -394,13 +394,13 @@ class Request
         $allowed = self::$allowed;
 
         // `null` will be the default value for all params
-        $defaults = array_fill_keys( $allowed, null );
+        $defaults = array_fill_keys($allowed, null);
 
         // Reduce the input set to the params we allow
-        $input = array_intersect_key( $input, array_flip( $allowed ) );
+        $input = array_intersect_key($input, array_flip($allowed));
 
         // Combine $defaults and $input: we won't have to use is_set, only is_null
-        $input = array_merge( $defaults, $input );
+        $input = array_merge($defaults, $input);
 
         return $input;
 
@@ -431,16 +431,16 @@ class Request
 
         // If not null, cast these params to int
         // We are using isset() instead of normal ternary to avoid catching `0` as falsey
-        if( isset( $size ) ) { $size = (int) $size; }
+        if(isset($size)) { $size = (int) $size; }
 
-        if( isset( $from ) ) { $from = (int) $from; }
+        if(isset($from)) { $from = (int) $from; }
 
         // Throw an exception if `size` is too big
-        if( $size > self::$maxSize ) {
+        if($size > self::$maxSize) {
             throw new BigLimitException();
         }
 
-        if( isset( $size ) && isset( $from ) ) {
+        if(isset($size) && isset($from)) {
             $maxResources = (Auth::check() || !config('aic.restricted')) ? 10000 : 1000;
 
             if ($from + $size > $maxResources) {
@@ -477,7 +477,7 @@ class Request
     private function getFieldParams(array $input, $default = null) {
 
         return [
-            '_source' => $input['fields'] ?? ( $default ?? self::$defaultFields ),
+            '_source' => $input['fields'] ?? ($default ?? self::$defaultFields),
         ];
 
     }
@@ -495,7 +495,7 @@ class Request
      */
     private function addSortParams(array $params, array $input) {
 
-        if( isset( $input['sort'] ) )
+        if(isset($input['sort']))
         {
             $params['body']['sort'] = $input['sort'];
         }
@@ -516,7 +516,7 @@ class Request
     {
 
         // Don't tweak relevancy if sort is passed
-        if( isset( $input['sort'] ) )
+        if(isset($input['sort']))
         {
             return $params;
         }
@@ -534,7 +534,7 @@ class Request
             ];
 
             // Add any resource-specific boosts
-            foreach( $this->boosts as $boost ) {
+            foreach($this->boosts as $boost) {
 
                 $params['body']['query']['bool']['should'][] = $boost;
 
@@ -558,7 +558,7 @@ class Request
     public function addFunctionScore($params, $input)
     {
 
-        if( empty($this->functionScores) || !isset( $this->resources ) )
+        if(empty($this->functionScores) || !isset($this->resources))
         {
             return $params;
         }
@@ -571,7 +571,7 @@ class Request
 
         $scopedQueries = collect([]);
 
-        foreach( $this->resources as $resource ) {
+        foreach($this->resources as $resource) {
 
             // Grab the functions for this resource
             $rawFunctions = $this->functionScores[$resource] ?? null;
@@ -593,7 +593,7 @@ class Request
 
             if ($input['boost'] && !isset($input['q']) && isset($rawFunctions['except_full_text']))
             {
-                $outFunctions = array_merge($outFunctions, $rawFunctions['except_full_text'] );
+                $outFunctions = array_merge($outFunctions, $rawFunctions['except_full_text']);
             }
 
             if (isset($rawFunctions['custom']))
@@ -618,16 +618,16 @@ class Request
             ];
 
             // Wrap the query in a scope
-            $scopedQuery = app('Search')->getScopedQuery( $resource, $resourceQuery );
+            $scopedQuery = app('Search')->getScopedQuery($resource, $resourceQuery);
 
-            $scopedQueries->push( $scopedQuery );
+            $scopedQueries->push($scopedQuery);
 
         }
 
         // Add a query for all the leftover resources
-        $scopedQuery = app('Search')->getScopedQuery( $resourcesWithoutFunctions->all(), $baseQuery );
+        $scopedQuery = app('Search')->getScopedQuery($resourcesWithoutFunctions->all(), $baseQuery);
 
-        $scopedQueries->push( $scopedQuery );
+        $scopedQueries->push($scopedQuery);
 
         // Override the existing query with our queries
         $params['body']['query'] = [
@@ -651,7 +651,7 @@ class Request
     public function addScopeParams(array $params, array $input)
     {
 
-        if( !isset( $this->scopes ) || count( $this->scopes ) < 1 ) {
+        if(!isset($this->scopes) || count($this->scopes) < 1) {
 
             return $params;
 
@@ -740,8 +740,8 @@ class Request
         $isExact = count($withQuotes) > 0;
 
         // Only pull default fields for the resources targeted by this request
-        $allFields = app('Search')->getDefaultFieldsForEndpoints( $this->resources, false );
-        $exactFields = app('Search')->getDefaultFieldsForEndpoints( $this->resources, true );
+        $allFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, false);
+        $exactFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, true);
 
         foreach ($withQuotes as $subquery) {
             $params['body']['query']['bool']['must'][] = [
@@ -771,7 +771,7 @@ class Request
 
         // Queries below depend on `q`, but act as relevany tweaks
         // Don't tweak relevancy further if sort is passed
-        if( isset( $input['sort'] ) )
+        if(isset($input['sort']))
         {
             return $params;
         }
@@ -790,7 +790,7 @@ class Request
         // This boosts docs that have multiple terms in close proximity
         // `phrase` queries are relatively expensive, so check for spaces first
         // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
-        if( strpos( $input['q'], ' ' ) )
+        if(strpos($input['q'], ' '))
         {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
@@ -820,7 +820,7 @@ class Request
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
         $params['body']['query']['bool']['must'][] = [
-            Arr::get( $input, 'query' ),
+            Arr::get($input, 'query'),
         ];
 
         return $params;
@@ -842,10 +842,10 @@ class Request
     {
 
         $params['body']['suggest'] = [
-            'text' => Arr::get( $input, 'q' ),
+            'text' => Arr::get($input, 'q'),
         ];
 
-        $params = $this->addAutocompleteSuggestParams( $params, $input, $requestArgs );
+        $params = $this->addAutocompleteSuggestParams($params, $input, $requestArgs);
 
         return $params;
 
@@ -873,7 +873,7 @@ class Request
         }
 
         $params['body']['suggest']['autocomplete'] = [
-            'prefix' => Arr::get( $input, 'q' ),
+            'prefix' => Arr::get($input, 'q'),
             'completion' => [
                 'field' => $field,
                 'fuzzy' => [
@@ -887,7 +887,7 @@ class Request
             $contexts = $input['contexts'];
 
             // Ensure that resources is an array, not string
-            if( is_string( $contexts ) )
+            if(is_string($contexts))
             {
                 $contexts = explode(',', $contexts);
             }
@@ -915,7 +915,7 @@ class Request
 
         $aggregations = $input['aggregations'] ?? $input['aggs'] ?? null;
 
-        if( $aggregations ) {
+        if($aggregations) {
 
             $params['body']['aggregations'] = $aggregations;
 

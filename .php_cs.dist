@@ -165,6 +165,7 @@ return PhpCsFixer\Config::create()
             'inside',
             'outside'
         ],
+        'no_spaces_inside_parenthesis' => true,
     ])
     ->setFinder($finder)
 ;

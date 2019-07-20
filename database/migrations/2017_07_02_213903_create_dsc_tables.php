@@ -45,7 +45,7 @@ class CreateDscTables extends Migration
     private function _addIdsAndTitle($table, $idType = 'integer')
     {
 
-        if ( in_array( $idType, ['integer', 'bigInteger']) )
+        if (in_array($idType, ['integer', 'bigInteger']))
         {
             $table->{$idType}('dsc_id')->unsigned()->primary();
         }

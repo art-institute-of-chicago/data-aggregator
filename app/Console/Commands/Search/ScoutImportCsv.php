@@ -22,14 +22,14 @@ class ScoutImportCsv extends BaseCommand
 
         $class = $this->argument('model');
 
-        $csv = Reader::createFromPath( $this->getCsvPath(), 'r' );
+        $csv = Reader::createFromPath($this->getCsvPath(), 'r');
 
         if (!$this->hasOption('skip-header') || $this->option('skip-header'))
         {
             $csv->setHeaderOffset(0);
         }
 
-        foreach( $csv->getRecords() as $record )
+        foreach($csv->getRecords() as $record)
         {
             $id = reset($record);
 
@@ -38,7 +38,7 @@ class ScoutImportCsv extends BaseCommand
                 $id = end($id);
             }
 
-            $class::find( $id )->searchable();
+            $class::find($id)->searchable();
 
             $this->info("Imported #${id} of model ${class}");
         }

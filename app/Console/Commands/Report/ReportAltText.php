@@ -36,18 +36,18 @@ class ReportAltText extends BaseCommand
 
         })->cursor();
 
-        foreach( $artworks as $artwork ) {
+        foreach($artworks as $artwork) {
 
-            foreach( $artwork->images as $image ) {
+            foreach($artwork->images as $image) {
 
-                if( $image->alt_text ) {
+                if($image->alt_text) {
 
                     $row = [
                         'artwork_id' => $artwork->citi_id,
                         'artwork_citi_url' => env('CITI_ARTWORK_URL') . $artwork->citi_id,
-                        'artwork_lakeshore_url' => $this->getLakeShoreLink( $artwork->lake_guid, 'works' ),
+                        'artwork_lakeshore_url' => $this->getLakeShoreLink($artwork->lake_guid, 'works'),
                         'image_id' => $image->lake_guid,
-                        'image_lakeshore_url' => $this->getLakeShoreLink( $image->lake_guid, 'generic_works' ),
+                        'image_lakeshore_url' => $this->getLakeShoreLink($image->lake_guid, 'generic_works'),
                         'alt_text' => $image->alt_text
                     ];
 

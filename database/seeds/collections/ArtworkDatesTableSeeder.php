@@ -13,7 +13,7 @@ class ArtworkDatesTableSeeder extends AbstractSeeder
 
         foreach ($artworks as $artwork) {
 
-            $this->seedDates( $artwork );
+            $this->seedDates($artwork);
 
         }
 
@@ -35,7 +35,7 @@ class ArtworkDatesTableSeeder extends AbstractSeeder
             $artwork->dates()->create([
                 'date_earliest' => app('Faker')->dateTimeAD,
                 'date_latest' => app('Faker')->dateTimeAD,
-                'qualifier' => ucfirst( app('Faker')->word ) . ' date',
+                'qualifier' => ucfirst(app('Faker')->word) . ' date',
                 'preferred' => $preferred,
             ]);
 

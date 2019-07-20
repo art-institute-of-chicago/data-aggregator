@@ -12,7 +12,7 @@ class Product extends ShopTransformer
     {
 
         return [
-            'artists' => $this->getSyncArtists( $datum ),
+            'artists' => $this->getSyncArtists($datum),
         ];
 
     }
@@ -20,16 +20,16 @@ class Product extends ShopTransformer
     private function getSyncArtists(Datum $datum)
     {
 
-        if( !$datum->artist_ids )
+        if(!$datum->artist_ids)
         {
             return [];
         }
 
-        return array_filter( array_map( function ($id) {
+        return array_filter(array_map(function ($id) {
 
             return $this->artistMapping[$id] ?? null;
 
-        }, $datum->artist_ids ) );
+        }, $datum->artist_ids));
 
     }
 

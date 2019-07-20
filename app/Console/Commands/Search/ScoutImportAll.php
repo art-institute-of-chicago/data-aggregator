@@ -25,7 +25,7 @@ class ScoutImportAll extends BaseCommand
 
         $models = array_diff($models, $this->excludeModels);
 
-        foreach( $models as $model ) {
+        foreach($models as $model) {
 
             $this->call("scout:import", ['model' => $model]);
 

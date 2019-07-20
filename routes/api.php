@@ -35,7 +35,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::match(['GET', 'POST'], 'autosuggest', 'SearchController@autocompleteWithSource');
 
     // For debugging search, show generated request
-    if( env('APP_ENV') === 'local' ) {
+    if(env('APP_ENV') === 'local') {
         Route::match(['GET', 'POST'], 'echo', 'SearchController@echo');
         Route::match(['GET', 'POST'], '{resource}/echo', 'SearchController@echo');
         Route::match(['GET', 'POST'], '{resource}/{id}/explain', 'SearchController@explain');

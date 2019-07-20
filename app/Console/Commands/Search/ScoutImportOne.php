@@ -21,7 +21,7 @@ class ScoutImportOne extends BaseCommand
 
         $model = new $class();
 
-        $model::find( $id )->searchable();
+        $model::find($id)->searchable();
 
         $this->info("Imported #${id} of model ${class}");
 

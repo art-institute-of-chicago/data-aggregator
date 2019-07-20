@@ -127,7 +127,7 @@ class Agent extends CollectionsModel
     public function isBoosted()
     {
 
-        return in_array( $this->getKey(), static::boostedIds() );
+        return in_array($this->getKey(), static::boostedIds());
 
     }
 
@@ -142,7 +142,7 @@ class Agent extends CollectionsModel
     public static function boosted()
     {
 
-        return (new static())->newQuery()->whereKey( static::boostedIds() );
+        return (new static())->newQuery()->whereKey(static::boostedIds());
 
     }
 

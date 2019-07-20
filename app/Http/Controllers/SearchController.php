@@ -52,7 +52,7 @@ class SearchController extends BaseController
     public function search(Request $request, $resource = null)
     {
 
-        return $this->query( 'getSearchParams', 'getSearchResponse', 'search', $resource );
+        return $this->query('getSearchParams', 'getSearchResponse', 'search', $resource);
 
     }
 
@@ -67,7 +67,7 @@ class SearchController extends BaseController
      */
     public function msearch(Request $request)
     {
-        return $this->mquery( 'getSearchParams', 'getSearchResponse', $request );
+        return $this->mquery('getSearchParams', 'getSearchResponse', $request);
     }
 
     /**
@@ -83,7 +83,7 @@ class SearchController extends BaseController
     public function autocompleteWithTitle(Request $request, $resource = null)
     {
 
-        return $this->query( 'getAutocompleteParams', 'getAutocompleteWithTitleResponse', 'search', $resource );
+        return $this->query('getAutocompleteParams', 'getAutocompleteWithTitleResponse', 'search', $resource);
 
     }
 
@@ -94,7 +94,7 @@ class SearchController extends BaseController
     public function autocompleteWithSource(Request $request, $resource = null)
     {
 
-        return $this->query( 'getAutocompleteParams', 'getAutocompleteWithSourceResponse', 'search', $resource, null, [
+        return $this->query('getAutocompleteParams', 'getAutocompleteWithSourceResponse', 'search', $resource, null, [
             'use_suggest_autocomplete_all' => true,
         ]);
 
@@ -105,7 +105,7 @@ class SearchController extends BaseController
      */
     public function msuggest(Request $request)
     {
-        return $this->mquery( 'getAutocompleteParams', 'getAutocompleteWithSourceResponse', $request, [
+        return $this->mquery('getAutocompleteParams', 'getAutocompleteWithSourceResponse', $request, [
             'use_suggest_autocomplete_all' => true,
         ]);
     }
@@ -116,7 +116,7 @@ class SearchController extends BaseController
     public function explain(Request $request, $resource, $id)
     {
 
-        return $this->query( 'getExplainParams', 'getRawResponse', 'explain', $resource, $id );
+        return $this->query('getExplainParams', 'getRawResponse', 'explain', $resource, $id);
 
     }
 
@@ -127,9 +127,9 @@ class SearchController extends BaseController
     public function echo(Request $request, $resource = null)
     {
 
-        $this->query( 'getSearchParams', 'getSearchResponse', 'search', $resource );
+        $this->query('getSearchParams', 'getSearchResponse', 'search', $resource);
 
-        return response( $this->getRequest() )->header('Content-Type', 'application/json');
+        return response($this->getRequest())->header('Content-Type', 'application/json');
 
     }
 
@@ -151,7 +151,7 @@ class SearchController extends BaseController
         $input = $requestArgs ? array_merge($input, $requestArgs) : $input;
 
         // Transform our API's syntax into an Elasticsearch params array
-        $params = ( new SearchRequest( $resource, $id ) )->{$requestMethod}( $input );
+        $params = ( new SearchRequest($resource, $id) )->{$requestMethod}($input);
         $cacheKey = $this->buildCacheKey($elasticsearchMethod, $params, config('elasticsearch.cache_version'));
         $results = null;
 
@@ -159,11 +159,11 @@ class SearchController extends BaseController
             // Perform API request and caching
             if (config('elasticsearch.cache_enabled')) {
                 $results = \Cache::remember($cacheKey, config('elasticsearch.cache_ttl'), function () use ($elasticsearchMethod, $params) {
-                    return Elasticsearch::$elasticsearchMethod( $params );
+                    return Elasticsearch::$elasticsearchMethod($params);
                 });
             }
             else {
-                $results = Elasticsearch::$elasticsearchMethod( $params );
+                $results = Elasticsearch::$elasticsearchMethod($params);
             }
         } catch (\Exception $e) {
 
@@ -174,11 +174,11 @@ class SearchController extends BaseController
                 \Cache::forget($cacheKey);
             }
 
-            return response( $e->getMessage(), $code )->header('Content-Type', 'application/json');
+            return response($e->getMessage(), $code)->header('Content-Type', 'application/json');
         }
 
         // Transform Elasticsearch results into our API standard
-        $response = ( new SearchResponse( $results, $params ) )->{$responseMethod}();
+        $response = ( new SearchResponse($results, $params) )->{$responseMethod}();
 
         return $response;
 
@@ -194,7 +194,7 @@ class SearchController extends BaseController
 
         $queries = Input::all();
 
-        if( !is_array( $queries ) || count( array_filter( array_keys( $queries ), 'is_string') ) > 0 ) {
+        if(!is_array($queries) || count(array_filter(array_keys($queries), 'is_string')) > 0) {
 
             // TODO: Accept key'd
             throw new DetailedException('Invalid Query', 'You must pass an indexed array as the root object.', 400);
@@ -203,43 +203,43 @@ class SearchController extends BaseController
 
         $originalParams = [];
 
-        foreach( $queries as $query )
+        foreach($queries as $query)
         {
             $input = $requestArgs ? array_merge($query, $requestArgs) : $query;
-            $originalParams[] = ( new SearchRequest() )->{$requestMethod}( $input );
+            $originalParams[] = ( new SearchRequest() )->{$requestMethod}($input);
         }
 
         $transformedParams = [];
 
-        foreach( $originalParams as $params )
+        foreach($originalParams as $params)
         {
 
             $header = [];
 
-            if( isset( $params['index'] ) ) {
+            if(isset($params['index'])) {
                $header['index'] = $params['index'];
-               unset( $params['index'] );
+               unset($params['index']);
             }
 
-            if( isset( $params['type'] ) ) {
+            if(isset($params['type'])) {
                $header['type'] = $params['type'];
-               unset( $params['type'] );
+               unset($params['type']);
             }
 
             $body = [];
 
-            if( isset( $params['body'] ) ) {
+            if(isset($params['body'])) {
                 $body = $params['body'];
-                unset( $params['body'] );
+                unset($params['body']);
             }
 
-            foreach( ['preference', 'from', 'size'] as $key ) {
-                if( array_key_exists( $key, $params ) && is_null( $params[$key] ) ) {
-                    unset( $params[$key] );
+            foreach(['preference', 'from', 'size'] as $key) {
+                if(array_key_exists($key, $params) && is_null($params[$key])) {
+                    unset($params[$key]);
                 }
             }
 
-            $body = array_merge( $params, $body );
+            $body = array_merge($params, $body);
 
             $transformedParams[] = $header;
             $transformedParams[] = $body;
@@ -253,11 +253,11 @@ class SearchController extends BaseController
             // Perform API request and caching
             if (config('elasticsearch.cache_enabled')) {
                 $results = \Cache::remember($cacheKey, config('elasticsearch.cache_ttl'), function () use ($params) {
-                    return Elasticsearch::msearch( $params );
+                    return Elasticsearch::msearch($params);
                 });
             }
             else {
-                $results = Elasticsearch::msearch( $params );
+                $results = Elasticsearch::msearch($params);
             }
         } catch (\Exception $e) {
 
@@ -268,7 +268,7 @@ class SearchController extends BaseController
                 \Cache::forget($cacheKey);
             }
 
-            return response( $e->getMessage(), $code )->header('Content-Type', 'application/json');
+            return response($e->getMessage(), $code)->header('Content-Type', 'application/json');
         }
 
         // Reduce down to our array of interest
@@ -276,10 +276,10 @@ class SearchController extends BaseController
 
         $responses = [];
 
-        foreach( $results as $result ) {
+        foreach($results as $result) {
 
             // Transform Elasticsearch results into our API standard
-            $responses[] = ( new SearchResponse( $result, $originalParams ) )->{$responseMethod}();
+            $responses[] = ( new SearchResponse($result, $originalParams) )->{$responseMethod}();
 
         }
 
@@ -296,7 +296,7 @@ class SearchController extends BaseController
     {
 
         $request = Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request'];
-        $request['body'] = json_decode( $request['body'], true );
+        $request['body'] = json_decode($request['body'], true);
 
         return $request;
 

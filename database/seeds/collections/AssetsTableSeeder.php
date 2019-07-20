@@ -11,26 +11,26 @@ class AssetsTableSeeder extends AbstractSeeder
 
         $key = ( new Asset() )->getKeyName();
 
-        $images = factory( Asset::class, 50 )->states('image')->create();
-        $texts = factory( Asset::class, 25 )->states('text')->create();
-        $sounds = factory( Asset::class, 25 )->states('sound')->create();
-        $videos = factory( Asset::class, 25 )->states('video')->create();
+        $images = factory(Asset::class, 50)->states('image')->create();
+        $texts = factory(Asset::class, 25)->states('text')->create();
+        $sounds = factory(Asset::class, 25)->states('sound')->create();
+        $videos = factory(Asset::class, 25)->states('video')->create();
 
         $artworks = Artwork::fake()->get();
 
         foreach ($artworks as $artwork) {
 
-            $alternate = $images->random( rand( 1, 3 ) );
+            $alternate = $images->random(rand(1, 3));
 
-            $preferred = $images->diff( $alternate )->random();
+            $preferred = $images->diff($alternate)->random();
 
-            $artwork->images()->sync( [
+            $artwork->images()->sync([
                 $preferred->getKey() => [
                     'preferred' => true
                 ]
             ]);
 
-            $artwork->images()->sync( $alternate, false );
+            $artwork->images()->sync($alternate, false);
 
         }
 

@@ -23,8 +23,8 @@ class SearchAudit extends BaseCommand
         foreach ($models as $model)
         {
 
-            $output .= $this->compareTotals( $model );
-            $output .= $this->compareLatest( $model );
+            $output .= $this->compareTotals($model);
+            $output .= $this->compareLatest($model);
 
         }
 
@@ -42,8 +42,8 @@ class SearchAudit extends BaseCommand
     {
 
         $response = Elasticsearch::search([
-            'index' => app('Search')->getIndexForModel( $model ),
-            'type' => app('Search')->getTypeForModel( $model ),
+            'index' => app('Search')->getIndexForModel($model),
+            'type' => app('Search')->getTypeForModel($model),
             'size' => 0
         ]);
 
@@ -51,7 +51,7 @@ class SearchAudit extends BaseCommand
         $db_count = $model::count();
 
         if ($es_count != $db_count) {
-            $endpoint = app('Resources')->getEndpointForModel( $model );
+            $endpoint = app('Resources')->getEndpointForModel($model);
 
             return "{$endpoint} = {$db_count} in db, {$es_count} in index\n";
         }
@@ -65,8 +65,8 @@ class SearchAudit extends BaseCommand
         }
 
         $response = Elasticsearch::search([
-            'index' => app('Search')->getIndexForModel( $model ),
-            'type' => app('Search')->getTypeForModel( $model ),
+            'index' => app('Search')->getIndexForModel($model),
+            'type' => app('Search')->getTypeForModel($model),
             'size' => 1,
             'body' => [
                 'sort' => 'last_updated',
@@ -83,7 +83,7 @@ class SearchAudit extends BaseCommand
 
         // Only report if the database is more than a day ahead of the search index
         if ($db_latest->subDay()->gte($es_latest)) {
-            $endpoint = app('Resources')->getEndpointForModel( $model );
+            $endpoint = app('Resources')->getEndpointForModel($model);
 
             return "{$endpoint} = {$db_latest} in db, {$es_latest} in index\n";
         }

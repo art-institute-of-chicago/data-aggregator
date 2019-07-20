@@ -65,15 +65,15 @@ class SearchServiceProvider extends ServiceProvider
                 {
                     // TODO: Use the ResourceServiceProvider for this?
                     $resources = config('resources.outbound.base');
-                    $resources = collect( $resources );
+                    $resources = collect($resources);
 
                     // Isolate searchable resources
-                    $resources = $resources->filter( function ($resource) {
+                    $resources = $resources->filter(function ($resource) {
                         return $resource['is_searchable'] ?? false;
                     });
 
                     // Grab the models from resource definitions
-                    $models = $resources->map( function ($resource) {
+                    $models = $resources->map(function ($resource) {
                         return $resource['model'];
                     });
 
@@ -90,11 +90,11 @@ class SearchServiceProvider extends ServiceProvider
                  */
                 public function getElasticsearchMappings() {
 
-                    $mappings = $this->models->map( function ($model) {
-                        return $this->getElasticsearchMapping( $model );
+                    $mappings = $this->models->map(function ($model) {
+                        return $this->getElasticsearchMapping($model);
                     });
 
-                    return $mappings->isNotEmpty() ? array_merge( ... $mappings ) : [];
+                    return $mappings->isNotEmpty() ? array_merge(... $mappings) : [];
 
                 }
 
@@ -118,22 +118,22 @@ class SearchServiceProvider extends ServiceProvider
                 public function getDefaultFields($models = null, $isExact = false) {
 
                     // Fallback to getting default fields for all models
-                    if( is_null( $models ) || $models->count() < 1 )
+                    if(is_null($models) || $models->count() < 1)
                     {
                         $models = $this->models;
                     }
 
-                    $fields = $models->map( function ($model) use ($isExact) {
-                        return $this->getDefaultFieldsForModel( $model, $isExact );
+                    $fields = $models->map(function ($model) use ($isExact) {
+                        return $this->getDefaultFieldsForModel($model, $isExact);
                     });
 
-                    $fields = $fields->isNotEmpty() ? array_merge( ... $fields ) : [];
+                    $fields = $fields->isNotEmpty() ? array_merge(... $fields) : [];
 
                     // Remove duplicate field names, e.g. `content`
-                    $fields = array_unique( $fields );
+                    $fields = array_unique($fields);
 
                     // Reindex consequtively
-                    $fields = array_values( $fields );
+                    $fields = array_values($fields);
 
                     // TODO: Once we start boosting individual fields on query-time, determine
                     // what should be done in cases where a simple search is performed across
@@ -151,11 +151,11 @@ class SearchServiceProvider extends ServiceProvider
                  */
                 public function getDefaultFieldsForEndpoints($endpoints, $isExact = false) {
 
-                    $models = collect( $endpoints )->map( function ($endpoint) {
-                        return app('Resources')->getModelForEndpoint( $endpoint );
+                    $models = collect($endpoints)->map(function ($endpoint) {
+                        return app('Resources')->getModelForEndpoint($endpoint);
                     });
 
-                    return $this->getDefaultFields( $models, $isExact );
+                    return $this->getDefaultFields($models, $isExact);
 
                 }
 
@@ -166,9 +166,9 @@ class SearchServiceProvider extends ServiceProvider
                  */
                 public function getDefaultFieldsForEndpoint($endpoint) {
 
-                    $model = app('Resources')->getModelForEndpoint( $endpoint );
+                    $model = app('Resources')->getModelForEndpoint($endpoint);
 
-                    return $this->getDefaultFieldsForModel( $model );
+                    return $this->getDefaultFieldsForModel($model);
 
                 }
 
@@ -181,7 +181,7 @@ class SearchServiceProvider extends ServiceProvider
 
                     // TODO: Class name must be a valid object or a string
                     // Fix this error when an unknown resource gets passed
-                    return $model::instance()->getDefaultSearchFields( $isExact );
+                    return $model::instance()->getDefaultSearchFields($isExact);
 
                 }
 
@@ -225,7 +225,7 @@ class SearchServiceProvider extends ServiceProvider
                  */
                 public function addSearchableModel($model) {
 
-                    $this->models->push( $model );
+                    $this->models->push($model);
 
                     $this->updateElasticsearchConfig();
 
@@ -236,7 +236,7 @@ class SearchServiceProvider extends ServiceProvider
                  */
                 public function updateElasticsearchConfig() {
 
-                    config( [ 'elasticsearch.indexParams.body.mappings' => $this->getElasticsearchMappings() ] );
+                    config([ 'elasticsearch.indexParams.body.mappings' => $this->getElasticsearchMappings() ]);
 
                 }
 
@@ -250,44 +250,44 @@ class SearchServiceProvider extends ServiceProvider
                 public function getSearchScopeForEndpoint($endpoint)
                 {
 
-                    $model = app('Resources')->getModelForEndpoint( $endpoint );
+                    $model = app('Resources')->getModelForEndpoint($endpoint);
 
-                    $resource = app('Resources')->getParent( $endpoint ) ?? $endpoint;
+                    $resource = app('Resources')->getParent($endpoint) ?? $endpoint;
 
                     // Defaults
                     $settings = [
-                        'index' => $this->getIndexForModel( $model ),
-                        'type' => $this->getTypeForModel( $model ),
+                        'index' => $this->getIndexForModel($model),
+                        'type' => $this->getTypeForModel($model),
                     ];
 
                     // ex. `searchScopeGalleries` for `galleries` endpoint in model `Place`
-                    $searchScopeMethod = 'searchScope' . Str::studly( $endpoint );
+                    $searchScopeMethod = 'searchScope' . Str::studly($endpoint);
 
-                    if( method_exists( $model, $searchScopeMethod ) )
+                    if(method_exists($model, $searchScopeMethod))
                     {
 
                         $scope = $model::$searchScopeMethod();
 
-                        $settings['scope'] = $this->getScopedQuery( $resource, $scope );
+                        $settings['scope'] = $this->getScopedQuery($resource, $scope);
 
                     }
 
                     // ex. `searchBoostArtworks` for `artworks` endpoint boosts `is_on_view`
-                    $searchBoostMethod = 'searchBoost' . Str::studly( $endpoint );
+                    $searchBoostMethod = 'searchBoost' . Str::studly($endpoint);
 
-                    if( method_exists( $model, $searchBoostMethod ) )
+                    if(method_exists($model, $searchBoostMethod))
                     {
 
                         $boost = $model::$searchBoostMethod();
 
-                        $settings['boost'] = $this->getScopedQuery( $resource, $boost );
+                        $settings['boost'] = $this->getScopedQuery($resource, $boost);
 
                     }
 
                     // ex. `searchFunctionScoreArtworks` for `artworks` endpoint applies `pageviews` and `boost_rank`
-                    $searchFunctionScoreMethod = 'searchFunctionScore' . Str::studly( $endpoint );
+                    $searchFunctionScoreMethod = 'searchFunctionScore' . Str::studly($endpoint);
 
-                    if( method_exists( $model, $searchFunctionScoreMethod ) )
+                    if(method_exists($model, $searchFunctionScoreMethod))
                     {
 
                         // TODO: Inject `getScopedQuery` into the filter..?

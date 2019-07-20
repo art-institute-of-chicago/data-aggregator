@@ -46,7 +46,7 @@ class ImportWebFull extends AbstractImportCommand
 
         $endpoint = $this->argument('endpoint');
 
-        if( !$this->reset($endpoint) )
+        if(!$this->reset($endpoint))
         {
             return false;
         }
@@ -96,10 +96,10 @@ class ImportWebFull extends AbstractImportCommand
         if ($endpoint) {
             $model = $this->getModelForEndpoint($endpoint);
 
-            return $this->resetData( [ $model ], [ $hash[$model] ] );
+            return $this->resetData([ $model ], [ $hash[$model] ]);
         }
 
-        return $this->resetData( array_keys( $hash ), array_values( $hash ) );
+        return $this->resetData(array_keys($hash), array_values($hash));
 
     }
 
@@ -141,7 +141,7 @@ class ImportWebFull extends AbstractImportCommand
     {
 
         $model = $this->getModelForEndpoint($endpoint);
-        return $this->import( 'Web', $model, $endpoint, $page );
+        return $this->import('Web', $model, $endpoint, $page);
 
     }
 
@@ -153,7 +153,7 @@ class ImportWebFull extends AbstractImportCommand
             $this->auth = env('WEB_CMS_DATA_SERVICE_USERNAME') . ':' . env('WEB_CMS_DATA_SERVICE_PASSWORD');
         }
 
-        return parent::query( $endpoint, $page, $limit );
+        return parent::query($endpoint, $page, $limit);
     }
 
 }

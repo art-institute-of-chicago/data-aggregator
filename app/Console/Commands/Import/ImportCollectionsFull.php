@@ -67,7 +67,7 @@ class ImportCollectionsFull extends AbstractImportCommand
 
         $model = $this->getModelForEndpoint($endpoint);
 
-        $this->import( 'Collections', $model, $endpoint, $page );
+        $this->import('Collections', $model, $endpoint, $page);
 
     }
 
@@ -95,13 +95,13 @@ class ImportCollectionsFull extends AbstractImportCommand
 
             $n++;
 
-            $chunked_ids = partition( $ids, $n );
+            $chunked_ids = partition($ids, $n);
 
-            $urls = array_map( function ($ids) use ($endpoint) {
+            $urls = array_map(function ($ids) use ($endpoint) {
 
                 return env('COLLECTIONS_DATA_SERVICE_URL')
                     . '/' . $endpoint
-                    . '?limit=' . count( $ids )
+                    . '?limit=' . count($ids)
                     . '&ids=' . implode(',', $ids);
 
             }, $chunked_ids);
@@ -109,7 +109,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             // Don't generate a URL longer than 600 characters, including prefix
             $max_url_length = max(array_map('strlen', $urls));
 
-        } while( $max_url_length > 600 );
+        } while($max_url_length > 600);
 
         return $urls;
 
@@ -120,7 +120,7 @@ class ImportCollectionsFull extends AbstractImportCommand
      */
     protected function query($endpoint, $page = 1, $limit = 500)
     {
-        return parent::query( $endpoint, $page, 100 );
+        return parent::query($endpoint, $page, 100);
     }
 
 }

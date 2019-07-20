@@ -39,12 +39,12 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
         $dateQuery = $this->dateQuery($date_start, $date_end);
         $dateQuery['query']['bool']['boost'] = 1;
 
-        array_push( $query, $dateQuery );
+        array_push($query, $dateQuery);
 
         if ($artw->image->metadata->color ?? false) {
             $colorQuery = $this->colorQuery($artw->image->metadata->color);
             $colorQuery['query']['bool']['boost'] = 1;
-            array_push( $query, $colorQuery );
+            array_push($query, $colorQuery);
         }
 
         // Filter out empty array queries
@@ -56,7 +56,7 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
                 "resources" => "artworks",
                 "query" => [
                     "bool" => [
-                        "should" => collect( $query )->pluck('query')->all(),
+                        "should" => collect($query)->pluck('query')->all(),
                     ]
                 ],
                 "q" => null,

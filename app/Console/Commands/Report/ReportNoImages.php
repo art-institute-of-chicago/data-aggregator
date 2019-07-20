@@ -26,7 +26,7 @@ class ReportNoImages extends BaseCommand
         // Not an ideal solution, but some models are really heavy
         ini_set("memory_limit", "-1");
 
-        $this->csv = Writer::createFromPath( $this->getCsvPath(), 'w' );
+        $this->csv = Writer::createFromPath($this->getCsvPath(), 'w');
 
         $this->csv->insertOne([
             'artwork_id',
@@ -48,7 +48,7 @@ class ReportNoImages extends BaseCommand
 
         foreach ($artworks->cursor() as $artwork)
         {
-            $this->insertOne( $artwork );
+            $this->insertOne($artwork);
         }
     }
 
@@ -59,7 +59,7 @@ class ReportNoImages extends BaseCommand
         foreach ($artworks->cursor() as $artwork)
         {
             if (!$artwork->image()) {
-                $this->insertOne( $artwork );
+                $this->insertOne($artwork);
             }
         }
     }

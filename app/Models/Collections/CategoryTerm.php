@@ -57,13 +57,13 @@ class CategoryTerm extends CollectionsModel
         parent::boot();
 
         // Allows querying all CategoryTerms directly
-        if( !isset( static::$isCategory ) )
+        if(!isset(static::$isCategory))
         {
             return;
         }
 
         static::addGlobalScope('caterm', function ($builder) {
-            $builder->where('is_category', '=', static::$isCategory );
+            $builder->where('is_category', '=', static::$isCategory);
         });
 
     }

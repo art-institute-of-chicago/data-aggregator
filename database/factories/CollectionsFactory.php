@@ -263,17 +263,17 @@ $factory->state(App\Models\Collections\Asset::class, 'video', function (Faker\Ge
 // Soft-links to the Asset factory + state:
 
 $factory->define(App\Models\Collections\Image::class, function (Faker\Generator $faker) {
-    return factory( App\Models\Collections\Asset::class )->states('image')->raw();
+    return factory(App\Models\Collections\Asset::class)->states('image')->raw();
 });
 
 $factory->define(App\Models\Collections\Sound::class, function (Faker\Generator $faker) {
-    return factory( App\Models\Collections\Asset::class )->states('sound')->raw();
+    return factory(App\Models\Collections\Asset::class)->states('sound')->raw();
 });
 
 $factory->define(App\Models\Collections\Text::class, function (Faker\Generator $faker) {
-    return factory( App\Models\Collections\Asset::class )->states('text')->raw();
+    return factory(App\Models\Collections\Asset::class)->states('text')->raw();
 });
 
 $factory->define(App\Models\Collections\Video::class, function (Faker\Generator $faker) {
-    return factory( App\Models\Collections\Asset::class )->states('video')->raw();
+    return factory(App\Models\Collections\Asset::class)->states('video')->raw();
 });

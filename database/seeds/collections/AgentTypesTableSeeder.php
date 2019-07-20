@@ -7,6 +7,6 @@ class AgentTypesTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-        factory( AgentType::class, 10 )->create();
+        factory(AgentType::class, 10)->create();
     }
 }

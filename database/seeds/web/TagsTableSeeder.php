@@ -8,7 +8,7 @@ class TagsTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        factory( Tag::class, 25 )->create();
+        factory(Tag::class, 25)->create();
 
     }
 

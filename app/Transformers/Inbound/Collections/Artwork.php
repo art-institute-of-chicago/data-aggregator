@@ -23,10 +23,10 @@ class Artwork extends CollectionsTransformer
     {
 
         // TODO: This is supposed to be a string, not an array...
-        $copyright_notice = is_array( $datum->copyright ) ? $datum->copyright[0] : $datum->copyright;
+        $copyright_notice = is_array($datum->copyright) ? $datum->copyright[0] : $datum->copyright;
 
         // Standarize HTML/non-HTML descriptions
-        $description = $this->convertToHtml( $datum->description );
+        $description = $this->convertToHtml($datum->description);
 
         return [
             'description' => $description,
@@ -48,12 +48,12 @@ class Artwork extends CollectionsTransformer
 
         return [
 
-            'categories' => $this->getSyncCategories( $datum ),
-            'terms' => $this->getSyncTerms( $datum ),
+            'categories' => $this->getSyncCategories($datum),
+            'terms' => $this->getSyncTerms($datum),
 
-            'artists' => $this->getSyncArtists( $datum ),
-            'places' => $this->getSyncPlaces( $datum ),
-            'catalogues' => $this->getSyncCatalogues( $datum ),
+            'artists' => $this->getSyncArtists($datum),
+            'places' => $this->getSyncPlaces($datum),
+            'catalogues' => $this->getSyncCatalogues($datum),
 
         ];
 
@@ -62,7 +62,7 @@ class Artwork extends CollectionsTransformer
     public function syncEx(Model $instance, Datum $datum)
     {
 
-        $this->syncDates( $instance, $datum );
+        $this->syncDates($instance, $datum);
 
     }
 
@@ -75,7 +75,7 @@ class Artwork extends CollectionsTransformer
     private function getSyncCategories(Datum $datum)
     {
 
-        $categories = collect( $datum->category_ids )->map( function ($id) {
+        $categories = collect($datum->category_ids)->map(function ($id) {
             return 'PC-' . $id;
         });
 
@@ -92,23 +92,23 @@ class Artwork extends CollectionsTransformer
     private function getSyncTerms(Datum $datum)
     {
 
-        $pref_terms = collect( $datum->pref_term_ids )->map( function ($term_id) {
+        $pref_terms = collect($datum->pref_term_ids)->map(function ($term_id) {
             return [
-                ( 'TM-' . $term_id ) => [
+                ('TM-' . $term_id) => [
                     'preferred' => true
                 ]
             ];
         });
 
-        $alt_terms = collect( $datum->alt_term_ids )->map( function ($term_id) {
+        $alt_terms = collect($datum->alt_term_ids)->map(function ($term_id) {
             return [
-                ( 'TM-' . $term_id ) => [
+                ('TM-' . $term_id) => [
                     'preferred' => false
                 ]
             ];
         });
 
-        $terms = $pref_terms->concat( $alt_terms );
+        $terms = $pref_terms->concat($alt_terms);
         $terms = $terms->collapse();
 
         return $terms;
@@ -125,13 +125,13 @@ class Artwork extends CollectionsTransformer
     {
 
         // Worst case: no pivots, nor basic artist
-        if( !$datum->artwork_agents && !$datum->creator_id )
+        if(!$datum->artwork_agents && !$datum->creator_id)
         {
             return [];
         }
 
         // No pivots, but basic artist
-        if( !$datum->artwork_agents && $datum->creator_id )
+        if(!$datum->artwork_agents && $datum->creator_id)
         {
             // Default `preferred` to true and `agent_role_citi_id` to 219
             return [
@@ -142,7 +142,7 @@ class Artwork extends CollectionsTransformer
             ];
         }
 
-        return $this->getSyncPivots( $datum, 'artwork_agents', 'agent_id', function ($pivot) {
+        return $this->getSyncPivots($datum, 'artwork_agents', 'agent_id', function ($pivot) {
 
             return [
                 $pivot->agent_id => [
@@ -166,7 +166,7 @@ class Artwork extends CollectionsTransformer
     private function getSyncPlaces(Datum $datum)
     {
 
-        return $this->getSyncPivots( $datum, 'artwork_places', 'place_id', function ($pivot) {
+        return $this->getSyncPivots($datum, 'artwork_places', 'place_id', function ($pivot) {
 
             return [
                 $pivot->place_id => [
@@ -185,7 +185,7 @@ class Artwork extends CollectionsTransformer
     private function getSyncCatalogues(Datum $datum)
     {
 
-        return $this->getSyncPivots( $datum, 'artwork_catalogues', 'catalogue_id', function ($pivot) {
+        return $this->getSyncPivots($datum, 'artwork_catalogues', 'catalogue_id', function ($pivot) {
 
             return [
                 $pivot->catalogue_id => [
@@ -222,7 +222,7 @@ class Artwork extends CollectionsTransformer
     {
         $now = date("Y-m-d H:i:s");
         return [
-            'artwork_dates' => collect($datum->artwork_dates ?? [])->map( function ($date) use ($datum, $now) {
+            'artwork_dates' => collect($datum->artwork_dates ?? [])->map(function ($date) use ($datum, $now) {
                 return [
                     'artwork_citi_id' => $datum->id,
                     'date_earliest' => Carbon::parse($date->date_earliest),

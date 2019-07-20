@@ -58,26 +58,26 @@ abstract class AbstractSeeder extends Seeder
     protected function seedRelation($subjectClass, $objectClass, $method)
     {
 
-        $isReflexive = ( $subjectClass === $objectClass );
+        $isReflexive = ($subjectClass === $objectClass);
 
         $subjects = $subjectClass::fake()->get();
         $objects = $objectClass::fake()->get();
 
-        $this->validateSeedRelation( $subjectClass, $objectClass, $subjects, $objects, $method );
+        $this->validateSeedRelation($subjectClass, $objectClass, $subjects, $objects, $method);
 
-        $delegate = $this->getRelationMethod( $subjectClass, $method );
+        $delegate = $this->getRelationMethod($subjectClass, $method);
 
         foreach ($subjects as $subject)
         {
 
-            $selected = $objects->random( rand(2, 4) );
+            $selected = $objects->random(rand(2, 4));
 
             if ($isReflexive)
             {
-                $selected = $selected->diff( [ $subject ] );
+                $selected = $selected->diff([ $subject ]);
             }
 
-            $this->{$delegate}( $subject, $selected, $method );
+            $this->{$delegate}($subject, $selected, $method);
 
         }
 
@@ -90,10 +90,10 @@ abstract class AbstractSeeder extends Seeder
     {
 
         $relation = ( new $subjectClass() )->{$method}();
-        $class = get_class( $relation );
+        $class = get_class($relation);
 
         $classname = explode('\\', $class);
-        $classname = collect( $classname );
+        $classname = collect($classname);
         $classname = $classname->last();
 
         return 'seed' . $classname;
@@ -108,7 +108,7 @@ abstract class AbstractSeeder extends Seeder
     private function seedBelongsToMany($subject, $objects, $method)
     {
 
-        $subject->{$method}()->sync( $objects );
+        $subject->{$method}()->sync($objects);
 
     }
 
@@ -118,7 +118,7 @@ abstract class AbstractSeeder extends Seeder
     private function seedBelongsToManyOrOne($subject, $objects, $method)
     {
 
-        $subject->{$method}()->sync( $objects );
+        $subject->{$method}()->sync($objects);
 
     }
 
@@ -130,7 +130,7 @@ abstract class AbstractSeeder extends Seeder
     private function seedHasMany($subject, $objects, $method)
     {
 
-        $subject->{$method}()->saveMany( $objects );
+        $subject->{$method}()->saveMany($objects);
 
     }
 
@@ -144,7 +144,7 @@ abstract class AbstractSeeder extends Seeder
 
         $object = $objects->random();
 
-        $subject->{$method}()->associate( $object );
+        $subject->{$method}()->associate($object);
 
         $subject->save();
 
@@ -163,28 +163,28 @@ abstract class AbstractSeeder extends Seeder
     private function validateSeedRelation($subjectClass, $objectClass, $subjects, $objects, $method)
     {
 
-        if( ! method_exists( $subjectClass, $method ) )
+        if(! method_exists($subjectClass, $method))
         {
-            throw new BadFunctionCallException( 'Class ' . $subjectClass . ' has no relation method `' . $method . '`' );
+            throw new BadFunctionCallException('Class ' . $subjectClass . ' has no relation method `' . $method . '`');
         }
 
         $relation = ( new $subjectClass() )->{$method}();
 
-        if( ! $relation instanceof Relation )
+        if(! $relation instanceof Relation)
         {
-            throw new InvalidArgumentException( $subjectClass . '\'s `' . $method . '` must return an instance of ' . Relation::class );
+            throw new InvalidArgumentException($subjectClass . '\'s `' . $method . '` must return an instance of ' . Relation::class);
         }
 
         $prefix = 'Attempting to relate ' . $subjectClass . ' to ' . $objectClass;
 
-        if( $subjects->count() < 1 )
+        if($subjects->count() < 1)
         {
-            throw new InvalidArgumentException( $prefix . ', but there are no ' . $subjectClass . '\'s in the database.' );
+            throw new InvalidArgumentException($prefix . ', but there are no ' . $subjectClass . '\'s in the database.');
         }
 
-        if( $objects->count() < 1 )
+        if($objects->count() < 1)
         {
-            throw new InvalidArgumentException( $prefix . ', but there are no ' . $objectClass . '\'s in the database.' );
+            throw new InvalidArgumentException($prefix . ', but there are no ' . $objectClass . '\'s in the database.');
         }
 
     }

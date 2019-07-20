@@ -18,13 +18,13 @@ class ImportCatalogues extends AbstractImportCommand
 
         $this->api = env('DSC_DATA_SERVICE_URL');
 
-        if( !$this->reset() )
+        if(!$this->reset())
         {
             return false;
         }
 
-        $this->import( 'Dsc', Publication::class, 'publications' );
-        $this->import( 'Dsc', Section::class, 'sections' );
+        $this->import('Dsc', Publication::class, 'publications');
+        $this->import('Dsc', Section::class, 'sections');
 
     }
 

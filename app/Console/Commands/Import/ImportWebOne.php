@@ -24,15 +24,15 @@ class ImportWebOne extends ImportWebFull
 
         $model = $this->getModelForEndpoint($endpoint);
 
-        $transformer = app('Resources')->getInboundTransformerForModel( $model, 'Web' );
+        $transformer = app('Resources')->getInboundTransformerForModel($model, 'Web');
 
-        $json = $this->fetchItem( $endpoint, $id );
+        $json = $this->fetchItem($endpoint, $id);
 
         $datum = $json->data;
 
-        $this->updateSentryTags( $datum, $endpoint, 'Web' );
+        $this->updateSentryTags($datum, $endpoint, 'Web');
 
-        $this->save( $datum, $model, $transformer );
+        $this->save($datum, $model, $transformer);
 
     }
 
@@ -41,9 +41,9 @@ class ImportWebOne extends ImportWebFull
 
         $url = env('WEB_CMS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
 
-        $this->info( 'Fetching: ' . $url );
+        $this->info('Fetching: ' . $url);
 
-        return $this->fetchWithAuth( $url, true );
+        return $this->fetchWithAuth($url, true);
     }
 
 }

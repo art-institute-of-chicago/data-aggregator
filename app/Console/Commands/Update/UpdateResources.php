@@ -24,11 +24,11 @@ class UpdateResources extends BaseCommand
         })
             ->orWhereHas('sites')
             ->orWhereHas('sections')
-            ->each( function ($artwork) {
+            ->each(function ($artwork) {
 
             $artwork->searchable();
 
-            $this->info( "Reindexed #{$artwork->id}: {$artwork->title}" );
+            $this->info("Reindexed #{$artwork->id}: {$artwork->title}");
 
         });
 

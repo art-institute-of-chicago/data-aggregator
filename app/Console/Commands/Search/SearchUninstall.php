@@ -36,7 +36,7 @@ class SearchUninstall extends BaseCommand
         foreach ($models as $model)
         {
 
-            $index = app('Search')->getIndexForModel( $model, $prefix );
+            $index = app('Search')->getIndexForModel($model, $prefix);
 
             $this->info('Deleting ' . $index . ' index...');
 

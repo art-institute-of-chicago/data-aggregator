@@ -23,7 +23,7 @@ class ImportUlan extends AbstractImportCommand
         $agents = $agents->where('source_modified_at', '>=', $this->command->last_success_at);
 
         // Then, loop through them in a memory-friendly way
-        foreach( $agents->cursor() as $agent ) {
+        foreach($agents->cursor() as $agent) {
 
             $this->info('Trying agent #' . $agent->citi_id . ', ' . $agent->title);
 

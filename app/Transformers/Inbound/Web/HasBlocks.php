@@ -13,11 +13,11 @@ trait HasBlocks
     protected function getExtraFields(Datum $datum)
     {
 
-        $blocks = $this->getBlocks( $datum );
+        $blocks = $this->getBlocks($datum);
 
         return [
-            'copy' => $this->getCopy( $blocks ),
-            'imgix_uuid' => $this->getImage( $blocks ),
+            'copy' => $this->getCopy($blocks),
+            'imgix_uuid' => $this->getImage($blocks),
         ];
 
     }
@@ -34,12 +34,12 @@ trait HasBlocks
         $field = $datum->copy ?? $datum->content ?? [];
 
         // Ensure blocks are sorted by their position
-        $blocks = Arr::sort( $field, function ($block) {
+        $blocks = Arr::sort($field, function ($block) {
             return $block->position;
         });
 
         // Return as Laravel collection for convenience
-        return collect( $blocks );
+        return collect($blocks);
 
     }
 
@@ -55,11 +55,11 @@ trait HasBlocks
         $rules = $this->getCopyRules();
 
         // Loop through the rules to see which apply
-        $texts = $blocks->map( function ($block) use ($rules) {
+        $texts = $blocks->map(function ($block) use ($rules) {
 
-            foreach( $rules as $rule )
+            foreach($rules as $rule)
             {
-                if( $rule['filter']($block) )
+                if($rule['filter']($block))
                 {
                     return $rule['extract']($block);
                 }
@@ -73,7 +73,7 @@ trait HasBlocks
         $texts = $texts->filter();
 
         // Ensure there's valid texts here
-        if( $texts->count() < 1 )
+        if($texts->count() < 1)
         {
             return null;
         }
@@ -108,18 +108,18 @@ trait HasBlocks
         return [
             [
                 'filter' => function ($block) {
-                    return $block->type == 'paragraph' && isset( $block->content->paragraph );
+                    return $block->type == 'paragraph' && isset($block->content->paragraph);
                 },
                 'extract' => function ($block) {
-                    return $this->cleanRichText( $block->content->paragraph );
+                    return $this->cleanRichText($block->content->paragraph);
                 },
             ],
             [
                 'filter' => function ($block) {
-                    return $block->type == 'artworks' && isset( $block->content->subhead );
+                    return $block->type == 'artworks' && isset($block->content->subhead);
                 },
                 'extract' => function ($block) {
-                    return $this->cleanRichText( $block->content->subhead );
+                    return $this->cleanRichText($block->content->subhead);
                 },
             ]
         ];

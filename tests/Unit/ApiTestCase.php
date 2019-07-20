@@ -267,7 +267,7 @@ abstract class ApiTestCase extends TestCase
         $m = $this->model();
         $this->times(5)->make($m);
 
-        $response = $this->getJson('api/v1/' . $this->route($m) . '?fields=' . $retrievedFields->implode(',') );
+        $response = $this->getJson('api/v1/' . $this->route($m) . '?fields=' . $retrievedFields->implode(','));
         $response->assertSuccessful();
 
         $resources = $response->json()['data'];
@@ -293,7 +293,7 @@ abstract class ApiTestCase extends TestCase
         $m = $this->model();
         $id = $this->make($m);
 
-        $response = $this->getJson('api/v1/' . $this->route($m) . '/' . $id . '?fields=' . $retrievedFields->implode(',') );
+        $response = $this->getJson('api/v1/' . $this->route($m) . '/' . $id . '?fields=' . $retrievedFields->implode(','));
         $response->assertSuccessful();
 
         $resource = $response->json()['data'];
@@ -315,7 +315,7 @@ abstract class ApiTestCase extends TestCase
         $m = $this->model();
         $this->times(5)->make($m);
 
-        $response = $this->getJson('api/v1/' . $this->route($m) . '?ids=' . implode(',', array_slice($this->ids, -3, 3)) . '&fields=' . $retrievedFields->implode(',') );
+        $response = $this->getJson('api/v1/' . $this->route($m) . '?ids=' . implode(',', array_slice($this->ids, -3, 3)) . '&fields=' . $retrievedFields->implode(','));
         $response->assertSuccessful();
 
         $resources = $response->json()['data'];
@@ -378,9 +378,9 @@ abstract class ApiTestCase extends TestCase
 
         $response = $this->getJson('api/v1/' . $this->route($m) . '/' . $id);
 
-        $m::findOrFail( $id )->delete();
+        $m::findOrFail($id)->delete();
 
-        return collect( $response->json()['data'] )->keys();
+        return collect($response->json()['data'])->keys();
 
     }
 

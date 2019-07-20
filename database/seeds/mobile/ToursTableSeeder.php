@@ -9,7 +9,7 @@ class ToursTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        factory( Tour::class, 25 )->create();
+        factory(Tour::class, 25)->create();
 
         $this->addStopsToTours();
 
@@ -25,7 +25,7 @@ class ToursTableSeeder extends AbstractSeeder
 
         foreach ($tours as $tour) {
 
-            factory( TourStop::class, rand(2, 4) )->create([
+            factory(TourStop::class, rand(2, 4))->create([
                 'tour_mobile_id' => $tour->getKey()
             ]);
 

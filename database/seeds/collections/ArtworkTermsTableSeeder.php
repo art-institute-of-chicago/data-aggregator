@@ -13,7 +13,7 @@ class ArtworkTermsTableSeeder extends AbstractSeeder
 
         foreach ($artworks as $artwork) {
 
-            $this->seedTerms( $artwork );
+            $this->seedTerms($artwork);
 
         }
 
@@ -22,7 +22,7 @@ class ArtworkTermsTableSeeder extends AbstractSeeder
     public function seedTerms($artwork)
     {
 
-        factory( ArtworkTerm::class, rand(2, 4) )->create([
+        factory(ArtworkTerm::class, rand(2, 4))->create([
             'artwork_citi_id' => $artwork->getKey(),
         ]);
 

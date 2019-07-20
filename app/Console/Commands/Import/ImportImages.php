@@ -17,7 +17,7 @@ class ImportImages extends AbstractImportCommand
 
         $this->api = env('IMAGES_DATA_SERVICE_URL');
 
-        $this->import( 'images', Image::class, 'images', $this->argument('page') ?: 1 );
+        $this->import('images', Image::class, 'images', $this->argument('page') ?: 1);
 
     }
 
@@ -28,10 +28,10 @@ class ImportImages extends AbstractImportCommand
         $this->info("Importing #{$datum->id}: {$datum->title}");
 
         // TODO: When we make inbound transformers, provide a toggle between find() & findOrNew()
-        $resource = $model::find( $datum->id );
+        $resource = $model::find($datum->id);
 
         // For this one, we should ignore entities that don't exist here
-        if( !$resource )
+        if(!$resource)
         {
             return;
         }

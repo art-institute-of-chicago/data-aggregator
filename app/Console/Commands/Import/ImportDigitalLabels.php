@@ -23,7 +23,7 @@ class ImportDigitalLabels extends AbstractImportCommand
     public function handle()
     {
 
-        if( !$this->reset() )
+        if(!$this->reset())
         {
             return false;
         }
@@ -55,15 +55,15 @@ class ImportDigitalLabels extends AbstractImportCommand
 
     private function downloadLabels()
     {
-        if( !$this->option('from-backup') )
+        if(!$this->option('from-backup'))
         {
 
             $this->info('Retrieving digital labels JSON');
 
-            $contents = $this->fetch( $this->sourceExhibitionJson() );
-            Storage::disk('local')->put($this->exhibitionJson(), $contents );
+            $contents = $this->fetch($this->sourceExhibitionJson());
+            Storage::disk('local')->put($this->exhibitionJson(), $contents);
 
-            $results = json_decode( $contents );
+            $results = json_decode($contents);
 
             foreach ($results as $exhibition)
             {
@@ -71,8 +71,8 @@ class ImportDigitalLabels extends AbstractImportCommand
                 {
                     if ($label->publishedId)
                     {
-                        $contents = $this->fetch( $this->sourceLabelJson($label->objectId) );
-                        Storage::disk('local')->put($this->labelJson($label->objectId), $contents );
+                        $contents = $this->fetch($this->sourceLabelJson($label->objectId));
+                        Storage::disk('local')->put($this->labelJson($label->objectId), $contents);
                     }
                 }
             }
@@ -83,27 +83,27 @@ class ImportDigitalLabels extends AbstractImportCommand
     {
         $this->info("Importing digital labels");
 
-        $contents = Storage::get( $this->exhibitionJson() );
-        $results = json_decode( $contents );
+        $contents = Storage::get($this->exhibitionJson());
+        $results = json_decode($contents);
 
         foreach ($results as $datum)
         {
             $datum->id = $datum->objectId;
-            $this->save( $datum, Exhibition::class, ExhibitionTransformer::class );
+            $this->save($datum, Exhibition::class, ExhibitionTransformer::class);
 
             foreach ($datum->experiences as $d)
             {
-                if (Storage::exists( $this->labelJson($d->objectId) ) )
+                if (Storage::exists($this->labelJson($d->objectId)))
                 {
-                    $c = Storage::get( $this->labelJson($d->objectId) );
-                    $r = json_decode( $c );
+                    $c = Storage::get($this->labelJson($d->objectId));
+                    $r = json_decode($c);
 
                     $r->id = $d->objectId;
                     $r->title = $d->title;
                     $r->whenCreated = $d->whenCreated;
                     $r->whenChanged = $d->whenChanged;
                     $r->digital_label_exhibition_id = $datum->objectId;
-                    $this->save( $r, Label::class, LabelTransformer::class );
+                    $this->save($r, Label::class, LabelTransformer::class);
                 }
             }
         }

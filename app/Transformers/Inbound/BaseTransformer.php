@@ -52,10 +52,10 @@ class BaseTransformer extends AbstractTransformer
     public function getSyncNew($datum)
     {
         // Transform $datum into instanceof Datum
-        $datum = $this->getDatum( $datum );
+        $datum = $this->getDatum($datum);
 
         // Defined in child transformers that extend this class
-        $relations = $this->getSync( $datum );
+        $relations = $this->getSync($datum);
 
         return $relations;
     }
@@ -80,10 +80,10 @@ class BaseTransformer extends AbstractTransformer
     public function getSyncExNew($datum)
     {
         // Transform $datum into instanceof Datum
-        $datum = $this->getDatum( $datum );
+        $datum = $this->getDatum($datum);
 
         // Defined in child transformers that extend this class
-        $relations = $this->getSyncEx( $datum );
+        $relations = $this->getSyncEx($datum);
 
         return $relations;
     }
@@ -108,14 +108,14 @@ class BaseTransformer extends AbstractTransformer
     public function getFill($instance, $datum)
     {
         // Transform $datum into instanceof Datum
-        $datum = $this->getDatum( $datum );
+        $datum = $this->getDatum($datum);
 
         // Run through the field transformations
-        $datum = $this->transform( $datum );
+        $datum = $this->transform($datum);
 
         // Remove any fields that aren't present in the model
         // $datum changes from Datum to array after this call
-        $datum = $this->prune( $datum, $this->getAttributes( $instance ) );
+        $datum = $this->prune($datum, $this->getAttributes($instance));
 
         return $datum;
     }
@@ -131,10 +131,10 @@ class BaseTransformer extends AbstractTransformer
     public function fill(Model $instance, $datum)
     {
 
-        $datum = $this->getFill( $instance, $datum );
+        $datum = $this->getFill($instance, $datum);
 
         // Fill the instance with mapped source data
-        $instance->fill( $datum );
+        $instance->fill($datum);
 
         return $datum;
 
@@ -150,18 +150,18 @@ class BaseTransformer extends AbstractTransformer
     public function sync(Model $instance, $datum)
     {
         // Transform $datum into instanceof Datum
-        $datum = $this->getDatum( $datum );
+        $datum = $this->getDatum($datum);
 
         // Defined in child transformers that extend this class
-        $relations = $this->getSync( $datum );
+        $relations = $this->getSync($datum);
 
         // Run hard-wired attachments
-        $this->syncEx( $instance, $datum );
+        $this->syncEx($instance, $datum);
 
         // Sync many-to-many relationships
-        foreach( $relations as $relation => $ids )
+        foreach($relations as $relation => $ids)
         {
-            $instance->{$relation}()->sync( $ids );
+            $instance->{$relation}()->sync($ids);
         }
 
         return $relations;
@@ -295,16 +295,16 @@ class BaseTransformer extends AbstractTransformer
 
         // This method assumes that the pivot field's value is an array, not an object!
         // TODO: Improve error reporting in the latter case..?
-        if( !$datum->{$pivot_field} || !is_array($datum->{$pivot_field}) )
+        if(!$datum->{$pivot_field} || !is_array($datum->{$pivot_field}))
         {
             return [];
         }
 
-        $pivots = collect( $datum->{$pivot_field} )->filter( function ($pivot) use ($id_field) {
+        $pivots = collect($datum->{$pivot_field})->filter(function ($pivot) use ($id_field) {
 
             return (bool) ($pivot->{$id_field} ?? false);
 
-        })->map( $mapping_fn );
+        })->map($mapping_fn);
 
         // Collapse the array while preserving numeric keys, i.e. CITI IDs
         $pivots = array_reduce($pivots->all(), function ($carry, $item) { return $carry + $item; }, []);
@@ -322,7 +322,7 @@ class BaseTransformer extends AbstractTransformer
     private function getDatum($datum)
     {
 
-        return $datum instanceof Datum ? $datum : new Datum( $datum );
+        return $datum instanceof Datum ? $datum : new Datum($datum);
 
     }
 
@@ -339,7 +339,7 @@ class BaseTransformer extends AbstractTransformer
         $base = $this->passthrough ? $datum->all() : [];
 
         // Remove any blacklisted fields
-        $base = $this->prune( $base, $this->passthroughExceptions, true );
+        $base = $this->prune($base, $this->passthroughExceptions, true);
 
         return array_merge(
             $base,
@@ -347,12 +347,12 @@ class BaseTransformer extends AbstractTransformer
             // For convenience, you can overwrite these methods, so that you don't
             // need to call `parent::getExtraFields` in child classes. But you can
             // put *all* custom field mapping in `getExtraFields`, if you'd like.
-            $this->getIds( $datum ),
-            $this->getTitle( $datum ),
-            $this->getDates( $datum ),
+            $this->getIds($datum),
+            $this->getTitle($datum),
+            $this->getDates($datum),
 
             // Get all custom-mapped fields
-            $this->getExtraFields( $datum )
+            $this->getExtraFields($datum)
 
         );
 
@@ -373,8 +373,8 @@ class BaseTransformer extends AbstractTransformer
     private function prune(array $datum, array $attributes, bool $isBlacklist = false)
     {
 
-        return array_filter( $datum, function ($key) use ($attributes, $isBlacklist) {
-            $match = in_array( $key, $attributes );
+        return array_filter($datum, function ($key) use ($attributes, $isBlacklist) {
+            $match = in_array($key, $attributes);
             return $isBlacklist ? !$match : $match;
         }, ARRAY_FILTER_USE_KEY);
 
@@ -411,7 +411,7 @@ class BaseTransformer extends AbstractTransformer
      */
     private function getModelAttributes(Model $instance)
     {
-        return $this->getTableAttributes( $instance->getTable() );
+        return $this->getTableAttributes($instance->getTable());
     }
 
     /**
@@ -424,14 +424,14 @@ class BaseTransformer extends AbstractTransformer
     private function getTableAttributes(string $tableName)
     {
 
-        $columns = Schema::getColumnListing( $tableName );
+        $columns = Schema::getColumnListing($tableName);
 
         // We generally don't want the source data polluting our timestamps
-        $columns = array_diff( $columns, ['created_at', 'updated_at'] );
+        $columns = array_diff($columns, ['created_at', 'updated_at']);
 
         // Fix any index-related bugs before they crop up
         // https://stackoverflow.com/a/6914929/1943591
-        $columns = array_values( $columns );
+        $columns = array_values($columns);
 
         return $columns;
 

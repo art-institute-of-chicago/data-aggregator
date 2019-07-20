@@ -17,12 +17,12 @@ class ImportArchive extends AbstractImportCommand
 
         $this->api = env('ARCHIVES_DATA_SERVICE_URL');
 
-        if( !$this->reset() )
+        if(!$this->reset())
         {
             return false;
         }
 
-        $this->import( 'Archive', ArchiveImage::class, 'archival-images' );
+        $this->import('Archive', ArchiveImage::class, 'archival-images');
 
     }
 

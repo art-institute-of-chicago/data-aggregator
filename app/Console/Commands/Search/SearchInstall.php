@@ -29,7 +29,7 @@ class SearchInstall extends BaseCommand
         if ($this->argument('model'))
         {
 
-            $this->install( $this->argument('model'), $prefix );
+            $this->install($this->argument('model'), $prefix);
 
         } else {
 
@@ -38,7 +38,7 @@ class SearchInstall extends BaseCommand
             foreach ($models as $model)
             {
 
-                $this->install( $model, $prefix );
+                $this->install($model, $prefix);
 
             }
 
@@ -49,7 +49,7 @@ class SearchInstall extends BaseCommand
     private function install($model, $prefix)
     {
 
-        $index = app('Search')->getIndexForModel( $model, $prefix );
+        $index = app('Search')->getIndexForModel($model, $prefix);
 
         if (!$this->destroy($index, $this->option('yes')))
         {
@@ -63,7 +63,7 @@ class SearchInstall extends BaseCommand
         $params = config('elasticsearch.indexParams');
 
         $params['index'] = $index;
-        $params['body']['mappings'] = app('Search')->getElasticsearchMapping( $model );
+        $params['body']['mappings'] = app('Search')->getElasticsearchMapping($model);
 
         $return = Elasticsearch::indices()->create($params);
 

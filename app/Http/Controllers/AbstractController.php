@@ -104,7 +104,7 @@ abstract class AbstractController extends BaseController
             $paginator = [
                 'total' => $collection->total(),
                 'limit' => (int) $collection->perPage(),
-                'offset' => (int) $collection->perPage() * ( $collection->currentPage() - 1 ),
+                'offset' => (int) $collection->perPage() * ($collection->currentPage() - 1),
                 'total_pages' => $collection->lastPage(),
                 'current_page' => $collection->currentPage(),
             ];
@@ -174,16 +174,16 @@ abstract class AbstractController extends BaseController
     protected function select(Request $request, Closure $callback)
     {
 
-        $this->validateMethod( $request );
+        $this->validateMethod($request);
 
         $id = $request->route('id');
 
-        if (!$this->validateId( $id ))
+        if (!$this->validateId($id))
         {
             throw new InvalidSyntaxException();
         }
 
-        $item = $callback( $id );
+        $item = $callback($id);
 
         if (!$item)
         {
@@ -205,7 +205,7 @@ abstract class AbstractController extends BaseController
     protected function collect(Request $request, Closure $callback)
     {
 
-        $this->validateMethod( $request );
+        $this->validateMethod($request);
 
         // Process ?ids= query param
         $ids = $request->input('ids');
@@ -228,7 +228,7 @@ abstract class AbstractController extends BaseController
 
         // Assumes the inheriting class set model and transformer
         // \Illuminate\Contracts\Pagination\LengthAwarePaginator
-        $all = $callback( $limit, $id );
+        $all = $callback($limit, $id);
 
         return $this->getCollectionResponse($all);
 
@@ -252,10 +252,10 @@ abstract class AbstractController extends BaseController
         }
 
         // Validate the syntax for each $id
-        foreach( $ids as $id )
+        foreach($ids as $id)
         {
 
-            if (!$this->validateId( $id ))
+            if (!$this->validateId($id))
             {
                 throw new InvalidSyntaxException();
             }

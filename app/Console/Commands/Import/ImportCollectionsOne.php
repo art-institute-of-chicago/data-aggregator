@@ -19,15 +19,15 @@ class ImportCollectionsOne extends ImportCollectionsFull
 
         $model = $this->getModelForEndpoint($endpoint);
 
-        $transformer = app('Resources')->getInboundTransformerForModel( $model, 'Collections' );
+        $transformer = app('Resources')->getInboundTransformerForModel($model, 'Collections');
 
-        $json = $this->fetchItem( $endpoint, $id );
+        $json = $this->fetchItem($endpoint, $id);
 
         $datum = $json->data;
 
-        $this->updateSentryTags( $datum, $endpoint, 'Collections' );
+        $this->updateSentryTags($datum, $endpoint, 'Collections');
 
-        $this->save( $datum, $model, $transformer );
+        $this->save($datum, $model, $transformer);
 
     }
 
@@ -36,9 +36,9 @@ class ImportCollectionsOne extends ImportCollectionsFull
 
         $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
 
-        $this->info( 'Fetching: ' . $url );
+        $this->info('Fetching: ' . $url);
 
-        return $this->fetch( $url, true );
+        return $this->fetch($url, true);
     }
 
 }

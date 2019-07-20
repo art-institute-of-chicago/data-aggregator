@@ -26,7 +26,7 @@ class ReportArtistDisplayDetail extends BaseCommand
         // Not an ideal solution, but some models are really heavy
         ini_set("memory_limit", "-1");
 
-        $this->csv = Writer::createFromPath( $this->getCsvPath(), 'w' );
+        $this->csv = Writer::createFromPath($this->getCsvPath(), 'w');
 
         $this->csv->insertOne([
             'number_of_linebreaks',
@@ -43,8 +43,8 @@ class ReportArtistDisplayDetail extends BaseCommand
 
             $artworks = Artwork::whereRaw('artist_display REGEXP "^[^\n]*' . $nstr . '[^\n]*$"');
 
-            foreach( $artworks->get() as $artwork ) {
-                $this->insertOne( $i, $artwork );
+            foreach($artworks->get() as $artwork) {
+                $this->insertOne($i, $artwork);
             }
 
         }
@@ -60,7 +60,7 @@ class ReportArtistDisplayDetail extends BaseCommand
             'artist_display' => $artwork->artist_display,
         ];
 
-        $this->info( $numberOfLinebreaks . ' in artwork #' . $row['artwork_id'] . ' – ' . $row['title'] );
+        $this->info($numberOfLinebreaks . ' in artwork #' . $row['artwork_id'] . ' – ' . $row['title']);
 
         $this->csv->insertOne($row);
     }

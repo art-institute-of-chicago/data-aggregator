@@ -86,7 +86,7 @@ class BaseModel extends AbstractModel
             return $casts;
         }
 
-        return array_merge( $casts, [
+        return array_merge($casts, [
             'source_modified_at' => 'datetime',
         ]);
 

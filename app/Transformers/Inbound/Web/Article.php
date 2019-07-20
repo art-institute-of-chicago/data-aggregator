@@ -22,7 +22,7 @@ class Article extends WebTransformer
     protected function getExtraFields(Datum $datum)
     {
 
-        return array_merge( $this->getBlockFields( $datum ), [
+        return array_merge($this->getBlockFields($datum), [
             'date' => $datum->date('date'),
 
             // TODO: Move these to trait?

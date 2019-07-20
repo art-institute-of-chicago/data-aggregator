@@ -33,7 +33,7 @@ class SearchReindex extends BaseCommand
         if ($this->argument('model'))
         {
 
-            $this->reindex( $this->argument('model') );
+            $this->reindex($this->argument('model'));
 
         } else {
 
@@ -42,7 +42,7 @@ class SearchReindex extends BaseCommand
             foreach ($models as $model)
             {
 
-                $this->reindex( $model );
+                $this->reindex($model);
 
             }
 
@@ -53,7 +53,7 @@ class SearchReindex extends BaseCommand
     public function reindex($model)
     {
 
-        $index = app('Search')->getIndexForModel( $model, $this->source );
+        $index = app('Search')->getIndexForModel($model, $this->source);
 
         $params = [
             'wait_for_completion' => false,
@@ -63,8 +63,8 @@ class SearchReindex extends BaseCommand
                     'size' => 100,
                 ],
                 'dest' => [
-                    'index' => app('Search')->getIndexForModel( $model, $this->dest ),
-                    'type' => app('Search')->getTypeForModel( $model ),
+                    'index' => app('Search')->getIndexForModel($model, $this->dest),
+                    'type' => app('Search')->getTypeForModel($model),
                 ],
             ],
         ];

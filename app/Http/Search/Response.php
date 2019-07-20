@@ -122,10 +122,10 @@ class Response
         $offset = $this->searchParams['from'] ?? 0;
 
         // Avoid division by zero
-        if( $limit > 0 ) {
+        if($limit > 0) {
 
-            $total_pages = ceil( $total / $limit );
-            $current_page = floor( $offset / $limit ) + 1;
+            $total_pages = ceil($total / $limit);
+            $current_page = floor($offset / $limit) + 1;
 
         } else {
 
@@ -160,7 +160,7 @@ class Response
         $results = [];
 
         // Reduce to just the _source objects
-        foreach( $hits as $hit ) {
+        foreach($hits as $hit) {
 
             $result = [
                 '_score' => $hit['_score']
@@ -169,8 +169,8 @@ class Response
             // Avoid filtering fields here: filter fields via `_source` in Request instead
             // This will reduce AWS ES load - it won't need to return as much data
             // Note that `_source` might be undefined if `_source` was set to false in Request
-            if( isset( $hit['_source'] ) ) {
-                $result = array_merge( $result, $hit['_source'] );
+            if(isset($hit['_source'])) {
+                $result = array_merge($result, $hit['_source']);
             }
 
             $results[] = $result;

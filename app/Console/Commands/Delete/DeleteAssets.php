@@ -42,33 +42,33 @@ class DeleteAssets extends AbstractImportCommand
         $json = $this->query('deletes', $current);
         $pages = $json->pagination->total_pages;
 
-        $this->warn( 'Found ' . $pages . ' pages' );
+        $this->warn('Found ' . $pages . ' pages');
 
-        while( $current <= $pages )
+        while($current <= $pages)
         {
-            $this->warn( 'Deleting ' . $current . ' of ' . $pages);
+            $this->warn('Deleting ' . $current . ' of ' . $pages);
 
             // Assumes the dataservice wraps its results in a `data` field
-            foreach( $json->data as $datum )
+            foreach($json->data as $datum)
             {
                 // Break if we're past the last time we checked
-                $sourceTime = new Carbon( $datum->indexed_at );
+                $sourceTime = new Carbon($datum->indexed_at);
                 $sourceTime->timezone = config('app.timezone');
 
-                if( $this->since->gt( $sourceTime ) )
+                if($this->since->gt($sourceTime))
                 {
                     break 2;
                 }
 
                 // Now execute an actual delete
                 // Loop through all model types
-                foreach ( $this->models as $model)
+                foreach ($this->models as $model)
                 {
                     // Check if a resource with a matching lake_guid exists
                     if ($m = $model::where('lake_guid', '=', $datum->lake_guid)->first())
                     {
                         // If it does, destroy the model and break
-                        $this->warn( 'Deleting ' . $model . ' ' . $datum->lake_guid);
+                        $this->warn('Deleting ' . $model . ' ' . $datum->lake_guid);
                         $m->delete();
                         break;
                     }
@@ -78,7 +78,7 @@ class DeleteAssets extends AbstractImportCommand
             $current++;
 
             // TODO: This structure causes an extra query to be run, when it might not need to be
-            $json = $this->query( 'deletes', $current );
+            $json = $this->query('deletes', $current);
         }
 
     }

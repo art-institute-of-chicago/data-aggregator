@@ -17,7 +17,7 @@ class ImportAnalytics extends AbstractImportCommand
 
         $this->api = env('ANALYTICS_DATA_SERVICE_URL');
 
-        $this->import( 'analytics', Artwork::class, 'artworks', $this->argument('page') ?: 1 );
+        $this->import('analytics', Artwork::class, 'artworks', $this->argument('page') ?: 1);
 
     }
 
@@ -42,17 +42,17 @@ class ImportAnalytics extends AbstractImportCommand
         // TODO: Use transformed title
         $this->info("Importing #{$id}: {$datum->pageviews} | {$datum->pageviews_recent}");
 
-        $resource = $model::find( $id );
+        $resource = $model::find($id);
 
         // Only update works that have exist in the artworks table
         if ($resource) {
             // This will be true almost always, except for lists
-            if ($transformer->shouldSave( $resource, $datum ))
+            if ($transformer->shouldSave($resource, $datum))
             {
                 // Fill should always be called before sync
                 // Syncing some relations requires `$instance->getKey()` to work (i.e. id is set)
-                $fills = $transformer->fill( $resource, $datum );
-                $syncs = $transformer->sync( $resource, $datum );
+                $fills = $transformer->fill($resource, $datum);
+                $syncs = $transformer->sync($resource, $datum);
 
                 $resource->save();
             }

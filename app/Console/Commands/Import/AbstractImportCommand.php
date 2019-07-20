@@ -51,7 +51,7 @@ abstract class AbstractImportCommand extends BaseCommand
         $name = $this->getName();
 
         // Make `-full` commands share last-update time w/ their partial versions
-        $name = Str::endsWith( $name, '-full' ) ? substr( $name, 0, -5 ) : $name;
+        $name = Str::endsWith($name, '-full') ? substr($name, 0, -5) : $name;
 
         // TODO: Track import success on a per-resource basis, rather than per-command?
         $this->command = \App\Command::firstOrNew(['command' => $name]);
@@ -70,11 +70,11 @@ abstract class AbstractImportCommand extends BaseCommand
         }
 
         // Call Illuminate\Console\Command::execute
-        $result = parent::execute( $input, $output );
+        $result = parent::execute($input, $output);
 
         // If the $result is falsey (e.g. 0 or null), command was successful.
         // https://stackoverflow.com/questions/22485513/get-response-from-artisan-call
-        if( !$result )
+        if(!$result)
         {
             $this->command->last_success_at = $this->command->last_attempt_at;
             $this->command->save();
@@ -106,15 +106,15 @@ abstract class AbstractImportCommand extends BaseCommand
         $this->info("Importing #{$id}" . (property_exists($datum, 'title') ? ": {$datum->title}" : ""));
 
         // Don't use findOrCreate here, since it can cause errors due to Searchable
-        $resource = $model::findOrNew( $id );
+        $resource = $model::findOrNew($id);
 
         // This will be true almost always, except for lists
-        if ($transformer->shouldSave( $resource, $datum ))
+        if ($transformer->shouldSave($resource, $datum))
         {
             // Fill should always be called before sync
             // Syncing some relations requires `$instance->getKey()` to work (i.e. id is set)
-            $fills = $transformer->fill( $resource, $datum );
-            $syncs = $transformer->sync( $resource, $datum );
+            $fills = $transformer->fill($resource, $datum);
+            $syncs = $transformer->sync($resource, $datum);
 
             $resource->save();
         }

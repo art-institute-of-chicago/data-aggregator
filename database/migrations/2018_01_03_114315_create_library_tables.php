@@ -28,7 +28,7 @@ class CreateLibraryTables extends Migration
             $table->timestamps();
         });
 
-        foreach( $this->material_terms as $material_term ) {
+        foreach($this->material_terms as $material_term) {
 
             Schema::create($material_term, function (Blueprint $table) {
                 $table->increments('id');
@@ -44,9 +44,9 @@ class CreateLibraryTables extends Migration
     public function down()
     {
 
-        foreach( $this->material_terms as $material_term ) {
+        foreach($this->material_terms as $material_term) {
 
-            Schema::dropIfExists( $material_term );
+            Schema::dropIfExists($material_term);
 
         }
 

@@ -89,7 +89,7 @@ class DumpExport extends AbstractDumpCommand
     private function getPreparedTables()
     {
 
-        return collect($this->whitelistedTables)->map( function ($tableName) {
+        return collect($this->whitelistedTables)->map(function ($tableName) {
 
             $prefixedTableName = DB::getTablePrefix() . $tableName;
 

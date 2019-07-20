@@ -8,7 +8,7 @@ class ClosuresTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        factory( Closure::class, 25 )->create();
+        factory(Closure::class, 25)->create();
 
     }
 

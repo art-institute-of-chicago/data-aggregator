@@ -521,7 +521,7 @@ class Artwork extends CollectionsModel
 
         $ids = $this->getFeaturedIds();
 
-        if( !in_array( $this->getKey(), $ids ) )
+        if(!in_array($this->getKey(), $ids))
         {
             return null;
         }
@@ -530,7 +530,7 @@ class Artwork extends CollectionsModel
         $rank = array_flip($ids)[$this->getKey()];
 
         // Subdivide them into buckets of 4
-        $rank = ( intdiv( $rank, 4 ) + 1 ) * ( $rank + 1 );
+        $rank = (intdiv($rank, 4) + 1) * ($rank + 1);
 
         return $rank;
 
@@ -539,7 +539,7 @@ class Artwork extends CollectionsModel
     public function isBoosted()
     {
 
-        return in_array( $this->getKey(), static::boostedIds() );
+        return in_array($this->getKey(), static::boostedIds());
 
     }
 
@@ -554,7 +554,7 @@ class Artwork extends CollectionsModel
     public static function boosted()
     {
 
-        return (new static())->newQuery()->whereKey( static::boostedIds() );
+        return (new static())->newQuery()->whereKey(static::boostedIds());
 
     }
 

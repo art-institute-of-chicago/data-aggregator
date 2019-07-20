@@ -26,7 +26,7 @@ class ReportArtistDisplay extends BaseCommand
         // Not an ideal solution, but some models are really heavy
         ini_set("memory_limit", "-1");
 
-        $this->csv = Writer::createFromPath( $this->getCsvPath(), 'w' );
+        $this->csv = Writer::createFromPath($this->getCsvPath(), 'w');
 
         $this->csv->insertOne([
             'number_of_linebreaks',
@@ -53,21 +53,21 @@ class ReportArtistDisplay extends BaseCommand
         }
 
         // Special case for zero newlines
-        array_unshift( $results, [
+        array_unshift($results, [
             'number_of_linebreaks' => 0,
             'number_of_artworks' => Artwork::whereRaw('artist_display NOT REGEXP "\n"')->count(),
         ]);
 
         // Special case for no artist display
-        array_unshift( $results, [
+        array_unshift($results, [
             'number_of_linebreaks' => null,
             'number_of_artworks' => Artwork::whereNull('artist_display')->count(),
         ]);
 
-        $this->warn( 'Total artworks: ' . collect($results)->sum('number_of_artworks') );
+        $this->warn('Total artworks: ' . collect($results)->sum('number_of_artworks'));
 
-        foreach( $results as $result ) {
-            $this->insertOne( $result['number_of_linebreaks'], $result['number_of_artworks'] );
+        foreach($results as $result) {
+            $this->insertOne($result['number_of_linebreaks'], $result['number_of_artworks']);
         }
 
     }
@@ -79,7 +79,7 @@ class ReportArtistDisplay extends BaseCommand
             'number_of_artworks' => $numberOfArtworks,
         ];
 
-        $this->info( $numberOfLinebreaks . ' linebreaks occur in ' . $numberOfArtworks . ' artworks.' );
+        $this->info($numberOfLinebreaks . ' linebreaks occur in ' . $numberOfArtworks . ' artworks.');
 
         $this->csv->insertOne($row);
     }

@@ -8,7 +8,7 @@ class EducatorResourcesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        factory( EducatorResource::class, 25 )->create();
+        factory(EducatorResource::class, 25)->create();
 
     }
 

@@ -12,8 +12,8 @@ class Material extends BaseTransformer
     {
 
         return [
-            'creators' => collect( $datum->creators )->pluck('id'),
-            'subjects' => collect( $datum->subjects )->pluck('id'),
+            'creators' => collect($datum->creators)->pluck('id'),
+            'subjects' => collect($datum->subjects)->pluck('id'),
         ];
 
     }

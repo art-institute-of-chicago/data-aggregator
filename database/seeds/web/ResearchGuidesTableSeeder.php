@@ -8,7 +8,7 @@ class ResearchGuidesTableSeeder extends AbstractSeeder
     protected function seed()
     {
 
-        factory( ResearchGuide::class, 25 )->create();
+        factory(ResearchGuide::class, 25)->create();
 
     }
 
