@@ -169,63 +169,63 @@ class Request
 
         }
 
-            // Filter out any resources that have a parent resource requested as well
-            // So e.g. if places and galleries are requested, we'll show places only
-            $resources = array_filter($resources, function ($resource) use ($resources) {
+        // Filter out any resources that have a parent resource requested as well
+        // So e.g. if places and galleries are requested, we'll show places only
+        $resources = array_filter($resources, function ($resource) use ($resources) {
 
-                $parent = app('Resources')->getParent($resource);
+            $parent = app('Resources')->getParent($resource);
 
-                return !in_array($parent, $resources);
+            return !in_array($parent, $resources);
 
+        });
+
+        // Make resources into a Laravel collection
+        $resources = collect($resources);
+
+        // Grab settings from our models via the service provider
+        $settings = $resources->map(function ($resource) {
+
+            return [
+                $resource => app('Search')->getSearchScopeForEndpoint($resource),
+            ];
+
+        })->collapse();
+
+        // Collate our indexes and types
+        $indexes = $settings->pluck('index')->unique()->all();
+        $types = $settings->pluck('type')->unique()->all();
+
+        // These will be injected into the must clause
+        $this->scopes = $settings->pluck('scope')->filter()->values()->all();
+
+        // These will be injected into the should clause
+        if (!isset($input['q']))
+        {
+            $this->boosts = $settings->pluck('boost')->filter()->values()->all();
+        }
+
+        // These will be used to wrap the query in `function_score`
+        $this->functionScores = $settings->filter(function ($value, $key) {
+            return isset($value['function_score']);
+        })->map(function ($item, $key) {
+            return $item['function_score'];
+        })->all();
+
+        if (isset($input['functions']))
+        {
+            $customScoreFunctions = collect($input['functions'])->filter(function ($value, $key) use ($resources) {
+                return $resources->contains($key);
             });
 
-            // Make resources into a Laravel collection
-            $resources = collect($resources);
-
-            // Grab settings from our models via the service provider
-            $settings = $resources->map(function ($resource) {
-
-                return [
-                    $resource => app('Search')->getSearchScopeForEndpoint($resource),
-                ];
-
-            })->collapse();
-
-            // Collate our indexes and types
-            $indexes = $settings->pluck('index')->unique()->all();
-            $types = $settings->pluck('type')->unique()->all();
-
-            // These will be injected into the must clause
-            $this->scopes = $settings->pluck('scope')->filter()->values()->all();
-
-            // These will be injected into the should clause
-            if (!isset($input['q']))
-            {
-                $this->boosts = $settings->pluck('boost')->filter()->values()->all();
+            // Accept both a single function, and an array of functions
+            foreach ($customScoreFunctions as $resource => $functions) {
+                $functions = !isset($functions[0]) ? [$functions] : $functions;
+                $this->functionScores[$resource]['custom'] = $functions;
             }
+        }
 
-            // These will be used to wrap the query in `function_score`
-            $this->functionScores = $settings->filter(function ($value, $key) {
-                return isset($value['function_score']);
-            })->map(function ($item, $key) {
-                return $item['function_score'];
-            })->all();
-
-            if (isset($input['functions']))
-            {
-                $customScoreFunctions = collect($input['functions'])->filter(function ($value, $key) use ($resources) {
-                    return $resources->contains($key);
-                });
-
-                // Accept both a single function, and an array of functions
-                foreach ($customScoreFunctions as $resource => $functions) {
-                    $functions = !isset($functions[0]) ? [$functions] : $functions;
-                    $this->functionScores[$resource]['custom'] = $functions;
-                }
-            }
-
-            // Looks like we don't need to implode $indexes and $types
-            // PHP Elasticsearch seems to do so for us
+        // Looks like we don't need to implode $indexes and $types
+        // PHP Elasticsearch seems to do so for us
 
         return [
             'index' => $indexes,

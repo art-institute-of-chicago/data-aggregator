@@ -44,13 +44,13 @@ class AuthController extends Controller
                 $response = ['token' => $token];
                 return response($response, 200);
             }
-                $response = "Password missmatch";
-                return response($response, 422);
-            
-        }
-            $response = 'User does not exist';
+
+            $response = "Password missmatch";
             return response($response, 422);
-        
+        }
+
+        $response = 'User does not exist';
+        return response($response, 422);
     }
 
     public function logout(Request $request) {

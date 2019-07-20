@@ -14,6 +14,7 @@ $finder = PhpCsFixer\Finder::create()
 ;
 
 return PhpCsFixer\Config::create()
+    ->setIndent('    ')
     ->setRules([
         'align_multiline_comment' => [
             'comment_type' => 'phpdocs_like',
@@ -104,7 +105,7 @@ return PhpCsFixer\Config::create()
         'increment_style' => [
             'style' => 'post',
         ],
-        // indentation_type
+        'indentation_type' => true,
         // is_null
         // line_ending
         'linebreak_after_opening_tag' => true,
