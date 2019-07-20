@@ -274,6 +274,12 @@ return PhpCsFixer\Config::create()
         'protected_to_private' => false, // Definitely not!
         'psr0' => false, // Lowercases 'App' => 'app', etc.
         'psr4' => true,
+        'random_api_migration' => false, // `rand` is alias of `mt_rand`
+        'return_assignment' => false,
+        'return_type_declaration' => [
+            'space_before' => 'one',
+        ],
+
     ])
     ->setFinder($finder)
 ;

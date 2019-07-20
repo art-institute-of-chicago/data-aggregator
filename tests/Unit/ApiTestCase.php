@@ -42,7 +42,7 @@ abstract class ApiTestCase extends TestCase
      */
     protected $fieldsUsedByMobile = [];
 
-    protected function setUp(): void
+    protected function setUp() : void
     {
 
         parent::setUp();
