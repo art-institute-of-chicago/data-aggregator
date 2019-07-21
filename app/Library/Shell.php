@@ -31,7 +31,7 @@ class Shell
     /**
      * Use this when you need to capture command output in a variable.
      */
-    public function exec(string $template, string ...$args) : array
+    public function exec(string $template, string ...$args): array
     {
         return $this->command($template, $args, function (string $cmd) {
             exec($cmd, $output, $status);

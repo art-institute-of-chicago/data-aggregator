@@ -281,7 +281,7 @@ return PhpCsFixer\Config::create()
         'random_api_migration' => false, // `rand` is alias of `mt_rand`
         'return_assignment' => false,
         'return_type_declaration' => [
-            'space_before' => 'one',
+            'space_before' => 'none',
         ],
         'self_accessor' => false, // Buggy with transformers
         'semicolon_after_instruction' => true,

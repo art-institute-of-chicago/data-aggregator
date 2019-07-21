@@ -100,7 +100,7 @@ abstract class AbstractDumpCommand extends BaseCommand
      *
      * @param string $subpath  ...e.g. to CSV file, relative to `database/dumps`
      */
-    protected function getDumpPath(string $subpath) : string
+    protected function getDumpPath(string $subpath): string
     {
 
         return Storage::disk('dumps')->getDriver()->getAdapter()->getPathPrefix() . $subpath;
@@ -112,7 +112,7 @@ abstract class AbstractDumpCommand extends BaseCommand
      * Enforces correct structure in dump directory.
      *
      */
-    protected function getDumpPathOption() : string
+    protected function getDumpPathOption(): string
     {
         $dumpPath = $this->hasOption('path') ? $this->option('path') : null;
         $dumpPath = $dumpPath ?? $this->getDumpPath('local');
