@@ -10,18 +10,9 @@ use Illuminate\Support\Arr;
 
 class PrototypeMostSimilar extends BaseCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'proto:most-similar';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Output sharable file to demonstrate list of artworks "most similar" to another artwork';
 
     protected $fields = [
@@ -66,21 +57,6 @@ class PrototypeMostSimilar extends BaseCommand
         2010,
     ];
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
 

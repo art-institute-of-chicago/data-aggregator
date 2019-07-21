@@ -6,18 +6,9 @@ use Illuminate\Support\Arr;
 
 class PrototypeMostSimilarCombo extends PrototypeMostSimilar
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'proto:most-similar-combo';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Uses logic from most-similar, but runs all clauses in one query';
 
     protected $sizeRenderPerQuery = 12;

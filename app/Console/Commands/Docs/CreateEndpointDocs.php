@@ -7,28 +7,14 @@ use Carbon\Carbon;
 
 class CreateEndpointDocs extends AbstractDocCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'docs:endpoints
                             {appUrl? : The root URL to use for the documentation. Defaults to APP_URL}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Generate documentation for API endpoints';
 
     protected $appUrl;
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
 
