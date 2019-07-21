@@ -36,11 +36,11 @@ class ReportAltText extends BaseCommand
 
         })->cursor();
 
-        foreach($artworks as $artwork) {
+        foreach ($artworks as $artwork) {
 
-            foreach($artwork->images as $image) {
+            foreach ($artwork->images as $image) {
 
-                if($image->alt_text) {
+                if ($image->alt_text) {
 
                     $row = [
                         'artwork_id' => $artwork->citi_id,

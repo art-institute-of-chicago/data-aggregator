@@ -128,7 +128,7 @@ trait ElasticSearchable
 
             $label = $field['name'];
 
-            if(isset($field['elasticsearch']['boost']))
+            if (isset($field['elasticsearch']['boost']))
             {
                 $label .= '^' . $field['elasticsearch']['boost'];
             }
@@ -152,12 +152,12 @@ trait ElasticSearchable
 
         $default = [];
 
-        foreach($fieldMappings as $field)
+        foreach ($fieldMappings as $field)
         {
             $mapping = $this->getMappingForField($field);
 
             // TODO: Determine if we can just pass null here
-            if($mapping)
+            if ($mapping)
             {
                 $default[$field['name']] = $mapping;
             }
@@ -233,11 +233,11 @@ trait ElasticSearchable
     private function getMappingForField($field)
     {
 
-        if($field['elasticsearch'] ?? false)
+        if ($field['elasticsearch'] ?? false)
         {
 
             // Allows setting params other than type
-            if($field['elasticsearch']['mapping'] ?? false)
+            if ($field['elasticsearch']['mapping'] ?? false)
             {
 
                 return $field['elasticsearch']['mapping'];
@@ -245,7 +245,7 @@ trait ElasticSearchable
             }
 
             // Allows using 'elasticsearch' like 'elasticsearch_type'
-            if(is_string($field['elasticsearch']))
+            if (is_string($field['elasticsearch']))
             {
 
                 return [
@@ -255,7 +255,7 @@ trait ElasticSearchable
             }
 
             // Allows setting app-specific parameters alongside
-            if($field['elasticsearch']['type'] ?? false)
+            if ($field['elasticsearch']['type'] ?? false)
             {
 
                 return [
@@ -267,7 +267,7 @@ trait ElasticSearchable
         } else {
 
             // Supporting old behavior
-            if($field['elasticsearch_type'] ?? false)
+            if ($field['elasticsearch_type'] ?? false)
             {
 
                 return [

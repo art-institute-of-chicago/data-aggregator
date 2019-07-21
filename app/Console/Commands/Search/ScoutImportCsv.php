@@ -29,7 +29,7 @@ class ScoutImportCsv extends BaseCommand
             $csv->setHeaderOffset(0);
         }
 
-        foreach($csv->getRecords() as $record)
+        foreach ($csv->getRecords() as $record)
         {
             $id = reset($record);
 

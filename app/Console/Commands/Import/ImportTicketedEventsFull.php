@@ -17,7 +17,7 @@ class ImportTicketedEventsFull extends AbstractImportCommand
 
         $this->api = env('EVENTS_DATA_SERVICE_URL');
 
-        if(!$this->reset())
+        if (!$this->reset())
         {
             return false;
         }

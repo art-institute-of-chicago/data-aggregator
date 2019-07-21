@@ -22,7 +22,7 @@ class Product extends ShopTransformer
     private function getSyncArtists(Datum $datum)
     {
 
-        if(!$datum->artist_ids)
+        if (!$datum->artist_ids)
         {
             return [];
         }

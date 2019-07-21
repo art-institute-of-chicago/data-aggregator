@@ -23,7 +23,7 @@ class ImportDigitalLabels extends AbstractImportCommand
     public function handle()
     {
 
-        if(!$this->reset())
+        if (!$this->reset())
         {
             return false;
         }
@@ -69,7 +69,7 @@ class ImportDigitalLabels extends AbstractImportCommand
 
     private function downloadLabels()
     {
-        if(!$this->option('from-backup'))
+        if (!$this->option('from-backup'))
         {
 
             $this->info('Retrieving digital labels JSON');

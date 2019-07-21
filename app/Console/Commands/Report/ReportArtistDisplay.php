@@ -66,7 +66,7 @@ class ReportArtistDisplay extends BaseCommand
 
         $this->warn('Total artworks: ' . collect($results)->sum('number_of_artworks'));
 
-        foreach($results as $result) {
+        foreach ($results as $result) {
             $this->insertOne($result['number_of_linebreaks'], $result['number_of_artworks']);
         }
 

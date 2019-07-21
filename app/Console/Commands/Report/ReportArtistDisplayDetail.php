@@ -43,7 +43,7 @@ class ReportArtistDisplayDetail extends BaseCommand
 
             $artworks = Artwork::whereRaw('artist_display REGEXP "^[^\n]*' . $nstr . '[^\n]*$"');
 
-            foreach($artworks->get() as $artwork) {
+            foreach ($artworks->get() as $artwork) {
                 $this->insertOne($i, $artwork);
             }
 

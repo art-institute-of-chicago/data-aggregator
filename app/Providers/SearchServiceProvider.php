@@ -118,7 +118,7 @@ class SearchServiceProvider extends ServiceProvider
                 public function getDefaultFields($models = null, $isExact = false) {
 
                     // Fallback to getting default fields for all models
-                    if(is_null($models) || $models->count() < 1)
+                    if (is_null($models) || $models->count() < 1)
                     {
                         $models = $this->models;
                     }
@@ -263,7 +263,7 @@ class SearchServiceProvider extends ServiceProvider
                     // ex. `searchScopeGalleries` for `galleries` endpoint in model `Place`
                     $searchScopeMethod = 'searchScope' . Str::studly($endpoint);
 
-                    if(method_exists($model, $searchScopeMethod))
+                    if (method_exists($model, $searchScopeMethod))
                     {
 
                         $scope = $model::$searchScopeMethod();
@@ -275,7 +275,7 @@ class SearchServiceProvider extends ServiceProvider
                     // ex. `searchBoostArtworks` for `artworks` endpoint boosts `is_on_view`
                     $searchBoostMethod = 'searchBoost' . Str::studly($endpoint);
 
-                    if(method_exists($model, $searchBoostMethod))
+                    if (method_exists($model, $searchBoostMethod))
                     {
 
                         $boost = $model::$searchBoostMethod();
@@ -287,7 +287,7 @@ class SearchServiceProvider extends ServiceProvider
                     // ex. `searchFunctionScoreArtworks` for `artworks` endpoint applies `pageviews` and `boost_rank`
                     $searchFunctionScoreMethod = 'searchFunctionScore' . Str::studly($endpoint);
 
-                    if(method_exists($model, $searchFunctionScoreMethod))
+                    if (method_exists($model, $searchFunctionScoreMethod))
                     {
 
                         // TODO: Inject `getScopedQuery` into the filter..?

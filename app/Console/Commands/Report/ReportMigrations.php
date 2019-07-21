@@ -57,7 +57,7 @@ class ReportMigrations extends BaseCommand
         $newDir = storage_path('app/migrations/new');
 
         if ($this->option('refresh')) {
-            foreach($this->connectionsToReset as $connection) {
+            foreach ($this->connectionsToReset as $connection) {
                 $this->callSilent('db:reset', [
                     '--force' => 'default',
                     '--connection' => $connection,

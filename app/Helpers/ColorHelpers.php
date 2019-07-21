@@ -22,7 +22,7 @@ function hexToHsl($hex)
         $diff = $max - $min;
         $s = $l > 0.5 ? $diff / (2 - $max - $min) : $diff / ($max + $min);
 
-        switch($max) {
+        switch ($max) {
             case $rgb[0]:
                 $h = ($rgb[1] - $rgb[2]) / $diff + ($rgb[1] < $rgb[2] ? 6 : 0);
                 break;

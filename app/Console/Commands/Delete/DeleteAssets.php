@@ -44,18 +44,18 @@ class DeleteAssets extends AbstractImportCommand
 
         $this->warn('Found ' . $pages . ' pages');
 
-        while($current <= $pages)
+        while ($current <= $pages)
         {
             $this->warn('Deleting ' . $current . ' of ' . $pages);
 
             // Assumes the dataservice wraps its results in a `data` field
-            foreach($json->data as $datum)
+            foreach ($json->data as $datum)
             {
                 // Break if we're past the last time we checked
                 $sourceTime = new Carbon($datum->indexed_at);
                 $sourceTime->timezone = config('app.timezone');
 
-                if($this->since->gt($sourceTime))
+                if ($this->since->gt($sourceTime))
                 {
                     break 2;
                 }

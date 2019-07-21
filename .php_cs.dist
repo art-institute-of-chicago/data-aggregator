@@ -2,6 +2,7 @@
 
 $finder = PhpCsFixer\Finder::create()
     ->exclude([
+        '.git',
         'bootstrap/cache',
         'database/dumps',
         'node_modules',
@@ -40,6 +41,7 @@ return PhpCsFixer\Config::create()
                 'while',
             ],
         ],
+        // The `braces` fixer does way too much, not just fix braces:
         // https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/823
         // 'braces' => [
         //     'allow_single_line_closure' => false,
@@ -48,7 +50,8 @@ return PhpCsFixer\Config::create()
         //     'position_after_functions_and_oop_constructs' => 'next',
         // ],
         'cast_spaces' => true,
-        // Also removes lines around class body:
+        // Also removes lines around class body. For reverse:
+        // https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/3688
         // 'class_attributes_separation' => [
         //     'elements' => [
         //         'const',
@@ -96,20 +99,20 @@ return PhpCsFixer\Config::create()
         'function_declaration' => [
             'closure_function_spacing' => 'one',
         ],
-        'function_to_constant' => false, // For `get_class` to be safe
+        'function_to_constant' => false, // For `get_class` magic
         'function_typehint_space' => true,
         // general_phpdoc_annotation_remove
         // header_comment
         // heredoc_indentation
         // heredoc_to_nowdoc
-        // implode_call
+        'implode_call' => false,
         'include' => true,
         'increment_style' => [
             'style' => 'post',
         ],
         'indentation_type' => true,
         'is_null' => false, // ...but consider implementing
-        // line_ending
+        'line_ending' => true,
         'linebreak_after_opening_tag' => true,
         'list_syntax' => [
             'syntax' => 'short',
@@ -121,7 +124,7 @@ return PhpCsFixer\Config::create()
         'lowercase_static_reference' => true,
         'magic_constant_casing' => true,
         'magic_method_casing' => true,
-        // mb_str_functions
+        'mb_str_functions' => false, // ...but potentially useful for i18n
         'method_argument_space' => [
             'keep_multiple_spaces_after_comma' => false,
             'on_multiline' => 'ensure_fully_multiline',
@@ -141,7 +144,7 @@ return PhpCsFixer\Config::create()
         'no_alternative_syntax' => true,
         'no_binary_string' => true,
         'no_blank_lines_after_class_opening' => false, // cf. 'class_attributes_separation'
-        'no_blank_lines_after_phpdoc' => false, // for config
+        'no_blank_lines_after_phpdoc' => false, // wrecks config
         'no_blank_lines_before_namespace' => false, // cf. 'blank_line_after_namespace'
         'no_break_comment' => true,
         'no_closing_tag' => true,
@@ -170,7 +173,9 @@ return PhpCsFixer\Config::create()
         ],
         'no_spaces_inside_parenthesis' => true,
         'no_superfluous_elseif' => true,
-        'no_superfluous_phpdoc_tags' => [ // Interesting! Detects strict typing.
+        // Interesting! Detects strict typing.
+        // cf. https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/3110
+        'no_superfluous_phpdoc_tags' => [
             'allow_mixed' => true,
         ],
         'no_trailing_comma_in_list_call' => true,
@@ -223,11 +228,8 @@ return PhpCsFixer\Config::create()
         //     ],
         //     'sortAlgorithm' => 'none',
         // ],
-        // 'ordered_imports' => [
-        //     'imports_order' => null, // (?)
-        //     'sort_algorithm' => 'alpha',
-        // ]
-        // ordered_interfaces
+        'ordered_imports' => false, // https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/4305
+        'ordered_interfaces' => false, // Risky!
         // 'php_unit_construct' => true,
         // php_unit_dedicate_assert
         // php_unit_dedicate_assert_internal_type
@@ -272,7 +274,7 @@ return PhpCsFixer\Config::create()
         // phpdoc_types_order
         // phpdoc_var_annotation_correct_order
         // phpdoc_var_without_name
-        // pow_to_exponentiation
+        'pow_to_exponentiation' => false,
         'protected_to_private' => false, // Definitely not!
         'psr0' => false, // Lowercases 'App' => 'app', etc.
         'psr4' => true,
@@ -281,7 +283,7 @@ return PhpCsFixer\Config::create()
         'return_type_declaration' => [
             'space_before' => 'one',
         ],
-        'self_accessor' => false, // buggy with transformers
+        'self_accessor' => false, // Buggy with transformers
         'semicolon_after_instruction' => true,
         'set_type_to_cast' => true,
         'short_scalar_cast' => true,
@@ -302,13 +304,13 @@ return PhpCsFixer\Config::create()
             ],
         ],
         'single_quote' => true, // Rough on CreateSwaggerDocs and Documentable
-        'single_trait_insert_per_statement' => false, // Does not multiline
+        'single_trait_insert_per_statement' => false, // Bad. Does not multiline!
         'space_after_semicolon' => false, // Buggy with lambdas
         'standardize_increment' => false, // Buggy with order
         'standardize_not_equals' => true,
         'static_lambda' => false, // But interesting...
         'strict_comparison' => true,
-        'strict_param' => false, // TODO: Learn about $strict func param
+        'strict_param' => false, // TODO: Learn about $strict func param!
         'string_line_ending' => true,
         'switch_case_semicolon_to_colon' => true,
         'switch_case_space' => true,
@@ -325,6 +327,37 @@ return PhpCsFixer\Config::create()
         'void_return' => false, // Nice, but too much...
         'whitespace_after_comma_in_array' => true,
         'yoda_style' => false,
+
+        // https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/4435
+        // 'single_space_after_construct' => [
+        //     'constructs' => [
+        //         // 'break',
+        //         'case',
+        //         'catch',
+        //         // 'continue',
+        //         'do',
+        //         'echo',
+        //         // 'else',
+        //         // 'elseif',
+        //         'for',
+        //         'foreach',
+        //         'goto',
+        //         'if',
+        //         'include',
+        //         'include_once',
+        //         'new',
+        //         'print',
+        //         'require',
+        //         'require_once',
+        //         // 'return',
+        //         'switch',
+        //         'throw',
+        //         'try',
+        //         'while',
+        //         // 'yield',
+        //         // 'yield_from',
+        //     ]
+        // ],
     ])
     ->setFinder($finder)
 ;

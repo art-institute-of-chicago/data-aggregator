@@ -26,13 +26,13 @@ class MakeDatesNullByDefault extends Migration
             'created_at',
         ];
 
-        foreach($tables as $table_name)
+        foreach ($tables as $table_name)
         {
             Schema::table($table_name, function (Blueprint $table) use ($table_name, $columns) {
 
-                foreach($columns as $column)
+                foreach ($columns as $column)
                 {
-                    if(Schema::hasColumn($table_name, $column))
+                    if (Schema::hasColumn($table_name, $column))
                     {
                         $table->timestamp($column)->default(null)->nullable()->change();
                     }

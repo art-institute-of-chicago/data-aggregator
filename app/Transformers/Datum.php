@@ -15,7 +15,7 @@ class Datum implements JsonSerializable
     public function __construct($datum)
     {
 
-        if(is_array($datum))
+        if (is_array($datum))
         {
             $datum = (object) $datum;
         }
@@ -42,7 +42,7 @@ class Datum implements JsonSerializable
     public function all($field = null)
     {
 
-        if(!isset($field))
+        if (!isset($field))
         {
             $datum = (array) $this->datum;
 
@@ -67,17 +67,17 @@ class Datum implements JsonSerializable
         // Note how we're getting __get() to fire here
         $date = $this->{$field};
 
-        if(is_string($date))
+        if (is_string($date))
         {
             return strtotime($date);
         }
 
-        if(is_object($date))
+        if (is_object($date))
         {
             return new Carbon($date->date, new \DateTimeZone($date->timezone));
         }
 
-        if(is_numeric($date))
+        if (is_numeric($date))
         {
             return $date;
         }
@@ -120,7 +120,7 @@ class Datum implements JsonSerializable
 
         $hash = spl_object_hash($object);
 
-        if(!isset($this->subdatums[$hash]))
+        if (!isset($this->subdatums[$hash]))
         {
             $this->subdatums[$hash] = new Datum($object);
         }
@@ -137,12 +137,12 @@ class Datum implements JsonSerializable
     private function getCleanValue($value)
     {
 
-        if(!isset($value))
+        if (!isset($value))
         {
             return null;
         }
 
-        if(is_string($value))
+        if (is_string($value))
         {
             // Standardize on \n newlines
             $value = str_replace(["\r\n", "\r"], "\n", $value);
@@ -154,7 +154,7 @@ class Datum implements JsonSerializable
             return empty($value) ? null : $value;
         }
 
-        if(is_object($value))
+        if (is_object($value))
         {
             // If it's an object, return new datum
             return $this->getSubDatum($value);

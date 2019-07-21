@@ -139,13 +139,13 @@ class Artwork extends CollectionsTransformer
     {
 
         // Worst case: no pivots, nor basic artist
-        if(!$datum->artwork_agents && !$datum->creator_id)
+        if (!$datum->artwork_agents && !$datum->creator_id)
         {
             return [];
         }
 
         // No pivots, but basic artist
-        if(!$datum->artwork_agents && $datum->creator_id)
+        if (!$datum->artwork_agents && $datum->creator_id)
         {
             // Default `preferred` to true and `agent_role_citi_id` to 219
             return [

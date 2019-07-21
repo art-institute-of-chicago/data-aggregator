@@ -72,7 +72,7 @@ abstract class AbstractImportCommand extends BaseCommand
 
         // If the $result is falsey (e.g. 0 or null), command was successful.
         // https://stackoverflow.com/questions/22485513/get-response-from-artisan-call
-        if(!$result)
+        if (!$result)
         {
             $this->command->last_success_at = $this->command->last_attempt_at;
             $this->command->save();

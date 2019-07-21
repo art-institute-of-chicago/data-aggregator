@@ -29,7 +29,7 @@ class DumpExport extends AbstractDumpCommand
         // Ensure all tables are ready for export
         $tables = $this->getPreparedTables();
 
-        foreach($tables as $table)
+        foreach ($tables as $table)
         {
             $csvPart = 1;
             $csvPath = $dumpPath . $table['name'] . '.csv';

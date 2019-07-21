@@ -45,7 +45,7 @@ class ImportWebFull extends AbstractImportCommand
 
         $endpoint = $this->argument('endpoint');
 
-        if(!$this->reset($endpoint))
+        if (!$this->reset($endpoint))
         {
             return false;
         }

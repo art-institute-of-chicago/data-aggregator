@@ -166,7 +166,7 @@ class BulkImport extends BaseCommand
 
     protected function fetch($file, &$headers = null)
     {
-        if(!$contents = @file_get_contents($file))
+        if (!$contents = @file_get_contents($file))
         {
             // throw new \Exception('Fetch failed: ' . $file);
 

@@ -22,7 +22,7 @@ trait Factory
 
     protected function attach($types, $times = 1, $relation = '', $fields = []) {
 
-        if(!is_array($types))
+        if (!is_array($types))
         {
             $types = [$types];
         }

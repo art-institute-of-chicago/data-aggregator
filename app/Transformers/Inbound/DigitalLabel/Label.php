@@ -78,19 +78,19 @@ class Label extends DigitalLabelTransformer
             $mrn = substr($mrn, strlen($accession));
 
             // If there's no "leftover" string, this is an exact match
-            if(strlen($mrn) === 0)
+            if (strlen($mrn) === 0)
             {
                 return true;
             }
 
             // If next char is numeric, ignore, e.g. 1928.23 vs. 1928.230
-            if(is_numeric($mrn[0]))
+            if (is_numeric($mrn[0]))
             {
                 return false;
             }
 
             // If next char is a period, ignore, e.g. 1928.23 vs. 1928.23.12
-            if($mrn[0] === '.')
+            if ($mrn[0] === '.')
             {
                 return false;
             }

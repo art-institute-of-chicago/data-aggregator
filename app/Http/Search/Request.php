@@ -154,7 +154,7 @@ class Request
         $resources = $this->resources ?? $input['resources'] ?? null;
 
         // Ensure that resources is an array, not string
-        if(is_string($resources))
+        if (is_string($resources))
         {
             $resources = explode(',', $resources);
         }
@@ -162,7 +162,7 @@ class Request
         // Save unfiltered $resources for e.g. getting default fields
         $this->resources = $resources;
 
-        if(is_null($resources))
+        if (is_null($resources))
         {
 
             throw new DetailedException('Missing Parameter', 'You must specify the `resources` parameter.', 400);
@@ -246,7 +246,7 @@ class Request
         $input = self::getValidInput($requestArgs);
 
         // TODO: Handle case where no `q` param is present?
-        if(is_null(Arr::get($input, 'q'))) {
+        if (is_null(Arr::get($input, 'q'))) {
             return [];
         }
 
@@ -326,13 +326,13 @@ class Request
          * 2. If `q` is present, add full-text search to the `must` clause.
          * 3. If `q` is absent, show all results.
          */
-        if(isset($input['query'])) {
+        if (isset($input['query'])) {
 
             $params = $this->addFullSearchParams($params, $input);
 
         }
 
-        if(isset($input['q'])) {
+        if (isset($input['q'])) {
 
             $params = $this->addSimpleSearchParams($params, $input);
 
@@ -343,7 +343,7 @@ class Request
         }
 
         // Add Aggregations (facets)
-        if($withAggregations) {
+        if ($withAggregations) {
 
             $params = $this->addAggregationParams($params, $input);
 
@@ -429,16 +429,16 @@ class Request
 
         // If not null, cast these params to int
         // We are using isset() instead of normal ternary to avoid catching `0` as falsey
-        if(isset($size)) { $size = (int) $size; }
+        if (isset($size)) { $size = (int) $size; }
 
-        if(isset($from)) { $from = (int) $from; }
+        if (isset($from)) { $from = (int) $from; }
 
         // Throw an exception if `size` is too big
-        if($size > self::$maxSize) {
+        if ($size > self::$maxSize) {
             throw new BigLimitException();
         }
 
-        if(isset($size) && isset($from)) {
+        if (isset($size) && isset($from)) {
             $maxResources = (Auth::check() || !config('aic.restricted')) ? 10000 : 1000;
 
             if ($from + $size > $maxResources) {
@@ -493,7 +493,7 @@ class Request
      */
     private function addSortParams(array $params, array $input) {
 
-        if(isset($input['sort']))
+        if (isset($input['sort']))
         {
             $params['body']['sort'] = $input['sort'];
         }
@@ -514,7 +514,7 @@ class Request
     {
 
         // Don't tweak relevancy if sort is passed
-        if(isset($input['sort']))
+        if (isset($input['sort']))
         {
             return $params;
         }
@@ -532,7 +532,7 @@ class Request
             ];
 
             // Add any resource-specific boosts
-            foreach($this->boosts as $boost) {
+            foreach ($this->boosts as $boost) {
 
                 $params['body']['query']['bool']['should'][] = $boost;
 
@@ -556,7 +556,7 @@ class Request
     public function addFunctionScore($params, $input)
     {
 
-        if(empty($this->functionScores) || !isset($this->resources))
+        if (empty($this->functionScores) || !isset($this->resources))
         {
             return $params;
         }
@@ -569,7 +569,7 @@ class Request
 
         $scopedQueries = collect([]);
 
-        foreach($this->resources as $resource) {
+        foreach ($this->resources as $resource) {
 
             // Grab the functions for this resource
             $rawFunctions = $this->functionScores[$resource] ?? null;
@@ -649,7 +649,7 @@ class Request
     public function addScopeParams(array $params, array $input)
     {
 
-        if(!isset($this->scopes) || count($this->scopes) < 1) {
+        if (!isset($this->scopes) || count($this->scopes) < 1) {
 
             return $params;
 
@@ -769,7 +769,7 @@ class Request
 
         // Queries below depend on `q`, but act as relevany tweaks
         // Don't tweak relevancy further if sort is passed
-        if(isset($input['sort']))
+        if (isset($input['sort']))
         {
             return $params;
         }
@@ -788,7 +788,7 @@ class Request
         // This boosts docs that have multiple terms in close proximity
         // `phrase` queries are relatively expensive, so check for spaces first
         // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
-        if(strpos($input['q'], ' '))
+        if (strpos($input['q'], ' '))
         {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
@@ -885,7 +885,7 @@ class Request
             $contexts = $input['contexts'];
 
             // Ensure that resources is an array, not string
-            if(is_string($contexts))
+            if (is_string($contexts))
             {
                 $contexts = explode(',', $contexts);
             }
@@ -913,7 +913,7 @@ class Request
 
         $aggregations = $input['aggregations'] ?? $input['aggs'] ?? null;
 
-        if($aggregations) {
+        if ($aggregations) {
 
             $params['body']['aggregations'] = $aggregations;
 

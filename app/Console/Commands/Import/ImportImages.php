@@ -31,7 +31,7 @@ class ImportImages extends AbstractImportCommand
         $resource = $model::find($datum->id);
 
         // For this one, we should ignore entities that don't exist here
-        if(!$resource)
+        if (!$resource)
         {
             return;
         }

@@ -127,7 +127,7 @@ class Asset extends CollectionsModel
         parent::boot();
 
         // Allows querying all assets via the Asset class directly
-        if(!static::$assetType)
+        if (!static::$assetType)
         {
             return;
         }

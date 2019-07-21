@@ -72,7 +72,7 @@ class DumpUpload extends AbstractDumpCommand
                 return preg_match('/' . $tableName . '(?:-[0-9]+)?\.csv/', basename($csvPath));
             }));
 
-            foreach($csvPaths as $csvPath) {
+            foreach ($csvPaths as $csvPath) {
                 $csvSubPath = '/' . basename($csvPath);
                 $this->shell->passthru('cp %s %s', $tablesSrcPath . $csvSubPath, $tablesDestPath . $csvSubPath);
             }

@@ -71,7 +71,7 @@ trait ImportsData
      */
     protected function fetch($file, $decode = false) {
 
-        if(!$contents = @file_get_contents($file))
+        if (!$contents = @file_get_contents($file))
         {
             throw new \Exception('Fetch failed: ' . $file);
         }
@@ -114,7 +114,7 @@ trait ImportsData
 
         ob_end_clean();
 
-        if(is_null($contents)) {
+        if (is_null($contents)) {
             throw new \Exception('Cannot fetch URL: ' . $url);
         }
 
@@ -154,7 +154,7 @@ trait ImportsData
         $url = $this->getUrl($endpoint, $page, $limit);
 
         // Allows us to specify which fields to retrieve, for performance
-        if($this->fields)
+        if ($this->fields)
         {
             $url .= $this->fields;
         }
@@ -192,7 +192,7 @@ trait ImportsData
             }
         }
 
-        if($this->isPartial)
+        if ($this->isPartial)
         {
 
             $this->info('Looking for resources since ' . $this->since->toIso8601String());
@@ -224,24 +224,24 @@ trait ImportsData
 
         }
 
-        while($current <= $pages)
+        while ($current <= $pages)
         {
 
             $this->warn('Importing ' . $current . ' of ' . $pages . ' for model ' . $model);
 
             // Assumes the dataservice wraps its results in a `data` field
-            foreach($json->data as $datum)
+            foreach ($json->data as $datum)
             {
 
                 // TODO: Careful, this conflicts w/ partial imports – running on one endpoint counts for all!
                 // Break if this is a partial import + this datum is older than last run
-                if($this->isPartial && isset($datum->{$model::$sourceLastUpdateDateField}))
+                if ($this->isPartial && isset($datum->{$model::$sourceLastUpdateDateField}))
                 {
 
                     $sourceTime = new Carbon($datum->{$model::$sourceLastUpdateDateField});
                     $sourceTime->timezone = config('app.timezone');
 
-                    if($this->since->gt($sourceTime))
+                    if ($this->since->gt($sourceTime))
                     {
                         break 2;
                     }
@@ -291,7 +291,7 @@ trait ImportsData
 
         // TODO: If we dump the indexes + recreate them, we don't need to flush
         // Flush might not remove models that are present in the index, but not the database
-        foreach($modelsToFlush as $model)
+        foreach ($modelsToFlush as $model)
         {
             $this->call('scout:flush', ['model' => $model]);
             $this->info("Flushed from search index: `{$model}`");
@@ -299,7 +299,7 @@ trait ImportsData
 
         // TODO: We'd like to affect related models – consider doing an Eloquent delete instead
         // It's much slower, but it'll ensure better data integrity
-        foreach($tablesToClear as $table)
+        foreach ($tablesToClear as $table)
         {
             DB::table($table)->truncate();
             $this->info("Truncated `{$table}` table.");

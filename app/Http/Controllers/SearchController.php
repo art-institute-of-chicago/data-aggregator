@@ -198,7 +198,7 @@ class SearchController extends BaseController
 
         $queries = Input::all();
 
-        if(!is_array($queries) || count(array_filter(array_keys($queries), 'is_string')) > 0) {
+        if (!is_array($queries) || count(array_filter(array_keys($queries), 'is_string')) > 0) {
 
             // TODO: Accept key'd
             throw new DetailedException('Invalid Query', 'You must pass an indexed array as the root object.', 400);
@@ -207,7 +207,7 @@ class SearchController extends BaseController
 
         $originalParams = [];
 
-        foreach($queries as $query)
+        foreach ($queries as $query)
         {
             $input = $requestArgs ? array_merge($query, $requestArgs) : $query;
             $originalParams[] = ( new SearchRequest() )->{$requestMethod}($input);
@@ -215,30 +215,30 @@ class SearchController extends BaseController
 
         $transformedParams = [];
 
-        foreach($originalParams as $params)
+        foreach ($originalParams as $params)
         {
 
             $header = [];
 
-            if(isset($params['index'])) {
+            if (isset($params['index'])) {
                $header['index'] = $params['index'];
                unset($params['index']);
             }
 
-            if(isset($params['type'])) {
+            if (isset($params['type'])) {
                $header['type'] = $params['type'];
                unset($params['type']);
             }
 
             $body = [];
 
-            if(isset($params['body'])) {
+            if (isset($params['body'])) {
                 $body = $params['body'];
                 unset($params['body']);
             }
 
-            foreach(['preference', 'from', 'size'] as $key) {
-                if(array_key_exists($key, $params) && is_null($params[$key])) {
+            foreach (['preference', 'from', 'size'] as $key) {
+                if (array_key_exists($key, $params) && is_null($params[$key])) {
                     unset($params[$key]);
                 }
             }
@@ -280,7 +280,7 @@ class SearchController extends BaseController
 
         $responses = [];
 
-        foreach($results as $result) {
+        foreach ($results as $result) {
 
             // Transform Elasticsearch results into our API standard
             $responses[] = ( new SearchResponse($result, $originalParams) )->{$responseMethod}();

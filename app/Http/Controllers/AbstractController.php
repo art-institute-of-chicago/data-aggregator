@@ -211,7 +211,7 @@ abstract class AbstractController extends BaseController
         }
 
         // Validate the syntax for each $id
-        foreach($ids as $id)
+        foreach ($ids as $id)
         {
 
             if (!$this->validateId($id))
@@ -240,19 +240,19 @@ abstract class AbstractController extends BaseController
     {
         $values = Input::get($param);
 
-        if(!isset($values))
+        if (!isset($values))
         {
             return;
         }
 
         // Fractal handles this internally, but we do it early for preprocessing
-        if(is_string($values))
+        if (is_string($values))
         {
             $values = explode(',', $values);
         }
 
         // Allows for camel, snake, and kebab cases
-        foreach($values as &$value)
+        foreach ($values as &$value)
         {
             $value = Str::snake(Str::camel($value));
         }

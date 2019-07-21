@@ -22,7 +22,7 @@ class ScoutImportSince extends BaseCommand
         $datetime = new Carbon($this->argument('datetime'));
         $models = app('Search')->getSearchableModels();
 
-        foreach($models as $model)
+        foreach ($models as $model)
         {
             $column = 'updated_at';
 
@@ -36,7 +36,7 @@ class ScoutImportSince extends BaseCommand
 
                 $instances->searchable();
 
-                foreach($instances as $instance)
+                foreach ($instances as $instance)
                 {
                     $this->info('Imported ' . $instance->getKey() . ' of model ' . $model);
                 }

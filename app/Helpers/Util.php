@@ -102,7 +102,7 @@ function partition(array $list, $p) {
     $partition = [];
     $mark = 0;
 
-    for($px = 0; $px < $p; $px++) {
+    for ($px = 0; $px < $p; $px++) {
         $incr = ($px < $partrem) ? $partlen + 1 : $partlen;
         $partition[$px] = array_slice($list, $mark, $incr);
         $mark += $incr;
@@ -137,7 +137,7 @@ function allModels()
     $dir = app_path('Models');
     $files = scandir($dir);
 
-    foreach($files as $file)
+    foreach ($files as $file)
     {
 
         //skip current and parent folder entries
@@ -150,7 +150,7 @@ function allModels()
 
             $sourcefiles = scandir($sourcepath);
 
-            foreach($sourcefiles as $sourcefile)
+            foreach ($sourcefiles as $sourcefile)
             {
 
                 if (!is_dir($sourcepath . DIRECTORY_SEPARATOR . $sourcefile))

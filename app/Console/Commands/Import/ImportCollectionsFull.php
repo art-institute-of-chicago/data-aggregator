@@ -113,7 +113,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             // Don't generate a URL longer than 600 characters, including prefix
             $max_url_length = max(array_map('strlen', $urls));
 
-        } while($max_url_length > 600);
+        } while ($max_url_length > 600);
 
         return $urls;
 
