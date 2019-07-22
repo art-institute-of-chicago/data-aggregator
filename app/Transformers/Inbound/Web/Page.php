@@ -12,7 +12,6 @@ class Page extends WebTransformer
 
     protected function getExtraFields(Datum $datum)
     {
-
         // TODO: Move these to trait?
         return array_merge($this->getBlockFields($datum), [
             'publish_start_date' => $datum->date('publish_start_date'),

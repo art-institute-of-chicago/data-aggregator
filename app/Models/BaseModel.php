@@ -41,7 +41,6 @@ class BaseModel extends AbstractModel
      */
     public function getCasts()
     {
-
         // Traverse through the class hierarchy of all the child classes and merge together their
         // definitions of the `$casts` attribute. This allows child classes to simple use `$casts`
         // as an additive property without needing to worry about merging with the parent array.

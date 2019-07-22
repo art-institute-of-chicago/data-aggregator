@@ -13,7 +13,6 @@ class PrototypeSearch extends BaseCommand
 
     public function handle()
     {
-
         $ret = $this->header('Prototype search boosting');
 
         $ret .= $this->results([

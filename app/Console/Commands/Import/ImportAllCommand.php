@@ -13,7 +13,6 @@ class ImportAllCommand extends BaseCommand
 
     public function handle()
     {
-
         // TODO: This causes issues with writing to the `commands` table!
         // $this->call('db:reset'); // Add --yes flag?
         // $this->call('migrate');

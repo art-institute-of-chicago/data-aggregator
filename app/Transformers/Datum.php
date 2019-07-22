@@ -118,8 +118,7 @@ class Datum implements JsonSerializable
      */
     private function getCleanValue($value)
     {
-        if (!isset($value))
-        {
+        if (!isset($value)) {
             return null;
         }
 

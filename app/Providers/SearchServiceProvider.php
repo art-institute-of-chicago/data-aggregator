@@ -20,7 +20,6 @@ class SearchServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         /**
          * Override the laravel-scout-elastic package boot method so we can use
          * the connections created in laravel-elasticsearch.
@@ -113,7 +112,6 @@ class SearchServiceProvider extends ServiceProvider
                  */
                 public function getDefaultFields($models = null, $isExact = false)
                 {
-
                     // Fallback to getting default fields for all models
                     if (is_null($models) || $models->count() < 1) {
                         $models = $this->models;
@@ -172,7 +170,6 @@ class SearchServiceProvider extends ServiceProvider
                  */
                 private function getDefaultFieldsForModel($model, $isExact = false)
                 {
-
                     // TODO: Class name must be a valid object or a string
                     // Fix this error when an unknown resource gets passed
                     return $model::instance()->getDefaultSearchFields($isExact);

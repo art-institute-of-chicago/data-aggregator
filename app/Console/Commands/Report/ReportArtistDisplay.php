@@ -22,7 +22,6 @@ class ReportArtistDisplay extends BaseCommand
 
     public function handle()
     {
-
         // Not an ideal solution, but some models are really heavy
         ini_set('memory_limit', '-1');
 

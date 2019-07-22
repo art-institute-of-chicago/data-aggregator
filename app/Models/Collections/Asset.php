@@ -54,48 +54,36 @@ class Asset extends CollectionsModel
 
     public function artworks()
     {
-
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_lake_guid')
             ->withPivot('preferred')
             ->withPivot('is_doc');
-
     }
 
     public function exhibitions()
     {
-
         return $this->belongsToMany('App\Models\Collections\Exhibition', 'exhibition_asset', 'asset_lake_guid')
             ->withPivot('preferred')
             ->withPivot('is_doc');
-
     }
 
     public function imagedArtworks()
     {
-
         return $this->artworks()->wherePivot('is_doc', '=', false);
-
     }
 
     public function documentedArtworks()
     {
-
         return $this->artworks()->wherePivot('is_doc', '=', true);
-
     }
 
     public function imagedExhibitions()
     {
-
         return $this->exhibitions()->wherePivot('is_doc', '=', false);
-
     }
 
     public function documentedExhibitions()
     {
-
         return $this->exhibitions()->wherePivot('is_doc', '=', true);
-
     }
 
     /**
@@ -106,12 +94,10 @@ class Asset extends CollectionsModel
      */
     public static function validateId($id)
     {
-
         // We must not be using UUIDv3, since the typical regex wasn't matching
         $uuid = '/^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i';
 
         return preg_match($uuid, $id);
-
     }
 
     /**
@@ -122,20 +108,18 @@ class Asset extends CollectionsModel
      *
      * {@inheritdoc}
      */
-    protected static function boot() {
-
+    protected static function boot()
+    {
         parent::boot();
 
         // Allows querying all assets via the Asset class directly
-        if (!static::$assetType)
-        {
+        if (!static::$assetType) {
             return;
         }
 
         static::addGlobalScope('assets', function ($builder) {
             $builder->where('type', '=', static::$assetType);
         });
-
     }
 
 }

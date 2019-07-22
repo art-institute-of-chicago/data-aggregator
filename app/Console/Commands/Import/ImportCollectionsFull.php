@@ -32,7 +32,6 @@ class ImportCollectionsFull extends AbstractImportCommand
 
     protected function importEndpoints()
     {
-
         // Lists:
         $this->importEndpoint('artwork-agent-roles');
         $this->importEndpoint('artwork-date-qualifiers');

@@ -22,7 +22,6 @@ abstract class AbstractPivot extends Pivot
      */
     public static function validateId($id)
     {
-
         // By default, only allow numeric ids greater than 0
         return is_numeric($id) && (int) $id > 0;
     }

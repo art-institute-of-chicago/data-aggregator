@@ -42,7 +42,6 @@ abstract class AbstractImportCommand extends BaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         // Not an ideal solution, but some models are really heavy
         ini_set('memory_limit', '-1');
 

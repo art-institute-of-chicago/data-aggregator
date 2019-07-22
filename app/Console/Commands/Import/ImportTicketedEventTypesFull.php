@@ -30,14 +30,12 @@ class ImportTicketedEventTypesFull extends AbstractImportCommand
 
     protected function reset()
     {
-
         // We only need to clear a table, not flush a search index
         return $this->resetData([], 'ticketed_event_types');
     }
 
     protected function save($datum, $model, $transformer)
     {
-
         // TODO: Determine if this is still necessary
         $datum->source = 'galaxy';
 

@@ -52,7 +52,6 @@ class Artwork extends CollectionsModel
 
     public function thumbnail()
     {
-
         // TODO: Change this to be polymorphic + use its own table?
         return $this->images()->isPreferred();
     }
