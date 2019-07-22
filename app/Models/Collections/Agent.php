@@ -4,6 +4,7 @@ namespace App\Models\Collections;
 
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
+use App\Models\HasRelationshipArray;
 
 /**
  * Represents a person or organization. In the API, this includes artists.
@@ -12,6 +13,7 @@ class Agent extends CollectionsModel
 {
 
     use ElasticSearchable;
+    use HasRelationshipArray;
 
     protected $primaryKey = 'citi_id';
 
@@ -24,29 +26,39 @@ class Agent extends CollectionsModel
         'createdArtworks',
     ];
 
-    public function agentType()
+    private function getRelationships()
     {
-        return $this->belongsTo('App\Models\Collections\AgentType');
-    }
-
-    public function webArtist()
-    {
-        return $this->belongsTo('App\Models\Web\Artist', 'citi_id', 'datahub_id');
-    }
-
-    public function createdArtworks()
-    {
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->artworks();
+        return [
+            'agentType' => [
+                'description' => '',
+                'method' => function() {
+                    return $this->belongsTo('App\Models\Collections\AgentType');
+                },
+            ],
+            'webArtist' => [
+                'description' => '',
+                'method' => function() {
+                    return $this->belongsTo('App\Models\Web\Artist', 'citi_id', 'datahub_id');
+                },
+            ],
+            'createdArtworks' => [
+                'description' => '',
+                'method' => function() {
+                    return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->artworks();
+                },
+            ],
+            'sites' => [
+                'description' => '',
+                'method' => function() {
+                    return $this->belongsToMany('App\Models\StaticArchive\Site', 'agent_site', 'agent_citi_id');
+                },
+            ],
+        ];
     }
 
     public function createdArtworkIds()
     {
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->pluck('artwork_citi_id');
-    }
-
-    public function sites()
-    {
-        return $this->belongsToMany('App\Models\StaticArchive\Site', 'agent_site', 'agent_citi_id');
     }
 
     public function placePivots()
