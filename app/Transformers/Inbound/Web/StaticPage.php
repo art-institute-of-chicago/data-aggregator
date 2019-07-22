@@ -8,13 +8,11 @@ use App\Transformers\Inbound\WebTransformer;
 class StaticPage extends WebTransformer
 {
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
-
         return [
             'web_url' => $datum->url,
         ];
-
     }
 
 }

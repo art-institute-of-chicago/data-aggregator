@@ -35,10 +35,9 @@ class BaseTransformer extends AbstractTransformer
     /**
      * Returns true by default, but override if additional logic is required.
      *
-     * @param \Illuminate\Database\Eloquent\Model $instance
      * @param mixed $datum
      */
-    public function shouldSave( Model $instance, $datum )
+    public function shouldSave(Model $instance, $datum)
     {
         return true;
     }
@@ -49,13 +48,13 @@ class BaseTransformer extends AbstractTransformer
      * @param mixed $datum
      * @return array
      */
-    public function getSyncNew( $datum )
+    public function getSyncNew($datum)
     {
         // Transform $datum into instanceof Datum
-        $datum = $this->getDatum( $datum );
+        $datum = $this->getDatum($datum);
 
         // Defined in child transformers that extend this class
-        $relations = $this->getSync( $datum );
+        $relations = $this->getSync($datum);
 
         return $relations;
     }
@@ -77,25 +76,15 @@ class BaseTransformer extends AbstractTransformer
      *
      * @param \App\Transformers\Datum  $datum
      */
-    public function getSyncExNew( $datum )
+    public function getSyncExNew($datum)
     {
         // Transform $datum into instanceof Datum
-        $datum = $this->getDatum( $datum );
+        $datum = $this->getDatum($datum);
 
         // Defined in child transformers that extend this class
-        $relations = $this->getSyncEx( $datum );
+        $relations = $this->getSyncEx($datum);
 
         return $relations;
-    }
-
-    /**
-     * Override in child classes to supply `getSyncExNew`.
-     *
-     * @param \App\Transformers\Datum  $datum
-     */
-    protected function getSyncEx( Datum $datum )
-    {
-        return [];
     }
 
     /**
@@ -105,17 +94,17 @@ class BaseTransformer extends AbstractTransformer
      * @param mixed $datum
      * @return array
      */
-    public function getFill( $instance, $datum )
+    public function getFill($instance, $datum)
     {
         // Transform $datum into instanceof Datum
-        $datum = $this->getDatum( $datum );
+        $datum = $this->getDatum($datum);
 
         // Run through the field transformations
-        $datum = $this->transform( $datum );
+        $datum = $this->transform($datum);
 
         // Remove any fields that aren't present in the model
         // $datum changes from Datum to array after this call
-        $datum = $this->prune( $datum, $this->getAttributes( $instance ) );
+        $datum = $this->prune($datum, $this->getAttributes($instance));
 
         return $datum;
     }
@@ -124,48 +113,42 @@ class BaseTransformer extends AbstractTransformer
      * Fill in a model instance's fields from the given datum, typically from another system.
      * Pass `true` as the third argument to do a test run, without changing anything.
      *
-     * @param \Illuminate\Database\Eloquent\Model $instance
      * @param mixed $datum
      * @return array
      */
-    public function fill( Model $instance, $datum )
+    public function fill(Model $instance, $datum)
     {
-
-        $datum = $this->getFill( $instance, $datum );
+        $datum = $this->getFill($instance, $datum);
 
         // Fill the instance with mapped source data
-        $instance->fill( $datum );
+        $instance->fill($datum);
 
         return $datum;
-
     }
 
     /**
      * Update a model instance's relations from the given datum, typically from another system.
      * Pass `true` as the third argument to do a test run, without changing anything.
      *
-     * @param \Illuminate\Database\Eloquent\Model $instance
      * @param mixed $datum
      */
-    public function sync( Model $instance, $datum )
+    public function sync(Model $instance, $datum)
     {
         // Transform $datum into instanceof Datum
-        $datum = $this->getDatum( $datum );
+        $datum = $this->getDatum($datum);
 
         // Defined in child transformers that extend this class
-        $relations = $this->getSync( $datum );
+        $relations = $this->getSync($datum);
 
         // Run hard-wired attachments
-        $this->syncEx( $instance, $datum );
+        $this->syncEx($instance, $datum);
 
         // Sync many-to-many relationships
-        foreach( $relations as $relation => $ids )
-        {
-            $instance->$relation()->sync( $ids );
+        foreach ($relations as $relation => $ids) {
+            $instance->{$relation}()->sync($ids);
         }
 
         return $relations;
-
     }
 
     /**
@@ -177,11 +160,20 @@ class BaseTransformer extends AbstractTransformer
      *
      * @param mixed $datum
      */
-    public function getId( $datum )
+    public function getId($datum)
     {
         $ids = $this->getIds($this->getDatum($datum));
 
         return reset($ids);
+    }
+
+    /**
+     * Override in child classes to supply `getSyncExNew`.
+     *
+     */
+    protected function getSyncEx(Datum $datum)
+    {
+        return [];
     }
 
     /**
@@ -193,56 +185,44 @@ class BaseTransformer extends AbstractTransformer
      *
      * @link https://laravel.com/docs/5.6/eloquent-relationships#updating-many-to-many-relationships
      *
-     * @param  \App\Transformers\Datum  $datum
      * @return array
      */
-    protected function getSync( Datum $datum )
+    protected function getSync(Datum $datum)
     {
-
         return [];
-
     }
 
     /**
      * Sometimes, you just need to hard-code relation creation. Overwrite this
      * method in child classes when returning an array via `getSync` won't do.
      *
-     * @param \Illuminate\Database\Eloquent\Model  $instance
-     * @param \App\Transformers\Datum  $datum
      */
-    protected function syncEx( Model $instance, Datum $datum )
+    protected function syncEx(Model $instance, Datum $datum)
     {
-        return;
     }
 
     /**
      * Get identifiers from source data. Meant to be overwritten.
      *
-     * @param  \App\Transformers\Datum  $datum
      * @return array
      */
-    protected function getIds( Datum $datum )
+    protected function getIds(Datum $datum)
     {
-
         return [
             'id' => $datum->id,
         ];
-
     }
 
     /**
      * Get title from source data. Meant to be overwritten.
      *
-     * @param  \App\Transformers\Datum  $datum
      * @return array
      */
-    protected function getTitle( Datum $datum )
+    protected function getTitle(Datum $datum)
     {
-
         return [
             'title' => $datum->title,
         ];
-
     }
 
     /**
@@ -250,32 +230,26 @@ class BaseTransformer extends AbstractTransformer
      *
      * @TODO Grab dates from the model's `getDates` method..?
      *
-     * @param  \App\Transformers\Datum  $datum
      * @return array
      */
-    protected function getDates( Datum $datum )
+    protected function getDates(Datum $datum)
     {
-
         return [
             'source_created_at' => $datum->date('created_at'),
-            'source_modified_at' =>$datum->date('modified_at'),
+            'source_modified_at' => $datum->date('modified_at'),
             'source_indexed_at' => $datum->date('indexed_at'),
         ];
-
     }
 
     /**
      * Method to allow child classes to define `fill` fields that are named differently from the API,
      * or should be treated differently. You can do all your mapping here.
      *
-     * @param  \App\Transformers\Datum  $datum
      * @return array
      */
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
-
         return [];
-
     }
 
     /**
@@ -283,34 +257,30 @@ class BaseTransformer extends AbstractTransformer
      *
      * @TODO Raise validation alert when encountering pivot w/o `pivot_field`?
      *
-     * @param  \App\Transformers\Datum  $datum
      * @param  string  $pivot_field  Field on `$datum` whose value is an array that contains pivot objects
      * @param  string  $id_field     Each pivot object *must* have this field, if not, it'll be ignored
      * @param  string  $mapping_fn   Function to transform each pivot into ids for `sync`
      *
      * @return array
      */
-    protected function getSyncPivots( Datum $datum, $pivot_field, $id_field, $mapping_fn )
+    protected function getSyncPivots(Datum $datum, $pivot_field, $id_field, $mapping_fn)
     {
-
         // This method assumes that the pivot field's value is an array, not an object!
         // TODO: Improve error reporting in the latter case..?
-        if( !$datum->$pivot_field || !is_array($datum->$pivot_field) )
-        {
+        if (!$datum->{$pivot_field} || !is_array($datum->{$pivot_field})) {
             return [];
         }
 
-        $pivots = collect( $datum->$pivot_field )->filter( function( $pivot ) use ( $id_field ) {
-
-            return (bool) ($pivot->$id_field ?? false);
-
-        })->map( $mapping_fn );
+        $pivots = collect($datum->{$pivot_field})->filter(function ($pivot) use ($id_field) {
+            return (bool) ($pivot->{$id_field} ?? false);
+        })->map($mapping_fn);
 
         // Collapse the array while preserving numeric keys, i.e. CITI IDs
-        $pivots = array_reduce($pivots->all(), function ($carry, $item) { return $carry + $item; }, []);
+        $pivots = array_reduce($pivots->all(), function ($carry, $item) {
+            return $carry + $item;
+        }, []);
 
         return $pivots;
-
     }
 
     /**
@@ -319,42 +289,37 @@ class BaseTransformer extends AbstractTransformer
      * @param mixed $datum
      * @return \App\Transformers\Datum
      */
-    private function getDatum( $datum )
+    private function getDatum($datum)
     {
-
-        return $datum instanceof Datum ? $datum : new Datum( $datum );
-
+        return $datum instanceof Datum ? $datum : new Datum($datum);
     }
 
     /**
      * Unlike `getSync`, this method isn't meant to be overwritten by child classes.
      *
-     * @param \App\Transformers\Datum $datum
      * @return array
      */
-    private function transform( Datum $datum )
+    private function transform(Datum $datum)
     {
-
         // Use the stored datum as the base - we can prune it later!
         $base = $this->passthrough ? $datum->all() : [];
 
         // Remove any blacklisted fields
-        $base = $this->prune( $base, $this->passthroughExceptions, true );
+        $base = $this->prune($base, $this->passthroughExceptions, true);
 
-        return array_merge( $base,
+        return array_merge(
+            $base,
 
             // For convenience, you can overwrite these methods, so that you don't
             // need to call `parent::getExtraFields` in child classes. But you can
             // put *all* custom field mapping in `getExtraFields`, if you'd like.
-            $this->getIds( $datum ),
-            $this->getTitle( $datum ),
-            $this->getDates( $datum ),
+            $this->getIds($datum),
+            $this->getTitle($datum),
+            $this->getDates($datum),
 
             // Get all custom-mapped fields
-            $this->getExtraFields( $datum )
-
+            $this->getExtraFields($datum)
         );
-
     }
 
     /**
@@ -364,19 +329,14 @@ class BaseTransformer extends AbstractTransformer
      * You can use this to remove any fields that aren't columns in the database.
      * Meant to be run as a penultimate step, right before filling the instance.
      *
-     * @param array $datum
-     * @param array $attributes
-     * @param bool $isBlacklist
      * @return array
      */
-    private function prune( array $datum, array $attributes, bool $isBlacklist = false )
+    private function prune(array $datum, array $attributes, bool $isBlacklist = false)
     {
-
-        return array_filter( $datum, function( $key ) use ( $attributes, $isBlacklist ) {
-            $match = in_array( $key, $attributes );
+        return array_filter($datum, function ($key) use ($attributes, $isBlacklist) {
+            $match = in_array($key, $attributes);
             return $isBlacklist ? !$match : $match;
         }, ARRAY_FILTER_USE_KEY);
-
     }
 
     /**
@@ -385,9 +345,8 @@ class BaseTransformer extends AbstractTransformer
      * @param string|\Illuminate\Database\Eloquent\Model $entity
      * @return array
      */
-    private function getAttributes( $entity )
+    private function getAttributes($entity)
     {
-
         if (is_string($entity)) {
             return $this->getTableAttributes($entity);
         }
@@ -401,39 +360,35 @@ class BaseTransformer extends AbstractTransformer
 
     /**
      * Helper method to retrieve names of "fillable" attributes from the saved model.
-     * Note that this is essentially a field listing – it doesn't include relations.
+     * Note that this is essentially a field listing – it doesn't include relations.
      *
      * @TODO Make this exclude guarded attributes?
      *
-     * @param \Illuminate\Database\Eloquent\Model $instance
      * @return array
      */
-    private function getModelAttributes( Model $instance )
+    private function getModelAttributes(Model $instance)
     {
-        return $this->getTableAttributes( $instance->getTable() );
+        return $this->getTableAttributes($instance->getTable());
     }
 
     /**
      * Helper method to retrieve names of fillable columns in table.
-     * Note that this is essentially a field listing – it doesn't include relations.
+     * Note that this is essentially a field listing – it doesn't include relations.
      *
-     * @param string $tableName
      * @return array
      */
-    private function getTableAttributes( string $tableName )
+    private function getTableAttributes(string $tableName)
     {
-
-        $columns = Schema::getColumnListing( $tableName );
+        $columns = Schema::getColumnListing($tableName);
 
         // We generally don't want the source data polluting our timestamps
-        $columns = array_diff( $columns, ['created_at', 'updated_at'] );
+        $columns = array_diff($columns, ['created_at', 'updated_at']);
 
         // Fix any index-related bugs before they crop up
         // https://stackoverflow.com/a/6914929/1943591
-        $columns = array_values( $columns );
+        $columns = array_values($columns);
 
         return $columns;
-
     }
 
 }

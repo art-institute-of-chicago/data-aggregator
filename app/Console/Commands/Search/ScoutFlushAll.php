@@ -11,18 +11,13 @@ class ScoutFlushAll extends BaseCommand
 
     protected $description = 'Remove all models from search index';
 
-
     public function handle()
     {
-
         $models = app('Search')->getSearchableModels();
 
-        foreach( $models as $model ) {
-
-            $this->call("scout:flush", ['model' => $model]);
-
+        foreach ($models as $model) {
+            $this->call('scout:flush', ['model' => $model]);
         }
-
     }
 
 }

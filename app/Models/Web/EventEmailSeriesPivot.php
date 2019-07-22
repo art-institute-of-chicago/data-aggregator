@@ -18,17 +18,14 @@ class EventEmailSeriesPivot extends BasePivot
         'send_affiliate_member' => 'boolean',
     ];
 
-
     public function event()
     {
         return $this->belongsTo('App\Models\Web\Event', 'event_id', 'id');
     }
 
-
     public function emailSeries()
     {
         return $this->belongsTo('App\Models\Web\EmailSeries', 'email_series_id', 'id');
     }
-
 
 }

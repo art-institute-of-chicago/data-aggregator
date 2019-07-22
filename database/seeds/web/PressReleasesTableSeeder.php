@@ -7,9 +7,7 @@ class PressReleasesTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
-        factory( PressRelease::class, 25 )->create();
-
+        factory(PressRelease::class, 25)->create();
     }
 
 }

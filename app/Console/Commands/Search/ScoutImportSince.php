@@ -14,20 +14,19 @@ class ScoutImportSince extends BaseCommand
 
     protected $description = 'Import all instances of all searchable models since an ISO 8601 datetime';
 
-
     public function handle()
     {
-        ini_set("memory_limit", "-1");
+        ini_set('memory_limit', '-1');
 
         $chunksize = (int) $this->argument('chunksize');
         $datetime = new Carbon($this->argument('datetime'));
         $models = app('Search')->getSearchableModels();
 
-        foreach($models as $model)
+        foreach ($models as $model)
         {
             $column = 'updated_at';
 
-            if (Schema::hasColumn(with(new $model)->getTable(), 'source_modified_at')) {
+            if (Schema::hasColumn(with(new $model())->getTable(), 'source_modified_at')) {
                 $column = 'source_modified_at';
             }
 
@@ -37,13 +36,11 @@ class ScoutImportSince extends BaseCommand
 
                 $instances->searchable();
 
-                foreach($instances as $instance)
-                {
+                foreach ($instances as $instance) {
                     $this->info('Imported ' . $instance->getKey() . ' of model ' . $model);
                 }
             });
         }
-
     }
 
 }

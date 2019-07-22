@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Bulk;
 
 use Illuminate\Support\Facades\DB;
-use App\Models\Collections\Artwork;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
@@ -15,7 +14,7 @@ class BulkImport extends BaseCommand
                             {endpoint : Endpoint on dataservice to import}
                             {ids? : Comma-separated ids to import}';
 
-    protected $description = "Upsert resources from a data service";
+    protected $description = 'Upsert resources from a data service';
 
     protected $chunkSize = 100; // Approx. 5 sec per 100 artworks
 
@@ -31,10 +30,10 @@ class BulkImport extends BaseCommand
         $endpoint = $this->argument('endpoint');
         $ids = $this->argument('ids');
 
-        $model = new $resource['model'];
+        $model = new $resource['model']();
         $table = $model->getTable();
 
-        $transformer = new $resource['transformer'];
+        $transformer = new $resource['transformer']();
 
         // Query for the first page + get total
         // Limit has to be 1 due to a few 🐞's
@@ -42,7 +41,7 @@ class BulkImport extends BaseCommand
 
         // Assumes the dataservice has standardized pagination
         $total = $json->pagination->total;
-        $totalPages = ceil($total/$this->chunkSize);
+        $totalPages = ceil($total / $this->chunkSize);
 
         $bar = $this->output->createProgressBar($total);
 
@@ -50,7 +49,7 @@ class BulkImport extends BaseCommand
         {
             $json = $this->query($source, $endpoint, $currentPage, $this->chunkSize, $ids);
 
-            $data = collect($json->data)->map(function($datum) use ($transformer, $table) {
+            $data = collect($json->data)->map(function ($datum) use ($transformer, $table) {
                 return [
                     'fill' => $transformer->getFill($table, $datum),
                     'sync' => [
@@ -62,15 +61,15 @@ class BulkImport extends BaseCommand
             });
 
             // TODO: Take care of date and JSON columns in transformer?
-            $fills = $data->pluck('fill')->map(function($datum) use ($model) {
+            $fills = $data->pluck('fill')->map(function ($datum) use ($model) {
                 $clone = clone $model;
                 array_map([$clone, 'setAttribute'], array_keys($datum), array_values($datum));
                 return $clone->getAttributes();
             });
 
             // Manually append timestamps
-            $now = date("Y-m-d H:i:s");
-            $fills = $fills->map(function($datum) use ($now) {
+            $now = date('Y-m-d H:i:s');
+            $fills = $fills->map(function ($datum) use ($now) {
                 return array_merge($datum, [
                     'created_at' => $now,
                     'updated_at' => $now,
@@ -78,11 +77,11 @@ class BulkImport extends BaseCommand
             });
 
             // Flatten relations, index by table name. Please refactor me.
-            $syncs = $data->pluck('sync')->map(function($datum) use ($model) {
-                $relations = collect($datum['relations'])->map(function($items, $relationMethod) use ($model, $datum) {
-                    $relation = $model->$relationMethod();
+            $syncs = $data->pluck('sync')->map(function ($datum) use ($model) {
+                $relations = collect($datum['relations'])->map(function ($items, $relationMethod) use ($model, $datum) {
+                    $relation = $model->{$relationMethod}();
                     return [
-                        $relation->getTable() => collect($items)->map(function($value, $key) use ($relation, $datum) {
+                        $relation->getTable() => collect($items)->map(function ($value, $key) use ($relation, $datum) {
                             return is_array($value) ? array_merge([
                                 $relation->getForeignPivotKeyName() => $datum['id'],
                                 $relation->getRelatedPivotKeyName() => $key,
@@ -100,7 +99,7 @@ class BulkImport extends BaseCommand
 
                 $tables = array_unique(array_merge(...array_map('array_keys', $relations->all())));
 
-                return collect($tables)->map(function($table) use ($relations) {
+                return collect($tables)->map(function ($table) use ($relations) {
                     $values = $relations->pluck($table)->filter()->all();
                     return [
                         $table => empty($values) ? [] : array_merge(...$values),
@@ -109,12 +108,12 @@ class BulkImport extends BaseCommand
             });
 
             $syncEx = $data->pluck('syncEx');
-            $syncs = $syncs->map(function($datum, $key) use ($syncEx) {
+            $syncs = $syncs->map(function ($datum, $key) use ($syncEx) {
                 return $datum->merge($syncEx->get($key));
             });
 
             // Merge an indexed collection of assoc. collections w/o overwriting
-            $syncs = ($syncs->first() ?? collect([]))->map(function($items, $table) use ($syncs) {
+            $syncs = ($syncs->first() ?? collect([]))->map(function ($items, $table) use ($syncs) {
                 return $syncs->pluck($table)->collapse()->all();
             });
 
@@ -143,7 +142,7 @@ class BulkImport extends BaseCommand
             if ($e->errorInfo[1] === 1153) {
                 array_map(function ($subitems) use ($tableName) {
                     $this->upsert($tableName, $subitems);
-                }, array_chunk($items, ceil(count($items)/2)));
+                }, array_chunk($items, ceil(count($items) / 2)));
             } else {
                 throw $e;
             }
@@ -167,16 +166,12 @@ class BulkImport extends BaseCommand
 
     protected function fetch($file, &$headers = null)
     {
-        if(!$contents = @file_get_contents($file))
-        {
-            // throw new \Exception('Fetch failed: ' . $file);
-
+        if (!$contents = @file_get_contents($file)) {
             sleep(90);
             return $this->fetch(...func_get_args());
         }
 
-        if (isset($http_response_header))
-        {
+        if (isset($http_response_header)) {
             $headers = $http_response_header;
         }
 

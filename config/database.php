@@ -147,7 +147,8 @@ $config = [
 */
 
 $config['connections']['userdata'] = array_merge(
-    $config['connections'][$config['default']], [
+    $config['connections'][$config['default']],
+    [
         'prefix' => 'auth_',
     ]
 );

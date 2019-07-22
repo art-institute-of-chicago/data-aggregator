@@ -37,7 +37,7 @@ abstract class AbstractDocCommand extends BaseCommand
     protected function getModelsForNamespace($desiredNamespace)
     {
         return $this->getModels()
-            ->filter(function($modelNamespace, $model) use ($desiredNamespace) {
+            ->filter(function ($modelNamespace, $model) use ($desiredNamespace) {
                 return $modelNamespace === $desiredNamespace;
             })
             ->keys();
@@ -45,22 +45,21 @@ abstract class AbstractDocCommand extends BaseCommand
 
     private function getModels()
     {
-        if (isset($this->models))
-        {
+        if (isset($this->models)) {
             return $this->models;
         }
 
         return $this->models = collect(config('resources.outbound.base'))
             ->filter(function ($value, $key) {
-                return array_key_exists('endpoint', $value) && (!array_key_exists('is_restricted', $value) || $value['is_restricted'] == FALSE);
+                return array_key_exists('endpoint', $value) && (!array_key_exists('is_restricted', $value) || $value['is_restricted'] === false);
             })
             ->pluck('model')
             ->unique()
             ->filter()
             ->values()
-            ->map(function($model) {
+            ->map(function ($model) {
                 $segments = explode('\\', $model);
-                return [$model => $segments[count($segments)-2]];
+                return [$model => $segments[count($segments) - 2]];
             })
             ->collapse();
     }

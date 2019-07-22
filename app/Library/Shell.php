@@ -19,7 +19,7 @@ class Shell
      */
     public function passthru(string $template, string ...$args)
     {
-        return $this->command($template, $args, function(string $cmd) {
+        return $this->command($template, $args, function (string $cmd) {
             passthru($cmd, $status);
             return [
                 'output' => null,
@@ -31,9 +31,9 @@ class Shell
     /**
      * Use this when you need to capture command output in a variable.
      */
-    public function exec(string $template, string ...$args) : array
+    public function exec(string $template, string ...$args): array
     {
-        return $this->command($template, $args, function(string $cmd) {
+        return $this->command($template, $args, function (string $cmd) {
             exec($cmd, $output, $status);
             return [
                 'output' => $output,
@@ -56,8 +56,7 @@ class Shell
 
         // $this->dump('Status: ' . $return['status']);
 
-        if ($this->options['non_zero_exit'] && $return['status'] !== 0)
-        {
+        if ($this->options['non_zero_exit'] && $return['status'] !== 0) {
             throw new \Exception('Non-zero status', $return['status']);
         }
 

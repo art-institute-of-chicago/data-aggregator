@@ -6,47 +6,22 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class PrototypeSearch extends BaseCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'proto:search';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Output sharable file to demonstrate search boosting modifications';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
-
-        $ret = $this->header("Prototype search boosting");
+        $ret = $this->header('Prototype search boosting');
 
         $ret .= $this->results([
-            "african american",
-            "archibald motley",
+            'african american',
+            'archibald motley',
             "cow's skull",
-            "cats",
-            "nocturne",
-            "walker evans",
+            'cats',
+            'nocturne',
+            'walker evans',
             'nighthawks',
             'the old guitarist',
             'time transfixed',
@@ -108,29 +83,31 @@ class PrototypeSearch extends BaseCommand
 
             '1942.51',
             '1926.224',
-            "1962.824",
-            "1959.615",
-            "2007.347",
+            '1962.824',
+            '1959.615',
+            '2007.347',
         ]);
 
         $ret .= $this->footer();
 
-        print $ret;
+        echo $ret;
     }
 
     public function results($queries = [], $limit = 5)
     {
         $ret = '';
+
         foreach ($queries as $query)
         {
             $ret .= "<h2>{$query}</h2>\n";
-            $response = file_get_contents(config('app.url') .'/api/v1/artworks/search?limit=' .$limit .'&fields=thumbnail,id,title,main_reference_number&q=' .urlencode($query));
+            $response = file_get_contents(config('app.url') . '/api/v1/artworks/search?limit=' . $limit . '&fields=thumbnail,id,title,main_reference_number&q=' . urlencode($query));
 
             $ret .= "<table>\n";
+
             foreach (json_decode($response)->data as $item)
             {
                 $ret .= "<tr class='clickable-row' data-href='http://www-2018.artic.edu/artworks/{$item->id}'>";
-                $ret .= "<td style=\"padding:0 8px\"><img src=\"" .($item->thumbnail->url ?? '') ."/full/75,/0/default.jpg\" /></td>";
+                $ret .= '<td style="padding:0 8px"><img src="' . ($item->thumbnail->url ?? '') . '/full/75,/0/default.jpg" /></td>';
                 $ret .= "<td style=\"padding:0 8px\">{$item->id}</td>";
                 $ret .= "<td style=\"padding:0 8px\">{$item->main_reference_number}</td>";
                 $ret .= "<td style=\"padding:0 8px\">{$item->title}</td>";
@@ -151,8 +128,8 @@ class PrototypeSearch extends BaseCommand
         $ret .= "<style>tr.clickable-row { cursor: pointer; }</style>\n";
         $ret .= "</head>\n";
         $ret .= "<body>\n";
-        if ($title)
-        {
+
+        if ($title) {
             $ret .= "<h1>{$title}</h1>\n";
         }
         return $ret;

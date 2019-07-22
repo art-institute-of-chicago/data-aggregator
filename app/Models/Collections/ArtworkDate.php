@@ -15,23 +15,17 @@ class ArtworkDate extends CollectionsModel
 
     public function artwork()
     {
-
         return $this->belongsTo('App\Models\Collections\Artwork');
-
     }
 
     public function qualifier()
     {
-
         return $this->belongsTo('App\Models\Collections\ArtworkDateQualifier', 'artwork_date_qualifier_citi_id');
-
     }
 
     public function getUpdatedAtColumn()
     {
-
         return 'updated_at';
-
     }
 
 }

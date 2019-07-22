@@ -4,7 +4,6 @@ namespace App\Transformers\Outbound\Collections;
 
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
 
-use App\Transformers\Outbound\Collections\Traits\HasBoosted;
 use App\Transformers\Outbound\HasSuggestFields;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
@@ -22,7 +21,7 @@ class Agent extends BaseTransformer
 
     public function includeSites($agent)
     {
-        return $this->collection($agent->sites, new SiteTransformer, false);
+        return $this->collection($agent->sites, new SiteTransformer(), false);
     }
 
     protected function getTitles()
@@ -77,7 +76,7 @@ class Agent extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
-            'description' =>[
+            'description' => [
                 'doc' => 'A biographical description of the agent',
                 'type' => 'string',
                 'elasticsearch' => 'text',
@@ -152,16 +151,15 @@ class Agent extends BaseTransformer
      *
      * @return array
      */
-    public function getSuggestFields()
+    protected function getSuggestFields()
     {
         $suggestFields = $this->traitGetSuggestFields();
 
-        $newFilter = function($item) {
+        $newFilter = function ($item) {
             return $item->createdArtworks()->count() > 1;
         };
 
-        foreach (['suggest_autocomplete_all', 'suggest_autocomplete_boosted'] as $fieldName)
-        {
+        foreach (['suggest_autocomplete_all', 'suggest_autocomplete_boosted'] as $fieldName) {
             $oldFilter = $suggestFields[$fieldName]['filter'];
             $suggestFields[$fieldName]['filter'] = function ($item) use ($oldFilter, $newFilter) {
                 return $oldFilter($item) && $newFilter($item);
@@ -193,7 +191,7 @@ class Agent extends BaseTransformer
                 'weight' => $item->isBoosted() ? 3 : 2,
                 'contexts' => [
                     'groupings' => [
-                        'title'
+                        'title',
                     ],
                 ],
             ];

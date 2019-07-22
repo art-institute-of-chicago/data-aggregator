@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 app('url')->forceRootUrl(config('aic.proxy_url'));
 app('url')->forceScheme(config('aic.proxy_scheme'));
 
-Route::group(['prefix' => 'v1'], function() {
+Route::group(['prefix' => 'v1'], function () {
 
     Route::any('/', function () {
         return redirect('/api/v1/swagger.json');
@@ -35,14 +35,14 @@ Route::group(['prefix' => 'v1'], function() {
     Route::match(['GET', 'POST'], 'autosuggest', 'SearchController@autocompleteWithSource');
 
     // For debugging search, show generated request
-    if( env('APP_ENV') === 'local' ) {
+    if (env('APP_ENV') === 'local') {
         Route::match(['GET', 'POST'], 'echo', 'SearchController@echo');
         Route::match(['GET', 'POST'], '{resource}/echo', 'SearchController@echo');
         Route::match(['GET', 'POST'], '{resource}/{id}/explain', 'SearchController@explain');
     }
 
     // Define all of our resource routes by looping through config
-    foreach(config('resources.outbound.base') as $resource)
+    foreach (config('resources.outbound.base') as $resource)
     {
         if (!isset($resource['endpoint']))
         {
@@ -54,8 +54,8 @@ Route::group(['prefix' => 'v1'], function() {
 
         $controller = $isRestricted ? 'RestrictedResourceController' : 'ResourceController';
 
-        Route::any($resource['endpoint'], $controller .'@' . ($isScoped ? 'indexScope' : 'index'));
-        Route::any($resource['endpoint'] . '/{id}', $controller .'@' . ($isScoped ? 'showScope' : 'show'));
+        Route::any($resource['endpoint'], $controller . '@' . ($isScoped ? 'indexScope' : 'index'));
+        Route::any($resource['endpoint'] . '/{id}', $controller . '@' . ($isScoped ? 'showScope' : 'show'));
     }
 
 });

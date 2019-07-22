@@ -7,16 +7,6 @@ use Illuminate\Support\ServiceProvider;
 class FakerServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
-
-    /**
      * Register the Faker application service.
      *
      * Peruse the following link for tips on implementing custom Faker providers:
@@ -26,8 +16,7 @@ class FakerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
-        $this->app->singleton('Faker', function($app) {
+        $this->app->singleton('Faker', function ($app) {
 
             $faker = \Faker\Factory::create();
 
@@ -37,7 +26,7 @@ class FakerServiceProvider extends ServiceProvider
                 // Used in Collections\Artwork and Dsc\Section
                 public function accession()
                 {
-                    return strval( $this->generator->randomFloat(3, 1900, 2018) );
+                    return (string) ($this->generator->randomFloat(3, 1900, 2018));
                 }
 
             };
@@ -48,13 +37,11 @@ class FakerServiceProvider extends ServiceProvider
 
         });
 
-
         // This forces factories to use our enhanced Faker by default
-        $this->app->singleton('Faker\Generator', function($app) {
+        $this->app->singleton('Faker\Generator', function ($app) {
 
             return app('Faker');
 
         });
-
     }
 }

@@ -19,15 +19,13 @@ class Gallery extends CollectionsModel
         'is_closed' => 'boolean',
     ];
 
-    protected $touches =[
+    protected $touches = [
         'artworks',
     ];
 
     public function artworks()
     {
-
         return $this->hasMany('App\Models\Collections\Artwork');
-
     }
 
 }

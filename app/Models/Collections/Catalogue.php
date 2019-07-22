@@ -14,9 +14,7 @@ class Catalogue extends CollectionsModel
 
     public function artworks()
     {
-
         return $this->belongsToMany('App\Models\Collections\Artwork');
-
     }
 
 }

@@ -14,39 +14,34 @@ trait HasRelationships
      */
     public function preferred($resource = 'term', $type = '', $typeField = 'type')
     {
-
         $resources = $this->relatedResources($resource, $type, $typeField);
 
-        if (!$resources) return [];
+        if (!$resources) {
+            return [];
+        }
 
         $resources_ids = $this->relatedIds($resources);
 
-        $this->loadMissing($resource .'Pivots');
+        $this->loadMissing($resource . 'Pivots');
 
         // Loop through all the term pivot models, only look at the ones
         // of the specified type, and return the preferred one
-        foreach ($this->{$resource .'Pivots'} as $pivot)
+        foreach ($this->{$resource . 'Pivots'} as $pivot)
         {
-
             $key = $pivot->{$resource}()->getForeignKeyName();
+
             if (in_array($pivot->{$key}, $resources_ids))
             {
-
                 if ($pivot->preferred)
                 {
-
                     return head(Arr::where($resources, function ($value) use ($pivot, $key) {
-                        return $value->getKey() == $pivot->{$key};
+                        return $value->getKey() === $pivot->{$key};
                     }));
-
                 }
-
             }
-
         }
 
         return null;
-
     }
 
     /**
@@ -55,40 +50,36 @@ trait HasRelationships
      */
     public function alts($resource, $type = '', $typeField = 'type')
     {
-
         $resources = $this->relatedResources($resource, $type, $typeField);
 
-        if (!$resources) return [];
+        if (!$resources) {
+            return [];
+        }
 
         $resources_ids = $this->relatedIds($resources);
 
-        $this->loadMissing($resource .'Pivots');
+        $this->loadMissing($resource . 'Pivots');
 
         // Loop through all the term pivot models, only look at the ones
         // of the specified type, and return an array of the non-preferred ones
         $ret = [];
-        foreach ($this->{$resource .'Pivots'} as $pivot)
-        {
 
+        foreach ($this->{$resource . 'Pivots'} as $pivot)
+        {
             $key = $pivot->{$resource}()->getForeignKeyName();
+
             if (in_array($pivot->{$key}, $resources_ids))
             {
-
                 if (!$pivot->preferred)
                 {
-
                     $ret[] = head(Arr::where($resources, function ($value) use ($pivot, $key) {
-                        return $value->getKey() == $pivot->{$key};
+                        return $value->getKey() === $pivot->{$key};
                     }));
-
                 }
-
             }
-
         }
 
         return $ret;
-
     }
 
     /**
@@ -99,53 +90,39 @@ trait HasRelationships
      */
     private function relatedResources($resource, $type, $typeField = 'type')
     {
-
         // If no type is passed return an empty array
-        if (!$resource)
-        {
-
+        if (!$resource) {
             return [];
-
         }
 
         $this->loadMissing(Str::plural($resource));
 
-        if (!$type)
-        {
+        if (!$type) {
             return $this->{Str::plural($resource)}->all();
         }
 
         // Loop through all the resources, and return just the ones of the specified type
         $ret = [];
+
         foreach ($this->{Str::plural($resource)} as $res)
         {
-
-            if ($res->{$typeField} == $type)
+            if ($res->{$typeField} === $type)
             {
-
                 $ret[] = $res;
-
             }
-
         }
 
         return $ret;
-
     }
 
     private function relatedIds($resources)
     {
-
-        if ($resources)
-        {
-
+        if ($resources) {
             $key = head($resources)->getKeyName();
             return Arr::pluck($resources, $key);
-
         }
 
         return [];
-
     }
 
 }

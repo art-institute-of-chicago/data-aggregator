@@ -1,7 +1,7 @@
 # editorconfig.org
 root = true
 
-[*.{js,json,scss,php}]
+[*.{js,json,scss,php,php_cs*}]
 indent_style = space
 indent_size = 4
 end_of_line = lf

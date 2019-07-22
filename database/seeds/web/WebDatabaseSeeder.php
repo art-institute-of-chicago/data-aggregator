@@ -22,7 +22,6 @@ class WebDatabaseSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
         $this->call(TagsTableSeeder::class);
         $this->call(LocationsTableSeeder::class);
         $this->call(HoursTableSeeder::class);
@@ -39,12 +38,10 @@ class WebDatabaseSeeder extends AbstractSeeder
         $this->call(EducatorResourcesTableSeeder::class);
         $this->call(DigitalCatalogsTableSeeder::class);
         $this->call(PrintedCatalogsTableSeeder::class);
-
     }
 
     protected static function unseed()
     {
-
         Tag::fake()->delete();
         Location::fake()->delete();
         Hour::fake()->delete();
@@ -61,7 +58,6 @@ class WebDatabaseSeeder extends AbstractSeeder
         EducatorResource::fake()->delete();
         DigitalCatalog::fake()->delete();
         PrintedCatalog::fake()->delete();
-
     }
 
 }

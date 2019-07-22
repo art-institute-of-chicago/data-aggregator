@@ -8,13 +8,11 @@ use App\Transformers\Inbound\WebTransformer;
 class EventProgram extends WebTransformer
 {
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
-
         return [
             'title' => $datum->name,
         ];
-
     }
 
 }

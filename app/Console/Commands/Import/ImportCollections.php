@@ -9,30 +9,21 @@ class ImportCollections extends ImportCollectionsFull
                             {endpoint? : Endpoint on dataservice to query, e.g. `object-types`}
                             {--since= : How far back to scan for records}';
 
-    protected $description = "Import collections data that has been updated since the last import";
-
+    protected $description = 'Import collections data that has been updated since the last import';
 
     protected $isPartial = true;
 
-
     public function handle()
     {
-
         $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
 
         $endpoint = $this->argument('endpoint');
 
-        if ($endpoint)
-        {
-
+        if ($endpoint) {
             $this->importEndpoint($endpoint);
-
         } else {
-
             $this->importEndpoints();
-
         }
-
     }
 
 }

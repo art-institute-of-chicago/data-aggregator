@@ -8,8 +8,8 @@ namespace App\Models\Collections;
 class Sound extends Asset
 {
 
-    protected $table = 'assets';
-
     protected static $assetType = 'sound';
+
+    protected $table = 'assets';
 
 }

@@ -7,9 +7,7 @@ class LibraryTermSeeder extends AbstractSeeder
 
     public function seed()
     {
-
-        factory( Term::class, 10 )->create();
-
+        factory(Term::class, 10)->create();
     }
 
 }

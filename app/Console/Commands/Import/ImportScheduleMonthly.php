@@ -11,10 +11,8 @@ class ImportScheduleMonthly extends BaseCommand
 
     protected $description = 'Do a full refresh on some hefty, infrequently updated sources.';
 
-
     public function handle()
     {
-
         $this->call('import:ulan');
         $this->call('import:analytics');
 
@@ -22,7 +20,6 @@ class ImportScheduleMonthly extends BaseCommand
         $this->call('import:archive', ['--yes' => 'default']);
         $this->call('import:sites', ['--yes' => 'default']);
         $this->call('import:dsc', ['--yes' => 'default']);
-
     }
 
 }

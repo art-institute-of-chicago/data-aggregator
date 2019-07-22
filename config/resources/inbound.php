@@ -183,7 +183,7 @@ return [
         // TODO: Consider deleting until needed.
         'hours' => [
             'model' => \App\Models\Web\Hour::class,
-            'transformer' => \App\Transformers\Inbound\Web\Hour::class
+            'transformer' => \App\Transformers\Inbound\Web\Hour::class,
         ],
         // TODO: Consider deleting until needed.
         'locations' => [
@@ -192,7 +192,7 @@ return [
         ],
         'selections' => [
             'model' => \App\Models\Web\Selection::class,
-            'transformer' => \App\Transformers\Inbound\Web\Selection::class
+            'transformer' => \App\Transformers\Inbound\Web\Selection::class,
         ],
         // TODO: This is empty and has no stakeholders. Let's delete.
         'tags' => [

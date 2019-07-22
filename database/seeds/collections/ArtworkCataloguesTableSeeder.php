@@ -6,20 +6,7 @@ use App\Models\Collections\ArtworkCatalogue;
 class ArtworkCataloguesTableSeeder extends AbstractSeeder
 {
 
-    protected function seed()
-    {
-
-        $artworks = Artwork::fake()->get();
-
-        foreach ($artworks as $artwork) {
-
-            $this->seedCatalogues( $artwork );
-
-        }
-
-    }
-
-    public function seedCatalogues( $artwork )
+    public function seedCatalogues($artwork)
     {
 
         // There's a non-exclusive, many-to-many relationship b/w catalogues and artworks
@@ -27,7 +14,7 @@ class ArtworkCataloguesTableSeeder extends AbstractSeeder
 
         // We shouldn't receive catalogues that aren't assoc. w/ artworks
 
-        $catalogues = factory( ArtworkCatalogue::class, rand(2,4) )->create([
+        $catalogues = factory(ArtworkCatalogue::class, rand(2, 4))->create([
             'artwork_citi_id' => $artwork->getKey(),
             'preferred' => false,
         ]);
@@ -35,7 +22,17 @@ class ArtworkCataloguesTableSeeder extends AbstractSeeder
         $catalogue = $catalogues->random();
         $catalogue->preferred = true;
         $catalogue->save();
+    }
 
+    protected function seed()
+    {
+        $artworks = Artwork::fake()->get();
+
+        foreach ($artworks as $artwork) {
+
+            $this->seedCatalogues($artwork);
+
+        }
     }
 
 }

@@ -7,7 +7,7 @@ class ArtworkPlaceQualifierTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-        factory( ArtworkPlaceQualifierTableSeeder::class, 10 )->create();
+        factory(ArtworkPlaceQualifierTableSeeder::class, 10)->create();
     }
 
 }

@@ -17,30 +17,22 @@ class ArtworkPlacePivot extends BasePivot
 
     public function artwork()
     {
-
         return $this->belongsTo('App\Models\Collections\Artwork');
-
     }
 
     public function place()
     {
-
         return $this->belongsTo('App\Models\Collections\Place');
-
     }
 
     public function qualifier()
     {
-
         return $this->belongsTo('App\Models\Collections\ArtworkPlaceQualifier', 'artwork_place_qualifier_citi_id');
-
     }
 
     public function getUpdatedAtColumn()
     {
-
         return 'updated_at';
-
     }
 
 }

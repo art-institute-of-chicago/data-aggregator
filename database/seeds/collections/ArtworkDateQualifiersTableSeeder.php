@@ -7,7 +7,7 @@ class ArtworkDateQualifersTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-        factory( ArtworkDateQualifer::class, 25 )->create();
+        factory(ArtworkDateQualifer::class, 25)->create();
     }
 
 }

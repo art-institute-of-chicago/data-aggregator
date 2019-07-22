@@ -10,24 +10,16 @@ use Illuminate\Support\Arr;
 
 class PrototypeMostSimilar extends BaseCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'proto:most-similar';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Output sharable file to demonstrate list of artworks "most similar" to another artwork';
 
-    protected $fields = ['thumbnail','id','title','main_reference_number',
-                         'artist_id','style_ids','classification_ids',
-                         'date_start','date_end',
-                         'color',
+    protected $fields = [
+        'thumbnail', 'id', 'title', 'main_reference_number',
+        'artist_id', 'style_ids', 'classification_ids',
+        'date_start', 'date_end',
+        'color',
     ];
 
     protected $size = 12;
@@ -62,51 +54,37 @@ class PrototypeMostSimilar extends BaseCommand
         1980,
         1990,
         2000,
-        2010];
+        2010,
+    ];
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
-
-        $ret = $this->header("Prototype most similar");
+        $ret = $this->header('Prototype most similar');
 
         $ret .= $this->results([
-            27992 => "La Grande Jatte",
-            20684 => "Paris Street",
-            64818 => "Stacks of Wheat",
-            16568 => "Water Lillies",
-            14655 => "Two Sisters",
-            15468 => "Saint George and the Dragon",
-            46327 => "Black Cross",
-            86780 => "Mother and Child",
-            52983 => "The Past and the Present",
+            27992 => 'La Grande Jatte',
+            20684 => 'Paris Street',
+            64818 => 'Stacks of Wheat',
+            16568 => 'Water Lillies',
+            14655 => 'Two Sisters',
+            15468 => 'Saint George and the Dragon',
+            46327 => 'Black Cross',
+            86780 => 'Mother and Child',
+            52983 => 'The Past and the Present',
         ]);
 
         $ret .= $this->footer();
 
-        print $ret;
+        echo $ret;
     }
 
     public function results($artworkIds = [], $limit = 5)
     {
         $ret = '';
+
         foreach ($artworkIds as $id => $name)
         {
-            $ret .= "<h2><a href=\"" .env('WEBSITE_ROOT') ."/artworks/{$id}\">{$name}</a></h2>\n";
+            $ret .= '<h2><a href="' . env('WEBSITE_ROOT') . "/artworks/{$id}\">{$name}</a></h2>\n";
 
             $artw = Artwork::find($id);
             $responses = $this->query($artw);
@@ -115,15 +93,17 @@ class PrototypeMostSimilar extends BaseCommand
             $ret .= "<table>\n";
 
             $count = 0;
+
             foreach ($responses as $response)
             {
                 $countForCurrentQuery = 0;
+
                 foreach ($response->data as $item)
                 {
                     if (!in_array($item->id, $ids))
                     {
                         $ret .= "<tr class='clickable-row' data-href='http://www-2018.artic.edu/artworks/{$item->id}'>";
-                        $ret .= "<td style=\"padding:0 8px\"><img src=\"" .($item->thumbnail->url ?? '') ."/full/75,/0/default.jpg\" /></td>";
+                        $ret .= '<td style="padding:0 8px"><img src="' . ($item->thumbnail->url ?? '') . '/full/75,/0/default.jpg" /></td>';
                         $ret .= "<td style=\"padding:0 8px\">{$item->id}</td>";
                         $ret .= "<td style=\"padding:0 8px\">{$item->main_reference_number}</td>";
                         $ret .= "<td style=\"padding:0 8px\">{$item->title}</td>";
@@ -132,12 +112,12 @@ class PrototypeMostSimilar extends BaseCommand
                         $ids[] = $item->id;
                         $count++;
                         $countForCurrentQuery++;
-                        if ($count == $this->size)
-                        {
+
+                        if ($count === $this->size) {
                             break 2;
                         }
-                        if ($countForCurrentQuery == $this->sizeRenderPerQuery)
-                        {
+
+                        if ($countForCurrentQuery === $this->sizeRenderPerQuery) {
                             break;
                         }
                     }
@@ -155,10 +135,12 @@ class PrototypeMostSimilar extends BaseCommand
         $ret = '';
         $date_start = $this->dateStart($artw->date_start);
         $date_end = $this->dateEnd($artw->date_start);
-        if ($item->artist_id == $artw->artist->citi_id) {
+
+        if ($item->artist_id === $artw->artist->citi_id) {
             $ret ? $ret .= ', ' : '';
             $ret .= 'Same artist';
         }
+
         foreach ($item->style_ids as $style) {
             if (in_array($style, Arr::pluck($artw->styles, 'lake_uid'))) {
                 $ret ? $ret .= ', ' : '';
@@ -166,6 +148,7 @@ class PrototypeMostSimilar extends BaseCommand
                 break;
             }
         }
+
         foreach ($item->classification_ids as $classification) {
             if (in_array($classification, Arr::pluck($artw->classifications, 'lake_uid'))) {
                 $ret ? $ret .= ', ' : '';
@@ -173,17 +156,21 @@ class PrototypeMostSimilar extends BaseCommand
                 break;
             }
         }
+
         if ($item->date_start >= $date_start && $item->date_end <= $date_end) {
             $ret ? $ret .= ', ' : '';
             $ret .= 'Similar point in time';
         }
+
         if ($artw->image && $artw->image->metadata && $artw->image->metadata->color && $item->color
             && in_array($item->color->h, range($artw->image->metadata->color->h - 5, $artw->image->metadata->color->h + 5))
             && in_array($item->color->s, range($artw->image->metadata->color->s - 5, $artw->image->metadata->color->s + 5))
-            && in_array($item->color->l, range($artw->image->metadata->color->l - 5, $artw->image->metadata->color->l + 5))) {
+            && in_array($item->color->l, range($artw->image->metadata->color->l - 5, $artw->image->metadata->color->l + 5))
+        ) {
             $ret ? $ret .= ', ' : '';
             $ret .= 'Similar color';
         }
+
         return $ret;
     }
 
@@ -195,10 +182,11 @@ class PrototypeMostSimilar extends BaseCommand
         $ret .= "<style>tr.clickable-row { cursor: pointer; }</style>\n";
         $ret .= "</head>\n";
         $ret .= "<body>\n";
-        if ($title)
-        {
+
+        if ($title) {
             $ret .= "<h1>{$title}</h1>\n";
         }
+
         return $ret;
     }
 
@@ -216,10 +204,8 @@ class PrototypeMostSimilar extends BaseCommand
 
     public function dateStart($date)
     {
-        foreach ($this->increments as $year)
-        {
-            if ($year > $date)
-            {
+        foreach ($this->increments as $year) {
+            if ($year > $date) {
                 return $prev;
             }
             $prev = $year;
@@ -228,10 +214,8 @@ class PrototypeMostSimilar extends BaseCommand
 
     public function dateEnd($date)
     {
-        foreach ($this->increments as $year)
-        {
-            if ($year > $date)
-            {
+        foreach ($this->increments as $year) {
+            if ($year > $date) {
                 return $year;
             }
         }
@@ -262,6 +246,7 @@ class PrototypeMostSimilar extends BaseCommand
             ];
             $ret = array_merge($ret, $this->curl($query));
         }
+
         return $ret;
     }
 
@@ -270,13 +255,14 @@ class PrototypeMostSimilar extends BaseCommand
         $queryString = json_encode($query);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, config('app.url') ."/api/v1/msearch");
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+
+        curl_setopt($ch, CURLOPT_URL, config('app.url') . '/api/v1/msearch');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $queryString);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-            'Content-Length: ' . strlen($queryString)
+            'Content-Length: ' . strlen($queryString),
         ]);
 
         $contents = curl_exec($ch);
@@ -285,54 +271,54 @@ class PrototypeMostSimilar extends BaseCommand
         if (is_null($contents)) {
             throw new \Exception("Can't get artwork: " . $artw->citi_id);
         }
-        return json_decode($contents);
 
+        return json_decode($contents);
     }
 
     protected function basicQuery($field, $value)
     {
-        if (!$value)
-        {
+        if (!$value) {
             return [];
         }
+
         return [
-            "resources" => "artworks",
-            "query" => [
-                "term" => [
+            'resources' => 'artworks',
+            'query' => [
+                'term' => [
                     $field => $value,
                 ],
             ],
-            "fields" => $this->fields,
-            "size" => $this->size,
+            'fields' => $this->fields,
+            'size' => $this->size,
         ];
     }
 
     protected function dateQuery($date_start, $date_end)
     {
         return [
-            "resources" => "artworks",
-            "query" => [
-                "bool" => [
-                    "must" => [
+            'resources' => 'artworks',
+            'query' => [
+                'bool' => [
+                    'must' => [
                         [
-                            "range" => [
-                                "date_start" => [
-                                    "gte" => $date_start
-                                ]
-                            ]
+                            'range' => [
+                                'date_start' => [
+                                    'gte' => $date_start,
+                                ],
+                            ],
                         ],
                         [
-                            "range" => [
-                                "date_end" => [
-                                    "lte" => $date_end
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                            'range' => [
+                                'date_end' => [
+                                    'lte' => $date_end,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
-            "fields" => $this->fields,
-            "size" => $this->size,
+            'fields' => $this->fields,
+            'size' => $this->size,
         ];
     }
 
@@ -341,40 +327,41 @@ class PrototypeMostSimilar extends BaseCommand
         if (!$color) {
             return [];
         }
+
         return [
-            "resources" => "artworks",
-            "query" => [
-                "bool" => [
-                    "must" => [
+            'resources' => 'artworks',
+            'query' => [
+                'bool' => [
+                    'must' => [
                         [
-                            "range" => [
-                                "color.h" => [
-                                    "gte" => ($color->h - 5),
-                                    "lte" => ($color->h + 5),
-                                ]
-                            ]
+                            'range' => [
+                                'color.h' => [
+                                    'gte' => ($color->h - 5),
+                                    'lte' => ($color->h + 5),
+                                ],
+                            ],
                         ],
                         [
-                            "range" => [
-                                "color.s" => [
-                                    "gte" => ($color->s - 5),
-                                    "lte" => ($color->s + 5),
-                                ]
-                            ]
+                            'range' => [
+                                'color.s' => [
+                                    'gte' => ($color->s - 5),
+                                    'lte' => ($color->s + 5),
+                                ],
+                            ],
                         ],
                         [
-                            "range" => [
-                                "color.l" => [
-                                    "gte" => ($color->l - 5),
-                                    "lte" => ($color->l + 5),
-                                ]
-                            ]
-                        ]
+                            'range' => [
+                                'color.l' => [
+                                    'gte' => ($color->l - 5),
+                                    'lte' => ($color->l + 5),
+                                ],
+                            ],
+                        ],
                     ],
                 ],
             ],
-            "fields" => $this->fields,
-            "size" => $this->size,
+            'fields' => $this->fields,
+            'size' => $this->size,
         ];
     }
 }

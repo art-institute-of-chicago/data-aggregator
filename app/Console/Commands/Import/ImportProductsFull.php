@@ -11,25 +11,21 @@ class ImportProductsFull extends AbstractImportCommand
     protected $signature = 'import:products-full
                             {--y|yes : Answer "yes" to all prompts}';
 
-    protected $description = "Import all product data";
+    protected $description = 'Import all product data';
 
     public function handle()
     {
-
         $this->api = env('SHOP_DATA_SERVICE_URL');
 
-        if( !$this->reset() )
-        {
+        if (!$this->reset()) {
             return false;
         }
 
         $this->importResources();
-
     }
 
     protected function reset()
     {
-
         return $this->resetData(
             [
                 Product::class,
@@ -40,15 +36,12 @@ class ImportProductsFull extends AbstractImportCommand
                 'shop_categories',
             ]
         );
-
     }
 
     protected function importResources()
     {
-
-        $this->import( 'Shop', Product::class, 'products' );
-        $this->import( 'Shop', Category::class, 'categories' );
-
+        $this->import('Shop', Product::class, 'products');
+        $this->import('Shop', Category::class, 'categories');
     }
 
 }

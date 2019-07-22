@@ -18,12 +18,10 @@ class ScoutTest extends BaseCommand
 
         $models = app('Search')->getSearchableModels();
 
-        foreach ($models as $model)
-        {
+        foreach ($models as $model) {
             $this->testSearchable($model);
         }
     }
-
 
     public function testSearchable($model)
     {

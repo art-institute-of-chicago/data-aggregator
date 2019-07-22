@@ -31,7 +31,7 @@ class DeleteCollections extends AbstractImportCommand
 
         // Assumes the dataservice has standardized pagination
         $total = $json->pagination->total;
-        $totalPages = ceil($total/$this->chunkSize);
+        $totalPages = ceil($total / $this->chunkSize);
 
         for ($currentPage = 1; $currentPage <= $totalPages; $currentPage++)
         {
@@ -87,9 +87,9 @@ class DeleteCollections extends AbstractImportCommand
             ]);
 
             $contents = file_get_contents($url, false, stream_context_create([
-              'http'=> [
-                  'timeout' => 10,
-              ]
+                'http' => [
+                    'timeout' => 10,
+                ],
             ]));
 
             $json = json_decode($contents);

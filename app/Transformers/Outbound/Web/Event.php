@@ -3,10 +3,9 @@
 namespace App\Transformers\Outbound\Web;
 
 use App\Models\Web\EventProgram;
-use App\Transformers\Outbound\Web\Sponsor;
+use App\Transformers\Outbound\Web\Sponsor as SponsorTransformer;
 use App\Transformers\Outbound\Web\Traits\HasPublishDates;
 use App\Transformers\Outbound\Web\Traits\HasSearchTags;
-
 
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
@@ -23,12 +22,12 @@ class Event extends BaseTransformer
 
     public function includeEmailSeriesPivots($event)
     {
-        return $this->collection($event->emailSeriesPivots, new EventEmailSeriesPivot, false);
+        return $this->collection($event->emailSeriesPivots, new EventEmailSeriesPivot(), false);
     }
 
     public function includeSponsor($event)
     {
-        return $this->item($event->sponsor, new Sponsor, false);
+        return $this->item($event->sponsor, new SponsorTransformer(), false);
     }
 
     protected function getTitles()

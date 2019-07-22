@@ -43,6 +43,17 @@ class CreateMembershipTables extends Migration
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('ticketed_events');
+        Schema::dropIfExists('ticketed_event_types');
+    }
+
     private function _addIdsAndTitle($table)
     {
         $table->integer('membership_id')->unsigned()->primary();
@@ -56,17 +67,6 @@ class CreateMembershipTables extends Migration
         $table->timestamp('source_modified_at')->nullable();
         $table->timestamps();
         return $table;
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('ticketed_events');
-        Schema::dropIfExists('ticketed_event_types');
     }
 
 }

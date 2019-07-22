@@ -13,44 +13,27 @@ class ImportSites extends AbstractImportCommand
     protected $signature = 'import:sites
                             {--y|yes : Answer "yes" to all prompts}';
 
-    protected $description = "Import all historic microsites";
-
+    protected $description = 'Import all historic microsites';
 
     public function handle()
     {
-
-        if( !$this->reset() )
-        {
+        if (!$this->reset()) {
             return false;
         }
 
-        $contents = $this->fetch( env('STATIC_ARCHIVE_JSON') );
+        $contents = $this->fetch(env('STATIC_ARCHIVE_JSON'));
 
         Storage::disk('local')->put('archive.json', $contents);
 
         $contents = Storage::get('archive.json');
 
-        $results = json_decode( $contents );
+        $results = json_decode($contents);
 
-        $this->importSites( $results->data );
-
-    }
-
-    private function importSites( $results )
-    {
-
-        $this->info("Importing static sites");
-
-        foreach( $results as $datum )
-        {
-            $this->save( $datum, Site::class, SiteTransformer::class );
-        }
-
+        $this->importSites($results->data);
     }
 
     protected function reset()
     {
-
         return $this->resetData(
             [
                 Site::class,
@@ -62,7 +45,15 @@ class ImportSites extends AbstractImportCommand
                 'sites',
             ]
         );
+    }
 
+    private function importSites($results)
+    {
+        $this->info('Importing static sites');
+
+        foreach ($results as $datum) {
+            $this->save($datum, Site::class, SiteTransformer::class);
+        }
     }
 
 }

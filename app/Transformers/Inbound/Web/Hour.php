@@ -8,13 +8,11 @@ use App\Transformers\Inbound\WebTransformer;
 class Hour extends WebTransformer
 {
 
-    protected function getTitle( Datum $datum )
+    protected function getTitle(Datum $datum)
     {
-
         return [
             'title' => $datum->id,
         ];
-
     }
 
 }

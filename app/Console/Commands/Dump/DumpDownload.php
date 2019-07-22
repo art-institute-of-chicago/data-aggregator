@@ -2,11 +2,6 @@
 
 namespace App\Console\Commands\Dump;
 
-use Illuminate\Support\Facades\DB;
-use League\Csv\Writer;
-use Exception;
-use Throwable;
-
 class DumpDownload extends AbstractDumpCommand
 {
 
@@ -16,18 +11,15 @@ class DumpDownload extends AbstractDumpCommand
 
     public function handle()
     {
-
         $this->validateEnv(['DUMP_REPO_REMOTE']);
 
         $repoRemote = env('DUMP_REPO_REMOTE');
         $repoPath = $this->getDumpPath('remote');
 
-        if (file_exists($repoPath) && !file_exists($repoPath . '/.git'))
-        {
+        if (file_exists($repoPath) && !file_exists($repoPath . '/.git')) {
             $this->warn($repoPath . ' exists, but is not a git repository.');
 
-            if (!$this->confirm('OK to remove existing directory?'))
-            {
+            if (!$this->confirm('OK to remove existing directory?')) {
                 $this->warn('Aborting. Please provide path to repo.');
                 exit(1);
             }
@@ -35,8 +27,7 @@ class DumpDownload extends AbstractDumpCommand
             $this->shell->passthru('rm -r %s', $repoPath);
         }
 
-        if (!file_exists($repoPath))
-        {
+        if (!file_exists($repoPath)) {
             $this->shell->passthru('git clone %s %s', $repoRemote, $repoPath);
         }
 

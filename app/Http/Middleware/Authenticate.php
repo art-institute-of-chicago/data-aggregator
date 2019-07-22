@@ -14,7 +14,6 @@ class Authenticate extends Middleware
      * what they can see and do.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  array  $guards
      * @return void
      *
      * @throws \Illuminate\Auth\AuthenticationException
@@ -29,13 +28,14 @@ class Authenticate extends Middleware
             if ($this->auth->guard($guard)->check()) {
                 return $this->auth->shouldUse($guard);
             }
-            else {
-                return null;
-            }
+
+            return null;
         }
 
         throw new AuthenticationException(
-            'Unauthenticated.', $guards, $this->redirectTo($request)
+            'Unauthenticated.',
+            $guards,
+            $this->redirectTo($request)
         );
     }
 
@@ -47,7 +47,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
+        if (!$request->expectsJson()) {
             return route('login');
         }
     }

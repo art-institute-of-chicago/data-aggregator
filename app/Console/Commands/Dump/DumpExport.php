@@ -29,8 +29,7 @@ class DumpExport extends AbstractDumpCommand
         // Ensure all tables are ready for export
         $tables = $this->getPreparedTables();
 
-        foreach($tables as $table)
-        {
+        foreach ($tables as $table) {
             $csvPart = 1;
             $csvPath = $dumpPath . $table['name'] . '.csv';
 
@@ -43,17 +42,16 @@ class DumpExport extends AbstractDumpCommand
             // Chunking requires us to set orderBy, so we use our primary key column(s)
             $query = DB::table($table['name']);
 
-            foreach ($table['keyColumns'] as $column)
-            {
+            foreach ($table['keyColumns'] as $column) {
                 $query->orderBy($column);
             }
 
             // TODO: Consider moving some of these to instance variables?
-            $query->chunk(100, function($items) use (&$csv, &$csvPart, $dumpPath, $csvPath, $bar, $table) {
+            $query->chunk(100, function ($items) use (&$csv, &$csvPart, $dumpPath, $csvPath, $bar, $table) {
 
                 // Unfortunately there's no way to set PDO::FETCH_ASSOC
                 // https://github.com/laravel/framework/issues/17557
-                $items = $items->map(function($item) {
+                $items = $items->map(function ($item) {
                     return (array) $item;
                 });
 
@@ -61,6 +59,7 @@ class DumpExport extends AbstractDumpCommand
                 $bar->advance($items->count());
 
                 clearstatcache();
+
                 if (filesize($csvPath) > $this->maxCsvFileSize) {
                     rename($csvPath, $dumpPath . $table['name'] . '-' . $csvPart . '.csv');
                     $csv = $this->getNewWriter($csvPath, $table['allColumns']);
@@ -75,7 +74,6 @@ class DumpExport extends AbstractDumpCommand
                 rename($csvPath, $dumpPath . $table['name'] . '-' . $csvPart . '.csv');
             }
         }
-
     }
 
     private function getNewWriter($csvPath, $header)
@@ -87,8 +85,7 @@ class DumpExport extends AbstractDumpCommand
 
     private function getPreparedTables()
     {
-
-        return collect($this->whitelistedTables)->map( function($tableName) {
+        return collect($this->whitelistedTables)->map(function ($tableName) {
 
             $prefixedTableName = DB::getTablePrefix() . $tableName;
 
@@ -100,13 +97,9 @@ class DumpExport extends AbstractDumpCommand
             $table = DB::connection()->getDoctrineSchemaManager()->listTableDetails($prefixedTableName);
 
             try {
-
                 $keyColumns = $table->getPrimaryKey()->getColumns();
-
             } catch (Throwable $e) {
-
                 throw new Exception('Primary key missing in table ' . $prefixedTableName);
-
             }
 
             return [
@@ -115,9 +108,7 @@ class DumpExport extends AbstractDumpCommand
                 'keyColumns' => $keyColumns,
                 'count' => DB::table($tableName)->count(),
             ];
-
         });
-
     }
 
 }

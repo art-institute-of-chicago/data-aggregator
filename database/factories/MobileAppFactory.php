@@ -10,26 +10,20 @@
 |
 */
 
-if (!function_exists('mobileAppIdsAndTitle'))
-{
+if (!function_exists('mobileAppIdsAndTitle')) {
     function mobileAppIdsAndTitle($faker, $title = '')
     {
-
         return [
             'mobile_id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
             'title' => $title ? $title : ucfirst($faker->words(3, true)),
         ];
-
     }
-
 }
-
 
 $factory->define(App\Models\Mobile\Artwork::class, function (Faker\Generator $faker) {
     static $artworks;
 
-    if (!$artworks)
-    {
+    if (!$artworks) {
         $artworks = App\Models\Collections\Artwork::fake()->pluck('citi_id')->all();
     }
 
@@ -69,8 +63,7 @@ $factory->define(App\Models\Mobile\Tour::class, function (Faker\Generator $faker
 $factory->define(App\Models\Mobile\TourStop::class, function (Faker\Generator $faker) {
     static $artworks;
 
-    if (!$artworks)
-    {
+    if (!$artworks) {
         $artworks = App\Models\Collections\Artwork::fake()->pluck('citi_id')->all();
     }
 

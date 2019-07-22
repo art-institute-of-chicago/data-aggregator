@@ -43,7 +43,20 @@ class CreateDigitalLabelsExhibitionsTables extends Migration
             $table->integer('digital_label_id')->unsigned()->index();
             $table->integer('agent_citi_id')->index();
         });
-}
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('digital_label_exhibitions');
+        Schema::dropIfExists('digital_labels');
+        Schema::dropIfExists('artwork_digital_label');
+        Schema::dropIfExists('artist_digital_label');
+    }
 
     private function _addIdsAndTitle($table)
     {
@@ -58,18 +71,5 @@ class CreateDigitalLabelsExhibitionsTables extends Migration
         $table->timestamp('source_modified_at')->nullable()->useCurrent();
         $table->timestamps();
         return $table;
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('digital_label_exhibitions');
-        Schema::dropIfExists('digital_labels');
-        Schema::dropIfExists('artwork_digital_label');
-        Schema::dropIfExists('artist_digital_label');
     }
 }

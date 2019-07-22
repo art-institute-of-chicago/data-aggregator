@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 trait Factory
 {
 
-
     protected $times = 1;
     protected $ids = [];
     protected $attachTypes = [];
@@ -21,10 +20,9 @@ trait Factory
         return $this;
     }
 
-    protected function attach($types, $times = 1, $relation = '', $fields = []) {
-
-        if( !is_array($types) )
-        {
+    protected function attach($types, $times = 1, $relation = '', $fields = [])
+    {
+        if (!is_array($types)) {
             $types = [$types];
         }
 
@@ -33,59 +31,40 @@ trait Factory
         $this->attachRelation = $relation;
         $this->attachFields = $fields;
         return $this;
-
     }
 
     protected function make($type, $fields = [])
     {
-
-        while ($this->times-- > 0) {
-
+        while ($this->times-- > 0)
+        {
             $model = factory($type)->create($fields);
 
             if ($this->attachTypes)
             {
-
                 while ($this->attachTimes-- > 0)
                 {
-
                     foreach ($this->attachTypes as $attachType)
                     {
-
                         $class = $this->classFrom($attachType);
 
                         $relation = $this->attachRelation ? $this->attachRelation : lcfirst(Str::plural($class));
 
                         $attach = factory($attachType)->create($this->attachFields);
 
-                        if ($model->$relation() instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo)
-                        {
-
-                            $model->$relation()->associate($attach);
-
+                        if ($model->{$relation}() instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo) {
+                            $model->{$relation}()->associate($attach);
+                        } elseif ($model->{$relation}() instanceof \Illuminate\Database\Eloquent\Relations\HasMany) {
+                            $model->{$relation}()->save($attach);
+                        } else {
+                            $model->{$relation}()->attach($attach->getKey());
                         }
-                        elseif ($model->$relation() instanceof \Illuminate\Database\Eloquent\Relations\HasMany)
-                        {
-
-                            $model->$relation()->save($attach);
-
-                        }
-                        else
-                        {
-
-                            $model->$relation()->attach($attach->getKey());
-
-                        }
-
                     }
-
                 }
-
             }
 
             $this->ids[] = $model->getAttributeValue($model->getKeyName());
-
         }
+
         $this->reset();
 
         return last($this->ids);
@@ -93,21 +72,16 @@ trait Factory
 
     protected function classFrom($type)
     {
-
-        $path = explode('\\', $type);
-        return array_pop($path);
-
+        return array_pop(explode('\\', $type));
     }
 
     protected function reset()
     {
-
         $this->times = 1;
         $this->attachTypes = [];
         $this->attachTimes = 1;
         $this->attachRelation = '';
         $this->attachFields = [];
-
     }
 
 }

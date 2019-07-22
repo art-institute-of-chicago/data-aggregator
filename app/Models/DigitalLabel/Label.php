@@ -22,23 +22,17 @@ class Label extends DigitalLabelModel
 
     public function artworks()
     {
-
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_digital_label', 'digital_label_id');
-
     }
 
     public function artists()
     {
-
         return $this->belongsToMany('App\Models\Collections\Agent', 'artist_digital_label', 'digital_label_id');
-
     }
 
     public function exhibition()
     {
-
         return $this->belongsTo('App\Models\DigitalLabel\Exhibition', 'digital_label_exhibition_id');
-
     }
 
 }

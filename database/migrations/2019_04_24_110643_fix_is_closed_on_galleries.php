@@ -13,7 +13,7 @@ class FixIsClosedOnGalleries extends Migration
      */
     public function up()
     {
-        Schema::table('galleries', function(Blueprint $table) {
+        Schema::table('galleries', function (Blueprint $table) {
             $table->renameColumn('closed', 'is_closed');
         });
     }
@@ -25,7 +25,7 @@ class FixIsClosedOnGalleries extends Migration
      */
     public function down()
     {
-        Schema::table('galleries', function(Blueprint $table) {
+        Schema::table('galleries', function (Blueprint $table) {
             $table->renameColumn('is_closed', 'closed');
         });
     }

@@ -19,7 +19,7 @@ class Tour extends BaseTransformer
 
     public function includeTourStops($tour)
     {
-        return $this->collection($tour->tourStops, new TourStopTransformer, false);
+        return $this->collection($tour->tourStops, new TourStopTransformer(), false);
     }
 
     protected function getFields()

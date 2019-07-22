@@ -32,16 +32,12 @@ class Event extends WebModel
 
     public function ticketedEvent()
     {
-
         return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'membership_id');
-
     }
 
     public function emailSeriesPivots()
     {
-
         return $this->hasMany('App\Models\Web\EventEmailSeriesPivot');
-
     }
 
     public function emailSeries()
@@ -63,10 +59,7 @@ class Event extends WebModel
 
     public function sponsor()
     {
-
         return $this->belongsTo('App\Models\Web\Sponsor');
-
     }
-
 
 }

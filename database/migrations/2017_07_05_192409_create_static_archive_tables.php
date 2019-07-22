@@ -22,24 +22,23 @@ class CreateStaticArchiveTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('artwork_site', function(Blueprint $table) {
+        Schema::create('artwork_site', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('artwork_citi_id')->index();
             $table->integer('site_site_id')->unsigned()->index();
         });
 
-        Schema::create('exhibition_site', function(Blueprint $table) {
+        Schema::create('exhibition_site', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('exhibition_citi_id')->index();
             $table->integer('site_site_id')->unsigned()->index();
         });
 
-        Schema::create('agent_site', function(Blueprint $table) {
+        Schema::create('agent_site', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('agent_citi_id')->index();
             $table->integer('site_site_id')->unsigned()->index();
         });
-
     }
 
     /**
@@ -49,12 +48,10 @@ class CreateStaticArchiveTables extends Migration
      */
     public function down()
     {
-
         Schema::dropIfExists('artwork_site');
         Schema::dropIfExists('agent_site');
         Schema::dropIfExists('exhibition_site');
         Schema::dropIfExists('sites');
-
     }
 
 }

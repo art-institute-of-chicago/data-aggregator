@@ -14,14 +14,12 @@ class Response
      */
     public $searchResponse;
 
-
     /**
      * Params passed to Elasticsearch
      *
      * @var array
      */
     public $searchParams;
-
 
     /**
      * Create a new request instance.
@@ -37,7 +35,6 @@ class Response
         $this->searchParams = $searchParams;
     }
 
-
     /**
      * Transform response for search queries.
      *
@@ -45,7 +42,6 @@ class Response
      */
     public function getSearchResponse()
     {
-
         $response = array_merge(
             $this->paginate(),
             $this->data()
@@ -64,9 +60,7 @@ class Response
         );
 
         return $response;
-
     }
-
 
     /**
      * Transform response for explain queries.
@@ -75,32 +69,27 @@ class Response
      */
     public function getRawResponse()
     {
-
         return $this->searchResponse;
-
     }
-
 
     /**
      * Transform response for autocomplete queries.
      *
      * @return array
      */
-    public function getAutocompleteWithTitleResponse() {
-
+    public function getAutocompleteWithTitleResponse()
+    {
         // Defaulting to [] is safe, but ineffecient: catch empty `q` earlier!
         return $this->getAutocompleteWithTitle()['suggest']['autocomplete'] ?? [];
-
     }
-
 
     /**
      * Transform response for autocomplete queries. Pass-through the source.
      *
      * @return array
      */
-    public function getAutocompleteWithSourceResponse() {
-
+    public function getAutocompleteWithSourceResponse()
+    {
         $options = Arr::get($this->searchResponse, 'suggest.autocomplete.0.options');
 
         if ($options) {
@@ -108,9 +97,7 @@ class Response
         }
 
         return [];
-
     }
-
 
     /**
      * Add pagination to response.
@@ -119,7 +106,6 @@ class Response
      */
     private function paginate()
     {
-
         // We assume that `size` and `from` have been set via getPaginationParams()
         // This method should not be used for endpoints that return no results
 
@@ -129,16 +115,12 @@ class Response
         $offset = $this->searchParams['from'] ?? 0;
 
         // Avoid division by zero
-        if( $limit > 0 ) {
-
-            $total_pages = ceil( $total / $limit );
-            $current_page = floor( $offset / $limit ) + 1;
-
+        if ($limit > 0) {
+            $total_pages = ceil($total / $limit);
+            $current_page = floor($offset / $limit) + 1;
         } else {
-
             $total_pages = null;
             $current_page = null;
-
         }
 
         $pagination = [
@@ -150,11 +132,9 @@ class Response
         ];
 
         return [
-            'pagination' => $pagination
+            'pagination' => $pagination,
         ];
-
     }
-
 
     /**
      * Add data (i.e. hits, results) to response.
@@ -163,34 +143,29 @@ class Response
      */
     private function data()
     {
-
         $hits = $this->searchResponse['hits']['hits'];
         $results = [];
 
         // Reduce to just the _source objects
-        foreach( $hits as $hit ) {
-
+        foreach ($hits as $hit) {
             $result = [
-                '_score' => $hit['_score']
+                '_score' => $hit['_score'],
             ];
 
             // Avoid filtering fields here: filter fields via `_source` in Request instead
             // This will reduce AWS ES load - it won't need to return as much data
             // Note that `_source` might be undefined if `_source` was set to false in Request
-            if( isset( $hit['_source'] ) ) {
-                $result = array_merge( $result, $hit['_source'] );
+            if (isset($hit['_source'])) {
+                $result = array_merge($result, $hit['_source']);
             }
 
             $results[] = $result;
-
         }
 
         return [
-            'data' => $results
+            'data' => $results,
         ];
-
     }
-
 
     /**
      * Add suggestions (i.e. completion, phrases) to response.
@@ -199,7 +174,6 @@ class Response
      */
     private function getAutocompleteWithTitle()
     {
-
         $suggest = [];
 
         $options = Arr::get($this->searchResponse, 'suggest.autocomplete.0.options');
@@ -208,15 +182,12 @@ class Response
             $suggest['autocomplete'] = Arr::pluck($options, '_source.title');
         }
 
-        if ($suggest)
-        {
+        if ($suggest) {
             return ['suggest' => $suggest];
         }
 
         return [];
-
     }
-
 
     /**
      * Add aggregations (i.e. facets) to response. Again, straight pass-through.
@@ -225,11 +196,9 @@ class Response
      */
     private function aggregate()
     {
-
         $aggregations = $this->searchResponse['aggregations'] ?? null;
 
         return $aggregations ? ['aggregations' => $aggregations] : [];
-
     }
 
 }

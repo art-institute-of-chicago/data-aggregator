@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -38,22 +39,6 @@ class CreateDscTables extends Migration
         Schema::table('sections', function (Blueprint $table) {
             $table->bigInteger('parent_id')->nullable()->unsigned()->index();
         });
-
-    }
-
-    private function _addIdsAndTitle($table, $idType = 'integer')
-    {
-
-        if ( in_array( $idType, ['integer', 'bigInteger']) )
-        {
-            $table->$idType('dsc_id')->unsigned()->primary();
-        }
-        else
-        {
-            $table->$idType('dsc_id')->primary();
-        }
-        $table->text('title');
-        return $table;
     }
 
     /**
@@ -63,10 +48,21 @@ class CreateDscTables extends Migration
      */
     public function down()
     {
-
         Schema::dropIfExists('sections');
         Schema::dropIfExists('publications');
+    }
 
+    private function _addIdsAndTitle($table, $idType = 'integer')
+    {
+        if (in_array($idType, ['integer', 'bigInteger'])) {
+            $table->{$idType}('dsc_id')->unsigned()->primary();
+        } else {
+            $table->{$idType}('dsc_id')->primary();
+        }
+
+        $table->text('title');
+
+        return $table;
     }
 
 }

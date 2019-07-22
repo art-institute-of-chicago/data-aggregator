@@ -5,7 +5,6 @@ class DatabaseSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
         $this->call(CollectionsDatabaseSeeder::class);
         $this->call(ShopDatabaseSeeder::class);
         $this->call(MembershipDatabaseSeeder::class);
@@ -14,12 +13,10 @@ class DatabaseSeeder extends AbstractSeeder
         $this->call(StaticArchiveDatabaseSeeder::class);
         $this->call(WebDatabaseSeeder::class);
         $this->call(DigitalLabelDatabaseSeeder::class);
-
     }
 
     protected static function unseed()
     {
-
         CollectionsDatabaseSeeder::clean();
         ShopDatabaseSeeder::clean();
         MembershipDatabaseSeeder::clean();
@@ -28,7 +25,6 @@ class DatabaseSeeder extends AbstractSeeder
         StaticArchiveDatabaseSeeder::clean();
         WebDatabaseSeeder::clean();
         DigitalLabelDatabaseSeeder::clean();
-
     }
 
 }

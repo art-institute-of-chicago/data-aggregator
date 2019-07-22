@@ -9,20 +9,16 @@ class MobileDatabaseSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
         $this->call(MobileArtworksTableSeeder::class);
         $this->call(MobileSoundsTableSeeder::class);
         $this->call(ToursTableSeeder::class);
-
     }
 
     protected static function unseed()
     {
-
         Artwork::fake()->delete();
         Sound::fake()->delete();
         Tour::fake()->delete();
-
     }
 
 }

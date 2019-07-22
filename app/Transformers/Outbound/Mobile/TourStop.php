@@ -2,8 +2,6 @@
 
 namespace App\Transformers\Outbound\Mobile;
 
-use App\Transformers\Outbound\Mobile\Sound as SoundTransformer;
-
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class TourStop extends BaseTransformer
