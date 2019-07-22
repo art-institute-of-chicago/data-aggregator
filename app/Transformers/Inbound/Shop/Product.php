@@ -12,16 +12,13 @@ class Product extends ShopTransformer
 
     protected function getSync(Datum $datum)
     {
-
         return [
             'artists' => $this->getSyncArtists($datum),
         ];
-
     }
 
     private function getSyncArtists(Datum $datum)
     {
-
         if (!$datum->artist_ids)
         {
             return [];
@@ -32,7 +29,6 @@ class Product extends ShopTransformer
             return $this->artistMapping[$id] ?? null;
 
         }, $datum->artist_ids));
-
     }
 
     private function getArtistMapping()

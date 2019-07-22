@@ -17,8 +17,6 @@ class Place extends CollectionsModel
 
     public static function validateId($id)
     {
-
         return is_numeric($id);
-
     }
 }

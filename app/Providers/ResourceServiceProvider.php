@@ -8,7 +8,6 @@ class ResourceServiceProvider extends ServiceProvider
 {
     public function register()
     {
-
         $this->app->singleton('Resources', function ($app) {
 
             return new class() {
@@ -203,6 +202,5 @@ class ResourceServiceProvider extends ServiceProvider
             };
 
         });
-
     }
 }

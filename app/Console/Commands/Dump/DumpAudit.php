@@ -13,7 +13,6 @@ class DumpAudit extends AbstractDumpCommand
 
     public function handle()
     {
-
         $allTables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
         $excludedTables = array_diff($allTables, $this->whitelistedTables);
         $removedTables = array_diff($this->whitelistedTables, $allTables);

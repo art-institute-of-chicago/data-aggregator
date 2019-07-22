@@ -11,23 +11,17 @@ class ArtworkTerm extends BasePivot
 
     public function term()
     {
-
         return $this->belongsTo('App\Models\Collections\Term');
-
     }
 
     public function artwork()
     {
-
         return $this->belongsTo('App\Models\Collections\Artwork');
-
     }
 
     public function getUpdatedAtColumn()
     {
-
         return 'updated_at';
-
     }
 
 }

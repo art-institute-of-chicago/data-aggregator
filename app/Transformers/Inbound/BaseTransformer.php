@@ -118,14 +118,12 @@ class BaseTransformer extends AbstractTransformer
      */
     public function fill(Model $instance, $datum)
     {
-
         $datum = $this->getFill($instance, $datum);
 
         // Fill the instance with mapped source data
         $instance->fill($datum);
 
         return $datum;
-
     }
 
     /**
@@ -152,7 +150,6 @@ class BaseTransformer extends AbstractTransformer
         }
 
         return $relations;
-
     }
 
     /**
@@ -193,9 +190,7 @@ class BaseTransformer extends AbstractTransformer
      */
     protected function getSync(Datum $datum)
     {
-
         return [];
-
     }
 
     /**
@@ -205,7 +200,6 @@ class BaseTransformer extends AbstractTransformer
      */
     protected function syncEx(Model $instance, Datum $datum)
     {
-
     }
 
     /**
@@ -215,11 +209,9 @@ class BaseTransformer extends AbstractTransformer
      */
     protected function getIds(Datum $datum)
     {
-
         return [
             'id' => $datum->id,
         ];
-
     }
 
     /**
@@ -229,11 +221,9 @@ class BaseTransformer extends AbstractTransformer
      */
     protected function getTitle(Datum $datum)
     {
-
         return [
             'title' => $datum->title,
         ];
-
     }
 
     /**
@@ -245,13 +235,11 @@ class BaseTransformer extends AbstractTransformer
      */
     protected function getDates(Datum $datum)
     {
-
         return [
             'source_created_at' => $datum->date('created_at'),
             'source_modified_at' => $datum->date('modified_at'),
             'source_indexed_at' => $datum->date('indexed_at'),
         ];
-
     }
 
     /**
@@ -262,9 +250,7 @@ class BaseTransformer extends AbstractTransformer
      */
     protected function getExtraFields(Datum $datum)
     {
-
         return [];
-
     }
 
     /**
@@ -280,7 +266,6 @@ class BaseTransformer extends AbstractTransformer
      */
     protected function getSyncPivots(Datum $datum, $pivot_field, $id_field, $mapping_fn)
     {
-
         // This method assumes that the pivot field's value is an array, not an object!
         // TODO: Improve error reporting in the latter case..?
         if (!$datum->{$pivot_field} || !is_array($datum->{$pivot_field}))
@@ -298,7 +283,6 @@ class BaseTransformer extends AbstractTransformer
         $pivots = array_reduce($pivots->all(), function ($carry, $item) { return $carry + $item; }, []);
 
         return $pivots;
-
     }
 
     /**
@@ -309,9 +293,7 @@ class BaseTransformer extends AbstractTransformer
      */
     private function getDatum($datum)
     {
-
         return $datum instanceof Datum ? $datum : new Datum($datum);
-
     }
 
     /**
@@ -321,7 +303,6 @@ class BaseTransformer extends AbstractTransformer
      */
     private function transform(Datum $datum)
     {
-
         // Use the stored datum as the base - we can prune it later!
         $base = $this->passthrough ? $datum->all() : [];
 
@@ -342,7 +323,6 @@ class BaseTransformer extends AbstractTransformer
             $this->getExtraFields($datum)
 
         );
-
     }
 
     /**
@@ -356,12 +336,10 @@ class BaseTransformer extends AbstractTransformer
      */
     private function prune(array $datum, array $attributes, bool $isBlacklist = false)
     {
-
         return array_filter($datum, function ($key) use ($attributes, $isBlacklist) {
             $match = in_array($key, $attributes);
             return $isBlacklist ? !$match : $match;
         }, ARRAY_FILTER_USE_KEY);
-
     }
 
     /**
@@ -372,7 +350,6 @@ class BaseTransformer extends AbstractTransformer
      */
     private function getAttributes($entity)
     {
-
         if (is_string($entity)) {
             return $this->getTableAttributes($entity);
         }
@@ -405,7 +382,6 @@ class BaseTransformer extends AbstractTransformer
      */
     private function getTableAttributes(string $tableName)
     {
-
         $columns = Schema::getColumnListing($tableName);
 
         // We generally don't want the source data polluting our timestamps
@@ -416,7 +392,6 @@ class BaseTransformer extends AbstractTransformer
         $columns = array_values($columns);
 
         return $columns;
-
     }
 
 }

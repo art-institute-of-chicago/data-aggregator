@@ -13,11 +13,9 @@ class ImportTicketedEvents extends ImportTicketedEventsFull
 
     public function handle()
     {
-
         $this->api = env('EVENTS_DATA_SERVICE_URL');
 
         $this->importTicketedEvents();
-
     }
 
 }

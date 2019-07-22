@@ -15,7 +15,6 @@ class ImportCatalogues extends AbstractImportCommand
 
     public function handle()
     {
-
         $this->api = env('DSC_DATA_SERVICE_URL');
 
         if (!$this->reset())
@@ -25,12 +24,10 @@ class ImportCatalogues extends AbstractImportCommand
 
         $this->import('Dsc', Publication::class, 'publications');
         $this->import('Dsc', Section::class, 'sections');
-
     }
 
     protected function reset()
     {
-
         return $this->resetData(
             [
                 Publication::class,
@@ -41,7 +38,6 @@ class ImportCatalogues extends AbstractImportCommand
                 'publications',
             ]
         );
-
     }
 
 }

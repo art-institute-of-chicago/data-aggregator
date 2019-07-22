@@ -57,7 +57,6 @@ class Label extends BaseTransformer
                 },
             ],
         ];
-
     }
 
 }

@@ -41,7 +41,6 @@ class MakeDatesNullByDefault extends Migration
             });
 
         }
-
     }
 
     public function down()

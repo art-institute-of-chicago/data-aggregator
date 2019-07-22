@@ -24,9 +24,7 @@ class Product extends ShopModel
 
     public function artists()
     {
-
         return $this->belongsToMany('App\Models\Collections\Agent', 'artist_product');
-
     }
 
     /**
@@ -36,9 +34,7 @@ class Product extends ShopModel
      */
     public function getWebUrlAttribute()
     {
-
         return env('PRODUCT_URL') . $this->shop_id;
-
     }
 
 }

@@ -20,23 +20,17 @@ class ArtworkCatalogue extends BasePivot
 
     public function artwork()
     {
-
         return $this->belongsTo('App\Models\Collections\Artwork');
-
     }
 
     public function catalogue()
     {
-
         return $this->belongsTo('App\Models\Collections\Catalogue');
-
     }
 
     public function getUpdatedAtColumn()
     {
-
         return 'updated_at';
-
     }
 
 }

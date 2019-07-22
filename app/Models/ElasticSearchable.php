@@ -61,9 +61,7 @@ trait ElasticSearchable
      */
     public function searchableImage()
     {
-
         return null;
-
     }
 
     /**
@@ -73,9 +71,7 @@ trait ElasticSearchable
      */
     public function toSearchableArray()
     {
-
         return $this->transform();
-
     }
 
     /**
@@ -85,7 +81,6 @@ trait ElasticSearchable
      */
     public function getDefaultSearchFieldMapping($isExact)
     {
-
         $fields = $this->transformMapping();
 
         $fields = array_filter($fields, function ($field) use ($isExact) {
@@ -98,7 +93,6 @@ trait ElasticSearchable
         });
 
         return $fields;
-
     }
 
     /**
@@ -178,11 +172,9 @@ trait ElasticSearchable
      */
     protected function searchableSource()
     {
-
         $calledClass = get_called_class();
 
         return Str::kebab(array_slice(explode('\\', $calledClass), -2, 1)[0]);
-
     }
 
     /**
@@ -232,7 +224,6 @@ trait ElasticSearchable
      */
     private function getMappingForField($field)
     {
-
         if ($field['elasticsearch'] ?? false)
         {
 
@@ -279,7 +270,6 @@ trait ElasticSearchable
         }
 
         return null;
-
     }
 
 }

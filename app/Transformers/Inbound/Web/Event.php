@@ -10,7 +10,6 @@ class Event extends WebTransformer
 
     protected function getExtraFields(Datum $datum)
     {
-
         return [
             'start_date' => $datum->datetime('start_date'),
             'end_date' => $datum->datetime('end_date'),
@@ -20,16 +19,13 @@ class Event extends WebTransformer
             'publish_start_date' => $datum->date('publish_start_date'),
             'publish_end_date' => $datum->date('publish_end_date'),
         ];
-
     }
 
     protected function getSync(Datum $datum, $test = false)
     {
-
         return [
             'emailSeries' => $this->getSyncEmailSeries($datum),
         ];
-
     }
 
     private function getSyncEmailSeries(Datum $datum)

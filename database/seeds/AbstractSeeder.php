@@ -16,24 +16,20 @@ abstract class AbstractSeeder extends Seeder
 
     public function run()
     {
-
         if (!method_exists($this, 'seed')) {
             throw new InvalidArgumentException('Method [seed] missing from ' . get_class($this));
         }
 
         $this->seed();
-
     }
 
     public static function clean()
     {
-
         if (!method_exists(get_called_class(), 'unseed')) {
             throw new InvalidArgumentException('Method [unseed] missing from ' . get_called_class());
         }
 
         get_called_class()::unseed();
-
     }
 
     /**
@@ -57,7 +53,6 @@ abstract class AbstractSeeder extends Seeder
      */
     protected function seedRelation($subjectClass, $objectClass, $method)
     {
-
         $isReflexive = ($subjectClass === $objectClass);
 
         $subjects = $subjectClass::fake()->get();
@@ -80,7 +75,6 @@ abstract class AbstractSeeder extends Seeder
             $this->{$delegate}($subject, $selected, $method);
 
         }
-
     }
 
     /**
@@ -88,7 +82,6 @@ abstract class AbstractSeeder extends Seeder
      */
     private function getRelationMethod($subjectClass, $method)
     {
-
         $relation = ( new $subjectClass() )->{$method}();
         $class = get_class($relation);
 
@@ -97,7 +90,6 @@ abstract class AbstractSeeder extends Seeder
         $classname = $classname->last();
 
         return 'seed' . $classname;
-
     }
 
     /**
@@ -107,9 +99,7 @@ abstract class AbstractSeeder extends Seeder
      */
     private function seedBelongsToMany($subject, $objects, $method)
     {
-
         $subject->{$method}()->sync($objects);
-
     }
 
     /**
@@ -117,9 +107,7 @@ abstract class AbstractSeeder extends Seeder
      */
     private function seedBelongsToManyOrOne($subject, $objects, $method)
     {
-
         $subject->{$method}()->sync($objects);
-
     }
 
     /**
@@ -129,9 +117,7 @@ abstract class AbstractSeeder extends Seeder
      */
     private function seedHasMany($subject, $objects, $method)
     {
-
         $subject->{$method}()->saveMany($objects);
-
     }
 
     /**
@@ -141,13 +127,11 @@ abstract class AbstractSeeder extends Seeder
      */
     private function seedBelongsTo($subject, $objects, $method)
     {
-
         $object = $objects->random();
 
         $subject->{$method}()->associate($object);
 
         $subject->save();
-
     }
 
     /**
@@ -162,7 +146,6 @@ abstract class AbstractSeeder extends Seeder
      */
     private function validateSeedRelation($subjectClass, $objectClass, $subjects, $objects, $method)
     {
-
         if (!method_exists($subjectClass, $method))
         {
             throw new BadFunctionCallException('Class ' . $subjectClass . ' has no relation method `' . $method . '`');
@@ -186,7 +169,6 @@ abstract class AbstractSeeder extends Seeder
         {
             throw new InvalidArgumentException($prefix . ', but there are no ' . $objectClass . '\'s in the database.');
         }
-
     }
 
 }

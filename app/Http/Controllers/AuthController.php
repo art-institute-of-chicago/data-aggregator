@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
 
-    public function register(Request $request) {
-
+    public function register(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -30,11 +30,10 @@ class AuthController extends Controller
         $response = ['token' => $token];
 
         return response($response, 200);
-
     }
 
-    public function login(Request $request) {
-
+    public function login(Request $request)
+    {
         $user = User::where('email', $request->email)->first();
 
         if ($user) {
@@ -53,13 +52,12 @@ class AuthController extends Controller
         return response($response, 422);
     }
 
-    public function logout(Request $request) {
-
+    public function logout(Request $request)
+    {
         $token = $request->user()->token();
         $token->revoke();
 
         $response = 'You have been succesfully logged out!';
         return response($response, 200);
-
     }
 }

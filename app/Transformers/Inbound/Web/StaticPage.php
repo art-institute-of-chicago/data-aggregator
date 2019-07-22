@@ -10,11 +10,9 @@ class StaticPage extends WebTransformer
 
     protected function getExtraFields(Datum $datum)
     {
-
         return [
             'web_url' => $datum->url,
         ];
-
     }
 
 }

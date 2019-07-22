@@ -8,7 +8,6 @@ class AssetsTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
         $key = ( new Asset() )->getKeyName();
 
         $images = factory(Asset::class, 50)->states('image')->create();
@@ -33,7 +32,6 @@ class AssetsTableSeeder extends AbstractSeeder
             $artwork->images()->sync($alternate, false);
 
         }
-
     }
 
 }

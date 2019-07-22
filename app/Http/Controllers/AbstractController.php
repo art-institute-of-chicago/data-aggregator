@@ -134,7 +134,6 @@ abstract class AbstractController extends BaseController
      */
     protected function select(Request $request, Closure $callback)
     {
-
         $this->validateMethod($request);
 
         $id = $request->route('id');
@@ -152,7 +151,6 @@ abstract class AbstractController extends BaseController
         }
 
         return $this->getItemResponse($item);
-
     }
 
     /**
@@ -163,7 +161,6 @@ abstract class AbstractController extends BaseController
      */
     protected function collect(Request $request, Closure $callback)
     {
-
         $this->validateMethod($request);
 
         // Process ?ids= query param
@@ -190,7 +187,6 @@ abstract class AbstractController extends BaseController
         $all = $callback($limit, $id);
 
         return $this->getCollectionResponse($all);
-
     }
 
     /**
@@ -225,7 +221,6 @@ abstract class AbstractController extends BaseController
         $all = $this->find($ids);
 
         return $this->getCollectionResponse($all);
-
     }
 
     /**

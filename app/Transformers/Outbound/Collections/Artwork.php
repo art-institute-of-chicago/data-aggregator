@@ -807,7 +807,6 @@ class Artwork extends BaseTransformer
         };
 
         return $suggestFields;
-
     }
 
 }

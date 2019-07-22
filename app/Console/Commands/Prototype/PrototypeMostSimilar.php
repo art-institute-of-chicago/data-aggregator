@@ -59,7 +59,6 @@ class PrototypeMostSimilar extends BaseCommand
 
     public function handle()
     {
-
         $ret = $this->header('Prototype most similar');
 
         $ret .= $this->results([
@@ -275,7 +274,6 @@ class PrototypeMostSimilar extends BaseCommand
             throw new \Exception("Can't get artwork: " . $artw->citi_id);
         }
         return json_decode($contents);
-
     }
 
     protected function basicQuery($field, $value)

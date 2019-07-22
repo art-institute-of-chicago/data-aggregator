@@ -102,9 +102,7 @@ abstract class AbstractDumpCommand extends BaseCommand
      */
     protected function getDumpPath(string $subpath): string
     {
-
         return Storage::disk('dumps')->getDriver()->getAdapter()->getPathPrefix() . $subpath;
-
     }
 
     /**

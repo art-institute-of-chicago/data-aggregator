@@ -77,9 +77,7 @@ class ReportNoImages extends BaseCommand
 
     private function getCsvPath()
     {
-
         return Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . self::$filename;
-
     }
 
 }

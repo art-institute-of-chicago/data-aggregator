@@ -13,9 +13,7 @@ class CleanSeed extends BaseCommand
 
     public function handle()
     {
-
         \DatabaseSeeder::clean();
-
     }
 
 }

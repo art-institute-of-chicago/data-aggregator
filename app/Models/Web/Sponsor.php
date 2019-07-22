@@ -16,9 +16,7 @@ class Sponsor extends WebModel
 
     public function events()
     {
-
         return $this->hasMany('App\Models\Web\Event');
-
     }
 
 }

@@ -12,10 +12,8 @@ class TourTest extends ApiTestCase
 
     protected function setUp(): void
     {
-
         parent::setUp();
         $this->make(Sound::class);
-
     }
 
 }

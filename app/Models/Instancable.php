@@ -14,7 +14,6 @@ trait Instancable
      */
     public static function instance()
     {
-
         static $instances = [];
 
         $calledClass = get_called_class();
@@ -27,7 +26,6 @@ trait Instancable
         }
 
         return $instances[$calledClass];
-
     }
 
 }

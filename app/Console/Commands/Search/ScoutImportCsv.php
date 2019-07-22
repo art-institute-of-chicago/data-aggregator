@@ -19,7 +19,6 @@ class ScoutImportCsv extends BaseCommand
 
     public function handle()
     {
-
         $class = $this->argument('model');
 
         $csv = Reader::createFromPath($this->getCsvPath(), 'r');
@@ -42,7 +41,6 @@ class ScoutImportCsv extends BaseCommand
 
             $this->info("Imported #${id} of model ${class}");
         }
-
     }
 
     protected function getCsvPath()

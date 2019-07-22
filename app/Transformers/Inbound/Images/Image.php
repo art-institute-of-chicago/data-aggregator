@@ -10,30 +10,23 @@ class Image extends BaseTransformer
 
     protected function getIds(Datum $datum)
     {
-
         return [
             'lake_guid' => $datum->id,
         ];
-
     }
 
     protected function getTitle(Datum $datum)
     {
-
         return [];
-
     }
 
     protected function getDates(Datum $datum)
     {
-
         return [];
-
     }
 
     protected function getExtraFields(Datum $datum)
     {
-
         return [
             'metadata' => (object) [
                 'width' => $datum->width,
@@ -47,7 +40,6 @@ class Image extends BaseTransformer
                 'color' => $datum->color,
             ],
         ];
-
     }
 
 }

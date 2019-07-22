@@ -16,7 +16,6 @@ class FakerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
         $this->app->singleton('Faker', function ($app) {
 
             $faker = \Faker\Factory::create();
@@ -44,6 +43,5 @@ class FakerServiceProvider extends ServiceProvider
             return app('Faker');
 
         });
-
     }
 }

@@ -58,7 +58,6 @@ class CreateMobileTables extends Migration
             // A TourStop's description is its Sound's transcription
             $table->timestamps();
         });
-
     }
 
     /**
@@ -68,18 +67,15 @@ class CreateMobileTables extends Migration
      */
     public function down()
     {
-
         Schema::dropIfExists('tour_stops');
         Schema::dropIfExists('tours');
         Schema::dropIfExists('mobile_artwork_mobile_sound');
         Schema::dropIfExists('mobile_sounds');
         Schema::dropIfExists('mobile_artworks');
-
     }
 
     private function _addIdsAndTitle($table, $titleType = 'text')
     {
-
         $table->integer('mobile_id')->unsigned()->primary();
         $table->{$titleType}('title');
         return $table;

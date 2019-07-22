@@ -80,7 +80,6 @@ class DeleteAssets extends AbstractImportCommand
             // TODO: This structure causes an extra query to be run, when it might not need to be
             $json = $this->query('deletes', $current);
         }
-
     }
 
 }

@@ -30,11 +30,9 @@ class ExhibitionTest extends ApiTestCase
 
     protected function setUp(): void
     {
-
         parent::setUp();
         $this->make(Place::class, ['type' => 'AIC Gallery']);
         $this->times(5)->make(Agent::class);
-
     }
 
 }

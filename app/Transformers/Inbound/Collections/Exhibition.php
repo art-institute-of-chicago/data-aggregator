@@ -10,7 +10,6 @@ class Exhibition extends CollectionsTransformer
 
     protected function getExtraFields(Datum $datum)
     {
-
         return [
             'type' => $datum->exhibition_type,
             'status' => $datum->exhibition_status,
@@ -22,16 +21,13 @@ class Exhibition extends CollectionsTransformer
             'date_aic_end' => $datum->date('aic_end_date'),
             'source_indexed_at' => $datum->date('indexed_at'),
         ];
-
     }
 
     protected function getSync(Datum $datum)
     {
-
         return [
             'artworks' => $datum->all('artwork_ids'),
         ];
-
     }
 
 }

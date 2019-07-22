@@ -15,12 +15,10 @@ class ArtworkSearchTest extends TestCase
      */
     public function it_returns_a_match_as_first_result($query, $expectedFirstId)
     {
-
         $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') . '/artworks/search?q=' . urlencode($query));
 
         $resource = json_decode($response)->data[0];
         $this->assertEquals($expectedFirstId, $resource->id);
-
     }
 
     /**
@@ -29,19 +27,15 @@ class ArtworkSearchTest extends TestCase
      */
     public function it_returns_expected_top_matches($query, $inTheTop, $expectToSee = [])
     {
-
         $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') . '/artworks/search?limit=' . $inTheTop . '&q=' . urlencode($query));
 
         $resources = array_slice(json_decode($response)->data, 0, $inTheTop);
         $ids = Arr::pluck($resources, 'id');
         $this->assertArrayContainsArray($expectToSee, $ids);
-
     }
 
     public function firstResultTests()
-
     {
-
         return [
             ['nighthawks', 111628],
             ['the old guitarist', 28067],
@@ -70,12 +64,10 @@ class ArtworkSearchTest extends TestCase
             //['napoleon', 217536],
 
         ];
-
     }
 
     public function topResultsTests()
     {
-
         return [
             ['creche',             3, [217536]],
             ['the weaver',         3, [151363]],
@@ -129,15 +121,12 @@ class ArtworkSearchTest extends TestCase
             //['armor',              4, [112092, 199854]],
             //['charcoal',           5, [68823, 23684, 111810]],
         ];
-
     }
 
     protected function assertArrayContainsArray($needle, $haystack)
     {
-
         foreach ($needle as $val) {
             $this->assertContains($val, $haystack);
         }
-
     }
 }

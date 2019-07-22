@@ -15,7 +15,6 @@ class ImportCollections extends ImportCollectionsFull
 
     public function handle()
     {
-
         $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
 
         $endpoint = $this->argument('endpoint');
@@ -30,7 +29,6 @@ class ImportCollections extends ImportCollectionsFull
             $this->importEndpoints();
 
         }
-
     }
 
 }

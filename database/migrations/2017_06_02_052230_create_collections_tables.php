@@ -236,7 +236,6 @@ class CreateCollectionsTables extends Migration
             $table->boolean('is_doc')->default(false)->index();
             $table->boolean('preferred')->index();
         });
-
     }
 
     /**

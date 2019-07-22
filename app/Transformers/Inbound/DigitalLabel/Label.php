@@ -10,16 +10,13 @@ class Label extends DigitalLabelTransformer
 
     protected function getIds(Datum $datum)
     {
-
         return [
             'id' => $datum->experienceId,
         ];
-
     }
 
     protected function getExtraFields(Datum $datum)
     {
-
         return [
 
             'title' => $this->headline(json_decode($datum->contentBundle)),
@@ -29,22 +26,18 @@ class Label extends DigitalLabelTransformer
             'is_published' => !$datum->archived,
 
         ];
-
     }
 
     protected function getSync(Datum $datum)
     {
-
         return [
             'artworks' => $this->artworkIds(json_decode($datum->contentBundle)),
             'artists' => $this->artistIds(json_decode($datum->contentBundle)),
         ];
-
     }
 
     protected function search($accession)
     {
-
         static $cache = [];
 
         $query = [
@@ -106,12 +99,10 @@ class Label extends DigitalLabelTransformer
 
         // The first result is our match
         return $results->first();
-
     }
 
     private function headline($contentBundle)
     {
-
         foreach ($contentBundle as $slide)
         {
             if (property_exists($slide, 'headline'))
@@ -125,7 +116,6 @@ class Label extends DigitalLabelTransformer
 
     private function text($contentBundle)
     {
-
         $ret = '';
 
         foreach ($contentBundle as $slide)
@@ -141,7 +131,6 @@ class Label extends DigitalLabelTransformer
 
     private function image($contentBundle)
     {
-
         foreach ($contentBundle as $slide)
         {
             if (property_exists($slide, 'media') && is_array($slide->media))
@@ -249,6 +238,5 @@ class Label extends DigitalLabelTransformer
         $result = file_get_contents($url, false, $context);
 
         return $result;
-
     }
 }

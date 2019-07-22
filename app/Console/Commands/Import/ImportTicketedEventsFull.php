@@ -14,7 +14,6 @@ class ImportTicketedEventsFull extends AbstractImportCommand
 
     public function handle()
     {
-
         $this->api = env('EVENTS_DATA_SERVICE_URL');
 
         if (!$this->reset())
@@ -23,21 +22,16 @@ class ImportTicketedEventsFull extends AbstractImportCommand
         }
 
         $this->importTicketedEvents();
-
     }
 
     protected function importTicketedEvents()
     {
-
         return $this->import('Membership', TicketedEvent::class, 'events');
-
     }
 
     protected function reset()
     {
-
         return $this->resetData(TicketedEvent::class, 'ticketed_events');
-
     }
 
     protected function save($datum, $model, $transformer)
@@ -47,7 +41,6 @@ class ImportTicketedEventsFull extends AbstractImportCommand
         $datum->source = 'galaxy';
 
         return parent::save($datum, $model, $transformer);
-
     }
 
 }

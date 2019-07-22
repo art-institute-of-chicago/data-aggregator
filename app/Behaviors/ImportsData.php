@@ -69,15 +69,14 @@ trait ImportsData
      *
      * @return string|object
      */
-    protected function fetch($file, $decode = false) {
-
+    protected function fetch($file, $decode = false)
+    {
         if (!$contents = @file_get_contents($file))
         {
             throw new \Exception('Fetch failed: ' . $file);
         }
 
         return $decode ? json_decode($contents) : $contents;
-
     }
 
     /**
@@ -94,7 +93,6 @@ trait ImportsData
      */
     protected function fetchWithAuth($url, $decode = false)
     {
-
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -119,7 +117,6 @@ trait ImportsData
         }
 
         return $decode ? json_decode($contents) : $contents;
-
     }
 
     /**
@@ -133,9 +130,7 @@ trait ImportsData
      */
     protected function getUrl($endpoint, $page = 1, $limit = 1000)
     {
-
         return $this->api . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit;
-
     }
 
     /**
@@ -150,7 +145,6 @@ trait ImportsData
      */
     protected function query($endpoint, $page = 1, $limit = 500)
     {
-
         $url = $this->getUrl($endpoint, $page, $limit);
 
         // Allows us to specify which fields to retrieve, for performance
@@ -165,7 +159,6 @@ trait ImportsData
         $method = $this->auth ? 'fetchWithAuth' : 'fetch';
 
         return $this->{$method}($url, true);
-
     }
 
     /**
@@ -181,7 +174,6 @@ trait ImportsData
      */
     protected function import($source, $model, $endpoint, $current = 1)
     {
-
         $this->since = $this->command->last_success_at;
 
         if ($this->hasOption('since') && !empty($this->option('since'))) {
@@ -265,7 +257,6 @@ trait ImportsData
         }
 
         unset($json);
-
     }
 
     /**
@@ -278,7 +269,6 @@ trait ImportsData
      */
     protected function resetData($modelsToFlush, $tablesToClear)
     {
-
         // Return false if the user bails out
         if (!$this->confirmReset())
         {
@@ -311,7 +301,6 @@ trait ImportsData
         // $this->call("search:install");
 
         return true;
-
     }
 
     /**
@@ -321,14 +310,12 @@ trait ImportsData
      */
     protected function confirmReset()
     {
-
         return (
             !$this->hasOption('yes') || $this->option('yes')
         ) || (
             // TODO: Make this less generic?
             $this->confirm('Running this will fully overwrite some tables in your database! Are you sure?')
         );
-
     }
 
     /**
@@ -340,9 +327,7 @@ trait ImportsData
      */
     protected function save($datum, $model, $transformer)
     {
-
         throw \Exception('You must overwrite the `save` method.');
-
     }
 
     protected function updateSentryTags($datum = null, $endpoint = null, $source = null)

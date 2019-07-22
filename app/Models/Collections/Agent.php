@@ -26,30 +26,22 @@ class Agent extends CollectionsModel
 
     public function agentType()
     {
-
         return $this->belongsTo('App\Models\Collections\AgentType');
-
     }
 
     public function webArtist()
     {
-
         return $this->belongsTo('App\Models\Web\Artist', 'citi_id', 'datahub_id');
-
     }
 
     public function createdArtworks()
     {
-
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist');
-
     }
 
     public function sites()
     {
-
         return $this->belongsToMany('App\Models\StaticArchive\Site', 'agent_site', 'agent_citi_id');
-
     }
 
     /**
@@ -60,9 +52,7 @@ class Agent extends CollectionsModel
      */
     public function scopeArtists($query)
     {
-
         return $query->whereHas('createdArtworks');
-
     }
 
     /**
@@ -72,13 +62,11 @@ class Agent extends CollectionsModel
      */
     public static function searchScopeArtists()
     {
-
         return [
             'exists' => [
                 'field' => 'artwork_ids',
             ],
         ];
-
     }
 
     /**
@@ -89,8 +77,8 @@ class Agent extends CollectionsModel
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function boostedIds() {
-
+    public static function boostedIds()
+    {
         return [
             100304, 100363, 100581, 101310, 102174, 102445, 103575, 104036, 104141, 104542,
             105100, 105112, 107195, 108592, 108780, 10930, 112971, 11328, 114412, 114512, 114644,
@@ -121,14 +109,11 @@ class Agent extends CollectionsModel
             57829, 58479, 59979, 60337, 61495, 61535, 61657, 6512, 6656, 69431, 7268, 7353, 73847,
             77459, 81537, 81689, 8363, 8364, 86099, 91529, 9865,
         ];
-
     }
 
     public function isBoosted()
     {
-
         return in_array($this->getKey(), static::boostedIds());
-
     }
 
     /**
@@ -141,9 +126,7 @@ class Agent extends CollectionsModel
      */
     public static function boosted()
     {
-
         return (new static())->newQuery()->whereKey(static::boostedIds());
-
     }
 
 }

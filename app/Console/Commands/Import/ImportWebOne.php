@@ -13,7 +13,6 @@ class ImportWebOne extends ImportWebFull
 
     public function handle()
     {
-
         if (env('WEB_CMS_DATA_SERVICE_USERNAME'))
         {
             $this->auth = env('WEB_CMS_DATA_SERVICE_USERNAME') . ':' . env('WEB_CMS_DATA_SERVICE_PASSWORD');
@@ -33,12 +32,10 @@ class ImportWebOne extends ImportWebFull
         $this->updateSentryTags($datum, $endpoint, 'Web');
 
         $this->save($datum, $model, $transformer);
-
     }
 
     private function fetchItem($endpoint, $id)
     {
-
         $url = env('WEB_CMS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
 
         $this->info('Fetching: ' . $url);

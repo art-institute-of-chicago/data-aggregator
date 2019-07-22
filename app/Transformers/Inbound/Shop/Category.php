@@ -10,11 +10,9 @@ class Category extends ShopTransformer
 
     protected function getExtraFields(Datum $datum)
     {
-
         return [
             'parent_category_shop_id' => $datum->parent_id,
         ];
-
     }
 
 }

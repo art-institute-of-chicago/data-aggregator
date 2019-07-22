@@ -10,11 +10,9 @@ class Hour extends WebTransformer
 
     protected function getTitle(Datum $datum)
     {
-
         return [
             'title' => $datum->id,
         ];
-
     }
 
 }

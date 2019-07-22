@@ -13,7 +13,6 @@ class ImportCollectionsOne extends ImportCollectionsFull
 
     public function handle()
     {
-
         $endpoint = $this->argument('endpoint');
         $id = $this->argument('id');
 
@@ -28,12 +27,10 @@ class ImportCollectionsOne extends ImportCollectionsFull
         $this->updateSentryTags($datum, $endpoint, 'Collections');
 
         $this->save($datum, $model, $transformer);
-
     }
 
     private function fetchItem($endpoint, $id)
     {
-
         $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
 
         $this->info('Fetching: ' . $url);

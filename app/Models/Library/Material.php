@@ -14,16 +14,12 @@ class Material extends BaseModel
 
     public function creators()
     {
-
         return $this->belongsToMany('App\Models\Library\Term', 'library_material_creator', 'material_id', 'term_id');
-
     }
 
     public function subjects()
     {
-
         return $this->belongsToMany('App\Models\Library\Term', 'library_material_subject', 'material_id', 'term_id');
-
     }
 
     /**
@@ -34,11 +30,9 @@ class Material extends BaseModel
      */
     public static function validateId($id)
     {
-
         $length = strlen(env('PRIMO_API_SOURCE'));
 
         return substr($id, 0, $length) === env('PRIMO_API_SOURCE') && is_numeric(substr($id, $length));
-
     }
 
 }

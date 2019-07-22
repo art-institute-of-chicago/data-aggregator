@@ -32,31 +32,23 @@ class TicketedEvent extends MembershipModel
 
     public function event()
     {
-
         return $this->hasOne('App\Models\Web\Event', 'ticketed_event_id', 'membership_id');
-
     }
 
     public function ticketedEventType()
     {
-
         return $this->belongsTo('App\Models\Membership\TicketedEventType', 'event_type_id');
-
     }
 
     public function searchableImage()
     {
-
         return $this->image_url;
-
     }
 
     public function getDefaultSearchFields($isExact)
     {
-
         $fields = $this->traitGetDefaultSearchFields($isExact);
 
         return array_merge(['id.text^1.0'], $fields);
-
     }
 }

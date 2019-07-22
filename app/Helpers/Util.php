@@ -95,7 +95,8 @@ function summation(array $array)
  *
  * @return multitype:multitype:
  */
-function partition(array $list, $p) {
+function partition(array $list, $p)
+{
     $listlen = count($list);
     $partlen = floor($listlen / $p);
     $partrem = $listlen % $p;
@@ -130,7 +131,6 @@ function getLakeUri($lake_id)
  */
 function allModels()
 {
-
     $models = [];
     $namespace = '\App\Models\\';
 
@@ -167,7 +167,6 @@ function allModels()
     }
 
     return $models;
-
 }
 
 /**
@@ -179,7 +178,6 @@ function allModels()
  */
 function allModelsThatUse($trait)
 {
-
     $modelClasses = allModels();
 
     $models = [];
@@ -197,7 +195,6 @@ function allModelsThatUse($trait)
     }
 
     return $models;
-
 }
 
 /**
@@ -211,7 +208,6 @@ function allModelsThatUse($trait)
  */
 function class_uses_deep($modelClass, $autoload = true)
 {
-
     $traits = class_uses($modelClass, $autoload);
 
     // Get traits of all parent classes
@@ -242,5 +238,4 @@ function class_uses_deep($modelClass, $autoload = true)
     }
 
     return array_unique($traits);
-
 }

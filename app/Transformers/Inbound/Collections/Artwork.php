@@ -20,9 +20,7 @@ class Artwork extends CollectionsTransformer
 
     public function syncEx(Model $instance, Datum $datum)
     {
-
         $this->syncDates($instance, $datum);
-
     }
 
     protected function getExtraFields(Datum $datum)
@@ -46,12 +44,10 @@ class Artwork extends CollectionsTransformer
             // TODO: ArtworkTypes may need to be attached via string comparison
             //'artwork_type_citi_id' => , // Redmine #2431
         ];
-
     }
 
     protected function getSync(Datum $datum, $test = false)
     {
-
         return [
 
             'categories' => $this->getSyncCategories($datum),
@@ -62,7 +58,6 @@ class Artwork extends CollectionsTransformer
             'catalogues' => $this->getSyncCatalogues($datum),
 
         ];
-
     }
 
     protected function getSyncEx(Datum $datum)
@@ -90,13 +85,11 @@ class Artwork extends CollectionsTransformer
      */
     private function getSyncCategories(Datum $datum)
     {
-
         $categories = collect($datum->category_ids)->map(function ($id) {
             return 'PC-' . $id;
         });
 
         return $categories;
-
     }
 
     /**
@@ -106,7 +99,6 @@ class Artwork extends CollectionsTransformer
      */
     private function getSyncTerms(Datum $datum)
     {
-
         $pref_terms = collect($datum->pref_term_ids)->map(function ($term_id) {
             return [
                 ('TM-' . $term_id) => [
@@ -127,7 +119,6 @@ class Artwork extends CollectionsTransformer
         $terms = $terms->collapse();
 
         return $terms;
-
     }
 
     /**
@@ -166,7 +157,6 @@ class Artwork extends CollectionsTransformer
             ];
 
         });
-
     }
 
     /**
@@ -178,7 +168,6 @@ class Artwork extends CollectionsTransformer
      */
     private function getSyncPlaces(Datum $datum)
     {
-
         return $this->getSyncPivots($datum, 'artwork_places', 'place_id', function ($pivot) {
 
             return [
@@ -189,7 +178,6 @@ class Artwork extends CollectionsTransformer
             ];
 
         });
-
     }
 
     /**
@@ -197,7 +185,6 @@ class Artwork extends CollectionsTransformer
      */
     private function getSyncCatalogues(Datum $datum)
     {
-
         return $this->getSyncPivots($datum, 'artwork_catalogues', 'catalogue_id', function ($pivot) {
 
             return [
@@ -209,7 +196,6 @@ class Artwork extends CollectionsTransformer
             ];
 
         });
-
     }
 
     /**

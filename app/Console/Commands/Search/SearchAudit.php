@@ -16,7 +16,6 @@ class SearchAudit extends BaseCommand
 
     public function handle()
     {
-
         $models = app('Search')->getSearchableModels();
         $output = '';
 
@@ -35,12 +34,10 @@ class SearchAudit extends BaseCommand
             $sentry->extra_context(['console.output' => $output]);
             throw new \Exception('Search index and database are out of sync');
         }
-
     }
 
     public function compareTotals($model)
     {
-
         $response = Elasticsearch::search([
             'index' => app('Search')->getIndexForModel($model),
             'type' => app('Search')->getTypeForModel($model),
@@ -59,7 +56,6 @@ class SearchAudit extends BaseCommand
 
     public function compareLatest($model)
     {
-
         if ($model::count() === 0) {
             return;
         }

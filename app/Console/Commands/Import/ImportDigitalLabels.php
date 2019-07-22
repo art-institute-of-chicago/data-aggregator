@@ -22,7 +22,6 @@ class ImportDigitalLabels extends AbstractImportCommand
 
     public function handle()
     {
-
         if (!$this->reset())
         {
             return false;
@@ -30,12 +29,10 @@ class ImportDigitalLabels extends AbstractImportCommand
 
         $this->downloadLabels();
         $this->importLabels();
-
     }
 
     protected function reset()
     {
-
         return $this->resetData(
             [
                 Label::class,

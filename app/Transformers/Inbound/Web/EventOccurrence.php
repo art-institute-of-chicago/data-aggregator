@@ -12,17 +12,14 @@ class EventOccurrence extends WebTransformer
 
     protected function getIds(Datum $datum)
     {
-
         return [
             // 'id' => $this->getCantorId( $datum ),
             'event_id' => $datum->id,
         ];
-
     }
 
     protected function getExtraFields(Datum $datum)
     {
-
         return [
             'event_id' => $datum->id,
             'start_at' => $datum->datetime('start_at'),
@@ -30,7 +27,6 @@ class EventOccurrence extends WebTransformer
             // TODO: Fix ellipsis issue upstream [WEB-507]
             'image_caption' => $datum->image_caption ? html_entity_decode($datum->image_caption) : null,
         ];
-
     }
 
     /**

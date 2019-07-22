@@ -42,7 +42,6 @@ class Response
      */
     public function getSearchResponse()
     {
-
         $response = array_merge(
             $this->paginate(),
             $this->data()
@@ -61,7 +60,6 @@ class Response
         );
 
         return $response;
-
     }
 
     /**
@@ -71,9 +69,7 @@ class Response
      */
     public function getRawResponse()
     {
-
         return $this->searchResponse;
-
     }
 
     /**
@@ -81,11 +77,10 @@ class Response
      *
      * @return array
      */
-    public function getAutocompleteWithTitleResponse() {
-
+    public function getAutocompleteWithTitleResponse()
+    {
         // Defaulting to [] is safe, but ineffecient: catch empty `q` earlier!
         return $this->getAutocompleteWithTitle()['suggest']['autocomplete'] ?? [];
-
     }
 
     /**
@@ -93,8 +88,8 @@ class Response
      *
      * @return array
      */
-    public function getAutocompleteWithSourceResponse() {
-
+    public function getAutocompleteWithSourceResponse()
+    {
         $options = Arr::get($this->searchResponse, 'suggest.autocomplete.0.options');
 
         if ($options) {
@@ -102,7 +97,6 @@ class Response
         }
 
         return [];
-
     }
 
     /**
@@ -145,7 +139,6 @@ class Response
         return [
             'pagination' => $pagination,
         ];
-
     }
 
     /**
@@ -155,7 +148,6 @@ class Response
      */
     private function data()
     {
-
         $hits = $this->searchResponse['hits']['hits'];
         $results = [];
 
@@ -180,7 +172,6 @@ class Response
         return [
             'data' => $results,
         ];
-
     }
 
     /**
@@ -190,7 +181,6 @@ class Response
      */
     private function getAutocompleteWithTitle()
     {
-
         $suggest = [];
 
         $options = Arr::get($this->searchResponse, 'suggest.autocomplete.0.options');
@@ -205,7 +195,6 @@ class Response
         }
 
         return [];
-
     }
 
     /**
@@ -215,11 +204,9 @@ class Response
      */
     private function aggregate()
     {
-
         $aggregations = $this->searchResponse['aggregations'] ?? null;
 
         return $aggregations ? ['aggregations' => $aggregations] : [];
-
     }
 
 }

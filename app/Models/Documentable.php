@@ -16,7 +16,6 @@ trait Documentable
      */
     public function docEndpoints($appUrl)
     {
-
         if ($this->docOnly())
         {
 
@@ -45,7 +44,6 @@ trait Documentable
         $doc .= $this->docSingle($appUrl) . "\n";
 
         return $doc;
-
     }
 
     /**
@@ -55,7 +53,6 @@ trait Documentable
      */
     public function docFields()
     {
-
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
         $doc = '';
@@ -70,7 +67,6 @@ trait Documentable
         }
 
         return $doc;
-
     }
 
     /**
@@ -80,11 +76,9 @@ trait Documentable
      */
     public function docTitle()
     {
-
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
         return '## ' . str_replace('-', ' ', Str::title($endpoint));
-
     }
 
     /**
@@ -94,7 +88,6 @@ trait Documentable
      */
     public function docDescription()
     {
-
         $rc = new ClassReflection(get_called_class());
 
         try {
@@ -102,7 +95,6 @@ trait Documentable
         } catch (\Throwable $e) {
             throw new \Exception('DocBlock is missing for model ' . get_called_class());
         }
-
     }
 
     /**
@@ -112,7 +104,6 @@ trait Documentable
      */
     public function docList($appUrl)
     {
-
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
         // Title
@@ -125,7 +116,6 @@ trait Documentable
         $doc .= $this->docExampleOutput($appUrl);
 
         return $doc;
-
     }
 
     /**
@@ -135,11 +125,9 @@ trait Documentable
      */
     public function docListDescription($endpoint = '')
     {
-
         $endpointAsCopyText = $this->_endpointAsCopyText($endpoint);
 
         return 'A list of all ' . $endpointAsCopyText . ' sorted by last updated date in descending order.';
-
     }
 
     /**
@@ -149,7 +137,6 @@ trait Documentable
      */
     public function docListFields()
     {
-
         $doc = '';
 
         foreach ($this->transformMapping() as $array)
@@ -162,7 +149,6 @@ trait Documentable
         $doc .= "\n";
 
         return $doc;
-
     }
 
     /**
@@ -172,7 +158,6 @@ trait Documentable
      */
     public function docSearch($appUrl)
     {
-
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -194,11 +179,9 @@ trait Documentable
      */
     public function docSearchDescription()
     {
-
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         return 'Search ' . $endpointAsCopyText . ' data in the aggregator. ' . $this->extraSearchDescription();
-
     }
 
     /**
@@ -208,7 +191,6 @@ trait Documentable
      */
     public function docSingle($appUrl)
     {
-
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
@@ -222,7 +204,6 @@ trait Documentable
         }
 
         return $doc;
-
     }
 
     /**
@@ -232,7 +213,6 @@ trait Documentable
      */
     public function docSingleDescription($endpoint = '')
     {
-
         $endpointAsCopyText = $this->_endpointAsCopyText($endpoint);
 
         $doc = 'A single ' . Str::singular($endpointAsCopyText) . ' by the given identifier.';
@@ -245,7 +225,6 @@ trait Documentable
         }
 
         return $doc;
-
     }
 
     /**
@@ -255,7 +234,6 @@ trait Documentable
      */
     public function docListParameters()
     {
-
         $doc = '';
         $doc .= "#### Available parameters:\n\n";
 
@@ -269,7 +247,6 @@ trait Documentable
         $doc .= $this->docIncludeParameters();
 
         return $doc;
-
     }
 
     /**
@@ -279,14 +256,12 @@ trait Documentable
      */
     public function docListParametersRaw()
     {
-
         return [
             'ids' => 'A comma-separated list of resource ids to retrieve',
             'limit' => 'The number of resources to return per page',
             'page' => 'The page of resources to retrieve',
             'fields' => 'A comma-separated list of fields to return per resource',
         ];
-
     }
 
     /**
@@ -296,7 +271,6 @@ trait Documentable
      */
     public function docSearchParameters()
     {
-
         $doc = '';
 
         $doc .= "#### Available parameters:\n\n";
@@ -310,7 +284,6 @@ trait Documentable
         $doc .= "\n";
 
         return $doc;
-
     }
 
     /**
@@ -320,7 +293,6 @@ trait Documentable
      */
     public function docSearchParametersRaw()
     {
-
         return [
             'q' => 'Your search query',
             'query' => 'For complex queries, you can pass Elasticsearch domain syntax queries here',
@@ -329,7 +301,6 @@ trait Documentable
             'size' => 'Number of results to return. Pagination via Elasticsearch conventions',
             'facets' => 'A comma-separated list of \'count\' aggregation facets to include in the results.',
         ];
-
     }
 
     /**
@@ -339,7 +310,6 @@ trait Documentable
      */
     public function docIncludeParameters()
     {
-
         $transformerClass = app('Resources')->getTransformerForModel(get_called_class());
         $transformer = new $transformerClass();
 
@@ -361,7 +331,6 @@ trait Documentable
         $doc .= "\n";
 
         return $doc;
-
     }
 
     /**
@@ -371,7 +340,6 @@ trait Documentable
      */
     public function docExampleOutput($appUrl, $options = [])
     {
-
         $defaults = [
             'extraPath' => '',
             'getParams' => 'limit=2',
@@ -429,7 +397,6 @@ trait Documentable
      */
     public function docExampleSearchOutput($appUrl, $getParams = '')
     {
-
         $requestUrl = $appUrl . $this->_endpointPath() . '/search' . ($getParams ? '?' . $getParams : '');
 
         $doc = '';
@@ -468,9 +435,7 @@ trait Documentable
      */
     public static function source()
     {
-
         return static::$source;
-
     }
 
     /**
@@ -480,9 +445,7 @@ trait Documentable
      */
     public function extraSearchDescription()
     {
-
         return '';
-
     }
 
     /**
@@ -492,9 +455,7 @@ trait Documentable
      */
     public function exampleSearchQuery()
     {
-
         return '';
-
     }
 
     /**
@@ -504,11 +465,9 @@ trait Documentable
      */
     public function exampleId()
     {
-
         $exampleRecord = self::first();
 
         return $exampleRecord ? $exampleRecord->getKey() : null;
-
     }
 
     /**
@@ -518,9 +477,7 @@ trait Documentable
      */
     public function docOnly()
     {
-
         return '';
-
     }
 
     /**
@@ -530,9 +487,7 @@ trait Documentable
      */
     public function hasSearchEndpoint()
     {
-
         return app('Resources')->isModelSearchable(get_called_class());
-
     }
 
     /**
@@ -542,7 +497,6 @@ trait Documentable
      */
     public function swaggerEndpoints()
     {
-
         if ($this->docOnly())
         {
 
@@ -579,7 +533,6 @@ trait Documentable
         }
 
         return $doc;
-
     }
 
     /**
@@ -589,7 +542,6 @@ trait Documentable
      */
     public function swaggerFields()
     {
-
         $model = get_called_class();
         $modelBasename = class_basename($model);
 
@@ -603,7 +555,6 @@ trait Documentable
         $doc .= "\n";
 
         return $doc;
-
     }
 
     /**
@@ -613,7 +564,6 @@ trait Documentable
      */
     public function swaggerListFields()
     {
-
         $doc = '';
         $mapping = $this->transformMapping();
 
@@ -627,7 +577,6 @@ trait Documentable
         }
 
         return $doc;
-
     }
 
     /**
@@ -637,7 +586,6 @@ trait Documentable
      */
     public function swaggerList($endpoint = null)
     {
-
         $doc = '    "/' . ($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) . "\": {\n";
         $doc .= "      \"get\": {\n";
         $doc .= $this->swaggerTags();
@@ -649,7 +597,6 @@ trait Documentable
         $doc .= "    },\n";
 
         return $doc;
-
     }
 
     /**
@@ -659,7 +606,6 @@ trait Documentable
      */
     public function swaggerSearch()
     {
-
         $doc = '    "/' . app('Resources')->getEndpointForModel(get_called_class()) . "/search\": {\n";
         $doc .= "      \"get\": {\n";
         $doc .= $this->swaggerTags(['search']);
@@ -671,7 +617,6 @@ trait Documentable
         $doc .= "    },\n";
 
         return $doc;
-
     }
 
     /**
@@ -681,7 +626,6 @@ trait Documentable
      */
     public function swaggerSingle($endpoint = null)
     {
-
         $doc = '    "/' . ($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) . "/{id}\": {\n";
         $doc .= "      \"get\": {\n";
         $doc .= $this->swaggerTags();
@@ -693,12 +637,10 @@ trait Documentable
         $doc .= "    },\n";
 
         return $doc;
-
     }
 
     public function swaggerTags($extras = [])
     {
-
         $model = get_called_class();
         $endpoint = app('Resources')->getEndpointForModel($model);
         $source = $model::source();
@@ -718,18 +660,15 @@ trait Documentable
         $doc .= "        ],\n";
 
         return $doc;
-
     }
 
     public function swaggerProduces()
     {
-
         $doc = "        \"produces\": [\n";
         $doc .= "          \"application/json\"\n";
         $doc .= "        ],\n";
 
         return $doc;
-
     }
 
     /**
@@ -739,7 +678,6 @@ trait Documentable
      */
     public function swaggerParameters($params = [])
     {
-
         $doc = "        \"parameters\": [\n";
         $array = $params ?? $this->docListParametersRaw();
 
@@ -756,7 +694,6 @@ trait Documentable
 
     public function swaggerResponses($modelBasename = null)
     {
-
         if (!$modelBasename)
         {
 
@@ -784,7 +721,6 @@ trait Documentable
         $doc .= "        }\n";
 
         return $doc;
-
     }
 
     /**
@@ -794,14 +730,12 @@ trait Documentable
      */
     private function _endpointAsCopyText($endpoint = '')
     {
-
         if (!$endpoint)
         {
             $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         }
 
         return strtolower(Str::title($endpoint));
-
     }
 
     /**
@@ -811,7 +745,6 @@ trait Documentable
      */
     private function _endpointPath($options = [])
     {
-
         $defaults = [
             'extraPath' => '',
             'id' => '',
@@ -834,12 +767,10 @@ trait Documentable
         }
 
         return $path;
-
     }
 
     private function _addEllipsis(\stdClass $obj)
     {
-
         $keys = get_object_vars($obj);
         $addEllipsis = false;
         $i = 0;
@@ -859,7 +790,6 @@ trait Documentable
         $obj->{'...'} = null;
 
         return $obj;
-
     }
 
 }

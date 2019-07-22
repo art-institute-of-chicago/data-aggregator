@@ -13,11 +13,9 @@ class ImportProducts extends ImportProductsFull
 
     public function handle()
     {
-
         $this->api = env('SHOP_DATA_SERVICE_URL');
 
         $this->importResources();
-
     }
 
 }

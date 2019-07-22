@@ -8,11 +8,9 @@ class MobileSoundsTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
         factory(Sound::class, 25)->create();
 
         $this->seedRelation(Artwork::class, Sound::class, 'sounds');
-
     }
 
 }

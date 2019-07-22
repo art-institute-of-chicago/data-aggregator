@@ -14,7 +14,6 @@ class ImportAssetsFull extends AbstractImportCommand
 
     public function handle()
     {
-
         if ($this->option('test')) {
             $this->isTest = true;
         }
@@ -34,26 +33,21 @@ class ImportAssetsFull extends AbstractImportCommand
             $this->importEndpoints();
 
         }
-
     }
 
     protected function importEndpoints()
     {
-
         $this->importEndpoint('videos');
         $this->importEndpoint('texts');
         $this->importEndpoint('sounds');
         $this->importEndpoint('images');
-
     }
 
     protected function importEndpoint($endpoint, $page = 1)
     {
-
         $model = app('Resources')->getModelForInboundEndpoint($endpoint, 'assets');
 
         $this->import('assets', $model, $endpoint, $page);
-
     }
 
     /**

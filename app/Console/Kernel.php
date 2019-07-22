@@ -26,7 +26,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-
         $schedule->command('import:daily')
             ->dailyAt('23:00')
             ->withoutOverlapping()
@@ -85,7 +84,6 @@ class Kernel extends ConsoleKernel
                     '--reset' => 'default',
                 ]);
             });
-
     }
 
     /**
@@ -95,7 +93,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-
         $this->load(__DIR__ . '/Commands');
         $this->load(__DIR__ . '/Commands/Docs');
         $this->load(__DIR__ . '/Commands/Import');
@@ -103,6 +100,5 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__ . '/Commands/Report');
         $this->load(__DIR__ . '/Commands/Search');
         $this->load(__DIR__ . '/Commands/Update');
-
     }
 }

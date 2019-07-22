@@ -48,7 +48,6 @@ class ReportArtistDisplayDetail extends BaseCommand
             }
 
         }
-
     }
 
     private function insertOne($numberOfLinebreaks, $artwork)
@@ -67,9 +66,7 @@ class ReportArtistDisplayDetail extends BaseCommand
 
     private function getCsvPath()
     {
-
         return Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . self::$filename;
-
     }
 
 }

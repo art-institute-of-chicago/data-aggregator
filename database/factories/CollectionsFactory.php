@@ -29,20 +29,16 @@ if (!function_exists('idsAndTitle'))
                 'title' => $title,
             ]
         );
-
     }
 
     function dates($faker, $citiField = false)
     {
-
         $ret = [
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
 
         return $ret;
-
     }
-
 }
 
 $factory->define(App\Models\Collections\AgentType::class, function (Faker\Generator $faker) {

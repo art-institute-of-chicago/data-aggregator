@@ -13,11 +13,9 @@ class ImportWeb extends ImportWebFull
 
     public function handle()
     {
-
         $this->api = env('WEB_CMS_DATA_SERVICE_URL');
 
         $this->importEndpoints();
-
     }
 
 }

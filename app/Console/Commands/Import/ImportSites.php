@@ -17,7 +17,6 @@ class ImportSites extends AbstractImportCommand
 
     public function handle()
     {
-
         if (!$this->reset())
         {
             return false;
@@ -32,12 +31,10 @@ class ImportSites extends AbstractImportCommand
         $results = json_decode($contents);
 
         $this->importSites($results->data);
-
     }
 
     protected function reset()
     {
-
         return $this->resetData(
             [
                 Site::class,
@@ -49,19 +46,16 @@ class ImportSites extends AbstractImportCommand
                 'sites',
             ]
         );
-
     }
 
     private function importSites($results)
     {
-
         $this->info('Importing static sites');
 
         foreach ($results as $datum)
         {
             $this->save($datum, Site::class, SiteTransformer::class);
         }
-
     }
 
 }

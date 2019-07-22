@@ -69,7 +69,6 @@ class ReportArtistDisplay extends BaseCommand
         foreach ($results as $result) {
             $this->insertOne($result['number_of_linebreaks'], $result['number_of_artworks']);
         }
-
     }
 
     private function insertOne($numberOfLinebreaks, $numberOfArtworks)
@@ -86,9 +85,7 @@ class ReportArtistDisplay extends BaseCommand
 
     private function getCsvPath()
     {
-
         return Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . self::$filename;
-
     }
 
 }

@@ -12,14 +12,12 @@ trait HasBlocks
 
     protected function getExtraFields(Datum $datum)
     {
-
         $blocks = $this->getBlocks($datum);
 
         return [
             'copy' => $this->getCopy($blocks),
             'imgix_uuid' => $this->getImage($blocks),
         ];
-
     }
 
     /**
@@ -29,7 +27,6 @@ trait HasBlocks
      */
     private function getBlocks(Datum $datum)
     {
-
         // Articles use `copy`, but pages use `content`
         $field = $datum->copy ?? $datum->content ?? [];
 
@@ -40,7 +37,6 @@ trait HasBlocks
 
         // Return as Laravel collection for convenience
         return collect($blocks);
-
     }
 
     /**
@@ -50,7 +46,6 @@ trait HasBlocks
      */
     private function getCopy(Collection $blocks)
     {
-
         // Get our rules for extracting copy from blocks
         $rules = $this->getCopyRules();
 
@@ -80,7 +75,6 @@ trait HasBlocks
 
         // Return all texts as one string
         return $texts->implode(' ');
-
     }
 
     /**
@@ -90,10 +84,8 @@ trait HasBlocks
      */
     private function getImage(Collection $blocks)
     {
-
         // Get a URL to the first large image
         return $blocks->firstWhere('type', 'image')->medias[0]->uuid ?? null;
-
     }
 
     /**
@@ -104,7 +96,6 @@ trait HasBlocks
      */
     private function getCopyRules()
     {
-
         return [
             [
                 'filter' => function ($block) {
@@ -123,7 +114,6 @@ trait HasBlocks
                 },
             ],
         ];
-
     }
 
     /**
@@ -133,7 +123,6 @@ trait HasBlocks
      */
     private function cleanRichText(string $content)
     {
-
         // PHP's `strip_tags` has no way to replace tags with spaces
         $content = preg_replace('#<[^>]+>#', ' ', $content);
 
@@ -145,7 +134,6 @@ trait HasBlocks
         $content = preg_replace('/\s+/', ' ', $content);
 
         return $content;
-
     }
 
 }

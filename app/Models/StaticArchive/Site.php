@@ -25,23 +25,17 @@ class Site extends BaseModel
 
     public function exhibitions()
     {
-
         return $this->belongsToMany('App\Models\Collections\Exhibition');
-
     }
 
     public function agents()
     {
-
         return $this->belongsToMany('App\Models\Collections\Agent');
-
     }
 
     public function artworks()
     {
-
         return $this->belongsToMany('App\Models\Collections\Artwork');
-
     }
 
 }

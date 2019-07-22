@@ -14,11 +14,9 @@ class ImportAnalytics extends AbstractImportCommand
 
     public function handle()
     {
-
         $this->api = env('ANALYTICS_DATA_SERVICE_URL');
 
         $this->import('analytics', Artwork::class, 'artworks', $this->argument('page') ?: 1);
-
     }
 
     /**
@@ -32,7 +30,6 @@ class ImportAnalytics extends AbstractImportCommand
      */
     protected function save($datum, $model, $transformer)
     {
-
         $transformer = new $transformer();
 
         // Use the id and title after they are transformed, not before!
@@ -61,7 +58,6 @@ class ImportAnalytics extends AbstractImportCommand
         }
 
         return $resource;
-
     }
 
 }

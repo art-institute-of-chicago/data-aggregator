@@ -15,7 +15,6 @@ class ScoutImportOne extends BaseCommand
 
     public function handle()
     {
-
         $id = $this->argument('id');
         $class = $this->argument('model');
 
@@ -24,6 +23,5 @@ class ScoutImportOne extends BaseCommand
         $model::find($id)->searchable();
 
         $this->info("Imported #${id} of model ${class}");
-
     }
 }

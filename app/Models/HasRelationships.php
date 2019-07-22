@@ -14,7 +14,6 @@ trait HasRelationships
      */
     public function preferred($resource = 'term', $type = '', $typeField = 'type')
     {
-
         $resources = $this->relatedResources($resource, $type, $typeField);
 
         if (!$resources) return [];
@@ -47,7 +46,6 @@ trait HasRelationships
         }
 
         return null;
-
     }
 
     /**
@@ -56,7 +54,6 @@ trait HasRelationships
      */
     public function alts($resource, $type = '', $typeField = 'type')
     {
-
         $resources = $this->relatedResources($resource, $type, $typeField);
 
         if (!$resources) return [];
@@ -91,7 +88,6 @@ trait HasRelationships
         }
 
         return $ret;
-
     }
 
     /**
@@ -134,12 +130,10 @@ trait HasRelationships
         }
 
         return $ret;
-
     }
 
     private function relatedIds($resources)
     {
-
         if ($resources)
         {
 
@@ -149,7 +143,6 @@ trait HasRelationships
         }
 
         return [];
-
     }
 
 }

@@ -12,7 +12,6 @@ class TicketedEvent extends MembershipTransformer
 
     protected function getExtraFields(Datum $datum)
     {
-
         return [
             'event_type_id' => $datum->type_id,
             'start_at' => $this->getDateTime($datum->start_at),
@@ -20,7 +19,6 @@ class TicketedEvent extends MembershipTransformer
             'on_sale_at' => $this->getDateTime($datum->on_sale_at),
             'off_sale_at' => $this->getDateTime($datum->off_sale_at),
         ];
-
     }
 
     // TODO: Abstract this to Datum?

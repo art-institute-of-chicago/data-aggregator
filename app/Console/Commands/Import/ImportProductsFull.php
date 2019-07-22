@@ -15,7 +15,6 @@ class ImportProductsFull extends AbstractImportCommand
 
     public function handle()
     {
-
         $this->api = env('SHOP_DATA_SERVICE_URL');
 
         if (!$this->reset())
@@ -24,12 +23,10 @@ class ImportProductsFull extends AbstractImportCommand
         }
 
         $this->importResources();
-
     }
 
     protected function reset()
     {
-
         return $this->resetData(
             [
                 Product::class,
@@ -40,15 +37,12 @@ class ImportProductsFull extends AbstractImportCommand
                 'shop_categories',
             ]
         );
-
     }
 
     protected function importResources()
     {
-
         $this->import('Shop', Product::class, 'products');
         $this->import('Shop', Category::class, 'categories');
-
     }
 
 }

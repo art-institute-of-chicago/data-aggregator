@@ -15,7 +15,6 @@ class ImportAssets extends ImportAssetsFull
 
     public function handle()
     {
-
         $this->api = env('ASSETS_DATA_SERVICE_URL');
 
         $endpoint = $this->argument('endpoint');
@@ -30,7 +29,6 @@ class ImportAssets extends ImportAssetsFull
             $this->importEndpoints();
 
         }
-
     }
 
 }

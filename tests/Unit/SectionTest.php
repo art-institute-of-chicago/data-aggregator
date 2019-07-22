@@ -12,10 +12,8 @@ class SectionTest extends ApiTestCase
 
     protected function setUp(): void
     {
-
         parent::setUp();
         $this->make(Publication::class);
-
     }
 
 }

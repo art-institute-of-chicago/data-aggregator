@@ -55,51 +55,38 @@ class Artwork extends CollectionsModel
 
         // TODO: Change this to be polymorphic + use its own table?
         return $this->images()->isPreferred();
-
     }
 
     public function artistPivots()
     {
-
         return $this->hasMany('App\Models\Collections\ArtworkArtistPivot');
-
     }
 
     public function artists()
     {
-
         return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_artist')
             ->using('App\Models\Collections\ArtworkArtistPivot')
             ->withPivot('preferred');
-
     }
 
     public function getArtistAttribute()
     {
-
         return $this->preferred('artist');
-
     }
 
     public function getAltArtistsAttribute()
     {
-
         return $this->alts('artist');
-
     }
 
     public function artworkType()
     {
-
         return $this->belongsTo('App\Models\Collections\ArtworkType');
-
     }
 
     public function categories()
     {
-
         return $this->belongsToMany('App\Models\Collections\Category');
-
     }
 
     public function departments()
@@ -110,275 +97,200 @@ class Artwork extends CollectionsModel
         // This doesn't work great b/c the ids are alphanumeric, not numeric
         // https://stackoverflow.com/questions/153633/natural-sort-in-mysql
         return $this->categories()->departments()->orderBy('parent_id', 'asc')->orderBy('id', 'asc');
-
     }
 
     public function themes()
     {
-
         return $this->categories()->themes();
-
     }
 
     public function dates()
     {
-
         return $this->hasMany('App\Models\Collections\ArtworkDate');
-
     }
 
     public function terms()
     {
-
         return $this->belongsToMany('App\Models\Collections\Term')->withPivot('preferred');
-
     }
 
     public function termPivots()
     {
-
         return $this->hasMany('App\Models\Collections\ArtworkTerm');
-
     }
 
     public function getStylesAttribute()
     {
-
         return $this->relatedResources('term', CategoryTerm::STYLE, 'subtype');
-
     }
 
     public function getStyleAttribute()
     {
-
         return $this->preferred('term', CategoryTerm::STYLE, 'subtype');
-
     }
 
     public function getAltStylesAttribute()
     {
-
         return $this->alts('term', CategoryTerm::STYLE, 'subtype');
-
     }
 
     public function getClassificationsAttribute()
     {
-
         return $this->relatedResources('term', CategoryTerm::CLASSIFICATION, 'subtype');
-
     }
 
     public function getClassificationAttribute()
     {
-
         return $this->preferred('term', CategoryTerm::CLASSIFICATION, 'subtype');
-
     }
 
     public function getAltClassificationsAttribute()
     {
-
         return $this->alts('term', CategoryTerm::CLASSIFICATION, 'subtype');
-
     }
 
     public function getSubjectsAttribute()
     {
-
         return $this->relatedResources('term', CategoryTerm::SUBJECT, 'subtype');
-
     }
 
     public function getSubjectAttribute()
     {
-
         return $this->preferred('term', CategoryTerm::SUBJECT, 'subtype');
-
     }
 
     public function getAltSubjectsAttribute()
     {
-
         return $this->alts('term', CategoryTerm::SUBJECT, 'subtype');
-
     }
 
     public function getMaterialsAttribute()
     {
-
         return $this->relatedResources('term', CategoryTerm::MATERIAL, 'subtype');
-
     }
 
     public function getMaterialAttribute()
     {
-
         return $this->preferred('term', CategoryTerm::MATERIAL, 'subtype');
-
     }
 
     public function getAltMaterialsAttribute()
     {
-
         return $this->alts('term', CategoryTerm::MATERIAL, 'subtype');
-
     }
 
     public function getTechniquesAttribute()
     {
-
         return $this->relatedResources('term', CategoryTerm::TECHNIQUE, 'subtype');
-
     }
 
     public function getTechniqueAttribute()
     {
-
         return $this->preferred('term', CategoryTerm::TECHNIQUE, 'subtype');
-
     }
 
     public function getAltTechniquesAttribute()
     {
-
         return $this->alts('term', CategoryTerm::TECHNIQUE, 'subtype');
-
     }
 
     // TODO: rename this to cataloguePivots
     public function artworkCatalogues()
     {
-
         return $this->hasMany('App\Models\Collections\ArtworkCatalogue');
-
     }
 
     // TODO: Unused. Delete?
     public function catalogues()
     {
-
         return $this->belongsToMany('App\Models\Collections\Catalogue', 'artwork_catalogue')
             ->using('App\Models\Collections\ArtworkCatalogue')
             ->withPivot('preferred');
-
     }
 
     public function gallery()
     {
-
         return $this->belongsTo('App\Models\Collections\Gallery');
-
     }
 
     public function images()
     {
-
         return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')
             ->withPivot('preferred')
             ->withPivot('is_doc')
             ->wherePivot('is_doc', '=', false);
-
     }
 
     public function imagePivots()
     {
-
         return $this->hasMany('App\Models\Collections\ArtworkImagePivot');
-
     }
 
     public function getImageAttribute()
     {
-
         return $this->preferred('image');
-
     }
 
     public function getAltImagesAttribute()
     {
-
         return $this->alts('image');
-
     }
 
     public function assets()
     {
-
         return $this->belongsToMany('App\Models\Collections\Asset')->withPivot('is_doc');
-
     }
 
     public function assetPivots()
     {
-
         return $this->hasMany('App\Models\Collections\ArtworkAssetPivot');
-
     }
 
     public function documents()
     {
-
         return $this->belongsToMany('App\Models\Collections\Asset')->withPivot('is_doc')->wherePivot('is_doc', '=', true);
-
     }
 
     public function sounds()
     {
-
         return $this->relatedResources('asset', Asset::SOUND);
-
     }
 
     public function videos()
     {
-
         return $this->relatedResources('asset', Asset::VIDEO);
-
     }
 
     public function texts()
     {
-
         return $this->relatedResources('asset', Asset::TEXT);
-
     }
 
     public function mobileArtwork()
     {
-
         return $this->hasOne('App\Models\Mobile\Artwork');
-
     }
 
     public function sections()
     {
-
         return $this->hasMany('App\Models\Dsc\Section');
-
     }
 
     public function sites()
     {
-
         return $this->belongsToMany('App\Models\StaticArchive\Site');
-
     }
 
     public function placePivots()
     {
-
         return $this->hasMany('App\Models\Collections\ArtworkPlacePivot');
-
     }
 
     public function places()
     {
-
         return $this->belongsToMany('App\Models\Collections\Place')
             ->using('App\Models\Collections\ArtworkPlacePivot')
             ->withPivot('preferred');
-
     }
 
     // Meh, we'll leave out preferred & alternative places for now
@@ -435,8 +347,8 @@ class Artwork extends CollectionsModel
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function boostedIds() {
-
+    public static function boostedIds()
+    {
         return [
             185651, 183077, 151358, 99539, 189595, 187528, 102611, 111401, 91620, 18757, 51185, 55249, 14968, 65290, 75644,
             106538, 59787, 103347, 104094, 100829, 76571, 154237, 154238, 149776, 120154, 44018, 56905, 102295, 105105, 184672,
@@ -469,7 +381,6 @@ class Artwork extends CollectionsModel
             30709, 31285, 43145, 49702, 62042, 62371, 76240, 79600, 81564, 105466, 109926, 111377, 111559, 119521, 146701, 146953,
             150054, 238749, 100858, 229393, 151363, 53001, 189807, 9010, 220179, 37368,
         ];
-
     }
 
     /**
@@ -481,8 +392,8 @@ class Artwork extends CollectionsModel
      *
      * @return array
      */
-    public static function getFeaturedIds() {
-
+    public static function getFeaturedIds()
+    {
         return [
             27992, // La Grande Jatte
             111628, // Nighthawks
@@ -508,7 +419,6 @@ class Artwork extends CollectionsModel
             229393, // Untitled
             151363, // The Weaver
         ];
-
     }
 
     /**
@@ -517,8 +427,8 @@ class Artwork extends CollectionsModel
      *
      * @return int
      */
-    public function getBoostRank() {
-
+    public function getBoostRank()
+    {
         $ids = $this->getFeaturedIds();
 
         if (!in_array($this->getKey(), $ids))
@@ -533,14 +443,11 @@ class Artwork extends CollectionsModel
         $rank = (intdiv($rank, 4) + 1) * ($rank + 1);
 
         return $rank;
-
     }
 
     public function isBoosted()
     {
-
         return in_array($this->getKey(), static::boostedIds());
-
     }
 
     /**
@@ -553,9 +460,7 @@ class Artwork extends CollectionsModel
      */
     public static function boosted()
     {
-
         return (new static())->newQuery()->whereKey(static::boostedIds());
-
     }
 
     /**
@@ -628,7 +533,6 @@ class Artwork extends CollectionsModel
      */
     public static function searchBoostArtworks()
     {
-
         return [
             // Boost anything that has an image
             [
@@ -637,14 +541,11 @@ class Artwork extends CollectionsModel
                 ],
             ],
         ];
-
     }
 
     public function searchableImage()
     {
-
         return $this->image->iiif_url ?? null;
-
     }
 
     /**
@@ -654,9 +555,7 @@ class Artwork extends CollectionsModel
      */
     public function extraSearchDescription()
     {
-
         return "Artworks in the groups of essentials are boosted so they'll show up higher in results.";
-
     }
 
     /**
@@ -666,9 +565,7 @@ class Artwork extends CollectionsModel
      */
     public function exampleSearchQuery()
     {
-
         return 'q=monet';
-
     }
 
 }

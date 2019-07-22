@@ -51,9 +51,7 @@ class SearchController extends BaseController
      */
     public function search(Request $request, $resource = null)
     {
-
         return $this->query('getSearchParams', 'getSearchResponse', 'search', $resource);
-
     }
 
     /**
@@ -82,9 +80,7 @@ class SearchController extends BaseController
      */
     public function autocompleteWithTitle(Request $request, $resource = null)
     {
-
         return $this->query('getAutocompleteParams', 'getAutocompleteWithTitleResponse', 'search', $resource);
-
     }
 
     /**
@@ -93,11 +89,9 @@ class SearchController extends BaseController
      */
     public function autocompleteWithSource(Request $request, $resource = null)
     {
-
         return $this->query('getAutocompleteParams', 'getAutocompleteWithSourceResponse', 'search', $resource, null, [
             'use_suggest_autocomplete_all' => true,
         ]);
-
     }
 
     /**
@@ -115,9 +109,7 @@ class SearchController extends BaseController
      */
     public function explain(Request $request, $resource, $id)
     {
-
         return $this->query('getExplainParams', 'getRawResponse', 'explain', $resource, $id);
-
     }
 
     /**
@@ -126,14 +118,13 @@ class SearchController extends BaseController
      */
     public function echo(Request $request, $resource = null)
     {
-
         $this->query('getSearchParams', 'getSearchResponse', 'search', $resource);
 
         return response($this->getRequest())->header('Content-Type', 'application/json');
-
     }
 
-    protected function buildCacheKey() {
+    protected function buildCacheKey()
+    {
         return md5(json_encode(func_get_args()));
     }
 
@@ -185,7 +176,6 @@ class SearchController extends BaseController
         $response = ( new SearchResponse($results, $params) )->{$responseMethod}();
 
         return $response;
-
     }
 
     /**
@@ -195,7 +185,6 @@ class SearchController extends BaseController
      */
     private function mquery($requestMethod, $responseMethod, Request $request, $requestArgs = null)
     {
-
         $queries = Input::all();
 
         if (!is_array($queries) || count(array_filter(array_keys($queries), 'is_string')) > 0) {
@@ -288,7 +277,6 @@ class SearchController extends BaseController
         }
 
         return $responses;
-
     }
 
     /**
@@ -298,11 +286,9 @@ class SearchController extends BaseController
      */
     private function getRequest()
     {
-
         $request = Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request'];
         $request['body'] = json_decode($request['body'], true);
 
         return $request;
-
     }
 }

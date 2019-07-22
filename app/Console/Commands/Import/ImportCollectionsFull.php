@@ -14,7 +14,6 @@ class ImportCollectionsFull extends AbstractImportCommand
 
     public function handle()
     {
-
         if ($this->option('test')) {
             $this->isTest = true;
         }
@@ -34,7 +33,6 @@ class ImportCollectionsFull extends AbstractImportCommand
             $this->importEndpoints();
 
         }
-
     }
 
     protected function importEndpoints()
@@ -56,16 +54,13 @@ class ImportCollectionsFull extends AbstractImportCommand
         $this->importEndpoint('agents');
         $this->importEndpoint('exhibitions');
         $this->importEndpoint('artworks');
-
     }
 
     protected function importEndpoint($endpoint, $page = 1)
     {
-
         $model = $this->getModelForEndpoint($endpoint);
 
         $this->import('Collections', $model, $endpoint, $page);
-
     }
 
     protected function getModelForEndpoint($endpoint)
@@ -92,7 +87,6 @@ class ImportCollectionsFull extends AbstractImportCommand
      */
     private function getUrls(array $ids, $endpoint)
     {
-
         $n = 0;
 
         do {
@@ -116,7 +110,6 @@ class ImportCollectionsFull extends AbstractImportCommand
         } while ($max_url_length > 600);
 
         return $urls;
-
     }
 
 }

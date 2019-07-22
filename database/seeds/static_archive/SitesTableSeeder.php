@@ -10,7 +10,6 @@ class SitesTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
         factory(Site::class, 25)->create();
 
         $this->seedRelation(Site::class, Artwork::class, 'artworks');
@@ -18,7 +17,6 @@ class SitesTableSeeder extends AbstractSeeder
         $this->seedRelation(Site::class, Exhibition::class, 'exhibitions');
 
         $this->seedRelation(Site::class, Agent::class, 'agents');
-
     }
 
 }

@@ -17,7 +17,6 @@ class CreateSwaggerDoc extends AbstractDocCommand
 
     public function handle()
     {
-
         if ($this->argument('appUrl'))
         {
             $this->appUrl = $this->argument('appUrl');
@@ -180,7 +179,6 @@ class CreateSwaggerDoc extends AbstractDocCommand
         $doc .= "}\n";
 
         Storage::disk('local')->put('swagger.json', $doc);
-
     }
 
 }

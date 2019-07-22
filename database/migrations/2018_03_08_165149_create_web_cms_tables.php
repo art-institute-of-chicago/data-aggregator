@@ -229,7 +229,6 @@ class CreateWebCmsTables extends Migration
      */
     public function down()
     {
-
         Schema::dropIfExists('tags');
         Schema::dropIfExists('locations');
         Schema::dropIfExists('hours');
@@ -249,6 +248,5 @@ class CreateWebCmsTables extends Migration
         Schema::dropIfExists('educator_resources');
         Schema::dropIfExists('digital_catalogs');
         Schema::dropIfExists('printed_catalogs');
-
     }
 }

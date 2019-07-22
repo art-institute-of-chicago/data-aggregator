@@ -12,7 +12,6 @@ trait Indexer
      */
     public function destroy($index = null, $yes = false)
     {
-
         if (!$index)
         {
 
@@ -42,18 +41,15 @@ trait Indexer
         Elasticsearch::indices()->delete($params);
 
         return true;
-
     }
 
     public function baseUrl()
     {
-
         $host = env('ELASTICSEARCH_HOST', 'localhost');
         $port = env('ELASTICSEARCH_PORT', 9200);
         $scheme = env('ELASTICSEARCH_SCHEME', null);
 
         return $scheme . '://' . $host . ':' . $port;
-
     }
 
     /**
@@ -63,7 +59,6 @@ trait Indexer
      */
     private function done($return = [])
     {
-
         if (array_key_exists('acknowledged', $return))
         {
 
@@ -72,7 +67,6 @@ trait Indexer
         }
 
         return 'There was an error: ' . print_r($return, true);
-
     }
 
 }

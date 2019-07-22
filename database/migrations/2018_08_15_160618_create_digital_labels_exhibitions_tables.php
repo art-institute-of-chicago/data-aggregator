@@ -43,7 +43,7 @@ class CreateDigitalLabelsExhibitionsTables extends Migration
             $table->integer('digital_label_id')->unsigned()->index();
             $table->integer('agent_citi_id')->index();
         });
-}
+    }
 
     /**
      * Reverse the migrations.

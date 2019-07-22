@@ -55,7 +55,6 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
         ];
 
         return $this->curl($query);
-
     }
 
     protected function basicQueryBoosted($field, $value, $boost)

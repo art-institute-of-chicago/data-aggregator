@@ -22,7 +22,6 @@ class SearchInstall extends BaseCommand
 
     public function handle()
     {
-
         $prefix = $this->argument('prefix') ?? env('ELASTICSEARCH_INDEX');
 
         if ($this->argument('model'))
@@ -42,12 +41,10 @@ class SearchInstall extends BaseCommand
             }
 
         }
-
     }
 
     private function install($model, $prefix)
     {
-
         $index = app('Search')->getIndexForModel($model, $prefix);
 
         if (!$this->destroy($index, $this->option('yes')))
@@ -67,7 +64,6 @@ class SearchInstall extends BaseCommand
         $return = Elasticsearch::indices()->create($params);
 
         $this->info($this->done($return));
-
     }
 
 }

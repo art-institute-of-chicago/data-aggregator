@@ -21,16 +21,12 @@ class Image extends Asset
      */
     public function getIiifUrlAttribute()
     {
-
         return env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->lake_guid;
-
     }
 
     public function searchableImage()
     {
-
         return $this->iiif_url;
-
     }
 
 }

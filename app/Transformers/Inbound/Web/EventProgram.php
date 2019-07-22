@@ -10,11 +10,9 @@ class EventProgram extends WebTransformer
 
     protected function getExtraFields(Datum $datum)
     {
-
         return [
             'title' => $datum->name,
         ];
-
     }
 
 }

@@ -14,7 +14,6 @@ class ImportTicketedEventTypesFull extends AbstractImportCommand
 
     public function handle()
     {
-
         $this->api = env('EVENTS_DATA_SERVICE_URL');
 
         if (!$this->reset())
@@ -23,14 +22,11 @@ class ImportTicketedEventTypesFull extends AbstractImportCommand
         }
 
         $this->importTicketedEventTypes();
-
     }
 
     protected function importTicketedEventTypes()
     {
-
         return $this->import('Membership', TicketedEventType::class, 'event-types');
-
     }
 
     protected function reset()
@@ -38,7 +34,6 @@ class ImportTicketedEventTypesFull extends AbstractImportCommand
 
         // We only need to clear a table, not flush a search index
         return $this->resetData([], 'ticketed_event_types');
-
     }
 
     protected function save($datum, $model, $transformer)
@@ -48,7 +43,6 @@ class ImportTicketedEventTypesFull extends AbstractImportCommand
         $datum->source = 'galaxy';
 
         return parent::save($datum, $model, $transformer);
-
     }
 
 }

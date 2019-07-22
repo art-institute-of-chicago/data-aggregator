@@ -13,7 +13,6 @@ class ImportUlan extends AbstractImportCommand
 
     public function handle()
     {
-
         // TODO: Set up monthly-ish download of new data set + refresh all agents then
 
         // Grab all agents that (1) don't have a URI
@@ -74,7 +73,6 @@ class ImportUlan extends AbstractImportCommand
 
     private function updateUlan($agent, $result, $message = '')
     {
-
         // If there's only one result, set the ULAN URI
         if (count($result->results) === 1)
         {
@@ -115,6 +113,5 @@ class ImportUlan extends AbstractImportCommand
         }
 
         return false;
-
     }
 }

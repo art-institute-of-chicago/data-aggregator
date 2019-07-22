@@ -20,8 +20,8 @@ trait Factory
         return $this;
     }
 
-    protected function attach($types, $times = 1, $relation = '', $fields = []) {
-
+    protected function attach($types, $times = 1, $relation = '', $fields = [])
+    {
         if (!is_array($types))
         {
             $types = [$types];
@@ -32,12 +32,10 @@ trait Factory
         $this->attachRelation = $relation;
         $this->attachFields = $fields;
         return $this;
-
     }
 
     protected function make($type, $fields = [])
     {
-
         while ($this->times-- > 0) {
 
             $model = factory($type)->create($fields);
@@ -92,21 +90,17 @@ trait Factory
 
     protected function classFrom($type)
     {
-
         $path = explode('\\', $type);
         return array_pop($path);
-
     }
 
     protected function reset()
     {
-
         $this->times = 1;
         $this->attachTypes = [];
         $this->attachTimes = 1;
         $this->attachRelation = '';
         $this->attachFields = [];
-
     }
 
 }

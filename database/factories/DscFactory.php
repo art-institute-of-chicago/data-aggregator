@@ -14,12 +14,10 @@ if (!function_exists('dscIdsAndTitle'))
 {
     function dscIdsAndTitle($faker, $id = '')
     {
-
         return [
             'dsc_id' => $id ?: $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
             'title' => ucfirst($faker->words(3, true)),
         ];
-
     }
 
 }

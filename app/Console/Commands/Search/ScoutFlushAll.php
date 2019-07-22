@@ -13,7 +13,6 @@ class ScoutFlushAll extends BaseCommand
 
     public function handle()
     {
-
         $models = app('Search')->getSearchableModels();
 
         foreach ($models as $model) {
@@ -21,7 +20,6 @@ class ScoutFlushAll extends BaseCommand
             $this->call('scout:flush', ['model' => $model]);
 
         }
-
     }
 
 }

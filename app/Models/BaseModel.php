@@ -60,14 +60,11 @@ class BaseModel extends AbstractModel
         return array_merge($casts, [
             'source_modified_at' => 'datetime',
         ]);
-
     }
 
     public function isBoosted()
     {
-
         return false;
-
     }
 
     /**
@@ -78,7 +75,6 @@ class BaseModel extends AbstractModel
      */
     public function touchOwners()
     {
-
         parent::touchOwners();
 
         foreach ($this->touches as $relation) {
@@ -119,8 +115,7 @@ class BaseModel extends AbstractModel
         $parentKey,
         $relatedKey,
         $relationName = null
-    )
-    {
+    ) {
         return new BelongsToManyOrOne($query, $parent, $table, $foreignPivotKey, $relatedPivotKey, $parentKey, $relatedKey, $relationName);
     }
 }

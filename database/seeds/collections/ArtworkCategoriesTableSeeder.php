@@ -8,9 +8,7 @@ class ArtworkCategoriesTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
         $this->seedRelation(Artwork::class, Category::class, 'categories');
-
     }
 
 }

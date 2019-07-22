@@ -28,9 +28,7 @@ trait ConvertsToHtml
      */
     private function convertToHtml($value)
     {
-
         return isset($value) ? $this->getHtmlConverter()->convertToHtml($value) : null;
-
     }
 
 }

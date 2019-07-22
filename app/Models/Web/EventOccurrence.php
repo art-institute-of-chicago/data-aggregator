@@ -21,9 +21,7 @@ class EventOccurrence extends WebModel
 
     public function event()
     {
-
         return $this->belongsTo('App\Models\Membership\Event');
-
     }
 
 }

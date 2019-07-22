@@ -21,7 +21,6 @@ class CreateCommandTable extends Migration
             $table->timestamp('last_success_at')->nullable();
             $table->timestamps();
         });
-
     }
 
     /**
@@ -31,9 +30,7 @@ class CreateCommandTable extends Migration
      */
     public function down()
     {
-
         Schema::dropIfExists('commands');
-
     }
 
 }

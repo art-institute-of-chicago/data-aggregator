@@ -79,7 +79,6 @@ abstract class AbstractImportCommand extends BaseCommand
         }
 
         return $result;
-
     }
 
     /**
@@ -93,7 +92,6 @@ abstract class AbstractImportCommand extends BaseCommand
      */
     protected function save($datum, $model, $transformer)
     {
-
         $transformer = new $transformer();
 
         // Use the id and title after they are transformed, not before!
@@ -120,7 +118,6 @@ abstract class AbstractImportCommand extends BaseCommand
         // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");
 
         return $resource;
-
     }
 
 }

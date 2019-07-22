@@ -31,7 +31,6 @@ class ArtworkTest extends ApiTestCase
     /** @test */
     public function it_fetches_the_gallery_for_an_artwork()
     {
-
         $galleryKey = $this->make(Gallery::class, ['is_closed' => false]);
         $artworkKey = $this->make(Artwork::class, ['gallery_citi_id' => $galleryKey, 'is_on_view' => true]);
 
@@ -40,7 +39,6 @@ class ArtworkTest extends ApiTestCase
 
         $resource = $response->json()['data'];
         $this->assertTrue($resource['is_on_view']);
-
     }
 
 }

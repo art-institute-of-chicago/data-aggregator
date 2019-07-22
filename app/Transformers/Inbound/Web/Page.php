@@ -18,7 +18,6 @@ class Page extends WebTransformer
             'publish_start_date' => $datum->date('publish_start_date'),
             'publish_end_date' => $datum->date('publish_end_date'),
         ]);
-
     }
 
 }

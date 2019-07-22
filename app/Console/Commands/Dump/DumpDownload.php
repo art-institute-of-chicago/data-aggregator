@@ -11,7 +11,6 @@ class DumpDownload extends AbstractDumpCommand
 
     public function handle()
     {
-
         $this->validateEnv(['DUMP_REPO_REMOTE']);
 
         $repoRemote = env('DUMP_REPO_REMOTE');

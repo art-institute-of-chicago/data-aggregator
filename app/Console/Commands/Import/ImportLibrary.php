@@ -15,7 +15,6 @@ class ImportLibrary extends AbstractImportCommand
 
     public function handle()
     {
-
         $this->api = env('LIBRARY_DATA_SERVICE_URL');
 
         if (!$this->reset())
@@ -25,12 +24,10 @@ class ImportLibrary extends AbstractImportCommand
 
         $this->import('Library', Material::class, 'materials');
         $this->import('Library', Term::class, 'terms');
-
     }
 
     protected function reset()
     {
-
         return $this->resetData(
             [
                 // Material::class,
@@ -41,7 +38,6 @@ class ImportLibrary extends AbstractImportCommand
                 'library_terms',
             ]
         );
-
     }
 
 }

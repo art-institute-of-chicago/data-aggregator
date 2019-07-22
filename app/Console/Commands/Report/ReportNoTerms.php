@@ -16,7 +16,6 @@ class ReportNoTerms extends BaseCommand
 
     public function handle()
     {
-
         $csv = Writer::createFromString('');
 
         $csv->insertOne([
@@ -47,7 +46,6 @@ class ReportNoTerms extends BaseCommand
         }
 
         Storage::put('artwork-no-terms.csv', $csv->getContent());
-
     }
 
 }

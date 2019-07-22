@@ -18,7 +18,6 @@ class ReportAltText extends BaseCommand
 
     public function handle()
     {
-
         $csv = Writer::createFromString('');
 
         $csv->insertOne([
@@ -60,15 +59,13 @@ class ReportAltText extends BaseCommand
         }
 
         Storage::put('artwork-alt-tags.csv', $csv->getContent());
-
     }
 
-    private function getLakeShoreLink($guid, $type) {
-
+    private function getLakeShoreLink($guid, $type)
+    {
         return env('LAKESHORE_URL')
             . '/' . $type
             . '/' . $guid;
-
     }
 
 }

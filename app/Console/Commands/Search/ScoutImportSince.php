@@ -42,7 +42,6 @@ class ScoutImportSince extends BaseCommand
                 }
             });
         }
-
     }
 
 }

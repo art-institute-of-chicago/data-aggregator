@@ -14,7 +14,6 @@ class Datum implements JsonSerializable
 
     public function __construct($datum)
     {
-
         if (is_array($datum))
         {
             $datum = (object) $datum;
@@ -25,11 +24,9 @@ class Datum implements JsonSerializable
 
     public function __get($field)
     {
-
         $value = $this->datum->{$field} ?? null;
 
         return $this->getCleanValue($value);
-
     }
 
     /**
@@ -41,7 +38,6 @@ class Datum implements JsonSerializable
      */
     public function all($field = null)
     {
-
         if (!isset($field))
         {
             $datum = (array) $this->datum;
@@ -51,7 +47,6 @@ class Datum implements JsonSerializable
 
         // Note how we're getting __get() to fire here
         return $this->{$field} ?? [];
-
     }
 
     /**
@@ -63,7 +58,6 @@ class Datum implements JsonSerializable
      */
     public function date($field)
     {
-
         // Note how we're getting __get() to fire here
         $date = $this->{$field};
 
@@ -83,15 +77,13 @@ class Datum implements JsonSerializable
         }
 
         return null;
-
     }
 
-    public function datetime($field) {
-
+    public function datetime($field)
+    {
         $timestamp = $this->date($field);
 
         return isset($timestamp) ? date('Y-m-d H:i:s', $timestamp) : null;
-
     }
 
     /**
@@ -103,9 +95,7 @@ class Datum implements JsonSerializable
      */
     public function jsonSerialize()
     {
-
         return $this->all();
-
     }
 
     /**
@@ -117,7 +107,6 @@ class Datum implements JsonSerializable
      */
     private function getSubDatum($object)
     {
-
         $hash = spl_object_hash($object);
 
         if (!isset($this->subdatums[$hash]))
@@ -126,7 +115,6 @@ class Datum implements JsonSerializable
         }
 
         return $this->subdatums[$hash];
-
     }
 
     /**
@@ -136,7 +124,6 @@ class Datum implements JsonSerializable
      */
     private function getCleanValue($value)
     {
-
         if (!isset($value))
         {
             return null;
@@ -161,7 +148,6 @@ class Datum implements JsonSerializable
         }
 
         return $value;
-
     }
 
 }

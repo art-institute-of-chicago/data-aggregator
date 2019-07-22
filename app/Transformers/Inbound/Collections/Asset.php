@@ -10,11 +10,9 @@ class Asset extends CollectionsTransformer
 
     protected function getIds(Datum $datum)
     {
-
         return  [
             'lake_guid' => $datum->lake_guid,
         ];
-
     }
 
     protected function getDates(Datum $datum)
@@ -38,7 +36,6 @@ class Asset extends CollectionsTransformer
 
     private function getSyncAssetOf(Datum $datum, string $pivot_field)
     {
-
         return $this->getSyncPivots($datum, $pivot_field, 'related_id', function ($pivot) {
 
             return [
@@ -49,7 +46,6 @@ class Asset extends CollectionsTransformer
             ];
 
         });
-
     }
 
 }

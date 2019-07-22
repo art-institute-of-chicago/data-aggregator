@@ -48,9 +48,7 @@ class CategoryTerm extends CollectionsModel
     // Affects `searchableIndex` and `api_model`
     public function searchableModel()
     {
-
         return 'category-terms';
-
     }
 
     /**
@@ -81,20 +79,16 @@ class CategoryTerm extends CollectionsModel
      */
     public function scopeTerms($query)
     {
-
         return $query->where('is_category', false);
-
     }
 
     public static function searchScopeTerms()
     {
-
         return [
             'prefix' => [
                 'id' => 'TM-',
             ],
         ];
-
     }
 
     /**
@@ -105,20 +99,16 @@ class CategoryTerm extends CollectionsModel
      */
     public function scopeCategories($query)
     {
-
         return $query->where('is_category', true);
-
     }
 
     public static function searchScopeCategories()
     {
-
         return [
             'prefix' => [
                 'id' => 'PC-',
             ],
         ];
-
     }
 
     /**
@@ -129,9 +119,7 @@ class CategoryTerm extends CollectionsModel
      */
     public function scopeDepartments($query)
     {
-
         return $query->categories()->where('subtype', self::DEPARTMENT)->where('parent_id', null);
-
     }
 
     /**
@@ -141,7 +129,6 @@ class CategoryTerm extends CollectionsModel
      */
     public static function searchScopeDepartments()
     {
-
         return [
             'bool' => [
                 'must' => [
@@ -156,7 +143,6 @@ class CategoryTerm extends CollectionsModel
                 ],
             ],
         ];
-
     }
 
     /**
@@ -167,9 +153,7 @@ class CategoryTerm extends CollectionsModel
      */
     public function scopeThemes($query)
     {
-
         return $query->categories()->where('subtype', self::THEME);
-
     }
 
     /**
@@ -180,9 +164,7 @@ class CategoryTerm extends CollectionsModel
      */
     public function scopeStyle($query)
     {
-
         return $query->terms()->where('subtype', self::STYLE);
-
     }
 
     /**
@@ -193,9 +175,7 @@ class CategoryTerm extends CollectionsModel
      */
     public function scopeClassification($query)
     {
-
         return $query->terms()->where('subtype', self::CLASSIFICATION);
-
     }
 
     /**
@@ -206,9 +186,7 @@ class CategoryTerm extends CollectionsModel
      */
     public function scopeSubject($query)
     {
-
         return $query->terms()->where('subtype', self::SUBJECT);
-
     }
 
     /**
@@ -219,9 +197,7 @@ class CategoryTerm extends CollectionsModel
      */
     public function scopeMaterial($query)
     {
-
         return $query->terms()->where('subtype', self::MATERIAL);
-
     }
 
     /**
@@ -232,9 +208,7 @@ class CategoryTerm extends CollectionsModel
      */
     public function scopeTechnique($query)
     {
-
         return $query->terms()->where('subtype', self::TECHNIQUE);
-
     }
 
     /**
@@ -245,11 +219,9 @@ class CategoryTerm extends CollectionsModel
      */
     public static function validateId($id)
     {
-
         $uid = '/^[A-Z]{2}-[0-9]+$/i';
 
         return preg_match($uid, $id);
-
     }
 
     /**
@@ -262,7 +234,6 @@ class CategoryTerm extends CollectionsModel
      */
     protected static function boot()
     {
-
         parent::boot();
 
         // Allows querying all CategoryTerms directly
@@ -274,7 +245,6 @@ class CategoryTerm extends CollectionsModel
         static::addGlobalScope('caterm', function ($builder) {
             $builder->where('is_category', '=', static::$isCategory);
         });
-
     }
 
 }

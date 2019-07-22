@@ -21,7 +21,6 @@ class SearchUninstall extends BaseCommand
 
     public function handle()
     {
-
         $prefix = $this->argument('index') ?? env('ELASTICSEARCH_INDEX');
 
         if (!$this->option('yes') && !$this->confirm('This will delete all indexes with `' . $prefix . '` prefix. Are you sure?'))
@@ -58,7 +57,6 @@ class SearchUninstall extends BaseCommand
             }
 
         }
-
     }
 
 }

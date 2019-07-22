@@ -7,7 +7,6 @@ class ArtworkDatesTableSeeder extends AbstractSeeder
 
     public function seedDates($artwork)
     {
-
         $hasPreferred = false;
 
         // There's an exclusive, many-to-one relationship b/w dates and artworks
@@ -28,12 +27,10 @@ class ArtworkDatesTableSeeder extends AbstractSeeder
             if ($preferred || $hasPreferred) $hasPreferred = true;
 
         }
-
     }
 
     protected function seed()
     {
-
         $artworks = Artwork::fake()->get();
 
         foreach ($artworks as $artwork) {
@@ -41,7 +38,6 @@ class ArtworkDatesTableSeeder extends AbstractSeeder
             $this->seedDates($artwork);
 
         }
-
     }
 
 }

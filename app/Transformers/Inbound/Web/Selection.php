@@ -13,7 +13,6 @@ class Selection extends WebTransformer
 
     protected function getTitle(Datum $datum)
     {
-
         return [
             'title' => $datum->slug,
 
@@ -21,7 +20,6 @@ class Selection extends WebTransformer
             'publish_start_date' => $datum->date('publish_start_date'),
             'publish_end_date' => $datum->date('publish_end_date'),
         ];
-
     }
 
 }

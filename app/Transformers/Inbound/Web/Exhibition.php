@@ -10,11 +10,9 @@ class Exhibition extends WebTransformer
 
     protected function getExtraFields(Datum $datum)
     {
-
         return [
             'is_published' => $datum->published,
         ];
-
     }
 
 }

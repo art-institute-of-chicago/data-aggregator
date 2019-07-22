@@ -14,17 +14,14 @@ class ImportImages extends AbstractImportCommand
 
     public function handle()
     {
-
         $this->api = env('IMAGES_DATA_SERVICE_URL');
 
         $this->import('images', Image::class, 'images', $this->argument('page') ?: 1);
-
     }
 
     // TODO: Optionally, use an inbound transformer here?
     protected function save($datum, $model, $transformer)
     {
-
         $this->info("Importing #{$datum->id}: {$datum->title}");
 
         // TODO: When we make inbound transformers, provide a toggle between find() & findOrNew()
@@ -50,7 +47,6 @@ class ImportImages extends AbstractImportCommand
         $resource->save();
 
         return $resource;
-
     }
 
 }

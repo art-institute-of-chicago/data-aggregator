@@ -14,22 +14,18 @@ if (!function_exists('shopIdsAndTitle'))
 {
     function shopIdsAndTitle($faker, $title = '')
     {
-
         return [
             'shop_id' => $faker->unique()->randomNumber(3) + 999 * pow(10, 3),
             'title' => $title ? $title : ucfirst($faker->words(5, true)),
         ];
-
     }
 
     function shopDates($faker)
     {
-
         return [
             'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
-
     }
 
 }

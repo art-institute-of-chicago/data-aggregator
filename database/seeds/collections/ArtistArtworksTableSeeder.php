@@ -8,9 +8,7 @@ class ArtistArtworksTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
         $this->seedRelation(Artwork::class, Agent::class, 'artists');
-
     }
 
 }

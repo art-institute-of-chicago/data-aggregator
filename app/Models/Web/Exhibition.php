@@ -23,9 +23,7 @@ class Exhibition extends WebModel
 
     public function exhibition()
     {
-
         return $this->belongsTo('App\Models\Collections\Exhibition', 'datahub_id');
-
     }
 
 }

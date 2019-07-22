@@ -9,11 +9,9 @@ class ShopTransformer extends BaseTransformer
 
     protected function getIds(Datum $datum)
     {
-
         return [
             'shop_id' => $datum->id,
         ];
-
     }
 
 }

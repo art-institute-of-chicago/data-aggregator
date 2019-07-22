@@ -148,8 +148,8 @@ class Request
      *
      * @return array
      */
-    public function getBaseParams(array $input) {
-
+    public function getBaseParams(array $input)
+    {
         // Grab resource target from resource endpoint or `resources` param
         $resources = $this->resources ?? $input['resources'] ?? null;
 
@@ -232,7 +232,6 @@ class Request
             'type' => $types ?? null,
             'preference' => Arr::get($input, 'preference'),
         ];
-
     }
 
     /**
@@ -240,8 +239,8 @@ class Request
      *
      * @return array
      */
-    public function getAutocompleteParams($requestArgs = null) {
-
+    public function getAutocompleteParams($requestArgs = null)
+    {
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput($requestArgs);
 
@@ -269,7 +268,6 @@ class Request
         $params = $this->addSuggestParams($params, $input, $requestArgs);
 
         return $params;
-
     }
 
     /**
@@ -277,8 +275,8 @@ class Request
      *
      * @return array
      */
-    public function getSearchParams($input = null, $withAggregations = true) {
-
+    public function getSearchParams($input = null, $withAggregations = true)
+    {
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput($input);
 
@@ -353,7 +351,6 @@ class Request
         $params = $this->addFunctionScore($params, $input);
 
         return $params;
-
     }
 
     /**
@@ -362,8 +359,8 @@ class Request
      *
      * @return array
      */
-    public function getExplainParams($input = []) {
-
+    public function getExplainParams($input = [])
+    {
         $params = $this->getSearchParams($input, false);
 
         $params['id'] = $this->id;
@@ -372,7 +369,6 @@ class Request
         unset($params['size']);
 
         return $params;
-
     }
 
     /**
@@ -383,8 +379,8 @@ class Request
      *
      * @return array
      */
-    public static function getValidInput(array $input = null) {
-
+    public static function getValidInput(array $input = null)
+    {
         // Grab all user input (query string params or json)
         $input = $input ?: Input::all();
 
@@ -401,7 +397,6 @@ class Request
         $input = array_merge($defaults, $input);
 
         return $input;
-
     }
 
     /**
@@ -413,8 +408,8 @@ class Request
      *
      * @return array
      */
-    private function getPaginationParams(array $input) {
-
+    private function getPaginationParams(array $input)
+    {
         // Elasticsearch params take precedence
         // If that doesn't work, attempt to convert Laravel's pagination into ES params
         $size = $input['size'] ?? $input['limit'] ?? 10;
@@ -456,7 +451,6 @@ class Request
             // 'search_after' => $input['search_after'],
 
         ];
-
     }
 
     /**
@@ -472,12 +466,11 @@ class Request
      *
      * @return array
      */
-    private function getFieldParams(array $input, $default = null) {
-
+    private function getFieldParams(array $input, $default = null)
+    {
         return [
             '_source' => $input['fields'] ?? ($default ?? self::$defaultFields),
         ];
-
     }
 
     /**
@@ -491,15 +484,14 @@ class Request
      *
      * @return array
      */
-    private function addSortParams(array $params, array $input) {
-
+    private function addSortParams(array $params, array $input)
+    {
         if (isset($input['sort']))
         {
             $params['body']['sort'] = $input['sort'];
         }
 
         return $params;
-
     }
 
     /**
@@ -512,7 +504,6 @@ class Request
      */
     public function addRelevancyParams(array $params, array $input)
     {
-
         // Don't tweak relevancy if sort is passed
         if (isset($input['sort']))
         {
@@ -541,7 +532,6 @@ class Request
         }
 
         return $params;
-
     }
 
     /**
@@ -555,7 +545,6 @@ class Request
      */
     public function addFunctionScore($params, $input)
     {
-
         if (empty($this->functionScores) || !isset($this->resources))
         {
             return $params;
@@ -635,7 +624,6 @@ class Request
         ];
 
         return $params;
-
     }
 
     /**
@@ -648,7 +636,6 @@ class Request
      */
     public function addScopeParams(array $params, array $input)
     {
-
         if (!isset($this->scopes) || count($this->scopes) < 1) {
 
             return $params;
@@ -663,7 +650,6 @@ class Request
         ];
 
         return $params;
-
     }
 
     /**
@@ -674,15 +660,14 @@ class Request
      *
      * @return array
      */
-    private function addEmptySearchParams(array $params) {
-
+    private function addEmptySearchParams(array $params)
+    {
         // PHP JSON-encodes empty array as [], not {}
         $params['body']['query']['bool']['must'][] = [
             'match_all' => new \stdClass(),
         ];
 
         return $params;
-
     }
 
     /**
@@ -698,8 +683,8 @@ class Request
      *
      * @return array
      */
-    private function addSimpleSearchParams(array $params, array $input) {
-
+    private function addSimpleSearchParams(array $params, array $input)
+    {
         if ($colorParams = $this->getColorParams($params, $input)) {
             return $colorParams;
         }
@@ -802,7 +787,6 @@ class Request
         }
 
         return $params;
-
     }
 
     /**
@@ -813,8 +797,8 @@ class Request
      *
      * @return array
      */
-    private function addFullSearchParams(array $params, array $input) {
-
+    private function addFullSearchParams(array $params, array $input)
+    {
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
         $params['body']['query']['bool']['must'][] = [
@@ -822,7 +806,6 @@ class Request
         ];
 
         return $params;
-
     }
 
     /**
@@ -838,7 +821,6 @@ class Request
      */
     public function addSuggestParams(array $params, array $input, $requestArgs = null)
     {
-
         $params['body']['suggest'] = [
             'text' => Arr::get($input, 'q'),
         ];
@@ -846,7 +828,6 @@ class Request
         $params = $this->addAutocompleteSuggestParams($params, $input, $requestArgs);
 
         return $params;
-
     }
 
     /**
@@ -861,7 +842,6 @@ class Request
      */
     private function addAutocompleteSuggestParams(array $params, array $input, $requestArgs = null)
     {
-
         $isThisAutosuggest = $requestArgs && is_array($requestArgs) && ($requestArgs['use_suggest_autocomplete_all'] ?? false);
 
         if ($isThisAutosuggest) {
@@ -896,7 +876,6 @@ class Request
         }
 
         return $params;
-
     }
 
     /**
@@ -910,7 +889,6 @@ class Request
      */
     public function addAggregationParams(array $params, array $input)
     {
-
         $aggregations = $input['aggregations'] ?? $input['aggs'] ?? null;
 
         if ($aggregations) {
@@ -920,7 +898,6 @@ class Request
         }
 
         return $params;
-
     }
 
     private function getFuzzy(array $input, string $query = null)

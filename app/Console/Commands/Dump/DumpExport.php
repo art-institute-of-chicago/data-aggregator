@@ -76,7 +76,6 @@ class DumpExport extends AbstractDumpCommand
                 rename($csvPath, $dumpPath . $table['name'] . '-' . $csvPart . '.csv');
             }
         }
-
     }
 
     private function getNewWriter($csvPath, $header)
@@ -88,7 +87,6 @@ class DumpExport extends AbstractDumpCommand
 
     private function getPreparedTables()
     {
-
         return collect($this->whitelistedTables)->map(function ($tableName) {
 
             $prefixedTableName = DB::getTablePrefix() . $tableName;
@@ -118,7 +116,6 @@ class DumpExport extends AbstractDumpCommand
             ];
 
         });
-
     }
 
 }

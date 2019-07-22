@@ -8,19 +8,16 @@ class ToursTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
         factory(Tour::class, 25)->create();
 
         $this->addStopsToTours();
 
         // TODO: Add ability to seedRelation, while ensuring no nulls are left over?
         // $this->seedRelation( Tour::class, TourStop::class, 'stops' );
-
     }
 
     private function addStopsToTours()
     {
-
         $tours = Tour::fake()->get();
 
         foreach ($tours as $tour) {
@@ -30,7 +27,6 @@ class ToursTableSeeder extends AbstractSeeder
             ]);
 
         }
-
     }
 
 }

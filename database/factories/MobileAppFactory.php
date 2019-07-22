@@ -14,12 +14,10 @@ if (!function_exists('mobileAppIdsAndTitle'))
 {
     function mobileAppIdsAndTitle($faker, $title = '')
     {
-
         return [
             'mobile_id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
             'title' => $title ? $title : ucfirst($faker->words(3, true)),
         ];
-
     }
 
 }

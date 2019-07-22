@@ -37,9 +37,7 @@ trait Fakeable
      */
     public static function fakeIdsStartAt()
     {
-
         return $this->instance()->fakeIdsStartAt;
-
     }
 
 }

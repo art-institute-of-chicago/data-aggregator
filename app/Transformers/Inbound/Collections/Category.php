@@ -9,20 +9,16 @@ class Category extends BaseList
 
     protected function getIds(Datum $datum)
     {
-
         return  [
             'lake_uid' => $datum->id,
         ];
-
     }
 
     protected function getExtraFields(Datum $datum)
     {
-
         return [
             'subtype' => $datum->type ? 'CT-' . $datum->type : null,
         ];
-
     }
 
 }

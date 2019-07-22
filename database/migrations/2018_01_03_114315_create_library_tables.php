@@ -38,12 +38,10 @@ class CreateLibraryTables extends Migration
             });
 
         }
-
     }
 
     public function down()
     {
-
         foreach ($this->material_terms as $material_term) {
 
             Schema::dropIfExists($material_term);
@@ -52,7 +50,6 @@ class CreateLibraryTables extends Migration
 
         Schema::dropIfExists('library_materials');
         Schema::dropIfExists('library_terms');
-
     }
 
 }

@@ -15,7 +15,6 @@ class UpdateResources extends BaseCommand
 
     public function handle()
     {
-
         Artwork::whereHas('documents', function ($query) {
 
             $query->where('is_educational_resource', '=', true)

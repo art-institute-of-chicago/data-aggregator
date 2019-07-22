@@ -36,7 +36,6 @@ class ImportWebFull extends AbstractImportCommand
 
     public function handle()
     {
-
         if ($this->option('test')) {
             $this->isTest = true;
         }
@@ -63,12 +62,10 @@ class ImportWebFull extends AbstractImportCommand
             $this->info('Imported all web CMS content!');
 
         }
-
     }
 
     protected function reset($endpoint = null)
     {
-
         $hash = [
             Article::class => 'articles',
             Artist::class => 'web_artists',
@@ -99,12 +96,10 @@ class ImportWebFull extends AbstractImportCommand
         }
 
         return $this->resetData(array_keys($hash), array_values($hash));
-
     }
 
     protected function importEndpoints()
     {
-
         $this->importFromWeb('articles');
         $this->importFromWeb('artists');
         $this->importFromWeb('closures');
@@ -128,7 +123,6 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('staticpages');
         $this->importFromWeb('emailseries');
         $this->importFromWeb('sponsors');
-
     }
 
     protected function getModelForEndpoint($endpoint)
@@ -138,15 +132,12 @@ class ImportWebFull extends AbstractImportCommand
 
     protected function importFromWeb($endpoint, $page = 1)
     {
-
         $model = $this->getModelForEndpoint($endpoint);
         return $this->import('Web', $model, $endpoint, $page);
-
     }
 
     protected function query($endpoint, $page = 1, $limit = 100)
     {
-
         if (env('WEB_CMS_DATA_SERVICE_USERNAME'))
         {
             $this->auth = env('WEB_CMS_DATA_SERVICE_USERNAME') . ':' . env('WEB_CMS_DATA_SERVICE_PASSWORD');

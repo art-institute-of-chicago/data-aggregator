@@ -55,7 +55,6 @@ class CreateShopTables extends Migration
             $table->integer('agent_citi_id')->index();
             $table->integer('product_shop_id')->index();
         });
-
     }
 
     /**
@@ -65,10 +64,8 @@ class CreateShopTables extends Migration
      */
     public function down()
     {
-
         Schema::dropIfExists('products');
         Schema::dropIfExists('shop_categories');
-
     }
 
     private function _addId($table)
