@@ -144,8 +144,7 @@ class BaseTransformer extends AbstractTransformer
         $this->syncEx($instance, $datum);
 
         // Sync many-to-many relationships
-        foreach ($relations as $relation => $ids)
-        {
+        foreach ($relations as $relation => $ids) {
             $instance->{$relation}()->sync($ids);
         }
 
@@ -268,19 +267,18 @@ class BaseTransformer extends AbstractTransformer
     {
         // This method assumes that the pivot field's value is an array, not an object!
         // TODO: Improve error reporting in the latter case..?
-        if (!$datum->{$pivot_field} || !is_array($datum->{$pivot_field}))
-        {
+        if (!$datum->{$pivot_field} || !is_array($datum->{$pivot_field})) {
             return [];
         }
 
         $pivots = collect($datum->{$pivot_field})->filter(function ($pivot) use ($id_field) {
-
             return (bool) ($pivot->{$id_field} ?? false);
-
         })->map($mapping_fn);
 
         // Collapse the array while preserving numeric keys, i.e. CITI IDs
-        $pivots = array_reduce($pivots->all(), function ($carry, $item) { return $carry + $item; }, []);
+        $pivots = array_reduce($pivots->all(), function ($carry, $item) {
+            return $carry + $item;
+        }, []);
 
         return $pivots;
     }
@@ -321,7 +319,6 @@ class BaseTransformer extends AbstractTransformer
 
             // Get all custom-mapped fields
             $this->getExtraFields($datum)
-
         );
     }
 

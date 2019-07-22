@@ -10,8 +10,7 @@
 |
 */
 
-if (!function_exists('membershipIdsAndTitle'))
-{
+if (!function_exists('membershipIdsAndTitle')) {
     function membershipIdsAndTitle($faker, $title = '')
     {
         return [
@@ -27,11 +26,9 @@ if (!function_exists('membershipIdsAndTitle'))
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
     }
-
 }
 
 $factory->define(App\Models\Membership\TicketedEvent::class, function (Faker\Generator $faker) {
-
     $has_capacity = rand(0, 1) === 1;
 
     return array_merge(
@@ -50,5 +47,4 @@ $factory->define(App\Models\Membership\TicketedEvent::class, function (Faker\Gen
         ],
         membershipDates($faker)
     );
-
 });

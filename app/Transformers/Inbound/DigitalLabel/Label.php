@@ -18,13 +18,11 @@ class Label extends DigitalLabelTransformer
     protected function getExtraFields(Datum $datum)
     {
         return [
-
             'title' => $this->headline(json_decode($datum->contentBundle)),
             'type' => $datum->experienceType,
             'copy_text' => $this->text(json_decode($datum->contentBundle)),
             'image_url' => $this->image(json_decode($datum->contentBundle)),
             'is_published' => !$datum->archived,
-
         ];
     }
 
@@ -65,31 +63,26 @@ class Label extends DigitalLabelTransformer
         $results = collect($results);
 
         $results = $results->filter(function ($result) use ($accession) {
-
             // Check what's left after DSC accession is trimmed from result
             $mrn = $result->main_reference_number;
             $mrn = substr($mrn, strlen($accession));
 
             // If there's no "leftover" string, this is an exact match
-            if (strlen($mrn) === 0)
-            {
+            if (strlen($mrn) === 0) {
                 return true;
             }
 
             // If next char is numeric, ignore, e.g. 1928.23 vs. 1928.230
-            if (is_numeric($mrn[0]))
-            {
+            if (is_numeric($mrn[0])) {
                 return false;
             }
 
             // If next char is a period, ignore, e.g. 1928.23 vs. 1928.23.12
-            if ($mrn[0] === '.')
-            {
+            if ($mrn[0] === '.') {
                 return false;
             }
 
             return true;
-
         });
 
         // Sort by length of accession, so shortest is first
@@ -150,7 +143,6 @@ class Label extends DigitalLabelTransformer
 
     private function artworkIds($contentBundle)
     {
-
         // First, collect all the main reference numbers from the contentBundle
         $mainRefNums = $this->mainReferenceNumbers($contentBundle);
 
@@ -175,7 +167,6 @@ class Label extends DigitalLabelTransformer
 
     private function artistIds($contentBundle)
     {
-
         // First, collect all the main reference numbers from the contentBundle
         $mainRefNums = $this->mainReferenceNumbers($contentBundle);
 
@@ -218,6 +209,7 @@ class Label extends DigitalLabelTransformer
                 }
             }
         }
+
         return  array_unique($mainRefNums);
     }
 
@@ -225,7 +217,6 @@ class Label extends DigitalLabelTransformer
     // https://stackoverflow.com/questions/5647461/how-do-i-send-a-post-request-with-php
     private function post($url, $data)
     {
-
         // use key 'http' even if you send the request to https://...
         $options = [
             'http' => [

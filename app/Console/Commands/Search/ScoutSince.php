@@ -29,8 +29,7 @@ class ScoutSince extends BaseCommand
 
         $classes = app('Search')->getSearchableModels();
 
-        foreach ($classes as $class)
-        {
+        foreach ($classes as $class) {
             $this->searchableSince($class);
         }
     }

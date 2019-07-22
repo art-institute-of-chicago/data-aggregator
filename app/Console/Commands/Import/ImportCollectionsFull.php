@@ -23,15 +23,10 @@ class ImportCollectionsFull extends AbstractImportCommand
         $endpoint = $this->argument('endpoint');
 
         if ($endpoint) {
-
             $page = $this->argument('page') ?: 1;
-
             $this->importEndpoint($endpoint, $page);
-
         } else {
-
             $this->importEndpoints();
-
         }
     }
 
@@ -90,23 +85,19 @@ class ImportCollectionsFull extends AbstractImportCommand
         $n = 0;
 
         do {
-
             $n++;
 
             $chunked_ids = partition($ids, $n);
 
             $urls = array_map(function ($ids) use ($endpoint) {
-
                 return env('COLLECTIONS_DATA_SERVICE_URL')
                     . '/' . $endpoint
                     . '?limit=' . count($ids)
                     . '&ids=' . implode(',', $ids);
-
             }, $chunked_ids);
 
             // Don't generate a URL longer than 600 characters, including prefix
             $max_url_length = max(array_map('strlen', $urls));
-
         } while ($max_url_length > 600);
 
         return $urls;

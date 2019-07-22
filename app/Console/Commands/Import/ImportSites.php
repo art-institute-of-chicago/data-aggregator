@@ -17,8 +17,7 @@ class ImportSites extends AbstractImportCommand
 
     public function handle()
     {
-        if (!$this->reset())
-        {
+        if (!$this->reset()) {
             return false;
         }
 
@@ -52,8 +51,7 @@ class ImportSites extends AbstractImportCommand
     {
         $this->info('Importing static sites');
 
-        foreach ($results as $datum)
-        {
+        foreach ($results as $datum) {
             $this->save($datum, Site::class, SiteTransformer::class);
         }
     }

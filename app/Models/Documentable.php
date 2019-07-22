@@ -16,29 +16,20 @@ trait Documentable
      */
     public function docEndpoints($appUrl)
     {
-        if ($this->docOnly())
-        {
-
+        if ($this->docOnly()) {
             return $this->docOnly();
-
         }
 
-        if (!$appUrl)
-        {
-
+        if (!$appUrl) {
             $appUrl = config('app.url') . '/api/v1';
-
         }
 
         $doc = '';
         $doc .= $this->docTitle() . "\n\n";
         $doc .= $this->docList($appUrl) . "\n";
 
-        if ($this->hasSearchEndpoint())
-        {
-
+        if ($this->hasSearchEndpoint()) {
             $doc .= $this->docSearch($appUrl) . "\n";
-
         }
 
         $doc .= $this->docSingle($appUrl) . "\n";
@@ -59,11 +50,8 @@ trait Documentable
         $doc .= $this->docTitle() . "\n\n";
         $doc .= $this->docDescription() . ' For a description of all the endpoints available for this resource, see [here](endpoints#' . $endpoint . ").\n\n";
 
-        if (!$this->docOnly())
-        {
-
+        if (!$this->docOnly()) {
             $doc .= $this->docListFields() . "\n\n";
-
         }
 
         return $doc;
@@ -141,9 +129,7 @@ trait Documentable
 
         foreach ($this->transformMapping() as $array)
         {
-
             $doc .= '* `' . $array['name'] . '` ' . (array_key_exists('type', $array) ? '*' . $array['type'] . '* ' : '') . '- ' . $array['doc'] . "\n";
-
         }
 
         $doc .= "\n";
@@ -219,9 +205,7 @@ trait Documentable
 
         if (static::$source === 'Collections')
         {
-
             $doc .= ' {id} is the identifier from our collections management system.';
-
         }
 
         return $doc;
@@ -239,9 +223,7 @@ trait Documentable
 
         foreach ($this->docListParametersRaw() as $param => $description)
         {
-
             $doc .= '* `' . $param . '` - ' . $description . "\n";
-
         }
 
         $doc .= $this->docIncludeParameters();
@@ -277,10 +259,9 @@ trait Documentable
 
         foreach ($this->docSearchParametersRaw() as $param => $description)
         {
-
             $doc .= '* `' . $param . '` - ' . $description . "\n";
-
         }
+
         $doc .= "\n";
 
         return $doc;
@@ -317,17 +298,14 @@ trait Documentable
 
         if ($transformer->getAvailableIncludes())
         {
-
             $doc .= "* `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:\n";
 
             foreach ($transformer->getAvailableIncludes() as $include)
             {
-
                 $doc .= '  * `' . $include . "`\n";
-
             }
-
         }
+
         $doc .= "\n";
 
         return $doc;
@@ -377,6 +355,7 @@ trait Documentable
                 $response->data = $this->_addEllipsis($response->data);
 
             }
+
             $json = json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
             $json = str_replace('"...": null', '...', $json);
 
@@ -409,15 +388,12 @@ trait Documentable
         // For brevity, only show the first few results
         foreach ($response->data as $index => $datum)
         {
-
             if ($index > 2)
             {
-
                 unset($response->data[$index]);
-
             }
-
         }
+
         $json = json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
         // Output
@@ -499,37 +475,29 @@ trait Documentable
     {
         if ($this->docOnly())
         {
-
             return '';
-
         }
 
         $doc = $this->swaggerList() . "\n";
 
         if ($this->hasSearchEndpoint())
         {
-
             $doc .= $this->swaggerSearch() . "\n";
-
         }
 
         $doc .= $this->swaggerSingle() . "\n";
 
         if (get_called_class() === Collections\Agent::class)
         {
-
             // Artists
             $doc .= $this->swaggerList('artists') . "\n";
             $doc .= $this->swaggerSingle('artists') . "\n";
-
         }
         elseif (get_called_class() === Collections\Category::class)
         {
-
             // Department
             $doc .= $this->swaggerList('departments') . "\n";
             $doc .= $this->swaggerSingle('departments') . "\n";
-
         }
 
         return $doc;
@@ -569,11 +537,9 @@ trait Documentable
 
         foreach ($mapping as $array)
         {
-
             $doc .= '        "' . $array['name'] . "\": {\n";
             $doc .= '          "description": "' . str_replace('"', '\"', $array['doc']) . "\"\n";
             $doc .= '        }' . ($array !== end($mapping) ? ',' : '') . "\n";
-
         }
 
         return $doc;
@@ -651,11 +617,10 @@ trait Documentable
 
         foreach ($extras as $tag)
         {
-
             $doc .= ",\n";
             $doc .= '            "' . $tag . '"';
-
         }
+
         $doc .= "\n";
         $doc .= "        ],\n";
 
@@ -687,6 +652,7 @@ trait Documentable
             $doc .= '            "$ref": "#/parameters/' . $param . "\"\n";
             $doc .= '          }' . ($description !== end($array) ? ',' : '') . "\n";
         }
+
         $doc .= "        ],\n";
 
         return $doc;
@@ -696,10 +662,8 @@ trait Documentable
     {
         if (!$modelBasename)
         {
-
             $model = get_called_class();
             $modelBasename = class_basename($model);
-
         }
 
         $doc = "        \"responses\": {\n";
@@ -777,16 +741,14 @@ trait Documentable
 
         foreach ($keys as $keyIndex => $key)
         {
-
             if ($i > 5)
             {
-
                 unset($obj->{$keyIndex});
                 $addEllipsis = true;
-
             }
             $i++;
         }
+
         $obj->{'...'} = null;
 
         return $obj;

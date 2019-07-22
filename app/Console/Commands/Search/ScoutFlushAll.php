@@ -16,9 +16,7 @@ class ScoutFlushAll extends BaseCommand
         $models = app('Search')->getSearchableModels();
 
         foreach ($models as $model) {
-
             $this->call('scout:flush', ['model' => $model]);
-
         }
     }
 

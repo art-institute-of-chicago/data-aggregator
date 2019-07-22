@@ -44,8 +44,7 @@ class ImportWebFull extends AbstractImportCommand
 
         $endpoint = $this->argument('endpoint');
 
-        if (!$this->reset($endpoint))
-        {
+        if (!$this->reset($endpoint)) {
             return false;
         }
 
@@ -138,8 +137,7 @@ class ImportWebFull extends AbstractImportCommand
 
     protected function query($endpoint, $page = 1, $limit = 100)
     {
-        if (env('WEB_CMS_DATA_SERVICE_USERNAME'))
-        {
+        if (env('WEB_CMS_DATA_SERVICE_USERNAME')) {
             $this->auth = env('WEB_CMS_DATA_SERVICE_USERNAME') . ':' . env('WEB_CMS_DATA_SERVICE_PASSWORD');
         }
 

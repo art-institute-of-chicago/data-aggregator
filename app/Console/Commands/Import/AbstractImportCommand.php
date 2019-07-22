@@ -72,8 +72,7 @@ abstract class AbstractImportCommand extends BaseCommand
 
         // If the $result is falsey (e.g. 0 or null), command was successful.
         // https://stackoverflow.com/questions/22485513/get-response-from-artisan-call
-        if (!$result)
-        {
+        if (!$result) {
             $this->command->last_success_at = $this->command->last_attempt_at;
             $this->command->save();
         }
@@ -104,8 +103,7 @@ abstract class AbstractImportCommand extends BaseCommand
         $resource = $model::findOrNew($id);
 
         // This will be true almost always, except for lists
-        if ($transformer->shouldSave($resource, $datum))
-        {
+        if ($transformer->shouldSave($resource, $datum)) {
             // Fill should always be called before sync
             // Syncing some relations requires `$instance->getKey()` to work (i.e. id is set)
             $fills = $transformer->fill($resource, $datum);

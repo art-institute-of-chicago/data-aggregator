@@ -52,8 +52,7 @@ class BaseModel extends AbstractModel
             $casts = array_merge($casts, get_class_vars($class)['casts']);
         }
 
-        if (!$this->hasSourceDates)
-        {
+        if (!$this->hasSourceDates) {
             return $casts;
         }
 
@@ -78,15 +77,10 @@ class BaseModel extends AbstractModel
         parent::touchOwners();
 
         foreach ($this->touches as $relation) {
-
             if ($this->{$relation} instanceof self) {
-
                 $this->{$relation}->searchable();
-
             } elseif ($this->{$relation} instanceof Collection) {
-
-                foreach ($this->{$relation}->chunk(50) as $chunk)
-                {
+                foreach ($this->{$relation}->chunk(50) as $chunk) {
                     $chunk->searchable();
                 }
             }

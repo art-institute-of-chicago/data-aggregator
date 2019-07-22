@@ -106,7 +106,6 @@ class Response
      */
     private function paginate()
     {
-
         // We assume that `size` and `from` have been set via getPaginationParams()
         // This method should not be used for endpoints that return no results
 
@@ -117,15 +116,11 @@ class Response
 
         // Avoid division by zero
         if ($limit > 0) {
-
             $total_pages = ceil($total / $limit);
             $current_page = floor($offset / $limit) + 1;
-
         } else {
-
             $total_pages = null;
             $current_page = null;
-
         }
 
         $pagination = [
@@ -153,7 +148,6 @@ class Response
 
         // Reduce to just the _source objects
         foreach ($hits as $hit) {
-
             $result = [
                 '_score' => $hit['_score'],
             ];
@@ -166,7 +160,6 @@ class Response
             }
 
             $results[] = $result;
-
         }
 
         return [
@@ -189,8 +182,7 @@ class Response
             $suggest['autocomplete'] = Arr::pluck($options, '_source.title');
         }
 
-        if ($suggest)
-        {
+        if ($suggest) {
             return ['suggest' => $suggest];
         }
 

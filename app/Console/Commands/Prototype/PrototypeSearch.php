@@ -130,8 +130,7 @@ class PrototypeSearch extends BaseCommand
         $ret .= "</head>\n";
         $ret .= "<body>\n";
 
-        if ($title)
-        {
+        if ($title) {
             $ret .= "<h1>{$title}</h1>\n";
         }
         return $ret;

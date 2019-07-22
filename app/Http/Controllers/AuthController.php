@@ -18,8 +18,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
 
@@ -37,7 +36,6 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if ($user) {
-
             if (Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
                 $response = ['token' => $token];

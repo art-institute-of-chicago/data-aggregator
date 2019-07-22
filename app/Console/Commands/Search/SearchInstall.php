@@ -24,8 +24,7 @@ class SearchInstall extends BaseCommand
     {
         $prefix = $this->argument('prefix') ?? env('ELASTICSEARCH_INDEX');
 
-        if ($this->argument('model'))
-        {
+        if ($this->argument('model')) {
 
             $this->install($this->argument('model'), $prefix);
 
@@ -33,11 +32,8 @@ class SearchInstall extends BaseCommand
 
             $models = app('Search')->getSearchableModels();
 
-            foreach ($models as $model)
-            {
-
+            foreach ($models as $model) {
                 $this->install($model, $prefix);
-
             }
 
         }
@@ -47,13 +43,9 @@ class SearchInstall extends BaseCommand
     {
         $index = app('Search')->getIndexForModel($model, $prefix);
 
-        if (!$this->destroy($index, $this->option('yes')))
-        {
-
+        if (!$this->destroy($index, $this->option('yes'))) {
             $this->warn('Could not destroy index ' . $index . '.');
-
             return 0;
-
         }
 
         $params = config('elasticsearch.indexParams');

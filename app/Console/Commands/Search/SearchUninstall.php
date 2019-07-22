@@ -23,18 +23,17 @@ class SearchUninstall extends BaseCommand
     {
         $prefix = $this->argument('index') ?? env('ELASTICSEARCH_INDEX');
 
-        if (!$this->option('yes') && !$this->confirm('This will delete all indexes with `' . $prefix . '` prefix. Are you sure?'))
-        {
-
+        if (
+            !$this->option('yes') &&
+            !$this->confirm('This will delete all indexes with `' . $prefix . '` prefix. Are you sure?')
+        ) {
             return false;
-
         }
 
         $models = app('Search')->getSearchableModels();
 
         foreach ($models as $model)
         {
-
             $index = app('Search')->getIndexForModel($model, $prefix);
 
             $this->info('Deleting ' . $index . ' index...');
@@ -43,8 +42,7 @@ class SearchUninstall extends BaseCommand
                 'index' => $index,
             ];
 
-            if (Elasticsearch::indices()->exists($params))
-            {
+            if (Elasticsearch::indices()->exists($params)) {
 
                 $return = Elasticsearch::indices()->delete($params);
 
@@ -55,7 +53,6 @@ class SearchUninstall extends BaseCommand
                 $this->info('Index ' . $index . ' does not exist.');
 
             }
-
         }
     }
 

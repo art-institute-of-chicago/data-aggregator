@@ -10,8 +10,7 @@
 |
 */
 
-if (!function_exists('dscIdsAndTitle'))
-{
+if (!function_exists('dscIdsAndTitle')) {
     function dscIdsAndTitle($faker, $id = '')
     {
         return [
@@ -19,7 +18,6 @@ if (!function_exists('dscIdsAndTitle'))
             'title' => ucfirst($faker->words(3, true)),
         ];
     }
-
 }
 
 $factory->define(App\Models\Dsc\Publication::class, function (Faker\Generator $faker) {

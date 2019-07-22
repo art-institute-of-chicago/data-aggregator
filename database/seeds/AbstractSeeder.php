@@ -62,18 +62,14 @@ abstract class AbstractSeeder extends Seeder
 
         $delegate = $this->getRelationMethod($subjectClass, $method);
 
-        foreach ($subjects as $subject)
-        {
-
+        foreach ($subjects as $subject) {
             $selected = $objects->random(rand(2, 4));
 
-            if ($isReflexive)
-            {
+            if ($isReflexive) {
                 $selected = $selected->diff([$subject]);
             }
 
             $this->{$delegate}($subject, $selected, $method);
-
         }
     }
 
@@ -146,27 +142,23 @@ abstract class AbstractSeeder extends Seeder
      */
     private function validateSeedRelation($subjectClass, $objectClass, $subjects, $objects, $method)
     {
-        if (!method_exists($subjectClass, $method))
-        {
+        if (!method_exists($subjectClass, $method)) {
             throw new BadFunctionCallException('Class ' . $subjectClass . ' has no relation method `' . $method . '`');
         }
 
         $relation = ( new $subjectClass() )->{$method}();
 
-        if (!$relation instanceof Relation)
-        {
+        if (!$relation instanceof Relation) {
             throw new InvalidArgumentException($subjectClass . '\'s `' . $method . '` must return an instance of ' . Relation::class);
         }
 
         $prefix = 'Attempting to relate ' . $subjectClass . ' to ' . $objectClass;
 
-        if ($subjects->count() < 1)
-        {
+        if ($subjects->count() < 1) {
             throw new InvalidArgumentException($prefix . ', but there are no ' . $subjectClass . '\'s in the database.');
         }
 
-        if ($objects->count() < 1)
-        {
+        if ($objects->count() < 1) {
             throw new InvalidArgumentException($prefix . ', but there are no ' . $objectClass . '\'s in the database.');
         }
     }

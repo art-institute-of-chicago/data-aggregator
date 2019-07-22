@@ -56,8 +56,7 @@ class Shell
 
         // $this->dump('Status: ' . $return['status']);
 
-        if ($this->options['non_zero_exit'] && $return['status'] !== 0)
-        {
+        if ($this->options['non_zero_exit'] && $return['status'] !== 0) {
             throw new \Exception('Non-zero status', $return['status']);
         }
 

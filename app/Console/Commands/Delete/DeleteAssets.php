@@ -55,8 +55,7 @@ class DeleteAssets extends AbstractImportCommand
                 $sourceTime = new Carbon($datum->indexed_at);
                 $sourceTime->timezone = config('app.timezone');
 
-                if ($this->since->gt($sourceTime))
-                {
+                if ($this->since->gt($sourceTime)) {
                     break 2;
                 }
 

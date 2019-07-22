@@ -115,8 +115,7 @@ class SearchServiceProvider extends ServiceProvider
                 {
 
                     // Fallback to getting default fields for all models
-                    if (is_null($models) || $models->count() < 1)
-                    {
+                    if (is_null($models) || $models->count() < 1) {
                         $models = $this->models;
                     }
 
@@ -253,11 +252,9 @@ class SearchServiceProvider extends ServiceProvider
 
                     if (method_exists($model, $searchScopeMethod))
                     {
-
                         $scope = $model::$searchScopeMethod();
 
                         $settings['scope'] = $this->getScopedQuery($resource, $scope);
-
                     }
 
                     // ex. `searchBoostArtworks` for `artworks` endpoint boosts `is_on_view`
@@ -265,11 +262,9 @@ class SearchServiceProvider extends ServiceProvider
 
                     if (method_exists($model, $searchBoostMethod))
                     {
-
                         $boost = $model::$searchBoostMethod();
 
                         $settings['boost'] = $this->getScopedQuery($resource, $boost);
-
                     }
 
                     // ex. `searchFunctionScoreArtworks` for `artworks` endpoint applies `pageviews` and `boost_rank`
@@ -277,10 +272,8 @@ class SearchServiceProvider extends ServiceProvider
 
                     if (method_exists($model, $searchFunctionScoreMethod))
                     {
-
                         // TODO: Inject `getScopedQuery` into the filter..?
                         $settings['function_score'] = $model::$searchFunctionScoreMethod();
-
                     }
 
                     return $settings;
@@ -288,8 +281,7 @@ class SearchServiceProvider extends ServiceProvider
 
                 public function getScopedQuery($resource, $scope)
                 {
-                    if (is_array($resource))
-                    {
+                    if (is_array($resource)) {
                         $query = [
                             'terms' => [
                                 'api_model' => $resource,

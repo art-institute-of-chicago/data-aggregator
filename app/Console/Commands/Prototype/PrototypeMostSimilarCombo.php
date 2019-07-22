@@ -59,10 +59,10 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
 
     protected function basicQueryBoosted($field, $value, $boost)
     {
-        if (!$value)
-        {
+        if (!$value) {
             return [];
         }
+
         return [
             'resources' => 'artworks',
             'query' => [

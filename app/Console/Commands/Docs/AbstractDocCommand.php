@@ -45,8 +45,7 @@ abstract class AbstractDocCommand extends BaseCommand
 
     private function getModels()
     {
-        if (isset($this->models))
-        {
+        if (isset($this->models)) {
             return $this->models;
         }
 

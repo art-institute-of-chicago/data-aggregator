@@ -29,8 +29,7 @@ class SearchReindex extends BaseCommand
         $this->dest = $this->argument('dest');
         $this->source = $this->argument('source') ?? env('ELASTICSEARCH_INDEX');
 
-        if ($this->argument('model'))
-        {
+        if ($this->argument('model')) {
 
             $this->reindex($this->argument('model'));
 
@@ -38,11 +37,8 @@ class SearchReindex extends BaseCommand
 
             $models = app('Search')->getSearchableModels();
 
-            foreach ($models as $model)
-            {
-
+            foreach ($models as $model) {
                 $this->reindex($model);
-
             }
 
         }

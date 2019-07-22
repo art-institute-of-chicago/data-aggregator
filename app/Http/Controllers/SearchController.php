@@ -156,8 +156,7 @@ class SearchController extends BaseController
                 $results = \Cache::remember($cacheKey, config('elasticsearch.cache_ttl'), function () use ($elasticsearchMethod, $params) {
                     return Elasticsearch::$elasticsearchMethod($params);
                 });
-            }
-            else {
+            } else {
                 $results = Elasticsearch::$elasticsearchMethod($params);
             }
         } catch (\Exception $e) {
@@ -191,32 +190,28 @@ class SearchController extends BaseController
 
             // TODO: Accept key'd
             throw new DetailedException('Invalid Query', 'You must pass an indexed array as the root object.', 400);
-
         }
 
         $originalParams = [];
 
-        foreach ($queries as $query)
-        {
+        foreach ($queries as $query) {
             $input = $requestArgs ? array_merge($query, $requestArgs) : $query;
             $originalParams[] = ( new SearchRequest() )->{$requestMethod}($input);
         }
 
         $transformedParams = [];
 
-        foreach ($originalParams as $params)
-        {
-
+        foreach ($originalParams as $params) {
             $header = [];
 
             if (isset($params['index'])) {
-               $header['index'] = $params['index'];
-               unset($params['index']);
+                $header['index'] = $params['index'];
+                unset($params['index']);
             }
 
             if (isset($params['type'])) {
-               $header['type'] = $params['type'];
-               unset($params['type']);
+                $header['type'] = $params['type'];
+                unset($params['type']);
             }
 
             $body = [];
@@ -248,8 +243,7 @@ class SearchController extends BaseController
                 $results = \Cache::remember($cacheKey, config('elasticsearch.cache_ttl'), function () use ($params) {
                     return Elasticsearch::msearch($params);
                 });
-            }
-            else {
+            } else {
                 $results = Elasticsearch::msearch($params);
             }
         } catch (\Exception $e) {
@@ -273,7 +267,6 @@ class SearchController extends BaseController
 
             // Transform Elasticsearch results into our API standard
             $responses[] = ( new SearchResponse($result, $originalParams) )->{$responseMethod}();
-
         }
 
         return $responses;

@@ -15,7 +15,6 @@ class DumpUpload extends AbstractDumpCommand
 
     public function handle()
     {
-
         // Be sure to set these in your .env
         $this->validateEnv(['DUMP_REPO_REMOTE', 'DUMP_REPO_NAME', 'DUMP_REPO_EMAIL']);
 
@@ -26,18 +25,15 @@ class DumpUpload extends AbstractDumpCommand
         $tablesSrcPath = $this->getDumpPath('local/tables');
         $tablesDestPath = $repoPath . '/tables';
 
-        if (count(glob($tablesSrcPath . '/*.csv') ?: []) < 1)
-        {
+        if (count(glob($tablesSrcPath . '/*.csv') ?: []) < 1) {
             throw new Exception('No CSV files found in ' . $tablesSrcPath);
         }
 
-        if ($this->option('remove') && file_exists($repoPath))
-        {
+        if ($this->option('remove') && file_exists($repoPath)) {
             $this->shell->passthru('rm -rf %s', $repoPath);
         }
 
-        if (!file_exists($repoPath))
-        {
+        if (!file_exists($repoPath)) {
             $this->shell->passthru('git clone %s %s', $repoRemote, $repoPath);
         }
 
@@ -48,16 +44,14 @@ class DumpUpload extends AbstractDumpCommand
 
         // Optional: Reset repo to initial commit?
         // If you want to modify the documentation, make sure you amend initial commit!
-        if ($this->option('reset'))
-        {
+        if ($this->option('reset')) {
             $commit = $this->shell->exec('git -C %s rev-list --max-parents=0 HEAD', $repoPath)['output'][0];
             $this->shell->passthru('git -C %s reset --hard %s', $repoPath, $commit);
         }
 
         // Remove all existing CSVs from the repo
         // This should take care of any tables that were removed or renamed
-        if (file_exists($tablesDestPath))
-        {
+        if (file_exists($tablesDestPath)) {
             $this->shell->passthru('find %s -name *.csv | xargs rm', $tablesDestPath);
         } else {
             mkdir($tablesDestPath);

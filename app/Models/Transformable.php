@@ -24,8 +24,7 @@ trait Transformable
         $fields = (new $transformerClass())->getMappedFields();
 
         // TODO: Fix references to transformMapping to use keys instead of 'name'
-        foreach ($fields as $fieldName => $fieldMapping)
-        {
+        foreach ($fields as $fieldName => $fieldMapping) {
             $fields[$fieldName]['name'] = $fieldName;
         }
 

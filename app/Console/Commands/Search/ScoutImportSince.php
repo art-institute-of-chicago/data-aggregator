@@ -36,8 +36,7 @@ class ScoutImportSince extends BaseCommand
 
                 $instances->searchable();
 
-                foreach ($instances as $instance)
-                {
+                foreach ($instances as $instance) {
                     $this->info('Imported ' . $instance->getKey() . ' of model ' . $model);
                 }
             });

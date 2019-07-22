@@ -22,8 +22,7 @@ trait Factory
 
     protected function attach($types, $times = 1, $relation = '', $fields = [])
     {
-        if (!is_array($types))
-        {
+        if (!is_array($types)) {
             $types = [$types];
         }
 
@@ -36,53 +35,36 @@ trait Factory
 
     protected function make($type, $fields = [])
     {
-        while ($this->times-- > 0) {
-
+        while ($this->times-- > 0)
+        {
             $model = factory($type)->create($fields);
 
             if ($this->attachTypes)
             {
-
                 while ($this->attachTimes-- > 0)
                 {
-
                     foreach ($this->attachTypes as $attachType)
                     {
-
                         $class = $this->classFrom($attachType);
 
                         $relation = $this->attachRelation ? $this->attachRelation : lcfirst(Str::plural($class));
 
                         $attach = factory($attachType)->create($this->attachFields);
 
-                        if ($model->{$relation}() instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo)
-                        {
-
+                        if ($model->{$relation}() instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo) {
                             $model->{$relation}()->associate($attach);
-
-                        }
-                        elseif ($model->{$relation}() instanceof \Illuminate\Database\Eloquent\Relations\HasMany)
-                        {
-
+                        } elseif ($model->{$relation}() instanceof \Illuminate\Database\Eloquent\Relations\HasMany) {
                             $model->{$relation}()->save($attach);
-
-                        }
-                        else
-                        {
-
+                        } else {
                             $model->{$relation}()->attach($attach->getKey());
-
                         }
-
                     }
-
                 }
-
             }
 
             $this->ids[] = $model->getAttributeValue($model->getKeyName());
-
         }
+
         $this->reset();
 
         return last($this->ids);
@@ -90,8 +72,7 @@ trait Factory
 
     protected function classFrom($type)
     {
-        $path = explode('\\', $type);
-        return array_pop($path);
+        return array_pop(explode('\\', $type));
     }
 
     protected function reset()

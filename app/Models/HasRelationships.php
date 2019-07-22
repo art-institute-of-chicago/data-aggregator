@@ -16,7 +16,9 @@ trait HasRelationships
     {
         $resources = $this->relatedResources($resource, $type, $typeField);
 
-        if (!$resources) return [];
+        if (!$resources) {
+            return [];
+        }
 
         $resources_ids = $this->relatedIds($resources);
 
@@ -26,23 +28,17 @@ trait HasRelationships
         // of the specified type, and return the preferred one
         foreach ($this->{$resource . 'Pivots'} as $pivot)
         {
-
             $key = $pivot->{$resource}()->getForeignKeyName();
 
             if (in_array($pivot->{$key}, $resources_ids))
             {
-
                 if ($pivot->preferred)
                 {
-
                     return head(Arr::where($resources, function ($value) use ($pivot, $key) {
                         return $value->getKey() === $pivot->{$key};
                     }));
-
                 }
-
             }
-
         }
 
         return null;
@@ -56,7 +52,9 @@ trait HasRelationships
     {
         $resources = $this->relatedResources($resource, $type, $typeField);
 
-        if (!$resources) return [];
+        if (!$resources) {
+            return [];
+        }
 
         $resources_ids = $this->relatedIds($resources);
 
@@ -68,23 +66,17 @@ trait HasRelationships
 
         foreach ($this->{$resource . 'Pivots'} as $pivot)
         {
-
             $key = $pivot->{$resource}()->getForeignKeyName();
 
             if (in_array($pivot->{$key}, $resources_ids))
             {
-
                 if (!$pivot->preferred)
                 {
-
                     $ret[] = head(Arr::where($resources, function ($value) use ($pivot, $key) {
                         return $value->getKey() === $pivot->{$key};
                     }));
-
                 }
-
             }
-
         }
 
         return $ret;
@@ -98,19 +90,14 @@ trait HasRelationships
      */
     private function relatedResources($resource, $type, $typeField = 'type')
     {
-
         // If no type is passed return an empty array
-        if (!$resource)
-        {
-
+        if (!$resource) {
             return [];
-
         }
 
         $this->loadMissing(Str::plural($resource));
 
-        if (!$type)
-        {
+        if (!$type) {
             return $this->{Str::plural($resource)}->all();
         }
 
@@ -119,14 +106,10 @@ trait HasRelationships
 
         foreach ($this->{Str::plural($resource)} as $res)
         {
-
             if ($res->{$typeField} === $type)
             {
-
                 $ret[] = $res;
-
             }
-
         }
 
         return $ret;
@@ -134,12 +117,9 @@ trait HasRelationships
 
     private function relatedIds($resources)
     {
-        if ($resources)
-        {
-
+        if ($resources) {
             $key = head($resources)->getKeyName();
             return Arr::pluck($resources, $key);
-
         }
 
         return [];

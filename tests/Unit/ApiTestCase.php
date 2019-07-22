@@ -11,7 +11,6 @@ use App\Models\Collections\Agent;
 
 abstract class ApiTestCase extends TestCase
 {
-
     use Factory;
 
     /**
@@ -52,18 +51,12 @@ abstract class ApiTestCase extends TestCase
 
         \Artisan::call('migrate');
 
-        if (get_class($this) !== 'Tests\Unit\AgentTypeTest')
-        {
-
+        if (get_class($this) !== 'Tests\Unit\AgentTypeTest') {
             $agentTypeId = $this->make(AgentType::class, ['title' => 'Individual']);
 
-            if (get_class($this) !== 'Tests\Unit\AgentTest')
-            {
-
+            if (get_class($this) !== 'Tests\Unit\AgentTest') {
                 $this->times(1)->make(Agent::class, ['agent_type_citi_id' => $agentTypeId]);
-
             }
-
         }
     }
 
@@ -136,8 +129,7 @@ abstract class ApiTestCase extends TestCase
         $resources = $response->json()['data'];
         $this->assertCount(5, $resources);
 
-        foreach ($resources as $resource)
-        {
+        foreach ($resources as $resource) {
             $this->assertArrayHasKeys($resource, ['id', 'title']);
         }
 
@@ -173,8 +165,7 @@ abstract class ApiTestCase extends TestCase
         $resources = $response->json()['data'];
         $this->assertCount(3, $resources);
 
-        foreach ($resources as $resource)
-        {
+        foreach ($resources as $resource) {
             $this->assertArrayHasKeys($resource, ['id', 'title']);
         }
 
@@ -233,8 +224,7 @@ abstract class ApiTestCase extends TestCase
         $resources = $response->json()['data'];
         $this->assertCount(5, $resources);
 
-        foreach ($resources as $resource)
-        {
+        foreach ($resources as $resource) {
             $this->assertArrayHasKeys($resource, $retrievedFields);
             $this->assertArrayNotHasKeys($resource, $discardedFields);
         }
@@ -279,8 +269,7 @@ abstract class ApiTestCase extends TestCase
         $resources = $response->json()['data'];
         $this->assertCount(3, $resources);
 
-        foreach ($resources as $resource)
-        {
+        foreach ($resources as $resource) {
             $this->assertArrayHasKeys($resource, $retrievedFields);
             $this->assertArrayNotHasKeys($resource, $discardedFields);
         }
@@ -293,9 +282,7 @@ abstract class ApiTestCase extends TestCase
      */
     public function it_fetches_fields_used_by_mobile_app()
     {
-        if ($this->fieldsUsedByMobile)
-        {
-
+        if ($this->fieldsUsedByMobile) {
             $m = $this->model();
             $this->times(5)->make($m);
 
@@ -305,17 +292,11 @@ abstract class ApiTestCase extends TestCase
             $resources = $response->json()['data'];
             $this->assertCount(5, $resources);
 
-            foreach ($resources as $resource)
-            {
+            foreach ($resources as $resource) {
                 $this->assertArrayHasKeys($resource, $this->fieldsUsedByMobile);
             }
-
-        }
-        else
-        {
-
+        } else {
             $this->assertEmpty($this->fieldsUsedByMobile);
-
         }
     }
 
@@ -354,15 +335,12 @@ abstract class ApiTestCase extends TestCase
     protected function assertArrayHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
     {
         // Standardize $resources into an array of multiple objects
-        if (!$arrayIsMultipleObjects)
-        {
+        if (!$arrayIsMultipleObjects) {
             $resources = [$resources];
         }
 
-        foreach ($keys as $key)
-        {
-            foreach ($resources as $resource)
-            {
+        foreach ($keys as $key) {
+            foreach ($resources as $resource) {
                 $this->assertArrayHasKey($key, $resource);
             }
         }
@@ -371,15 +349,12 @@ abstract class ApiTestCase extends TestCase
     protected function assertArrayNotHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
     {
         // Standardize $resources into an array of multiple objects
-        if (!$arrayIsMultipleObjects)
-        {
+        if (!$arrayIsMultipleObjects) {
             $resources = [$resources];
         }
 
-        foreach ($keys as $key)
-        {
-            foreach ($resources as $resource)
-            {
+        foreach ($keys as $key) {
+            foreach ($resources as $resource) {
                 $this->assertArrayNotHasKey($key, $resource);
             }
         }

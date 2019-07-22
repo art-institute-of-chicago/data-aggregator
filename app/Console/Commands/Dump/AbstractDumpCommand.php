@@ -116,17 +116,14 @@ abstract class AbstractDumpCommand extends BaseCommand
         $dumpPath = $dumpPath ?? $this->getDumpPath('local');
         $dumpPath = rtrim($dumpPath, '/') . '/';
 
-        if (!file_exists($dumpPath))
-        {
+        if (!file_exists($dumpPath)) {
             throw new Exception('Directory does not exist: ' . $dumpPath);
         }
 
-        foreach (['tables'] as $subdir)
-        {
+        foreach (['tables'] as $subdir) {
             $subdirPath = $dumpPath . '/' . $subdir;
 
-            if (!file_exists($subdirPath))
-            {
+            if (!file_exists($subdirPath)) {
                 mkdir($subdirPath, 0755);
             }
         }
@@ -139,13 +136,10 @@ abstract class AbstractDumpCommand extends BaseCommand
      */
     protected function validateEnv(array $vars)
     {
-        foreach ($vars as $var)
-        {
-            if (empty(env($var)))
-            {
+        foreach ($vars as $var) {
+            if (empty(env($var))) {
                 throw new Exception('Please specify `' . $var . '` in .env');
             }
         }
     }
-
 }

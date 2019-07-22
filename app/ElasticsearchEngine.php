@@ -23,8 +23,7 @@ class ElasticsearchEngine extends BaseEngine
     {
         $params['body'] = [];
 
-        $models->each(function ($model) use (&$params)
-        {
+        $models->each(function ($model) use (&$params) {
             $params['body'][] = [
                 'update' => $this->getIdIndexType($model),
             ];

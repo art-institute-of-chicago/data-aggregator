@@ -19,15 +19,10 @@ class ImportAssets extends ImportAssetsFull
 
         $endpoint = $this->argument('endpoint');
 
-        if ($endpoint)
-        {
-
+        if ($endpoint) {
             $this->importEndpoint($endpoint);
-
         } else {
-
             $this->importEndpoints();
-
         }
     }
 

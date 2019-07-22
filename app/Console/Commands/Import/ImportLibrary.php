@@ -17,8 +17,7 @@ class ImportLibrary extends AbstractImportCommand
     {
         $this->api = env('LIBRARY_DATA_SERVICE_URL');
 
-        if (!$this->reset())
-        {
+        if (!$this->reset()) {
             return false;
         }
 

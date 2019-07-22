@@ -69,8 +69,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                     $model = $resource['model'] ?? null;
 
-                    if (!$model)
-                    {
+                    if (!$model) {
                         throw new \Exception('You must define a model for outbound endpoint `' . $endpoint . '` in ResourceServiceProvider.');
                     }
 
@@ -83,8 +82,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                     $transformer = $resource['transformer'] ?? null;
 
-                    if (!$transformer)
-                    {
+                    if (!$transformer) {
                         throw new \Exception('You must define a transformer for outbound endpoint `' . $endpoint . '` in ResourceServiceProvider.');
                     }
 
@@ -99,8 +97,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                     $endpoint = $resource['endpoint'] ?? null;
 
-                    if (!$endpoint)
-                    {
+                    if (!$endpoint) {
                         throw new \Exception('You must define an outbound endpoint for model `' . $model . '` in ResourceServiceProvider.');
                     }
 
@@ -122,8 +119,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                     $transformer = $resource['transformer'] ?? null;
 
-                    if (!$transformer)
-                    {
+                    if (!$transformer) {
                         throw new \Exception('You must define a transformer for model `' . $model . '` in ResourceServiceProvider.');
                     }
 
@@ -157,8 +153,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                     $transformer = $resource['transformer'] ?? null;
 
-                    if (!$transformer)
-                    {
+                    if (!$transformer) {
                         throw new \Exception('Define an inbound transformer for model `' . $model . '` and source `' . $source . '` in ResourceServiceProvider.');
                     }
 

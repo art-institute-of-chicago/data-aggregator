@@ -10,14 +10,12 @@
 |
 */
 
-if (!function_exists('idsAndTitle'))
-{
+if (!function_exists('idsAndTitle')) {
     function idsAndTitle($faker, $title, $citiField = false, $idLength = 6)
     {
         $ret = [];
 
-        if ($citiField)
-        {
+        if ($citiField) {
             $ret = [
                 'citi_id' => $faker->unique()->randomNumber($idLength) + 999 * pow(10, $idLength),
             ];
@@ -50,7 +48,6 @@ $factory->define(App\Models\Collections\AgentRole::class, function (Faker\Genera
 });
 
 $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator $faker) {
-
     $first_name = $faker->firstName;
     $last_name = $faker->lastName;
 

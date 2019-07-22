@@ -22,7 +22,6 @@ class ReportNoImages extends BaseCommand
 
     public function handle()
     {
-
         // Not an ideal solution, but some models are really heavy
         ini_set('memory_limit', '-1');
 
@@ -39,15 +38,13 @@ class ReportNoImages extends BaseCommand
 
         // Any artwork that doesn't have images automatically qualifies
         $this->getArtworksWithoutAnyImages();
-
     }
 
     private function getArtworksWithoutAnyImages()
     {
         $artworks = Artwork::whereDoesntHave('images');
 
-        foreach ($artworks->cursor() as $artwork)
-        {
+        foreach ($artworks->cursor() as $artwork) {
             $this->insertOne($artwork);
         }
     }
@@ -56,8 +53,7 @@ class ReportNoImages extends BaseCommand
     {
         $artworks = Artwork::whereHas('images');
 
-        foreach ($artworks->cursor() as $artwork)
-        {
+        foreach ($artworks->cursor() as $artwork) {
             if (!$artwork->image()) {
                 $this->insertOne($artwork);
             }

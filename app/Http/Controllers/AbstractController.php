@@ -63,8 +63,7 @@ abstract class AbstractController extends BaseController
     {
         $response = $this->getGenericResponse($collection, Collection::class);
 
-        if ($collection instanceof LengthAwarePaginator)
-        {
+        if ($collection instanceof LengthAwarePaginator) {
             $paginator = [
                 'total' => $collection->total(),
                 'limit' => (int) $collection->perPage(),
@@ -104,13 +103,11 @@ abstract class AbstractController extends BaseController
             'version' => config('aic.version'),
         ];
 
-        if (config('aic.documentation_url'))
-        {
+        if (config('aic.documentation_url')) {
             $info['documentation'] = config('aic.documentation_url');
         }
 
-        if (config('aic.message'))
-        {
+        if (config('aic.message')) {
             $info['message'] = config('aic.message');
         }
 
@@ -118,8 +115,7 @@ abstract class AbstractController extends BaseController
 
         $config = config('aic.config_documentation');
 
-        if ($config)
-        {
+        if ($config) {
             $response['config'] = $config;
         }
 
@@ -138,15 +134,13 @@ abstract class AbstractController extends BaseController
 
         $id = $request->route('id');
 
-        if (!$this->validateId($id))
-        {
+        if (!$this->validateId($id)) {
             throw new InvalidSyntaxException();
         }
 
         $item = $callback($id);
 
-        if (!$item)
-        {
+        if (!$item) {
             throw new ItemNotFoundException();
         }
 
@@ -166,16 +160,14 @@ abstract class AbstractController extends BaseController
         // Process ?ids= query param
         $ids = $request->input('ids');
 
-        if ($ids)
-        {
+        if ($ids) {
             return $this->showMutliple($ids);
         }
 
         // Check if the ?limit= is too big
         $limit = $request->input('limit') ?: 12;
 
-        if ($limit > static::LIMIT_MAX)
-        {
+        if ($limit > static::LIMIT_MAX) {
             throw new BigLimitException();
         }
 
@@ -201,20 +193,15 @@ abstract class AbstractController extends BaseController
         // TODO: Accept an array, not just comma-separated string
         $ids = explode(',', $ids);
 
-        if (count($ids) > static::LIMIT_MAX)
-        {
+        if (count($ids) > static::LIMIT_MAX) {
             throw new TooManyIdsException();
         }
 
         // Validate the syntax for each $id
-        foreach ($ids as $id)
-        {
-
-            if (!$this->validateId($id))
-            {
+        foreach ($ids as $id) {
+            if (!$this->validateId($id)) {
                 throw new InvalidSyntaxException();
             }
-
         }
 
         // Illuminate\Database\Eloquent\Collection
@@ -235,20 +222,17 @@ abstract class AbstractController extends BaseController
     {
         $values = Input::get($param);
 
-        if (!isset($values))
-        {
+        if (!isset($values)) {
             return;
         }
 
         // Fractal handles this internally, but we do it early for preprocessing
-        if (is_string($values))
-        {
+        if (is_string($values)) {
             $values = explode(',', $values);
         }
 
         // Allows for camel, snake, and kebab cases
-        foreach ($values as &$value)
-        {
+        foreach ($values as &$value) {
             $value = Str::snake(Str::camel($value));
         }
 

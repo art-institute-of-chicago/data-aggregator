@@ -113,13 +113,11 @@ class PrototypeMostSimilar extends BaseCommand
                         $count++;
                         $countForCurrentQuery++;
 
-                        if ($count === $this->size)
-                        {
+                        if ($count === $this->size) {
                             break 2;
                         }
 
-                        if ($countForCurrentQuery === $this->sizeRenderPerQuery)
-                        {
+                        if ($countForCurrentQuery === $this->sizeRenderPerQuery) {
                             break;
                         }
                     }
@@ -167,10 +165,12 @@ class PrototypeMostSimilar extends BaseCommand
         if ($artw->image && $artw->image->metadata && $artw->image->metadata->color && $item->color
             && in_array($item->color->h, range($artw->image->metadata->color->h - 5, $artw->image->metadata->color->h + 5))
             && in_array($item->color->s, range($artw->image->metadata->color->s - 5, $artw->image->metadata->color->s + 5))
-            && in_array($item->color->l, range($artw->image->metadata->color->l - 5, $artw->image->metadata->color->l + 5))) {
+            && in_array($item->color->l, range($artw->image->metadata->color->l - 5, $artw->image->metadata->color->l + 5))
+        ) {
             $ret ? $ret .= ', ' : '';
             $ret .= 'Similar color';
         }
+
         return $ret;
     }
 
@@ -183,10 +183,10 @@ class PrototypeMostSimilar extends BaseCommand
         $ret .= "</head>\n";
         $ret .= "<body>\n";
 
-        if ($title)
-        {
+        if ($title) {
             $ret .= "<h1>{$title}</h1>\n";
         }
+
         return $ret;
     }
 
@@ -204,10 +204,8 @@ class PrototypeMostSimilar extends BaseCommand
 
     public function dateStart($date)
     {
-        foreach ($this->increments as $year)
-        {
-            if ($year > $date)
-            {
+        foreach ($this->increments as $year) {
+            if ($year > $date) {
                 return $prev;
             }
             $prev = $year;
@@ -216,10 +214,8 @@ class PrototypeMostSimilar extends BaseCommand
 
     public function dateEnd($date)
     {
-        foreach ($this->increments as $year)
-        {
-            if ($year > $date)
-            {
+        foreach ($this->increments as $year) {
+            if ($year > $date) {
                 return $year;
             }
         }
@@ -250,6 +246,7 @@ class PrototypeMostSimilar extends BaseCommand
             ];
             $ret = array_merge($ret, $this->curl($query));
         }
+
         return $ret;
     }
 
@@ -258,6 +255,7 @@ class PrototypeMostSimilar extends BaseCommand
         $queryString = json_encode($query);
 
         $ch = curl_init();
+
         curl_setopt($ch, CURLOPT_URL, config('app.url') . '/api/v1/msearch');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $queryString);
@@ -273,15 +271,16 @@ class PrototypeMostSimilar extends BaseCommand
         if (is_null($contents)) {
             throw new \Exception("Can't get artwork: " . $artw->citi_id);
         }
+
         return json_decode($contents);
     }
 
     protected function basicQuery($field, $value)
     {
-        if (!$value)
-        {
+        if (!$value) {
             return [];
         }
+
         return [
             'resources' => 'artworks',
             'query' => [
@@ -328,6 +327,7 @@ class PrototypeMostSimilar extends BaseCommand
         if (!$color) {
             return [];
         }
+
         return [
             'resources' => 'artworks',
             'query' => [

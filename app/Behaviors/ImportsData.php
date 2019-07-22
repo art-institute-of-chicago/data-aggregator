@@ -148,8 +148,7 @@ trait ImportsData
         $url = $this->getUrl($endpoint, $page, $limit);
 
         // Allows us to specify which fields to retrieve, for performance
-        if ($this->fields)
-        {
+        if ($this->fields) {
             $url .= $this->fields;
         }
 
@@ -184,11 +183,8 @@ trait ImportsData
             }
         }
 
-        if ($this->isPartial)
-        {
-
+        if ($this->isPartial) {
             $this->info('Looking for resources since ' . $this->since->toIso8601String());
-
         }
 
         // Figure out which transformer to use for this import operation
@@ -218,18 +214,15 @@ trait ImportsData
 
         while ($current <= $pages)
         {
-
             $this->warn('Importing ' . $current . ' of ' . $pages . ' for model ' . $model);
 
             // Assumes the dataservice wraps its results in a `data` field
             foreach ($json->data as $datum)
             {
-
                 // TODO: Careful, this conflicts w/ partial imports – running on one endpoint counts for all!
                 // Break if this is a partial import + this datum is older than last run
                 if ($this->isPartial && isset($datum->{$model::$sourceLastUpdateDateField}))
                 {
-
                     $sourceTime = new Carbon($datum->{$model::$sourceLastUpdateDateField});
                     $sourceTime->timezone = config('app.timezone');
 
@@ -237,14 +230,12 @@ trait ImportsData
                     {
                         break 2;
                     }
-
                 }
 
                 $this->updateSentryTags($datum, $endpoint, $source);
 
                 // Be sure to overwrite `save` to make this work!
                 $this->save($datum, $model, $transformer);
-
             }
 
             $current++;
@@ -253,7 +244,6 @@ trait ImportsData
 
             // TODO: This structure causes an extra query to be run, when it might not need to be
             $json = $this->query($endpoint, $current);
-
         }
 
         unset($json);
@@ -270,8 +260,7 @@ trait ImportsData
     protected function resetData($modelsToFlush, $tablesToClear)
     {
         // Return false if the user bails out
-        if (!$this->confirmReset())
-        {
+        if (!$this->confirmReset()) {
             return false;
         }
 
@@ -281,16 +270,14 @@ trait ImportsData
 
         // TODO: If we dump the indexes + recreate them, we don't need to flush
         // Flush might not remove models that are present in the index, but not the database
-        foreach ($modelsToFlush as $model)
-        {
+        foreach ($modelsToFlush as $model) {
             $this->call('scout:flush', ['model' => $model]);
             $this->info("Flushed from search index: `{$model}`");
         }
 
         // TODO: We'd like to affect related models – consider doing an Eloquent delete instead
         // It's much slower, but it'll ensure better data integrity
-        foreach ($tablesToClear as $table)
-        {
+        foreach ($tablesToClear as $table) {
             DB::table($table)->truncate();
             $this->info("Truncated `{$table}` table.");
         }
@@ -332,10 +319,8 @@ trait ImportsData
 
     protected function updateSentryTags($datum = null, $endpoint = null, $source = null)
     {
-        if (app()->bound('sentry'))
-        {
+        if (app()->bound('sentry')) {
             $sentry = app('sentry');
-
             $sentry->configureScope(function (Scope $scope) use ($datum, $endpoint, $source) {
                 isset($datum->id) && $scope->setTag('id', $datum->id);
                 isset($endpoint) && $scope->setTag('endpoint', $endpoint);

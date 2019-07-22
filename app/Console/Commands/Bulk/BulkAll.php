@@ -31,7 +31,6 @@ class BulkAll extends BaseCommand
 
         // Import all bulkable resources from compliant data services
         foreach (config('resources.inbound') as $source => $endpoints) {
-
             foreach ($endpoints as $endpoint => $resource) {
                 dump("${source} >> ${endpoint}");
 

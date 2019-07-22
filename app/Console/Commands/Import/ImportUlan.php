@@ -22,8 +22,8 @@ class ImportUlan extends AbstractImportCommand
         $agents = $agents->where('source_modified_at', '>=', $this->command->last_success_at);
 
         // Then, loop through them in a memory-friendly way
-        foreach ($agents->cursor() as $agent) {
-
+        foreach ($agents->cursor() as $agent)
+        {
             $this->info('Trying agent #' . $agent->citi_id . ', ' . $agent->title);
 
             // Query ulan service with birth date
@@ -34,7 +34,6 @@ class ImportUlan extends AbstractImportCommand
             // If the birth date didn't work, try with the death date
             if (!$gotit && $agent->death_date)
             {
-
                 $result = $this->fetchUlan($agent, null, $agent->death_date);
 
                 $gotit = $this->updateUlan($agent, $result, 'with death year');
@@ -42,13 +41,10 @@ class ImportUlan extends AbstractImportCommand
                 // Now let's try both, just for the record
                 if (!$gotit)
                 {
-
                     $result = $this->fetchUlan($agent, $agent->birth_date, $agent->death_date);
 
                     $gotit = $this->updateUlan($agent, $result, 'with birth and death year');
-
                 }
-
             }
 
             // If there are no results, try with just the last name or first word
@@ -56,7 +52,6 @@ class ImportUlan extends AbstractImportCommand
             {
                 continue;
             }
-
         }
 
     }
@@ -74,44 +69,33 @@ class ImportUlan extends AbstractImportCommand
     private function updateUlan($agent, $result, $message = '')
     {
         // If there's only one result, set the ULAN URI
-        if (count($result->results) === 1)
-        {
-
+        if (count($result->results) === 1) {
             $this->info('... exact name matched ' . $message . ' ' . $result->results[0]->uri);
             $agent->ulan_uri = $result->results[0]->uri;
             $agent->save();
             return true;
-
         }
 
         // If there's more than one result, try to find an exact match
-        if (count($result->results) > 1)
-        {
-
+        if (count($result->results) > 1) {
             // Make a distinct list of IDs, because the service sometimes returns dups
             $uris = [];
 
-            foreach ($result->results as $res)
-            {
-
+            foreach ($result->results as $res) {
                 $uris[] = $res->uri;
-
             }
 
             $uris = array_unique($uris);
 
-            if (count($uris) === 1)
-            {
-
+            if (count($uris) === 1) {
                 $this->info('... exact name matched distinct results' . $message);
                 $agent->ulan_uri = $uris[0];
                 $agent->save();
                 return true;
-
             }
-
         }
 
         return false;
     }
+
 }

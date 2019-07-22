@@ -37,14 +37,12 @@ class Asset extends CollectionsTransformer
     private function getSyncAssetOf(Datum $datum, string $pivot_field)
     {
         return $this->getSyncPivots($datum, $pivot_field, 'related_id', function ($pivot) {
-
             return [
                 $pivot->related_id => [
                     'preferred' => $pivot->is_preferred,
                     'is_doc' => $pivot->is_doc,
                 ],
             ];
-
         });
     }
 

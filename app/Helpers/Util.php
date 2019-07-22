@@ -74,8 +74,7 @@ function summation(array $array)
 {
     $last = array_pop($array);
 
-    if (empty($array))
-    {
+    if (empty($array)) {
         return $last;
     }
 
@@ -137,33 +136,25 @@ function allModels()
     $dir = app_path('Models');
     $files = scandir($dir);
 
-    foreach ($files as $file)
-    {
-
+    foreach ($files as $file) {
         //skip current and parent folder entries
-        if ($file === '.' || $file === '..') continue;
+        if ($file === '.' || $file === '..') {
+            continue;
+        }
 
         $sourcepath = $dir . DIRECTORY_SEPARATOR . $file;
 
-        if (is_dir($sourcepath))
-        {
-
-            $sourcefiles = scandir($sourcepath);
-
-            foreach ($sourcefiles as $sourcefile)
-            {
-
-                if (!is_dir($sourcepath . DIRECTORY_SEPARATOR . $sourcefile))
-                {
-
-                    $models[] = $namespace . $file . '\\' . preg_replace('/\.php$/', '', $sourcefile);
-
-                }
-
-            }
-
+        if (!is_dir($sourcepath)) {
+            continue;
         }
 
+        $sourcefiles = scandir($sourcepath);
+
+        foreach ($sourcefiles as $sourcefile) {
+            if (!is_dir($sourcepath . DIRECTORY_SEPARATOR . $sourcefile)) {
+                $models[] = $namespace . $file . '\\' . preg_replace('/\.php$/', '', $sourcefile);
+            }
+        }
     }
 
     return $models;
@@ -182,16 +173,10 @@ function allModelsThatUse($trait)
 
     $models = [];
 
-    foreach ($modelClasses as $model)
-    {
-
-        if ($model::instance()->has($trait))
-        {
-
+    foreach ($modelClasses as $model) {
+        if ($model::instance()->has($trait)) {
             $models[] = $model;
-
         }
-
     }
 
     return $models;
@@ -211,30 +196,21 @@ function class_uses_deep($modelClass, $autoload = true)
     $traits = class_uses($modelClass, $autoload);
 
     // Get traits of all parent classes
-    while ($modelClass = get_parent_class($modelClass))
-    {
-
+    while ($modelClass = get_parent_class($modelClass)) {
         $traits = array_merge(class_uses($modelClass, $autoload), $traits);
-
     }
 
     // Get traits of all parent traits
     $traitsToSearch = $traits;
 
-    while (!empty($traitsToSearch))
-    {
-
+    while (!empty($traitsToSearch)) {
         $newTraits = class_uses(array_pop($traitsToSearch), $autoload);
         $traits = array_merge($newTraits, $traits);
         $traitsToSearch = array_merge($newTraits, $traitsToSearch);
-
     }
 
-    foreach ($traits as $trait => $same)
-    {
-
+    foreach ($traits as $trait => $same) {
         $traits = array_merge(class_uses($trait, $autoload), $traits);
-
     }
 
     return array_unique($traits);

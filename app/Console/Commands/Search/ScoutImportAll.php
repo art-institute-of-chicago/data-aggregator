@@ -21,13 +21,10 @@ class ScoutImportAll extends BaseCommand
         ini_set('memory_limit', '-1');
 
         $models = app('Search')->getSearchableModels();
-
         $models = array_diff($models, $this->excludeModels);
 
         foreach ($models as $model) {
-
             $this->call('scout:import', ['model' => $model]);
-
         }
     }
 

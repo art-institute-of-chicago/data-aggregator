@@ -51,25 +51,20 @@ trait HasBlocks
 
         // Loop through the rules to see which apply
         $texts = $blocks->map(function ($block) use ($rules) {
-
-            foreach ($rules as $rule)
-            {
-                if ($rule['filter']($block))
-                {
+            foreach ($rules as $rule) {
+                if ($rule['filter']($block)) {
                     return $rule['extract']($block);
                 }
             }
 
             return null;
-
         });
 
         // Filter out any null texts
         $texts = $texts->filter();
 
         // Ensure there's valid texts here
-        if ($texts->count() < 1)
-        {
+        if ($texts->count() < 1) {
             return null;
         }
 

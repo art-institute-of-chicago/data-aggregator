@@ -20,11 +20,8 @@ trait Fakeable
      */
     public function scopeFake($query)
     {
-        if ($this->getKeyType() === 'int')
-        {
-
+        if ($this->getKeyType() === 'int') {
             return $query->where($this->getKeyName(), '>=', $this->fakeIdsStartAt);
-
         }
 
         return $query->where($this->getKeyName(), 'like', '99999999-9999-9999-9999-%');

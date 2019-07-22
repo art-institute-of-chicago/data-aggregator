@@ -12,11 +12,8 @@ trait Indexer
      */
     public function destroy($index = null, $yes = false)
     {
-        if (!$index)
-        {
-
+        if (!$index) {
             $index = env('ELASTICSEARCH_INDEX');
-
         }
 
         $params = [
@@ -24,14 +21,12 @@ trait Indexer
         ];
 
         // No need to do anything if the index doesn't exist
-        if (!Elasticsearch::indices()->exists($params))
-        {
+        if (!Elasticsearch::indices()->exists($params)) {
             return true;
         }
 
         // Return false if the user bails out
-        if (!$yes && !$this->confirm('The ' . $index . ' index already exists. Do you wish to delete it?'))
-        {
+        if (!$yes && !$this->confirm('The ' . $index . ' index already exists. Do you wish to delete it?')) {
             return false;
         }
 
@@ -59,11 +54,8 @@ trait Indexer
      */
     private function done($return = [])
     {
-        if (array_key_exists('acknowledged', $return))
-        {
-
+        if (array_key_exists('acknowledged', $return)) {
             return 'Done!';
-
         }
 
         return 'There was an error: ' . print_r($return, true);

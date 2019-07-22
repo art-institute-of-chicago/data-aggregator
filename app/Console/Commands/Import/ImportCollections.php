@@ -19,15 +19,10 @@ class ImportCollections extends ImportCollectionsFull
 
         $endpoint = $this->argument('endpoint');
 
-        if ($endpoint)
-        {
-
+        if ($endpoint) {
             $this->importEndpoint($endpoint);
-
         } else {
-
             $this->importEndpoints();
-
         }
     }
 

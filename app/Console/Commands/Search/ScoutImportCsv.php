@@ -23,13 +23,11 @@ class ScoutImportCsv extends BaseCommand
 
         $csv = Reader::createFromPath($this->getCsvPath(), 'r');
 
-        if (!$this->hasOption('skip-header') || $this->option('skip-header'))
-        {
+        if (!$this->hasOption('skip-header') || $this->option('skip-header')) {
             $csv->setHeaderOffset(0);
         }
 
-        foreach ($csv->getRecords() as $record)
-        {
+        foreach ($csv->getRecords() as $record) {
             $id = reset($record);
 
             if (is_string($id) && strpos($id, ' ') !== false) {

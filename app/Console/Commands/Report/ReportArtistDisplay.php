@@ -37,7 +37,6 @@ class ReportArtistDisplay extends BaseCommand
 
         // Currently, 11 linebreaks is the record
         for ($i = 1; $i < 12; $i++) {
-
             $narr = array_fill(0, $i, '\n');
             $nstr = implode('[^\n]*', $narr);
 
@@ -49,7 +48,6 @@ class ReportArtistDisplay extends BaseCommand
                 'number_of_linebreaks' => $i,
                 'number_of_artworks' => $count,
             ];
-
         }
 
         // Special case for zero newlines

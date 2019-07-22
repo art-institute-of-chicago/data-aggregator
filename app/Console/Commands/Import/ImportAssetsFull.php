@@ -23,15 +23,10 @@ class ImportAssetsFull extends AbstractImportCommand
         $endpoint = $this->argument('endpoint');
 
         if ($endpoint) {
-
             $page = $this->argument('page') ?: 1;
-
             $this->importEndpoint($endpoint, $page);
-
         } else {
-
             $this->importEndpoints();
-
         }
     }
 

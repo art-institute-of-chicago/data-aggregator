@@ -29,23 +29,19 @@ class CreateLibraryTables extends Migration
         });
 
         foreach ($this->material_terms as $material_term) {
-
             Schema::create($material_term, function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('material_id')->index();
                 $table->string('term_id')->index();
                 $table->timestamps();
             });
-
         }
     }
 
     public function down()
     {
         foreach ($this->material_terms as $material_term) {
-
             Schema::dropIfExists($material_term);
-
         }
 
         Schema::dropIfExists('library_materials');

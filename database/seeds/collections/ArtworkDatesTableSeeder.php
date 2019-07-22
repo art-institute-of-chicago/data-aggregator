@@ -24,8 +24,9 @@ class ArtworkDatesTableSeeder extends AbstractSeeder
                 'preferred' => $preferred,
             ]);
 
-            if ($preferred || $hasPreferred) $hasPreferred = true;
-
+            if ($preferred || $hasPreferred) {
+                $hasPreferred = true;
+            }
         }
     }
 

@@ -43,8 +43,7 @@ class ImportAnalytics extends AbstractImportCommand
         // Only update works that have exist in the artworks table
         if ($resource) {
             // This will be true almost always, except for lists
-            if ($transformer->shouldSave($resource, $datum))
-            {
+            if ($transformer->shouldSave($resource, $datum)) {
                 // Fill should always be called before sync
                 // Syncing some relations requires `$instance->getKey()` to work (i.e. id is set)
                 $fills = $transformer->fill($resource, $datum);

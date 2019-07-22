@@ -300,15 +300,12 @@ abstract class AbstractTransformer extends BaseTransformer
             $this->getDates()
         );
 
-        if (isset($this->requestedFields))
-        {
+        if (isset($this->requestedFields)) {
             $mappedFields = array_intersect_key($mappedFields, array_flip($this->requestedFields));
         }
 
-        foreach ($mappedFields as $fieldName => $mappedField)
-        {
-            if (!isset($mappedFields[$fieldName]['value']))
-            {
+        foreach ($mappedFields as $fieldName => $mappedField) {
+            if (!isset($mappedFields[$fieldName]['value'])) {
                 $mappedFields[$fieldName]['value'] = function ($model) use ($fieldName) {
                     return $model->{$fieldName};
                 };

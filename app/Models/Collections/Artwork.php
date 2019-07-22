@@ -431,8 +431,7 @@ class Artwork extends CollectionsModel
     {
         $ids = $this->getFeaturedIds();
 
-        if (!in_array($this->getKey(), $ids))
-        {
+        if (!in_array($this->getKey(), $ids)) {
             return null;
         }
 

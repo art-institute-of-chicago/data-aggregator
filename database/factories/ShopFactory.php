@@ -10,8 +10,7 @@
 |
 */
 
-if (!function_exists('shopIdsAndTitle'))
-{
+if (!function_exists('shopIdsAndTitle')) {
     function shopIdsAndTitle($faker, $title = '')
     {
         return [
@@ -27,7 +26,6 @@ if (!function_exists('shopIdsAndTitle'))
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
     }
-
 }
 
 $factory->define(App\Models\Shop\Category::class, function (Faker\Generator $faker) {

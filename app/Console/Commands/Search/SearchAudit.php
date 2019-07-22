@@ -19,12 +19,9 @@ class SearchAudit extends BaseCommand
         $models = app('Search')->getSearchableModels();
         $output = '';
 
-        foreach ($models as $model)
-        {
-
+        foreach ($models as $model) {
             $output .= $this->compareTotals($model);
             $output .= $this->compareLatest($model);
-
         }
 
         if ($output) {

@@ -37,7 +37,6 @@ class ReportArtistDisplayDetail extends BaseCommand
 
         // Currently, 11 linebreaks is the record. Start with 6.
         for ($i = 6; $i < 12; $i++) {
-
             $narr = array_fill(0, $i, '\n');
             $nstr = implode('[^\n]*', $narr);
 
@@ -46,7 +45,6 @@ class ReportArtistDisplayDetail extends BaseCommand
             foreach ($artworks->get() as $artwork) {
                 $this->insertOne($i, $artwork);
             }
-
         }
     }
 

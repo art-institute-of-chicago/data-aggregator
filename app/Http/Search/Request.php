@@ -154,29 +154,23 @@ class Request
         $resources = $this->resources ?? $input['resources'] ?? null;
 
         // Ensure that resources is an array, not string
-        if (is_string($resources))
-        {
+        if (is_string($resources)) {
             $resources = explode(',', $resources);
         }
 
         // Save unfiltered $resources for e.g. getting default fields
         $this->resources = $resources;
 
-        if (is_null($resources))
-        {
-
+        if (is_null($resources)) {
             throw new DetailedException('Missing Parameter', 'You must specify the `resources` parameter.', 400);
-
         }
 
         // Filter out any resources that have a parent resource requested as well
         // So e.g. if places and galleries are requested, we'll show places only
         $resources = array_filter($resources, function ($resource) use ($resources) {
-
             $parent = app('Resources')->getParent($resource);
 
             return !in_array($parent, $resources);
-
         });
 
         // Make resources into a Laravel collection
@@ -184,11 +178,9 @@ class Request
 
         // Grab settings from our models via the service provider
         $settings = $resources->map(function ($resource) {
-
             return [
                 $resource => app('Search')->getSearchScopeForEndpoint($resource),
             ];
-
         })->collapse();
 
         // Collate our indexes and types
@@ -199,8 +191,7 @@ class Request
         $this->scopes = $settings->pluck('scope')->filter()->values()->all();
 
         // These will be injected into the should clause
-        if (!isset($input['q']))
-        {
+        if (!isset($input['q'])) {
             $this->boosts = $settings->pluck('boost')->filter()->values()->all();
         }
 
@@ -211,8 +202,7 @@ class Request
             return $item['function_score'];
         })->all();
 
-        if (isset($input['functions']))
-        {
+        if (isset($input['functions'])) {
             $customScoreFunctions = collect($input['functions'])->filter(function ($value, $key) use ($resources) {
                 return $resources->contains($key);
             });
@@ -311,9 +301,7 @@ class Request
 
         // Add our custom relevancy tweaks into `should`
         if ($input['boost']) {
-
             $params = $this->addRelevancyParams($params, $input);
-
         }
 
         // Add params to isolate "scoped" resources into `must`
@@ -325,26 +313,18 @@ class Request
          * 3. If `q` is absent, show all results.
          */
         if (isset($input['query'])) {
-
             $params = $this->addFullSearchParams($params, $input);
-
         }
 
         if (isset($input['q'])) {
-
             $params = $this->addSimpleSearchParams($params, $input);
-
         } else {
-
             $params = $this->addEmptySearchParams($params);
-
         }
 
         // Add Aggregations (facets)
         if ($withAggregations) {
-
             $params = $this->addAggregationParams($params, $input);
-
         }
 
         // Apply `function_score` (if any)
@@ -424,9 +404,13 @@ class Request
 
         // If not null, cast these params to int
         // We are using isset() instead of normal ternary to avoid catching `0` as falsey
-        if (isset($size)) { $size = (int) $size; }
+        if (isset($size)) {
+            $size = (int) $size;
+        }
 
-        if (isset($from)) { $from = (int) $from; }
+        if (isset($from)) {
+            $from = (int) $from;
+        }
 
         // Throw an exception if `size` is too big
         if ($size > self::$maxSize) {
@@ -442,14 +426,12 @@ class Request
         }
 
         return [
-
             // TODO: Determine if this interferes w/ an autocomplete-only search
             'from' => $from,
             'size' => $size,
 
             // TODO: Re-enable this once the official ES PHP Client supports it
             // 'search_after' => $input['search_after'],
-
         ];
     }
 
@@ -486,8 +468,7 @@ class Request
      */
     private function addSortParams(array $params, array $input)
     {
-        if (isset($input['sort']))
-        {
+        if (isset($input['sort'])) {
             $params['body']['sort'] = $input['sort'];
         }
 
@@ -505,13 +486,11 @@ class Request
     public function addRelevancyParams(array $params, array $input)
     {
         // Don't tweak relevancy if sort is passed
-        if (isset($input['sort']))
-        {
+        if (isset($input['sort'])) {
             return $params;
         }
 
-        if (!isset($input['q']))
-        {
+        if (!isset($input['q'])) {
             // Boost anything with `is_boosted` true
             $params['body']['query']['bool']['should'][] = [
                 'term' => [
@@ -524,11 +503,8 @@ class Request
 
             // Add any resource-specific boosts
             foreach ($this->boosts as $boost) {
-
                 $params['body']['query']['bool']['should'][] = $boost;
-
             }
-
         }
 
         return $params;
@@ -545,8 +521,7 @@ class Request
      */
     public function addFunctionScore($params, $input)
     {
-        if (empty($this->functionScores) || !isset($this->resources))
-        {
+        if (empty($this->functionScores) || !isset($this->resources)) {
             return $params;
         }
 
@@ -564,8 +539,7 @@ class Request
             $rawFunctions = $this->functionScores[$resource] ?? null;
 
             // Move on if there are no functions declared for this model
-            if (empty($rawFunctions))
-            {
+            if (empty($rawFunctions)) {
                 $resourcesWithoutFunctions->push($resource);
                 continue;
             }
@@ -573,23 +547,19 @@ class Request
             // Start building the outbound function score array
             $outFunctions = [];
 
-            if ($input['boost'])
-            {
+            if ($input['boost']) {
                 $outFunctions = array_merge($outFunctions, $rawFunctions['all']);
             }
 
-            if ($input['boost'] && !isset($input['q']) && isset($rawFunctions['except_full_text']))
-            {
+            if ($input['boost'] && !isset($input['q']) && isset($rawFunctions['except_full_text'])) {
                 $outFunctions = array_merge($outFunctions, $rawFunctions['except_full_text']);
             }
 
-            if (isset($rawFunctions['custom']))
-            {
+            if (isset($rawFunctions['custom'])) {
                 $outFunctions = array_merge($outFunctions, $rawFunctions['custom']);
             }
 
-            if (empty($outFunctions))
-            {
+            if (empty($outFunctions)) {
                 $resourcesWithoutFunctions->push($resource);
                 continue;
             }
@@ -608,7 +578,6 @@ class Request
             $scopedQuery = app('Search')->getScopedQuery($resource, $resourceQuery);
 
             $scopedQueries->push($scopedQuery);
-
         }
 
         // Add a query for all the leftover resources
@@ -637,9 +606,7 @@ class Request
     public function addScopeParams(array $params, array $input)
     {
         if (!isset($this->scopes) || count($this->scopes) < 1) {
-
             return $params;
-
         }
 
         // Assumes that `scopes` has no null members
@@ -694,8 +661,13 @@ class Request
 
         // Assumes that there are no trailing quotes
         // https://stackoverflow.com/a/2076399/1943591
-        $withQuotes = array_filter($subqueries, function ($i) {return $i & 1;}, ARRAY_FILTER_USE_KEY);
-        $withoutQuotes = array_filter($subqueries, function ($i) {return !($i & 1);}, ARRAY_FILTER_USE_KEY);
+        $withQuotes = array_filter($subqueries, function ($i) {
+            return $i & 1;
+        }, ARRAY_FILTER_USE_KEY);
+
+        $withoutQuotes = array_filter($subqueries, function ($i) {
+            return !($i & 1);
+        }, ARRAY_FILTER_USE_KEY);
 
         // Remove trailing whitespace
         $withQuotes = array_filter(array_map('trim', $withQuotes));
@@ -754,14 +726,12 @@ class Request
 
         // Queries below depend on `q`, but act as relevany tweaks
         // Don't tweak relevancy further if sort is passed
-        if (isset($input['sort']))
-        {
+        if (isset($input['sort'])) {
             return $params;
         }
 
         // This acts as a boost for docs that match precisely, if fuzzy search is enabled
-        if (!$isExact && ($fuzziness ?? false))
-        {
+        if (!$isExact && ($fuzziness ?? false)) {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $input['q'],
@@ -773,8 +743,7 @@ class Request
         // This boosts docs that have multiple terms in close proximity
         // `phrase` queries are relatively expensive, so check for spaces first
         // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
-        if (strpos($input['q'], ' '))
-        {
+        if (strpos($input['q'], ' ')) {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => str_replace('"', '', $input['q']),
@@ -865,8 +834,7 @@ class Request
             $contexts = $input['contexts'];
 
             // Ensure that resources is an array, not string
-            if (is_string($contexts))
-            {
+            if (is_string($contexts)) {
                 $contexts = explode(',', $contexts);
             }
 
@@ -892,9 +860,7 @@ class Request
         $aggregations = $input['aggregations'] ?? $input['aggs'] ?? null;
 
         if ($aggregations) {
-
             $params['body']['aggregations'] = $aggregations;
-
         }
 
         return $params;
@@ -902,18 +868,15 @@ class Request
 
     private function getFuzzy(array $input, string $query = null)
     {
-        if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7)
-        {
+        if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7) {
             return 0;
         }
 
-        if (!isset($input['fuzzy']))
-        {
+        if (!isset($input['fuzzy'])) {
             return 'AUTO';
         }
 
-        if ($input['fuzzy'] === 'AUTO')
-        {
+        if ($input['fuzzy'] === 'AUTO') {
             return 'AUTO';
         }
 

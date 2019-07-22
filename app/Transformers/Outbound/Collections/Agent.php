@@ -159,8 +159,7 @@ class Agent extends BaseTransformer
             return $item->createdArtworks()->count() > 1;
         };
 
-        foreach (['suggest_autocomplete_all', 'suggest_autocomplete_boosted'] as $fieldName)
-        {
+        foreach (['suggest_autocomplete_all', 'suggest_autocomplete_boosted'] as $fieldName) {
             $oldFilter = $suggestFields[$fieldName]['filter'];
             $suggestFields[$fieldName]['filter'] = function ($item) use ($oldFilter, $newFilter) {
                 return $oldFilter($item) && $newFilter($item);

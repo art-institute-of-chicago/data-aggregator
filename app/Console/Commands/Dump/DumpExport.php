@@ -29,8 +29,7 @@ class DumpExport extends AbstractDumpCommand
         // Ensure all tables are ready for export
         $tables = $this->getPreparedTables();
 
-        foreach ($tables as $table)
-        {
+        foreach ($tables as $table) {
             $csvPart = 1;
             $csvPath = $dumpPath . $table['name'] . '.csv';
 
@@ -43,8 +42,7 @@ class DumpExport extends AbstractDumpCommand
             // Chunking requires us to set orderBy, so we use our primary key column(s)
             $query = DB::table($table['name']);
 
-            foreach ($table['keyColumns'] as $column)
-            {
+            foreach ($table['keyColumns'] as $column) {
                 $query->orderBy($column);
             }
 
@@ -99,13 +97,9 @@ class DumpExport extends AbstractDumpCommand
             $table = DB::connection()->getDoctrineSchemaManager()->listTableDetails($prefixedTableName);
 
             try {
-
                 $keyColumns = $table->getPrimaryKey()->getColumns();
-
             } catch (Throwable $e) {
-
                 throw new Exception('Primary key missing in table ' . $prefixedTableName);
-
             }
 
             return [
@@ -114,7 +108,6 @@ class DumpExport extends AbstractDumpCommand
                 'keyColumns' => $keyColumns,
                 'count' => DB::table($tableName)->count(),
             ];
-
         });
     }
 

@@ -25,7 +25,6 @@ class Artwork extends CollectionsTransformer
 
     protected function getExtraFields(Datum $datum)
     {
-
         // TODO: This is supposed to be a string, not an array...
         $copyright_notice = is_array($datum->copyright) ? $datum->copyright[0] : $datum->copyright;
 
@@ -49,20 +48,19 @@ class Artwork extends CollectionsTransformer
     protected function getSync(Datum $datum, $test = false)
     {
         return [
-
             'categories' => $this->getSyncCategories($datum),
             'terms' => $this->getSyncTerms($datum),
 
             'artists' => $this->getSyncArtists($datum),
             'places' => $this->getSyncPlaces($datum),
             'catalogues' => $this->getSyncCatalogues($datum),
-
         ];
     }
 
     protected function getSyncEx(Datum $datum)
     {
         $now = date('Y-m-d H:i:s');
+
         return [
             'artwork_dates' => collect($datum->artwork_dates ?? [])->map(function ($date) use ($datum, $now) {
                 return [
@@ -128,16 +126,13 @@ class Artwork extends CollectionsTransformer
      */
     private function getSyncArtists(Datum $datum)
     {
-
         // Worst case: no pivots, nor basic artist
-        if (!$datum->artwork_agents && !$datum->creator_id)
-        {
+        if (!$datum->artwork_agents && !$datum->creator_id) {
             return [];
         }
 
         // No pivots, but basic artist
-        if (!$datum->artwork_agents && $datum->creator_id)
-        {
+        if (!$datum->artwork_agents && $datum->creator_id) {
             // Default `preferred` to true and `agent_role_citi_id` to 219
             return [
                 $datum->creator_id => [
@@ -148,14 +143,12 @@ class Artwork extends CollectionsTransformer
         }
 
         return $this->getSyncPivots($datum, 'artwork_agents', 'agent_id', function ($pivot) {
-
             return [
                 $pivot->agent_id => [
                     'agent_role_citi_id' => $pivot->role_id,
                     'preferred' => $pivot->is_preferred,
                 ],
             ];
-
         });
     }
 
@@ -169,14 +162,12 @@ class Artwork extends CollectionsTransformer
     private function getSyncPlaces(Datum $datum)
     {
         return $this->getSyncPivots($datum, 'artwork_places', 'place_id', function ($pivot) {
-
             return [
                 $pivot->place_id => [
                     'artwork_place_qualifier_citi_id' => $pivot->place_qualifier_id,
                     'preferred' => $pivot->is_preferred,
                 ],
             ];
-
         });
     }
 
@@ -186,7 +177,6 @@ class Artwork extends CollectionsTransformer
     private function getSyncCatalogues(Datum $datum)
     {
         return $this->getSyncPivots($datum, 'artwork_catalogues', 'catalogue_id', function ($pivot) {
-
             return [
                 $pivot->catalogue_id => [
                     'number' => $pivot->number,
@@ -194,7 +184,6 @@ class Artwork extends CollectionsTransformer
                     'preferred' => $pivot->is_preferred,
                 ],
             ];
-
         });
     }
 
@@ -205,8 +194,7 @@ class Artwork extends CollectionsTransformer
     {
         $instance->dates()->delete();
 
-        foreach (($datum->artwork_dates ?? []) as $date)
-        {
+        foreach (($datum->artwork_dates ?? []) as $date) {
             ArtworkDate::create([
                 'artwork_citi_id' => $datum->id,
                 'date_earliest' => Carbon::parse($date->date_earliest),
