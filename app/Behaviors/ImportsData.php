@@ -124,7 +124,7 @@ trait ImportsData
      *
      * @param string $endpoint
      * @param integer $page
-     * @param limit $limit
+     * @param integer $limit
      *
      * @return string
      */
@@ -139,7 +139,7 @@ trait ImportsData
      *
      * @param string $endpoint
      * @param integer $page
-     * @param limit $limit
+     * @param integer $limit
      *
      * @return object
      */
@@ -314,7 +314,7 @@ trait ImportsData
      */
     protected function save($datum, $model, $transformer)
     {
-        throw \Exception('You must overwrite the `save` method.');
+        throw new \Exception('You must overwrite the `save` method.');
     }
 
     protected function updateSentryTags($datum = null, $endpoint = null, $source = null)

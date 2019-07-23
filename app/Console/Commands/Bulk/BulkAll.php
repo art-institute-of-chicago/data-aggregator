@@ -95,8 +95,8 @@ class BulkAll extends BaseCommand
                 'command' => $commandName,
             ]);
 
-            $command->last_attempt_at = $this->startedAt ?? $this->command->last_attempt_at;
-            $command->last_success_at = $this->startedAt ?? $this->command->last_attempt_at;
+            $command->last_attempt_at = $this->startedAt ?? $command->last_attempt_at;
+            $command->last_success_at = $this->startedAt ?? $command->last_attempt_at;
 
             $command->save();
         }

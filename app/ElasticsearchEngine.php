@@ -16,7 +16,7 @@ class ElasticsearchEngine extends BaseEngine
     /**
      * Update the given model in the index.
      *
-     * @param  Collection  $models
+     * @param  \Illuminate\Database\Eloquent\Collection  $models
      * @return void
      */
     public function update($models)

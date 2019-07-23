@@ -269,7 +269,7 @@ class PrototypeMostSimilar extends BaseCommand
         curl_close($ch);
 
         if (is_null($contents)) {
-            throw new \Exception("Can't get artwork: " . $artw->citi_id);
+            throw new \Exception('Cannot get response');
         }
 
         return json_decode($contents);

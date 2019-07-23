@@ -30,7 +30,7 @@ class ArtworkPlacePivot extends BaseTransformer
      * Include artwork.
      *
      * @param  \App\Models\Collections\ArtworkPlacePivot  $pivot
-     * @return League\Fractal\ItemResource
+     * @return \League\Fractal\Resource\Item
      */
     public function includeArtwork($pivot)
     {
@@ -41,7 +41,7 @@ class ArtworkPlacePivot extends BaseTransformer
      * Include place.
      *
      * @param  \App\Models\Collections\ArtworkPlacePivot  $pivot
-     * @return League\Fractal\ItemResource
+     * @return \League\Fractal\Resource\Item
      */
     public function includePlace($pivot)
     {
@@ -52,7 +52,7 @@ class ArtworkPlacePivot extends BaseTransformer
      * Include artwork place qualifier.
      *
      * @param  \App\Models\Collections\ArtworkPlacePivot  $pivot
-     * @return League\Fractal\ItemResource
+     * @return \League\Fractal\Resource\Item
      */
     public function includeQualifier($pivot)
     {

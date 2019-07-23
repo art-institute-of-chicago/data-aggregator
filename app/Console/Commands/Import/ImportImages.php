@@ -33,7 +33,7 @@ class ImportImages extends AbstractImportCommand
         }
 
         // TODO: Move this to an inbound transformer
-        $metadata = $image->metadata ?? (object) [];
+        $metadata = $resource->metadata ?? (object) [];
 
         $metadata->lqip = $datum->lqip;
         $metadata->color = $datum->color;

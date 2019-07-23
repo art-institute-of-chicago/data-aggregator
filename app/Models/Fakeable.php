@@ -26,15 +26,4 @@ trait Fakeable
 
         return $query->where($this->getKeyName(), 'like', '99999999-9999-9999-9999-%');
     }
-
-    /**
-     * The smallest number that fake IDs start at for this model
-     *
-     * @return integer
-     */
-    public static function fakeIdsStartAt()
-    {
-        return $this->instance()->fakeIdsStartAt;
-    }
-
 }
