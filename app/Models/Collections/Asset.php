@@ -45,7 +45,7 @@ class Asset extends CollectionsModel
     /**
      * Create a new instance of the given model. For Assets, we use this to set a default `type`.
      */
-    public function __construct(array $attributes = [])
+    public function __construct()
     {
         parent::__construct(...func_get_args());
 

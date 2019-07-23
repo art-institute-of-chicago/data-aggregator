@@ -92,7 +92,7 @@ function summation(array $array)
  *
  * @param int $p
  *
- * @return multitype:multitype:
+ * @return array
  */
 function partition(array $list, $p)
 {

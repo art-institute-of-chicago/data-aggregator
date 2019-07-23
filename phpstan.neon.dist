@@ -2,8 +2,14 @@ parameters:
     paths:
         - app
         - routes
-        - database/factories
         - database/migrations
         - database/seeds
         - tests
     level: 0
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#Call to an undefined static method .*#'
+        - '#Call to static method [a-zA-Z]+\(\) on an unknown class .*#'
+        - '#Access to an undefined property .*#'
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\.*#'
+        - '#Undefined variable: \$factory#'

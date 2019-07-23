@@ -1,13 +1,13 @@
 <?php
 
-use App\Models\Collections\ArtworkDateQualifer;
+use App\Models\Collections\ArtworkDateQualifier;
 
-class ArtworkDateQualifersTableSeeder extends AbstractSeeder
+class ArtworkDateQualifiersTableSeeder extends AbstractSeeder
 {
 
     protected function seed()
     {
-        factory(ArtworkDateQualifer::class, 25)->create();
+        factory(ArtworkDateQualifier::class, 25)->create();
     }
 
 }

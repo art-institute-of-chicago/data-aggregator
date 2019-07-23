@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Membership\TicketedEvent;
+
 class TicketedEventsTableSeeder extends AbstractSeeder
 {
 
