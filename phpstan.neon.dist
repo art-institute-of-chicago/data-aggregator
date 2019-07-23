@@ -1,0 +1,9 @@
+parameters:
+    paths:
+        - app
+        - routes
+        - database/factories
+        - database/migrations
+        - database/seeds
+        - tests
+    level: 0
