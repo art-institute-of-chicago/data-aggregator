@@ -50,6 +50,10 @@
         "xethron/migrations-generator": "^2.0"
     },
     "autoload": {
+        "files": [
+            "app/Helpers/ColorHelpers.php",
+            "app/Helpers/Util.php"
+        ],
         "classmap": [
             "database"
         ],
