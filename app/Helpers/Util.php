@@ -67,7 +67,7 @@ function reverseCantorPair($z)
 /**
  * Helper method that converts `['item', 'hey', 'wow']` to `item, hey, and wow`.
  *
- * @param array
+ * @param array $array
  * @return string
  */
 function summation(array $array)
@@ -187,8 +187,8 @@ function allModelsThatUse($trait)
  *
  * @TODO: Use `class_uses_recursive` instead?
  *
- * @param string Optional model class. Otherwise it will use `get_called_class()`.
- * @param boolean Autoload flag to pass to `class_uses()` calls.
+ * @param string $modelClass  Optional model class. Otherwise it will use `get_called_class()`.
+ * @param boolean $autoload  Autoload flag to pass to `class_uses()` calls.
  * @return array
  */
 function class_uses_deep($modelClass, $autoload = true)

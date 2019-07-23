@@ -5,11 +5,12 @@ parameters:
         - database/migrations
         - database/seeds
         - tests
-    level: 1
+    level: 2
     reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#Call to an undefined static method .*#'
         - '#Call to static method [a-zA-Z]+\(\) on an unknown class .*#'
         - '#Access to an undefined property .*#'
-        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\.*#'
+        - '#Call to an undefined method Illuminate\\Database\.*#'
+        - '#Call to an undefined method Illuminate\\Contracts\.*#'
         - '#Undefined variable: \$factory#'

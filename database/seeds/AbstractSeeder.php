@@ -135,8 +135,8 @@ abstract class AbstractSeeder extends Seeder
      *
      * @param  string  $subjectClass  Class name of the "subject" model to which objects are attached
      * @param  string  $objectClass   Class name of the "object" model which gets attached to subject
-     * @param  string  $subjects      Instances of $subjectClass
-     * @param  string  $objects       Instances of $objectClass
+     * @param  \Illuminate\Support\Collection  $subjects      Instances of $subjectClass
+     * @param  \Illuminate\Support\Collection  $objects       Instances of $objectClass
      * @param  string  $method        Name of method on subject, which must return an instance of
      *                                \Illuminate\Database\Eloquent\Relations\Relation
      */

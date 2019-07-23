@@ -51,7 +51,7 @@ class SearchServiceProvider extends ServiceProvider
                  * An explicit listing is (currently) preferred for performance reasons and due to
                  * difficulties with creating indexes for polymorphic models (Assets and Agents).
                  *
-                 * @var array
+                 * @var array|\Illuminate\Support\Collection
                  */
                 private $models;
 
@@ -229,7 +229,7 @@ class SearchServiceProvider extends ServiceProvider
                  * Given an endpoint, retrieve index, type, and search scope settings.
                  * Requires ResourceServiceProvider.
                  *
-                 * @param $endpoint string
+                 * @param string $endpoint
                  * @return array
                  */
                 public function getSearchScopeForEndpoint($endpoint)
