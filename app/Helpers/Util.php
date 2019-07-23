@@ -67,7 +67,6 @@ function reverseCantorPair($z)
 /**
  * Helper method that converts `['item', 'hey', 'wow']` to `item, hey, and wow`.
  *
- * @param array $array
  * @return string
  */
 function summation(array $array)
