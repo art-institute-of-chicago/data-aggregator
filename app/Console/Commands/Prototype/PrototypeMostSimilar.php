@@ -204,10 +204,13 @@ class PrototypeMostSimilar extends BaseCommand
 
     public function dateStart($date)
     {
+        $prev = null;
+
         foreach ($this->increments as $year) {
             if ($year > $date) {
                 return $prev;
             }
+
             $prev = $year;
         }
     }

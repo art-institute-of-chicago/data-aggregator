@@ -78,7 +78,7 @@ class Datum implements JsonSerializable
     {
         $timestamp = $this->date($field);
 
-        return isset($timestamp) ? date('Y-m-d H:i:s', $timestamp) : null;
+        return $timestamp !== null ? date('Y-m-d H:i:s', $timestamp) : null;
     }
 
     /**
