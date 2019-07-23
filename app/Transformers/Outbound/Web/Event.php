@@ -27,7 +27,7 @@ class Event extends BaseTransformer
 
     public function includeSponsor($event)
     {
-        return $this->item($event->sponsor, new SponsorTransformer(), false);
+        return $event->sponsor ? $this->item($event->sponsor, new SponsorTransformer(), false) : null;
     }
 
     protected function getTitles()
