@@ -52,7 +52,7 @@ class Datum implements JsonSerializable
      *
      * @link http://php.net/manual/en/function.strtotime.php
      *
-     * @return int
+     * @return null|int|\Carbon\Carbon
      */
     public function date($field)
     {
@@ -86,7 +86,7 @@ class Datum implements JsonSerializable
      *
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
      *
-     * @return object
+     * @return array
      */
     public function jsonSerialize()
     {

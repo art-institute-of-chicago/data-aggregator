@@ -37,14 +37,14 @@ trait ImportsData
      * Is this a full import, or a partial? If partial, import stops when it
      * encounters the first items older than the last successful run.
      *
-     * @var string
+     * @var bool
      */
     protected $isPartial = false;
 
     /**
      * How far back to scan for items? Only relevant if `$isPartial` is true.
      *
-     * @var \Carbon\Carbon
+     * @var \Carbon\CarbonInterface
      */
     protected $since;
 

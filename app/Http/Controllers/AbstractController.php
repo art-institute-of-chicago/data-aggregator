@@ -43,7 +43,7 @@ abstract class AbstractController extends BaseController
     /**
      * Return a response with a single resource, given an Eloquent Model.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function getItemResponse(Model $item)
     {
@@ -57,7 +57,7 @@ abstract class AbstractController extends BaseController
      * For multiple ids, this is a an Eloquent Collection.
      * For pagination, this is LengthAwarePaginator.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function getCollectionResponse(Arrayable $collection)
     {

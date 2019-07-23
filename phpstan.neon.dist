@@ -5,7 +5,7 @@ parameters:
         - database/migrations
         - database/seeds
         - tests
-    level: 2
+    level: 3
     reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#Call to an undefined static method .*#'

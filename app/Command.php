@@ -24,7 +24,7 @@ class Command extends Model
      * Accessor function to ease date comparison.
      *
      * @param string $value
-     * @var \Carbon\Carbon;
+     * @var \Carbon\CarbonInterface;
      */
     public function getLastSuccessAtAttribute($value)
     {

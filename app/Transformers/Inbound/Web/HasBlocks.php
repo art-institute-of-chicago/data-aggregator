@@ -42,7 +42,7 @@ trait HasBlocks
     /**
      * Helper to retrieve article copy as one string.
      *
-     * @return string
+     * @return ?string
      */
     private function getCopy(Collection $blocks)
     {
