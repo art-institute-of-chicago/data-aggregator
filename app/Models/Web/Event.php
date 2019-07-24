@@ -20,7 +20,7 @@ class Event extends WebModel
         'is_admission_required' => 'boolean',
         'is_registration_required' => 'boolean',
         'is_sold_out' => 'boolean',
-        'is_presented_by_affiliate' => 'boolean',
+        'show_affiliate_message' => 'boolean',
         'start_date' => 'date',
         'end_date' => 'date',
         'alt_event_types' => 'array',
@@ -60,6 +60,11 @@ class Event extends WebModel
     public function sponsor()
     {
         return $this->belongsTo('App\Models\Web\Sponsor');
+    }
+
+    public function affiliateGroup()
+    {
+        return $this->belongsTo('App\Models\Web\EventProgram');
     }
 
 }
