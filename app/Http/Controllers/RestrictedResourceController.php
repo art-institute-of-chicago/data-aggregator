@@ -36,7 +36,7 @@ class RestrictedResourceController extends ResourceController
 
     private function checkIfAuthorized()
     {
-        if (!Auth::check() && config('aic.restricted')) {
+        if (!Auth::check() && config('aic.auth.restricted')) {
             throw new UnauthorizedException();
         }
     }

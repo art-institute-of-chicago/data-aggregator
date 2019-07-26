@@ -69,14 +69,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Restrict API
+    | Authentication
     |--------------------------------------------------------------------------
     |
-    | This flag will turn on and off the restrictions we have in place for
-    | unauthenticated users.
+    | Special rules for throttling and deep-pagination.
     |
     */
 
-    'restricted' => env('APP_RESTRICTED', true),
+    'auth' => [
+        'restricted' => env('APP_RESTRICTED', true),
+        'max_attempts' => 60,
+        'max_resources_guest' => 1000,
+        'max_resources_user' => 10000,
+    ],
 
 ];
