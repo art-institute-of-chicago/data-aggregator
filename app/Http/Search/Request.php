@@ -130,7 +130,7 @@ class Request
     /**
      * Create a new request instance.
      *
-     * @param $resource string
+     * @param string $resource
      *
      * @return void
      */
@@ -355,7 +355,7 @@ class Request
      * Strip down the (top-level) user-input to what our thin client supports.
      * Allowed-but-omitted params are added as `null`
      *
-     * @param $input array
+     * @param array $input
      *
      * @return array
      */
@@ -383,8 +383,6 @@ class Request
      * Get pagination params.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html
-     *
-     * @param $input array
      *
      * @return array
      */
@@ -443,8 +441,7 @@ class Request
      * may change in the future. The user shouldn't care about how we are storing
      * these fields internally, only what the API outputs.
      *
-     * @param $input array
-     * @param $default mixed Valid `_source` is array, string, null, or bool
+     * @param mixed $default  Valid `_source` is array, string, null, or bool
      *
      * @return array
      */
@@ -461,9 +458,6 @@ class Request
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-request-sort.html
      * @link https://github.com/elastic/elasticsearch-php/issues/179
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
     private function addSortParams(array $params, array $input)
@@ -477,9 +471,6 @@ class Request
 
     /**
      * Append our own custom queries to tweak relevancy.
-     *
-     * @param $params array
-     * @param $input array
      *
      * @return array
      */
@@ -515,7 +506,7 @@ class Request
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl-function-score-query.html
      *
-     * @param $params array
+     * @param array $params
      *
      * @return array
      */
@@ -598,9 +589,6 @@ class Request
     /**
      * Append any search clauses that are needed to isolate scoped resources.
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
     public function addScopeParams(array $params, array $input)
@@ -623,8 +611,6 @@ class Request
      * Get the search params for an empty string search.
      * Empy search requires special handling, e.g. no suggestions.
      *
-     * @param $params array
-     *
      * @return array
      */
     private function addEmptySearchParams(array $params)
@@ -644,9 +630,6 @@ class Request
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/common-options.html#fuzziness
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.htm
-     *
-     * @param $params array
-     * @param $input array
      *
      * @return array
      */
@@ -761,9 +744,6 @@ class Request
     /**
      * Get the search params for a complex search
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
     private function addFullSearchParams(array $params, array $input)
@@ -783,9 +763,6 @@ class Request
      * Both `query` and `q`-only searches support suggestions.
      * Empty searches do not support suggestions.
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
     public function addSuggestParams(array $params, array $input, $requestArgs = null)
@@ -803,9 +780,6 @@ class Request
      * Append autocomplete suggest params.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters-completion.html
-     *
-     * @param $params array
-     * @param $input array
      *
      * @return array
      */
@@ -849,9 +823,6 @@ class Request
     /**
      * Append aggregation parameters. This is a straight pass-through for more flexibility.
      * Elasticsearch accepts both `aggs` and `aggregations`, so we support both too.
-     *
-     * @param $params array
-     * @param $input array
      *
      * @return array
      */

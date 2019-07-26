@@ -57,7 +57,7 @@ trait ElasticSearchable
     /**
      * Get an image to represent this record
      *
-     * @return string
+     * @return ?string
      */
     public function searchableImage()
     {
@@ -215,7 +215,7 @@ trait ElasticSearchable
      * @link http://nocf-www.elastic.co/guide/en/elasticsearch/reference/5.3/mapping-params.html
      *
      *
-     * @return array
+     * @return ?array
      */
     private function getMappingForField($field)
     {

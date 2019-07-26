@@ -16,7 +16,7 @@ class ResourceServiceProvider extends ServiceProvider
                  * Array of resources (endpoints), mapped to their models.
                  * Currently, only top-level endpoints are tracked.
                  *
-                 * @var array
+                 * @var array|\Illuminate\Support\Collection
                  */
                 private $outbound;
 
@@ -31,7 +31,7 @@ class ResourceServiceProvider extends ServiceProvider
                  *        'transformer' => \App\Transformers\Inbound\Collections\Artwork::class,
                  *     ]
                  *
-                 * @var array
+                 * @var array|\Illuminate\Support\Collection
                  */
                 private $inbound;
 

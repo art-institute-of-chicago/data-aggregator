@@ -29,7 +29,7 @@ class ArtworkArtistPivot extends BaseTransformer
      * Include artist.
      *
      * @param  \App\Models\Collections\ArtworkArtistPivot  $pivot
-     * @return League\Fractal\ItemResource
+     * @return \League\Fractal\Resource\Item
      */
     public function includeArtist($pivot)
     {
@@ -40,7 +40,7 @@ class ArtworkArtistPivot extends BaseTransformer
      * Include artwork.
      *
      * @param  \App\Models\Collections\ArtworkArtistPivot  $pivot
-     * @return League\Fractal\ItemResource
+     * @return \League\Fractal\Resource\Item
      */
     public function includeArtwork($pivot)
     {
@@ -51,7 +51,7 @@ class ArtworkArtistPivot extends BaseTransformer
      * Include agent role.
      *
      * @param  \App\Models\Collections\ArtworkArtistPivot  $pivot
-     * @return League\Fractal\ItemResource
+     * @return \League\Fractal\Resource\Item
      */
     public function includeRole($pivot)
     {

@@ -136,7 +136,7 @@ class SearchController extends BaseController
      * @param array $resource Resource to search (translates to index and type)
      * @param string $id Identifier of a resource (meant for explain)
      *
-     * @return array
+     * @return \Illuminate\Http\Response
      */
     private function query($requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null, $requestArgs = null)
     {
@@ -180,7 +180,7 @@ class SearchController extends BaseController
     /**
      * Helper for shared multi-query functionality.
      *
-     * @return array
+     * @return \Illuminate\Http\Response
      */
     private function mquery($requestMethod, $responseMethod, Request $request, $requestArgs = null)
     {

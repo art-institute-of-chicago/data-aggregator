@@ -34,6 +34,10 @@ function hexToHsl($hex)
                 break;
         }
 
+        if (!isset($h)) {
+            throw new \Exception('Cannot resolve hue.');
+        }
+
         $h /= 6;
     }
 

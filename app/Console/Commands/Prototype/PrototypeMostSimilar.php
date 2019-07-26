@@ -204,10 +204,13 @@ class PrototypeMostSimilar extends BaseCommand
 
     public function dateStart($date)
     {
+        $prev = null;
+
         foreach ($this->increments as $year) {
             if ($year > $date) {
                 return $prev;
             }
+
             $prev = $year;
         }
     }
@@ -269,7 +272,7 @@ class PrototypeMostSimilar extends BaseCommand
         curl_close($ch);
 
         if (is_null($contents)) {
-            throw new \Exception("Can't get artwork: " . $artw->citi_id);
+            throw new \Exception('Cannot get response');
         }
 
         return json_decode($contents);

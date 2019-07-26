@@ -86,7 +86,7 @@ abstract class AbstractImportCommand extends BaseCommand
      * @param string  $model
      * @param string  $transformer
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return ?\Illuminate\Database\Eloquent\Model
      */
     protected function save($datum, $model, $transformer)
     {

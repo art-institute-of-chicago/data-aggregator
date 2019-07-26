@@ -171,7 +171,7 @@ class BulkImport extends BaseCommand
             return $this->fetch(...func_get_args());
         }
 
-        if (isset($http_response_header)) {
+        if ($http_response_header !== null) {
             $headers = $http_response_header;
         }
 
