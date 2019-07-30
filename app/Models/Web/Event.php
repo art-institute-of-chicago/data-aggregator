@@ -62,9 +62,4 @@ class Event extends WebModel
         return $this->belongsTo('App\Models\Web\Sponsor');
     }
 
-    public function affiliateGroup()
-    {
-        return $this->belongsTo('App\Models\Web\EventProgram');
-    }
-
 }

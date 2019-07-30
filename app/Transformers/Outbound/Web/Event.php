@@ -282,22 +282,6 @@ class Event extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
-            'affiliate_group_id' => [
-                'doc' => 'Unique identifier of the affiliate group that is presenting this event',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->affiliateGroup->id ?? null;
-                },
-            ],
-            'affiliate_group_title' => [
-                'doc' => 'Unique identifier of the affiliate group that is presenting this event',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-                'value' => function ($item) {
-                    return $item->affiliateGroup->title ?? null;
-                },
-            ],
             'sponsor_id' => [
                 'doc' => 'Unique identifier of the sponsor this website event is tied to',
                 'type' => 'number',
