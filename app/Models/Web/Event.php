@@ -62,4 +62,9 @@ class Event extends WebModel
         return $this->belongsTo('App\Models\Web\Sponsor');
     }
 
+    public function eventHost()
+    {
+        return $this->belongsTo('App\Models\Web\EventProgram');
+    }
+
 }

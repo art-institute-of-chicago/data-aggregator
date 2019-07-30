@@ -15,7 +15,7 @@ class UpdateEmailSeriesFields extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             $table->renameColumn('show_affiliate_message', 'show_presented_by');
-            $table->dropColumn('affiliate_group_id');
+            $table->renameColumn('affiliate_group_id', 'event_host_id');
         });
 
         Schema::table('event_programs', function (Blueprint $table) {
@@ -46,7 +46,7 @@ class UpdateEmailSeriesFields extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             $table->renameColumn('show_presented_by', 'show_affiliate_message');
-            $table->integer('affiliate_group_id')->nullable()->after('show_affiliate_message');
+            $table->renameColumn('event_host_id', 'affiliate_group_id');
         });
 
         Schema::table('event_programs', function (Blueprint $table) {
