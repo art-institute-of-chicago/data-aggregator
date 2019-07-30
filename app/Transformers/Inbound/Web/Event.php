@@ -33,10 +33,6 @@ class Event extends WebTransformer
         return $this->getSyncPivots($datum, 'email_series', 'email_series_id', function ($pivot) {
             return [
                 $pivot->email_series_id => array_intersect_key((new Datum($pivot))->all(), array_flip([
-                    'send_affiliate',
-                    'send_member',
-                    'send_sustaining_fellow',
-                    'send_nonmember',
                     'affiliate_copy',
                     'member_copy',
                     'sustaining_fellow_copy',

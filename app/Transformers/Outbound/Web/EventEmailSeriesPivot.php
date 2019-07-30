@@ -27,22 +27,6 @@ class EventEmailSeriesPivot extends BaseTransformer
                     return $item->emailSeries->id ?? null;
                 },
             ],
-            'send_affiliate' => [
-                'doc' => 'Whether this event should be sent to Affiliate Members subscribed to this email series',
-                'type' => 'boolean',
-            ],
-            'send_member' => [
-                'doc' => 'Whether this event should be sent to Members subscribed to this email series',
-                'type' => 'boolean',
-            ],
-            'send_sustaining_fellow' => [
-                'doc' => 'Whether this event should be sent to Sustaining Fellows subscribed to this email series',
-                'type' => 'boolean',
-            ],
-            'send_nonmember' => [
-                'doc' => 'Whether this event should be sent to Non-Members subscribed to this email series',
-                'type' => 'boolean',
-            ],
             'affiliate_copy' => [
                 'doc' => 'Copy to use for Affiliate Members when communicating this event in this email series',
                 'type' => 'string',

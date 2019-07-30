@@ -46,13 +46,9 @@ class Event extends WebModel
             ->belongsToMany('App\Models\Web\EmailSeries', 'event_email_series')
             ->using('App\Models\Web\EventEmailSeriesPivot')
             ->withPivot(
-                'send_affiliate',
                 'affiliate_copy',
-                'send_member',
                 'member_copy',
-                'send_sustaining_fellow',
                 'sustaining_fellow_copy',
-                'send_nonmember',
                 'nonmember_copy'
             );
     }

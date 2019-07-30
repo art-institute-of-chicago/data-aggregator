@@ -30,8 +30,12 @@ class UpdateEmailSeriesFields extends Migration
         });
 
         Schema::table('event_email_series', function (Blueprint $table) {
-            $table->renameColumn('send_non_member', 'send_nonmember');
-            $table->renameColumn('send_affiliate_member', 'send_affiliate');
+            $table->dropColumn([
+                'send_affiliate_member',
+                'send_non_member',
+                'send_sustaining_fellow',
+                'send_member',
+            ]);
             $table->renameColumn('non_member_copy', 'nonmember_copy');
             $table->renameColumn('affiliate_member_copy', 'affiliate_copy');
         });
@@ -61,8 +65,10 @@ class UpdateEmailSeriesFields extends Migration
         });
 
         Schema::table('event_email_series', function (Blueprint $table) {
-            $table->renameColumn('send_nonmember', 'send_non_member');
-            $table->renameColumn('send_affiliate', 'send_affiliate_member');
+            $table->boolean('send_non_member')->nullable()->after('email_series_id');
+            $table->boolean('send_member')->nullable()->after('send_non_member');
+            $table->boolean('send_sustaining_fellow')->nullable()->after('send_member');
+            $table->boolean('send_affiliate_member')->nullable()->after('send_sustaining_fellow');
             $table->renameColumn('nonmember_copy', 'non_member_copy');
             $table->renameColumn('affiliate_copy', 'affiliate_member_copy');
         });
