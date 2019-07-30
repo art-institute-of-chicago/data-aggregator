@@ -15,6 +15,11 @@ class EventProgram extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
+            'is_event_host' => [
+                'doc' => 'Whether this program represents an event host',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+            ],
         ];
     }
 
