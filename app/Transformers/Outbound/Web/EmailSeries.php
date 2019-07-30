@@ -15,7 +15,7 @@ class EmailSeries extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
-            'show_affiliate_member' => [
+            'show_affiliate' => [
                 'doc' => 'Whether to show the "Send to Affiliate Members" option',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
@@ -30,12 +30,12 @@ class EmailSeries extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
-            'show_non_member' => [
+            'show_nonmember' => [
                 'doc' => 'Whether to show the "Send to Non-Members" option',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
-            'affiliate_member_copy' => [
+            'affiliate_copy' => [
                 'doc' => 'Default copy for Affiliate Members',
                 'type' => 'string',
                 'elasticsearch' => 'text',
@@ -50,7 +50,7 @@ class EmailSeries extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
-            'non_member_copy' => [
+            'nonmember_copy' => [
                 'doc' => 'Default copy for Non-Members',
                 'type' => 'string',
                 'elasticsearch' => 'text',

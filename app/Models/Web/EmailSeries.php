@@ -14,10 +14,10 @@ class EmailSeries extends WebModel
 
     protected $casts = [
         'use_short_description' => 'boolean',
-        'show_non_member' => 'boolean',
+        'show_nonmember' => 'boolean',
         'show_member' => 'boolean',
         'show_sustaining_fellow' => 'boolean',
-        'show_affiliate_member' => 'boolean',
+        'show_affiliate' => 'boolean',
     ];
 
 }
