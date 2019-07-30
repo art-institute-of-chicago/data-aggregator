@@ -277,8 +277,8 @@ class Event extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
-            'show_affiliate_message' => [
-                'doc' => 'Whether to include the presented-by-affiliate message in emails',
+            'show_presented_by' => [
+                'doc' => 'Whether to include the presented-by-host message in emails',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
