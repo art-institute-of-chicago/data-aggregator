@@ -27,8 +27,8 @@ class EventEmailSeriesPivot extends BaseTransformer
                     return $item->emailSeries->id ?? null;
                 },
             ],
-            'send_non_member' => [
-                'doc' => 'Whether this event should be sent to Non-Members subscribed to this email series',
+            'send_affiliate_member' => [
+                'doc' => 'Whether this event should be sent to Affiliate Members subscribed to this email series',
                 'type' => 'boolean',
             ],
             'send_member' => [
@@ -39,12 +39,12 @@ class EventEmailSeriesPivot extends BaseTransformer
                 'doc' => 'Whether this event should be sent to Sustaining Fellows subscribed to this email series',
                 'type' => 'boolean',
             ],
-            'send_affiliate_member' => [
-                'doc' => 'Whether this event should be sent to Affiliate Members subscribed to this email series',
+            'send_non_member' => [
+                'doc' => 'Whether this event should be sent to Non-Members subscribed to this email series',
                 'type' => 'boolean',
             ],
-            'non_member_copy' => [
-                'doc' => 'Copy to use for Non-Members when communicating this event in this email series',
+            'affiliate_member_copy' => [
+                'doc' => 'Copy to use for Affiliate Members when communicating this event in this email series',
                 'type' => 'string',
             ],
             'member_copy' => [
@@ -55,8 +55,8 @@ class EventEmailSeriesPivot extends BaseTransformer
                 'doc' => 'Copy to use for Sustaining Fellows when communicating this event in this email series',
                 'type' => 'string',
             ],
-            'affiliate_member_copy' => [
-                'doc' => 'Copy to use for Affiliate Members when communicating this event in this email series',
+            'non_member_copy' => [
+                'doc' => 'Copy to use for Non-Members when communicating this event in this email series',
                 'type' => 'string',
             ],
         ];
