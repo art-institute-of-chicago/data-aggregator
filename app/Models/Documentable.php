@@ -730,7 +730,7 @@ trait Documentable
             $path .= '/' . $options['id'];
         }
 
-        return $path;
+        return rtrim($path,"/");
     }
 
     private function _addEllipsis(\stdClass $obj)
