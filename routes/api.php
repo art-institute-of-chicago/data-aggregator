@@ -16,20 +16,13 @@ use Illuminate\Http\Request;
 app('url')->forceRootUrl(config('aic.proxy_url'));
 app('url')->forceScheme(config('aic.proxy_scheme'));
 
-Route::any('/', function () {
-    return redirect('/api/v1');
-});
-
-
-Route::group(['prefix' => 'v1'], function() {
+Route::group(['prefix' => 'v1'], function () {
 
     Route::any('/', function () {
         return redirect('/api/v1/swagger.json');
     });
 
-    Route::any('swagger.json', function() {
-        return response(view('swagger'), 200, ['Content-Type' => 'application/json']);
-    });
+    Route::any('swagger.json', 'SwaggerController@index')->name('doc-swagger');
 
     // Elasticsearch
     Route::match(['GET', 'POST'], 'search', 'SearchController@search');
@@ -42,14 +35,14 @@ Route::group(['prefix' => 'v1'], function() {
     Route::match(['GET', 'POST'], 'autosuggest', 'SearchController@autocompleteWithSource');
 
     // For debugging search, show generated request
-    if( env('APP_ENV') === 'local' ) {
+    if (env('APP_ENV') === 'local') {
         Route::match(['GET', 'POST'], 'echo', 'SearchController@echo');
         Route::match(['GET', 'POST'], '{resource}/echo', 'SearchController@echo');
         Route::match(['GET', 'POST'], '{resource}/{id}/explain', 'SearchController@explain');
     }
 
     // Define all of our resource routes by looping through config
-    foreach(config('resources.outbound.base') as $resource)
+    foreach (config('resources.outbound.base') as $resource)
     {
         if (!isset($resource['endpoint']))
         {
@@ -57,9 +50,12 @@ Route::group(['prefix' => 'v1'], function() {
         }
 
         $isScoped = $resource['scope_of'] ?? false;
+        $isRestricted = $resource['is_restricted'] ?? false;
 
-        Route::any($resource['endpoint'], 'ResourceController@' . ($isScoped ? 'indexScope' : 'index'));
-        Route::any($resource['endpoint'] . '/{id}', 'ResourceController@' . ($isScoped ? 'showScope' : 'show'));
+        $controller = $isRestricted ? 'RestrictedResourceController' : 'ResourceController';
+
+        Route::any($resource['endpoint'], $controller . '@' . ($isScoped ? 'indexScope' : 'index'));
+        Route::any($resource['endpoint'] . '/{id}', $controller . '@' . ($isScoped ? 'showScope' : 'show'));
     }
 
 });

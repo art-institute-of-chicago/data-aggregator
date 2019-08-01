@@ -14,20 +14,15 @@ trait Instancable
      */
     public static function instance()
     {
-
         static $instances = [];
 
         $calledClass = get_called_class();
 
-        if (!isset($instances[$calledClass]))
-        {
-
+        if (!isset($instances[$calledClass])) {
             $instances[$calledClass] = new $calledClass();
-
         }
 
         return $instances[$calledClass];
-
     }
 
 }

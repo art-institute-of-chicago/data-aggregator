@@ -21,12 +21,12 @@ class Exhibition extends BaseTransformer
 
     public function includeArtworks($exhibition)
     {
-        return $this->collection($exhibition->artworks, new ArtworkTransformer, false);
+        return $this->collection($exhibition->artworks, new ArtworkTransformer(), false);
     }
 
     public function includeSites($exhibition)
     {
-        return $this->collection($exhibition->sites, new SiteTransformer, false);
+        return $this->collection($exhibition->sites, new SiteTransformer(), false);
     }
 
     protected function getFields()

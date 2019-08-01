@@ -12,24 +12,20 @@ class Datum implements JsonSerializable
 
     private $subdatums = [];
 
-    public function __construct( $datum )
+    public function __construct($datum)
     {
-
-        if( is_array( $datum ) )
-        {
+        if (is_array($datum)) {
             $datum = (object) $datum;
         }
 
         $this->datum = $datum;
     }
 
-    public function __get( $field )
+    public function __get($field)
     {
+        $value = $this->datum->{$field} ?? null;
 
-        $value = $this->datum->$field ?? null;
-
-        return $this->getCleanValue( $value );
-
+        return $this->getCleanValue($value);
     }
 
     /**
@@ -39,19 +35,16 @@ class Datum implements JsonSerializable
      *
      * @return array
      */
-    public function all( $field = null )
+    public function all($field = null)
     {
-
-        if( !isset( $field ) )
-        {
+        if (!isset($field)) {
             $datum = (array) $this->datum;
 
-            return array_map( [$this, 'getCleanValue'], $datum );
+            return array_map([$this, 'getCleanValue'], $datum);
         }
 
         // Note how we're getting __get() to fire here
-        return $this->$field ?? [];
-
+        return $this->{$field} ?? [];
     }
 
     /**
@@ -59,39 +52,33 @@ class Datum implements JsonSerializable
      *
      * @link http://php.net/manual/en/function.strtotime.php
      *
-     * @return int
+     * @return null|int|\Carbon\Carbon
      */
-    public function date( $field )
+    public function date($field)
     {
-
         // Note how we're getting __get() to fire here
-        $date = $this->$field;
+        $date = $this->{$field};
 
-        if( is_string( $date ) )
-        {
+        if (is_string($date)) {
             return strtotime($date);
         }
 
-        if( is_object( $date ) )
-        {
-            return new Carbon( $date->date, new \DateTimeZone( $date->timezone ) );
+        if (is_object($date)) {
+            return new Carbon($date->date, new \DateTimeZone($date->timezone));
         }
 
-        if( is_numeric( $date ) )
-        {
+        if (is_numeric($date)) {
             return $date;
         }
 
         return null;
-
     }
 
-    public function datetime( $field ) {
+    public function datetime($field)
+    {
+        $timestamp = $this->date($field);
 
-        $timestamp = $this->date( $field );
-
-        return isset($timestamp) ? date("Y-m-d H:i:s", $timestamp) : null;
-
+        return $timestamp !== null ? date('Y-m-d H:i:s', $timestamp) : null;
     }
 
     /**
@@ -99,13 +86,11 @@ class Datum implements JsonSerializable
      *
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
      *
-     * @return object
+     * @return array
      */
     public function jsonSerialize()
     {
-
         return $this->all();
-
     }
 
     /**
@@ -115,18 +100,15 @@ class Datum implements JsonSerializable
      *
      * @return \App\Transformers\Datum;
      */
-    private function getSubDatum( $object )
+    private function getSubDatum($object)
     {
+        $hash = spl_object_hash($object);
 
-        $hash = spl_object_hash( $object );
-
-        if( !isset( $this->subdatums[ $hash ] ) )
-        {
-            $this->subdatums[ $hash ] = new Datum( $object );
+        if (!isset($this->subdatums[$hash])) {
+            $this->subdatums[$hash] = new Datum($object);
         }
 
-        return $this->subdatums[ $hash ];
-
+        return $this->subdatums[$hash];
     }
 
     /**
@@ -134,34 +116,29 @@ class Datum implements JsonSerializable
      *
      * @return mixed;
      */
-    private function getCleanValue( $value )
+    private function getCleanValue($value)
     {
-
-        if( !isset( $value ) )
-        {
+        if (!isset($value)) {
             return null;
         }
 
-        if( is_string( $value ) )
-        {
+        if (is_string($value)) {
             // Standardize on \n newlines
             $value = str_replace(["\r\n", "\r"], "\n", $value);
 
             // If it's a string, trim before returning
-            $value = trim( $value );
+            $value = trim($value);
 
             // If it's an empty string, return null
-            return empty( $value ) ? null : $value;
+            return empty($value) ? null : $value;
         }
 
-        if( is_object( $value ) )
-        {
+        if (is_object($value)) {
             // If it's an object, return new datum
-            return $this->getSubDatum( $value );
+            return $this->getSubDatum($value);
         }
 
         return $value;
-
     }
 
 }

@@ -16,16 +16,12 @@ class Term extends BaseModel
 
     public function creatorOf()
     {
-
         return $this->belongsToMany('App\Models\Library\Material', 'library_material_creator', 'term_id', 'material_id');
-
     }
 
     public function subjectOf()
     {
-
         return $this->belongsToMany('App\Models\Library\Material', 'library_material_creator', 'term_id', 'material_id');
-
     }
 
     /**
@@ -34,11 +30,9 @@ class Term extends BaseModel
      * @param string $id
      * @return boolean
      */
-    public static function validateId( $id )
+    public static function validateId($id)
     {
-
         return preg_match('/[a-z]+[0-9]+/', $id);
-
     }
 
 }

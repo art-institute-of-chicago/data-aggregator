@@ -11,7 +11,7 @@ class LibraryTermTest extends ApiTestCase
 
     protected function getRandomId()
     {
-        return 'zz' .app('Faker')->unique()->randomNumber(5);
+        return 'zz' . app('Faker')->unique()->randomNumber(5);
     }
 
 }

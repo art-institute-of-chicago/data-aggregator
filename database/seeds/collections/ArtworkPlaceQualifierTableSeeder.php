@@ -1,13 +1,13 @@
 <?php
 
-use App\Models\Collections\ArtworkPlaceQualifierTableSeeder;
+use App\Models\Collections\ArtworkPlaceQualifier;
 
 class ArtworkPlaceQualifierTableSeeder extends AbstractSeeder
 {
 
     protected function seed()
     {
-        factory( ArtworkPlaceQualifierTableSeeder::class, 10 )->create();
+        factory(ArtworkPlaceQualifier::class, 10)->create();
     }
 
 }

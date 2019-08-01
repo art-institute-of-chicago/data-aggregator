@@ -40,8 +40,7 @@ class Gallery extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'geo_point',
                 'value' => function ($item) {
-                    if ($item->latitude && $item->longitude)
-                    {
+                    if ($item->latitude && $item->longitude) {
                         return $item->latitude . ',' . $item->longitude;
                     }
                 },

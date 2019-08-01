@@ -29,12 +29,10 @@ class ScoutSince extends BaseCommand
 
         $classes = app('Search')->getSearchableModels();
 
-        foreach ($classes as $class)
-        {
+        foreach ($classes as $class) {
             $this->searchableSince($class);
         }
     }
-
 
     public function searchableSince($class)
     {
@@ -44,7 +42,7 @@ class ScoutSince extends BaseCommand
 
         $bar = $this->output->createProgressBar($models->count());
 
-        $models->chunk($this->chunkSize, function($models) use ($bar) {
+        $models->chunk($this->chunkSize, function ($models) use ($bar) {
             $models->searchable();
             $bar->advance($this->chunkSize);
         });

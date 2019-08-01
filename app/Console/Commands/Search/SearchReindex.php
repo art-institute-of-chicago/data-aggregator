@@ -24,38 +24,29 @@ class SearchReindex extends BaseCommand
 
     protected $source;
 
-
     public function handle()
     {
-
         $this->dest = $this->argument('dest');
         $this->source = $this->argument('source') ?? env('ELASTICSEARCH_INDEX');
 
-        if ($this->argument('model'))
-        {
+        if ($this->argument('model')) {
 
-            $this->reindex( $this->argument('model') );
+            $this->reindex($this->argument('model'));
 
         } else {
 
             $models = app('Search')->getSearchableModels();
 
-            foreach ($models as $model)
-            {
-
-                $this->reindex( $model );
-
+            foreach ($models as $model) {
+                $this->reindex($model);
             }
 
         }
-
     }
 
-
-    public function reindex( $model )
+    public function reindex($model)
     {
-
-        $index = app('Search')->getIndexForModel( $model, $this->source );
+        $index = app('Search')->getIndexForModel($model, $this->source);
 
         $params = [
             'wait_for_completion' => false,
@@ -65,8 +56,8 @@ class SearchReindex extends BaseCommand
                     'size' => 100,
                 ],
                 'dest' => [
-                    'index' => app('Search')->getIndexForModel( $model, $this->dest ),
-                    'type' => app('Search')->getTypeForModel( $model ),
+                    'index' => app('Search')->getIndexForModel($model, $this->dest),
+                    'type' => app('Search')->getTypeForModel($model),
                 ],
             ],
         ];
@@ -74,8 +65,6 @@ class SearchReindex extends BaseCommand
         $return = Elasticsearch::reindex($params);
 
         $this->info('Reindex from ' . $index . ' has started. Monitor the process here: ' . $this->baseUrl() . '/_tasks/' . $return['task']);
-
-
     }
 
 }

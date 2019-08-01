@@ -15,9 +15,7 @@ class Publication extends DscModel
 
     public function sections()
     {
-
         return $this->hasMany('App\Models\Dsc\Section');
-
     }
 
     public function getGenericPageIdAttribute()

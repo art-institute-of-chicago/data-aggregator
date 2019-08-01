@@ -38,20 +38,17 @@ abstract class AbstractImportCommand extends BaseCommand
      * @link http://api.symfony.com/3.3/Symfony/Component/Console/Command/Command.html
      * @link https://github.com/laravel/framework/blob/5.4/src/Illuminate/Console/Command.php
      *
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
      * @return mixed
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         // Not an ideal solution, but some models are really heavy
-        ini_set("memory_limit", "-1");
+        ini_set('memory_limit', '-1');
 
         $name = $this->getName();
 
         // Make `-full` commands share last-update time w/ their partial versions
-        $name = Str::endsWith( $name, '-full' ) ? substr( $name, 0, -5 ) : $name;
+        $name = Str::endsWith($name, '-full') ? substr($name, 0, -5) : $name;
 
         // TODO: Track import success on a per-resource basis, rather than per-command?
         $this->command = \App\Command::firstOrNew(['command' => $name]);
@@ -70,18 +67,16 @@ abstract class AbstractImportCommand extends BaseCommand
         }
 
         // Call Illuminate\Console\Command::execute
-        $result = parent::execute( $input, $output );
+        $result = parent::execute($input, $output);
 
         // If the $result is falsey (e.g. 0 or null), command was successful.
         // https://stackoverflow.com/questions/22485513/get-response-from-artisan-call
-        if( !$result )
-        {
+        if (!$result) {
             $this->command->last_success_at = $this->command->last_attempt_at;
             $this->command->save();
         }
 
         return $result;
-
     }
 
     /**
@@ -90,31 +85,28 @@ abstract class AbstractImportCommand extends BaseCommand
      * @param object  $datum
      * @param string  $model
      * @param string  $transformer
-     * @param boolean $fake  Whether or not to fill missing fields w/ fake data.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return ?\Illuminate\Database\Eloquent\Model
      */
-    protected function save( $datum, $model, $transformer )
+    protected function save($datum, $model, $transformer)
     {
-
         $transformer = new $transformer();
 
         // Use the id and title after they are transformed, not before!
         $id = $transformer->getId($datum);
 
         // TODO: Use transformed title
-        $this->info("Importing #{$id}" . (property_exists($datum, 'title') ? ": {$datum->title}" : ""));
+        $this->info("Importing #{$id}" . (property_exists($datum, 'title') ? ": {$datum->title}" : ''));
 
         // Don't use findOrCreate here, since it can cause errors due to Searchable
-        $resource = $model::findOrNew( $id );
+        $resource = $model::findOrNew($id);
 
         // This will be true almost always, except for lists
-        if ($transformer->shouldSave( $resource, $datum ))
-        {
+        if ($transformer->shouldSave($resource, $datum)) {
             // Fill should always be called before sync
             // Syncing some relations requires `$instance->getKey()` to work (i.e. id is set)
-            $fills = $transformer->fill( $resource, $datum );
-            $syncs = $transformer->sync( $resource, $datum );
+            $fills = $transformer->fill($resource, $datum);
+            $syncs = $transformer->sync($resource, $datum);
 
             $resource->save();
         }
@@ -123,7 +115,6 @@ abstract class AbstractImportCommand extends BaseCommand
         // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");
 
         return $resource;
-
     }
 
 }

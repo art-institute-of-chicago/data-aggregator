@@ -6,24 +6,17 @@ use Illuminate\Support\ServiceProvider;
 
 class ResourceServiceProvider extends ServiceProvider
 {
-
-    public function boot()
-    {
-        //
-    }
-
     public function register()
     {
+        $this->app->singleton('Resources', function ($app) {
 
-        $this->app->singleton('Resources', function($app) {
-
-            return new class {
+            return new class() {
 
                 /**
                  * Array of resources (endpoints), mapped to their models.
                  * Currently, only top-level endpoints are tracked.
                  *
-                 * @var array
+                 * @var array|\Illuminate\Support\Collection
                  */
                 private $outbound;
 
@@ -38,7 +31,7 @@ class ResourceServiceProvider extends ServiceProvider
                  *        'transformer' => \App\Transformers\Inbound\Collections\Artwork::class,
                  *     ]
                  *
-                 * @var array
+                 * @var array|\Illuminate\Support\Collection
                  */
                 private $inbound;
 
@@ -48,8 +41,8 @@ class ResourceServiceProvider extends ServiceProvider
                     $this->outbound = collect($this->outbound);
 
                     $this->inbound = config('resources.inbound');
-                    $this->inbound = collect($this->inbound)->map(function($resources, $source) {
-                        return array_map(function($resource, $endpoint) use ($source) {
+                    $this->inbound = collect($this->inbound)->map(function ($resources, $source) {
+                        return array_map(function ($resource, $endpoint) use ($source) {
                             return [
                                 'source' => strtolower($source),
                                 'endpoint' => $endpoint,
@@ -70,44 +63,41 @@ class ResourceServiceProvider extends ServiceProvider
                     return $resource;
                 }
 
-                public function getModelForEndpoint( $endpoint )
+                public function getModelForEndpoint($endpoint)
                 {
                     $resource = $this->getResourceForEndpoint($endpoint);
 
                     $model = $resource['model'] ?? null;
 
-                    if( !$model )
-                    {
+                    if (!$model) {
                         throw new \Exception('You must define a model for outbound endpoint `' . $endpoint . '` in ResourceServiceProvider.');
                     }
 
                     return $model;
                 }
 
-                public function getTransformerForEndpoint( $endpoint )
+                public function getTransformerForEndpoint($endpoint)
                 {
                     $resource = $this->getResourceForEndpoint($endpoint);
 
                     $transformer = $resource['transformer'] ?? null;
 
-                    if( !$transformer )
-                    {
+                    if (!$transformer) {
                         throw new \Exception('You must define a transformer for outbound endpoint `' . $endpoint . '` in ResourceServiceProvider.');
                     }
 
                     return $transformer;
                 }
 
-                public function getEndpointForModel( $model )
+                public function getEndpointForModel($model)
                 {
-                    $model = $this->getCleanModel( $model );
+                    $model = $this->getCleanModel($model);
 
                     $resource = $this->outbound->firstWhere('model', $model);
 
                     $endpoint = $resource['endpoint'] ?? null;
 
-                    if( !$endpoint )
-                    {
+                    if (!$endpoint) {
                         throw new \Exception('You must define an outbound endpoint for model `' . $model . '` in ResourceServiceProvider.');
                     }
 
@@ -121,41 +111,40 @@ class ResourceServiceProvider extends ServiceProvider
                     return $endpoint;
                 }
 
-                public function getTransformerForModel( $model )
+                public function getTransformerForModel($model)
                 {
-                    $model = $this->getCleanModel( $model );
+                    $model = $this->getCleanModel($model);
 
                     $resource = $this->outbound->firstWhere('model', $model);
 
                     $transformer = $resource['transformer'] ?? null;
 
-                    if( !$transformer )
-                    {
+                    if (!$transformer) {
                         throw new \Exception('You must define a transformer for model `' . $model . '` in ResourceServiceProvider.');
                     }
 
                     return $transformer;
                 }
 
-                public function isModelSearchable( $model )
+                public function isModelSearchable($model)
                 {
-                    $model = $this->getCleanModel( $model );
+                    $model = $this->getCleanModel($model);
 
                     $resource = $this->outbound->firstWhere('model', $model);
 
                     return $resource['is_searchable'] ?? false;
                 }
 
-                public function getParent( $endpoint )
+                public function getParent($endpoint)
                 {
                     $resource = $this->getResourceForEndpoint($endpoint);
 
                     return $resource['scope_of'] ?? null;
                 }
 
-                public function getInboundTransformerForModel( $model, $source )
+                public function getInboundTransformerForModel($model, $source)
                 {
-                    $model = $this->getCleanModel( $model );
+                    $model = $this->getCleanModel($model);
 
                     $resource = $this->inbound
                         ->where('model', $model)
@@ -164,8 +153,7 @@ class ResourceServiceProvider extends ServiceProvider
 
                     $transformer = $resource['transformer'] ?? null;
 
-                    if( !$transformer )
-                    {
+                    if (!$transformer) {
                         throw new \Exception('Define an inbound transformer for model `' . $model . '` and source `' . $source . '` in ResourceServiceProvider.');
                     }
 
@@ -186,7 +174,7 @@ class ResourceServiceProvider extends ServiceProvider
                     return $resource;
                 }
 
-                public function getModelForInboundEndpoint( $endpoint, $source )
+                public function getModelForInboundEndpoint($endpoint, $source)
                 {
                     $resource = $this->getResourceForInboundEndpoint($endpoint, $source);
 
@@ -199,16 +187,15 @@ class ResourceServiceProvider extends ServiceProvider
                     return $model;
                 }
 
-                private function getCleanModel( $model )
+                private function getCleanModel($model)
                 {
                     // Remove \ from start of $model if present
-                    $model = ltrim( $model, '\\' );
+                    $model = ltrim($model, '\\');
 
                     return $model;
                 }
             };
 
         });
-
     }
 }

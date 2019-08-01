@@ -7,7 +7,7 @@ class PublicationsTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-        factory( Publication::class, 25 )->create();
+        factory(Publication::class, 25)->create();
     }
 
 }

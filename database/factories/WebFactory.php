@@ -19,7 +19,6 @@ $factory->define(App\Models\Web\Tag::class, function (Faker\Generator $faker) {
     ];
 });
 
-
 $factory->define(App\Models\Web\Location::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
@@ -36,7 +35,6 @@ $factory->define(App\Models\Web\Location::class, function (Faker\Generator $fake
     ];
 });
 
-
 $factory->define(App\Models\Web\Hour::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
@@ -52,7 +50,6 @@ $factory->define(App\Models\Web\Hour::class, function (Faker\Generator $faker) {
     ];
 });
 
-
 $factory->define(App\Models\Web\Closure::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
@@ -65,7 +62,6 @@ $factory->define(App\Models\Web\Closure::class, function (Faker\Generator $faker
         'updated_at' => $faker->dateTimeThisYear,
     ];
 });
-
 
 $factory->define(App\Models\Web\Exhibition::class, function (Faker\Generator $faker) {
     return [
@@ -80,7 +76,6 @@ $factory->define(App\Models\Web\Exhibition::class, function (Faker\Generator $fa
         'updated_at' => $faker->dateTimeThisYear,
     ];
 });
-
 
 $factory->define(App\Models\Web\Event::class, function (Faker\Generator $faker) {
     return [
@@ -105,7 +100,6 @@ $factory->define(App\Models\Web\Event::class, function (Faker\Generator $faker) 
         'is_admission_required' => $faker->boolean,
         'ticketed_event_id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
         'survey_url' => $faker->url,
-        'email_series' => $faker->randomElement(['Yes', 'No']),
         'door_time' => $faker->time('H:i'),
         'image_url' => $faker->imageUrl,
         'published' => $faker->boolean,
@@ -135,7 +129,6 @@ $factory->define(App\Models\Web\Article::class, function (Faker\Generator $faker
     ];
 });
 
-
 $factory->define(App\Models\Web\Selection::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
@@ -148,7 +141,6 @@ $factory->define(App\Models\Web\Selection::class, function (Faker\Generator $fak
         'updated_at' => $faker->dateTimeThisYear,
     ];
 });
-
 
 $factory->define(App\Models\Web\Artist::class, function (Faker\Generator $faker) {
     return [

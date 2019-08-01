@@ -33,34 +33,34 @@ class Artwork extends BaseTransformer
 
     public function includeArtistPivots($artwork)
     {
-        return $this->collection($artwork->artistPivots, new ArtworkArtistPivotTransformer, false);
+        return $this->collection($artwork->artistPivots, new ArtworkArtistPivotTransformer(), false);
     }
 
     public function includeCataloguePivots($artwork)
     {
-        return $this->collection($artwork->artworkCatalogues, new ArtworkCatalogueTransformer, false);
+        return $this->collection($artwork->artworkCatalogues, new ArtworkCatalogueTransformer(), false);
     }
 
     public function includeDates($artwork)
     {
-        return $this->collection($artwork->dates, new ArtworkDateTransformer, false);
+        return $this->collection($artwork->dates, new ArtworkDateTransformer(), false);
     }
 
     public function includePlacePivots($artwork)
     {
-        return $this->collection($artwork->placePivots, new ArtworkPlacePivotTransformer, false);
+        return $this->collection($artwork->placePivots, new ArtworkPlacePivotTransformer(), false);
     }
 
     public function includeSites($artwork)
     {
-        return $this->collection($artwork->sites, new SiteTransformer, false);
+        return $this->collection($artwork->sites, new SiteTransformer(), false);
     }
 
     protected function getTitles()
     {
         return array_merge(parent::getTitles(), [
             'alt_titles' => [
-                'doc' => 'Altername names for this work',
+                'doc' => 'Alternate names for this work',
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
@@ -83,14 +83,14 @@ class Artwork extends BaseTransformer
                     'mapping' => [
                         'type' => 'object',
                         'properties' => [
-                            'url' => [ 'type' => 'keyword' ],
-                            'type' => [ 'type' => 'keyword' ],
-                            'lqip' => [ 'enabled' => false ],
-                            'width' => [ 'type' => 'integer' ],
-                            'height' => [ 'type' => 'integer' ],
-                            'alt_text' => [ 'type' => 'text' ],
-                        ]
-                    ]
+                            'url' => ['type' => 'keyword'],
+                            'type' => ['type' => 'keyword'],
+                            'lqip' => ['enabled' => false],
+                            'width' => ['type' => 'integer'],
+                            'height' => ['type' => 'integer'],
+                            'alt_text' => ['type' => 'text'],
+                        ],
+                    ],
                 ],
                 'value' => function ($item) {
                     return !$item->thumbnail ? null : [
@@ -121,6 +121,13 @@ class Artwork extends BaseTransformer
             ],
             'pageviews' => [
                 'doc' => 'Approx. number of times this artwork was viewed on our website since Jan 1st, 2010',
+                'type' => 'number',
+                'elasticsearch' => [
+                    'type' => 'integer',
+                ],
+            ],
+            'pageviews_recent' => [
+                'doc' => 'Approx. number of times this artwork was viewed on our website over the past three months',
                 'type' => 'number',
                 'elasticsearch' => [
                     'type' => 'integer',
@@ -179,7 +186,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => 'text',
             ],
             'dimensions' => [
-                'doc' => 'The size, shape, scale, and dimensions of the work. May include multiple dimension like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.',
+                'doc' => 'The size, shape, scale, and dimensions of the work. May include multiple dimensions like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.',
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
@@ -266,7 +273,6 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => 'text',
             ],
 
-
             /**
              * Asset fields for website:
              */
@@ -303,7 +309,7 @@ class Artwork extends BaseTransformer
                     'mapping' => [
                         'type' => 'scaled_float',
                         'scaling_factor' => 10000,
-                    ]
+                    ],
                 ],
                 'value' => function ($item) {
                     return $item->image->metadata->colorfulness ?? null;
@@ -316,11 +322,11 @@ class Artwork extends BaseTransformer
                     'mapping' => [
                         'type' => 'object',
                         'properties' => [
-                            'population' => [ 'type' => 'integer' ],
-                            'percentage' => [ 'type' => 'float' ],
-                            'h' => [ 'type' => 'integer' ],
-                            's' => [ 'type' => 'integer' ],
-                            'l' => [ 'type' => 'integer' ],
+                            'population' => ['type' => 'integer'],
+                            'percentage' => ['type' => 'float'],
+                            'h' => ['type' => 'integer'],
+                            's' => ['type' => 'integer'],
+                            'l' => ['type' => 'integer'],
                         ],
                     ],
                 ],
@@ -328,7 +334,6 @@ class Artwork extends BaseTransformer
                     return $item->image->metadata->color ?? null;
                 },
             ],
-
 
             /**
              * Mobile and location fields:
@@ -356,8 +361,8 @@ class Artwork extends BaseTransformer
                 'value' => function ($item) {
                     $latitude = $item->mobileArtwork->latitude ?? null;
                     $longitude = $item->mobileArtwork->latitude ?? null;
-                    if ($latitude && $longitude)
-                    {
+
+                    if ($latitude && $longitude) {
                         return $latitude . ',' . $longitude;
                     }
                 },
@@ -382,7 +387,6 @@ class Artwork extends BaseTransformer
                     return $item->is_on_view ? ($item->gallery->citi_id ?? null) : null;
                 },
             ],
-
 
             /**
              * TODO: Refactor relationships:
@@ -454,7 +458,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                     // This is controllable via .env so we can tweak it without pushing to prod
-                    'boost' => (float) ( env('SEARCH_BOOST_ARTIST_TITLES') ?: 2 ),
+                    'boost' => (float) (env('SEARCH_BOOST_ARTIST_TITLES') ?: 2),
                 ],
                 'value' => function ($item) {
                     return $item->artists->pluck('title');
@@ -738,7 +742,7 @@ class Artwork extends BaseTransformer
             //         return $item->mobileArtwork && $item->mobileArtwork->tours ? $item->mobileArtwork->tours->pluck('title') ?? null : null; },
             // ],
             'section_ids' => [
-                'doc' => 'Unique identifiers of the digital publication chaptes this work in included in',
+                'doc' => 'Unique identifiers of the digital publication chapters this work in included in',
                 'type' => 'array',
                 'elasticsearch' => 'long',
                 'value' => function ($item) {
@@ -779,30 +783,29 @@ class Artwork extends BaseTransformer
             return [
                 [
                     'input' => [
-                        $item->main_id
+                        $item->main_id,
                     ],
                     'contexts' => [
                         'groupings' => [
                             'accession',
-                        ]
+                        ],
                     ],
                 ],
                 [
                     'input' => [
-                        $item->title
+                        $item->title,
                     ],
                     'weight' => $item->pageviews ?? 1,
                     'contexts' => [
                         'groupings' => [
                             'title',
-                        ]
+                        ],
                     ],
                 ],
             ];
         };
 
         return $suggestFields;
-
     }
 
 }

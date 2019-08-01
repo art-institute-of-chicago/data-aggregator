@@ -3,10 +3,9 @@
 namespace App\Transformers\Outbound\Web;
 
 use App\Models\Web\EventProgram;
-use App\Transformers\Outbound\Web\Sponsor;
+use App\Transformers\Outbound\Web\Sponsor as SponsorTransformer;
 use App\Transformers\Outbound\Web\Traits\HasPublishDates;
 use App\Transformers\Outbound\Web\Traits\HasSearchTags;
-
 
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
@@ -23,19 +22,19 @@ class Event extends BaseTransformer
 
     public function includeEmailSeriesPivots($event)
     {
-        return $this->collection($event->emailSeriesPivots, new EventEmailSeriesPivot, false);
+        return $this->collection($event->emailSeriesPivots, new EventEmailSeriesPivot(), false);
     }
 
     public function includeSponsor($event)
     {
-        return $this->item($event->sponsor, new Sponsor, false);
+        return $event->sponsor ? $this->item($event->sponsor, new SponsorTransformer(), false) : null;
     }
 
     protected function getTitles()
     {
         return array_merge(parent::getTitles(), [
             'title_display' => [
-                'doc' => 'Name of this event formatted with HTML (optional)',
+                'doc' => 'The name of this event formatted with HTML (optional)',
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
@@ -78,7 +77,7 @@ class Event extends BaseTransformer
                 'elasticsearch' => 'text',
             ],
             'description' => [
-                'doc' => 'All copy text of the event',
+                'doc' => 'All copytext of the event',
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
@@ -268,11 +267,6 @@ class Event extends BaseTransformer
                 'doc' => 'Which entrance to use for this event',
                 'type' => 'string',
             ],
-            'affiliate_group_display' => [
-                'doc' => 'Copy to use in email to indicate affiliate presentation',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
             'join_url' => [
                 'doc' => 'URL to the membership signup page via this event',
                 'type' => 'string',
@@ -282,6 +276,27 @@ class Event extends BaseTransformer
                 'doc' => 'URL to the survey associated with this event',
                 'type' => 'string',
                 'elasticsearch' => 'text',
+            ],
+            'show_affiliate_message' => [
+                'doc' => 'Whether to include the presented-by-affiliate message in emails',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+            ],
+            'affiliate_group_id' => [
+                'doc' => 'Unique identifier of the affiliate group that is presenting this event',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+                'value' => function ($item) {
+                    return $item->affiliateGroup->id ?? null;
+                },
+            ],
+            'affiliate_group_title' => [
+                'doc' => 'Unique identifier of the affiliate group that is presenting this event',
+                'type' => 'string',
+                'elasticsearch' => 'keyword',
+                'value' => function ($item) {
+                    return $item->affiliateGroup->title ?? null;
+                },
             ],
             'sponsor_id' => [
                 'doc' => 'Unique identifier of the sponsor this website event is tied to',

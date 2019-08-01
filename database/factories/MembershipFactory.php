@@ -10,33 +10,26 @@
 |
 */
 
-if (!function_exists('membershipIdsAndTitle'))
-{
+if (!function_exists('membershipIdsAndTitle')) {
     function membershipIdsAndTitle($faker, $title = '')
     {
-
         return [
             'membership_id' => $faker->unique()->randomNumber(5) + 999 * pow(10, 5),
             'title' => $title ? $title : ucfirst($faker->words(3, true)),
         ];
-
     }
 
     function membershipDates($faker)
     {
-
         return [
             'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
-
     }
-
 }
 
 $factory->define(App\Models\Membership\TicketedEvent::class, function (Faker\Generator $faker) {
-
-    $has_capacity = rand(0,1) == 1;
+    $has_capacity = rand(0, 1) === 1;
 
     return array_merge(
         membershipIdsAndTitle($faker),
@@ -54,5 +47,4 @@ $factory->define(App\Models\Membership\TicketedEvent::class, function (Faker\Gen
         ],
         membershipDates($faker)
     );
-
 });

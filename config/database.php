@@ -1,6 +1,6 @@
 <?php
 
-return [
+$config = [
 
     /*
     |--------------------------------------------------------------------------
@@ -130,3 +130,27 @@ return [
     ],
 
 ];
+
+/*
+|--------------------------------------------------------------------------
+| Userdata Connection
+|--------------------------------------------------------------------------
+|
+| The datahub was built with frangibility in mind. During development and
+| deployment, we often reset the database and recreate it from scratch, or
+| preload and swap out the live data using table prefixes. Data about users
+| is the exception to this rule: it must presist between `db:reset` calls.
+| The `userdata` connection should be identical to the default connection,
+| but it should have a hardcoded prefix that we would never use for source
+| data.
+|
+*/
+
+$config['connections']['userdata'] = array_merge(
+    $config['connections'][$config['default']],
+    [
+        'prefix' => 'auth_',
+    ]
+);
+
+return $config;

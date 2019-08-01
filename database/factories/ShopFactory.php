@@ -10,30 +10,23 @@
 |
 */
 
-if (!function_exists('shopIdsAndTitle'))
-{
+if (!function_exists('shopIdsAndTitle')) {
     function shopIdsAndTitle($faker, $title = '')
     {
-
         return [
             'shop_id' => $faker->unique()->randomNumber(3) + 999 * pow(10, 3),
             'title' => $title ? $title : ucfirst($faker->words(5, true)),
         ];
-
     }
 
     function shopDates($faker)
     {
-
         return [
             'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
-
     }
-
 }
-
 
 $factory->define(App\Models\Shop\Category::class, function (Faker\Generator $faker) {
     return array_merge(
@@ -47,7 +40,7 @@ $factory->define(App\Models\Shop\Product::class, function (Faker\Generator $fake
     $part1 = ucwords($faker->words(2, true));
     $part2 = ucwords($faker->words(2, true));
     $part3 = ucwords($faker->words(2, true));
-    $title = $part1 .' ' .$part2 .' ' .$part3;
+    $title = $part1 . ' ' . $part2 . ' ' . $part3;
 
     return array_merge(
         shopIdsAndTitle($faker, $title),

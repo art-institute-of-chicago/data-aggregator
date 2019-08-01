@@ -43,7 +43,6 @@ class CreateArchiveTables extends Migration
             $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
         });
-
     }
 
     /**
@@ -53,8 +52,6 @@ class CreateArchiveTables extends Migration
      */
     public function down()
     {
-
         Schema::dropIfExists('archival_images');
-
     }
 }

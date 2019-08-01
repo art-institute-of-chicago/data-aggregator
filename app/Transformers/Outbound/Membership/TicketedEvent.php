@@ -18,7 +18,7 @@ class TicketedEvent extends BaseTransformer
      */
     public function includeEvent($ticketedEvent)
     {
-        return $ticketedEvent->event ? $this->item($ticketedEvent->event, new EventTransformer, false) : null;
+        return $ticketedEvent->event ? $this->item($ticketedEvent->event, new EventTransformer(), false) : null;
     }
 
     /**
@@ -33,8 +33,8 @@ class TicketedEvent extends BaseTransformer
                 'type' => $this->keyType,
                 'fields' => [
                     'text' => [
-                        'type' => 'text'
-                    ]
+                        'type' => 'text',
+                    ],
                 ],
             ],
         ];

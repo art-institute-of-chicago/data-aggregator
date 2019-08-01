@@ -13,7 +13,7 @@ class Site extends BaseTransformer
 
     public function includeArtworks($site)
     {
-        return $this->collection($site->artworks, new ArtworkTransformer, false);
+        return $this->collection($site->artworks, new ArtworkTransformer(), false);
     }
 
     protected function getFields()

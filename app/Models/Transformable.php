@@ -9,9 +9,8 @@ trait Transformable
     {
         $transformer = app('Resources')->getTransformerForModel(get_called_class());
 
-        return (new $transformer)->transform($this);
+        return (new $transformer())->transform($this);
     }
-
 
     /**
      * Jury-rig a connection to the transformer class.
@@ -22,11 +21,10 @@ trait Transformable
     {
         $transformerClass = app('Resources')->getTransformerForModel(get_called_class());
 
-        $fields = (new $transformerClass)->getMappedFields();
+        $fields = (new $transformerClass())->getMappedFields();
 
         // TODO: Fix references to transformMapping to use keys instead of 'name'
-        foreach ($fields as $fieldName => $fieldMapping)
-        {
+        foreach ($fields as $fieldName => $fieldMapping) {
             $fields[$fieldName]['name'] = $fieldName;
         }
 

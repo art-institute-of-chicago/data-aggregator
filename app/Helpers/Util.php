@@ -18,7 +18,6 @@ function ddd($variable)
     die(1);
 }
 
-
 /**
  * Calculates the Cantor tuple function for variable length arguments.
  * Accepts an unlimited amount of ids, each as its own argument.
@@ -26,19 +25,19 @@ function ddd($variable)
  * @author code-kobold (Ron Metten) (www.code-kobold.de)
  * @link http://codetalk.code-kobold.de/cantor-tuple-function/
  */
-function cantorTuple( ...$list )
+function cantorTuple(...$list)
 {
-    if (count($list) == 0) {
+    if (count($list) === 0) {
         return null;
     }
 
-    if (count($list) == 1) {
+    if (count($list) === 1) {
         return $list[0];
     }
 
     $lastElement = array_pop($list);
 
-    return (0.5 * (cantorTuple(...$list) + $lastElement) * (cantorTuple(...$list) + $lastElement + 1) + $lastElement);
+    return 0.5 * (cantorTuple(...$list) + $lastElement) * (cantorTuple(...$list) + $lastElement + 1) + $lastElement;
 }
 
 /**
@@ -59,54 +58,50 @@ function cantorPair($x, $y)
  */
 function reverseCantorPair($z)
 {
-    $t = floor((-1 + sqrt(1 + 8 * $z))/2);
+    $t = floor((-1 + sqrt(1 + 8 * $z)) / 2);
     $x = $t * ($t + 3) / 2 - $z;
     $y = $z - $t * ($t + 1) / 2;
     return [$x, $y];
 }
 
-
 /**
  * Helper method that converts `['item', 'hey', 'wow']` to `item, hey, and wow`.
  *
- * @param array
  * @return string
  */
 function summation(array $array)
 {
     $last = array_pop($array);
 
-    if (empty($array))
-    {
+    if (empty($array)) {
         return $last;
     }
 
     return implode(', ', $array) . ', and ' . $last;
 }
 
-
 /**
  * TODO: Everything below this is unused. However, these methods could be useful in testing.
  */
-
 
 /**
  * Splits an array into a given number of (approximately) equal-sized parts.
  *
  * @link http://www.php.net/manual/en/function.array-chunk.php#75022
  *
- * @param Array $list
  * @param int $p
  *
- * @return multitype:multitype:
+ * @return array
  */
-function partition(Array $list, $p) {
+function partition(array $list, $p)
+{
     $listlen = count($list);
     $partlen = floor($listlen / $p);
     $partrem = $listlen % $p;
     $partition = [];
     $mark = 0;
-    for($px = 0; $px < $p; $px ++) {
+
+    for ($px = 0; $px < $p; $px++) {
         $incr = ($px < $partrem) ? $partlen + 1 : $partlen;
         $partition[$px] = array_slice($list, $mark, $incr);
         $mark += $incr;
@@ -114,17 +109,15 @@ function partition(Array $list, $p) {
     return $partition;
 }
 
-
 function getLakeUri($lake_id)
 {
     return env('LAKE_URL', 'https://localhost')
         . '/' . substr($lake_id, 0, 2)
         . '/' . substr($lake_id, 2, 2)
         . '/' . substr($lake_id, 4, 2)
-        . '/' .substr($lake_id, 6, 2)
-        . '/' .$lake_id;
+        . '/' . substr($lake_id, 6, 2)
+        . '/' . $lake_id;
 }
-
 
 /**
  * Get a list of all the models used in the application
@@ -136,45 +129,35 @@ function getLakeUri($lake_id)
  */
 function allModels()
 {
-
     $models = [];
     $namespace = '\App\Models\\';
 
     $dir = app_path('Models');
     $files = scandir($dir);
 
-    foreach($files as $file)
-    {
-
+    foreach ($files as $file) {
         //skip current and parent folder entries
-        if ($file == '.' || $file == '..') continue;
-
-        $sourcepath = $dir .DIRECTORY_SEPARATOR .$file;
-        if (is_dir($sourcepath))
-        {
-
-            $sourcefiles = scandir($sourcepath);
-
-            foreach($sourcefiles as $sourcefile)
-            {
-
-                if (!is_dir($sourcepath .DIRECTORY_SEPARATOR .$sourcefile))
-                {
-
-                    $models[] = $namespace .$file .'\\' .preg_replace('/\.php$/', '', $sourcefile);
-
-                }
-
-            }
-
+        if ($file === '.' || $file === '..') {
+            continue;
         }
 
+        $sourcepath = $dir . DIRECTORY_SEPARATOR . $file;
+
+        if (!is_dir($sourcepath)) {
+            continue;
+        }
+
+        $sourcefiles = scandir($sourcepath);
+
+        foreach ($sourcefiles as $sourcefile) {
+            if (!is_dir($sourcepath . DIRECTORY_SEPARATOR . $sourcefile)) {
+                $models[] = $namespace . $file . '\\' . preg_replace('/\.php$/', '', $sourcefile);
+            }
+        }
     }
 
     return $models;
-
 }
-
 
 /**
  * Get a list of all the models that use the the given trait.
@@ -185,68 +168,49 @@ function allModels()
  */
 function allModelsThatUse($trait)
 {
-
     $modelClasses = allModels();
 
     $models = [];
-    foreach ($modelClasses as $model)
-    {
 
-        if ($model::instance()->has($trait))
-        {
-
+    foreach ($modelClasses as $model) {
+        if ($model::instance()->has($trait)) {
             $models[] = $model;
-
         }
-
     }
 
     return $models;
-
 }
-
 
 /**
  * Get a list of all the traits this class uses, include the class's parents and traits' parents
  *
  * @TODO: Use `class_uses_recursive` instead?
  *
- * @param string Optional model class. Otherwise it will use `get_called_class()`.
- * @param boolean Autoload flag to pass to `class_uses()` calls.
+ * @param string $modelClass  Optional model class. Otherwise it will use `get_called_class()`.
+ * @param boolean $autoload  Autoload flag to pass to `class_uses()` calls.
  * @return array
  */
 function class_uses_deep($modelClass, $autoload = true)
 {
-
     $traits = class_uses($modelClass, $autoload);
 
     // Get traits of all parent classes
-    while ($modelClass = get_parent_class($modelClass))
-    {
-
+    while ($modelClass = get_parent_class($modelClass)) {
         $traits = array_merge(class_uses($modelClass, $autoload), $traits);
-
     }
 
     // Get traits of all parent traits
     $traitsToSearch = $traits;
 
-    while (!empty($traitsToSearch))
-    {
-
+    while (!empty($traitsToSearch)) {
         $newTraits = class_uses(array_pop($traitsToSearch), $autoload);
         $traits = array_merge($newTraits, $traits);
         $traitsToSearch = array_merge($newTraits, $traitsToSearch);
-
     }
 
-    foreach ($traits as $trait => $same)
-    {
-
+    foreach ($traits as $trait => $same) {
         $traits = array_merge(class_uses($trait, $autoload), $traits);
-
     }
 
     return array_unique($traits);
-
 }

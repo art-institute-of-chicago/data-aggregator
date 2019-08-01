@@ -8,8 +8,8 @@ namespace App\Models\Collections;
 class Video extends Asset
 {
 
-    protected $table = 'assets';
-
     protected static $assetType = 'video';
+
+    protected $table = 'assets';
 
 }

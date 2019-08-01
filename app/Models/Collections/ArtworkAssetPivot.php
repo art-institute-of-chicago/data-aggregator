@@ -17,16 +17,12 @@ class ArtworkAssetPivot extends BasePivot
 
     public function asset()
     {
-
         return $this->belongsTo('App\Models\Collections\Asset', 'asset_lake_guid');
-
     }
 
     public function artwork()
     {
-
         return $this->belongsTo('App\Models\Collections\Artwork');
-
     }
 
 }

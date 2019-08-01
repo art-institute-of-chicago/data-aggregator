@@ -12,7 +12,7 @@ return [
     | or any other location as required by the application or its packages.
     */
 
-    'version' => '1.0-beta19',
+    'version' => '1.0-beta20',
 
     /*
     |--------------------------------------------------------------------------
@@ -65,6 +65,22 @@ return [
     */
 
     'proxy_url' => env('PROXY_URL', env('APP_URL', 'http://localhost')),
-
     'proxy_scheme' => env('PROXY_SCHEME', 'http'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication
+    |--------------------------------------------------------------------------
+    |
+    | Special rules for throttling and deep-pagination.
+    |
+    */
+
+    'auth' => [
+        'restricted' => env('APP_RESTRICTED', true),
+        'max_attempts' => 60,
+        'max_resources_guest' => 1000,
+        'max_resources_user' => 10000,
+    ],
+
 ];

@@ -50,12 +50,22 @@ class CreateShopTables extends Migration
             $table = $this->_addDates($table);
         });
 
-        Schema::create('artist_product', function(Blueprint $table) {
+        Schema::create('artist_product', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('agent_citi_id')->index();
             $table->integer('product_shop_id')->index();
         });
+    }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('products');
+        Schema::dropIfExists('shop_categories');
     }
 
     private function _addId($table)
@@ -70,19 +80,6 @@ class CreateShopTables extends Migration
         $table->timestamp('source_modified_at')->nullable()->useCurrent();
         $table->timestamps();
         return $table;
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-
-        Schema::dropIfExists('products');
-        Schema::dropIfExists('shop_categories');
-
     }
 
 }

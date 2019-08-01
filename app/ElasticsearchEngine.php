@@ -16,21 +16,20 @@ class ElasticsearchEngine extends BaseEngine
     /**
      * Update the given model in the index.
      *
-     * @param  Collection  $models
+     * @param  \Illuminate\Database\Eloquent\Collection  $models
      * @return void
      */
     public function update($models)
     {
         $params['body'] = [];
 
-        $models->each(function($model) use (&$params)
-        {
+        $models->each(function ($model) use (&$params) {
             $params['body'][] = [
-                'update' => $this->getIdIndexType($model)
+                'update' => $this->getIdIndexType($model),
             ];
             $params['body'][] = [
                 'doc' => $model->toSearchableArray(),
-                'doc_as_upsert' => true
+                'doc_as_upsert' => true,
             ];
         });
 
@@ -39,7 +38,7 @@ class ElasticsearchEngine extends BaseEngine
         // TODO: Requeue only the models that failed?
         if (isset($result['errors']) && $result['errors'] === true)
         {
-            $failedDocs = array_values(array_filter($result['items'], function($item) {
+            $failedDocs = array_values(array_filter($result['items'], function ($item) {
                 return isset($item['update']['error']);
             }));
 

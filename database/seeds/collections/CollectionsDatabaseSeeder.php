@@ -21,7 +21,6 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
         $this->call(AgentTypesTableSeeder::class);
         $this->call(AgentRolesTableSeeder::class);
         $this->call(AgentsTableSeeder::class);
@@ -34,19 +33,17 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         $this->call(ArtistArtworksTableSeeder::class);
         $this->call(ArtworkCategoriesTableSeeder::class);
         $this->call(ArtworkTermsTableSeeder::class);
-        $this->call(ArtworkDateQualifersTableSeeder::class);
+        $this->call(ArtworkDateQualifiersTableSeeder::class);
         $this->call(ArtworkDatesTableSeeder::class);
         $this->call(ArtworkCataloguesTableSeeder::class);
         $this->call(ArtworkPlaceQualifierTableSeeder::class);
         $this->call(AssetsTableSeeder::class);
         $this->call(AssetCategoriesTableSeeder::class);
         $this->call(ExhibitionsTableSeeder::class);
-
     }
 
     protected static function unseed()
     {
-
         Exhibition::fake()->delete();
         Asset::fake()->delete();
         ArtworkCatalogue::fake()->delete();
@@ -62,7 +59,6 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         Agent::fake()->delete();
         AgentType::fake()->delete();
         AgentRole::fake()->delete();
-
     }
 
 }

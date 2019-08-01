@@ -9,19 +9,16 @@ use Illuminate\Support\Arr;
 class ArtworkSearchTest extends TestCase
 {
 
-
     /**
      * @test
      * @dataProvider firstResultTests
      */
     public function it_returns_a_match_as_first_result($query, $expectedFirstId)
     {
-
-        $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') .'/artworks/search?q=' .urlencode($query));
+        $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') . '/artworks/search?q=' . urlencode($query));
 
         $resource = json_decode($response)->data[0];
         $this->assertEquals($expectedFirstId, $resource->id);
-
     }
 
     /**
@@ -30,19 +27,15 @@ class ArtworkSearchTest extends TestCase
      */
     public function it_returns_expected_top_matches($query, $inTheTop, $expectToSee = [])
     {
-
-        $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') .'/artworks/search?limit=' .$inTheTop .'&q=' .urlencode($query));
+        $response = file_get_contents(env('PRODUCTION_URL', 'http://localhost') . '/artworks/search?limit=' . $inTheTop . '&q=' . urlencode($query));
 
         $resources = array_slice(json_decode($response)->data, 0, $inTheTop);
         $ids = Arr::pluck($resources, 'id');
         $this->assertArrayContainsArray($expectToSee, $ids);
-
     }
 
     public function firstResultTests()
-
     {
-
         return [
             ['nighthawks', 111628],
             ['the old guitarist', 28067],
@@ -71,12 +64,10 @@ class ArtworkSearchTest extends TestCase
             //['napoleon', 217536],
 
         ];
-
     }
 
     public function topResultsTests()
     {
-
         return [
             ['creche',             3, [217536]],
             ['the weaver',         3, [151363]],
@@ -106,7 +97,7 @@ class ArtworkSearchTest extends TestCase
             ['georgia o\'keefe',   6, [61428, 46327, 24687, 104031]],
             ['frank lloyd wright', 6, [105203, 190558, 144272]],
             ['el greco',           4, [87479, 21907, 67362]],
-            ['cezanne'  ,          6, [111436, 16487, 62371]],
+            ['cezanne',          6, [111436, 16487, 62371]],
             ['mary cassatt',      24, [111442, 26650]],
             ['manet',              5, [16499, 44892, 14591]],
             ['caillebotte',        4, [20684, 154121]],
@@ -117,7 +108,7 @@ class ArtworkSearchTest extends TestCase
             ['thorne rooms',      46, [43714, 45385]],
             ['thorne',            46, [43714, 45385]],
 
-            ['cubism',            18, [5357, 8624, 28067, 66039, 109275, 111060, 135430, ]], //18709
+            ['cubism',            18, [5357, 8624, 28067, 66039, 109275, 111060, 135430]], //18709
             ['still life',        14, [44892, 84709, 87045, 120154]],
             ['ceramic',           12, [25853, 51185, 65290, 91620]],
             //['impressionism',     12, [14572, 14598, 14655, 15401, 16568, 20684, 27992, 64818, 69780, 111442]],
@@ -130,15 +121,12 @@ class ArtworkSearchTest extends TestCase
             //['armor',              4, [112092, 199854]],
             //['charcoal',           5, [68823, 23684, 111810]],
         ];
-
     }
 
     protected function assertArrayContainsArray($needle, $haystack)
     {
-
         foreach ($needle as $val) {
             $this->assertContains($val, $haystack);
         }
-
     }
 }

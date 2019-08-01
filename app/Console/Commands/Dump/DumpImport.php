@@ -12,7 +12,7 @@ class DumpImport extends AbstractDumpCommand
                             {--path= : Directory from where to import dump, with `tables` subdir }
                             {--from-remote : Shortcut to import from `database/dumps/remote` }';
 
-    protected $description = "Import CSV dumps of all whitelisted tables";
+    protected $description = 'Import CSV dumps of all whitelisted tables';
 
     protected $chunkSize = 100;
 

@@ -15,18 +15,16 @@ class CategoryTermTest extends ApiTestCase
 
     public function model()
     {
-
-        if ($this->model == CategoryTerm::class) {
+        if ($this->model === CategoryTerm::class) {
             return random_int(0, 1) ? Category::class : Term::class;
         }
 
         return parent::model();
-
     }
 
     protected function getRandomId()
     {
-        return app('Faker')->unique()->regexify('[A-Z]{2}') .'-' .app('Faker')->unique()->randomNumber(5);
+        return app('Faker')->unique()->regexify('[A-Z]{2}') . '-' . app('Faker')->unique()->randomNumber(5);
     }
 
 }

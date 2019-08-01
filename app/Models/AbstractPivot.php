@@ -2,10 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Instancable;
-use App\Models\Transformable;
-use App\Models\Fakeable;
-
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 abstract class AbstractPivot extends Pivot
@@ -24,12 +20,10 @@ abstract class AbstractPivot extends Pivot
      * @param mixed $id
      * @return boolean
      */
-    public static function validateId( $id )
+    public static function validateId($id)
     {
-
         // By default, only allow numeric ids greater than 0
-        return is_numeric($id) && intval($id) > 0;
-
+        return is_numeric($id) && (int) $id > 0;
     }
 
 }

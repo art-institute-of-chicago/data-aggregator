@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Search;
 
 use Elasticsearch;
-use Artisan;
 
 use App\Console\Helpers\Indexer;
 
@@ -21,56 +20,42 @@ class SearchInstall extends BaseCommand
 
     protected $description = 'Set up the Search Service indexes with data types and fields';
 
-
     public function handle()
     {
-
         $prefix = $this->argument('prefix') ?? env('ELASTICSEARCH_INDEX');
 
-        if ($this->argument('model'))
-        {
+        if ($this->argument('model')) {
 
-            $this->install( $this->argument('model'), $prefix );
+            $this->install($this->argument('model'), $prefix);
 
         } else {
 
             $models = app('Search')->getSearchableModels();
 
-            foreach ($models as $model)
-            {
-
-                $this->install( $model, $prefix );
-
+            foreach ($models as $model) {
+                $this->install($model, $prefix);
             }
 
         }
-
     }
 
-
-    private function install( $model, $prefix )
+    private function install($model, $prefix)
     {
+        $index = app('Search')->getIndexForModel($model, $prefix);
 
-        $index = app('Search')->getIndexForModel( $model, $prefix );
-
-        if (!$this->destroy($index, $this->option('yes')))
-        {
-
+        if (!$this->destroy($index, $this->option('yes'))) {
             $this->warn('Could not destroy index ' . $index . '.');
-
             return 0;
-
         }
 
         $params = config('elasticsearch.indexParams');
 
         $params['index'] = $index;
-        $params['body']['mappings'] = app('Search')->getElasticsearchMapping( $model );
+        $params['body']['mappings'] = app('Search')->getElasticsearchMapping($model);
 
         $return = Elasticsearch::indices()->create($params);
 
         $this->info($this->done($return));
-
     }
 
 }

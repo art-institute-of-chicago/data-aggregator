@@ -8,13 +8,11 @@ use App\Transformers\Inbound\ShopTransformer;
 class Category extends ShopTransformer
 {
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
-
         return [
             'parent_category_shop_id' => $datum->parent_id,
         ];
-
     }
 
 }

@@ -14,9 +14,14 @@ class Catalogue extends CollectionsModel
 
     public function artworks()
     {
-
         return $this->belongsToMany('App\Models\Collections\Artwork');
-
     }
 
+    public static function validateId( $id )
+    {
+
+        // By default, only allow numeric ids greater than 0
+        return is_numeric($id);
+
+    }
 }

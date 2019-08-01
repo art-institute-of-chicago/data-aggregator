@@ -7,9 +7,7 @@ class EventProgramsTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
-        factory( EventProgram::class, 25 )->create();
-
+        factory(EventProgram::class, 25)->create();
     }
 
 }

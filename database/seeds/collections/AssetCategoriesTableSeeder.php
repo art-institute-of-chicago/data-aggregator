@@ -8,9 +8,7 @@ class AssetCategoriesTableSeeder extends AbstractSeeder
 
     public function seed()
     {
-
-        $this->seedRelation( Asset::class, Category::class, 'categories' );
-
+        $this->seedRelation(Asset::class, Category::class, 'categories');
     }
 
 }

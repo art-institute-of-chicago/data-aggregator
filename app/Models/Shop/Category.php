@@ -16,16 +16,12 @@ class Category extends ShopModel
 
     public function parent()
     {
-
         return $this->belongsTo('App\Models\Shop\Category', 'parent_category_shop_id');
-
     }
 
     public function children()
     {
-
         return $this->hasMany('App\Models\Shop\Category', 'parent_category_shop_id');
-
     }
 
     /**
@@ -35,9 +31,7 @@ class Category extends ShopModel
      */
     public function getWebUrlAttribute()
     {
-
-        return env('SHOP_CATEGORY_URL') .$this->shop_id;
-
+        return env('SHOP_CATEGORY_URL') . $this->shop_id;
     }
 
 }

@@ -8,9 +8,7 @@ class PlaceCategoriesTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
-        $this->seedRelation( Place::class, Category::class, 'categories' );
-
+        $this->seedRelation(Place::class, Category::class, 'categories');
     }
 
 }

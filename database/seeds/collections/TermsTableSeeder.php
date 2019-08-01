@@ -7,6 +7,6 @@ class TermsTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-        factory( Term::class, 25 )->create();
+        factory(Term::class, 25)->create();
     }
 }

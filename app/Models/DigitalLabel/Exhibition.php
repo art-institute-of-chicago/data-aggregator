@@ -19,16 +19,12 @@ class Exhibition extends DigitalLabelModel
 
     public function exhibition()
     {
-
         return $this->belongsTo('App\Models\Collections\Exhibition');
-
     }
 
     public function labels()
     {
-
         return $this->hasMany('App\Models\DigitalLabel\Label');
-
     }
 
 }

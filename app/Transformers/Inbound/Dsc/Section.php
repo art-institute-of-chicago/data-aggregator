@@ -8,14 +8,12 @@ use App\Transformers\Inbound\DscTransformer;
 class Section extends DscTransformer
 {
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
-
         return [
             'publication_dsc_id' => $datum->publication_id,
             'artwork_citi_id' => $datum->citi_id,
         ];
-
     }
 
 }

@@ -16,18 +16,16 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \Aic\Hub\Foundation\Commands\DatabaseReset::class
+        \Aic\Hub\Foundation\Commands\DatabaseReset::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-
         $schedule->command('import:daily')
             ->dailyAt('23:00')
             ->withoutOverlapping()
@@ -81,12 +79,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('dump:export')
             ->dailyAt('22:45')
             ->withoutOverlapping()
-            ->after(function() {
-                $this->call('dump:upload',[
+            ->after(function () {
+                $this->call('dump:upload', [
                     '--reset' => 'default',
                 ]);
             });
-
     }
 
     /**
@@ -96,14 +93,12 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-
-        $this->load(__DIR__.'/Commands');
-        $this->load(__DIR__.'/Commands/Docs');
-        $this->load(__DIR__.'/Commands/Import');
-        $this->load(__DIR__.'/Commands/Prototype');
-        $this->load(__DIR__.'/Commands/Report');
-        $this->load(__DIR__.'/Commands/Search');
-        $this->load(__DIR__.'/Commands/Update');
-
+        $this->load(__DIR__ . '/Commands');
+        $this->load(__DIR__ . '/Commands/Docs');
+        $this->load(__DIR__ . '/Commands/Import');
+        $this->load(__DIR__ . '/Commands/Prototype');
+        $this->load(__DIR__ . '/Commands/Report');
+        $this->load(__DIR__ . '/Commands/Search');
+        $this->load(__DIR__ . '/Commands/Update');
     }
 }

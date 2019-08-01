@@ -11,7 +11,6 @@ use App\Models\Web\EventProgram;
 use App\Models\Web\Exhibition;
 use App\Models\Web\Hour;
 use App\Models\Web\Location;
-use App\Models\Web\Page;
 use App\Models\Web\Selection;
 use App\Models\Web\Tag;
 use App\Models\Web\GenericPage;
@@ -33,12 +32,10 @@ class ImportWebFull extends AbstractImportCommand
                             {--y|yes : Answer "yes" to all prompts}
                             {--test : Only import one page from each endpoint}';
 
-    protected $description = "Import all Web CMS data";
-
+    protected $description = 'Import all Web CMS data';
 
     public function handle()
     {
-
         if ($this->option('test')) {
             $this->isTest = true;
         }
@@ -47,8 +44,7 @@ class ImportWebFull extends AbstractImportCommand
 
         $endpoint = $this->argument('endpoint');
 
-        if( !$this->reset($endpoint) )
-        {
+        if (!$this->reset($endpoint)) {
             return false;
         }
 
@@ -62,15 +58,13 @@ class ImportWebFull extends AbstractImportCommand
         } else {
 
             $this->importEndpoints();
-            $this->info("Imported all web CMS content!");
+            $this->info('Imported all web CMS content!');
 
         }
-
     }
 
     protected function reset($endpoint = null)
     {
-
         $hash = [
             Article::class => 'articles',
             Artist::class => 'web_artists',
@@ -97,16 +91,14 @@ class ImportWebFull extends AbstractImportCommand
         if ($endpoint) {
             $model = $this->getModelForEndpoint($endpoint);
 
-            return $this->resetData( [ $model ], [ $hash[$model] ] );
+            return $this->resetData([$model], [$hash[$model]]);
         }
 
-        return $this->resetData( array_keys( $hash ), array_values( $hash ) );
-
+        return $this->resetData(array_keys($hash), array_values($hash));
     }
 
     protected function importEndpoints()
     {
-
         $this->importFromWeb('articles');
         $this->importFromWeb('artists');
         $this->importFromWeb('closures');
@@ -130,7 +122,6 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('staticpages');
         $this->importFromWeb('emailseries');
         $this->importFromWeb('sponsors');
-
     }
 
     protected function getModelForEndpoint($endpoint)
@@ -140,21 +131,17 @@ class ImportWebFull extends AbstractImportCommand
 
     protected function importFromWeb($endpoint, $page = 1)
     {
-
         $model = $this->getModelForEndpoint($endpoint);
-        return $this->import( 'Web', $model, $endpoint, $page );
-
+        return $this->import('Web', $model, $endpoint, $page);
     }
 
-    protected function query( $endpoint, $page = 1, $limit = 100 )
+    protected function query($endpoint, $page = 1, $limit = 100)
     {
-
-        if (env('WEB_CMS_DATA_SERVICE_USERNAME'))
-        {
+        if (env('WEB_CMS_DATA_SERVICE_USERNAME')) {
             $this->auth = env('WEB_CMS_DATA_SERVICE_USERNAME') . ':' . env('WEB_CMS_DATA_SERVICE_PASSWORD');
         }
 
-        return parent::query( $endpoint, $page, $limit );
+        return parent::query($endpoint, $page, $limit);
     }
 
 }

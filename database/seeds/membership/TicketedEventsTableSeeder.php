@@ -1,15 +1,13 @@
 <?php
 
-use App\Models\Collections\Exhibition;
+use App\Models\Membership\TicketedEvent;
 
 class TicketedEventsTableSeeder extends AbstractSeeder
 {
 
     protected function seed()
     {
-
-        factory( TicketedEvent::class, 25 )->create();
-
+        factory(TicketedEvent::class, 25)->create();
     }
 
 }

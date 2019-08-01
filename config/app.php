@@ -120,7 +120,6 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -133,13 +132,12 @@ return [
     */
     'providers' => [
 
-        /*
+        /**
          * Override default Laravel Service Providers...
          */
         Aic\Hub\Foundation\DatabaseServiceProvider::class,
 
-
-        /*
+        /**
          * Laravel Framework Service Providers...
          */
         Illuminate\Auth\AuthServiceProvider::class,
@@ -165,7 +163,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        /*
+        /**
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
@@ -173,19 +171,19 @@ return [
         Cviebrock\LaravelElasticsearch\ServiceProvider::class,
         MarkTopper\DoctrineDBALTimestampType\Laravel5ServiceProvider::class,
 
-        /*
+        /**
          * Foundation Service Providers...
          */
         Aic\Hub\Foundation\ResourceServiceProvider::class,
 
-        /*
+        /**
          * Application Service Providers...
          */
+        App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FakerServiceProvider::class,
         App\Providers\SearchServiceProvider::class,
-        App\Providers\HelperServiceProvider::class,
         App\Providers\ResourceServiceProvider::class,
 
     ],

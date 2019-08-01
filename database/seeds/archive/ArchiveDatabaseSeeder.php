@@ -7,16 +7,12 @@ class ArchiveDatabaseSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
         $this->call(ArchiveImageSeeder::class);
-
     }
 
     protected static function unseed()
     {
-
         ArchiveImage::fake()->delete();
-
     }
 
 }

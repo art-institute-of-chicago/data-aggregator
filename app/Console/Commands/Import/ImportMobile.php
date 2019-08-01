@@ -4,8 +4,6 @@ namespace App\Console\Commands\Import;
 
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\Collections\Artwork as BaseArtwork;
-
 use App\Models\Mobile\Artwork as MobileArtwork;
 use App\Models\Mobile\Sound;
 use App\Models\Mobile\Tour;
@@ -19,10 +17,9 @@ class ImportMobile extends AbstractImportCommand
 
     protected $signature = 'import:mobile {--no-download}';
 
-    protected $description = "Import all data from the mobile CMS";
+    protected $description = 'Import all data from the mobile CMS';
 
     protected $filename = 'appData.json';
-
 
     public function handle()
     {
@@ -40,9 +37,9 @@ class ImportMobile extends AbstractImportCommand
         $this->importTours($results);
     }
 
-    private function importArtworks( $results )
+    private function importArtworks($results)
     {
-        $this->info("Importing mobile artworks...");
+        $this->info('Importing mobile artworks...');
 
         foreach ($results->objects as $datum) {
             $this->info("Importing artwork #{$datum->nid}: {$datum->title}");
@@ -65,9 +62,9 @@ class ImportMobile extends AbstractImportCommand
         }
     }
 
-    private function importSounds( $results )
+    private function importSounds($results)
     {
-        $this->info("Importing mobile sounds...");
+        $this->info('Importing mobile sounds...');
 
         Sound::query()->delete();
 
@@ -89,9 +86,9 @@ class ImportMobile extends AbstractImportCommand
         }
     }
 
-    private function importTours( $results )
+    private function importTours($results)
     {
-        $this->info("Importing mobile tours and tour stops...");
+        $this->info('Importing mobile tours and tour stops...');
 
         Tour::query()->delete();
 
@@ -116,7 +113,7 @@ class ImportMobile extends AbstractImportCommand
         }
     }
 
-    private function importTourStops( $data, $tour )
+    private function importTourStops($data, $tour)
     {
         $this->info("Flushing tour stops for tour #{$tour->mobile_id}...");
 

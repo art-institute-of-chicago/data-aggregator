@@ -14,29 +14,12 @@ class BaseModel extends AbstractModel
 
     use Transformable, Instancable, Fakeable, Documentable;
 
-    protected $hasSourceDates = true;
-
     /**
-     * Instantiate a new BelongsToMany relationship.
+     * The name of the field that the source API provides a last updated timestamp in.
      *
-     * @TODO: Move this to the foundation?
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  \Illuminate\Database\Eloquent\Model  $parent
-     * @param  string  $table
-     * @param  string  $foreignPivotKey
-     * @param  string  $relatedPivotKey
-     * @param  string  $parentKey
-     * @param  string  $relatedKey
-     * @param  string  $relationName
-     * @return \App\BelongsToManyOrOne
+     * @var string
      */
-    protected function newBelongsToMany(Builder $query, Model $parent, $table, $foreignPivotKey, $relatedPivotKey,
-                                        $parentKey, $relatedKey, $relationName = null)
-    {
-        return new BelongsToManyOrOne($query, $parent, $table, $foreignPivotKey, $relatedPivotKey, $parentKey, $relatedKey, $relationName);
-    }
-
+    public static $sourceLastUpdateDateField = 'modified_at';
 
     /**
      * String that indicates the sub-namespace of the child models. Used for dynamic model retrieval.
@@ -47,14 +30,7 @@ class BaseModel extends AbstractModel
      */
     protected static $source;
 
-
-    /**
-     * The name of the field that the source API provides a last updated timestamp in.
-     *
-     * @var string
-     */
-    public static $sourceLastUpdateDateField = 'modified_at';
-
+    protected $hasSourceDates = true;
 
     /**
      * This getter is in Laravel's base `Model` class, or rather, in its `HasAttributes` trait.
@@ -65,32 +41,28 @@ class BaseModel extends AbstractModel
      */
     public function getCasts()
     {
-
         // Traverse through the class hierarchy of all the child classes and merge together their
         // definitions of the `$casts` attribute. This allows child classes to simple use `$casts`
         // as an additive property without needing to worry about merging with the parent array.
         $casts = parent::getCasts();
         $class = get_called_class();
+
         while ($class = get_parent_class($class)) {
             $casts = array_merge($casts, get_class_vars($class)['casts']);
         }
 
-        if (!$this->hasSourceDates)
-        {
+        if (!$this->hasSourceDates) {
             return $casts;
         }
 
-        return array_merge( $casts, [
+        return array_merge($casts, [
             'source_modified_at' => 'datetime',
         ]);
-
     }
 
     public function isBoosted()
     {
-
         return false;
-
     }
 
     /**
@@ -101,22 +73,42 @@ class BaseModel extends AbstractModel
      */
     public function touchOwners()
     {
-
         parent::touchOwners();
 
         foreach ($this->touches as $relation) {
-
-            if ($this->$relation instanceof self) {
-
-                $this->$relation->searchable();
-
-            } elseif ($this->$relation instanceof Collection) {
-
-                foreach ($this->$relation->chunk(50) as $chunk)
-                {
+            if ($this->{$relation} instanceof self) {
+                $this->{$relation}->searchable();
+            } elseif ($this->{$relation} instanceof Collection) {
+                foreach ($this->{$relation}->chunk(50) as $chunk) {
                     $chunk->searchable();
                 }
             }
         }
+    }
+
+    /**
+     * Instantiate a new BelongsToMany relationship.
+     *
+     * @TODO: Move this to the foundation?
+     *
+     * @param  string  $table
+     * @param  string  $foreignPivotKey
+     * @param  string  $relatedPivotKey
+     * @param  string  $parentKey
+     * @param  string  $relatedKey
+     * @param  string  $relationName
+     * @return \App\BelongsToManyOrOne
+     */
+    protected function newBelongsToMany(
+        Builder $query,
+        Model $parent,
+        $table,
+        $foreignPivotKey,
+        $relatedPivotKey,
+        $parentKey,
+        $relatedKey,
+        $relationName = null
+    ) {
+        return new BelongsToManyOrOne($query, $parent, $table, $foreignPivotKey, $relatedPivotKey, $parentKey, $relatedKey, $relationName);
     }
 }

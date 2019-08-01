@@ -11,10 +11,8 @@ class ImportAllCommand extends BaseCommand
 
     protected $description = 'Run all import commands';
 
-
     public function handle()
     {
-
         // TODO: This causes issues with writing to the `commands` table!
         // $this->call('db:reset'); // Add --yes flag?
         // $this->call('migrate');
@@ -35,7 +33,7 @@ class ImportAllCommand extends BaseCommand
         // EventOccurrence is not included in import:web to avoid duplication
         $this->call('import:web-full', [
             '--yes' => 'default',
-            'endpoint' => 'event-occurrences'
+            'endpoint' => 'event-occurrences',
         ]);
     }
 

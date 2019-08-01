@@ -11,13 +11,10 @@ class ScoutRefreshAll extends BaseCommand
 
     protected $description = 'Flush and re-import all models into the search index';
 
-
     public function handle()
     {
-
-        $this->call("scout:flush-all");
-        $this->call("scout:import-all");
-
+        $this->call('scout:flush-all');
+        $this->call('scout:import-all');
     }
 
 }

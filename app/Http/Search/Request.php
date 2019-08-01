@@ -7,6 +7,7 @@ use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 class Request
@@ -18,21 +19,21 @@ class Request
      *
      * @var array|string
      */
-    protected $resources = null;
+    protected $resources;
 
     /**
      * Identifier, e.g. for `_explain` queries
      *
      * @var string
      */
-    protected $id = null;
+    protected $id;
 
     /**
      * Array of queries needed to isolate any "scoped" resources in this request.
      *
      * @var array
      */
-    protected $scopes = null;
+    protected $scopes;
 
     /**
      * Array of queries needed to boost resources in this request.
@@ -46,7 +47,7 @@ class Request
      *
      * @var array
      */
-    protected $functionScores = null;
+    protected $functionScores;
 
     /**
      * List of allowed Input params for querying.
@@ -126,21 +127,19 @@ class Request
      */
     private static $maxSize = 1000;
 
-
     /**
      * Create a new request instance.
      *
-     * @param $resource string
+     * @param string $resource
      *
      * @return void
      */
-    public function __construct( $resource = null, $id = null )
+    public function __construct($resource = null, $id = null)
     {
         // TODO: Add $input here too..?
         $this->resources = $resource;
         $this->id = $id;
     }
-
 
     /**
      * Get params that should be applied to all queries.
@@ -149,108 +148,94 @@ class Request
      *
      * @return array
      */
-    public function getBaseParams( array $input ) {
-
+    public function getBaseParams(array $input)
+    {
         // Grab resource target from resource endpoint or `resources` param
         $resources = $this->resources ?? $input['resources'] ?? null;
 
         // Ensure that resources is an array, not string
-        if( is_string( $resources ) )
-        {
+        if (is_string($resources)) {
             $resources = explode(',', $resources);
         }
 
         // Save unfiltered $resources for e.g. getting default fields
         $this->resources = $resources;
 
-        if( is_null( $resources ) )
-        {
-
+        if (is_null($resources)) {
             throw new DetailedException('Missing Parameter', 'You must specify the `resources` parameter.', 400);
+        }
 
-        } else {
+        // Filter out any resources that have a parent resource requested as well
+        // So e.g. if places and galleries are requested, we'll show places only
+        $resources = array_filter($resources, function ($resource) use ($resources) {
+            $parent = app('Resources')->getParent($resource);
 
-            // Filter out any resources that have a parent resource requested as well
-            // So e.g. if places and galleries are requested, we'll show places only
-            $resources = array_filter( $resources, function($resource) use ($resources) {
+            return !in_array($parent, $resources);
+        });
 
-                $parent = app('Resources')->getParent( $resource );
+        // Make resources into a Laravel collection
+        $resources = collect($resources);
 
-                return !in_array( $parent, $resources );
+        // Grab settings from our models via the service provider
+        $settings = $resources->map(function ($resource) {
+            return [
+                $resource => app('Search')->getSearchScopeForEndpoint($resource),
+            ];
+        })->collapse();
 
+        // Collate our indexes and types
+        $indexes = $settings->pluck('index')->unique()->all();
+        $types = $settings->pluck('type')->unique()->all();
+
+        // These will be injected into the must clause
+        $this->scopes = $settings->pluck('scope')->filter()->values()->all();
+
+        // These will be injected into the should clause
+        if (!isset($input['q'])) {
+            $this->boosts = $settings->pluck('boost')->filter()->values()->all();
+        }
+
+        // These will be used to wrap the query in `function_score`
+        $this->functionScores = $settings->filter(function ($value, $key) {
+            return isset($value['function_score']);
+        })->map(function ($item, $key) {
+            return $item['function_score'];
+        })->all();
+
+        if (isset($input['functions'])) {
+            $customScoreFunctions = collect($input['functions'])->filter(function ($value, $key) use ($resources) {
+                return $resources->contains($key);
             });
 
-            // Make resources into a Laravel collection
-            $resources = collect( $resources );
-
-            // Grab settings from our models via the service provider
-            $settings = $resources->map( function($resource) {
-
-                return [
-                    $resource => app('Search')->getSearchScopeForEndpoint( $resource ),
-                ];
-
-            })->collapse();
-
-            // Collate our indexes and types
-            $indexes = $settings->pluck('index')->unique()->all();
-            $types = $settings->pluck('type')->unique()->all();
-
-            // These will be injected into the must clause
-            $this->scopes = $settings->pluck('scope')->filter()->values()->all();
-
-            // These will be injected into the should clause
-            if (!isset($input['q']))
-            {
-                $this->boosts = $settings->pluck('boost')->filter()->values()->all();
+            // Accept both a single function, and an array of functions
+            foreach ($customScoreFunctions as $resource => $functions) {
+                $functions = !isset($functions[0]) ? [$functions] : $functions;
+                $this->functionScores[$resource]['custom'] = $functions;
             }
-
-            // These will be used to wrap the query in `function_score`
-            $this->functionScores = $settings->filter( function( $value, $key ) {
-                return isset($value['function_score']);
-            })->map( function( $item, $key ) {
-                return $item['function_score'];
-            })->all();
-
-            if (isset($input['functions']))
-            {
-                $customScoreFunctions = collect($input['functions'])->filter(function($value, $key) use ($resources) {
-                    return $resources->contains($key);
-                });
-
-                // Accept both a single function, and an array of functions
-                foreach ($customScoreFunctions as $resource => $functions) {
-                    $functions = !isset($functions[0]) ? [$functions] : $functions;
-                    $this->functionScores[$resource]['custom'] = $functions;
-                }
-            }
-
-            // Looks like we don't need to implode $indexes and $types
-            // PHP Elasticsearch seems to do so for us
-
         }
+
+        // Looks like we don't need to implode $indexes and $types
+        // PHP Elasticsearch seems to do so for us
 
         return [
             'index' => $indexes,
             'type' => $types ?? null,
-            'preference' => Arr::get( $input, 'preference' ),
+            'preference' => Arr::get($input, 'preference'),
         ];
-
     }
-
 
     /**
      * Build full param set (request body) for autocomplete queries.
      *
      * @return array
      */
-    public function getAutocompleteParams( $requestArgs = null ) {
-
+    public function getAutocompleteParams($requestArgs = null)
+    {
         // Strip down the (top-level) params to what our thin client supports
         $input = self::getValidInput($requestArgs);
 
         // TODO: Handle case where no `q` param is present?
-        if( is_null( Arr::get( $input, 'q' ) ) ) {
+        if (is_null(Arr::get($input, 'q'))) {
             return [];
         }
 
@@ -265,27 +250,25 @@ class Request
 
         // Suggest also returns `_source`, which we can parse to get the cannonical title
         $params = array_merge(
-            $this->getBaseParams( $input ) ,
-            $this->getFieldParams( $input, false )
+            $this->getBaseParams($input),
+            $this->getFieldParams($input, false)
         );
 
         // `q` is required here, but we won't send an actual `query`
-        $params = $this->addSuggestParams( $params, $input, $requestArgs );
+        $params = $this->addSuggestParams($params, $input, $requestArgs);
 
         return $params;
-
     }
-
 
     /**
      * Build full param set (request body) for search queries.
      *
      * @return array
      */
-    public function getSearchParams( $input = null, $withAggregations = true ) {
-
+    public function getSearchParams($input = null, $withAggregations = true)
+    {
         // Strip down the (top-level) params to what our thin client supports
-        $input = self::getValidInput( $input );
+        $input = self::getValidInput($input);
 
         // Normalize the `boost` param to bool (default: true)
         if (!isset($input['boost'])) {
@@ -295,9 +278,9 @@ class Request
         }
 
         $params = array_merge(
-            $this->getBaseParams( $input ),
-            $this->getFieldParams( $input ),
-            $this->getPaginationParams( $input )
+            $this->getBaseParams($input),
+            $this->getFieldParams($input),
+            $this->getPaginationParams($input)
         );
 
         // This is the canonical body structure. It is required.
@@ -314,53 +297,41 @@ class Request
         ];
 
         // Add sort into the body, not the request
-        $params = $this->addSortParams( $params, $input );
+        $params = $this->addSortParams($params, $input);
 
         // Add our custom relevancy tweaks into `should`
-        if ( $input['boost'] ) {
-
-            $params = $this->addRelevancyParams( $params, $input );
-
+        if ($input['boost']) {
+            $params = $this->addRelevancyParams($params, $input);
         }
 
         // Add params to isolate "scoped" resources into `must`
-        $params = $this->addScopeParams( $params, $input );
+        $params = $this->addScopeParams($params, $input);
 
         /**
          * 1. If `query` is present, append it to the `must` clause.
          * 2. If `q` is present, add full-text search to the `must` clause.
          * 3. If `q` is absent, show all results.
          */
-        if( isset( $input['query'] ) ) {
-
-            $params = $this->addFullSearchParams( $params, $input );
-
+        if (isset($input['query'])) {
+            $params = $this->addFullSearchParams($params, $input);
         }
 
-        if( isset( $input['q'] ) ) {
-
-            $params = $this->addSimpleSearchParams( $params, $input );
-
+        if (isset($input['q'])) {
+            $params = $this->addSimpleSearchParams($params, $input);
         } else {
-
-            $params = $this->addEmptySearchParams( $params );
-
+            $params = $this->addEmptySearchParams($params);
         }
 
         // Add Aggregations (facets)
-        if( $withAggregations ) {
-
-            $params = $this->addAggregationParams( $params, $input );
-
+        if ($withAggregations) {
+            $params = $this->addAggregationParams($params, $input);
         }
 
         // Apply `function_score` (if any)
-        $params = $this->addFunctionScore( $params, $input );
+        $params = $this->addFunctionScore($params, $input);
 
         return $params;
-
     }
-
 
     /**
      * Gather params for an expalin query. Explain queries are identical to search,
@@ -368,30 +339,28 @@ class Request
      *
      * @return array
      */
-    public function getExplainParams( $input = [] ) {
-
-        $params = $this->getSearchParams( $input, false );
+    public function getExplainParams($input = [])
+    {
+        $params = $this->getSearchParams($input, false);
 
         $params['id'] = $this->id;
 
-        unset( $params['from'] );
-        unset( $params['size'] );
+        unset($params['from']);
+        unset($params['size']);
 
         return $params;
-
     }
-
 
     /**
      * Strip down the (top-level) user-input to what our thin client supports.
      * Allowed-but-omitted params are added as `null`
      *
-     * @param $input array
+     * @param array $input
      *
      * @return array
      */
-    public static function getValidInput( array $input = null ) {
-
+    public static function getValidInput(array $input = null)
+    {
         // Grab all user input (query string params or json)
         $input = $input ?: Input::all();
 
@@ -399,30 +368,26 @@ class Request
         $allowed = self::$allowed;
 
         // `null` will be the default value for all params
-        $defaults = array_fill_keys( $allowed, null );
+        $defaults = array_fill_keys($allowed, null);
 
         // Reduce the input set to the params we allow
-        $input = array_intersect_key( $input, array_flip( $allowed ) );
+        $input = array_intersect_key($input, array_flip($allowed));
 
         // Combine $defaults and $input: we won't have to use is_set, only is_null
-        $input = array_merge( $defaults, $input );
+        $input = array_merge($defaults, $input);
 
         return $input;
-
     }
-
 
     /**
      * Get pagination params.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-from-size.html
      *
-     * @param $input array
-     *
      * @return array
      */
-    private function getPaginationParams( array $input ) {
-
+    private function getPaginationParams(array $input)
+    {
         // Elasticsearch params take precedence
         // If that doesn't work, attempt to convert Laravel's pagination into ES params
         $size = $input['size'] ?? $input['limit'] ?? 10;
@@ -437,33 +402,40 @@ class Request
 
         // If not null, cast these params to int
         // We are using isset() instead of normal ternary to avoid catching `0` as falsey
-        if( isset( $size ) ) { $size = (int) $size; }
-        if( isset( $from ) ) { $from = (int) $from; }
+        if (isset($size)) {
+            $size = (int) $size;
+        }
+
+        if (isset($from)) {
+            $from = (int) $from;
+        }
 
         // Throw an exception if `size` is too big
-        if( $size > self::$maxSize ) {
+        if ($size > self::$maxSize) {
             throw new BigLimitException();
         }
 
-        if( isset( $size ) && isset( $from ) ) {
-            if ($from + $size > 1000) {
+        if (isset($size) && isset($from)) {
+            if (Auth::check() || !config('aic.auth.restricted')) {
+                $maxResources = config('aic.auth.max_resources_user');
+            } else {
+                $maxResources = config('aic.auth.max_resources_guest');
+            }
+
+            if ($from + $size > $maxResources) {
                 throw new TooManyResultsException();
             }
         }
 
         return [
-
             // TODO: Determine if this interferes w/ an autocomplete-only search
             'from' => $from,
             'size' => $size,
 
             // TODO: Re-enable this once the official ES PHP Client supports it
             // 'search_after' => $input['search_after'],
-
         ];
-
     }
-
 
     /**
      * Determine which fields to return. Set `fields` to `true` to return all.
@@ -473,19 +445,16 @@ class Request
      * may change in the future. The user shouldn't care about how we are storing
      * these fields internally, only what the API outputs.
      *
-     * @param $input array
-     * @param $default mixed Valid `_source` is array, string, null, or bool
+     * @param mixed $default  Valid `_source` is array, string, null, or bool
      *
      * @return array
      */
-    private function getFieldParams( array $input, $default = null ) {
-
+    private function getFieldParams(array $input, $default = null)
+    {
         return [
-            '_source' => $input['fields'] ?? ( $default ?? self::$defaultFields ),
+            '_source' => $input['fields'] ?? ($default ?? self::$defaultFields),
         ];
-
     }
-
 
     /**
      * Determine sort order. Sort must go into the request body, and it cannot be null.
@@ -493,63 +462,47 @@ class Request
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-request-sort.html
      * @link https://github.com/elastic/elasticsearch-php/issues/179
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
-    private function addSortParams( array $params, array $input ) {
-
-        if( isset( $input['sort'] ) )
-        {
+    private function addSortParams(array $params, array $input)
+    {
+        if (isset($input['sort'])) {
             $params['body']['sort'] = $input['sort'];
         }
 
         return $params;
-
     }
-
 
     /**
      * Append our own custom queries to tweak relevancy.
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
-    public function addRelevancyParams( array $params, array $input )
+    public function addRelevancyParams(array $params, array $input)
     {
-
         // Don't tweak relevancy if sort is passed
-        if( isset( $input['sort'] ) )
-        {
+        if (isset($input['sort'])) {
             return $params;
         }
 
-        if (!isset($input['q']))
-        {
+        if (!isset($input['q'])) {
             // Boost anything with `is_boosted` true
             $params['body']['query']['bool']['should'][] = [
                 'term' => [
                     'is_boosted' => [
                         'value' => true,
                         'boost' => 1.5,
-                    ]
-                ]
+                    ],
+                ],
             ];
 
             // Add any resource-specific boosts
-            foreach( $this->boosts as $boost ) {
-
+            foreach ($this->boosts as $boost) {
                 $params['body']['query']['bool']['should'][] = $boost;
-
             }
-
         }
 
         return $params;
-
     }
 
     /**
@@ -557,15 +510,13 @@ class Request
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl-function-score-query.html
      *
-     * @param $params array
+     * @param array $params
      *
      * @return array
      */
-    public function addFunctionScore( $params, $input )
+    public function addFunctionScore($params, $input)
     {
-
-        if( empty($this->functionScores) || !isset( $this->resources ) )
-        {
+        if (empty($this->functionScores) || !isset($this->resources)) {
             return $params;
         }
 
@@ -577,14 +528,13 @@ class Request
 
         $scopedQueries = collect([]);
 
-        foreach( $this->resources as $resource ) {
+        foreach ($this->resources as $resource) {
 
             // Grab the functions for this resource
             $rawFunctions = $this->functionScores[$resource] ?? null;
 
             // Move on if there are no functions declared for this model
-            if (empty($rawFunctions))
-            {
+            if (empty($rawFunctions)) {
                 $resourcesWithoutFunctions->push($resource);
                 continue;
             }
@@ -592,23 +542,19 @@ class Request
             // Start building the outbound function score array
             $outFunctions = [];
 
-            if ($input['boost'])
-            {
+            if ($input['boost']) {
                 $outFunctions = array_merge($outFunctions, $rawFunctions['all']);
             }
 
-            if ($input['boost'] && !isset($input['q']) && isset($rawFunctions['except_full_text']))
-            {
-                $outFunctions = array_merge($outFunctions, $rawFunctions['except_full_text'] );
+            if ($input['boost'] && !isset($input['q']) && isset($rawFunctions['except_full_text'])) {
+                $outFunctions = array_merge($outFunctions, $rawFunctions['except_full_text']);
             }
 
-            if (isset($rawFunctions['custom']))
-            {
+            if (isset($rawFunctions['custom'])) {
                 $outFunctions = array_merge($outFunctions, $rawFunctions['custom']);
             }
 
-            if (empty($outFunctions))
-            {
+            if (empty($outFunctions)) {
                 $resourcesWithoutFunctions->push($resource);
                 continue;
             }
@@ -620,81 +566,66 @@ class Request
                     'functions' => $outFunctions,
                     'score_mode' => 'max', // TODO: Consider making this an option?
                     'boost_mode' => 'multiply',
-                ]
+                ],
             ];
 
             // Wrap the query in a scope
-            $scopedQuery = app('Search')->getScopedQuery( $resource, $resourceQuery );
+            $scopedQuery = app('Search')->getScopedQuery($resource, $resourceQuery);
 
-            $scopedQueries->push( $scopedQuery );
-
+            $scopedQueries->push($scopedQuery);
         }
 
         // Add a query for all the leftover resources
-        $scopedQuery = app('Search')->getScopedQuery( $resourcesWithoutFunctions->all(), $baseQuery );
+        $scopedQuery = app('Search')->getScopedQuery($resourcesWithoutFunctions->all(), $baseQuery);
 
-        $scopedQueries->push( $scopedQuery );
+        $scopedQueries->push($scopedQuery);
 
         // Override the existing query with our queries
         $params['body']['query'] = [
             'bool' => [
                 'must' => $scopedQueries->all(),
-            ]
+            ],
         ];
 
         return $params;
-
     }
-
 
     /**
      * Append any search clauses that are needed to isolate scoped resources.
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
-    public function addScopeParams( array $params, array $input )
+    public function addScopeParams(array $params, array $input)
     {
-
-        if( !isset( $this->scopes ) || count( $this->scopes ) < 1 ) {
-
+        if (!isset($this->scopes) || count($this->scopes) < 1) {
             return $params;
-
         }
 
         // Assumes that `scopes` has no null members
         $params['body']['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $this->scopes,
-            ]
+            ],
         ];
 
         return $params;
-
     }
-
 
     /**
      * Get the search params for an empty string search.
      * Empy search requires special handling, e.g. no suggestions.
      *
-     * @param $params array
-     *
      * @return array
      */
-    private function addEmptySearchParams( array $params ) {
-
+    private function addEmptySearchParams(array $params)
+    {
         // PHP JSON-encodes empty array as [], not {}
         $params['body']['query']['bool']['must'][] = [
-            'match_all' => new \stdClass()
+            'match_all' => new \stdClass(),
         ];
 
         return $params;
-
     }
-
 
     /**
      * Append the query params for a simple search. Assumes that `$input['q']` is not null.
@@ -704,13 +635,10 @@ class Request
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/common-options.html#fuzziness
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.htm
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
-    private function addSimpleSearchParams( array $params, array $input ) {
-
+    private function addSimpleSearchParams(array $params, array $input)
+    {
         if ($colorParams = $this->getColorParams($params, $input)) {
             return $colorParams;
         }
@@ -720,8 +648,13 @@ class Request
 
         // Assumes that there are no trailing quotes
         // https://stackoverflow.com/a/2076399/1943591
-        $withQuotes = array_filter($subqueries, function ($i) {return $i & 1;}, ARRAY_FILTER_USE_KEY);
-        $withoutQuotes = array_filter($subqueries, function ($i) {return !($i & 1);}, ARRAY_FILTER_USE_KEY);
+        $withQuotes = array_filter($subqueries, function ($i) {
+            return $i & 1;
+        }, ARRAY_FILTER_USE_KEY);
+
+        $withoutQuotes = array_filter($subqueries, function ($i) {
+            return !($i & 1);
+        }, ARRAY_FILTER_USE_KEY);
 
         // Remove trailing whitespace
         $withQuotes = array_filter(array_map('trim', $withQuotes));
@@ -749,8 +682,8 @@ class Request
         $isExact = count($withQuotes) > 0;
 
         // Only pull default fields for the resources targeted by this request
-        $allFields = app('Search')->getDefaultFieldsForEndpoints( $this->resources, false );
-        $exactFields = app('Search')->getDefaultFieldsForEndpoints( $this->resources, true );
+        $allFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, false);
+        $exactFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, true);
 
         foreach ($withQuotes as $subquery) {
             $params['body']['query']['bool']['must'][] = [
@@ -780,27 +713,24 @@ class Request
 
         // Queries below depend on `q`, but act as relevany tweaks
         // Don't tweak relevancy further if sort is passed
-        if( isset( $input['sort'] ) )
-        {
+        if (isset($input['sort'])) {
             return $params;
         }
 
         // This acts as a boost for docs that match precisely, if fuzzy search is enabled
-        if (!$isExact && ($fuzziness ?? false))
-        {
+        if (!$isExact && ($fuzziness ?? false)) {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $input['q'],
                     'fields' => $allFields,
-                ]
+                ],
             ];
         }
 
         // This boosts docs that have multiple terms in close proximity
         // `phrase` queries are relatively expensive, so check for spaces first
         // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
-        if( strpos( $input['q'], ' ' ) )
-        {
+        if (strpos($input['q'], ' ')) {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => str_replace('"', '', $input['q']),
@@ -808,35 +738,28 @@ class Request
                     'slop' => 3, // account for e.g. middle names
                     'fields' => $allFields,
                     'boost' => 10, // See WEB-22
-                ]
+                ],
             ];
         }
 
         return $params;
-
     }
-
 
     /**
      * Get the search params for a complex search
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
-    private function addFullSearchParams( array $params, array $input ) {
-
+    private function addFullSearchParams(array $params, array $input)
+    {
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
         $params['body']['query']['bool']['must'][] = [
-            Arr::get( $input, 'query' ),
+            Arr::get($input, 'query'),
         ];
 
         return $params;
-
     }
-
 
     /**
      * Append suggest params to query.
@@ -844,38 +767,28 @@ class Request
      * Both `query` and `q`-only searches support suggestions.
      * Empty searches do not support suggestions.
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
-    public function addSuggestParams( array $params, array $input, $requestArgs = null)
+    public function addSuggestParams(array $params, array $input, $requestArgs = null)
     {
-
         $params['body']['suggest'] = [
-            'text' => Arr::get( $input, 'q' ),
+            'text' => Arr::get($input, 'q'),
         ];
 
-        $params = $this->addAutocompleteSuggestParams( $params, $input, $requestArgs );
+        $params = $this->addAutocompleteSuggestParams($params, $input, $requestArgs);
 
         return $params;
-
     }
-
 
     /**
      * Append autocomplete suggest params.
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters-completion.html
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
-    private function addAutocompleteSuggestParams( array $params, array $input, $requestArgs = null)
+    private function addAutocompleteSuggestParams(array $params, array $input, $requestArgs = null)
     {
-
         $isThisAutosuggest = $requestArgs && is_array($requestArgs) && ($requestArgs['use_suggest_autocomplete_all'] ?? false);
 
         if ($isThisAutosuggest) {
@@ -885,7 +798,7 @@ class Request
         }
 
         $params['body']['suggest']['autocomplete'] = [
-            'prefix' =>  Arr::get( $input, 'q' ),
+            'prefix' => Arr::get($input, 'q'),
             'completion' => [
                 'field' => $field,
                 'fuzzy' => [
@@ -899,8 +812,7 @@ class Request
             $contexts = $input['contexts'];
 
             // Ensure that resources is an array, not string
-            if( is_string( $contexts ) )
-            {
+            if (is_string($contexts)) {
                 $contexts = explode(',', $contexts);
             }
 
@@ -910,61 +822,49 @@ class Request
         }
 
         return $params;
-
     }
-
 
     /**
      * Append aggregation parameters. This is a straight pass-through for more flexibility.
      * Elasticsearch accepts both `aggs` and `aggregations`, so we support both too.
      *
-     * @param $params array
-     * @param $input array
-     *
      * @return array
      */
-    public function addAggregationParams( array $params, array $input )
+    public function addAggregationParams(array $params, array $input)
     {
-
         $aggregations = $input['aggregations'] ?? $input['aggs'] ?? null;
 
-        if( $aggregations ) {
-
+        if ($aggregations) {
             $params['body']['aggregations'] = $aggregations;
-
         }
 
         return $params;
-
     }
 
-    private function getFuzzy( array $input, string $query = null )
+    private function getFuzzy(array $input, string $query = null)
     {
-        if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7)
-        {
+        if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7) {
             return 0;
         }
 
-        if (!isset($input['fuzzy']))
-        {
+        if (!isset($input['fuzzy'])) {
             return 'AUTO';
         }
 
-        if ($input['fuzzy'] === 'AUTO')
-        {
+        if ($input['fuzzy'] === 'AUTO') {
             return 'AUTO';
         }
 
         return min([2, (int) $input['fuzzy']]);
     }
 
-    private function getColorParams( array $params, array $input )
+    private function getColorParams(array $params, array $input)
     {
         // Exit early if the query is not an exact hex string
         if (!(
-            strlen($input['q']) == 7 && preg_match("/^#[0-9a-f]{6}/i", $input['q'])
+            strlen($input['q']) === 7 && preg_match('/^#[0-9a-f]{6}/i', $input['q'])
         ) || (
-            strlen($input['q']) == 4 && preg_match("/^#[0-9a-f]{3}/i", $input['q'])
+            strlen($input['q']) === 4 && preg_match('/^#[0-9a-f]{3}/i', $input['q'])
         )) {
             return false;
         }
@@ -990,8 +890,8 @@ class Request
                     'color.h' => [
                         'gte' => max($hueMin, 0),
                         'lte' => min($hueMax, 360),
-                    ]
-                ]
+                    ],
+                ],
             ],
         ];
 
@@ -1001,8 +901,8 @@ class Request
                     'color.h' => [
                         'gte' => $hueMin + 360,
                         'lte' => 360,
-                    ]
-                ]
+                    ],
+                ],
             ];
         }
 
@@ -1012,15 +912,15 @@ class Request
                     'color.h' => [
                         'gte' => 0,
                         'lte' => $hueMax - 360,
-                    ]
-                ]
+                    ],
+                ],
             ];
         }
 
         $params['body']['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $hueQueries,
-            ]
+            ],
         ];
 
         $params['body']['query']['bool']['must'][] = [
@@ -1028,8 +928,8 @@ class Request
                 'color.s' => [
                     'gte' => max($hsl['s'] - $saturationTolerance, 0),
                     'lte' => min($hsl['s'] + $saturationTolerance, 100),
-                ]
-            ]
+                ],
+            ],
         ];
 
         $params['body']['query']['bool']['must'][] = [
@@ -1037,21 +937,21 @@ class Request
                 'color.l' => [
                     'gte' => max($hsl['l'] - $lightnessTolerance, 0),
                     'lte' => min($hsl['l'] + $lightnessTolerance, 100),
-                ]
-            ]
+                ],
+            ],
         ];
 
         // We can't do an exists[field]=lqip, b/c lqip isn't indexed
         $params['body']['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.width',
-            ]
+            ],
         ];
 
         $params['body']['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.height',
-            ]
+            ],
         ];
 
         return $params;

@@ -8,9 +8,9 @@ namespace App\Models\Collections;
 class Image extends Asset
 {
 
-    protected $table = 'assets';
-
     protected static $assetType = 'image';
+
+    protected $table = 'assets';
 
     protected $appends = ['iiif_url'];
 
@@ -21,17 +21,12 @@ class Image extends Asset
      */
     public function getIiifUrlAttribute()
     {
-
         return env('IIIF_URL', 'https://localhost/iiif') . '/' . $this->lake_guid;
-
     }
-
 
     public function searchableImage()
     {
-
         return $this->iiif_url;
-
     }
 
 }

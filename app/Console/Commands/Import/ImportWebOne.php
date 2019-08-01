@@ -9,14 +9,11 @@ class ImportWebOne extends ImportWebFull
                             {endpoint : Endpoint on dataservice to query, e.g. `events` }
                             {id : Identifier of the specific resource to import}';
 
-    protected $description = "Import a single resource from the web dataservice.";
-
+    protected $description = 'Import a single resource from the web dataservice.';
 
     public function handle()
     {
-
-        if (env('WEB_CMS_DATA_SERVICE_USERNAME'))
-        {
+        if (env('WEB_CMS_DATA_SERVICE_USERNAME')) {
             $this->auth = env('WEB_CMS_DATA_SERVICE_USERNAME') . ':' . env('WEB_CMS_DATA_SERVICE_PASSWORD');
         }
 
@@ -25,26 +22,24 @@ class ImportWebOne extends ImportWebFull
 
         $model = $this->getModelForEndpoint($endpoint);
 
-        $transformer = app('Resources')->getInboundTransformerForModel( $model, 'Web' );
+        $transformer = app('Resources')->getInboundTransformerForModel($model, 'Web');
 
-        $json = $this->fetchItem( $endpoint, $id );
+        $json = $this->fetchItem($endpoint, $id);
 
         $datum = $json->data;
 
-        $this->updateSentryTags( $datum, $endpoint, 'Web' );
+        $this->updateSentryTags($datum, $endpoint, 'Web');
 
-        $this->save( $datum, $model, $transformer );
-
+        $this->save($datum, $model, $transformer);
     }
 
-    private function fetchItem( $endpoint, $id )
+    private function fetchItem($endpoint, $id)
     {
-
         $url = env('WEB_CMS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
 
-        $this->info( 'Fetching: ' . $url );
+        $this->info('Fetching: ' . $url);
 
-        return $this->fetchWithAuth( $url, true );
+        return $this->fetchWithAuth($url, true);
     }
 
 }

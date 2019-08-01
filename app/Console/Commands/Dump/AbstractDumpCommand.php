@@ -94,44 +94,36 @@ abstract class AbstractDumpCommand extends BaseCommand
         $this->shell = new Shell();
     }
 
-
     /**
      * All of the data dumps live in `database/dumps` per `config/filesystems.php`.
      * Use this to generate absolute paths to CSV files for `createFromPath` calls.
      *
      * @param string $subpath  ...e.g. to CSV file, relative to `database/dumps`
-     * @return string
      */
-    protected function getDumpPath(string $subpath) : string
+    protected function getDumpPath(string $subpath): string
     {
-
         return Storage::disk('dumps')->getDriver()->getAdapter()->getPathPrefix() . $subpath;
-
     }
 
     /**
      * If command has `--path=` option, return it. Fall back to `database/dumps/local`.
      * Enforces correct structure in dump directory.
      *
-     * @return string
      */
-    protected function getDumpPathOption() : string
+    protected function getDumpPathOption(): string
     {
         $dumpPath = $this->hasOption('path') ? $this->option('path') : null;
         $dumpPath = $dumpPath ?? $this->getDumpPath('local');
         $dumpPath = rtrim($dumpPath, '/') . '/';
 
-        if (!file_exists($dumpPath))
-        {
+        if (!file_exists($dumpPath)) {
             throw new Exception('Directory does not exist: ' . $dumpPath);
         }
 
-        foreach (['tables'] as $subdir)
-        {
+        foreach (['tables'] as $subdir) {
             $subdirPath = $dumpPath . '/' . $subdir;
 
-            if (!file_exists($subdirPath))
-            {
+            if (!file_exists($subdirPath)) {
                 mkdir($subdirPath, 0755);
             }
         }
@@ -144,13 +136,10 @@ abstract class AbstractDumpCommand extends BaseCommand
      */
     protected function validateEnv(array $vars)
     {
-        foreach ($vars as $var)
-        {
-            if (empty(env($var)))
-            {
+        foreach ($vars as $var) {
+            if (empty(env($var))) {
                 throw new Exception('Please specify `' . $var . '` in .env');
             }
         }
     }
-
 }

@@ -7,9 +7,7 @@ class ArticlesTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-
-        factory( Article::class, 25 )->create();
-
+        factory(Article::class, 25)->create();
     }
 
 }

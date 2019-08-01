@@ -56,9 +56,7 @@ class BelongsToManyOrOne extends BelongsToMany
      */
     public function isPreferred()
     {
-
         return $this->wherePivot('preferred', '=', true)->expectOne();
-
     }
 
     /**
@@ -68,9 +66,7 @@ class BelongsToManyOrOne extends BelongsToMany
      */
     public function isAlternative()
     {
-
         return $this->wherePivot('preferred', '=', false)->expectMany();
-
     }
 
 }

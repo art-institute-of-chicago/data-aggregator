@@ -43,7 +43,7 @@ class CategoryTerm extends BaseTransformer
                 'value' => function ($item) {
                     return $item->parent->lake_uid ?? null;
                 },
-            ]
+            ],
         ];
     }
 

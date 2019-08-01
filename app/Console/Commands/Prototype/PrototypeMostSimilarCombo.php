@@ -2,24 +2,13 @@
 
 namespace App\Console\Commands\Prototype;
 
-use App\Models\Collections\Artwork;
-
 use Illuminate\Support\Arr;
 
 class PrototypeMostSimilarCombo extends PrototypeMostSimilar
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'proto:most-similar-combo';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Uses logic from most-similar, but runs all clauses in one query';
 
     protected $sizeRenderPerQuery = 12;
@@ -39,12 +28,12 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
         $dateQuery = $this->dateQuery($date_start, $date_end);
         $dateQuery['query']['bool']['boost'] = 1;
 
-        array_push( $query, $dateQuery );
+        array_push($query, $dateQuery);
 
         if ($artw->image->metadata->color ?? false) {
             $colorQuery = $this->colorQuery($artw->image->metadata->color);
             $colorQuery['query']['bool']['boost'] = 1;
-            array_push( $query, $colorQuery );
+            array_push($query, $colorQuery);
         }
 
         // Filter out empty array queries
@@ -53,41 +42,38 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
         // Combine the queries into one (for msearch)
         $query = [
             [
-                "resources" => "artworks",
-                "query" => [
-                    "bool" => [
-                        "should" => collect( $query )->pluck('query')->all(),
-                    ]
+                'resources' => 'artworks',
+                'query' => [
+                    'bool' => [
+                        'should' => collect($query)->pluck('query')->all(),
+                    ],
                 ],
-                "q" => null,
-                "fields" => $this->fields,
-                "size" => $this->size,
-            ]
+                'q' => null,
+                'fields' => $this->fields,
+                'size' => $this->size,
+            ],
         ];
 
         return $this->curl($query);
-
     }
-
 
     protected function basicQueryBoosted($field, $value, $boost)
     {
-        if (!$value)
-        {
+        if (!$value) {
             return [];
         }
+
         return [
-            "resources" => "artworks",
-            "query" => [
-                "terms" => [
+            'resources' => 'artworks',
+            'query' => [
+                'terms' => [
                     $field => $value,
-                    "boost" => $boost,
+                    'boost' => $boost,
                 ],
             ],
-            "fields" => $this->fields,
-            "size" => $this->size,
+            'fields' => $this->fields,
+            'size' => $this->size,
         ];
     }
-
 
 }

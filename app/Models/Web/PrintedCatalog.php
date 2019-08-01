@@ -3,7 +3,7 @@
 namespace App\Models\Web;
 
 /**
- * An printed catalog on the website
+ * A printed catalog on the website
  */
 class PrintedCatalog extends Page
 {

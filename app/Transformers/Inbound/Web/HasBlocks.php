@@ -10,16 +10,14 @@ use App\Transformers\Datum;
 trait HasBlocks
 {
 
-    protected function getExtraFields( Datum $datum )
+    protected function getExtraFields(Datum $datum)
     {
-
-        $blocks = $this->getBlocks( $datum );
+        $blocks = $this->getBlocks($datum);
 
         return [
-            'copy' => $this->getCopy( $blocks ),
-            'imgix_uuid' => $this->getImage( $blocks ),
+            'copy' => $this->getCopy($blocks),
+            'imgix_uuid' => $this->getImage($blocks),
         ];
-
     }
 
     /**
@@ -27,60 +25,51 @@ trait HasBlocks
      *
      * @return \Illuminate\Support\Collection
      */
-    private function getBlocks( Datum $datum )
+    private function getBlocks(Datum $datum)
     {
-
         // Articles use `copy`, but pages use `content`
         $field = $datum->copy ?? $datum->content ?? [];
 
         // Ensure blocks are sorted by their position
-        $blocks = Arr::sort( $field, function( $block ) {
+        $blocks = Arr::sort($field, function ($block) {
             return $block->position;
         });
 
         // Return as Laravel collection for convenience
-        return collect( $blocks );
-
+        return collect($blocks);
     }
 
     /**
      * Helper to retrieve article copy as one string.
      *
-     * @return string
+     * @return ?string
      */
-    private function getCopy( Collection $blocks )
+    private function getCopy(Collection $blocks)
     {
-
         // Get our rules for extracting copy from blocks
         $rules = $this->getCopyRules();
 
         // Loop through the rules to see which apply
-        $texts = $blocks->map( function( $block ) use ( $rules ) {
-
-            foreach( $rules as $rule )
-            {
-                if( $rule['filter']($block) )
-                {
+        $texts = $blocks->map(function ($block) use ($rules) {
+            foreach ($rules as $rule) {
+                if ($rule['filter']($block)) {
                     return $rule['extract']($block);
                 }
             }
 
             return null;
-
         });
 
         // Filter out any null texts
         $texts = $texts->filter();
 
         // Ensure there's valid texts here
-        if( $texts->count() < 1 )
-        {
+        if ($texts->count() < 1) {
             return null;
         }
 
         // Return all texts as one string
         return $texts->implode(' ');
-
     }
 
     /**
@@ -88,12 +77,10 @@ trait HasBlocks
      *
      * @return string
      */
-    private function getImage( Collection $blocks )
+    private function getImage(Collection $blocks)
     {
-
         // Get a URL to the first large image
         return $blocks->firstWhere('type', 'image')->medias[0]->uuid ?? null;
-
     }
 
     /**
@@ -104,37 +91,33 @@ trait HasBlocks
      */
     private function getCopyRules()
     {
-
         return [
             [
-                'filter' => function( $block ) {
-                    return $block->type == 'paragraph' && isset( $block->content->paragraph );
+                'filter' => function ($block) {
+                    return $block->type === 'paragraph' && isset($block->content->paragraph);
                 },
-                'extract' => function( $block ) {
-                    return $this->cleanRichText( $block->content->paragraph );
+                'extract' => function ($block) {
+                    return $this->cleanRichText($block->content->paragraph);
                 },
             ],
             [
-                'filter' => function( $block ) {
-                    return $block->type == 'artworks' && isset( $block->content->subhead );
+                'filter' => function ($block) {
+                    return $block->type === 'artworks' && isset($block->content->subhead);
                 },
-                'extract' => function( $block ) {
-                    return $this->cleanRichText( $block->content->subhead );
+                'extract' => function ($block) {
+                    return $this->cleanRichText($block->content->subhead);
                 },
-            ]
+            ],
         ];
-
     }
-
 
     /**
      * Transforms our website's WYSIWYG output to searchable plaintext.
      *
      * @return string
      */
-    private function cleanRichText( string $content )
+    private function cleanRichText(string $content)
     {
-
         // PHP's `strip_tags` has no way to replace tags with spaces
         $content = preg_replace('#<[^>]+>#', ' ', $content);
 
@@ -146,7 +129,6 @@ trait HasBlocks
         $content = preg_replace('/\s+/', ' ', $content);
 
         return $content;
-
     }
 
 }

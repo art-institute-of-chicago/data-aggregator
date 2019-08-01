@@ -12,7 +12,7 @@ class BulkAll extends BaseCommand
 
     protected $signature = 'bulk:all {skip-to-source?} {skip-to-endpoint?} {--at=}';
 
-    protected $description = "Reset database and import everything";
+    protected $description = 'Reset database and import everything';
 
     private $startedAt;
 
@@ -31,21 +31,20 @@ class BulkAll extends BaseCommand
 
         // Import all bulkable resources from compliant data services
         foreach (config('resources.inbound') as $source => $endpoints) {
-
             foreach ($endpoints as $endpoint => $resource) {
-                dump("$source >> $endpoint");
+                dump("${source} >> ${endpoint}");
 
                 if ((
                     $shouldSkipToSource && $source !== $shouldSkipToSource
                 ) || (
                     $shouldSkipToEndpoint && $endpoint !== $shouldSkipToEndpoint
                 )) {
-                    dump("Skipping...");
+                    dump('Skipping...');
                     continue;
                 }
 
                 if ($resource['exclude_from_import'] ?? false) {
-                    dump("Skipping from config...");
+                    dump('Skipping from config...');
                     continue;
                 }
 
@@ -96,8 +95,8 @@ class BulkAll extends BaseCommand
                 'command' => $commandName,
             ]);
 
-            $command->last_attempt_at = $this->startedAt ?? $this->command->last_attempt_at;
-            $command->last_success_at = $this->startedAt ?? $this->command->last_attempt_at;
+            $command->last_attempt_at = $this->startedAt ?? $command->last_attempt_at;
+            $command->last_success_at = $this->startedAt ?? $command->last_attempt_at;
 
             $command->save();
         }

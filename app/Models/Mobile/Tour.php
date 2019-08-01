@@ -20,23 +20,17 @@ class Tour extends MobileModel
 
     public function intro()
     {
-
         return $this->belongsTo('App\Models\Mobile\Sound', 'intro_mobile_id');
-
     }
 
     public function tourStops()
     {
-
         return $this->hasMany('App\Models\Mobile\TourStop', 'tour_mobile_id');
-
     }
 
     public function searchableImage()
     {
-
         return $this->image;
-
     }
 
 }

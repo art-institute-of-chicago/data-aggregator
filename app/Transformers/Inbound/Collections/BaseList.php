@@ -4,7 +4,6 @@ namespace App\Transformers\Inbound\Collections;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Transformers\Datum;
 use App\Transformers\Inbound\CollectionsTransformer;
 
 class BaseList extends CollectionsTransformer
@@ -15,7 +14,7 @@ class BaseList extends CollectionsTransformer
      * Each item is just a combination of an id and a title.
      * Compare the titles to see if anything changed.
      */
-    public function shouldSave( Model $instance, $datum )
+    public function shouldSave(Model $instance, $datum)
     {
         return $instance->title && $datum->title ? $instance->title !== $datum->title : true;
     }

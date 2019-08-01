@@ -37,14 +37,14 @@ trait ImportsData
      * Is this a full import, or a partial? If partial, import stops when it
      * encounters the first items older than the last successful run.
      *
-     * @var string
+     * @var bool
      */
     protected $isPartial = false;
 
     /**
      * How far back to scan for items? Only relevant if `$isPartial` is true.
      *
-     * @var \Carbon\Carbon
+     * @var \Carbon\CarbonInterface
      */
     protected $since;
 
@@ -69,17 +69,15 @@ trait ImportsData
      *
      * @return string|object
      */
-    protected function fetch( $file, $decode = false ) {
-
-        if( !$contents = @file_get_contents( $file ) )
+    protected function fetch($file, $decode = false)
+    {
+        if (!$contents = @file_get_contents($file))
         {
-            throw new \Exception('Fetch failed: ' . $file );
+            throw new \Exception('Fetch failed: ' . $file);
         }
 
-        return $decode ? json_decode( $contents ) : $contents;
-
+        return $decode ? json_decode($contents) : $contents;
     }
-
 
     /**
      * Convenience curl wrapper. Accepts `GET` URL. Returns decoded JSON.
@@ -93,34 +91,32 @@ trait ImportsData
      *
      * @return string
      */
-    protected function fetchWithAuth( $url, $decode = false )
+    protected function fetchWithAuth($url, $decode = false)
     {
-
         $ch = curl_init();
 
-        curl_setopt ($ch, CURLOPT_URL, $url);
-        curl_setopt ($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
 
-        curl_setopt ($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-        curl_setopt ($ch, CURLOPT_USERPWD, $this->auth);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+        curl_setopt($ch, CURLOPT_USERPWD, $this->auth);
 
-        curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
         ob_start();
 
-        curl_exec ($ch);
-        curl_close ($ch);
+        curl_exec($ch);
+        curl_close($ch);
 
         $contents = ob_get_contents();
 
         ob_end_clean();
 
-        if( is_null( $contents ) ) {
-            throw new \Exception("Cannot fetch URL: " . $url);
+        if (is_null($contents)) {
+            throw new \Exception('Cannot fetch URL: ' . $url);
         }
 
-        return $decode ? json_decode( $contents ) : $contents;
-
+        return $decode ? json_decode($contents) : $contents;
     }
 
     /**
@@ -128,15 +124,13 @@ trait ImportsData
      *
      * @param string $endpoint
      * @param integer $page
-     * @param limit $limit
+     * @param integer $limit
      *
      * @return string
      */
-    protected function getUrl( $endpoint, $page = 1, $limit = 1000 )
+    protected function getUrl($endpoint, $page = 1, $limit = 1000)
     {
-
         return $this->api . '/' . $endpoint . '?page=' . $page . '&limit=' . $limit;
-
     }
 
     /**
@@ -145,28 +139,25 @@ trait ImportsData
      *
      * @param string $endpoint
      * @param integer $page
-     * @param limit $limit
+     * @param integer $limit
      *
      * @return object
      */
-    protected function query( $endpoint, $page = 1, $limit = 500 )
+    protected function query($endpoint, $page = 1, $limit = 500)
     {
-
-        $url = $this->getUrl( $endpoint, $page, $limit );
+        $url = $this->getUrl($endpoint, $page, $limit);
 
         // Allows us to specify which fields to retrieve, for performance
-        if( $this->fields )
-        {
+        if ($this->fields) {
             $url .= $this->fields;
         }
 
-        $this->info( 'Querying: ' . $url );
+        $this->info('Querying: ' . $url);
 
         // Determine if authentication is needed
         $method = $this->auth ? 'fetchWithAuth' : 'fetch';
 
-        return $this->$method( $url, true );
-
+        return $this->{$method}($url, true);
     }
 
     /**
@@ -180,9 +171,8 @@ trait ImportsData
      *
      * @return object
      */
-    protected function import( $source, $model, $endpoint, $current = 1 )
+    protected function import($source, $model, $endpoint, $current = 1)
     {
-
         $this->since = $this->command->last_success_at;
 
         if ($this->hasOption('since') && !empty($this->option('since'))) {
@@ -193,24 +183,21 @@ trait ImportsData
             }
         }
 
-        if( $this->isPartial )
-        {
-
-            $this->info("Looking for resources since " . $this->since->toIso8601String());
-
+        if ($this->isPartial) {
+            $this->info('Looking for resources since ' . $this->since->toIso8601String());
         }
 
         // Figure out which transformer to use for this import operation
-        $transformer = app('Resources')->getInboundTransformerForModel( $model, $source );
+        $transformer = app('Resources')->getInboundTransformerForModel($model, $source);
 
         // Query for the first page + get page count
-        $json = $this->query( $endpoint, $current );
+        $json = $this->query($endpoint, $current);
 
         if ($this->isTest) {
 
             $pages = 1;
 
-            $this->warn( 'Testing import of a single page for model ' . $model );
+            $this->warn('Testing import of a single page for model ' . $model);
 
         } else {
 
@@ -221,39 +208,34 @@ trait ImportsData
             // This happens when you're trying to hit an endpoint that doesn't exist
             // Ensure dataservice can be reached before doing this!
 
-            $this->warn( 'Found ' . $pages . ' page(s) for model ' . $model );
+            $this->warn('Found ' . $pages . ' page(s) for model ' . $model);
 
         }
 
-        while( $current <= $pages )
+        while ($current <= $pages)
         {
-
-            $this->warn( 'Importing ' . $current . ' of ' . $pages . ' for model ' . $model );
+            $this->warn('Importing ' . $current . ' of ' . $pages . ' for model ' . $model);
 
             // Assumes the dataservice wraps its results in a `data` field
-            foreach( $json->data as $datum )
+            foreach ($json->data as $datum)
             {
-
                 // TODO: Careful, this conflicts w/ partial imports – running on one endpoint counts for all!
                 // Break if this is a partial import + this datum is older than last run
-                if( $this->isPartial && isset( $datum->{$model::$sourceLastUpdateDateField} ) )
+                if ($this->isPartial && isset($datum->{$model::$sourceLastUpdateDateField}))
                 {
-
-                    $sourceTime = new Carbon( $datum->{$model::$sourceLastUpdateDateField} );
+                    $sourceTime = new Carbon($datum->{$model::$sourceLastUpdateDateField});
                     $sourceTime->timezone = config('app.timezone');
 
-                    if( $this->since->gt( $sourceTime ) )
+                    if ($this->since->gt($sourceTime))
                     {
                         break 2;
                     }
-
                 }
 
-                $this->updateSentryTags( $datum, $endpoint, $source );
+                $this->updateSentryTags($datum, $endpoint, $source);
 
                 // Be sure to overwrite `save` to make this work!
-                $this->save( $datum, $model, $transformer );
-
+                $this->save($datum, $model, $transformer);
             }
 
             $current++;
@@ -261,12 +243,10 @@ trait ImportsData
             usleep($this->sleepFor * 1000000);
 
             // TODO: This structure causes an extra query to be run, when it might not need to be
-            $json = $this->query( $endpoint, $current );
-
+            $json = $this->query($endpoint, $current);
         }
 
         unset($json);
-
     }
 
     /**
@@ -277,42 +257,37 @@ trait ImportsData
      *
      * @return boolean
      */
-    protected function resetData( $modelsToFlush, $tablesToClear )
+    protected function resetData($modelsToFlush, $tablesToClear)
     {
-
         // Return false if the user bails out
-        if ( !$this->confirmReset() )
-        {
+        if (!$this->confirmReset()) {
             return false;
         }
 
         // Ensure the arguments are arrays
-        $modelsToFlush = is_array( $modelsToFlush ) ? $modelsToFlush : [ $modelsToFlush ];
-        $tablesToClear = is_array( $tablesToClear ) ? $tablesToClear : [ $tablesToClear ];
+        $modelsToFlush = is_array($modelsToFlush) ? $modelsToFlush : [$modelsToFlush];
+        $tablesToClear = is_array($tablesToClear) ? $tablesToClear : [$tablesToClear];
 
         // TODO: If we dump the indexes + recreate them, we don't need to flush
         // Flush might not remove models that are present in the index, but not the database
-        foreach( $modelsToFlush as $model )
-        {
-            $this->call("scout:flush", ['model' => $model]);
+        foreach ($modelsToFlush as $model) {
+            $this->call('scout:flush', ['model' => $model]);
             $this->info("Flushed from search index: `{$model}`");
         }
 
         // TODO: We'd like to affect related models – consider doing an Eloquent delete instead
         // It's much slower, but it'll ensure better data integrity
-        foreach( $tablesToClear as $table )
-        {
+        foreach ($tablesToClear as $table) {
             DB::table($table)->truncate();
             $this->info("Truncated `{$table}` table.");
         }
 
         // Reinstall search: flush might not work, since some models might be present in the index, which aren't here
-        $this->info("Please manually ensure that your search index mappings are up-to-date.");
+        $this->info('Please manually ensure that your search index mappings are up-to-date.');
         // $this->call("search:uninstall");
         // $this->call("search:install");
 
         return true;
-
     }
 
     /**
@@ -322,14 +297,12 @@ trait ImportsData
      */
     protected function confirmReset()
     {
-
         return (
             !$this->hasOption('yes') || $this->option('yes')
         ) || (
             // TODO: Make this less generic?
-            $this->confirm("Running this will fully overwrite some tables in your database! Are you sure?")
+            $this->confirm('Running this will fully overwrite some tables in your database! Are you sure?')
         );
-
     }
 
     /**
@@ -339,19 +312,15 @@ trait ImportsData
      * @param string $model
      * @param string $transformer
      */
-    protected function save( $datum, $model, $transformer )
+    protected function save($datum, $model, $transformer)
     {
-
-        throw \Exception('You must overwrite the `save` method.');
-
+        throw new \Exception('You must overwrite the `save` method.');
     }
 
     protected function updateSentryTags($datum = null, $endpoint = null, $source = null)
     {
-        if (app()->bound('sentry'))
-        {
+        if (app()->bound('sentry')) {
             $sentry = app('sentry');
-
             $sentry->configureScope(function (Scope $scope) use ($datum, $endpoint, $source) {
                 isset($datum->id) && $scope->setTag('id', $datum->id);
                 isset($endpoint) && $scope->setTag('endpoint', $endpoint);
