@@ -35,26 +35,6 @@ class EmailSeries extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
-            'affiliate_copy' => [
-                'doc' => 'Default copy for Affiliate Members',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
-            'member_copy' => [
-                'doc' => 'Default copy for Members',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
-            'sustaining_fellow_copy' => [
-                'doc' => 'Default copy for Sustaining Fellows',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
-            'nonmember_copy' => [
-                'doc' => 'Default copy for Non-Members',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
         ];
     }
 
