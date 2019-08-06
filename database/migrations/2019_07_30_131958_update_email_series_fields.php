@@ -30,6 +30,7 @@ class UpdateEmailSeriesFields extends Migration
                 'member_copy',
                 'sustaining_fellow_copy',
                 'affiliate_member_copy',
+                'use_short_description',
             ]);
         });
 
@@ -62,6 +63,7 @@ class UpdateEmailSeriesFields extends Migration
         });
 
         Schema::table('email_series', function (Blueprint $table) {
+            $table->boolean('use_short_description')->nullable()->after('title');
             $table->text('non_member_copy')->nullable()->after('show_affiliate');
             $table->text('member_copy')->nullable()->after('non_member_copy');
             $table->text('sustaining_fellow_copy')->nullable()->after('member_copy');

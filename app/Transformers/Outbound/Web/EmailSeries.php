@@ -10,11 +10,6 @@ class EmailSeries extends BaseTransformer
     protected function getFields()
     {
         return [
-            'use_short_description' => [
-                'doc' => 'Whether to use the event\'s `short_description` as default copy',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-            ],
             'show_affiliate' => [
                 'doc' => 'Whether to show the "Send to Affiliate Members" option',
                 'type' => 'boolean',

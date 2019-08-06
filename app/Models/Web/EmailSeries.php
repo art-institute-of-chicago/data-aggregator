@@ -13,7 +13,6 @@ class EmailSeries extends WebModel
     protected $hasSourceDates = false;
 
     protected $casts = [
-        'use_short_description' => 'boolean',
         'show_nonmember' => 'boolean',
         'show_member' => 'boolean',
         'show_sustaining_fellow' => 'boolean',
