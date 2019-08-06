@@ -317,7 +317,7 @@ return [
         [
             'endpoint' => 'email-series',
             'model' => \App\Models\Web\EmailSeries::class,
-            'transformer' => \App\Transformers\Outbound\Web\EmailSeries::class,
+            'transformer' => \App\Transformers\Outbound\GenericTransformer::class,
             'is_searchable' => true,
         ],
         [
