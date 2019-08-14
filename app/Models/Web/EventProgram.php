@@ -11,5 +11,6 @@ class EventProgram extends WebModel
 {
     protected $casts = [
         'is_affiliate_group' => 'boolean',
+        'is_event_host' => 'boolean',
     ];
 }

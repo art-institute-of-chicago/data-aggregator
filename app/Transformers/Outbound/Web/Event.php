@@ -277,25 +277,25 @@ class Event extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
-            'show_affiliate_message' => [
-                'doc' => 'Whether to include the presented-by-affiliate message in emails',
+            'show_presented_by' => [
+                'doc' => 'Whether to include the presented-by-host message in emails',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
-            'affiliate_group_id' => [
-                'doc' => 'Unique identifier of the affiliate group that is presenting this event',
+            'event_host_id' => [
+                'doc' => 'Unique identifier of the host (cf. event programs) that is presenting this event',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->affiliateGroup->id ?? null;
+                    return $item->eventHost->id ?? null;
                 },
             ],
-            'affiliate_group_title' => [
-                'doc' => 'Unique identifier of the affiliate group that is presenting this event',
+            'event_host_title' => [
+                'doc' => 'Unique identifier of the host (cf. event programs) that is presenting this event',
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->affiliateGroup->title ?? null;
+                    return $item->eventHost->title ?? null;
                 },
             ],
             'sponsor_id' => [
