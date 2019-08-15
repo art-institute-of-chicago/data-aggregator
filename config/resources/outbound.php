@@ -265,13 +265,6 @@ return [
          * Website:
          */
         [
-            // TODO: Delete this endpoint and model? It's empty.
-            'endpoint' => 'tags',
-            'model' => \App\Models\Web\Tag::class,
-            'transformer' => \App\Transformers\Outbound\Web\Tag::class,
-            'is_searchable' => true,
-        ],
-        [
             // TODO: Delete this endpoint and model? It's not used for events.
             'endpoint' => 'locations',
             'model' => \App\Models\Web\Location::class,

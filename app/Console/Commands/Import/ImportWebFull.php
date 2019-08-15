@@ -12,7 +12,6 @@ use App\Models\Web\Exhibition;
 use App\Models\Web\Hour;
 use App\Models\Web\Location;
 use App\Models\Web\Selection;
-use App\Models\Web\Tag;
 use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
 use App\Models\Web\EducatorResource;
@@ -75,7 +74,6 @@ class ImportWebFull extends AbstractImportCommand
             Hour::class => 'hours',
             Location::class => 'locations',
             Selection::class => 'selections',
-            Tag::class => 'tags',
             GenericPage::class => 'generic_pages',
             PressRelease::class => 'press_releases',
             EducatorResource::class => 'educator_resources',
@@ -108,7 +106,6 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('hours');
         $this->importFromWeb('locations');
         $this->importFromWeb('selections');
-        $this->importFromWeb('tags');
 
         $this->importFromWeb('genericpages');
         $this->importFromWeb('pressreleases');

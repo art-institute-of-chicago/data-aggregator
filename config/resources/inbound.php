@@ -194,11 +194,6 @@ return [
             'model' => \App\Models\Web\Selection::class,
             'transformer' => \App\Transformers\Inbound\Web\Selection::class,
         ],
-        // TODO: This is empty and has no stakeholders. Let's delete.
-        'tags' => [
-            'model' => \App\Models\Web\Tag::class,
-            'transformer' => \App\Transformers\Inbound\WebTransformer::class,
-        ],
         'staticpages' => [
             'model' => \App\Models\Web\StaticPage::class,
             'transformer' => \App\Transformers\Inbound\Web\StaticPage::class,
