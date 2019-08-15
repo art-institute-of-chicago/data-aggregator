@@ -15,7 +15,6 @@ use App\Models\Web\Selection;
 use App\Models\Web\Tag;
 use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
-use App\Models\Web\ResearchGuide;
 use App\Models\Web\EducatorResource;
 use App\Models\Web\DigitalCatalog;
 use App\Models\Web\PrintedCatalog;
@@ -79,7 +78,6 @@ class ImportWebFull extends AbstractImportCommand
             Tag::class => 'tags',
             GenericPage::class => 'generic_pages',
             PressRelease::class => 'press_releases',
-            ResearchGuide::class => 'research_guides',
             EducatorResource::class => 'educator_resources',
             DigitalCatalog::class => 'digital_catalogs',
             PrintedCatalog::class => 'printed_catalogs',
@@ -114,7 +112,6 @@ class ImportWebFull extends AbstractImportCommand
 
         $this->importFromWeb('genericpages');
         $this->importFromWeb('pressreleases');
-        $this->importFromWeb('researchguides');
         $this->importFromWeb('educatorresources');
         $this->importFromWeb('digitalpublications');
         $this->importFromWeb('printedpublications');

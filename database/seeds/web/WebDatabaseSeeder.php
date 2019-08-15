@@ -12,7 +12,6 @@ use App\Models\Web\Selection;
 use App\Models\Web\Artist;
 use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
-use App\Models\Web\ResearchGuide;
 use App\Models\Web\EducatorResource;
 use App\Models\Web\DigitalCatalog;
 use App\Models\Web\PrintedCatalog;
@@ -34,7 +33,6 @@ class WebDatabaseSeeder extends AbstractSeeder
         $this->call(ArtistsTableSeeder::class);
         $this->call(GenericPagesTableSeeder::class);
         $this->call(PressReleasesTableSeeder::class);
-        $this->call(ResearchGuidesTableSeeder::class);
         $this->call(EducatorResourcesTableSeeder::class);
         $this->call(DigitalCatalogsTableSeeder::class);
         $this->call(PrintedCatalogsTableSeeder::class);
@@ -54,7 +52,6 @@ class WebDatabaseSeeder extends AbstractSeeder
         Artist::fake()->delete();
         GenericPage::fake()->delete();
         PressRelease::fake()->delete();
-        ResearchGuide::fake()->delete();
         EducatorResource::fake()->delete();
         DigitalCatalog::fake()->delete();
         PrintedCatalog::fake()->delete();

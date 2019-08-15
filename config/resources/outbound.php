@@ -370,12 +370,6 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'research-guides',
-            'model' => \App\Models\Web\ResearchGuide::class,
-            'transformer' => \App\Transformers\Outbound\Web\Page::class,
-            'is_searchable' => true,
-        ],
-        [
             'endpoint' => 'educator-resources',
             'model' => \App\Models\Web\EducatorResource::class,
             'transformer' => \App\Transformers\Outbound\Web\Page::class,

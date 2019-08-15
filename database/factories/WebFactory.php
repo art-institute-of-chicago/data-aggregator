@@ -190,24 +190,6 @@ $factory->define(App\Models\Web\PressRelease::class, function (Faker\Generator $
     ];
 });
 
-$factory->define(App\Models\Web\ResearchGuide::class, function (Faker\Generator $faker) {
-    return [
-        'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),
-        'title' => ucfirst($faker->words(3, true)),
-        'web_url' => $faker->url,
-        'slug' => $faker->slug,
-        'listing_description' => $faker->paragraph(),
-        'short_description' => $faker->paragraph(),
-        'published' => $faker->boolean,
-        'publish_start_date' => $faker->dateTimeThisYear,
-        'publish_end_date' => $faker->dateTimeThisYear,
-        'copy' => $faker->paragraph(4),
-        'imgix_uuid' => $faker->uuid,
-        'created_at' => $faker->dateTimeThisYear,
-        'updated_at' => $faker->dateTimeThisYear,
-    ];
-});
-
 $factory->define(App\Models\Web\EducatorResource::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->unique()->randomNumber(4) + 999 * pow(10, 4),

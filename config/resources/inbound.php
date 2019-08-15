@@ -211,10 +211,6 @@ return [
             'model' => \App\Models\Web\PressRelease::class,
             'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
-        'researchguides' => [
-            'model' => \App\Models\Web\ResearchGuide::class,
-            'transformer' => \App\Transformers\Inbound\Web\Page::class,
-        ],
         'educatorresources' => [
             'model' => \App\Models\Web\EducatorResource::class,
             'transformer' => \App\Transformers\Inbound\Web\Page::class,

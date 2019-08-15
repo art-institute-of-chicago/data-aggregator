@@ -70,7 +70,6 @@ abstract class AbstractDumpCommand extends BaseCommand
         'printed_catalogs',
         'products',
         'publications',
-        'research_guides',
         'sections',
         'selections',
         'shop_categories',
