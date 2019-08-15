@@ -282,6 +282,7 @@ return [
             'endpoint' => 'hours',
             'model' => \App\Models\Web\Hour::class,
             'transformer' => \App\Transformers\Outbound\Web\Hour::class,
+            'is_restricted' => true,
             'is_searchable' => true,
         ],
         [
@@ -318,12 +319,14 @@ return [
             'endpoint' => 'email-series',
             'model' => \App\Models\Web\EmailSeries::class,
             'transformer' => \App\Transformers\Outbound\GenericTransformer::class,
+            'is_restricted' => true,
             'is_searchable' => true,
         ],
         [
             'endpoint' => 'sponsors',
             'model' => \App\Models\Web\Sponsor::class,
             'transformer' => \App\Transformers\Outbound\Web\Sponsor::class,
+            'is_restricted' => true,
             'is_searchable' => true,
         ],
         [
@@ -398,6 +401,7 @@ return [
             'endpoint' => 'digital-labels',
             'model' => \App\Models\DigitalLabel\Label::class,
             'transformer' => \App\Transformers\Outbound\DigitalLabel\Label::class,
+            'is_restricted' => true,
             'is_searchable' => true,
         ],
 
