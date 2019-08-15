@@ -45,6 +45,7 @@ class Location extends BaseTransformer
                 'doc' => 'Whether the location is published on the website',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
+                'is_restricted' => true,
             ],
         ];
     }

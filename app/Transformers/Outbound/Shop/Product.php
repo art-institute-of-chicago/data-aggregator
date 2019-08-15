@@ -22,6 +22,7 @@ class Product extends BaseTransformer
                 'value' => function ($item) {
                     return $item->active;
                 },
+                'is_restricted' => true,
             ],
             'parent_id' => [
                 'doc' => 'Unique identifier of this product\'s parent',

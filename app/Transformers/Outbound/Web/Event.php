@@ -49,6 +49,7 @@ class Event extends BaseTransformer
                 'doc' => 'Whether the event is published on the website',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
+                'is_restricted' => true,
             ],
 
             'image_url' => [
@@ -207,6 +208,7 @@ class Event extends BaseTransformer
                 'doc' => 'Whether the event is private',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
+                'is_restricted' => true,
             ],
             'is_admission_required' => [
                 'doc' => 'Whether admission to the museum is required to attend this event',

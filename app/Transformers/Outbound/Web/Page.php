@@ -22,6 +22,7 @@ class Page extends BaseTransformer
                 'value' => function ($item) {
                     return $item->published;
                 },
+                'is_restricted' => true,
             ],
 
             // TODO: This seems to always be null. Remove?

@@ -125,6 +125,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => [
                     'type' => 'integer',
                 ],
+                'is_restricted' => true,
             ],
             'pageviews_recent' => [
                 'doc' => 'Approx. number of times this artwork was viewed on our website over the past three months',
@@ -132,6 +133,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => [
                     'type' => 'integer',
                 ],
+                'is_restricted' => true,
             ],
             'boost_rank' => [
                 'doc' => 'Manual indication of what rank this artwork should take in search results. Noncontiguous.',
@@ -242,6 +244,7 @@ class Artwork extends BaseTransformer
                 'doc' => 'The works status of belonging to our collection. Values include "Permanent Collection", "Ryerson Collection", and "Long-term Loan".',
                 'type' => 'string',
                 'elasticsearch' => 'text',
+                'is_restricted' => true,
             ],
             'fiscal_year' => [
                 'doc' => 'The fiscal year in which the work was acquired.',
