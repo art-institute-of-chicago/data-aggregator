@@ -75,16 +75,6 @@ class Product extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'float',
             ],
-            'sale_price' => [
-                'doc' => 'Number indicating how much the product costs on sale to the customer',
-                'type' => 'number',
-                'elasticsearch' => 'float',
-            ],
-            'member_price' => [
-                'doc' => 'Number indicating how much the product costs members',
-                'type' => 'number',
-                'elasticsearch' => 'float',
-            ],
             'aic_collection' => [
                 'doc' => 'Whether the item is an AIC product',
                 'type' => 'boolean',
@@ -94,11 +84,6 @@ class Product extends BaseTransformer
                 'doc' => 'Whether the item can be wrapped in a gift box',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-            ],
-            'recipient' => [
-                'doc' => 'Category indicating who the product is intended for. E.g., "Anyone", "ForHim", "ForHer", etc.',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
             ],
             'holiday' => [
                 'doc' => 'Whether the product is a holiday item',
@@ -114,31 +99,6 @@ class Product extends BaseTransformer
                 'doc' => 'Whether the item is glass',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-            ],
-            'x_shipping_charge' => [
-                'doc' => 'Number indicating the additional shipping charge for this item, in US Dollars.',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-            ],
-            'inventory' => [
-                'doc' => 'Number indicating how many items remain in our inventory',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-            ],
-            'choking_hazard' => [
-                'doc' => 'Whether this product is a choking hazard',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-            ],
-            'back_order' => [
-                'doc' => 'Whether this product has been back ordered',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-            ],
-            'back_order_due_date' => [
-                'doc' => 'Date representing when this item is expected to be back in stock',
-                'type' => 'date',
-                'elasticsearch' => 'date',
             ],
 
             // TODO: Refactor relationships:
