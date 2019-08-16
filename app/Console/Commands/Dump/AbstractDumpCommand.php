@@ -60,7 +60,6 @@ abstract class AbstractDumpCommand extends BaseCommand
         'library_material_subject',
         'library_materials',
         'library_terms',
-        'locations',
         // 'migrations',
         'mobile_artwork_mobile_sound',
         'mobile_artworks',

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Web\Location;
 use App\Models\Web\Hour;
 use App\Models\Web\Closure;
 use App\Models\Web\Exhibition;
@@ -20,7 +19,6 @@ class WebDatabaseSeeder extends AbstractSeeder
 
     protected function seed()
     {
-        $this->call(LocationsTableSeeder::class);
         $this->call(HoursTableSeeder::class);
         $this->call(ClosuresTableSeeder::class);
         $this->call(WebExhibitionsTableSeeder::class);
@@ -38,7 +36,6 @@ class WebDatabaseSeeder extends AbstractSeeder
 
     protected static function unseed()
     {
-        Location::fake()->delete();
         Hour::fake()->delete();
         Closure::fake()->delete();
         Exhibition::fake()->delete();

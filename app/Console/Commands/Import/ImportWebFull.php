@@ -10,7 +10,6 @@ use App\Models\Web\EventOccurrence;
 use App\Models\Web\EventProgram;
 use App\Models\Web\Exhibition;
 use App\Models\Web\Hour;
-use App\Models\Web\Location;
 use App\Models\Web\Selection;
 use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
@@ -72,7 +71,6 @@ class ImportWebFull extends AbstractImportCommand
             EventProgram::class => 'event_programs',
             Exhibition::class => 'web_exhibitions',
             Hour::class => 'hours',
-            Location::class => 'locations',
             Selection::class => 'selections',
             GenericPage::class => 'generic_pages',
             PressRelease::class => 'press_releases',
@@ -104,7 +102,6 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('event-programs');
         $this->importFromWeb('exhibitions');
         $this->importFromWeb('hours');
-        $this->importFromWeb('locations');
         $this->importFromWeb('selections');
 
         $this->importFromWeb('genericpages');

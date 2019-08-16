@@ -185,11 +185,6 @@ return [
             'model' => \App\Models\Web\Hour::class,
             'transformer' => \App\Transformers\Inbound\Web\Hour::class,
         ],
-        // TODO: Consider deleting until needed.
-        'locations' => [
-            'model' => \App\Models\Web\Location::class,
-            'transformer' => \App\Transformers\Inbound\WebTransformer::class,
-        ],
         'selections' => [
             'model' => \App\Models\Web\Selection::class,
             'transformer' => \App\Transformers\Inbound\Web\Selection::class,

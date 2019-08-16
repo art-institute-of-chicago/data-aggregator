@@ -265,13 +265,6 @@ return [
          * Website:
          */
         [
-            // TODO: Delete this endpoint and model? It's not used for events.
-            'endpoint' => 'locations',
-            'model' => \App\Models\Web\Location::class,
-            'transformer' => \App\Transformers\Outbound\Web\Location::class,
-            'is_searchable' => true,
-        ],
-        [
             'endpoint' => 'hours',
             'model' => \App\Models\Web\Hour::class,
             'transformer' => \App\Transformers\Outbound\Web\Hour::class,
