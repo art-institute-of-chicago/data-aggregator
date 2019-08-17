@@ -6,6 +6,7 @@ use Aic\Hub\Foundation\Exceptions\DetailedException;
 
 use App\Http\Search\Request as SearchRequest;
 use App\Http\Search\Response as SearchResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Elasticsearch;
@@ -26,6 +27,20 @@ class SearchController extends BaseController
     | applies our own business logic to tweak relevancy.
     |
     */
+
+    private $useCache;
+
+    public function __construct()
+    {
+        $this->useCache = config('elasticsearch.cache_enabled');
+
+        $cacheParam = Input::get('cache');
+        $cacheParam = !is_string($cacheParam) ? $cacheParam : filter_var($cacheParam, FILTER_VALIDATE_BOOLEAN);
+
+        if ($this->useCache && $cacheParam === false && (Auth::check() || !config('aic.auth.restricted'))) {
+            $this->useCache = false;
+        }
+    }
 
     /**
      * General entry point for search. There are three modes:
@@ -152,7 +167,7 @@ class SearchController extends BaseController
 
         try {
             // Perform API request and caching
-            if (config('elasticsearch.cache_enabled')) {
+            if ($this->useCache) {
                 $results = \Cache::remember($cacheKey, config('elasticsearch.cache_ttl'), function () use ($elasticsearchMethod, $params) {
                     return Elasticsearch::$elasticsearchMethod($params);
                 });
@@ -164,7 +179,7 @@ class SearchController extends BaseController
             // Elasticsearch occasionally returns a status code of zero
             $code = $e->getCode() > 0 ? $e->getCode() : 500;
 
-            if (config('elasticsearch.cache_enabled')) {
+            if ($this->useCache) {
                 \Cache::forget($cacheKey);
             }
 
@@ -239,7 +254,7 @@ class SearchController extends BaseController
 
         try {
             // Perform API request and caching
-            if (config('elasticsearch.cache_enabled')) {
+            if ($this->useCache) {
                 $results = \Cache::remember($cacheKey, config('elasticsearch.cache_ttl'), function () use ($params) {
                     return Elasticsearch::msearch($params);
                 });
@@ -251,7 +266,7 @@ class SearchController extends BaseController
             // Elasticsearch occasionally returns a status code of zero
             $code = $e->getCode() > 0 ? $e->getCode() : 500;
 
-            if (config('elasticsearch.cache_enabled')) {
+            if ($this->useCache) {
                 \Cache::forget($cacheKey);
             }
 
