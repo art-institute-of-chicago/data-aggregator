@@ -126,7 +126,7 @@ Then on github.com, create a Pull Request to merge your changes into our
 This project is released with a Contributor Code of Conduct. By participating in
 this project you agree to abide by its [terms](CODE_OF_CONDUCT.md).
 
-We also welcome bug reports and questions under GitHub's [Issues](issues).
+We welcome bug reports and questions under GitHub's [Issues](issues). For other concerns, you can reach our engineering team at [engineering@artic.edu](mailto:engineering@artic.edu)
 
 
 ## Licensing
