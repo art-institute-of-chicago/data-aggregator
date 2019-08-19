@@ -123,6 +123,10 @@ git push origin yourinitials-good-description-issuenumberifapplicable
 Then on github.com, create a Pull Request to merge your changes into our
 `develop` branch.
 
+Our internal team uses [`php-cs-fixer`](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure
+our code meets various PHP Standards Recommendations. You're welcome to integrate `php-cs-fixer`
+into your workflow as you work on this project, but is not required to make a contribution.
+
 This project is released with a Contributor Code of Conduct. By participating in
 this project you agree to abide by its [terms](CODE_OF_CONDUCT.md).
 
