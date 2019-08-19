@@ -38,6 +38,7 @@ class Product extends BaseTransformer
                 'doc' => 'Numeric product identification code of a machine-readable barcode',
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
+                'is_restricted' => true,
             ],
             'external_sku' => [
                 'doc' => 'Numeric product identification code of a machine-readable barcode, when the customer sku differs from our internal one',
@@ -69,6 +70,7 @@ class Product extends BaseTransformer
                 'doc' => 'Used for sorting in the shop\'s website, specifically in the \'Featured\' sort mode, which is the default. This sort mode is two-part: first, items are sorted by their `priority` ascending; then as a secondary step, items are sorted by the number of items sold, descending.',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
+                'is_restricted' => true,
             ],
             'price' => [
                 'doc' => 'Number indicating how much the product costs the customer',
