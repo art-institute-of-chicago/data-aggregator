@@ -53,7 +53,7 @@
 
             <p>There's a lot of information you can get in our collection, and there's a lot more than artworks in our API. Learn more by reading through our <a href="/docs/endpoints">endpoints</a> and <a href="/docs/fields">fields</a> documentation.</p>
 
-            <p>If the application you're building will be public, please send it our way! We'd love to share it alongside some of the other projects that use our API. And if you have any questions, please feel free to reach out to us: _____________@artic.edu.</p>
+            <p>If the application you're building will be public, please send it our way! We'd love to share it alongside some of the other projects that use our API. And if you have any questions, please feel free to reach out to us: engineering@artic.edu.</p>
 
             <h2>Authenticate requests</h2>
 
