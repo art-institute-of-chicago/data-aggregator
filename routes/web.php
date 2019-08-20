@@ -24,6 +24,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/docs/endpoints', 'EndpointsController@index')->name('doc-endpoints');
 Route::get('/docs/fields', 'FieldsController@index')->name('doc-fields');
 
+Route::get('/assets/{dir}/{filename}', function ($dir, $filename) {
+    $content = Storage::get($dir .'/' .$filename);
+    return view('assets', ['content' => $content]);
+});
+
 Route::middleware('auth')->get('/user', function () {
     return Auth::user();
 });
