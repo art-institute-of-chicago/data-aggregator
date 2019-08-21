@@ -24,10 +24,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/docs/endpoints', 'EndpointsController@index')->name('doc-endpoints');
 Route::get('/docs/fields', 'FieldsController@index')->name('doc-fields');
 
-Route::get('/assets/{dir}/{filename}', function ($dir, $filename) {
-    $content = Storage::get($dir .'/' .$filename);
-    return view('assets', ['content' => $content]);
-});
+Route::get('/assets/{filename}', function ($filename) {
+    $content = Storage::disk('local')->get($filename);
+    \Debugbar::disable();
+    return $content;
+})->where('filename', '[a-zA-Z0-9\/\.]+');
 
 Route::middleware('auth')->get('/user', function () {
     return Auth::user();
