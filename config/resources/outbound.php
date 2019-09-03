@@ -284,6 +284,12 @@ return [
             'is_searchable' => true,
         ],
         [
+            'endpoint' => 'experiences',
+            'model' => \App\Models\Web\Experience::class,
+            'transformer' => \App\Transformers\Outbound\Web\Experience::class,
+            'is_searchable' => true,
+        ],
+        [
             'endpoint' => 'events',
             'model' => \App\Models\Web\Event::class,
             'transformer' => \App\Transformers\Outbound\Web\Event::class,

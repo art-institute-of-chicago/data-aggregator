@@ -180,6 +180,10 @@ return [
             'model' => \App\Models\Web\Exhibition::class,
             'transformer' => \App\Transformers\Inbound\Web\Exhibition::class,
         ],
+        'experiences' => [
+            'model' => \App\Models\Web\Experience::class,
+            'transformer' => \App\Transformers\Inbound\Web\Experience::class,
+        ],
         // TODO: Consider deleting until needed.
         'hours' => [
             'model' => \App\Models\Web\Hour::class,
