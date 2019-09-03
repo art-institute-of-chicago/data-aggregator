@@ -284,6 +284,13 @@ return [
             'is_searchable' => true,
         ],
         [
+            'endpoint' => 'experiences',
+            'model' => \App\Models\Web\Experience::class,
+            'transformer' => \App\Transformers\Outbound\Web\Experience::class,
+            'is_searchable' => true,
+            'is_restricted' => true,
+        ],
+        [
             'endpoint' => 'events',
             'model' => \App\Models\Web\Event::class,
             'transformer' => \App\Transformers\Outbound\Web\Event::class,
@@ -307,6 +314,13 @@ return [
             'transformer' => \App\Transformers\Outbound\GenericTransformer::class,
             'is_restricted' => true,
             'is_searchable' => true,
+        ],
+        [
+            'endpoint' => 'interactive-features',
+            'model' => \App\Models\Web\InteractiveFeature::class,
+            'transformer' => \App\Transformers\Outbound\Web\InteractiveFeature::class,
+            'is_searchable' => true,
+            'is_restricted' => true,
         ],
         [
             'endpoint' => 'sponsors',
@@ -371,17 +385,6 @@ return [
             'endpoint' => 'printed-catalogs',
             'model' => \App\Models\Web\PrintedCatalog::class,
             'transformer' => \App\Transformers\Outbound\Web\Page::class,
-            'is_searchable' => true,
-        ],
-
-        /**
-         * Digital labels:
-         */
-        [
-            'endpoint' => 'digital-labels',
-            'model' => \App\Models\DigitalLabel\Label::class,
-            'transformer' => \App\Transformers\Outbound\DigitalLabel\Label::class,
-            'is_restricted' => true,
             'is_searchable' => true,
         ],
 
