@@ -26,7 +26,6 @@ abstract class AbstractDocCommand extends BaseCommand
             //'Membership' => 'Membership',
             'Mobile' => 'Mobile',
             'Dsc' => 'Digital Scholarly Catalogs',
-            'DigitalLabel' => 'Digital Labels',
             'StaticArchive' => 'Static Archive',
             'Archive' => 'Archive',
             'Library' => 'Library',

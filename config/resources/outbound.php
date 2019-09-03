@@ -374,17 +374,6 @@ return [
             'is_searchable' => true,
         ],
 
-        /**
-         * Digital labels:
-         */
-        [
-            'endpoint' => 'digital-labels',
-            'model' => \App\Models\DigitalLabel\Label::class,
-            'transformer' => \App\Transformers\Outbound\DigitalLabel\Label::class,
-            'is_restricted' => true,
-            'is_searchable' => true,
-        ],
-
     ],
 
 ];
