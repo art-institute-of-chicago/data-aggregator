@@ -288,6 +288,7 @@ return [
             'model' => \App\Models\Web\Experience::class,
             'transformer' => \App\Transformers\Outbound\Web\Experience::class,
             'is_searchable' => true,
+            'is_restricted' => true,
         ],
         [
             'endpoint' => 'events',
@@ -319,6 +320,7 @@ return [
             'model' => \App\Models\Web\InteractiveFeature::class,
             'transformer' => \App\Transformers\Outbound\Web\InteractiveFeature::class,
             'is_searchable' => true,
+            'is_restricted' => true,
         ],
         [
             'endpoint' => 'sponsors',
