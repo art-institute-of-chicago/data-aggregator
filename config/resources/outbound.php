@@ -309,6 +309,12 @@ return [
             'is_searchable' => true,
         ],
         [
+            'endpoint' => 'interactive-features',
+            'model' => \App\Models\Web\InteractiveFeature::class,
+            'transformer' => \App\Transformers\Outbound\Web\InteractiveFeature::class,
+            'is_searchable' => true,
+        ],
+        [
             'endpoint' => 'sponsors',
             'model' => \App\Models\Web\Sponsor::class,
             'transformer' => \App\Transformers\Outbound\Web\Sponsor::class,
