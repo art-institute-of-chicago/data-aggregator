@@ -16,12 +16,27 @@ class DownloadCssJs extends AbstractDocCommand
 
     public function handle()
     {
-        $files = json_decode(file_get_contents($this->manifest));
+        $files = array_merge(
+            json_decode(file_get_contents($this->manifest), true),
+            [
+                'fonts/3545D5_0_0.eot' => 'fonts/3545D5_0_0.eot',
+                'fonts/3545D5_0_0.woff' => 'fonts/3545D5_0_0.woff',
+                'fonts/3545D5_0_0.woff2' => 'fonts/3545D5_0_0.woff2',
+                'fonts/3545D5_0_0.ttf' => 'fonts/3545D5_0_0.ttf',
+                'fonts/3545D5_1_0.eot' => 'fonts/3545D5_1_0.eot',
+                'fonts/3545D5_1_0.woff' => 'fonts/3545D5_1_0.woff',
+                'fonts/3545D5_1_0.woff2' => 'fonts/3545D5_1_0.woff2',
+                'fonts/3545D5_1_0.ttf' => 'fonts/3545D5_1_0.ttf',
+                'fonts/3545D5_2_0.eot' => 'fonts/3545D5_2_0.eot',
+                'fonts/3545D5_2_0.woff' => 'fonts/3545D5_2_0.woff',
+                'fonts/3545D5_2_0.woff2' => 'fonts/3545D5_2_0.woff2',
+                'fonts/3545D5_2_0.ttf' => 'fonts/3545D5_2_0.ttf',
+            ]
+        );
 
         foreach ($files as $vanityName => $fileName) {
             $contents = file_get_contents('https://www.artic.edu/dist/' .$fileName);
             Storage::disk('local')->put($vanityName, $contents);
         }
     }
-
 }
