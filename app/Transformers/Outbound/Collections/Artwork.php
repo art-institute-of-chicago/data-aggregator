@@ -135,6 +135,14 @@ class Artwork extends BaseTransformer
                 ],
                 'is_restricted' => true,
             ],
+            'has_not_been_viewed_in_a_while' => [
+                'doc' => 'Whether the artwork hasn\'t been visited on our website in a while',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+                'value' => function ($item) {
+                    return $item->pageviews <= 5;
+                },
+            ],
             'boost_rank' => [
                 'doc' => 'Manual indication of what rank this artwork should take in search results. Noncontiguous.',
                 'type' => 'number',
