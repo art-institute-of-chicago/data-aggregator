@@ -10,6 +10,4 @@ use App\Models\WebModel;
 class EmailSeries extends WebModel
 {
 
-    protected $hasSourceDates = false;
-
 }
