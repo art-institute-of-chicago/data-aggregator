@@ -211,15 +211,15 @@ return [
         ],
         'educatorresources' => [
             'model' => \App\Models\Web\EducatorResource::class,
-            'transformer' => \App\Transformers\Inbound\Web\Page::class,
+            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
         ],
         'digitalpublications' => [
             'model' => \App\Models\Web\DigitalCatalog::class,
-            'transformer' => \App\Transformers\Inbound\Web\Page::class,
+            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
         ],
         'printedpublications' => [
             'model' => \App\Models\Web\PrintedCatalog::class,
-            'transformer' => \App\Transformers\Inbound\Web\Page::class,
+            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
         ],
     ],
 

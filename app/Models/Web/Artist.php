@@ -15,6 +15,7 @@ class Artist extends WebModel
     protected $casts = [
         'published' => 'boolean',
         'also_known_as' => 'boolean',
+        'agent_ids' => 'array',
     ];
 
     protected $with = [

@@ -71,7 +71,8 @@ trait ImportsData
      */
     protected function fetch($file, $decode = false)
     {
-        if (!$contents = @file_get_contents($file))
+        $ctx = stream_context_create(array('http'=> ['timeout' => 180,  /* 3 Minutes */ ]));
+        if (!$contents = @file_get_contents($file, false, $ctx))
         {
             throw new \Exception('Fetch failed: ' . $file);
         }

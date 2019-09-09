@@ -15,6 +15,7 @@ class Exhibition extends WebModel
     protected $casts = [
         'is_featured' => 'boolean',
         'is_published' => 'boolean',
+        'agent_ids' => 'array',
     ];
 
     protected $touches = [
