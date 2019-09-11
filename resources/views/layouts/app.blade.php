@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/612324/7579192/css/fonts.css">
     <style>
-      @import  url("//hello.myfonts.net/count/3545d5");
+      @import url("//hello.myfonts.net/count/3545d5");
         @font-face {font-family: 'Sabon';src: url(/assets/fonts/3545D5_0_0.eot);src: url(/assets/fonts/3545D5_0_0.eot?#iefix) format('embedded-opentype'),url(/assets/fonts/3545D5_0_0.woff2) format('woff2'),url(/assets/fonts/3545D5_0_0.woff) format('woff'),url(/assets/fonts/3545D5_0_0.ttf) format('truetype');font-weight:normal;font-weight:400;font-style:normal;}
         @font-face {font-family: 'Sabon';src: url(/dist/fonts/3545D5_1_0.eot);src: url(/dist/fonts/3545D5_1_0.eot?#iefix) format('embedded-opentype'),url(/dist/fonts/3545D5_1_0.woff2) format('woff2'),url(/dist/fonts/3545D5_1_0.woff) format('woff'),url(/dist/fonts/3545D5_1_0.ttf) format('truetype');font-weight:normal;font-weight:400;font-style:italic;}
         @font-face {font-family: 'Sabon';src: url(/dist/fonts/3545D5_2_0.eot);src: url(/dist/fonts/3545D5_2_0.eot?#iefix) format('embedded-opentype'),url(/dist/fonts/3545D5_2_0.woff2) format('woff2'),url(/dist/fonts/3545D5_2_0.woff) format('woff'),url(/dist/fonts/3545D5_2_0.ttf) format('truetype');font-weight:normal;font-weight:500;font-style:normal;}
@@ -60,16 +60,6 @@
               <h2 class="sr-only" id="h-nav-secondary-header">Secondary Navigation</h2>
               <ul class="f-secondary" aria-labelledby="h-nav-secondary-header">
                     @guest
-                    @if (!App::environment('production'))
-                        <li>
-                            <a href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @if (Route::has('register'))
-                            <li>
-                                <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @endif
                     @else
                         <li class="dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -118,26 +108,6 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        @guest
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
                     </ul>
                 </div>
             </div>

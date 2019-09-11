@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
         @if (session('status'))
         <div class="col-md-8">
             <div class="card">
@@ -15,18 +13,22 @@
         </div>
         @endif
 
-        <div class="col-md-8">
-            <h1>Art Institute of Chicago API</h1>
-        </div>
+        <header class="m-article-header">
+            <div class="m-article-header__text">
+                <h1 class="title f-headline" itemprop="name">Art Institute of Chicago API</h1>
+            </div>
+        </header>
 
-        @if (Auth::check())
-        <div class="col-md-8">
-            <passport-personal-access-tokens></passport-personal-access-tokens>
-        </div>
-        @endif
+        <div class="o-article__primary-actions"></div>
+        <div class="o-article__secondary-actions"></div>
 
-        <div class="col-md-8">
-            <p>Coming soon!</p>
+        <div class="o-article__body o-blocks">
+            @if (Auth::check())
+            <div class="col-md-8">
+                <passport-personal-access-tokens></passport-personal-access-tokens>
+            </div>
+            @endif
+
             <p>The Art Institute of Chicago's API provides JSON formatted data as a REST-style service that allows developers to explore and integrate the museum’s data into their projects. This API is the same tool that powers our <a href="https://www.artic.edu">website</a>, our <a href="https://www.artic.edu/visit/explore-on-your-own/mobile-app-audio-tours">mobile app</a>, and many other technologies in the museum.</p>
 
             <h2>Getting started</h2>
@@ -53,11 +55,12 @@
 
             <p>If the application you're building will be public, please send it our way! We'd love to share it alongside some of the other projects that use our API. And if you have any questions, please feel free to reach out to us: engineering@artic.edu.</p>
 
+            @auth
             <h2>Authenticate requests</h2>
 
-            <p>Developers of high-traffic apps may want to authenticate their requests to access the API at a greater frequency. Anonymous users can access the API 60 times per minute. Authenticated requests are given a much high threshold.</p>
+            <p>Internal apps can authenticate their requests to access the API at a greater frequency. Anonymous users can access the API 60 times per minute. Authenticated requests are given a much high threshold.</p>
 
-            <p>First, <a href="/register">register</a> an account on our site. Then on the homepage, you'll be given an option to create personal access tokens to authenticate your requests. You can make as many tokens as you wish. We recommend one per application.</p>
+            <p>On the homepage, you'll be given an option to create personal access tokens to authenticate your requests. You can make as many tokens as you wish. We recommend one per application.</p>
 
             <p>To make the same call as above with your personal access token, you can pass it in the header of your request. This is how it would look on the command line:</p>
 
@@ -66,8 +69,7 @@
   -H "Authorization: Bearer {Put your access token here}"</code></pre>
 
             <p>If you're using this method to access our API, each of your requests should be made in this way.</p>
+            @endauth
         </div>
 
-    </div>
-</div>
 @endsection

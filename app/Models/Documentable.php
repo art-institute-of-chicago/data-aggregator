@@ -95,7 +95,7 @@ trait Documentable
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
         // Title
-        $doc = '### `GET ' . $this->_endpointPath() . "`\n\n";
+        $doc = '`GET ' . $this->_endpointPath() . "`\n\n";
 
         $doc .= $this->docListDescription() . ' For a description of all the fields included with this response, see [here](fields#' . $endpoint . ").\n\n";
 
@@ -147,7 +147,7 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `GET ' . $this->_endpointPath(['extraPath' => 'search']) . "`\n\n";
+        $doc = '`GET ' . $this->_endpointPath(['extraPath' => 'search']) . "`\n\n";
 
         $doc .= $this->docSearchDescription() . "\n\n";
 
@@ -180,7 +180,7 @@ trait Documentable
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '### `GET ' . $this->_endpointPath(['extraPath' => '{id}']) . "`\n\n";
+        $doc = '`GET ' . $this->_endpointPath(['extraPath' => '{id}']) . "`\n\n";
 
         $doc .= $this->docSingleDescription() . "\n\n";
 
@@ -219,7 +219,7 @@ trait Documentable
     public function docListParameters()
     {
         $doc = '';
-        $doc .= "#### Available parameters:\n\n";
+        $doc .= "### Available parameters:\n\n";
 
         foreach ($this->docListParametersRaw() as $param => $description)
         {
@@ -255,7 +255,7 @@ trait Documentable
     {
         $doc = '';
 
-        $doc .= "#### Available parameters:\n\n";
+        $doc .= "### Available parameters:\n\n";
 
         foreach ($this->docSearchParametersRaw() as $param => $description)
         {

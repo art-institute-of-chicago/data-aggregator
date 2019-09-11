@@ -38,6 +38,13 @@ Route::get('/assets/{filename}.js', function ($filename) {
          ->header('Content-Type', 'text/javascript');
 })->where('filename', '[a-zA-Z0-9\/\.\-_]+');
 
+Route::get('/assets/{filename}', function ($filename) {
+    $content = Storage::disk('local')->get($filename);
+    \Debugbar::disable();
+    return response($content)
+         ->header('Content-Type', 'application/octet-stream');
+})->where('filename', '[a-zA-Z0-9\/\.\-_]+');
+
 Route::middleware('auth')->get('/user', function () {
     return Auth::user();
 });
