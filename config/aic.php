@@ -81,6 +81,7 @@ return [
         'max_attempts' => 60,
         'max_resources_guest' => 1000,
         'max_resources_user' => 10000,
+        'whitelist_ips' => array_map('trim', explode(',', env('AIC_WHITELIST_IPS', '127.0.0.1/32'))),
     ],
 
 ];
