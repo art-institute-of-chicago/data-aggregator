@@ -26,21 +26,27 @@ Route::get('/docs/fields', 'FieldsController@index')->name('doc-fields');
 
 Route::get('/assets/{filename}.css', function ($filename) {
     $content = Storage::disk('local')->get($filename . '.css');
-    \Debugbar::disable();
+    if (config('app.env') == 'local') {
+        \Debugbar::disable();
+    }
     return response($content)
          ->header('Content-Type', 'text/css');
 })->where('filename', '[a-zA-Z0-9\/\.\-_]+');
 
 Route::get('/assets/{filename}.js', function ($filename) {
     $content = Storage::disk('local')->get($filename . 'js');
-    \Debugbar::disable();
+    if (config('app.env') == 'local') {
+        \Debugbar::disable();
+    }
     return response($content)
          ->header('Content-Type', 'text/javascript');
 })->where('filename', '[a-zA-Z0-9\/\.\-_]+');
 
 Route::get('/assets/{filename}', function ($filename) {
     $content = Storage::disk('local')->get($filename);
-    \Debugbar::disable();
+    if (config('app.env') == 'local') {
+        \Debugbar::disable();
+    }
     return response($content)
          ->header('Content-Type', 'application/octet-stream');
 })->where('filename', '[a-zA-Z0-9\/\.\-_]+');
