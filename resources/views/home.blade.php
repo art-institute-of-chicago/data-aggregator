@@ -26,9 +26,7 @@
         @endif
 
         <div class="col-md-8">
-        @if (App::environment('production'))
             <p>Coming soon!</p>
-        @else
             <p>The Art Institute of Chicago's API provides JSON formatted data as a REST-style service that allows developers to explore and integrate the museum’s data into their projects. This API is the same tool that powers our <a href="https://www.artic.edu">website</a>, our <a href="https://www.artic.edu/visit/explore-on-your-own/mobile-app-audio-tours">mobile app</a>, and many other technologies in the museum.</p>
 
             <h2>Getting started</h2>
@@ -68,7 +66,6 @@
   -H "Authorization: Bearer {Put your access token here}"</code></pre>
 
             <p>If you're using this method to access our API, each of your requests should be made in this way.</p>
-        @endif
         </div>
 
     </div>
