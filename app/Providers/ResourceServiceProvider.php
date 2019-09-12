@@ -142,6 +142,13 @@ class ResourceServiceProvider extends ServiceProvider
                     return $resource['scope_of'] ?? null;
                 }
 
+                public function isRestricted($endpoint)
+                {
+                    $resource = $this->getResourceForEndpoint($endpoint);
+
+                    return $resource['is_restricted'] ?? false;
+                }
+
                 public function getInboundTransformerForModel($model, $source)
                 {
                     $model = $this->getCleanModel($model);

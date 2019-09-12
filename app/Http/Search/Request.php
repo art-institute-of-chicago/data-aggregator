@@ -162,7 +162,7 @@ class Request
         $this->resources = $resources;
 
         if (is_null($resources)) {
-            throw new DetailedException('Missing Parameter', 'You must specify the `resources` parameter.', 400);
+            throw new DetailedException('Missing Parameter', 'You must specify the `resources` parameter.', 403);
         }
 
         // Filter out any resources that have a parent resource requested as well
@@ -172,6 +172,18 @@ class Request
 
             return !in_array($parent, $resources);
         });
+
+        // Filter out restricted resources for anon users
+        // TODO: Alert user about resources that were filtered?
+        if (!Auth::check() && config('aic.auth.restricted')) {
+            $resources = array_filter($resources, function ($resource) {
+                return !app('Resources')->isRestricted($resource);
+            });
+        }
+
+        if (empty($resources)) {
+            throw new DetailedException('Restricted Resource', 'You must choose at least one unrestricted resource to search.', 400);
+        }
 
         // Make resources into a Laravel collection
         $resources = collect($resources);
