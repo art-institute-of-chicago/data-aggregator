@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Closure;
 
@@ -93,8 +94,10 @@ abstract class AbstractController extends BaseController
      */
     protected function getGenericResponse(Arrayable $inputData, string $resourceClass)
     {
+        $isRestricted = !Auth::check() && config('aic.auth.restricted');
+
         $fields = Input::get('fields');
-        $transformer = new $this->transformer($fields);
+        $transformer = new $this->transformer($fields, $isRestricted);
         $resource = new $resourceClass($inputData, $transformer);
         $data = $this->fractal->createData($resource)->toArray();
         $response = isset($data['data']) ? $data : ['data' => $data];
