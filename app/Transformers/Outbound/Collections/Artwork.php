@@ -135,12 +135,12 @@ class Artwork extends BaseTransformer
                 ],
                 'is_restricted' => true,
             ],
-            'has_not_been_viewed_in_a_while' => [
-                'doc' => 'Whether the artwork hasn\'t been visited on our website in a while',
+            'has_not_been_viewed_much' => [
+                'doc' => 'Whether the artwork hasn\'t been visited on our website very much',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
                 'value' => function ($item) {
-                    return $item->pageviews <= 5;
+                    return $item->pageviews <= 200;
                 },
             ],
             'boost_rank' => [
