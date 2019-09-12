@@ -42,7 +42,6 @@
               <div class="g-header__nav-primary">
                 <h2 class="sr-only" id="h-nav-primary-header">Primary Navigation</h2>
                 <ul class="f-main-nav" aria-labelledby="h-nav-primary-header">
-                    @if (!App::environment('production'))
                         <li>
                             <a href="{{ route('doc-endpoints') }}">{{ __('Endpoints') }}</a>
                         </li>
@@ -52,7 +51,6 @@
                         <li>
                             <a href="{{ route('doc-swagger') }}">{{ __('swagger.json') }}</a>
                         </li>
-                    @endif
                 </ul>
               </div>
             </nav>
