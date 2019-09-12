@@ -6,5 +6,6 @@ class FieldsController extends DocsController
 {
 
     protected $filename = 'FIELDS.md';
+    protected $title = 'Fields';
 
 }
