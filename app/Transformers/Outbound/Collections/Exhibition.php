@@ -47,7 +47,8 @@ class Exhibition extends BaseTransformer
                 'value' => function ($item) {
                     return $item->webExhibition->is_published ?? false;
                 },
-            ],
+                'is_restricted' => true,
+           ],
             'description' => [
                 'doc' => 'Explanation of what this exhibition is',
                 'type' => 'string',
@@ -104,11 +105,13 @@ class Exhibition extends BaseTransformer
                 'doc' => 'Date the exhibition opened across multiple venues',
                 'type' => 'ISO 8601 date and time',
                 'value' => $this->getDateValue('date_start'),
+                'is_restricted' => true,
             ],
             'end_at' => [
                 'doc' => 'Date the exhibition closed across multiple venues',
                 'type' => 'ISO 8601 date and time',
                 'value' => $this->getDateValue('date_end'),
+                'is_restricted' => true,
             ],
             'department_display' => [
                 'doc' => 'The name of the department that primarily organized the exhibition',

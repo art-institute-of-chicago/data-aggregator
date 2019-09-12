@@ -38,6 +38,23 @@ class Agent extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                     'type' => 'text',
+
+                    // For better search experiences with Korean, Chinese and Japanese queries.
+                    // See https://www.elastic.co/blog/how-to-search-ch-jp-kr-part-2
+                    'fields' => [
+                        'korean_field' => [
+                            'analyzer' => 'openkoreantext-analyzer',
+                            'type' => 'text',
+                        ],
+                        'japanese_field' => [
+                            'analyzer' => 'kuromoji',
+                            'type' => 'text'
+                        ],
+                        'chinese_field' => [
+                            'analyzer' => 'smartcn',
+                            'type' => 'text'
+                        ]
+                    ]
                 ],
                 'value' => function ($item) {
                     if (!isset($item->alt_titles)) {

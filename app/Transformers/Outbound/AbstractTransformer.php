@@ -3,6 +3,8 @@
 namespace App\Transformers\Outbound;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+
 use Carbon\Carbon;
 
 use League\Fractal\TransformerAbstract as BaseTransformer;
@@ -294,8 +296,8 @@ abstract class AbstractTransformer extends BaseTransformer
             $this->getIds(),
             $this->getSearchFields(),
             $this->getTitles(),
-            $this->getFields(),
-            $this->getTraitFields(),
+            (!Auth::check() && config('aic.auth.restricted') ? $this->restrictFields($this->getFields()) : $this->getFields()),
+            (!Auth::check() && config('aic.auth.restricted') ? $this->restrictFields($this->getTraitFields()) : $this->getTraitFields()),
             $this->getSuggestFields(),
             $this->getDates()
         );
@@ -315,4 +317,9 @@ abstract class AbstractTransformer extends BaseTransformer
         return $mappedFields;
     }
 
+    private function restrictFields($fields) {
+        return array_filter($fields, function($array) {
+            return !array_key_exists('is_restricted', $array) || $array['is_restricted'] === false;
+        });
+    }
 }

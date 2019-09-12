@@ -36,6 +36,7 @@ class Exhibition extends BaseTransformer
                 'value' => function ($item) {
                     return $item->is_published ?? false;
                 },
+                'is_restricted' => true,
             ],
 
             // TODO: Provide ability to put lengthy fields below relationships?

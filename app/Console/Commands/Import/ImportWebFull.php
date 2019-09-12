@@ -9,13 +9,12 @@ use App\Models\Web\Event;
 use App\Models\Web\EventOccurrence;
 use App\Models\Web\EventProgram;
 use App\Models\Web\Exhibition;
+use App\Models\Web\Experience;
 use App\Models\Web\Hour;
-use App\Models\Web\Location;
+use App\Models\Web\InteractiveFeature;
 use App\Models\Web\Selection;
-use App\Models\Web\Tag;
 use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
-use App\Models\Web\ResearchGuide;
 use App\Models\Web\EducatorResource;
 use App\Models\Web\DigitalCatalog;
 use App\Models\Web\PrintedCatalog;
@@ -73,13 +72,12 @@ class ImportWebFull extends AbstractImportCommand
             EventOccurrence::class => 'event_occurrences',
             EventProgram::class => 'event_programs',
             Exhibition::class => 'web_exhibitions',
-            Hour::class => 'hours',
-            Location::class => 'locations',
+            Experience::class => 'experiences',
+            //Hour::class => 'hours',
+            InteractiveFeature::class => 'interactive_features',
             Selection::class => 'selections',
-            Tag::class => 'tags',
             GenericPage::class => 'generic_pages',
             PressRelease::class => 'press_releases',
-            ResearchGuide::class => 'research_guides',
             EducatorResource::class => 'educator_resources',
             DigitalCatalog::class => 'digital_catalogs',
             PrintedCatalog::class => 'printed_catalogs',
@@ -107,14 +105,13 @@ class ImportWebFull extends AbstractImportCommand
         // $this->importFromWeb('event-occurrences');
         $this->importFromWeb('event-programs');
         $this->importFromWeb('exhibitions');
-        $this->importFromWeb('hours');
-        $this->importFromWeb('locations');
+        $this->importFromWeb('experiences');
+        //$this->importFromWeb('hours');
+        $this->importFromWeb('interactive-features');
         $this->importFromWeb('selections');
-        $this->importFromWeb('tags');
 
         $this->importFromWeb('genericpages');
         $this->importFromWeb('pressreleases');
-        $this->importFromWeb('researchguides');
         $this->importFromWeb('educatorresources');
         $this->importFromWeb('digitalpublications');
         $this->importFromWeb('printedpublications');

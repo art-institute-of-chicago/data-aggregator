@@ -21,6 +21,7 @@ class Article extends WebTransformer
     {
         return array_merge($this->getBlockFields($datum), [
             'date' => $datum->date('date'),
+            'agent_ids' => collect($datum->related)->where('type', 'artists')->pluck('id')->all(),
 
             // TODO: Move these to trait?
             'publish_start_date' => $datum->date('publish_start_date'),

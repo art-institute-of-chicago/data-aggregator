@@ -16,8 +16,6 @@ class Product extends ShopModel
         'holiday' => 'boolean',
         'architecture' => 'boolean',
         'glass' => 'boolean',
-        'choking_hazard' => 'boolean',
-        'back_order' => 'boolean',
         'active' => 'boolean',
         'source_created_at' => 'datetime',
     ];

@@ -22,6 +22,7 @@ class StaticPage extends BaseTransformer
                 'value' => function ($item) {
                     return true;
                 },
+                'is_restricted' => true,
             ],
         ];
     }

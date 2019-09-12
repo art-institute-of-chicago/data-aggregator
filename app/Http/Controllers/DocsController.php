@@ -9,6 +9,7 @@ class DocsController extends Controller
 {
 
     protected $filename;
+    protected $title = 'API Documentation';
 
     /**
      * Create a new controller instance.
@@ -32,6 +33,6 @@ class DocsController extends Controller
         $markup = preg_replace_callback('/<h2>(\w+)<\/h2>/i', function ($title) {
             return '<h2 id="' . strtolower($title[1]) . '">' . $title[1] . '</h2>';
         }, $markup);
-        return view('docs', ['content' => $markup]);
+        return view('docs', ['content' => $markup, 'title' => $this->title]);
     }
 }

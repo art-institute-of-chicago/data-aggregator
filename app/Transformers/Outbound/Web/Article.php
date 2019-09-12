@@ -22,6 +22,7 @@ class Article extends BaseTransformer
                 'value' => function ($item) {
                     return $item->published;
                 },
+                'is_restricted' => true,
             ],
             // TODO: Is this different from the CMS publish date?
             'date' => [

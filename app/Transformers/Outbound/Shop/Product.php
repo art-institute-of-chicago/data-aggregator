@@ -22,6 +22,7 @@ class Product extends BaseTransformer
                 'value' => function ($item) {
                     return $item->active;
                 },
+                'is_restricted' => true,
             ],
             'parent_id' => [
                 'doc' => 'Unique identifier of this product\'s parent',
@@ -37,6 +38,7 @@ class Product extends BaseTransformer
                 'doc' => 'Numeric product identification code of a machine-readable barcode',
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
+                'is_restricted' => true,
             ],
             'external_sku' => [
                 'doc' => 'Numeric product identification code of a machine-readable barcode, when the customer sku differs from our internal one',
@@ -68,19 +70,10 @@ class Product extends BaseTransformer
                 'doc' => 'Used for sorting in the shop\'s website, specifically in the \'Featured\' sort mode, which is the default. This sort mode is two-part: first, items are sorted by their `priority` ascending; then as a secondary step, items are sorted by the number of items sold, descending.',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
+                'is_restricted' => true,
             ],
             'price' => [
                 'doc' => 'Number indicating how much the product costs the customer',
-                'type' => 'number',
-                'elasticsearch' => 'float',
-            ],
-            'sale_price' => [
-                'doc' => 'Number indicating how much the product costs on sale to the customer',
-                'type' => 'number',
-                'elasticsearch' => 'float',
-            ],
-            'member_price' => [
-                'doc' => 'Number indicating how much the product costs members',
                 'type' => 'number',
                 'elasticsearch' => 'float',
             ],
@@ -93,11 +86,6 @@ class Product extends BaseTransformer
                 'doc' => 'Whether the item can be wrapped in a gift box',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-            ],
-            'recipient' => [
-                'doc' => 'Category indicating who the product is intended for. E.g., "Anyone", "ForHim", "ForHer", etc.',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
             ],
             'holiday' => [
                 'doc' => 'Whether the product is a holiday item',
@@ -113,31 +101,6 @@ class Product extends BaseTransformer
                 'doc' => 'Whether the item is glass',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-            ],
-            'x_shipping_charge' => [
-                'doc' => 'Number indicating the additional shipping charge for this item, in US Dollars.',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-            ],
-            'inventory' => [
-                'doc' => 'Number indicating how many items remain in our inventory',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-            ],
-            'choking_hazard' => [
-                'doc' => 'Whether this product is a choking hazard',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-            ],
-            'back_order' => [
-                'doc' => 'Whether this product has been back ordered',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-            ],
-            'back_order_due_date' => [
-                'doc' => 'Date representing when this item is expected to be back in stock',
-                'type' => 'date',
-                'elasticsearch' => 'date',
             ],
 
             // TODO: Refactor relationships:

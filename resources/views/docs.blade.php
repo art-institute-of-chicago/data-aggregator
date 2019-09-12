@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
         @if (session('status'))
         <div class="col-md-8">
             <div class="card">
@@ -15,10 +13,17 @@
         </div>
         @endif
 
-        <div class="col-md-8">
+        <header class="m-article-header">
+            <div class="m-article-header__text">
+                <h1 class="title f-headline" itemprop="name">{{ $title }}</h1>
+            </div>
+        </header>
+
+        <div class="o-article__primary-actions"></div>
+        <div class="o-article__secondary-actions"></div>
+
+        <div class="o-article__body o-blocks">
             {!! $content !!}
         </div>
 
-    </div>
-</div>
 @endsection

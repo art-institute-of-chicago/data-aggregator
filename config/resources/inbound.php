@@ -180,24 +180,22 @@ return [
             'model' => \App\Models\Web\Exhibition::class,
             'transformer' => \App\Transformers\Inbound\Web\Exhibition::class,
         ],
+        'experiences' => [
+            'model' => \App\Models\Web\Experience::class,
+            'transformer' => \App\Transformers\Inbound\Web\Experience::class,
+        ],
         // TODO: Consider deleting until needed.
         'hours' => [
             'model' => \App\Models\Web\Hour::class,
             'transformer' => \App\Transformers\Inbound\Web\Hour::class,
         ],
-        // TODO: Consider deleting until needed.
-        'locations' => [
-            'model' => \App\Models\Web\Location::class,
-            'transformer' => \App\Transformers\Inbound\WebTransformer::class,
+        'interactive-features' => [
+            'model' => \App\Models\Web\InteractiveFeature::class,
+            'transformer' => \App\Transformers\Inbound\Web\InteractiveFeature::class,
         ],
         'selections' => [
             'model' => \App\Models\Web\Selection::class,
             'transformer' => \App\Transformers\Inbound\Web\Selection::class,
-        ],
-        // TODO: This is empty and has no stakeholders. Let's delete.
-        'tags' => [
-            'model' => \App\Models\Web\Tag::class,
-            'transformer' => \App\Transformers\Inbound\WebTransformer::class,
         ],
         'staticpages' => [
             'model' => \App\Models\Web\StaticPage::class,
@@ -211,21 +209,17 @@ return [
             'model' => \App\Models\Web\PressRelease::class,
             'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
-        'researchguides' => [
-            'model' => \App\Models\Web\ResearchGuide::class,
-            'transformer' => \App\Transformers\Inbound\Web\Page::class,
-        ],
         'educatorresources' => [
             'model' => \App\Models\Web\EducatorResource::class,
-            'transformer' => \App\Transformers\Inbound\Web\Page::class,
+            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
         ],
         'digitalpublications' => [
             'model' => \App\Models\Web\DigitalCatalog::class,
-            'transformer' => \App\Transformers\Inbound\Web\Page::class,
+            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
         ],
         'printedpublications' => [
             'model' => \App\Models\Web\PrintedCatalog::class,
-            'transformer' => \App\Transformers\Inbound\Web\Page::class,
+            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
         ],
     ],
 

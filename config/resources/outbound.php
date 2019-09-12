@@ -265,23 +265,10 @@ return [
          * Website:
          */
         [
-            // TODO: Delete this endpoint and model? It's empty.
-            'endpoint' => 'tags',
-            'model' => \App\Models\Web\Tag::class,
-            'transformer' => \App\Transformers\Outbound\Web\Tag::class,
-            'is_searchable' => true,
-        ],
-        [
-            // TODO: Delete this endpoint and model? It's not used for events.
-            'endpoint' => 'locations',
-            'model' => \App\Models\Web\Location::class,
-            'transformer' => \App\Transformers\Outbound\Web\Location::class,
-            'is_searchable' => true,
-        ],
-        [
             'endpoint' => 'hours',
             'model' => \App\Models\Web\Hour::class,
             'transformer' => \App\Transformers\Outbound\Web\Hour::class,
+            'is_restricted' => true,
             'is_searchable' => true,
         ],
         [
@@ -295,6 +282,13 @@ return [
             'model' => \App\Models\Web\Exhibition::class,
             'transformer' => \App\Transformers\Outbound\Web\Exhibition::class,
             'is_searchable' => true,
+        ],
+        [
+            'endpoint' => 'experiences',
+            'model' => \App\Models\Web\Experience::class,
+            'transformer' => \App\Transformers\Outbound\Web\Experience::class,
+            'is_searchable' => true,
+            'is_restricted' => true,
         ],
         [
             'endpoint' => 'events',
@@ -318,12 +312,21 @@ return [
             'endpoint' => 'email-series',
             'model' => \App\Models\Web\EmailSeries::class,
             'transformer' => \App\Transformers\Outbound\GenericTransformer::class,
+            'is_restricted' => true,
             'is_searchable' => true,
+        ],
+        [
+            'endpoint' => 'interactive-features',
+            'model' => \App\Models\Web\InteractiveFeature::class,
+            'transformer' => \App\Transformers\Outbound\Web\InteractiveFeature::class,
+            'is_searchable' => true,
+            'is_restricted' => true,
         ],
         [
             'endpoint' => 'sponsors',
             'model' => \App\Models\Web\Sponsor::class,
             'transformer' => \App\Transformers\Outbound\Web\Sponsor::class,
+            'is_restricted' => true,
             'is_searchable' => true,
         ],
         [
@@ -367,12 +370,6 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'research-guides',
-            'model' => \App\Models\Web\ResearchGuide::class,
-            'transformer' => \App\Transformers\Outbound\Web\Page::class,
-            'is_searchable' => true,
-        ],
-        [
             'endpoint' => 'educator-resources',
             'model' => \App\Models\Web\EducatorResource::class,
             'transformer' => \App\Transformers\Outbound\Web\Page::class,
@@ -388,16 +385,6 @@ return [
             'endpoint' => 'printed-catalogs',
             'model' => \App\Models\Web\PrintedCatalog::class,
             'transformer' => \App\Transformers\Outbound\Web\Page::class,
-            'is_searchable' => true,
-        ],
-
-        /**
-         * Digital labels:
-         */
-        [
-            'endpoint' => 'digital-labels',
-            'model' => \App\Models\DigitalLabel\Label::class,
-            'transformer' => \App\Transformers\Outbound\DigitalLabel\Label::class,
             'is_searchable' => true,
         ],
 

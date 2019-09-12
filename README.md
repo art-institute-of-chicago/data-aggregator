@@ -98,8 +98,7 @@ See [here](ADD_NEW_DATA_SOURCE.md) for details on adding new data sources to the
 
 ## Contributing
 
-We encourage your contributions. Please fork this repository and make your changes in a separate branch.
-You can use [git-flow](https://github.com/nvie/gitflow) to make this process easier.
+We encourage your contributions. Please fork this repository and make your changes in a separate branch. To better understand how we organize our code, please review our [version control guidelines](https://docs.google.com/document/d/1B-27HBUc6LDYHwvxp3ILUcPTo67VFIGwo5Hiq4J9Jjw).
 
 ```bash
 # Clone the repo to your computer
@@ -112,21 +111,25 @@ cd data-aggregator
 composer install
 
 # Start a feature branch
-git flow start feature yourinitials-good-description-issuenumberifapplicable
+git checkout -b feature/good-short-description
 
 # ... make some changes, commit your code
 
 # Push your branch to GitHub
-git push origin yourinitials-good-description-issuenumberifapplicable
+git push origin feature/good-short-description
 ```
 
 Then on github.com, create a Pull Request to merge your changes into our
 `develop` branch.
 
+Our internal team uses [`php-cs-fixer`](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure
+our code meets various PHP Standards Recommendations. You're welcome to integrate `php-cs-fixer`
+into your workflow as you work on this project, but is not required to make a contribution.
+
 This project is released with a Contributor Code of Conduct. By participating in
 this project you agree to abide by its [terms](CODE_OF_CONDUCT.md).
 
-We also welcome bug reports and questions under GitHub's [Issues](issues).
+We welcome bug reports and questions under GitHub's [Issues](issues). For other concerns, you can reach our engineering team at [engineering@artic.edu](mailto:engineering@artic.edu)
 
 
 ## Licensing
