@@ -150,7 +150,7 @@ class Response
         $results = [];
 
         $input = Input::all();
-        $fields = $input['fields'];
+        $fields = $input['fields'] ?? [];
         $fields = is_string($fields) ? array_map('trim', explode(',', $fields)) : $fields;
 
         // Reduce to just the _source objects
