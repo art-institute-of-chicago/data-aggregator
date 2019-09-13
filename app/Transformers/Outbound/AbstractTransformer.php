@@ -3,7 +3,6 @@
 namespace App\Transformers\Outbound;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 use Carbon\Carbon;
 
@@ -35,12 +34,20 @@ abstract class AbstractTransformer extends BaseTransformer
     private $mappedFields;
 
     /**
+     * Whether to filter out `is_restricted` fields.
+     *
+     * @var boolean
+     */
+    private $isRestricted;
+
+    /**
      * Be sure to call parent::__construct() if you overwrite this.
      * Otherwise, you will lose field-filtering functionality.
      */
-    public function __construct($requestedFields = null)
+    public function __construct($requestedFields = null, $isRestricted = false)
     {
         $this->requestedFields = $this->getRequestedFields($requestedFields);
+        $this->isRestricted = $isRestricted;
     }
 
     /**
@@ -296,8 +303,8 @@ abstract class AbstractTransformer extends BaseTransformer
             $this->getIds(),
             $this->getSearchFields(),
             $this->getTitles(),
-            (!Auth::check() && config('aic.auth.restricted') ? $this->restrictFields($this->getFields()) : $this->getFields()),
-            (!Auth::check() && config('aic.auth.restricted') ? $this->restrictFields($this->getTraitFields()) : $this->getTraitFields()),
+            ($this->isRestricted ? $this->restrictFields($this->getFields()) : $this->getFields()),
+            ($this->isRestricted ? $this->restrictFields($this->getTraitFields()) : $this->getTraitFields()),
             $this->getSuggestFields(),
             $this->getDates()
         );

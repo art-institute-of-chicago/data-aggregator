@@ -4,6 +4,9 @@ namespace App\Http\Search;
 
 use Illuminate\Support\Arr;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+
 class Response
 {
 
@@ -146,6 +149,10 @@ class Response
         $hits = $this->searchResponse['hits']['hits'];
         $results = [];
 
+        $input = Input::all();
+        $fields = $input['fields'] ?? [];
+        $fields = is_string($fields) ? array_map('trim', explode(',', $fields)) : $fields;
+
         // Reduce to just the _source objects
         foreach ($hits as $hit) {
             $result = [
@@ -157,6 +164,19 @@ class Response
             // Note that `_source` might be undefined if `_source` was set to false in Request
             if (isset($hit['_source'])) {
                 $result = array_merge($result, $hit['_source']);
+            }
+
+            // WEB-1273: Remove any restricted fields for anonymous users. We already do this
+            // in Search\Request::getFieldParams(), but only for single-resource requests.
+            // We need to do this here b/c there's no way to target `fields` at specific indexes.
+            if (!Auth::check() && config('aic.auth.restricted') && isset($result['api_model'])) {
+                $restrictedFields = app('Resources')->getRetrictedFieldNamesForEndpoint($result['api_model']);
+                $result = array_diff_key($result, array_flip($restrictedFields));
+
+                // We needed it for typechecking, but not anymore
+                if (!empty($fields) && !in_array('api_model', $fields)) {
+                    unset($result['api_model']);
+                }
             }
 
             $results[] = $result;

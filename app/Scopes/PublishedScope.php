@@ -41,4 +41,101 @@ class PublishedScope implements Scope
                 });
             });
     }
+
+
+    public static function forSearch()
+    {
+        return [
+            [
+                'bool' => [
+                    'should' => [
+                        [
+                            'bool' => [
+                                'should' => [
+                                    [
+                                        'bool' => [
+                                            'must_not' => [
+                                                'exists' => [
+                                                    'field' => 'published',
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'term' => [
+                                            'published' => true,
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        [
+                            'bool' => [
+                                'should' => [
+                                    [
+                                        'bool' => [
+                                            'must_not' => [
+                                                'exists' => [
+                                                    'field' => 'is_published',
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'term' => [
+                                            'is_published' => true,
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'bool' => [
+                    'should' => [
+                        [
+                            'bool' => [
+                                'must_not' => [
+                                    'exists' => [
+                                        'field' => 'publish_start_date',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        [
+                            'range' => [
+                                'publish_start_date' => [
+                                    'lte' => 'now',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'bool' => [
+                    'should' => [
+                        [
+                            'bool' => [
+                                'must_not' => [
+                                    'exists' => [
+                                        'field' => 'publish_end_date',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        [
+                            'range' => [
+                                'publish_end_date' => [
+                                    'gte' => 'now',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
 }

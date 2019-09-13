@@ -6,6 +6,8 @@ use Aic\Hub\Foundation\Exceptions\BigLimitException;
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
 
+use App\Http\Middleware\RestrictContent;
+
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -162,7 +164,7 @@ class Request
         $this->resources = $resources;
 
         if (is_null($resources)) {
-            throw new DetailedException('Missing Parameter', 'You must specify the `resources` parameter.', 400);
+            throw new DetailedException('Missing Parameter', 'You must specify the `resources` parameter.', 403);
         }
 
         // Filter out any resources that have a parent resource requested as well
@@ -172,6 +174,18 @@ class Request
 
             return !in_array($parent, $resources);
         });
+
+        // Filter out restricted resources for anon users
+        // TODO: Alert user about resources that were filtered?
+        if (!Auth::check() && config('aic.auth.restricted')) {
+            $resources = array_filter($resources, function ($resource) {
+                return !app('Resources')->isRestricted($resource);
+            });
+        }
+
+        if (empty($resources)) {
+            throw new DetailedException('Restricted Resource', 'You must choose at least one unrestricted resource to search.', 400);
+        }
 
         // Make resources into a Laravel collection
         $resources = collect($resources);
@@ -306,6 +320,9 @@ class Request
 
         // Add params to isolate "scoped" resources into `must`
         $params = $this->addScopeParams($params, $input);
+
+        // Add params to filter out restricted resources into `must`
+        $params = $this->addRestrictParams($params, $input);
 
         /**
          * 1. If `query` is present, append it to the `must` clause.
@@ -451,8 +468,29 @@ class Request
      */
     private function getFieldParams(array $input, $default = null)
     {
+        $fields = $input['fields'] ?? ($default ?? self::$defaultFields);
+
+        $fields = is_string($fields) ? array_map('trim', explode(',', $fields)) : $fields;
+
+        // Time to filter out restricted fields from request.
+        // We cannot target `fields` to specific indexes / resources.
+        // What happens if a field is restricted on one resource, but not another?
+        if (!Auth::check() && config('aic.auth.restricted')) {
+            if (count($this->resources) === 1) {
+                // If there is only one resource requested, there's no amiguity.
+                $restrictedFields = app('Resources')->getRetrictedFieldNamesForEndpoint($this->resources[0]);
+                $fields = array_diff($fields, $restrictedFields);
+            } else {
+                // Otherwise, we need to know what model each record represents.
+                // We'll do the field-filtering in Search\Response::data()
+                if (!in_array('api_model', $fields)) {
+                    $fields[] = 'api_model';
+                }
+            }
+        }
+
         return [
-            '_source' => $input['fields'] ?? ($default ?? self::$defaultFields),
+            '_source' => $fields,
         ];
     }
 
@@ -576,9 +614,11 @@ class Request
         }
 
         // Add a query for all the leftover resources
-        $scopedQuery = app('Search')->getScopedQuery($resourcesWithoutFunctions->all(), $baseQuery);
+        if ($resourcesWithoutFunctions->count() > 0) {
+            $scopedQuery = app('Search')->getScopedQuery($resourcesWithoutFunctions->all(), $baseQuery);
 
-        $scopedQueries->push($scopedQuery);
+            $scopedQueries->push($scopedQuery);
+        }
 
         // Override the existing query with our queries
         $params['body']['query'] = [
@@ -607,6 +647,28 @@ class Request
                 'should' => $this->scopes,
             ],
         ];
+
+        return $params;
+    }
+
+    /**
+     * Append any search clauses that are needed to filter out restricted resources.
+     *
+     * @return array
+     */
+    public function addRestrictParams(array $params, array $input)
+    {
+        if (Auth::check() || !config('aic.auth.restricted')) {
+            return $params;
+        }
+
+        foreach ($this->resources as $resource) {
+            $restrictions = RestrictContent::getSearchRestrictForEndpoint($resource);
+
+            if (!empty($restrictions)) {
+                $params['body']['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
+            }
+        }
 
         return $params;
     }
