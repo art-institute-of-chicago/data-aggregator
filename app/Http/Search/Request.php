@@ -609,9 +609,11 @@ class Request
         }
 
         // Add a query for all the leftover resources
-        $scopedQuery = app('Search')->getScopedQuery($resourcesWithoutFunctions->all(), $baseQuery);
+        if ($resourcesWithoutFunctions->count() > 0) {
+            $scopedQuery = app('Search')->getScopedQuery($resourcesWithoutFunctions->all(), $baseQuery);
 
-        $scopedQueries->push($scopedQuery);
+            $scopedQueries->push($scopedQuery);
+        }
 
         // Override the existing query with our queries
         $params['body']['query'] = [
