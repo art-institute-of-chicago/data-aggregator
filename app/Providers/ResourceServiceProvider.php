@@ -149,6 +149,19 @@ class ResourceServiceProvider extends ServiceProvider
                     return $resource['is_restricted'] ?? false;
                 }
 
+                public function getRetrictedFieldNamesForEndpoint($endpoint)
+                {
+                    $transformerClass = $this->getTransformerForEndpoint($endpoint);
+
+                    $mappedFields = (new $transformerClass(null, false))->getMappedFields();
+
+                    $restrictedFields = array_filter($mappedFields, function ($mappedField) {
+                        return $mappedField['is_restricted'] ?? false;
+                    });
+
+                    return array_keys($restrictedFields);
+                }
+
                 public function getInboundTransformerForModel($model, $source)
                 {
                     $model = $this->getCleanModel($model);

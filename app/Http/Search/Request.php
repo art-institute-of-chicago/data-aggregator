@@ -463,8 +463,29 @@ class Request
      */
     private function getFieldParams(array $input, $default = null)
     {
+        $fields = $input['fields'] ?? ($default ?? self::$defaultFields);
+
+        $fields = is_string($fields) ? array_map('trim', explode(',', $fields)) : $fields;
+
+        // Time to filter out restricted fields from request.
+        // We cannot target `fields` to specific indexes / resources.
+        // What happens if a field is restricted on one resource, but not another?
+        if (!Auth::check() && config('aic.auth.restricted')) {
+            if (count($this->resources) === 1) {
+                // If there is only one resource requested, there's no amiguity.
+                $restrictedFields = app('Resources')->getRetrictedFieldNamesForEndpoint($this->resources[0]);
+                $fields = array_diff($fields, $restrictedFields);
+            } else {
+                // Otherwise, we need to know what model each record represents.
+                // We'll do the field-filtering in Search\Response::data()
+                if (!in_array('api_model', $fields)) {
+                    $fields[] = 'api_model';
+                }
+            }
+        }
+
         return [
-            '_source' => $input['fields'] ?? ($default ?? self::$defaultFields),
+            '_source' => $fields,
         ];
     }
 
