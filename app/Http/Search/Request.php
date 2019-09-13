@@ -6,6 +6,8 @@ use Aic\Hub\Foundation\Exceptions\BigLimitException;
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
 
+use App\Http\Middleware\RestrictContent;
+
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -318,6 +320,9 @@ class Request
 
         // Add params to isolate "scoped" resources into `must`
         $params = $this->addScopeParams($params, $input);
+
+        // Add params to filter out restricted resources into `must`
+        $params = $this->addRestrictParams($params, $input);
 
         /**
          * 1. If `query` is present, append it to the `must` clause.
@@ -642,6 +647,28 @@ class Request
                 'should' => $this->scopes,
             ],
         ];
+
+        return $params;
+    }
+
+    /**
+     * Append any search clauses that are needed to filter out restricted resources.
+     *
+     * @return array
+     */
+    public function addRestrictParams(array $params, array $input)
+    {
+        if (Auth::check() || !config('aic.auth.restricted')) {
+            return $params;
+        }
+
+        foreach ($this->resources as $resource) {
+            $restrictions = RestrictContent::getSearchRestrictForEndpoint($resource);
+
+            if (!empty($restrictions)) {
+                $params['body']['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
+            }
+        }
 
         return $params;
     }
