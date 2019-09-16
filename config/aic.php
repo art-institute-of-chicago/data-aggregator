@@ -47,7 +47,6 @@ return [
     */
 
     'config_documentation' => [
-        'lake_url' => env('LAKE_URL', null),
         'iiif_url' => env('IIIF_URL', null),
         'shop_image_url' => env('SHOP_IMGIX_URL', null),
         'shop_product_url' => env('PRODUCT_URL', null),
