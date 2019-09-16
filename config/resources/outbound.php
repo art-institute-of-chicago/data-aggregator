@@ -249,16 +249,19 @@ return [
             'endpoint' => 'library-materials',
             'model' => \App\Models\Library\Material::class,
             'transformer' => \App\Transformers\Outbound\Library\Material::class,
+            'is_restricted' => true,
         ],
         [
             'endpoint' => 'library-terms',
             'model' => \App\Models\Library\Term::class,
             'transformer' => \App\Transformers\Outbound\Library\Term::class,
+            'is_restricted' => true,
         ],
         [
             'endpoint' => 'archive-images',
             'model' => \App\Models\Archive\ArchiveImage::class,
             'transformer' => \App\Transformers\Outbound\Archive\ArchiveImage::class,
+            'is_restricted' => true,
         ],
 
         /**
