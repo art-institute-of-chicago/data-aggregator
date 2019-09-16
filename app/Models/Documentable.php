@@ -129,6 +129,9 @@ trait Documentable
 
         foreach ($this->transformMapping() as $array)
         {
+            if ($array['is_restricted'] ?? false) {
+                continue;
+            }
             $doc .= '* `' . $array['name'] . '` ' . (array_key_exists('type', $array) ? '*' . $array['type'] . '* ' : '') . '- ' . $array['doc'] . "\n";
         }
 
