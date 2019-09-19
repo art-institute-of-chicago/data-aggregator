@@ -165,6 +165,7 @@ class Event extends BaseTransformer
                 'value' => function ($item) {
                     return $item->ticketedEvent->membership_id ?? null;
                 },
+                'is_restricted' => true,
             ],
             'rsvp_link' => [
                 'doc' => 'The URL to the sales site for this event',

@@ -20,15 +20,15 @@
         </header>
 
         <div class="o-article__primary-actions"></div>
-        <div class="o-article__secondary-actions"></div>
+        <div class="o-article__secondary-actions">
+            <div id="app">
+                  @if (Auth::check())
+                      <passport-personal-access-tokens></passport-personal-access-tokens>
+                  @endif
+            </div>
+        </div>
 
         <div class="o-article__body o-blocks">
-            @if (Auth::check())
-            <div class="col-md-8">
-                <passport-personal-access-tokens></passport-personal-access-tokens>
-            </div>
-            @endif
-
             <p>The Art Institute of Chicago's API provides JSON formatted data as a REST-style service that allows developers to explore and integrate the museum’s data into their projects. This API is the same tool that powers our <a href="https://www.artic.edu">website</a>, our <a href="https://www.artic.edu/visit/explore-on-your-own/mobile-app-audio-tours">mobile app</a>, and many other technologies in the museum.</p>
 
             <h2>Getting started</h2>
