@@ -8,7 +8,11 @@ use App\Models\Passport\AuthCode;
 use App\Models\Passport\PersonalAccessClient;
 
 use Laravel\Passport\Passport;
+
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -29,6 +33,23 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        Gate::define('restricted-access', function ($user = null) {
+            // If we're not applying restriction, you shall pass
+            if (!config('aic.auth.restricted')) {
+                return true;
+            }
+
+            // Otherwise, check if you shall not pass
+            $whiteIps = config('aic.auth.access_whitelist_ips');
+            $passed = array_filter(array_map(function($range) {
+                if (ipInRange(request()->ip(), $range)) {
+                    return $range;
+                }
+            }, $whiteIps));
+
+            return Auth::check() || $passed;
+        });
 
         Passport::routes(null, ['middleware' => ['loginIp']]);
 

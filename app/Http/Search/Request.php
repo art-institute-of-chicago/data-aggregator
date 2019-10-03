@@ -10,6 +10,7 @@ use App\Http\Middleware\RestrictContent;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
 
 class Request
@@ -177,7 +178,7 @@ class Request
 
         // Filter out restricted resources for anon users
         // TODO: Alert user about resources that were filtered?
-        if (!Auth::check() && config('aic.auth.restricted')) {
+        if (Gate::denies('restricted-access') && isset($result['api_model'])) {
             $resources = array_filter($resources, function ($resource) {
                 return !app('Resources')->isRestricted($resource);
             });
@@ -433,7 +434,7 @@ class Request
         }
 
         if (isset($size) && isset($from)) {
-            if (Auth::check() || !config('aic.auth.restricted')) {
+            if (Gate::allows('restricted-access')) {
                 $maxResources = config('aic.auth.max_resources_user');
             } else {
                 $maxResources = config('aic.auth.max_resources_guest');
@@ -475,7 +476,7 @@ class Request
         // Time to filter out restricted fields from request.
         // We cannot target `fields` to specific indexes / resources.
         // What happens if a field is restricted on one resource, but not another?
-        if (!Auth::check() && config('aic.auth.restricted')) {
+        if (Gate::denies('restricted-access')) {
             if (count($this->resources) === 1) {
                 // If there is only one resource requested, there's no amiguity.
                 $restrictedFields = app('Resources')->getRetrictedFieldNamesForEndpoint($this->resources[0]);
@@ -658,7 +659,7 @@ class Request
      */
     public function addRestrictParams(array $params, array $input)
     {
-        if (Auth::check() || !config('aic.auth.restricted')) {
+        if (Gate::allows('restricted-access')) {
             return $params;
         }
 

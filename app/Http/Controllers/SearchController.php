@@ -6,7 +6,9 @@ use Aic\Hub\Foundation\Exceptions\DetailedException;
 
 use App\Http\Search\Request as SearchRequest;
 use App\Http\Search\Response as SearchResponse;
+
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Elasticsearch;
@@ -37,7 +39,7 @@ class SearchController extends BaseController
         $cacheParam = Input::get('cache');
         $cacheParam = !is_string($cacheParam) ? $cacheParam : filter_var($cacheParam, FILTER_VALIDATE_BOOLEAN);
 
-        if ($this->useCache && $cacheParam === false && (Auth::check() || !config('aic.auth.restricted'))) {
+        if ($this->useCache && $cacheParam === false && (Gate::allows('restricted-access'))) {
             $this->useCache = false;
         }
     }
