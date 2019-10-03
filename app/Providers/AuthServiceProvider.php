@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Passport::routes(null, ['middleware' => ['checkIp']]);
+        Passport::routes(null, ['middleware' => ['loginIp']]);
 
         Passport::useTokenModel(Token::class);
         Passport::useClientModel(Client::class);
