@@ -128,7 +128,7 @@ class Request
      *
      * @var integer
      */
-    private static $maxSize = 1000;
+    private static $maxSize = 200;
 
     /**
      * Create a new request instance.

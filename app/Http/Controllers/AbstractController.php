@@ -27,6 +27,8 @@ use Aic\Hub\Foundation\AbstractController as BaseController;
 abstract class AbstractController extends BaseController
 {
 
+    const LIMIT_MAX = 200;
+
     /**
      * @var \League\Fractal\Manager
      */
