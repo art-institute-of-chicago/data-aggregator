@@ -136,7 +136,7 @@ class Artwork extends CollectionsTransformer
             // Default `preferred` to true and `agent_role_citi_id` to 219
             return [
                 $datum->creator_id => [
-                    'agent_role_citi_id' => 219,
+                    'agent_role_citi_id' => $datum->creator_role_id ?? 219,
                     'preferred' => true,
                 ],
             ];
