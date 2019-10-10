@@ -248,6 +248,11 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
+            'internal_department_id' => [
+                'doc' => 'An internal department id we use for analytics. Does not correspond to departments on the website.',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+            ],
             'collection_status' => [
                 'doc' => 'The works status of belonging to our collection. Values include "Permanent Collection", "Ryerson Collection", and "Long-term Loan".',
                 'type' => 'string',

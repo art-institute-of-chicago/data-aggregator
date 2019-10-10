@@ -40,6 +40,7 @@ class Artwork extends CollectionsTransformer
             'exhibition_history' => $datum->exhibitions,
             'copyright_notice' => $copyright_notice,
             'gallery_citi_id' => $datum->gallery_id,
+            'internal_department_id' => $datum->department_id,
             // TODO: ArtworkTypes may need to be attached via string comparison
             //'artwork_type_citi_id' => , // Redmine #2431
         ];
