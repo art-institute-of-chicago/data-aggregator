@@ -40,15 +40,25 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
 
-            // Otherwise, check if you shall not pass
-            $whiteIps = config('aic.auth.access_whitelist_ips');
-            $passed = array_filter(array_map(function($range) {
+            // If your token is valid, you shall pass
+            if (Auth::check()) {
+                return true;
+            }
+
+            // If your IP is within a whitelisted range, you shall pass
+            $whitelistedRanges = config('aic.auth.access_whitelist_ips');
+            $matchingRanges = array_filter(array_map(function($range) {
                 if (ipInRange(request()->ip(), $range)) {
                     return $range;
                 }
-            }, $whiteIps));
+            }, $whitelistedRanges));
 
-            return Auth::check() || $passed;
+            if (count($matchingRanges) > 0) {
+                return true;
+            }
+
+            // Otherwise, you shall not pass
+            return false;
         });
 
         Passport::routes(null, ['middleware' => ['loginIp']]);

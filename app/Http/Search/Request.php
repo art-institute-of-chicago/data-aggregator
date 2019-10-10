@@ -178,7 +178,7 @@ class Request
 
         // Filter out restricted resources for anon users
         // TODO: Alert user about resources that were filtered?
-        if (Gate::denies('restricted-access') && isset($result['api_model'])) {
+        if (Gate::denies('restricted-access')) {
             $resources = array_filter($resources, function ($resource) {
                 return !app('Resources')->isRestricted($resource);
             });

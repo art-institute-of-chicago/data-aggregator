@@ -39,7 +39,7 @@ class SearchController extends BaseController
         $cacheParam = Input::get('cache');
         $cacheParam = !is_string($cacheParam) ? $cacheParam : filter_var($cacheParam, FILTER_VALIDATE_BOOLEAN);
 
-        if ($this->useCache && $cacheParam === false && (Gate::allows('restricted-access'))) {
+        if ($this->useCache && $cacheParam === false && Gate::allows('restricted-access')) {
             $this->useCache = false;
         }
     }
