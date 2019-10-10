@@ -264,6 +264,11 @@ class Artwork extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
             ],
+            'fiscal_year_deaccession' => [
+                'doc' => 'The fiscal year in which the work was deaccessioned.',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+            ],
 
             /**
              * Copyright fields:
