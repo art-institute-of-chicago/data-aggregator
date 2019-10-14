@@ -50,6 +50,30 @@ class Artwork extends CollectionsModel
         'places',
     ];
 
+    /**
+     * Scope a query to only include permanent collection items.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeArtworks($query)
+    {
+        return $query->whereNull('fiscal_year_deaccession');
+    }
+
+    public static function searchScopeArtworks()
+    {
+        return [
+            'bool' => [
+                'must_not' => [
+                    'exists' => [
+                        'field' => 'fiscal_year_deaccession'
+                    ]
+                ],
+            ],
+        ];
+    }
+
     public function thumbnail()
     {
         // TODO: Change this to be polymorphic + use its own table?

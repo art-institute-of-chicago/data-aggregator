@@ -169,12 +169,15 @@ class Request
         }
 
         // Filter out any resources that have a parent resource requested as well
-        // So e.g. if places and galleries are requested, we'll show places only
+        // So e.g. if places and galleries are requested, we'll show places only.
+        // Be careful to not filter out self-referrential resources.
         $resources = array_filter($resources, function ($resource) use ($resources) {
             $parent = app('Resources')->getParent($resource);
 
-            return !in_array($parent, $resources);
+            return $parent === $resource || !in_array($parent, $resources);
         });
+
+        $resources = array_values(array_unique($resources));
 
         // Filter out restricted resources for anon users
         // TODO: Alert user about resources that were filtered?

@@ -105,7 +105,7 @@ class ResourceServiceProvider extends ServiceProvider
                         do {
                             $resource = $this->outbound->firstWhere('endpoint', $endpoint);
                             $endpoint = $resource['scope_of'] ?? $endpoint;
-                        } while (isset($resource['scope_of']));
+                        } while (isset($resource['scope_of']) && $resource['scope_of'] !== $endpoint);
                     }
 
                     return $endpoint;
