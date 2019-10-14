@@ -74,6 +74,25 @@ class Artwork extends CollectionsModel
         ];
     }
 
+    /**
+     * Scope a query to only include deaccessioned artworks.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDeaccessions($query)
+    {
+        return $query->whereNotNull('fiscal_year_deaccession');
+    }
+
+    public static function searchScopeDeaccessions()
+    {
+        return [
+            'exists' => [
+                'field' => 'fiscal_year_deaccession'
+            ]
+        ];
+    }
     public function thumbnail()
     {
         // TODO: Change this to be polymorphic + use its own table?
