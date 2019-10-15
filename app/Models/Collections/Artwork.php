@@ -128,7 +128,14 @@ class Artwork extends CollectionsModel
 
     public function categories()
     {
-        return $this->belongsToMany('App\Models\Collections\Category');
+        $relation = $this->belongsToMany('App\Models\Collections\Category');
+
+        // TODO: Probably also filter this out of the database dumps?
+        if (isset($this->fiscal_year_deaccession)) {
+            return $relation->whereNot('subtype', CategoryTerm::DEPARTMENT);
+        }
+
+        return $relation;
     }
 
     public function departments()
