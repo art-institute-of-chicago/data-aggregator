@@ -58,7 +58,7 @@ class CategoryTerm extends CollectionsModel
     {
         $table = $this->is_category ? 'artwork_category' : 'artwork_term';
         $column = $this->is_category ? 'category_lake_uid' : 'term_lake_uid';
-        return $this->belongsToMany('App\Models\Collections\Artwork', $table, $column);
+        return $this->belongsToMany('App\Models\Collections\Artwork', $table, $column)->artworks();
     }
 
     public function parent()
