@@ -56,7 +56,8 @@ class Asset extends CollectionsModel
     {
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_lake_guid')
             ->withPivot('preferred')
-            ->withPivot('is_doc');
+            ->withPivot('is_doc')
+            ->artworks();
     }
 
     public function exhibitions()

@@ -24,7 +24,7 @@ class Exhibition extends CollectionsModel
 
     public function artworks()
     {
-        return $this->belongsToMany('App\Models\Collections\Artwork');
+        return $this->belongsToMany('App\Models\Collections\Artwork')->artworks();
     }
 
     public function gallery()

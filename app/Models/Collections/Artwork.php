@@ -50,6 +50,49 @@ class Artwork extends CollectionsModel
         'places',
     ];
 
+    /**
+     * Scope a query to only include permanent collection items.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeArtworks($query)
+    {
+        return $query->whereNull('fiscal_year_deaccession');
+    }
+
+    public static function searchScopeArtworks()
+    {
+        return [
+            'bool' => [
+                'must_not' => [
+                    'exists' => [
+                        'field' => 'fiscal_year_deaccession'
+                    ]
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Scope a query to only include deaccessioned artworks.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDeaccessions($query)
+    {
+        return $query->whereNotNull('fiscal_year_deaccession');
+    }
+
+    public static function searchScopeDeaccessions()
+    {
+        return [
+            'exists' => [
+                'field' => 'fiscal_year_deaccession'
+            ]
+        ];
+    }
     public function thumbnail()
     {
         // TODO: Change this to be polymorphic + use its own table?
@@ -85,7 +128,14 @@ class Artwork extends CollectionsModel
 
     public function categories()
     {
-        return $this->belongsToMany('App\Models\Collections\Category');
+        $relation = $this->belongsToMany('App\Models\Collections\Category');
+
+        // TODO: Probably also filter this out of the database dumps?
+        if (isset($this->fiscal_year_deaccession)) {
+            return $relation->whereNot('subtype', CategoryTerm::DEPARTMENT);
+        }
+
+        return $relation;
     }
 
     public function departments()
