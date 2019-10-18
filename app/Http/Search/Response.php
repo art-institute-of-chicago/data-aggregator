@@ -3,8 +3,8 @@
 namespace App\Http\Search;
 
 use Illuminate\Support\Arr;
-
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
 
 class Response
@@ -169,7 +169,7 @@ class Response
             // WEB-1273: Remove any restricted fields for anonymous users. We already do this
             // in Search\Request::getFieldParams(), but only for single-resource requests.
             // We need to do this here b/c there's no way to target `fields` at specific indexes.
-            if (!Auth::check() && config('aic.auth.restricted') && isset($result['api_model'])) {
+            if (Gate::denies('restricted-access') && isset($result['api_model'])) {
                 $restrictedFields = app('Resources')->getRetrictedFieldNamesForEndpoint($result['api_model']);
                 $result = array_diff_key($result, array_flip($restrictedFields));
 

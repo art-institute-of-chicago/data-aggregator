@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 use Aic\Hub\Foundation\Exceptions\UnauthorizedException;
 
@@ -36,7 +37,7 @@ class RestrictedResourceController extends ResourceController
 
     private function checkIfAuthorized()
     {
-        if (!Auth::check() && config('aic.auth.restricted')) {
+        if (Gate::denies('restricted-access')) {
             throw new UnauthorizedException();
         }
     }

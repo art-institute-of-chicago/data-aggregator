@@ -64,23 +64,6 @@ trait ImportsData
 
     /**
      * Downloads a file and (optionally) runs a json decode on its contents.
-     *
-     * @TODO Use `curl` w/ shared handler & basic auth
-     *
-     * @return string|object
-     */
-    protected function fetch($file, $decode = false)
-    {
-        $ctx = stream_context_create(array('http'=> ['timeout' => 180,  /* 3 Minutes */ ]));
-        if (!$contents = @file_get_contents($file, false, $ctx))
-        {
-            throw new \Exception('Fetch failed: ' . $file);
-        }
-
-        return $decode ? json_decode($contents) : $contents;
-    }
-
-    /**
      * Convenience curl wrapper. Accepts `GET` URL. Returns decoded JSON.
      *
      * @TODO Figure out how to catch "fetch failed" exceptions w/ curl
@@ -92,15 +75,17 @@ trait ImportsData
      *
      * @return string
      */
-    protected function fetchWithAuth($url, $decode = false)
+    protected function fetch($url, $decode = false)
     {
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
 
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-        curl_setopt($ch, CURLOPT_USERPWD, $this->auth);
+        if ($this->auth) {
+            curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+            curl_setopt($ch, CURLOPT_USERPWD, $this->auth);
+        }
 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
@@ -155,10 +140,7 @@ trait ImportsData
 
         $this->info('Querying: ' . $url);
 
-        // Determine if authentication is needed
-        $method = $this->auth ? 'fetchWithAuth' : 'fetch';
-
-        return $this->{$method}($url, true);
+        return $this->fetch($url, true);
     }
 
     /**
@@ -203,7 +185,11 @@ trait ImportsData
         } else {
 
             // Assumes the dataservice has standardized pagination
-            $pages = $json->pagination->total_pages;
+            try {
+                $pages = $json->pagination->total_pages;
+            } catch (\Throwable $e) {
+                throw new \Exception('Something went wrong.');
+            }
 
             // TODO: [ErrorException] Undefined property: stdClass::$pagination
             // This happens when you're trying to hit an endpoint that doesn't exist

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Routing\Middleware\ThrottleRequests as BaseMiddleware;
 
 class ThrottleRequests extends BaseMiddleware
@@ -16,7 +17,7 @@ class ThrottleRequests extends BaseMiddleware
      */
     public function handle($request, Closure $next, $maxAttempts = 60, $decayMinutes = 1)
     {
-        if (Auth::check() || !config('aic.auth.restricted')) {
+        if (Gate::allows('restricted-access')) {
             $key = $this->resolveRequestSignature($request);
             $this->limiter->clear($key);
         } else {

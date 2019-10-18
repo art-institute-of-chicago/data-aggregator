@@ -11,7 +11,14 @@ return [
             'endpoint' => 'artworks',
             'model' => \App\Models\Collections\Artwork::class,
             'transformer' => \App\Transformers\Outbound\Collections\Artwork::class,
+            'scope_of' => 'artworks', // Fire scopeArtworks + searchScopeArtworks
             'is_searchable' => true,
+        ],
+        [
+            'endpoint' => 'deaccessions',
+            'model' => \App\Models\Collections\Artwork::class,
+            'transformer' => \App\Transformers\Outbound\Collections\Artwork::class,
+            'scope_of' => 'artworks',
         ],
         [
             'endpoint' => 'agents',

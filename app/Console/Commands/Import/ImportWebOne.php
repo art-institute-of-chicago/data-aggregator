@@ -39,7 +39,7 @@ class ImportWebOne extends ImportWebFull
 
         $this->info('Fetching: ' . $url);
 
-        return $this->fetchWithAuth($url, true);
+        return $this->fetch($url, true);
     }
 
 }

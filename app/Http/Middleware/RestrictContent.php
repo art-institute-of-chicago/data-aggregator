@@ -9,6 +9,7 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 use App\Models\Collections\Exhibition;
 use App\Models\Shop\Product;
@@ -38,7 +39,7 @@ class RestrictContent
     public function handle(Request $request, Closure $next, $guard = null)
     {
         // Define what to show to anonymous users
-        if (!Auth::check() && config('aic.auth.restricted')) {
+        if (Gate::denies('restricted-access')) {
             Article::addGlobalScope(new PublishedScope);
             DigitalCatalog::addGlobalScope(new PublishedScope);
             EducatorResource::addGlobalScope(new PublishedScope);

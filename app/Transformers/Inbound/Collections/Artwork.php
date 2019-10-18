@@ -40,6 +40,7 @@ class Artwork extends CollectionsTransformer
             'exhibition_history' => $datum->exhibitions,
             'copyright_notice' => $copyright_notice,
             'gallery_citi_id' => $datum->gallery_id,
+            'internal_department_id' => $datum->department_id,
             // TODO: ArtworkTypes may need to be attached via string comparison
             //'artwork_type_citi_id' => , // Redmine #2431
         ];
@@ -136,7 +137,7 @@ class Artwork extends CollectionsTransformer
             // Default `preferred` to true and `agent_role_citi_id` to 219
             return [
                 $datum->creator_id => [
-                    'agent_role_citi_id' => 219,
+                    'agent_role_citi_id' => $datum->creator_role_id ?? 219,
                     'preferred' => true,
                 ],
             ];

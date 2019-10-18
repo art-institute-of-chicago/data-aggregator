@@ -36,7 +36,7 @@ class Agent extends CollectionsModel
 
     public function createdArtworks()
     {
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist');
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->artworks();
     }
 
     public function sites()

@@ -10,6 +10,7 @@ use App\Http\Middleware\RestrictContent;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
 
 class Request
@@ -127,7 +128,7 @@ class Request
      *
      * @var integer
      */
-    private static $maxSize = 1000;
+    private static $maxSize = 200;
 
     /**
      * Create a new request instance.
@@ -168,16 +169,19 @@ class Request
         }
 
         // Filter out any resources that have a parent resource requested as well
-        // So e.g. if places and galleries are requested, we'll show places only
+        // So e.g. if places and galleries are requested, we'll show places only.
+        // Be careful to not filter out self-referrential resources.
         $resources = array_filter($resources, function ($resource) use ($resources) {
             $parent = app('Resources')->getParent($resource);
 
-            return !in_array($parent, $resources);
+            return $parent === $resource || !in_array($parent, $resources);
         });
+
+        $resources = array_values(array_unique($resources));
 
         // Filter out restricted resources for anon users
         // TODO: Alert user about resources that were filtered?
-        if (!Auth::check() && config('aic.auth.restricted')) {
+        if (Gate::denies('restricted-access')) {
             $resources = array_filter($resources, function ($resource) {
                 return !app('Resources')->isRestricted($resource);
             });
@@ -433,7 +437,7 @@ class Request
         }
 
         if (isset($size) && isset($from)) {
-            if (Auth::check() || !config('aic.auth.restricted')) {
+            if (Gate::allows('restricted-access')) {
                 $maxResources = config('aic.auth.max_resources_user');
             } else {
                 $maxResources = config('aic.auth.max_resources_guest');
@@ -475,7 +479,7 @@ class Request
         // Time to filter out restricted fields from request.
         // We cannot target `fields` to specific indexes / resources.
         // What happens if a field is restricted on one resource, but not another?
-        if (!Auth::check() && config('aic.auth.restricted')) {
+        if (Gate::denies('restricted-access')) {
             if (count($this->resources) === 1) {
                 // If there is only one resource requested, there's no amiguity.
                 $restrictedFields = app('Resources')->getRetrictedFieldNamesForEndpoint($this->resources[0]);
@@ -658,7 +662,7 @@ class Request
      */
     public function addRestrictParams(array $params, array $input)
     {
-        if (Auth::check() || !config('aic.auth.restricted')) {
+        if (Gate::allows('restricted-access')) {
             return $params;
         }
 

@@ -15,7 +15,7 @@ Route::any('/', function () {
     return redirect('/home');
 });
 
-Route::group(['middleware' => ['checkIp']], function() {
+Route::group(['middleware' => ['loginIp']], function() {
     Auth::routes();
 });
 

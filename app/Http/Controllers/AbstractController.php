@@ -9,6 +9,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
 use Closure;
 
@@ -25,6 +26,8 @@ use Aic\Hub\Foundation\AbstractController as BaseController;
 
 abstract class AbstractController extends BaseController
 {
+
+    const LIMIT_MAX = 200;
 
     /**
      * @var \League\Fractal\Manager
@@ -94,7 +97,7 @@ abstract class AbstractController extends BaseController
      */
     protected function getGenericResponse(Arrayable $inputData, string $resourceClass)
     {
-        $isRestricted = !Auth::check() && config('aic.auth.restricted');
+        $isRestricted = Gate::denies('restricted-access');
 
         $fields = Input::get('fields');
         $transformer = new $this->transformer($fields, $isRestricted);

@@ -248,6 +248,11 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
+            'internal_department_id' => [
+                'doc' => 'An internal department id we use for analytics. Does not correspond to departments on the website.',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+            ],
             'collection_status' => [
                 'doc' => 'The works status of belonging to our collection. Values include "Permanent Collection", "Ryerson Collection", and "Long-term Loan".',
                 'type' => 'string',
@@ -256,6 +261,11 @@ class Artwork extends BaseTransformer
             ],
             'fiscal_year' => [
                 'doc' => 'The fiscal year in which the work was acquired.',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+            ],
+            'fiscal_year_deaccession' => [
+                'doc' => 'The fiscal year in which the work was deaccessioned.',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
             ],
@@ -788,35 +798,51 @@ class Artwork extends BaseTransformer
      */
     protected function getSuggestFields()
     {
-        $suggestFields = $this->traitGetSuggestFields();
+        $traitSuggestFields = $this->traitGetSuggestFields();
 
-        $suggestFields['suggest_autocomplete_all']['value'] = function ($item) {
-            return [
-                [
-                    'input' => [
-                        $item->main_id,
-                    ],
-                    'contexts' => [
-                        'groupings' => [
-                            'accession',
-                        ],
-                    ],
-                ],
-                [
-                    'input' => [
-                        $item->title,
-                    ],
-                    'weight' => $item->pageviews ?? 1,
-                    'contexts' => [
-                        'groupings' => [
-                            'title',
-                        ],
-                    ],
-                ],
-            ];
-        };
+        return array_replace_recursive($traitSuggestFields, [
+            'suggest_autocomplete_boosted' => [
+                'filter' => function ($item) use ($traitSuggestFields) {
+                    return (
+                        $traitSuggestFields['suggest_autocomplete_boosted']['filter']($item)
+                    ) && (
+                        !isset($item->fiscal_year_deaccession)
+                    );
+                },
+            ],
+            'suggest_autocomplete_all' => [
+                'value' => function ($item) {
+                    $suggestions = [
+                        [
+                            'input' => [
+                                $item->main_id,
+                            ],
+                            'contexts' => [
+                                'groupings' => [
+                                    'accession',
+                                ],
+                            ],
+                        ]
+                    ];
 
-        return $suggestFields;
+                    if (!isset($item->fiscal_year_deaccession)) {
+                        $suggestions[] = [
+                            'input' => [
+                                $item->title,
+                            ],
+                            'weight' => $item->pageviews ?? 1,
+                            'contexts' => [
+                                'groupings' => [
+                                    'title',
+                                ],
+                            ],
+                        ];
+                    }
+
+                    return $suggestions;
+                },
+            ],
+        ]);
     }
 
 }
