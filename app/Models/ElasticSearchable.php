@@ -86,7 +86,7 @@ trait ElasticSearchable
         $fields = array_filter($fields, function ($field) use ($isExact) {
             return isset($field['elasticsearch'])
                 && isset($field['elasticsearch']['default'])
-                && $field['elasticsearch']['default'] === true
+                && $field['elasticsearch']['default']
                 && (!$isExact || $field['elasticsearch']['default'] !== 'except_exact');
         });
 
