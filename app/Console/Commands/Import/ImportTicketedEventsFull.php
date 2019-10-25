@@ -8,7 +8,8 @@ class ImportTicketedEventsFull extends AbstractImportCommand
 {
 
     protected $signature = 'import:events-ticketed-full
-                            {--y|yes : Answer "yes" to all prompts}';
+                            {--y|yes : Answer "yes" to all prompts}
+                            {--u|unreset : Do not reset}';
 
     protected $description = 'Import all ticketed events data';
 
@@ -16,8 +17,10 @@ class ImportTicketedEventsFull extends AbstractImportCommand
     {
         $this->api = env('EVENTS_DATA_SERVICE_URL');
 
-        if (!$this->reset()) {
-            return false;
+        if (!$this->option('unreset')) {
+            if (!$this->reset()) {
+                return false;
+            }
         }
 
         $this->importTicketedEvents();
