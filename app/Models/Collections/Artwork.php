@@ -132,7 +132,7 @@ class Artwork extends CollectionsModel
 
         // TODO: Probably also filter this out of the database dumps?
         if (isset($this->fiscal_year_deaccession)) {
-            return $relation->whereNot('subtype', CategoryTerm::DEPARTMENT);
+            return $relation->where('subtype', '!=', CategoryTerm::DEPARTMENT);
         }
 
         return $relation;
