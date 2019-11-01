@@ -51,18 +51,8 @@ class RestrictContent
             StaticPage::addGlobalScope(new PublishedScope);
             WebExhibition::addGlobalScope(new PublishedScope);
             Event::addGlobalScope(new PublishedScope);
-
-            Event::addGlobalScope('is-private', function (Builder $builder) {
-                $builder->where('is_private', '=', false);
-            });
-
-            EventOccurrence::addGlobalScope('is-private', function (Builder $builder) {
-                $builder->where('is_private', '=', false);
-            });
-
-            Product::addGlobalScope('is-active', function (Builder $builder) {
-                $builder->where('active', '=', true);
-            });
+            EventOccurrence::addGlobalScope(new PublishedScope);
+            Product::addGlobalScope(new PublishedScope);
 
             Exhibition::addGlobalScope('is-web-exhibition-published', function (Builder $builder) {
                 $builder->leftJoin('web_exhibitions', 'exhibitions.citi_id', '=', 'web_exhibitions.datahub_id')

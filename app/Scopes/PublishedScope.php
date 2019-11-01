@@ -39,6 +39,13 @@ class PublishedScope implements Scope
                     $query2->where('publish_end_date', '>=', Carbon::now())
                         ->orWhereNull('publish_end_date');
                 });
+            })
+            // Account of other field names
+            ->when(Schema::hasColumn($model->getTable(), 'is_private'), function ($query) {
+                return $query->where('is_private', '=', false);
+            })
+            ->when(Schema::hasColumn($model->getTable(), 'active'), function ($query) {
+                return $query->where('active', '=', true);
             });
     }
 

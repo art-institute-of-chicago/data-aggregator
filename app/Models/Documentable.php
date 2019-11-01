@@ -6,6 +6,8 @@ use Zend\Code\Reflection\ClassReflection;
 
 use Illuminate\Support\Str;
 
+use App\Scopes\PublishedScope;
+
 trait Documentable
 {
 
@@ -444,6 +446,7 @@ trait Documentable
      */
     public function exampleId()
     {
+        self::addGlobalScope(new PublishedScope);
         $exampleRecord = self::first();
 
         return $exampleRecord ? $exampleRecord->getKey() : null;
