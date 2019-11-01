@@ -57,32 +57,32 @@ return [
         [
             'endpoint' => 'agent-types',
             'model' => \App\Models\Collections\AgentType::class,
-            'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
+            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
         [
             'endpoint' => 'agent-roles',
             'model' => \App\Models\Collections\AgentRole::class,
-            'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
+            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
         [
             'endpoint' => 'artwork-types',
             'model' => \App\Models\Collections\ArtworkType::class,
-            'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
+            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
         [
             'endpoint' => 'artwork-place-qualifiers',
             'model' => \App\Models\Collections\ArtworkPlaceQualifier::class,
-            'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
+            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
         [
             'endpoint' => 'artwork-date-qualifiers',
             'model' => \App\Models\Collections\ArtworkDateQualifier::class,
-            'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
+            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
         [
             'endpoint' => 'catalogues',
             'model' => \App\Models\Collections\Catalogue::class,
-            'transformer' => \App\Transformers\Outbound\CollectionsTransformer::class,
+            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
 
         /**
