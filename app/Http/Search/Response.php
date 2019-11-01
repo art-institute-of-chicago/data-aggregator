@@ -25,6 +25,14 @@ class Response
     public $searchParams;
 
     /**
+     * Resource targeted by this search request. Derived from API endpoint, or from `resources` param.
+     * Accepted as comma-separated string, or as array. Converted to array shortly after `__construct()`.
+     *
+     * @var array|string
+     */
+    public $resource;
+
+    /**
      * Create a new request instance.
      *
      * @param array $searchResponse Response as it came back from Elasticsearch
@@ -32,10 +40,11 @@ class Response
      *
      * @return void
      */
-    public function __construct(array $searchResponse, array $searchParams)
+    public function __construct(array $searchResponse, array $searchParams, $resource = null)
     {
         $this->searchResponse = $searchResponse;
         $this->searchParams = $searchParams;
+        $this->resource = !is_array($resource) ? $resource : implode(',', $resource);
     }
 
     /**
@@ -47,7 +56,8 @@ class Response
     {
         $response = array_merge(
             $this->paginate(),
-            $this->data()
+            $this->data(),
+            $this->info()
         );
 
         $response = array_merge(
@@ -184,6 +194,41 @@ class Response
 
         return [
             'data' => $results,
+        ];
+    }
+
+    /**
+     * Add data (i.e. hits, results) to response.
+     *
+     * @return array
+     */
+    private function info()
+    {
+        $hits = $this->searchResponse['hits']['hits'];
+
+        $input = Input::all();
+        $resources = $this->resource ?? $input['resources'] ?? 'articles';
+
+        $info = [];
+
+        $highestPriority = 0;
+        $licenseText = '';
+        $licenseLinks = [];
+        foreach (explode(',', $resources) as $resource) {
+            $transformer = app('Resources')->getTransformerForEndpoint($resource);
+            $transformer = new $transformer;
+            if ($transformer->getLicensePriority() > $highestPriority) {
+                $licenseText = $transformer->getLicenseText();
+                $licenseLinks = $transformer->getLicenseLinks();
+            }
+        }
+
+        $info['license_text'] = $licenseText;
+        $info['license_links'] = $licenseLinks;
+        $info['version'] = config('aic.version');
+
+        return [
+            'info' => $info,
         ];
     }
 

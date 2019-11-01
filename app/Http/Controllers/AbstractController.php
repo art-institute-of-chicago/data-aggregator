@@ -107,8 +107,8 @@ abstract class AbstractController extends BaseController
 
         $info = [];
 
-        $info['licence_text'] = $transformer->getLicenseText();
-        $info['licence_links'] = $transformer->getLicenseLinks();
+        $info['license_text'] = $transformer->getLicenseText();
+        $info['license_links'] = $transformer->getLicenseLinks();
 
         $info['version'] = config('aic.version');
 

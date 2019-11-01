@@ -18,4 +18,8 @@ trait IsCC0
         ];
     }
 
+    public function getLicensePriority()
+    {
+        return 10;
+    }
 }

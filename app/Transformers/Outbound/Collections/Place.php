@@ -30,4 +30,9 @@ class Place extends BaseTransformer
             'https://creativecommons.org/licenses/by/4.0/',
         ];
     }
+
+    public function getLicensePriority()
+    {
+        return 50;
+    }
 }

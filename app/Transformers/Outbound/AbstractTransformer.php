@@ -100,6 +100,16 @@ abstract class AbstractTransformer extends BaseTransformer
         ];
     }
 
+    /**
+     * Getter for legal verbage of licensing of the response.
+     *
+     * @return integer
+     */
+    public function getLicensePriority()
+    {
+        return 100;
+    }
+
     protected function getIds()
     {
         return [
