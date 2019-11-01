@@ -63,7 +63,7 @@ abstract class AbstractController extends BaseController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function getCollectionResponse(Arrayable $collection)
+    protected function getCollectionResponse(Arrayable $collection, Request $request)
     {
         $response = $this->getGenericResponse($collection, Collection::class);
 
@@ -76,12 +76,13 @@ abstract class AbstractController extends BaseController
                 'current_page' => $collection->currentPage(),
             ];
 
+            $params = http_build_query(collect($request->input())->except('page')->all());
             if ($collection->previousPageUrl()) {
-                $paginator['prev_url'] = $collection->previousPageUrl() . '&limit=' . $collection->perPage();
+                $paginator['prev_url'] = $collection->previousPageUrl() . '&' . $params;
             }
 
             if ($collection->hasMorePages()) {
-                $paginator['next_url'] = $collection->nextPageUrl() . '&limit=' . $collection->perPage();
+                $paginator['next_url'] = $collection->nextPageUrl() . '&' . $params;
             }
 
             $response = ['pagination' => $paginator] + $response;
@@ -170,7 +171,7 @@ abstract class AbstractController extends BaseController
         $ids = $request->input('ids');
 
         if ($ids) {
-            return $this->showMutliple($ids);
+            return $this->showMultiple($ids, $request);
         }
 
         // Check if the ?limit= is too big
@@ -187,7 +188,7 @@ abstract class AbstractController extends BaseController
         // \Illuminate\Contracts\Pagination\LengthAwarePaginator
         $all = $callback($limit, $id);
 
-        return $this->getCollectionResponse($all);
+        return $this->getCollectionResponse($all, $request);
     }
 
     /**
@@ -196,7 +197,7 @@ abstract class AbstractController extends BaseController
      * @param string $ids
      * @return \Illuminate\Http\Response
      */
-    protected function showMutliple($ids = '')
+    protected function showMultiple($ids = '', $request)
     {
 
         // TODO: Accept an array, not just comma-separated string
@@ -216,7 +217,7 @@ abstract class AbstractController extends BaseController
         // Illuminate\Database\Eloquent\Collection
         $all = $this->find($ids);
 
-        return $this->getCollectionResponse($all);
+        return $this->getCollectionResponse($all, $request);
     }
 
     /**
