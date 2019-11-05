@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Closure;
 
 class DecodeParams
@@ -24,6 +25,9 @@ class DecodeParams
             if (json_last_error() === JSON_ERROR_NONE) {
                 $request->merge($params);
             }
+
+            // Prevents issues with `msearch`, which expects array as root item
+            $request->query = new ParameterBag($request->except(['params']));
         }
 
         return $next($request);
