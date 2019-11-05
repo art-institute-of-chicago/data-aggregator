@@ -14,7 +14,7 @@ class MakeTicketedEventImageUrlLonger extends Migration
     public function up()
     {
         Schema::table('ticketed_events', function (Blueprint $table) {
-            $table->text('image_url')->nbullable()->change();
+            $table->text('image_url')->nullable()->change();
         });
     }
 
@@ -26,7 +26,7 @@ class MakeTicketedEventImageUrlLonger extends Migration
     public function down()
     {
         Schema::table('ticketed_events', function (Blueprint $table) {
-            $table->string('image_url')->nbullable()->change();
+            $table->string('image_url')->nullable()->change();
         });
     }
 }
