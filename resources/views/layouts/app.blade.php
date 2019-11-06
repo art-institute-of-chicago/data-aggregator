@@ -34,9 +34,9 @@
                 <nav aria-label="primary">
                     <a class="g-header__logo" aria-label="Art Institute of Chicago" href="/">
                         <svg aria-hidden="true">
-                            <use xlink:href="#icon--logo--80"></use>
-                            <use xlink:href="#icon--logo--88"></use>
-                            <use xlink:href="#icon--logo--92"></use>
+                            <use xlink:href="#icon--logo--outline--80"></use>
+                            <use xlink:href="#icon--logo--outline--88"></use>
+                            <use xlink:href="#icon--logo--outline--92"></use>
                         </svg>
                     </a>
                     <div class="g-header__nav-primary">
@@ -109,6 +109,15 @@
             </div>
         </nav>
 --}}
+    </div>
+    <div class="svg-sprite">
+        @php
+            try {
+                echo Storage::disk('local')->get('icons/icons.svg');
+            } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
+                // do nothing
+            }
+        @endphp
     </div>
 </body>
 </html>
