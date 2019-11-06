@@ -78,11 +78,11 @@ abstract class AbstractController extends BaseController
 
             $params = http_build_query(collect($request->input())->except('page')->all());
             if ($collection->previousPageUrl()) {
-                $paginator['prev_url'] = $collection->previousPageUrl() . '&' . $params;
+                $paginator['prev_url'] = $collection->previousPageUrl() . ($params ? '&' . $params : '');
             }
 
             if ($collection->hasMorePages()) {
-                $paginator['next_url'] = $collection->nextPageUrl() . '&' . $params;
+                $paginator['next_url'] = $collection->nextPageUrl() . ($params ? '&' . $params : '');
             }
 
             $response = ['pagination' => $paginator] + $response;
