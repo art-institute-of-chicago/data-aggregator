@@ -38,10 +38,6 @@ abstract class AbstractController extends BaseController
     {
         $this->fractal = app()->make('League\Fractal\Manager');
         $this->fractal->setSerializer(new ResourceSerializer());
-
-        // Parse fractal includes and excludes
-        $this->parseFractalParam('include', 'parseIncludes');
-        $this->parseFractalParam('exclude', 'parseExcludes');
     }
 
     /**
@@ -98,6 +94,10 @@ abstract class AbstractController extends BaseController
      */
     protected function getGenericResponse(Arrayable $inputData, string $resourceClass)
     {
+        // Parse fractal includes and excludes
+        $this->parseFractalParam('include', 'parseIncludes');
+        $this->parseFractalParam('exclude', 'parseExcludes');
+
         $isRestricted = Gate::denies('restricted-access');
 
         $fields = Input::get('fields');
