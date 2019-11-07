@@ -189,7 +189,7 @@ class SearchController extends BaseController
         }
 
         // Transform Elasticsearch results into our API standard
-        $response = ( new SearchResponse($results, $params) )->{$responseMethod}();
+        $response = ( new SearchResponse($results, $params, $resource) )->{$responseMethod}();
 
         return $response;
     }

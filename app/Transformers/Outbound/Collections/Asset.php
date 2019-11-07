@@ -3,11 +3,13 @@
 namespace App\Transformers\Outbound\Collections;
 
 use App\Transformers\Outbound\Collections\Traits\HasLakeFields;
+use App\Transformers\Outbound\Collections\Traits\IsCC0;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Asset extends BaseTransformer
 {
+    use IsCC0;
     use HasLakeFields;
 
     /**

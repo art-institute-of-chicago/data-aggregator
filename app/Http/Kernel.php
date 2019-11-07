@@ -44,6 +44,7 @@ class Kernel extends HttpKernel
             \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
         ],
         'api' => [
+            \App\Http\Middleware\DecodeParams::class,
             'bindings',
             'auth:api',
             'throttle',
@@ -89,5 +90,6 @@ class Kernel extends HttpKernel
         \Illuminate\Session\Middleware\AuthenticateSession::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
+        \App\Http\Middleware\DecodeParams::class,
     ];
 }

@@ -25,6 +25,14 @@ class Response
     public $searchParams;
 
     /**
+     * Resource targeted by this search request. Derived from API endpoint, or from `resources` param.
+     * Accepted as comma-separated string, or as array. Converted to array shortly after `__construct()`.
+     *
+     * @var array
+     */
+    public $resources;
+
+    /**
      * Create a new request instance.
      *
      * @param array $searchResponse Response as it came back from Elasticsearch
@@ -32,10 +40,23 @@ class Response
      *
      * @return void
      */
-    public function __construct(array $searchResponse, array $searchParams)
+    public function __construct(array $searchResponse, array $searchParams, $resources = null)
     {
         $this->searchResponse = $searchResponse;
         $this->searchParams = $searchParams;
+        $this->resources = $this->getResources($resources);
+    }
+
+    private function getResources($resources = null)
+    {
+        if (!isset($resources) && isset($this->resources)) {
+            return $this->resources;
+        }
+
+        $resources = $resources ?? Input::get('resources') ?? 'articles';
+        $resources = is_array($resources) ? $resources : explode(',', $resources);
+
+        return $this->resources = $resources;
     }
 
     /**
@@ -47,7 +68,8 @@ class Response
     {
         $response = array_merge(
             $this->paginate(),
-            $this->data()
+            $this->data(),
+            $this->info()
         );
 
         $response = array_merge(
@@ -187,6 +209,38 @@ class Response
         ];
     }
 
+    private function info()
+    {
+        $resources = $this->getResources();
+
+        $transformers = array_map(function($resource) {
+            $transformer = app('Resources')->getTransformerForEndpoint($resource);
+            return new $transformer;
+        }, $resources);
+
+        // Sort transformers by license priority, ascending:
+        usort($transformers, function($a, $b) {
+            $pa = $a->getLicensePriority();
+            $pb = $b->getLicensePriority();
+
+            if ($pa === $pb) {
+                return 0;
+            }
+
+            return ($pa < $pb) ? -1 : 1;
+        });
+
+        $maxTransformer = end($transformers);
+
+        $info['license_text'] = $maxTransformer ? $maxTransformer->getLicenseText() : null;
+        $info['license_links'] = $maxTransformer ? $maxTransformer->getLicenseLinks() : null;
+        $info['version'] = config('aic.version');
+
+        return [
+            'info' => $info,
+        ];
+    }
+
     /**
      * Add suggestions (i.e. completion, phrases) to response.
      *
@@ -220,5 +274,4 @@ class Response
 
         return $aggregations ? ['aggregations' => $aggregations] : [];
     }
-
 }

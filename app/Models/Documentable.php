@@ -6,6 +6,8 @@ use Zend\Code\Reflection\ClassReflection;
 
 use Illuminate\Support\Str;
 
+use App\Scopes\PublishedScope;
+
 trait Documentable
 {
 
@@ -26,6 +28,7 @@ trait Documentable
 
         $doc = '';
         $doc .= $this->docTitle() . "\n\n";
+        $doc .= $this->docLicense() . "\n\n";
         $doc .= $this->docList($appUrl) . "\n";
 
         if ($this->hasSearchEndpoint()) {
@@ -67,6 +70,18 @@ trait Documentable
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
         return '## ' . str_replace('-', ' ', Str::title($endpoint));
+    }
+
+    /**
+     * Generate the license of this resource
+     *
+     * @return string
+     */
+    public function docLicense()
+    {
+        $transformer = app('Resources')->getTransformerForModel(get_called_class());
+        $transformer = new $transformer;
+        return '_' . $transformer->getLicenseText() . '_';
     }
 
     /**
@@ -444,6 +459,7 @@ trait Documentable
      */
     public function exampleId()
     {
+        self::addGlobalScope(new PublishedScope);
         $exampleRecord = self::first();
 
         return $exampleRecord ? $exampleRecord->getKey() : null;

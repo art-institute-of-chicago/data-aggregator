@@ -78,6 +78,38 @@ abstract class AbstractTransformer extends BaseTransformer
         return $this->mappedFields ?? $this->mappedFields = $this->initMappedFields();
     }
 
+    /**
+     * Getter for legal verbage of licensing of the response.
+     *
+     * @return string
+     */
+    public function getLicenseText()
+    {
+        return 'The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.';
+    }
+
+    /**
+     * Getter links to more info on licensing information of the response.
+     *
+     * @return array
+     */
+    public function getLicenseLinks()
+    {
+        return [
+            'https://www.artic.edu/terms',
+        ];
+    }
+
+    /**
+     * Getter for legal verbage of licensing of the response.
+     *
+     * @return integer
+     */
+    public function getLicensePriority()
+    {
+        return 100;
+    }
+
     protected function getIds()
     {
         return [
