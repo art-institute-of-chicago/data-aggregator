@@ -177,7 +177,7 @@ abstract class AbstractController extends BaseController
         // Check if the ?limit= is too big
         $limit = $request->input('limit') ?: 12;
 
-        if ($limit > static::LIMIT_MAX) {
+        if (Gate::denies('restricted-access') && $limit > static::LIMIT_MAX) {
             throw new BigLimitException();
         }
 
@@ -203,7 +203,7 @@ abstract class AbstractController extends BaseController
         // TODO: Accept an array, not just comma-separated string
         $ids = explode(',', $ids);
 
-        if (count($ids) > static::LIMIT_MAX) {
+        if (Gate::denies('restricted-access') && count($ids) > static::LIMIT_MAX) {
             throw new TooManyIdsException();
         }
 

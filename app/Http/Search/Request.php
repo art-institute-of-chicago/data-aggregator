@@ -432,7 +432,7 @@ class Request
         }
 
         // Throw an exception if `size` is too big
-        if ($size > self::$maxSize) {
+        if (Gate::denies('restricted-access') && $size > self::$maxSize) {
             throw new BigLimitException();
         }
 
