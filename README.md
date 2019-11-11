@@ -3,9 +3,7 @@
 # Data Aggregator
 > A central location of data collected from several different systems and offered up through an API
 
-The Data Aggregator is part of a large internal project to consolidate data across many disparate systems
-at the Art Institute of Chicago into a single, unified source. This offers our products a rich set of
-data that can be accessed in one way, in one location.
+The Data Aggregator is part of a large internal project to consolidate data across many disparate systems at the Art Institute of Chicago into a single, unified source. This offers our products a rich set of data that can be accessed in one way, in one location.
 
 
 ## Features
@@ -13,18 +11,12 @@ data that can be accessed in one way, in one location.
 * All data available via a JSON-based REST API
 * Large lists are paginated
 * Complex data types can be "included" in requests
-* Seed data provided for all resources
 * Unit tests for all endpoints
 
 
 ## Overview
 
-The Data Aggregator interfaces with several internal APIs to collect its data. All data is imported and served
-up locally so that at runtime the API doesn't have dependencies on other systems. `artisan` commands have
-been set up to import data from various sources, either en masse or incrementally. One of the greatest benefits
-of an aggregator like this one is the ability to provide relationship between resources across systems. Our `/artworks`
-endpoint is a great example, as you can see relationships they have to a number of different things, like mobile tours,
-digital publications, and historic static sites.
+The Data Aggregator interfaces with several internal APIs to collect its data. All data is imported and served up locally so that at runtime the API doesn't have dependencies on other systems. `artisan` commands have been set up to import data from various sources, either en masse or incrementally. One of the greatest benefits of an aggregator like this one is the ability to provide relationship between resources across systems. Our `/artworks` endpoint is a great example, as you can see relationships they have to a number of different things, like mobile tours, digital publications, and historic static sites.
 
 
 ## Requirements
@@ -55,8 +47,7 @@ composer install
 
 ## Developing
 
-First you'll need to create a `.env` file and update it to reflect your environment. We've provided an
-example file to get you started:
+First you'll need to create a `.env` file and update it to reflect  your environment. We've provided an example file to get you started:
 
 ```shell
 # Copy the example file
@@ -72,14 +63,12 @@ Then, to create the database tables and seed them with fake data, run:
 php artisan migrate --seed
 ```
 
-This will create all the tables and relationships, and fill the tables with data from the
-[Faker](https://github.com/fzaninotto/Faker) PHP library.
+This will create all the tables and relationships, and fill the tables with data from the [Faker](https://github.com/fzaninotto/Faker) PHP library.
 
 
 ### Importing real data
 
-We've created a series of `artisan` tasks to import data from source systems. You can see all the available
-imports like so:
+We've created a series of `artisan` tasks to import data from source systems. You can see all the available imports like so:
 
 ```shell
 php artisan list import
@@ -119,20 +108,15 @@ git checkout -b feature/good-short-description
 git push origin feature/good-short-description
 ```
 
-Then on github.com, create a Pull Request to merge your changes into our
-`develop` branch.
+Then on github.com, create a Pull Request to merge your changes into our `develop` branch.
 
-Our internal team uses [`php-cs-fixer`](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure
-our code meets various PHP Standards Recommendations. You're welcome to integrate `php-cs-fixer`
-into your workflow as you work on this project, but is not required to make a contribution.
+Our internal team uses [`php-cs-fixer`](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure our code meets various PHP Standards Recommendations. You're welcome to integrate `php-cs-fixer` into your workflow as you work on this project, but is not required to make a contribution.
 
-This project is released with a Contributor Code of Conduct. By participating in
-this project you agree to abide by its [terms](CODE_OF_CONDUCT.md).
+This project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its [terms](CODE_OF_CONDUCT.md).
 
 We welcome bug reports and questions under GitHub's [Issues](issues). For other concerns, you can reach our engineering team at [engineering@artic.edu](mailto:engineering@artic.edu)
 
 
 ## Licensing
 
-This project is licensed under the [GNU Affero General Public License
-Version 3](LICENSE).
+This project is licensed under the [GNU Affero General Public License Version 3](LICENSE).
