@@ -55,19 +55,22 @@ class RestrictContent
             Product::addGlobalScope(new PublishedScope);
 
             Exhibition::addGlobalScope('is-web-exhibition-published', function (Builder $builder) {
-                $builder->leftJoin('web_exhibitions', 'exhibitions.citi_id', '=', 'web_exhibitions.datahub_id')
+                // Show all past exhibitions, accounting for some of the funky ways we've catalogued exhibitions in the past
+                $builder->where(function ($query) {
+                    $query->where('date_aic_start', '<=', Carbon::today())
+                        ->where(function ($query2) {
+                            $query2->where('date_aic_end', '<=', Carbon::today())
+                                ->orWhere('date_aic_start', '<', Carbon::createMidnightDate(2011, 1, 1));
+                        });
+                });
 
-                    // Show all past exhibitions, accounting for some of the funky ways we've catalogued exhibitions in the past
-                    ->where(function ($query) {
-                        $query->where('date_aic_start', '<=', Carbon::today())
-                            ->where(function ($query2) {
-                                $query2->where('date_aic_end', '<=', Carbon::today())
-                                    ->orWhere('date_aic_start', '<', Carbon::createMidnightDate(2011, 1, 1));
-                            });
-                    })
-
-                    // For present and future exhibitions, only show if they're published on the web
-                    ->orWhere('web_exhibitions.is_published', '=', true);
+                // For present and future exhibitions, only show if they're published on the web
+                // WEB-1419: Using subquery here instead of join to avoid field overrides
+                $builder->orWhereIn('citi_id', function($query) {
+                    $query->select('datahub_id')
+                          ->from('web_exhibitions')
+                          ->where('is_published', '=', true);
+                });
             });
         }
 
