@@ -50,7 +50,7 @@ class ImportMobile extends AbstractImportCommand
             $artwork->mobile_id = $id;
             $artwork->title = $datum->title;
 
-            $artwork->artwork_citi_id = $datum->object_id ?? null;
+            $artwork->artwork_citi_id = $datum->id ?? $datum->object_id ?? null;
 
             $location = explode(', ', $datum->location);
             $artwork->latitude = (float) $location[0];
