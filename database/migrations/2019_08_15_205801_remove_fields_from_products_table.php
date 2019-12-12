@@ -14,14 +14,16 @@ class RemoveFieldsFromProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('sale_price');
-            $table->dropColumn('member_price');
-            $table->dropColumn('recipient');
-            $table->dropColumn('x_shipping_charge');
-            $table->dropColumn('inventory');
-            $table->dropColumn('choking_hazard');
-            $table->dropColumn('back_order');
-            $table->dropColumn('back_order_due_date');
+            $table->dropColumn([
+                'sale_price',
+                'member_price',
+                'recipient',
+                'x_shipping_charge',
+                'inventory',
+                'choking_hazard',
+                'back_order',
+                'back_order_due_date',
+            ]);
         });
     }
 

@@ -15,8 +15,13 @@ class UpdateAffiliateGroupFields extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             $table->dropColumn('affiliate_group_display');
-            $table->renameColumn('is_presented_by_affiliate', 'show_affiliate_message');
         });
+
+        if (Schema::hasColumn('events', 'is_presented_by_affiliate')) {
+            Schema::table('events', function (Blueprint $table) {
+                $table->renameColumn('is_presented_by_affiliate', 'show_affiliate_message');
+            });
+        }
     }
 
     /**
