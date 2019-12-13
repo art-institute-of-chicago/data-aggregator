@@ -15,10 +15,11 @@ class WebTransformer extends BaseTransformer
      */
     protected function getDates(Datum $datum)
     {
-        return array_merge(parent::getDates($datum),
-                           [
-                               'source_modified_at' => $datum->date('last_updated'),
-                           ]
+        return array_merge(
+            parent::getDates($datum),
+            [
+                'source_modified_at' => $datum->date('last_updated'),
+            ]
         );
     }
 }
