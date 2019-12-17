@@ -34,9 +34,7 @@
 
     <h2>Getting started</h2>
 
-    <p>API requests are made by accessing various endpoints at <a href="/api/v1">{{ config('app.url') }}/api/v1</a>. Read more about our <a href="/docs/endpoints">endpoints</a> and <a href="/docs/fields">fields</a> in our documentation to learn about the parameters you can use to manipulate your query.</p>
-
-    <p>Most data is accessible without authentication. If you're developing a high-traffic app, you can create an account on this site to create personal tokens that can allow you to access the API more frequently.</p>
+    <p>API requests are made by accessing various endpoints at <a href="/api/v1">{{ config('app.url') }}/api/v1</a>. Read more about our <a href="/docs/endpoints">endpoints</a> and <a href="/docs/fields">fields</a> to learn about the parameters you can use to manipulate your query.</p>
 
     <h2>What's an API?</h2>
 
