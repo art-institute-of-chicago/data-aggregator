@@ -37,6 +37,10 @@ class Event extends WebTransformer
                     'member_copy',
                     'sustaining_fellow_copy',
                     'nonmember_copy',
+                    'send_affiliate_test',
+                    'send_member_test',
+                    'send_sustaining_fellow_test',
+                    'send_nonmember_test',
                 ])),
             ];
         });
