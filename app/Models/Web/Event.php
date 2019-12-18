@@ -26,6 +26,7 @@ class Event extends WebModel
         'alt_event_types' => 'array',
         'alt_audiences' => 'array',
         'programs' => 'array',
+        'test_emails' => 'array',
         'publish_start_date' => 'datetime',
         'publish_end_date' => 'datetime',
     ];
