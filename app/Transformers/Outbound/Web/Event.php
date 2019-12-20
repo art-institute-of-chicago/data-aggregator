@@ -309,6 +309,12 @@ class Event extends BaseTransformer
                     return $item->sponsor->id ?? null;
                 },
             ],
+            'test_emails' => [
+                'doc' => 'Email addresses to target for email series tests',
+                'type' => 'array',
+                'elasticsearch' => 'text',
+                'is_restricted' => true,
+            ],
         ];
     }
 

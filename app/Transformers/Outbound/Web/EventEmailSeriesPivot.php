@@ -43,6 +43,22 @@ class EventEmailSeriesPivot extends BaseTransformer
                 'doc' => 'Copy to use for Non-Members when communicating this event in this email series',
                 'type' => 'string',
             ],
+            'send_affiliate_test' => [
+                'doc' => 'Whether to send the Affiliate Members test email during next check',
+                'type' => 'boolean',
+            ],
+            'send_member_test' => [
+                'doc' => 'Whether to send the Members test email during next check',
+                'type' => 'boolean',
+            ],
+            'send_sustaining_fellow_test' => [
+                'doc' => 'Whether to send the Sustaining Fellows test email during next check',
+                'type' => 'boolean',
+            ],
+            'send_nonmember_test' => [
+                'doc' => 'Whether to send the Non-Members test email during next check',
+                'type' => 'boolean',
+            ],
         ];
     }
 
