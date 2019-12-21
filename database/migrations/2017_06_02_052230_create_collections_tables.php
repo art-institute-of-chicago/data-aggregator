@@ -139,6 +139,7 @@ class CreateCollectionsTables extends Migration
             $table->integer('gallery_citi_id')->nullable()->index();
             $table->boolean('is_on_view')->nullable();
             $table = $this->_addDates($table);
+            $table->integer('pageviews_recent')->nullable()->index();
         });
 
         Schema::create('artwork_artist', function (Blueprint $table) {
