@@ -72,7 +72,7 @@ class CreateCollectionsTables extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->integer('citi_id')->unsigned()->primary();
             $table->string('title')->nullable();
-            $table->boolean('closed')->nullable();
+            $table->boolean('is_closed')->nullable();
             $table->string('number')->nullable();
             $table->string('floor')->nullable();
             $table->double('latitude', 16, 13)->nullable();
