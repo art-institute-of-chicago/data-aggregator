@@ -13,20 +13,6 @@ class CreateWebCmsTables extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title')->nullable();
-            $table->string('name')->nullable();
-            $table->string('street')->nullable();
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('zip')->nullable();
-            $table->boolean('published');
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
         Schema::create('hours', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
@@ -255,7 +241,6 @@ class CreateWebCmsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations');
         Schema::dropIfExists('hours');
         Schema::dropIfExists('closures');
         Schema::dropIfExists('web_exhibitions');

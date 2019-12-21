@@ -33,7 +33,6 @@ class AddUpdateAtIndexes extends Migration
         'library_material_subject',
         'library_materials',
         'library_terms',
-        'locations',
         'mobile_artworks',
         'mobile_sounds',
         'places',

@@ -7,7 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 class AddSourceModifiedAtToWebTables extends Migration
 {
     private $tables = [
-        // 'locations' => 'published', // needs, dropped
         // 'hours', // has
         'closures' => 'type', // needs
         'web_exhibitions' => 'is_featured', // needs
