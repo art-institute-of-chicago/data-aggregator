@@ -102,7 +102,10 @@ abstract class ApiTestCase extends TestCase
         $this->it_400s();
     }
 
-    /** @test */
+    /**
+     * WEB-1382, WEB-1189: If the user is authenticated, or the restrictions are removed,
+     * then it won't error out. It'll just 200. Removing this test for now.
+     */
     public function it_403s_if_limit_is_too_high()
     {
         $this->it_403s();

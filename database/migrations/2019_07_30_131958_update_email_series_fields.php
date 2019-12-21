@@ -13,10 +13,17 @@ class UpdateEmailSeriesFields extends Migration
      */
     public function up()
     {
-        Schema::table('events', function (Blueprint $table) {
-            $table->renameColumn('show_affiliate_message', 'show_presented_by');
-            $table->renameColumn('affiliate_group_id', 'event_host_id');
-        });
+        if (Schema::hasColumn('events', 'show_affiliate_message')) {
+            Schema::table('events', function (Blueprint $table) {
+                $table->renameColumn('show_affiliate_message', 'show_presented_by');
+            });
+        }
+
+        if (Schema::hasColumn('events', 'affiliate_group_id')) {
+            Schema::table('events', function (Blueprint $table) {
+                $table->renameColumn('affiliate_group_id', 'event_host_id');
+            });
+        }
 
         Schema::table('event_programs', function (Blueprint $table) {
             $table->boolean('is_event_host')->nullable()->after('is_affiliate_group');
@@ -43,9 +50,19 @@ class UpdateEmailSeriesFields extends Migration
                 'send_sustaining_fellow',
                 'send_member',
             ]);
-            $table->renameColumn('non_member_copy', 'nonmember_copy');
-            $table->renameColumn('affiliate_member_copy', 'affiliate_copy');
         });
+
+        if (Schema::hasColumn('event_email_series', 'non_member_copy')) {
+            Schema::table('event_email_series', function (Blueprint $table) {
+                $table->renameColumn('non_member_copy', 'nonmember_copy');
+            });
+        }
+
+        if (Schema::hasColumn('event_email_series', 'affiliate_member_copy')) {
+            Schema::table('event_email_series', function (Blueprint $table) {
+                $table->renameColumn('affiliate_member_copy', 'affiliate_copy');
+            });
+        }
     }
 
     /**
