@@ -230,7 +230,6 @@ class CreateWebCmsTables extends Migration
 
         Schema::create('generic_pages', $createPagesTable);
         Schema::create('press_releases', $createPagesTable);
-        Schema::create('research_guides', $createPagesTable);
         Schema::create('educator_resources', $createPagesTable);
         Schema::create('digital_catalogs', $createPagesTable);
         Schema::create('printed_catalogs', $createPagesTable);
@@ -272,7 +271,6 @@ class CreateWebCmsTables extends Migration
 
         Schema::dropIfExists('generic_pages');
         Schema::dropIfExists('press_releases');
-        Schema::dropIfExists('research_guides');
         Schema::dropIfExists('educator_resources');
         Schema::dropIfExists('digital_catalogs');
         Schema::dropIfExists('printed_catalogs');

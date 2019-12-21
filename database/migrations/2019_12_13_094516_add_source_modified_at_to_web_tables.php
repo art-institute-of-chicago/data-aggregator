@@ -21,7 +21,6 @@ class AddSourceModifiedAtToWebTables extends Migration
         // 'static_pages' => 'web_url', // hardcoded?
         'generic_pages' => 'imgix_uuid', // needs
         'press_releases' => 'imgix_uuid', // needs
-        // 'research_guides' => 'imgix_uuid', // needs, dropped
         'educator_resources' => 'imgix_uuid', // needs
         'digital_catalogs' => 'imgix_uuid', // needs
         'printed_catalogs' => 'imgix_uuid', // needs
