@@ -43,7 +43,6 @@ class AddUpdateAtIndexes extends Migration
         'selections',
         'shop_categories',
         'sites',
-        'tags',
         'ticketed_events',
         'tour_stops',
         'tours',

@@ -13,13 +13,6 @@ class CreateWebCmsTables extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
-            $table->timestamps();
-        });
-
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
@@ -263,7 +256,6 @@ class CreateWebCmsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags');
         Schema::dropIfExists('locations');
         Schema::dropIfExists('hours');
         Schema::dropIfExists('closures');
