@@ -111,7 +111,9 @@ class CreateWebCmsTables extends Migration
             $table->boolean('is_admission_required')->default(false);
             $table->integer('ticketed_event_id')->unsigned()->nullable();
             $table->string('survey_url')->nullable();
-            $table->string('email_series')->nullable();
+            $table->text('join_url')->nullable();
+            $table->text('entrance')->nullable();
+            $table->boolean('is_presented_by_affiliate')->nullable();
             $table->string('door_time')->nullable();
             $table->text('image_url')->nullable();
             $table->boolean('published')->default(false);
@@ -144,6 +146,35 @@ class CreateWebCmsTables extends Migration
             $table->string('title');
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::create('email_series', function (Blueprint $table) {
+            $table->integer('id')->primary();
+            $table->text('title');
+            $table->boolean('use_short_description')->nullable();
+            $table->boolean('show_non_member')->nullable();
+            $table->boolean('show_member')->nullable();
+            $table->boolean('show_sustaining_fellow')->nullable();
+            $table->boolean('show_affiliate_member')->nullable();
+            $table->text('non_member_copy')->nullable();
+            $table->text('member_copy')->nullable();
+            $table->text('sustaining_fellow_copy')->nullable();
+            $table->text('affiliate_member_copy')->nullable();
+            $table->timestamp('source_modified_at')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('event_email_series', function (Blueprint $table) {
+            $table->integer('event_id')->nullable()->index();
+            $table->integer('email_series_id')->nullable()->index();
+            $table->boolean('send_non_member')->nullable();
+            $table->boolean('send_member')->nullable();
+            $table->boolean('send_sustaining_fellow')->nullable();
+            $table->boolean('send_affiliate_member')->nullable();
+            $table->text('non_member_copy')->nullable();
+            $table->text('member_copy')->nullable();
+            $table->text('sustaining_fellow_copy')->nullable();
+            $table->text('affiliate_member_copy')->nullable();
         });
 
         Schema::create('articles', function (Blueprint $table) {
@@ -237,6 +268,8 @@ class CreateWebCmsTables extends Migration
         Schema::dropIfExists('events');
         Schema::dropIfExists('event_occurrences');
         Schema::dropIfExists('event_programs');
+        Schema::dropIfExists('email_series');
+        Schema::dropIfExists('event_email_series');
         Schema::dropIfExists('articles');
         Schema::dropIfExists('selections');
         Schema::dropIfExists('web_artists');
