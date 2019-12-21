@@ -114,6 +114,8 @@ class CreateWebCmsTables extends Migration
             $table->text('join_url')->nullable();
             $table->text('entrance')->nullable();
             $table->boolean('is_presented_by_affiliate')->nullable();
+            $table->text('affiliate_group_display')->nullable();
+            $table->integer('affiliate_group_id')->nullable();
             $table->string('door_time')->nullable();
             $table->text('image_url')->nullable();
             $table->boolean('published')->default(false);
@@ -144,6 +146,7 @@ class CreateWebCmsTables extends Migration
         Schema::create('event_programs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->boolean('is_affiliate_group')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
