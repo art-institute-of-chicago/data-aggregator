@@ -27,7 +27,7 @@ class CreateMobileTables extends Migration
 
         Schema::create('mobile_sounds', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->string('link');
+            $table->string('web_url');
             $table->text('transcript')->nullable();
             $table->timestamps();
         });
