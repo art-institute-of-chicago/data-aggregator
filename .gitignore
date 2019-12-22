@@ -12,6 +12,7 @@ npm-debug.log
 !.env.*example
 /storage/clockwork
 Envoy.blade.php
+.phpunit.result.cache
 .php_cs.cache
 .php_cs
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App;
 use Cache;
 use Closure;
 use Illuminate\Http\Request;
@@ -28,6 +29,11 @@ class TrustProxies extends Middleware
      */
     public function handle(Request $request, Closure $next)
     {
+        // WEB-979: Cache issue. Tests jumped from 1.3 min to 4.7 min!
+        if (App::environment('testing')) {
+            return parent::handle($request, $next);
+        }
+
         $ips = Cache::remember('list-cloudfront-ips', 60*60, function () {
             return file_get_contents('http://d7uri8nf7uskq.cloudfront.net/tools/list-cloudfront-ips');
         });
