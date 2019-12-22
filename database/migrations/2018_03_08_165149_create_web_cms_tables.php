@@ -153,6 +153,10 @@ class CreateWebCmsTables extends Migration
             $table->text('member_copy')->nullable();
             $table->text('sustaining_fellow_copy')->nullable();
             $table->text('affiliate_copy')->nullable();
+            $table->boolean('send_affiliate_test')->nullable();
+            $table->boolean('send_member_test')->nullable();
+            $table->boolean('send_sustaining_fellow_test')->nullable();
+            $table->boolean('send_nonmember_test')->nullable();
         });
 
         Schema::create('articles', function (Blueprint $table) {
