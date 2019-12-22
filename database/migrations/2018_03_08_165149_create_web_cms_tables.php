@@ -33,6 +33,7 @@ class CreateWebCmsTables extends Migration
             $table->date('date_end');
             $table->string('closure_copy')->nullable();
             $table->integer('type');
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -42,6 +43,7 @@ class CreateWebCmsTables extends Migration
             $table->string('title')->nullable();
             $table->text('content');
             $table->boolean('published');
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
         });
 
@@ -57,6 +59,7 @@ class CreateWebCmsTables extends Migration
             $table->text('exhibition_message')->nullable();
             $table->boolean('is_published');
             $table->boolean('is_featured')->nullable();
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -106,6 +109,7 @@ class CreateWebCmsTables extends Migration
             $table->text('image_url')->nullable();
             $table->text('test_emails')->nullable();
             $table->boolean('published')->default(false);
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->integer('sponsor_id')->nullable();
@@ -136,6 +140,7 @@ class CreateWebCmsTables extends Migration
             $table->string('title');
             $table->boolean('is_affiliate_group')->nullable();
             $table->boolean('is_event_host')->nullable();
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -167,6 +172,7 @@ class CreateWebCmsTables extends Migration
             $table->text('copy')->nullable();
             $table->string('imgix_uuid')->nullable();
             $table->boolean('published');
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->json('agent_ids')->nullable();
@@ -189,6 +195,7 @@ class CreateWebCmsTables extends Migration
             $table->boolean('also_known_as')->nullable();
             $table->text('intro_copy')->nullable();
             $table->integer('datahub_id');
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -212,6 +219,7 @@ class CreateWebCmsTables extends Migration
             $table->datetime('publish_end_date')->nullable();
             $table->text('copy')->nullable();
             $table->string('imgix_uuid')->nullable();
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         };
