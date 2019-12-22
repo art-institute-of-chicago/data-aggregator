@@ -37,6 +37,14 @@ class CreateWebCmsTables extends Migration
             $table->softDeletes();
         });
 
+        Schema::create('sponsors', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title')->nullable();
+            $table->text('content');
+            $table->boolean('published');
+            $table->timestamps();
+        });
+
         Schema::create('web_exhibitions', function (Blueprint $table) {
             $table->increments('id');
             $table->text('title');
@@ -100,6 +108,7 @@ class CreateWebCmsTables extends Migration
             $table->boolean('published')->default(false);
             $table->timestamps();
             $table->softDeletes();
+            $table->integer('sponsor_id')->nullable();
         });
 
         Schema::create('event_occurrences', function (Blueprint $table) {
@@ -243,6 +252,7 @@ class CreateWebCmsTables extends Migration
     {
         Schema::dropIfExists('hours');
         Schema::dropIfExists('closures');
+        Schema::dropIfExists('sponsors');
         Schema::dropIfExists('web_exhibitions');
         Schema::dropIfExists('events');
         Schema::dropIfExists('event_occurrences');
