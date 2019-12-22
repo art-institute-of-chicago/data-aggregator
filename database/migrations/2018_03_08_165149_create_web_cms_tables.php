@@ -164,6 +164,7 @@ class CreateWebCmsTables extends Migration
             $table->boolean('published');
             $table->timestamps();
             $table->softDeletes();
+            $table->json('agent_ids')->nullable();
         });
 
         Schema::create('selections', function (Blueprint $table) {

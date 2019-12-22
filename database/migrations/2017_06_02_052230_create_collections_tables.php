@@ -93,6 +93,7 @@ class CreateCollectionsTables extends Migration
             $table->json('alt_titles')->nullable();
             $table->integer('agent_type_citi_id')->nullable()->index();
             $table = $this->_addDates($table);
+            $table->json('agent_ids')->nullable();
         });
 
         Schema::create('exhibitions', function (Blueprint $table) {
