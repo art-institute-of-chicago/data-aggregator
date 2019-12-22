@@ -100,8 +100,7 @@ class CreateWebCmsTables extends Migration
             $table->string('survey_url')->nullable();
             $table->text('join_url')->nullable();
             $table->text('entrance')->nullable();
-            $table->boolean('is_presented_by_affiliate')->nullable();
-            $table->text('affiliate_group_display')->nullable();
+            $table->boolean('show_affiliate_message')->nullable();
             $table->integer('affiliate_group_id')->nullable();
             $table->string('door_time')->nullable();
             $table->text('image_url')->nullable();
