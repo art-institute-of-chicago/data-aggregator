@@ -22,13 +22,12 @@ class CreateMobileTables extends Migration
             $table->double('latitude', 16, 13)->nullable();
             $table->double('longitude', 16, 13)->nullable();
 
-            $table->integer('selector_number')->nullable();
             $table->timestamps();
         });
 
         Schema::create('mobile_sounds', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
-            $table->string('link');
+            $table->string('web_url');
             $table->text('transcript')->nullable();
             $table->timestamps();
         });

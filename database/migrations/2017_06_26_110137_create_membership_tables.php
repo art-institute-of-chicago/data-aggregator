@@ -26,7 +26,7 @@ class CreateMembershipTables extends Migration
             $table->boolean('is_after_hours')->nullable();
             $table->boolean('is_private_event')->nullable();
             $table->boolean('is_admission_required')->nullable();
-            $table->string('image_url')->nullable();
+            $table->text('image_url')->nullable();
             $table->integer('available')->nullable();
             $table->integer('total_capacity')->nullable();
             $table = $this->_addDates($table);
