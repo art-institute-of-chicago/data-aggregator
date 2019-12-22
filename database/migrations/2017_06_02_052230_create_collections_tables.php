@@ -136,6 +136,7 @@ class CreateCollectionsTables extends Migration
             $table->string('copyright_notice')->nullable();
             $table->string('place_of_origin')->nullable();
             $table->string('collection_status')->nullable();
+            $table->integer('internal_department_id')->unsigned()->nullable();
             $table->integer('artwork_type_citi_id')->nullable()->index();
             $table->integer('gallery_citi_id')->nullable()->index();
             $table->boolean('is_on_view')->nullable();
