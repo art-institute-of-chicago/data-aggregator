@@ -100,8 +100,8 @@ class CreateWebCmsTables extends Migration
             $table->string('survey_url')->nullable();
             $table->text('join_url')->nullable();
             $table->text('entrance')->nullable();
-            $table->boolean('show_affiliate_message')->nullable();
-            $table->integer('affiliate_group_id')->nullable();
+            $table->boolean('show_presented_by')->nullable();
+            $table->integer('event_host_id')->nullable();
             $table->string('door_time')->nullable();
             $table->text('image_url')->nullable();
             $table->boolean('published')->default(false);
@@ -134,6 +134,7 @@ class CreateWebCmsTables extends Migration
             $table->increments('id');
             $table->string('title');
             $table->boolean('is_affiliate_group')->nullable();
+            $table->boolean('is_event_host')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -141,15 +142,6 @@ class CreateWebCmsTables extends Migration
         Schema::create('email_series', function (Blueprint $table) {
             $table->integer('id')->primary();
             $table->text('title');
-            $table->boolean('use_short_description')->nullable();
-            $table->boolean('show_non_member')->nullable();
-            $table->boolean('show_member')->nullable();
-            $table->boolean('show_sustaining_fellow')->nullable();
-            $table->boolean('show_affiliate_member')->nullable();
-            $table->text('non_member_copy')->nullable();
-            $table->text('member_copy')->nullable();
-            $table->text('sustaining_fellow_copy')->nullable();
-            $table->text('affiliate_member_copy')->nullable();
             $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
         });
@@ -157,14 +149,10 @@ class CreateWebCmsTables extends Migration
         Schema::create('event_email_series', function (Blueprint $table) {
             $table->integer('event_id')->nullable()->index();
             $table->integer('email_series_id')->nullable()->index();
-            $table->boolean('send_non_member')->nullable();
-            $table->boolean('send_member')->nullable();
-            $table->boolean('send_sustaining_fellow')->nullable();
-            $table->boolean('send_affiliate_member')->nullable();
-            $table->text('non_member_copy')->nullable();
+            $table->text('nonmember_copy')->nullable();
             $table->text('member_copy')->nullable();
             $table->text('sustaining_fellow_copy')->nullable();
-            $table->text('affiliate_member_copy')->nullable();
+            $table->text('affiliate_copy')->nullable();
         });
 
         Schema::create('articles', function (Blueprint $table) {
