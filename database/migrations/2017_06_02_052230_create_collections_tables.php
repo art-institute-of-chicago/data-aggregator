@@ -129,6 +129,7 @@ class CreateCollectionsTables extends Migration
             $table->text('exhibition_history')->nullable();
             $table->text('provenance')->nullable();
             $table->integer('fiscal_year')->nullable();
+            $table->integer('fiscal_year_deaccession')->nullable()->index();
             $table->string('publishing_verification_level')->nullable();
             $table->boolean('is_public_domain')->nullable();
             $table->boolean('is_zoomable')->nullable();
