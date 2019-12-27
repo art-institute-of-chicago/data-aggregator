@@ -81,10 +81,6 @@ function summation(array $array)
 }
 
 /**
- * TODO: Everything below this is unused. However, these methods could be useful in testing.
- */
-
-/**
  * Splits an array into a given number of (approximately) equal-sized parts.
  *
  * @link http://www.php.net/manual/en/function.array-chunk.php#75022
@@ -107,102 +103,6 @@ function partition(array $list, $p)
         $mark += $incr;
     }
     return $partition;
-}
-
-/**
- * Get a list of all the models used in the application
- *
- * @TODO: This might break b/c it counts traits as models.
- * @TODO: This might break b/c it counts abstract models.
- *
- * @return array
- */
-function allModels()
-{
-    $models = [];
-    $namespace = '\App\Models\\';
-
-    $dir = app_path('Models');
-    $files = scandir($dir);
-
-    foreach ($files as $file) {
-        //skip current and parent folder entries
-        if ($file === '.' || $file === '..') {
-            continue;
-        }
-
-        $sourcepath = $dir . DIRECTORY_SEPARATOR . $file;
-
-        if (!is_dir($sourcepath)) {
-            continue;
-        }
-
-        $sourcefiles = scandir($sourcepath);
-
-        foreach ($sourcefiles as $sourcefile) {
-            if (!is_dir($sourcepath . DIRECTORY_SEPARATOR . $sourcefile)) {
-                $models[] = $namespace . $file . '\\' . preg_replace('/\.php$/', '', $sourcefile);
-            }
-        }
-    }
-
-    return $models;
-}
-
-/**
- * Get a list of all the models that use the the given trait.
- *
- * @TODO: Currently unused, delete?
- *
- * @return array
- */
-function allModelsThatUse($trait)
-{
-    $modelClasses = allModels();
-
-    $models = [];
-
-    foreach ($modelClasses as $model) {
-        if ($model::instance()->has($trait)) {
-            $models[] = $model;
-        }
-    }
-
-    return $models;
-}
-
-/**
- * Get a list of all the traits this class uses, include the class's parents and traits' parents
- *
- * @TODO: Use `class_uses_recursive` instead?
- *
- * @param string $modelClass  Optional model class. Otherwise it will use `get_called_class()`.
- * @param boolean $autoload  Autoload flag to pass to `class_uses()` calls.
- * @return array
- */
-function class_uses_deep($modelClass, $autoload = true)
-{
-    $traits = class_uses($modelClass, $autoload);
-
-    // Get traits of all parent classes
-    while ($modelClass = get_parent_class($modelClass)) {
-        $traits = array_merge(class_uses($modelClass, $autoload), $traits);
-    }
-
-    // Get traits of all parent traits
-    $traitsToSearch = $traits;
-
-    while (!empty($traitsToSearch)) {
-        $newTraits = class_uses(array_pop($traitsToSearch), $autoload);
-        $traits = array_merge($newTraits, $traits);
-        $traitsToSearch = array_merge($newTraits, $traitsToSearch);
-    }
-
-    foreach ($traits as $trait => $same) {
-        $traits = array_merge(class_uses($trait, $autoload), $traits);
-    }
-
-    return array_unique($traits);
 }
 
 /**
