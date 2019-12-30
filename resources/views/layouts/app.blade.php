@@ -81,8 +81,8 @@
                 <button class="g-header__menu-link f-secondary" data-behavior="openNavMobile" aria-label="Show menu">Menu<svg class="icon--menu--24" aria-hidden="true"><use xlink:href="#icon--menu--24"></use></svg></button>
             </div>
         </header>
-        <main class="content">
-            <article class="o-article o-article--generic-page">
+        <main id="content">
+            <article class="o-article">
                 @yield('content')
             </article>
         </main>
