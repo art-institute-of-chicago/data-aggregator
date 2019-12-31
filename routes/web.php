@@ -34,7 +34,7 @@ Route::get('/assets/{filename}.css', function ($filename) {
 })->where('filename', '[a-zA-Z0-9\/\.\-_]+');
 
 Route::get('/assets/{filename}.js', function ($filename) {
-    $content = Storage::disk('local')->get($filename . 'js');
+    $content = Storage::disk('local')->get($filename . '.js');
     if (config('app.env') == 'local') {
         \Debugbar::disable();
     }

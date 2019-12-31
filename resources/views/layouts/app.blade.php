@@ -82,8 +82,11 @@
             </div>
         </header>
         <main id="content">
-            <article class="o-article">
-                @yield('content')
+            <article id="app" class="o-article">
+              <header class="m-article-header m-article-header--default ">
+                <h1 class="title f-headline" itemprop="name" id="content-h1">{{ $title }}</h1>
+              </header>
+              @yield('content')
             </article>
         </main>
 {{--
