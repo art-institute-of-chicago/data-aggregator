@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="/assets/scripts/app.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,8 +21,8 @@
     <style>
     @import url("//hello.myfonts.net/count/3545d5");
     @font-face {font-family: 'Sabon';src: url(/assets/fonts/3545D5_0_0.eot);src: url(/assets/fonts/3545D5_0_0.eot?#iefix) format('embedded-opentype'),url(/assets/fonts/3545D5_0_0.woff2) format('woff2'),url(/assets/fonts/3545D5_0_0.woff) format('woff'),url(/assets/fonts/3545D5_0_0.ttf) format('truetype');font-weight:normal;font-weight:400;font-style:normal;}
-    @font-face {font-family: 'Sabon';src: url(/dist/fonts/3545D5_1_0.eot);src: url(/dist/fonts/3545D5_1_0.eot?#iefix) format('embedded-opentype'),url(/dist/fonts/3545D5_1_0.woff2) format('woff2'),url(/dist/fonts/3545D5_1_0.woff) format('woff'),url(/dist/fonts/3545D5_1_0.ttf) format('truetype');font-weight:normal;font-weight:400;font-style:italic;}
-    @font-face {font-family: 'Sabon';src: url(/dist/fonts/3545D5_2_0.eot);src: url(/dist/fonts/3545D5_2_0.eot?#iefix) format('embedded-opentype'),url(/dist/fonts/3545D5_2_0.woff2) format('woff2'),url(/dist/fonts/3545D5_2_0.woff) format('woff'),url(/dist/fonts/3545D5_2_0.ttf) format('truetype');font-weight:normal;font-weight:500;font-style:normal;}
+    @font-face {font-family: 'Sabon';src: url(/assets/fonts/3545D5_1_0.eot);src: url(/assets/fonts/3545D5_1_0.eot?#iefix) format('embedded-opentype'),url(/assets/fonts/3545D5_1_0.woff2) format('woff2'),url(/assets/fonts/3545D5_1_0.woff) format('woff'),url(/assets/fonts/3545D5_1_0.ttf) format('truetype');font-weight:normal;font-weight:400;font-style:italic;}
+    @font-face {font-family: 'Sabon';src: url(/assets/fonts/3545D5_2_0.eot);src: url(/assets/fonts/3545D5_2_0.eot?#iefix) format('embedded-opentype'),url(/assets/fonts/3545D5_2_0.woff2) format('woff2'),url(/assets/fonts/3545D5_2_0.woff) format('woff'),url(/assets/fonts/3545D5_2_0.ttf) format('truetype');font-weight:normal;font-weight:500;font-style:normal;}
     </style>
     <link href="/assets/styles/app.css" rel="stylesheet">
 </head>
