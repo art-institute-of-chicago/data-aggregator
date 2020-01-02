@@ -35,4 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'google_tag_manager' => [
+        'enabled' => env('GTM_ENABLED', false),
+        'id' => env('GTM_ID', '')
+    ],
 ];
