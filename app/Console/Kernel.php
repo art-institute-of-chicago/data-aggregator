@@ -76,14 +76,17 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
 
-        $schedule->command('dump:export')
-            ->dailyAt('22:45')
-            ->withoutOverlapping()
+        $schedule->command('dump:json-export')
+            ->before(function () {
+                $this->call('dump:export');
+            })
             ->after(function () {
                 $this->call('dump:upload', [
                     '--reset' => 'default',
                 ]);
-            });
+            })
+            ->dailyAt('22:45')
+            ->withoutOverlapping();
     }
 
     /**
