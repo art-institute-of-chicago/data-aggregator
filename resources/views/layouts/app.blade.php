@@ -10,6 +10,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script>!function(e){var t,s,i=window.A17||{},n=e.documentElement,l=window,a=e.getElementsByTagName("head")[0];function c(){if(/in/.test(e.readyState))setTimeout(c,9);else{var t=e.body,i=e.createElement("div");i.className="svg-sprite",i.innerHTML=s.responseText,t.insertBefore(i,t.childNodes[0])}}i.browserSpec=(e.querySelectorAll,"addEventListener"in l&&l.history.pushState&&e.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure","1.1")?"html5":"html4"),i.objectFit="objectFit"in n.style,window.A17=i,n.className=n.className.replace(/\bno-js\b/," js "+i.browserSpec+(i.objectFit?" objectFit":" no-objectFit")),"html4"===i.browserSpec?((t=e.createElement("link")).rel="stylesheet",t.title="html4css",t.href="/assets/styles/html4css.css",a.appendChild(t),(t=e.createElement("script")).src="//legacypicturefill.s3.amazonaws.com/legacypicturefill.min.js",a.appendChild(t),function t(){!e.readyState&&e.addEventListener&&(e.body?setTimeout(function(){e.readyState="complete"},500):setTimeout(t,9))}(),function t(){if(/in/.test(e.readyState))setTimeout(t,9);else for(var s=0;s<e.styleSheets.length;s++){var i=e.styleSheets[s];"html4css"!==i.title&&(i.disabled=!0)}}()):((t=e.createElement("script")).src="//cdnjs.cloudflare.com/ajax/libs/picturefill/3.0.3/picturefill.min.js",a.appendChild(t),(s=new XMLHttpRequest).open("GET","/assets/icons/icons.svg",!0),s.send(),s.onload=function(e){s.status>=200&&s.status<400&&c()})}(document);</script>
+    <script src="https://vjs.zencdn.net/7.1.0/video.min.js"></script>
     <script src="/assets/scripts/app.js"></script>
 
     <!-- Fonts -->
@@ -139,7 +141,7 @@
     <div class="svg-sprite">
         @php
             try {
-                echo Storage::disk('local')->get('icons/icons.svg');
+                echo Storage::disk('public')->get('icons/icons.svg');
             } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
                 // do nothing
             }
