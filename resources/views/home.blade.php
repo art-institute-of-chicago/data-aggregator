@@ -14,13 +14,6 @@
     </div>
 @endif
 
-<header class="m-article-header">
-    <div class="m-article-header__text">
-        <h1 class="title f-headline" itemprop="name">Art Institute of Chicago API</h1>
-    </div>
-</header>
-
-<div class="o-article__primary-actions"></div>
 <div class="o-article__secondary-actions">
     <div id="app">
           @if (Auth::check())

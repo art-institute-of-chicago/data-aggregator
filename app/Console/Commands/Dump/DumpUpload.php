@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Dump;
 
+use Illuminate\Support\Facades\File;
 use Exception;
 
 class DumpUpload extends AbstractDumpCommand
@@ -24,9 +25,14 @@ class DumpUpload extends AbstractDumpCommand
         // If you change these, you'll need to clean up the repo manually
         $tablesSrcPath = $this->getDumpPath('local/tables');
         $tablesDestPath = $repoPath . '/tables';
+        $jsonsSrcPath = $this->getDumpPath('local/json');
+        $jsonsDestPath = $repoPath . '/json';
 
         if (count(glob($tablesSrcPath . '/*.csv') ?: []) < 1) {
             throw new Exception('No CSV files found in ' . $tablesSrcPath);
+        }
+        if (count(glob($jsonsSrcPath . '/*/*.json') ?: []) < 1) {
+            throw new Exception('No JSON files found in ' . $jsonsSrcPath);
         }
 
         if ($this->option('remove') && file_exists($repoPath)) {
@@ -49,15 +55,20 @@ class DumpUpload extends AbstractDumpCommand
             $this->shell->passthru('git -C %s reset --hard %s', $repoPath, $commit);
         }
 
-        // Remove all existing CSVs from the repo
+        // Remove all existing CSVs and JSONs from the repo
         // This should take care of any tables that were removed or renamed
         if (file_exists($tablesDestPath)) {
             $this->shell->passthru('find %s -name *.csv | xargs rm', $tablesDestPath);
         } else {
             mkdir($tablesDestPath);
         }
+        if (file_exists($jsonsDestPath)) {
+            $this->shell->passthru('find %s -name *.json | xargs rm', $jsonsDestPath);
+        } else {
+            mkdir($jsonsDestPath);
+        }
 
-        // Copy dumps of whitelisted tables into the repo
+        // Copy dumps of whitelisted tables and endpoints into the repo
         foreach ($this->whitelistedTables as $tableName) {
             $csvPaths = $this->shell->exec('find %s -name %s', $tablesSrcPath, $tableName . '*.csv')['output'];
 
@@ -69,6 +80,18 @@ class DumpUpload extends AbstractDumpCommand
             foreach ($csvPaths as $csvPath) {
                 $csvSubPath = '/' . basename($csvPath);
                 $this->shell->passthru('cp %s %s', $tablesSrcPath . $csvSubPath, $tablesDestPath . $csvSubPath);
+            }
+        }
+        foreach ($this->getModels() as $model => $category) {
+            if(!File::exists($jsonsSrcPath .'/' .app('Resources')->getEndpointForModel($model))) {
+                continue;
+            }
+            $jsonPaths = $this->shell->exec('find %s -name %s', $jsonsSrcPath .'/' .app('Resources')->getEndpointForModel($model), '*.json')['output'];
+
+            $this->shell->passthru('mkdir -p %s', $jsonsDestPath . '/' .app('Resources')->getEndpointForModel($model));
+            foreach ($jsonPaths as $jsonPath) {
+                $jsonSubPath = '/' . app('Resources')->getEndpointForModel($model) .'/' . basename($jsonPath);
+                $this->shell->passthru('cp %s %s', $jsonsSrcPath . $jsonSubPath, $jsonsDestPath . $jsonSubPath);
             }
         }
 
@@ -87,7 +110,7 @@ class DumpUpload extends AbstractDumpCommand
         );
 
         // TODO: Fix how this works without --reset?
-        $this->shell->passthru('git -C %s push %s', $repoPath, ($this->option('reset') ? '--force' : ''));
+        $this->shell->passthru('git -C %s push %s', $repoPath, ($this->option('reset') ? '--force' : '--no-force-with-lease'));
     }
 
 }

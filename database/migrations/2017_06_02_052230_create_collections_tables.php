@@ -72,7 +72,7 @@ class CreateCollectionsTables extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->integer('citi_id')->unsigned()->primary();
             $table->string('title')->nullable();
-            $table->boolean('closed')->nullable();
+            $table->boolean('is_closed')->nullable();
             $table->string('number')->nullable();
             $table->string('floor')->nullable();
             $table->double('latitude', 16, 13)->nullable();
@@ -93,6 +93,7 @@ class CreateCollectionsTables extends Migration
             $table->json('alt_titles')->nullable();
             $table->integer('agent_type_citi_id')->nullable()->index();
             $table = $this->_addDates($table);
+            $table->json('agent_ids')->nullable();
         });
 
         Schema::create('exhibitions', function (Blueprint $table) {
@@ -128,6 +129,7 @@ class CreateCollectionsTables extends Migration
             $table->text('exhibition_history')->nullable();
             $table->text('provenance')->nullable();
             $table->integer('fiscal_year')->nullable();
+            $table->integer('fiscal_year_deaccession')->nullable()->index();
             $table->string('publishing_verification_level')->nullable();
             $table->boolean('is_public_domain')->nullable();
             $table->boolean('is_zoomable')->nullable();
@@ -135,10 +137,12 @@ class CreateCollectionsTables extends Migration
             $table->string('copyright_notice')->nullable();
             $table->string('place_of_origin')->nullable();
             $table->string('collection_status')->nullable();
+            $table->integer('internal_department_id')->unsigned()->nullable();
             $table->integer('artwork_type_citi_id')->nullable()->index();
             $table->integer('gallery_citi_id')->nullable()->index();
             $table->boolean('is_on_view')->nullable();
             $table = $this->_addDates($table);
+            $table->integer('pageviews_recent')->nullable()->index();
         });
 
         Schema::create('artwork_artist', function (Blueprint $table) {

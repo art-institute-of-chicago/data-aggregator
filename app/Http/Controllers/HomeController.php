@@ -21,6 +21,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home', ['title' => 'Art Institute of Chicago API']);
     }
 }

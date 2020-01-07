@@ -37,7 +37,7 @@ class DownloadCssJs extends AbstractDocCommand
 
         foreach ($files as $vanityName => $fileName) {
             $contents = file_get_contents('https://www.artic.edu/dist/' .$fileName);
-            Storage::disk('local')->put($vanityName, $contents);
+            Storage::disk('public')->put($vanityName, $contents);
         }
     }
 }

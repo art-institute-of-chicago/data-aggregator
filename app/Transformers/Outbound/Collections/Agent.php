@@ -107,6 +107,7 @@ class Agent extends BaseTransformer
                 'doc' => 'Unique identifier of this agent in Getty\'s ULAN',
                 'type' => 'uri',
                 'elasticsearch' => 'text',
+                'is_restricted' => true,
             ],
             'is_licensing_restricted' => [
                 'doc' => 'Whether the use of the images of works by this artist are restricted by licensing',

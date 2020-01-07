@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Library\Shell;
 use Exception;
 
-use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
+use App\Console\Commands\BaseCommand;
 
 abstract class AbstractDumpCommand extends BaseCommand
 {
