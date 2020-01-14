@@ -41,6 +41,7 @@ class Artwork extends CollectionsTransformer
             'copyright_notice' => $copyright_notice,
             'gallery_citi_id' => $datum->gallery_id,
             'internal_department_id' => $datum->department_id,
+            'artwork_date_qualifier_citi_id' => $datum->date_qualifier_id,
             // TODO: ArtworkTypes may need to be attached via string comparison
             //'artwork_type_citi_id' => , // Redmine #2431
         ];

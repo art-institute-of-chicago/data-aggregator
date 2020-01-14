@@ -153,6 +153,10 @@ class Artwork extends CollectionsModel
         return $this->categories()->themes();
     }
 
+    public function dateQualifier() {
+        return $this->belongsTo('App\Models\Collections\ArtworkDateQualifier', 'artwork_date_qualifier_citi_id');
+    }
+
     public function dates()
     {
         return $this->hasMany('App\Models\Collections\ArtworkDate');
