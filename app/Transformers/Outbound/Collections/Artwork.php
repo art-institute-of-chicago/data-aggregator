@@ -177,6 +177,22 @@ class Artwork extends BaseTransformer
                     'type' => 'text',
                 ],
             ],
+            'date_qualifier_title' => [
+                'doc' => 'Readable, text qualifer to the dates provided for this record.',
+                'type' => 'string',
+                'elasticsearch' => 'keyword',
+                'value' => function ($item) {
+                    return $item->dateQualifier->title ?? '';
+                },
+            ],
+            'date_qualifier_id' => [
+                'doc' => 'Unique identifier of the qualifer to the dates provided for this record.',
+                'type' => 'integer',
+                'elasticsearch' => 'integer',
+                'value' => function ($item) {
+                    return $item->artwork_date_qualifier_citi_id;
+                },
+            ],
             'artist_display' => [
                 'doc' => 'Readable description of the creator of this work. Includes artist names, nationality and lifespan dates',
                 'type' => 'string',
