@@ -44,6 +44,14 @@ class ImportUlan extends AbstractImportCommand
                     $result = $this->fetchUlan($agent, $agent->birth_date, $agent->death_date);
 
                     $gotit = $this->updateUlan($agent, $result, 'with birth and death year');
+
+                    // Now let's try only name
+                    if (!$gotit)
+                    {
+                        $result = $this->fetchUlan($agent, null, null);
+
+                        $gotit = $this->updateUlan($agent, $result, 'with no years');
+                    }
                 }
             }
 
