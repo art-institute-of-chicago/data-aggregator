@@ -15,7 +15,7 @@ class AssetsTableSeeder extends AbstractSeeder
         $sounds = factory(Asset::class, 25)->states('sound')->create();
         $videos = factory(Asset::class, 25)->states('video')->create();
 
-        $artworks = Artwork::fake()->get();
+        $artworks = Artwork::query()->get();
 
         foreach ($artworks as $artwork) {
 

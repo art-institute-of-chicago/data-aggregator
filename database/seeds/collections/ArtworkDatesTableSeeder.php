@@ -32,7 +32,7 @@ class ArtworkDatesTableSeeder extends AbstractSeeder
 
     protected function seed()
     {
-        $artworks = Artwork::fake()->get();
+        $artworks = Artwork::query()->get();
 
         foreach ($artworks as $artwork) {
 

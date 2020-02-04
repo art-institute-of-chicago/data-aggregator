@@ -14,8 +14,8 @@ class LibraryDatabaseSeeder extends AbstractSeeder
 
     protected static function unseed()
     {
-        Material::fake()->delete();
-        Term::fake()->delete();
+        Material::query()->delete();
+        Term::query()->delete();
     }
 
 }

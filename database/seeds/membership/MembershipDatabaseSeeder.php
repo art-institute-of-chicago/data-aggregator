@@ -12,7 +12,7 @@ class MembershipDatabaseSeeder extends AbstractSeeder
 
     protected static function unseed()
     {
-        TicketedEvent::fake()->delete();
+        TicketedEvent::query()->delete();
     }
 
 }

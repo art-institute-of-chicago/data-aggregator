@@ -18,7 +18,7 @@ class ToursTableSeeder extends AbstractSeeder
 
     private function addStopsToTours()
     {
-        $tours = Tour::fake()->get();
+        $tours = Tour::query()->get();
 
         foreach ($tours as $tour) {
 

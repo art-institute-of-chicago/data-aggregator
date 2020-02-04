@@ -12,7 +12,7 @@ class StaticArchiveDatabaseSeeder extends AbstractSeeder
 
     protected static function unseed()
     {
-        Site::fake()->delete();
+        Site::query()->delete();
     }
 
 }

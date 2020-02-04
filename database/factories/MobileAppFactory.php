@@ -24,7 +24,7 @@ $factory->define(App\Models\Mobile\Artwork::class, function (Faker\Generator $fa
     static $artworks;
 
     if (!$artworks) {
-        $artworks = App\Models\Collections\Artwork::fake()->pluck('citi_id')->all();
+        $artworks = App\Models\Collections\Artwork::query()->pluck('citi_id')->all();
     }
 
     return array_merge(
@@ -54,7 +54,7 @@ $factory->define(App\Models\Mobile\Tour::class, function (Faker\Generator $faker
             'image' => $faker->imageUrl(),
             'description' => $faker->paragraph(5),
             'intro_text' => $faker->paragraph(3),
-            'intro_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::fake()->pluck('mobile_id')->all()),
+            'intro_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::query()->pluck('mobile_id')->all()),
             'weight' => $faker->randomDigit,
         ]
     );
@@ -64,14 +64,14 @@ $factory->define(App\Models\Mobile\TourStop::class, function (Faker\Generator $f
     static $artworks;
 
     if (!$artworks) {
-        $artworks = App\Models\Collections\Artwork::fake()->pluck('citi_id')->all();
+        $artworks = App\Models\Collections\Artwork::query()->pluck('citi_id')->all();
     }
 
     return array_merge(
         [
-            'tour_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::fake()->pluck('mobile_id')->all()),
-            'mobile_artwork_mobile_id' => $faker->randomElement(App\Models\Mobile\Artwork::fake()->pluck('mobile_id')->all()),
-            'mobile_sound_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::fake()->pluck('mobile_id')->all()),
+            'tour_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::query()->pluck('mobile_id')->all()),
+            'mobile_artwork_mobile_id' => $faker->randomElement(App\Models\Mobile\Artwork::query()->pluck('mobile_id')->all()),
+            'mobile_sound_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::query()->pluck('mobile_id')->all()),
             'weight' => $faker->randomDigit,
         ]
     );

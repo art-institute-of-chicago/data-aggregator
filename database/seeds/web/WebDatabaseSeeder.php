@@ -36,19 +36,19 @@ class WebDatabaseSeeder extends AbstractSeeder
 
     protected static function unseed()
     {
-        Hour::fake()->delete();
-        Closure::fake()->delete();
-        Exhibition::fake()->delete();
-        EventProgram::fake()->delete();
-        Event::fake()->delete();
-        Article::fake()->delete();
-        Selection::fake()->delete();
-        Artist::fake()->delete();
-        GenericPage::fake()->delete();
-        PressRelease::fake()->delete();
-        EducatorResource::fake()->delete();
-        DigitalCatalog::fake()->delete();
-        PrintedCatalog::fake()->delete();
+        Hour::query()->delete();
+        Closure::query()->delete();
+        Exhibition::query()->delete();
+        EventProgram::query()->delete();
+        Event::query()->delete();
+        Article::query()->delete();
+        Selection::query()->delete();
+        Artist::query()->delete();
+        GenericPage::query()->delete();
+        PressRelease::query()->delete();
+        EducatorResource::query()->delete();
+        DigitalCatalog::query()->delete();
+        PrintedCatalog::query()->delete();
     }
 
 }

@@ -14,8 +14,8 @@ class DscDatabaseSeeder extends AbstractSeeder
 
     protected static function unseed()
     {
-        Publication::fake()->delete();
-        Section::fake()->delete();
+        Publication::query()->delete();
+        Section::query()->delete();
     }
 
 }

@@ -16,9 +16,9 @@ class MobileDatabaseSeeder extends AbstractSeeder
 
     protected static function unseed()
     {
-        Artwork::fake()->delete();
-        Sound::fake()->delete();
-        Tour::fake()->delete();
+        Artwork::query()->delete();
+        Sound::query()->delete();
+        Tour::query()->delete();
     }
 
 }

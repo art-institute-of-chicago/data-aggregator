@@ -12,7 +12,7 @@ class ArchiveDatabaseSeeder extends AbstractSeeder
 
     protected static function unseed()
     {
-        ArchiveImage::fake()->delete();
+        ArchiveImage::query()->delete();
     }
 
 }

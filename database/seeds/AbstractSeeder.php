@@ -55,8 +55,8 @@ abstract class AbstractSeeder extends Seeder
     {
         $isReflexive = ($subjectClass === $objectClass);
 
-        $subjects = $subjectClass::fake()->get();
-        $objects = $objectClass::fake()->get();
+        $subjects = $subjectClass::query()->get();
+        $objects = $objectClass::query()->get();
 
         $this->validateSeedRelation($subjectClass, $objectClass, $subjects, $objects, $method);
 

@@ -14,8 +14,8 @@ class ShopDatabaseSeeder extends AbstractSeeder
 
     protected static function unseed()
     {
-        Category::fake()->delete();
-        Product::fake()->delete();
+        Category::query()->delete();
+        Product::query()->delete();
     }
 
 }

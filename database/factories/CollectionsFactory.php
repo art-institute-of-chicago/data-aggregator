@@ -61,7 +61,7 @@ $factory->define(App\Models\Collections\Agent::class, function (Faker\Generator 
             'birth_place' => $faker->country,
             'death_place' => $faker->country,
             'licensing_restricted' => $faker->boolean,
-            'agent_type_citi_id' => $faker->randomElement(App\Models\Collections\AgentType::fake()->pluck('citi_id')->all()),
+            'agent_type_citi_id' => $faker->randomElement(App\Models\Collections\AgentType::query()->pluck('citi_id')->all()),
         ],
         dates($faker, true)
     );
@@ -93,7 +93,7 @@ $factory->define(App\Models\Collections\Category::class, function (Faker\Generat
             'is_category' => true,
             'lake_uid' => 'PC-' . ($faker->unique()->randomNumber(6) + 999 * pow(10, 6)),
             'subtype' => $faker->randomElement(['CT-1', 'CT-3']),
-            'parent_id' => $faker->randomElement(App\Models\Collections\Category::fake()->pluck('lake_uid')->all()),
+            'parent_id' => $faker->randomElement(App\Models\Collections\Category::query()->pluck('lake_uid')->all()),
         ]
     );
 });
@@ -122,8 +122,8 @@ $factory->define(App\Models\Collections\Artwork::class, function (Faker\Generato
             'copyright_notice' => '© ' . $faker->year . ' ' . ucfirst($faker->words(3, true)),
             'place_of_origin' => $faker->country,
             'collection_status' => $faker->randomElement(['Permanent Collection', 'Long-term Loan']),
-            'artwork_type_citi_id' => $faker->randomElement(App\Models\Collections\ArtworkType::fake()->pluck('citi_id')->all()),
-            'gallery_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
+            'artwork_type_citi_id' => $faker->randomElement(App\Models\Collections\ArtworkType::query()->pluck('citi_id')->all()),
+            'gallery_citi_id' => $faker->randomElement(App\Models\Collections\Place::query()->pluck('citi_id')->all()),
         ],
         dates($faker, true)
     );
@@ -137,10 +137,10 @@ $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Gene
     return array_merge(
         idsAndTitle($faker, $faker->word . ' date', true),
         [
-            'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::fake()->pluck('citi_id')->all()),
+            'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::query()->pluck('citi_id')->all()),
             'date_earliest' => $faker->dateTimeAd,
             'date_latest' => $faker->dateTimeAd,
-            'artwork_date_qualifier_citi_id' => $faker->randomElement(App\Models\Collections\ArtworkDateQualifier::fake()->pluck('citi_id')->all()),
+            'artwork_date_qualifier_citi_id' => $faker->randomElement(App\Models\Collections\ArtworkDateQualifier::query()->pluck('citi_id')->all()),
             'preferred' => $faker->boolean,
         ]
     );
@@ -155,7 +155,7 @@ $factory->define(App\Models\Collections\ArtworkTerm::class, function (Faker\Gene
 
 $factory->define(App\Models\Collections\ArtworkCatalogue::class, function (Faker\Generator $faker) {
     return [
-        'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::fake()->pluck('citi_id')->all()),
+        'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::query()->pluck('citi_id')->all()),
         'preferred' => $faker->boolean,
         'catalogue' => ucfirst($faker->words(2, true)),
         'number' => $faker->randomNumber(2),
@@ -196,7 +196,7 @@ $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Gener
             'description' => $faker->paragraph(3),
             'type' => $faker->randomElement(['AIC Only', 'AIC & Other Venues', 'Mini Exhibition', 'Permanent Collection Special Project', 'Rotation']),
             'department_display' => ucwords($faker->words(2, true)),
-            'place_citi_id' => $faker->randomElement(App\Models\Collections\Place::fake()->pluck('citi_id')->all()),
+            'place_citi_id' => $faker->randomElement(App\Models\Collections\Place::query()->pluck('citi_id')->all()),
             'place_display' => 'Gallery ' . $faker->randomNumber(3),
             'status' => $faker->randomElement(['Open', 'Closed']),
             'date_start' => $faker->dateTimeAd,

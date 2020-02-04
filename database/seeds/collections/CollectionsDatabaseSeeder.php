@@ -44,21 +44,21 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
 
     protected static function unseed()
     {
-        Exhibition::fake()->delete();
-        Asset::fake()->delete();
-        ArtworkCatalogue::fake()->delete();
-        ArtworkDate::fake()->delete();
-        ArtworkDateQualifier::fake()->delete();
-        ArtworkTerm::fake()->delete();
-        Artwork::fake()->delete();
-        Place::fake()->delete();
-        Gallery::fake()->delete();
-        Category::fake()->delete();
-        ArtworkType::fake()->delete();
-        ArtworkPlaceQualifier::fake()->delete();
-        Agent::fake()->delete();
-        AgentType::fake()->delete();
-        AgentRole::fake()->delete();
+        Exhibition::query()->delete();
+        Asset::query()->delete();
+        ArtworkCatalogue::query()->delete();
+        ArtworkDate::query()->delete();
+        ArtworkDateQualifier::query()->delete();
+        ArtworkTerm::query()->delete();
+        Artwork::query()->delete();
+        Place::query()->delete();
+        Gallery::query()->delete();
+        Category::query()->delete();
+        ArtworkType::query()->delete();
+        ArtworkPlaceQualifier::query()->delete();
+        Agent::query()->delete();
+        AgentType::query()->delete();
+        AgentRole::query()->delete();
     }
 
 }
