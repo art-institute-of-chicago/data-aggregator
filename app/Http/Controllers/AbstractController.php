@@ -129,6 +129,8 @@ abstract class AbstractController extends BaseController
             $response['config'] = $config;
         }
 
+        $response['debug'] = app('debug')->getOutput();
+
         return $response;
     }
 

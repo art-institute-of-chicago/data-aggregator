@@ -63,9 +63,16 @@ abstract class AbstractTransformer extends BaseTransformer
             return !isset($mappedField['filter']) || call_user_func($mappedField['filter'], $model);
         });
 
-        return array_map(function ($mappedField) use ($model) {
-            return call_user_func($mappedField['value'], $model);
-        }, $filteredFields);
+        $resultFields = $filteredFields;
+
+        array_walk($resultFields, function (&$mappedField, $mappedFieldName) use ($model) {
+            $start = microtime(true);
+            $mappedField = call_user_func($mappedField['value'], $model);
+
+            app('debug')->log(get_called_class(), $mappedFieldName, microtime(true) - $start);
+        });
+
+        return $resultFields;
     }
 
     /**
