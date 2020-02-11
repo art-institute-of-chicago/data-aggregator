@@ -9,8 +9,6 @@ class ProductsTableSeeder extends AbstractSeeder
     protected function seed()
     {
         factory(Product::class, 25)->create();
-
-        $this->seedRelation(Product::class, Category::class, 'categories');
     }
 
 }

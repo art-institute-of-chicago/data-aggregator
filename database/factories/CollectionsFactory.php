@@ -148,8 +148,9 @@ $factory->define(App\Models\Collections\ArtworkDate::class, function (Faker\Gene
 
 $factory->define(App\Models\Collections\ArtworkTerm::class, function (Faker\Generator $faker) {
     return [
-        'term' => $faker->words(2, true),
-        'type' => ucfirst($faker->word),
+        'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::query()->pluck('citi_id')->all()),
+        'term_lake_uid' => $faker->randomElement(App\Models\Collections\Term::query()->pluck('lake_uid')->all()),
+        'preferred' => $faker->boolean,
     ];
 });
 
@@ -157,7 +158,6 @@ $factory->define(App\Models\Collections\ArtworkCatalogue::class, function (Faker
     return [
         'artwork_citi_id' => $faker->randomElement(App\Models\Collections\Artwork::query()->pluck('citi_id')->all()),
         'preferred' => $faker->boolean,
-        'catalogue' => ucfirst($faker->words(2, true)),
         'number' => $faker->randomNumber(2),
         'state_edition' => $faker->words(2, true),
     ];
@@ -214,7 +214,6 @@ $factory->define(App\Models\Collections\Asset::class, function (Faker\Generator 
         [
             'lake_guid' => '99999999-9999-9999-9999-999999' . $faker->randomNumber(6, true),
             'content' => $faker->url,
-            'copyright_notice' => '© ' . $faker->year . ' ' . ucfirst($faker->words(3, true)),
             'published' => $faker->boolean,
             'description' => $faker->paragraph(3),
             'alt_text' => $faker->paragraph(3),

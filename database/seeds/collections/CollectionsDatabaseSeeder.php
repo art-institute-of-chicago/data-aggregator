@@ -15,6 +15,7 @@ use App\Models\Collections\ArtworkCatalogue;
 use App\Models\Collections\ArtworkPlaceQualifier;
 use App\Models\Collections\Asset;
 use App\Models\Collections\Exhibition;
+use Illuminate\Support\Facades\DB;
 
 class CollectionsDatabaseSeeder extends AbstractSeeder
 {
@@ -28,17 +29,13 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         $this->call(CategoriesTableSeeder::class);
         $this->call(PlacesTableSeeder::class);
         $this->call(GalleriesTableSeeder::class);
-        $this->call(PlaceCategoriesTableSeeder::class);
         $this->call(ArtworksTableSeeder::class);
         $this->call(ArtistArtworksTableSeeder::class);
         $this->call(ArtworkCategoriesTableSeeder::class);
-        $this->call(ArtworkTermsTableSeeder::class);
         $this->call(ArtworkDateQualifiersTableSeeder::class);
         $this->call(ArtworkDatesTableSeeder::class);
-        $this->call(ArtworkCataloguesTableSeeder::class);
         $this->call(ArtworkPlaceQualifierTableSeeder::class);
         $this->call(AssetsTableSeeder::class);
-        $this->call(AssetCategoriesTableSeeder::class);
         $this->call(ExhibitionsTableSeeder::class);
     }
 
@@ -59,6 +56,10 @@ class CollectionsDatabaseSeeder extends AbstractSeeder
         Agent::query()->delete();
         AgentType::query()->delete();
         AgentRole::query()->delete();
+
+        DB::table('artwork_artist')->truncate();
+        DB::table('artwork_category')->truncate();
+        DB::table('artwork_asset')->truncate();
     }
 
 }

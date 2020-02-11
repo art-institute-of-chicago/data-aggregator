@@ -69,6 +69,7 @@ $factory->define(App\Models\Mobile\TourStop::class, function (Faker\Generator $f
 
     return array_merge(
         [
+            'id' => $faker->unique()->randomNumber(4),
             'tour_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::query()->pluck('mobile_id')->all()),
             'mobile_artwork_mobile_id' => $faker->randomElement(App\Models\Mobile\Artwork::query()->pluck('mobile_id')->all()),
             'mobile_sound_mobile_id' => $faker->randomElement(App\Models\Mobile\Sound::query()->pluck('mobile_id')->all()),

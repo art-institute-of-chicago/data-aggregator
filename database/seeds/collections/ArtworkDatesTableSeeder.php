@@ -20,7 +20,6 @@ class ArtworkDatesTableSeeder extends AbstractSeeder
             $artwork->dates()->create([
                 'date_earliest' => app('Faker')->dateTimeAD,
                 'date_latest' => app('Faker')->dateTimeAD,
-                'qualifier' => ucfirst(app('Faker')->word) . ' date',
                 'preferred' => $preferred,
             ]);
 
