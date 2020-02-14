@@ -319,33 +319,4 @@ abstract class BasicTestCase extends TestCase
 
         return collect($response->json()['data'])->keys();
     }
-
-    protected function assertArrayHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
-    {
-        // Standardize $resources into an array of multiple objects
-        if (!$arrayIsMultipleObjects) {
-            $resources = [$resources];
-        }
-
-        foreach ($keys as $key) {
-            foreach ($resources as $resource) {
-                $this->assertArrayHasKey($key, $resource);
-            }
-        }
-    }
-
-    protected function assertArrayNotHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
-    {
-        // Standardize $resources into an array of multiple objects
-        if (!$arrayIsMultipleObjects) {
-            $resources = [$resources];
-        }
-
-        foreach ($keys as $key) {
-            foreach ($resources as $resource) {
-                $this->assertArrayNotHasKey($key, $resource);
-            }
-        }
-    }
-
 }
