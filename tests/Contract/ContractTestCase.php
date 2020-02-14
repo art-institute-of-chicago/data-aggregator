@@ -42,13 +42,13 @@ abstract class ContractTestCase extends TestCase
         return $this->route ?: app('Resources')->getEndpointForModel($m);
     }
 
-    protected function it_fetches_fields($fields = [])
+    protected function it_fetches_fields($fields = [], $pivots = [])
     {
         if ($fields) {
             $m = $this->model();
             $this->times(5)->make($m);
 
-            $response = $this->getJson('api/v1/' . $this->route($m));
+            $response = $this->getJson('api/v1/' . $this->route($m) .($pivots ? '?includes=' .implode(',', $pivots) : ''));
             $response->assertSuccessful();
 
             $resources = $response->json()['data'];
