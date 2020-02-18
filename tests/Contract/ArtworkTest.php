@@ -32,12 +32,39 @@ class ArtworkTest extends ContractTestCase
         ]);
     }
 
-    /** @test
+    /** @test 
+     * The following tests determin which fields are used on the website by:
+     * * On the website, set `API_LOGGER=true` in `.env`
+     * * Access a page and watch the log
+     * * After the page is done loading, the log will dump all the fields requests for each API model
      */
+    public function it_fetches_fields_used_on_website_home_page() {
+        $this->it_fetches_fields([
+            'id',
+            'title',
+            'image_id',
+            'main_reference_number',
+            'thumbnail',
+        ],
+        [
+            'artist_pivots',
+        ]);
+    }
+
+    /** @test */
+    public function it_fetches_fields_used_on_website_collection_landing_page() {
+        $this->it_fetches_fields([
+            'main_reference_number',
+            'image_id',
+            'title',
+            'thumbnail',
+            'id',
+            'artist_title',
+        ]);
+    }
+
+    /** @test */
     public function it_fetches_fields_used_on_website_artwork_detail_page() {
-        // includes ['artist_pivots', 'place_pivots', 'dates', 'catalogue_pivots']
-        // $artist->title
-        // thumbnail.url
         $this->it_fetches_fields([
             'id',
             'title',
@@ -83,6 +110,37 @@ class ArtworkTest extends ContractTestCase
             'artist_pivots',
             'catalogue_pivots',
             'place_pivots',
+        ]);
+    }
+
+    /** @test */
+    public function it_fetches_fields_used_on_website_artist_detail_page() {
+        $this->it_fetches_fields([
+            'id',
+            'image_id',
+            'main_reference_number',
+            'title',
+            'thumbnail',
+            'artist_title',
+        ],
+        [
+            'artist_pivots',
+        ]);
+    }
+
+    /** @test */
+    public function it_fetches_fields_used_on_website_article_page_with_artwork_block_and_gallery() {
+        $this->it_fetches_fields([
+            'image_id',
+            'main_reference_number',
+            'title',
+            'thumbnail',
+            'is_on_view',
+            'artist_title',
+            'id',
+            'is_zoomable',
+            'is_public_domain',
+            'max_zoom_window_size',
         ]);
     }
 }
