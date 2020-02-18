@@ -84,7 +84,14 @@ abstract class BasicTestCase extends TestCase
     /** @test */
     public function it_400s_if_nonnumerid_nonuuid_is_passed()
     {
-        $this->it_400s();
+        $class = $this->model();
+        $endpoint = $this->route($class);
+
+        $this->make($class);
+
+        $response = $this->getJson('api/v1/' . $endpoint . '/fsdfdfs');
+
+        $response->assertStatus(400);
     }
 
     /**
@@ -93,7 +100,14 @@ abstract class BasicTestCase extends TestCase
      */
     public function it_403s_if_limit_is_too_high()
     {
-        $this->it_403s();
+        $class = $this->model();
+        $endpoint = $this->route($class);
+
+        $this->make($class);
+
+        $response = $this->getJson('api/v1/' . $endpoint . '?limit=2000');
+
+        $response->assertStatus(403);
     }
 
     // @TODO: Fix 404s tests w/ regards to id format
@@ -101,7 +115,14 @@ abstract class BasicTestCase extends TestCase
     /** @test */
     public function it_404s_if_not_found()
     {
-        $this->it_404s();
+        $class = $this->model();
+        $endpoint = $this->route($class);
+
+        $this->make($class);
+
+        $response = $this->getJson('api/v1/' . $endpoint . '/' . $this->getRandomId());
+
+        $response->assertStatus(404);
     }
 
     public function it_fetches_all()
@@ -158,42 +179,6 @@ abstract class BasicTestCase extends TestCase
         }
 
         return $resources;
-    }
-
-    public function it_400s()
-    {
-        $class = $this->model();
-        $endpoint = $this->route($class);
-
-        $this->make($class);
-
-        $response = $this->getJson('api/v1/' . $endpoint . '/fsdfdfs');
-
-        $response->assertStatus(400);
-    }
-
-    public function it_403s()
-    {
-        $class = $this->model();
-        $endpoint = $this->route($class);
-
-        $this->make($class);
-
-        $response = $this->getJson('api/v1/' . $endpoint . '?limit=2000');
-
-        $response->assertStatus(403);
-    }
-
-    public function it_404s()
-    {
-        $class = $this->model();
-        $endpoint = $this->route($class);
-
-        $this->make($class);
-
-        $response = $this->getJson('api/v1/' . $endpoint . '/' . $this->getRandomId());
-
-        $response->assertStatus(404);
     }
 
     /** @test */

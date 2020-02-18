@@ -15,8 +15,6 @@ class Site extends BaseModel
 
     protected $primaryKey = 'site_id';
 
-    protected $fakeIdsStartAt = 9990000;
-
     protected $hasSourceDates = false;
 
     protected $touches = [

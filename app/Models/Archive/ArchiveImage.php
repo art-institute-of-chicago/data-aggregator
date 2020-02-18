@@ -16,8 +16,6 @@ class ArchiveImage extends BaseModel
 
     protected $primaryKey = 'id';
 
-    protected $fakeIdsStartAt = 999000;
-
     protected $casts = [
         'subject_terms' => 'array',
         'source_created_at' => 'datetime',

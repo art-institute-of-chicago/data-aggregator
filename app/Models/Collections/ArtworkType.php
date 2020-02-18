@@ -12,6 +12,4 @@ class ArtworkType extends CollectionsModel
 
     protected $primaryKey = 'citi_id';
 
-    protected $fakeIdsStartAt = 99900;
-
 }

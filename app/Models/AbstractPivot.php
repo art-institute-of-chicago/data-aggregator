@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 abstract class AbstractPivot extends Pivot
 {
 
-    use Instancable, Transformable, Fakeable;
+    use Instancable, Transformable;
 
     // TODO: Abstract `getDate` logic from BaseModel into Trait, so that we can `use` it here?
 

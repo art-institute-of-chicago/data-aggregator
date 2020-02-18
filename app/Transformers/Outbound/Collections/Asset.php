@@ -44,11 +44,6 @@ class Asset extends BaseTransformer
                     'default' => true,
                 ],
             ],
-            'copyright_notice' => [
-                'doc' => 'Statement notifying how the asset is protected by copyright. Applies to the asset itself, not artwork it may be related to.',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
             'is_multimedia_resource' => [
                 'doc' => 'Whether this resource is considered to be multimedia',
                 'type' => 'boolean',

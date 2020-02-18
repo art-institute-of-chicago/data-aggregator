@@ -13,8 +13,6 @@ class Section extends DscModel
 
     use ElasticSearchable;
 
-    protected $fakeIdsStartAt = 90000000000;
-
     protected $touches = [
         'artwork',
     ];
