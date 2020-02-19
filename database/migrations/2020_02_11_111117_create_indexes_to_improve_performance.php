@@ -26,7 +26,7 @@ class CreateIndexesToImprovePerformance extends Migration
     public function down()
     {
         Schema::table('artwork_catalogue', function (Blueprint $table) {
-            $table->dropIndex('v1_artwork_catalogue_artwork_citi_id_index');
+            $table->dropIndex(['artwork_citi_id']);
         });
     }
 }
