@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5aee9ab3d8b1dfd1b39e31e6c5d5d69",
+    "content-hash": "6df77e421a579e09d8778d447c729ec1",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -50,7 +50,7 @@
                 "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/master",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2019-04-19T20:46:18+00:00"
+            "time": "2019-04-28T18:54:06+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
@@ -1417,6 +1417,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
+            "abandoned": true,
             "time": "2015-05-20T03:37:09+00:00"
         },
         {
@@ -1467,6 +1468,7 @@
                 "Guzzle",
                 "stream"
             ],
+            "abandoned": true,
             "time": "2014-10-12T19:18:40+00:00"
         },
         {
@@ -5845,6 +5847,7 @@
                 "code",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-code",
             "time": "2017-10-20T15:21:32+00:00"
         },
         {
@@ -5911,6 +5914,7 @@
                 "psr",
                 "psr-7"
             ],
+            "abandoned": "laminas/laminas-diactoros",
             "time": "2019-01-05T20:13:32+00:00"
         },
         {
@@ -5965,6 +5969,7 @@
                 "events",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-eventmanager",
             "time": "2017-07-11T19:17:22+00:00"
         }
     ],
@@ -6462,16 +6467,16 @@
         },
         {
             "name": "itsgoingd/clockwork",
-            "version": "v3.1.4",
+            "version": "v4.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itsgoingd/clockwork.git",
-                "reference": "529b6f9e2ce487b900213cf1d0694d0aebd5977f"
+                "reference": "30d54ecbf0cd424594b2ae5f94a9e3d4a7c3e961"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itsgoingd/clockwork/zipball/529b6f9e2ce487b900213cf1d0694d0aebd5977f",
-                "reference": "529b6f9e2ce487b900213cf1d0694d0aebd5977f",
+                "url": "https://api.github.com/repos/itsgoingd/clockwork/zipball/30d54ecbf0cd424594b2ae5f94a9e3d4a7c3e961",
+                "reference": "30d54ecbf0cd424594b2ae5f94a9e3d4a7c3e961",
                 "shasum": ""
             },
             "require": {
@@ -6516,7 +6521,7 @@
                 "profiling",
                 "slim"
             ],
-            "time": "2019-03-21T20:24:39+00:00"
+            "time": "2020-02-04T22:56:50+00:00"
         },
         {
             "name": "maximebf/debugbar",
