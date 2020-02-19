@@ -29,6 +29,11 @@ class Agent extends CollectionsModel
         return $this->belongsTo('App\Models\Collections\AgentType');
     }
 
+    public function gender()
+    {
+        return $this->belongsTo('App\Models\Collections\Gender');
+    }
+
     public function webArtist()
     {
         return $this->belongsTo('App\Models\Web\Artist', 'citi_id', 'datahub_id');

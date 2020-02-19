@@ -65,6 +65,11 @@ return [
             'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
         [
+            'endpoint' => 'genders',
+            'model' => \App\Models\Collections\Gender::class,
+            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
+        ],
+        [
             'endpoint' => 'artwork-types',
             'model' => \App\Models\Collections\ArtworkType::class,
             'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,

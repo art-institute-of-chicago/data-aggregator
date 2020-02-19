@@ -23,6 +23,10 @@ return [
             'model' => \App\Models\Collections\AgentType::class,
             'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
         ],
+        'genders' => [
+            'model' => \App\Models\Collections\Gender::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
         'catalogues' => [
             'model' => \App\Models\Collections\Catalogue::class,
             'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,

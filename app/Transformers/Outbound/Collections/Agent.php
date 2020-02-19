@@ -143,6 +143,22 @@ class Agent extends BaseTransformer
                     return $item->agentType->citi_id ?? null;
                 },
             ],
+            'gender_title' => [
+                'doc' => 'Name of the recorded gender of agent',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+                'value' => function ($item) {
+                    return $item->gender->title ?? null;
+                },
+            ],
+            'gender_id' => [
+                'doc' => 'Unique identifier of the recorded gender of agent',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+                'value' => function ($item) {
+                    return $item->gender->citi_id ?? null;
+                },
+            ],
             'artwork_ids' => [
                 'doc' => 'Unique identifiers of the works this artist created.',
                 'type' => 'array',

@@ -15,6 +15,7 @@ class Agent extends CollectionsTransformer
             'death_date' => $datum->date_death,
             'licensing_restricted' => $datum->is_licensing_restricted,
             'agent_type_citi_id' => $datum->agent_type_id,
+            'gender_citi_id' => $datum->gender_id,
         ];
     }
 
