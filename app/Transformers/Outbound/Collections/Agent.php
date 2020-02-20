@@ -147,6 +147,7 @@ class Agent extends BaseTransformer
                 'doc' => 'Name of the recorded gender of agent',
                 'type' => 'string',
                 'elasticsearch' => 'text',
+                'is_restricted' => true,
                 'value' => function ($item) {
                     return $item->gender->title ?? null;
                 },
@@ -155,6 +156,7 @@ class Agent extends BaseTransformer
                 'doc' => 'Unique identifier of the recorded gender of agent',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
+                'is_restricted' => true,
                 'value' => function ($item) {
                     return $item->gender->citi_id ?? null;
                 },
