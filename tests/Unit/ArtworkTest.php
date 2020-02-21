@@ -2,31 +2,16 @@
 
 namespace Tests\Unit;
 
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Gallery;
 
-class ArtworkTest extends ApiTestCase
+class ArtworkTest extends TestCase
 {
 
-    protected $model = Artwork::class;
-
-    protected $keys = ['id'];
-
-    protected $fieldsUsedByMobile = [
-        'title',
-        'gallery_title',
-        'id',
-        'main_reference_number',
-        'artist_display',
-        'credit_line',
-        'date_display',
-        'is_on_view',
-        'date_start',
-        'date_end',
-        'copyright_notice',
-        'gallery_id',
-        'image_id',
-    ];
+    use RefreshDatabase;
 
     /** @test */
     public function it_fetches_the_gallery_for_an_artwork()

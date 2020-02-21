@@ -11,6 +11,4 @@ class MobileModel extends BaseModel
 
     protected $hasSourceDates = false;
 
-    protected $fakeIdsStartAt = 9990000;
-
 }

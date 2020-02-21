@@ -66,22 +66,6 @@ class ArtworkArtistPivot extends BaseTransformer
                 'doc' => 'Whether this is a preferred artist',
                 'type' => 'boolean',
             ],
-
-            // TODO: Refactor relationships:
-            'artwork_title' => [
-                'doc' => 'Name of the work this artist made',
-                'type' => 'string',
-                'value' => function ($item) {
-                    return $item->artwork->title ?? null;
-                },
-            ],
-            'artwork_id' => [
-                'doc' => 'Unique identifier of the work this artist made',
-                'type' => 'number',
-                'value' => function ($item) {
-                    return $item->artwork->citi_id ?? null;
-                },
-            ],
             'artist_title' => [
                 'doc' => 'Name of the artist',
                 'type' => 'string',

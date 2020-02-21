@@ -11,6 +11,4 @@ class ShopModel extends BaseModel
 
     protected $primaryKey = 'shop_id';
 
-    protected $fakeIdsStartAt = 999000;
-
 }

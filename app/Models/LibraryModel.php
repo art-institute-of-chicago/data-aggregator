@@ -11,9 +11,6 @@ class LibraryModel extends BaseModel
 
     protected $primaryKey = 'id';
 
-    // TODO: Add seeders for these models
-    // protected $fakeIdsStartAt = 9990000;
-
     protected $hasSourceDates = false;
 
 }

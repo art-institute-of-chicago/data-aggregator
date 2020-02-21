@@ -10,8 +10,6 @@ use App\Models\WebModel;
 class Page extends WebModel
 {
 
-    protected $hasSourceDates = false;
-
     protected $casts = [
         'publish_start_date' => 'datetime',
         'publish_end_date' => 'datetime',

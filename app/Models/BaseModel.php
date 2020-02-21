@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 class BaseModel extends AbstractModel
 {
 
-    use Transformable, Instancable, Fakeable, Documentable;
+    use Transformable, Instancable, Documentable;
 
     /**
      * The name of the field that the source API provides a last updated timestamp in.
