@@ -66,6 +66,18 @@ class AgentPlacePivot extends BaseTransformer
                 'doc' => 'Whether this is the preferred place to represent this agent',
                 'type' => 'boolean',
             ],
+            'start_at' => [
+                'doc' => 'Earliest date that this agent associated with this place',
+                'type' => 'ISO 8601 date and time',
+                'elasticsearch' => 'date',
+                'value' => $this->getDateValue('start_at'),
+            ],
+            'end_at' => [
+                'doc' => 'Latest date that this agent associated with this place',
+                'type' => 'ISO 8601 date and time',
+                'elasticsearch' => 'date',
+                'value' => $this->getDateValue('end_at'),
+            ],
 
             // TODO: Refactor relationships:
             'artwork_title' => [

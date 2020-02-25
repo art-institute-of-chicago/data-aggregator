@@ -37,6 +37,8 @@ class Agent extends CollectionsTransformer
                 $pivot->place_id => [
                     'agent_place_qualifier_citi_id' => $pivot->place_qualifier_id,
                     'is_preferred' => $pivot->is_preferred,
+                    'start_at' => $pivot->date_earliest,
+                    'end_at' => $pivot->date_latest,
                 ],
             ];
         });

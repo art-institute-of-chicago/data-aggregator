@@ -295,7 +295,7 @@ abstract class AbstractTransformer extends BaseTransformer
     protected function getDateValue($fieldName)
     {
         return function ($item) use ($fieldName) {
-            return $item->{$fieldName} ? $item->{$fieldName}->toIso8601String() : null;
+            return $item->{$fieldName} ? (is_string($item->{$fieldName}) ? Carbon::parse($item->{$fieldName}) : $item->{$fieldName})->toIso8601String() : null;
         };
     }
 

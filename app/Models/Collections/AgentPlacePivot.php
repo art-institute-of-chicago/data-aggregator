@@ -13,6 +13,9 @@ class AgentPlacePivot extends BasePivot
 
     protected $casts = [
         'is_preferred' => 'boolean',
+        // Store these as raw strings:
+        // 'start_at' => 'datetime',
+        // 'end_at' => 'datetime',
     ];
 
     public function agent()

@@ -19,6 +19,8 @@ class AddPlacesToAgents extends Migration
             $table->integer('place_citi_id')->signed()->index();
             $table->integer('agent_place_qualifier_citi_id')->nullable()->signed()->index();
             $table->boolean('is_preferred')->index();
+            $table->text('start_at')->nullable();
+            $table->text('end_at')->nullable();
         });
 
         Schema::create('agent_place_qualifiers', function (Blueprint $table) {
