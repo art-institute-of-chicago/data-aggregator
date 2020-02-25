@@ -15,6 +15,10 @@ return [
             'model' => \App\Models\Collections\ArtworkPlaceQualifier::class,
             'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
         ],
+        'agent-place-qualifiers' => [
+            'model' => \App\Models\Collections\AgentPlaceQualifier::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
         'object-types' => [
             'model' => \App\Models\Collections\ArtworkType::class,
             'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,

@@ -3,6 +3,7 @@
 namespace App\Transformers\Outbound\Collections;
 
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
+use App\Transformers\Outbound\Collections\AgentPlacePivot as AgentPlacePivotTransformer;
 
 use App\Transformers\Outbound\HasSuggestFields;
 use App\Transformers\Outbound\Collections\Traits\IsCC0;
@@ -19,11 +20,17 @@ class Agent extends BaseTransformer
 
     protected $availableIncludes = [
         'sites',
+        'place_pivots',
     ];
 
     public function includeSites($agent)
     {
         return $this->collection($agent->sites, new SiteTransformer(), false);
+    }
+
+    public function includePlacePivots($agent)
+    {
+        return $this->collection($agent->placePivots, new AgentPlacePivotTransformer(), false);
     }
 
     protected function getTitles()
