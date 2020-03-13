@@ -280,13 +280,6 @@ return [
          * Website:
          */
         [
-            'endpoint' => 'hours',
-            'model' => \App\Models\Web\Hour::class,
-            'transformer' => \App\Transformers\Outbound\Web\Hour::class,
-            'is_restricted' => true,
-            'is_searchable' => true,
-        ],
-        [
             'endpoint' => 'closures',
             'model' => \App\Models\Web\Closure::class,
             'transformer' => \App\Transformers\Outbound\Web\Closure::class,
