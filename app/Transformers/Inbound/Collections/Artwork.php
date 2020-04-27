@@ -34,6 +34,7 @@ class Artwork extends CollectionsTransformer
         return [
             'description' => $description,
             'alt_titles' => $datum->alt_titles,
+            'alt_text' => $datum->visual_description,
             'artist_display' => $datum->creator_display,
             'medium_display' => $datum->medium,
             'publication_history' => $datum->publications,

@@ -15,6 +15,10 @@ return [
             'model' => \App\Models\Collections\ArtworkPlaceQualifier::class,
             'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
         ],
+        'agent-place-qualifiers' => [
+            'model' => \App\Models\Collections\AgentPlaceQualifier::class,
+            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
+        ],
         'object-types' => [
             'model' => \App\Models\Collections\ArtworkType::class,
             'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
@@ -183,11 +187,6 @@ return [
         'experiences' => [
             'model' => \App\Models\Web\Experience::class,
             'transformer' => \App\Transformers\Inbound\Web\Experience::class,
-        ],
-        // TODO: Consider deleting until needed.
-        'hours' => [
-            'model' => \App\Models\Web\Hour::class,
-            'transformer' => \App\Transformers\Inbound\Web\Hour::class,
         ],
         'interactive-features' => [
             'model' => \App\Models\Web\InteractiveFeature::class,

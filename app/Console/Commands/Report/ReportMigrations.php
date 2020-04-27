@@ -78,6 +78,7 @@ class ReportMigrations extends BaseCommand
 
         $newFiles = $this->getFiles($newDir);
 
+        // TODO: Detect when a table has been dropped!
         foreach ($newFiles as $newFile) {
             $filename = basename($newFile);
             $filename = substr($filename, 18);

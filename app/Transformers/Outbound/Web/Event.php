@@ -280,11 +280,6 @@ class Event extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
-            'show_presented_by' => [
-                'doc' => 'Whether to include the presented-by-host message in emails',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-            ],
             'event_host_id' => [
                 'doc' => 'Unique identifier of the host (cf. event programs) that is presenting this event',
                 'type' => 'number',

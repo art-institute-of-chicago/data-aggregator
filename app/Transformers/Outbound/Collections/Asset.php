@@ -59,6 +59,11 @@ class Asset extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
+            'credit_line' => [
+                'doc' => 'Asset-specific copyright information',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+            ],
             'content_e_tag' => [
                 'doc' => 'Arbitrary unique identifier that changes when the binary file gets updated',
                 'type' => 'string',

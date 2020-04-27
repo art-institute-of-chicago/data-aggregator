@@ -65,6 +65,11 @@ return [
             'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
         [
+            'endpoint' => 'agent-place-qualifiers',
+            'model' => \App\Models\Collections\AgentPlaceQualifier::class,
+            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
+        ],
+        [
             'endpoint' => 'artwork-types',
             'model' => \App\Models\Collections\ArtworkType::class,
             'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
@@ -274,13 +279,6 @@ return [
         /**
          * Website:
          */
-        [
-            'endpoint' => 'hours',
-            'model' => \App\Models\Web\Hour::class,
-            'transformer' => \App\Transformers\Outbound\Web\Hour::class,
-            'is_restricted' => true,
-            'is_searchable' => true,
-        ],
         [
             'endpoint' => 'closures',
             'model' => \App\Models\Web\Closure::class,

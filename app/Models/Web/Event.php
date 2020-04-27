@@ -20,7 +20,6 @@ class Event extends WebModel
         'is_admission_required' => 'boolean',
         'is_registration_required' => 'boolean',
         'is_sold_out' => 'boolean',
-        'show_presented_by' => 'boolean',
         'start_date' => 'date',
         'end_date' => 'date',
         'alt_event_types' => 'array',

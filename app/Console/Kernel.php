@@ -26,6 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('update:cloudfront-ips')
+            ->hourly();
+
         $schedule->command('import:daily')
             ->dailyAt('23:00')
             ->withoutOverlapping()

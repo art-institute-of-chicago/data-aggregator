@@ -51,7 +51,6 @@ abstract class AbstractDumpCommand extends BaseCommand
         'exhibitions',
         'galleries',
         'generic_pages',
-        'hours',
         'library_material_creator',
         'library_material_subject',
         'library_materials',

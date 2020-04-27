@@ -348,8 +348,13 @@ class Artwork extends CollectionsModel
 
     // Meh, we'll leave out preferred & alternative places for now
 
-    public function getAltTextAttribute()
+    public function getAltTextAttribute($value)
     {
+        // If CITI provided `visual_description`, return that
+        if (isset($value)) {
+            return $value;
+        }
+
         $ret = 'A';
 
         if ($this->classification_title)
