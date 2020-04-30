@@ -9,7 +9,8 @@ class DeleteAssets extends AbstractImportCommand
 {
 
     protected $signature = 'delete:assets
-                            {--since= : How far back to scan for records}';
+                            {--since= : How far back to scan for records}
+                            {--deep : Loop through the whole database}';
 
     protected $description = 'Delete records that have been removed from the DAMS';
 
@@ -18,12 +19,23 @@ class DeleteAssets extends AbstractImportCommand
      *
      * @var array
      */
-    protected $models = [
+    protected $modelClasses = [
         \App\Models\Collections\Image::class,
         \App\Models\Collections\Sound::class,
         \App\Models\Collections\Text::class,
         \App\Models\Collections\Video::class,
     ];
+
+    public function handle()
+    {
+        $this->api = env('ASSETS_DATA_SERVICE_URL');
+
+        if ($this->option('deep')) {
+            $this->deep();
+        } else {
+            $this->shallow();
+        }
+    }
 
     /**
      * LAKE creates "tombstone" records with `deleted:true` for any record that has been
@@ -33,10 +45,8 @@ class DeleteAssets extends AbstractImportCommand
      * successful run. It'll take the UUID of each record, loop through the `$models`
      * until it finds a match, and delete that record.
      */
-    public function handle()
+    private function shallow()
     {
-        $this->api = env('ASSETS_DATA_SERVICE_URL');
-
         $current = 1;
 
         $json = $this->query('deletes', $current);
@@ -61,14 +71,14 @@ class DeleteAssets extends AbstractImportCommand
 
                 // Now execute an actual delete
                 // Loop through all model types
-                foreach ($this->models as $model)
+                foreach ($this->modelClasses as $modelClass)
                 {
                     // Check if a resource with a matching lake_guid exists
-                    if ($m = $model::where('lake_guid', '=', $datum->lake_guid)->first())
+                    if ($model = $modelClass::where('lake_guid', '=', $datum->lake_guid)->first())
                     {
                         // If it does, destroy the model and break
-                        $this->warn('Deleting ' . $model . ' ' . $datum->lake_guid);
-                        $m->delete();
+                        $this->warn('Deleting ' . $modelClass . ' ' . $datum->lake_guid);
+                        $model->delete();
                         break;
                     }
                 }
@@ -81,4 +91,46 @@ class DeleteAssets extends AbstractImportCommand
         }
     }
 
+    /**
+     * Sometimes, assets get deleted in LAKE, but no "tombstone" record is generated in LPM Solr.
+     * This is our work-around for those issues. We will loop through all of the models in our
+     * database that come from LAKE, and delete any that do not exist in LPM Solr.
+     */
+    private function deep()
+    {
+        foreach ($this->modelClasses as $modelClass) {
+            $endpoints = array_filter(config('resources.inbound.assets'), function($value) use ($modelClass) {
+                return $value['model'] === $modelClass;
+            });
+
+            $endpoint = array_keys($endpoints)[0];
+
+            $modelClass::select('lake_guid')->chunk(175, function ($models) use ($endpoint) {
+
+                $url = $this->api . '/' . $endpoint . '?' . http_build_query([
+                    'ids' => implode(',', $models->pluck('lake_guid')->all()),
+                    'limit' => 175,
+                    'flo' => 'id',
+                    'quiet' => 1,
+                ]);
+
+                $result = $this->fetch($url, true);
+
+                $validIds = collect($result->data)->pluck('id');
+
+                if ($validIds->count() === 175) {
+                    return;
+                }
+
+                $invalidModels = $models->filter(function($model) use ($validIds) {
+                    return !$validIds->contains($model->lake_guid);
+                });
+
+                $invalidModels->each(function($model) {
+                    $this->info($model->lake_guid);
+                    $model->delete();
+                });
+            });
+        }
+    }
 }
