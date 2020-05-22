@@ -21,18 +21,20 @@ class ReportUlan extends BaseCommand
         $csv->insertOne([
             'id',
             'ulan_uri',
+            'ulan_certainty',
             'title',
             'birth_date',
             'death_date',
         ]);
 
-        $artists = \App\Models\Collections\Agent::whereNotNull('ulan_uri');
+        $artists = \App\Models\Collections\Agent::whereNotNull('ulan_uri')->orderBy('ulan_certainty','asc')->orderBy('sort_title', 'asc');
 
         foreach ($artists->cursor() as $artist) {
             $row = [
                 'id' => $artist->citi_id,
                 'ulan_uri' => $artist->ulan_uri,
-                'title' => $artist->title,
+                'ulan_certainty' => $artist->ulan_certainty,
+                'title' => $artist->sort_title ?? $artist->title,
                 'birth_date' => $artist->birth_date,
                 'death_date' => $artist->death_date,
             ];
