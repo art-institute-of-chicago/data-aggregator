@@ -170,6 +170,7 @@ return [
         Laravel\Scout\ScoutServiceProvider::class,
         Cviebrock\LaravelElasticsearch\ServiceProvider::class,
         MarkTopper\DoctrineDBALTimestampType\Laravel5ServiceProvider::class,
+        Spatie\SlashCommand\SlashCommandServiceProvider::class,
 
         /**
          * Foundation Service Providers...

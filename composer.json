@@ -37,6 +37,7 @@
         "marijnvdwerf/material-palette": "^1.2",
         "marktopper/doctrine-dbal-timestamp-type": "^1.0",
         "sentry/sentry-laravel": "^1.0",
+        "spatie/laravel-slack-slash-command": "^1.10",
         "zendframework/zend-code": "^3.2"
     },
     "require-dev": {

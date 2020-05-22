@@ -57,5 +57,4 @@ Route::group(['prefix' => 'v1'], function () {
         Route::any($resource['endpoint'], $controller . '@' . ($isScoped ? 'indexScope' : 'index'));
         Route::any($resource['endpoint'] . '/{id}', $controller . '@' . ($isScoped ? 'showScope' : 'show'));
     }
-
 });
