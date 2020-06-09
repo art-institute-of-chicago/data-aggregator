@@ -10,7 +10,7 @@ use App\Models\WebModel;
 class EventOccurrence extends WebModel
 {
 
-    public $incrementing = true;
+    protected $keyType = 'string';
 
     protected $casts = [
         'is_private' => 'boolean',

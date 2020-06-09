@@ -2,6 +2,7 @@
 
 namespace App\Transformers\Inbound\Web;
 
+use Ramsey\Uuid\Uuid;
 use App\Transformers\Datum;
 use App\Transformers\Inbound\WebTransformer;
 
@@ -10,10 +11,18 @@ class EventOccurrence extends WebTransformer
 
     protected $passthrough = true;
 
+    /**
+     * When this namespace is specified, the name string is an event occurrence.
+     * This is just a version 4 UUID (i.e. random). No reason we can't change it later!
+     * @link https://stackoverflow.com/questions/10867405/generating-v5-uuid-what-is-name-and-namespace
+     * @link https://uuid.ramsey.dev/en/latest/rfc4122/version5.html
+     */
+    const UUID_NAMESPACE = '39cb3cac-c8ec-4b8f-9326-56c0e838056c';
+
     protected function getIds(Datum $datum)
     {
         return [
-            // 'id' => $this->getCantorId( $datum ),
+            'id' => Uuid::uuid5(self::UUID_NAMESPACE, $datum->id . '/' . $datum->date('start_at')),
             'event_id' => $datum->id,
         ];
     }
@@ -27,29 +36,6 @@ class EventOccurrence extends WebTransformer
             // TODO: Fix ellipsis issue upstream [WEB-507]
             'image_caption' => $datum->image_caption ? html_entity_decode($datum->image_caption) : null,
         ];
-    }
-
-    /**
-     * Just an experiment for setting ids deterministically.
-     * To use this, set this in the EventOccurrence model:
-     *
-     *     public $incrementing = false;
-     *
-     * Also add this to the relevant migration:
-     *
-     *     $table->bigInteger('id')->primary();
-     *
-     * Not using this because it runs into PHP int-bound issues.
-     */
-    private function getCantorId($datum)
-    {
-        $timestamp = $datum->date('start_at'); // max one occurrence of a given master event per second
-        $timestamp = $timestamp / 60; // max one occurrence per minute
-        $timestamp = $timestamp / 15; // max one occurrence every fifteen minutes
-
-        $timestamp = floor($timestamp); // this is still a float here. int bounds?
-
-        return cantorPair($datum->id, $timestamp);
     }
 
 }

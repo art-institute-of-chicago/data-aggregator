@@ -7,6 +7,13 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 class EventOccurrence extends BaseTransformer
 {
 
+    /**
+     * Event occurrences use UUIDs, not integers.
+     *
+     * @var string
+     */
+    protected $keyType = 'keyword';
+
     protected function getFields()
     {
         return [
