@@ -155,7 +155,7 @@ class Agent extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->createdArtworks->pluck('citi_id');
+                    return $item->createdArtworkIds();
                 },
             ],
             'site_ids' => [
