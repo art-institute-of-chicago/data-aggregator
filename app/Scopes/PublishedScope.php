@@ -20,31 +20,32 @@ class PublishedScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
+        $columns = collect(Schema::getColumnListing($model->getTable()));
         $builder
-            ->when(Schema::hasColumn($model->getTable(), 'published'), function ($query) {
+            ->when($columns->contains('published'), function ($query) {
                 return $query->where('published', '=', true);
             })
-            ->when(Schema::hasColumn($model->getTable(), 'is_published'), function ($query) {
+            ->when($columns->contains('is_published'), function ($query) {
                 return $query->where('is_published', '=', true);
             })
             // Logic borrows from area17/twill->/src/Models/Model->scopeVisible
-            ->when(Schema::hasColumn($model->getTable(), 'publish_start_date'), function ($query) {
+            ->when($columns->contains('publish_start_date'), function ($query) {
                 return $query->where(function ($query2) {
                     return $query2->where('publish_start_date', '<=', Carbon::now())
                         ->orWhereNull('publish_start_date');
                 });
             })
-            ->when(Schema::hasColumn($model->getTable(), 'publish_end_date'), function ($query) {
+            ->when($columns->contains('publish_end_date'), function ($query) {
                 return $query->where(function ($query2) {
                     $query2->where('publish_end_date', '>=', Carbon::now())
                         ->orWhereNull('publish_end_date');
                 });
             })
             // Account of other field names
-            ->when(Schema::hasColumn($model->getTable(), 'is_private'), function ($query) {
+            ->when($columns->contains('is_private'), function ($query) {
                 return $query->where('is_private', '=', false);
             })
-            ->when(Schema::hasColumn($model->getTable(), 'active'), function ($query) {
+            ->when($columns->contains('active'), function ($query) {
                 return $query->where('active', '=', true);
             });
     }
