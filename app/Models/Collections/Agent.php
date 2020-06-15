@@ -41,7 +41,7 @@ class Agent extends CollectionsModel
 
     public function createdArtworkIds()
     {
-        $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->pluck('artwork_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->pluck('artwork_citi_id');
     }
 
     public function sites()
