@@ -77,7 +77,7 @@ class ArtworkArtistPivot extends BaseTransformer
                 'doc' => 'Unique identifier of the artist',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->agent_citi_id ?? null;
+                    return $item->artist->citi_id ?? null;
                 },
             ],
             'role_title' => [
@@ -91,7 +91,7 @@ class ArtworkArtistPivot extends BaseTransformer
                 'doc' => 'Unique identifier of the role this artist played in the making of the work',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->agent_role_citi_id ?? null;
+                    return $item->role->citi_id ?? null;
                 },
             ],
         ];
