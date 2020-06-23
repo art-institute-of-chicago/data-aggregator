@@ -22,6 +22,10 @@ class Exhibition extends CollectionsModel
         'date_aic_end' => 'datetime',
     ];
 
+    protected $with = [
+        'webExhibition',
+    ];
+
     public function artworks()
     {
         return $this->belongsToMany('App\Models\Collections\Artwork')->artworks();
