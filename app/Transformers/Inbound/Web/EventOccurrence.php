@@ -27,6 +27,16 @@ class EventOccurrence extends WebTransformer
         ];
     }
 
+    protected function getDates(Datum $datum)
+    {
+        return array_merge(
+            parent::getDates($datum),
+            [
+                'source_modified_at' => $datum->date('updated_at'),
+            ]
+        );
+    }
+
     protected function getExtraFields(Datum $datum)
     {
         return [

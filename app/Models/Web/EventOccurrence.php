@@ -10,6 +10,8 @@ use App\Models\WebModel;
 class EventOccurrence extends WebModel
 {
 
+    public static $sourceLastUpdateDateField = 'updated_at';
+
     protected $keyType = 'string';
 
     protected $casts = [
