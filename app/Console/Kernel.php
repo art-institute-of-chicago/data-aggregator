@@ -31,52 +31,48 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('import:daily')
             ->dailyAt('23:00')
-            ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/import-daily-last-run.log'));
 
         $schedule->command('scout:import-all')
             ->dailyAt('03:00')
-            ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/scout-import-all-last-run.log'));
 
         $schedule->command('search:audit')
             ->dailyAt('05:00')
-            ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/search-audit-last-run.log'));
 
         $schedule->command('import:monthly')
             ->monthlyOn(1, '03:00')
-            ->withoutOverlapping()
             ->sendOutputTo(storage_path('logs/import-monthly-last-run.log'));
 
         $schedule->command('import:web')
             ->everyFiveMinutes()
-            ->withoutOverlapping()
+            ->withoutOverlapping(30)
             ->sendOutputTo(storage_path('logs/import-web-last-run.log'));
 
         $schedule->command('import:events-ticketed-full --unreset')
             ->everyFiveMinutes()
-            ->withoutOverlapping()
+            ->withoutOverlapping(30)
             ->sendOutputTo(storage_path('logs/import-events-ticketed-last-run.log'));
 
         $schedule->command('delete:assets')
             ->everyFiveMinutes()
-            ->withoutOverlapping()
+            ->withoutOverlapping(30)
             ->sendOutputTo(storage_path('logs/delete-assets-last-run.log'));
 
         $schedule->command('delete:collections')
             ->everyFiveMinutes()
-            ->withoutOverlapping()
+            ->withoutOverlapping(30)
             ->sendOutputTo(storage_path('logs/delete-collections-last-run.log'));
 
         $schedule->command('import:assets')
             ->everyFiveMinutes()
-            ->withoutOverlapping()
+            ->withoutOverlapping(30)
             ->sendOutputTo(storage_path('logs/import-assets-last-run.log'));
 
         $schedule->command('import:collections')
             ->everyFiveMinutes()
-            ->withoutOverlapping()
+            ->withoutOverlapping(30)
             ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
 
         $schedule->command('dump:json-export')
@@ -88,8 +84,7 @@ class Kernel extends ConsoleKernel
                     '--reset' => 'default',
                 ]);
             })
-            ->dailyAt('22:45')
-            ->withoutOverlapping();
+            ->dailyAt('22:45');
     }
 
     /**
