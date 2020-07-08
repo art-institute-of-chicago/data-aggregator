@@ -454,28 +454,29 @@ class Artwork extends CollectionsModel
     {
         return [
             27992, // La Grande Jatte
+            137125, // Many Mansions
             111628, // Nighthawks
-            6565, // American Gothic
+            8633, // Hero Construction
+ 
+            129884, // Starry Night and the Astronauts
             28560, // The Bedroom
-
+            151363, // The Weaver
             117266, // Nightlife
+ 
             28067, // The Old Guitarist
+            24687, // Yellow Hickory Leaves with Daisy
             20684, // Paris Street
-            21023, // Buddha Shakyamuni Seated in Meditation
+            229393, // Untitled
 
+            21023, // Buddha Shakyamuni Seated in Meditation
             87479, // The Assumption of the Virgin
-            109439, // America Windows
             75644, // Coronation Stone
             86385, // City Landscape
-
+ 
             79307, // Bathers by a River
             64818, // Stacks of Wheat
             102611, // Veranda Post of Enthroned
-
-            129884, // Starry Night and the Astronauts
             229351, // Target
-            229393, // Untitled
-            151363, // The Weaver
         ];
     }
 
