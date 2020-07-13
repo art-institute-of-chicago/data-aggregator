@@ -10,7 +10,9 @@ use App\Models\WebModel;
 class EventOccurrence extends WebModel
 {
 
-    public $incrementing = true;
+    public static $sourceLastUpdateDateField = 'updated_at';
+
+    protected $keyType = 'string';
 
     protected $casts = [
         'is_private' => 'boolean',
