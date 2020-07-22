@@ -75,6 +75,11 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(30)
             ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
 
+        $schedule->command('import:queues')
+            ->everyMinute()
+            ->withoutOverlapping(30)
+            ->sendOutputTo(storage_path('logs/import-queues-last-run.log'));
+
         $schedule->command('dump:json-export')
             ->before(function () {
                 $this->call('dump:export');
