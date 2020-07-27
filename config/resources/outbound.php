@@ -277,6 +277,16 @@ return [
         ],
 
         /**
+         * Queues:
+         */
+        [
+            'endpoint' => 'wait-times',
+            'model' => \App\Models\Queues\WaitTime::class,
+            'transformer' => \App\Transformers\Outbound\Queues\WaitTime::class,
+        ],
+
+
+        /**
          * Website:
          */
         [

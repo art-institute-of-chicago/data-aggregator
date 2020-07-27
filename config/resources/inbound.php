@@ -145,6 +145,13 @@ return [
         ],
     ],
 
+    'queues' => [
+        'wait-times' => [
+            'model' => \App\Models\Queues\WaitTime::class,
+            'transformer' => \App\Transformers\Inbound\Queues\WaitTime::class,
+        ],
+    ],
+
     'web' => [
         'articles' => [
             'model' => \App\Models\Web\Article::class,
