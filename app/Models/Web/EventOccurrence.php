@@ -2,6 +2,7 @@
 
 namespace App\Models\Web;
 
+use Ramsey\Uuid\Uuid;
 use App\Models\WebModel;
 
 /**
@@ -24,6 +25,13 @@ class EventOccurrence extends WebModel
     public function event()
     {
         return $this->belongsTo('App\Models\Membership\Event');
+    }
+
+    public static function validateId( $id )
+    {
+
+        return Uuid::isValid($id);
+
     }
 
 }
