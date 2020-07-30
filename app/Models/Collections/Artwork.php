@@ -453,29 +453,30 @@ class Artwork extends CollectionsModel
     public static function getFeaturedIds()
     {
         return [
-            27992, // La Grande Jatte
-            111628, // Nighthawks
-            6565, // American Gothic
-            28560, // The Bedroom
-
-            117266, // Nightlife
-            28067, // The Old Guitarist
-            20684, // Paris Street
-            21023, // Buddha Shakyamuni Seated in Meditation
-
-            87479, // The Assumption of the Virgin
-            109439, // America Windows
-            75644, // Coronation Stone
-            86385, // City Landscape
-
-            79307, // Bathers by a River
-            64818, // Stacks of Wheat
-            102611, // Veranda Post of Enthroned
-
             129884, // Starry Night and the Astronauts
-            229351, // Target
+            28560, // The Bedroom
+            21023, // Buddha Shakyamuni Seated in Meditation
+            137125, // Many Mansions
+
             229393, // Untitled
+            20684, // Paris Street
+            27992, // La Grande Jatte
             151363, // The Weaver
+
+            86385, // City Landscape
+            75644, // Coronation Stone
+            117266, // Nightlife
+            8633, // Hero Construction
+
+            111628, // Nighthawks
+            102611, // Veranda Post of Enthroned
+            24306, // Blue and Green Music
+            79307, // Bathers by a River
+
+            28067, // The Old Guitarist
+            24645, // Under the Wave off Kanagawa
+            87479, // The Assumption of the Virgin
+            64818, // Stacks of Wheat
         ];
     }
 
@@ -573,7 +574,7 @@ class Artwork extends CollectionsModel
                     'field_value_factor' => [
                         'field' => 'boost_rank',
                         'modifier' => 'reciprocal',
-                        'factor' => 1 / 512, // buckets of 4 for 16 items!
+                        'factor' => 1 / 2048,
                         'missing' => 1,
                     ],
                 ],

@@ -31,7 +31,6 @@ class DownloadCssJs extends AbstractDocCommand
                 'fonts/3545D5_2_0.woff' => 'fonts/3545D5_2_0.woff',
                 'fonts/3545D5_2_0.woff2' => 'fonts/3545D5_2_0.woff2',
                 'fonts/3545D5_2_0.ttf' => 'fonts/3545D5_2_0.ttf',
-                'icons/icons.svg' => 'icons/icons.svg',
             ]
         );
 
