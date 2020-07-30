@@ -109,6 +109,12 @@ To import all data from all systems, run:
 php artisan import:all
 ```
 
+### Compiling documentation
+
+```bash
+npm run docs-dev
+npm run docs-build
+```
 
 ## Contributing
 

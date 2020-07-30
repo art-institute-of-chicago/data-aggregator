@@ -21,8 +21,10 @@ Route::group(['middleware' => ['loginIp']], function() {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/docs/endpoints', 'EndpointsController@index')->name('doc-endpoints');
-Route::get('/docs/fields', 'FieldsController@index')->name('doc-fields');
+Route::get('/old-docs/endpoints', 'EndpointsController@oldIndex')->name('doc-endpoints');
+Route::get('/old-docs/fields', 'FieldsController@oldIndex')->name('doc-fields');
+
+Route::get('/docs/{file?}', 'DocsController@index')->name('docs.index');
 
 Route::get('/assets/{filename}.css', function ($filename) {
     $content = Storage::disk('public')->get($filename . '.css');

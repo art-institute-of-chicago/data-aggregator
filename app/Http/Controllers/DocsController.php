@@ -21,12 +21,20 @@ class DocsController extends Controller
         $this->middleware('auth');
     }
 
+    public function index()
+    {
+        if ($file != 'index') {
+            $file = $file . '/index';
+        }
+        return File::get(public_path() . '/docs/' . $file . '.html');
+    }
+
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function oldIndex()
     {
         $content = Storage::get($this->filename);
         $markup = Markdown::parse($content);
