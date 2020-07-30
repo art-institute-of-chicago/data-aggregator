@@ -574,7 +574,7 @@ class Artwork extends CollectionsModel
                     'field_value_factor' => [
                         'field' => 'boost_rank',
                         'modifier' => 'reciprocal',
-                        'factor' => 1 / 512, // buckets of 4 for 16 items!
+                        'factor' => 1 / 2048,
                         'missing' => 1,
                     ],
                 ],
