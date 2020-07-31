@@ -30,10 +30,10 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: '',
-    editLinks: false,
-    docsDir: '',
-    editLinkText: '',
+    repo: 'art-institute-of-chicago/data-aggregator',
+    docsDir: 'docs',
+    docsBranch: 'develop',
+    editLinks: true,
     lastUpdated: true,
     sidebar: 'auto',
     nav: [
@@ -58,5 +58,8 @@ module.exports = {
   plugins: [
     '@vuepress/plugin-back-to-top',
     '@vuepress/plugin-medium-zoom',
+    '@vuepress/search', {
+        searchMaxSuggestions: 10
+    }
   ]
 }
