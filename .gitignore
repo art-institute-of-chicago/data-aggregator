@@ -18,3 +18,15 @@ Envoy.blade.php
 
 /public/js
 /public/css
+
+pids
+logs
+coverage/
+run
+dist
+.DS_Store
+.nyc_output
+.basement
+config.local.js
+basement_dist
+/public/docs
