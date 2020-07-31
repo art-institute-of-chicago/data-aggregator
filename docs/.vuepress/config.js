@@ -36,6 +36,7 @@ module.exports = {
     editLinks: true,
     lastUpdated: true,
     sidebar: 'auto',
+    logo: '/assets/logo.svg',
     nav: [
       {
         text: 'Endpoints',

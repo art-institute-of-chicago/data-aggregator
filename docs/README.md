@@ -6,11 +6,11 @@ footer: AGPL-3.0 Licensed | Copyright © 2018–present Art Institute of Chicago
 
 The Art Institute of Chicago's API provides JSON formatted data as a REST-style service that allows developers to explore and integrate the museum’s data into their projects. This API is the same tool that powers our [website](https://www.artic.edu/), our [mobile app](https://www.artic.edu/visit/explore-on-your-own/mobile-app-audio-tours), and many other technologies in the museum.
 
-## Getting started
+### Getting started
 
 API requests are made by accessing various endpoints at https://api.artic.edu/api/v1. Read more about our [endpoints](/endpoints) and [fields](/fields) to learn about the parameters you can use to manipulate your query.
 
-## What's an API?
+### What's an API?
 
 An [API](https://www.youtube.com/watch?v=81ygVYCupdo) is a structured way that one software application can talk to another. APIs power much of the software we use today, from the apps on our phones and watches to technology we see in sports and TV shows. The Art Institute of Chicago has built an API to let people like you easily get the data you need in an ongoing way.
 
