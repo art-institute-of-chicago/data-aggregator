@@ -21,7 +21,7 @@ class Sound extends BaseTransformer
                     $title = summation($item->artworks->pluck('title')->all());
 
                     if (!$title) {
-                        $title = (strpos('intro', strtolower($item->title)) !== -1) ? 'Intro' : $item->title;
+                        $title = (strpos('intro', strtolower($item->title)) !== false) ? 'Intro' : $item->title;
                     }
 
                     $tourSuffix = summation(array_merge(
