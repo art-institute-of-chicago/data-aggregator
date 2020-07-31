@@ -12,7 +12,7 @@
 */
 
 Route::any('/', function () {
-    return redirect('/home');
+    return redirect('/docs');
 });
 
 Route::group(['middleware' => ['loginIp']], function() {
