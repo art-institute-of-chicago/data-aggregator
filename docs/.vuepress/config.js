@@ -49,6 +49,10 @@ module.exports = {
       {
         text: 'Tutorials',
         link: '/tutorials/'
+      },
+      {
+        text: 'swagger.json',
+        link: 'https://api.artic.edu/api/v1/swagger.json'
       }
     ]
   },
