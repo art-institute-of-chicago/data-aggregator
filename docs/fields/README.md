@@ -335,40 +335,6 @@ Tag-like classifications of artworks and other resources. For a description of a
 
 
 
-### Category Terms
-
-Represents a term/tag on an artwork. In the API, this includes styles, classifications and subjects. For a description of all the endpoints available for this resource, see [here](endpoints#category-terms).
-
-* `id` *keyword* - Unique identifier of this resource. Taken from the source system.
-* `api_model` *string* - REST API resource type or endpoint
-* `api_link` *string* - REST API link for this resource
-* `title` *string* - The name of this resource
-* `subtype` *string* - Takes one of the following values: classification, material, technique, style, subject, department, theme
-* `parent_id` *string* - Unique identifier of this category's parent
-* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `last_updated_source` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
-* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
-
-### Category Terms
-
-Tag-like classifications of artworks and other resources. For a description of all the endpoints available for this resource, see [here](endpoints#category-terms).
-
-* `id` *keyword* - Unique identifier of this resource. Taken from the source system.
-* `api_model` *string* - REST API resource type or endpoint
-* `api_link` *string* - REST API link for this resource
-* `title` *string* - The name of this resource
-* `subtype` *string* - Takes one of the following values: classification, material, technique, style, subject, department, theme
-* `parent_id` *string* - Unique identifier of this category's parent
-* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `last_updated_source` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
-* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
-
 ### Assets
 
 A binary representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](endpoints#assets).

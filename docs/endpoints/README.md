@@ -99,7 +99,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
     },
     "data": [
         {
-            "_score": 250.46643,
+            "_score": 255.79349,
             "thumbnail": {
                 "alt_text": "Painting of a pond seen up close spotted with thickly painted pink and white water lilies and a shadow across the top third of the picture.",
                 "width": null,
@@ -110,13 +110,13 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             },
             "api_model": "artworks",
             "is_boosted": true,
-            "api_link": "https://aggregator-data.artic.edu/api/v1/artworks/16568",
+            "api_link": "https://api.artic.edu/api/v1/artworks/16568",
             "id": 16568,
             "title": "Water Lilies",
-            "timestamp": "2020-07-30T03:02:49-05:00"
+            "timestamp": "2020-08-03T03:02:53-05:00"
         },
         {
-            "_score": 232.05797,
+            "_score": 236.9935,
             "thumbnail": {
                 "alt_text": "Loosely painted image of an open-air train station. On the right, a parked train gives off an enormous plumb of white smoke, making the scene look as though it were full of clouds. A huddled mass of barely discernible people crowd around the train on both sides of the tracks. Blue, green, and gray tones dominate.",
                 "width": null,
@@ -127,13 +127,13 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             },
             "api_model": "artworks",
             "is_boosted": true,
-            "api_link": "https://aggregator-data.artic.edu/api/v1/artworks/16571",
+            "api_link": "https://api.artic.edu/api/v1/artworks/16571",
             "id": 16571,
             "title": "Arrival of the Normandy Train, Gare Saint-Lazare",
-            "timestamp": "2020-07-30T03:02:49-05:00"
+            "timestamp": "2020-08-03T03:02:53-05:00"
         },
         {
-            "_score": 229.49979,
+            "_score": 234.38092,
             "thumbnail": {
                 "alt_text": "Painting composed of short, dense brushstrokes depicts two domed stacks of wheat that cast long shadows on a field. The angled light indicates either a rising or setting sun.",
                 "width": null,
@@ -144,10 +144,10 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             },
             "api_model": "artworks",
             "is_boosted": true,
-            "api_link": "https://aggregator-data.artic.edu/api/v1/artworks/64818",
+            "api_link": "https://api.artic.edu/api/v1/artworks/64818",
             "id": 64818,
             "title": "Stacks of Wheat (End of Summer)",
-            "timestamp": "2020-07-30T14:52:15-05:00"
+            "timestamp": "2020-08-03T03:12:19-05:00"
         }
     ],
     "info": {
@@ -311,10 +311,10 @@ Search agents data in the aggregator.
         {
             "_score": 1,
             "api_model": "agents",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/agents/1245",
-            "id": 1245,
-            "title": "Jules Robert Auguste",
-            "timestamp": "2020-07-30T03:41:59-05:00"
+            "api_link": "https://api.artic.edu/api/v1/agents/2082",
+            "id": 2082,
+            "title": "\u0160\u00e1rka \u0160efrankov\u00e1 Bene\u0161",
+            "timestamp": "2020-08-03T03:42:53-05:00"
         }
     ],
     "info": {
@@ -459,26 +459,26 @@ Search places data in the aggregator.
         {
             "_score": 1,
             "api_model": "places",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/places/-2147483613",
+            "api_link": "https://api.artic.edu/api/v1/places/-2147483613",
             "id": -2147483613,
             "title": "Peoria",
-            "timestamp": "2020-07-30T03:43:45-05:00"
+            "timestamp": "2020-08-03T03:44:42-05:00"
         },
         {
             "_score": 1,
             "api_model": "places",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/places/-2147483581",
+            "api_link": "https://api.artic.edu/api/v1/places/-2147483581",
             "id": -2147483581,
             "title": "Askov",
-            "timestamp": "2020-07-30T03:43:45-05:00"
+            "timestamp": "2020-08-03T03:44:42-05:00"
         },
         {
             "_score": 1,
             "api_model": "places",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/places/-2147483534",
+            "api_link": "https://api.artic.edu/api/v1/places/-2147483534",
             "id": -2147483534,
             "title": "Z\u00fcrich",
-            "timestamp": "2020-07-30T03:43:45-05:00"
+            "timestamp": "2020-08-03T03:44:42-05:00"
         }
     ],
     "info": {
@@ -621,26 +621,26 @@ Search galleries data in the aggregator.
         {
             "_score": 1,
             "api_model": "galleries",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/galleries/2",
+            "api_link": "https://api.artic.edu/api/v1/galleries/2",
             "id": 2,
             "title": "East Garden at Columbus Drive",
-            "timestamp": "2020-07-30T03:43:48-05:00"
+            "timestamp": "2020-08-03T03:44:45-05:00"
         },
         {
             "_score": 1,
             "api_model": "galleries",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/galleries/346",
+            "api_link": "https://api.artic.edu/api/v1/galleries/346",
             "id": 346,
             "title": "Stock Exchange Trading Room",
-            "timestamp": "2020-07-30T03:43:48-05:00"
+            "timestamp": "2020-08-03T03:44:45-05:00"
         },
         {
             "_score": 1,
             "api_model": "galleries",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/galleries/2705",
+            "api_link": "https://api.artic.edu/api/v1/galleries/2705",
             "id": 2705,
             "title": "Gallery 59",
-            "timestamp": "2020-07-30T03:43:48-05:00"
+            "timestamp": "2020-08-03T03:44:45-05:00"
         }
     ],
     "info": {
@@ -786,26 +786,26 @@ Search exhibitions data in the aggregator.
         {
             "_score": 1,
             "api_model": "exhibitions",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/exhibitions/1953",
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/1953",
             "id": 1953,
             "title": "Strokes of Genius: Italian Drawings from the Goldman Collection",
-            "timestamp": "2020-07-30T03:43:57-05:00"
+            "timestamp": "2020-08-03T03:44:54-05:00"
         },
         {
             "_score": 1,
             "api_model": "exhibitions",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/exhibitions/1959",
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/1959",
             "id": 1959,
             "title": "Renoir\u2019s True Colors: Science Solves a Mystery",
-            "timestamp": "2020-07-30T03:43:57-05:00"
+            "timestamp": "2020-08-03T03:44:54-05:00"
         },
         {
             "_score": 1,
             "api_model": "exhibitions",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/exhibitions/1977",
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/1977",
             "id": 1977,
             "title": "Devouring Books",
-            "timestamp": "2020-07-30T03:43:57-05:00"
+            "timestamp": "2020-08-03T03:44:54-05:00"
         }
     ],
     "info": {
@@ -1598,26 +1598,26 @@ Search category-terms data in the aggregator.
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/category-terms/PC-73",
-            "id": "PC-73",
-            "title": "Bertrand Goldberg Archive",
-            "timestamp": "2020-07-30T03:45:09-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-11736",
+            "id": "TM-11736",
+            "title": "tooth components as material",
+            "timestamp": "2020-08-03T03:46:12-05:00"
         },
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/category-terms/PC-74",
-            "id": "PC-74",
-            "title": "System of Architectural Ornament",
-            "timestamp": "2020-07-30T03:45:09-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-11737",
+            "id": "TM-11737",
+            "title": "coral",
+            "timestamp": "2020-08-03T03:46:12-05:00"
         },
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/category-terms/PC-75",
-            "id": "PC-75",
-            "title": "Prairie School",
-            "timestamp": "2020-07-30T03:45:09-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-11738",
+            "id": "TM-11738",
+            "title": "amber",
+            "timestamp": "2020-08-03T03:46:12-05:00"
         }
     ],
     "info": {
@@ -1645,206 +1645,6 @@ A single category-term by the given identifier. {id} is the identifier from our 
         "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14202",
         "title": "abstraction",
         "subtype": "classification",
-        "parent_id": null,
-        ...
-    },
-    "info": {
-        "license_text": "The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
-        "license_links": [
-            "https://creativecommons.org/publicdomain/zero/1.0/",
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.0-rc15",
-        "documentation": "http://art-institute-of-chicago.github.io/data-aggregator"
-    },
-    "config": {
-        "iiif_url": "https://lakeimagesweb.artic.edu/iiif/2",
-        "shop_image_url": "https://shop-images.imgix.net",
-        "shop_product_url": "http://shop.artic.edu/item.aspx?productId=",
-        "shop_category_url": "http://shop.artic.edu/item.aspx?productId="
-    }
-}
-```
-:::
-
-### Category Terms
-
-_The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
-
-#### `GET /category-terms`
-
-A list of all category-terms sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#category-terms).
-
-##### Available parameters:
-
-* `ids` - A comma-separated list of resource ids to retrieve
-* `limit` - The number of resources to return per page
-* `page` - The page of resources to retrieve
-* `fields` - A comma-separated list of fields to return per resource
-
-::: details Example request: https://api.artic.edu/api/v1/category-terms?limit=2  
-```js
-{
-    "pagination": {
-        "total": 8907,
-        "limit": 2,
-        "offset": 0,
-        "total_pages": 4454,
-        "current_page": 1,
-        "next_url": "https://api.artic.edu/api/v1/category-terms?page=2&limit=2"
-    },
-    "data": [
-        {
-            "id": "TM-14202",
-            "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14202",
-            "title": "abstraction",
-            "subtype": "classification",
-            "parent_id": null,
-            ...
-        },
-        {
-            "id": "TM-14201",
-            "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14201",
-            "title": "foam",
-            "subtype": "technique",
-            "parent_id": null,
-            ...
-        }
-    ],
-    "info": {
-        "license_text": "The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
-        "license_links": [
-            "https://creativecommons.org/publicdomain/zero/1.0/",
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.0-rc15",
-        "documentation": "http://art-institute-of-chicago.github.io/data-aggregator"
-    },
-    "config": {
-        "iiif_url": "https://lakeimagesweb.artic.edu/iiif/2",
-        "shop_image_url": "https://shop-images.imgix.net",
-        "shop_product_url": "http://shop.artic.edu/item.aspx?productId=",
-        "shop_category_url": "http://shop.artic.edu/item.aspx?productId="
-    }
-}
-```
-:::
-
-#### `GET /category-terms/{id}`
-
-A single category-term by the given identifier. {id} is the identifier from our collections management system.
-
-::: details Example request: https://api.artic.edu/api/v1/category-terms/TM-14202?limit=2  
-```js
-{
-    "data": {
-        "id": "TM-14202",
-        "api_model": "category-terms",
-        "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14202",
-        "title": "abstraction",
-        "subtype": "classification",
-        "parent_id": null,
-        ...
-    },
-    "info": {
-        "license_text": "The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
-        "license_links": [
-            "https://creativecommons.org/publicdomain/zero/1.0/",
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.0-rc15",
-        "documentation": "http://art-institute-of-chicago.github.io/data-aggregator"
-    },
-    "config": {
-        "iiif_url": "https://lakeimagesweb.artic.edu/iiif/2",
-        "shop_image_url": "https://shop-images.imgix.net",
-        "shop_product_url": "http://shop.artic.edu/item.aspx?productId=",
-        "shop_category_url": "http://shop.artic.edu/item.aspx?productId="
-    }
-}
-```
-:::
-
-### Category Terms
-
-_The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
-
-#### `GET /category-terms`
-
-A list of all category-terms sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#category-terms).
-
-##### Available parameters:
-
-* `ids` - A comma-separated list of resource ids to retrieve
-* `limit` - The number of resources to return per page
-* `page` - The page of resources to retrieve
-* `fields` - A comma-separated list of fields to return per resource
-
-::: details Example request: https://api.artic.edu/api/v1/category-terms?limit=2  
-```js
-{
-    "pagination": {
-        "total": 8907,
-        "limit": 2,
-        "offset": 0,
-        "total_pages": 4454,
-        "current_page": 1,
-        "next_url": "https://api.artic.edu/api/v1/category-terms?page=2&limit=2"
-    },
-    "data": [
-        {
-            "id": "TM-14202",
-            "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14202",
-            "title": "abstraction",
-            "subtype": "classification",
-            "parent_id": null,
-            ...
-        },
-        {
-            "id": "TM-14201",
-            "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14201",
-            "title": "foam",
-            "subtype": "technique",
-            "parent_id": null,
-            ...
-        }
-    ],
-    "info": {
-        "license_text": "The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
-        "license_links": [
-            "https://creativecommons.org/publicdomain/zero/1.0/",
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.0-rc15",
-        "documentation": "http://art-institute-of-chicago.github.io/data-aggregator"
-    },
-    "config": {
-        "iiif_url": "https://lakeimagesweb.artic.edu/iiif/2",
-        "shop_image_url": "https://shop-images.imgix.net",
-        "shop_product_url": "http://shop.artic.edu/item.aspx?productId=",
-        "shop_category_url": "http://shop.artic.edu/item.aspx?productId="
-    }
-}
-```
-:::
-
-#### `GET /category-terms/{id}`
-
-A single category-term by the given identifier. {id} is the identifier from our collections management system.
-
-::: details Example request: https://api.artic.edu/api/v1/category-terms/PC-834?limit=2  
-```js
-{
-    "data": {
-        "id": "PC-834",
-        "api_model": "category-terms",
-        "api_link": "https://api.artic.edu/api/v1/category-terms/PC-834",
-        "title": "Halloween",
-        "subtype": "theme",
         "parent_id": null,
         ...
     },
@@ -2020,10 +1820,10 @@ Search images data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 141684,
+        "total": 141718,
         "limit": 10,
         "offset": 0,
-        "total_pages": 14169,
+        "total_pages": 14172,
         "current_page": 1
     },
     "data": [
@@ -2162,26 +1962,26 @@ Search videos data in the aggregator.
         {
             "_score": 1,
             "api_model": "videos",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/videos/1ee4a231-0dad-2638-24fd-dfa2138eb142",
+            "api_link": "https://api.artic.edu/api/v1/videos/1ee4a231-0dad-2638-24fd-dfa2138eb142",
             "id": "1ee4a231-0dad-2638-24fd-dfa2138eb142",
             "title": "Digital Simulation: Original appearance of <em>For to Be a Farmer's Boy</em>",
-            "timestamp": "2020-07-30T05:06:15-05:00"
+            "timestamp": "2020-08-03T05:06:13-05:00"
         },
         {
             "_score": 1,
             "api_model": "videos",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/videos/c051f71e-2b69-ac68-9aa8-99410d91f3f3",
+            "api_link": "https://api.artic.edu/api/v1/videos/c051f71e-2b69-ac68-9aa8-99410d91f3f3",
             "id": "c051f71e-2b69-ac68-9aa8-99410d91f3f3",
             "title": "Under Cover: The Science of Van Gogh's Bedroom",
-            "timestamp": "2020-07-30T05:06:15-05:00"
+            "timestamp": "2020-08-03T05:06:13-05:00"
         },
         {
             "_score": 1,
             "api_model": "videos",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/videos/c5700df1-473c-c1cd-ab1b-79b20a32fc27",
+            "api_link": "https://api.artic.edu/api/v1/videos/c5700df1-473c-c1cd-ab1b-79b20a32fc27",
             "id": "c5700df1-473c-c1cd-ab1b-79b20a32fc27",
             "title": "Online Game: Winslow Homer's <em>The Water Fan</em>",
-            "timestamp": "2020-07-30T05:06:15-05:00"
+            "timestamp": "2020-08-03T05:06:13-05:00"
         }
     ],
     "info": {
@@ -2294,26 +2094,26 @@ Search sounds data in the aggregator.
         {
             "_score": 1,
             "api_model": "sounds",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/sounds/31bdc88e-581d-b744-022b-7e9571b95ff2",
+            "api_link": "https://api.artic.edu/api/v1/sounds/31bdc88e-581d-b744-022b-7e9571b95ff2",
             "id": "31bdc88e-581d-b744-022b-7e9571b95ff2",
             "title": "Audio Lecture: Winslow Homer, Artist and Angler",
-            "timestamp": "2020-07-30T05:06:18-05:00"
+            "timestamp": "2020-08-03T05:06:16-05:00"
         },
         {
             "_score": 1,
             "api_model": "sounds",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/sounds/31c370a9-98de-3533-c14e-c91776c8bf82",
+            "api_link": "https://api.artic.edu/api/v1/sounds/31c370a9-98de-3533-c14e-c91776c8bf82",
             "id": "31c370a9-98de-3533-c14e-c91776c8bf82",
             "title": "Audio Lecture: Mel Bochner Symposium, Introduction and Keynote",
-            "timestamp": "2020-07-30T05:06:18-05:00"
+            "timestamp": "2020-08-03T05:06:16-05:00"
         },
         {
             "_score": 1,
             "api_model": "sounds",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/sounds/31ee173d-cd35-88ef-9362-61722a5e10bf",
+            "api_link": "https://api.artic.edu/api/v1/sounds/31ee173d-cd35-88ef-9362-61722a5e10bf",
             "id": "31ee173d-cd35-88ef-9362-61722a5e10bf",
             "title": "Audio stop 442.wav",
-            "timestamp": "2020-07-30T05:06:18-05:00"
+            "timestamp": "2020-08-03T05:06:16-05:00"
         }
     ],
     "info": {
@@ -2426,26 +2226,26 @@ Search texts data in the aggregator.
         {
             "_score": 1,
             "api_model": "texts",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/texts/6d0baa6e-fa2b-5250-e29d-ea076f4bc432",
-            "id": "6d0baa6e-fa2b-5250-e29d-ea076f4bc432",
-            "title": "AIC1927SAICAnnual_comb.pdf",
-            "timestamp": "2020-07-30T05:06:34-05:00"
+            "api_link": "https://api.artic.edu/api/v1/texts/003a874b-1325-1ae5-5679-568e2fa377fa",
+            "id": "003a874b-1325-1ae5-5679-568e2fa377fa",
+            "title": "AIC1926ChiArExh39thAn_comb.pdf",
+            "timestamp": "2020-08-03T05:06:28-05:00"
         },
         {
             "_score": 1,
             "api_model": "texts",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/texts/6d22910e-a036-5c1e-5668-3ba2a2ef5532",
-            "id": "6d22910e-a036-5c1e-5668-3ba2a2ef5532",
-            "title": "focus: William Pope.L\u2014Drawing, Dreaming, Drowning",
-            "timestamp": "2020-07-30T05:06:34-05:00"
+            "api_link": "https://api.artic.edu/api/v1/texts/00412027-e9c3-c75b-4304-a8f362b31d7d",
+            "id": "00412027-e9c3-c75b-4304-a8f362b31d7d",
+            "title": "Audio Transcript 218.txt",
+            "timestamp": "2020-08-03T05:06:28-05:00"
         },
         {
             "_score": 1,
             "api_model": "texts",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/texts/6d3587e9-1a22-f778-9075-07663ceb4f04",
-            "id": "6d3587e9-1a22-f778-9075-07663ceb4f04",
-            "title": "Glossary: Edgar Degas",
-            "timestamp": "2020-07-30T05:06:34-05:00"
+            "api_link": "https://api.artic.edu/api/v1/texts/006e038b-dd9e-c2b8-8dfd-21fa34d3660d",
+            "id": "006e038b-dd9e-c2b8-8dfd-21fa34d3660d",
+            "title": "AIC1926FSchofield_comb.pdf",
+            "timestamp": "2020-08-03T05:06:28-05:00"
         }
     ],
     "info": {
@@ -2541,26 +2341,26 @@ Search shop-categories data in the aggregator.
         {
             "_score": 1,
             "api_model": "shop-categories",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/shop-categories/2",
+            "api_link": "https://api.artic.edu/api/v1/shop-categories/2",
             "id": 2,
             "title": "Books & Prints",
-            "timestamp": "2020-07-30T05:06:39-05:00"
+            "timestamp": "2020-08-03T05:06:36-05:00"
         },
         {
             "_score": 1,
             "api_model": "shop-categories",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/shop-categories/3",
+            "api_link": "https://api.artic.edu/api/v1/shop-categories/3",
             "id": 3,
             "title": "Fashion & Accessories",
-            "timestamp": "2020-07-30T05:06:39-05:00"
+            "timestamp": "2020-08-03T05:06:36-05:00"
         },
         {
             "_score": 1,
             "api_model": "shop-categories",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/shop-categories/4",
+            "api_link": "https://api.artic.edu/api/v1/shop-categories/4",
             "id": 4,
             "title": "Decor",
-            "timestamp": "2020-07-30T05:06:39-05:00"
+            "timestamp": "2020-08-03T05:06:36-05:00"
         }
     ],
     "info": {
@@ -2671,26 +2471,26 @@ Search products data in the aggregator.
         {
             "_score": 1,
             "api_model": "products",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/products/903",
-            "id": 903,
-            "title": "Van Gogh The Bedroom Large Matted Print",
-            "timestamp": "2020-07-30T05:06:40-05:00"
+            "api_link": "https://api.artic.edu/api/v1/products/411",
+            "id": 411,
+            "title": "Silver Scribble Tree Pin",
+            "timestamp": "2020-08-03T05:06:37-05:00"
         },
         {
             "_score": 1,
             "api_model": "products",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/products/904",
-            "id": 904,
-            "title": "Monet House at Argenteuil Large Framed Reproduction",
-            "timestamp": "2020-07-30T05:06:40-05:00"
+            "api_link": "https://api.artic.edu/api/v1/products/412",
+            "id": 412,
+            "title": "Snowman Pin",
+            "timestamp": "2020-08-03T05:06:37-05:00"
         },
         {
             "_score": 1,
             "api_model": "products",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/products/905",
-            "id": 905,
-            "title": "Monet House at Argenteuil Large Matted Print",
-            "timestamp": "2020-07-30T05:06:40-05:00"
+            "api_link": "https://api.artic.edu/api/v1/products/414",
+            "id": 414,
+            "title": "Pussy Willow Necklace",
+            "timestamp": "2020-08-03T05:06:37-05:00"
         }
     ],
     "info": {
@@ -2983,7 +2783,7 @@ Search mobile-sounds data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 787,
+        "total": 788,
         "limit": 10,
         "offset": 0,
         "total_pages": 79,
@@ -3009,10 +2809,10 @@ Search mobile-sounds data in the aggregator.
         {
             "_score": 1,
             "api_model": "mobile-sounds",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/mobile-sounds/226",
+            "api_link": "https://api.artic.edu/api/v1/mobile-sounds/226",
             "id": 226,
-            "title": "Intro",
-            "timestamp": "2020-07-30T05:07:09-05:00"
+            "title": "Justus Sustermans",
+            "timestamp": "2020-08-03T05:07:05-05:00"
         }
     ],
     "info": {
@@ -3154,26 +2954,26 @@ Search publications data in the aggregator.
         {
             "_score": 1,
             "api_model": "publications",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/publications/2",
+            "api_link": "https://api.artic.edu/api/v1/publications/2",
             "id": 2,
             "title": "American Silver in the Art Institute of Chicago",
-            "timestamp": "2020-07-30T05:07:14-05:00"
+            "timestamp": "2020-08-03T05:07:10-05:00"
         },
         {
             "_score": 1,
             "api_model": "publications",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/publications/7",
+            "api_link": "https://api.artic.edu/api/v1/publications/7",
             "id": 7,
             "title": "Pissarro Paintings and Works on Paper at the Art Institute of Chicago",
-            "timestamp": "2020-07-30T05:07:14-05:00"
+            "timestamp": "2020-08-03T05:07:10-05:00"
         },
         {
             "_score": 1,
             "api_model": "publications",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/publications/12",
+            "api_link": "https://api.artic.edu/api/v1/publications/12",
             "id": 12,
             "title": "The Modern Series at the Art Institute of Chicago",
-            "timestamp": "2020-07-30T05:07:14-05:00"
+            "timestamp": "2020-08-03T05:07:10-05:00"
         }
     ],
     "info": {
@@ -3313,26 +3113,26 @@ Search sections data in the aggregator.
         {
             "_score": 1,
             "api_model": "sections",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/sections/18",
+            "api_link": "https://api.artic.edu/api/v1/sections/18",
             "id": 18,
             "title": "Foreword",
-            "timestamp": "2020-07-30T05:07:14-05:00"
+            "timestamp": "2020-08-03T05:07:10-05:00"
         },
         {
             "_score": 1,
             "api_model": "sections",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/sections/25",
+            "api_link": "https://api.artic.edu/api/v1/sections/25",
             "id": 25,
             "title": "Preface: American Silver",
-            "timestamp": "2020-07-30T05:07:14-05:00"
+            "timestamp": "2020-08-03T05:07:10-05:00"
         },
         {
             "_score": 1,
             "api_model": "sections",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/sections/33",
+            "api_link": "https://api.artic.edu/api/v1/sections/33",
             "id": 33,
             "title": "Forging a Collection: American Silver at the Art Institute of Chicago",
-            "timestamp": "2020-07-30T05:07:14-05:00"
+            "timestamp": "2020-08-03T05:07:10-05:00"
         }
     ],
     "info": {
@@ -3476,26 +3276,26 @@ Search sites data in the aggregator.
         {
             "_score": 1,
             "api_model": "sites",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/sites/1",
+            "api_link": "https://api.artic.edu/api/v1/sites/1",
             "id": 1,
             "title": "Chicago Architecture: Ten Visions",
-            "timestamp": "2020-07-30T05:07:28-05:00"
+            "timestamp": "2020-08-03T05:07:24-05:00"
         },
         {
             "_score": 1,
             "api_model": "sites",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/sites/2",
+            "api_link": "https://api.artic.edu/api/v1/sites/2",
             "id": 2,
             "title": "American Perspectives: A yearlong celebration of American artistic vision",
-            "timestamp": "2020-07-30T05:07:28-05:00"
+            "timestamp": "2020-08-03T05:07:24-05:00"
         },
         {
             "_score": 1,
             "api_model": "sites",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/sites/3",
+            "api_link": "https://api.artic.edu/api/v1/sites/3",
             "id": 3,
             "title": "Curious Corner",
-            "timestamp": "2020-07-30T05:07:28-05:00"
+            "timestamp": "2020-08-03T05:07:24-05:00"
         }
     ],
     "info": {
@@ -3627,7 +3427,7 @@ Search closures data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 19,
+        "total": 18,
         "limit": 10,
         "offset": 0,
         "total_pages": 2,
@@ -3637,26 +3437,26 @@ Search closures data in the aggregator.
         {
             "_score": 1,
             "api_model": "closures",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/closures/4",
+            "api_link": "https://api.artic.edu/api/v1/closures/4",
             "id": 4,
             "title": "Lorem ipsum.",
-            "timestamp": "2020-07-30T05:07:30-05:00"
+            "timestamp": "2020-08-03T05:07:26-05:00"
         },
         {
             "_score": 1,
             "api_model": "closures",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/closures/5",
+            "api_link": "https://api.artic.edu/api/v1/closures/5",
             "id": 5,
             "title": "Lorem ipsum.",
-            "timestamp": "2020-07-30T05:07:30-05:00"
+            "timestamp": "2020-08-03T05:07:26-05:00"
         },
         {
             "_score": 1,
             "api_model": "closures",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/closures/9",
+            "api_link": "https://api.artic.edu/api/v1/closures/9",
             "id": 9,
             "title": "Lorem ipsum.",
-            "timestamp": "2020-07-30T05:07:30-05:00"
+            "timestamp": "2020-08-03T05:07:26-05:00"
         }
     ],
     "info": {
@@ -3804,18 +3604,18 @@ Search web-exhibitions data in the aggregator.
         {
             "_score": 1,
             "api_model": "web-exhibitions",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/web-exhibitions/1",
+            "api_link": "https://api.artic.edu/api/v1/web-exhibitions/1",
             "id": 1,
             "title": "Charles White: A Retrospective",
-            "timestamp": "2020-07-30T05:07:30-05:00"
+            "timestamp": "2020-08-03T05:07:26-05:00"
         },
         {
             "_score": 1,
             "api_model": "web-exhibitions",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/web-exhibitions/2",
+            "api_link": "https://api.artic.edu/api/v1/web-exhibitions/2",
             "id": 2,
             "title": "Manet and Modern Beauty",
-            "timestamp": "2020-07-30T05:07:30-05:00"
+            "timestamp": "2020-08-03T05:07:26-05:00"
         }
     ],
     "info": {
@@ -3958,26 +3758,26 @@ Search events data in the aggregator.
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/events/3401",
-            "id": 3401,
-            "title": "Gallery Talk: Conceptual and Minimal Art",
-            "timestamp": "2020-07-30T05:07:34-05:00"
+            "api_link": "https://api.artic.edu/api/v1/events/4656",
+            "id": 4656,
+            "title": "Express Talk: Gold, Clay, & Parchment: Making Art in Renaissance Italy",
+            "timestamp": "2020-08-03T05:07:36-05:00"
         },
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/events/3402",
-            "id": 3402,
-            "title": "Gallery Talk: Trompe l\u2019oeil\u2014Tricks and Treats of the Eye",
-            "timestamp": "2020-07-30T05:07:34-05:00"
+            "api_link": "https://api.artic.edu/api/v1/events/4657",
+            "id": 4657,
+            "title": "Gallery Talk: Impressionist Portraits",
+            "timestamp": "2020-08-03T05:07:36-05:00"
         },
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/events/3403",
-            "id": 3403,
-            "title": "Gallery Talk: Modern Portraits",
-            "timestamp": "2020-07-30T05:07:34-05:00"
+            "api_link": "https://api.artic.edu/api/v1/events/4658",
+            "id": 4658,
+            "title": "Gallery Talk: Impressionist Pastels",
+            "timestamp": "2020-08-03T05:07:36-05:00"
         }
     ],
     "info": {
@@ -4251,26 +4051,26 @@ Search event-programs data in the aggregator.
         {
             "_score": 1,
             "api_model": "event-programs",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/event-programs/1",
+            "api_link": "https://api.artic.edu/api/v1/event-programs/1",
             "id": 1,
             "title": "Artist\u2019s Studio",
-            "timestamp": "2020-07-30T05:07:42-05:00"
+            "timestamp": "2020-08-03T05:07:38-05:00"
         },
         {
             "_score": 1,
             "api_model": "event-programs",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/event-programs/2",
+            "api_link": "https://api.artic.edu/api/v1/event-programs/2",
             "id": 2,
             "title": "Family Festivals",
-            "timestamp": "2020-07-30T05:07:42-05:00"
+            "timestamp": "2020-08-03T05:07:38-05:00"
         },
         {
             "_score": 1,
             "api_model": "event-programs",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/event-programs/3",
+            "api_link": "https://api.artic.edu/api/v1/event-programs/3",
             "id": 3,
             "title": "Picture This",
-            "timestamp": "2020-07-30T05:07:42-05:00"
+            "timestamp": "2020-08-03T05:07:38-05:00"
         }
     ],
     "info": {
@@ -4410,26 +4210,26 @@ Search articles data in the aggregator.
         {
             "_score": 1,
             "api_model": "articles",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/articles/14",
+            "api_link": "https://api.artic.edu/api/v1/articles/14",
             "id": 14,
             "title": "secrets-of-the-modern-wing",
-            "timestamp": "2020-07-30T05:07:42-05:00"
+            "timestamp": "2020-08-03T05:07:38-05:00"
         },
         {
             "_score": 1,
             "api_model": "articles",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/articles/18",
+            "api_link": "https://api.artic.edu/api/v1/articles/18",
             "id": 18,
             "title": "your-move",
-            "timestamp": "2020-07-30T05:07:42-05:00"
+            "timestamp": "2020-08-03T05:07:38-05:00"
         },
         {
             "_score": 1,
             "api_model": "articles",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/articles/26",
+            "api_link": "https://api.artic.edu/api/v1/articles/26",
             "id": 26,
             "title": "secrets-of-the-modern-wing-take-two",
-            "timestamp": "2020-07-30T05:07:42-05:00"
+            "timestamp": "2020-08-03T05:07:38-05:00"
         }
     ],
     "info": {
@@ -4569,26 +4369,26 @@ Search selections data in the aggregator.
         {
             "_score": 1,
             "api_model": "selections",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/selections/3",
+            "api_link": "https://api.artic.edu/api/v1/selections/3",
             "id": 3,
             "title": "what-to-see-in-an-hour",
-            "timestamp": "2020-07-30T05:07:43-05:00"
+            "timestamp": "2020-08-03T05:07:39-05:00"
         },
         {
             "_score": 1,
             "api_model": "selections",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/selections/4",
+            "api_link": "https://api.artic.edu/api/v1/selections/4",
             "id": 4,
             "title": "new-acquisitions",
-            "timestamp": "2020-07-30T05:07:43-05:00"
+            "timestamp": "2020-08-03T05:07:39-05:00"
         },
         {
             "_score": 1,
             "api_model": "selections",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/selections/5",
+            "api_link": "https://api.artic.edu/api/v1/selections/5",
             "id": 5,
             "title": "impressionism",
-            "timestamp": "2020-07-30T05:07:43-05:00"
+            "timestamp": "2020-08-03T05:07:39-05:00"
         }
     ],
     "info": {
@@ -4728,26 +4528,26 @@ Search web-artists data in the aggregator.
         {
             "_score": 1,
             "api_model": "web-artists",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/web-artists/1",
+            "api_link": "https://api.artic.edu/api/v1/web-artists/1",
             "id": 1,
             "title": "Winslow Homer",
-            "timestamp": "2020-07-30T05:07:43-05:00"
+            "timestamp": "2020-08-03T05:07:39-05:00"
         },
         {
             "_score": 1,
             "api_model": "web-artists",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/web-artists/2",
+            "api_link": "https://api.artic.edu/api/v1/web-artists/2",
             "id": 2,
             "title": "Don A. DuBroff",
-            "timestamp": "2020-07-30T05:07:43-05:00"
+            "timestamp": "2020-08-03T05:07:39-05:00"
         },
         {
             "_score": 1,
             "api_model": "web-artists",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/web-artists/3",
+            "api_link": "https://api.artic.edu/api/v1/web-artists/3",
             "id": 3,
             "title": "Neue Galerie New York",
-            "timestamp": "2020-07-30T05:07:43-05:00"
+            "timestamp": "2020-08-03T05:07:39-05:00"
         }
     ],
     "info": {
@@ -4890,7 +4690,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/1",
             "id": 1,
             "title": "Visit",
-            "timestamp": "2020-07-30T20:05:13-05:00"
+            "timestamp": "2020-08-03T12:25:14-05:00"
         },
         {
             "_score": 1,
@@ -4898,7 +4698,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/2",
             "id": 2,
             "title": "Events",
-            "timestamp": "2020-07-30T20:05:13-05:00"
+            "timestamp": "2020-08-03T12:25:14-05:00"
         },
         {
             "_score": 1,
@@ -4906,7 +4706,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/3",
             "id": 3,
             "title": "Exhibitions",
-            "timestamp": "2020-07-30T20:05:13-05:00"
+            "timestamp": "2020-08-03T12:25:14-05:00"
         }
     ],
     "info": {
@@ -5036,7 +4836,7 @@ Search generic-pages data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 236,
+        "total": 235,
         "limit": 10,
         "offset": 0,
         "total_pages": 24,
@@ -5046,26 +4846,26 @@ Search generic-pages data in the aggregator.
         {
             "_score": 1,
             "api_model": "generic-pages",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/generic-pages/1",
+            "api_link": "https://api.artic.edu/api/v1/generic-pages/1",
             "id": 1,
             "title": "Visit",
-            "timestamp": "2020-07-30T05:07:44-05:00"
+            "timestamp": "2020-08-03T05:07:40-05:00"
         },
         {
             "_score": 1,
             "api_model": "generic-pages",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/generic-pages/2",
+            "api_link": "https://api.artic.edu/api/v1/generic-pages/2",
             "id": 2,
             "title": "Free Admission Opportunities",
-            "timestamp": "2020-07-30T05:07:44-05:00"
+            "timestamp": "2020-08-03T05:07:40-05:00"
         },
         {
             "_score": 1,
             "api_model": "generic-pages",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/generic-pages/4",
+            "api_link": "https://api.artic.edu/api/v1/generic-pages/4",
             "id": 4,
             "title": "Directions & Parking",
-            "timestamp": "2020-07-30T05:07:44-05:00"
+            "timestamp": "2020-08-03T05:07:40-05:00"
         }
     ],
     "info": {
@@ -5205,26 +5005,26 @@ Search press-releases data in the aggregator.
         {
             "_score": 1,
             "api_model": "press-releases",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/press-releases/1",
+            "api_link": "https://api.artic.edu/api/v1/press-releases/1",
             "id": 1,
             "title": "Press Releases from 1939",
-            "timestamp": "2020-07-30T05:07:44-05:00"
+            "timestamp": "2020-08-03T05:07:40-05:00"
         },
         {
             "_score": 1,
             "api_model": "press-releases",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/press-releases/2",
+            "api_link": "https://api.artic.edu/api/v1/press-releases/2",
             "id": 2,
             "title": "Press Releases from 1940",
-            "timestamp": "2020-07-30T05:07:44-05:00"
+            "timestamp": "2020-08-03T05:07:40-05:00"
         },
         {
             "_score": 1,
             "api_model": "press-releases",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/press-releases/3",
+            "api_link": "https://api.artic.edu/api/v1/press-releases/3",
             "id": 3,
             "title": "Press Releases from 1941",
-            "timestamp": "2020-07-30T05:07:44-05:00"
+            "timestamp": "2020-08-03T05:07:40-05:00"
         }
     ],
     "info": {
@@ -5364,26 +5164,26 @@ Search educator-resources data in the aggregator.
         {
             "_score": 1,
             "api_model": "educator-resources",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/educator-resources/2",
+            "api_link": "https://api.artic.edu/api/v1/educator-resources/2",
             "id": 2,
             "title": "Test Resource",
-            "timestamp": "2020-07-30T05:07:45-05:00"
+            "timestamp": "2020-08-03T05:07:41-05:00"
         },
         {
             "_score": 1,
             "api_model": "educator-resources",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/educator-resources/3",
+            "api_link": "https://api.artic.edu/api/v1/educator-resources/3",
             "id": 3,
             "title": "Activity: Arrival of the Normandy Train, Gare Saint-Lazare",
-            "timestamp": "2020-07-30T05:07:45-05:00"
+            "timestamp": "2020-08-03T05:07:41-05:00"
         },
         {
             "_score": 1,
             "api_model": "educator-resources",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/educator-resources/4",
+            "api_link": "https://api.artic.edu/api/v1/educator-resources/4",
             "id": 4,
             "title": "Activity: The Family Concert",
-            "timestamp": "2020-07-30T05:07:45-05:00"
+            "timestamp": "2020-08-03T05:07:41-05:00"
         }
     ],
     "info": {
@@ -5523,26 +5323,26 @@ Search digital-catalogs data in the aggregator.
         {
             "_score": 1,
             "api_model": "digital-catalogs",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/digital-catalogs/2",
+            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/2",
             "id": 2,
             "title": "American Silver",
-            "timestamp": "2020-07-30T05:07:46-05:00"
+            "timestamp": "2020-08-03T05:07:41-05:00"
         },
         {
             "_score": 1,
             "api_model": "digital-catalogs",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/digital-catalogs/3",
+            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/3",
             "id": 3,
             "title": "Modern Series: Go",
-            "timestamp": "2020-07-30T05:07:46-05:00"
+            "timestamp": "2020-08-03T05:07:41-05:00"
         },
         {
             "_score": 1,
             "api_model": "digital-catalogs",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/digital-catalogs/4",
+            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/4",
             "id": 4,
             "title": "Manet Paintings and Works on Paper at the Art Institute of Chicago",
-            "timestamp": "2020-07-30T05:07:46-05:00"
+            "timestamp": "2020-08-03T05:07:41-05:00"
         }
     ],
     "info": {
@@ -5682,26 +5482,26 @@ Search printed-catalogs data in the aggregator.
         {
             "_score": 1,
             "api_model": "printed-catalogs",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/printed-catalogs/4",
+            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/4",
             "id": 4,
             "title": "The Art Institute of Chicago: The Essential Guide",
-            "timestamp": "2020-07-30T05:07:46-05:00"
+            "timestamp": "2020-08-03T05:07:42-05:00"
         },
         {
             "_score": 1,
             "api_model": "printed-catalogs",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/printed-catalogs/5",
+            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/5",
             "id": 5,
             "title": "Roy Lichtenstein: A Retrospective",
-            "timestamp": "2020-07-30T05:07:46-05:00"
+            "timestamp": "2020-08-03T05:07:42-05:00"
         },
         {
             "_score": 1,
             "api_model": "printed-catalogs",
-            "api_link": "https://aggregator-data.artic.edu/api/v1/printed-catalogs/6",
+            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/6",
             "id": 6,
             "title": "Dawoud Bey: Harlem, U.S.A.",
-            "timestamp": "2020-07-30T05:07:46-05:00"
+            "timestamp": "2020-08-03T05:07:42-05:00"
         }
     ],
     "info": {
