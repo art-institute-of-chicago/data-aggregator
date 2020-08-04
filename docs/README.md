@@ -1,7 +1,6 @@
 ---
-home: true
-tagline: null
-footer: AGPL-3.0 Licensed | Copyright © 2018–present Art Institute of Chicago
+# Using `home: true` causes Vuepress to use a different layout
+# https://vuepress.vuejs.org/theme/default-theme-config.html#homepage
 ---
 ## Introduction
 
