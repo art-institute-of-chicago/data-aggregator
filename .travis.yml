@@ -3,7 +3,7 @@ matrix:
     - language: php
 
       php:
-        - 7.1
+        - 7.2
 
       before_script:
         - cp .env.travis .env
@@ -11,7 +11,7 @@ matrix:
         - composer install --no-interaction
         - php artisan key:generate
         - php artisan migrate
-        
+
       script:
         - vendor/bin/phpunit
 
