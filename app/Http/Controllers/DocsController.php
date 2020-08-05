@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,12 +22,16 @@ class DocsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index($action = '')
     {
-        if ($file != 'index') {
-            $file = $file . '/index';
+        $action = $action ?: 'index.html';
+
+        if (env('DOCS_URL') !== null) {
+            $client = new Client();
+            $response = $client->get(env('DOCS_URL') . $action);
+
+            return $response;
         }
-        return File::get(public_path() . '/docs/' . $file . '.html');
     }
 
     /**

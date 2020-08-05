@@ -24,7 +24,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/old-docs/endpoints', 'EndpointsController@oldIndex')->name('doc-endpoints');
 Route::get('/old-docs/fields', 'FieldsController@oldIndex')->name('doc-fields');
 
-Route::get('/docs/{file?}', 'DocsController@index')->name('docs.index');
+Route::group(['prefix' => 'docs'], function() {
+    Route::get('/{action?}', 'DocsController@index')->where('action', '.*');
+});
 
 Route::get('/assets/{filename}.css', function ($filename) {
     $content = Storage::disk('public')->get($filename . '.css');
