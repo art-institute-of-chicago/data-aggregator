@@ -1,8 +1,7 @@
 const { description } = require('../../package')
 
 module.exports = {
-  base: '/docs/',
-  dest: 'public/docs',
+  base: '/data-aggregator/',
 
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
