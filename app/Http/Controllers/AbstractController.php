@@ -106,22 +106,7 @@ abstract class AbstractController extends BaseController
         $data = $this->fractal->createData($resource)->toArray();
         $response = isset($data['data']) ? $data : ['data' => $data];
 
-        $info = [];
-
-        $info['license_text'] = $transformer->getLicenseText();
-        $info['license_links'] = $transformer->getLicenseLinks();
-
-        $info['version'] = config('aic.version');
-
-        if (config('aic.documentation_url')) {
-            $info['documentation'] = config('aic.documentation_url');
-        }
-
-        if (config('aic.message')) {
-            $info['message'] = config('aic.message');
-        }
-
-        $response['info'] = $info;
+        $response['info'] = $transformer->getInfoFields();
 
         $config = config('aic.config_documentation');
 
