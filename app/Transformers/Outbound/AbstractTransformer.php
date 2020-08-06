@@ -110,6 +110,25 @@ abstract class AbstractTransformer extends BaseTransformer
         return 100;
     }
 
+    public function getInfoFields() {
+        $info = [];
+
+        $info['license_text'] = $this->getLicenseText();
+        $info['license_links'] = $this->getLicenseLinks();
+
+        $info['version'] = config('aic.version');
+
+        if (config('aic.documentation_url')) {
+            $info['documentation'] = config('aic.documentation_url');
+        }
+
+        if (config('aic.message')) {
+            $info['message'] = config('aic.message');
+        }
+
+        return $info;
+    }
+
     protected function getIds()
     {
         return [

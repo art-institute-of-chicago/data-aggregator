@@ -22,15 +22,10 @@ class DumpUpload extends AbstractDumpCommand
         $repoRemote = env('DUMP_REPO_REMOTE');
         $repoPath = $this->getDumpPath('remote');
 
-        // If you change these, you'll need to clean up the repo manually
-        $tablesSrcPath = $this->getDumpPath('local/tables');
-        $tablesDestPath = $repoPath . '/tables';
+        // If you change this, you'll need to clean up the repo manually
         $jsonsSrcPath = $this->getDumpPath('local/json');
         $jsonsDestPath = $repoPath . '/json';
 
-        if (count(glob($tablesSrcPath . '/*.csv') ?: []) < 1) {
-            throw new Exception('No CSV files found in ' . $tablesSrcPath);
-        }
         if (count(glob($jsonsSrcPath . '/*/*.json') ?: []) < 1) {
             throw new Exception('No JSON files found in ' . $jsonsSrcPath);
         }
@@ -55,13 +50,8 @@ class DumpUpload extends AbstractDumpCommand
             $this->shell->passthru('git -C %s reset --hard %s', $repoPath, $commit);
         }
 
-        // Remove all existing CSVs and JSONs from the repo
+        // Remove all existing  JSONs from the repo
         // This should take care of any tables that were removed or renamed
-        if (file_exists($tablesDestPath)) {
-            $this->shell->passthru('find %s -name *.csv | xargs rm', $tablesDestPath);
-        } else {
-            mkdir($tablesDestPath);
-        }
         if (file_exists($jsonsDestPath)) {
             $this->shell->passthru('find %s -name *.json | xargs rm', $jsonsDestPath);
         } else {
@@ -69,19 +59,6 @@ class DumpUpload extends AbstractDumpCommand
         }
 
         // Copy dumps of whitelisted tables and endpoints into the repo
-        foreach ($this->whitelistedTables as $tableName) {
-            $csvPaths = $this->shell->exec('find %s -name %s', $tablesSrcPath, $tableName . '*.csv')['output'];
-
-            // Fix issues e.g. with artwork_place and artwork_place_qualifiers
-            $csvPaths = array_values(array_filter($csvPaths, function ($csvPath) use ($tableName) {
-                return preg_match('/' . $tableName . '(?:-[0-9]+)?\.csv/', basename($csvPath));
-            }));
-
-            foreach ($csvPaths as $csvPath) {
-                $csvSubPath = '/' . basename($csvPath);
-                $this->shell->passthru('cp %s %s', $tablesSrcPath . $csvSubPath, $tablesDestPath . $csvSubPath);
-            }
-        }
         foreach ($this->getModels() as $model => $category) {
             if(!File::exists($jsonsSrcPath .'/' .app('Resources')->getEndpointForModel($model))) {
                 continue;
