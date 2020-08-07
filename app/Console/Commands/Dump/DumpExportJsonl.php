@@ -11,7 +11,7 @@ use Throwable;
 class DumpExportJsonl extends AbstractDumpCommand
 {
 
-    protected $signature = 'dump:getting-started-jsonl';
+    protected $signature = 'dump:getting-started';
 
     protected $description = 'Create a getting started JSON dumps of all artworks';
 

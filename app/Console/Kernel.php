@@ -81,6 +81,9 @@ class Kernel extends ConsoleKernel
             ->sendOutputTo(storage_path('logs/import-queues-last-run.log'));
 
         $schedule->command('dump:export')
+            ->before(function () {
+                $this->call('dump:getting-started');
+            })
             ->after(function () {
                 $this->call('dump:upload', [
                     '--reset' => 'default',
