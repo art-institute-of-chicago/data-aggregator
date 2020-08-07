@@ -59,9 +59,13 @@ class DumpUpload extends AbstractDumpCommand
         // This should take care of any tables that were removed or renamed
         if (file_exists($jsonsDestPath)) {
             $this->shell->passthru('find %s -name %s | xargs rm', $jsonsDestPath, '*.json');
-
         } else {
             mkdir($jsonsDestPath);
+        }
+        if (file_exists($gettingStartedDestPath)) {
+            $this->shell->passthru('find %s | xargs rm', $gettingStartedDestPath);
+        } else {
+            mkdir($gettingStartedDestPath);
         }
 
         // Copy dumps of whitelisted tables and endpoints into the repo
@@ -79,7 +83,7 @@ class DumpUpload extends AbstractDumpCommand
         }
 
         // Copy getting started files
-        $this->shell->passthru('cp %s/* %s/*', $gettingStartedSrcPath, $gettingStartedDestPath);
+        $this->shell->passthru('cp %s/* %s/', $gettingStartedSrcPath, $gettingStartedDestPath);
 
         // Add VERSION file with current commit
         $this->shell->passthru('git -C %s rev-parse HEAD > %s', base_path(), $repoPath . '/VERSION');
