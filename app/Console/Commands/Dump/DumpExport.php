@@ -14,7 +14,7 @@ class DumpExport extends AbstractDumpCommand
     protected $signature = 'dump:export
                             {--path= : Directory where to save dump, with `json` subdir }';
 
-    protected $description = 'Create JSON dumps of all pubic endpoints';
+    protected $description = 'Create JSON dumps of all public endpoints';
 
     public function handle()
     {
@@ -22,7 +22,7 @@ class DumpExport extends AbstractDumpCommand
         $models = $this->getModels();
 
         foreach ($models as $model => $category) {
-            // Remove any old CSVs in this dump
+            // Remove any old JSONs in this dump
             $dumpPath = $this->getDumpPath('local/json/' .app('Resources')->getEndpointForModel($model));
             array_map('unlink', glob($dumpPath . '/*.json') ?: []);
 

@@ -56,6 +56,10 @@ abstract class BaseCommand extends AbstractCommand
             })
             ->pluck('model')
             ->unique()
+            ->filter(function ($model) {
+                // Filter out classes that extend CategoryTerm
+                return get_parent_class($model) !== 'App\Models\Collections\CategoryTerm';
+            })
             ->filter()
             ->values()
             ->map(function ($model) {
