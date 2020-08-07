@@ -25,9 +25,14 @@ class DumpUpload extends AbstractDumpCommand
         // If you change this, you'll need to clean up the repo manually
         $jsonsSrcPath = $this->getDumpPath('local/json');
         $jsonsDestPath = $repoPath . '/json';
+        $gettingStartedSrcPath = $this->getDumpPath('local/getting-started');
+        $gettingStartedDestPath = $repoPath . '/getting-started';
 
         if (count(glob($jsonsSrcPath . '/*/*.json') ?: []) < 1) {
             throw new Exception('No JSON files found in ' . $jsonsSrcPath);
+        }
+        if (count(glob($gettingStartedSrcPath . '/*') ?: []) < 1) {
+            throw new Exception('No getting started files found in ' . $gettingStartedSrcPath);
         }
 
         if ($this->option('remove') && file_exists($repoPath)) {
@@ -53,7 +58,8 @@ class DumpUpload extends AbstractDumpCommand
         // Remove all existing  JSONs from the repo
         // This should take care of any tables that were removed or renamed
         if (file_exists($jsonsDestPath)) {
-            $this->shell->passthru('find %s -name *.json | xargs rm', $jsonsDestPath);
+            $this->shell->passthru('find %s -name %s | xargs rm', $jsonsDestPath, '*.json');
+
         } else {
             mkdir($jsonsDestPath);
         }
@@ -72,6 +78,9 @@ class DumpUpload extends AbstractDumpCommand
             }
         }
 
+        // Copy getting started files
+        $this->shell->passthru('cp %s/* %s/*', $gettingStartedSrcPath, $gettingStartedDestPath);
+
         // Add VERSION file with current commit
         $this->shell->passthru('git -C %s rev-parse HEAD > %s', base_path(), $repoPath . '/VERSION');
 
@@ -79,7 +88,7 @@ class DumpUpload extends AbstractDumpCommand
         $this->shell->passthru('git -C %s add -A', $repoPath);
 
         $this->shell->passthru(
-            'git -C %s -c %s -c %s commit --author %s -m "Update CSVs"',
+            'git -C %s -c %s -c %s commit --author %s -m "Update data"',
             $repoPath,
             'user.name=' . env('DUMP_REPO_NAME'),
             'user.email=' . env('DUMP_REPO_EMAIL'),
