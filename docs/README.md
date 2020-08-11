@@ -130,11 +130,11 @@ There's a lot of information you can get about our collection, and there's a lot
 - Numeric and boolean fields get parsed into actual numbers and booleans:
 
   ```json
-  "id": 78, // GOOD
   "artwork_id": "45", // BAD
+  "date_start": 1942, // GOOD
 
-  "is_preferred": true, // GOOD
-  "is_in_gallery": "True", // BAD
+  "is_preferred": "True", // BAD
+  "is_in_gallery": true, // GOOD
   ```
 
 - We never show any empty strings in the API. We only show `null`:
@@ -149,4 +149,21 @@ There's a lot of information you can get about our collection, and there's a lot
   - If a field that typically returns a string, number, or object is empty for a given document, we return it as `null`, rather than omitting it.
 
   - If a field typically returns an array, we prefer to return an empty array, rather than returning `null`. This is done in part for backwards-compatibility reasons.
+
+
+### Authentication
+
+You may access our API without authentication. Anonymous users are throttled to 60 requests per minute. If you are working on an application that needs to exceed this restriction, please get in touch with us at [engineering@artic.edu]().
+
+Please use [HTTPS](https://en.wikipedia.org/wiki/HTTPS) to access our API. To support legacy applications, our API is currently accessible via both HTTP and HTTPS, but HTTP access will be removed in the future.
+
+Lastly, consider adding a `User-Agent` header with the name of your project and a contact email to your API requests. For example:
+
+```bash
+curl 'https://api.artic.edu/api/v1/artworks/111628' \
+--header 'User-Agent: aic-bash (engineering@artic.edu)'
+```
+
+We ask that you do so as a [matter of courtesy](https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01). If we see an application using a disproportionate amount of system resources, this gives us an avenue to reach out and work with you to optimize your queries.
+
 
