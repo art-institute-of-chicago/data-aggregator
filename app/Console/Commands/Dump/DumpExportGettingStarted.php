@@ -27,8 +27,7 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         if (!file_exists($filepath)) {
             mkdir($filepath, 1777, true);
         }
-        array_map('unlink', glob($filepath . '/*.json') ?: []);
-        array_map('unlink', glob($filepath . '/*.csv') ?: []);
+        $this->shell->passthru('rm -rf %s/*', $filepath);
 
         // Create transformer used for generating JSON output
         $transformer = app('Resources')->getTransformerForModel($model);
@@ -43,37 +42,25 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         $bar = $this->output->createProgressBar($model::count());
 
         $content = '';
-        $itemsCount = 0;
 
         // Loop through each record and dump its contents into a file
-        $model::with(['departments', 'artists'])->chunk(100, function ($items) use ($transformer, $model, $bar, &$content, &$itemsCount, &$csv) {
+        foreach ($model::cursor() as $item) {
             // JSON
-            foreach ($items as $key => $item) {
-                $content .= '{"id":' . $item->citi_id . ',"title":"' . addslashes($item->title) . '","main_reference_number":"' . $item->main_id . '","department_title":"' . ($item->departments->first()->title ?? null) . '","artist_title":"' . ($item->artist->title ?? null) . "\"}\n";
-            }
+            $content .= '{"id":' . $item->citi_id . ',"title":"' . addslashes($item->title) . '","main_reference_number":"' . $item->main_id . '","department_title":"' . ($item->departments->first()->title ?? null) . '","artist_title":"' . ($item->artist->title ?? null) . "\"}\n";
 
             // CSV
-            $items = $items->map(function ($item) {
-                if ($item->isBoosted()) {
-                    return [
-                        'id' => $item->citi_id,
-                        'title' => $item->title,
-                        'main_reference_number' => $item->main_id,
-                        'department_title' => ($item->departments->first()->title ?? null),
-                        'artist_title' => ($item->artist->title ?? null),
-                        ];
-                }
-                else {
-                    return [];
-                }
-            })
-            ->filter();
+            if ($item->isBoosted()) {
+                $csv->insertOne([
+                    'id' => $item->citi_id,
+                    'title' => $item->title,
+                    'main_reference_number' => $item->main_id,
+                    'department_title' => ($item->departments->first()->title ?? null),
+                    'artist_title' => ($item->artist->title ?? null),
+                ]);
+            }
 
-            $csv->insertAll($items);
-
-            $bar->advance($items->count());
-            $itemsCount +=100;
-        });
+            $bar->advance();
+        }
         $bar->finish();
         $this->output->newLine(1);
 
