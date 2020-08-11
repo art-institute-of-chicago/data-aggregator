@@ -89,7 +89,9 @@ class Kernel extends ConsoleKernel
                     '--reset' => 'default',
                 ]);
             })
-            ->dailyAt('22:45');
+            ->dailyAt('22:45')
+            ->withoutOverlapping()
+            ->sendOutputTo(storage_path('logs/data-dump-last-run.log'));
     }
 
     /**
