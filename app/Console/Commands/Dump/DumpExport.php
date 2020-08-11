@@ -42,15 +42,15 @@ class DumpExport extends AbstractDumpCommand
             $bar = $this->output->createProgressBar($model::count());
 
             // Loop through each record and dump its contents into a file
-            $model::chunk(100, function ($items) use ($transformer, $model, $bar) {
-                foreach ($items as $key => $item) {
-                    $filename = 'local/json/' .app('Resources')->getEndpointForModel($model) .'/' .$item->{$item->getKeyName()}. '.json';
-                    Storage::disk('dumps')->put($filename, json_encode(['data' => $transformer->transform($item),
-                                                                        'info' => $transformer->getInfoFields(),
-                                                                        'config' => config('aic.config_documentation')], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-                }
-                $bar->advance($items->count());
-            });
+            $endpoint = app('Resources')->getEndpointForModel($model);
+            $configDocumentation = config('aic.config_documentation');
+            foreach ($model::cursor() as $item) {
+                $filename = 'local/json/' . $endpoint .'/' .$item->getKey(). '.json';
+                Storage::disk('dumps')->put($filename, json_encode(['data' => $transformer->transform($item),
+                                                                    'info' => $transformer->getInfoFields(),
+                                                                    'config' => $configDocumentation], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+                $bar->advance();
+            }
             $bar->finish();
             $this->output->newLine(1);
         }
