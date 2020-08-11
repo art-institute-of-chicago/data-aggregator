@@ -2,6 +2,7 @@
 # Using `home: true` causes Vuepress to use a different layout
 # https://vuepress.vuejs.org/theme/default-theme-config.html#homepage
 ---
+
 ## Introduction
 
 The [Art Institute of Chicago](https://www.artic.edu)'s API provides JSON-formatted data as a REST-style service that allows developers to explore and integrate the museum’s public data into their projects. This API is the same tool that powers our [website](https://www.artic.edu), our [mobile app](https://www.artic.edu/visit/explore-on-your-own/mobile-app-audio-tours), and many other technologies in the museum.
@@ -17,19 +18,19 @@ An [API](https://www.youtube.com/watch?v=81ygVYCupdo) is a structured way that o
 Do you want _all_ of our data? Are you running into problems with throttling or deep pagination? Consider using our [data dumps](#data-dumps) instead of our API.
 :::
 
-For example, you can access the `/artworks` endpoint in our API by visiting the following URL to see all the published artworks in our collection:
+For example, you can access the `/artworks` listing endpoint in our API by visiting the following URL to see all the published artworks in our collection:
 
 ```
 https://api.artic.edu/api/v1/artworks
 ```
 
-If you want to see data for just one artwork, you can use the `/artworks/{id}` endpoint. For example, here's [_Nighthawks_](https://www.artic.edu/artworks/111628/nighthawks) by Edward Hopper:
+If you want to see data for just one artwork, you can use the `/artworks/{id}` detail endpoint. For example, here's [_Nighthawks_](https://www.artic.edu/artworks/111628/nighthawks) by Edward Hopper:
 
 ```
 https://api.artic.edu/api/v1/artworks/111628
 ```
 
-When you view these URLs in your browser you might get a jumbled bunch of text. That's OK! If you're using Chrome, install the [JSON Formatter extension](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa) and hit reload, and the results will be formatted in a way humans can read, too.
+When you view these URLs in your browser, you might see a jumbled bunch of text. That's OK! If you're using Chrome, install the [JSON Formatter extension](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa), hit reload, and the results will be formatted in a way humans can read, too.
 
 There is a lot of data you'll get for each artwork. If you want to only retrieve a certain set of fields, change the `fields` parameter in the query to list which ones you want, like this:
 
@@ -44,7 +45,7 @@ The `fields` parameter expects either an array of field names, or a comma-separa
 You can [paginate](#pagination) through results using `page` and `limit` params:
 
 ```
-https://api.artic.edu/api/v1/artworks/search?page=2&limit=100
+https://api.artic.edu/api/v1/artworks?page=2&limit=100
 ```
 
 If you want to search and filter the results, you can do so via our search endpoints. For example, here is a [full-text search](https://en.wikipedia.org/wiki/Full-text_search) for all artworks whose metadata contains some mention of cats:
@@ -87,4 +88,65 @@ Our API is flexible in how it accepts queries, but each method of querying is me
 :::
 
 There's a lot of information you can get about our collection, and there's a lot more than artworks in our API. Explore our documentation to learn more!
+
+
+### Conventions
+
+- We refer to models in our API as "resources" (e.g. `artworks`, `artists`, `places`)
+
+- Resources are typically accessed via their endpoints. Each resource has three endpoints:
+
+  - Listing (e.g. `/artworks`)
+  - Detail (e.g. `/artworks/{id}`)
+  - Search (e.g. `/artworks/search`)
+
+- Multi-word endpoints are hyphenated (e.g. `/tour-stop`).
+
+- All field names are lowercase and snake case (underscore case).
+
+- Every resource in the API has `id` and `title` fields.
+
+- Fields that contain a single id reference to another resource are singular and end with `_id`:
+
+  ```json
+  "artist_id": 51349,
+  ```
+
+- Fields that contain id references to multiple documents from another resource are singular and end with `_ids`:
+
+  ```json
+  "style_ids": ["TM-4439", "TM-8542", "TM-4441"],
+  ```
+
+- Fields that contains title references to documents from other resources follow naming conventions similar to id-based fields:
+
+  ```json
+  "artist_title": "Ancient Roman",
+  "classification_titles": ["modern and contemporary art", "painting"],
+  ```
+
+- Every title-based field has a `keyword` subfield in Elasticsearch, which is meant for filters and aggregations. See "New defaults" section in [this article](https://www.elastic.co/blog/strings-are-dead-long-live-strings) for more info.
+
+- Numeric and boolean fields get parsed into actual numbers and booleans:
+
+  ```json
+  "id": 78, // GOOD
+  "artwork_id": "45", // BAD
+
+  "is_preferred": true, // GOOD
+  "is_in_gallery": "True", // BAD
+  ```
+
+- We never show any empty strings in the API. We only show `null`:
+
+  ```json
+  "date_display": "", // BAD
+  "artist_display": null, // GOOD
+  ```
+
+- We prefer to always show all fields, even if they are `null` for the current document:
+
+  - If a field that typically returns a string, number, or object is empty for a given document, we return it as `null`, rather than omitting it.
+
+  - If a field typically returns an array, we prefer to return an empty array, rather than returning `null`. This is done in part for backwards-compatibility reasons.
 
