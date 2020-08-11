@@ -65,5 +65,14 @@ module.exports = {
     '@vuepress/search', {
         searchMaxSuggestions: 10
     }
-  ]
+  ],
+
+  /**
+   * Configure `markdown-it` extensions.
+   *
+   * ref : https://v1.vuepress.vuejs.org/guide/markdown.html#advanced-configuration
+   */
+  markdown: {
+    linkify: true,
+  }
 }

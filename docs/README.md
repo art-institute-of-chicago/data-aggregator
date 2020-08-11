@@ -153,7 +153,7 @@ There's a lot of information you can get about our collection, and there's a lot
 
 ### Authentication
 
-You may access our API without authentication. Anonymous users are throttled to 60 requests per minute. If you are working on an application that needs to exceed this restriction, please get in touch with us at [engineering@artic.edu]().
+You may access our API without authentication. Anonymous users are throttled to 60 requests per minute. If you are working on an application that needs to exceed this restriction, please get in touch with us at engineering@artic.edu.
 
 Please use [HTTPS](https://en.wikipedia.org/wiki/HTTPS) to access our API. To support legacy applications, our API is currently accessible via both HTTP and HTTPS, but HTTP access will be removed in the future.
 
@@ -165,5 +165,45 @@ curl 'https://api.artic.edu/api/v1/artworks/111628' \
 ```
 
 We ask that you do so as a [matter of courtesy](https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01). If we see an application using a disproportionate amount of system resources, this gives us an avenue to reach out and work with you to optimize your queries.
+
+
+### Pagination
+
+Listing and search endpoints are paginated. We show 12 records per page by default. Pagination can be controlled via the following query parameters:
+
+  - `page` to request a specific page of results (1-based) (default: 1)
+  - `limit` to set how many records each page should return (0-based) (default: 12)
+
+**Example:** https://api.artic.edu/api/v1/artists?page=2&limit=10
+
+For performance reasons, `limit` cannot exceed 100. Additionally, due to an underlying limitation in our search engine, you cannot request more than 10,000 records from a single search query through any combination of `limit` and `page`. For example:
+
+  - **Success:** https://api.artic.edu/api/v1/artists/search?limit=100&page=100
+  - **Error:** https://api.artic.edu/api/v1/artists/search?limit=100&page=101
+
+If you want to filter and scrape our search results, but the number of results is greater than 10,000, you won't be able to scrape them fully. Instead, we recommend that you download our [data dumps](#data-dumps) and perform your filtering locally.
+
+Occasionally, it might be useful to make a request with `limit=0` to find the total number of results. Our API supports this. For example, check `pagination.total` of this query to see the number of public domain artworks in our API:
+
+https://api.artic.edu/api/v1/artworks/search?query[term][is_public_domain]=true&limit=0
+
+All paginated endpoints include a `pagination` block in their responses:
+
+```json
+{
+    "pagination": {
+        "total": 112773,
+        "limit": 12,
+        "offset": 24,  // zero-indexed
+        "current_page": 3, // 1-indexed
+        "total_pages": 9398,
+        "prev_url": "https://api.artic.edu/api/v1/artworks?page=2&limit=12",
+        "next_url": "https://api.artic.edu/api/v1/artworks?page=4&limit=12"
+    },
+    "data": [
+        // ...
+    ]
+}
+```
 
 
