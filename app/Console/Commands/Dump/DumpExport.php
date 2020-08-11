@@ -18,13 +18,18 @@ class DumpExport extends AbstractDumpCommand
 
     public function handle()
     {
+        $dumpPath = $this->getDumpPath('local/json');
+        $this->shell->passthru('rm -rf %s/*', $dumpPath);
+
         // Get all models for export
         $models = $this->getModels();
 
         foreach ($models as $model => $category) {
             // Remove any old JSONs in this dump
             $dumpPath = $this->getDumpPath('local/json/' .app('Resources')->getEndpointForModel($model));
-            array_map('unlink', glob($dumpPath . '/*.json') ?: []);
+            if (!file_exists($dumpPath)) {
+                mkdir($dumpPath, 1777, true);
+            }
 
             // Create transformer used for generating JSON output
             $transformer = app('Resources')->getTransformerForModel($model);

@@ -28,10 +28,10 @@ class DumpUpload extends AbstractDumpCommand
         $gettingStartedSrcPath = $this->getDumpPath('local/getting-started');
         $gettingStartedDestPath = $repoPath . '/getting-started';
 
-        if (count(glob($jsonsSrcPath . '/*/*.json') ?: []) < 1) {
+        if ($this->isDirEmpty($jsonsSrcPath)) {
             throw new Exception('No JSON files found in ' . $jsonsSrcPath);
         }
-        if (count(glob($gettingStartedSrcPath . '/*') ?: []) < 1) {
+        if ($this->isDirEmpty($gettingStartedSrcPath)) {
             throw new Exception('No getting started files found in ' . $gettingStartedSrcPath);
         }
 
@@ -58,12 +58,12 @@ class DumpUpload extends AbstractDumpCommand
         // Remove all existing  JSONs from the repo
         // This should take care of any tables that were removed or renamed
         if (file_exists($jsonsDestPath)) {
-            $this->shell->passthru('find %s -name %s | xargs rm', $jsonsDestPath, '*.json');
+            $this->shell->passthru('find %s -type d -exec bash -c \'rm "$0"/*\' {} \\;', $jsonsDestPath);
         } else {
             mkdir($jsonsDestPath);
         }
         if (file_exists($gettingStartedDestPath)) {
-            $this->shell->passthru('find %s | xargs rm', $gettingStartedDestPath);
+            $this->shell->passthru('rm %s/*', $gettingStartedDestPath);
         } else {
             mkdir($gettingStartedDestPath);
         }
@@ -73,13 +73,9 @@ class DumpUpload extends AbstractDumpCommand
             if(!File::exists($jsonsSrcPath .'/' .app('Resources')->getEndpointForModel($model))) {
                 continue;
             }
-            $jsonPaths = $this->shell->exec('find %s -name %s', $jsonsSrcPath .'/' .app('Resources')->getEndpointForModel($model), '*.json')['output'];
 
             $this->shell->passthru('mkdir -p %s', $jsonsDestPath . '/' .app('Resources')->getEndpointForModel($model));
-            foreach ($jsonPaths as $jsonPath) {
-                $jsonSubPath = '/' . app('Resources')->getEndpointForModel($model) .'/' . basename($jsonPath);
-                $this->shell->passthru('cp %s %s', $jsonsSrcPath . $jsonSubPath, $jsonsDestPath . $jsonSubPath);
-            }
+            $this->shell->passthru('cp -r %s/* %s/', $jsonsSrcPath.'/' .app('Resources')->getEndpointForModel($model), $jsonsDestPath.'/' .app('Resources')->getEndpointForModel($model));
         }
 
         // Copy getting started files
@@ -103,4 +99,24 @@ class DumpUpload extends AbstractDumpCommand
         $this->shell->passthru('git -C %s push %s', $repoPath, ($this->option('reset') ? '--force' : '--no-force-with-lease'));
     }
 
+    function isDirEmpty($dir) {
+        $handle = opendir($dir);
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != "..") {
+                $file  = $dir.$entry;
+                if (is_dir($file)) {
+                    if (!$this->isDirEmpty($file)) {
+                        closedir($handle);
+                        return FALSE;
+                    }
+                }
+                else {
+                    closedir($handle);
+                    return FALSE;
+                }
+            }
+        }
+        closedir($handle);
+        return TRUE;
+    }
 }
