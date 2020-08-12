@@ -18,9 +18,13 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/config/#head
    */
   head: [
-    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+    ['meta', { name: 'theme-color', content: '#b50938' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }]
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
+    ['link', { rel: "shortcut icon", type: "image/png", href: "/assets/images/favicon-16.png"}],
+    ['link', { rel: "apple-touch-icon-precomposed", href: "/assets/images/favicon-152.png"}],
+    ['link', { rel: "apple-touch-icon-precomposed", type: "image/png", sizes: "120x120", href: "/assets/images/favicon-120.png"}],
+    ['link', { rel: "apple-touch-icon-precomposed", type: "image/png", sizes: "76x76", href: "/assets/images/favicon-76.png"}]
   ],
 
   /**
