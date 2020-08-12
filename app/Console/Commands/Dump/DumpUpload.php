@@ -55,27 +55,41 @@ class DumpUpload extends AbstractDumpCommand
             $this->shell->passthru('git -C %s reset --hard %s', $repoPath, $commit);
         }
 
-        // Remove all existing  JSONs from the repo
+        // Remove all existing JSONs from the repo
         // This should take care of any tables that were removed or renamed
+        $prefixes = ['00','01','02','03','04','05','06','07','08','09'];
+        $prefixes = array_merge($prefixes,range(10, 99));
+        $prefixes = array_merge($prefixes,['a0','a1','a2','a3','a4','a5','a6','a7','a8','a9','aa','ab','ac','ad','ae','af']);
+        $prefixes = array_merge($prefixes,['b0','b1','b2','b3','b4','b5','b6','b7','b8','b9','ba','bb','bc','bd','be','bf']);
+        $prefixes = array_merge($prefixes,['c0','c1','c2','c3','c4','c5','c6','c7','c8','c9','ca','cb','cc','cd','ce','cf']);
+        $prefixes = array_merge($prefixes,['d0','d1','d2','d3','d4','d5','d6','d7','d8','d9','da','db','dc','dd','de','df']);
+        $prefixes = array_merge($prefixes,['e0','e1','e2','e3','e4','e5','e6','e7','e8','e9','ea','eb','ec','ed','ee','ef']);
+        $prefixes = array_merge($prefixes,['f0','f1','f2','f3','f4','f5','f6','f7','f8','f9','fa','fb','fc','fd','fe','ff']);
+
         if (file_exists($jsonsDestPath)) {
-            $this->shell->passthru('find %s -type d -exec bash -c \'rm "$0"/*\' {} \\;', $jsonsDestPath);
+            foreach ($prefixes as $prefix) {
+                $this->shell->passthru('find %s -type d -exec bash -c \'rm -f "$0"/%s*\' {} \\;', $jsonsDestPath, $prefix);
+            }
+            $this->shell->passthru('find %s -type d -exec bash -c \'rm -f "$0"/*\' {} \\;', $jsonsDestPath);
         } else {
             mkdir($jsonsDestPath);
         }
         if (file_exists($gettingStartedDestPath)) {
-            $this->shell->passthru('rm %s/*', $gettingStartedDestPath);
+            $this->shell->passthru('rm -f %s/*', $gettingStartedDestPath);
         } else {
             mkdir($gettingStartedDestPath);
         }
 
         // Copy dumps of whitelisted tables and endpoints into the repo
         foreach ($this->getModels() as $model => $category) {
-            if(!File::exists($jsonsSrcPath .'/' .app('Resources')->getEndpointForModel($model))) {
+            $endpoint = app('Resources')->getEndpointForModel($model);
+
+            if(!File::exists($jsonsSrcPath .'/' .$endpoint)) {
                 continue;
             }
 
-            $this->shell->passthru('mkdir -p %s', $jsonsDestPath . '/' .app('Resources')->getEndpointForModel($model));
-            $this->shell->passthru('cp -r %s/* %s/', $jsonsSrcPath.'/' .app('Resources')->getEndpointForModel($model), $jsonsDestPath.'/' .app('Resources')->getEndpointForModel($model));
+            $this->shell->passthru('mkdir -p %s', $jsonsDestPath . '/' .$endpoint);
+            $this->shell->passthru('rsync -r %s %s', $jsonsSrcPath .'/' .$endpoint, $jsonsDestPath);
         }
 
         // Copy getting started files
