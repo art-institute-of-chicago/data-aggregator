@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Collection;
 
 class BelongsToManyOrOne extends BelongsToMany
 {
@@ -67,6 +68,32 @@ class BelongsToManyOrOne extends BelongsToMany
     public function isAlternative()
     {
         return $this->wherePivot('preferred', '=', false)->expectMany();
+    }
+    
+    public function match(array $models, Collection $results, $relation)
+    {
+        $dictionary = $this->buildDictionary($results);
+
+	    foreach ($models as $model) {
+		    $model->setRelation($relation, $this->getRelationValue($dictionary, $model->{$this->parentKey}));
+	    }
+
+        return $models;
+    }
+    
+    
+    /**
+     * Get the value of a relationship by one or many type.
+     *
+     * @param  array   $dictionary
+     * @param  string  $key
+     * @return mixed
+     */
+    protected function getRelationValue(array $dictionary, $key)
+    {
+        $value = $dictionary[$key] ?? [];
+
+        return $this->isMany ? $this->related->newCollection($value) : (count($value) ? reset($value) : null);
     }
 
 }
