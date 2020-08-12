@@ -28,7 +28,7 @@ class DumpExport extends AbstractDumpCommand
             // Remove any old JSONs in this dump
             $dumpPath = $this->getDumpPath('local/json/' .app('Resources')->getEndpointForModel($model));
             if (!file_exists($dumpPath)) {
-                mkdir($dumpPath, 1777, true);
+                mkdir($dumpPath, 755, true);
             }
 
             // Create transformer used for generating JSON output
