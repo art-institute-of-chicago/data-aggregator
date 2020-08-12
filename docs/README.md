@@ -15,7 +15,7 @@ If the application you're building will be public, please send it our way! We'd 
 An [API](https://www.youtube.com/watch?v=81ygVYCupdo) is a structured way that one software application can talk to another. APIs power much of the software we use today, from the apps on our phones and watches to technology we see in sports and TV shows. We built an API to let people like you easily get our data in an ongoing way.
 
 ::: tip
-Do you want _all_ of our data? Are you running into problems with throttling or deep pagination? Consider using our [data dumps](#data-dumps) instead of our API.
+Do you want _all_ of our data? Are you running into problems with [throttling](#authentication) or [deep pagination](#pagination)? Consider using our [data dumps](#data-dumps) instead of our API.
 :::
 
 For example, you can access the `/artworks` listing endpoint in our API by visiting the following URL to see all the published artworks in our collection:
@@ -112,13 +112,13 @@ There's a lot of information you can get about our collection, and there's a lot
   "artist_id": 51349,
   ```
 
-- Fields that contain id references to multiple documents from another resource are singular and end with `_ids`:
+- Fields that contain id references to multiple records from another resource are singular and end with `_ids`:
 
   ```json
   "style_ids": ["TM-4439", "TM-8542", "TM-4441"],
   ```
 
-- Fields that contains title references to documents from other resources follow naming conventions similar to id-based fields:
+- Fields that contains title references to records from other resources follow naming conventions similar to id-based fields:
 
   ```json
   "artist_title": "Ancient Roman",
@@ -144,11 +144,30 @@ There's a lot of information you can get about our collection, and there's a lot
   "artist_display": null, // GOOD
   ```
 
-- We prefer to always show all fields, even if they are `null` for the current document:
+- We prefer to always show all fields, even if they are `null` for the current record:
 
-  - If a field that typically returns a string, number, or object is empty for a given document, we return it as `null`, rather than omitting it.
+  - If a field that typically returns a string, number, or object is empty for a given record, we return it as `null`, rather than omitting it.
 
   - If a field typically returns an array, we prefer to return an empty array, rather than returning `null`. This is done in part for backwards-compatibility reasons.
+
+
+### Best Practices
+
+Here are some tips that will make your application run faster and/or reduce load on our systems:
+
+- Cache API responses in your system when possible.
+
+- Use the `fields` parameter to tell us exactly what fields you need.
+
+- Batch detail queries with the multi-id parameter (`?ids=`).
+
+- Batch search queries with [multi-search](#multi-search) (`/msearch`).
+
+- When downloading images, use `/full/843,/default.jpg` parameters.
+
+- When scraping, please use a single thread and self-throttle.
+
+- Consider using [data dumps](#data-dumps) instead of scraping our API.
 
 
 ### Authentication
