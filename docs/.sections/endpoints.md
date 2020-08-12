@@ -1,16 +1,16 @@
-# Endpoints
+## Endpoints
 
-## Collections
+### Collections
 
-### Artworks
+#### Artworks
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /artworks`
+##### `GET /artworks`
 
 A list of all artworks sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#artworks).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -27,29 +27,29 @@ A list of all artworks sorted by last updated date in descending order. For a de
 ```js
 {
     "pagination": {
-        "total": 111957,
+        "total": 112786,
         "limit": 2,
         "offset": 0,
-        "total_pages": 55979,
+        "total_pages": 56393,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/artworks?page=2&limit=2"
     },
     "data": [
         {
-            "id": 6565,
+            "id": 236548,
             "api_model": "artworks",
-            "api_link": "https://api.artic.edu/api/v1/artworks/6565",
-            "is_boosted": true,
-            "title": "American Gothic",
+            "api_link": "https://api.artic.edu/api/v1/artworks/236548",
+            "is_boosted": false,
+            "title": "Mogabido",
             "alt_titles": null,
             ...
         },
         {
-            "id": 51981,
+            "id": 240218,
             "api_model": "artworks",
-            "api_link": "https://api.artic.edu/api/v1/artworks/51981",
+            "api_link": "https://api.artic.edu/api/v1/artworks/240218",
             "is_boosted": false,
-            "title": "As\u00ed es el nuevo orden nazi (This Is The New Nazi Regime)",
+            "title": "Fragment II",
             "alt_titles": null,
             ...
         }
@@ -73,11 +73,11 @@ A list of all artworks sorted by last updated date in descending order. For a de
 ```
 :::
 
-#### `GET /artworks/search`
+##### `GET /artworks/search`
 
 Search artworks data in the aggregator. Artworks in the groups of essentials are boosted so they'll show up higher in results.
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -99,7 +99,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
     },
     "data": [
         {
-            "_score": 255.79349,
+            "_score": 247.43706,
             "thumbnail": {
                 "alt_text": "Painting of a pond seen up close spotted with thickly painted pink and white water lilies and a shadow across the top third of the picture.",
                 "width": null,
@@ -113,10 +113,10 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "api_link": "https://api.artic.edu/api/v1/artworks/16568",
             "id": 16568,
             "title": "Water Lilies",
-            "timestamp": "2020-08-03T03:02:53-05:00"
+            "timestamp": "2020-08-12T03:02:52-05:00"
         },
         {
-            "_score": 236.9935,
+            "_score": 229.25125,
             "thumbnail": {
                 "alt_text": "Loosely painted image of an open-air train station. On the right, a parked train gives off an enormous plumb of white smoke, making the scene look as though it were full of clouds. A huddled mass of barely discernible people crowd around the train on both sides of the tracks. Blue, green, and gray tones dominate.",
                 "width": null,
@@ -130,10 +130,10 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "api_link": "https://api.artic.edu/api/v1/artworks/16571",
             "id": 16571,
             "title": "Arrival of the Normandy Train, Gare Saint-Lazare",
-            "timestamp": "2020-08-03T03:02:53-05:00"
+            "timestamp": "2020-08-12T03:02:52-05:00"
         },
         {
-            "_score": 234.38092,
+            "_score": 226.72401,
             "thumbnail": {
                 "alt_text": "Painting composed of short, dense brushstrokes depicts two domed stacks of wheat that cast long shadows on a field. The angled light indicates either a rising or setting sun.",
                 "width": null,
@@ -147,7 +147,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "api_link": "https://api.artic.edu/api/v1/artworks/64818",
             "id": 64818,
             "title": "Stacks of Wheat (End of Summer)",
-            "timestamp": "2020-08-03T03:12:19-05:00"
+            "timestamp": "2020-08-12T03:12:22-05:00"
         }
     ],
     "info": {
@@ -162,19 +162,19 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
 ```
 :::
 
-#### `GET /artworks/{id}`
+##### `GET /artworks/{id}`
 
 A single artwork by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/artworks/6565?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/artworks/236548?limit=2  
 ```js
 {
     "data": {
-        "id": 6565,
+        "id": 236548,
         "api_model": "artworks",
-        "api_link": "https://api.artic.edu/api/v1/artworks/6565",
-        "is_boosted": true,
-        "title": "American Gothic",
+        "api_link": "https://api.artic.edu/api/v1/artworks/236548",
+        "is_boosted": false,
+        "title": "Mogabido",
         "alt_titles": null,
         ...
     },
@@ -197,15 +197,15 @@ A single artwork by the given identifier. {id} is the identifier from our collec
 ```
 :::
 
-### Agents
+#### Agents
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /agents`
+##### `GET /agents`
 
 A list of all agents sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#agents).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -219,31 +219,29 @@ A list of all agents sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 13668,
+        "total": 13891,
         "limit": 2,
         "offset": 0,
-        "total_pages": 6834,
+        "total_pages": 6946,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/agents?page=2&limit=2"
     },
     "data": [
         {
-            "id": 106504,
+            "id": 48957,
             "api_model": "agents",
-            "api_link": "https://api.artic.edu/api/v1/agents/106504",
-            "title": "Crab Tree Farm Foundation Inc.",
-            "sort_title": "Crab Tree Farm Foundation Inc.",
-            "alt_titles": [
-                "Crab Tree Farm Foundation, Inc."
-            ],
+            "api_link": "https://api.artic.edu/api/v1/agents/48957",
+            "title": "Lutz Bacher",
+            "sort_title": "Bacher, Lutz",
+            "alt_titles": null,
             ...
         },
         {
-            "id": 63707,
+            "id": 34988,
             "api_model": "agents",
-            "api_link": "https://api.artic.edu/api/v1/agents/63707",
-            "title": "Ruth Orkin",
-            "sort_title": "Orkin, Ruth",
+            "api_link": "https://api.artic.edu/api/v1/agents/34988",
+            "title": "Winslow Homer",
+            "sort_title": "Homer, Winslow",
             "alt_titles": null,
             ...
         }
@@ -267,11 +265,11 @@ A list of all agents sorted by last updated date in descending order. For a desc
 ```
 :::
 
-#### `GET /agents/search`
+##### `GET /agents/search`
 
 Search agents data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -285,10 +283,10 @@ Search agents data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 13880,
+        "total": 13892,
         "limit": 10,
         "offset": 0,
-        "total_pages": 1388,
+        "total_pages": 1390,
         "current_page": 1
     },
     "data": [
@@ -311,10 +309,10 @@ Search agents data in the aggregator.
         {
             "_score": 1,
             "api_model": "agents",
-            "api_link": "https://api.artic.edu/api/v1/agents/2082",
-            "id": 2082,
-            "title": "\u0160\u00e1rka \u0160efrankov\u00e1 Bene\u0161",
-            "timestamp": "2020-08-03T03:42:53-05:00"
+            "api_link": "https://api.artic.edu/api/v1/agents/4454",
+            "id": 4454,
+            "title": "Hugo Charlemont",
+            "timestamp": "2020-08-12T03:43:52-05:00"
         }
     ],
     "info": {
@@ -329,22 +327,20 @@ Search agents data in the aggregator.
 ```
 :::
 
-#### `GET /agents/{id}`
+##### `GET /agents/{id}`
 
 A single agent by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/agents/106504?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/agents/48957?limit=2  
 ```js
 {
     "data": {
-        "id": 106504,
+        "id": 48957,
         "api_model": "agents",
-        "api_link": "https://api.artic.edu/api/v1/agents/106504",
-        "title": "Crab Tree Farm Foundation Inc.",
-        "sort_title": "Crab Tree Farm Foundation Inc.",
-        "alt_titles": [
-            "Crab Tree Farm Foundation, Inc."
-        ],
+        "api_link": "https://api.artic.edu/api/v1/agents/48957",
+        "title": "Lutz Bacher",
+        "sort_title": "Bacher, Lutz",
+        "alt_titles": null,
         ...
     },
     "info": {
@@ -366,15 +362,15 @@ A single agent by the given identifier. {id} is the identifier from our collecti
 ```
 :::
 
-### Places
+#### Places
 
 _The data in this response is licensed under a Creative Commons Attribution 4.0 Generic License (CC-By) and the Terms and Conditions of artic.edu. Contains information from the J. Paul Getty Trust, Getty Research Institute, the Getty Thesaurus of Geographic Names, which is made available under the ODC Attribution License._
 
-#### `GET /places`
+##### `GET /places`
 
 A list of all places sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#places).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -385,30 +381,30 @@ A list of all places sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 3920,
+        "total": 3918,
         "limit": 2,
         "offset": 0,
-        "total_pages": 1960,
+        "total_pages": 1959,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/places?page=2&limit=2"
     },
     "data": [
         {
-            "id": -2147476160,
+            "id": -37,
             "api_model": "places",
-            "api_link": "https://api.artic.edu/api/v1/places/-2147476160",
-            "title": "Leiden",
+            "api_link": "https://api.artic.edu/api/v1/places/-37",
+            "title": "Cape Town",
             "type": "No location",
-            "last_updated_source": "2020-05-08T05:26:02-05:00",
+            "last_updated_source": "2020-08-11T06:46:44-05:00",
             ...
         },
         {
-            "id": -2147479905,
+            "id": -2147473261,
             "api_model": "places",
-            "api_link": "https://api.artic.edu/api/v1/places/-2147479905",
-            "title": "Lima",
+            "api_link": "https://api.artic.edu/api/v1/places/-2147473261",
+            "title": "Joliet",
             "type": "No location",
-            "last_updated_source": "2020-04-17T10:33:21-05:00",
+            "last_updated_source": "2020-06-23T10:54:15-05:00",
             ...
         }
     ],
@@ -431,11 +427,11 @@ A list of all places sorted by last updated date in descending order. For a desc
 ```
 :::
 
-#### `GET /places/search`
+##### `GET /places/search`
 
 Search places data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -462,7 +458,7 @@ Search places data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/places/-2147483613",
             "id": -2147483613,
             "title": "Peoria",
-            "timestamp": "2020-08-03T03:44:42-05:00"
+            "timestamp": "2020-08-12T03:45:47-05:00"
         },
         {
             "_score": 1,
@@ -470,7 +466,7 @@ Search places data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/places/-2147483581",
             "id": -2147483581,
             "title": "Askov",
-            "timestamp": "2020-08-03T03:44:42-05:00"
+            "timestamp": "2020-08-12T03:45:47-05:00"
         },
         {
             "_score": 1,
@@ -478,7 +474,7 @@ Search places data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/places/-2147483534",
             "id": -2147483534,
             "title": "Z\u00fcrich",
-            "timestamp": "2020-08-03T03:44:42-05:00"
+            "timestamp": "2020-08-12T03:45:47-05:00"
         }
     ],
     "info": {
@@ -493,20 +489,20 @@ Search places data in the aggregator.
 ```
 :::
 
-#### `GET /places/{id}`
+##### `GET /places/{id}`
 
 A single place by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/places/-2147476160?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/places/-37?limit=2  
 ```js
 {
     "data": {
-        "id": -2147476160,
+        "id": -37,
         "api_model": "places",
-        "api_link": "https://api.artic.edu/api/v1/places/-2147476160",
-        "title": "Leiden",
+        "api_link": "https://api.artic.edu/api/v1/places/-37",
+        "title": "Cape Town",
         "type": "No location",
-        "last_updated_source": "2020-05-08T05:26:02-05:00",
+        "last_updated_source": "2020-08-11T06:46:44-05:00",
         ...
     },
     "info": {
@@ -528,15 +524,15 @@ A single place by the given identifier. {id} is the identifier from our collecti
 ```
 :::
 
-### Galleries
+#### Galleries
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /galleries`
+##### `GET /galleries`
 
 A list of all galleries sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#galleries).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -593,11 +589,11 @@ A list of all galleries sorted by last updated date in descending order. For a d
 ```
 :::
 
-#### `GET /galleries/search`
+##### `GET /galleries/search`
 
 Search galleries data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -624,7 +620,7 @@ Search galleries data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/galleries/2",
             "id": 2,
             "title": "East Garden at Columbus Drive",
-            "timestamp": "2020-08-03T03:44:45-05:00"
+            "timestamp": "2020-08-12T03:45:50-05:00"
         },
         {
             "_score": 1,
@@ -632,7 +628,7 @@ Search galleries data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/galleries/346",
             "id": 346,
             "title": "Stock Exchange Trading Room",
-            "timestamp": "2020-08-03T03:44:45-05:00"
+            "timestamp": "2020-08-12T03:45:50-05:00"
         },
         {
             "_score": 1,
@@ -640,7 +636,7 @@ Search galleries data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/galleries/2705",
             "id": 2705,
             "title": "Gallery 59",
-            "timestamp": "2020-08-03T03:44:45-05:00"
+            "timestamp": "2020-08-12T03:45:50-05:00"
         }
     ],
     "info": {
@@ -655,7 +651,7 @@ Search galleries data in the aggregator.
 ```
 :::
 
-#### `GET /galleries/{id}`
+##### `GET /galleries/{id}`
 
 A single gallery by the given identifier. {id} is the identifier from our collections management system.
 
@@ -690,15 +686,15 @@ A single gallery by the given identifier. {id} is the identifier from our collec
 ```
 :::
 
-### Exhibitions
+#### Exhibitions
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /exhibitions`
+##### `GET /exhibitions`
 
 A list of all exhibitions sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#exhibitions).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -712,30 +708,30 @@ A list of all exhibitions sorted by last updated date in descending order. For a
 ```js
 {
     "pagination": {
-        "total": 6351,
+        "total": 6353,
         "limit": 2,
         "offset": 0,
-        "total_pages": 3176,
+        "total_pages": 3177,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/exhibitions?page=2&limit=2"
     },
     "data": [
         {
-            "id": 1929,
+            "id": 9531,
             "api_model": "exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/exhibitions/1929",
-            "title": "Whistler and Roussel: Linked Visions",
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/9531",
+            "title": "Richard Hunt: Scholar's Rock, or Stone of Hope, or Love of Bronze",
             "is_featured": false,
-            "is_published": false,
+            "is_published": true,
             ...
         },
         {
-            "id": 9040,
+            "id": 2930,
             "api_model": "exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/exhibitions/9040",
-            "title": "PHOTOGRAPHY + PHOTOGRAPHY Iconic: Photographs from the Robin and Sandy Stuart Collection",
-            "is_featured": true,
-            "is_published": true,
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/2930",
+            "title": "Barbara Kruger. \nThinking of You.\nI Mean Me.\nI Mean You.",
+            "is_featured": false,
+            "is_published": false,
             ...
         }
     ],
@@ -758,11 +754,11 @@ A list of all exhibitions sorted by last updated date in descending order. For a
 ```
 :::
 
-#### `GET /exhibitions/search`
+##### `GET /exhibitions/search`
 
 Search exhibitions data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -776,7 +772,7 @@ Search exhibitions data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 6352,
+        "total": 6353,
         "limit": 10,
         "offset": 0,
         "total_pages": 636,
@@ -786,26 +782,26 @@ Search exhibitions data in the aggregator.
         {
             "_score": 1,
             "api_model": "exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/exhibitions/1953",
-            "id": 1953,
-            "title": "Strokes of Genius: Italian Drawings from the Goldman Collection",
-            "timestamp": "2020-08-03T03:44:54-05:00"
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/1321",
+            "id": 1321,
+            "title": "Souvenirs of the Barbizon: Photographs, Paintings, and Works on Paper",
+            "timestamp": "2020-08-12T03:45:56-05:00"
         },
         {
             "_score": 1,
             "api_model": "exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/exhibitions/1959",
-            "id": 1959,
-            "title": "Renoir\u2019s True Colors: Science Solves a Mystery",
-            "timestamp": "2020-08-03T03:44:54-05:00"
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/1332",
+            "id": 1332,
+            "title": "Capturing the Sublime: Italian Drawings of the Renaissance and Baroque",
+            "timestamp": "2020-08-12T03:45:56-05:00"
         },
         {
             "_score": 1,
             "api_model": "exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/exhibitions/1977",
-            "id": 1977,
-            "title": "Devouring Books",
-            "timestamp": "2020-08-03T03:44:54-05:00"
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/1333",
+            "id": 1333,
+            "title": "Bertrand Goldberg:  Architecture of Invention",
+            "timestamp": "2020-08-12T03:45:56-05:00"
         }
     ],
     "info": {
@@ -820,20 +816,20 @@ Search exhibitions data in the aggregator.
 ```
 :::
 
-#### `GET /exhibitions/{id}`
+##### `GET /exhibitions/{id}`
 
 A single exhibition by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/exhibitions/1929?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/exhibitions/9531?limit=2  
 ```js
 {
     "data": {
-        "id": 1929,
+        "id": 9531,
         "api_model": "exhibitions",
-        "api_link": "https://api.artic.edu/api/v1/exhibitions/1929",
-        "title": "Whistler and Roussel: Linked Visions",
+        "api_link": "https://api.artic.edu/api/v1/exhibitions/9531",
+        "title": "Richard Hunt: Scholar's Rock, or Stone of Hope, or Love of Bronze",
         "is_featured": false,
-        "is_published": false,
+        "is_published": true,
         ...
     },
     "info": {
@@ -855,15 +851,15 @@ A single exhibition by the given identifier. {id} is the identifier from our col
 ```
 :::
 
-### Agent Types
+#### Agent Types
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /agent-types`
+##### `GET /agent-types`
 
 A list of all agent-types sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#agent-types).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -920,7 +916,7 @@ A list of all agent-types sorted by last updated date in descending order. For a
 ```
 :::
 
-#### `GET /agent-types/{id}`
+##### `GET /agent-types/{id}`
 
 A single agent-type by the given identifier. {id} is the identifier from our collections management system.
 
@@ -955,15 +951,15 @@ A single agent-type by the given identifier. {id} is the identifier from our col
 ```
 :::
 
-### Agent Roles
+#### Agent Roles
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /agent-roles`
+##### `GET /agent-roles`
 
 A list of all agent-roles sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#agent-roles).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -983,19 +979,19 @@ A list of all agent-roles sorted by last updated date in descending order. For a
     },
     "data": [
         {
+            "id": 434,
+            "api_model": "agent-roles",
+            "api_link": "https://api.artic.edu/api/v1/agent-roles/434",
+            "title": "Craftsperson",
+            "last_updated_source": "2020-06-24T11:02:14-05:00",
+            "last_updated": "2020-06-24T16:00:33-05:00",
+            ...
+        },
+        {
             "id": 574,
             "api_model": "agent-roles",
             "api_link": "https://api.artic.edu/api/v1/agent-roles/574",
             "title": "File Transfer",
-            "last_updated_source": "2019-05-08T14:05:12-05:00",
-            "last_updated": "2019-05-09T12:01:07-05:00",
-            ...
-        },
-        {
-            "id": 573,
-            "api_model": "agent-roles",
-            "api_link": "https://api.artic.edu/api/v1/agent-roles/573",
-            "title": "Imitator of",
             "last_updated_source": "2019-05-08T14:05:12-05:00",
             "last_updated": "2019-05-09T12:01:07-05:00",
             ...
@@ -1020,20 +1016,20 @@ A list of all agent-roles sorted by last updated date in descending order. For a
 ```
 :::
 
-#### `GET /agent-roles/{id}`
+##### `GET /agent-roles/{id}`
 
 A single agent-role by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/agent-roles/574?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/agent-roles/434?limit=2  
 ```js
 {
     "data": {
-        "id": 574,
+        "id": 434,
         "api_model": "agent-roles",
-        "api_link": "https://api.artic.edu/api/v1/agent-roles/574",
-        "title": "File Transfer",
-        "last_updated_source": "2019-05-08T14:05:12-05:00",
-        "last_updated": "2019-05-09T12:01:07-05:00",
+        "api_link": "https://api.artic.edu/api/v1/agent-roles/434",
+        "title": "Craftsperson",
+        "last_updated_source": "2020-06-24T11:02:14-05:00",
+        "last_updated": "2020-06-24T16:00:33-05:00",
         ...
     },
     "info": {
@@ -1055,15 +1051,15 @@ A single agent-role by the given identifier. {id} is the identifier from our col
 ```
 :::
 
-### Agent Place Qualifiers
+#### Agent Place Qualifiers
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /agent-place-qualifiers`
+##### `GET /agent-place-qualifiers`
 
 A list of all agent-place-qualifiers sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#agent-place-qualifiers).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -1100,20 +1096,20 @@ A list of all agent-place-qualifiers sorted by last updated date in descending o
 ```
 :::
 
-#### `GET /agent-place-qualifiers/{id}`
+##### `GET /agent-place-qualifiers/{id}`
 
 A single agent-place-qualifier by the given identifier. {id} is the identifier from our collections management system.
 
 
-### Artwork Types
+#### Artwork Types
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /artwork-types`
+##### `GET /artwork-types`
 
 A list of all artwork-types sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#artwork-types).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -1170,7 +1166,7 @@ A list of all artwork-types sorted by last updated date in descending order. For
 ```
 :::
 
-#### `GET /artwork-types/{id}`
+##### `GET /artwork-types/{id}`
 
 A single artwork-type by the given identifier. {id} is the identifier from our collections management system.
 
@@ -1205,15 +1201,15 @@ A single artwork-type by the given identifier. {id} is the identifier from our c
 ```
 :::
 
-### Artwork Place Qualifiers
+#### Artwork Place Qualifiers
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /artwork-place-qualifiers`
+##### `GET /artwork-place-qualifiers`
 
 A list of all artwork-place-qualifiers sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#artwork-place-qualifiers).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -1270,7 +1266,7 @@ A list of all artwork-place-qualifiers sorted by last updated date in descending
 ```
 :::
 
-#### `GET /artwork-place-qualifiers/{id}`
+##### `GET /artwork-place-qualifiers/{id}`
 
 A single artwork-place-qualifier by the given identifier. {id} is the identifier from our collections management system.
 
@@ -1305,15 +1301,15 @@ A single artwork-place-qualifier by the given identifier. {id} is the identifier
 ```
 :::
 
-### Artwork Date Qualifiers
+#### Artwork Date Qualifiers
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /artwork-date-qualifiers`
+##### `GET /artwork-date-qualifiers`
 
 A list of all artwork-date-qualifiers sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#artwork-date-qualifiers).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -1370,7 +1366,7 @@ A list of all artwork-date-qualifiers sorted by last updated date in descending 
 ```
 :::
 
-#### `GET /artwork-date-qualifiers/{id}`
+##### `GET /artwork-date-qualifiers/{id}`
 
 A single artwork-date-qualifier by the given identifier. {id} is the identifier from our collections management system.
 
@@ -1405,15 +1401,15 @@ A single artwork-date-qualifier by the given identifier. {id} is the identifier 
 ```
 :::
 
-### Catalogues
+#### Catalogues
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /catalogues`
+##### `GET /catalogues`
 
 A list of all catalogues sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#catalogues).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -1470,7 +1466,7 @@ A list of all catalogues sorted by last updated date in descending order. For a 
 ```
 :::
 
-#### `GET /catalogues/{id}`
+##### `GET /catalogues/{id}`
 
 A single catalogue by the given identifier. {id} is the identifier from our collections management system.
 
@@ -1505,15 +1501,15 @@ A single catalogue by the given identifier. {id} is the identifier from our coll
 ```
 :::
 
-### Category Terms
+#### Category Terms
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /category-terms`
+##### `GET /category-terms`
 
 A list of all category-terms sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#category-terms).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -1524,28 +1520,28 @@ A list of all category-terms sorted by last updated date in descending order. Fo
 ```js
 {
     "pagination": {
-        "total": 8907,
+        "total": 9185,
         "limit": 2,
         "offset": 0,
-        "total_pages": 4454,
+        "total_pages": 4593,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/category-terms?page=2&limit=2"
     },
     "data": [
         {
-            "id": "TM-14202",
+            "id": "TM-14479",
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14202",
-            "title": "abstraction",
-            "subtype": "classification",
+            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14479",
+            "title": "hand woven",
+            "subtype": "technique",
             "parent_id": null,
             ...
         },
         {
-            "id": "TM-14201",
+            "id": "TM-14478",
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14201",
-            "title": "foam",
+            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14478",
+            "title": "computer-assisted Jacquard loom",
             "subtype": "technique",
             "parent_id": null,
             ...
@@ -1570,11 +1566,11 @@ A list of all category-terms sorted by last updated date in descending order. Fo
 ```
 :::
 
-#### `GET /category-terms/search`
+##### `GET /category-terms/search`
 
 Search category-terms data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -1588,36 +1584,36 @@ Search category-terms data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 9166,
+        "total": 9185,
         "limit": 10,
         "offset": 0,
-        "total_pages": 917,
+        "total_pages": 919,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-11736",
-            "id": "TM-11736",
-            "title": "tooth components as material",
-            "timestamp": "2020-08-03T03:46:12-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/PC-1",
+            "id": "PC-1",
+            "title": "Arts of Africa",
+            "timestamp": "2020-08-12T03:47:14-05:00"
         },
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-11737",
-            "id": "TM-11737",
-            "title": "coral",
-            "timestamp": "2020-08-03T03:46:12-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/PC-10",
+            "id": "PC-10",
+            "title": "European Painting and Sculpture",
+            "timestamp": "2020-08-12T03:47:14-05:00"
         },
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-11738",
-            "id": "TM-11738",
-            "title": "amber",
-            "timestamp": "2020-08-03T03:46:12-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/PC-100",
+            "id": "PC-100",
+            "title": "Impressionism and Post-Impressionism",
+            "timestamp": "2020-08-12T03:47:14-05:00"
         }
     ],
     "info": {
@@ -1632,19 +1628,19 @@ Search category-terms data in the aggregator.
 ```
 :::
 
-#### `GET /category-terms/{id}`
+##### `GET /category-terms/{id}`
 
 A single category-term by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/category-terms/TM-14202?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/category-terms/TM-14479?limit=2  
 ```js
 {
     "data": {
-        "id": "TM-14202",
+        "id": "TM-14479",
         "api_model": "category-terms",
-        "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14202",
-        "title": "abstraction",
-        "subtype": "classification",
+        "api_link": "https://api.artic.edu/api/v1/category-terms/TM-14479",
+        "title": "hand woven",
+        "subtype": "technique",
         "parent_id": null,
         ...
     },
@@ -1667,15 +1663,15 @@ A single category-term by the given identifier. {id} is the identifier from our 
 ```
 :::
 
-### Assets
+#### Assets
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /assets`
+##### `GET /assets`
 
 A list of all assets sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#assets).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -1686,30 +1682,30 @@ A list of all assets sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 143472,
+        "total": 145124,
         "limit": 2,
         "offset": 0,
-        "total_pages": 71736,
+        "total_pages": 72562,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/assets?page=2&limit=2"
     },
     "data": [
         {
-            "id": "3e8cfa8f-e917-4b10-74c9-6068d05f0615",
-            "lake_guid": "3e8cfa8f-e917-4b10-74c9-6068d05f0615",
+            "id": "798c9e3b-203e-5ec8-753e-fdd3c0fa5f02",
+            "lake_guid": "798c9e3b-203e-5ec8-753e-fdd3c0fa5f02",
             "api_model": "assets",
-            "api_link": "https://api.artic.edu/api/v1/assets/3e8cfa8f-e917-4b10-74c9-6068d05f0615",
-            "title": "Audio stop 413.mp3",
-            "type": "sound",
+            "api_link": "https://api.artic.edu/api/v1/assets/798c9e3b-203e-5ec8-753e-fdd3c0fa5f02",
+            "title": "278842",
+            "type": "image",
             ...
         },
         {
-            "id": "362fb2d1-96ca-ffd0-733d-94a0c930a808",
-            "lake_guid": "362fb2d1-96ca-ffd0-733d-94a0c930a808",
+            "id": "e4d1214c-9756-3519-93e9-0f8e6e31840f",
+            "lake_guid": "e4d1214c-9756-3519-93e9-0f8e6e31840f",
             "api_model": "assets",
-            "api_link": "https://api.artic.edu/api/v1/assets/362fb2d1-96ca-ffd0-733d-94a0c930a808",
-            "title": "Audio stop 924.mp3",
-            "type": "sound",
+            "api_link": "https://api.artic.edu/api/v1/assets/e4d1214c-9756-3519-93e9-0f8e6e31840f",
+            "title": "IM022580",
+            "type": "image",
             ...
         }
     ],
@@ -1732,20 +1728,20 @@ A list of all assets sorted by last updated date in descending order. For a desc
 ```
 :::
 
-#### `GET /assets/{id}`
+##### `GET /assets/{id}`
 
 A single asset by the given identifier. {id} is the identifier from our collections management system.
 
 
-### Images
+#### Images
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /images`
+##### `GET /images`
 
 A list of all images sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#images).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -1756,29 +1752,29 @@ A list of all images sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 140290,
+        "total": 141947,
         "limit": 2,
         "offset": 0,
-        "total_pages": 70145,
+        "total_pages": 70974,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/images?page=2&limit=2"
     },
     "data": [
         {
-            "id": "91f3d50f-db37-d9f0-0370-f076f3cff73c",
-            "lake_guid": "91f3d50f-db37-d9f0-0370-f076f3cff73c",
+            "id": "798c9e3b-203e-5ec8-753e-fdd3c0fa5f02",
+            "lake_guid": "798c9e3b-203e-5ec8-753e-fdd3c0fa5f02",
             "api_model": "images",
-            "api_link": "https://api.artic.edu/api/v1/images/91f3d50f-db37-d9f0-0370-f076f3cff73c",
-            "title": "Still1_TheWhitetobeAngry.jpg",
+            "api_link": "https://api.artic.edu/api/v1/images/798c9e3b-203e-5ec8-753e-fdd3c0fa5f02",
+            "title": "278842",
             "type": "image",
             ...
         },
         {
-            "id": "8e7d641a-2ee6-e0a2-a047-7655991ab26c",
-            "lake_guid": "8e7d641a-2ee6-e0a2-a047-7655991ab26c",
+            "id": "e4d1214c-9756-3519-93e9-0f8e6e31840f",
+            "lake_guid": "e4d1214c-9756-3519-93e9-0f8e6e31840f",
             "api_model": "images",
-            "api_link": "https://api.artic.edu/api/v1/images/8e7d641a-2ee6-e0a2-a047-7655991ab26c",
-            "title": "Still2_TheWhitetobeAngry.jpg",
+            "api_link": "https://api.artic.edu/api/v1/images/e4d1214c-9756-3519-93e9-0f8e6e31840f",
+            "title": "IM022580",
             "type": "image",
             ...
         }
@@ -1802,11 +1798,11 @@ A list of all images sorted by last updated date in descending order. For a desc
 ```
 :::
 
-#### `GET /images/search`
+##### `GET /images/search`
 
 Search images data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -1820,10 +1816,10 @@ Search images data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 141718,
+        "total": 141960,
         "limit": 10,
         "offset": 0,
-        "total_pages": 14172,
+        "total_pages": 14196,
         "current_page": 1
     },
     "data": [
@@ -1864,20 +1860,20 @@ Search images data in the aggregator.
 ```
 :::
 
-#### `GET /images/{id}`
+##### `GET /images/{id}`
 
 A single image by the given identifier. {id} is the identifier from our collections management system.
 
 
-### Videos
+#### Videos
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /videos`
+##### `GET /videos`
 
 A list of all videos sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#videos).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -1888,10 +1884,10 @@ A list of all videos sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 5,
+        "total": 4,
         "limit": 2,
         "offset": 0,
-        "total_pages": 3,
+        "total_pages": 2,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/videos?page=2&limit=2"
     },
@@ -1934,11 +1930,11 @@ A list of all videos sorted by last updated date in descending order. For a desc
 ```
 :::
 
-#### `GET /videos/search`
+##### `GET /videos/search`
 
 Search videos data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -1965,7 +1961,7 @@ Search videos data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/videos/1ee4a231-0dad-2638-24fd-dfa2138eb142",
             "id": "1ee4a231-0dad-2638-24fd-dfa2138eb142",
             "title": "Digital Simulation: Original appearance of <em>For to Be a Farmer's Boy</em>",
-            "timestamp": "2020-08-03T05:06:13-05:00"
+            "timestamp": "2020-08-12T05:13:31-05:00"
         },
         {
             "_score": 1,
@@ -1973,7 +1969,7 @@ Search videos data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/videos/c051f71e-2b69-ac68-9aa8-99410d91f3f3",
             "id": "c051f71e-2b69-ac68-9aa8-99410d91f3f3",
             "title": "Under Cover: The Science of Van Gogh's Bedroom",
-            "timestamp": "2020-08-03T05:06:13-05:00"
+            "timestamp": "2020-08-12T05:13:31-05:00"
         },
         {
             "_score": 1,
@@ -1981,7 +1977,7 @@ Search videos data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/videos/c5700df1-473c-c1cd-ab1b-79b20a32fc27",
             "id": "c5700df1-473c-c1cd-ab1b-79b20a32fc27",
             "title": "Online Game: Winslow Homer's <em>The Water Fan</em>",
-            "timestamp": "2020-08-03T05:06:13-05:00"
+            "timestamp": "2020-08-12T05:13:31-05:00"
         }
     ],
     "info": {
@@ -1996,20 +1992,20 @@ Search videos data in the aggregator.
 ```
 :::
 
-#### `GET /videos/{id}`
+##### `GET /videos/{id}`
 
 A single video by the given identifier. {id} is the identifier from our collections management system.
 
 
-### Sounds
+#### Sounds
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /sounds`
+##### `GET /sounds`
 
 A list of all sounds sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#sounds).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -2020,29 +2016,29 @@ A list of all sounds sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 1104,
+        "total": 1102,
         "limit": 2,
         "offset": 0,
-        "total_pages": 552,
+        "total_pages": 551,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/sounds?page=2&limit=2"
     },
     "data": [
         {
-            "id": "3e8cfa8f-e917-4b10-74c9-6068d05f0615",
-            "lake_guid": "3e8cfa8f-e917-4b10-74c9-6068d05f0615",
+            "id": "1ac585eb-257e-2b3b-1a07-8cf2a06d7e16",
+            "lake_guid": "1ac585eb-257e-2b3b-1a07-8cf2a06d7e16",
             "api_model": "sounds",
-            "api_link": "https://api.artic.edu/api/v1/sounds/3e8cfa8f-e917-4b10-74c9-6068d05f0615",
-            "title": "Audio stop 413.mp3",
+            "api_link": "https://api.artic.edu/api/v1/sounds/1ac585eb-257e-2b3b-1a07-8cf2a06d7e16",
+            "title": "Audio stop 963.mp3",
             "type": "sound",
             ...
         },
         {
-            "id": "362fb2d1-96ca-ffd0-733d-94a0c930a808",
-            "lake_guid": "362fb2d1-96ca-ffd0-733d-94a0c930a808",
+            "id": "18526870-d924-4bc6-237b-da10fd586aaa",
+            "lake_guid": "18526870-d924-4bc6-237b-da10fd586aaa",
             "api_model": "sounds",
-            "api_link": "https://api.artic.edu/api/v1/sounds/362fb2d1-96ca-ffd0-733d-94a0c930a808",
-            "title": "Audio stop 924.mp3",
+            "api_link": "https://api.artic.edu/api/v1/sounds/18526870-d924-4bc6-237b-da10fd586aaa",
+            "title": "Audio stop 818.mp3",
             "type": "sound",
             ...
         }
@@ -2066,11 +2062,11 @@ A list of all sounds sorted by last updated date in descending order. For a desc
 ```
 :::
 
-#### `GET /sounds/search`
+##### `GET /sounds/search`
 
 Search sounds data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -2097,7 +2093,7 @@ Search sounds data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sounds/31bdc88e-581d-b744-022b-7e9571b95ff2",
             "id": "31bdc88e-581d-b744-022b-7e9571b95ff2",
             "title": "Audio Lecture: Winslow Homer, Artist and Angler",
-            "timestamp": "2020-08-03T05:06:16-05:00"
+            "timestamp": "2020-08-12T05:13:34-05:00"
         },
         {
             "_score": 1,
@@ -2105,7 +2101,7 @@ Search sounds data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sounds/31c370a9-98de-3533-c14e-c91776c8bf82",
             "id": "31c370a9-98de-3533-c14e-c91776c8bf82",
             "title": "Audio Lecture: Mel Bochner Symposium, Introduction and Keynote",
-            "timestamp": "2020-08-03T05:06:16-05:00"
+            "timestamp": "2020-08-12T05:13:34-05:00"
         },
         {
             "_score": 1,
@@ -2113,7 +2109,7 @@ Search sounds data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sounds/31ee173d-cd35-88ef-9362-61722a5e10bf",
             "id": "31ee173d-cd35-88ef-9362-61722a5e10bf",
             "title": "Audio stop 442.wav",
-            "timestamp": "2020-08-03T05:06:16-05:00"
+            "timestamp": "2020-08-12T05:13:34-05:00"
         }
     ],
     "info": {
@@ -2128,20 +2124,20 @@ Search sounds data in the aggregator.
 ```
 :::
 
-#### `GET /sounds/{id}`
+##### `GET /sounds/{id}`
 
 A single sound by the given identifier. {id} is the identifier from our collections management system.
 
 
-### Texts
+#### Texts
 
 _The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
 
-#### `GET /texts`
+##### `GET /texts`
 
 A list of all texts sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#texts).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -2152,29 +2148,29 @@ A list of all texts sorted by last updated date in descending order. For a descr
 ```js
 {
     "pagination": {
-        "total": 2073,
+        "total": 2071,
         "limit": 2,
         "offset": 0,
-        "total_pages": 1037,
+        "total_pages": 1036,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/texts?page=2&limit=2"
     },
     "data": [
         {
-            "id": "94fec0ef-f7e8-de18-1abd-437ba326d47c",
-            "lake_guid": "94fec0ef-f7e8-de18-1abd-437ba326d47c",
+            "id": "6f45a6b5-784e-4a59-46d7-99e066cd29f6",
+            "lake_guid": "6f45a6b5-784e-4a59-46d7-99e066cd29f6",
             "api_model": "texts",
-            "api_link": "https://api.artic.edu/api/v1/texts/94fec0ef-f7e8-de18-1abd-437ba326d47c",
-            "title": "Chart: Chronology of the Obas of Benin",
+            "api_link": "https://api.artic.edu/api/v1/texts/6f45a6b5-784e-4a59-46d7-99e066cd29f6",
+            "title": "Audio Transcript 963.txt",
             "type": "text",
             ...
         },
         {
-            "id": "8440fd93-e2f6-140c-d1ba-27ee861f9575",
-            "lake_guid": "8440fd93-e2f6-140c-d1ba-27ee861f9575",
+            "id": "3c6168fb-d604-0ea8-6cc5-2b55b716b8e3",
+            "lake_guid": "3c6168fb-d604-0ea8-6cc5-2b55b716b8e3",
             "api_model": "texts",
-            "api_link": "https://api.artic.edu/api/v1/texts/8440fd93-e2f6-140c-d1ba-27ee861f9575",
-            "title": "Audio transcript 409.txt",
+            "api_link": "https://api.artic.edu/api/v1/texts/3c6168fb-d604-0ea8-6cc5-2b55b716b8e3",
+            "title": "Audio Transcript 963-1.txt",
             "type": "text",
             ...
         }
@@ -2198,11 +2194,11 @@ A list of all texts sorted by last updated date in descending order. For a descr
 ```
 :::
 
-#### `GET /texts/search`
+##### `GET /texts/search`
 
 Search texts data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -2226,26 +2222,26 @@ Search texts data in the aggregator.
         {
             "_score": 1,
             "api_model": "texts",
-            "api_link": "https://api.artic.edu/api/v1/texts/003a874b-1325-1ae5-5679-568e2fa377fa",
-            "id": "003a874b-1325-1ae5-5679-568e2fa377fa",
-            "title": "AIC1926ChiArExh39thAn_comb.pdf",
-            "timestamp": "2020-08-03T05:06:28-05:00"
+            "api_link": "https://api.artic.edu/api/v1/texts/0ce7c09b-72fa-2879-0e4a-f460a04276aa",
+            "id": "0ce7c09b-72fa-2879-0e4a-f460a04276aa",
+            "title": "Audio Transcript 957.txt",
+            "timestamp": "2020-08-12T05:13:49-05:00"
         },
         {
             "_score": 1,
             "api_model": "texts",
-            "api_link": "https://api.artic.edu/api/v1/texts/00412027-e9c3-c75b-4304-a8f362b31d7d",
-            "id": "00412027-e9c3-c75b-4304-a8f362b31d7d",
-            "title": "Audio Transcript 218.txt",
-            "timestamp": "2020-08-03T05:06:28-05:00"
+            "api_link": "https://api.artic.edu/api/v1/texts/0ce9f003-fa67-e2c9-bcd5-33d3196510fa",
+            "id": "0ce9f003-fa67-e2c9-bcd5-33d3196510fa",
+            "title": "AIC1921APoole_comb.pdf",
+            "timestamp": "2020-08-12T05:13:49-05:00"
         },
         {
             "_score": 1,
             "api_model": "texts",
-            "api_link": "https://api.artic.edu/api/v1/texts/006e038b-dd9e-c2b8-8dfd-21fa34d3660d",
-            "id": "006e038b-dd9e-c2b8-8dfd-21fa34d3660d",
-            "title": "AIC1926FSchofield_comb.pdf",
-            "timestamp": "2020-08-03T05:06:28-05:00"
+            "api_link": "https://api.artic.edu/api/v1/texts/0d0b2dd0-c275-ae3b-e6f7-6766fc503e22",
+            "id": "0d0b2dd0-c275-ae3b-e6f7-6766fc503e22",
+            "title": "Educator Resource Packet: <em>A Boy in Front of the Loews 125th Street Movie Theater</em>, from the series<em> Harlem, U.S.A </em>",
+            "timestamp": "2020-08-12T05:13:49-05:00"
         }
     ],
     "info": {
@@ -2260,22 +2256,22 @@ Search texts data in the aggregator.
 ```
 :::
 
-#### `GET /texts/{id}`
+##### `GET /texts/{id}`
 
 A single text by the given identifier. {id} is the identifier from our collections management system.
 
 
-## Shop
+### Shop
 
-### Shop Categories
+#### Shop Categories
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /shop-categories`
+##### `GET /shop-categories`
 
 A list of all shop-categories sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#shop-categories).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -2288,13 +2284,33 @@ A list of all shop-categories sorted by last updated date in descending order. F
 ```js
 {
     "pagination": {
-        "total": 0,
+        "total": 87,
         "limit": 2,
         "offset": 0,
-        "total_pages": 1,
-        "current_page": 1
+        "total_pages": 44,
+        "current_page": 1,
+        "next_url": "https://api.artic.edu/api/v1/shop-categories?page=2&limit=2"
     },
-    "data": [],
+    "data": [
+        {
+            "id": 56,
+            "api_model": "shop-categories",
+            "api_link": "https://api.artic.edu/api/v1/shop-categories/56",
+            "title": "Totes",
+            "web_url": "http://shop.artic.edu/browse.aspx?catID=56",
+            "parent_id": 3,
+            ...
+        },
+        {
+            "id": 53,
+            "api_model": "shop-categories",
+            "api_link": "https://api.artic.edu/api/v1/shop-categories/53",
+            "title": "Religious",
+            "web_url": "http://shop.artic.edu/browse.aspx?catID=53",
+            "parent_id": 6,
+            ...
+        }
+    ],
     "info": {
         "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
         "license_links": [
@@ -2313,11 +2329,11 @@ A list of all shop-categories sorted by last updated date in descending order. F
 ```
 :::
 
-#### `GET /shop-categories/search`
+##### `GET /shop-categories/search`
 
 Search shop-categories data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -2344,7 +2360,7 @@ Search shop-categories data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/shop-categories/2",
             "id": 2,
             "title": "Books & Prints",
-            "timestamp": "2020-08-03T05:06:36-05:00"
+            "timestamp": "2020-08-12T05:13:57-05:00"
         },
         {
             "_score": 1,
@@ -2352,7 +2368,7 @@ Search shop-categories data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/shop-categories/3",
             "id": 3,
             "title": "Fashion & Accessories",
-            "timestamp": "2020-08-03T05:06:36-05:00"
+            "timestamp": "2020-08-12T05:13:57-05:00"
         },
         {
             "_score": 1,
@@ -2360,7 +2376,7 @@ Search shop-categories data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/shop-categories/4",
             "id": 4,
             "title": "Decor",
-            "timestamp": "2020-08-03T05:06:36-05:00"
+            "timestamp": "2020-08-12T05:13:57-05:00"
         }
     ],
     "info": {
@@ -2374,20 +2390,49 @@ Search shop-categories data in the aggregator.
 ```
 :::
 
-#### `GET /shop-categories/{id}`
+##### `GET /shop-categories/{id}`
 
 A single shop-category by the given identifier.
 
+::: details Example request: https://api.artic.edu/api/v1/shop-categories/56?limit=2  
+```js
+{
+    "data": {
+        "id": 56,
+        "api_model": "shop-categories",
+        "api_link": "https://api.artic.edu/api/v1/shop-categories/56",
+        "title": "Totes",
+        "web_url": "http://shop.artic.edu/browse.aspx?catID=56",
+        "parent_id": 3,
+        ...
+    },
+    "info": {
+        "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
+        "license_links": [
+            "https://www.artic.edu/terms"
+        ],
+        "version": "1.0-rc15",
+        "documentation": "http://art-institute-of-chicago.github.io/data-aggregator"
+    },
+    "config": {
+        "iiif_url": "https://lakeimagesweb.artic.edu/iiif/2",
+        "shop_image_url": "https://shop-images.imgix.net",
+        "shop_product_url": "http://shop.artic.edu/item.aspx?productId=",
+        "shop_category_url": "http://shop.artic.edu/item.aspx?productId="
+    }
+}
+```
+:::
 
-### Products
+#### Products
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /products`
+##### `GET /products`
 
 A list of all products sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#products).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -2398,28 +2443,28 @@ A list of all products sorted by last updated date in descending order. For a de
 ```js
 {
     "pagination": {
-        "total": 6500,
+        "total": 6929,
         "limit": 2,
         "offset": 0,
-        "total_pages": 3250,
+        "total_pages": 3465,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/products?page=2&limit=2"
     },
     "data": [
         {
-            "id": 8652,
+            "id": 6970,
             "api_model": "products",
-            "api_link": "https://api.artic.edu/api/v1/products/8652",
-            "title": "TRAY INTERVALS OF SEVENTHS 6X12IN",
+            "api_link": "https://api.artic.edu/api/v1/products/6970",
+            "title": "FPT RAFFAEL WHITE LILY",
             "title_sort": null,
             "is_active": false,
             ...
         },
         {
-            "id": 8651,
+            "id": 6969,
             "api_model": "products",
-            "api_link": "https://api.artic.edu/api/v1/products/8651",
-            "title": "SCRF MIXED TONES SILK",
+            "api_link": "https://api.artic.edu/api/v1/products/6969",
+            "title": "FPT KOOP SUMMER SALES FRAME",
             "title_sort": null,
             "is_active": false,
             ...
@@ -2443,11 +2488,11 @@ A list of all products sorted by last updated date in descending order. For a de
 ```
 :::
 
-#### `GET /products/search`
+##### `GET /products/search`
 
 Search products data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -2461,7 +2506,7 @@ Search products data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 6928,
+        "total": 6929,
         "limit": 10,
         "offset": 0,
         "total_pages": 693,
@@ -2471,26 +2516,26 @@ Search products data in the aggregator.
         {
             "_score": 1,
             "api_model": "products",
-            "api_link": "https://api.artic.edu/api/v1/products/411",
-            "id": 411,
-            "title": "Silver Scribble Tree Pin",
-            "timestamp": "2020-08-03T05:06:37-05:00"
+            "api_link": "https://api.artic.edu/api/v1/products/594",
+            "id": 594,
+            "title": "Petite Paperweight Plate Set",
+            "timestamp": "2020-08-12T05:13:59-05:00"
         },
         {
             "_score": 1,
             "api_model": "products",
-            "api_link": "https://api.artic.edu/api/v1/products/412",
-            "id": 412,
-            "title": "Snowman Pin",
-            "timestamp": "2020-08-03T05:06:37-05:00"
+            "api_link": "https://api.artic.edu/api/v1/products/599",
+            "id": 599,
+            "title": "Silk Rose Pins",
+            "timestamp": "2020-08-12T05:13:59-05:00"
         },
         {
             "_score": 1,
             "api_model": "products",
-            "api_link": "https://api.artic.edu/api/v1/products/414",
-            "id": 414,
-            "title": "Pussy Willow Necklace",
-            "timestamp": "2020-08-03T05:06:37-05:00"
+            "api_link": "https://api.artic.edu/api/v1/products/604",
+            "id": 604,
+            "title": "Italian Glass Trees",
+            "timestamp": "2020-08-12T05:13:59-05:00"
         }
     ],
     "info": {
@@ -2504,18 +2549,18 @@ Search products data in the aggregator.
 ```
 :::
 
-#### `GET /products/{id}`
+##### `GET /products/{id}`
 
 A single product by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/products/8509?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/products/4272?limit=2  
 ```js
 {
     "data": {
-        "id": 8509,
+        "id": 4272,
         "api_model": "products",
-        "api_link": "https://api.artic.edu/api/v1/products/8509",
-        "title": "Lexon Mino Speaker - Polished",
+        "api_link": "https://api.artic.edu/api/v1/products/4272",
+        "title": "The Age of French Impressionism: Masterpieces from the Art Institute of Chicago",
         "title_sort": null,
         "is_active": true,
         ...
@@ -2538,17 +2583,17 @@ A single product by the given identifier.
 ```
 :::
 
-## Mobile
+### Mobile
 
-### Tours
+#### Tours
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /tours`
+##### `GET /tours`
 
 A list of all tours sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#tours).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -2579,12 +2624,12 @@ A list of all tours sorted by last updated date in descending order. For a descr
             ...
         },
         {
-            "id": 1000,
+            "id": 1023,
             "api_model": "tours",
-            "api_link": "https://api.artic.edu/api/v1/tours/1000",
-            "title": "Magic of the Miniature",
-            "image": "http://aic-mobile-tours.artic.edu/sites/default/files/tour-images/E17048_reduced.jpg",
-            "description": "<p>Travel back in time through the magic of the Thorne Rooms.</p>\n",
+            "api_link": "https://api.artic.edu/api/v1/tours/1023",
+            "title": "The Architecture Tour",
+            "image": "http://aic-mobile-tours.artic.edu/sites/default/files/tour-images/IM016907_008_reduced.jpg",
+            "description": "<p>Uncover the secrets of the museum\u2019s storied architecture.</p>\n",
             ...
         }
     ],
@@ -2606,11 +2651,11 @@ A list of all tours sorted by last updated date in descending order. For a descr
 ```
 :::
 
-#### `GET /tours/search`
+##### `GET /tours/search`
 
 Search tours data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -2667,7 +2712,7 @@ Search tours data in the aggregator.
 ```
 :::
 
-#### `GET /tours/{id}`
+##### `GET /tours/{id}`
 
 A single tour by the given identifier.
 
@@ -2701,15 +2746,15 @@ A single tour by the given identifier.
 ```
 :::
 
-### Mobile Sounds
+#### Mobile Sounds
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /mobile-sounds`
+##### `GET /mobile-sounds`
 
 A list of all mobile-sounds sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#mobile-sounds).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -2720,30 +2765,30 @@ A list of all mobile-sounds sorted by last updated date in descending order. For
 ```js
 {
     "pagination": {
-        "total": 772,
+        "total": 786,
         "limit": 2,
         "offset": 0,
-        "total_pages": 386,
+        "total_pages": 393,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/mobile-sounds?page=2&limit=2"
     },
     "data": [
         {
-            "id": 4665,
+            "id": 4716,
             "api_model": "mobile-sounds",
-            "api_link": "https://api.artic.edu/api/v1/mobile-sounds/4665",
-            "title": "Bottle Rack (Porte-Bouteilles) (How to Make a Surrealist Artwork)",
-            "web_url": "https://www.artic.edu/mobile/audio/238749_T022_BottleRack_V6.mp3",
-            "transcript": "<p>This is an interview with Dada artist Marcel Duchamp on the BBC in 1968.</p>\n<p>Narrator: Where should we begin with this confounding artwork? Maybe the easiest place is explaining what is literally is. Curator, Caitlin Haskell.</p>\n<p>Catlin: This is actually a functional object. In France people would drink wine and those bottles could be reused. And so after you finished your wine you\u2019d rinse it out and the bottle would need to dry so you would put on one of these spikes.</p>\n<p>Narrator: Duchamp called these sculptures \u201cReadymades.\u201d In the example we\u2019re looking at, the bottle rack is presented as it was originally manufactured.</p>\n<p>Caitlin: His hand is not involved in the making of this in the least, but he selected it and he had the idea to put it in the context of an art gallery. And it starts to provoke lots and lots of questions about, well, what is an artwork? Or you sort of find yourself asking \u2018why couldn\u2019t this be an artwork?\u2019</p>\n<p>Narrator: What complicates this question even more is that this bottle rack at the Art Institute isn\u2019t the first bottle rack. See, Duchamp was in New York when he fully conceived of the idea of the Readymade, but the bottle rack he has purchased in 1914 was still in his studio in France, which he left in the care of his sister Suzanne, whose work is also discussed on this tour. Research Associate, Jennifer Cohen.</p>\n<p>Jennifer: And he wrote to his sister about this \u201cso called bottle rack\u201d as he put it and he said that now he was going to call it a Readymade and he said \u201ctake the bottle rack for yourself, I will make it a Readymade remotely you are to inscribe it at the bottom and on the inside bottom ring in small letters painted with a brush in oil, silver/white color with an inscription.</p>\n<p>He\u2019s trying to distance the act of artistic intentionality to such a degree that he\u2019s having his sister sign the work for him.</p>\n<p>Narrator: Unfortunately for Marcel, his sister received the letter too late and had already thrown out the bottle rack, assuming it was junk cluttering up the studio. Not one to be discouraged, Duchamp would go on purchase and exhibit multiple bottle racks. This particular bottle rack was ultimately purchased by artist Robert Rauchunberg and signed by Duchamp, which you can see on the inside of the bottom ring.</p>\n<p>Duchamp\u2019s questioning of originality, artist intention, and what makes something artwork would become central for the Surrealist movement and shaped what it would mean to create a Surrealist artwork.</p>\n",
+            "api_link": "https://api.artic.edu/api/v1/mobile-sounds/4716",
+            "title": "Audio Dispatch: Redesigning \"Monet and Chicago\"",
+            "web_url": "https://www.artic.edu/mobile/audio/AD_MonetRedesign_V5%20%281%29.mp3",
+            "transcript": null,
             ...
         },
         {
-            "id": 4664,
+            "id": 4703,
             "api_model": "mobile-sounds",
-            "api_link": "https://api.artic.edu/api/v1/mobile-sounds/4664",
-            "title": "Forest and Sun (How to Make a Surrealist Artwork)",
-            "web_url": "https://www.artic.edu/mobile/audio/185760_T022_ForestandSun_V5.mp3",
-            "transcript": "<p>Narrator: An important part of being a Surrealist was discovering new methods for creating artworks. One way the Surrealists did that was by experimenting with placing the creation of the artwork outside the control of the artist. Curator, Caitlin Haskell.</p>\n<p>Caitlin: And Ernst in particular had some really wonderful ways of making textures, making marks that are totally new and don\u2019t allow him to be completely in control of what\u2019s going to arrive on the surface.</p>\n<p>Narrator: We can see two such techniques here. One known as frottage, which involved placing paper or canvas on a textured surface, like wood, and drawing over the top of that surface to create shapes and lines. And grattage, technique where you scrape away applied oil paint, creating unexpected patterns.</p>\n<p>These methods of creation would come to be known as automatism and would be foundational in the creation of many Surrealist artworks. Research Associate, Jennifer Cohen.</p>\n<p>Jennifer: It originated in poetry, where you would write without stopping. And what they were looking for was something more authentic about themselves. It was a very Freudian exercise where I\u2019m looking for a secret that my conscious mind doesn\u2019t know about itself.</p>\n<p>Narrator: By accessing the unconscious during the creative process a painting could become a mirror to one\u2019s inner life. Notice for instance the forest.</p>\n<p>Jennifer: It gets to the heart of who he is. You can see that the petrified forest comes to look like an \u2018M\u2019 and from a distance you can really get a sense that it\u2019s really supposed to be the artist\u2019s signature.</p>\n<p>Narrator: As in his first name, Max. Ernst, like many Surrealists, wanted to move away from rational thought because they believed this way of thinking had lead society astray.</p>\n<p>Caitlin: Ernst was someone who had fought in World War I. And you\u2019re at one of these moments you get in the 20th century where there\u2019s a sense that all of the rational might that Europe had, all the forces of civilization had led to something quite tragic and horrific.</p>\n<p>Narrator: In using automatism, Surrealists believed we could uncover and present something profound about ourselves that rationalism had failed to produce.</p>\n",
+            "api_link": "https://api.artic.edu/api/v1/mobile-sounds/4703",
+            "title": "4887_T036_Irises_V5.mp3",
+            "web_url": "https://www.artic.edu/mobile/audio/11_4887_Irises_V5.mp3",
+            "transcript": "<p>Narrator: Curator, Gloria Groom.</p>\n<p>Gloria Groom: This, I think, is one of the most unusual waterlily series that Monet ever did. These are all six feet tall, square canvases where he is so much interested, yes, in the reflective quality but even more so in the kind of building up of this encrusted surface scraping back, adding, scraping back, adding. And you get this almost fresco like encrusted [ph?] surface that looks like it belongs to the wall.</p>\n<p>Narrator: Researcher Associate, Kathryn Kremnitzer.</p>\n<p>Kathryn Kremnitzer: The composition is almost dizzying. You know, we think of Monet painting these at the edge of the pond looking into the reflection seeing things on the surface and below. It feels upside down because you don\u2019t know what\u2019s up and what is down.</p>\n<p>Gloria Groom: Where are we? What is reflected? What\u2019s growing up from the water? And what\u2019s being reflected into the water? This back-and-forth thing, those qualities that were so attractive in the 1950s for the abstract expressionists. And why when his son Michel started selling off some of these large scale canvases that had been left in his studio, someone like Kathryn Kuh, who was the Art Institute\u2019s first curator of modern and contemporary art just fell in love with this and had to have it.</p>\n<p>Kathryn Kremnitzer: This truly pioneering curator of modern art purchased irises from Katia Granoff\u2019s gallery in Paris.</p>\n<p>Gloria Groom: Interestingly enough beat out Alfred Barr\u2026</p>\n<p>Kathryn Kremnitzer: \u2026who\u2019s the director of the Museum of Modern Art in New York. Thinking about what is modern art in 1956 you might not think Monet and the Art Institute already had so many inimitable examples by the artist, why strengthen your collection that way?</p>\n<p>Gloria Groom: Kathryn Kuh absolutely saw in this what was going on in America at the same time with abstract expressionist, with color field painting.</p>\n<p>Kathryn Kremnitzer: It\u2019s totally immersive. And it sets up moments of abstraction or pure color that in the twentieth century will take center stage.</p>\n",
             ...
         }
     ],
@@ -2765,11 +2810,11 @@ A list of all mobile-sounds sorted by last updated date in descending order. For
 ```
 :::
 
-#### `GET /mobile-sounds/search`
+##### `GET /mobile-sounds/search`
 
 Search mobile-sounds data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -2812,7 +2857,7 @@ Search mobile-sounds data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/mobile-sounds/226",
             "id": 226,
             "title": "Justus Sustermans",
-            "timestamp": "2020-08-03T05:07:05-05:00"
+            "timestamp": "2020-08-12T05:14:29-05:00"
         }
     ],
     "info": {
@@ -2826,20 +2871,20 @@ Search mobile-sounds data in the aggregator.
 ```
 :::
 
-#### `GET /mobile-sounds/{id}`
+##### `GET /mobile-sounds/{id}`
 
 A single mobile-sound by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/mobile-sounds/4665?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/mobile-sounds/4716?limit=2  
 ```js
 {
     "data": {
-        "id": 4665,
+        "id": 4716,
         "api_model": "mobile-sounds",
-        "api_link": "https://api.artic.edu/api/v1/mobile-sounds/4665",
-        "title": "Bottle Rack (Porte-Bouteilles) (How to Make a Surrealist Artwork)",
-        "web_url": "https://www.artic.edu/mobile/audio/238749_T022_BottleRack_V6.mp3",
-        "transcript": "<p>This is an interview with Dada artist Marcel Duchamp on the BBC in 1968.</p>\n<p>Narrator: Where should we begin with this confounding artwork? Maybe the easiest place is explaining what is literally is. Curator, Caitlin Haskell.</p>\n<p>Catlin: This is actually a functional object. In France people would drink wine and those bottles could be reused. And so after you finished your wine you\u2019d rinse it out and the bottle would need to dry so you would put on one of these spikes.</p>\n<p>Narrator: Duchamp called these sculptures \u201cReadymades.\u201d In the example we\u2019re looking at, the bottle rack is presented as it was originally manufactured.</p>\n<p>Caitlin: His hand is not involved in the making of this in the least, but he selected it and he had the idea to put it in the context of an art gallery. And it starts to provoke lots and lots of questions about, well, what is an artwork? Or you sort of find yourself asking \u2018why couldn\u2019t this be an artwork?\u2019</p>\n<p>Narrator: What complicates this question even more is that this bottle rack at the Art Institute isn\u2019t the first bottle rack. See, Duchamp was in New York when he fully conceived of the idea of the Readymade, but the bottle rack he has purchased in 1914 was still in his studio in France, which he left in the care of his sister Suzanne, whose work is also discussed on this tour. Research Associate, Jennifer Cohen.</p>\n<p>Jennifer: And he wrote to his sister about this \u201cso called bottle rack\u201d as he put it and he said that now he was going to call it a Readymade and he said \u201ctake the bottle rack for yourself, I will make it a Readymade remotely you are to inscribe it at the bottom and on the inside bottom ring in small letters painted with a brush in oil, silver/white color with an inscription.</p>\n<p>He\u2019s trying to distance the act of artistic intentionality to such a degree that he\u2019s having his sister sign the work for him.</p>\n<p>Narrator: Unfortunately for Marcel, his sister received the letter too late and had already thrown out the bottle rack, assuming it was junk cluttering up the studio. Not one to be discouraged, Duchamp would go on purchase and exhibit multiple bottle racks. This particular bottle rack was ultimately purchased by artist Robert Rauchunberg and signed by Duchamp, which you can see on the inside of the bottom ring.</p>\n<p>Duchamp\u2019s questioning of originality, artist intention, and what makes something artwork would become central for the Surrealist movement and shaped what it would mean to create a Surrealist artwork.</p>\n",
+        "api_link": "https://api.artic.edu/api/v1/mobile-sounds/4716",
+        "title": "Audio Dispatch: Redesigning \"Monet and Chicago\"",
+        "web_url": "https://www.artic.edu/mobile/audio/AD_MonetRedesign_V5%20%281%29.mp3",
+        "transcript": null,
         ...
     },
     "info": {
@@ -2860,17 +2905,17 @@ A single mobile-sound by the given identifier.
 ```
 :::
 
-## Digital Scholarly Catalogs
+### Digital Scholarly Catalogs
 
-### Publications
+#### Publications
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /publications`
+##### `GET /publications`
 
 A list of all publications sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#publications).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -2926,11 +2971,11 @@ A list of all publications sorted by last updated date in descending order. For 
 ```
 :::
 
-#### `GET /publications/search`
+##### `GET /publications/search`
 
 Search publications data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -2957,7 +3002,7 @@ Search publications data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/publications/2",
             "id": 2,
             "title": "American Silver in the Art Institute of Chicago",
-            "timestamp": "2020-08-03T05:07:10-05:00"
+            "timestamp": "2020-08-12T05:14:34-05:00"
         },
         {
             "_score": 1,
@@ -2965,7 +3010,7 @@ Search publications data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/publications/7",
             "id": 7,
             "title": "Pissarro Paintings and Works on Paper at the Art Institute of Chicago",
-            "timestamp": "2020-08-03T05:07:10-05:00"
+            "timestamp": "2020-08-12T05:14:34-05:00"
         },
         {
             "_score": 1,
@@ -2973,7 +3018,7 @@ Search publications data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/publications/12",
             "id": 12,
             "title": "The Modern Series at the Art Institute of Chicago",
-            "timestamp": "2020-08-03T05:07:10-05:00"
+            "timestamp": "2020-08-12T05:14:34-05:00"
         }
     ],
     "info": {
@@ -2987,7 +3032,7 @@ Search publications data in the aggregator.
 ```
 :::
 
-#### `GET /publications/{id}`
+##### `GET /publications/{id}`
 
 A single publication by the given identifier.
 
@@ -3021,15 +3066,15 @@ A single publication by the given identifier.
 ```
 :::
 
-### Sections
+#### Sections
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /sections`
+##### `GET /sections`
 
 A list of all sections sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#sections).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -3085,11 +3130,11 @@ A list of all sections sorted by last updated date in descending order. For a de
 ```
 :::
 
-#### `GET /sections/search`
+##### `GET /sections/search`
 
 Search sections data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -3113,26 +3158,26 @@ Search sections data in the aggregator.
         {
             "_score": 1,
             "api_model": "sections",
-            "api_link": "https://api.artic.edu/api/v1/sections/18",
-            "id": 18,
-            "title": "Foreword",
-            "timestamp": "2020-08-03T05:07:10-05:00"
+            "api_link": "https://api.artic.edu/api/v1/sections/39585382154",
+            "id": 39585382154,
+            "title": "Cat. 38 \u00a0Tahitian Eve\u00a0(recto), Fragment of Inscription\u00a0(verso), 1891/93",
+            "timestamp": "2020-08-12T05:14:45-05:00"
         },
         {
             "_score": 1,
             "api_model": "sections",
-            "api_link": "https://api.artic.edu/api/v1/sections/25",
-            "id": 25,
-            "title": "Preface: American Silver",
-            "timestamp": "2020-08-03T05:07:10-05:00"
+            "api_link": "https://api.artic.edu/api/v1/sections/39585663528",
+            "id": 39585663528,
+            "title": "Cat. 44 \u00a0Tahitian Hut, 1891/93",
+            "timestamp": "2020-08-12T05:14:45-05:00"
         },
         {
             "_score": 1,
             "api_model": "sections",
-            "api_link": "https://api.artic.edu/api/v1/sections/33",
-            "id": 33,
-            "title": "Forging a Collection: American Silver at the Art Institute of Chicago",
-            "timestamp": "2020-08-03T05:07:10-05:00"
+            "api_link": "https://api.artic.edu/api/v1/sections/39585944903",
+            "id": 39585944903,
+            "title": "Cat. 47 \u00a0Man with an Ax, 1891/93",
+            "timestamp": "2020-08-12T05:14:45-05:00"
         }
     ],
     "info": {
@@ -3146,7 +3191,7 @@ Search sections data in the aggregator.
 ```
 :::
 
-#### `GET /sections/{id}`
+##### `GET /sections/{id}`
 
 A single section by the given identifier.
 
@@ -3180,17 +3225,17 @@ A single section by the given identifier.
 ```
 :::
 
-## Static Archive
+### Static Archive
 
-### Sites
+#### Sites
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /sites`
+##### `GET /sites`
 
 A list of all sites sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#sites).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -3248,11 +3293,11 @@ A list of all sites sorted by last updated date in descending order. For a descr
 ```
 :::
 
-#### `GET /sites/search`
+##### `GET /sites/search`
 
 Search sites data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -3279,7 +3324,7 @@ Search sites data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sites/1",
             "id": 1,
             "title": "Chicago Architecture: Ten Visions",
-            "timestamp": "2020-08-03T05:07:24-05:00"
+            "timestamp": "2020-08-12T05:14:48-05:00"
         },
         {
             "_score": 1,
@@ -3287,7 +3332,7 @@ Search sites data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sites/2",
             "id": 2,
             "title": "American Perspectives: A yearlong celebration of American artistic vision",
-            "timestamp": "2020-08-03T05:07:24-05:00"
+            "timestamp": "2020-08-12T05:14:48-05:00"
         },
         {
             "_score": 1,
@@ -3295,7 +3340,7 @@ Search sites data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sites/3",
             "id": 3,
             "title": "Curious Corner",
-            "timestamp": "2020-08-03T05:07:24-05:00"
+            "timestamp": "2020-08-12T05:14:48-05:00"
         }
     ],
     "info": {
@@ -3309,7 +3354,7 @@ Search sites data in the aggregator.
 ```
 :::
 
-#### `GET /sites/{id}`
+##### `GET /sites/{id}`
 
 A single site by the given identifier.
 
@@ -3343,17 +3388,17 @@ A single site by the given identifier.
 ```
 :::
 
-## Website
+### Website
 
-### Closures
+#### Closures
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /closures`
+##### `GET /closures`
 
 A list of all closures sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#closures).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -3364,30 +3409,30 @@ A list of all closures sorted by last updated date in descending order. For a de
 ```js
 {
     "pagination": {
-        "total": 16,
+        "total": 20,
         "limit": 2,
         "offset": 0,
-        "total_pages": 8,
+        "total_pages": 10,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/closures?page=2&limit=2"
     },
     "data": [
         {
-            "id": 17,
+            "id": 26,
             "api_model": "closures",
-            "api_link": "https://api.artic.edu/api/v1/closures/17",
+            "api_link": "https://api.artic.edu/api/v1/closures/26",
             "title": "Lorem ipsum.",
-            "date_start": "2020-03-13T00:00:00-05:00",
-            "date_end": "2020-05-31T00:00:00-05:00",
+            "date_start": "2020-08-11T00:00:00-05:00",
+            "date_end": "2020-08-12T00:00:00-05:00",
             ...
         },
         {
-            "id": 11,
+            "id": 24,
             "api_model": "closures",
-            "api_link": "https://api.artic.edu/api/v1/closures/11",
+            "api_link": "https://api.artic.edu/api/v1/closures/24",
             "title": "Lorem ipsum.",
-            "date_start": "2020-03-11T00:00:00-05:00",
-            "date_end": "2020-03-13T00:00:00-05:00",
+            "date_start": "2020-08-06T00:00:00-05:00",
+            "date_end": "2020-08-07T00:00:00-05:00",
             ...
         }
     ],
@@ -3409,11 +3454,11 @@ A list of all closures sorted by last updated date in descending order. For a de
 ```
 :::
 
-#### `GET /closures/search`
+##### `GET /closures/search`
 
 Search closures data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -3427,7 +3472,7 @@ Search closures data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 18,
+        "total": 20,
         "limit": 10,
         "offset": 0,
         "total_pages": 2,
@@ -3440,7 +3485,7 @@ Search closures data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/closures/4",
             "id": 4,
             "title": "Lorem ipsum.",
-            "timestamp": "2020-08-03T05:07:26-05:00"
+            "timestamp": "2020-08-12T05:14:50-05:00"
         },
         {
             "_score": 1,
@@ -3448,7 +3493,7 @@ Search closures data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/closures/5",
             "id": 5,
             "title": "Lorem ipsum.",
-            "timestamp": "2020-08-03T05:07:26-05:00"
+            "timestamp": "2020-08-12T05:14:50-05:00"
         },
         {
             "_score": 1,
@@ -3456,7 +3501,7 @@ Search closures data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/closures/9",
             "id": 9,
             "title": "Lorem ipsum.",
-            "timestamp": "2020-08-03T05:07:26-05:00"
+            "timestamp": "2020-08-12T05:14:50-05:00"
         }
     ],
     "info": {
@@ -3470,20 +3515,20 @@ Search closures data in the aggregator.
 ```
 :::
 
-#### `GET /closures/{id}`
+##### `GET /closures/{id}`
 
 A single closure by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/closures/17?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/closures/26?limit=2  
 ```js
 {
     "data": {
-        "id": 17,
+        "id": 26,
         "api_model": "closures",
-        "api_link": "https://api.artic.edu/api/v1/closures/17",
+        "api_link": "https://api.artic.edu/api/v1/closures/26",
         "title": "Lorem ipsum.",
-        "date_start": "2020-03-13T00:00:00-05:00",
-        "date_end": "2020-05-31T00:00:00-05:00",
+        "date_start": "2020-08-11T00:00:00-05:00",
+        "date_end": "2020-08-12T00:00:00-05:00",
         ...
     },
     "info": {
@@ -3504,15 +3549,15 @@ A single closure by the given identifier.
 ```
 :::
 
-### Web Exhibitions
+#### Web Exhibitions
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /web-exhibitions`
+##### `GET /web-exhibitions`
 
 A list of all web-exhibitions sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#web-exhibitions).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -3523,29 +3568,29 @@ A list of all web-exhibitions sorted by last updated date in descending order. F
 ```js
 {
     "pagination": {
-        "total": 677,
+        "total": 679,
         "limit": 2,
         "offset": 0,
-        "total_pages": 339,
+        "total_pages": 340,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/web-exhibitions?page=2&limit=2"
     },
     "data": [
         {
-            "id": 386,
+            "id": 692,
             "api_model": "web-exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/web-exhibitions/386",
-            "title": "Whistler and Roussel: Linked Visions",
-            "exhibition_id": 1929,
+            "api_link": "https://api.artic.edu/api/v1/web-exhibitions/692",
+            "title": "Richard Hunt: Scholar's Rock, or Stone of Hope, or Love of Bronze",
+            "exhibition_id": 9531,
             "is_featured": false,
             ...
         },
         {
-            "id": 688,
+            "id": 58,
             "api_model": "web-exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/web-exhibitions/688",
-            "title": "Woven Forms by Lenore Tawney",
-            "exhibition_id": 4206,
+            "api_link": "https://api.artic.edu/api/v1/web-exhibitions/58",
+            "title": "Japan\u2019s Great Female Poets",
+            "exhibition_id": null,
             "is_featured": false,
             ...
         }
@@ -3568,11 +3613,11 @@ A list of all web-exhibitions sorted by last updated date in descending order. F
 ```
 :::
 
-#### `GET /web-exhibitions/search`
+##### `GET /web-exhibitions/search`
 
 Search web-exhibitions data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -3586,7 +3631,7 @@ Search web-exhibitions data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 678,
+        "total": 680,
         "limit": 10,
         "offset": 0,
         "total_pages": 68,
@@ -3607,7 +3652,7 @@ Search web-exhibitions data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/web-exhibitions/1",
             "id": 1,
             "title": "Charles White: A Retrospective",
-            "timestamp": "2020-08-03T05:07:26-05:00"
+            "timestamp": "2020-08-12T05:14:50-05:00"
         },
         {
             "_score": 1,
@@ -3615,7 +3660,7 @@ Search web-exhibitions data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/web-exhibitions/2",
             "id": 2,
             "title": "Manet and Modern Beauty",
-            "timestamp": "2020-08-03T05:07:26-05:00"
+            "timestamp": "2020-08-12T05:14:50-05:00"
         }
     ],
     "info": {
@@ -3629,20 +3674,20 @@ Search web-exhibitions data in the aggregator.
 ```
 :::
 
-#### `GET /web-exhibitions/{id}`
+##### `GET /web-exhibitions/{id}`
 
 A single web-exhibition by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/web-exhibitions/682?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/web-exhibitions/692?limit=2  
 ```js
 {
     "data": {
-        "id": 682,
+        "id": 692,
         "api_model": "web-exhibitions",
-        "api_link": "https://api.artic.edu/api/v1/web-exhibitions/682",
-        "title": "Nancy Rubins: Our Friend Fluid Metal",
-        "exhibition_id": 9524,
-        "is_featured": true,
+        "api_link": "https://api.artic.edu/api/v1/web-exhibitions/692",
+        "title": "Richard Hunt: Scholar's Rock, or Stone of Hope, or Love of Bronze",
+        "exhibition_id": 9531,
+        "is_featured": false,
         ...
     },
     "info": {
@@ -3663,15 +3708,15 @@ A single web-exhibition by the given identifier.
 ```
 :::
 
-### Events
+#### Events
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /events`
+##### `GET /events`
 
 A list of all events sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#events).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -3685,29 +3730,29 @@ A list of all events sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 1989,
+        "total": 1978,
         "limit": 2,
         "offset": 0,
-        "total_pages": 995,
+        "total_pages": 989,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/events?page=2&limit=2"
     },
     "data": [
         {
-            "id": 4969,
+            "id": 4095,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/4969",
-            "title": "Collecting through Six Generations: Weng Family Collection of Chinese Painting and Calligraphy",
-            "title_display": null,
+            "api_link": "https://api.artic.edu/api/v1/events/4095",
+            "title": "Member Lecture: Painting the Floating World\u2014Ukiyo-e Masterpieces from the Weston Collection",
+            "title_display": "Member Lecture: <i>Painting the Floating World\u2014Ukiyo-e Masterpieces from the Weston Collection</i>",
             "published": true,
             ...
         },
         {
-            "id": 4956,
+            "id": 4082,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/4956",
-            "title": "CANCELED | Old Masters Society El Greco Lecture and Luncheon",
-            "title_display": "CANCELED | Old Masters Society Lecture and Luncheon Featuring <i>El Greco: Ambition and Defiance</i>",
+            "api_link": "https://api.artic.edu/api/v1/events/4082",
+            "title": "Screening and Discussion: Pope.L\u2014The Escape",
+            "title_display": null,
             "published": true,
             ...
         }
@@ -3730,11 +3775,11 @@ A list of all events sorted by last updated date in descending order. For a desc
 ```
 :::
 
-#### `GET /events/search`
+##### `GET /events/search`
 
 Search events data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -3758,26 +3803,26 @@ Search events data in the aggregator.
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/4656",
-            "id": 4656,
-            "title": "Express Talk: Gold, Clay, & Parchment: Making Art in Renaissance Italy",
-            "timestamp": "2020-08-03T05:07:36-05:00"
+            "api_link": "https://api.artic.edu/api/v1/events/3298",
+            "id": 3298,
+            "title": "Night Heist 2017",
+            "timestamp": "2020-08-12T05:14:54-05:00"
         },
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/4657",
-            "id": 4657,
-            "title": "Gallery Talk: Impressionist Portraits",
-            "timestamp": "2020-08-03T05:07:36-05:00"
+            "api_link": "https://api.artic.edu/api/v1/events/3299",
+            "id": 3299,
+            "title": "Express Talk: Joan Mitchell's City Landscape",
+            "timestamp": "2020-08-12T05:14:54-05:00"
         },
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/4658",
-            "id": 4658,
-            "title": "Gallery Talk: Impressionist Pastels",
-            "timestamp": "2020-08-03T05:07:36-05:00"
+            "api_link": "https://api.artic.edu/api/v1/events/3300",
+            "id": 3300,
+            "title": "Gallery Talk: Poetics of Wine in China",
+            "timestamp": "2020-08-12T05:14:54-05:00"
         }
     ],
     "info": {
@@ -3791,19 +3836,19 @@ Search events data in the aggregator.
 ```
 :::
 
-#### `GET /events/{id}`
+##### `GET /events/{id}`
 
 A single event by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/events/4969?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/events/4095?limit=2  
 ```js
 {
     "data": {
-        "id": 4969,
+        "id": 4095,
         "api_model": "events",
-        "api_link": "https://api.artic.edu/api/v1/events/4969",
-        "title": "Collecting through Six Generations: Weng Family Collection of Chinese Painting and Calligraphy",
-        "title_display": null,
+        "api_link": "https://api.artic.edu/api/v1/events/4095",
+        "title": "Member Lecture: Painting the Floating World\u2014Ukiyo-e Masterpieces from the Weston Collection",
+        "title_display": "Member Lecture: <i>Painting the Floating World\u2014Ukiyo-e Masterpieces from the Weston Collection</i>",
         "published": true,
         ...
     },
@@ -3825,15 +3870,15 @@ A single event by the given identifier.
 ```
 :::
 
-### Event Occurrences
+#### Event Occurrences
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /event-occurrences`
+##### `GET /event-occurrences`
 
 A list of all event-occurrences sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#event-occurrences).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -3844,30 +3889,29 @@ A list of all event-occurrences sorted by last updated date in descending order.
 ```js
 {
     "pagination": {
-        "total": 20,
+        "total": 2,
         "limit": 2,
         "offset": 0,
-        "total_pages": 10,
-        "current_page": 1,
-        "next_url": "https://api.artic.edu/api/v1/event-occurrences?page=2&limit=2"
+        "total_pages": 1,
+        "current_page": 1
     },
     "data": [
         {
-            "id": "0be59124-50ba-5d03-8b8e-629e36463954",
+            "id": "80f6ec5d-556c-50fa-8f98-448d224a405e",
             "api_model": "event-occurrences",
-            "api_link": "https://api.artic.edu/api/v1/event-occurrences/0be59124-50ba-5d03-8b8e-629e36463954",
-            "title": "Gallery Talk: Highlights of the Art Institute",
-            "event_id": 4086,
-            "short_description": "Guided tour",
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/80f6ec5d-556c-50fa-8f98-448d224a405e",
+            "title": "Virtual Lecture: Fred Wilson",
+            "event_id": 5046,
+            "short_description": "Presented by the Society for Contemporary Art with the School of the Art Institute of Chicago's Visiting Artists Program",
             ...
         },
         {
-            "id": "6414774e-889a-5808-b003-982f5d2354b9",
+            "id": "e47cc49e-b658-58f4-97c4-04039e5a4a4b",
             "api_model": "event-occurrences",
-            "api_link": "https://api.artic.edu/api/v1/event-occurrences/6414774e-889a-5808-b003-982f5d2354b9",
-            "title": "Gallery Talk: Highlights of the Art Institute",
-            "event_id": 4086,
-            "short_description": "Guided tour",
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/e47cc49e-b658-58f4-97c4-04039e5a4a4b",
+            "title": "Virtual Lecture: El Greco\u2014Ambition and Defiance",
+            "event_id": 5041,
+            "short_description": null,
             ...
         }
     ],
@@ -3889,11 +3933,11 @@ A list of all event-occurrences sorted by last updated date in descending order.
 ```
 :::
 
-#### `GET /event-occurrences/search`
+##### `GET /event-occurrences/search`
 
 Search event-occurrences data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -3907,13 +3951,30 @@ Search event-occurrences data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 0,
+        "total": 2,
         "limit": 10,
         "offset": 0,
-        "total_pages": 0,
+        "total_pages": 1,
         "current_page": 1
     },
-    "data": [],
+    "data": [
+        {
+            "_score": 1,
+            "api_model": "event-occurrences",
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/80f6ec5d-556c-50fa-8f98-448d224a405e",
+            "id": "80f6ec5d-556c-50fa-8f98-448d224a405e",
+            "title": "Virtual Lecture: Fred Wilson",
+            "timestamp": "2020-08-12T05:15:03-05:00"
+        },
+        {
+            "_score": 1,
+            "api_model": "event-occurrences",
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/e47cc49e-b658-58f4-97c4-04039e5a4a4b",
+            "id": "e47cc49e-b658-58f4-97c4-04039e5a4a4b",
+            "title": "Virtual Lecture: El Greco\u2014Ambition and Defiance",
+            "timestamp": "2020-08-12T05:15:03-05:00"
+        }
+    ],
     "info": {
         "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
         "license_links": [
@@ -3925,20 +3986,20 @@ Search event-occurrences data in the aggregator.
 ```
 :::
 
-#### `GET /event-occurrences/{id}`
+##### `GET /event-occurrences/{id}`
 
 A single event-occurrence by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/event-occurrences/0be59124-50ba-5d03-8b8e-629e36463954?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/event-occurrences/80f6ec5d-556c-50fa-8f98-448d224a405e?limit=2  
 ```js
 {
     "data": {
-        "id": "0be59124-50ba-5d03-8b8e-629e36463954",
+        "id": "80f6ec5d-556c-50fa-8f98-448d224a405e",
         "api_model": "event-occurrences",
-        "api_link": "https://api.artic.edu/api/v1/event-occurrences/0be59124-50ba-5d03-8b8e-629e36463954",
-        "title": "Gallery Talk: Highlights of the Art Institute",
-        "event_id": 4086,
-        "short_description": "Guided tour",
+        "api_link": "https://api.artic.edu/api/v1/event-occurrences/80f6ec5d-556c-50fa-8f98-448d224a405e",
+        "title": "Virtual Lecture: Fred Wilson",
+        "event_id": 5046,
+        "short_description": "Presented by the Society for Contemporary Art with the School of the Art Institute of Chicago's Visiting Artists Program",
         ...
     },
     "info": {
@@ -3959,15 +4020,15 @@ A single event-occurrence by the given identifier.
 ```
 :::
 
-### Event Programs
+#### Event Programs
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /event-programs`
+##### `GET /event-programs`
 
 A list of all event-programs sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#event-programs).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -3978,30 +4039,30 @@ A list of all event-programs sorted by last updated date in descending order. Fo
 ```js
 {
     "pagination": {
-        "total": 66,
+        "total": 67,
         "limit": 2,
         "offset": 0,
-        "total_pages": 33,
+        "total_pages": 34,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/event-programs?page=2&limit=2"
     },
     "data": [
         {
-            "id": 69,
+            "id": 6,
             "api_model": "event-programs",
-            "api_link": "https://api.artic.edu/api/v1/event-programs/69",
-            "title": "Art Insights",
+            "api_link": "https://api.artic.edu/api/v1/event-programs/6",
+            "title": "Artists Connect",
             "is_affiliate_group": false,
             "is_event_host": false,
             ...
         },
         {
-            "id": 23,
+            "id": 5,
             "api_model": "event-programs",
-            "api_link": "https://api.artic.edu/api/v1/event-programs/23",
-            "title": "Print and Drawing Club",
+            "api_link": "https://api.artic.edu/api/v1/event-programs/5",
+            "title": "American Sign Language Tours",
             "is_affiliate_group": false,
-            "is_event_host": true,
+            "is_event_host": false,
             ...
         }
     ],
@@ -4023,11 +4084,11 @@ A list of all event-programs sorted by last updated date in descending order. Fo
 ```
 :::
 
-#### `GET /event-programs/search`
+##### `GET /event-programs/search`
 
 Search event-programs data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -4054,7 +4115,7 @@ Search event-programs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/event-programs/1",
             "id": 1,
             "title": "Artist\u2019s Studio",
-            "timestamp": "2020-08-03T05:07:38-05:00"
+            "timestamp": "2020-08-12T05:15:03-05:00"
         },
         {
             "_score": 1,
@@ -4062,7 +4123,7 @@ Search event-programs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/event-programs/2",
             "id": 2,
             "title": "Family Festivals",
-            "timestamp": "2020-08-03T05:07:38-05:00"
+            "timestamp": "2020-08-12T05:15:03-05:00"
         },
         {
             "_score": 1,
@@ -4070,7 +4131,7 @@ Search event-programs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/event-programs/3",
             "id": 3,
             "title": "Picture This",
-            "timestamp": "2020-08-03T05:07:38-05:00"
+            "timestamp": "2020-08-12T05:15:03-05:00"
         }
     ],
     "info": {
@@ -4084,18 +4145,18 @@ Search event-programs data in the aggregator.
 ```
 :::
 
-#### `GET /event-programs/{id}`
+##### `GET /event-programs/{id}`
 
 A single event-program by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/event-programs/69?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/event-programs/5?limit=2  
 ```js
 {
     "data": {
-        "id": 69,
+        "id": 5,
         "api_model": "event-programs",
-        "api_link": "https://api.artic.edu/api/v1/event-programs/69",
-        "title": "Art Insights",
+        "api_link": "https://api.artic.edu/api/v1/event-programs/5",
+        "title": "American Sign Language Tours",
         "is_affiliate_group": false,
         "is_event_host": false,
         ...
@@ -4118,15 +4179,15 @@ A single event-program by the given identifier.
 ```
 :::
 
-### Articles
+#### Articles
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /articles`
+##### `GET /articles`
 
 A list of all articles sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#articles).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -4137,30 +4198,30 @@ A list of all articles sorted by last updated date in descending order. For a de
 ```js
 {
     "pagination": {
-        "total": 257,
+        "total": 275,
         "limit": 2,
         "offset": 0,
-        "total_pages": 129,
+        "total_pages": 138,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/articles?page=2&limit=2"
     },
     "data": [
         {
-            "id": 826,
+            "id": 835,
             "api_model": "articles",
-            "api_link": "https://api.artic.edu/api/v1/articles/826",
-            "title": "caillebotte-and-seurat-setting-the-stage-for-masterworks",
+            "api_link": "https://api.artic.edu/api/v1/articles/835",
+            "title": "abelardo-morell-adding-heart-to-eyes",
             "is_published": false,
-            "date": "2020-05-19T00:00:00-05:00",
+            "date": "2020-08-21T00:00:00-05:00",
             ...
         },
         {
-            "id": 825,
+            "id": 705,
             "api_model": "articles",
-            "api_link": "https://api.artic.edu/api/v1/articles/825",
-            "title": "the-traveling-conservator-visiting-malangatanas-studio-in-mozambique",
-            "is_published": false,
-            "date": "2020-05-12T00:00:00-05:00",
+            "api_link": "https://api.artic.edu/api/v1/articles/705",
+            "title": "hidden-materials-in-john-singer-sargents-watercolors",
+            "is_published": true,
+            "date": "2018-08-01T00:00:00-05:00",
             ...
         }
     ],
@@ -4182,11 +4243,11 @@ A list of all articles sorted by last updated date in descending order. For a de
 ```
 :::
 
-#### `GET /articles/search`
+##### `GET /articles/search`
 
 Search articles data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -4200,7 +4261,7 @@ Search articles data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 274,
+        "total": 275,
         "limit": 10,
         "offset": 0,
         "total_pages": 28,
@@ -4213,7 +4274,7 @@ Search articles data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/articles/14",
             "id": 14,
             "title": "secrets-of-the-modern-wing",
-            "timestamp": "2020-08-03T05:07:38-05:00"
+            "timestamp": "2020-08-12T05:15:04-05:00"
         },
         {
             "_score": 1,
@@ -4221,7 +4282,7 @@ Search articles data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/articles/18",
             "id": 18,
             "title": "your-move",
-            "timestamp": "2020-08-03T05:07:38-05:00"
+            "timestamp": "2020-08-12T05:15:04-05:00"
         },
         {
             "_score": 1,
@@ -4229,7 +4290,7 @@ Search articles data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/articles/26",
             "id": 26,
             "title": "secrets-of-the-modern-wing-take-two",
-            "timestamp": "2020-08-03T05:07:38-05:00"
+            "timestamp": "2020-08-12T05:15:04-05:00"
         }
     ],
     "info": {
@@ -4243,20 +4304,20 @@ Search articles data in the aggregator.
 ```
 :::
 
-#### `GET /articles/{id}`
+##### `GET /articles/{id}`
 
 A single article by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/articles/823?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/articles/705?limit=2  
 ```js
 {
     "data": {
-        "id": 823,
+        "id": 705,
         "api_model": "articles",
-        "api_link": "https://api.artic.edu/api/v1/articles/823",
-        "title": "watch-this-art-and-artists-on-the-silver-screen",
+        "api_link": "https://api.artic.edu/api/v1/articles/705",
+        "title": "hidden-materials-in-john-singer-sargents-watercolors",
         "is_published": true,
-        "date": "2020-05-05T00:00:00-05:00",
+        "date": "2018-08-01T00:00:00-05:00",
         ...
     },
     "info": {
@@ -4277,15 +4338,15 @@ A single article by the given identifier.
 ```
 :::
 
-### Selections
+#### Selections
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /selections`
+##### `GET /selections`
 
 A list of all selections sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#selections).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -4296,10 +4357,10 @@ A list of all selections sorted by last updated date in descending order. For a 
 ```js
 {
     "pagination": {
-        "total": 15,
+        "total": 17,
         "limit": 2,
         "offset": 0,
-        "total_pages": 8,
+        "total_pages": 9,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/selections?page=2&limit=2"
     },
@@ -4314,12 +4375,12 @@ A list of all selections sorted by last updated date in descending order. For a 
             ...
         },
         {
-            "id": 9,
+            "id": 15,
             "api_model": "selections",
-            "api_link": "https://api.artic.edu/api/v1/selections/9",
-            "title": "international-modern-art",
-            "published": true,
-            "short_copy": "<p>The Art Institute was the first museum in the United States to assemble a significant collection of modern art and to put it on permanent display. Today these holdings are among the finest in the world\u2014enjoy highlights from this pioneering collection.</p>",
+            "api_link": "https://api.artic.edu/api/v1/selections/15",
+            "title": "explore-the-collection",
+            "published": false,
+            "short_copy": null,
             ...
         }
     ],
@@ -4341,11 +4402,11 @@ A list of all selections sorted by last updated date in descending order. For a 
 ```
 :::
 
-#### `GET /selections/search`
+##### `GET /selections/search`
 
 Search selections data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -4372,7 +4433,7 @@ Search selections data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/selections/3",
             "id": 3,
             "title": "what-to-see-in-an-hour",
-            "timestamp": "2020-08-03T05:07:39-05:00"
+            "timestamp": "2020-08-12T05:15:05-05:00"
         },
         {
             "_score": 1,
@@ -4380,7 +4441,7 @@ Search selections data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/selections/4",
             "id": 4,
             "title": "new-acquisitions",
-            "timestamp": "2020-08-03T05:07:39-05:00"
+            "timestamp": "2020-08-12T05:15:05-05:00"
         },
         {
             "_score": 1,
@@ -4388,7 +4449,7 @@ Search selections data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/selections/5",
             "id": 5,
             "title": "impressionism",
-            "timestamp": "2020-08-03T05:07:39-05:00"
+            "timestamp": "2020-08-12T05:15:05-05:00"
         }
     ],
     "info": {
@@ -4402,20 +4463,20 @@ Search selections data in the aggregator.
 ```
 :::
 
-#### `GET /selections/{id}`
+##### `GET /selections/{id}`
 
 A single selection by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/selections/9?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/selections/6?limit=2  
 ```js
 {
     "data": {
-        "id": 9,
+        "id": 6,
         "api_model": "selections",
-        "api_link": "https://api.artic.edu/api/v1/selections/9",
-        "title": "international-modern-art",
+        "api_link": "https://api.artic.edu/api/v1/selections/6",
+        "title": "american-art",
         "published": true,
-        "short_copy": "<p>The Art Institute was the first museum in the United States to assemble a significant collection of modern art and to put it on permanent display. Today these holdings are among the finest in the world\u2014enjoy highlights from this pioneering collection.</p>",
+        "short_copy": "<p>The Art Institute boasts an outstanding collection of American Art\u2014fitting for a classic American city. Find some of the icons below.</p>",
         ...
     },
     "info": {
@@ -4436,15 +4497,15 @@ A single selection by the given identifier.
 ```
 :::
 
-### Web Artists
+#### Web Artists
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /web-artists`
+##### `GET /web-artists`
 
 A list of all web-artists sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#web-artists).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -4455,30 +4516,30 @@ A list of all web-artists sorted by last updated date in descending order. For a
 ```js
 {
     "pagination": {
-        "total": 78,
+        "total": 105,
         "limit": 2,
         "offset": 0,
-        "total_pages": 39,
+        "total_pages": 53,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/web-artists?page=2&limit=2"
     },
     "data": [
         {
-            "id": 82,
+            "id": 2,
             "api_model": "web-artists",
-            "api_link": "https://api.artic.edu/api/v1/web-artists/82",
-            "title": "Lenore Tawney",
+            "api_link": "https://api.artic.edu/api/v1/web-artists/2",
+            "title": "Don A. DuBroff",
             "has_also_known_as": null,
-            "intro_copy": "<p>\u201cTo see new and original expression in a very old medium, and not just one new form but a complete new form in each piece of work, is wholly unlooked for, and is a wonderful and gratifying experience.\u201d&nbsp;</p><p>\u2013 Artist Agnes Martin on Lenore Tawney, 1961</p><p>A major figure in the fiber movement of the 1950s and 1960s, Lenore Tawney redefined the possibilities of weaving and led the way toward the explosive growth of fiber art in subsequent decades.&nbsp; She created a new vocabulary for textile works by subverting the typical woven grid and inventing new ways of weaving beyond the traditional boundaries of the loom. In order to emphasize the sculptural qualities of her works, Tawney maintained that they hang in space rather than against the wall.</p><p>Born in Lorain, Ohio, in 1907, Tawney moved to Chicago at the age of twenty and supported herself by working as a proofreader for a legal publishing company. After 15 of years living and working in the city, she began taking classes at the Art Institute as well as Chicago\u2019s Institute of Design (formerly the New Bauhaus). At the ID, Tawney studied sculpture with Alexander Archipenko and weaving with Marli Ehrman, an alumna of the innovative weaving workshop at the Bauhaus school of art in Germany. Tawney bought her first loom when she was 41 and devoted herself wholly to weaving at the age of 47.</p><p>In 1957 Tawney set out for New York City, where she established a studio among a community of artists that included <a href=\"https://www.artic.edu/artists/35235/ellsworth-kelly\" target=\"_blank\">Ellsworth Kelly</a>, <a href=\"https://www.artic.edu/artists/29405/jack-youngerman\" target=\"_blank\">Jack Youngerman</a>, <a href=\"https://www.artic.edu/artists/35058/robert-indiana\" target=\"_blank\">Robert Indiana</a>, and <a href=\"https://www.artic.edu/artists/16367/agnes-martin\" target=\"_blank\">Agnes Martin</a>. As her career progressed, Tawney worked on an increasingly large scale, making fiber works up to 20 feet in height. These monumental works include <a href=\"https://www.artic.edu/artworks/149413/the-bride-has-entered\" target=\"_blank\"><em>The Bride has Entered</em></a> and the striking tapestry <a href=\"https://www.artic.edu/artworks/109686/waters-above-the-firmament\" target=\"_blank\"><em>Waters Above the Firmament</em></a>. Throughout her career, she also created intimately scaled <a href=\"https://www.artic.edu/collection?artist_ids=Lenore%20Tawney&amp;material_ids=paper%20%28fiber%20product%29\" target=\"_blank\">drawings and collages</a>, often in the form of <a href=\"https://www.artic.edu/artworks/250895/envelope-and-collage\" target=\"_blank\">postcards</a> she would <a href=\"https://www.artic.edu/artworks/250860/portrait-collage-postcard\" target=\"_blank\">mail to friends</a>. Tawney's dedication to spirituality and meditation greatly influenced her work and her choice of subject matter. When her vision gradually failed in the 1990s, she continued making art with the aid of an assistant.</p><p>The Art Institute of Chicago has highlighted Tawney\u2019s groundbreaking fiber art in two solo exhibitions: <a href=\"https://www.artic.edu/exhibitions/7782/lenore-tawney-a-retrospective\" target=\"_blank\"><em>Lenore Tawney: A Retrospective</em></a> (1990) and <em>Woven Forms by Lenore Tawney</em> (1962). Her work has also been included in larger exhibitions such as the 2019 show <a href=\"https://www.artic.edu/exhibitions/9251/weaving-beyond-the-bauhaus\" target=\"_blank\"><em>Weaving beyond the Bauhaus</em></a>. </p>",
+            "intro_copy": null,
             ...
         },
         {
-            "id": 75,
+            "id": 1,
             "api_model": "web-artists",
-            "api_link": "https://api.artic.edu/api/v1/web-artists/75",
-            "title": "Bruce Alonzo Goff",
+            "api_link": "https://api.artic.edu/api/v1/web-artists/1",
+            "title": "Winslow Homer",
             "has_also_known_as": null,
-            "intro_copy": "<p>Visionary American architect Bruce Goff embraced daring sculptural forms, eclectic and unconventional materials, and innovative spatial relationships to imagine new ideals for modern living. Over the course of a six-decade career that began at the age of 12 with an architectural apprenticeship in Tulsa, Oklahoma, Goff designed over 500 projects and many built works in the Great Plains, Midwest, and western United States. Goff was influenced by principles of organic design championed by Louis Sullivan and <a href=\"https://www.artic.edu/artworks/140496/house-study-aerial-perspective\" target=\"_blank\">Frank Lloyd Wright</a>, along with the Expressionist forms of the European avant-garde, like German architect <a href=\"https://www.artic.edu/artworks/241766/hypothetical-studies-1931-design-drawings\" target=\"_blank\">Erich Mendelsohn</a>. Working largely for individual clients, Goff conjured adventurous and livable designs for single-family homes that challenged the conventional, builder-spec developments that dominated the suburban built environment in postwar America.</p><p>Goff moved to Chicago in 1934 where he founded a small private practice in the Rogers Park neighborhood and worked with sculptor Alfonso Iannelli and the Libbey-Owens-Ford Glass Company while developing his creative interests in <a href=\"https://digital-libraries.artic.edu/digital/collection/mqc/id/341/rec/1\" target=\"_blank\">music</a> and <a href=\"https://www.artic.edu/artworks/130775/composition\" target=\"_blank\">painting</a> during the Great Depression. A number of important projects emerged from his Chicago studio, including the pioneering <a href=\"https://www.artic.edu/artworks/205312/ford-ruth-and-sam-house-number-1-elevation-showing-wall\" target=\"_blank\">Ruth Ford House</a>, in Aurora, Illinois, in 1947.&nbsp;</p><p>After serving in the US Navy during WWII, stationed in Alaska and the Bay Area, Goff returned to Oklahoma to teach and practice, developing a vision for architecture that blended his unique approach to materials and decoration with an approach to design that is at once modern, futurist, and deeply rooted in the context of the south central United States. Goff served as the chairman of the School of Architecture at the University of Oklahoma in Norman from 1947 to 1955, founding what is now known as the \u201cAmerican School of Architecture,\u201d and had strong influences on a generation of architects in Oklahoma and beyond.</p><p>In 1995, the Art Institute of Chicago mounted a <a href=\"https://www.artic.edu/exhibitions/8128/the-architecture-of-bruce-goff-design-for-the-continuous-present\" target=\"_blank\">major retrospective exhibition</a> of his work, with an <a href=\"https://artic-primo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=01ARTIC_ALMA2127083460003801&amp;context=L&amp;vid=01ARTIC&amp;search_scope=everything&amp;tab=default_tab&amp;lang=en_US\" target=\"_blank\">accompanying catalogue</a>, <em>The Architecture of Bruce Goff, 1904\u20131982: Design for the Continuous Present.</em> The museum holds the comprehensive repository for Goff\u2019s architectural drawings, paintings, and <a href=\"https://www.artic.edu/archival-collections/digital-publications/bruce-goff-archives\" target=\"_blank\">professional and personal papers</a>, gifted through the Shin\u2019enKan Foundation in 1990.</p><p>Watch the <a href=\"https://m.youtube.com/watch?v=W2xJJv8KOEw&amp;t=42s\" target=\"_blank\">video, \u201cBruce Goff: Ford House.\u201d</a>&nbsp;</p>",
+            "intro_copy": null,
             ...
         }
     ],
@@ -4500,11 +4561,11 @@ A list of all web-artists sorted by last updated date in descending order. For a
 ```
 :::
 
-#### `GET /web-artists/search`
+##### `GET /web-artists/search`
 
 Search web-artists data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -4518,10 +4579,10 @@ Search web-artists data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 97,
+        "total": 105,
         "limit": 10,
         "offset": 0,
-        "total_pages": 10,
+        "total_pages": 11,
         "current_page": 1
     },
     "data": [
@@ -4531,7 +4592,7 @@ Search web-artists data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/web-artists/1",
             "id": 1,
             "title": "Winslow Homer",
-            "timestamp": "2020-08-03T05:07:39-05:00"
+            "timestamp": "2020-08-12T05:15:05-05:00"
         },
         {
             "_score": 1,
@@ -4539,7 +4600,7 @@ Search web-artists data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/web-artists/2",
             "id": 2,
             "title": "Don A. DuBroff",
-            "timestamp": "2020-08-03T05:07:39-05:00"
+            "timestamp": "2020-08-12T05:15:05-05:00"
         },
         {
             "_score": 1,
@@ -4547,7 +4608,7 @@ Search web-artists data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/web-artists/3",
             "id": 3,
             "title": "Neue Galerie New York",
-            "timestamp": "2020-08-03T05:07:39-05:00"
+            "timestamp": "2020-08-12T05:15:05-05:00"
         }
     ],
     "info": {
@@ -4561,20 +4622,20 @@ Search web-artists data in the aggregator.
 ```
 :::
 
-#### `GET /web-artists/{id}`
+##### `GET /web-artists/{id}`
 
 A single web-artist by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/web-artists/82?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/web-artists/2?limit=2  
 ```js
 {
     "data": {
-        "id": 82,
+        "id": 2,
         "api_model": "web-artists",
-        "api_link": "https://api.artic.edu/api/v1/web-artists/82",
-        "title": "Lenore Tawney",
+        "api_link": "https://api.artic.edu/api/v1/web-artists/2",
+        "title": "Don A. DuBroff",
         "has_also_known_as": null,
-        "intro_copy": "<p>\u201cTo see new and original expression in a very old medium, and not just one new form but a complete new form in each piece of work, is wholly unlooked for, and is a wonderful and gratifying experience.\u201d&nbsp;</p><p>\u2013 Artist Agnes Martin on Lenore Tawney, 1961</p><p>A major figure in the fiber movement of the 1950s and 1960s, Lenore Tawney redefined the possibilities of weaving and led the way toward the explosive growth of fiber art in subsequent decades.&nbsp; She created a new vocabulary for textile works by subverting the typical woven grid and inventing new ways of weaving beyond the traditional boundaries of the loom. In order to emphasize the sculptural qualities of her works, Tawney maintained that they hang in space rather than against the wall.</p><p>Born in Lorain, Ohio, in 1907, Tawney moved to Chicago at the age of twenty and supported herself by working as a proofreader for a legal publishing company. After 15 of years living and working in the city, she began taking classes at the Art Institute as well as Chicago\u2019s Institute of Design (formerly the New Bauhaus). At the ID, Tawney studied sculpture with Alexander Archipenko and weaving with Marli Ehrman, an alumna of the innovative weaving workshop at the Bauhaus school of art in Germany. Tawney bought her first loom when she was 41 and devoted herself wholly to weaving at the age of 47.</p><p>In 1957 Tawney set out for New York City, where she established a studio among a community of artists that included <a href=\"https://www.artic.edu/artists/35235/ellsworth-kelly\" target=\"_blank\">Ellsworth Kelly</a>, <a href=\"https://www.artic.edu/artists/29405/jack-youngerman\" target=\"_blank\">Jack Youngerman</a>, <a href=\"https://www.artic.edu/artists/35058/robert-indiana\" target=\"_blank\">Robert Indiana</a>, and <a href=\"https://www.artic.edu/artists/16367/agnes-martin\" target=\"_blank\">Agnes Martin</a>. As her career progressed, Tawney worked on an increasingly large scale, making fiber works up to 20 feet in height. These monumental works include <a href=\"https://www.artic.edu/artworks/149413/the-bride-has-entered\" target=\"_blank\"><em>The Bride has Entered</em></a> and the striking tapestry <a href=\"https://www.artic.edu/artworks/109686/waters-above-the-firmament\" target=\"_blank\"><em>Waters Above the Firmament</em></a>. Throughout her career, she also created intimately scaled <a href=\"https://www.artic.edu/collection?artist_ids=Lenore%20Tawney&amp;material_ids=paper%20%28fiber%20product%29\" target=\"_blank\">drawings and collages</a>, often in the form of <a href=\"https://www.artic.edu/artworks/250895/envelope-and-collage\" target=\"_blank\">postcards</a> she would <a href=\"https://www.artic.edu/artworks/250860/portrait-collage-postcard\" target=\"_blank\">mail to friends</a>. Tawney's dedication to spirituality and meditation greatly influenced her work and her choice of subject matter. When her vision gradually failed in the 1990s, she continued making art with the aid of an assistant.</p><p>The Art Institute of Chicago has highlighted Tawney\u2019s groundbreaking fiber art in two solo exhibitions: <a href=\"https://www.artic.edu/exhibitions/7782/lenore-tawney-a-retrospective\" target=\"_blank\"><em>Lenore Tawney: A Retrospective</em></a> (1990) and <em>Woven Forms by Lenore Tawney</em> (1962). Her work has also been included in larger exhibitions such as the 2019 show <a href=\"https://www.artic.edu/exhibitions/9251/weaving-beyond-the-bauhaus\" target=\"_blank\"><em>Weaving beyond the Bauhaus</em></a>. </p>",
+        "intro_copy": null,
         ...
     },
     "info": {
@@ -4595,15 +4656,15 @@ A single web-artist by the given identifier.
 ```
 :::
 
-### Static Pages
+#### Static Pages
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /static-pages`
+##### `GET /static-pages`
 
 A list of all static-pages sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#static-pages).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -4623,20 +4684,20 @@ A list of all static-pages sorted by last updated date in descending order. For 
     },
     "data": [
         {
-            "id": 1,
+            "id": 11,
             "api_model": "static-pages",
-            "api_link": "https://api.artic.edu/api/v1/static-pages/1",
-            "title": "Visit",
-            "web_url": "/visit",
+            "api_link": "https://api.artic.edu/api/v1/static-pages/11",
+            "title": "Articles",
+            "web_url": "/articles",
             "is_published": true,
             ...
         },
         {
-            "id": 2,
+            "id": 8,
             "api_model": "static-pages",
-            "api_link": "https://api.artic.edu/api/v1/static-pages/2",
-            "title": "Events",
-            "web_url": "/events",
+            "api_link": "https://api.artic.edu/api/v1/static-pages/8",
+            "title": "Digital Publications",
+            "web_url": "/digital-publications",
             "is_published": true,
             ...
         }
@@ -4659,11 +4720,11 @@ A list of all static-pages sorted by last updated date in descending order. For 
 ```
 :::
 
-#### `GET /static-pages/search`
+##### `GET /static-pages/search`
 
 Search static-pages data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -4690,7 +4751,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/1",
             "id": 1,
             "title": "Visit",
-            "timestamp": "2020-08-03T12:25:14-05:00"
+            "timestamp": "2020-08-12T17:25:11-05:00"
         },
         {
             "_score": 1,
@@ -4698,7 +4759,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/2",
             "id": 2,
             "title": "Events",
-            "timestamp": "2020-08-03T12:25:14-05:00"
+            "timestamp": "2020-08-12T17:25:11-05:00"
         },
         {
             "_score": 1,
@@ -4706,7 +4767,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/3",
             "id": 3,
             "title": "Exhibitions",
-            "timestamp": "2020-08-03T12:25:14-05:00"
+            "timestamp": "2020-08-12T17:25:11-05:00"
         }
     ],
     "info": {
@@ -4720,19 +4781,19 @@ Search static-pages data in the aggregator.
 ```
 :::
 
-#### `GET /static-pages/{id}`
+##### `GET /static-pages/{id}`
 
 A single static-page by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/static-pages/1?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/static-pages/11?limit=2  
 ```js
 {
     "data": {
-        "id": 1,
+        "id": 11,
         "api_model": "static-pages",
-        "api_link": "https://api.artic.edu/api/v1/static-pages/1",
-        "title": "Visit",
-        "web_url": "/visit",
+        "api_link": "https://api.artic.edu/api/v1/static-pages/11",
+        "title": "Articles",
+        "web_url": "/articles",
         "is_published": true,
         ...
     },
@@ -4754,15 +4815,15 @@ A single static-page by the given identifier.
 ```
 :::
 
-### Generic Pages
+#### Generic Pages
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /generic-pages`
+##### `GET /generic-pages`
 
 A list of all generic-pages sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#generic-pages).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -4773,29 +4834,29 @@ A list of all generic-pages sorted by last updated date in descending order. For
 ```js
 {
     "pagination": {
-        "total": 257,
+        "total": 245,
         "limit": 2,
         "offset": 0,
-        "total_pages": 129,
+        "total_pages": 123,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/generic-pages?page=2&limit=2"
     },
     "data": [
         {
-            "id": 442,
+            "id": 452,
             "api_model": "generic-pages",
-            "api_link": "https://api.artic.edu/api/v1/generic-pages/442",
-            "title": "Crossword Puzzle",
-            "is_published": true,
+            "api_link": "https://api.artic.edu/api/v1/generic-pages/452",
+            "title": "Research and Resources",
+            "is_published": false,
             "type": null,
             ...
         },
         {
-            "id": 417,
+            "id": 451,
             "api_model": "generic-pages",
-            "api_link": "https://api.artic.edu/api/v1/generic-pages/417",
-            "title": "Instagram",
-            "is_published": true,
+            "api_link": "https://api.artic.edu/api/v1/generic-pages/451",
+            "title": "College and University Faculty and Students",
+            "is_published": false,
             "type": null,
             ...
         }
@@ -4818,11 +4879,11 @@ A list of all generic-pages sorted by last updated date in descending order. For
 ```
 :::
 
-#### `GET /generic-pages/search`
+##### `GET /generic-pages/search`
 
 Search generic-pages data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -4836,10 +4897,10 @@ Search generic-pages data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 235,
+        "total": 245,
         "limit": 10,
         "offset": 0,
-        "total_pages": 24,
+        "total_pages": 25,
         "current_page": 1
     },
     "data": [
@@ -4849,7 +4910,7 @@ Search generic-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/generic-pages/1",
             "id": 1,
             "title": "Visit",
-            "timestamp": "2020-08-03T05:07:40-05:00"
+            "timestamp": "2020-08-12T05:15:05-05:00"
         },
         {
             "_score": 1,
@@ -4857,7 +4918,7 @@ Search generic-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/generic-pages/2",
             "id": 2,
             "title": "Free Admission Opportunities",
-            "timestamp": "2020-08-03T05:07:40-05:00"
+            "timestamp": "2020-08-12T05:15:05-05:00"
         },
         {
             "_score": 1,
@@ -4865,7 +4926,7 @@ Search generic-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/generic-pages/4",
             "id": 4,
             "title": "Directions & Parking",
-            "timestamp": "2020-08-03T05:07:40-05:00"
+            "timestamp": "2020-08-12T05:15:05-05:00"
         }
     ],
     "info": {
@@ -4879,18 +4940,18 @@ Search generic-pages data in the aggregator.
 ```
 :::
 
-#### `GET /generic-pages/{id}`
+##### `GET /generic-pages/{id}`
 
 A single generic-page by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/generic-pages/442?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/generic-pages/417?limit=2  
 ```js
 {
     "data": {
-        "id": 442,
+        "id": 417,
         "api_model": "generic-pages",
-        "api_link": "https://api.artic.edu/api/v1/generic-pages/442",
-        "title": "Crossword Puzzle",
+        "api_link": "https://api.artic.edu/api/v1/generic-pages/417",
+        "title": "Instagram",
         "is_published": true,
         "type": null,
         ...
@@ -4913,15 +4974,15 @@ A single generic-page by the given identifier.
 ```
 :::
 
-### Press Releases
+#### Press Releases
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /press-releases`
+##### `GET /press-releases`
 
 A list of all press-releases sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#press-releases).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -4932,28 +4993,28 @@ A list of all press-releases sorted by last updated date in descending order. Fo
 ```js
 {
     "pagination": {
-        "total": 273,
+        "total": 248,
         "limit": 2,
         "offset": 0,
-        "total_pages": 137,
+        "total_pages": 124,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/press-releases?page=2&limit=2"
     },
     "data": [
         {
-            "id": 288,
+            "id": 16,
             "api_model": "press-releases",
-            "api_link": "https://api.artic.edu/api/v1/press-releases/288",
-            "title": "Fabricating Fashion: Textiles for Dress, 1700-1850",
+            "api_link": "https://api.artic.edu/api/v1/press-releases/16",
+            "title": "Press Releases from 1954",
             "is_published": true,
             "type": null,
             ...
         },
         {
-            "id": 287,
+            "id": 17,
             "api_model": "press-releases",
-            "api_link": "https://api.artic.edu/api/v1/press-releases/287",
-            "title": "Malangatana: Mozambique Modern",
+            "api_link": "https://api.artic.edu/api/v1/press-releases/17",
+            "title": "Press Releases from 1955",
             "is_published": true,
             "type": null,
             ...
@@ -4977,11 +5038,11 @@ A list of all press-releases sorted by last updated date in descending order. Fo
 ```
 :::
 
-#### `GET /press-releases/search`
+##### `GET /press-releases/search`
 
 Search press-releases data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -5008,7 +5069,7 @@ Search press-releases data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/press-releases/1",
             "id": 1,
             "title": "Press Releases from 1939",
-            "timestamp": "2020-08-03T05:07:40-05:00"
+            "timestamp": "2020-08-12T05:15:06-05:00"
         },
         {
             "_score": 1,
@@ -5016,7 +5077,7 @@ Search press-releases data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/press-releases/2",
             "id": 2,
             "title": "Press Releases from 1940",
-            "timestamp": "2020-08-03T05:07:40-05:00"
+            "timestamp": "2020-08-12T05:15:06-05:00"
         },
         {
             "_score": 1,
@@ -5024,7 +5085,7 @@ Search press-releases data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/press-releases/3",
             "id": 3,
             "title": "Press Releases from 1941",
-            "timestamp": "2020-08-03T05:07:40-05:00"
+            "timestamp": "2020-08-12T05:15:06-05:00"
         }
     ],
     "info": {
@@ -5038,18 +5099,18 @@ Search press-releases data in the aggregator.
 ```
 :::
 
-#### `GET /press-releases/{id}`
+##### `GET /press-releases/{id}`
 
 A single press-release by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/press-releases/288?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/press-releases/16?limit=2  
 ```js
 {
     "data": {
-        "id": 288,
+        "id": 16,
         "api_model": "press-releases",
-        "api_link": "https://api.artic.edu/api/v1/press-releases/288",
-        "title": "Fabricating Fashion: Textiles for Dress, 1700-1850",
+        "api_link": "https://api.artic.edu/api/v1/press-releases/16",
+        "title": "Press Releases from 1954",
         "is_published": true,
         "type": null,
         ...
@@ -5072,15 +5133,15 @@ A single press-release by the given identifier.
 ```
 :::
 
-### Educator Resources
+#### Educator Resources
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /educator-resources`
+##### `GET /educator-resources`
 
 A list of all educator-resources sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#educator-resources).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -5091,28 +5152,28 @@ A list of all educator-resources sorted by last updated date in descending order
 ```js
 {
     "pagination": {
-        "total": 102,
+        "total": 108,
         "limit": 2,
         "offset": 0,
-        "total_pages": 51,
+        "total_pages": 54,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/educator-resources?page=2&limit=2"
     },
     "data": [
         {
-            "id": 7,
+            "id": 2,
             "api_model": "educator-resources",
-            "api_link": "https://api.artic.edu/api/v1/educator-resources/7",
-            "title": "Thematic Curricula: Art + Science",
-            "is_published": true,
+            "api_link": "https://api.artic.edu/api/v1/educator-resources/2",
+            "title": "Test Resource",
+            "is_published": false,
             "type": null,
             ...
         },
         {
-            "id": 19,
+            "id": 3,
             "api_model": "educator-resources",
-            "api_link": "https://api.artic.edu/api/v1/educator-resources/19",
-            "title": "Educator Resource Packet: Dancing Ganesha",
+            "api_link": "https://api.artic.edu/api/v1/educator-resources/3",
+            "title": "Activity: Arrival of the Normandy Train, Gare Saint-Lazare",
             "is_published": false,
             "type": null,
             ...
@@ -5136,11 +5197,11 @@ A list of all educator-resources sorted by last updated date in descending order
 ```
 :::
 
-#### `GET /educator-resources/search`
+##### `GET /educator-resources/search`
 
 Search educator-resources data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -5167,7 +5228,7 @@ Search educator-resources data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/educator-resources/2",
             "id": 2,
             "title": "Test Resource",
-            "timestamp": "2020-08-03T05:07:41-05:00"
+            "timestamp": "2020-08-12T05:15:07-05:00"
         },
         {
             "_score": 1,
@@ -5175,7 +5236,7 @@ Search educator-resources data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/educator-resources/3",
             "id": 3,
             "title": "Activity: Arrival of the Normandy Train, Gare Saint-Lazare",
-            "timestamp": "2020-08-03T05:07:41-05:00"
+            "timestamp": "2020-08-12T05:15:07-05:00"
         },
         {
             "_score": 1,
@@ -5183,7 +5244,7 @@ Search educator-resources data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/educator-resources/4",
             "id": 4,
             "title": "Activity: The Family Concert",
-            "timestamp": "2020-08-03T05:07:41-05:00"
+            "timestamp": "2020-08-12T05:15:07-05:00"
         }
     ],
     "info": {
@@ -5197,18 +5258,18 @@ Search educator-resources data in the aggregator.
 ```
 :::
 
-#### `GET /educator-resources/{id}`
+##### `GET /educator-resources/{id}`
 
 A single educator-resource by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/educator-resources/7?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/educator-resources/63?limit=2  
 ```js
 {
     "data": {
-        "id": 7,
+        "id": 63,
         "api_model": "educator-resources",
-        "api_link": "https://api.artic.edu/api/v1/educator-resources/7",
-        "title": "Thematic Curricula: Art + Science",
+        "api_link": "https://api.artic.edu/api/v1/educator-resources/63",
+        "title": "Tips for Teachers and Parents: Body Language: How to Talk to Students About Nudity in Art",
         "is_published": true,
         "type": null,
         ...
@@ -5231,15 +5292,15 @@ A single educator-resource by the given identifier.
 ```
 :::
 
-### Digital Catalogs
+#### Digital Catalogs
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /digital-catalogs`
+##### `GET /digital-catalogs`
 
 A list of all digital-catalogs sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#digital-catalogs).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -5259,19 +5320,19 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
     },
     "data": [
         {
-            "id": 31,
+            "id": 2,
             "api_model": "digital-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/31",
-            "title": "Matisse Paintings, Works on Paper, Sculpture, and Textiles at the Art Institute of Chicago",
+            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/2",
+            "title": "American Silver",
             "is_published": true,
             "type": null,
             ...
         },
         {
-            "id": 30,
+            "id": 5,
             "api_model": "digital-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/30",
-            "title": "Ivan Albright Paintings at the Art Institute of Chicago",
+            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/5",
+            "title": "Roman Art at the Art Institute of Chicago",
             "is_published": true,
             "type": null,
             ...
@@ -5295,11 +5356,11 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
 ```
 :::
 
-#### `GET /digital-catalogs/search`
+##### `GET /digital-catalogs/search`
 
 Search digital-catalogs data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -5326,7 +5387,7 @@ Search digital-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/2",
             "id": 2,
             "title": "American Silver",
-            "timestamp": "2020-08-03T05:07:41-05:00"
+            "timestamp": "2020-08-12T05:15:07-05:00"
         },
         {
             "_score": 1,
@@ -5334,7 +5395,7 @@ Search digital-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/3",
             "id": 3,
             "title": "Modern Series: Go",
-            "timestamp": "2020-08-03T05:07:41-05:00"
+            "timestamp": "2020-08-12T05:15:07-05:00"
         },
         {
             "_score": 1,
@@ -5342,7 +5403,7 @@ Search digital-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/4",
             "id": 4,
             "title": "Manet Paintings and Works on Paper at the Art Institute of Chicago",
-            "timestamp": "2020-08-03T05:07:41-05:00"
+            "timestamp": "2020-08-12T05:15:07-05:00"
         }
     ],
     "info": {
@@ -5356,18 +5417,18 @@ Search digital-catalogs data in the aggregator.
 ```
 :::
 
-#### `GET /digital-catalogs/{id}`
+##### `GET /digital-catalogs/{id}`
 
 A single digital-catalog by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/digital-catalogs/31?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/digital-catalogs/2?limit=2  
 ```js
 {
     "data": {
-        "id": 31,
+        "id": 2,
         "api_model": "digital-catalogs",
-        "api_link": "https://api.artic.edu/api/v1/digital-catalogs/31",
-        "title": "Matisse Paintings, Works on Paper, Sculpture, and Textiles at the Art Institute of Chicago",
+        "api_link": "https://api.artic.edu/api/v1/digital-catalogs/2",
+        "title": "American Silver",
         "is_published": true,
         "type": null,
         ...
@@ -5390,15 +5451,15 @@ A single digital-catalog by the given identifier.
 ```
 :::
 
-### Printed Catalogs
+#### Printed Catalogs
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-#### `GET /printed-catalogs`
+##### `GET /printed-catalogs`
 
 A list of all printed-catalogs sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](fields#printed-catalogs).
 
-##### Available parameters:
+###### Available parameters:
 
 * `ids` - A comma-separated list of resource ids to retrieve
 * `limit` - The number of resources to return per page
@@ -5409,28 +5470,28 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
 ```js
 {
     "pagination": {
-        "total": 180,
+        "total": 181,
         "limit": 2,
         "offset": 0,
-        "total_pages": 90,
+        "total_pages": 91,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/printed-catalogs?page=2&limit=2"
     },
     "data": [
         {
-            "id": 195,
+            "id": 41,
             "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/195",
-            "title": "Monet and Chicago",
-            "is_published": false,
+            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/41",
+            "title": "2001: Building for Space Travel",
+            "is_published": true,
             "type": null,
             ...
         },
         {
-            "id": 193,
+            "id": 39,
             "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/193",
-            "title": "Material Meanings: Selections from the Constance R. Caplan Collection",
+            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/39",
+            "title": "1945: Creativity and Crisis, Chicago Architecture and Design of the World War II Era",
             "is_published": true,
             "type": null,
             ...
@@ -5454,11 +5515,11 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
 ```
 :::
 
-#### `GET /printed-catalogs/search`
+##### `GET /printed-catalogs/search`
 
 Search printed-catalogs data in the aggregator. 
 
-##### Available parameters:
+###### Available parameters:
 
 * `q` - Your search query
 * `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
@@ -5485,7 +5546,7 @@ Search printed-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/printed-catalogs/4",
             "id": 4,
             "title": "The Art Institute of Chicago: The Essential Guide",
-            "timestamp": "2020-08-03T05:07:42-05:00"
+            "timestamp": "2020-08-12T05:15:07-05:00"
         },
         {
             "_score": 1,
@@ -5493,7 +5554,7 @@ Search printed-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/printed-catalogs/5",
             "id": 5,
             "title": "Roy Lichtenstein: A Retrospective",
-            "timestamp": "2020-08-03T05:07:42-05:00"
+            "timestamp": "2020-08-12T05:15:07-05:00"
         },
         {
             "_score": 1,
@@ -5501,7 +5562,7 @@ Search printed-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/printed-catalogs/6",
             "id": 6,
             "title": "Dawoud Bey: Harlem, U.S.A.",
-            "timestamp": "2020-08-03T05:07:42-05:00"
+            "timestamp": "2020-08-12T05:15:07-05:00"
         }
     ],
     "info": {
@@ -5515,18 +5576,18 @@ Search printed-catalogs data in the aggregator.
 ```
 :::
 
-#### `GET /printed-catalogs/{id}`
+##### `GET /printed-catalogs/{id}`
 
 A single printed-catalog by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/printed-catalogs/193?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/printed-catalogs/41?limit=2  
 ```js
 {
     "data": {
-        "id": 193,
+        "id": 41,
         "api_model": "printed-catalogs",
-        "api_link": "https://api.artic.edu/api/v1/printed-catalogs/193",
-        "title": "Material Meanings: Selections from the Constance R. Caplan Collection",
+        "api_link": "https://api.artic.edu/api/v1/printed-catalogs/41",
+        "title": "2001: Building for Space Travel",
         "is_published": true,
         "type": null,
         ...

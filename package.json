@@ -18,8 +18,8 @@
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "docs-dev": "vuepress dev docs",
-        "docs-build": "vuepress build docs"
+        "docs-dev": "concurrently \"watch 'node docs/generate_readme.js' docs/.sections --wait=2 --interval=0.1\" \"vuepress dev docs\"",
+        "docs-build": "node docs/generate_readme.js && vuepress build docs"
     },
     "devDependencies": {
         "@vuepress/plugin-back-to-top": "^1.3.1",
@@ -36,6 +36,10 @@
         "sass-loader": "^7.1.0",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10",
-        "vuepress": "^1.5.2"
+        "vuepress": "^1.5.3"
+    },
+    "dependencies": {
+        "concurrently": "^5.3.0",
+        "watch": "^1.0.2"
     }
 }

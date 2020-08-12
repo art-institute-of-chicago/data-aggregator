@@ -14,11 +14,11 @@ class CreateFieldsDocs extends AbstractDocCommand
 
     public function handle()
     {
-        $doc = "# Fields\n\n";
+        $doc = "## Fields\n\n";
 
         foreach ($this->getCategories() as $namespace => $heading)
         {
-            $doc .= "## ${heading}\n\n";
+            $doc .= "### ${heading}\n\n";
 
             foreach ($this->getModelsForNamespace($namespace) as $model)
             {
@@ -29,7 +29,7 @@ class CreateFieldsDocs extends AbstractDocCommand
         Storage::disk('local')->put('FIELDS.md', $doc);
 
         copy(storage_path('app/FIELDS.md'),
-             base_path('docs/fields/README.md'));
+             base_path('docs/.sections/fields.md'));
 
     }
 

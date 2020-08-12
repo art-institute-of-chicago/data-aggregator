@@ -32,19 +32,9 @@ module.exports = {
     repo: 'art-institute-of-chicago/data-aggregator',
     docsDir: 'docs',
     docsBranch: 'develop',
-    editLinks: true,
-    lastUpdated: true,
     sidebar: 'auto',
     logo: '/assets/logo.svg',
     nav: [
-      {
-        text: 'Endpoints',
-        link: '/endpoints/',
-      },
-      {
-        text: 'Fields',
-        link: '/fields/'
-      },
       {
         text: 'Tutorials',
         link: '/tutorials/'

@@ -1,8 +1,8 @@
-# Fields
+## Fields
 
-## Collections
+### Collections
 
-### Artworks
+#### Artworks
 
 Represents a work of art in our collections. For a description of all the endpoints available for this resource, see [here](endpoints#artworks).
 
@@ -102,7 +102,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 
 
 
-### Agents
+#### Agents
 
 Represents a person or organization. In the API, this includes artists. For a description of all the endpoints available for this resource, see [here](endpoints#agents).
 
@@ -131,7 +131,7 @@ Represents a person or organization. In the API, this includes artists. For a de
 
 
 
-### Places
+#### Places
 
 A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](endpoints#places).
 
@@ -148,7 +148,7 @@ A room or hall that works of art are displayed in. For a description of all the 
 
 
 
-### Galleries
+#### Galleries
 
 A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](endpoints#galleries).
 
@@ -171,7 +171,7 @@ A room or hall that works of art are displayed in. For a description of all the 
 
 
 
-### Exhibitions
+#### Exhibitions
 
 An organized presentation and display of a selection of artworks. For a description of all the endpoints available for this resource, see [here](endpoints#exhibitions).
 
@@ -206,7 +206,7 @@ An organized presentation and display of a selection of artworks. For a descript
 
 
 
-### Agent Types
+#### Agent Types
 
 A kind of agent, e.g. Individual, Couple, School, Estate, Culture. For a description of all the endpoints available for this resource, see [here](endpoints#agent-types).
 
@@ -222,7 +222,7 @@ A kind of agent, e.g. Individual, Couple, School, Estate, Culture. For a descrip
 
 
 
-### Agent Roles
+#### Agent Roles
 
 A qualifier for the relationship an agent may have to an artwork. For a description of all the endpoints available for this resource, see [here](endpoints#agent-roles).
 
@@ -238,7 +238,7 @@ A qualifier for the relationship an agent may have to an artwork. For a descript
 
 
 
-### Agent Place Qualifiers
+#### Agent Place Qualifiers
 
 A qualifier for the relationship a place may have to an agent. For a description of all the endpoints available for this resource, see [here](endpoints#agent-place-qualifiers).
 
@@ -254,7 +254,7 @@ A qualifier for the relationship a place may have to an agent. For a description
 
 
 
-### Artwork Types
+#### Artwork Types
 
 A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a description of all the endpoints available for this resource, see [here](endpoints#artwork-types).
 
@@ -270,7 +270,7 @@ A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a descriptio
 
 
 
-### Artwork Place Qualifiers
+#### Artwork Place Qualifiers
 
 A qualifier for the relationship a place may have to an artwork. For a description of all the endpoints available for this resource, see [here](endpoints#artwork-place-qualifiers).
 
@@ -286,7 +286,7 @@ A qualifier for the relationship a place may have to an artwork. For a descripti
 
 
 
-### Artwork Date Qualifiers
+#### Artwork Date Qualifiers
 
 A kind of date on at artwork, e.g., Made, Reconstructed, Published, etc. For a description of all the endpoints available for this resource, see [here](endpoints#artwork-date-qualifiers).
 
@@ -302,7 +302,7 @@ A kind of date on at artwork, e.g., Made, Reconstructed, Published, etc. For a d
 
 
 
-### Catalogues
+#### Catalogues
 
 Represents a catalogue raisonne. A catalogue raisonné is a comprehensive, annotated listing of all the known artworks by an artist. For a description of all the endpoints available for this resource, see [here](endpoints#catalogues).
 
@@ -318,7 +318,7 @@ Represents a catalogue raisonne. A catalogue raisonné is a comprehensive, annot
 
 
 
-### Category Terms
+#### Category Terms
 
 Tag-like classifications of artworks and other resources. For a description of all the endpoints available for this resource, see [here](endpoints#category-terms).
 
@@ -335,7 +335,7 @@ Tag-like classifications of artworks and other resources. For a description of a
 
 
 
-### Assets
+#### Assets
 
 A binary representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](endpoints#assets).
 
@@ -364,7 +364,7 @@ A binary representation of a collections resource, like an artwork, artist, exhi
 
 
 
-### Images
+#### Images
 
 A pictorial representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](endpoints#images).
 
@@ -400,7 +400,7 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 
 
 
-### Videos
+#### Videos
 
 A moving image representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](endpoints#videos).
 
@@ -429,7 +429,7 @@ A moving image representation of a collections resource, like an artwork, artist
 
 
 
-### Sounds
+#### Sounds
 
 Audio that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](endpoints#sounds).
 
@@ -458,7 +458,7 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 
 
 
-### Texts
+#### Texts
 
 Text that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](endpoints#texts).
 
@@ -487,9 +487,9 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 
 
 
-## Shop
+### Shop
 
-### Shop Categories
+#### Shop Categories
 
 Tag-like classifications of shop products. For a description of all the endpoints available for this resource, see [here](endpoints#shop-categories).
 
@@ -510,7 +510,7 @@ Tag-like classifications of shop products. For a description of all the endpoint
 
 
 
-### Products
+#### Products
 
 An item available for purchase in the museum shop. For a description of all the endpoints available for this resource, see [here](endpoints#products).
 
@@ -540,9 +540,9 @@ An item available for purchase in the museum shop. For a description of all the 
 
 
 
-## Mobile
+### Mobile
 
-### Tours
+#### Tours
 
 A collection of audio tour stops to form a tour. For a description of all the endpoints available for this resource, see [here](endpoints#tours).
 
@@ -566,7 +566,7 @@ A collection of audio tour stops to form a tour. For a description of all the en
 
 
 
-### Mobile Sounds
+#### Mobile Sounds
 
 The audio file for a stop on a tour. For a description of all the endpoints available for this resource, see [here](endpoints#mobile-sounds).
 
@@ -584,9 +584,9 @@ The audio file for a stop on a tour. For a description of all the endpoints avai
 
 
 
-## Digital Scholarly Catalogs
+### Digital Scholarly Catalogs
 
-### Publications
+#### Publications
 
 Represents an overall digital publication. For a description of all the endpoints available for this resource, see [here](endpoints#publications).
 
@@ -606,7 +606,7 @@ Represents an overall digital publication. For a description of all the endpoint
 
 
 
-### Sections
+#### Sections
 
 Represents a chapter of publication. For a description of all the endpoints available for this resource, see [here](endpoints#sections).
 
@@ -633,9 +633,9 @@ Represents a chapter of publication. For a description of all the endpoints avai
 
 
 
-## Static Archive
+### Static Archive
 
-### Sites
+#### Sites
 
 An archived static microsite. For a description of all the endpoints available for this resource, see [here](endpoints#sites).
 
@@ -659,9 +659,9 @@ An archived static microsite. For a description of all the endpoints available f
 
 
 
-## Website
+### Website
 
-### Closures
+#### Closures
 
 Closure on the website For a description of all the endpoints available for this resource, see [here](endpoints#closures).
 
@@ -681,7 +681,7 @@ Closure on the website For a description of all the endpoints available for this
 
 
 
-### Web Exhibitions
+#### Web Exhibitions
 
 An enhanced exhibition on the website For a description of all the endpoints available for this resource, see [here](endpoints#web-exhibitions).
 
@@ -702,7 +702,7 @@ An enhanced exhibition on the website For a description of all the endpoints ava
 
 
 
-### Events
+#### Events
 
 An event on the website For a description of all the endpoints available for this resource, see [here](endpoints#events).
 
@@ -757,7 +757,7 @@ An event on the website For a description of all the endpoints available for thi
 
 
 
-### Event Occurrences
+#### Event Occurrences
 
 An occurrence of an event on the website For a description of all the endpoints available for this resource, see [here](endpoints#event-occurrences).
 
@@ -784,7 +784,7 @@ An occurrence of an event on the website For a description of all the endpoints 
 
 
 
-### Event Programs
+#### Event Programs
 
 An event on the website For a description of all the endpoints available for this resource, see [here](endpoints#event-programs).
 
@@ -802,7 +802,7 @@ An event on the website For a description of all the endpoints available for thi
 
 
 
-### Articles
+#### Articles
 
 Article on the website For a description of all the endpoints available for this resource, see [here](endpoints#articles).
 
@@ -820,7 +820,7 @@ Article on the website For a description of all the endpoints available for this
 
 
 
-### Selections
+#### Selections
 
 Selections are a grouping of artworks on the website For a description of all the endpoints available for this resource, see [here](endpoints#selections).
 
@@ -838,7 +838,7 @@ Selections are a grouping of artworks on the website For a description of all th
 
 
 
-### Web Artists
+#### Web Artists
 
 Article on the website For a description of all the endpoints available for this resource, see [here](endpoints#web-artists).
 
@@ -857,7 +857,7 @@ Article on the website For a description of all the endpoints available for this
 
 
 
-### Static Pages
+#### Static Pages
 
 Pages defined in the website code. For a description of all the endpoints available for this resource, see [here](endpoints#static-pages).
 
@@ -874,7 +874,7 @@ Pages defined in the website code. For a description of all the endpoints availa
 
 
 
-### Generic Pages
+#### Generic Pages
 
 A generic page on the website For a description of all the endpoints available for this resource, see [here](endpoints#generic-pages).
 
@@ -898,7 +898,7 @@ A generic page on the website For a description of all the endpoints available f
 
 
 
-### Press Releases
+#### Press Releases
 
 A press release on the website For a description of all the endpoints available for this resource, see [here](endpoints#press-releases).
 
@@ -921,7 +921,7 @@ A press release on the website For a description of all the endpoints available 
 
 
 
-### Educator Resources
+#### Educator Resources
 
 An educator resource on the website For a description of all the endpoints available for this resource, see [here](endpoints#educator-resources).
 
@@ -944,7 +944,7 @@ An educator resource on the website For a description of all the endpoints avail
 
 
 
-### Digital Catalogs
+#### Digital Catalogs
 
 A digital catalog on the website For a description of all the endpoints available for this resource, see [here](endpoints#digital-catalogs).
 
@@ -967,7 +967,7 @@ A digital catalog on the website For a description of all the endpoints availabl
 
 
 
-### Printed Catalogs
+#### Printed Catalogs
 
 A printed catalog on the website For a description of all the endpoints available for this resource, see [here](endpoints#printed-catalogs).
 
