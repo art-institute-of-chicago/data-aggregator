@@ -4,33 +4,22 @@ namespace Tests;
 
 use Tests\Helpers\Factory;
 
-use App\Models\Collections\AgentType;
-use App\Models\Collections\Agent;
-
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+    use DatabaseSetup;
     use Factory;
 
     protected function setUp(): void
     {
         parent::setUp();
+        $this->setupDatabase();
 
         ini_set('memory_limit', '-1');
 
         config(['elasticsearch.defaultConnection' => 'testing']);
-
-        \Artisan::call('migrate');
-
-        if (class_basename(get_class($this)) !== 'AgentTypeTest') {
-            $agentTypeId = $this->make(AgentType::class, ['title' => 'Individual']);
-
-            if (class_basename(get_class($this)) !== 'AgentTest') {
-                $this->times(1)->make(Agent::class, ['agent_type_citi_id' => $agentTypeId]);
-            }
-        }
     }
 
     protected function assertArrayHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)

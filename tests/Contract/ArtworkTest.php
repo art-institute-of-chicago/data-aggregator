@@ -32,7 +32,7 @@ class ArtworkTest extends ContractTestCase
         ]);
     }
 
-    /** @test 
+    /** @test
      * The following tests determin which fields are used on the website by:
      * * On the website, set `API_LOGGER=true` in `.env`
      * * Access a page and watch the log

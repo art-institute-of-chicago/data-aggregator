@@ -10,11 +10,12 @@ matrix:
 
       before_script:
         - cp .env.travis .env
-        - sudo mysql -e 'create database homestead;'
+        - sudo mysql -e 'create database testing;'
         - composer self-update
         - composer install --no-interaction
         - php artisan key:generate
         - php artisan migrate
+        - php artisan passport:install
 
       script:
         - vendor/bin/phpunit

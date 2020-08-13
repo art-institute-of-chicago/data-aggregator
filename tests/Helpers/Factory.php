@@ -35,6 +35,8 @@ trait Factory
 
     protected function make($type, $fields = [])
     {
+
+        $return = [];
         while ($this->times-- > 0)
         {
             $model = factory($type)->create($fields);
@@ -63,11 +65,12 @@ trait Factory
             }
 
             $this->ids[] = $model->getAttributeValue($model->getKeyName());
+            $return[] = $model;
         }
 
         $this->reset();
 
-        return last($this->ids);
+        return count($return) == 1 ? $return[0] : collect($return);
     }
 
     protected function classFrom($type)

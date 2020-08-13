@@ -46,7 +46,7 @@ abstract class ContractTestCase extends TestCase
     {
         if ($fields) {
             $m = $this->model();
-            $this->times(5)->make($m);
+            $models = $this->times(5)->make($m);
 
             $response = $this->getJson('api/v1/' . $this->route($m) .($pivots ? '?includes=' .implode(',', $pivots) : ''));
             $response->assertSuccessful();
@@ -57,6 +57,8 @@ abstract class ContractTestCase extends TestCase
             foreach ($resources as $resource) {
                 $this->assertArrayHasKeys($resource, $fields);
             }
+
+            $m::query()->delete();
         } else {
             $this->assertEmpty($fields);
         }
