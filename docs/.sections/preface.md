@@ -165,6 +165,41 @@ Here are some tips that will make your application run faster and/or reduce load
 - Consider using [data dumps](#data-dumps) instead of scraping our API.
 
 
+## Data Dumps
+
+You can download a dump that contains all of our public data here:
+
+https://github.com/art-institute-of-chicago/api-data
+
+These data dumps are updated nightly. They are generated from our API. As such, they contain the same data as our API, and their schema mirrors that of the API. The data is dumped in JSON format, with one JSON file per record. Records are grouped by API resource type.
+
+Our intention with this approach is to make it easier to adapt code to draw from the data dumps instead of the API, and vice-versa. Since the schema is the same, switching between the two should be relatively straight-forward.
+
+If you notice schema discrepancies between the data dumps and the API, or if you need help with using our data dumps, please [open an issue](https://github.com/art-institute-of-chicago/api-data/issues) in the `api-data` repo.
+
+
+### Data Dumps vs. API?
+
+We recommend using the data dumps for scenarios such as the following:
+
+- You want to have a full copy of our data for archival purposes.
+- You want to scrape a large result set (>10,000 records).
+- You want to analyze or enhance our data.
+
+Use our API if the following fits your use case:
+
+- You want to integrate our data into a website or application.
+- You need real-time access to our data.
+
+
+### Scraping
+
+Generally, we ask that you avoid extensive scraping of our API. The API is meant for direct integration into websites and applications. The data dumps are meant for backups and analysis. Scraping our API puts undue stress on our systems. Instead of scraping, please download the data dumps and filter them locally to obtain the data you need.
+
+That said, we don't mind small-scale scraping of our API. It can be convenient to use our search endpoint to filter records and retrieve only the fields you need. You can even use the [aggregation](#aggregations) functionality of our search endpoints to run some simple analyses. Just remember that you cannot paginate beyond 10,000 results in our search endpoints (see [Pagination](#pagination)).
+
+If you do decide to scrape our resources, please throttle your requests to no more than one per second and avoid running multiple scrapers in parallel.
+
 ### Authentication
 
 You may access our API without authentication. Anonymous users are throttled to 60 requests per minute. If you are working on an application that needs to exceed this restriction, please get in touch with us at engineering@artic.edu.
