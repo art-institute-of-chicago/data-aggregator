@@ -14,11 +14,3 @@
 Route::any('/', function () {
     return redirect('/docs');
 });
-
-Route::group(['middleware' => ['loginIp']], function() {
-    Auth::routes();
-});
-
-Route::middleware('auth')->get('/user', function () {
-    return Auth::user();
-});
