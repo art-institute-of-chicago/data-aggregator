@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \Aic\Hub\Foundation\Commands\DatabaseReset::class,
+        \Aic\Hub\Foundation\Commands\MakeUser::class,
     ];
 
     /**
