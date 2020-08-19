@@ -98,10 +98,8 @@ abstract class AbstractController extends BaseController
         $this->parseFractalParam('include', 'parseIncludes');
         $this->parseFractalParam('exclude', 'parseExcludes');
 
-        $isRestricted = Gate::denies('restricted-access');
-
         $fields = Input::get('fields');
-        $transformer = new $this->transformer($fields, $isRestricted);
+        $transformer = new $this->transformer($fields);
         $resource = new $resourceClass($inputData, $transformer);
         $data = $this->fractal->createData($resource)->toArray();
         $response = isset($data['data']) ? $data : ['data' => $data];
