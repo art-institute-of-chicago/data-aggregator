@@ -91,7 +91,7 @@ return [
         'max_resources_guest' => 1000,
         'max_resources_user' => 10000,
         'login_whitelist_ips' => array_map('trim', explode(',', env('LOGIN_WHITELIST_IPS', '127.0.0.1/32'))),
-        'access_whitelist_ips' => array_map('trim', explode(',', env('ACCESS_WHITELIST_IPS', '127.0.0.1/32'))),
+        'access_whitelist_ips' => array_map('trim', explode(',', env('ACCESS_WHITELIST_IPS', ''))),
     ],
 
 ];
