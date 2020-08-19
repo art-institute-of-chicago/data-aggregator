@@ -116,7 +116,7 @@ abstract class AbstractDumpCommand extends BaseCommand
             $subdirPath = $dumpPath . '/' . $subdir;
 
             if (!file_exists($subdirPath)) {
-                mkdir($subdirPath, 0755);
+                mkdir($subdirPath, 755);
             }
         }
 
