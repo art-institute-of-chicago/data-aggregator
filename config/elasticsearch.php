@@ -129,7 +129,11 @@ return [
              * @link https://github.com/jeskew/amazon-es-php
              */
 
-            'httpHandler' => new Aws\ElasticsearchService\ElasticsearchPhpHandler(env('ELASTICSEARCH_AWS_REGION', 'us-east-1')),
+            'httpHandler' => (
+                Illuminate\Support\Str::endsWith(env('ELASTICSEARCH_HOST', ''), 'es.amazonaws.com') ? (
+                    new Aws\ElasticsearchService\ElasticsearchPhpHandler(env('ELASTICSEARCH_AWS_REGION', 'us-east-1'))
+                ) : null
+            ),
 
             /**
              * Connection Pool
