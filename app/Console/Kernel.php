@@ -86,9 +86,7 @@ class Kernel extends ConsoleKernel
                 $this->call('dump:getting-started');
             })
             ->after(function () {
-                $this->call('dump:upload', [
-                    '--reset' => 'default',
-                ]);
+                $this->call('dump:upload --reset');
             })
             ->dailyAt('22:45')
             ->withoutOverlapping()
