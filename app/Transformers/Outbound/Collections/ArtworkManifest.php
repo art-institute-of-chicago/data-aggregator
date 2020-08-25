@@ -12,79 +12,33 @@ class ArtworkManifest extends BaseTransformer
 
     use IsCC0;
 
+    protected $canvasSequence = 1;
+
     public function transform(Artwork $model)
     {
         $canvases = [];
 
         if ($model->image) {
-            $canvases[] = [
-                '@type' => 'sc:Canvas',
-                '@id' => config('app.url') . '/api/v1/images/' . $model->image->lake_guid,
-                'label' => $model->title,
-                //'width' => 1830,
-                //'height' => 1200,
-                'images' => [
-                    [
-                        '@type' => 'oa:Annotation',
-                        'motivation' => 'sc:painting',
-                        'on' => config('app.url') . '/api/v1/images/' . $model->image->lake_guid,
-                        'resource' => [
-                            '@type' => 'dctypes:Image',
-                            '@id' => 'https://www.artic.edu/iiif/2/' . $model->image->lake_guid . '/full/full/0/default.jpg',
-                            //'width' => 1830,
-                            //'height' => 1200,
-                            'service' => [
-                                '@context' => 'http://iiif.io/api/image/2/context.json',
-                                '@id' => 'https://www.artic.edu/iiif/2/' . $model->image->lake_guid,
-                                'profile' => 'http://iiif.io/api/image/2/level2.json'
-                            ]
-                        ]
-                    ]
-                ]
-            ];
+            $canvases[] = $this->_createCanvasImage($model, $model->image);
         }
         if ($model->altImages) {
             foreach ($model->altImages as $image) {
-                $canvases[] = [
-                    '@type' => 'sc:Canvas',
-                    '@id' => config('app.url') . '/api/v1/images/' . $image->lake_guid,
-                    'label' => $model->title,
-                    //'width' => 1830,
-                    //'height' => 1200,
-                    'images' => [
-                        [
-                            '@type' => 'oa:Annotation',
-                            'motivation' => 'sc:painting',
-                            'on' => config('app.url') . '/api/v1/images/' . $image->lake_guid,
-                            'resource' => [
-                                '@type' => 'dctypes:Image',
-                                '@id' => 'https://www.artic.edu/iiif/2/' . $image->lake_guid . '/full/full/0/default.jpg',
-                                //'width' => 1830,
-                                //'height' => 1200,
-                                'service' => [
-                                    '@context' => 'http://iiif.io/api/image/2/context.json',
-                                    '@id' => 'https://www.artic.edu/iiif/2/' . $image->lake_guid,
-                                    'profile' => 'http://iiif.io/api/image/2/level2.json'
-                                ]
-                            ]
-                        ]
-                    ]
-                ];
+                $canvases[] = $this->_createCanvasImage($model, $image);
             }
         }
         return [
             '@context' => 'http://iiif.io/api/presentation/2/context.json',
-            '@id' => config('app.url') . '/api/v1/artworks/' . $model->citi_id,
+            '@id' => config('app.url') . '/api/v1/artworks/' . $model->citi_id . '/manifest.json',
             '@type' => 'sc:Manifest',
             'label' => $model->title,
-            'metadata' => [],
             'description' => [
               [
-                'value' => $model->description,
+                'value' => strip_tags($model->description),
                 'language' => 'en'
               ]
             ],
             'attribution' => $this->getLicenseText(),
+            'logo' => 'https://raw.githubusercontent.com/Art-Institute-of-Chicago/template/master/aic-logo.gif',
             'sequences' => [
                 [
                     '@type' => 'sc:Sequence',
@@ -94,4 +48,31 @@ class ArtworkManifest extends BaseTransformer
         ];
     }
 
+    private function _createCanvasImage($model, $image) {
+        return [
+            '@type' => 'sc:Canvas',
+            '@id' => config('app.url') . '/api/v1/images/' . $image->lake_guid,
+            'label' => $this->canvasSequence++,
+            //'width' => 1830,
+            //'height' => 1200,
+            'images' => [
+                [
+                    '@type' => 'oa:Annotation',
+                    'motivation' => 'sc:painting',
+                    'on' => config('app.url') . '/api/v1/images/' . $image->lake_guid,
+                    'resource' => [
+                        '@type' => 'dctypes:Image',
+                        '@id' => 'https://www.artic.edu/iiif/2/' . $image->lake_guid . '/full/full/0/default.jpg',
+                        //'width' => 1830,
+                        //'height' => 1200,
+                        'service' => [
+                            '@context' => 'http://iiif.io/api/image/2/context.json',
+                            '@id' => 'https://www.artic.edu/iiif/2/' . $image->lake_guid,
+                            'profile' => 'http://iiif.io/api/image/2/level2.json'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+    }
 }
