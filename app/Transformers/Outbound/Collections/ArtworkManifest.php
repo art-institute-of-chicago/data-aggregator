@@ -59,8 +59,9 @@ class ArtworkManifest extends BaseTransformer
                     'value' => '<a href=\'https://www.artic.edu/collection/\' target=\'_blank\'>Art Institute of Chicago</a>',
                 ],
             ],
-            'attribution' => $model->copyright_notice,
+            'attribution' => 'Digital image courtesy of the Art Institute of Chicago. ' . $model->copyright_notice,
             'logo' => 'https://raw.githubusercontent.com/Art-Institute-of-Chicago/template/master/aic-logo.gif',
+            'within' => 'https://www.artic.edu/collection',
             'sequences' => [
                 [
                     '@type' => 'sc:Sequence',
