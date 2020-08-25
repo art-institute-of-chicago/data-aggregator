@@ -37,7 +37,29 @@ class ArtworkManifest extends BaseTransformer
                 'language' => 'en'
               ]
             ],
-            'attribution' => $this->getLicenseText(),
+            'metadata' => [
+                [
+                    'label' => 'Artist / Maker',
+                    'value' => $model->artist_display,
+                ],
+                [
+                    'label' => 'Medium',
+                    'value' => $model->medium_display,
+                ],
+                [
+                    'label' => 'Dimensions',
+                    'value' => $model->dimensions,
+                ],
+                [
+                    'label' => 'Object Number',
+                    'value' => $model->main_id,
+                ],
+                [
+                    'label' => 'Collection',
+                    'value' => '<a href=\'https://www.artic.edu/collection/\' target=\'_blank\'>Art Institute of Chicago</a>',
+                ],
+            ],
+            'attribution' => $model->copyright_notice,
             'logo' => 'https://raw.githubusercontent.com/Art-Institute-of-Chicago/template/master/aic-logo.gif',
             'sequences' => [
                 [
