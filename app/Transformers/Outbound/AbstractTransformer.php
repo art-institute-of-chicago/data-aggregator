@@ -58,7 +58,7 @@ abstract class AbstractTransformer extends BaseTransformer
      */
     final public function transform(Model $model)
     {
-        $mappedFields = $this->getMappedFields();
+        $mappedFields = $this->getMappedFields($model);
 
         $filteredFields = array_filter($mappedFields, function ($mappedField) use ($model) {
             return !isset($mappedField['filter']) || call_user_func($mappedField['filter'], $model);
@@ -74,7 +74,7 @@ abstract class AbstractTransformer extends BaseTransformer
      *
      * @return array
      */
-    public function getMappedFields()
+    public function getMappedFields($model = null)
     {
         return $this->mappedFields ?? $this->mappedFields = $this->initMappedFields();
     }
