@@ -186,6 +186,7 @@ return [
         App\Providers\FakerServiceProvider::class,
         App\Providers\SearchServiceProvider::class,
         App\Providers\ResourceServiceProvider::class,
+        App\Providers\VersionServiceProvider::class,
 
     ],
 
