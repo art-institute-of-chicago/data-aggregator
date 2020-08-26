@@ -73,8 +73,11 @@ class ArtworkManifest extends BaseTransformer
 
     private function _createCanvasImage($model, $image) {
         $jsonData = \Cache::remember('info-json-'.$image->lake_guid, 86400, function () use ($image) {
-            return file_get_contents('https://www.artic.edu/iiif/2/' . $image->lake_guid . '/info.json');
+            return @file_get_contents('https://www.artic.edu/iiif/2/' . $image->lake_guid . '/info.json');
         });
+        if (!$jsonData) {
+            return;
+        }
         $imageData = json_decode($jsonData);
 
         return [
