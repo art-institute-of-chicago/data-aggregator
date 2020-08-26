@@ -41,18 +41,18 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         $this->info('Getting started on artworks');
         $bar = $this->output->createProgressBar($model::count());
 
-        $content = '';
+        Storage::disk('dumps')->put('local/getting-started/allArtworks.json', '');
 
         // Loop through each record and dump its contents into a file
         foreach ($model::cursor() as $item) {
             // JSON
-            $content .= json_encode([
+            Storage::disk('dumps')->append('local/getting-started/allArtworks.json', json_encode([
                 'id' => $item->citi_id,
                 'title' => $item->title,
                 'main_reference_number' => $item->main_id,
                 'department_title' => ($item->departments->first()->title ?? null),
                 'artist_title' => ($item->artist->title ?? null),
-            ]) . "\n";
+            ]));
 
             // CSV
             if ($item->isBoosted()) {
@@ -69,8 +69,6 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         }
         $bar->finish();
         $this->output->newLine(1);
-
-        Storage::disk('dumps')->put('local/getting-started/allArtworks.json', $content);
     }
 
     private function getNewWriter($csvPath, $header)
