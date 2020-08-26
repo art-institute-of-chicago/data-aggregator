@@ -99,7 +99,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
     },
     "data": [
         {
-            "_score": 248.15005,
+            "_score": 254.46088,
             "thumbnail": {
                 "alt_text": "Painting of a pond seen up close spotted with thickly painted pink and white water lilies and a shadow across the top third of the picture.",
                 "width": null,
@@ -116,7 +116,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "timestamp": "2020-08-26T03:02:44-05:00"
         },
         {
-            "_score": 229.91185,
+            "_score": 235.75883,
             "thumbnail": {
                 "alt_text": "Loosely painted image of an open-air train station. On the right, a parked train gives off an enormous plumb of white smoke, making the scene look as though it were full of clouds. A huddled mass of barely discernible people crowd around the train on both sides of the tracks. Blue, green, and gray tones dominate.",
                 "width": null,
@@ -133,7 +133,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "timestamp": "2020-08-26T03:02:44-05:00"
         },
         {
-            "_score": 227.37732,
+            "_score": 233.15985,
             "thumbnail": {
                 "alt_text": "Painting composed of short, dense brushstrokes depicts two domed stacks of wheat that cast long shadows on a field. The angled light indicates either a rising or setting sun.",
                 "width": null,
@@ -166,7 +166,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
 
 A single artwork by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/artworks/236548?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/artworks/236548  
 ```js
 {
     "data": {
@@ -193,6 +193,86 @@ A single artwork by the given identifier. {id} is the identifier from our collec
         "shop_product_url": "http://shop.artic.edu/item.aspx?productId=",
         "shop_category_url": "http://shop.artic.edu/item.aspx?productId="
     }
+}
+```
+:::
+
+##### `GET /artworks/{id}/manifest.json`
+
+A representation of this artwork in the IIIF Presentation API format.
+
+::: details Example request: https://api.artic.edu/api/v1/artworks/236548/manifest.json  
+```js
+{
+    "@context": "http://iiif.io/api/presentation/2/context.json",
+    "@id": "https://api.artic.edu/api/v1/artworks/236548/manifest.json",
+    "@type": "sc:Manifest",
+    "label": "Mogabido",
+    "description": [
+        {
+            "value": "",
+            "language": "en"
+        }
+    ],
+    "metadata": [
+        {
+            "label": "Artist / Maker",
+            "value": "Moshekwa Langa\nSouth African, born 1975"
+        },
+        {
+            "label": "Medium",
+            "value": "Ink, graphite and acrylic on paper"
+        },
+        {
+            "label": "Dimensions",
+            "value": "140 \u00d7 100 cm (55 \u00d7 39 in.)"
+        },
+        {
+            "label": "Object Number",
+            "value": "2016.467"
+        },
+        {
+            "label": "Collection",
+            "value": "<a href='https://www.artic.edu/collection/' target='_blank'>Art Institute of Chicago</a>"
+        },
+        "..."
+    ],
+    "attribution": "Digital image courtesy of the Art Institute of Chicago. ",
+    "logo": "https://raw.githubusercontent.com/Art-Institute-of-Chicago/template/master/aic-logo.gif",
+    "within": "https://www.artic.edu/collection",
+    "sequences": [
+        {
+            "@type": "sc:Sequence",
+            "canvases": [
+                {
+                    "@type": "sc:Canvas",
+                    "@id": "https://api.artic.edu/api/v1/images/798c9e3b-203e-5ec8-753e-fdd3c0fa5f02",
+                    "label": "1",
+                    "width": 590,
+                    "height": 822,
+                    "images": [
+                        {
+                            "@type": "oa:Annotation",
+                            "motivation": "sc:painting",
+                            "on": "https://api.artic.edu/api/v1/images/798c9e3b-203e-5ec8-753e-fdd3c0fa5f02",
+                            "resource": {
+                                "@type": "dctypes:Image",
+                                "@id": "https://www.artic.edu/iiif/2/798c9e3b-203e-5ec8-753e-fdd3c0fa5f02/full/full/0/default.jpg",
+                                "width": 590,
+                                "height": 822,
+                                "service": {
+                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                    "@id": "https://www.artic.edu/iiif/2/798c9e3b-203e-5ec8-753e-fdd3c0fa5f02",
+                                    "profile": "http://iiif.io/api/image/2/level2.json"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "..."
+    ]
 }
 ```
 :::
@@ -309,10 +389,10 @@ Search agents data in the aggregator.
         {
             "_score": 1,
             "api_model": "agents",
-            "api_link": "https://api.artic.edu/api/v1/agents/2",
-            "id": 2,
-            "title": "Antiquarian Society",
-            "timestamp": "2020-08-26T03:41:41-05:00"
+            "api_link": "https://api.artic.edu/api/v1/agents/2035",
+            "id": 2035,
+            "title": "Gretchen Bellinger",
+            "timestamp": "2020-08-26T03:41:42-05:00"
         }
     ],
     "info": {
@@ -331,7 +411,7 @@ Search agents data in the aggregator.
 
 A single agent by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/agents/48957?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/agents/48957  
 ```js
 {
     "data": {
@@ -493,7 +573,7 @@ Search places data in the aggregator.
 
 A single place by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/places/-37?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/places/-37  
 ```js
 {
     "data": {
@@ -655,7 +735,7 @@ Search galleries data in the aggregator.
 
 A single gallery by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/galleries/24317?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/galleries/24317  
 ```js
 {
     "data": {
@@ -820,7 +900,7 @@ Search exhibitions data in the aggregator.
 
 A single exhibition by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/exhibitions/9531?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/exhibitions/9531  
 ```js
 {
     "data": {
@@ -920,7 +1000,7 @@ A list of all agent-types sorted by last updated date in descending order. For a
 
 A single agent-type by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/agent-types/29?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/agent-types/29  
 ```js
 {
     "data": {
@@ -1020,7 +1100,7 @@ A list of all agent-roles sorted by last updated date in descending order. For a
 
 A single agent-role by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/agent-roles/434?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/agent-roles/434  
 ```js
 {
     "data": {
@@ -1170,7 +1250,7 @@ A list of all artwork-types sorted by last updated date in descending order. For
 
 A single artwork-type by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/artwork-types/48?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/artwork-types/48  
 ```js
 {
     "data": {
@@ -1270,7 +1350,7 @@ A list of all artwork-place-qualifiers sorted by last updated date in descending
 
 A single artwork-place-qualifier by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/artwork-place-qualifiers/54?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/artwork-place-qualifiers/54  
 ```js
 {
     "data": {
@@ -1370,7 +1450,7 @@ A list of all artwork-date-qualifiers sorted by last updated date in descending 
 
 A single artwork-date-qualifier by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/artwork-date-qualifiers/62?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/artwork-date-qualifiers/62  
 ```js
 {
     "data": {
@@ -1470,7 +1550,7 @@ A list of all catalogues sorted by last updated date in descending order. For a 
 
 A single catalogue by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/catalogues/536?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/catalogues/536  
 ```js
 {
     "data": {
@@ -1632,7 +1712,7 @@ Search category-terms data in the aggregator.
 
 A single category-term by the given identifier. {id} is the identifier from our collections management system.
 
-::: details Example request: https://api.artic.edu/api/v1/category-terms/TM-14479?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/category-terms/TM-14479  
 ```js
 {
     "data": {
@@ -1816,7 +1896,7 @@ Search images data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 142105,
+        "total": 142106,
         "limit": 10,
         "offset": 0,
         "total_pages": 14211,
@@ -2394,7 +2474,7 @@ Search shop-categories data in the aggregator.
 
 A single shop-category by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/shop-categories/56?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/shop-categories/56  
 ```js
 {
     "data": {
@@ -2543,7 +2623,7 @@ Search products data in the aggregator.
 
 A single product by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/products/64?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/products/64  
 ```js
 {
     "data": {
@@ -2706,7 +2786,7 @@ Search tours data in the aggregator.
 
 A single tour by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/tours/3246?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/tours/3246  
 ```js
 {
     "data": {
@@ -2865,7 +2945,7 @@ Search mobile-sounds data in the aggregator.
 
 A single mobile-sound by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/mobile-sounds/4716?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/mobile-sounds/4716  
 ```js
 {
     "data": {
@@ -3026,7 +3106,7 @@ Search publications data in the aggregator.
 
 A single publication by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/publications/141096?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/publications/141096  
 ```js
 {
     "data": {
@@ -3185,7 +3265,7 @@ Search sections data in the aggregator.
 
 A single section by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/sections/128775?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/sections/128775  
 ```js
 {
     "data": {
@@ -3348,7 +3428,7 @@ Search sites data in the aggregator.
 
 A single site by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/sites/104?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/sites/104  
 ```js
 {
     "data": {
@@ -3509,7 +3589,7 @@ Search closures data in the aggregator.
 
 A single closure by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/closures/26?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/closures/26  
 ```js
 {
     "data": {
@@ -3668,7 +3748,7 @@ Search web-exhibitions data in the aggregator.
 
 A single web-exhibition by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/web-exhibitions/692?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/web-exhibitions/692  
 ```js
 {
     "data": {
@@ -3830,7 +3910,7 @@ Search events data in the aggregator.
 
 A single event by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/events/4?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/events/4  
 ```js
 {
     "data": {
@@ -3988,7 +4068,7 @@ Search event-occurrences data in the aggregator.
 
 A single event-occurrence by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/event-occurrences/80f6ec5d-556c-50fa-8f98-448d224a405e?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/event-occurrences/80f6ec5d-556c-50fa-8f98-448d224a405e  
 ```js
 {
     "data": {
@@ -4147,7 +4227,7 @@ Search event-programs data in the aggregator.
 
 A single event-program by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/event-programs/5?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/event-programs/5  
 ```js
 {
     "data": {
@@ -4306,7 +4386,7 @@ Search articles data in the aggregator.
 
 A single article by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/articles/705?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/articles/705  
 ```js
 {
     "data": {
@@ -4465,7 +4545,7 @@ Search selections data in the aggregator.
 
 A single selection by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/selections/6?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/selections/6  
 ```js
 {
     "data": {
@@ -4624,7 +4704,7 @@ Search web-artists data in the aggregator.
 
 A single web-artist by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/web-artists/2?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/web-artists/2  
 ```js
 {
     "data": {
@@ -4749,7 +4829,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/1",
             "id": 1,
             "title": "Visit",
-            "timestamp": "2020-08-26T09:00:08-05:00"
+            "timestamp": "2020-08-26T11:00:08-05:00"
         },
         {
             "_score": 1,
@@ -4757,7 +4837,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/2",
             "id": 2,
             "title": "Events",
-            "timestamp": "2020-08-26T09:00:08-05:00"
+            "timestamp": "2020-08-26T11:00:08-05:00"
         },
         {
             "_score": 1,
@@ -4765,7 +4845,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/3",
             "id": 3,
             "title": "Exhibitions",
-            "timestamp": "2020-08-26T09:00:08-05:00"
+            "timestamp": "2020-08-26T11:00:08-05:00"
         }
     ],
     "info": {
@@ -4783,7 +4863,7 @@ Search static-pages data in the aggregator.
 
 A single static-page by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/static-pages/11?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/static-pages/11  
 ```js
 {
     "data": {
@@ -4942,7 +5022,7 @@ Search generic-pages data in the aggregator.
 
 A single generic-page by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/generic-pages/417?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/generic-pages/417  
 ```js
 {
     "data": {
@@ -5101,7 +5181,7 @@ Search press-releases data in the aggregator.
 
 A single press-release by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/press-releases/16?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/press-releases/16  
 ```js
 {
     "data": {
@@ -5260,7 +5340,7 @@ Search educator-resources data in the aggregator.
 
 A single educator-resource by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/educator-resources/63?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/educator-resources/63  
 ```js
 {
     "data": {
@@ -5419,7 +5499,7 @@ Search digital-catalogs data in the aggregator.
 
 A single digital-catalog by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/digital-catalogs/2?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/digital-catalogs/2  
 ```js
 {
     "data": {
@@ -5578,7 +5658,7 @@ Search printed-catalogs data in the aggregator.
 
 A single printed-catalog by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/printed-catalogs/41?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/printed-catalogs/41  
 ```js
 {
     "data": {

@@ -35,6 +35,10 @@ trait Documentable
 
         $doc .= $this->docSingle() . "\n";
 
+        if ($this->docExtra()) {
+            $doc .= $this->docExtra() . "\n";
+        }
+
         return $doc;
     }
 
@@ -205,6 +209,16 @@ trait Documentable
         return $doc;
     }
 
+        /**
+     * For this resource, add this to the full documentation.
+     *
+     * @return string
+     */
+    public function docExtra()
+    {
+        return '';
+    }
+
     /**
      * Generate description for single resource endpoint
      *
@@ -333,14 +347,15 @@ trait Documentable
     {
         $defaults = [
             'extraPath' => '',
+            'extraAtEnd' => false,
             'getParams' => 'limit=2',
             'id' => '',
         ];
 
         $options = array_merge($defaults, $options);
 
-        $requestUrl = $this->docRequestUrl . $this->_endpointPath($options) . ($options['getParams'] ? '?' . $options['getParams'] : '');
-        $appUrl = $this->docAppUrl . $this->_endpointPath($options) . ($options['getParams'] ? '?' . $options['getParams'] : '');
+        $requestUrl = $this->docRequestUrl . $this->_endpointPath($options) . (!$options['id'] ? '?' . $options['getParams'] : '');
+        $appUrl = $this->docAppUrl . $this->_endpointPath($options) . (!$options['id'] ? '?' . $options['getParams'] : '');
 
         $doc = '::: details Example request: ' . $appUrl . "  \n";
 
@@ -353,20 +368,36 @@ trait Documentable
                                     $textResponse);
         $response = json_decode($textResponse);
 
-        // For brevity, only show the first fiew fields in the results
-        if (is_array($response->data))
+        // For brevity, only show the first few fields in the results
+        if (property_exists($response, 'data'))
         {
-            foreach ($response->data as $index => $datum)
+            if (is_array($response->data))
             {
+                foreach ($response->data as $index => $datum)
+                {
 
-                $response->data[$index] = $this->_addEllipsis($response->data[$index]);
+                    $response->data[$index] = $this->_addEllipsis($response->data[$index]);
+
+                }
 
             }
+            else {
+
+                $response->data = $this->_addEllipsis($response->data);
+
+            }
+        }
+        if (property_exists($response, 'metadata'))
+        {
+
+            $response->metadata = $this->_addEllipsis($response->metadata);
 
         }
-        else {
 
-            $response->data = $this->_addEllipsis($response->data);
+        if (property_exists($response, 'sequences'))
+        {
+
+            $response->sequences = $this->_addEllipsis($response->sequences);
 
         }
 
@@ -690,7 +721,7 @@ trait Documentable
      *
      * @return string
      */
-    private function _endpointAsCopyText($endpoint = '')
+    protected function _endpointAsCopyText($endpoint = '')
     {
         if (!$endpoint)
         {
@@ -705,10 +736,11 @@ trait Documentable
      *
      * @return string
      */
-    private function _endpointPath($options = [])
+    protected function _endpointPath($options = [])
     {
         $defaults = [
             'extraPath' => '',
+            'extraAtEnd' => false,
             'id' => '',
         ];
 
@@ -720,7 +752,10 @@ trait Documentable
 
         if ($options['extraPath'])
         {
-            $path .= '/' . $options['extraPath'];
+            if (!$options['extraAtEnd'] || $options['extraAtEnd'] === false)
+            {
+                $path .= '/' . $options['extraPath'];
+            }
         }
 
         if ($options['id'])
@@ -728,26 +763,53 @@ trait Documentable
             $path .= '/' . $options['id'];
         }
 
+        if ($options['extraPath'])
+        {
+            if ($options['extraAtEnd'] && $options['extraAtEnd'] === true)
+            {
+                $path .= '/' . $options['extraPath'];
+            }
+        }
+
         return rtrim($path,"/");
     }
 
-    private function _addEllipsis(\stdClass $obj)
+    private function _addEllipsis($obj)
     {
-        $keys = get_object_vars($obj);
-        $addEllipsis = false;
-        $i = 0;
+        if (is_object($obj)) {
+            $keys = get_object_vars($obj);
+            $addEllipsis = false;
+            $i = 0;
 
-        foreach ($keys as $keyIndex => $key)
-        {
-            if ($i > 5)
+            foreach ($keys as $keyIndex => $key)
             {
-                unset($obj->{$keyIndex});
-                $addEllipsis = true;
+                if ($i > 5)
+                {
+                    unset($obj->{$keyIndex});
+                    $addEllipsis = true;
+                }
+                $i++;
             }
-            $i++;
-        }
 
-        $obj->{'...'} = null;
+            $obj->{'...'} = null;
+        }
+        if (is_array($obj)) {
+            $keys = array_keys($obj);
+            $addEllipsis = false;
+            $i = 0;
+
+            foreach ($keys as $key)
+            {
+                if ($i > 5)
+                {
+                    unset($obj[$key]);
+                    $addEllipsis = true;
+                }
+                $i++;
+            }
+
+            $obj[] = '...';
+        }
 
         return $obj;
     }
