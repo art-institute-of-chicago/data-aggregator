@@ -4,7 +4,7 @@
 
 #### Artworks
 
-Represents a work of art in our collections. For a description of all the endpoints available for this resource, see [here](endpoints#artworks).
+Represents a work of art in our collections. For a description of all the endpoints available for this resource, see [here](#artworks).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -104,7 +104,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 
 #### Agents
 
-Represents a person or organization. In the API, this includes artists. For a description of all the endpoints available for this resource, see [here](endpoints#agents).
+Represents a person or organization. In the API, this includes artists. For a description of all the endpoints available for this resource, see [here](#agents).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -133,7 +133,7 @@ Represents a person or organization. In the API, this includes artists. For a de
 
 #### Places
 
-A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](endpoints#places).
+A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](#places).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -150,7 +150,7 @@ A room or hall that works of art are displayed in. For a description of all the 
 
 #### Galleries
 
-A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](endpoints#galleries).
+A room or hall that works of art are displayed in. For a description of all the endpoints available for this resource, see [here](#galleries).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -173,7 +173,7 @@ A room or hall that works of art are displayed in. For a description of all the 
 
 #### Exhibitions
 
-An organized presentation and display of a selection of artworks. For a description of all the endpoints available for this resource, see [here](endpoints#exhibitions).
+An organized presentation and display of a selection of artworks. For a description of all the endpoints available for this resource, see [here](#exhibitions).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -208,7 +208,7 @@ An organized presentation and display of a selection of artworks. For a descript
 
 #### Agent Types
 
-A kind of agent, e.g. Individual, Couple, School, Estate, Culture. For a description of all the endpoints available for this resource, see [here](endpoints#agent-types).
+A kind of agent, e.g. Individual, Couple, School, Estate, Culture. For a description of all the endpoints available for this resource, see [here](#agent-types).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -224,7 +224,7 @@ A kind of agent, e.g. Individual, Couple, School, Estate, Culture. For a descrip
 
 #### Agent Roles
 
-A qualifier for the relationship an agent may have to an artwork. For a description of all the endpoints available for this resource, see [here](endpoints#agent-roles).
+A qualifier for the relationship an agent may have to an artwork. For a description of all the endpoints available for this resource, see [here](#agent-roles).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -240,7 +240,7 @@ A qualifier for the relationship an agent may have to an artwork. For a descript
 
 #### Agent Place Qualifiers
 
-A qualifier for the relationship a place may have to an agent. For a description of all the endpoints available for this resource, see [here](endpoints#agent-place-qualifiers).
+A qualifier for the relationship a place may have to an agent. For a description of all the endpoints available for this resource, see [here](#agent-place-qualifiers).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -256,7 +256,7 @@ A qualifier for the relationship a place may have to an agent. For a description
 
 #### Artwork Types
 
-A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a description of all the endpoints available for this resource, see [here](endpoints#artwork-types).
+A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a description of all the endpoints available for this resource, see [here](#artwork-types).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -272,7 +272,7 @@ A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a descriptio
 
 #### Artwork Place Qualifiers
 
-A qualifier for the relationship a place may have to an artwork. For a description of all the endpoints available for this resource, see [here](endpoints#artwork-place-qualifiers).
+A qualifier for the relationship a place may have to an artwork. For a description of all the endpoints available for this resource, see [here](#artwork-place-qualifiers).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -288,7 +288,7 @@ A qualifier for the relationship a place may have to an artwork. For a descripti
 
 #### Artwork Date Qualifiers
 
-A kind of date on at artwork, e.g., Made, Reconstructed, Published, etc. For a description of all the endpoints available for this resource, see [here](endpoints#artwork-date-qualifiers).
+A kind of date on at artwork, e.g., Made, Reconstructed, Published, etc. For a description of all the endpoints available for this resource, see [here](#artwork-date-qualifiers).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -304,7 +304,7 @@ A kind of date on at artwork, e.g., Made, Reconstructed, Published, etc. For a d
 
 #### Catalogues
 
-Represents a catalogue raisonne. A catalogue raisonné is a comprehensive, annotated listing of all the known artworks by an artist. For a description of all the endpoints available for this resource, see [here](endpoints#catalogues).
+Represents a catalogue raisonne. A catalogue raisonné is a comprehensive, annotated listing of all the known artworks by an artist. For a description of all the endpoints available for this resource, see [here](#catalogues).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -320,7 +320,7 @@ Represents a catalogue raisonne. A catalogue raisonné is a comprehensive, annot
 
 #### Category Terms
 
-Tag-like classifications of artworks and other resources. For a description of all the endpoints available for this resource, see [here](endpoints#category-terms).
+Tag-like classifications of artworks and other resources. For a description of all the endpoints available for this resource, see [here](#category-terms).
 
 * `id` *keyword* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -337,7 +337,7 @@ Tag-like classifications of artworks and other resources. For a description of a
 
 #### Assets
 
-A binary representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](endpoints#assets).
+A binary representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](#assets).
 
 * `id` *keyword* - Unique identifier of this resource. Taken from the source system.
 * `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our DAMS.
@@ -366,7 +366,7 @@ A binary representation of a collections resource, like an artwork, artist, exhi
 
 #### Images
 
-A pictorial representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](endpoints#images).
+A pictorial representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](#images).
 
 * `id` *keyword* - Unique identifier of this resource. Taken from the source system.
 * `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our DAMS.
@@ -402,7 +402,7 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 
 #### Videos
 
-A moving image representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](endpoints#videos).
+A moving image representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](#videos).
 
 * `id` *keyword* - Unique identifier of this resource. Taken from the source system.
 * `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our DAMS.
@@ -431,7 +431,7 @@ A moving image representation of a collections resource, like an artwork, artist
 
 #### Sounds
 
-Audio that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](endpoints#sounds).
+Audio that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](#sounds).
 
 * `id` *keyword* - Unique identifier of this resource. Taken from the source system.
 * `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our DAMS.
@@ -460,7 +460,7 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 
 #### Texts
 
-Text that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](endpoints#texts).
+Text that represents a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](#texts).
 
 * `id` *keyword* - Unique identifier of this resource. Taken from the source system.
 * `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our DAMS.
@@ -491,7 +491,7 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 
 #### Shop Categories
 
-Tag-like classifications of shop products. For a description of all the endpoints available for this resource, see [here](endpoints#shop-categories).
+Tag-like classifications of shop products. For a description of all the endpoints available for this resource, see [here](#shop-categories).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -512,7 +512,7 @@ Tag-like classifications of shop products. For a description of all the endpoint
 
 #### Products
 
-An item available for purchase in the museum shop. For a description of all the endpoints available for this resource, see [here](endpoints#products).
+An item available for purchase in the museum shop. For a description of all the endpoints available for this resource, see [here](#products).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -544,7 +544,7 @@ An item available for purchase in the museum shop. For a description of all the 
 
 #### Tours
 
-A collection of audio tour stops to form a tour. For a description of all the endpoints available for this resource, see [here](endpoints#tours).
+A collection of audio tour stops to form a tour. For a description of all the endpoints available for this resource, see [here](#tours).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -568,7 +568,7 @@ A collection of audio tour stops to form a tour. For a description of all the en
 
 #### Mobile Sounds
 
-The audio file for a stop on a tour. For a description of all the endpoints available for this resource, see [here](endpoints#mobile-sounds).
+The audio file for a stop on a tour. For a description of all the endpoints available for this resource, see [here](#mobile-sounds).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -588,7 +588,7 @@ The audio file for a stop on a tour. For a description of all the endpoints avai
 
 #### Publications
 
-Represents an overall digital publication. For a description of all the endpoints available for this resource, see [here](endpoints#publications).
+Represents an overall digital publication. For a description of all the endpoints available for this resource, see [here](#publications).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -608,7 +608,7 @@ Represents an overall digital publication. For a description of all the endpoint
 
 #### Sections
 
-Represents a chapter of publication. For a description of all the endpoints available for this resource, see [here](endpoints#sections).
+Represents a chapter of publication. For a description of all the endpoints available for this resource, see [here](#sections).
 
 * `id` *long* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -637,7 +637,7 @@ Represents a chapter of publication. For a description of all the endpoints avai
 
 #### Sites
 
-An archived static microsite. For a description of all the endpoints available for this resource, see [here](endpoints#sites).
+An archived static microsite. For a description of all the endpoints available for this resource, see [here](#sites).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -663,7 +663,7 @@ An archived static microsite. For a description of all the endpoints available f
 
 #### Closures
 
-Closure on the website For a description of all the endpoints available for this resource, see [here](endpoints#closures).
+Closure on the website For a description of all the endpoints available for this resource, see [here](#closures).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -683,7 +683,7 @@ Closure on the website For a description of all the endpoints available for this
 
 #### Web Exhibitions
 
-An enhanced exhibition on the website For a description of all the endpoints available for this resource, see [here](endpoints#web-exhibitions).
+An enhanced exhibition on the website For a description of all the endpoints available for this resource, see [here](#web-exhibitions).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -704,7 +704,7 @@ An enhanced exhibition on the website For a description of all the endpoints ava
 
 #### Events
 
-An event on the website For a description of all the endpoints available for this resource, see [here](endpoints#events).
+An event on the website For a description of all the endpoints available for this resource, see [here](#events).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -759,7 +759,7 @@ An event on the website For a description of all the endpoints available for thi
 
 #### Event Occurrences
 
-An occurrence of an event on the website For a description of all the endpoints available for this resource, see [here](endpoints#event-occurrences).
+An occurrence of an event on the website For a description of all the endpoints available for this resource, see [here](#event-occurrences).
 
 * `id` *keyword* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -786,7 +786,7 @@ An occurrence of an event on the website For a description of all the endpoints 
 
 #### Event Programs
 
-An event on the website For a description of all the endpoints available for this resource, see [here](endpoints#event-programs).
+An event on the website For a description of all the endpoints available for this resource, see [here](#event-programs).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -804,7 +804,7 @@ An event on the website For a description of all the endpoints available for thi
 
 #### Articles
 
-Article on the website For a description of all the endpoints available for this resource, see [here](endpoints#articles).
+Article on the website For a description of all the endpoints available for this resource, see [here](#articles).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -822,7 +822,7 @@ Article on the website For a description of all the endpoints available for this
 
 #### Selections
 
-Selections are a grouping of artworks on the website For a description of all the endpoints available for this resource, see [here](endpoints#selections).
+Selections are a grouping of artworks on the website For a description of all the endpoints available for this resource, see [here](#selections).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -840,7 +840,7 @@ Selections are a grouping of artworks on the website For a description of all th
 
 #### Web Artists
 
-Article on the website For a description of all the endpoints available for this resource, see [here](endpoints#web-artists).
+Article on the website For a description of all the endpoints available for this resource, see [here](#web-artists).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -859,7 +859,7 @@ Article on the website For a description of all the endpoints available for this
 
 #### Static Pages
 
-Pages defined in the website code. For a description of all the endpoints available for this resource, see [here](endpoints#static-pages).
+Pages defined in the website code. For a description of all the endpoints available for this resource, see [here](#static-pages).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -876,7 +876,7 @@ Pages defined in the website code. For a description of all the endpoints availa
 
 #### Generic Pages
 
-A generic page on the website For a description of all the endpoints available for this resource, see [here](endpoints#generic-pages).
+A generic page on the website For a description of all the endpoints available for this resource, see [here](#generic-pages).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -900,7 +900,7 @@ A generic page on the website For a description of all the endpoints available f
 
 #### Press Releases
 
-A press release on the website For a description of all the endpoints available for this resource, see [here](endpoints#press-releases).
+A press release on the website For a description of all the endpoints available for this resource, see [here](#press-releases).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -923,7 +923,7 @@ A press release on the website For a description of all the endpoints available 
 
 #### Educator Resources
 
-An educator resource on the website For a description of all the endpoints available for this resource, see [here](endpoints#educator-resources).
+An educator resource on the website For a description of all the endpoints available for this resource, see [here](#educator-resources).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -946,7 +946,7 @@ An educator resource on the website For a description of all the endpoints avail
 
 #### Digital Catalogs
 
-A digital catalog on the website For a description of all the endpoints available for this resource, see [here](endpoints#digital-catalogs).
+A digital catalog on the website For a description of all the endpoints available for this resource, see [here](#digital-catalogs).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -969,7 +969,7 @@ A digital catalog on the website For a description of all the endpoints availabl
 
 #### Printed Catalogs
 
-A printed catalog on the website For a description of all the endpoints available for this resource, see [here](endpoints#printed-catalogs).
+A printed catalog on the website For a description of all the endpoints available for this resource, see [here](#printed-catalogs).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
