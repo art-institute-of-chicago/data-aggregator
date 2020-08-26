@@ -20,7 +20,7 @@ entire API here in this repo.
 
 In [json](json) you'll find a list of folders, each representing a different endpoint in our API. Within each of these folders you'll find a series of files named `{id}.json`, where `{id}` represents the unique identifier of the record, and the file's contents includes exactly what you will find in our API.
 
-In [getting-started](getting-started) you'll find smaller samplings of our data for folks who don't want our entire dataset. [allArtworks.json](getting-started/allArtworks.json) is a simplified JSON file containing all our published artworks with a few key fields. [someArtworks.csv](getting-started/someArtworks.csv) is just a few hundred of our artworks in CSV format. Note that our API doesn't provide data in CSV format, so anything that you build off of this CSV file won't be able to scaffold up to our regular API.
+In [getting-started](getting-started) you'll find smaller samplings of our data for folks who don't want our entire dataset. [allArtworks.jsonl](getting-started/allArtworks.jsonl) is a simple JSONL file containing all our published artworks with a few key fields. For more information on the JSONL format, see [here](http://jsonlines.org/). [someArtworks.csv](getting-started/someArtworks.csv) is just a few hundred of our artworks in CSV format. Note that our API doesn't provide data in CSV format, so anything that you build off of this CSV file won't be able to scaffold up to our regular API.
 
 Images are not included and are not part of the dataset. For more details on how to use images of artworks in the Art Institute of Chicago’s collection, please visit our [open access](https://www.artic.edu/open-access) page.
 
