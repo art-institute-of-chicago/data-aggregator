@@ -21,6 +21,6 @@ class DumpNightly extends AbstractDumpCommand
         $this->call('dump:export');
 
         $this->info('Uploading to GitHub...');
-        $this->call('dump:upload', ['--reset' => 'default']);
+        $this->call('dump:upload');
     }
 }
