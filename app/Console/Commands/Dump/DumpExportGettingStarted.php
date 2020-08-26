@@ -41,12 +41,12 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         $this->info('Getting started on artworks');
         $bar = $this->output->createProgressBar($model::count());
 
-        Storage::disk('dumps')->put('local/getting-started/allArtworks.json', '');
+        Storage::disk('dumps')->put('local/getting-started/allArtworks.jsonl', '');
 
         // Loop through each record and dump its contents into a file
         foreach ($model::cursor() as $item) {
             // JSON
-            Storage::disk('dumps')->append('local/getting-started/allArtworks.json', json_encode([
+            Storage::disk('dumps')->append('local/getting-started/allArtworks.jsonl', json_encode([
                 'id' => $item->citi_id,
                 'title' => $item->title,
                 'main_reference_number' => $item->main_id,
