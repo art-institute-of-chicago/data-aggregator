@@ -46,7 +46,13 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         // Loop through each record and dump its contents into a file
         foreach ($model::cursor() as $item) {
             // JSON
-            $content .= '{"id":' . $item->citi_id . ',"title":"' . addslashes($item->title) . '","main_reference_number":"' . $item->main_id . '","department_title":"' . ($item->departments->first()->title ?? null) . '","artist_title":"' . ($item->artist->title ?? null) . "\"}\n";
+            $content .= json_encode([
+                'id' => $item->citi_id,
+                'title' => $item->title,
+                'main_reference_number' => $item->main_id,
+                'department_title' => ($item->departments->first()->title ?? null),
+                'artist_title' => ($item->artist->title ?? null),
+            ]) . "\n";
 
             // CSV
             if ($item->isBoosted()) {
