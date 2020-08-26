@@ -72,12 +72,14 @@ class ArtworkManifest extends BaseTransformer
     }
 
     private function _createCanvasImage($model, $image) {
+        $imageData = json_decode(file_get_contents('https://www.artic.edu/iiif/2/' . $image->lake_guid . '/info.json'));
+
         return [
             '@type' => 'sc:Canvas',
             '@id' => config('app.url') . '/api/v1/images/' . $image->lake_guid,
-            'label' => $this->canvasSequence++,
-            //'width' => 1830,
-            //'height' => 1200,
+            'label' => "" . $this->canvasSequence++,
+            'width' => $imageData->width,
+            'height' => $imageData->height,
             'images' => [
                 [
                     '@type' => 'oa:Annotation',
@@ -86,8 +88,8 @@ class ArtworkManifest extends BaseTransformer
                     'resource' => [
                         '@type' => 'dctypes:Image',
                         '@id' => 'https://www.artic.edu/iiif/2/' . $image->lake_guid . '/full/full/0/default.jpg',
-                        //'width' => 1830,
-                        //'height' => 1200,
+                        'width' => $imageData->width,
+                        'height' => $imageData->height,
                         'service' => [
                             '@context' => 'http://iiif.io/api/image/2/context.json',
                             '@id' => 'https://www.artic.edu/iiif/2/' . $image->lake_guid,
