@@ -21,10 +21,6 @@ trait Documentable
      */
     public function docEndpoints()
     {
-        if ($this->docOnly()) {
-            return $this->docOnly();
-        }
-
         $this->docAppUrl = config('aic.production_url') . '/api/v1';
         $this->docRequestUrl = config('app.url') . '/api/v1';
 
@@ -54,10 +50,7 @@ trait Documentable
         $doc = '';
         $doc .= $this->docTitle() . "\n\n";
         $doc .= $this->docDescription() . ' For a description of all the endpoints available for this resource, see [here](#' . $endpoint . ").\n\n";
-
-        if (!$this->docOnly()) {
-            $doc .= $this->docListFields() . "\n\n";
-        }
+        $doc .= $this->docListFields() . "\n\n";
 
         return $doc;
     }
@@ -467,16 +460,6 @@ trait Documentable
     }
 
     /**
-     * For this resource, use this as the full documentation.
-     *
-     * @return string
-     */
-    public function docOnly()
-    {
-        return '';
-    }
-
-    /**
      * Whether this resource has a `/search` endpoint
      *
      * @return boolean
@@ -493,11 +476,6 @@ trait Documentable
      */
     public function swaggerEndpoints()
     {
-        if ($this->docOnly())
-        {
-            return '';
-        }
-
         $doc = $this->swaggerList() . "\n";
 
         if ($this->hasSearchEndpoint())
