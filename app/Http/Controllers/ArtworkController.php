@@ -11,6 +11,9 @@ use League\Fractal\Serializer\ArraySerializer;
 use App\Models\Collections\Artwork;
 use App\Transformers\Outbound\Collections\ArtworkManifest;
 
+use Aic\Hub\Foundation\Exceptions\InvalidSyntaxException;
+use Aic\Hub\Foundation\Exceptions\ItemNotFoundException;
+
 class ArtworkController extends ResourceController
 {
 
