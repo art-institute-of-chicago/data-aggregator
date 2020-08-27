@@ -56,12 +56,12 @@ class ArtworkManifest extends BaseTransformer
                 ],
                 [
                     'label' => 'Collection',
-                    'value' => '<a href=\'https://www.artic.edu/collection/\' target=\'_blank\'>Art Institute of Chicago</a>',
+                    'value' => '<a href=\'' . config('app.url') . '/collection/\' target=\'_blank\'>Art Institute of Chicago</a>',
                 ],
             ],
             'attribution' => ($model->copyright_notice ? $model->copyright_notice . ' ' : '') . 'Digital image courtesy of the Art Institute of Chicago.',
             'logo' => 'https://raw.githubusercontent.com/Art-Institute-of-Chicago/template/master/aic-logo.gif',
-            'within' => 'https://www.artic.edu/collection',
+            'within' => config('app.url') . '/collection',
             'sequences' => [
                 [
                     '@type' => 'sc:Sequence',
@@ -73,7 +73,7 @@ class ArtworkManifest extends BaseTransformer
 
     private function _createCanvasImage($model, $image) {
         $jsonData = \Cache::remember('info-json-'.$image->lake_guid, 86400, function () use ($image) {
-            return @file_get_contents('https://www.artic.edu/iiif/2/' . $image->lake_guid . '/info.json');
+            return @file_get_contents(config('app.url') . '/iiif/2/' . $image->lake_guid . '/info.json');
         });
         if (!$jsonData) {
             return;
@@ -93,12 +93,12 @@ class ArtworkManifest extends BaseTransformer
                     'on' => config('app.url') . '/api/v1/images/' . $image->lake_guid,
                     'resource' => [
                         '@type' => 'dctypes:Image',
-                        '@id' => 'https://www.artic.edu/iiif/2/' . $image->lake_guid . '/full/full/0/default.jpg',
+                        '@id' => config('app.url') . '/iiif/2/' . $image->lake_guid . '/full/full/0/default.jpg',
                         'width' => $imageData->width,
                         'height' => $imageData->height,
                         'service' => [
                             '@context' => 'http://iiif.io/api/image/2/context.json',
-                            '@id' => 'https://www.artic.edu/iiif/2/' . $image->lake_guid,
+                            '@id' => config('app.url') . '/iiif/2/' . $image->lake_guid,
                             'profile' => 'http://iiif.io/api/image/2/level2.json'
                         ]
                     ]
