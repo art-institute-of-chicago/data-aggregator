@@ -6,8 +6,7 @@ Founded in 1879, the [Art Institute of Chicago](https://www.artic.edu) is one of
 
 The Art Institute of Chicago provides access to all of our public data through a single, unified [API](https://api.artic.edu) (Application Programming Interface). It’s powered by a data hub, a system our engineers built to collect public information from a number of different internal systems. In our API, you’ll find data on our collections, digital publications, in-gallery interactives, mobile apps, shop products, events, and more.
 
-For a number of reasons it may be useful to work with all our API data within your own local enviroment. We've made it easy to do so by providing a full data dump of our
-entire API here in this repo.
+For a number of reasons, it may be useful to work with all our API data within your own local enviroment. We've made it easy to do so by providing a full data dump of our entire API here in this repo.
 
 ## Features
 
@@ -18,9 +17,9 @@ entire API here in this repo.
 
 ## Overview
 
-In [json](json) you'll find a list of folders, each representing a different endpoint in our API. Within each of these folders you'll find a series of files named `{id}.json`, where `{id}` represents the unique identifier of the record, and the file's contents includes exactly what you will find in our API.
+In the [json](json) folder, you'll find a list of subfolders, each representing a different endpoint in our API. Within each of these folders, you'll find a series of files named `{id}.json`, where `{id}` represents the unique identifier of the record. Each file's contents include exactly what you will find in our API for that record.
 
-In [getting-started](getting-started) you'll find smaller samplings of our data for folks who don't want our entire dataset. [allArtworks.jsonl](getting-started/allArtworks.jsonl) is a simple JSONL file containing all our published artworks with a few key fields. For more information on the JSONL format, see [here](http://jsonlines.org/). [someArtworks.csv](getting-started/someArtworks.csv) is just a few hundred of our artworks in CSV format. Note that our API doesn't provide data in CSV format, so anything that you build off of this CSV file won't be able to scaffold up to our regular API.
+In the [getting-started](getting-started) folder, you'll find smaller samplings of our data for folks who don't want our entire dataset. [allArtworks.jsonl](getting-started/allArtworks.jsonl) is a simple JSONL file containing all our published artworks with a few key fields. For more information on the JSONL format, see [here](http://jsonlines.org/). [someArtworks.csv](getting-started/someArtworks.csv) is just a few hundred of our artworks in CSV format. Note that our API doesn't provide data in CSV format, so anything that you build using this CSV file won't be able to scaffold up to our regular API.
 
 Images are not included and are not part of the dataset. For more details on how to use images of artworks in the Art Institute of Chicago’s collection, please visit our [open access](https://www.artic.edu/open-access) page.
 
