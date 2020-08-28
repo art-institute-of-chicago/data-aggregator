@@ -1,10 +1,12 @@
 const fs = require('fs');
 
-const sections = [
+let sections = [
   'preface',
-  'endpoints',
-  'fields'
 ];
+
+if (process.argv[2] && process.argv[2] === '--full') {
+  sections.push('endpoints', 'fields');
+}
 
 const settings = `---
 sidebar: auto

@@ -12,6 +12,7 @@
     "license": "AGPL 3.0",
     "scripts": {
         "docs-dev": "concurrently \"watch \\\"node docs/generate_readme.js\\\" docs/.sections --wait=2 --interval=0.1\" \"vuepress dev docs\"",
+        "docs-dev-full": "concurrently \"watch \\\"node docs/generate_readme.js --full\\\" docs/.sections --wait=2 --interval=0.1\" \"vuepress dev docs\"",
         "docs-build": "node docs/generate_readme.js && vuepress build docs"
     },
     "dependencies": {
