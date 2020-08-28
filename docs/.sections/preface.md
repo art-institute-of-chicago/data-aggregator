@@ -7,7 +7,7 @@ If the application you're building will be public, please send it our way! We'd 
 
 ### Quick Start
 
-An [API](https://www.youtube.com/watch?v=81ygVYCupdo) is a structured way that one software application can talk to another. APIs power much of the software we use today, from the apps on our phones and watches to technology we see in sports and TV shows. We built an API to let people like you easily get our data in an ongoing way.
+An [API](https://www.youtube.com/watch?v=81ygVYCupdo) is a structured way that one software application can talk to another. APIs power much of the software we use today, from the apps on our phones and watches to technology we see in sports and TV shows. We have built an API to let people like you easily get our data in an ongoing way.
 
 ::: tip
 Do you want _all_ of our data? Are you running into problems with [throttling](#authentication) or [deep pagination](#pagination)? Consider using our [data dumps](#data-dumps) instead of our API.
@@ -19,10 +19,10 @@ For example, you can access the `/artworks` listing endpoint in our API by visit
 https://api.artic.edu/api/v1/artworks
 ```
 
-If you want to see data for just one artwork, you can use the `/artworks/{id}` detail endpoint. For example, here's [_Nighthawks_](https://www.artic.edu/artworks/111628/nighthawks) by Edward Hopper:
+If you want to see data for just one artwork, you can use the `/artworks/{id}` detail endpoint. For example, here's [_Starry Night and the Astronauts_](https://www.artic.edu/artworks/129884/starry-night-and-the-astronauts) by Alma Thomas:
 
 ```
-https://api.artic.edu/api/v1/artworks/111628
+https://api.artic.edu/api/v1/artworks/129884
 ```
 
 When you view these URLs in your browser, you might see a jumbled bunch of text. That's OK! If you're using Chrome, install the [JSON Formatter extension](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa), hit reload, and the results will be formatted in a way humans can read, too.
@@ -93,7 +93,9 @@ There's a lot of information you can get about our collection, and there's a lot
 
   - Listing (e.g. `/artworks`)
   - Detail (e.g. `/artworks/{id}`)
-  - Search (e.g. `/artworks/search`)
+  - Search (e.g. `/artworks/search`) (optional)
+
+  Some resources might lack a search endpoint if there appears to be no need for it yet.
 
 - Multi-word endpoints are hyphenated (e.g. `/tour-stop`).
 
@@ -113,7 +115,7 @@ There's a lot of information you can get about our collection, and there's a lot
   "style_ids": ["TM-4439", "TM-8542", "TM-4441"],
   ```
 
-- Fields that contains title references to records from other resources follow naming conventions similar to id-based fields:
+- Fields that contain title references to records from other resources follow naming conventions similar to id-based fields:
 
   ```json
   "artist_title": "Ancient Roman",
@@ -200,16 +202,19 @@ That said, we don't mind small-scale scraping of our API. It can be convenient t
 
 If you do decide to scrape our resources, please throttle your requests to no more than one per second and avoid running multiple scrapers in parallel.
 
+
+## General Information
+
 ### Authentication
 
-You may access our API without authentication. Anonymous users are throttled to 60 requests per minute. If you are working on an application that needs to exceed this restriction, please get in touch with us at engineering@artic.edu.
+You may access our API without authentication. Anonymous users are throttled to 60 requests per minute. (Each IP counts as a separate user.) If you are working on an application that needs to exceed this restriction, please get in touch with us at engineering@artic.edu.
 
 Please use [HTTPS](https://en.wikipedia.org/wiki/HTTPS) to access our API. To support legacy applications, our API is currently accessible via both HTTP and HTTPS, but HTTP access will be removed in the future.
 
 Lastly, consider adding a `User-Agent` header with the name of your project and a contact email to your API requests. For example:
 
 ```bash
-curl 'https://api.artic.edu/api/v1/artworks/111628' \
+curl 'https://api.artic.edu/api/v1/artworks/24645' \
 --header 'User-Agent: aic-bash (engineering@artic.edu)'
 ```
 
@@ -220,19 +225,19 @@ We ask that you do so as a [matter of courtesy](https://towardsdatascience.com/e
 
 Listing and search endpoints are paginated. We show 12 records per page by default. Pagination can be controlled via the following query parameters:
 
-  - `page` to request a specific page of results (1-based) (default: 1)
-  - `limit` to set how many records each page should return (0-based) (default: 12)
+  - `page` to request a specific page of results (1-based, default: 1)
+  - `limit` to set how many records each page should return (0-based, default: 12)
 
 **Example:** https://api.artic.edu/api/v1/artists?page=2&limit=10
 
-For performance reasons, `limit` cannot exceed 100. Additionally, due to an underlying limitation in our search engine, you cannot request more than 10,000 records from a single search query through any combination of `limit` and `page`. For example:
+For performance reasons, `limit` cannot exceed 100. Additionally, you cannot request more than 10,000 records from a single search query through any combination of `limit` and `page`. For example:
 
   - **Success:** https://api.artic.edu/api/v1/artists/search?limit=100&page=100
   - **Error:** https://api.artic.edu/api/v1/artists/search?limit=100&page=101
 
-If you want to filter and scrape our search results, but the number of results is greater than 10,000, you won't be able to scrape them fully. Instead, we recommend that you download our [data dumps](#data-dumps) and perform your filtering locally.
+Generally, we ask that you avoid scraping our API. If you want to filter and scrape our search results, but the number of results is greater than 10,000, you won't be able to scrape them fully. Instead, we recommend that you download our [data dumps](#data-dumps) and perform your filtering locally.
 
-Occasionally, it might be useful to make a request with `limit=0` to find the total number of results. Our API supports this. For example, check `pagination.total` of this query to see the number of public domain artworks in our API:
+Occasionally, it might be useful to check the total number of results without retrieving any data. Our API supports this by allowing you to make a request with `limit=0`. For example, check `pagination.total` of this query to see the number of public domain artworks in our API:
 
 https://api.artic.edu/api/v1/artworks/search?query[term][is_public_domain]=true&limit=0
 
@@ -243,8 +248,8 @@ All paginated endpoints include a `pagination` block in their responses:
     "pagination": {
         "total": 112773,
         "limit": 12,
-        "offset": 24,  // zero-indexed
-        "current_page": 3, // 1-indexed
+        "offset": 24,  // 0-based
+        "current_page": 3, // 1-based
         "total_pages": 9398,
         "prev_url": "https://api.artic.edu/api/v1/artworks?page=2&limit=12",
         "next_url": "https://api.artic.edu/api/v1/artworks?page=4&limit=12"
