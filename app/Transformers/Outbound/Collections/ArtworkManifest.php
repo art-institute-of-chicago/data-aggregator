@@ -62,6 +62,11 @@ class ArtworkManifest extends BaseTransformer
             'attribution' => ($model->copyright_notice ? $model->copyright_notice . ' ' : '') . 'Digital image courtesy of the Art Institute of Chicago.',
             'logo' => 'https://raw.githubusercontent.com/Art-Institute-of-Chicago/template/master/aic-logo.gif',
             'within' => config('aic.config_documentation.website_url') . '/collection',
+            'rendering' => [
+                '@id' => config('aic.config_documentation.website_url') . '/artworks/' . $model->citi_id,
+                'format' => 'text/html',
+                'label' => 'Full record'
+            ],
             'sequences' => [
                 [
                     '@type' => 'sc:Sequence',
