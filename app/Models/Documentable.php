@@ -11,31 +11,33 @@ use App\Scopes\PublishedScope;
 trait Documentable
 {
 
+    private $docAppUrl;
+    private $docRequestUrl;
+
     /**
      * Generate endpoint documentation for this model
      *
      * @return string
      */
-    public function docEndpoints($appUrl)
+    public function docEndpoints()
     {
-        if ($this->docOnly()) {
-            return $this->docOnly();
-        }
-
-        if (!$appUrl) {
-            $appUrl = config('app.url') . '/api/v1';
-        }
+        $this->docAppUrl = config('aic.production_url') . '/api/v1';
+        $this->docRequestUrl = config('app.url') . '/api/v1';
 
         $doc = '';
         $doc .= $this->docTitle() . "\n\n";
         $doc .= $this->docLicense() . "\n\n";
-        $doc .= $this->docList($appUrl) . "\n";
+        $doc .= $this->docList() . "\n";
 
         if ($this->hasSearchEndpoint()) {
-            $doc .= $this->docSearch($appUrl) . "\n";
+            $doc .= $this->docSearch() . "\n";
         }
 
-        $doc .= $this->docSingle($appUrl) . "\n";
+        $doc .= $this->docSingle() . "\n";
+
+        if ($this->docExtra()) {
+            $doc .= $this->docExtra() . "\n";
+        }
 
         return $doc;
     }
@@ -51,11 +53,8 @@ trait Documentable
 
         $doc = '';
         $doc .= $this->docTitle() . "\n\n";
-        $doc .= $this->docDescription() . ' For a description of all the endpoints available for this resource, see [here](endpoints#' . $endpoint . ").\n\n";
-
-        if (!$this->docOnly()) {
-            $doc .= $this->docListFields() . "\n\n";
-        }
+        $doc .= $this->docDescription() . ' For a description of all the endpoints available for this resource, see [here](#' . $endpoint . ").\n\n";
+        $doc .= $this->docListFields() . "\n\n";
 
         return $doc;
     }
@@ -69,7 +68,7 @@ trait Documentable
     {
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
-        return '### ' . str_replace('-', ' ', Str::title($endpoint));
+        return '#### ' . str_replace('-', ' ', Str::title($endpoint));
     }
 
     /**
@@ -105,18 +104,18 @@ trait Documentable
      *
      * @return string
      */
-    public function docList($appUrl)
+    public function docList()
     {
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
         // Title
-        $doc = '`GET ' . $this->_endpointPath() . "`\n\n";
+        $doc = '##### `GET ' . $this->_endpointPath() . "`\n\n";
 
-        $doc .= $this->docListDescription() . ' For a description of all the fields included with this response, see [here](fields#' . $endpoint . ").\n\n";
+        $doc .= $this->docListDescription() . ' For a description of all the fields included with this response, see [here](#' . $endpoint . "-2).\n\n";
 
         $doc .= $this->docListParameters();
 
-        $doc .= $this->docExampleOutput($appUrl);
+        $doc .= $this->docExampleOutput([], true);
 
         return $doc;
     }
@@ -160,18 +159,18 @@ trait Documentable
      *
      * @return string
      */
-    public function docSearch($appUrl)
+    public function docSearch()
     {
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '`GET ' . $this->_endpointPath(['extraPath' => 'search']) . "`\n\n";
+        $doc = '##### `GET ' . $this->_endpointPath(['extraPath' => 'search']) . "`\n\n";
 
         $doc .= $this->docSearchDescription() . "\n\n";
 
         $doc .= $this->docSearchParameters();
 
-        $doc .= $this->docExampleSearchOutput($appUrl, $this->exampleSearchQuery());
+        $doc .= $this->docExampleSearchOutput($this->exampleSearchQuery());
 
         return $doc;
     }
@@ -193,21 +192,31 @@ trait Documentable
      *
      * @return string
      */
-    public function docSingle($appUrl)
+    public function docSingle()
     {
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '`GET ' . $this->_endpointPath(['extraPath' => '{id}']) . "`\n\n";
+        $doc = '##### `GET ' . $this->_endpointPath(['extraPath' => '{id}']) . "`\n\n";
 
         $doc .= $this->docSingleDescription() . "\n\n";
 
         if ($id = $this->exampleId())
         {
-            $doc .= $this->docExampleOutput($appUrl, ['id' => $id]);
+            $doc .= $this->docExampleOutput(['id' => $id]);
         }
 
         return $doc;
+    }
+
+        /**
+     * For this resource, add this to the full documentation.
+     *
+     * @return string
+     */
+    public function docExtra()
+    {
+        return '';
     }
 
     /**
@@ -237,7 +246,7 @@ trait Documentable
     public function docListParameters()
     {
         $doc = '';
-        $doc .= "### Available parameters:\n\n";
+        $doc .= "###### Available parameters:\n\n";
 
         foreach ($this->docListParametersRaw() as $param => $description)
         {
@@ -273,7 +282,7 @@ trait Documentable
     {
         $doc = '';
 
-        $doc .= "### Available parameters:\n\n";
+        $doc .= "###### Available parameters:\n\n";
 
         foreach ($this->docSearchParametersRaw() as $param => $description)
         {
@@ -334,30 +343,34 @@ trait Documentable
      *
      * @return string
      */
-    public function docExampleOutput($appUrl, $options = [])
+    public function docExampleOutput($options = [], $captureSampleId = false)
     {
         $defaults = [
             'extraPath' => '',
+            'extraAtEnd' => false,
             'getParams' => 'limit=2',
             'id' => '',
-            'includeExampleOutput' => true,
         ];
 
         $options = array_merge($defaults, $options);
 
-        $requestUrl = $appUrl . $this->_endpointPath($options) . ($options['getParams'] ? '?' . $options['getParams'] : '');
+        $requestUrl = $this->docRequestUrl . $this->_endpointPath($options) . (!$options['id'] ? '?' . $options['getParams'] : '');
+        $appUrl = $this->docAppUrl . $this->_endpointPath($options) . (!$options['id'] ? '?' . $options['getParams'] : '');
 
-        $doc = '';
-        $doc .= 'Example request: ' . $requestUrl . "  \n";
+        $doc = '::: details Example request: ' . $appUrl . "  \n";
 
-        if ($options['includeExampleOutput'])
+        $textResponse = file_get_contents($requestUrl);
+        sleep(1); // Throttle requests to the API
+
+        // Swap out the local URL with the production URL to display a relevant response in the doco
+        $textResponse = str_replace(str_replace('/', '\/', $this->docRequestUrl),
+                                    str_replace('/', '\/', $this->docAppUrl),
+                                    $textResponse);
+        $response = json_decode($textResponse);
+
+        // For brevity, only show the first few fields in the results
+        if (property_exists($response, 'data'))
         {
-            $doc .= "Example output:\n\n";
-
-            $response = json_decode(file_get_contents($requestUrl));
-            sleep(1); // Throttle requests to the API
-
-            // For brevity, only show the first fiew fields in the results
             if (is_array($response->data))
             {
                 foreach ($response->data as $index => $datum)
@@ -373,16 +386,29 @@ trait Documentable
                 $response->data = $this->_addEllipsis($response->data);
 
             }
+        }
+        if (property_exists($response, 'metadata'))
+        {
 
-            $json = json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-            $json = str_replace('"...": null', '...', $json);
-
-            // Output
-            $doc .= "```\n";
-            $doc .= $json . "\n";
-            $doc .= "```\n";
+            $response->metadata = $this->_addEllipsis($response->metadata);
 
         }
+
+        if (property_exists($response, 'sequences'))
+        {
+
+            $response->sequences = $this->_addEllipsis($response->sequences);
+
+        }
+
+        $json = json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $json = str_replace('"...": null', '...', $json);
+
+        // Output
+        $doc .= "```js\n";
+        $doc .= $json . "\n";
+        $doc .= "```\n";
+        $doc .= ":::\n";
 
         return $doc;
     }
@@ -392,15 +418,13 @@ trait Documentable
      *
      * @return string
      */
-    public function docExampleSearchOutput($appUrl, $getParams = '')
+    public function docExampleSearchOutput($getParams = '')
     {
-        $requestUrl = $appUrl . $this->_endpointPath() . '/search' . ($getParams ? '?' . $getParams : '');
+        $appUrl = $this->docAppUrl . $this->_endpointPath() . '/search' . ($getParams ? '?' . $getParams : '');
 
-        $doc = '';
-        $doc .= 'Example request: ' . $requestUrl . "  \n";
-        $doc .= "Example output:\n\n";
+        $doc = "::: details Example request: " . $appUrl . "\n";
 
-        $response = json_decode(file_get_contents($requestUrl));
+        $response = json_decode(file_get_contents($appUrl));
         sleep(1); // Throttle requests to the API
 
         // For brevity, only show the first few results
@@ -415,9 +439,10 @@ trait Documentable
         $json = json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
         // Output
-        $doc .= "```\n";
+        $doc .= "```js\n";
         $doc .= $json . "\n";
         $doc .= "```\n";
+        $doc .= ":::\n";
 
         return $doc;
     }
@@ -466,16 +491,6 @@ trait Documentable
     }
 
     /**
-     * For this resource, use this as the full documentation.
-     *
-     * @return string
-     */
-    public function docOnly()
-    {
-        return '';
-    }
-
-    /**
      * Whether this resource has a `/search` endpoint
      *
      * @return boolean
@@ -492,11 +507,6 @@ trait Documentable
      */
     public function swaggerEndpoints()
     {
-        if ($this->docOnly())
-        {
-            return '';
-        }
-
         $doc = $this->swaggerList() . "\n";
 
         if ($this->hasSearchEndpoint())
@@ -711,7 +721,7 @@ trait Documentable
      *
      * @return string
      */
-    private function _endpointAsCopyText($endpoint = '')
+    protected function _endpointAsCopyText($endpoint = '')
     {
         if (!$endpoint)
         {
@@ -726,10 +736,11 @@ trait Documentable
      *
      * @return string
      */
-    private function _endpointPath($options = [])
+    protected function _endpointPath($options = [])
     {
         $defaults = [
             'extraPath' => '',
+            'extraAtEnd' => false,
             'id' => '',
         ];
 
@@ -741,7 +752,10 @@ trait Documentable
 
         if ($options['extraPath'])
         {
-            $path .= '/' . $options['extraPath'];
+            if (!$options['extraAtEnd'] || $options['extraAtEnd'] === false)
+            {
+                $path .= '/' . $options['extraPath'];
+            }
         }
 
         if ($options['id'])
@@ -749,26 +763,53 @@ trait Documentable
             $path .= '/' . $options['id'];
         }
 
+        if ($options['extraPath'])
+        {
+            if ($options['extraAtEnd'] && $options['extraAtEnd'] === true)
+            {
+                $path .= '/' . $options['extraPath'];
+            }
+        }
+
         return rtrim($path,"/");
     }
 
-    private function _addEllipsis(\stdClass $obj)
+    private function _addEllipsis($obj)
     {
-        $keys = get_object_vars($obj);
-        $addEllipsis = false;
-        $i = 0;
+        if (is_object($obj)) {
+            $keys = get_object_vars($obj);
+            $addEllipsis = false;
+            $i = 0;
 
-        foreach ($keys as $keyIndex => $key)
-        {
-            if ($i > 5)
+            foreach ($keys as $keyIndex => $key)
             {
-                unset($obj->{$keyIndex});
-                $addEllipsis = true;
+                if ($i > 5)
+                {
+                    unset($obj->{$keyIndex});
+                    $addEllipsis = true;
+                }
+                $i++;
             }
-            $i++;
-        }
 
-        $obj->{'...'} = null;
+            $obj->{'...'} = null;
+        }
+        if (is_array($obj)) {
+            $keys = array_keys($obj);
+            $addEllipsis = false;
+            $i = 0;
+
+            foreach ($keys as $key)
+            {
+                if ($i > 5)
+                {
+                    unset($obj[$key]);
+                    $addEllipsis = true;
+                }
+                $i++;
+            }
+
+            $obj[] = '...';
+        }
 
         return $obj;
     }

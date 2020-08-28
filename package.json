@@ -1,26 +1,25 @@
 {
     "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "name": "data-aggregator",
+    "version": "1.0.0",
+    "description": "The Art Institute of Chicago's API provides JSON formatted data as a REST-style service that allows developers to explore and integrate the museum’s data into their projects. This API is the same tool that powers our website, our mobile app, and many other technologies in the museum.",
+    "main": "index.js",
+    "authors": {
+        "name": "Engineering at the Art Institute of Chicago",
+        "email": "engineering@artic.edu"
     },
-    "devDependencies": {
-        "axios": "^0.18",
-        "bootstrap": "^4.0.0",
-        "cross-env": "^5.1",
-        "jquery": "^3.5",
-        "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.19",
-        "popper.js": "^1.12",
-        "resolve-url-loader": "^2.3.1",
-        "sass": "^1.15.2",
-        "sass-loader": "^7.1.0",
-        "vue": "^2.5.17",
-        "vue-template-compiler": "^2.6.10"
+    "repository": "https://github.com/art-institute-of-chicago/data-aggregator",
+    "license": "AGPL 3.0",
+    "scripts": {
+        "docs-dev": "concurrently \"watch \\\"node docs/generate_readme.js\\\" docs/.sections --wait=2 --interval=0.1\" \"vuepress dev docs\"",
+        "docs-dev-full": "concurrently \"watch \\\"node docs/generate_readme.js --full\\\" docs/.sections --wait=2 --interval=0.1\" \"vuepress dev docs\"",
+        "docs-build": "node docs/generate_readme.js && vuepress build docs"
+    },
+    "dependencies": {
+        "@vuepress/plugin-back-to-top": "^1.5.3",
+        "@vuepress/plugin-medium-zoom": "^1.5.3",
+        "concurrently": "^5.3.0",
+        "vuepress": "^1.5.3",
+        "watch": "^1.0.2"
     }
 }

@@ -8,9 +8,7 @@ use Exception;
 class DumpUpload extends AbstractDumpCommand
 {
 
-    protected $signature = 'dump:upload
-                            {--reset : Reset repo to initial commit}
-                            {--remove : Delete and re-clone repo}';
+    protected $signature = 'dump:upload';
 
     protected $description = 'Pushes the local dump to a remote repo';
 
@@ -21,79 +19,30 @@ class DumpUpload extends AbstractDumpCommand
 
         $repoRemote = env('DUMP_REPO_REMOTE');
         $repoPath = $this->getDumpPath('remote');
+        $srcPath = $this->getDumpPath('local');
 
-        // If you change these, you'll need to clean up the repo manually
-        $tablesSrcPath = $this->getDumpPath('local/tables');
-        $tablesDestPath = $repoPath . '/tables';
+        // If you change this, you'll need to clean up the repo manually
         $jsonsSrcPath = $this->getDumpPath('local/json');
         $jsonsDestPath = $repoPath . '/json';
+        $gettingStartedSrcPath = $this->getDumpPath('local/getting-started');
+        $gettingStartedDestPath = $repoPath . '/getting-started';
 
-        if (count(glob($tablesSrcPath . '/*.csv') ?: []) < 1) {
-            throw new Exception('No CSV files found in ' . $tablesSrcPath);
-        }
-        if (count(glob($jsonsSrcPath . '/*/*.json') ?: []) < 1) {
+        if ($this->isDirEmpty($jsonsSrcPath)) {
             throw new Exception('No JSON files found in ' . $jsonsSrcPath);
         }
-
-        if ($this->option('remove') && file_exists($repoPath)) {
-            $this->shell->passthru('rm -rf %s', $repoPath);
+        if ($this->isDirEmpty($gettingStartedSrcPath)) {
+            throw new Exception('No getting started files found in ' . $gettingStartedSrcPath);
         }
 
-        if (!file_exists($repoPath)) {
-            $this->shell->passthru('git clone %s %s', $repoRemote, $repoPath);
-        }
+        $this->shell->passthru('rm -rf %s/*', $repoPath);
+        $this->shell->passthru('rm -rf %s/.git', $repoPath);
 
-        $this->shell->passthru('git -C %s remote set-url origin %s', $repoPath, $repoRemote);
-        $this->shell->passthru('git -C %s checkout master', $repoPath);
-        $this->shell->passthru('git -C %s fetch', $repoPath);
-        $this->shell->passthru('git -C %s reset --hard origin/master', $repoPath);
+        $this->shell->passthru('git -C %s init', $repoPath);
 
-        // Optional: Reset repo to initial commit?
-        // If you want to modify the documentation, make sure you amend initial commit!
-        if ($this->option('reset')) {
-            $commit = $this->shell->exec('git -C %s rev-list --max-parents=0 HEAD', $repoPath)['output'][0];
-            $this->shell->passthru('git -C %s reset --hard %s', $repoPath, $commit);
-        }
-
-        // Remove all existing CSVs and JSONs from the repo
-        // This should take care of any tables that were removed or renamed
-        if (file_exists($tablesDestPath)) {
-            $this->shell->passthru('find %s -name *.csv | xargs rm', $tablesDestPath);
-        } else {
-            mkdir($tablesDestPath);
-        }
-        if (file_exists($jsonsDestPath)) {
-            $this->shell->passthru('find %s -name *.json | xargs rm', $jsonsDestPath);
-        } else {
-            mkdir($jsonsDestPath);
-        }
+        $this->shell->passthru('git -C %s remote add origin %s', $repoPath, $repoRemote);
 
         // Copy dumps of whitelisted tables and endpoints into the repo
-        foreach ($this->whitelistedTables as $tableName) {
-            $csvPaths = $this->shell->exec('find %s -name %s', $tablesSrcPath, $tableName . '*.csv')['output'];
-
-            // Fix issues e.g. with artwork_place and artwork_place_qualifiers
-            $csvPaths = array_values(array_filter($csvPaths, function ($csvPath) use ($tableName) {
-                return preg_match('/' . $tableName . '(?:-[0-9]+)?\.csv/', basename($csvPath));
-            }));
-
-            foreach ($csvPaths as $csvPath) {
-                $csvSubPath = '/' . basename($csvPath);
-                $this->shell->passthru('cp %s %s', $tablesSrcPath . $csvSubPath, $tablesDestPath . $csvSubPath);
-            }
-        }
-        foreach ($this->getModels() as $model => $category) {
-            if(!File::exists($jsonsSrcPath .'/' .app('Resources')->getEndpointForModel($model))) {
-                continue;
-            }
-            $jsonPaths = $this->shell->exec('find %s -name %s', $jsonsSrcPath .'/' .app('Resources')->getEndpointForModel($model), '*.json')['output'];
-
-            $this->shell->passthru('mkdir -p %s', $jsonsDestPath . '/' .app('Resources')->getEndpointForModel($model));
-            foreach ($jsonPaths as $jsonPath) {
-                $jsonSubPath = '/' . app('Resources')->getEndpointForModel($model) .'/' . basename($jsonPath);
-                $this->shell->passthru('cp %s %s', $jsonsSrcPath . $jsonSubPath, $jsonsDestPath . $jsonSubPath);
-            }
-        }
+        $this->shell->passthru('rsync -r --exclude \'.gitignore\' %s/ %s', $srcPath, $repoPath);
 
         // Add VERSION file with current commit
         $this->shell->passthru('git -C %s rev-parse HEAD > %s', base_path(), $repoPath . '/VERSION');
@@ -102,15 +51,34 @@ class DumpUpload extends AbstractDumpCommand
         $this->shell->passthru('git -C %s add -A', $repoPath);
 
         $this->shell->passthru(
-            'git -C %s -c %s -c %s commit --author %s -m "Update CSVs"',
+            'git -C %s -c %s -c %s commit --author %s -m "Update data"',
             $repoPath,
             'user.name=' . env('DUMP_REPO_NAME'),
             'user.email=' . env('DUMP_REPO_EMAIL'),
             env('DUMP_REPO_NAME') . ' <' . env('DUMP_REPO_EMAIL') . '>'
         );
 
-        // TODO: Fix how this works without --reset?
-        $this->shell->passthru('git -C %s push %s', $repoPath, ($this->option('reset') ? '--force' : '--no-force-with-lease'));
+        $this->shell->passthru('git -C %s push --set-upstream origin master %s', $repoPath, '--force');
     }
 
+    function isDirEmpty($dir) {
+        $handle = opendir($dir);
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != "..") {
+                $file  = $dir.$entry;
+                if (is_dir($file)) {
+                    if (!$this->isDirEmpty($file)) {
+                        closedir($handle);
+                        return FALSE;
+                    }
+                }
+                else {
+                    closedir($handle);
+                    return FALSE;
+                }
+            }
+        }
+        closedir($handle);
+        return TRUE;
+    }
 }

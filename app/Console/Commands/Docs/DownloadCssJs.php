@@ -31,12 +31,28 @@ class DownloadCssJs extends AbstractDocCommand
                 'fonts/3545D5_2_0.woff' => 'fonts/3545D5_2_0.woff',
                 'fonts/3545D5_2_0.woff2' => 'fonts/3545D5_2_0.woff2',
                 'fonts/3545D5_2_0.ttf' => 'fonts/3545D5_2_0.ttf',
+                'images/favicon-16.png' => 'images/favicon-16.png',
+                'images/favicon-152.png' => 'images/favicon-152.png',
+                'images/favicon-120.png' => 'images/favicon-120.png',
+                'images/favicon-76.png' => 'images/favicon-76.png',
             ]
         );
 
         foreach ($files as $vanityName => $fileName) {
             $contents = file_get_contents('https://www.artic.edu/dist/' .$fileName);
-            Storage::disk('public')->put($vanityName, $contents);
+            Storage::disk('local')->put($vanityName, $contents);
+
+            $dest = base_path('docs/.vuepress/public/assets/' . $vanityName);
+
+            $path = pathinfo($dest);
+            if (!file_exists($path['dirname'])) {
+                mkdir($path['dirname'], 0777, true);
+            }
+
+            copy(storage_path('app/' . $vanityName),
+                 $dest);
         }
+
+        // @TODO: once the website is public, pull the logo SVG from the GitHub repo
     }
 }

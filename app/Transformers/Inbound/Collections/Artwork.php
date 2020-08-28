@@ -50,7 +50,7 @@ class Artwork extends CollectionsTransformer
 
     protected function getSync(Datum $datum, $test = false)
     {
-        return [
+        $out = [
             'categories' => $this->getSyncCategories($datum),
             'terms' => $this->getSyncTerms($datum),
 
@@ -58,6 +58,12 @@ class Artwork extends CollectionsTransformer
             'places' => $this->getSyncPlaces($datum),
             'catalogues' => $this->getSyncCatalogues($datum),
         ];
+
+        if (env('IMPORT_ASSET_RELATIONSHIPS_FROM_CITI', false)) {
+            $out['assets'] = $this->getSyncAssets($datum);
+        }
+
+        return $out;
     }
 
     protected function getSyncEx(Datum $datum)
@@ -185,6 +191,21 @@ class Artwork extends CollectionsTransformer
                     'number' => $pivot->number,
                     'state_edition' => $pivot->state_edition,
                     'preferred' => $pivot->is_preferred,
+                ],
+            ];
+        });
+    }
+
+    /**
+     * We do not allow something to be both documentation and representation.
+     */
+    private function getSyncAssets(Datum $datum)
+    {
+        return $this->getSyncPivots($datum, 'assets', 'netx_id', function ($pivot) {
+            return [
+                $pivot->netx_id => [
+                    'preferred' => $pivot->is_preferred,
+                    'is_doc' => $pivot->is_rep === false,
                 ],
             ];
         });

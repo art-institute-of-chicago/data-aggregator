@@ -3,6 +3,7 @@
 namespace App\Transformers\Outbound;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 
 use Carbon\Carbon;
 
@@ -44,10 +45,10 @@ abstract class AbstractTransformer extends BaseTransformer
      * Be sure to call parent::__construct() if you overwrite this.
      * Otherwise, you will lose field-filtering functionality.
      */
-    public function __construct($requestedFields = null, $isRestricted = false)
+    public function __construct($requestedFields = null)
     {
         $this->requestedFields = $this->getRequestedFields($requestedFields);
-        $this->isRestricted = $isRestricted;
+        $this->isRestricted = Gate::denies('restricted-access');
     }
 
     /**
@@ -57,7 +58,7 @@ abstract class AbstractTransformer extends BaseTransformer
      */
     final public function transform(Model $model)
     {
-        $mappedFields = $this->getMappedFields();
+        $mappedFields = $this->getMappedFields($model);
 
         $filteredFields = array_filter($mappedFields, function ($mappedField) use ($model) {
             return !isset($mappedField['filter']) || call_user_func($mappedField['filter'], $model);
@@ -73,7 +74,7 @@ abstract class AbstractTransformer extends BaseTransformer
      *
      * @return array
      */
-    public function getMappedFields()
+    public function getMappedFields($model = null)
     {
         return $this->mappedFields ?? $this->mappedFields = $this->initMappedFields();
     }
@@ -108,6 +109,25 @@ abstract class AbstractTransformer extends BaseTransformer
     public function getLicensePriority()
     {
         return 100;
+    }
+
+    public function getInfoFields() {
+        $info = [];
+
+        $info['license_text'] = $this->getLicenseText();
+        $info['license_links'] = $this->getLicenseLinks();
+
+        $info['version'] = config('aic.version');
+
+        if (config('aic.documentation_url')) {
+            $info['documentation'] = config('aic.documentation_url');
+        }
+
+        if (config('aic.message')) {
+            $info['message'] = config('aic.message');
+        }
+
+        return $info;
     }
 
     protected function getIds()

@@ -37,6 +37,10 @@ abstract class BaseCommand extends AbstractCommand
             ->filter(function ($modelNamespace, $model) use ($desiredNamespace) {
                 return $modelNamespace === $desiredNamespace;
             })
+            ->filter(function ($modelNamespace, $model) {
+                // Filter out classes that extend CategoryTerm
+                return get_parent_class($model) !== 'App\Models\Collections\CategoryTerm';
+            })
             ->keys();
     }
 
@@ -52,6 +56,10 @@ abstract class BaseCommand extends AbstractCommand
             })
             ->pluck('model')
             ->unique()
+            ->filter(function ($model) {
+                // Filter out classes that extend CategoryTerm
+                return get_parent_class($model) !== 'App\Models\Collections\CategoryTerm';
+            })
             ->filter()
             ->values()
             ->map(function ($model) {

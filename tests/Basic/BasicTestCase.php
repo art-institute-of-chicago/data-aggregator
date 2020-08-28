@@ -41,8 +41,6 @@ abstract class BasicTestCase extends TestCase
         ini_set('memory_limit', '-1');
 
         config(['elasticsearch.defaultConnection' => 'testing']);
-
-        \Artisan::call('migrate');
     }
 
     public function model()
@@ -58,40 +56,18 @@ abstract class BasicTestCase extends TestCase
     }
 
     /** @test */
-    public function it_fetches_all_entities()
-    {
-        $resources = $this->it_fetches_all();
-
-        $this->assertArrayHasKeys($resources, $this->keys, true);
-    }
-
-    /** @test */
-    public function it_fetches_a_single_entity()
-    {
-        $resource = $this->it_fetches_a_single();
-
-        $this->assertArrayHasKeys($resource, $this->keys);
-    }
-
-    /** @test */
-    public function it_fetches_multiple_entities()
-    {
-        $resources = $this->it_fetches_multiple();
-
-        $this->assertArrayHasKeys($resources, $this->keys, true);
-    }
-
-    /** @test */
     public function it_400s_if_nonnumerid_nonuuid_is_passed()
     {
         $class = $this->model();
         $endpoint = $this->route($class);
 
-        $this->make($class);
+        $model = $this->make($class);
 
         $response = $this->getJson('api/v1/' . $endpoint . '/fsdfdfs');
 
         $response->assertStatus(400);
+
+        $class::query()->delete();
     }
 
     /**
@@ -103,11 +79,13 @@ abstract class BasicTestCase extends TestCase
         $class = $this->model();
         $endpoint = $this->route($class);
 
-        $this->make($class);
+        $model = $this->make($class);
 
         $response = $this->getJson('api/v1/' . $endpoint . '?limit=2000');
 
         $response->assertStatus(403);
+
+        $class::query()->delete();
     }
 
     // @TODO: Fix 404s tests w/ regards to id format
@@ -118,11 +96,13 @@ abstract class BasicTestCase extends TestCase
         $class = $this->model();
         $endpoint = $this->route($class);
 
-        $this->make($class);
+        $model = $this->make($class);
 
         $response = $this->getJson('api/v1/' . $endpoint . '/' . $this->getRandomId());
 
         $response->assertStatus(404);
+
+        $class::query()->delete();
     }
 
     public function it_fetches_all()
@@ -130,7 +110,7 @@ abstract class BasicTestCase extends TestCase
         $class = $this->model();
         $endpoint = $this->route($class);
 
-        $this->times(5)->make($class);
+        $models = $this->times(5)->make($class);
 
         $response = $this->getJson('api/v1/' . $endpoint);
         $response->assertSuccessful();
@@ -142,7 +122,9 @@ abstract class BasicTestCase extends TestCase
             $this->assertArrayHasKeys($resource, ['id', 'title']);
         }
 
-        return $resources;
+        $this->assertArrayHasKeys($resources, $this->keys, true);
+
+        $class::query()->delete();
     }
 
     public function it_fetches_a_single($extraValue = '')
@@ -150,7 +132,8 @@ abstract class BasicTestCase extends TestCase
         $class = $this->model();
         $endpoint = $this->route($class);
 
-        $id = $this->make($class);
+        $model = $this->make($class);
+        $id = $model->getAttributeValue($lastModel->getKeyName());
 
         $response = $this->getJson('api/v1/' . $endpoint . '/' . $id . ($extraValue ? '/' . $extraValue : ''));
         $response->assertSuccessful();
@@ -158,7 +141,9 @@ abstract class BasicTestCase extends TestCase
         $resource = $response->json()['data'];
         $this->assertArrayHasKeys($resource, ['id', 'title']);
 
-        return $resource;
+        $this->assertArrayHasKeys($resource, $this->keys);
+
+        $class::query()->delete();
     }
 
     public function it_fetches_multiple()
@@ -166,7 +151,7 @@ abstract class BasicTestCase extends TestCase
         $class = $this->model();
         $endpoint = $this->route($class);
 
-        $this->times(5)->make($class);
+        $models = $this->times(5)->make($class);
 
         $response = $this->getJson('api/v1/' . $endpoint . '?ids=' . implode(',', array_slice($this->ids, -3, 3)));
         $response->assertSuccessful();
@@ -177,8 +162,9 @@ abstract class BasicTestCase extends TestCase
         foreach ($resources as $resource) {
             $this->assertArrayHasKeys($resource, ['id', 'title']);
         }
+        $this->assertArrayHasKeys($resources, $this->keys, true);
 
-        return $resources;
+        $class::query()->delete();
     }
 
     /** @test */
@@ -189,7 +175,7 @@ abstract class BasicTestCase extends TestCase
         $discardedFields = $validFields->slice(2);
 
         $m = $this->model();
-        $this->times(5)->make($m);
+        $models = $this->times(5)->make($m);
 
         $response = $this->getJson('api/v1/' . $this->route($m) . '?fields=' . $retrievedFields->implode(','));
         $response->assertSuccessful();
@@ -202,7 +188,7 @@ abstract class BasicTestCase extends TestCase
             $this->assertArrayNotHasKeys($resource, $discardedFields);
         }
 
-        return $resources;
+        $m::query()->delete();
     }
 
     /** @test */
@@ -213,7 +199,8 @@ abstract class BasicTestCase extends TestCase
         $discardedFields = $validFields->slice(2);
 
         $m = $this->model();
-        $id = $this->make($m);
+        $model = $this->make($m);
+        $id = $model->getAttributeValue($model->getKeyName());
 
         $response = $this->getJson('api/v1/' . $this->route($m) . '/' . $id . '?fields=' . $retrievedFields->implode(','));
         $response->assertSuccessful();
@@ -223,7 +210,7 @@ abstract class BasicTestCase extends TestCase
         $this->assertArrayHasKeys($resource, $retrievedFields);
         $this->assertArrayNotHasKeys($resource, $discardedFields);
 
-        return $resource;
+        $m::query()->delete();
     }
 
     /** @test */
@@ -234,7 +221,7 @@ abstract class BasicTestCase extends TestCase
         $discardedFields = $validFields->slice(2);
 
         $m = $this->model();
-        $this->times(5)->make($m);
+        $models = $this->times(5)->make($m);
 
         $response = $this->getJson('api/v1/' . $this->route($m) . '?ids=' . implode(',', array_slice($this->ids, -3, 3)) . '&fields=' . $retrievedFields->implode(','));
         $response->assertSuccessful();
@@ -247,7 +234,7 @@ abstract class BasicTestCase extends TestCase
             $this->assertArrayNotHasKeys($resource, $discardedFields);
         }
 
-        return $resources;
+        $m::query()->delete();
     }
 
     /** @test
@@ -257,7 +244,7 @@ abstract class BasicTestCase extends TestCase
     {
         if ($this->fieldsUsedByMobile) {
             $m = $this->model();
-            $this->times(5)->make($m);
+            $models = $this->times(5)->make($m);
 
             $response = $this->getJson('api/v1/' . $this->route($m));
             $response->assertSuccessful();
@@ -268,6 +255,8 @@ abstract class BasicTestCase extends TestCase
             foreach ($resources as $resource) {
                 $this->assertArrayHasKeys($resource, $this->fieldsUsedByMobile);
             }
+
+            $class::query()->delete();
         } else {
             $this->assertEmpty($this->fieldsUsedByMobile);
         }
@@ -296,11 +285,13 @@ abstract class BasicTestCase extends TestCase
     protected function getValidFields()
     {
         $m = $this->model();
-        $id = $this->make($m);
+        $model = $this->make($m);
+        $id = $model->getAttributeValue($model->getKeyName());
+
 
         $response = $this->getJson('api/v1/' . $this->route($m) . '/' . $id);
 
-        $m::findOrFail($id)->delete();
+        $m::query()->delete();
 
         return collect($response->json()['data'])->keys();
     }

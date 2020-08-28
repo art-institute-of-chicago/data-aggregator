@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \Aic\Hub\Foundation\Commands\DatabaseReset::class,
+        \Aic\Hub\Foundation\Commands\MakeUser::class,
     ];
 
     /**
@@ -47,49 +48,43 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('import:web')
             ->everyFiveMinutes()
-            ->withoutOverlapping(30)
+            ->withoutOverlapping(60)
             ->sendOutputTo(storage_path('logs/import-web-last-run.log'));
 
         $schedule->command('import:events-ticketed-full --unreset')
             ->everyFiveMinutes()
-            ->withoutOverlapping(30)
+            ->withoutOverlapping(60)
             ->sendOutputTo(storage_path('logs/import-events-ticketed-last-run.log'));
 
         $schedule->command('delete:assets')
             ->everyFiveMinutes()
-            ->withoutOverlapping(30)
+            ->withoutOverlapping(60)
             ->sendOutputTo(storage_path('logs/delete-assets-last-run.log'));
 
         $schedule->command('delete:collections')
             ->everyFiveMinutes()
-            ->withoutOverlapping(30)
+            ->withoutOverlapping(60)
             ->sendOutputTo(storage_path('logs/delete-collections-last-run.log'));
 
         $schedule->command('import:assets')
             ->everyFiveMinutes()
-            ->withoutOverlapping(30)
+            ->withoutOverlapping(60)
             ->sendOutputTo(storage_path('logs/import-assets-last-run.log'));
 
         $schedule->command('import:collections')
             ->everyFiveMinutes()
-            ->withoutOverlapping(30)
+            ->withoutOverlapping(60)
             ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
 
         $schedule->command('import:queues')
             ->everyMinute()
-            ->withoutOverlapping(30)
+            ->withoutOverlapping(60)
             ->sendOutputTo(storage_path('logs/import-queues-last-run.log'));
 
-        $schedule->command('dump:json-export')
-            ->before(function () {
-                $this->call('dump:export');
-            })
-            ->after(function () {
-                $this->call('dump:upload', [
-                    '--reset' => 'default',
-                ]);
-            })
-            ->dailyAt('22:45');
+        $schedule->command('dump:nightly')
+            ->dailyAt('22:45')
+            ->withoutOverlapping()
+            ->sendOutputTo(storage_path('logs/data-dump-last-run.log'));
     }
 
     /**

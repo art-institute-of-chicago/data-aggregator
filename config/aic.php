@@ -12,7 +12,7 @@ return [
     | or any other location as required by the application or its packages.
     */
 
-    'version' => '1.0-rc15',
+    'version' => trim(file_get_contents(__DIR__ . '/../VERSION')),
 
     /*
     |--------------------------------------------------------------------------
@@ -23,6 +23,16 @@ return [
     */
 
     'documentation_url' => env('APP_DOCUMENTATION_URL', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Production URL
+    |--------------------------------------------------------------------------
+    |
+    | For documentation generation purposes.
+    */
+
+    'production_url' => env('APP_PRODUCTION_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -51,6 +61,7 @@ return [
         'shop_image_url' => env('SHOP_IMGIX_URL', null),
         'shop_product_url' => env('PRODUCT_URL', null),
         'shop_category_url' => env('PRODUCT_URL', null),
+        'website_url' => env('WEBSITE_URL', null),
     ],
 
     /*
@@ -81,7 +92,7 @@ return [
         'max_resources_guest' => 1000,
         'max_resources_user' => 10000,
         'login_whitelist_ips' => array_map('trim', explode(',', env('LOGIN_WHITELIST_IPS', '127.0.0.1/32'))),
-        'access_whitelist_ips' => array_map('trim', explode(',', env('ACCESS_WHITELIST_IPS', '127.0.0.1/32'))),
+        'access_whitelist_ips' => array_map('trim', explode(',', env('ACCESS_WHITELIST_IPS', ''))),
     ],
 
 ];

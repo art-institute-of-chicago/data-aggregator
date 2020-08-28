@@ -98,30 +98,13 @@ abstract class AbstractController extends BaseController
         $this->parseFractalParam('include', 'parseIncludes');
         $this->parseFractalParam('exclude', 'parseExcludes');
 
-        $isRestricted = Gate::denies('restricted-access');
-
         $fields = Input::get('fields');
-        $transformer = new $this->transformer($fields, $isRestricted);
+        $transformer = new $this->transformer($fields);
         $resource = new $resourceClass($inputData, $transformer);
         $data = $this->fractal->createData($resource)->toArray();
         $response = isset($data['data']) ? $data : ['data' => $data];
 
-        $info = [];
-
-        $info['license_text'] = $transformer->getLicenseText();
-        $info['license_links'] = $transformer->getLicenseLinks();
-
-        $info['version'] = config('aic.version');
-
-        if (config('aic.documentation_url')) {
-            $info['documentation'] = config('aic.documentation_url');
-        }
-
-        if (config('aic.message')) {
-            $info['message'] = config('aic.message');
-        }
-
-        $response['info'] = $info;
+        $response['info'] = $transformer->getInfoFields();
 
         $config = config('aic.config_documentation');
 
