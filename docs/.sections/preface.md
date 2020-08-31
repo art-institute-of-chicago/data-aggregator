@@ -79,7 +79,7 @@ https://api.artic.edu/api/v1/artworks/search?params=%7B%22q%22%3A%22cats%22%2C%2
 ```
 
 ::: warning
-Our API is flexible in how it accepts queries, but each method of querying is meant for a specific purpose. See [GET vs. POST](get-vs-post) for more details.
+Our API is flexible in how it accepts queries, but each method of querying is meant for a specific purpose. See [GET vs. POST](#get-vs-post) for more details.
 :::
 
 There's a lot of information you can get about our collection, and there's a lot more than artworks in our API. Explore our documentation to learn more!
