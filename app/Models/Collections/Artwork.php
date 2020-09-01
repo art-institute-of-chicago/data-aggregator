@@ -627,7 +627,7 @@ class Artwork extends CollectionsModel
         return 'q=monet';
     }
 
-        /**
+    /**
      * For this resource, add this to the full documentation.
      *
      * @return string
@@ -637,7 +637,7 @@ class Artwork extends CollectionsModel
         $endpointAsCopyText = $this->_endpointAsCopyText();
 
         // Title
-        $doc = '##### `GET ' . $this->_endpointPath(['extraPath' => '{id}/manifest.json']) . "`\n\n";
+        $doc = '##### `GET ' . $this->_endpointPath(['extraPath' => '{id}/manifest[.json]']) . "`\n\n";
 
         $doc .= "A representation of this artwork in the IIIF Presentation API format.\n\n";
 
