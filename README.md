@@ -14,17 +14,17 @@ You are in the right place! The aggregator contains all of our public APIs, whic
 
 For example, here's an endpoint that lists all of our published artworks:
 
-https://aggregator-data.artic.edu/api/v1/artworks
+https://api.artic.edu/api/v1/artworks
 
 ...and here's a query that shows identifiers, titles, and last modified dates for all artworks that have been updated in our collections system in the past seven days from this moment, sorted in reverse chronological order:
 
-https://aggregator-data.artic.edu/api/v1/artworks/search?fields=id,title,last_updated_source&query[range][last_updated_source][gte]=now-7d&sort[last_updated_source][order]=desc
+https://api.artic.edu/api/v1/artworks/search?fields=id,title,last_updated_source&query[range][last_updated_source][gte]=now-7d&sort[last_updated_source][order]=desc
 
 Our API is a wrapper around [Elasticsearch's Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl.html). Depending on your needs, these queries can get quite complex.
 
 Here are some resources to get you started:
 
-* [Art Institute of Chicago — API Documentation](https://aggregator-data.artic.edu/home) (fields and endpoints)
+* [Art Institute of Chicago — API Documentation](https://api.artic.edu/docs) (fields and endpoints)
 * [Elasticsearch 6.0 — Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl.html) (query syntax)
 * [Art Institute of Chicago — Open Access — Public API](https://www.artic.edu/open-access/public-api) (example projects)
 
