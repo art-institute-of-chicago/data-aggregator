@@ -15,5 +15,4 @@ class Material extends BaseTransformer
             'subjects' => collect($datum->subjects)->pluck('id'),
         ];
     }
-
 }

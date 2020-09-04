@@ -51,5 +51,4 @@ class Sound extends BaseTransformer
             ],
         ];
     }
-
 }

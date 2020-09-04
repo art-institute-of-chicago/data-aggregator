@@ -32,5 +32,4 @@ class ArtworkCatalogue extends BasePivot
     {
         return 'updated_at';
     }
-
 }

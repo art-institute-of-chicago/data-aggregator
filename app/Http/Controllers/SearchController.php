@@ -177,7 +177,6 @@ class SearchController extends BaseController
                 $results = Elasticsearch::$elasticsearchMethod($params);
             }
         } catch (\Exception $e) {
-
             // Elasticsearch occasionally returns a status code of zero
             $code = $e->getCode() > 0 ? $e->getCode() : 500;
 
@@ -204,7 +203,6 @@ class SearchController extends BaseController
         $queries = Input::all();
 
         if (!is_array($queries) || count(array_filter(array_keys($queries), 'is_string')) > 0) {
-
             // TODO: Accept key'd
             throw new DetailedException('Invalid Query', 'You must pass an indexed array as the root object.', 400);
         }
@@ -264,7 +262,6 @@ class SearchController extends BaseController
                 $results = Elasticsearch::msearch($params);
             }
         } catch (\Exception $e) {
-
             // Elasticsearch occasionally returns a status code of zero
             $code = $e->getCode() > 0 ? $e->getCode() : 500;
 
@@ -281,7 +278,6 @@ class SearchController extends BaseController
         $responses = [];
 
         foreach ($results as $result) {
-
             // Transform Elasticsearch results into our API standard
             $responses[] = ( new SearchResponse($result, $originalParams) )->{$responseMethod}();
         }

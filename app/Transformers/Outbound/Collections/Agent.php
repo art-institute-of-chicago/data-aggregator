@@ -226,5 +226,4 @@ class Agent extends BaseTransformer
 
         return $suggestFields;
     }
-
 }

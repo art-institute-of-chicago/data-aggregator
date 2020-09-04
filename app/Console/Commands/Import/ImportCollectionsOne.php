@@ -37,5 +37,4 @@ class ImportCollectionsOne extends ImportCollectionsFull
 
         return $this->fetch($url, true);
     }
-
 }

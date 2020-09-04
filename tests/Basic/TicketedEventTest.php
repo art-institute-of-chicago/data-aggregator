@@ -8,5 +8,4 @@ class TicketedEventTest extends BasicTestCase
 {
 
     protected $model = TicketedEvent::class;
-
 }

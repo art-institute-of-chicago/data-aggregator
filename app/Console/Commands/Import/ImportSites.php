@@ -55,5 +55,4 @@ class ImportSites extends AbstractImportCommand
             $this->save($datum, Site::class, SiteTransformer::class);
         }
     }
-
 }

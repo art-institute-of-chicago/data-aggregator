@@ -96,5 +96,4 @@ class Section extends BaseTransformer
             ],
         ];
     }
-
 }

@@ -10,5 +10,4 @@ class MobileModel extends BaseModel
     protected $primaryKey = 'mobile_id';
 
     protected $hasSourceDates = false;
-
 }

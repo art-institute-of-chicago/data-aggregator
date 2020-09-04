@@ -33,12 +33,10 @@ class DeleteCollections extends AbstractImportCommand
         $total = $json->pagination->total;
         $totalPages = ceil($total / $this->chunkSize);
 
-        for ($currentPage = 1; $currentPage <= $totalPages; $currentPage++)
-        {
+        for ($currentPage = 1; $currentPage <= $totalPages; $currentPage++) {
             $json = $this->query('deletes', $currentPage, $this->chunkSize);
 
-            foreach ($json->data as $datum)
-            {
+            foreach ($json->data as $datum) {
                 try {
                     $resource = app('Resources')->getResourceForInboundEndpoint($datum->type, 'collections');
                     $modelClass = $resource['model'];
@@ -119,5 +117,4 @@ class DeleteCollections extends AbstractImportCommand
                 return $id;
         }
     }
-
 }

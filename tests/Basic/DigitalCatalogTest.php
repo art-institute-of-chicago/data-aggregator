@@ -10,5 +10,4 @@ class DigitalCatalogTest extends BasicTestCase
     protected $model = DigitalCatalog::class;
 
     protected $route = 'digital-catalogs';
-
 }

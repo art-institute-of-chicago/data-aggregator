@@ -96,5 +96,4 @@ class Image extends BaseTransformer
             ],
         ];
     }
-
 }

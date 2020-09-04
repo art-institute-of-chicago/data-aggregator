@@ -9,5 +9,4 @@ class PressRelease extends Page
 {
 
     protected $table = 'press_releases';
-
 }

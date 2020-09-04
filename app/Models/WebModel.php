@@ -17,5 +17,4 @@ class WebModel extends BaseModel
     protected $casts = [
         'published' => 'boolean',
     ];
-
 }

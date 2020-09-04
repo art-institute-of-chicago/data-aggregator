@@ -29,5 +29,4 @@ trait HidesDefaultFields
     {
         return [];
     }
-
 }

@@ -50,6 +50,5 @@ class Event extends WebTransformer
                 ])),
             ];
         });
-
     }
 }

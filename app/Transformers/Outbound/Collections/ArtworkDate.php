@@ -61,5 +61,4 @@ class ArtworkDate extends BaseTransformer
             ],
         ];
     }
-
 }

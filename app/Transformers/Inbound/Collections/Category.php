@@ -20,5 +20,4 @@ class Category extends BaseList
             'subtype' => $datum->type ? 'CT-' . $datum->type : null,
         ];
     }
-
 }

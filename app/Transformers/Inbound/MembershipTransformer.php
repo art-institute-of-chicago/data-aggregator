@@ -13,5 +13,4 @@ class MembershipTransformer extends BaseTransformer
             'membership_id' => $datum->id,
         ];
     }
-
 }

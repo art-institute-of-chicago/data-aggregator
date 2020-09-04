@@ -8,7 +8,8 @@ use App\Transformers\Inbound\WebTransformer;
 class Page extends WebTransformer
 {
 
-    use HasBlocks { getExtraFields as getBlockFields; }
+    use HasBlocks { getExtraFields as getBlockFields;
+    }
 
     protected function getExtraFields(Datum $datum)
     {
@@ -18,5 +19,4 @@ class Page extends WebTransformer
             'publish_end_date' => $datum->date('publish_end_date'),
         ]);
     }
-
 }

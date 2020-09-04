@@ -31,5 +31,4 @@ class ScoutTest extends BaseCommand
 
         $this->info('Success!');
     }
-
 }

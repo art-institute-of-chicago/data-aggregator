@@ -10,5 +10,4 @@ class GenericPageTest extends BasicTestCase
     protected $model = GenericPage::class;
 
     protected $route = 'generic-pages';
-
 }

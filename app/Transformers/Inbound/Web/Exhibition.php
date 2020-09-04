@@ -15,5 +15,4 @@ class Exhibition extends WebTransformer
             'is_published' => $datum->published,
         ];
     }
-
 }

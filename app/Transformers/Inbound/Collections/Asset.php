@@ -45,5 +45,4 @@ class Asset extends CollectionsTransformer
             ];
         });
     }
-
 }

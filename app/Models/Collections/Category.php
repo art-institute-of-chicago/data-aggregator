@@ -9,5 +9,4 @@ class Category extends CategoryTerm
 {
 
     protected static $isCategory = true;
-
 }

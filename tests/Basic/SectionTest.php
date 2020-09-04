@@ -15,5 +15,4 @@ class SectionTest extends BasicTestCase
         parent::setUp();
         $this->make(Publication::class);
     }
-
 }

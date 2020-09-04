@@ -153,7 +153,8 @@ class Artwork extends CollectionsModel
         return $this->categories()->themes();
     }
 
-    public function dateQualifier() {
+    public function dateQualifier()
+    {
         return $this->belongsTo('App\Models\Collections\ArtworkDateQualifier', 'artwork_date_qualifier_citi_id');
     }
 
@@ -357,40 +358,29 @@ class Artwork extends CollectionsModel
 
         $ret = 'A';
 
-        if ($this->classification_title)
-        {
-            if (Str::endsWith($this->classification_title, 'ing'))
-            {
-                if (preg_match('/^[aeiouAEIOU]/', $this->classification_title, $matches))
-                {
+        if ($this->classification_title) {
+            if (Str::endsWith($this->classification_title, 'ing')) {
+                if (preg_match('/^[aeiouAEIOU]/', $this->classification_title, $matches)) {
                     $ret .= 'n';
                 }
 
                 $ret .= " {$this->classification_title}";
-            }
-            else
-            {
+            } else {
                 $ret .= " work of {$this->classification_title}";
             }
-        }
-        else
-        {
+        } else {
             $ret .= ' work';
         }
 
-        if ($this->material_titles)
-        {
+        if ($this->material_titles) {
             $ret .= ' made of ' . summation($this->material_titles);
-        }
-        elseif ($this->medium_display)
-        {
+        } elseif ($this->medium_display) {
             $ret .= ' made of ' . mb_strtolower($this->medium_display);
         }
 
         $ret .= '.';
 
-        if ($this->subject_titles)
-        {
+        if ($this->subject_titles) {
             $ret .= ' The work includes ' . summation($this->subject_titles) . '.';
         }
 
@@ -407,7 +397,8 @@ class Artwork extends CollectionsModel
      */
     public static function boostedIds()
     {
-        return array_merge([
+        return array_merge(
+            [
             185651, 183077, 151358, 99539, 189595, 187528, 102611, 111401, 91620, 18757, 51185, 55249, 14968, 65290, 75644,
             106538, 59787, 103347, 104094, 100829, 76571, 154237, 154238, 149776, 120154, 44018, 56905, 102295, 105105, 184672,
             111442, 25865, 72801, 97916, 190558, 36161, 15401, 69780, 64724, 185905, 65916, 40619, 151371, 63178, 104031,
@@ -438,8 +429,9 @@ class Artwork extends CollectionsModel
             234433, 218612, 199002, 229510, 189932, 230189, 225016, 221885, 229866, 109439, 869, 4081, 4773, 16146, 23333, 23700,
             30709, 31285, 43145, 49702, 62042, 62371, 76240, 79600, 81564, 105466, 109926, 111377, 111559, 119521, 146701, 146953,
             150054, 238749, 100858, 229393, 151363, 53001, 189807, 9010, 220179, 37368,
-        ],
-        self::getFeaturedIds());
+            ],
+            self::getFeaturedIds()
+        );
     }
 
     /**
@@ -641,14 +633,10 @@ class Artwork extends CollectionsModel
 
         $doc .= "A representation of this artwork in the IIIF Presentation API format.\n\n";
 
-        if ($id = $this->exampleId())
-        {
+        if ($id = $this->exampleId()) {
             $doc .= $this->docExampleOutput(['id' => $id, 'extraPath' => 'manifest.json', 'extraAtEnd' => true]);
         }
 
         return $doc;
     }
-
-
-
 }

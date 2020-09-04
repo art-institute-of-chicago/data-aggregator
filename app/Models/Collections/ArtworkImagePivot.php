@@ -26,5 +26,4 @@ class ArtworkImagePivot extends BasePivot
     {
         return $this->belongsTo('App\Models\Collections\Artwork');
     }
-
 }

@@ -28,5 +28,4 @@ class ArtworkTest extends TestCase
         Artwork::query()->delete();
         Gallery::query()->delete();
     }
-
 }

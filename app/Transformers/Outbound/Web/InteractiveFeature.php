@@ -59,5 +59,4 @@ class InteractiveFeature extends BaseTransformer
             ],
         ];
     }
-
 }

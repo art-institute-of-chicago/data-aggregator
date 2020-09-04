@@ -45,5 +45,4 @@ class ResourceController extends AbstractController
         $this->model = app('Resources')->getModelForEndpoint($endpoint);
         $this->transformer = app('Resources')->getTransformerForEndpoint($endpoint);
     }
-
 }

@@ -11,5 +11,4 @@ class Sound extends Asset
     protected static $assetType = 'sound';
 
     protected $table = 'assets';
-
 }

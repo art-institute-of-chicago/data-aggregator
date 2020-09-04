@@ -65,5 +65,4 @@ class Event extends WebModel
     {
         return $this->belongsTo('App\Models\Web\EventProgram');
     }
-
 }

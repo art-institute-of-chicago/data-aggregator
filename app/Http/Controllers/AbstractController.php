@@ -231,5 +231,4 @@ abstract class AbstractController extends BaseController
 
         $this->fractal->{$method}($values);
     }
-
 }

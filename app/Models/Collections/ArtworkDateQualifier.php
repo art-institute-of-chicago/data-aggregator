@@ -11,5 +11,4 @@ class ArtworkDateQualifier extends CollectionsModel
 {
 
     protected $primaryKey = 'citi_id';
-
 }

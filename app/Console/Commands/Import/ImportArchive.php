@@ -34,5 +34,4 @@ class ImportArchive extends AbstractImportCommand
             ]
         );
     }
-
 }

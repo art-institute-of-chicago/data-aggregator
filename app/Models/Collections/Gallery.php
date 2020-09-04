@@ -27,5 +27,4 @@ class Gallery extends CollectionsModel
     {
         return $this->hasMany('App\Models\Collections\Artwork')->artworks();
     }
-
 }

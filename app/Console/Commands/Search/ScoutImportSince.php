@@ -22,8 +22,7 @@ class ScoutImportSince extends BaseCommand
         $datetime = new Carbon($this->argument('datetime'));
         $models = app('Search')->getSearchableModels();
 
-        foreach ($models as $model)
-        {
+        foreach ($models as $model) {
             $column = 'updated_at';
 
             if (Schema::hasColumn(with(new $model())->getTable(), 'source_modified_at')) {
@@ -42,5 +41,4 @@ class ScoutImportSince extends BaseCommand
             });
         }
     }
-
 }

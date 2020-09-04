@@ -81,8 +81,7 @@ class ReportArtistEmptyExploreFurther extends BaseCommand
             if (!$place_of_origin && !$style) {
                 $this->info($artist->citi_id . '	' . $artist->title . '	' . 'https://www.artic.edu/artists/' . $artist->citi_id . '	No place_of_origin or style on any artwork records related to this artist');
                 $this->csv->insertOne([$artist->citi_id, $artist->title, 'http://www.artic.edu/artists/' . $artist->citi_id, 'No place_of_origin or style on any artwork records related to this artist']);
-            }
-            else {
+            } else {
                 $shoulds = [];
                 if ($place_of_origin) {
                     $shoulds[] = [
@@ -161,5 +160,4 @@ class ReportArtistEmptyExploreFurther extends BaseCommand
     {
         return Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . self::$filename;
     }
-
 }

@@ -19,5 +19,4 @@ class ScoutRefresh extends BaseCommand
         $this->call('scout:flush', ['model' => $class]);
         $this->call('scout:import', ['model' => $class]);
     }
-
 }

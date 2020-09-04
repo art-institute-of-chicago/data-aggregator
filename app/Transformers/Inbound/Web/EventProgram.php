@@ -14,5 +14,4 @@ class EventProgram extends WebTransformer
             'title' => $datum->name,
         ];
     }
-
 }

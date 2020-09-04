@@ -17,5 +17,4 @@ class ImportTicketedEvents extends ImportTicketedEventsFull
 
         $this->importTicketedEvents();
     }
-
 }

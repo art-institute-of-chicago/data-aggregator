@@ -37,16 +37,12 @@ trait Factory
     {
 
         $return = [];
-        while ($this->times-- > 0)
-        {
+        while ($this->times-- > 0) {
             $model = factory($type)->create($fields);
 
-            if ($this->attachTypes)
-            {
-                while ($this->attachTimes-- > 0)
-                {
-                    foreach ($this->attachTypes as $attachType)
-                    {
+            if ($this->attachTypes) {
+                while ($this->attachTimes-- > 0) {
+                    foreach ($this->attachTypes as $attachType) {
                         $class = $this->classFrom($attachType);
 
                         $relation = $this->attachRelation ? $this->attachRelation : lcfirst(Str::plural($class));
@@ -86,5 +82,4 @@ trait Factory
         $this->attachRelation = '';
         $this->attachFields = [];
     }
-
 }

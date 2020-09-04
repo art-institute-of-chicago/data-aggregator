@@ -10,5 +10,4 @@ class ArticleTest extends BasicTestCase
     protected $model = Article::class;
 
     protected $route = 'articles';
-
 }

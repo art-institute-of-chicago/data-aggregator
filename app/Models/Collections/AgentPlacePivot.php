@@ -34,5 +34,4 @@ class AgentPlacePivot extends BasePivot
     {
         return 'updated_at';
     }
-
 }

@@ -97,15 +97,13 @@ class PrototypeSearch extends BaseCommand
     {
         $ret = '';
 
-        foreach ($queries as $query)
-        {
+        foreach ($queries as $query) {
             $ret .= "<h2>{$query}</h2>\n";
             $response = file_get_contents(config('app.url') . '/api/v1/artworks/search?limit=' . $limit . '&fields=thumbnail,id,title,main_reference_number&q=' . urlencode($query));
 
             $ret .= "<table>\n";
 
-            foreach (json_decode($response)->data as $item)
-            {
+            foreach (json_decode($response)->data as $item) {
                 $ret .= "<tr class='clickable-row' data-href='http://www-2018.artic.edu/artworks/{$item->id}'>";
                 $ret .= '<td style="padding:0 8px"><img src="' . ($item->thumbnail->url ?? '') . '/full/75,/0/default.jpg" /></td>';
                 $ret .= "<td style=\"padding:0 8px\">{$item->id}</td>";

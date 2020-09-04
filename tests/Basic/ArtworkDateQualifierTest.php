@@ -8,5 +8,4 @@ class ArtworkDateQualifierTest extends BasicTestCase
 {
 
     protected $model = ArtworkDateQualifier::class;
-
 }

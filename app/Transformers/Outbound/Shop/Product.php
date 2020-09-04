@@ -114,5 +114,4 @@ class Product extends BaseTransformer
             ],
         ];
     }
-
 }

@@ -9,5 +9,4 @@ class Experience extends WebTransformer
 {
 
     use HasBlocks;
-
 }

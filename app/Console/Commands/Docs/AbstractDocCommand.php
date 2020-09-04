@@ -8,5 +8,4 @@ abstract class AbstractDocCommand extends BaseCommand
 {
 
     private $models;
-
 }

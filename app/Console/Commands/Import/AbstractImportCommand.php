@@ -116,5 +116,4 @@ abstract class AbstractImportCommand extends BaseCommand
 
         return $resource;
     }
-
 }

@@ -11,5 +11,4 @@ class AgentRole extends CollectionsModel
 {
 
     protected $primaryKey = 'citi_id';
-
 }

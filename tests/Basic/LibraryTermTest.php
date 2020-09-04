@@ -13,5 +13,4 @@ class LibraryTermTest extends BasicTestCase
     {
         return 'zz' . app('Faker')->unique()->randomNumber(5);
     }
-
 }

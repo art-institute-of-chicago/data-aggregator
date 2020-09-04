@@ -25,5 +25,4 @@ class Closure extends WebTransformer
             'date_end' => $datum->date('date_end'),
         ];
     }
-
 }

@@ -30,5 +30,4 @@ trait ConvertsToHtml
     {
         return isset($value) ? $this->getHtmlConverter()->convertToHtml($value) : null;
     }
-
 }

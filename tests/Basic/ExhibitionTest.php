@@ -17,5 +17,4 @@ class ExhibitionTest extends BasicTestCase
         $this->make(Place::class, ['type' => 'AIC Gallery']);
         $this->times(5)->make(Agent::class);
     }
-
 }

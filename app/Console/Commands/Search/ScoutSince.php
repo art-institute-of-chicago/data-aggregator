@@ -50,5 +50,4 @@ class ScoutSince extends BaseCommand
         $bar->finish();
         $this->output->newLine(1);
     }
-
 }

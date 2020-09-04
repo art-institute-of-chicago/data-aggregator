@@ -106,5 +106,4 @@ class Tour extends BaseTransformer
 
         return $suggestFields;
     }
-
 }

@@ -75,5 +75,4 @@ class PrototypeMostSimilarCombo extends PrototypeMostSimilar
             'size' => $this->size,
         ];
     }
-
 }

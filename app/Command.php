@@ -40,5 +40,4 @@ class Command extends Model
     {
         return Carbon::createFromTimestampUTC(1);
     }
-
 }

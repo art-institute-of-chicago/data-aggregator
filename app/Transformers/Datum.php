@@ -140,5 +140,4 @@ class Datum implements JsonSerializable
 
         return $value;
     }
-
 }

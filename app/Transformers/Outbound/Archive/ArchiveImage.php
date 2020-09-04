@@ -122,5 +122,4 @@ class ArchiveImage extends BaseTransformer
             ],
         ];
     }
-
 }

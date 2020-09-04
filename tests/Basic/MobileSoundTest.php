@@ -8,5 +8,4 @@ class MobileSoundTest extends BasicTestCase
 {
 
     protected $model = Sound::class;
-
 }

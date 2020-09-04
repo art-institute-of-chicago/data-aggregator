@@ -36,18 +36,15 @@ class ElasticsearchEngine extends BaseEngine
         $result = $this->elastic->bulk($params);
 
         // TODO: Requeue only the models that failed?
-        if (isset($result['errors']) && $result['errors'] === true)
-        {
+        if (isset($result['errors']) && $result['errors'] === true) {
             $failedDocs = array_values(array_filter($result['items'], function ($item) {
                 return isset($item['update']['error']);
             }));
 
-            foreach ($failedDocs as $doc)
-            {
+            foreach ($failedDocs as $doc) {
                 $this->errorStreak += 1;
 
-                if ($this->errorStreak > $this->maxErrorStreak)
-                {
+                if ($this->errorStreak > $this->maxErrorStreak) {
                     throw new Exception(json_encode($result));
                 }
 
@@ -58,12 +55,8 @@ class ElasticsearchEngine extends BaseEngine
                     report($e);
                 }
             }
-
         } else {
-
             $this->errorStreak = 0;
-
         }
     }
-
 }

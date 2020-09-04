@@ -18,7 +18,7 @@ class UpdateResources extends BaseCommand
         Artwork::whereHas('documents', function ($query) {
                 $query->where('is_educational_resource', '=', true)
                     ->orWhere('is_multimedia_resource', '=', true);
-            })
+        })
             ->orWhereHas('sites')
             ->orWhereHas('sections')
             ->each(function ($artwork) {
@@ -27,5 +27,4 @@ class UpdateResources extends BaseCommand
                 $this->info("Reindexed #{$artwork->id}: {$artwork->title}");
             });
     }
-
 }

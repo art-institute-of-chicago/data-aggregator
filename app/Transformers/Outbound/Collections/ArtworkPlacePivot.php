@@ -113,5 +113,4 @@ class ArtworkPlacePivot extends BaseTransformer
             ],
         ];
     }
-
 }

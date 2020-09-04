@@ -145,5 +145,4 @@ class Agent extends CollectionsModel
     {
         return (new static())->newQuery()->whereKey(static::boostedIds());
     }
-
 }

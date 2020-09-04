@@ -8,5 +8,4 @@ class ArchiveImageTest extends BasicTestCase
 {
 
     protected $model = ArchiveImage::class;
-
 }

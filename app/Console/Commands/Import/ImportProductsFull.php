@@ -43,5 +43,4 @@ class ImportProductsFull extends AbstractImportCommand
         $this->import('Shop', Product::class, 'products');
         $this->import('Shop', Category::class, 'categories');
     }
-
 }

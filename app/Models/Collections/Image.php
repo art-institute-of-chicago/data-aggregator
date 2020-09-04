@@ -28,5 +28,4 @@ class Image extends Asset
     {
         return $this->iiif_url;
     }
-
 }

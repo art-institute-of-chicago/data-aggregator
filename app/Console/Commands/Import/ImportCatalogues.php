@@ -38,5 +38,4 @@ class ImportCatalogues extends AbstractImportCommand
             ]
         );
     }
-
 }

@@ -26,7 +26,6 @@ class Product extends ShopTransformer
         return array_filter(array_map(function ($id) {
 
             return $this->artistMapping[$id] ?? null;
-
         }, $datum->artist_ids));
     }
 
@@ -269,5 +268,4 @@ class Product extends ShopTransformer
             241 => 87087,
         ];
     }
-
 }

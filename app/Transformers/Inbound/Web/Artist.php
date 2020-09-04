@@ -22,5 +22,4 @@ class Artist extends WebTransformer
             'intro_copy' => $datum->intro,
         ];
     }
-
 }

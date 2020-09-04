@@ -10,5 +10,4 @@ class ClosureTest extends BasicTestCase
     protected $model = Closure::class;
 
     protected $route = 'closures';
-
 }

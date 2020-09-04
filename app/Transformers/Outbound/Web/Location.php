@@ -49,5 +49,4 @@ class Location extends BaseTransformer
             ],
         ];
     }
-
 }

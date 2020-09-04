@@ -33,5 +33,4 @@ class Category extends ShopModel
     {
         return env('SHOP_CATEGORY_URL') . $this->shop_id;
     }
-
 }

@@ -25,5 +25,4 @@ class ImportCollections extends ImportCollectionsFull
             $this->importEndpoints();
         }
     }
-
 }

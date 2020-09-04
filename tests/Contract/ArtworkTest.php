@@ -14,7 +14,8 @@ class ArtworkTest extends ContractTestCase
     /** @test
      * List of fields taken from https://docs.google.com/spreadsheets/d/1F8YkAb-xaAAfsuWtXmll84nthfsfbBnxm4yU3lX0uLY
      */
-    public function it_fetches_fields_used_by_mobile() {
+    public function it_fetches_fields_used_by_mobile()
+    {
         $this->it_fetches_fields([
             'title',
             'gallery_title',
@@ -38,21 +39,25 @@ class ArtworkTest extends ContractTestCase
      * * Access a page and watch the log
      * * After the page is done loading, the log will dump all the fields requests for each API model
      */
-    public function it_fetches_fields_used_on_website_home_page() {
-        $this->it_fetches_fields([
+    public function it_fetches_fields_used_on_website_home_page()
+    {
+        $this->it_fetches_fields(
+            [
             'id',
             'title',
             'image_id',
             'main_reference_number',
             'thumbnail',
-        ],
-        [
+            ],
+            [
             'artist_pivots',
-        ]);
+            ]
+        );
     }
 
     /** @test */
-    public function it_fetches_fields_used_on_website_collection_landing_page() {
+    public function it_fetches_fields_used_on_website_collection_landing_page()
+    {
         $this->it_fetches_fields([
             'main_reference_number',
             'image_id',
@@ -64,8 +69,10 @@ class ArtworkTest extends ContractTestCase
     }
 
     /** @test */
-    public function it_fetches_fields_used_on_website_artwork_detail_page() {
-        $this->it_fetches_fields([
+    public function it_fetches_fields_used_on_website_artwork_detail_page()
+    {
+        $this->it_fetches_fields(
+            [
             'id',
             'title',
             'alt_titles',
@@ -104,32 +111,37 @@ class ArtworkTest extends ContractTestCase
             'style_titles',
             'subject_titles',
             'thumbnail',
-        ],
-        [
+            ],
+            [
             'dates',
             'artist_pivots',
             'catalogue_pivots',
             'place_pivots',
-        ]);
+            ]
+        );
     }
 
     /** @test */
-    public function it_fetches_fields_used_on_website_artist_detail_page() {
-        $this->it_fetches_fields([
+    public function it_fetches_fields_used_on_website_artist_detail_page()
+    {
+        $this->it_fetches_fields(
+            [
             'id',
             'image_id',
             'main_reference_number',
             'title',
             'thumbnail',
             'artist_title',
-        ],
-        [
+            ],
+            [
             'artist_pivots',
-        ]);
+            ]
+        );
     }
 
     /** @test */
-    public function it_fetches_fields_used_on_website_article_page_with_artwork_block_and_gallery() {
+    public function it_fetches_fields_used_on_website_article_page_with_artwork_block_and_gallery()
+    {
         $this->it_fetches_fields([
             'image_id',
             'main_reference_number',

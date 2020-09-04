@@ -32,15 +32,11 @@ class ReportAltText extends BaseCommand
         $artworks = Artwork::whereHas('assets', function ($query) {
 
             $query->whereNotNull('alt_text');
-
         })->cursor();
 
         foreach ($artworks as $artwork) {
-
             foreach ($artwork->images as $image) {
-
                 if ($image->alt_text) {
-
                     $row = [
                         'artwork_id' => $artwork->citi_id,
                         'artwork_citi_url' => env('CITI_ARTWORK_URL') . $artwork->citi_id,
@@ -51,11 +47,8 @@ class ReportAltText extends BaseCommand
                     ];
 
                     $csv->insertOne($row);
-
                 }
-
             }
-
         }
 
         Storage::put('artwork-alt-tags.csv', $csv->getContent());
@@ -67,5 +60,4 @@ class ReportAltText extends BaseCommand
             . '/' . $type
             . '/' . $guid;
     }
-
 }

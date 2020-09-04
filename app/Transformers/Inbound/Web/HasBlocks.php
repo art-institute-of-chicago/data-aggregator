@@ -130,5 +130,4 @@ trait HasBlocks
 
         return $content;
     }
-
 }

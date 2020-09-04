@@ -52,5 +52,4 @@ class ImportAssetsFull extends AbstractImportCommand
     {
         return parent::query($endpoint, $page, 10);
     }
-
 }

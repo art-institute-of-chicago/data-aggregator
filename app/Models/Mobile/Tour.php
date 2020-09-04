@@ -32,5 +32,4 @@ class Tour extends MobileModel
     {
         return $this->image;
     }
-
 }

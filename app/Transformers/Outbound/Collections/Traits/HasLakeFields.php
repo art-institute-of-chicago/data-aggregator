@@ -25,5 +25,4 @@ trait HasLakeFields
 
         return $dates;
     }
-
 }

@@ -10,5 +10,4 @@ class GenericPage extends BaseTransformer
 {
 
     use HasSearchTags;
-
 }

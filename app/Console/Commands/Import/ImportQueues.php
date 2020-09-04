@@ -60,5 +60,4 @@ class ImportQueues extends AbstractImportCommand
     {
         return app('Resources')->getModelForInboundEndpoint($endpoint, 'queues');
     }
-
 }

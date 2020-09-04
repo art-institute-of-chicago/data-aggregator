@@ -27,7 +27,7 @@ class ReportUlan extends BaseCommand
             'death_date',
         ]);
 
-        $artists = \App\Models\Collections\Agent::whereNotNull('ulan_uri')->orderBy('ulan_certainty','asc')->orderBy('sort_title', 'asc');
+        $artists = \App\Models\Collections\Agent::whereNotNull('ulan_uri')->orderBy('ulan_certainty', 'asc')->orderBy('sort_title', 'asc');
 
         foreach ($artists->cursor() as $artist) {
             $row = [
@@ -45,5 +45,4 @@ class ReportUlan extends BaseCommand
 
         Storage::put('agents-ulan.csv', $csv->getContent());
     }
-
 }

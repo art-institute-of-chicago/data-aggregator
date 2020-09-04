@@ -61,5 +61,4 @@ class EventEmailSeriesPivot extends BaseTransformer
             ],
         ];
     }
-
 }

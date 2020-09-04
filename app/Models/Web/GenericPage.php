@@ -9,5 +9,4 @@ class GenericPage extends Page
 {
 
     protected $table = 'generic_pages';
-
 }

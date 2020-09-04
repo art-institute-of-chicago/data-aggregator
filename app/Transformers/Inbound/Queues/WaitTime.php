@@ -14,5 +14,4 @@ class WaitTime extends BaseTransformer
             'queue_id' => $datum->id,
         ];
     }
-
 }

@@ -22,5 +22,4 @@ class EventProgram extends BaseTransformer
             ],
         ];
     }
-
 }

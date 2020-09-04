@@ -29,5 +29,4 @@ class Exhibition extends CollectionsTransformer
             'artworks' => $datum->all('artwork_ids'),
         ];
     }
-
 }

@@ -50,7 +50,7 @@ class Exhibition extends BaseTransformer
                     return $item->webExhibition->is_published ?? false;
                 },
                 'is_restricted' => true,
-           ],
+            ],
             'description' => [
                 'doc' => 'Explanation of what this exhibition is',
                 'type' => 'string',
@@ -201,5 +201,4 @@ class Exhibition extends BaseTransformer
             // EOF TODO
         ];
     }
-
 }

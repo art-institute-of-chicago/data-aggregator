@@ -8,5 +8,4 @@ class AgentTest extends BasicTestCase
 {
 
     protected $model = Agent::class;
-
 }

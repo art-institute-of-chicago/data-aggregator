@@ -95,5 +95,4 @@ class Exhibition extends CollectionsModel
     {
         return $this->webExhibition->is_featured ?? false;
     }
-
 }

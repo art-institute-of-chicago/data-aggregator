@@ -8,5 +8,4 @@ class ShopCategoryTest extends BasicTestCase
 {
 
     protected $model = Category::class;
-
 }

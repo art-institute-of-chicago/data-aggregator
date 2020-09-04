@@ -27,5 +27,4 @@ class EventEmailSeriesPivot extends BasePivot
     {
         return $this->belongsTo('App\Models\Web\EmailSeries', 'email_series_id', 'id');
     }
-
 }

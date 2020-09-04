@@ -17,5 +17,4 @@ class Article extends WebModel
         'publish_end_date' => 'datetime',
         'agent_ids' => 'array',
     ];
-
 }

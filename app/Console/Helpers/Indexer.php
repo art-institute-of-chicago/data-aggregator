@@ -60,5 +60,4 @@ trait Indexer
 
         return 'There was an error: ' . print_r($return, true);
     }
-
 }

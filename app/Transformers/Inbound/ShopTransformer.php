@@ -13,5 +13,4 @@ class ShopTransformer extends BaseTransformer
             'shop_id' => $datum->id,
         ];
     }
-
 }

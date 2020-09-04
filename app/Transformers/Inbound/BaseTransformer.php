@@ -309,14 +309,12 @@ class BaseTransformer extends AbstractTransformer
 
         return array_merge(
             $base,
-
             // For convenience, you can overwrite these methods, so that you don't
             // need to call `parent::getExtraFields` in child classes. But you can
             // put *all* custom field mapping in `getExtraFields`, if you'd like.
             $this->getIds($datum),
             $this->getTitle($datum),
             $this->getDates($datum),
-
             // Get all custom-mapped fields
             $this->getExtraFields($datum)
         );
@@ -390,5 +388,4 @@ class BaseTransformer extends AbstractTransformer
 
         return $columns;
     }
-
 }

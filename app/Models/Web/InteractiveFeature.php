@@ -14,5 +14,4 @@ class InteractiveFeature extends WebModel
         'archived' => 'boolean',
         'published' => 'boolean',
     ];
-
 }

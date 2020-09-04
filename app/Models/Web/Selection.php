@@ -15,5 +15,4 @@ class Selection extends WebModel
         'publish_start_date' => 'datetime',
         'publish_end_date' => 'datetime',
     ];
-
 }

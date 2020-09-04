@@ -571,7 +571,6 @@ class Request
         $scopedQueries = collect([]);
 
         foreach ($this->resources as $resource) {
-
             // Grab the functions for this resource
             $rawFunctions = $this->functionScores[$resource] ?? null;
 
@@ -1022,5 +1021,4 @@ class Request
 
         return $params;
     }
-
 }
