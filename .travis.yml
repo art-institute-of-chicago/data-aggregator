@@ -18,6 +18,7 @@ matrix:
 
       script:
         - vendor/bin/phpunit
+        - vendor/bin/phpcs --warning-severity=6
 
     - language: node_js
       node_js:
