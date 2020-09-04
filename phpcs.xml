@@ -3,6 +3,10 @@
     <description>The coding standard for our project.</description>
     <rule ref="PSR2"/>
 
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+
     <file>app</file>
     <file>bootstrap</file>
     <file>config</file>

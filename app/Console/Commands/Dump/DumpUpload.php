@@ -61,7 +61,7 @@ class DumpUpload extends AbstractDumpCommand
         $this->shell->passthru('git -C %s push --set-upstream origin master %s', $repoPath, '--force');
     }
 
-    function isDirEmpty($dir)
+    protected function isDirEmpty($dir)
     {
         $handle = opendir($dir);
         while (false !== ($entry = readdir($handle))) {
