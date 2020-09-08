@@ -214,7 +214,7 @@ $factory->define(App\Models\Collections\Asset::class, function (Faker\Generator 
         [
             'lake_guid' => '99999999-9999-9999-9999-999999' . $faker->randomNumber(6, true),
             'content' => $faker->url,
-            'published' => $faker->boolean,
+            'published' => true,
             'description' => $faker->paragraph(3),
             'alt_text' => $faker->paragraph(3),
             'source_created_at' => $faker->dateTimeThisYear,

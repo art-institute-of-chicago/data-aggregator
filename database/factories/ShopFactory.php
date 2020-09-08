@@ -56,7 +56,7 @@ $factory->define(App\Models\Shop\Product::class, function (Faker\Generator $fake
             'holiday' => $faker->boolean,
             'architecture' => $faker->boolean,
             'glass' => $faker->boolean,
-            'active' => $faker->boolean,
+            'active' => true,
         ],
         shopDates($faker)
     );
