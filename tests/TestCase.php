@@ -61,7 +61,8 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    protected function debug($output) {
+    protected function debug($output)
+    {
         fwrite(STDERR, 'DEBUG: ' . print_r($output, true) . "\n");
     }
 }
