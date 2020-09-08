@@ -5,11 +5,29 @@ namespace Tests\Contract;
 use Tests\TestCase;
 
 use App\Models\Collections\Artwork;
+use App\Models\Collections\AgentType;
+use App\Models\Collections\Agent;
 
 class ArtworkTest extends ContractTestCase
 {
 
     protected $model = Artwork::class;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $agentType = $this->make(AgentType::class, ['title' => 'Individual']);
+        $agent = $this->make(Agent::class, ['agent_type_citi_id' => $agentType->citi_id]);
+    }
+
+    protected function tearDown(): void
+    {
+        AgentType::query()->delete();
+        Agent::query()->delete();
+
+        parent::tearDown();
+    }
 
     /** @test
      * List of fields taken from https://docs.google.com/spreadsheets/d/1F8YkAb-xaAAfsuWtXmll84nthfsfbBnxm4yU3lX0uLY
