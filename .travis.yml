@@ -5,12 +5,9 @@ matrix:
       php:
         - 7.2
 
-      services:
-        - mysql
-
       before_script:
         - cp .env.travis .env
-        - sudo mysql -e 'create database testing;'
+        - touch database/database.sqlite
         - composer self-update
         - composer install --no-interaction
         - php artisan key:generate
