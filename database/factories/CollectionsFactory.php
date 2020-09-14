@@ -199,8 +199,6 @@ $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Gener
             'place_citi_id' => $faker->randomElement(App\Models\Collections\Place::query()->pluck('citi_id')->all()),
             'place_display' => 'Gallery ' . $faker->randomNumber(3),
             'status' => $faker->randomElement(['Open', 'Closed']),
-            'date_start' => $faker->dateTimeAd,
-            'date_end' => $faker->dateTimeAd,
             'date_aic_start' => $faker->dateTimeAd,
             'date_aic_end' => $faker->dateTimeAd,
         ],

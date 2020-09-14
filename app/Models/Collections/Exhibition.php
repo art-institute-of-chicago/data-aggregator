@@ -16,8 +16,6 @@ class Exhibition extends CollectionsModel
     protected $primaryKey = 'citi_id';
 
     protected $casts = [
-        'date_start' => 'datetime',
-        'date_end' => 'datetime',
         'date_aic_start' => 'datetime',
         'date_aic_end' => 'datetime',
     ];
