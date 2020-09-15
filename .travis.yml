@@ -7,7 +7,6 @@ matrix:
 
       before_script:
         - cp .env.travis .env
-        - touch database/database.sqlite
         - composer self-update
         - composer install --no-interaction
         - php artisan key:generate
