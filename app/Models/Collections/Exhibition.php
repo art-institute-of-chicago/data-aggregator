@@ -106,6 +106,6 @@ class Exhibition extends CollectionsModel
 
     public function getDateDisplayAttribute()
     {
-        return $this->webExhibition->date_display;
+        return $this->webExhibition->date_display ?? null;
     }
 }
