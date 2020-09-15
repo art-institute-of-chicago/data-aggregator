@@ -96,11 +96,16 @@ class Exhibition extends CollectionsModel
 
     public function getDateAicStartAttribute($value)
     {
-        return $this->webExhibition->public_start_date ?? $this->castAttribute('date_aic_start', $value);
+        return $this->webExhibition->public_start_at ?? $this->castAttribute('date_aic_start', $value);
     }
 
     public function getDateAicEndAttribute($value)
     {
-        return $this->webExhibition->public_end_date ?? $this->castAttribute('date_aic_end', $value);
+        return $this->webExhibition->public_end_at ?? $this->castAttribute('date_aic_end', $value);
+    }
+
+    public function getDateDisplayAttribute()
+    {
+        return $this->webExhibition->date_display;
     }
 }
