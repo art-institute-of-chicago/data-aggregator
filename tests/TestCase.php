@@ -22,17 +22,6 @@ abstract class TestCase extends BaseTestCase
         config(['elasticsearch.defaultConnection' => 'testing']);
     }
 
-    /**
-     * The default behavior runs `artisan migrate` before each test.
-     * Instead, we'll manage making sure records don't collide in our code
-     * since our migrate command is pretty heavy, and only have the migrations
-     * run once.
-     */
-    public function refreshDatabase()
-    {
-        $this->refreshTestDatabase();
-    }
-
     protected function assertArrayHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
     {
         // Standardize $resources into an array of multiple objects
