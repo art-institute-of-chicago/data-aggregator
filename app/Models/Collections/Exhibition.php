@@ -93,4 +93,14 @@ class Exhibition extends CollectionsModel
     {
         return $this->webExhibition->is_featured ?? false;
     }
+
+    public function getDateAicStartAttribute($value)
+    {
+        return $this->webExhibition->public_start_date ?? $this->castAttribute('date_aic_start', $value);
+    }
+
+    public function getDateAicEndAttribute($value)
+    {
+        return $this->webExhibition->public_end_date ?? $this->castAttribute('date_aic_end', $value);
+    }
 }
