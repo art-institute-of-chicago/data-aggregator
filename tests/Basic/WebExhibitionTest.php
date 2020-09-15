@@ -10,5 +10,4 @@ class WebExhibitionTest extends BasicTestCase
     protected $model = Exhibition::class;
 
     protected $route = 'web-exhibitions';
-
 }

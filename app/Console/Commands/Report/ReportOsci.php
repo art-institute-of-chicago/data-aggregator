@@ -41,5 +41,4 @@ class ReportOsci extends BaseCommand
 
         Storage::put('artwork-sections.csv', $csv->getContent());
     }
-
 }

@@ -228,5 +228,4 @@ class Artwork extends CollectionsTransformer
             ]);
         }
     }
-
 }

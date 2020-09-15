@@ -10,5 +10,4 @@ class PressReleaseTest extends BasicTestCase
     protected $model = PressRelease::class;
 
     protected $route = 'press-releases';
-
 }

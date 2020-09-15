@@ -180,7 +180,7 @@ abstract class AbstractController extends BaseController
      * @param string $ids
      * @return \Illuminate\Http\Response
      */
-    protected function showMultiple($ids = '', $request)
+    protected function showMultiple($ids = '', $request = null)
     {
 
         // TODO: Accept an array, not just comma-separated string
@@ -231,5 +231,4 @@ abstract class AbstractController extends BaseController
 
         $this->fractal->{$method}($values);
     }
-
 }

@@ -9,5 +9,4 @@ class InteractiveFeature extends WebTransformer
 {
 
     use HasBlocks;
-
 }

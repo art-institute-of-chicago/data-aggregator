@@ -27,5 +27,4 @@ class WaitTime extends BaseTransformer
             ],
         ];
     }
-
 }

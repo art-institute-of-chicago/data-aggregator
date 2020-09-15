@@ -21,4 +21,12 @@ class ArtworkTest extends BasicTestCase
         $agentType = $this->make(AgentType::class, ['title' => 'Individual']);
         $agent = $this->make(Agent::class, ['agent_type_citi_id' => $agentType->citi_id]);
     }
+
+    protected function tearDown(): void
+    {
+        AgentType::query()->delete();
+        Agent::query()->delete();
+
+        parent::tearDown();
+    }
 }

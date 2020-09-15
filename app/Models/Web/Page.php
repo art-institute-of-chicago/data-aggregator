@@ -15,5 +15,4 @@ class Page extends WebModel
         'publish_end_date' => 'datetime',
         'is_published' => 'boolean',
     ];
-
 }

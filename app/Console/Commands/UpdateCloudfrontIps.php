@@ -25,5 +25,4 @@ class UpdateCloudfrontIps extends Command
 
         $this->info('Cloudfront IPs updated!');
     }
-
 }

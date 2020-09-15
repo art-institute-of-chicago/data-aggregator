@@ -12,5 +12,4 @@ class LibraryModel extends BaseModel
     protected $primaryKey = 'id';
 
     protected $hasSourceDates = false;
-
 }

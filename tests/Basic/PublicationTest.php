@@ -8,5 +8,4 @@ class PublicationTest extends BasicTestCase
 {
 
     protected $model = Publication::class;
-
 }

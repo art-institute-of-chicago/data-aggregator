@@ -177,13 +177,10 @@ trait ImportsData
         $json = $this->query($endpoint, $current);
 
         if ($this->isTest) {
-
             $pages = 1;
 
             $this->warn('Testing import of a single page for model ' . $model);
-
         } else {
-
             // Assumes the dataservice has standardized pagination
             try {
                 $pages = $json->pagination->total_pages;
@@ -196,25 +193,20 @@ trait ImportsData
             // Ensure dataservice can be reached before doing this!
 
             $this->warn('Found ' . $pages . ' page(s) for model ' . $model);
-
         }
 
-        while ($current <= $pages)
-        {
+        while ($current <= $pages) {
             $this->warn('Importing ' . $current . ' of ' . $pages . ' for model ' . $model);
 
             // Assumes the dataservice wraps its results in a `data` field
-            foreach ($json->data as $datum)
-            {
+            foreach ($json->data as $datum) {
                 // TODO: Careful, this conflicts w/ partial imports – running on one endpoint counts for all!
                 // Break if this is a partial import + this datum is older than last run
-                if ($this->isPartial && isset($datum->{$model::$sourceLastUpdateDateField}))
-                {
+                if ($this->isPartial && isset($datum->{$model::$sourceLastUpdateDateField})) {
                     $sourceTime = new Carbon($datum->{$model::$sourceLastUpdateDateField});
                     $sourceTime->timezone = config('app.timezone');
 
-                    if ($this->since->gt($sourceTime))
-                    {
+                    if ($this->since->gt($sourceTime)) {
                         break 2;
                     }
                 }
@@ -315,5 +307,4 @@ trait ImportsData
             });
         }
     }
-
 }

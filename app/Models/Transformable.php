@@ -30,5 +30,4 @@ trait Transformable
 
         return $fields;
     }
-
 }

@@ -34,5 +34,4 @@ class Closure extends BaseTransformer
             ],
         ];
     }
-
 }

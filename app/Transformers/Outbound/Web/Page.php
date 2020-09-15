@@ -87,5 +87,4 @@ class Page extends BaseTransformer
     {
         return [];
     }
-
 }

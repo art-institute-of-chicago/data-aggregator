@@ -34,5 +34,4 @@ class Product extends ShopModel
     {
         return env('PRODUCT_URL') . $this->shop_id;
     }
-
 }

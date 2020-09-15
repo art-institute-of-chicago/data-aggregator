@@ -10,5 +10,4 @@ class ShopModel extends BaseModel
     protected static $source = 'Shop';
 
     protected $primaryKey = 'shop_id';
-
 }

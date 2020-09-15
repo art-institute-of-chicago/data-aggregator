@@ -24,5 +24,4 @@ trait Instancable
 
         return $instances[$calledClass];
     }
-
 }

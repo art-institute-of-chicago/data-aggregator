@@ -16,6 +16,8 @@ class Exhibition extends WebModel
         'is_featured' => 'boolean',
         'is_published' => 'boolean',
         'agent_ids' => 'array',
+        'public_start_at' => 'datetime',
+        'public_end_at' => 'datetime',
     ];
 
     protected $touches = [
@@ -26,5 +28,4 @@ class Exhibition extends WebModel
     {
         return $this->belongsTo('App\Models\Collections\Exhibition', 'datahub_id');
     }
-
 }

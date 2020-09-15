@@ -75,5 +75,4 @@ class ReportNoImages extends BaseCommand
     {
         return Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . self::$filename;
     }
-
 }

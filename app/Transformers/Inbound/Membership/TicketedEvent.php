@@ -26,5 +26,4 @@ class TicketedEvent extends MembershipTransformer
     {
         return $value ? new Carbon($value) : null;
     }
-
 }

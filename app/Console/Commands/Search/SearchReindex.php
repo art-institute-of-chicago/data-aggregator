@@ -30,17 +30,13 @@ class SearchReindex extends BaseCommand
         $this->source = $this->argument('source') ?? env('ELASTICSEARCH_INDEX');
 
         if ($this->argument('model')) {
-
             $this->reindex($this->argument('model'));
-
         } else {
-
             $models = app('Search')->getSearchableModels();
 
             foreach ($models as $model) {
                 $this->reindex($model);
             }
-
         }
     }
 
@@ -66,5 +62,4 @@ class SearchReindex extends BaseCommand
 
         $this->info('Reindex from ' . $index . ' has started. Monitor the process here: ' . $this->baseUrl() . '/_tasks/' . $return['task']);
     }
-
 }

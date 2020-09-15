@@ -21,5 +21,4 @@ class Selection extends WebTransformer
             'publish_end_date' => $datum->date('publish_end_date'),
         ];
     }
-
 }

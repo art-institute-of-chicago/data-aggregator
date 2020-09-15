@@ -113,5 +113,4 @@ class Asset extends BaseTransformer
     {
         return [];
     }
-
 }

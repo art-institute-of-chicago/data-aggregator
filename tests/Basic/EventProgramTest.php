@@ -10,5 +10,4 @@ class EventProgramTest extends BasicTestCase
     protected $model = EventProgram::class;
 
     protected $route = 'event-programs';
-
 }

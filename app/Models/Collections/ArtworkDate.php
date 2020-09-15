@@ -27,5 +27,4 @@ class ArtworkDate extends CollectionsModel
     {
         return 'updated_at';
     }
-
 }

@@ -125,7 +125,6 @@ trait ElasticSearchable
             }
 
             return $label;
-
         }, $fields);
 
         return $fields;
@@ -220,7 +219,6 @@ trait ElasticSearchable
     private function getMappingForField($field)
     {
         if ($field['elasticsearch'] ?? false) {
-
             // Allows setting params other than type
             if ($field['elasticsearch']['mapping'] ?? false) {
                 return $field['elasticsearch']['mapping'];
@@ -239,19 +237,15 @@ trait ElasticSearchable
                     'type' => $field['elasticsearch']['type'],
                 ];
             }
-
         } else {
-
             // Supporting old behavior
             if ($field['elasticsearch_type'] ?? false) {
                 return [
                     'type' => $field['elasticsearch_type'],
                 ];
             }
-
         }
 
         return null;
     }
-
 }

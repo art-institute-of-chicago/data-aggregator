@@ -8,5 +8,4 @@ class VideoTest extends AssetTestCase
 {
 
     protected $model = Video::class;
-
 }

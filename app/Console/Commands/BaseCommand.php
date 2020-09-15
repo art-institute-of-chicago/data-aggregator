@@ -68,5 +68,4 @@ abstract class BaseCommand extends AbstractCommand
             })
             ->collapse();
     }
-
 }

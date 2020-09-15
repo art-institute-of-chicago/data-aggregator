@@ -16,5 +16,4 @@ class ScoutRefreshAll extends BaseCommand
         $this->call('scout:flush-all');
         $this->call('scout:import-all');
     }
-
 }

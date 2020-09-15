@@ -60,7 +60,7 @@ A list of all artworks sorted by last updated date in descending order. For a de
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -99,7 +99,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
     },
     "data": [
         {
-            "_score": 238.59567,
+            "_score": 251.02322,
             "thumbnail": {
                 "alt_text": "Painting of a pond seen up close spotted with thickly painted pink and white water lilies and a shadow across the top third of the picture.",
                 "width": null,
@@ -113,10 +113,10 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "api_link": "https://api.artic.edu/api/v1/artworks/16568",
             "id": 16568,
             "title": "Water Lilies",
-            "timestamp": "2020-08-28T09:15:54-05:00"
+            "timestamp": "2020-09-15T03:04:36-05:00"
         },
         {
-            "_score": 221.05968,
+            "_score": 232.57384,
             "thumbnail": {
                 "alt_text": "Loosely painted image of an open-air train station. On the right, a parked train gives off an enormous plumb of white smoke, making the scene look as though it were full of clouds. A huddled mass of barely discernible people crowd around the train on both sides of the tracks. Blue, green, and gray tones dominate.",
                 "width": null,
@@ -130,10 +130,10 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "api_link": "https://api.artic.edu/api/v1/artworks/16571",
             "id": 16571,
             "title": "Arrival of the Normandy Train, Gare Saint-Lazare",
-            "timestamp": "2020-08-28T09:15:53-05:00"
+            "timestamp": "2020-09-15T03:04:36-05:00"
         },
         {
-            "_score": 218.62274,
+            "_score": 230.00996,
             "thumbnail": {
                 "alt_text": "Painting composed of short, dense brushstrokes depicts two domed stacks of wheat that cast long shadows on a field. The angled light indicates either a rising or setting sun.",
                 "width": null,
@@ -147,7 +147,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "api_link": "https://api.artic.edu/api/v1/artworks/64818",
             "id": 64818,
             "title": "Stacks of Wheat (End of Summer)",
-            "timestamp": "2020-08-28T09:15:52-05:00"
+            "timestamp": "2020-09-15T03:19:49-05:00"
         }
     ],
     "info": {
@@ -156,7 +156,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -184,7 +184,7 @@ A single artwork by the given identifier. {id} is the identifier from our collec
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -197,7 +197,7 @@ A single artwork by the given identifier. {id} is the identifier from our collec
 ```
 :::
 
-##### `GET /artworks/{id}/manifest.json`
+##### `GET /artworks/{id}/manifest[.json]`
 
 A representation of this artwork in the IIIF Presentation API format.
 
@@ -240,6 +240,11 @@ A representation of this artwork in the IIIF Presentation API format.
     "attribution": "Digital image courtesy of the Art Institute of Chicago.",
     "logo": "https://raw.githubusercontent.com/Art-Institute-of-Chicago/template/master/aic-logo.gif",
     "within": "https://www.artic.edu/collection",
+    "rendering": {
+        "@id": "https://www.artic.edu/artworks/236548",
+        "format": "text/html",
+        "label": "Full record"
+    },
     "sequences": [
         {
             "@type": "sc:Sequence",
@@ -332,7 +337,7 @@ A list of all agents sorted by last updated date in descending order. For a desc
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -363,10 +368,10 @@ Search agents data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 14103,
+        "total": 14111,
         "limit": 10,
         "offset": 0,
-        "total_pages": 1411,
+        "total_pages": 1412,
         "current_page": 1
     },
     "data": [
@@ -392,7 +397,7 @@ Search agents data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/agents/2075",
             "id": 2075,
             "title": "Benard and Frey",
-            "timestamp": "2020-08-28T03:41:56-05:00"
+            "timestamp": "2020-09-15T04:11:01-05:00"
         }
     ],
     "info": {
@@ -401,7 +406,7 @@ Search agents data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -429,7 +434,7 @@ A single agent by the given identifier. {id} is the identifier from our collecti
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -494,7 +499,7 @@ A list of all places sorted by last updated date in descending order. For a desc
             "https://www.artic.edu/terms",
             "https://creativecommons.org/licenses/by/4.0/"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -525,7 +530,7 @@ Search places data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 3923,
+        "total": 3927,
         "limit": 10,
         "offset": 0,
         "total_pages": 393,
@@ -538,7 +543,7 @@ Search places data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/places/-2147483613",
             "id": -2147483613,
             "title": "Peoria",
-            "timestamp": "2020-08-28T03:43:40-05:00"
+            "timestamp": "2020-09-15T04:13:27-05:00"
         },
         {
             "_score": 1,
@@ -546,7 +551,7 @@ Search places data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/places/-2147483581",
             "id": -2147483581,
             "title": "Askov",
-            "timestamp": "2020-08-28T03:43:40-05:00"
+            "timestamp": "2020-09-15T04:13:27-05:00"
         },
         {
             "_score": 1,
@@ -554,7 +559,7 @@ Search places data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/places/-2147483534",
             "id": -2147483534,
             "title": "Z\u00fcrich",
-            "timestamp": "2020-08-28T03:43:40-05:00"
+            "timestamp": "2020-09-15T04:13:27-05:00"
         }
     ],
     "info": {
@@ -563,7 +568,7 @@ Search places data in the aggregator.
             "https://www.artic.edu/terms",
             "https://creativecommons.org/licenses/by/4.0/"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -591,7 +596,7 @@ A single place by the given identifier. {id} is the identifier from our collecti
             "https://www.artic.edu/terms",
             "https://creativecommons.org/licenses/by/4.0/"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -656,7 +661,7 @@ A list of all galleries sorted by last updated date in descending order. For a d
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -700,7 +705,7 @@ Search galleries data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/galleries/2",
             "id": 2,
             "title": "East Garden at Columbus Drive",
-            "timestamp": "2020-08-28T03:43:44-05:00"
+            "timestamp": "2020-09-15T04:13:33-05:00"
         },
         {
             "_score": 1,
@@ -708,7 +713,7 @@ Search galleries data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/galleries/346",
             "id": 346,
             "title": "Stock Exchange Trading Room",
-            "timestamp": "2020-08-28T03:43:44-05:00"
+            "timestamp": "2020-09-15T04:13:33-05:00"
         },
         {
             "_score": 1,
@@ -716,7 +721,7 @@ Search galleries data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/galleries/2705",
             "id": 2705,
             "title": "Gallery 59",
-            "timestamp": "2020-08-28T03:43:44-05:00"
+            "timestamp": "2020-09-15T04:13:33-05:00"
         }
     ],
     "info": {
@@ -725,7 +730,7 @@ Search galleries data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -753,7 +758,7 @@ A single gallery by the given identifier. {id} is the identifier from our collec
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -821,7 +826,7 @@ A list of all exhibitions sorted by last updated date in descending order. For a
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -852,7 +857,7 @@ Search exhibitions data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 6353,
+        "total": 6355,
         "limit": 10,
         "offset": 0,
         "total_pages": 636,
@@ -862,26 +867,26 @@ Search exhibitions data in the aggregator.
         {
             "_score": 1,
             "api_model": "exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/exhibitions/1953",
-            "id": 1953,
-            "title": "Strokes of Genius: Italian Drawings from the Goldman Collection",
-            "timestamp": "2020-08-28T03:43:53-05:00"
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/5",
+            "id": 5,
+            "title": "Manet and the Sea",
+            "timestamp": "2020-09-15T04:13:33-05:00"
         },
         {
             "_score": 1,
             "api_model": "exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/exhibitions/1959",
-            "id": 1959,
-            "title": "Renoir\u2019s True Colors: Science Solves a Mystery",
-            "timestamp": "2020-08-28T03:43:53-05:00"
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/6",
+            "id": 6,
+            "title": "Watercolors by Winslow Homer: The Color of Light",
+            "timestamp": "2020-09-15T04:13:33-05:00"
         },
         {
             "_score": 1,
             "api_model": "exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/exhibitions/1977",
-            "id": 1977,
-            "title": "Devouring Books",
-            "timestamp": "2020-08-28T03:43:53-05:00"
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/7",
+            "id": 7,
+            "title": "Drawings in Dialogue: Old Masters through Modern, The Harry B. and Bessie K. Braude Memorial Collection",
+            "timestamp": "2020-09-15T04:13:33-05:00"
         }
     ],
     "info": {
@@ -890,7 +895,7 @@ Search exhibitions data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -918,7 +923,7 @@ A single exhibition by the given identifier. {id} is the identifier from our col
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -983,7 +988,7 @@ A list of all agent-types sorted by last updated date in descending order. For a
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1018,7 +1023,7 @@ A single agent-type by the given identifier. {id} is the identifier from our col
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1083,7 +1088,7 @@ A list of all agent-roles sorted by last updated date in descending order. For a
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1118,7 +1123,7 @@ A single agent-role by the given identifier. {id} is the identifier from our col
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1163,7 +1168,7 @@ A list of all agent-place-qualifiers sorted by last updated date in descending o
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1233,7 +1238,7 @@ A list of all artwork-types sorted by last updated date in descending order. For
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1268,7 +1273,7 @@ A single artwork-type by the given identifier. {id} is the identifier from our c
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1333,7 +1338,7 @@ A list of all artwork-place-qualifiers sorted by last updated date in descending
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1368,7 +1373,7 @@ A single artwork-place-qualifier by the given identifier. {id} is the identifier
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1433,7 +1438,7 @@ A list of all artwork-date-qualifiers sorted by last updated date in descending 
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1468,7 +1473,7 @@ A single artwork-date-qualifier by the given identifier. {id} is the identifier 
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1533,7 +1538,7 @@ A list of all catalogues sorted by last updated date in descending order. For a 
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1568,7 +1573,7 @@ A single catalogue by the given identifier. {id} is the identifier from our coll
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1633,7 +1638,7 @@ A list of all category-terms sorted by last updated date in descending order. Fo
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1664,36 +1669,36 @@ Search category-terms data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 9229,
+        "total": 9189,
         "limit": 10,
         "offset": 0,
-        "total_pages": 923,
+        "total_pages": 919,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-11204",
-            "id": "TM-11204",
-            "title": "fruit",
-            "timestamp": "2020-08-28T03:45:03-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/PC-825",
+            "id": "PC-825",
+            "title": "Women artists",
+            "timestamp": "2020-09-15T04:15:35-05:00"
         },
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-11205",
-            "id": "TM-11205",
-            "title": "trees",
-            "timestamp": "2020-08-28T03:45:03-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/PC-826",
+            "id": "PC-826",
+            "title": "AIC Archives",
+            "timestamp": "2020-09-15T04:15:35-05:00"
         },
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-11206",
-            "id": "TM-11206",
-            "title": "foliage",
-            "timestamp": "2020-08-28T03:45:03-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/PC-827",
+            "id": "PC-827",
+            "title": "SAIC Alumni and Faculty",
+            "timestamp": "2020-09-15T04:15:35-05:00"
         }
     ],
     "info": {
@@ -1702,7 +1707,7 @@ Search category-terms data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -1730,7 +1735,7 @@ A single category-term by the given identifier. {id} is the identifier from our 
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1795,7 +1800,7 @@ A list of all assets sorted by last updated date in descending order. For a desc
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1865,7 +1870,7 @@ A list of all images sorted by last updated date in descending order. For a desc
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1896,10 +1901,10 @@ Search images data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 142106,
+        "total": 142128,
         "limit": 10,
         "offset": 0,
-        "total_pages": 14211,
+        "total_pages": 14213,
         "current_page": 1
     },
     "data": [
@@ -1934,7 +1939,7 @@ Search images data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -1997,7 +2002,7 @@ A list of all videos sorted by last updated date in descending order. For a desc
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2041,7 +2046,7 @@ Search videos data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/videos/1ee4a231-0dad-2638-24fd-dfa2138eb142",
             "id": "1ee4a231-0dad-2638-24fd-dfa2138eb142",
             "title": "Digital Simulation: Original appearance of <em>For to Be a Farmer's Boy</em>",
-            "timestamp": "2020-08-28T05:06:42-05:00"
+            "timestamp": "2020-09-15T06:18:47-05:00"
         },
         {
             "_score": 1,
@@ -2049,7 +2054,7 @@ Search videos data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/videos/c051f71e-2b69-ac68-9aa8-99410d91f3f3",
             "id": "c051f71e-2b69-ac68-9aa8-99410d91f3f3",
             "title": "Under Cover: The Science of Van Gogh's Bedroom",
-            "timestamp": "2020-08-28T05:06:42-05:00"
+            "timestamp": "2020-09-15T06:18:48-05:00"
         },
         {
             "_score": 1,
@@ -2057,7 +2062,7 @@ Search videos data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/videos/c5700df1-473c-c1cd-ab1b-79b20a32fc27",
             "id": "c5700df1-473c-c1cd-ab1b-79b20a32fc27",
             "title": "Online Game: Winslow Homer's <em>The Water Fan</em>",
-            "timestamp": "2020-08-28T05:06:42-05:00"
+            "timestamp": "2020-09-15T06:18:48-05:00"
         }
     ],
     "info": {
@@ -2066,7 +2071,7 @@ Search videos data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -2129,7 +2134,7 @@ A list of all sounds sorted by last updated date in descending order. For a desc
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2173,7 +2178,7 @@ Search sounds data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sounds/31bdc88e-581d-b744-022b-7e9571b95ff2",
             "id": "31bdc88e-581d-b744-022b-7e9571b95ff2",
             "title": "Audio Lecture: Winslow Homer, Artist and Angler",
-            "timestamp": "2020-08-28T05:06:45-05:00"
+            "timestamp": "2020-09-15T06:18:52-05:00"
         },
         {
             "_score": 1,
@@ -2181,7 +2186,7 @@ Search sounds data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sounds/31c370a9-98de-3533-c14e-c91776c8bf82",
             "id": "31c370a9-98de-3533-c14e-c91776c8bf82",
             "title": "Audio Lecture: Mel Bochner Symposium, Introduction and Keynote",
-            "timestamp": "2020-08-28T05:06:45-05:00"
+            "timestamp": "2020-09-15T06:18:52-05:00"
         },
         {
             "_score": 1,
@@ -2189,7 +2194,7 @@ Search sounds data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sounds/31ee173d-cd35-88ef-9362-61722a5e10bf",
             "id": "31ee173d-cd35-88ef-9362-61722a5e10bf",
             "title": "Audio stop 442.wav",
-            "timestamp": "2020-08-28T05:06:45-05:00"
+            "timestamp": "2020-09-15T06:18:52-05:00"
         }
     ],
     "info": {
@@ -2198,7 +2203,7 @@ Search sounds data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -2261,7 +2266,7 @@ A list of all texts sorted by last updated date in descending order. For a descr
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2302,26 +2307,26 @@ Search texts data in the aggregator.
         {
             "_score": 1,
             "api_model": "texts",
-            "api_link": "https://api.artic.edu/api/v1/texts/46b7e0c9-06a8-8ed8-17be-5bbb3890e42b",
-            "id": "46b7e0c9-06a8-8ed8-17be-5bbb3890e42b",
-            "title": "AIC1883_1stAnn.pdf",
-            "timestamp": "2020-08-28T05:07:00-05:00"
+            "api_link": "https://api.artic.edu/api/v1/texts/52d442ca-eebc-67ab-3708-9fe55d11a01e",
+            "id": "52d442ca-eebc-67ab-3708-9fe55d11a01e",
+            "title": "Audio transcript 761.txt",
+            "timestamp": "2020-09-15T06:19:19-05:00"
         },
         {
             "_score": 1,
             "api_model": "texts",
-            "api_link": "https://api.artic.edu/api/v1/texts/472c29ee-fa8c-fff3-c0f8-99fad5c517b0",
-            "id": "472c29ee-fa8c-fff3-c0f8-99fad5c517b0",
-            "title": "AIC1945ArtofChi49thAn_comb.pdf",
-            "timestamp": "2020-08-28T05:07:00-05:00"
+            "api_link": "https://api.artic.edu/api/v1/texts/52fd5b29-9622-a131-9797-a2d074dba3d9",
+            "id": "52fd5b29-9622-a131-9797-a2d074dba3d9",
+            "title": "AIC1929PandS42ndAn_comb.pdf",
+            "timestamp": "2020-09-15T06:19:19-05:00"
         },
         {
             "_score": 1,
             "api_model": "texts",
-            "api_link": "https://api.artic.edu/api/v1/texts/47383ec2-4b2c-b243-9dfc-2f145b1f8c0d",
-            "id": "47383ec2-4b2c-b243-9dfc-2f145b1f8c0d",
-            "title": "AIC1963Ceramics_comb.pdf",
-            "timestamp": "2020-08-28T05:07:00-05:00"
+            "api_link": "https://api.artic.edu/api/v1/texts/53770d6a-7bcd-494c-49e2-e8fd4a7914ae",
+            "id": "53770d6a-7bcd-494c-49e2-e8fd4a7914ae",
+            "title": "AIC1911ArtSdtLge17thAn_comb.pdf",
+            "timestamp": "2020-09-15T06:19:19-05:00"
         }
     ],
     "info": {
@@ -2330,7 +2335,7 @@ Search texts data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -2396,7 +2401,7 @@ A list of all shop-categories sorted by last updated date in descending order. F
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2440,7 +2445,7 @@ Search shop-categories data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/shop-categories/2",
             "id": 2,
             "title": "Books & Prints",
-            "timestamp": "2020-08-28T05:07:06-05:00"
+            "timestamp": "2020-09-15T06:19:27-05:00"
         },
         {
             "_score": 1,
@@ -2448,7 +2453,7 @@ Search shop-categories data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/shop-categories/3",
             "id": 3,
             "title": "Fashion & Accessories",
-            "timestamp": "2020-08-28T05:07:06-05:00"
+            "timestamp": "2020-09-15T06:19:27-05:00"
         },
         {
             "_score": 1,
@@ -2456,7 +2461,7 @@ Search shop-categories data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/shop-categories/4",
             "id": 4,
             "title": "Decor",
-            "timestamp": "2020-08-28T05:07:06-05:00"
+            "timestamp": "2020-09-15T06:19:27-05:00"
         }
     ],
     "info": {
@@ -2464,7 +2469,7 @@ Search shop-categories data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -2491,7 +2496,7 @@ A single shop-category by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2545,7 +2550,7 @@ A list of all products sorted by last updated date in descending order. For a de
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2576,36 +2581,36 @@ Search products data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 6988,
+        "total": 7026,
         "limit": 10,
         "offset": 0,
-        "total_pages": 699,
+        "total_pages": 703,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "products",
-            "api_link": "https://api.artic.edu/api/v1/products/1306",
-            "id": 1306,
-            "title": "Transforming Vision: Writers on Art",
-            "timestamp": "2020-08-28T05:07:08-05:00"
+            "api_link": "https://api.artic.edu/api/v1/products/37",
+            "id": 37,
+            "title": "Sullivan Scarf",
+            "timestamp": "2020-09-15T06:19:27-05:00"
         },
         {
             "_score": 1,
             "api_model": "products",
-            "api_link": "https://api.artic.edu/api/v1/products/1307",
-            "id": 1307,
-            "title": "Cats Keepsake Calendar",
-            "timestamp": "2020-08-28T05:07:08-05:00"
+            "api_link": "https://api.artic.edu/api/v1/products/38",
+            "id": 38,
+            "title": "Butterfly Scarf",
+            "timestamp": "2020-09-15T06:19:27-05:00"
         },
         {
             "_score": 1,
             "api_model": "products",
-            "api_link": "https://api.artic.edu/api/v1/products/1322",
-            "id": 1322,
-            "title": "Remington Lap Throw",
-            "timestamp": "2020-08-28T05:07:08-05:00"
+            "api_link": "https://api.artic.edu/api/v1/products/39",
+            "id": 39,
+            "title": "Davis Ready to Wear Scarf",
+            "timestamp": "2020-09-15T06:19:27-05:00"
         }
     ],
     "info": {
@@ -2613,7 +2618,7 @@ Search products data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -2640,7 +2645,7 @@ A single product by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2708,7 +2713,7 @@ A list of all tours sorted by last updated date in descending order. For a descr
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2739,10 +2744,10 @@ Search tours data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 19,
+        "total": 21,
         "limit": 10,
         "offset": 0,
-        "total_pages": 2,
+        "total_pages": 3,
         "current_page": 1
     },
     "data": [
@@ -2776,7 +2781,7 @@ Search tours data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -2803,7 +2808,7 @@ A single tour by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2867,7 +2872,7 @@ A list of all mobile-sounds sorted by last updated date in descending order. For
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2898,7 +2903,7 @@ Search mobile-sounds data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 792,
+        "total": 793,
         "limit": 10,
         "offset": 0,
         "total_pages": 80,
@@ -2927,7 +2932,7 @@ Search mobile-sounds data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/mobile-sounds/226",
             "id": 226,
             "title": "Justus Sustermans",
-            "timestamp": "2020-08-28T05:07:35-05:00"
+            "timestamp": "2020-09-15T06:20:22-05:00"
         }
     ],
     "info": {
@@ -2935,7 +2940,7 @@ Search mobile-sounds data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -2962,7 +2967,7 @@ A single mobile-sound by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3028,7 +3033,7 @@ A list of all publications sorted by last updated date in descending order. For 
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3072,7 +3077,7 @@ Search publications data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/publications/2",
             "id": 2,
             "title": "American Silver in the Art Institute of Chicago",
-            "timestamp": "2020-08-28T05:07:40-05:00"
+            "timestamp": "2020-09-15T06:20:31-05:00"
         },
         {
             "_score": 1,
@@ -3080,7 +3085,7 @@ Search publications data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/publications/7",
             "id": 7,
             "title": "Pissarro Paintings and Works on Paper at the Art Institute of Chicago",
-            "timestamp": "2020-08-28T05:07:40-05:00"
+            "timestamp": "2020-09-15T06:20:31-05:00"
         },
         {
             "_score": 1,
@@ -3088,7 +3093,7 @@ Search publications data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/publications/12",
             "id": 12,
             "title": "The Modern Series at the Art Institute of Chicago",
-            "timestamp": "2020-08-28T05:07:40-05:00"
+            "timestamp": "2020-09-15T06:20:31-05:00"
         }
     ],
     "info": {
@@ -3096,7 +3101,7 @@ Search publications data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -3123,7 +3128,7 @@ A single publication by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3187,7 +3192,7 @@ A list of all sections sorted by last updated date in descending order. For a de
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3228,26 +3233,26 @@ Search sections data in the aggregator.
         {
             "_score": 1,
             "api_model": "sections",
-            "api_link": "https://api.artic.edu/api/v1/sections/18",
-            "id": 18,
-            "title": "Foreword",
-            "timestamp": "2020-08-28T05:07:41-05:00"
+            "api_link": "https://api.artic.edu/api/v1/sections/464649",
+            "id": 464649,
+            "title": "Acknowledgments",
+            "timestamp": "2020-09-15T06:20:37-05:00"
         },
         {
             "_score": 1,
             "api_model": "sections",
-            "api_link": "https://api.artic.edu/api/v1/sections/25",
-            "id": 25,
-            "title": "Preface: American Silver",
-            "timestamp": "2020-08-28T05:07:41-05:00"
+            "api_link": "https://api.artic.edu/api/v1/sections/466580",
+            "id": 466580,
+            "title": "Introduction",
+            "timestamp": "2020-09-15T06:20:37-05:00"
         },
         {
             "_score": 1,
             "api_model": "sections",
-            "api_link": "https://api.artic.edu/api/v1/sections/33",
-            "id": 33,
-            "title": "Forging a Collection: American Silver at the Art Institute of Chicago",
-            "timestamp": "2020-08-28T05:07:41-05:00"
+            "api_link": "https://api.artic.edu/api/v1/sections/467547",
+            "id": 467547,
+            "title": "Works of Art",
+            "timestamp": "2020-09-15T06:20:37-05:00"
         }
     ],
     "info": {
@@ -3255,7 +3260,7 @@ Search sections data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -3282,7 +3287,7 @@ A single section by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3350,7 +3355,7 @@ A list of all sites sorted by last updated date in descending order. For a descr
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3394,7 +3399,7 @@ Search sites data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sites/1",
             "id": 1,
             "title": "Chicago Architecture: Ten Visions",
-            "timestamp": "2020-08-28T05:07:55-05:00"
+            "timestamp": "2020-09-15T06:20:52-05:00"
         },
         {
             "_score": 1,
@@ -3402,7 +3407,7 @@ Search sites data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sites/2",
             "id": 2,
             "title": "American Perspectives: A yearlong celebration of American artistic vision",
-            "timestamp": "2020-08-28T05:07:55-05:00"
+            "timestamp": "2020-09-15T06:20:52-05:00"
         },
         {
             "_score": 1,
@@ -3410,7 +3415,7 @@ Search sites data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sites/3",
             "id": 3,
             "title": "Curious Corner",
-            "timestamp": "2020-08-28T05:07:55-05:00"
+            "timestamp": "2020-09-15T06:20:52-05:00"
         }
     ],
     "info": {
@@ -3418,7 +3423,7 @@ Search sites data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -3445,7 +3450,7 @@ A single site by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3511,7 +3516,7 @@ A list of all closures sorted by last updated date in descending order. For a de
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3542,10 +3547,10 @@ Search closures data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 20,
+        "total": 21,
         "limit": 10,
         "offset": 0,
-        "total_pages": 2,
+        "total_pages": 3,
         "current_page": 1
     },
     "data": [
@@ -3555,7 +3560,7 @@ Search closures data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/closures/4",
             "id": 4,
             "title": "Lorem ipsum.",
-            "timestamp": "2020-08-28T05:07:56-05:00"
+            "timestamp": "2020-09-15T06:20:54-05:00"
         },
         {
             "_score": 1,
@@ -3563,7 +3568,7 @@ Search closures data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/closures/5",
             "id": 5,
             "title": "Lorem ipsum.",
-            "timestamp": "2020-08-28T05:07:56-05:00"
+            "timestamp": "2020-09-15T06:20:54-05:00"
         },
         {
             "_score": 1,
@@ -3571,7 +3576,7 @@ Search closures data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/closures/9",
             "id": 9,
             "title": "Lorem ipsum.",
-            "timestamp": "2020-08-28T05:07:56-05:00"
+            "timestamp": "2020-09-15T06:20:54-05:00"
         }
     ],
     "info": {
@@ -3579,7 +3584,7 @@ Search closures data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -3606,7 +3611,7 @@ A single closure by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3670,7 +3675,7 @@ A list of all web-exhibitions sorted by last updated date in descending order. F
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3722,7 +3727,7 @@ Search web-exhibitions data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/web-exhibitions/1",
             "id": 1,
             "title": "Charles White: A Retrospective",
-            "timestamp": "2020-08-28T05:07:56-05:00"
+            "timestamp": "2020-09-15T06:20:54-05:00"
         },
         {
             "_score": 1,
@@ -3730,7 +3735,7 @@ Search web-exhibitions data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/web-exhibitions/2",
             "id": 2,
             "title": "Manet and Modern Beauty",
-            "timestamp": "2020-08-28T05:07:56-05:00"
+            "timestamp": "2020-09-15T06:20:54-05:00"
         }
     ],
     "info": {
@@ -3738,7 +3743,7 @@ Search web-exhibitions data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -3765,7 +3770,7 @@ A single web-exhibition by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3832,7 +3837,7 @@ A list of all events sorted by last updated date in descending order. For a desc
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3863,36 +3868,36 @@ Search events data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 1983,
+        "total": 2019,
         "limit": 10,
         "offset": 0,
-        "total_pages": 199,
+        "total_pages": 202,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/4554",
-            "id": 4554,
-            "title": "Performance: Anne Imhof\u2014Sex",
-            "timestamp": "2020-08-28T05:08:06-05:00"
+            "api_link": "https://aggregator-data.artic.edu/api/v1/events/4937",
+            "id": 4937,
+            "title": "Monet and Chicago",
+            "timestamp": "2020-01-07T06:08:28-06:00"
         },
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/4555",
-            "id": 4555,
-            "title": "Performance: Anne Imhof\u2014Sex",
-            "timestamp": "2020-08-28T05:08:06-05:00"
+            "api_link": "https://aggregator-data.artic.edu/api/v1/events/4938",
+            "id": 4938,
+            "title": "Monet and Chicago",
+            "timestamp": "2020-01-07T06:08:28-06:00"
         },
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/4556",
-            "id": 4556,
-            "title": "Garden Party featuring \"Manet and Modern Beauty\"",
-            "timestamp": "2020-08-28T05:08:06-05:00"
+            "api_link": "https://api.artic.edu/api/v1/events/3093",
+            "id": 3093,
+            "title": "Performance and Drop-In Workshop: Parangol\u00e9s and Samba",
+            "timestamp": "2020-09-15T06:20:59-05:00"
         }
     ],
     "info": {
@@ -3900,7 +3905,7 @@ Search events data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -3927,7 +3932,7 @@ A single event by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3990,7 +3995,7 @@ A list of all event-occurrences sorted by last updated date in descending order.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4021,36 +4026,36 @@ Search event-occurrences data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 7,
+        "total": 27,
         "limit": 10,
         "offset": 0,
-        "total_pages": 1,
+        "total_pages": 3,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "event-occurrences",
-            "api_link": "https://api.artic.edu/api/v1/event-occurrences/001379c7-0f99-5ef5-ab95-ba02114f63d8",
-            "id": "001379c7-0f99-5ef5-ab95-ba02114f63d8",
-            "title": "Member Preview: Monet and Chicago",
-            "timestamp": "2020-08-28T05:08:09-05:00"
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/3118cc7e-f36d-5244-b42f-980e213fb9f9",
+            "id": "3118cc7e-f36d-5244-b42f-980e213fb9f9",
+            "title": "Virtual Educator Program: Introduction to Museum Resources",
+            "timestamp": "2020-09-15T06:21:17-05:00"
         },
         {
             "_score": 1,
             "api_model": "event-occurrences",
-            "api_link": "https://api.artic.edu/api/v1/event-occurrences/3c2fd868-71e9-5ae8-8547-c47f16dc1c73",
-            "id": "3c2fd868-71e9-5ae8-8547-c47f16dc1c73",
-            "title": "Member Double Discount Day",
-            "timestamp": "2020-08-28T05:08:09-05:00"
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/458872bb-00bb-5bcd-8a18-0e4b44f0f289",
+            "id": "458872bb-00bb-5bcd-8a18-0e4b44f0f289",
+            "title": "Virtual Educator Program: Introduction to Museum Resources",
+            "timestamp": "2020-09-15T06:21:17-05:00"
         },
         {
             "_score": 1,
             "api_model": "event-occurrences",
-            "api_link": "https://api.artic.edu/api/v1/event-occurrences/5961527d-31ca-5818-81e8-904e8745c13f",
-            "id": "5961527d-31ca-5818-81e8-904e8745c13f",
-            "title": "Member Preview: Monet and Chicago",
-            "timestamp": "2020-08-28T05:08:09-05:00"
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/477a6b63-6439-5992-8ba3-a47428d31881",
+            "id": "477a6b63-6439-5992-8ba3-a47428d31881",
+            "title": "Conservation Perspectives: Malangatana\u2014Mozambique Modern",
+            "timestamp": "2020-09-15T06:21:17-05:00"
         }
     ],
     "info": {
@@ -4058,7 +4063,7 @@ Search event-occurrences data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -4085,7 +4090,7 @@ A single event-occurrence by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4149,7 +4154,7 @@ A list of all event-programs sorted by last updated date in descending order. Fo
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4180,7 +4185,7 @@ Search event-programs data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 67,
+        "total": 68,
         "limit": 10,
         "offset": 0,
         "total_pages": 7,
@@ -4193,7 +4198,7 @@ Search event-programs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/event-programs/1",
             "id": 1,
             "title": "Artist\u2019s Studio",
-            "timestamp": "2020-08-28T05:08:09-05:00"
+            "timestamp": "2020-09-15T06:21:17-05:00"
         },
         {
             "_score": 1,
@@ -4201,7 +4206,7 @@ Search event-programs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/event-programs/2",
             "id": 2,
             "title": "Family Festivals",
-            "timestamp": "2020-08-28T05:08:09-05:00"
+            "timestamp": "2020-09-15T06:21:17-05:00"
         },
         {
             "_score": 1,
@@ -4209,7 +4214,7 @@ Search event-programs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/event-programs/3",
             "id": 3,
             "title": "Picture This",
-            "timestamp": "2020-08-28T05:08:09-05:00"
+            "timestamp": "2020-09-15T06:21:17-05:00"
         }
     ],
     "info": {
@@ -4217,7 +4222,7 @@ Search event-programs data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -4244,7 +4249,7 @@ A single event-program by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4308,7 +4313,7 @@ A list of all articles sorted by last updated date in descending order. For a de
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4339,10 +4344,10 @@ Search articles data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 277,
+        "total": 284,
         "limit": 10,
         "offset": 0,
-        "total_pages": 28,
+        "total_pages": 29,
         "current_page": 1
     },
     "data": [
@@ -4352,7 +4357,7 @@ Search articles data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/articles/14",
             "id": 14,
             "title": "secrets-of-the-modern-wing",
-            "timestamp": "2020-08-28T05:08:09-05:00"
+            "timestamp": "2020-09-15T06:21:18-05:00"
         },
         {
             "_score": 1,
@@ -4360,7 +4365,7 @@ Search articles data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/articles/18",
             "id": 18,
             "title": "your-move",
-            "timestamp": "2020-08-28T05:08:09-05:00"
+            "timestamp": "2020-09-15T06:21:18-05:00"
         },
         {
             "_score": 1,
@@ -4368,7 +4373,7 @@ Search articles data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/articles/26",
             "id": 26,
             "title": "secrets-of-the-modern-wing-take-two",
-            "timestamp": "2020-08-28T05:08:09-05:00"
+            "timestamp": "2020-09-15T06:21:18-05:00"
         }
     ],
     "info": {
@@ -4376,7 +4381,7 @@ Search articles data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -4403,7 +4408,7 @@ A single article by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4467,7 +4472,7 @@ A list of all selections sorted by last updated date in descending order. For a 
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4498,7 +4503,7 @@ Search selections data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 20,
+        "total": 19,
         "limit": 10,
         "offset": 0,
         "total_pages": 2,
@@ -4511,7 +4516,7 @@ Search selections data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/selections/3",
             "id": 3,
             "title": "what-to-see-in-an-hour",
-            "timestamp": "2020-08-28T05:08:10-05:00"
+            "timestamp": "2020-09-15T06:21:20-05:00"
         },
         {
             "_score": 1,
@@ -4519,7 +4524,7 @@ Search selections data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/selections/4",
             "id": 4,
             "title": "new-acquisitions",
-            "timestamp": "2020-08-28T05:08:10-05:00"
+            "timestamp": "2020-09-15T06:21:20-05:00"
         },
         {
             "_score": 1,
@@ -4527,7 +4532,7 @@ Search selections data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/selections/5",
             "id": 5,
             "title": "impressionism",
-            "timestamp": "2020-08-28T05:08:10-05:00"
+            "timestamp": "2020-09-15T06:21:20-05:00"
         }
     ],
     "info": {
@@ -4535,7 +4540,7 @@ Search selections data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -4562,7 +4567,7 @@ A single selection by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4626,7 +4631,7 @@ A list of all web-artists sorted by last updated date in descending order. For a
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4657,10 +4662,10 @@ Search web-artists data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 107,
+        "total": 114,
         "limit": 10,
         "offset": 0,
-        "total_pages": 11,
+        "total_pages": 12,
         "current_page": 1
     },
     "data": [
@@ -4670,7 +4675,7 @@ Search web-artists data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/web-artists/1",
             "id": 1,
             "title": "Winslow Homer",
-            "timestamp": "2020-08-28T05:08:10-05:00"
+            "timestamp": "2020-09-15T06:21:20-05:00"
         },
         {
             "_score": 1,
@@ -4678,7 +4683,7 @@ Search web-artists data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/web-artists/2",
             "id": 2,
             "title": "Don A. DuBroff",
-            "timestamp": "2020-08-28T05:08:10-05:00"
+            "timestamp": "2020-09-15T06:21:20-05:00"
         },
         {
             "_score": 1,
@@ -4686,7 +4691,7 @@ Search web-artists data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/web-artists/3",
             "id": 3,
             "title": "Neue Galerie New York",
-            "timestamp": "2020-08-28T05:08:10-05:00"
+            "timestamp": "2020-09-15T06:21:20-05:00"
         }
     ],
     "info": {
@@ -4694,7 +4699,7 @@ Search web-artists data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -4721,7 +4726,7 @@ A single web-artist by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4785,7 +4790,7 @@ A list of all static-pages sorted by last updated date in descending order. For 
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4829,7 +4834,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/1",
             "id": 1,
             "title": "Visit",
-            "timestamp": "2020-08-28T11:20:06-05:00"
+            "timestamp": "2020-09-15T14:10:11-05:00"
         },
         {
             "_score": 1,
@@ -4837,7 +4842,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/2",
             "id": 2,
             "title": "Events",
-            "timestamp": "2020-08-28T11:20:07-05:00"
+            "timestamp": "2020-09-15T14:10:11-05:00"
         },
         {
             "_score": 1,
@@ -4845,7 +4850,7 @@ Search static-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/static-pages/3",
             "id": 3,
             "title": "Exhibitions",
-            "timestamp": "2020-08-28T11:20:07-05:00"
+            "timestamp": "2020-09-15T14:10:11-05:00"
         }
     ],
     "info": {
@@ -4853,7 +4858,7 @@ Search static-pages data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -4880,7 +4885,7 @@ A single static-page by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4944,7 +4949,7 @@ A list of all generic-pages sorted by last updated date in descending order. For
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4975,7 +4980,7 @@ Search generic-pages data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 248,
+        "total": 250,
         "limit": 10,
         "offset": 0,
         "total_pages": 25,
@@ -4988,7 +4993,7 @@ Search generic-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/generic-pages/1",
             "id": 1,
             "title": "Visit",
-            "timestamp": "2020-08-28T05:08:11-05:00"
+            "timestamp": "2020-09-15T06:21:20-05:00"
         },
         {
             "_score": 1,
@@ -4996,7 +5001,7 @@ Search generic-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/generic-pages/2",
             "id": 2,
             "title": "Free Admission Opportunities",
-            "timestamp": "2020-08-28T05:08:11-05:00"
+            "timestamp": "2020-09-15T06:21:20-05:00"
         },
         {
             "_score": 1,
@@ -5004,7 +5009,7 @@ Search generic-pages data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/generic-pages/4",
             "id": 4,
             "title": "Directions & Parking",
-            "timestamp": "2020-08-28T05:08:11-05:00"
+            "timestamp": "2020-09-15T06:21:20-05:00"
         }
     ],
     "info": {
@@ -5012,7 +5017,7 @@ Search generic-pages data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -5039,7 +5044,7 @@ A single generic-page by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5103,7 +5108,7 @@ A list of all press-releases sorted by last updated date in descending order. Fo
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5147,7 +5152,7 @@ Search press-releases data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/press-releases/1",
             "id": 1,
             "title": "Press Releases from 1939",
-            "timestamp": "2020-08-28T05:08:11-05:00"
+            "timestamp": "2020-09-15T06:21:22-05:00"
         },
         {
             "_score": 1,
@@ -5155,7 +5160,7 @@ Search press-releases data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/press-releases/2",
             "id": 2,
             "title": "Press Releases from 1940",
-            "timestamp": "2020-08-28T05:08:11-05:00"
+            "timestamp": "2020-09-15T06:21:22-05:00"
         },
         {
             "_score": 1,
@@ -5163,7 +5168,7 @@ Search press-releases data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/press-releases/3",
             "id": 3,
             "title": "Press Releases from 1941",
-            "timestamp": "2020-08-28T05:08:11-05:00"
+            "timestamp": "2020-09-15T06:21:22-05:00"
         }
     ],
     "info": {
@@ -5171,7 +5176,7 @@ Search press-releases data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -5198,7 +5203,7 @@ A single press-release by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5262,7 +5267,7 @@ A list of all educator-resources sorted by last updated date in descending order
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5306,7 +5311,7 @@ Search educator-resources data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/educator-resources/2",
             "id": 2,
             "title": "Test Resource",
-            "timestamp": "2020-08-28T05:08:12-05:00"
+            "timestamp": "2020-09-15T06:21:23-05:00"
         },
         {
             "_score": 1,
@@ -5314,7 +5319,7 @@ Search educator-resources data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/educator-resources/3",
             "id": 3,
             "title": "Activity: Arrival of the Normandy Train, Gare Saint-Lazare",
-            "timestamp": "2020-08-28T05:08:12-05:00"
+            "timestamp": "2020-09-15T06:21:23-05:00"
         },
         {
             "_score": 1,
@@ -5322,7 +5327,7 @@ Search educator-resources data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/educator-resources/4",
             "id": 4,
             "title": "Activity: The Family Concert",
-            "timestamp": "2020-08-28T05:08:12-05:00"
+            "timestamp": "2020-09-15T06:21:23-05:00"
         }
     ],
     "info": {
@@ -5330,7 +5335,7 @@ Search educator-resources data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -5357,7 +5362,7 @@ A single educator-resource by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5421,7 +5426,7 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5465,7 +5470,7 @@ Search digital-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/2",
             "id": 2,
             "title": "American Silver",
-            "timestamp": "2020-08-28T05:08:13-05:00"
+            "timestamp": "2020-09-15T06:21:23-05:00"
         },
         {
             "_score": 1,
@@ -5473,7 +5478,7 @@ Search digital-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/3",
             "id": 3,
             "title": "Modern Series: Go",
-            "timestamp": "2020-08-28T05:08:13-05:00"
+            "timestamp": "2020-09-15T06:21:23-05:00"
         },
         {
             "_score": 1,
@@ -5481,7 +5486,7 @@ Search digital-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/4",
             "id": 4,
             "title": "Manet Paintings and Works on Paper at the Art Institute of Chicago",
-            "timestamp": "2020-08-28T05:08:13-05:00"
+            "timestamp": "2020-09-15T06:21:23-05:00"
         }
     ],
     "info": {
@@ -5489,7 +5494,7 @@ Search digital-catalogs data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -5516,7 +5521,7 @@ A single digital-catalog by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5580,7 +5585,7 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5611,7 +5616,7 @@ Search printed-catalogs data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 181,
+        "total": 183,
         "limit": 10,
         "offset": 0,
         "total_pages": 19,
@@ -5624,7 +5629,7 @@ Search printed-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/printed-catalogs/4",
             "id": 4,
             "title": "The Art Institute of Chicago: The Essential Guide",
-            "timestamp": "2020-08-28T05:08:13-05:00"
+            "timestamp": "2020-09-15T06:21:23-05:00"
         },
         {
             "_score": 1,
@@ -5632,7 +5637,7 @@ Search printed-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/printed-catalogs/5",
             "id": 5,
             "title": "Roy Lichtenstein: A Retrospective",
-            "timestamp": "2020-08-28T05:08:13-05:00"
+            "timestamp": "2020-09-15T06:21:23-05:00"
         },
         {
             "_score": 1,
@@ -5640,7 +5645,7 @@ Search printed-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/printed-catalogs/6",
             "id": 6,
             "title": "Dawoud Bey: Harlem, U.S.A.",
-            "timestamp": "2020-08-28T05:08:13-05:00"
+            "timestamp": "2020-09-15T06:21:23-05:00"
         }
     ],
     "info": {
@@ -5648,7 +5653,7 @@ Search printed-catalogs data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc15"
+        "version": "1.0-rc16"
     }
 }
 ```
@@ -5675,7 +5680,7 @@ A single printed-catalog by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.0-rc16"
+        "version": "1.0"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",

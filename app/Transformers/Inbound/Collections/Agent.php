@@ -41,5 +41,4 @@ class Agent extends CollectionsTransformer
             ];
         });
     }
-
 }

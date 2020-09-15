@@ -16,7 +16,7 @@ class LoginIpMiddleware
     public function handle($request, Closure $next)
     {
         $whiteIps = config('aic.auth.login_whitelist_ips');
-        $passed = array_filter(array_map(function($range) use ($request) {
+        $passed = array_filter(array_map(function ($range) use ($request) {
             if (ipInRange($request->ip(), $range)) {
                 return $range;
             }

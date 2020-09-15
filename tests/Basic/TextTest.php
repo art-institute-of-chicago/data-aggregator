@@ -8,5 +8,4 @@ class TextTest extends AssetTestCase
 {
 
     protected $model = Text::class;
-
 }

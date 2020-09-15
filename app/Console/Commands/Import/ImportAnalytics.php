@@ -58,5 +58,4 @@ class ImportAnalytics extends AbstractImportCommand
 
         return $resource;
     }
-
 }

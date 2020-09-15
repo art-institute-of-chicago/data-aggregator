@@ -213,13 +213,13 @@ class Response
     {
         $resources = $this->getResources();
 
-        $transformers = array_map(function($resource) {
+        $transformers = array_map(function ($resource) {
             $transformer = app('Resources')->getTransformerForEndpoint($resource);
             return new $transformer;
         }, $resources);
 
         // Sort transformers by license priority, ascending:
-        usort($transformers, function($a, $b) {
+        usort($transformers, function ($a, $b) {
             $pa = $a->getLicensePriority();
             $pb = $b->getLicensePriority();
 

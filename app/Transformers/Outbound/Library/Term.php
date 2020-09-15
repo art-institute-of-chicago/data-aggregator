@@ -31,5 +31,4 @@ class Term extends BaseTransformer
             ],
         ];
     }
-
 }

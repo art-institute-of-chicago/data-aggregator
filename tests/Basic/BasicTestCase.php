@@ -222,8 +222,7 @@ abstract class BasicTestCase extends TestCase
 
         $m = $this->model();
         $models = $this->times(5)->make($m);
-
-        $response = $this->getJson('api/v1/' . $this->route($m) . '?ids=' . implode(',', array_slice($this->ids, -3, 3)) . '&fields=' . $retrievedFields->implode(','));
+        $response = $this->getJson('api/v1/' . $this->route($m) . '?ids=' . implode(',', $models->slice(1, 3)->modelKeys()) . '&fields=' . $retrievedFields->implode(','));
         $response->assertSuccessful();
 
         $resources = $response->json()['data'];
@@ -286,8 +285,7 @@ abstract class BasicTestCase extends TestCase
     {
         $m = $this->model();
         $model = $this->make($m);
-        $id = $model->getAttributeValue($model->getKeyName());
-
+        $id = $model->getKey();
 
         $response = $this->getJson('api/v1/' . $this->route($m) . '/' . $id);
 

@@ -16,5 +16,4 @@ class PageWithRelatedArtists extends Page
             ]
         );
     }
-
 }

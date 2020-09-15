@@ -34,5 +34,4 @@ class Material extends BaseModel
 
         return substr($id, 0, $length) === env('PRIMO_API_SOURCE') && is_numeric(substr($id, $length));
     }
-
 }

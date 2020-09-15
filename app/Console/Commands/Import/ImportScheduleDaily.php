@@ -22,5 +22,4 @@ class ImportScheduleDaily extends BaseCommand
 
         $this->call('import:analytics');
     }
-
 }

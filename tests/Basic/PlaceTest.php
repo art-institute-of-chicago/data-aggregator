@@ -8,5 +8,4 @@ class PlaceTest extends BasicTestCase
 {
 
     protected $model = Place::class;
-
 }

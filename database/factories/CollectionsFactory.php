@@ -199,8 +199,6 @@ $factory->define(App\Models\Collections\Exhibition::class, function (Faker\Gener
             'place_citi_id' => $faker->randomElement(App\Models\Collections\Place::query()->pluck('citi_id')->all()),
             'place_display' => 'Gallery ' . $faker->randomNumber(3),
             'status' => $faker->randomElement(['Open', 'Closed']),
-            'date_start' => $faker->dateTimeAd,
-            'date_end' => $faker->dateTimeAd,
             'date_aic_start' => $faker->dateTimeAd,
             'date_aic_end' => $faker->dateTimeAd,
         ],
@@ -214,7 +212,7 @@ $factory->define(App\Models\Collections\Asset::class, function (Faker\Generator 
         [
             'lake_guid' => '99999999-9999-9999-9999-999999' . $faker->randomNumber(6, true),
             'content' => $faker->url,
-            'published' => $faker->boolean,
+            'published' => true,
             'description' => $faker->paragraph(3),
             'alt_text' => $faker->paragraph(3),
             'source_created_at' => $faker->dateTimeThisYear,

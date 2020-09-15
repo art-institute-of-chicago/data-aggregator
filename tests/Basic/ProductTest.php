@@ -8,5 +8,4 @@ class ProductTest extends BasicTestCase
 {
 
     protected $model = Product::class;
-
 }

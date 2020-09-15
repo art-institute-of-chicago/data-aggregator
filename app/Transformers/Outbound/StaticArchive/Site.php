@@ -89,5 +89,4 @@ class Site extends BaseTransformer
             ],
         ];
     }
-
 }

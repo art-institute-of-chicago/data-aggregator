@@ -38,7 +38,5 @@ class ArtworkController extends ResourceController
 
         $resource = new Item($item, new ArtworkManifest());
         return $this->fractal->createData($resource)->toArray();
-
     }
-
 }

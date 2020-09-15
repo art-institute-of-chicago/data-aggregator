@@ -16,20 +16,19 @@ class CreateEndpointDocs extends AbstractDocCommand
     {
         $doc = "## Endpoints\n\n";
 
-        foreach ($this->getCategories() as $namespace => $heading)
-        {
+        foreach ($this->getCategories() as $namespace => $heading) {
             $doc .= "### ${heading}\n\n";
 
-            foreach ($this->getModelsForNamespace($namespace) as $model)
-            {
+            foreach ($this->getModelsForNamespace($namespace) as $model) {
                 $doc .= $model::instance()->docEndpoints();
             }
         }
 
         Storage::disk('local')->put('ENDPOINTS.md', $doc);
 
-        copy(storage_path('app/ENDPOINTS.md'),
-             base_path('docs/.sections/endpoints.md'));
+        copy(
+            storage_path('app/ENDPOINTS.md'),
+            base_path('docs/.sections/endpoints.md')
+        );
     }
-
 }

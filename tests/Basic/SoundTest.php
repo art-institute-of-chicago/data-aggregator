@@ -8,5 +8,4 @@ class SoundTest extends AssetTestCase
 {
 
     protected $model = Sound::class;
-
 }

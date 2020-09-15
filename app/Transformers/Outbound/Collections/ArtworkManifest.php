@@ -76,7 +76,8 @@ class ArtworkManifest extends BaseTransformer
         ];
     }
 
-    private function _createCanvasImage($model, $image) {
+    private function _createCanvasImage($model, $image)
+    {
         $jsonData = \Cache::remember('info-json-'.$image->lake_guid, 86400, function () use ($image) {
             return @file_get_contents(config('aic.config_documentation.website_url') . '/iiif/2/' . $image->lake_guid . '/info.json');
         });

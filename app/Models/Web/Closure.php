@@ -15,5 +15,4 @@ class Closure extends WebModel
         'date_start' => 'date',
         'date_end' => 'date',
     ];
-
 }

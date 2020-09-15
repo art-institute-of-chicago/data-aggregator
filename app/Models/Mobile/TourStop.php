@@ -31,5 +31,4 @@ class TourStop extends MobileModel
     {
         return $this->belongsTo('App\Models\Mobile\Sound', 'mobile_sound_mobile_id');
     }
-
 }

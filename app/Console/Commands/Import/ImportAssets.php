@@ -25,5 +25,4 @@ class ImportAssets extends ImportAssetsFull
             $this->importEndpoints();
         }
     }
-
 }

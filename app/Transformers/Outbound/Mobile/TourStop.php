@@ -74,5 +74,4 @@ class TourStop extends BaseTransformer
             ],
         ];
     }
-
 }

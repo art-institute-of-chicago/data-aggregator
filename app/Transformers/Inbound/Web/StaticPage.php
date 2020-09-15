@@ -14,5 +14,4 @@ class StaticPage extends WebTransformer
             'web_url' => $datum->url,
         ];
     }
-
 }

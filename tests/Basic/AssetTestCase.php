@@ -16,5 +16,4 @@ abstract class AssetTestCase extends BasicTestCase
     {
         return app('Faker')->unique()->uuid;
     }
-
 }

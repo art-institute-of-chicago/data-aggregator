@@ -17,8 +17,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
 
     public function handle()
     {
-        if ($this->argument('appUrl'))
-        {
+        if ($this->argument('appUrl')) {
             $this->appUrl = $this->argument('appUrl');
         }
 
@@ -50,10 +49,8 @@ class CreateSwaggerDoc extends AbstractDocCommand
         /**
          * Endpoints
          */
-        foreach ($this->getCategories() as $namespace => $heading)
-        {
-            foreach ($this->getModelsForNamespace($namespace) as $model)
-            {
+        foreach ($this->getCategories() as $namespace => $heading) {
+            foreach ($this->getModelsForNamespace($namespace) as $model) {
                 $doc .= $model::instance()->swaggerEndpoints($this->appUrl);
             }
         }
@@ -99,10 +96,8 @@ class CreateSwaggerDoc extends AbstractDocCommand
         $doc .= "      }\n";
         $doc .= "    },\n";
 
-        foreach ($this->getCategories() as $namespace => $heading)
-        {
-            foreach ($this->getModelsForNamespace($namespace) as $model)
-            {
+        foreach ($this->getCategories() as $namespace => $heading) {
+            foreach ($this->getModelsForNamespace($namespace) as $model) {
                 $doc .= $model::instance()->swaggerFields($this->appUrl);
             }
         }
@@ -159,8 +154,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
             $instance->docSearchParametersRaw()
         );
 
-        foreach ($params as $param => $description)
-        {
+        foreach ($params as $param => $description) {
             $doc .= '    "' . $param . "\": {\n";
             $doc .= '      "name": "' . $param . "\",\n";
             $doc .= "      \"in\": \"query\",\n";
@@ -180,5 +174,4 @@ class CreateSwaggerDoc extends AbstractDocCommand
 
         Storage::disk('local')->put('swagger.json', $doc);
     }
-
 }

@@ -55,5 +55,4 @@ class Gallery extends BaseTransformer
             $galleryFields
         );
     }
-
 }

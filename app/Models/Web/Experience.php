@@ -15,5 +15,4 @@ class Experience extends WebModel
         'kiosk_only' => 'boolean',
         'published' => 'boolean',
     ];
-
 }

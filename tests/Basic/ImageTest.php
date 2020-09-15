@@ -8,5 +8,4 @@ class ImageTest extends AssetTestCase
 {
 
     protected $model = Image::class;
-
 }

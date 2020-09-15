@@ -26,5 +26,4 @@ class StaticPage extends BaseTransformer
             ],
         ];
     }
-
 }

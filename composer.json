@@ -47,6 +47,7 @@
         "mockery/mockery": "0.9.*",
         "phpstan/phpstan": "^0.11.12",
         "phpunit/phpunit": "^8.5",
+        "squizlabs/php_codesniffer": "*",
         "xethron/migrations-generator": "^2.0"
     },
     "autoload": {

@@ -47,17 +47,13 @@ class ImportWebFull extends AbstractImportCommand
         }
 
         if ($endpoint) {
-
             $page = $this->argument('page') ?: 1;
 
             $this->importFromWeb($endpoint, $page);
             $this->info("Imported ${endpoint} web CMS content!");
-
         } else {
-
             $this->importEndpoints();
             $this->info('Imported all web CMS content!');
-
         }
     }
 
@@ -136,5 +132,4 @@ class ImportWebFull extends AbstractImportCommand
 
         return parent::query($endpoint, $page, $limit);
     }
-
 }

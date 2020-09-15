@@ -25,5 +25,4 @@ class Artwork extends BaseTransformer
             'pageviews_recent' => $datum->pageviews_recent,
         ];
     }
-
 }

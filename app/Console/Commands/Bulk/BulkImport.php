@@ -45,8 +45,7 @@ class BulkImport extends BaseCommand
 
         $bar = $this->output->createProgressBar($total);
 
-        for ($currentPage = 1; $currentPage <= $totalPages; $currentPage++)
-        {
+        for ($currentPage = 1; $currentPage <= $totalPages; $currentPage++) {
             $json = $this->query($source, $endpoint, $currentPage, $this->chunkSize, $ids);
 
             $data = collect($json->data)->map(function ($datum) use ($transformer, $table) {
@@ -177,5 +176,4 @@ class BulkImport extends BaseCommand
 
         return $contents;
     }
-
 }

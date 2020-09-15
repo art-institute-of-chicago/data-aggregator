@@ -52,7 +52,6 @@ class ImportUlan extends AbstractImportCommand
                 $gotit = $this->updateUlan($agent, $result, 'with no years', 3, true);
             }
         }
-
     }
 
     private function fetchUlan($agent, $birth_date = 0, $death_date = 0)
@@ -79,7 +78,7 @@ class ImportUlan extends AbstractImportCommand
         // If there's more than one result, try to find an exact match
         if (count($result->results) > 1) {
             // Make a distinct list of IDs, because the service sometimes returns dups
-            $uris = array_unique(array_map(function($item) {
+            $uris = array_unique(array_map(function ($item) {
                 return $item->uri;
             }, $result->results));
 
@@ -102,5 +101,4 @@ class ImportUlan extends AbstractImportCommand
 
         return false;
     }
-
 }

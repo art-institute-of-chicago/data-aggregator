@@ -34,5 +34,4 @@ class ArtworkPlacePivot extends BasePivot
     {
         return 'updated_at';
     }
-
 }

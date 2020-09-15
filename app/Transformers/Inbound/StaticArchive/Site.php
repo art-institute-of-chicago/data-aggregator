@@ -30,5 +30,4 @@ class Site extends BaseTransformer
             'exhibitions' => $datum->all('exhibition_ids'),
         ];
     }
-
 }

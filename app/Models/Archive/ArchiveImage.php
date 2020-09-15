@@ -20,5 +20,4 @@ class ArchiveImage extends BaseModel
         'subject_terms' => 'array',
         'source_created_at' => 'datetime',
     ];
-
 }

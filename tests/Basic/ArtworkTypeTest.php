@@ -8,5 +8,4 @@ class ArtworkTypeTest extends BasicTestCase
 {
 
     protected $model = ArtworkType::class;
-
 }

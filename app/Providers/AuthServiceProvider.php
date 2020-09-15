@@ -30,7 +30,7 @@ class AuthServiceProvider extends BaseServiceProvider
 
             // If your IP is within a whitelisted range, you shall pass
             $whitelistedRanges = config('aic.auth.access_whitelist_ips');
-            $matchingRanges = array_filter(array_map(function($range) {
+            $matchingRanges = array_filter(array_map(function ($range) {
                 if (ipInRange(request()->ip(), $range)) {
                     return $range;
                 }

@@ -47,5 +47,4 @@ class ImportImages extends AbstractImportCommand
 
         return $resource;
     }
-
 }

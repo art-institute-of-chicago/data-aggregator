@@ -20,5 +20,4 @@ class Term extends BaseList
             'subtype' => $datum->term_type_id ? 'TT-' . $datum->term_type_id : null,
         ];
     }
-
 }

@@ -43,5 +43,4 @@ class ImportTicketedEventsFull extends AbstractImportCommand
 
         return parent::save($datum, $model, $transformer);
     }
-
 }

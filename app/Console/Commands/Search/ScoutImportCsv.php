@@ -45,5 +45,4 @@ class ScoutImportCsv extends BaseCommand
     {
         return Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . $this->argument('filename');
     }
-
 }

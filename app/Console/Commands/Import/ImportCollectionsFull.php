@@ -101,5 +101,4 @@ class ImportCollectionsFull extends AbstractImportCommand
 
         return $urls;
     }
-
 }

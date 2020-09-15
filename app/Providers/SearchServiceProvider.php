@@ -247,8 +247,7 @@ class SearchServiceProvider extends ServiceProvider
                     // ex. `searchScopeGalleries` for `galleries` endpoint in model `Place`
                     $searchScopeMethod = 'searchScope' . Str::studly($endpoint);
 
-                    if (method_exists($model, $searchScopeMethod))
-                    {
+                    if (method_exists($model, $searchScopeMethod)) {
                         $scope = $model::$searchScopeMethod();
 
                         $settings['scope'] = $this->getScopedQuery($resource, $scope);
@@ -257,8 +256,7 @@ class SearchServiceProvider extends ServiceProvider
                     // ex. `searchBoostArtworks` for `artworks` endpoint boosts `is_on_view`
                     $searchBoostMethod = 'searchBoost' . Str::studly($endpoint);
 
-                    if (method_exists($model, $searchBoostMethod))
-                    {
+                    if (method_exists($model, $searchBoostMethod)) {
                         $boost = $model::$searchBoostMethod();
 
                         $settings['boost'] = $this->getScopedQuery($resource, $boost);
@@ -267,8 +265,7 @@ class SearchServiceProvider extends ServiceProvider
                     // ex. `searchFunctionScoreArtworks` for `artworks` endpoint applies `pageviews` and `boost_rank`
                     $searchFunctionScoreMethod = 'searchFunctionScore' . Str::studly($endpoint);
 
-                    if (method_exists($model, $searchFunctionScoreMethod))
-                    {
+                    if (method_exists($model, $searchFunctionScoreMethod)) {
                         // TODO: Inject `getScopedQuery` into the filter..?
                         $settings['function_score'] = $model::$searchFunctionScoreMethod();
                     }
@@ -319,8 +316,6 @@ class SearchServiceProvider extends ServiceProvider
                     ];
                 }
             };
-
         });
     }
-
 }

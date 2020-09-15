@@ -5,12 +5,8 @@ matrix:
       php:
         - 7.2
 
-      services:
-        - mysql
-
       before_script:
         - cp .env.travis .env
-        - sudo mysql -e 'create database testing;'
         - composer self-update
         - composer install --no-interaction
         - php artisan key:generate
@@ -18,6 +14,7 @@ matrix:
 
       script:
         - vendor/bin/phpunit
+        - vendor/bin/phpcs --warning-severity=6
 
     - language: node_js
       node_js:

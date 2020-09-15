@@ -18,5 +18,4 @@ class BaseList extends CollectionsTransformer
     {
         return $instance->title && $datum->title ? $instance->title !== $datum->title : true;
     }
-
 }

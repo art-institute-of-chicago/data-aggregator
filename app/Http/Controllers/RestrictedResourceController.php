@@ -41,5 +41,4 @@ class RestrictedResourceController extends ResourceController
             throw new UnauthorizedException();
         }
     }
-
 }

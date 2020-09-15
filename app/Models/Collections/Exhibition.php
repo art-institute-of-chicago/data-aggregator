@@ -16,8 +16,6 @@ class Exhibition extends CollectionsModel
     protected $primaryKey = 'citi_id';
 
     protected $casts = [
-        'date_start' => 'datetime',
-        'date_end' => 'datetime',
         'date_aic_start' => 'datetime',
         'date_aic_end' => 'datetime',
     ];
@@ -96,4 +94,18 @@ class Exhibition extends CollectionsModel
         return $this->webExhibition->is_featured ?? false;
     }
 
+    public function getDateAicStartAttribute($value)
+    {
+        return $this->webExhibition->public_start_at ?? $this->castAttribute('date_aic_start', $value);
+    }
+
+    public function getDateAicEndAttribute($value)
+    {
+        return $this->webExhibition->public_end_at ?? $this->castAttribute('date_aic_end', $value);
+    }
+
+    public function getDateDisplayAttribute()
+    {
+        return $this->webExhibition->date_display ?? null;
+    }
 }

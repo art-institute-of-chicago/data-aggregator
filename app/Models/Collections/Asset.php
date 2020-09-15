@@ -122,5 +122,4 @@ class Asset extends CollectionsModel
             $builder->where('type', '=', static::$assetType);
         });
     }
-
 }

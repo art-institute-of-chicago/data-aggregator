@@ -31,5 +31,4 @@ class Section extends DscModel
     {
         return $this->belongsTo('App\Models\Collections\Artwork', 'artwork_citi_id');
     }
-
 }

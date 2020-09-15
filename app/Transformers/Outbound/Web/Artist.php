@@ -45,5 +45,4 @@ class Artist extends BaseTransformer
             ],
         ];
     }
-
 }

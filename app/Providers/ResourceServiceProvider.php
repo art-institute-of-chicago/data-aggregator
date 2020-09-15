@@ -215,7 +215,6 @@ class ResourceServiceProvider extends ServiceProvider
                     return $model;
                 }
             };
-
         });
     }
 }

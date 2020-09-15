@@ -13,5 +13,4 @@ class PrintedCatalog extends Page
     protected $casts = [
         'agent_ids' => 'array',
     ];
-
 }

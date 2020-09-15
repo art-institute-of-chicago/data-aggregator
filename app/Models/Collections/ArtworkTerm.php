@@ -23,5 +23,4 @@ class ArtworkTerm extends BasePivot
     {
         return 'updated_at';
     }
-
 }

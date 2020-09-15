@@ -141,8 +141,7 @@ trait Documentable
     {
         $doc = '';
 
-        foreach ($this->transformMapping() as $array)
-        {
+        foreach ($this->transformMapping() as $array) {
             if ($array['is_restricted'] ?? false) {
                 continue;
             }
@@ -201,8 +200,7 @@ trait Documentable
 
         $doc .= $this->docSingleDescription() . "\n\n";
 
-        if ($id = $this->exampleId())
-        {
+        if ($id = $this->exampleId()) {
             $doc .= $this->docExampleOutput(['id' => $id]);
         }
 
@@ -230,8 +228,7 @@ trait Documentable
 
         $doc = 'A single ' . Str::singular($endpointAsCopyText) . ' by the given identifier.';
 
-        if (static::$source === 'Collections')
-        {
+        if (static::$source === 'Collections') {
             $doc .= ' {id} is the identifier from our collections management system.';
         }
 
@@ -248,8 +245,7 @@ trait Documentable
         $doc = '';
         $doc .= "###### Available parameters:\n\n";
 
-        foreach ($this->docListParametersRaw() as $param => $description)
-        {
+        foreach ($this->docListParametersRaw() as $param => $description) {
             $doc .= '* `' . $param . '` - ' . $description . "\n";
         }
 
@@ -284,8 +280,7 @@ trait Documentable
 
         $doc .= "###### Available parameters:\n\n";
 
-        foreach ($this->docSearchParametersRaw() as $param => $description)
-        {
+        foreach ($this->docSearchParametersRaw() as $param => $description) {
             $doc .= '* `' . $param . '` - ' . $description . "\n";
         }
 
@@ -323,12 +318,10 @@ trait Documentable
 
         $doc = '';
 
-        if ($transformer->getAvailableIncludes())
-        {
+        if ($transformer->getAvailableIncludes()) {
             $doc .= "* `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:\n";
 
-            foreach ($transformer->getAvailableIncludes() as $include)
-            {
+            foreach ($transformer->getAvailableIncludes() as $include) {
                 $doc .= '  * `' . $include . "`\n";
             }
         }
@@ -363,42 +356,29 @@ trait Documentable
         sleep(1); // Throttle requests to the API
 
         // Swap out the local URL with the production URL to display a relevant response in the doco
-        $textResponse = str_replace(str_replace('/', '\/', $this->docRequestUrl),
-                                    str_replace('/', '\/', $this->docAppUrl),
-                                    $textResponse);
+        $textResponse = str_replace(
+            str_replace('/', '\/', $this->docRequestUrl),
+            str_replace('/', '\/', $this->docAppUrl),
+            $textResponse
+        );
         $response = json_decode($textResponse);
 
         // For brevity, only show the first few fields in the results
-        if (property_exists($response, 'data'))
-        {
-            if (is_array($response->data))
-            {
-                foreach ($response->data as $index => $datum)
-                {
-
+        if (property_exists($response, 'data')) {
+            if (is_array($response->data)) {
+                foreach ($response->data as $index => $datum) {
                     $response->data[$index] = $this->_addEllipsis($response->data[$index]);
-
                 }
-
-            }
-            else {
-
+            } else {
                 $response->data = $this->_addEllipsis($response->data);
-
             }
         }
-        if (property_exists($response, 'metadata'))
-        {
-
+        if (property_exists($response, 'metadata')) {
             $response->metadata = $this->_addEllipsis($response->metadata);
-
         }
 
-        if (property_exists($response, 'sequences'))
-        {
-
+        if (property_exists($response, 'sequences')) {
             $response->sequences = $this->_addEllipsis($response->sequences);
-
         }
 
         $json = json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
@@ -428,10 +408,8 @@ trait Documentable
         sleep(1); // Throttle requests to the API
 
         // For brevity, only show the first few results
-        foreach ($response->data as $index => $datum)
-        {
-            if ($index > 2)
-            {
+        foreach ($response->data as $index => $datum) {
+            if ($index > 2) {
                 unset($response->data[$index]);
             }
         }
@@ -509,21 +487,17 @@ trait Documentable
     {
         $doc = $this->swaggerList() . "\n";
 
-        if ($this->hasSearchEndpoint())
-        {
+        if ($this->hasSearchEndpoint()) {
             $doc .= $this->swaggerSearch() . "\n";
         }
 
         $doc .= $this->swaggerSingle() . "\n";
 
-        if (get_called_class() === Collections\Agent::class)
-        {
+        if (get_called_class() === Collections\Agent::class) {
             // Artists
             $doc .= $this->swaggerList('artists') . "\n";
             $doc .= $this->swaggerSingle('artists') . "\n";
-        }
-        elseif (get_called_class() === Collections\Category::class)
-        {
+        } elseif (get_called_class() === Collections\Category::class) {
             // Department
             $doc .= $this->swaggerList('departments') . "\n";
             $doc .= $this->swaggerSingle('departments') . "\n";
@@ -564,8 +538,7 @@ trait Documentable
         $doc = '';
         $mapping = $this->transformMapping();
 
-        foreach ($mapping as $array)
-        {
+        foreach ($mapping as $array) {
             $doc .= '        "' . $array['name'] . "\": {\n";
             $doc .= '          "description": "' . str_replace('"', '\"', $array['doc']) . "\"\n";
             $doc .= '        }' . ($array !== end($mapping) ? ',' : '') . "\n";
@@ -644,8 +617,7 @@ trait Documentable
         $doc .= '            "' . $endpoint . "\",\n";
         $doc .= '            "' . strtolower($source) . '"';
 
-        foreach ($extras as $tag)
-        {
+        foreach ($extras as $tag) {
             $doc .= ",\n";
             $doc .= '            "' . $tag . '"';
         }
@@ -675,8 +647,7 @@ trait Documentable
         $doc = "        \"parameters\": [\n";
         $array = $params ?? $this->docListParametersRaw();
 
-        foreach ($array as $param => $description)
-        {
+        foreach ($array as $param => $description) {
             $doc .= "          {\n";
             $doc .= '            "$ref": "#/parameters/' . $param . "\"\n";
             $doc .= '          }' . ($description !== end($array) ? ',' : '') . "\n";
@@ -689,8 +660,7 @@ trait Documentable
 
     public function swaggerResponses($modelBasename = null)
     {
-        if (!$modelBasename)
-        {
+        if (!$modelBasename) {
             $model = get_called_class();
             $modelBasename = class_basename($model);
         }
@@ -723,8 +693,7 @@ trait Documentable
      */
     protected function _endpointAsCopyText($endpoint = '')
     {
-        if (!$endpoint)
-        {
+        if (!$endpoint) {
             $endpoint = app('Resources')->getEndpointForModel(get_called_class());
         }
 
@@ -750,28 +719,23 @@ trait Documentable
 
         $path = '/' . $endpoint;
 
-        if ($options['extraPath'])
-        {
-            if (!$options['extraAtEnd'] || $options['extraAtEnd'] === false)
-            {
+        if ($options['extraPath']) {
+            if (!$options['extraAtEnd'] || $options['extraAtEnd'] === false) {
                 $path .= '/' . $options['extraPath'];
             }
         }
 
-        if ($options['id'])
-        {
+        if ($options['id']) {
             $path .= '/' . $options['id'];
         }
 
-        if ($options['extraPath'])
-        {
-            if ($options['extraAtEnd'] && $options['extraAtEnd'] === true)
-            {
+        if ($options['extraPath']) {
+            if ($options['extraAtEnd'] && $options['extraAtEnd'] === true) {
                 $path .= '/' . $options['extraPath'];
             }
         }
 
-        return rtrim($path,"/");
+        return rtrim($path, "/");
     }
 
     private function _addEllipsis($obj)
@@ -781,10 +745,8 @@ trait Documentable
             $addEllipsis = false;
             $i = 0;
 
-            foreach ($keys as $keyIndex => $key)
-            {
-                if ($i > 5)
-                {
+            foreach ($keys as $keyIndex => $key) {
+                if ($i > 5) {
                     unset($obj->{$keyIndex});
                     $addEllipsis = true;
                 }
@@ -798,10 +760,8 @@ trait Documentable
             $addEllipsis = false;
             $i = 0;
 
-            foreach ($keys as $key)
-            {
-                if ($i > 5)
-                {
+            foreach ($keys as $key) {
+                if ($i > 5) {
                     unset($obj[$key]);
                     $addEllipsis = true;
                 }
@@ -813,5 +773,4 @@ trait Documentable
 
         return $obj;
     }
-
 }

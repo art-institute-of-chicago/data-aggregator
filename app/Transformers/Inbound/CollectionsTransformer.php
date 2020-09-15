@@ -13,5 +13,4 @@ class CollectionsTransformer extends BaseTransformer
             'citi_id' => $datum->id,
         ];
     }
-
 }

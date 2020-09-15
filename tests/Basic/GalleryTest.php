@@ -8,5 +8,4 @@ class GalleryTest extends BasicTestCase
 {
 
     protected $model = Gallery::class;
-
 }

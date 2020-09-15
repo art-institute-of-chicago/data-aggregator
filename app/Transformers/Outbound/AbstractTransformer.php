@@ -111,7 +111,8 @@ abstract class AbstractTransformer extends BaseTransformer
         return 100;
     }
 
-    public function getInfoFields() {
+    public function getInfoFields()
+    {
         $info = [];
 
         $info['license_text'] = $this->getLicenseText();
@@ -376,8 +377,9 @@ abstract class AbstractTransformer extends BaseTransformer
         return $mappedFields;
     }
 
-    private function restrictFields($fields) {
-        return array_filter($fields, function($array) {
+    private function restrictFields($fields)
+    {
+        return array_filter($fields, function ($array) {
             return !array_key_exists('is_restricted', $array) || $array['is_restricted'] === false;
         });
     }

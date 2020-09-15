@@ -33,5 +33,4 @@ class Material extends BaseTransformer
             ],
         ];
     }
-
 }

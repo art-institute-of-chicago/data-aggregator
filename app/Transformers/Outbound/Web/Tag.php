@@ -17,5 +17,4 @@ class Tag extends BaseTransformer
             ],
         ];
     }
-
 }

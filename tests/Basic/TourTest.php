@@ -15,5 +15,4 @@ class TourTest extends BasicTestCase
         parent::setUp();
         $this->make(Sound::class);
     }
-
 }

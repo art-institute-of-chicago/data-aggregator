@@ -26,14 +26,11 @@ trait HasRelationships
 
         // Loop through all the term pivot models, only look at the ones
         // of the specified type, and return the preferred one
-        foreach ($this->{$resource . 'Pivots'} as $pivot)
-        {
+        foreach ($this->{$resource . 'Pivots'} as $pivot) {
             $key = $pivot->{$resource}()->getForeignKeyName();
 
-            if (in_array($pivot->{$key}, $resources_ids))
-            {
-                if ($pivot->preferred)
-                {
+            if (in_array($pivot->{$key}, $resources_ids)) {
+                if ($pivot->preferred) {
                     return head(Arr::where($resources, function ($value) use ($pivot, $key) {
                         return $value->getKey() === $pivot->{$key};
                     }));
@@ -64,14 +61,11 @@ trait HasRelationships
         // of the specified type, and return an array of the non-preferred ones
         $ret = [];
 
-        foreach ($this->{$resource . 'Pivots'} as $pivot)
-        {
+        foreach ($this->{$resource . 'Pivots'} as $pivot) {
             $key = $pivot->{$resource}()->getForeignKeyName();
 
-            if (in_array($pivot->{$key}, $resources_ids))
-            {
-                if (!$pivot->preferred)
-                {
+            if (in_array($pivot->{$key}, $resources_ids)) {
+                if (!$pivot->preferred) {
                     $ret[] = head(Arr::where($resources, function ($value) use ($pivot, $key) {
                         return $value->getKey() === $pivot->{$key};
                     }));
@@ -104,10 +98,8 @@ trait HasRelationships
         // Loop through all the resources, and return just the ones of the specified type
         $ret = [];
 
-        foreach ($this->{Str::plural($resource)} as $res)
-        {
-            if ($res->{$typeField} === $type)
-            {
+        foreach ($this->{Str::plural($resource)} as $res) {
+            if ($res->{$typeField} === $type) {
                 $ret[] = $res;
             }
         }
@@ -124,5 +116,4 @@ trait HasRelationships
 
         return [];
     }
-
 }

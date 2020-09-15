@@ -28,10 +28,10 @@ class Release extends BaseCommand
 
         $this->info('Creating swagger docs...');
         $this->call('docs:swagger');
-
     }
 
-    private function bumpVersionNumber() {
+    private function bumpVersionNumber()
+    {
         $version = $this->argument('version');
 
         Storage::disk('local')->put('VERSION', $version);

@@ -10,5 +10,4 @@ class EventTest extends BasicTestCase
     protected $model = Event::class;
 
     protected $route = 'events';
-
 }

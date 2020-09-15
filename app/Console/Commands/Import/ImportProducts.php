@@ -17,5 +17,4 @@ class ImportProducts extends ImportProductsFull
 
         $this->importResources();
     }
-
 }

@@ -112,5 +112,4 @@ class AgentPlacePivot extends BaseTransformer
             ],
         ];
     }
-
 }

@@ -13,5 +13,4 @@ class CategoryTest extends BasicTestCase
     {
         return app('Faker')->unique()->regexify('[A-Z]{2}') . '-' . app('Faker')->unique()->randomNumber(5);
     }
-
 }

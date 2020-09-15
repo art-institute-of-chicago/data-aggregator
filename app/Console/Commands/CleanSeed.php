@@ -15,5 +15,4 @@ class CleanSeed extends BaseCommand
     {
         \DatabaseSeeder::clean();
     }
-
 }

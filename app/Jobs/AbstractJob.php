@@ -12,5 +12,4 @@ abstract class AbstractJob implements ShouldQueue
 {
 
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
 }

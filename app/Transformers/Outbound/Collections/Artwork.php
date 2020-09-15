@@ -862,5 +862,4 @@ class Artwork extends BaseTransformer
             ],
         ]);
     }
-
 }

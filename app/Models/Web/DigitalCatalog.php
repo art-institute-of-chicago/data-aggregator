@@ -13,5 +13,4 @@ class DigitalCatalog extends Page
     protected $casts = [
         'agent_ids' => 'array',
     ];
-
 }

@@ -160,7 +160,7 @@ Here are some tips that will make your application run faster and/or reduce load
 
 - Batch search queries with [multi-search](#multi-search) (`/msearch`).
 
-- When downloading images, use `/full/843,/default.jpg` parameters.
+- When downloading images, use `/full/843,/0/default.jpg` parameters.
 
 - When scraping, please use a single thread and self-throttle.
 

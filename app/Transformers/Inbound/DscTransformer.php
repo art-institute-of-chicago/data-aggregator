@@ -13,5 +13,4 @@ class DscTransformer extends BaseTransformer
             'dsc_id' => $datum->id,
         ];
     }
-
 }

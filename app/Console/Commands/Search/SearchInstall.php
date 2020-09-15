@@ -25,17 +25,13 @@ class SearchInstall extends BaseCommand
         $prefix = $this->argument('prefix') ?? env('ELASTICSEARCH_INDEX');
 
         if ($this->argument('model')) {
-
             $this->install($this->argument('model'), $prefix);
-
         } else {
-
             $models = app('Search')->getSearchableModels();
 
             foreach ($models as $model) {
                 $this->install($model, $prefix);
             }
-
         }
     }
 
@@ -57,5 +53,4 @@ class SearchInstall extends BaseCommand
 
         $this->info($this->done($return));
     }
-
 }

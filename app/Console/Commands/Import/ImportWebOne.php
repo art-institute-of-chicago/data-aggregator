@@ -41,5 +41,4 @@ class ImportWebOne extends ImportWebFull
 
         return $this->fetch($url, true);
     }
-
 }

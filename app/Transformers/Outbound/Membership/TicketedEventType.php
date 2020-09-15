@@ -22,5 +22,4 @@ class TicketedEventType extends BaseTransformer
             ],
         ];
     }
-
 }

@@ -44,5 +44,4 @@ class ReportNoTerms extends BaseCommand
 
         Storage::put('artwork-no-terms.csv', $csv->getContent());
     }
-
 }

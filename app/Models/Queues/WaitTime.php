@@ -18,5 +18,4 @@ class WaitTime extends BaseModel
     ];
 
     protected $primaryKey = 'queue_id';
-
 }

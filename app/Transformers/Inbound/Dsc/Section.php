@@ -15,5 +15,4 @@ class Section extends DscTransformer
             'artwork_citi_id' => $datum->citi_id,
         ];
     }
-
 }

@@ -11,5 +11,4 @@ class ArtworkType extends CollectionsModel
 {
 
     protected $primaryKey = 'citi_id';
-
 }

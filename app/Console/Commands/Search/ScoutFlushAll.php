@@ -19,5 +19,4 @@ class ScoutFlushAll extends BaseCommand
             $this->call('scout:flush', ['model' => $model]);
         }
     }
-
 }

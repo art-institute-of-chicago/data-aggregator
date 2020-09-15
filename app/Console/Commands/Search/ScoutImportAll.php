@@ -27,5 +27,4 @@ class ScoutImportAll extends BaseCommand
             $this->call('scout:import', ['model' => $model]);
         }
     }
-
 }

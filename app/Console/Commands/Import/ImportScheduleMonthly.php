@@ -21,5 +21,4 @@ class ImportScheduleMonthly extends BaseCommand
         $this->call('import:sites', ['--yes' => 'default']);
         $this->call('import:dsc', ['--yes' => 'default']);
     }
-
 }

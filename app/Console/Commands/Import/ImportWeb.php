@@ -18,5 +18,4 @@ class ImportWeb extends ImportWebFull
 
         $this->importEndpoints();
     }
-
 }

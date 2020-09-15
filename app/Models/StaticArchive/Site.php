@@ -35,5 +35,4 @@ class Site extends BaseModel
     {
         return $this->belongsToMany('App\Models\Collections\Artwork')->artworks();
     }
-
 }

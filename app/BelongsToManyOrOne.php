@@ -68,5 +68,4 @@ class BelongsToManyOrOne extends BelongsToMany
     {
         return $this->wherePivot('preferred', '=', false)->expectMany();
     }
-
 }

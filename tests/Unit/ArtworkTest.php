@@ -6,9 +6,27 @@ use Tests\TestCase;
 
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Gallery;
+use App\Models\Collections\AgentType;
+use App\Models\Collections\Agent;
 
 class ArtworkTest extends TestCase
 {
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $agentType = $this->make(AgentType::class, ['title' => 'Individual']);
+        $agent = $this->make(Agent::class, ['agent_type_citi_id' => $agentType->citi_id]);
+    }
+
+    protected function tearDown(): void
+    {
+        AgentType::query()->delete();
+        Agent::query()->delete();
+
+        parent::tearDown();
+    }
 
     /** @test */
     public function it_fetches_the_gallery_for_an_artwork()
@@ -28,5 +46,4 @@ class ArtworkTest extends TestCase
         Artwork::query()->delete();
         Gallery::query()->delete();
     }
-
 }

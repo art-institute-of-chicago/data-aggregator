@@ -34,5 +34,4 @@ class Term extends BaseModel
     {
         return preg_match('/[a-z]+[0-9]+/', $id);
     }
-
 }

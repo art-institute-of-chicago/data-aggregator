@@ -66,5 +66,4 @@ class CategoryTerm extends BaseTransformer
 
         return $suggestFields;
     }
-
 }

@@ -42,10 +42,8 @@ Route::group(['prefix' => 'v1'], function () {
     }
 
     // Define all of our resource routes by looping through config
-    foreach (config('resources.outbound.base') as $resource)
-    {
-        if (!isset($resource['endpoint']))
-        {
+    foreach (config('resources.outbound.base') as $resource) {
+        if (!isset($resource['endpoint'])) {
             continue;
         }
 
@@ -58,8 +56,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::any($resource['endpoint'] . '/{id}', $controller . '@' . ($isScoped ? 'showScope' : 'show'));
 
         if ($resource['endpoint'] == 'artworks') {
+            Route::any($resource['endpoint'] . '/{id}/manifest', 'ArtworkController@manifest');
             Route::any($resource['endpoint'] . '/{id}/manifest.json', 'ArtworkController@manifest');
         }
     }
-
 });

@@ -10,5 +10,4 @@ class DscModel extends BaseModel
     protected $primaryKey = 'dsc_id';
 
     protected $hasSourceDates = false;
-
 }

@@ -47,5 +47,4 @@ class EventOccurrence extends WebTransformer
             'image_caption' => $datum->image_caption ? html_entity_decode($datum->image_caption) : null,
         ];
     }
-
 }

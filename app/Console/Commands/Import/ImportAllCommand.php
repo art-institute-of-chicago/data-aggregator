@@ -30,5 +30,4 @@ class ImportAllCommand extends BaseCommand
         $this->call('import:analytics');
         $this->call('import:web-full', ['--yes' => 'default']);
     }
-
 }

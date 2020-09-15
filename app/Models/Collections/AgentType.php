@@ -11,5 +11,4 @@ class AgentType extends CollectionsModel
 {
 
     protected $primaryKey = 'citi_id';
-
 }

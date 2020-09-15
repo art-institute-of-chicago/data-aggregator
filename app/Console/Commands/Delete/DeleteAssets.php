@@ -54,13 +54,11 @@ class DeleteAssets extends AbstractImportCommand
 
         $this->warn('Found ' . $pages . ' pages');
 
-        while ($current <= $pages)
-        {
+        while ($current <= $pages) {
             $this->warn('Deleting ' . $current . ' of ' . $pages);
 
             // Assumes the dataservice wraps its results in a `data` field
-            foreach ($json->data as $datum)
-            {
+            foreach ($json->data as $datum) {
                 // Break if we're past the last time we checked
                 $sourceTime = new Carbon($datum->indexed_at);
                 $sourceTime->timezone = config('app.timezone');
@@ -71,11 +69,9 @@ class DeleteAssets extends AbstractImportCommand
 
                 // Now execute an actual delete
                 // Loop through all model types
-                foreach ($this->modelClasses as $modelClass)
-                {
+                foreach ($this->modelClasses as $modelClass) {
                     // Check if a resource with a matching lake_guid exists
-                    if ($model = $modelClass::where('lake_guid', '=', $datum->lake_guid)->first())
-                    {
+                    if ($model = $modelClass::where('lake_guid', '=', $datum->lake_guid)->first()) {
                         // If it does, destroy the model and break
                         $this->warn('Deleting ' . $modelClass . ' ' . $datum->lake_guid);
                         $model->delete();
@@ -99,7 +95,7 @@ class DeleteAssets extends AbstractImportCommand
     private function deep()
     {
         foreach ($this->modelClasses as $modelClass) {
-            $endpoints = array_filter(config('resources.inbound.assets'), function($value) use ($modelClass) {
+            $endpoints = array_filter(config('resources.inbound.assets'), function ($value) use ($modelClass) {
                 return $value['model'] === $modelClass;
             });
 
@@ -122,11 +118,11 @@ class DeleteAssets extends AbstractImportCommand
                     return;
                 }
 
-                $invalidModels = $models->filter(function($model) use ($validIds) {
+                $invalidModels = $models->filter(function ($model) use ($validIds) {
                     return !$validIds->contains($model->lake_guid);
                 });
 
-                $invalidModels->each(function($model) {
+                $invalidModels->each(function ($model) {
                     $this->info($model->lake_guid);
                     $model->delete();
                 });

@@ -15,8 +15,6 @@ class Exhibition extends CollectionsTransformer
             'status' => $datum->exhibition_status,
             'place_citi_id' => $datum->gallery_id,
             'place_display' => $datum->gallery,
-            'date_start' => $datum->date('start_date'),
-            'date_end' => $datum->date('end_date'),
             'date_aic_start' => $datum->date('aic_start_date'),
             'date_aic_end' => $datum->date('aic_end_date'),
             'source_indexed_at' => $datum->date('indexed_at'),
@@ -29,5 +27,4 @@ class Exhibition extends CollectionsTransformer
             'artworks' => $datum->all('artwork_ids'),
         ];
     }
-
 }

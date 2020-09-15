@@ -245,5 +245,4 @@ class CategoryTerm extends CollectionsModel
             $builder->where('is_category', '=', static::$isCategory);
         });
     }
-
 }
