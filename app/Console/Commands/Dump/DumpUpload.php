@@ -42,7 +42,23 @@ class DumpUpload extends AbstractDumpCommand
         $this->shell->passthru('git -C %s remote add origin %s', $repoPath, $repoRemote);
 
         // Copy dumps of whitelisted tables and endpoints into the repo
-        $this->shell->passthru('rsync -r --exclude \'.gitignore\' %s/ %s', $srcPath, $repoPath);
+        $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/getting-started', $repoPath . '/getting-started');
+        $this->shell->passthru("for file in %s/*; do
+            if [ -f \$file ]; then
+                cp %s/$(basename \$file) %s/
+            fi
+        done
+        ", $srcPath, $srcPath, $repoPath);
+        $this->shell->passthru('mkdir %s', $repoPath . '/json');
+        $this->shell->passthru("for dir in %s/json/*; do
+            if [ -d \$dir ]; then
+                mkdir %s/json/$(basename \$dir)
+                for file in $(ls -p \$dir | grep -v / | head -1000); do
+                    cp %s/json/$(basename \$dir)/\$file %s/json/$(basename \$dir)
+                done
+            fi
+        done
+        ", $srcPath, $repoPath, $srcPath, $repoPath);
 
         // Add VERSION file with current commit
         $this->shell->passthru('git -C %s rev-parse HEAD > %s', base_path(), $repoPath . '/VERSION');
