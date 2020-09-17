@@ -19,41 +19,77 @@ class DumpExport extends AbstractDumpCommand
     public function handle()
     {
         $dumpPath = $this->getDumpPath('local/json');
+
+        // Remove everything in this dump
         $this->shell->passthru('rm -rf %s/*', $dumpPath);
 
-        // Get all models for export
-        $models = $this->getModels();
+        // Output config.json, which is the same for all models
+        $configDocumentation = config('aic.config_documentation');
 
-        foreach ($models as $model => $category) {
-            // Remove any old JSONs in this dump
-            $dumpPath = $this->getDumpPath('local/json/' .app('Resources')->getEndpointForModel($model));
-            if (!file_exists($dumpPath)) {
-                mkdir($dumpPath, 0755, true);
-                chmod($dumpPath, 0755);
+        $this->saveToJson('local/json/config.json', $configDocumentation);
+
+        // Get all models for export, ignore category assignment
+        $models = $this->getModels()->keys();
+
+        // Instantiate a new transformer for each model class
+        $resources = $models
+            ->map(function($model) {
+                $transformerClass = app('Resources')->getTransformerForModel($model);
+                return [
+                    'model' => $model,
+                    'transformer' => new $transformerClass,
+                    'endpoint' => app('Resources')->getEndpointForModel($model),
+                ];
+            });
+
+        // Output info.json, which combines the info blocks for all models
+        $infoBlocks = $resources
+            ->map(function($resource) {
+                return [
+                    $resource['endpoint'] => $resource['transformer']->getInfoFields(),
+                ];
+            })
+            ->collapse()
+            ->all();
+
+        $this->saveToJson('local/json/info.json', $infoBlocks);
+
+        $resources->each(function($resource) {
+            $resource['model']::addRestrictContentScopes();
+
+            $relativeDumpPath = 'local/json/' . $resource['endpoint'];
+            $absoluteDumpPath = $this->getDumpPath($relativeDumpPath);
+
+            if (!file_exists($absoluteDumpPath)) {
+                mkdir($absoluteDumpPath, 0755, true);
+                chmod($absoluteDumpPath, 0755);
             }
 
-            // Create transformer used for generating JSON output
-            $transformer = app('Resources')->getTransformerForModel($model);
-            $transformer = new $transformer;
+            $bar = $this->output->createProgressBar($resource['model']::count());
 
-            $model::addRestrictContentScopes();
+            foreach ($resource['model']::cursor() as $item) {
+                $filename = $relativeDumpPath . '/' . $item->getKey() . '.json';
+                $content = $resource['transformer']->transform($item);
 
-            // Give feedback to the user
-            $this->info(app('Resources')->getEndpointForModel($model));
-            $bar = $this->output->createProgressBar($model::count());
+                $this->saveToJson($filename, $content);
 
-            // Loop through each record and dump its contents into a file
-            $endpoint = app('Resources')->getEndpointForModel($model);
-            $configDocumentation = config('aic.config_documentation');
-            foreach ($model::cursor() as $item) {
-                $filename = 'local/json/' . $endpoint .'/' .$item->getKey(). '.json';
-                Storage::disk('dumps')->put($filename, json_encode(['data' => $transformer->transform($item),
-                                                                    'info' => $transformer->getInfoFields(),
-                                                                    'config' => $configDocumentation], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
                 $bar->advance();
             }
+
             $bar->finish();
             $this->output->newLine(1);
-        }
+
+        });
+
+    }
+
+    private function toJson($input)
+    {
+        return json_encode($input, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    }
+
+    private function saveToJson($filename, $content)
+    {
+        Storage::disk('dumps')->put($filename, $this->toJson($content));
     }
 }
