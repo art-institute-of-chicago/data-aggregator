@@ -34,9 +34,8 @@ class DumpUpload extends AbstractDumpCommand
             throw new Exception('No getting started files found in ' . $gettingStartedSrcPath);
         }
 
-        $this->shell->passthru('rm -rf %s/*', $repoPath);
-        $this->shell->passthru('rm -rf %s/.git', $repoPath);
-
+        $this->shell->passthru('rm -rf %s', $repoPath);
+        $this->shell->passthru('mkdir %s', $repoPath);
         $this->shell->passthru('git -C %s init', $repoPath);
 
         $this->shell->passthru('git -C %s remote add origin %s', $repoPath, $repoRemote);
