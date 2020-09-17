@@ -11,6 +11,11 @@ class Kernel extends ConsoleKernel
 {
 
     /**
+     * WEB-874: Make commands never overlap.
+     */
+    private const FOR_ONE_YEAR = 525600;
+
+    /**
      * Use this to import third-party Artisan commands.
      *
      * @var array
@@ -48,42 +53,42 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('import:web')
             ->everyFiveMinutes()
-            ->withoutOverlapping(60)
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-web-last-run.log'));
 
         $schedule->command('import:events-ticketed-full --unreset')
             ->everyFiveMinutes()
-            ->withoutOverlapping(60)
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-events-ticketed-last-run.log'));
 
         $schedule->command('delete:assets')
             ->everyFiveMinutes()
-            ->withoutOverlapping(60)
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/delete-assets-last-run.log'));
 
         $schedule->command('delete:collections')
             ->everyFiveMinutes()
-            ->withoutOverlapping(60)
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/delete-collections-last-run.log'));
 
         $schedule->command('import:assets')
             ->everyFiveMinutes()
-            ->withoutOverlapping(60)
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-assets-last-run.log'));
 
         $schedule->command('import:collections')
             ->everyFiveMinutes()
-            ->withoutOverlapping(60)
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
 
         $schedule->command('import:queues')
             ->everyMinute()
-            ->withoutOverlapping(60)
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-queues-last-run.log'));
 
         $schedule->command('dump:nightly')
             ->dailyAt('22:45')
-            ->withoutOverlapping()
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/data-dump-last-run.log'));
     }
 
