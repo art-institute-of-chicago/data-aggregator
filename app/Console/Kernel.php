@@ -76,20 +76,20 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-assets-last-run.log'));
 
-        $schedule->command('import:collections')
-            ->everyFiveMinutes()
-            ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
+        // $schedule->command('import:collections')
+        //     ->everyFiveMinutes()
+        //     ->withoutOverlapping(self::FOR_ONE_YEAR)
+        //     ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
 
         $schedule->command('import:queues')
             ->everyMinute()
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-queues-last-run.log'));
 
-        $schedule->command('dump:nightly')
-            ->dailyAt('22:45')
-            ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/data-dump-last-run.log'));
+        // $schedule->command('dump:nightly')
+        //     ->dailyAt('22:45')
+        //     ->withoutOverlapping(self::FOR_ONE_YEAR)
+        //     ->sendOutputTo(storage_path('logs/data-dump-last-run.log'));
     }
 
     /**
