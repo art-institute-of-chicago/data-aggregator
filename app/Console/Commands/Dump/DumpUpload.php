@@ -59,6 +59,10 @@ class DumpUpload extends AbstractDumpCommand
         done
         ", $srcPath, $repoPath, $srcPath, $repoPath);
 
+        // Copy info.json and config.json
+        $this->shell->passthru('cp %s %s', $srcPath . '/json/info.json', $repoPath . '/json/info.json');
+        $this->shell->passthru('cp %s %s', $srcPath . '/json/config.json', $repoPath . '/json/config.json');
+
         // Add VERSION file with current commit
         $this->shell->passthru('git -C %s rev-parse HEAD > %s', base_path(), $repoPath . '/VERSION');
 
