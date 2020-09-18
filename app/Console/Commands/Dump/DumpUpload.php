@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands\Dump;
 
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 use Exception;
 
 class DumpUpload extends AbstractDumpCommand
@@ -78,6 +79,19 @@ class DumpUpload extends AbstractDumpCommand
         );
 
         $this->shell->passthru('git -C %s push --set-upstream origin master %s', $repoPath, '--force');
+
+        $archiveName = 'artic-api-data';
+        $archiveFile = $archiveName . '.tar.bz2';
+        $archivePath = $this->getDumpPath($archiveFile);
+
+        // Create (-c) tar archive file (-f) with bzip2 (-j)
+        // cd (-C) to repo path and target relative (./) to avoid putting the full absolute path hierarchy inside archive
+        // transform archive members so they start in `artic-api-data` directory instead of `.`
+        // omitting / from . in sed expression makes it so that . itself gets transformed
+        $this->shell->passthru("tar --transform 's:^.:%s:' -cjf %s -C %s ./", $archiveName, $archivePath, $repoPath);
+
+        // Stream the file to S3; be sure to set `AWS_BUCKET` in `.env` and otherwise configure credentials
+        Storage::disk('s3')->putFileAs('/', new File($archivePath), $archiveFile);
     }
 
     protected function isDirEmpty($dir)

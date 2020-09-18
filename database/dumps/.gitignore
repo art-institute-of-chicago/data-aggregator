@@ -1,3 +1,4 @@
 /remote
+*.tar.bz2
 *.json
 *.csv
