@@ -48,7 +48,7 @@ class Event extends WebModel
             ->withPivot(
                 'affiliate_copy',
                 'member_copy',
-                'sustaining_fellow_copy',
+                'luminary_copy',
                 'nonmember_copy'
             );
     }

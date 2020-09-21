@@ -14,7 +14,7 @@ class EventEmailSeriesPivot extends BasePivot
     protected $casts = [
         'send_affiliate_test' => 'boolean',
         'send_member_test' => 'boolean',
-        'send_sustaining_fellow_test' => 'boolean',
+        'send_luminary_test' => 'boolean',
         'send_nonmember_test' => 'boolean',
     ];
 

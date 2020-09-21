@@ -35,8 +35,8 @@ class EventEmailSeriesPivot extends BaseTransformer
                 'doc' => 'Copy to use for Members when communicating this event in this email series',
                 'type' => 'string',
             ],
-            'sustaining_fellow_copy' => [
-                'doc' => 'Copy to use for Sustaining Fellows when communicating this event in this email series',
+            'luminary_copy' => [
+                'doc' => 'Copy to use for Luminary when communicating this event in this email series',
                 'type' => 'string',
             ],
             'nonmember_copy' => [
@@ -51,8 +51,8 @@ class EventEmailSeriesPivot extends BaseTransformer
                 'doc' => 'Whether to send the Members test email during next check',
                 'type' => 'boolean',
             ],
-            'send_sustaining_fellow_test' => [
-                'doc' => 'Whether to send the Sustaining Fellows test email during next check',
+            'send_luminary_test' => [
+                'doc' => 'Whether to send the Luminary test email during next check',
                 'type' => 'boolean',
             ],
             'send_nonmember_test' => [

@@ -41,11 +41,11 @@ class Event extends WebTransformer
                 $pivot->email_series_id => array_intersect_key((new Datum($pivot))->all(), array_flip([
                     'affiliate_copy',
                     'member_copy',
-                    'sustaining_fellow_copy',
+                    'luminary_copy',
                     'nonmember_copy',
                     'send_affiliate_test',
                     'send_member_test',
-                    'send_sustaining_fellow_test',
+                    'send_luminary_test',
                     'send_nonmember_test',
                 ])),
             ];
