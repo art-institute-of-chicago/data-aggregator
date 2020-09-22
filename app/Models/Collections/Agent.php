@@ -53,24 +53,26 @@ class Agent extends CollectionsModel
                     return $this->belongsToMany('App\Models\StaticArchive\Site', 'agent_site', 'agent_citi_id');
                 },
             ],
+            'placePivots' => [
+                'description' => '',
+                'method' => function() {
+                    return $this->hasMany('App\Models\Collections\AgentPlacePivot');
+                },
+            ],
+            'places' => [
+                'description' => '',
+                'method' => function() {
+                    return $this->belongsToMany('App\Models\Collections\Place')
+                        ->using('App\Models\Collections\ArtworkPlacePivot')
+                        ->withPivot('is_preferred');
+                },
+            ],
         ];
     }
 
     public function createdArtworkIds()
     {
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->pluck('artwork_citi_id');
-    }
-
-    public function placePivots()
-    {
-        return $this->hasMany('App\Models\Collections\AgentPlacePivot');
-    }
-
-    public function places()
-    {
-        return $this->belongsToMany('App\Models\Collections\Place')
-            ->using('App\Models\Collections\ArtworkPlacePivot')
-            ->withPivot('is_preferred');
     }
 
     /**
