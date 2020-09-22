@@ -2,10 +2,13 @@
 
 namespace App\Models\Collections;
 
+use App\Models\HasRelationshipArray;
+
 use App\Models\AbstractPivot as BasePivot;
 
 class ArtworkArtistPivot extends BasePivot
 {
+    use HasRelationshipArray;
 
     public $incrementing = true;
 
@@ -15,19 +18,28 @@ class ArtworkArtistPivot extends BasePivot
         'preferred' => 'boolean',
     ];
 
-    public function artist()
+    private function getRelationships()
     {
-        return $this->belongsTo('App\Models\Collections\Agent', 'agent_citi_id');
-    }
-
-    public function artwork()
-    {
-        return $this->belongsTo('App\Models\Collections\Artwork');
-    }
-
-    public function role()
-    {
-        return $this->belongsTo('App\Models\Collections\AgentRole', 'agent_role_citi_id');
+        return [
+            'artist' => [
+                'description' => '',
+                'method' => function() {
+                    return $this->belongsTo('App\Models\Collections\Agent', 'agent_citi_id');
+                },
+            ],
+            'artwork' => [
+                'description' => '',
+                'method' => function() {
+                    return $this->belongsTo('App\Models\Collections\Artwork');
+                },
+            ],
+            'role' => [
+                'description' => '',
+                'method' => function() {
+                    return $this->belongsTo('App\Models\Collections\AgentRole', 'agent_role_citi_id');
+                },
+            ],
+        ];
     }
 
     public function getUpdatedAtColumn()
