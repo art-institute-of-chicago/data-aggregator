@@ -12,19 +12,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "694f3d2c3f762f4b86bf5ee77332aa13288b31d1"
+                "reference": "bdcb112b8791001fda9e91d1fdace62b7394437c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/694f3d2c3f762f4b86bf5ee77332aa13288b31d1",
-                "reference": "694f3d2c3f762f4b86bf5ee77332aa13288b31d1",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/bdcb112b8791001fda9e91d1fdace62b7394437c",
+                "reference": "bdcb112b8791001fda9e91d1fdace62b7394437c",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^2.6",
-                "laravel/framework": "5.8.*",
+                "laravel/framework": "*",
                 "league/fractal": "^0.16.0",
-                "php": ">=7.1.3"
+                "php": ">=7.2.5"
             },
             "type": "library",
             "autoload": {
@@ -50,7 +50,7 @@
                 "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/master",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2020-08-18T03:33:14+00:00"
+            "time": "2020-10-12T07:30:32+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
