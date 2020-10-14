@@ -182,11 +182,7 @@ trait ImportsData
             $this->warn('Testing import of a single page for model ' . $model);
         } else {
             // Assumes the dataservice has standardized pagination
-            try {
-                $pages = $json->pagination->total_pages;
-            } catch (\Throwable $e) {
-                throw new \Exception('Something went wrong.');
-            }
+            $pages = $json->pagination->total_pages;
 
             // TODO: [ErrorException] Undefined property: stdClass::$pagination
             // This happens when you're trying to hit an endpoint that doesn't exist
