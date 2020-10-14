@@ -89,9 +89,18 @@ trait ImportsData
 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
+        // WEB-874: If connection or response take longer than 30 seconds, give up
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
         ob_start();
 
         curl_exec($ch);
+
+        if (curl_errno($ch)) {
+           throw new \Exception(curl_error($ch));
+        }
+
         curl_close($ch);
 
         $contents = ob_get_contents();
