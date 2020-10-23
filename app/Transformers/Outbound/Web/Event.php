@@ -221,6 +221,23 @@ class Event extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
+            'is_virtual_event' => [
+                'doc' => 'Whether the event is being held virtually',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+            ],
+            'virtual_event_url' => [
+                'doc' => 'URL to the virtual event',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+                'is_restricted' => true,
+            ],
+            'virtual_event_passcode' => [
+                'doc' => 'Passcode to access the virtual event',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+                'is_restricted' => true,
+            ],
             'start_date' => [
                 'doc' => 'The date the event begins',
                 'type' => 'ISO 8601 date and time',
