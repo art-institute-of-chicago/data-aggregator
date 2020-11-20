@@ -11,7 +11,7 @@ class Asset extends CollectionsTransformer
     protected function getIds(Datum $datum)
     {
         return  [
-            'lake_guid' => $datum->lake_guid,
+            'lake_guid' => $datum->id,
         ];
     }
 
