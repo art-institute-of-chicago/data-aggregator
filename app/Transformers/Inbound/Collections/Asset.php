@@ -27,7 +27,7 @@ class Asset extends CollectionsTransformer
 
     protected function getSync(Datum $datum, $test = false)
     {
-        return [
+        return env('IMPORT_ASSET_RELATIONSHIPS_FROM_CITI', false) ? [] : [
             'imagedArtworks' => $this->getSyncAssetOf($datum, 'rep_of_artworks'),
             'imagedExhibitions' => $this->getSyncAssetOf($datum, 'rep_of_exhibitions'),
             'documentedArtworks' => $this->getSyncAssetOf($datum, 'doc_of_artworks'),
