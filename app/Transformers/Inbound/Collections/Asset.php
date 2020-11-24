@@ -12,6 +12,7 @@ class Asset extends CollectionsTransformer
     {
         return  [
             'lake_guid' => $datum->id,
+            'netx_uuid' => \App\Models\Collections\Asset::getHashedId($datum->id),
         ];
     }
 
