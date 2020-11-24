@@ -52,6 +52,24 @@ class Asset extends CollectionsModel
         $this->type = static::$assetType ?? null;
     }
 
+    public static function getHashedId($id)
+    {
+        if (!is_numeric($id)) {
+            return $id;
+        }
+
+        if ($id === null) {
+            return null;
+        }
+
+        $hash = (string) hash('md5', env('ASSET_PREFIX', '') . $id);
+        return substr($hash, 0, 8)  . '-'
+          . substr($hash, 8, 4)  . '-'
+          . substr($hash, 12, 4) . '-'
+          . substr($hash, 16, 4) . '-'
+          . substr($hash, 20);
+    }
+
     public function artworks()
     {
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_lake_guid')

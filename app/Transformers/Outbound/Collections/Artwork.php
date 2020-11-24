@@ -2,6 +2,8 @@
 
 namespace App\Transformers\Outbound\Collections;
 
+use App\Models\Collections\Asset;
+
 use App\Transformers\Outbound\Collections\ArtworkArtistPivot as ArtworkArtistPivotTransformer;
 use App\Transformers\Outbound\Collections\ArtworkCatalogue as ArtworkCatalogueTransformer;
 use App\Transformers\Outbound\Collections\ArtworkDate as ArtworkDateTransformer;
@@ -721,7 +723,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->image->lake_guid ?? null;
+                    return Asset::getHashedId($item->image->lake_guid ?? null);
                 },
             ],
             'alt_image_ids' => [
@@ -729,7 +731,15 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->altImages, 'lake_guid');
+                    $ids = Arr::pluck($item->altImages, 'lake_guid');
+
+                    if ($ids) {
+                        $ids = array_map(function($lake_guid) {
+                            return Asset::getHashedId($lake_guid);
+                        }, $ids);
+                    }
+
+                    return $ids;
                 },
             ],
             'document_ids' => [
@@ -737,7 +747,9 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->documents->pluck('lake_guid') ?? null;
+                    return $item->documents->pluck('lake_guid')->map(function($lake_guid) {
+                        return Asset::getHashedId($lake_guid);
+                    });
                 },
             ],
             'sound_ids' => [
@@ -745,7 +757,15 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->sounds(), 'lake_guid') ?? null;
+                    $ids = Arr::pluck($item->sounds(), 'lake_guid') ?? null;
+
+                    if ($ids) {
+                        return array_map(function($id) {
+                            return Asset::getHashedId($id);
+                        }, $ids);
+                    }
+
+                    return $ids;
                 },
             ],
             'video_ids' => [
@@ -753,7 +773,15 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->videos(), 'lake_guid') ?? null;
+                    $ids = Arr::pluck($item->videos(), 'lake_guid') ?? null;
+
+                    if ($ids) {
+                        $ids = array_map(function($id) {
+                            return Asset::getHashedId($id);
+                        }, $ids);
+                    }
+
+                    return $ids;
                 },
             ],
             'text_ids' => [
@@ -761,7 +789,15 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->texts(), 'lake_guid') ?? null;
+                    $ids = Arr::pluck($item->texts(), 'lake_guid') ?? null;
+
+                    if ($ids) {
+                        $ids = array_map(function($id) {
+                            return Asset::getHashedId($id);
+                        }, $ids);
+                    }
+
+                    return $ids;
                 },
             ],
             // Currently unused by the mobile app. Disabling until needed. Reindex required for long.
