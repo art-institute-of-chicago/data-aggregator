@@ -98,7 +98,11 @@ trait ImportsData
         curl_exec($ch);
 
         if (curl_errno($ch)) {
-           throw new \Exception(curl_error($ch));
+            try {
+                throw new \Exception(curl_error($ch));
+            } catch (\Exception $e) {
+                return $this->fetch(...func_get_args());
+            }
         }
 
         curl_close($ch);
