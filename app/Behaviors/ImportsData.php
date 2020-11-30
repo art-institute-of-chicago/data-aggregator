@@ -101,6 +101,8 @@ trait ImportsData
             try {
                 throw new \Exception(curl_error($ch));
             } catch (\Exception $e) {
+                // https://laravel.com/docs/5.7/errors - The `report` Helper
+                report($e);
                 return $this->fetch(...func_get_args());
             }
         }
