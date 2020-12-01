@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "51a90fb9bff5a1ea43f180b2168ce6dcf6c2cfd1"
+                "reference": "bdcb112b8791001fda9e91d1fdace62b7394437c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/51a90fb9bff5a1ea43f180b2168ce6dcf6c2cfd1",
-                "reference": "51a90fb9bff5a1ea43f180b2168ce6dcf6c2cfd1",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/bdcb112b8791001fda9e91d1fdace62b7394437c",
+                "reference": "bdcb112b8791001fda9e91d1fdace62b7394437c",
                 "shasum": ""
             },
             "require": {
@@ -6608,6 +6608,7 @@
                 "faker",
                 "fixtures"
             ],
+            "abandoned": true,
             "time": "2019-12-12T13:22:17+00:00"
         },
         {
@@ -8106,6 +8107,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
