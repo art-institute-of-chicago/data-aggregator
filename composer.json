@@ -36,7 +36,7 @@
         "league/fractal": "^0.16.0",
         "marijnvdwerf/material-palette": "^1.2",
         "marktopper/doctrine-dbal-timestamp-type": "^1.0",
-        "sentry/sentry-laravel": "^1.0",
+        "sentry/sentry-laravel": "^2.2",
         "zendframework/zend-code": "^3.2"
     },
     "require-dev": {
