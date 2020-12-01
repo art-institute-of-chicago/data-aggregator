@@ -22,7 +22,7 @@ class ReportNetx extends BaseCommand
         // https://github.com/laravel/framework/issues/14919
         DB::connection()->getPdo()->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 
-        $artworks = Artwork::query()
+        $artworks = Artwork::withoutGlobalScope('lastmod')
             ->whereHas('assets', function (Builder $query) {
                 $query->whereNotNull('netx_uuid');
             })
