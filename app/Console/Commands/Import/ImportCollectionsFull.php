@@ -67,7 +67,7 @@ class ImportCollectionsFull extends AbstractImportCommand
      */
     protected function query($endpoint, $page = 1, $limit = 500)
     {
-        return parent::query($endpoint, $page, 100);
+        return parent::query($endpoint, $page, 50);
     }
 
     /**
