@@ -28,14 +28,12 @@ class AssetController extends ResourceController
             throw new ItemNotFoundException();
         }
 
-        return response()->json(array_merge([
+        return response()->json([
             'is_netx_asset' => $isNetx,
-        ], $isNetx ? [
-            'netx_id' => $asset->lake_guid,
-            'netx_uui' => $asset->netx_uuid,
-        ] : [
-            'lake_guid' => $asset->lake_guid,
-        ]));
+            'netx_id' => $isNetx ? $asset->lake_guid : null,
+            'netx_uui' => $isNetx ? $asset->netx_uuid : null,
+            'lake_guid' => $isNetx ? null : $asset->lake_guid,
+        ]);
     }
 
     protected function find($ids)
