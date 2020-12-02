@@ -61,4 +61,6 @@ Route::group(['prefix' => 'v1'], function () {
     // WEB-1809: Add manifests to support IIIF Presentation API
     Route::any('artworks/{id}/manifest', 'ArtworkController@manifest');
     Route::any('artworks/{id}/manifest.json', 'ArtworkController@manifest');
+
+    Route::any('netx/{id}', 'AssetController@netx');
 });
