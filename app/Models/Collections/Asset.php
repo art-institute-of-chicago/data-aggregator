@@ -42,6 +42,8 @@ class Asset extends CollectionsModel
         'artworks',
     ];
 
+    private $preloadedArtworks;
+
     /**
      * Create a new instance of the given model. For Assets, we use this to set a default `type`.
      */
@@ -103,6 +105,17 @@ class Asset extends CollectionsModel
     public function documentedExhibitions()
     {
         return $this->exhibitions()->wherePivot('is_doc', '=', true);
+    }
+
+    /**
+     * Temporary helper to ease indexing.
+     */
+    public function getRelatedArtworks()
+    {
+        return $this->preloadedArtworks ?? $this->preloadedArtworks = $this->artworks()
+            // https://stackoverflow.com/questions/34052056/disable-eager-relations
+            ->setEagerLoads([])
+            ->get(['citi_id', 'title']);
     }
 
     /**
