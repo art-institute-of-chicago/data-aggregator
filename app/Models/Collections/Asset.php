@@ -18,7 +18,8 @@ class Asset extends CollectionsModel
     public const TEXT = 'text';
     public const VIDEO = 'video';
 
-    public static $sourceLastUpdateDateField = 'indexed_at';
+    // WEB-1870: We can't set this conditionally; default to NetX over LAKE
+    // public static $sourceLastUpdateDateField = 'indexed_at';
 
     protected static $assetType = null;
 
