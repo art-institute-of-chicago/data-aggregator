@@ -2,6 +2,7 @@
 
 namespace App\Transformers\Outbound\Collections;
 
+use App\Models\Collections\Asset as AssetModel;
 use App\Transformers\Outbound\Collections\Traits\HasLakeFields;
 use App\Transformers\Outbound\Collections\Traits\IsCC0;
 
@@ -43,6 +44,9 @@ class Asset extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                 ],
+                'value' => function ($item) {
+                    return $item->content ?? (env('ASSET_URL') . AssetModel::getHashedId($item->getKey()));
+                },
             ],
             'is_multimedia_resource' => [
                 'doc' => 'Whether this resource is considered to be multimedia',

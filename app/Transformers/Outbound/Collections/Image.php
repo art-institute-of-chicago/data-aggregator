@@ -10,6 +10,16 @@ class Image extends BaseTransformer
     protected function getAssetFields()
     {
         return [
+            'content' => [
+                'doc' => 'Text of or URL to the contents of this asset',
+                'type' => 'string',
+                'elasticsearch' => [
+                    'default' => true,
+                ],
+                'value' => function ($item) {
+                    return $item->content ?? null;
+                },
+            ],
             'iiif_url' => [
                 'doc' => 'IIIF URL of this image',
                 'type' => 'url',
