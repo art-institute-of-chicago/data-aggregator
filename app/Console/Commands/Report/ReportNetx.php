@@ -35,7 +35,7 @@ class ReportNetx extends BaseCommand
 
     private function artworks()
     {
-        $artworks = Artwork::withoutGlobalScope('lastmod')
+        $artworks = Artwork::query()
             ->whereHas('assets', function (Builder $query) {
                 $query->whereNotNull('netx_uuid');
             })
@@ -49,7 +49,7 @@ class ReportNetx extends BaseCommand
 
     private function exhibitions()
     {
-        $exhibitions = Exhibition::withoutGlobalScope('lastmod')
+        $exhibitions = Exhibition::query()
             ->whereHas('assets', function (Builder $query) {
                 $query->whereNotNull('netx_uuid');
             })

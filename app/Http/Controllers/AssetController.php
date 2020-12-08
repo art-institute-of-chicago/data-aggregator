@@ -41,13 +41,13 @@ class AssetController extends ResourceController
         if (is_array($ids) || $ids instanceof Arrayable) {
             $ids = $ids instanceof Arrayable ? $ids->toArray() : $ids;
 
-            return ($this->model)::query()
+            return $this->getBaseQuery()
                 ->whereIn('lake_guid', $ids)
                 ->orWhereIn('netx_uuid', $ids)
                 ->get();
         }
 
-        return ($this->model)::query()
+        return $this->getBaseQuery()
             ->where('lake_guid', $ids)
             ->orWhere('netx_uuid', $ids)
             ->first();
