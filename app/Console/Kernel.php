@@ -35,9 +35,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('update:cloudfront-ips')
             ->hourly();
 
-        $schedule->command('import:daily')
-            ->dailyAt('23:00')
-            ->sendOutputTo(storage_path('logs/import-daily-last-run.log'));
+        // $schedule->command('import:daily')
+        //     ->dailyAt('23:00')
+        //     ->sendOutputTo(storage_path('logs/import-daily-last-run.log'));
 
         // $schedule->command('scout:import-all')
         //     ->dailyAt('03:00')
@@ -47,19 +47,19 @@ class Kernel extends ConsoleKernel
         //     ->dailyAt('05:00')
         //     ->sendOutputTo(storage_path('logs/search-audit-last-run.log'));
 
-        $schedule->command('import:monthly')
-            ->monthlyOn(1, '03:00')
-            ->sendOutputTo(storage_path('logs/import-monthly-last-run.log'));
+        // $schedule->command('import:monthly')
+        //     ->monthlyOn(1, '03:00')
+        //     ->sendOutputTo(storage_path('logs/import-monthly-last-run.log'));
 
-        $schedule->command('import:web')
-            ->everyFiveMinutes()
-            ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/import-web-last-run.log'));
+        // $schedule->command('import:web')
+        //     ->everyFiveMinutes()
+        //     ->withoutOverlapping(self::FOR_ONE_YEAR)
+        //     ->sendOutputTo(storage_path('logs/import-web-last-run.log'));
 
-        $schedule->command('import:events-ticketed-full --unreset')
-            ->everyFiveMinutes()
-            ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/import-events-ticketed-last-run.log'));
+        // $schedule->command('import:events-ticketed-full --unreset')
+        //     ->everyFiveMinutes()
+        //     ->withoutOverlapping(self::FOR_ONE_YEAR)
+        //     ->sendOutputTo(storage_path('logs/import-events-ticketed-last-run.log'));
 
         // $schedule->command('delete:assets')
         //     ->everyFiveMinutes()
@@ -81,10 +81,10 @@ class Kernel extends ConsoleKernel
         //     ->withoutOverlapping(self::FOR_ONE_YEAR)
         //     ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
 
-        $schedule->command('import:queues')
-            ->everyMinute()
-            ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/import-queues-last-run.log'));
+        // $schedule->command('import:queues')
+        //     ->everyMinute()
+        //     ->withoutOverlapping(self::FOR_ONE_YEAR)
+        //     ->sendOutputTo(storage_path('logs/import-queues-last-run.log'));
 
         // $schedule->command('dump:nightly')
         //     ->dailyAt('22:45')
