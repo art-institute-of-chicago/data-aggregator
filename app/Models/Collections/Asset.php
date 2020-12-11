@@ -40,7 +40,7 @@ class Asset extends CollectionsModel
     ];
 
     protected $touches = [
-        'artworks',
+        // 'artworks',
     ];
 
     private $preloadedArtworks;
