@@ -39,13 +39,13 @@ class Kernel extends ConsoleKernel
             ->dailyAt('23:00')
             ->sendOutputTo(storage_path('logs/import-daily-last-run.log'));
 
-        $schedule->command('scout:import-all')
-            ->dailyAt('03:00')
-            ->sendOutputTo(storage_path('logs/scout-import-all-last-run.log'));
+        // $schedule->command('scout:import-all')
+        //     ->dailyAt('03:00')
+        //     ->sendOutputTo(storage_path('logs/scout-import-all-last-run.log'));
 
-        $schedule->command('search:audit')
-            ->dailyAt('05:00')
-            ->sendOutputTo(storage_path('logs/search-audit-last-run.log'));
+        // $schedule->command('search:audit')
+        //     ->dailyAt('05:00')
+        //     ->sendOutputTo(storage_path('logs/search-audit-last-run.log'));
 
         $schedule->command('import:monthly')
             ->monthlyOn(1, '03:00')
@@ -61,25 +61,25 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-events-ticketed-last-run.log'));
 
-        $schedule->command('delete:assets')
-            ->everyFiveMinutes()
-            ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/delete-assets-last-run.log'));
+        // $schedule->command('delete:assets')
+        //     ->everyFiveMinutes()
+        //     ->withoutOverlapping(self::FOR_ONE_YEAR)
+        //     ->sendOutputTo(storage_path('logs/delete-assets-last-run.log'));
 
-        $schedule->command('delete:collections')
-            ->everyFiveMinutes()
-            ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/delete-collections-last-run.log'));
+        // $schedule->command('delete:collections')
+        //     ->everyFiveMinutes()
+        //     ->withoutOverlapping(self::FOR_ONE_YEAR)
+        //     ->sendOutputTo(storage_path('logs/delete-collections-last-run.log'));
 
-        $schedule->command('import:assets')
-            ->everyFiveMinutes()
-            ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/import-assets-last-run.log'));
+        // $schedule->command('import:assets')
+        //     ->everyFiveMinutes()
+        //     ->withoutOverlapping(self::FOR_ONE_YEAR)
+        //     ->sendOutputTo(storage_path('logs/import-assets-last-run.log'));
 
-        $schedule->command('import:collections')
-            ->everyFiveMinutes()
-            ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
+        // $schedule->command('import:collections')
+        //     ->everyFiveMinutes()
+        //     ->withoutOverlapping(self::FOR_ONE_YEAR)
+        //     ->sendOutputTo(storage_path('logs/import-collections-last-run.log'));
 
         $schedule->command('import:queues')
             ->everyMinute()

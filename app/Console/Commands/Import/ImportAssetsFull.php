@@ -40,9 +40,14 @@ class ImportAssetsFull extends AbstractImportCommand
 
     protected function importEndpoint($endpoint, $page = 1)
     {
-        $model = app('Resources')->getModelForInboundEndpoint($endpoint, 'assets');
+        $model = $this->getModelForEndpoint($endpoint);
 
         $this->import('assets', $model, $endpoint, $page);
+    }
+
+    protected function getModelForEndpoint($endpoint)
+    {
+        return app('Resources')->getModelForInboundEndpoint($endpoint, 'assets');
     }
 
     /**
@@ -50,6 +55,8 @@ class ImportAssetsFull extends AbstractImportCommand
      */
     protected function query($endpoint, $page = 1, $limit = 500)
     {
-        return parent::query($endpoint, $page, 10);
+        $limit = env('IMPORT_ASSET_RELATIONSHIPS_FROM_CITI') ? 1000 : 10;
+
+        return parent::query($endpoint, $page, $limit);
     }
 }

@@ -20,7 +20,16 @@ class ScoutImportOne extends BaseCommand
 
         $model = new $class();
 
-        $model::find($id)->searchable();
+        if ($model instanceof \App\Models\Collections\Asset) {
+            $model::query()
+                ->where('lake_guid', $id)
+                ->orWhere('netx_uuid', $id)
+                ->first()
+                ->searchable();
+        }
+        else {
+            $model::find($id)->searchable();
+        }
 
         $this->info("Imported #${id} of model ${class}");
     }

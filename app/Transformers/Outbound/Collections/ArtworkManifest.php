@@ -12,8 +12,6 @@ class ArtworkManifest extends BaseTransformer
 
     use IsCC0;
 
-    protected $canvasSequence = 1;
-
     public function transform(Artwork $model)
     {
         $canvases = [];
@@ -89,7 +87,7 @@ class ArtworkManifest extends BaseTransformer
         return [
             '@type' => 'sc:Canvas',
             '@id' => config('aic.config_documentation.iiif_url') . '/' . $image->lake_guid,
-            'label' => "" . $this->canvasSequence++,
+            'label' => strip_tags($model->title.', '.$model->date_display.'. '.str_replace("\n", ', ', $model->artist_display)),
             'width' => $imageData->width,
             'height' => $imageData->height,
             'images' => [

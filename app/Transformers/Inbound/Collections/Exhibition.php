@@ -23,8 +23,29 @@ class Exhibition extends CollectionsTransformer
 
     protected function getSync(Datum $datum)
     {
-        return [
+        $out = [
             'artworks' => $datum->all('artwork_ids'),
         ];
+
+        if (env('IMPORT_ASSET_RELATIONSHIPS_FROM_CITI', false)) {
+            $out['assets'] = $this->getSyncAssets($datum);
+        }
+
+        return $out;
+    }
+
+    /**
+     * We do not allow something to be both documentation and representation.
+     */
+    private function getSyncAssets(Datum $datum)
+    {
+        return $this->getSyncPivots($datum, 'assets', 'netx_id', function ($pivot) {
+            return [
+                $pivot->netx_id => [
+                    'preferred' => $pivot->is_preferred,
+                    'is_doc' => $pivot->is_rep === false,
+                ],
+            ];
+        });
     }
 }

@@ -24,6 +24,7 @@
         "aic/laravel-scout-elastic": "dev-master#3.0.9-aic",
         "cviebrock/laravel-elasticsearch": "^2.0",
         "doctrine/dbal": "^2.6",
+        "doctrine/inflector": "1.3.1",
         "elasticsearch/elasticsearch": "^5.3",
         "fideloper/proxy": "~4.0",
         "jsq/amazon-es-php": "dev-master",
@@ -36,7 +37,7 @@
         "league/fractal": "^0.16.0",
         "marijnvdwerf/material-palette": "^1.2",
         "marktopper/doctrine-dbal-timestamp-type": "^1.0",
-        "sentry/sentry-laravel": "^1.0",
+        "sentry/sentry-laravel": "^2.2",
         "zendframework/zend-code": "^3.2"
     },
     "require-dev": {
