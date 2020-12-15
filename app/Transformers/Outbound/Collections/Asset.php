@@ -20,6 +20,21 @@ class Asset extends BaseTransformer
      */
     protected $keyType = 'keyword';
 
+    /**
+     * Ensure that `api_link` doesn't show unhashed id.
+     */
+    protected function getSearchFields()
+    {
+        $fields = parent::getSearchFields();
+
+        $fields['api_link']['value'] = function ($item) {
+            $endpoint = app('Resources')->getEndpointForModel(get_class($item));
+            return url('api/v1/' . $endpoint . '/' . AssetModel::getHashedId($item->getKey()));
+        };
+
+        return $fields;
+    }
+
     protected function getFields()
     {
         $sharedFields = [
