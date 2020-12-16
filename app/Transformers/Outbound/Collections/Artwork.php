@@ -101,8 +101,8 @@ class Artwork extends BaseTransformer
                         'url' => $item->thumbnail->iiif_url ?? null,
                         'type' => 'iiif',
                         'lqip' => $item->thumbnail->metadata->lqip ?? null,
-                        'width' => $item->thumbnail->metadata->width ?? null,
-                        'height' => $item->thumbnail->metadata->height ?? null,
+                        'width' => $item->thumbnail->width ?? null,
+                        'height' => $item->thumbnail->height ?? null,
                         'alt_text' => $item->thumbnail->alt_text ?? ($item->alt_text ?? null),
                     ];
                 },

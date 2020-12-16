@@ -29,8 +29,6 @@ class Image extends BaseTransformer
     {
         return [
             'metadata' => (object) [
-                'width' => $datum->width,
-                'height' => $datum->height,
                 'ahash' => $datum->ahash,
                 'phash' => $datum->phash,
                 'dhash' => $datum->dhash,

@@ -30,7 +30,7 @@ class Image extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->metadata->width ?? null;
+                    return $item->width ?? null;
                 },
             ],
             'height' => [
@@ -38,7 +38,7 @@ class Image extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->metadata->height ?? null;
+                    return $item->height ?? null;
                 },
             ],
             'lqip' => [
