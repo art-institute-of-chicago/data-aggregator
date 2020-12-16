@@ -37,8 +37,6 @@ class ImportImages extends AbstractImportCommand
 
         $metadata->lqip = $datum->lqip;
         $metadata->color = $datum->color;
-        $metadata->width = $datum->width;
-        $metadata->height = $datum->height;
         $metadata->colorfulness = round((float) $datum->colorfulness, 4);
 
         $resource->metadata = $metadata;
