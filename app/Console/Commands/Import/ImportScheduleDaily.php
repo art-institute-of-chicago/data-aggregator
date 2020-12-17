@@ -13,7 +13,7 @@ class ImportScheduleDaily extends BaseCommand
 
     public function handle()
     {
-        $this->call('delete:assets');
+        // $this->call('delete:assets');
         $this->call('delete:collections');
 
         $this->call('import:mobile');
