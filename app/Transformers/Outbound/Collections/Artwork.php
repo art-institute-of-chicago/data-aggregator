@@ -413,6 +413,11 @@ class Artwork extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
+            'on_loan_display' => [
+                'doc' => 'If an artwork is on loan, this contains details about the loan',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+            ],
             'gallery_title' => [
                 'doc' => 'The location of this work in our museum',
                 'type' => 'string',
