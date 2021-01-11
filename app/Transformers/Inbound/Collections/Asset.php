@@ -26,6 +26,15 @@ class Asset extends CollectionsTransformer
     //     ]);
     // }
 
+    protected function getExtraFields(Datum $datum)
+    {
+        return [
+            'metadata' => (object) [
+                'color' => $datum->color,
+            ],
+        ];
+    }
+
     protected function getSync(Datum $datum, $test = false)
     {
         return env('IMPORT_ASSET_RELATIONSHIPS_FROM_CITI', false) ? [] : [
