@@ -97,4 +97,14 @@ abstract class AbstractDumpCommand extends BaseCommand
             }
         }
     }
+
+    protected function toJson($input)
+    {
+        return json_encode($input, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    }
+
+    protected function saveToJson($filename, $content)
+    {
+        Storage::disk('dumps')->put($filename, $this->toJson($content));
+    }
 }

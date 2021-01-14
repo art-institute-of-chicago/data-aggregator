@@ -19,7 +19,7 @@ class DumpExport extends AbstractDumpCommand
 
     public function handle()
     {
-        $this->saveConfigDocs();
+        $this->call('dump:config');
 
         $resources = $this->getResources();
 
@@ -54,14 +54,6 @@ class DumpExport extends AbstractDumpCommand
 
     }
 
-    private function saveConfigDocs()
-    {
-        // Output config.json, which is the same for all models
-        $configDocumentation = config('aic.config_documentation');
-
-        $this->saveToJson('local/json/config.json', $configDocumentation);
-    }
-
     private function saveInfoBlocks($resources)
     {
         // Output info.json, which combines the info blocks for all models
@@ -75,15 +67,5 @@ class DumpExport extends AbstractDumpCommand
             ->all();
 
         $this->saveToJson('local/json/info.json', $infoBlocks);
-    }
-
-    private function toJson($input)
-    {
-        return json_encode($input, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-    }
-
-    private function saveToJson($filename, $content)
-    {
-        Storage::disk('dumps')->put($filename, $this->toJson($content));
     }
 }
