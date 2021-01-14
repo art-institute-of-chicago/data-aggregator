@@ -55,17 +55,7 @@ class DumpExport extends AbstractDumpCommand
             }
         }
 
-        // Output info.json, which combines the info blocks for all models
-        $infoBlocks = $resources
-            ->map(function($resource) {
-                return [
-                    $resource['endpoint'] => $resource['transformer']->getInfoFields(),
-                ];
-            })
-            ->collapse()
-            ->all();
-
-        $this->saveToJson('local/json/info.json', $infoBlocks);
+        $this->saveInfoBlocks($resources);
 
         $resources->each(function($resource) {
             $resource['model']::addRestrictContentScopes();
@@ -102,6 +92,21 @@ class DumpExport extends AbstractDumpCommand
         $configDocumentation = config('aic.config_documentation');
 
         $this->saveToJson('local/json/config.json', $configDocumentation);
+    }
+
+    private function saveInfoBlocks($resources)
+    {
+        // Output info.json, which combines the info blocks for all models
+        $infoBlocks = $resources
+            ->map(function($resource) {
+                return [
+                    $resource['endpoint'] => $resource['transformer']->getInfoFields(),
+                ];
+            })
+            ->collapse()
+            ->all();
+
+        $this->saveToJson('local/json/info.json', $infoBlocks);
     }
 
     private function toJson($input)
