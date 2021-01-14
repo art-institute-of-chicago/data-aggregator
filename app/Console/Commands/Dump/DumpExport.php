@@ -13,21 +13,12 @@ class DumpExport extends AbstractDumpCommand
 
     protected $signature = 'dump:export
                             {endpoint? : Only export specific endpoint`}
-                            {--reset : Remove everything in existing dump}
                             {--path= : Directory where to save dump, with `json` subdir }';
 
     protected $description = 'Create JSON dumps of all public endpoints';
 
     public function handle()
     {
-        $dumpPath = $this->getDumpPath('local/json');
-
-        // Remove everything in this dump
-        if ($this->option('reset')) {
-            $this->warn('Removing everything in existing dump directory...');
-            $this->shell->passthru('rm -rf %s/*', $dumpPath);
-        }
-
         $this->saveConfigDocs();
 
         $resources = $this->getResources();
