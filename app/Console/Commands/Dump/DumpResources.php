@@ -14,6 +14,8 @@ class DumpResources extends AbstractDumpCommand
         // Not an ideal solution, but some models are really heavy
         ini_set('memory_limit', '-1');
 
+        config(['aic.auth.restricted' => true]);
+
         $resources = $this->getResources();
 
         $resources->each(function($resource) {
