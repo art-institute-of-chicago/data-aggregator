@@ -36,13 +36,13 @@ abstract class AbstractDumpCommand extends BaseCommand
                 ];
             });
 
-        if ($this->hasOption('endpoint') && ($endpoint = $this->argument('endpoint'))) {
+        if ($this->hasOption('endpoint') && ($endpoint = $this->option('endpoint'))) {
             $resources = $resources->filter(function($resource, $key) use ($endpoint) {
                 return $resource['endpoint'] === $endpoint;
             });
 
             if ($resources->count() < 1) {
-                throw Exception('No resources matched');
+                throw new Exception('No resources matched');
             }
         }
 
