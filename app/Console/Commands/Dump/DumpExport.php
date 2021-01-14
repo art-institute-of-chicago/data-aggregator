@@ -2,12 +2,6 @@
 
 namespace App\Console\Commands\Dump;
 
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
-use Exception;
-use Throwable;
-
 class DumpExport extends AbstractDumpCommand
 {
 
@@ -18,78 +12,30 @@ class DumpExport extends AbstractDumpCommand
 
     public function handle()
     {
-        $dumpPath = $this->getDumpPath('local/json');
+        $endpoints = $this->getResources()->pluck('endpoint');
 
-        // Remove everything in this dump
-        $this->shell->passthru('rm -rf %s/*', $dumpPath);
-
-        // Output config.json, which is the same for all models
-        $configDocumentation = config('aic.config_documentation');
-
-        $this->saveToJson('local/json/config.json', $configDocumentation);
-
-        // Get all models for export, ignore category assignment
-        $models = $this->getModels()->keys();
-
-        // Instantiate a new transformer for each model class
-        $resources = $models
-            ->map(function($model) {
-                $transformerClass = app('Resources')->getTransformerForModel($model);
-                return [
-                    'model' => $model,
-                    'transformer' => new $transformerClass,
-                    'endpoint' => app('Resources')->getEndpointForModel($model),
-                ];
+        $endpoints->each(function($endpoint) {
+            $this->shell->unsafe(function($shell) use ($endpoint) {
+                return $shell->exec(
+                    'screen -S %s -X quit',
+                    'dump-' . $endpoint
+                );
             });
-
-        // Output info.json, which combines the info blocks for all models
-        $infoBlocks = $resources
-            ->map(function($resource) {
-                return [
-                    $resource['endpoint'] => $resource['transformer']->getInfoFields(),
-                ];
-            })
-            ->collapse()
-            ->all();
-
-        $this->saveToJson('local/json/info.json', $infoBlocks);
-
-        $resources->each(function($resource) {
-            $resource['model']::addRestrictContentScopes();
-
-            $relativeDumpPath = 'local/json/' . $resource['endpoint'];
-            $absoluteDumpPath = $this->getDumpPath($relativeDumpPath);
-
-            if (!file_exists($absoluteDumpPath)) {
-                mkdir($absoluteDumpPath, 0755, true);
-                chmod($absoluteDumpPath, 0755);
-            }
-
-            $bar = $this->output->createProgressBar($resource['model']::count());
-
-            foreach ($resource['model']::cursor() as $item) {
-                $filename = $relativeDumpPath . '/' . $item->getKey() . '.json';
-                $content = $resource['transformer']->transform($item);
-
-                $this->saveToJson($filename, $content);
-
-                $bar->advance();
-            }
-
-            $bar->finish();
-            $this->output->newLine(1);
-
         });
 
-    }
+        $this->call('dump:reset');
 
-    private function toJson($input)
-    {
-        return json_encode($input, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-    }
+        $this->call('dump:config');
 
-    private function saveToJson($filename, $content)
-    {
-        Storage::disk('dumps')->put($filename, $this->toJson($content));
+        $this->call('dump:info');
+
+        $endpoints->each(function($endpoint) {
+            $this->shell->exec(
+                'screen -S %s -dm php %s/artisan dump:resources --endpoint=%s',
+                'dump-' . $endpoint,
+                base_path(),
+                $endpoint
+            );
+        });
     }
 }

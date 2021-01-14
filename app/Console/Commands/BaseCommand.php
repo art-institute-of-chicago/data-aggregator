@@ -52,7 +52,9 @@ abstract class BaseCommand extends AbstractCommand
 
         return $this->models = collect(config('resources.outbound.base'))
             ->filter(function ($value, $key) {
-                return array_key_exists('endpoint', $value) && (!array_key_exists('is_restricted', $value) || $value['is_restricted'] === false);
+                return array_key_exists('endpoint', $value) &&
+                    (!array_key_exists('is_restricted', $value) || $value['is_restricted'] === false) &&
+                    (!array_key_exists('no_dump', $value) || $value['no_dump'] === false);
             })
             ->pluck('model')
             ->unique()

@@ -14,6 +14,19 @@ class Shell
         $this->options = array_merge($this->options, array_intersect_key($options, $this->options));
     }
 
+    public function unsafe(callable $callback)
+    {
+        $savedNonZeroExit = $this->options['non_zero_exit'];
+
+        $this->options['non_zero_exit'] = false;
+
+        $result = $callback($this);
+
+        $this->options['non_zero_exit'] = $savedNonZeroExit;
+
+        return $result;
+    }
+
     /**
      * Use this when you need to run a command interactively or show ouput.
      */

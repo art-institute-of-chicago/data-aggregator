@@ -20,6 +20,35 @@ abstract class AbstractDumpCommand extends BaseCommand
         $this->shell = new Shell();
     }
 
+    protected function getResources()
+    {
+        // Get all models for export, ignore category assignment
+        $models = $this->getModels()->keys();
+
+        // Instantiate a new transformer for each model class
+        $resources = $models
+            ->map(function($model) {
+                $transformerClass = app('Resources')->getTransformerForModel($model);
+                return [
+                    'model' => $model,
+                    'transformer' => new $transformerClass,
+                    'endpoint' => app('Resources')->getEndpointForModel($model),
+                ];
+            });
+
+        if ($this->hasOption('endpoint') && ($endpoint = $this->option('endpoint'))) {
+            $resources = $resources->filter(function($resource, $key) use ($endpoint) {
+                return $resource['endpoint'] === $endpoint;
+            });
+
+            if ($resources->count() < 1) {
+                throw new Exception('No resources matched');
+            }
+        }
+
+        return $resources;
+    }
+
     /**
      * All of the data dumps live in `database/dumps` per `config/filesystems.php`.
      * Use this to generate absolute paths to CSV files for `createFromPath` calls.
@@ -67,5 +96,15 @@ abstract class AbstractDumpCommand extends BaseCommand
                 throw new Exception('Please specify `' . $var . '` in .env');
             }
         }
+    }
+
+    protected function toJson($input)
+    {
+        return json_encode($input, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    }
+
+    protected function saveToJson($filename, $content)
+    {
+        Storage::disk('dumps')->put($filename, $this->toJson($content));
     }
 }
