@@ -21,9 +21,9 @@ class DumpExport extends AbstractDumpCommand
     {
         $this->call('dump:config');
 
-        $resources = $this->getResources();
+        $this->call('dump:info');
 
-        $this->saveInfoBlocks($resources);
+        $resources = $this->getResources();
 
         $resources->each(function($resource) {
             $resource['model']::addRestrictContentScopes();
@@ -51,21 +51,5 @@ class DumpExport extends AbstractDumpCommand
             $this->output->newLine(1);
 
         });
-
-    }
-
-    private function saveInfoBlocks($resources)
-    {
-        // Output info.json, which combines the info blocks for all models
-        $infoBlocks = $resources
-            ->map(function($resource) {
-                return [
-                    $resource['endpoint'] => $resource['transformer']->getInfoFields(),
-                ];
-            })
-            ->collapse()
-            ->all();
-
-        $this->saveToJson('local/json/info.json', $infoBlocks);
     }
 }
