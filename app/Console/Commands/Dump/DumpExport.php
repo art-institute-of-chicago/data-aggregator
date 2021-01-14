@@ -28,10 +28,7 @@ class DumpExport extends AbstractDumpCommand
             $this->shell->passthru('rm -rf %s/*', $dumpPath);
         }
 
-        // Output config.json, which is the same for all models
-        $configDocumentation = config('aic.config_documentation');
-
-        $this->saveToJson('local/json/config.json', $configDocumentation);
+        $this->saveConfigDocs();
 
         // Get all models for export, ignore category assignment
         $models = $this->getModels()->keys();
@@ -97,6 +94,14 @@ class DumpExport extends AbstractDumpCommand
 
         });
 
+    }
+
+    private function saveConfigDocs()
+    {
+        // Output config.json, which is the same for all models
+        $configDocumentation = config('aic.config_documentation');
+
+        $this->saveToJson('local/json/config.json', $configDocumentation);
     }
 
     private function toJson($input)
