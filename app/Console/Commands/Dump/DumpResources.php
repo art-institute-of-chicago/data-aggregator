@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands\Dump;
 
+use App\Models\Collections\Asset;
+
 class DumpResources extends AbstractDumpCommand
 {
     protected $signature = 'dump:resources
@@ -32,7 +34,7 @@ class DumpResources extends AbstractDumpCommand
             $bar = $this->output->createProgressBar($resource['model']::count());
 
             foreach ($resource['model']::cursor() as $item) {
-                $filename = $relativeDumpPath . '/' . $item->getKey() . '.json';
+                $filename = $relativeDumpPath . '/' . $this->getItemId($item) . '.json';
                 $content = $resource['transformer']->transform($item);
 
                 $this->saveToJson($filename, $content);
@@ -43,6 +45,15 @@ class DumpResources extends AbstractDumpCommand
             $bar->finish();
             $this->output->newLine(1);
         });
+    }
+
+    private function getItemId($item)
+    {
+        if ($item instanceof Asset) {
+            return Asset::getHashedId($item->getKey());
+        }
+
+        return $item->getKey();
     }
 }
 
