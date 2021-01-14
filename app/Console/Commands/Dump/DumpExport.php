@@ -12,6 +12,7 @@ class DumpExport extends AbstractDumpCommand
 {
 
     protected $signature = 'dump:export
+                            {--reset : Remove everything in existing dump}
                             {--path= : Directory where to save dump, with `json` subdir }';
 
     protected $description = 'Create JSON dumps of all public endpoints';
@@ -21,7 +22,10 @@ class DumpExport extends AbstractDumpCommand
         $dumpPath = $this->getDumpPath('local/json');
 
         // Remove everything in this dump
-        $this->shell->passthru('rm -rf %s/*', $dumpPath);
+        if ($this->option('reset')) {
+            $this->warn('Removing everything in existing dump directory...');
+            $this->shell->passthru('rm -rf %s/*', $dumpPath);
+        }
 
         // Output config.json, which is the same for all models
         $configDocumentation = config('aic.config_documentation');
