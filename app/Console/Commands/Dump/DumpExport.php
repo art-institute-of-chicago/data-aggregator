@@ -12,12 +12,30 @@ class DumpExport extends AbstractDumpCommand
 
     public function handle()
     {
+        $endpoints = $this->getResources()->pluck('endpoint');
+
+        $endpoints->each(function($endpoint) {
+            $this->shell->unsafe(function($shell) use ($endpoint) {
+                return $shell->exec(
+                    'screen -S %s -X quit',
+                    'dump-' . $endpoint
+                );
+            });
+        });
+
         $this->call('dump:reset');
 
         $this->call('dump:config');
 
         $this->call('dump:info');
 
-        $this->call('dump:resources');
+        $endpoints->each(function($endpoint) {
+            $this->shell->exec(
+                'screen -S %s -dm php %s/artisan dump:resources --endpoint=%s',
+                'dump-' . $endpoint,
+                base_path(),
+                $endpoint
+            );
+        });
     }
 }
