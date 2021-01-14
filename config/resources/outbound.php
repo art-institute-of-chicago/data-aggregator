@@ -289,6 +289,7 @@ return [
             'endpoint' => 'wait-times',
             'model' => \App\Models\Queues\WaitTime::class,
             'transformer' => \App\Transformers\Outbound\Queues\WaitTime::class,
+            'no_dump' => true,
         ],
 
 
