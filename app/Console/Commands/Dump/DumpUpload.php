@@ -53,7 +53,7 @@ class DumpUpload extends AbstractDumpCommand
         $this->shell->passthru("for dir in %s/json/*; do
             if [ -d \$dir ]; then
                 mkdir %s/json/$(basename \$dir)
-                for file in $(ls -p \$dir | grep -v / | head -100); do
+                for file in $(ls -p \$dir | grep -v / | head -10); do
                     cp %s/json/$(basename \$dir)/\$file %s/json/$(basename \$dir)
                 done
             fi
