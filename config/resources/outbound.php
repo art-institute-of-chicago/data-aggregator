@@ -146,6 +146,7 @@ return [
             'model' => \App\Models\Collections\Asset::class,
             'transformer' => \App\Transformers\Outbound\Collections\Asset::class,
             'controller' => 'AssetController',
+            'no_dump' => true,
         ],
         [
             'endpoint' => 'images',
