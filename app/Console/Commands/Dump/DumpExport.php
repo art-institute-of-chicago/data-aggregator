@@ -12,6 +12,7 @@ class DumpExport extends AbstractDumpCommand
 {
 
     protected $signature = 'dump:export
+                            {endpoint? : Only export specific endpoint`}
                             {--reset : Remove everything in existing dump}
                             {--path= : Directory where to save dump, with `json` subdir }';
 
@@ -45,6 +46,17 @@ class DumpExport extends AbstractDumpCommand
                     'endpoint' => app('Resources')->getEndpointForModel($model),
                 ];
             });
+
+        if ($endpoint = $this->argument('endpoint')) {
+            $resources = $resources->filter(function($resource, $key) use ($endpoint) {
+                return $resource['endpoint'] === $endpoint;
+            });
+
+            if ($resources->count() < 1) {
+                $this->warn('No resources matched');
+                return;
+            }
+        }
 
         // Output info.json, which combines the info blocks for all models
         $infoBlocks = $resources
