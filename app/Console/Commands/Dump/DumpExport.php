@@ -30,30 +30,7 @@ class DumpExport extends AbstractDumpCommand
 
         $this->saveConfigDocs();
 
-        // Get all models for export, ignore category assignment
-        $models = $this->getModels()->keys();
-
-        // Instantiate a new transformer for each model class
-        $resources = $models
-            ->map(function($model) {
-                $transformerClass = app('Resources')->getTransformerForModel($model);
-                return [
-                    'model' => $model,
-                    'transformer' => new $transformerClass,
-                    'endpoint' => app('Resources')->getEndpointForModel($model),
-                ];
-            });
-
-        if ($endpoint = $this->argument('endpoint')) {
-            $resources = $resources->filter(function($resource, $key) use ($endpoint) {
-                return $resource['endpoint'] === $endpoint;
-            });
-
-            if ($resources->count() < 1) {
-                $this->warn('No resources matched');
-                return;
-            }
-        }
+        $resources = $this->getResources();
 
         $this->saveInfoBlocks($resources);
 
