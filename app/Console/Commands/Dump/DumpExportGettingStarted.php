@@ -19,6 +19,8 @@ class DumpExportGettingStarted extends AbstractDumpCommand
 
     public function handle()
     {
+        ini_set('memory_limit', '-1');
+
         // Get all models for export
         $model = \App\Models\Collections\Artwork::class;
 
@@ -33,7 +35,13 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         $transformer = app('Resources')->getTransformerForModel($model);
         $transformer = new $transformer;
 
-        $csv = $this->getNewWriter($filepath . '/someArtworks.csv', ['id', 'title', 'main_reference_number', 'department_title', 'artist_title']);
+        $csv = $this->getNewWriter($filepath . '/someArtworks.csv', [
+            'id',
+            'title',
+            'main_reference_number',
+            'department_title',
+            'artist_title',
+        ]);
 
         $model::addRestrictContentScopes();
 
@@ -42,6 +50,13 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         $bar = $this->output->createProgressBar($model::count());
 
         Storage::disk('dumps')->put('local/getting-started/allArtworks.jsonl', '');
+
+        $artworks = $model::query()
+            ->select('citi_id', 'title', 'main_id', 'department_id')
+            ->setEagerLoads([
+                'artistPivots',
+                'categories',
+            ]);
 
         // Loop through each record and dump its contents into a file
         foreach ($model::cursor() as $item) {
