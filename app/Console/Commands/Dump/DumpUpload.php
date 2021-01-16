@@ -43,22 +43,39 @@ class DumpUpload extends AbstractDumpCommand
 
         // Copy dumps of whitelisted tables and endpoints into the repo
         $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/getting-started', $repoPath . '/getting-started');
-        $this->shell->passthru("for file in %s/*; do
-            if [ -f \$file ]; then
-                cp %s/$(basename \$file) %s/
-            fi
-        done
+        $this->shell->passthru("
+            for file in %s/*; do
+                if [ -f \$file ]; then
+                    cp %s/$(basename \$file) %s/
+                fi
+            done
         ", $srcPath, $srcPath, $repoPath);
         $this->shell->passthru('mkdir %s', $repoPath . '/json');
-        $this->shell->passthru("for dir in %s/json/*; do
-            if [ -d \$dir ]; then
-                mkdir %s/json/$(basename \$dir)
-                for file in $(ls -p \$dir | grep -v / | head -10); do
-                    cp %s/json/$(basename \$dir)/\$file %s/json/$(basename \$dir)
-                done
-            fi
-        done
-        ", $srcPath, $repoPath, $srcPath, $repoPath);
+
+        $endpointResult = $this->shell->exec("
+            for DIR_SRC in %s/json/*; do
+                if [ -d \"\$DIR_SRC\" ]; then
+                    DIR_DEST=%s/json/$(basename \"\$DIR_SRC\")
+                    mkdir \"\$DIR_DEST\"
+                    echo \"\$(basename \"\$DIR_SRC\")\"
+                fi
+            done
+        ", $srcPath, $repoPath);
+
+        foreach ($endpointResult['output'] as $endpoint) {
+            // https://stackoverflow.com/questions/11296809/how-to-avoid-ls-write-error-broken-pipe-with-php-exec
+            $fileResult = $this->shell->exec('ls -p1 %s/json/%s | grep -v / | sort -n -k1 2>/dev/null | head -10', $srcPath, $endpoint);
+            foreach ($fileResult['output'] as $file) {
+                $this->shell->exec(
+                    'cp %s/json/%s/%s %s/json/%s',
+                    $srcPath,
+                    $endpoint,
+                    $file,
+                    $repoPath,
+                    $endpoint
+                );
+            }
+        }
 
         // Copy info.json and config.json
         $this->shell->passthru('cp %s %s', $srcPath . '/json/info.json', $repoPath . '/json/info.json');
