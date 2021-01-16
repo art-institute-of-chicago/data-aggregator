@@ -51,6 +51,8 @@ class DumpExportGettingStarted extends AbstractDumpCommand
 
         Storage::disk('dumps')->put('local/getting-started/allArtworks.jsonl', '');
 
+        $json = fopen(Storage::disk('dumps')->path('local/getting-started/allArtworks.jsonl'), 'a');
+
         $artworks = $model::query()
             ->select('citi_id', 'title', 'main_id', 'department_id')
             ->setEagerLoads([
@@ -61,13 +63,13 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         // Loop through each record and dump its contents into a file
         foreach ($model::cursor() as $item) {
             // JSON
-            Storage::disk('dumps')->append('local/getting-started/allArtworks.jsonl', json_encode([
+            fwrite($json, json_encode([
                 'id' => $item->citi_id,
                 'title' => $item->title,
                 'main_reference_number' => $item->main_id,
                 'department_title' => ($item->departments->first()->title ?? null),
                 'artist_title' => ($item->artist->title ?? null),
-            ]));
+            ]) . PHP_EOL);
 
             // CSV
             if ($item->isBoosted()) {
@@ -82,6 +84,9 @@ class DumpExportGettingStarted extends AbstractDumpCommand
 
             $bar->advance();
         }
+
+        fclose($json);
+
         $bar->finish();
         $this->output->newLine(1);
     }
