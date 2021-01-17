@@ -24,6 +24,8 @@ The [json](json) folder contains a number of subfolders, each of which represent
 
 Please consult our [API documentation](https://api.artic.edu/docs) for more information about fields and endpoints.
 
+The `json` folder also contains [config.json](json/config.json) and [info.json](json/info.json). These files contain the `config` and `info` blocks that are present at the bottom of each API response. The `config` block is the same for all API responses, but each endpoint has a unique `info` block. As such, `info.json` contains all of the info blocks, keyed by endpoint.
+
 The [getting-started](getting-started) folder contains smaller samples of our data, meant for users who might not want our entire dataset:
 
  * [allArtworks.jsonl](getting-started/allArtworks.jsonl) contains all of our artworks with a few key fields in [JSONL](http://jsonlines.org/) format.
