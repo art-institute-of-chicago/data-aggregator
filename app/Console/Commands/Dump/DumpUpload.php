@@ -97,6 +97,9 @@ class DumpUpload extends AbstractDumpCommand
 
         $this->shell->passthru('git -C %s push --set-upstream origin master %s', $repoPath, '--force');
 
+        // takes about 1 min 45 sec
+        $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/json', $repoPath . '/json');
+
         $archiveName = 'artic-api-data';
         $archiveFile = $archiveName . '.tar.bz2';
         $archivePath = $this->getDumpPath($archiveFile);
