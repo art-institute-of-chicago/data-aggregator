@@ -88,7 +88,6 @@ class Artwork extends BaseTransformer
                         'type' => 'object',
                         'properties' => [
                             'url' => ['type' => 'keyword'],
-                            'type' => ['type' => 'keyword'],
                             'lqip' => ['enabled' => false],
                             'width' => ['type' => 'integer'],
                             'height' => ['type' => 'integer'],
@@ -99,7 +98,6 @@ class Artwork extends BaseTransformer
                 'value' => function ($item) {
                     return !$item->thumbnail ? null : [
                         'url' => $item->thumbnail->iiif_url ?? null,
-                        'type' => 'iiif',
                         'lqip' => $item->thumbnail->metadata->lqip ?? null,
                         'width' => $item->thumbnail->width ?? null,
                         'height' => $item->thumbnail->height ?? null,
