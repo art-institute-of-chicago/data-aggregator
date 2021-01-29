@@ -22,7 +22,7 @@ class Product extends BaseTransformer
                 'value' => function ($item) {
                     return $item->active;
                 },
-                'is_restricted' => true,
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
             'parent_id' => [
                 'doc' => 'Unique identifier of this product\'s parent',
@@ -38,7 +38,7 @@ class Product extends BaseTransformer
                 'doc' => 'Numeric product identification code of a machine-readable barcode',
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
-                'is_restricted' => true,
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
             'external_sku' => [
                 'doc' => 'Numeric product identification code of a machine-readable barcode, when the customer sku differs from our internal one',
@@ -70,7 +70,7 @@ class Product extends BaseTransformer
                 'doc' => 'Used for sorting in the shop\'s website, specifically in the \'Featured\' sort mode, which is the default. This sort mode is two-part: first, items are sorted by their `priority` ascending; then as a secondary step, items are sorted by the number of items sold, descending.',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
-                'is_restricted' => true,
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
             'price' => [
                 'doc' => 'Number indicating how much the product costs the customer',

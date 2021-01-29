@@ -33,7 +33,7 @@ class ReportRestricted extends BaseCommand
         $resources
             ->whereNotIn('is_restricted', $restrictedEndpoints)
             ->each(function($resource) {
-                $transformer = new $resource['transformer'];
+                $transformer = new $resource['transformer'](null, false);
                 $restrictedFields = collect($transformer->getMappedFields())
                     ->map(function($item, $key) {
                         if ($item['is_restricted'] ?? false) {

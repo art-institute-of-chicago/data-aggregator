@@ -42,13 +42,28 @@ abstract class AbstractTransformer extends BaseTransformer
     private $isRestricted;
 
     /**
+     * Whether this is for a dump.
+     *
+     * @var boolean
+     */
+    private $isDump;
+
+    /**
+     * Assign this to `is_restricted` to show field in API, but not dump.
+     *
+     * @var integer
+     */
+    const RESTRICTED_IN_DUMP = -1;
+
+    /**
      * Be sure to call parent::__construct() if you overwrite this.
      * Otherwise, you will lose field-filtering functionality.
      */
-    public function __construct($requestedFields = null)
+    public function __construct($requestedFields = null, $isDump = false)
     {
         $this->requestedFields = $this->getRequestedFields($requestedFields);
         $this->isRestricted = Gate::denies('restricted-access');
+        $this->isDump = $isDump;
     }
 
     /**
@@ -384,7 +399,19 @@ abstract class AbstractTransformer extends BaseTransformer
     private function restrictFields($fields)
     {
         return array_filter($fields, function ($array) {
-            return !array_key_exists('is_restricted', $array) || $array['is_restricted'] === false;
+            if (!array_key_exists('is_restricted', $array)) {
+                return true;
+            }
+
+            if ($this->isDump && $array['is_restricted'] === self::RESTRICTED_IN_DUMP) {
+                return false;
+            }
+
+            if ($array['is_restricted'] === true) {
+                return false;
+            }
+
+            return true;
         });
     }
 }

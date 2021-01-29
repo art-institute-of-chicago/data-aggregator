@@ -49,7 +49,7 @@ class Event extends BaseTransformer
                 'doc' => 'Whether the event is published on the website',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-                'is_restricted' => true,
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
 
             'image_url' => [
@@ -165,7 +165,7 @@ class Event extends BaseTransformer
                 'value' => function ($item) {
                     return $item->ticketedEvent->membership_id ?? null;
                 },
-                'is_restricted' => true,
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
             'rsvp_link' => [
                 'doc' => 'The URL to the sales site for this event',
@@ -209,7 +209,7 @@ class Event extends BaseTransformer
                 'doc' => 'Whether the event is private',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-                'is_restricted' => true,
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
             'is_admission_required' => [
                 'doc' => 'Whether admission to the museum is required to attend this event',
@@ -230,13 +230,13 @@ class Event extends BaseTransformer
                 'doc' => 'URL to the virtual event',
                 'type' => 'string',
                 'elasticsearch' => 'text',
-                'is_restricted' => true,
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
             'virtual_event_passcode' => [
                 'doc' => 'Passcode to access the virtual event',
                 'type' => 'string',
                 'elasticsearch' => 'text',
-                'is_restricted' => true,
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
             'start_date' => [
                 'doc' => 'The date the event begins',
@@ -325,7 +325,7 @@ class Event extends BaseTransformer
                 'doc' => 'Email addresses to target for email series tests',
                 'type' => 'array',
                 'elasticsearch' => 'text',
-                'is_restricted' => true,
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
         ];
     }
