@@ -145,6 +145,8 @@ class BaseTransformer extends AbstractTransformer
 
         // Sync many-to-many relationships
         foreach ($relations as $relation => $ids) {
+            // WEB-1626: Ensure order matches source
+            $instance->{$relation}()->sync([]);
             $instance->{$relation}()->sync($ids);
         }
 
