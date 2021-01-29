@@ -356,11 +356,15 @@ abstract class AbstractTransformer extends BaseTransformer
             $this->getIds(),
             $this->getSearchFields(),
             $this->getTitles(),
-            ($this->isRestricted ? $this->restrictFields($this->getFields()) : $this->getFields()),
-            ($this->isRestricted ? $this->restrictFields($this->getTraitFields()) : $this->getTraitFields()),
+            $this->getFields(),
+            $this->getTraitFields(),
             $this->getSuggestFields(),
             $this->getDates()
         );
+
+        if ($this->isRestricted) {
+            $mappedFields = $this->restrictFields($mappedFields);
+        }
 
         if (isset($this->requestedFields)) {
             $mappedFields = array_intersect_key($mappedFields, array_flip($this->requestedFields));
