@@ -81,12 +81,13 @@ class Artwork extends BaseTransformer
              * TODO: Abstract thumbnail to trait?
              */
             'thumbnail' => [
-                'doc' => 'Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.',
+                'doc' => 'Metadata about the image referenced by `image_id`. Currently, all thumbnails are IIIF images. Note that `url` is a deprecated field: you must build your own image URLs using IIIF Image API conventions. See our API documentation for more details.',
                 'type' => 'array',
                 'elasticsearch' => [
                     'mapping' => [
                         'type' => 'object',
                         'properties' => [
+                            'url' => ['type' => 'keyword'],
                             'lqip' => ['enabled' => false],
                             'width' => ['type' => 'integer'],
                             'height' => ['type' => 'integer'],
@@ -96,6 +97,7 @@ class Artwork extends BaseTransformer
                 ],
                 'value' => function ($item) {
                     return !$item->thumbnail ? null : [
+                        'url' => null,
                         'lqip' => $item->thumbnail->metadata->lqip ?? null,
                         'width' => $item->thumbnail->width ?? null,
                         'height' => $item->thumbnail->height ?? null,
