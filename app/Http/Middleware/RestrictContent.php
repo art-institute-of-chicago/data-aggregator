@@ -50,7 +50,9 @@ class RestrictContent
             'sponsors',
             'static-pages',
             'web-exhibitions',
-            'events',
+
+            // WEB-1929: Re-enable restriction when ready!
+            // 'events',
         ])) {
             $restrictions = array_merge($restrictions, PublishedScope::forSearch());
         }
