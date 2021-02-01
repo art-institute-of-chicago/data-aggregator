@@ -46,7 +46,8 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\DecodeParams::class,
             'bindings',
             'auth:api',
-            'throttle',
+            // WEB-1929: Enable throttling when ready!
+            // 'throttle',
             'restrict',
         ],
     ];
