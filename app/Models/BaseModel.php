@@ -130,7 +130,7 @@ class BaseModel extends AbstractModel
         return new BelongsToManyOrOne($query, $parent, $table, $foreignPivotKey, $relatedPivotKey, $parentKey, $relatedKey, $relationName);
     }
 
-    public static function addRestrictContentScopes()
+    public static function addRestrictContentScopes($isDump = false)
     {
         Article::addGlobalScope(new PublishedScope);
         DigitalCatalog::addGlobalScope(new PublishedScope);
@@ -142,9 +142,12 @@ class BaseModel extends AbstractModel
         Sponsor::addGlobalScope(new PublishedScope);
         StaticPage::addGlobalScope(new PublishedScope);
         WebExhibition::addGlobalScope(new PublishedScope);
-        Event::addGlobalScope(new PublishedScope);
-        EventOccurrence::addGlobalScope(new PublishedScope);
-        Product::addGlobalScope(new PublishedScope);
+
+        if ($isDump) {
+            Event::addGlobalScope(new PublishedScope);
+            EventOccurrence::addGlobalScope(new PublishedScope);
+            Product::addGlobalScope(new PublishedScope);
+        }
 
         Exhibition::addGlobalScope('is-web-exhibition-published', function (Builder $builder) {
             // Show all past exhibitions, accounting for some of the funky ways we've catalogued exhibitions in the past

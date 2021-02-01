@@ -21,7 +21,7 @@ class DumpResources extends AbstractDumpCommand
         $resources = $this->getResources();
 
         $resources->each(function($resource) {
-            $resource['model']::addRestrictContentScopes();
+            $resource['model']::addRestrictContentScopes(true);
 
             $relativeDumpPath = 'local/json/' . $resource['endpoint'];
             $absoluteDumpPath = $this->getDumpPath($relativeDumpPath);

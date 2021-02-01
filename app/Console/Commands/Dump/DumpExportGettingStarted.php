@@ -43,7 +43,7 @@ class DumpExportGettingStarted extends AbstractDumpCommand
             'artist_title',
         ]);
 
-        $model::addRestrictContentScopes();
+        $model::addRestrictContentScopes(true);
 
         // Give feedback to the user
         $this->info('Getting started on artworks');
