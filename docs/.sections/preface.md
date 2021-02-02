@@ -160,7 +160,7 @@ Here are some tips that will make your application run faster and/or reduce load
 
 - Batch search queries with [multi-search](#multi-search) (`/msearch`).
 
-- When downloading images, use `/full/843,/0/default.jpg` parameters.
+- When [downloading images](#images), use `/full/843,/0/default.jpg` parameters.
 
 - When scraping, please use a single thread and self-throttle.
 
@@ -194,13 +194,186 @@ Use our API if the following fits your use case:
 - You need real-time access to our data.
 
 
-### Scraping
+### Scraping Data
 
 Generally, we ask that you avoid extensive scraping of our API. The API is meant for direct integration into websites and applications. The data dumps are meant for backups and analysis. Scraping our API puts undue stress on our systems. Instead of scraping, please download the data dumps and filter them locally to obtain the data you need.
 
 That said, we don't mind small-scale scraping of our API. It can be convenient to use our search endpoint to filter records and retrieve only the fields you need. You can even use the [aggregation](#aggregations) functionality of our search endpoints to run some simple analyses. Just remember that you cannot paginate beyond 10,000 results in our search endpoints (see [Pagination](#pagination)).
 
 If you do decide to scrape our resources, please throttle your requests to no more than one per second and avoid running multiple scrapers in parallel.
+
+
+
+## Images
+
+This API does not contain image files. However, it does contain all of the data you need to access our images. Our institution serves images via a separate API that is compliant with the [IIIF Image API 2.0](https://iiif.io/api/image/2.0/) specification. Using metadata from this API, you can craft URLs that will allow you to access the same images used by our website and other internal applications.
+
+The [International Image Interoperability Framework (IIIF)](https://iiif.io/) stewards a set of open standards that enables rich access to digital media from libraries, archives, museums, and other cultural institutions around the world. In practical terms, they define several API specifications that enable interoperability. When a tool is built to be IIIF-compliant, it's easier to adapt it to consume images from other institutions that offer IIIF-compliant APIs.
+
+
+### IIIF Image API
+
+We deliver our images via the [IIIF Image API 2.0](https://iiif.io/api/image/2.0/). Our IIIF URLs have the following structure:
+
+```
+https://www.artic.edu/iiif/2/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
+```
+
+The one we recommend for most use-cases is as follows:
+
+```
+https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
+```
+
+Let's jump right into an example. Here's how you can construct IIIF URLs:
+
+ 1. Retrieve one or more artworks with `image_id` fields. Here are a few ways of doing so:
+
+    ```
+    # La Grande Jatte
+    https://api.artic.edu/api/v1/artworks/27992?fields=id,title,image_id
+
+    # La Grande Jatte and The Bedroom
+    https://api.artic.edu/api/v1/artworks?ids=27992,28560&fields=id,title,image_id
+
+    # Top two public domain artworks
+    https://api.artic.edu/api/v1/artworks/search?query[term][is_public_domain]=true&limit=2&fields=id,title,image_id
+    ```
+
+    Let's go with the first one, [_La Grande Jatte_](https://www.artic.edu/artworks/27992/a-sunday-on-la-grande-jatte-1884). Your response will look something like this:
+
+    ```
+    {
+        "data": {
+            "id": 27992,
+            "title": "A Sunday on La Grande Jatte — 1884",
+            "image_id": "1adf2696-8489-499b-cad2-821d7fde4b33"
+        },
+        "config": {
+            "iiif_url": "https://www.artic.edu/iiif/2",
+        }
+    }
+    ```
+
+ 2. Take the value of the `config.iiif_url` field. This is the base IIIF Image API endpoint:
+
+    ```
+    https://www.artic.edu/iiif/2
+    ```
+
+    We recommend that you avoid hardcoding this value into your applications.
+
+ 3. Append the `image_id` of the artwork as a segment to this URL:
+
+    ```
+    https://www.artic.edu/iiif/2/1adf2696-8489-499b-cad2-821d7fde4b33
+    ```
+
+ 4. Append `/full/843,/0/default.jpg` to the URL:
+
+    ```
+    https://www.artic.edu/iiif/2/1adf2696-8489-499b-cad2-821d7fde4b33/full/843,/0/default.jpg
+    ```
+
+That's it! This is a valid IIIF URL. It will return the same image as we use on our website:
+
+![La Grande Jatte](https://www.artic.edu/iiif/2/1adf2696-8489-499b-cad2-821d7fde4b33/full/843,/0/default.jpg)
+
+Some artworks also have `alt_image_ids`, such as the [Coronation Stone of Motecuhzoma II](https://www.artic.edu/artworks/75644/coronation-stone-of-motecuhzoma-ii-stone-of-the-five-suns):
+
+```
+https://api.artic.edu/api/v1/artworks/75644?fields=id,title,image_id,alt_image_ids
+```
+
+Exhibitions have images, too:
+
+```
+https://api.artic.edu/api/v1/exhibitions/4568?fields=id,title,image_id,alt_image_ids
+```
+
+
+### Image Sizes
+
+The [IIIF Image API 2.0](https://iiif.io/api/image/2.0/) has a lot of options. However, we prefer to use it conservatively. As mentioned above, here's the URL pattern we use for most projects:
+
+```
+https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
+```
+
+We recommend using `/full/843,/0/default.jpg` because doing so increases the chance of a cache hit. This is the most common size used by our website, so there's a good chance that the image has previously been requested and cached. If you use this pattern in your projects, it will make images load faster in your application and decrease load on our systems.
+
+::: tip
+We don't mind it if you hotlink to our images. Our images support CORS with `Access-Control-Allow-Origin: *` headers—same as our API responses! However, please be aware that any image can get unpublished or replaced at any time.
+:::
+
+If you'd like to display the full image at smaller sizes, we recommend the following patterns:
+
+```
+https://www.artic.edu/iiif/2/{identifier}/full/200,/0/default.jpg
+https://www.artic.edu/iiif/2/{identifier}/full/400,/0/default.jpg
+https://www.artic.edu/iiif/2/{identifier}/full/600,/0/default.jpg
+https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
+```
+
+If you are accessing public domain images, you may also use the following pattern:
+
+```
+https://www.artic.edu/iiif/2/{identifier}/full/1686,/0/default.jpg
+```
+
+However, we still recommend using `843,` instead unless there's a clear need for `1686,`.
+
+Why the strange number—843px wide? This number is related to certain [guidelines for the use of copyrighted materials](https://aamd.org/sites/default/files/document/Guidelines%20for%20the%20Use%20of%20Copyrighted%20Materials.pdf) within the museum field. Over time, it became the most common dimension used by our applications, so it is the size we continue to recommend.
+
+
+### IIIF Manifests
+
+We also offer IIIF Manifest for all of our public domain artworks. A manifest a resource defined by the [IIIF Presentation API](https://iiif.io/api/presentation/2.0/). Each manifest contains artwork metadata—such as title, artist name, and copyright info—alongside a list of images associated with that artwork.
+
+You can access the manifest by appending `/manifest.json` after the artwork identifier. For example, here is the manifest for [The Great Wave](https://www.artic.edu/artworks/24645/under-the-wave-off-kanagawa-kanagawa-oki-nami-ura-also-known-as-the-great-wave-from-the-series-thirty-six-views-of-mount-fuji-fugaku-sanjurokkei):
+
+```
+https://api.artic.edu/api/v1/artworks/24645/manifest.json
+```
+
+These IIIF manifests do not contain any data that cannot be found elsewhere in our API. But because they follow a standardized API, they can be used with IIIF-compliant tools, such as [Mirador](https://projectmirador.org/). For a fun example, try pasting the URL above into the [Getty's Animal Crossing Art Generator](https://experiments.getty.edu/ac-art-generator#iiifloader)—and scroll up to see the result!
+
+
+### Image Dumps
+
+Unfortunately, we cannot offer image dumps at this time. We are exploring that possibility.
+
+For now, you may scrape images from our IIIF Image API. We ask that you please follow our guidelines for [scraping images](https://iiif.io/api/presentation/2.0/) if you decide to do so.
+
+
+### Scraping Images
+
+Generally, we prefer that you hotlink to our images, rather than scraping them. Scraping images can put unnecessary strain on our systems. That said, we understand that many use-cases require images to be stored locally.
+
+If you'd like to scrape images from our IIIF API, please follow these guidelines:
+
+ * Scrape one image at a time—do not use multiple threads or processes!
+ * Consider adding a small delay between each image download
+ * Use the following URL pattern to download our [most common image size](image-sizes):
+   ```
+   https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
+   ``` 
+
+
+### Copyright
+
+For information about copyright, please see the [Image Licensing](https://www.artic.edu/image-licensing) and [Terms](https://www.artic.edu/terms) pages on our website. We defer to those resources in all legal respects.
+
+From a developer's perspective, we recommend only using images from artworks that are tagged as public domain. When querying for artworks, you can filter by public domain status like so:
+
+```
+https://api.artic.edu/api/v1/artworks/search?query[term][is_public_domain]=true&limit=0
+```
+
+To get the full list of artworks that are in the public domain, you will need to download our [data dumps](#data-dumps) and perform the filtering locally.
+
+Please note that you may encounter images that are not public domain via our [IIIF Image API](#iiif-image-api). It is up to you to determine whether or not you are allowed to use these images for your use-case and to obtain any necessary permissions.
+
 
 
 ## General Information
