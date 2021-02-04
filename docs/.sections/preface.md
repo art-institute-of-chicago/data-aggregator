@@ -328,9 +328,9 @@ Why the strange number—843px wide? This number is related to certain [guidelin
 
 ### IIIF Manifests
 
-We also offer IIIF Manifest for all of our public domain artworks. A manifest is a resource defined by the [IIIF Presentation API](https://iiif.io/api/presentation/2.0/). Each manifest contains artwork metadata—such as title, artist name, and copyright info—alongside a list of images associated with that artwork.
+We also offer IIIF Manifests for all of our public domain artworks. A manifest is a resource defined by the [IIIF Presentation API](https://iiif.io/api/presentation/2.0/). Each manifest contains artwork metadata—such as title, artist name, and copyright info—alongside a list of images associated with that artwork.
 
-You can access the manifest by appending `/manifest.json` after the artwork identifier. For example, here is the manifest for [The Great Wave](https://www.artic.edu/artworks/24645/under-the-wave-off-kanagawa-kanagawa-oki-nami-ura-also-known-as-the-great-wave-from-the-series-thirty-six-views-of-mount-fuji-fugaku-sanjurokkei):
+You can access the manifest by appending `/manifest.json` after the identifier in an artwork detail endpoint. For example, here is the manifest for [The Great Wave](https://www.artic.edu/artworks/24645/under-the-wave-off-kanagawa-kanagawa-oki-nami-ura-also-known-as-the-great-wave-from-the-series-thirty-six-views-of-mount-fuji-fugaku-sanjurokkei):
 
 ```
 https://api.artic.edu/api/v1/artworks/24645/manifest.json
