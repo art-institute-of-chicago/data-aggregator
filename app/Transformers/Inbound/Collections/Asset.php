@@ -31,6 +31,7 @@ class Asset extends CollectionsTransformer
         return [
             'metadata' => (object) [
                 'color' => $datum->color,
+                'lqip' => $datum->lqip,
             ],
         ];
     }
