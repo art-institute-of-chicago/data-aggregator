@@ -25,11 +25,8 @@ class Exhibition extends CollectionsTransformer
     {
         $out = [
             'artworks' => $datum->all('artwork_ids'),
+            'assets' => $this->getSyncAssets($datum),
         ];
-
-        if (env('IMPORT_ASSET_RELATIONSHIPS_FROM_CITI', false)) {
-            $out['assets'] = $this->getSyncAssets($datum);
-        }
 
         return $out;
     }

@@ -16,16 +16,6 @@ class Asset extends CollectionsTransformer
         ];
     }
 
-    // Unfortunately, NetX does not provide this data:
-    // protected function getDates(Datum $datum)
-    // {
-    //     $dates = parent::getDates($datum);
-
-    //     return array_merge($dates, [
-    //         'content_modified_at' => $datum->date('content_modified_at'),
-    //     ]);
-    // }
-
     protected function getExtraFields(Datum $datum)
     {
         return [
@@ -39,27 +29,5 @@ class Asset extends CollectionsTransformer
                 'lqip' => $datum->lqip,
             ],
         ];
-    }
-
-    protected function getSync(Datum $datum, $test = false)
-    {
-        return env('IMPORT_ASSET_RELATIONSHIPS_FROM_CITI', false) ? [] : [
-            'imagedArtworks' => $this->getSyncAssetOf($datum, 'rep_of_artworks'),
-            'imagedExhibitions' => $this->getSyncAssetOf($datum, 'rep_of_exhibitions'),
-            'documentedArtworks' => $this->getSyncAssetOf($datum, 'doc_of_artworks'),
-            'documentedExhibitions' => $this->getSyncAssetOf($datum, 'doc_of_exhibitions'),
-        ];
-    }
-
-    private function getSyncAssetOf(Datum $datum, string $pivot_field)
-    {
-        return $this->getSyncPivots($datum, $pivot_field, 'related_id', function ($pivot) {
-            return [
-                $pivot->related_id => [
-                    'preferred' => $pivot->is_preferred,
-                    'is_doc' => $pivot->is_doc,
-                ],
-            ];
-        });
     }
 }

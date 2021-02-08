@@ -55,7 +55,7 @@ class ImportAssetsFull extends AbstractImportCommand
      */
     protected function query($endpoint, $page = 1, $limit = 500)
     {
-        $limit = env('IMPORT_ASSET_RELATIONSHIPS_FROM_CITI') ? 1000 : 10;
+        $limit = 1000;
 
         return parent::query($endpoint, $page, $limit);
     }

@@ -57,11 +57,9 @@ class Artwork extends CollectionsTransformer
             'artists' => $this->getSyncArtists($datum),
             'places' => $this->getSyncPlaces($datum),
             'catalogues' => $this->getSyncCatalogues($datum),
-        ];
 
-        if (env('IMPORT_ASSET_RELATIONSHIPS_FROM_CITI', false)) {
-            $out['assets'] = $this->getSyncAssets($datum);
-        }
+            'assets' => $this->getSyncAssets($datum),
+        ];
 
         return $out;
     }
