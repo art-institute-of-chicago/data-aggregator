@@ -30,6 +30,11 @@ class Asset extends CollectionsTransformer
     {
         return [
             'metadata' => (object) [
+                'ahash' => $datum->ahash,
+                'phash' => $datum->phash,
+                'dhash' => $datum->dhash,
+                'whash' => $datum->whash,
+                'colorfulness' => round((float) $datum->colorfulness, 4),
                 'color' => $datum->color,
                 'lqip' => $datum->lqip,
             ],
