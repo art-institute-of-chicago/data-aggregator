@@ -26,7 +26,6 @@ class ImportAllCommand extends BaseCommand
         $this->call('import:sites', ['--yes' => 'default']);
         $this->call('import:ulan');
         $this->call('import:products-full', ['--yes' => 'default']);
-        $this->call('import:images');
         $this->call('import:analytics');
         $this->call('import:web-full', ['--yes' => 'default']);
     }

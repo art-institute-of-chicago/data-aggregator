@@ -81,7 +81,6 @@ class BulkAll extends BaseCommand
             'import:sites',
             'import:ulan',
             'import:products',
-            'import:images',
             'import:analytics',
             'import:web',
             'delete:assets',
