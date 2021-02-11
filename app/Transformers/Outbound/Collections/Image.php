@@ -101,7 +101,12 @@ class Image extends BaseTransformer
                     ],
                 ],
                 'value' => function ($item) {
-                    return $item->metadata->fingerprint ?? null;
+                    return array_filter([
+                        'ahash' => $item->metadata->ahash ?? null,
+                        'dhash' => $item->metadata->dhash ?? null,
+                        'phash' => $item->metadata->phash ?? null,
+                        'whash' => $item->metadata->whash ?? null,
+                    ]) ?: null;
                 },
             ],
         ];
