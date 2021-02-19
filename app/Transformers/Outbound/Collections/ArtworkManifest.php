@@ -81,12 +81,23 @@ class ArtworkManifest extends BaseTransformer
     {
         $imageUuid = Asset::getHashedId($image->lake_guid);
 
+        // TODO: Should this be 1686 for public domain?
+        if (isset($image->width) && isset($image->height)) {
+            $width = 843;
+            $height = round(843 / $image->width * $image->height);
+        } else {
+            $width = null;
+            $height = null;
+        }
+
+        $full = '843,';
+
         return [
             '@type' => 'sc:Canvas',
             '@id' => config('aic.config_documentation.iiif_url') . '/' . $imageUuid,
             'label' => strip_tags($model->title.', '.$model->date_display.'. '.str_replace("\n", ', ', $model->artist_display)),
-            'width' => $image->width,
-            'height' => $image->height,
+            'width' => $width,
+            'height' => $height,
             'images' => [
                 [
                     '@type' => 'oa:Annotation',
@@ -94,9 +105,9 @@ class ArtworkManifest extends BaseTransformer
                     'on' => config('aic.config_documentation.iiif_url') . '/' . $imageUuid,
                     'resource' => [
                         '@type' => 'dctypes:Image',
-                        '@id' => config('aic.config_documentation.iiif_url') . '/' . $imageUuid . '/full/full/0/default.jpg',
-                        'width' => $image->width,
-                        'height' => $image->height,
+                        '@id' => config('aic.config_documentation.iiif_url') . '/' . $imageUuid . '/full/' . $full . '/0/default.jpg',
+                        'width' => $width,
+                        'height' => $height,
                         'service' => [
                             '@context' => 'http://iiif.io/api/image/2/context.json',
                             '@id' => config('aic.config_documentation.iiif_url') . '/' . $imageUuid,
