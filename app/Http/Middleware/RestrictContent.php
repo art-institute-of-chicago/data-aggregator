@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 use App\Models\BaseModel;
+use App\Scopes\PublishedScope;
 
 class RestrictContent
 {
