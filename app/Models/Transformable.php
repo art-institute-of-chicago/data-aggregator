@@ -9,7 +9,8 @@ trait Transformable
     {
         $transformer = app('Resources')->getTransformerForModel(get_called_class());
 
-        return (new $transformer())->transform($this);
+        // WEB-1953: Set $isRestricted to false here; index all fields
+        return (new $transformer(null, false, false))->transform($this);
     }
 
     /**

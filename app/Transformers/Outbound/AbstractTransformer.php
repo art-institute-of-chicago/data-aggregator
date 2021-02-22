@@ -58,11 +58,13 @@ abstract class AbstractTransformer extends BaseTransformer
     /**
      * Be sure to call parent::__construct() if you overwrite this.
      * Otherwise, you will lose field-filtering functionality.
+     *
+     * WEB-1953: Search indexing sets `$isRestricted` to false.
      */
-    public function __construct($requestedFields = null, $isDump = false)
+    public function __construct($requestedFields = null, $isDump = false, $isRestricted = null)
     {
         $this->requestedFields = $this->getRequestedFields($requestedFields);
-        $this->isRestricted = Gate::denies('restricted-access');
+        $this->isRestricted = $isRestricted ?? Gate::denies('restricted-access');
         $this->isDump = $isDump;
     }
 
