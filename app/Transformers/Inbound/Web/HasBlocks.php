@@ -12,7 +12,18 @@ trait HasBlocks
 
     protected function getExtraFields(Datum $datum)
     {
-        $blocks = $this->getBlocks($datum);
+        // Articles use `copy`, but pages use `content`
+        $contents = $datum->copy ?? $datum->content ?? [];
+
+        // Digital publications provide a ready-made string
+        if (is_string($contents)) {
+            return [
+                'copy' => $contents,
+                'imgix_uuid' => null,
+            ];
+        }
+
+        $blocks = $this->getBlocks($contents);
 
         return [
             'copy' => $this->getCopy($blocks),
@@ -25,13 +36,10 @@ trait HasBlocks
      *
      * @return \Illuminate\Support\Collection
      */
-    private function getBlocks(Datum $datum)
+    private function getBlocks(array $contents)
     {
-        // Articles use `copy`, but pages use `content`
-        $field = $datum->copy ?? $datum->content ?? [];
-
         // Ensure blocks are sorted by their position
-        $blocks = Arr::sort($field, function ($block) {
+        $blocks = Arr::sort($contents, function ($block) {
             return $block->position;
         });
 
