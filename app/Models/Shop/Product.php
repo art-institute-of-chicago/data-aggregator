@@ -17,14 +17,4 @@ class Product extends ShopModel
     {
         return $this->belongsToMany('App\Models\Collections\Agent', 'artist_product');
     }
-
-    /**
-     * Returns web link to the product
-     *
-     * @return string
-     */
-    public function getWebUrlAttribute()
-    {
-        return env('PRODUCT_URL') . $this->shop_id;
-    }
 }

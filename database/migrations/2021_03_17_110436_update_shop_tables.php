@@ -31,6 +31,10 @@ class UpdateShopTables extends Migration
                 'active',
             ]);
         });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->text('web_url')->nullable()->after('external_sku');
+        });
     }
 
     /**
@@ -48,6 +52,12 @@ class UpdateShopTables extends Migration
             $table->timestamp('source_modified_at')->default(null)->nullable();
             $table->timestamp('created_at')->default(null)->nullable();
             $table->timestamp('updated_at')->default(null)->nullable()->index();
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn([
+                'web_url',
+            ]);
         });
 
         Schema::table('products', function (Blueprint $table) {
