@@ -14,6 +14,23 @@ class UpdateShopTables extends Migration
     public function up()
     {
         Schema::dropIfExists('shop_categories');
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn([
+                'title_sort',
+                'parent_id',
+                'category_id',
+                'sku',
+                'priority',
+                'price',
+                'aic_collection',
+                'gift_box',
+                'holiday',
+                'architecture',
+                'glass',
+                'active',
+            ]);
+        });
     }
 
     /**
@@ -31,6 +48,21 @@ class UpdateShopTables extends Migration
             $table->timestamp('source_modified_at')->default(null)->nullable();
             $table->timestamp('created_at')->default(null)->nullable();
             $table->timestamp('updated_at')->default(null)->nullable()->index();
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('title_sort')->nullable()->after('title');
+            $table->integer('parent_id')->nullable()->after('title_sort');
+            $table->integer('category_id')->nullable()->after('parent_id');
+            $table->string('sku')->nullable()->after('category_id');
+            $table->integer('priority')->nullable()->after('description');
+            $table->float('price')->nullable()->after('priority');
+            $table->boolean('aic_collection')->nullable()->after('price');
+            $table->integer('gift_box')->nullable()->after('aic_collection');
+            $table->boolean('holiday')->nullable()->after('gift_box');
+            $table->boolean('architecture')->nullable()->after('holiday');
+            $table->boolean('glass')->nullable()->after('architecture');
+            $table->boolean('active')->nullable()->after('glass');
         });
     }
 }

@@ -9,14 +9,7 @@ use App\Models\ShopModel;
  */
 class Product extends ShopModel
 {
-
     protected $casts = [
-        'aic_collection' => 'boolean',
-        'gift_box' => 'boolean',
-        'holiday' => 'boolean',
-        'architecture' => 'boolean',
-        'glass' => 'boolean',
-        'active' => 'boolean',
         'source_created_at' => 'datetime',
     ];
 
