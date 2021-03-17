@@ -11,6 +11,8 @@ class Product extends ShopTransformer
     {
         return [
             'artists' => $datum->artist_ids ?? [],
+            'artworks' => $datum->artwork_ids ?? [],
+            'exhibitions' => $datum->exhibition_ids ?? [],
         ];
     }
 }

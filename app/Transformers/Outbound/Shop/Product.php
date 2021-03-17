@@ -36,13 +36,30 @@ class Product extends BaseTransformer
                     'type' => 'text',
                 ],
             ],
+
             // TODO: Refactor relationships:
             'artist_ids' => [
-                'doc' => 'Unique identifiers of the artists represented in this item',
+                'doc' => 'Unique identifiers of the artists associated with this product',
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
                     return $item->artists->pluck('agent_citi_id');
+                },
+            ],
+            'artwork_ids' => [
+                'doc' => 'Unique identifiers of the artworks associated with this product',
+                'type' => 'array',
+                'elasticsearch' => 'integer',
+                'value' => function ($item) {
+                    return $item->artworks->pluck('artwork_citi_id');
+                },
+            ],
+            'exhibition_ids' => [
+                'doc' => 'Unique identifiers of the exhibitions associated with this product',
+                'type' => 'array',
+                'elasticsearch' => 'integer',
+                'value' => function ($item) {
+                    return $item->exhibitions->pluck('exhibition_citi_id');
                 },
             ],
         ];

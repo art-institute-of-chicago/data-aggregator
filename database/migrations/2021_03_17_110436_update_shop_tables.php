@@ -35,6 +35,18 @@ class UpdateShopTables extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->text('web_url')->nullable()->after('external_sku');
         });
+
+        Schema::create('artwork_product', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('artwork_citi_id')->index();
+            $table->integer('product_shop_id')->index();
+        });
+
+        Schema::create('exhibition_product', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('exhibition_citi_id')->index();
+            $table->integer('product_shop_id')->index();
+        });
     }
 
     /**
@@ -44,6 +56,9 @@ class UpdateShopTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('artwork_product');
+        Schema::dropIfExists('exhibition_product');
+
         Schema::create('shop_categories', function (Blueprint $table) {
             $table->integer('shop_id')->unsigned()->primary();
             $table->string('title');
