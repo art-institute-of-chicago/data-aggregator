@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Import;
 
 use App\Models\Shop\Product;
-use App\Models\Shop\Category;
 
 class ImportProductsFull extends AbstractImportCommand
 {
@@ -29,11 +28,9 @@ class ImportProductsFull extends AbstractImportCommand
         return $this->resetData(
             [
                 Product::class,
-                Category::class,
             ],
             [
                 'products',
-                'shop_categories',
             ]
         );
     }
@@ -41,6 +38,5 @@ class ImportProductsFull extends AbstractImportCommand
     protected function importResources()
     {
         $this->import('Shop', Product::class, 'products');
-        $this->import('Shop', Category::class, 'categories');
     }
 }
