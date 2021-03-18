@@ -33,7 +33,14 @@ class UpdateShopTables extends Migration
         });
 
         Schema::table('products', function (Blueprint $table) {
+            $table->text('title')->change();
+            $table->text('image_url')->change();
             $table->text('web_url')->nullable()->after('external_sku');
+            $table->text('price_display')->nullable()->after('description');
+            $table->float('min_compare_at_price')->nullable()->after('price_display');
+            $table->float('max_compare_at_price')->nullable()->after('min_compare_at_price');
+            $table->float('min_current_price')->nullable()->after('max_compare_at_price');
+            $table->float('max_current_price')->nullable()->after('min_current_price');
         });
 
         Schema::create('artwork_product', function (Blueprint $table) {
@@ -70,8 +77,15 @@ class UpdateShopTables extends Migration
         });
 
         Schema::table('products', function (Blueprint $table) {
+            $table->string('title')->change();
+            $table->string('image_url')->change();
             $table->dropColumn([
                 'web_url',
+                'price_display',
+                'min_compare_at_price',
+                'max_compare_at_price',
+                'min_current_price',
+                'max_current_price',
             ]);
         });
 

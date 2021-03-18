@@ -36,6 +36,48 @@ class Product extends BaseTransformer
                     'type' => 'text',
                 ],
             ],
+            'price_display' => [
+                'doc' => 'Explanation of what this product is',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+                'value' => function ($item) {
+                    $out = '<p>';
+
+                    if ($item->min_current_price < $item->max_current_price) {
+                        $out .=  'From ';
+                    }
+
+                    $out .= '$' . $item->min_current_price;
+
+                    if (isset($item->min_compare_at_price)) {
+                        $out .= ' <s>$' . $item->min_compare_at_price . '</s>';
+                    }
+
+                    $out .= '</p>';
+
+                    return $out;
+                },
+            ],
+            'min_compare_at_price' => [
+                'doc' => 'Number indicating how much the least expensive variant of a product cost before a sale',
+                'type' => 'number',
+                'elasticsearch' => 'float',
+            ],
+            'max_compare_at_price' => [
+                'doc' => 'Number indicating how much the most expensive variant of a product cost before a sale',
+                'type' => 'number',
+                'elasticsearch' => 'float',
+            ],
+            'min_current_price' => [
+                'doc' => 'Number indicating how much the least expensive variant of a product costs right now',
+                'type' => 'number',
+                'elasticsearch' => 'float',
+            ],
+            'max_current_price' => [
+                'doc' => 'Number indicating how much the most expensive variant of a product costs right now',
+                'type' => 'number',
+                'elasticsearch' => 'float',
+            ],
 
             // TODO: Refactor relationships:
             'artist_ids' => [
