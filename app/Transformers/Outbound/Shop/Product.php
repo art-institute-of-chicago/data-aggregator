@@ -44,6 +44,10 @@ class Product extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
                 'value' => function ($item) {
+                    if (!isset($item->min_current_price)) {
+                        return;
+                    }
+
                     $out = '<p>';
 
                     if ($item->min_current_price < $item->max_current_price) {
