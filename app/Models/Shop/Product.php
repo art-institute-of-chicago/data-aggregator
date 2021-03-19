@@ -9,14 +9,7 @@ use App\Models\ShopModel;
  */
 class Product extends ShopModel
 {
-
     protected $casts = [
-        'aic_collection' => 'boolean',
-        'gift_box' => 'boolean',
-        'holiday' => 'boolean',
-        'architecture' => 'boolean',
-        'glass' => 'boolean',
-        'active' => 'boolean',
         'source_created_at' => 'datetime',
     ];
 
@@ -25,13 +18,13 @@ class Product extends ShopModel
         return $this->belongsToMany('App\Models\Collections\Agent', 'artist_product');
     }
 
-    /**
-     * Returns web link to the product
-     *
-     * @return string
-     */
-    public function getWebUrlAttribute()
+    public function artworks()
     {
-        return env('PRODUCT_URL') . $this->shop_id;
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_product');
+    }
+
+    public function exhibitions()
+    {
+        return $this->belongsToMany('App\Models\Collections\Exhibition', 'exhibition_product');
     }
 }
