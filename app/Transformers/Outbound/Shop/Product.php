@@ -12,8 +12,8 @@ class Product extends BaseTransformer
         return [
             'external_sku' => [
                 'doc' => 'Numeric product identification code of a machine-readable barcode, when the customer sku differs from our internal one',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
             ],
             'image_url' => [
                 'doc' => 'URL of an image for this product',
