@@ -92,7 +92,7 @@ class Product extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artists->pluck('agent_citi_id');
+                    return $item->artists->pluck('citi_id');
                 },
             ],
             'artwork_ids' => [
@@ -100,7 +100,7 @@ class Product extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artworks->pluck('artwork_citi_id');
+                    return $item->artworks->pluck('citi_id');
                 },
             ],
             'exhibition_ids' => [
@@ -108,7 +108,7 @@ class Product extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->exhibitions->pluck('exhibition_citi_id');
+                    return $item->exhibitions->pluck('citi_id');
                 },
             ],
         ];
