@@ -58,7 +58,6 @@ return [
 
     'config_documentation' => [
         'iiif_url' => env('IIIF_URL', null),
-        'shop_image_url' => env('SHOP_IMGIX_URL', null),
         'website_url' => env('WEBSITE_URL', null),
     ],
 

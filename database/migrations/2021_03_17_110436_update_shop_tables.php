@@ -21,6 +21,7 @@ class UpdateShopTables extends Migration
                 'parent_id',
                 'category_id',
                 'sku',
+                'image_url',
                 'priority',
                 'price',
                 'aic_collection',
@@ -34,8 +35,6 @@ class UpdateShopTables extends Migration
 
         Schema::table('products', function (Blueprint $table) {
             $table->text('title')->change();
-            $table->text('image_url')->change();
-            $table->text('web_url')->nullable()->after('external_sku');
             $table->text('price_display')->nullable()->after('description');
             $table->float('min_compare_at_price')->nullable()->after('price_display');
             $table->float('max_compare_at_price')->nullable()->after('min_compare_at_price');
@@ -78,9 +77,7 @@ class UpdateShopTables extends Migration
 
         Schema::table('products', function (Blueprint $table) {
             $table->string('title')->change();
-            $table->string('image_url')->change();
             $table->dropColumn([
-                'web_url',
                 'price_display',
                 'min_compare_at_price',
                 'max_compare_at_price',
@@ -94,6 +91,7 @@ class UpdateShopTables extends Migration
             $table->integer('parent_id')->nullable()->after('title_sort');
             $table->integer('category_id')->nullable()->after('parent_id');
             $table->string('sku')->nullable()->after('category_id');
+            $table->string('image_url')->nullable()->after('external_sku');
             $table->integer('priority')->nullable()->after('description');
             $table->float('price')->nullable()->after('priority');
             $table->boolean('aic_collection')->nullable()->after('price');

@@ -20,13 +20,16 @@ class Product extends BaseTransformer
                 'type' => 'url',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return str_replace(env('SHOP_IMAGE_URL'), env('SHOP_IMGIX_URL'), $item->image_url);
+                    return env('SHOP_IMGIX_URL') . $item->external_sku . '_2.jpg';
                 },
             ],
             'web_url' => [
                 'doc' => 'URL of this product in the shop',
                 'type' => 'url',
                 'elasticsearch' => 'keyword',
+                'value' => function ($item) {
+                    return env('SHOP_PRODUCT_URL') . $item->external_sku;
+                },
             ],
             'description' => [
                 'doc' => 'Explanation of what this product is',
