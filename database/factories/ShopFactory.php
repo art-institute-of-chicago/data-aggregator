@@ -22,7 +22,6 @@ if (!function_exists('shopIdsAndTitle')) {
     function shopDates($faker)
     {
         return [
-            'source_created_at' => $faker->dateTimeThisYear,
             'source_modified_at' => $faker->dateTimeThisYear,
         ];
     }
@@ -37,18 +36,8 @@ $factory->define(App\Models\Shop\Product::class, function (Faker\Generator $fake
     return array_merge(
         shopIdsAndTitle($faker, $title),
         [
-            'sku' => $faker->ean8,
             'external_sku' => $faker->ean8,
-            'image_url' => $faker->imageUrl,
             'description' => $faker->paragraph(3),
-            'priority' => $faker->randomDigit,
-            'price' => $faker->randomFloat(2, 5, 300),
-            'aic_collection' => $faker->boolean,
-            'gift_box' => $faker->boolean,
-            'holiday' => $faker->boolean,
-            'architecture' => $faker->boolean,
-            'glass' => $faker->boolean,
-            'active' => true,
         ],
         shopDates($faker)
     );
