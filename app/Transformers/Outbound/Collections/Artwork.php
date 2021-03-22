@@ -736,7 +736,7 @@ class Artwork extends BaseTransformer
                     $ids = Arr::pluck($item->altImages, 'lake_guid');
 
                     if ($ids) {
-                        $ids = array_map(function($lake_guid) {
+                        $ids = array_map(function ($lake_guid) {
                             return Asset::getHashedId($lake_guid);
                         }, $ids);
                     }
@@ -749,7 +749,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->documents->pluck('lake_guid')->map(function($lake_guid) {
+                    return $item->documents->pluck('lake_guid')->map(function ($lake_guid) {
                         return Asset::getHashedId($lake_guid);
                     });
                 },
@@ -762,7 +762,7 @@ class Artwork extends BaseTransformer
                     $ids = Arr::pluck($item->sounds(), 'lake_guid') ?? null;
 
                     if ($ids) {
-                        return array_map(function($id) {
+                        return array_map(function ($id) {
                             return Asset::getHashedId($id);
                         }, $ids);
                     }
@@ -778,7 +778,7 @@ class Artwork extends BaseTransformer
                     $ids = Arr::pluck($item->videos(), 'lake_guid') ?? null;
 
                     if ($ids) {
-                        $ids = array_map(function($id) {
+                        $ids = array_map(function ($id) {
                             return Asset::getHashedId($id);
                         }, $ids);
                     }
@@ -794,7 +794,7 @@ class Artwork extends BaseTransformer
                     $ids = Arr::pluck($item->texts(), 'lake_guid') ?? null;
 
                     if ($ids) {
-                        $ids = array_map(function($id) {
+                        $ids = array_map(function ($id) {
                             return Asset::getHashedId($id);
                         }, $ids);
                     }

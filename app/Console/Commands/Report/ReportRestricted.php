@@ -14,7 +14,7 @@ class ReportRestricted extends BaseCommand
     public function handle()
     {
         $resources = collect(config('resources.outbound')['base'])
-            ->filter(function($resource) {
+            ->filter(function ($resource) {
                 return isset($resource['endpoint'])
                     && !isset($resource['alias_of']);
             });
@@ -24,7 +24,7 @@ class ReportRestricted extends BaseCommand
         $restrictedEndpoints = $resources
             ->where('is_restricted', true)
             ->pluck('endpoint')
-            ->each(function($endpoint) {
+            ->each(function ($endpoint) {
                 $this->info('    ' . $endpoint);
             });
 
@@ -32,10 +32,10 @@ class ReportRestricted extends BaseCommand
 
         $resources
             ->whereNotIn('is_restricted', $restrictedEndpoints)
-            ->each(function($resource) {
+            ->each(function ($resource) {
                 $transformer = new $resource['transformer'](null, false);
                 $restrictedFields = collect($transformer->getMappedFields())
-                    ->map(function($item, $key) {
+                    ->map(function ($item, $key) {
                         if ($item['is_restricted'] ?? false) {
                             return $key;
                         }
@@ -45,7 +45,7 @@ class ReportRestricted extends BaseCommand
 
                 if ($restrictedFields->count() > 0) {
                     $this->info('    ' . $resource['endpoint']);
-                    $restrictedFields->each(function($field) {
+                    $restrictedFields->each(function ($field) {
                         $this->info('        ' . $field);
                     });
                 }

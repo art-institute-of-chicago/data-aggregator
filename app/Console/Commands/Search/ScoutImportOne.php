@@ -26,8 +26,7 @@ class ScoutImportOne extends BaseCommand
                 ->orWhere('netx_uuid', $id)
                 ->first()
                 ->searchable();
-        }
-        else {
+        } else {
             $model::find($id)->searchable();
         }
 

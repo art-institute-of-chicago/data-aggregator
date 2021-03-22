@@ -14,7 +14,7 @@ class DumpInfo extends AbstractDumpCommand
 
         // Output info.json, which combines the info blocks for all models
         $infoBlocks = $resources
-            ->map(function($resource) {
+            ->map(function ($resource) {
                 return [
                     $resource['endpoint'] => $resource['transformer']->getInfoFields(),
                 ];

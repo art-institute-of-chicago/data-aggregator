@@ -27,7 +27,7 @@ abstract class AbstractDumpCommand extends BaseCommand
 
         // Instantiate a new transformer for each model class
         $resources = $models
-            ->map(function($model) {
+            ->map(function ($model) {
                 $transformerClass = app('Resources')->getTransformerForModel($model);
                 return [
                     'model' => $model,
@@ -37,7 +37,7 @@ abstract class AbstractDumpCommand extends BaseCommand
             });
 
         if ($this->hasOption('endpoint') && ($endpoint = $this->option('endpoint'))) {
-            $resources = $resources->filter(function($resource, $key) use ($endpoint) {
+            $resources = $resources->filter(function ($resource, $key) use ($endpoint) {
                 return $resource['endpoint'] === $endpoint;
             });
 

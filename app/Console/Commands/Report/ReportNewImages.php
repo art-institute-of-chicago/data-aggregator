@@ -33,7 +33,7 @@ class ReportNewImages extends BaseCommand
         ]);
 
         $artworks = Artwork::setEagerLoads([])
-            ->whereHas('assets', function($query) {
+            ->whereHas('assets', function ($query) {
                 $query->where('is_doc', false);
                 $query->where('preferred', true);
                 $query->whereNotNull('netx_uuid');
