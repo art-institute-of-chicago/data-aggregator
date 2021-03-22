@@ -108,7 +108,6 @@ class ArtworkTest extends ContractTestCase
             'date_qualifier_title',
             'department_id',
             'department_title',
-            'description',
             'dimensions',
             'gallery_id',
             'gallery_title',
