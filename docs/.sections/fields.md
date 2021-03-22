@@ -12,7 +12,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `is_boosted` *boolean* - Whether this document should be boosted in search
 * `title` *string* - The name of this resource
 * `alt_titles` *array* - Alternate names for this work
-* `thumbnail` *array* - Thumbnail for showing this entity in search results. Currently, all thumbnails are IIIF images, but this may change in the future, so check `type` before proceeding.
+* `thumbnail` *array* - Metadata about the image referenced by `image_id`. Currently, all thumbnails are IIIF images. You must build your own image URLs using IIIF Image API conventions. See our API documentation for more details.
 * `main_reference_number` *string* - Unique identifier assigned to the artwork upon acquisition
 * `has_not_been_viewed_much` *boolean* - Whether the artwork hasn't been visited on our website very much
 * `boost_rank` *number* - Manual indication of what rank this artwork should take in search results. Noncontiguous.
@@ -23,7 +23,6 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `date_qualifier_id` *integer* - Unique identifier of the qualifer to the dates provided for this record.
 * `artist_display` *string* - Readable description of the creator of this work. Includes artist names, nationality and lifespan dates
 * `place_of_origin` *string* - The location where the creation, design, or production of the work took place, or the original location of the work
-* `description` *string* - Longer explanation describing the work
 * `dimensions` *string* - The size, shape, scale, and dimensions of the work. May include multiple dimensions like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.
 * `medium_display` *string* - The substances or materials used in the creation of a work
 * `inscriptions` *string* - A description of distinguishing or identifying physical markings that are on the work
@@ -47,6 +46,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `longitude` *number* - Longitude coordinate of the location of this work in our galleries
 * `latlon` *string* - Latitude and longitude coordinates of the location of this work in our galleries
 * `is_on_view` *boolean* - Whether the work is on display
+* `on_loan_display` *string* - If an artwork is on loan, this contains details about the loan
 * `gallery_title` *string* - The location of this work in our museum
 * `gallery_id` *number* - Unique identifier of the location of this work in our museum
 * `artwork_type_title` *string* - The kind of object or work (e.g. Painting, Sculpture, Book)
@@ -336,35 +336,6 @@ Tag-like classifications of artworks and other resources. For a description of a
 
 
 
-#### Assets
-
-A binary representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](#assets).
-
-* `id` *keyword* - Unique identifier of this resource. Taken from the source system.
-* `lake_guid` *uuid* - Unique UUID of this resource in LAKE, our DAMS.
-* `api_model` *string* - REST API resource type or endpoint
-* `api_link` *string* - REST API link for this resource
-* `title` *string* - The name of this resource
-* `type` *string* - Type always takes one of the following values: image, sound, text, video
-* `description` *string* - Explanation of what this asset is
-* `alt_text` *string* - Alternative text for the asset to describe it to people with low or no vision
-* `content` *string* - Text of or URL to the contents of this asset
-* `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
-* `is_educational_resource` *boolean* - Whether this resource is considered to be educational
-* `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
-* `credit_line` *string* - Asset-specific copyright information
-* `content_e_tag` *string* - Arbitrary unique identifier that changes when the binary file gets updated
-* `content_modified_at` *ISO 8601 date and time* - Date and time the associated binary file was updated
-* `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
-* `artwork_titles` *array* - Names of the artworks associated with this asset
-* `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
-* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `last_updated_source` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
-* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
-
 #### Images
 
 A pictorial representation of a collections resource, like an artwork, artist, exhibition, etc. For a description of all the endpoints available for this resource, see [here](#images).
@@ -490,27 +461,6 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 
 ### Shop
 
-#### Shop Categories
-
-Tag-like classifications of shop products. For a description of all the endpoints available for this resource, see [here](#shop-categories).
-
-* `id` *integer* - Unique identifier of this resource. Taken from the source system.
-* `api_model` *string* - REST API resource type or endpoint
-* `api_link` *string* - REST API link for this resource
-* `title` *string* - The name of this resource
-* `web_url` *url* - URL to the shop page for this category
-* `parent_id` *number* - Unique identifier of this category's parent
-* `parent_title` *string* - Name of this category's parent
-* `child_ids` *array* - Unique identifiers of this category's children
-* `child_titles` *array* - Names of this category's children
-* `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
-* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `last_updated_source` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
-* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
-
 #### Products
 
 An item available for purchase in the museum shop. For a description of all the endpoints available for this resource, see [here](#products).
@@ -519,20 +469,18 @@ An item available for purchase in the museum shop. For a description of all the 
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `title_sort` *string* - The sortable version of the name of this product
-* `parent_id` *number* - Unique identifier of this product's parent
-* `category_id` *number* - Identifier of this product's category
-* `external_sku` *string* - Numeric product identification code of a machine-readable barcode, when the customer sku differs from our internal one
+* `external_sku` *number* - Numeric product identification code of a machine-readable barcode, when the customer sku differs from our internal one
 * `image_url` *url* - URL of an image for this product
 * `web_url` *url* - URL of this product in the shop
 * `description` *string* - Explanation of what this product is
-* `price` *number* - Number indicating how much the product costs the customer
-* `aic_collection` *boolean* - Whether the item is an AIC product
-* `gift_box` *boolean* - Whether the item can be wrapped in a gift box
-* `holiday` *boolean* - Whether the product is a holiday item
-* `architecture` *boolean* - Whether the product is an architectural item
-* `glass` *boolean* - Whether the item is glass
-* `artist_ids` *array* - Unique identifiers of the artists represented in this item
+* `price_display` *string* - Explanation of what this product is
+* `min_compare_at_price` *number* - Number indicating how much the least expensive variant of a product cost before a sale
+* `max_compare_at_price` *number* - Number indicating how much the most expensive variant of a product cost before a sale
+* `min_current_price` *number* - Number indicating how much the least expensive variant of a product costs right now
+* `max_current_price` *number* - Number indicating how much the most expensive variant of a product costs right now
+* `artist_ids` *array* - Unique identifiers of the artists associated with this product
+* `artwork_ids` *array* - Unique identifiers of the artworks associated with this product
+* `exhibition_ids` *array* - Unique identifiers of the exhibitions associated with this product
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `last_updated_source` *ISO 8601 date and time* - Date and time the resource was updated in the source system
@@ -735,6 +683,7 @@ An event on the website For a description of all the endpoints available for thi
 * `is_free` *boolean* - Whether the event is free
 * `is_admission_required` *boolean* - Whether admission to the museum is required to attend this event
 * `is_after_hours` *boolean* - Whether the event is to be held after the museum closes
+* `is_virtual_event` *boolean* - Whether the event is being held virtually
 * `start_date` *ISO 8601 date and time* - The date the event begins
 * `end_date` *ISO 8601 date and time* - The date the event ends
 * `start_time` *string* - The time the event starts
