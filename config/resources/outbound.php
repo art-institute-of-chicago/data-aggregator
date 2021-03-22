@@ -181,12 +181,6 @@ return [
          * Shop:
          */
         [
-            'endpoint' => 'shop-categories',
-            'model' => \App\Models\Shop\Category::class,
-            'transformer' => \App\Transformers\Outbound\Shop\Category::class,
-            'is_searchable' => true,
-        ],
-        [
             'endpoint' => 'products',
             'model' => \App\Models\Shop\Product::class,
             'transformer' => \App\Transformers\Outbound\Shop\Product::class,

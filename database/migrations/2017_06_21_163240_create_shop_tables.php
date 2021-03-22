@@ -58,6 +58,7 @@ class CreateShopTables extends Migration
     {
         Schema::dropIfExists('products');
         Schema::dropIfExists('shop_categories');
+        Schema::dropIfExists('artist_product');
     }
 
     private function _addId($table)

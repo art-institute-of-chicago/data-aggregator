@@ -28,14 +28,6 @@ if (!function_exists('shopIdsAndTitle')) {
     }
 }
 
-$factory->define(App\Models\Shop\Category::class, function (Faker\Generator $faker) {
-    return array_merge(
-        shopIdsAndTitle($faker),
-        [],
-        shopDates($faker)
-    );
-});
-
 $factory->define(App\Models\Shop\Product::class, function (Faker\Generator $faker) {
     $part1 = ucwords($faker->words(2, true));
     $part2 = ucwords($faker->words(2, true));

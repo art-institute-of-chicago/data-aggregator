@@ -124,10 +124,6 @@ return [
     ],
 
     'shop' => [
-        'categories' => [
-            'model' => \App\Models\Shop\Category::class,
-            'transformer' => \App\Transformers\Inbound\Shop\Category::class,
-        ],
         'products' => [
             'model' => \App\Models\Shop\Product::class,
             'transformer' => \App\Transformers\Inbound\Shop\Product::class,
