@@ -86,10 +86,11 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-queues-last-run.log'));
 
-        // $schedule->command('dump:nightly')
-        //     ->dailyAt('22:45')
-        //     ->withoutOverlapping(self::FOR_ONE_YEAR)
-        //     ->sendOutputTo(storage_path('logs/data-dump-last-run.log'));
+        $schedule->command('dump:monthly')
+            ->weekly()
+            ->sundays()
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/data-dump-last-run.log'));
     }
 
     /**
