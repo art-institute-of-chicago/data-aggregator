@@ -5,12 +5,12 @@ namespace App\Console\Commands\Dump;
 use Illuminate\Support\Facades\File;
 use Exception;
 
-class DumpNightly extends AbstractDumpCommand
+class DumpMonthly extends AbstractDumpCommand
 {
 
-    protected $signature = 'dump:nightly';
+    protected $signature = 'dump:monthly';
 
-    protected $description = 'Sequence of commands to run for nightly dumps';
+    protected $description = 'Sequence of commands to run for monthly dumps';
 
     public function handle()
     {
