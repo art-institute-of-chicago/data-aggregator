@@ -87,7 +87,7 @@ class Kernel extends ConsoleKernel
             ->sendOutputTo(storage_path('logs/import-queues-last-run.log'));
 
         $schedule->command('dump:monthly')
-            ->weekly()
+            ->monthly()
             ->sundays()
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/data-dump-last-run.log'));
