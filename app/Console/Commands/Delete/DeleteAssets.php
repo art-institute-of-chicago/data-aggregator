@@ -9,8 +9,7 @@ class DeleteAssets extends AbstractImportCommand
 {
 
     protected $signature = 'delete:assets
-                            {--since= : How far back to scan for records}
-                            {--deep : Loop through the whole database}';
+                            {--since= : How far back to scan for records}';
 
     protected $description = 'Delete records that have been removed from the DAMS';
 
@@ -29,12 +28,7 @@ class DeleteAssets extends AbstractImportCommand
     public function handle()
     {
         $this->api = env('ASSETS_DATA_SERVICE_URL');
-
-        if ($this->option('deep')) {
-            $this->deep();
-        } else {
-            $this->shallow();
-        }
+        $this->shallow();
     }
 
     /**
@@ -49,7 +43,7 @@ class DeleteAssets extends AbstractImportCommand
     {
         $current = 1;
 
-        $json = $this->query('deletes', $current);
+        $json = $this->query('deletions', $current);
         $pages = $json->pagination->total_pages;
 
         $this->warn('Found ' . $pages . ' pages');
@@ -60,22 +54,28 @@ class DeleteAssets extends AbstractImportCommand
             // Assumes the dataservice wraps its results in a `data` field
             foreach ($json->data as $datum) {
                 // Break if we're past the last time we checked
-                $sourceTime = new Carbon($datum->indexed_at);
-                $sourceTime->timezone = config('app.timezone');
+                $sourceModifiedAt = new Carbon($datum->modified_at);
+                $sourceModifiedAt->timezone = config('app.timezone');
 
-                if ($this->since->gt($sourceTime)) {
+                if ($this->since->gt($sourceModifiedAt)) {
                     break 2;
                 }
 
-                // Now execute an actual delete
+                $sourceDeletedAt = new Carbon($datum->source_deleted_at);
+                $sourceDeletedAt->timezone = config('app.timezone');
+
                 // Loop through all model types
                 foreach ($this->modelClasses as $modelClass) {
                     // Check if a resource with a matching lake_guid exists
-                    if ($model = $modelClass::where('lake_guid', '=', $datum->lake_guid)->first()) {
-                        // If it does, destroy the model and break
-                        $this->warn('Deleting ' . $modelClass . ' ' . $datum->lake_guid);
-                        $model->delete();
-                        break;
+                    if ($model = $modelClass::where('lake_guid', '=', $datum->asset_id)->first()) {
+                        // Check that the resource was modified at or before the delete
+                        if ($model->source_modified_at->lte($sourceDeletedAt)) {
+                            $this->warn('Deleting ' . $modelClass . ' ' . $datum->asset_id);
+                            $model->delete();
+                            break;
+                        } else {
+                            $this->info('Skipped ' . $modelClass . ' ' . $datum->asset_id . ' because it is newer');
+                        }
                     }
                 }
             }
@@ -83,50 +83,8 @@ class DeleteAssets extends AbstractImportCommand
             $current++;
 
             // TODO: This structure causes an extra query to be run, when it might not need to be
-            $json = $this->query('deletes', $current);
+            $json = $this->query('deletions', $current);
         }
     }
 
-    /**
-     * Sometimes, assets get deleted in LAKE, but no "tombstone" record is generated in LPM Solr.
-     * This is our work-around for those issues. We will loop through all of the models in our
-     * database that come from LAKE, and delete any that do not exist in LPM Solr.
-     */
-    private function deep()
-    {
-        foreach ($this->modelClasses as $modelClass) {
-            $endpoints = array_filter(config('resources.inbound.assets'), function ($value) use ($modelClass) {
-                return $value['model'] === $modelClass;
-            });
-
-            $endpoint = array_keys($endpoints)[0];
-
-            $modelClass::select('lake_guid')->chunk(175, function ($models) use ($endpoint) {
-
-                $url = $this->api . '/' . $endpoint . '?' . http_build_query([
-                    'ids' => implode(',', $models->pluck('lake_guid')->all()),
-                    'limit' => 175,
-                    'flo' => 'id',
-                    'quiet' => 1,
-                ]);
-
-                $result = $this->fetch($url, true);
-
-                $validIds = collect($result->data)->pluck('id');
-
-                if ($validIds->count() === 175) {
-                    return;
-                }
-
-                $invalidModels = $models->filter(function ($model) use ($validIds) {
-                    return !$validIds->contains($model->lake_guid);
-                });
-
-                $invalidModels->each(function ($model) {
-                    $this->info($model->lake_guid);
-                    $model->delete();
-                });
-            });
-        }
-    }
 }
