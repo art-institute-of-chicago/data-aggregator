@@ -405,6 +405,12 @@ return [
             'is_searchable' => true,
         ],
         [
+            'endpoint' => 'digital-publication-sections',
+            'model' => \App\Models\Web\DigitalPublicationSection::class,
+            'transformer' => \App\Transformers\Outbound\Web\DigitalPublicationSection::class,
+            'is_searchable' => true,
+        ],
+        [
             'endpoint' => 'printed-catalogs',
             'model' => \App\Models\Web\PrintedCatalog::class,
             'transformer' => \App\Transformers\Outbound\Web\Page::class,
