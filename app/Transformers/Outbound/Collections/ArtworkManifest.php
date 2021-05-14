@@ -17,14 +17,8 @@ class ArtworkManifest extends BaseTransformer
     {
         $canvases = [];
 
-        if ($model->image) {
-            $canvases[] = $this->_createCanvasImage($model, $model->image);
-        }
-
-        if ($model->altImages) {
-            foreach ($model->altImages as $image) {
-                $canvases[] = $this->_createCanvasImage($model, $image);
-            }
+        foreach ($model->images as $image) {
+            $canvases[] = $this->_createCanvasImage($model, $image);
         }
 
         return [
