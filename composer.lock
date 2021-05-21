@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "5adffd1b1e5210bb1c6eccc5d6fa36225fd03997"
+                "reference": "691614ffe09ab7e05caa4f6396299103f2a5f28c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/5adffd1b1e5210bb1c6eccc5d6fa36225fd03997",
-                "reference": "5adffd1b1e5210bb1c6eccc5d6fa36225fd03997",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/691614ffe09ab7e05caa4f6396299103f2a5f28c",
+                "reference": "691614ffe09ab7e05caa4f6396299103f2a5f28c",
                 "shasum": ""
             },
             "require": {
@@ -8748,12 +8748,12 @@
             "version": "1.8.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "ab2cb0b3b559010b75981b1bdce728da3ee90ad6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
                 "reference": "ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
                 "shasum": ""
             },
