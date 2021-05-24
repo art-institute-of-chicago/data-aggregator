@@ -11,10 +11,10 @@ class WaitTime extends BaseModel
 {
 
     public static $aicQueueIds = [
-        1980 => 'Bisa Butler – Member',
-        1981 => 'Bisa Butler – GA',
-        1982 => 'Monet – Member',
-        1983 => 'Monet – GA',
+        18146 => 'Bisa Butler – Member',
+        18122 => 'Bisa Butler – GA',
+        18147 => 'Monet – Member',
+        18121 => 'Monet – GA',
     ];
 
     protected $primaryKey = 'queue_id';
