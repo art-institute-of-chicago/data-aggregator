@@ -95,16 +95,15 @@ trait ImportsData
 
         ob_start();
 
-        curl_exec($ch);
+        $retries = 3;
+
+        do {
+            curl_exec($ch);
+            $retries--;
+        } while (curl_errno($ch) === 28 && $retries > 0);
 
         if (curl_errno($ch)) {
-            try {
-                throw new \Exception(curl_error($ch));
-            } catch (\Exception $e) {
-                // https://laravel.com/docs/5.7/errors - The `report` Helper
-                report($e);
-                return $this->fetch(...func_get_args());
-            }
+            throw new \Exception(curl_error($ch));
         }
 
         curl_close($ch);

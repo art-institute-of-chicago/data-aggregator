@@ -67,5 +67,11 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
+
+        # WEB-2129: Use this log channel to disable log files
+        'none' => [
+            'driver' => 'monolog',
+            'handler' => \Monolog\Handler\NullHandler::class,
+        ],
     ],
 ];
