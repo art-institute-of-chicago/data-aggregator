@@ -2,7 +2,7 @@ name: VuePress
 
 on:
   push:
-    branches: 
+    branches:
     - master
   pull_request:
     branches:
@@ -11,9 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [7.2]
 
     steps:
       - uses: actions/checkout@v2
