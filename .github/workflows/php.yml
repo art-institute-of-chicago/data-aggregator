@@ -2,7 +2,7 @@ name: PHP
 
 on:
   push:
-    branches: 
+    branches:
     - develop
     - master
   pull_request:
@@ -24,7 +24,7 @@ jobs:
         php-version: '7.2'
 
     - name: Create environment file
-      run: cp .env.travis .env
+      run: cp .env.ci .env
 
     - name: Create unit testing database
       run: |
