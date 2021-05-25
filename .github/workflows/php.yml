@@ -13,15 +13,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: [7.2]
+
+
     steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup PHP with PECL extension
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.2'
+
     - name: Create environment file
       run: cp .env.travis .env
 
     - name: Create unit testing database
-      run: touch database/database.sqlite
+      run: |
+        mkdir -p database
+        touch database/database.sqlite
 
     - name: Cache Composer packages
       id: composer-cache
