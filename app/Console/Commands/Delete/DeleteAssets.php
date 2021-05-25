@@ -86,5 +86,4 @@ class DeleteAssets extends AbstractImportCommand
             $json = $this->query('deletions', $current);
         }
     }
-
 }
