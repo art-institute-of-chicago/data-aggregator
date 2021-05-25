@@ -13,10 +13,7 @@ class RemoveQlessQueues extends Migration
      */
     public function up()
     {
-        WaitTime::find(1980)->delete();
-        WaitTime::find(1981)->delete();
-        WaitTime::find(1982)->delete();
-        WaitTime::find(1983)->delete();
+        WaitTime::destroy(1980,1981,1982,1983);
     }
 
     /**
