@@ -50,7 +50,7 @@ return [
 
         'dumps' => [
             'driver' => 'local',
-            'root' => database_path('dumps'),
+            'root' => storage_path('dumps'),
         ],
 
         'public' => [
