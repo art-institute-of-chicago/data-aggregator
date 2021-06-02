@@ -127,6 +127,10 @@ class DumpUpload extends AbstractDumpCommand
 
         // Stream the file to S3; be sure to set `AWS_BUCKET` in `.env` and otherwise configure credentials
         Storage::disk('s3')->putFileAs('/', new File($archivePath), $archiveFile);
+
+        // Remove dumps to reduce deploy times (chown)
+        $this->shell->passthru('rm -rf %s', $repoPath);
+        $this->shell->passthru('rm -rf %s', $srcPath);
     }
 
     protected function isDirEmpty($dir)
