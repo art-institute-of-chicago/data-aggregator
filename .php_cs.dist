@@ -4,7 +4,7 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude([
         '.git',
         'bootstrap/cache',
-        'database/dumps',
+        'database/dumps', // WEB-2013: Obsolete!
         'node_modules',
         'public',
         'resources/lang',

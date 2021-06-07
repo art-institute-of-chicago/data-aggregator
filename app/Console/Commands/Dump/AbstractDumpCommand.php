@@ -50,10 +50,10 @@ abstract class AbstractDumpCommand extends BaseCommand
     }
 
     /**
-     * All of the data dumps live in `database/dumps` per `config/filesystems.php`.
+     * All of the data dumps live in `storage/dumps` per `config/filesystems.php`.
      * Use this to generate absolute paths to CSV files for `createFromPath` calls.
      *
-     * @param string $subpath  ...e.g. to CSV file, relative to `database/dumps`
+     * @param string $subpath  ...e.g. to CSV file, relative to `storage/dumps`
      */
     protected function getDumpPath(string $subpath): string
     {
@@ -61,9 +61,8 @@ abstract class AbstractDumpCommand extends BaseCommand
     }
 
     /**
-     * If command has `--path=` option, return it. Fall back to `database/dumps/local`.
+     * If command has `--path=` option, return it. Fall back to `storage/dumps/local`.
      * Enforces correct structure in dump directory.
-     *
      */
     protected function getDumpPathOption(): string
     {
@@ -79,7 +78,7 @@ abstract class AbstractDumpCommand extends BaseCommand
             $subdirPath = $dumpPath . '/' . $subdir;
 
             if (!file_exists($subdirPath)) {
-                mkdir($subdirPath, 755);
+                mkdir($subdirPath, 0755);
             }
         }
 

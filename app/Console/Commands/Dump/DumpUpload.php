@@ -41,6 +41,20 @@ class DumpUpload extends AbstractDumpCommand
 
         $this->shell->passthru('git -C %s remote add origin %s', $repoPath, $repoRemote);
 
+        // Copy README into the repo
+        $this->shell->exec(
+            'cp %s %s',
+            resource_path('api-data-readme.md'),
+            $repoPath . '/README.md'
+        );
+
+        // Copy COC into the repo
+        $this->shell->exec(
+            'cp %s %s',
+            base_path('CODE_OF_CONDUCT.md'),
+            $repoPath . '/CODE_OF_CONDUCT.md'
+        );
+
         // Copy dumps of whitelisted tables and endpoints into the repo
         $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/getting-started', $repoPath . '/getting-started');
         $this->shell->passthru("
@@ -62,6 +76,7 @@ class DumpUpload extends AbstractDumpCommand
             done
         ", $srcPath, $repoPath);
 
+        // First, copy only 10 items from each endpoint
         foreach ($endpointResult['output'] as $endpoint) {
             // https://stackoverflow.com/questions/11296809/how-to-avoid-ls-write-error-broken-pipe-with-php-exec
             $fileResult = $this->shell->exec('ls -p1 %s/json/%s | grep -v / | sort -n -k1 2>/dev/null | head -10', $srcPath, $endpoint);
@@ -97,7 +112,7 @@ class DumpUpload extends AbstractDumpCommand
 
         $this->shell->passthru('git -C %s push --set-upstream origin master %s', $repoPath, '--force');
 
-        // takes about 1 min 45 sec
+        // Now, copy full dataset (takes about 1 min 45 sec)
         $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/json', $repoPath . '/json');
 
         $archiveName = 'artic-api-data';
@@ -112,6 +127,10 @@ class DumpUpload extends AbstractDumpCommand
 
         // Stream the file to S3; be sure to set `AWS_BUCKET` in `.env` and otherwise configure credentials
         Storage::disk('s3')->putFileAs('/', new File($archivePath), $archiveFile);
+
+        // Remove dumps to reduce deploy times (chown)
+        $this->shell->passthru('rm -rf %s', $repoPath);
+        $this->shell->passthru('rm -rf %s', $srcPath);
     }
 
     protected function isDirEmpty($dir)
