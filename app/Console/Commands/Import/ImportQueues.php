@@ -28,12 +28,14 @@ class ImportQueues extends AbstractImportCommand
 
             $json = $this->fetchItem($endpoint, $id);
 
-            $datum = $json->data;
-            $datum->title = $title;
+            if (isset($json->data)) {
+                $datum = $json->data;
+                $datum->title = $title;
 
-            $this->updateSentryTags($datum, $endpoint, 'Queues');
+                $this->updateSentryTags($datum, $endpoint, 'Queues');
 
-            $this->save($datum, $model, $transformer);
+                $this->save($datum, $model, $transformer);
+            }
         }
     }
 
