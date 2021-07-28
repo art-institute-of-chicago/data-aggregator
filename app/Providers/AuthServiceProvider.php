@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\TrustProxies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -17,6 +18,10 @@ class AuthServiceProvider extends BaseServiceProvider
     {
         $this->registerPolicies();
 
+        // API-189: Gate gets called before middleware initializes!
+        $temp = new TrustProxies(config());
+        $temp->handle(request(), function() {});
+
         Gate::define('restricted-access', function ($user = null) {
             // If we're not applying restriction, you shall pass
             if (!config('aic.auth.restricted')) {
@@ -31,6 +36,7 @@ class AuthServiceProvider extends BaseServiceProvider
             // If your IP is within a whitelisted range, you shall pass
             $whitelistedRanges = config('aic.auth.access_whitelist_ips');
             $matchingRanges = array_filter(array_map(function ($range) {
+                // API-189: Without intervention, TrustProxies hasn't run
                 if (ipInRange(request()->ip(), $range)) {
                     return $range;
                 }
