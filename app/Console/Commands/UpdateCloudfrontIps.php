@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Console\Command;
 
@@ -20,6 +21,12 @@ class UpdateCloudfrontIps extends Command
         if ($contents === false) {
             return;
         }
+
+        // API-189: Remember for two hours, and keep the file as fallback
+        // This command should be run on both app and utility after deploy
+        Cache::remember('list-cloudfront-ips', 60 * 60 * 2, function () use ($contents) {
+            return $contents;
+        });
 
         Storage::put('list-cloudfront-ips.json', $contents);
 

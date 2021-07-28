@@ -35,7 +35,7 @@ class TrustProxies extends Middleware
             return parent::handle($request, $next);
         }
 
-        $ips = Cache::remember('list-cloudfront-ips', 60 * 60, function () {
+        $ips = Cache::get('list-cloudfront-ips', function() {
             if (Storage::exists('list-cloudfront-ips.json')) {
                 return Storage::get('list-cloudfront-ips.json');
             }
