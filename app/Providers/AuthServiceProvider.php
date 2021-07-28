@@ -20,7 +20,9 @@ class AuthServiceProvider extends BaseServiceProvider
 
         // API-189: Gate gets called before middleware initializes!
         $temp = new TrustProxies(config());
-        $temp->handle(request(), function() {});
+        $temp->handle(request(), function () {
+            // We don't need to pass the request to anything
+        });
 
         Gate::define('restricted-access', function ($user = null) {
             // If we're not applying restriction, you shall pass

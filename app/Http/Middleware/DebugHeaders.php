@@ -15,4 +15,3 @@ class DebugHeaders
         return $response;
     }
 }
-
