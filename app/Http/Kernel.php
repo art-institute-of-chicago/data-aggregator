@@ -25,6 +25,7 @@ class Kernel extends HttpKernel
         \Aic\Hub\Foundation\Middleware\ETagMiddleware::class,
         \Aic\Hub\Foundation\Middleware\RedirectTrailingSlash::class,
         \App\Http\Middleware\TrailingNewline::class,
+        \App\Http\Middleware\DebugHeaders::class,
     ];
 
     /**
