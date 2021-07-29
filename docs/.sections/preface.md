@@ -384,14 +384,18 @@ You may access our API without authentication. Anonymous users are throttled to 
 
 Please use [HTTPS](https://en.wikipedia.org/wiki/HTTPS) to access our API. To support legacy applications, our API is currently accessible via both HTTP and HTTPS, but HTTP access will be removed in the future.
 
-Lastly, consider adding a `User-Agent` header with the name of your project and a contact email to your API requests. For example:
+Lastly, consider adding a `AIC-User-Agent` header with the name of your project and a contact email to your API requests. For example:
 
 ```bash
 curl 'https://api.artic.edu/api/v1/artworks/24645' \
---header 'User-Agent: aic-bash (engineering@artic.edu)'
+--header 'AIC-User-Agent: aic-bash (engineering@artic.edu)'
 ```
 
 We ask that you do so as a [matter of courtesy](https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01). If we see an application using a disproportionate amount of system resources, this gives us an avenue to reach out and work with you to optimize your queries.
+
+::: tip
+Why `AIC-User-Agent`? Because modifying the `User-Agent` header is [forbidden by some browsers](https://stackoverflow.com/questions/42815087/sending-a-custom-user-agent-string-along-with-my-headers-fetch). We are using the `AIC-` namespace to reduce potential conflicts with other applications ([RFC 6648](https://datatracker.ietf.org/doc/html/rfc6648)).
+:::
 
 
 ### Pagination
