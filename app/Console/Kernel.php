@@ -37,10 +37,12 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('import:daily')
             ->dailyAt('23:00')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-daily-last-run.log'));
 
         $schedule->command('scout:import-all')
             ->dailyAt('03:00')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/scout-import-all-last-run.log'));
 
         // $schedule->command('search:audit')
