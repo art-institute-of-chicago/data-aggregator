@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "6294692c191573e6a1b0e1855aac645412965e69"
+                "reference": "cb39cf6034d85b1c2afdb424ba71547f86522dbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/6294692c191573e6a1b0e1855aac645412965e69",
-                "reference": "6294692c191573e6a1b0e1855aac645412965e69",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/cb39cf6034d85b1c2afdb424ba71547f86522dbd",
+                "reference": "cb39cf6034d85b1c2afdb424ba71547f86522dbd",
                 "shasum": ""
             },
             "require": {
