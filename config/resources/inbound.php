@@ -195,9 +195,9 @@ return [
             'model' => \App\Models\Web\InteractiveFeature::class,
             'transformer' => \App\Transformers\Inbound\Web\InteractiveFeature::class,
         ],
-        'selections' => [
-            'model' => \App\Models\Web\Selection::class,
-            'transformer' => \App\Transformers\Inbound\Web\Selection::class,
+        'highlights' => [
+            'model' => \App\Models\Web\Highlight::class,
+            'transformer' => \App\Transformers\Inbound\Web\Highlight::class,
         ],
         'staticpages' => [
             'model' => \App\Models\Web\StaticPage::class,

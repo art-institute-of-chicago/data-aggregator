@@ -363,9 +363,9 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'selections',
-            'model' => \App\Models\Web\Selection::class,
-            'transformer' => \App\Transformers\Outbound\Web\Selection::class,
+            'endpoint' => 'highlights',
+            'model' => \App\Models\Web\Highlight::class,
+            'transformer' => \App\Transformers\Outbound\Web\Highlight::class,
             'is_searchable' => true,
         ],
         [

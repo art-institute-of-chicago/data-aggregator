@@ -11,7 +11,7 @@ use App\Models\Web\EventProgram;
 use App\Models\Web\Exhibition;
 use App\Models\Web\Experience;
 use App\Models\Web\InteractiveFeature;
-use App\Models\Web\Selection;
+use App\Models\Web\Highlight;
 use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
 use App\Models\Web\EducatorResource;
@@ -70,7 +70,7 @@ class ImportWebFull extends AbstractImportCommand
             Exhibition::class => 'web_exhibitions',
             Experience::class => 'experiences',
             InteractiveFeature::class => 'interactive_features',
-            Selection::class => 'selections',
+            Highlight::class => 'highlights',
             GenericPage::class => 'generic_pages',
             PressRelease::class => 'press_releases',
             EducatorResource::class => 'educator_resources',
@@ -102,7 +102,7 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('exhibitions');
         $this->importFromWeb('experiences');
         $this->importFromWeb('interactive-features');
-        $this->importFromWeb('selections');
+        $this->importFromWeb('highlights');
 
         $this->importFromWeb('genericpages');
         $this->importFromWeb('pressreleases');

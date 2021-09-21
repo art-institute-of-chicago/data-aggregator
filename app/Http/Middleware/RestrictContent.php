@@ -47,7 +47,7 @@ class RestrictContent
             'generic-pages',
             'press-releases',
             'printed-catalogues',
-            'selections',
+            'highlights',
             'sponsors',
             'static-pages',
             'web-exhibitions',

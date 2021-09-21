@@ -5,9 +5,9 @@ namespace App\Models\Web;
 use App\Models\WebModel;
 
 /**
- * Selections are a grouping of artworks on the website
+ * Highlights are a grouping of artworks on the website
  */
-class Selection extends WebModel
+class Highlight extends WebModel
 {
 
     protected $casts = [

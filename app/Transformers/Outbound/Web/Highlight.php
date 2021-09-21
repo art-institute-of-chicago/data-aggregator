@@ -6,7 +6,7 @@ use App\Transformers\Outbound\Web\Traits\HasPublishDates;
 
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
-class Selection extends BaseTransformer
+class Highlight extends BaseTransformer
 {
 
     use HasPublishDates;
@@ -22,12 +22,12 @@ class Selection extends BaseTransformer
                 'is_restricted' => true,
             ],
             'short_copy' => [
-                'doc' => 'A brief summary of what is contained in the selection',
+                'doc' => 'A brief summary of what is contained in the highlight',
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
             'copy' => [
-                'doc' => 'The text of the selection description',
+                'doc' => 'The text of the highlight description',
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
