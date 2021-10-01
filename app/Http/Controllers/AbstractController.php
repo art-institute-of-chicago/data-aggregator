@@ -182,9 +182,9 @@ abstract class AbstractController extends BaseController
      */
     protected function showMultiple($ids = '', $request = null)
     {
-
-        // TODO: Accept an array, not just comma-separated string
-        $ids = explode(',', $ids);
+        if (is_string($ids)) {
+            $ids = explode(',', $ids);
+        }
 
         if (Gate::denies('restricted-access') && count($ids) > static::LIMIT_MAX) {
             throw new TooManyIdsException();
