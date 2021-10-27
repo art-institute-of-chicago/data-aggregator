@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1.0",
+        "php": "^7.2",
         "aic/data-hub-foundation": "dev-master",
         "aic/laravel-scout-elastic": "dev-master#3.0.9-aic",
         "cviebrock/laravel-elasticsearch": "^2.0",
