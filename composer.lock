@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28c8e750bc192e66e364e9b0c919eb3d",
+    "content-hash": "4d4a04f1baf6be2ab6b4745fb83aaf3a",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -12,18 +12,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "a7355d239043184803b121963653c75acca7a39a"
+                "reference": "a77d144389fbaf5980e06d93e30b05b9c4d7df23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/a7355d239043184803b121963653c75acca7a39a",
-                "reference": "a7355d239043184803b121963653c75acca7a39a",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/a77d144389fbaf5980e06d93e30b05b9c4d7df23",
+                "reference": "a77d144389fbaf5980e06d93e30b05b9c4d7df23",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^2.6",
                 "laravel/framework": "*",
-                "league/fractal": "^0.16.0",
+                "league/fractal": "^0.19",
                 "php": ">=7.2.5"
             },
             "type": "library",
@@ -50,7 +50,7 @@
                 "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/laravel-6-support",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2021-09-22T18:25:39+00:00"
+            "time": "2021-10-29T22:32:01+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
@@ -2663,16 +2663,16 @@
         },
         {
             "name": "league/fractal",
-            "version": "0.16.0",
+            "version": "0.19.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/fractal.git",
-                "reference": "d0445305e308d9207430680acfd580557b679ddc"
+                "reference": "06dc15f6ba38f2dde2f919d3095d13b571190a7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/fractal/zipball/d0445305e308d9207430680acfd580557b679ddc",
-                "reference": "d0445305e308d9207430680acfd580557b679ddc",
+                "url": "https://api.github.com/repos/thephpleague/fractal/zipball/06dc15f6ba38f2dde2f919d3095d13b571190a7c",
+                "reference": "06dc15f6ba38f2dde2f919d3095d13b571190a7c",
                 "shasum": ""
             },
             "require": {
@@ -2683,8 +2683,8 @@
                 "illuminate/contracts": "~5.0",
                 "mockery/mockery": "~0.9",
                 "pagerfanta/pagerfanta": "~1.0.0",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~1.5",
+                "phpunit/phpunit": "^4.8.35 || ^7.5",
+                "squizlabs/php_codesniffer": "~1.5|~2.0|~3.4",
                 "zendframework/zend-paginator": "~2.3"
             },
             "suggest": {
@@ -2725,9 +2725,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/fractal/issues",
-                "source": "https://github.com/thephpleague/fractal/tree/master"
+                "source": "https://github.com/thephpleague/fractal/tree/0.19.2"
             },
-            "time": "2017-03-12T01:28:43+00:00"
+            "time": "2020-01-24T23:17:29+00:00"
         },
         {
             "name": "league/mime-type-detection",
