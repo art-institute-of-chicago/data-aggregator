@@ -5,7 +5,7 @@ namespace App\Http\Search;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 
 class Response
 {
@@ -53,7 +53,7 @@ class Response
             return $this->resources;
         }
 
-        $resources = $resources ?? Input::get('resources') ?? 'articles';
+        $resources = $resources ?? Request::input('resources') ?? 'articles';
         $resources = is_array($resources) ? $resources : explode(',', $resources);
 
         return $this->resources = $resources;
@@ -171,7 +171,7 @@ class Response
         $hits = $this->searchResponse['hits']['hits'];
         $results = [];
 
-        $input = Input::all();
+        $input = Request::all();
         $fields = $input['fields'] ?? [];
         $fields = is_string($fields) ? array_map('trim', explode(',', $fields)) : $fields;
 
