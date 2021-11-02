@@ -5,20 +5,6 @@ use Symfony\Component\VarDumper\Dumper\CliDumper;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 
 /**
- * https://tighten.co/blog/a-better-dd-for-your-tdd
- */
-function ddd($variable)
-{
-    $cloner = new VarCloner();
-    $cloner->setMaxItems(10);
-
-    $dumper = 'cli' === PHP_SAPI ? new CliDumper() : new HtmlDumper();
-    $dumper->dump($cloner->cloneVar($variable));
-
-    die(1);
-}
-
-/**
  * Calculates the Cantor tuple function for variable length arguments.
  * Accepts an unlimited amount of ids, each as its own argument.
  *
