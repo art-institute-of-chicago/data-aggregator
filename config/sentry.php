@@ -28,7 +28,7 @@ return [
 
     'tracing' => [
         // Trace queue jobs as their own transactions
-        'queue_job_transactions' => env('SENTRY_TRACE_QUEUE_ENABLED', false),
+        'queue_job_transactions' => (bool) env('SENTRY_TRACE_QUEUE_ENABLED', false),
 
         // Capture queue jobs as spans when executed on the sync driver
         'queue_jobs' => true,

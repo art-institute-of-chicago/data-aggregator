@@ -5,7 +5,7 @@ namespace App\Http\Search;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
 class Response
 {

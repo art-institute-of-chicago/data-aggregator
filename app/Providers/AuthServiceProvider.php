@@ -5,8 +5,8 @@ namespace App\Providers;
 use App\Http\Middleware\TrustProxies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as BaseServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends BaseServiceProvider
 {

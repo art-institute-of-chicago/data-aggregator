@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Request as RequestFacade;
 use Closure;
 
 use League\Fractal\Resource\Item;
@@ -97,7 +98,7 @@ abstract class AbstractController extends BaseController
         $this->parseFractalParam('include', 'parseIncludes');
         $this->parseFractalParam('exclude', 'parseExcludes');
 
-        $fields = Request::input('fields');
+        $fields = RequestFacade::input('fields');
         $transformer = new $this->transformer($fields);
         $resource = new $resourceClass($inputData, $transformer);
         $data = $this->fractal->createData($resource)->toArray();
@@ -212,7 +213,7 @@ abstract class AbstractController extends BaseController
      */
     private function parseFractalParam($param, $method)
     {
-        $values = Request::input($param);
+        $values = RequestFacade::input($param);
 
         if (!isset($values)) {
             return;
