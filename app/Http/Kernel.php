@@ -73,5 +73,4 @@ class Kernel extends HttpKernel
         'restrict' => \App\Http\Middleware\RestrictContent::class,
         'loginIp' => \App\Http\Middleware\LoginIpMiddleware::class,
     ];
-
 }
