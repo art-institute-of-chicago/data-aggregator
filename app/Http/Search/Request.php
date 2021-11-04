@@ -233,12 +233,9 @@ class Request
             }
         }
 
-        // Looks like we don't need to implode $indexes and $types
-        // PHP Elasticsearch seems to do so for us
-
         return [
             'index' => $indexes,
-            'type' => $types ?? null,
+            'type' => !empty($types) ? implode(',', $types) : null,
             'preference' => Arr::get($input, 'preference'),
         ];
     }
