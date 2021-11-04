@@ -4,7 +4,7 @@ namespace App;
 
 use Exception;
 
-use ScoutEngines\Elasticsearch\ElasticsearchEngine as BaseEngine;
+use Tamayo\LaravelScoutElastic\Engines\ElasticsearchEngine as BaseEngine;
 
 class ElasticsearchEngine extends BaseEngine
 {
