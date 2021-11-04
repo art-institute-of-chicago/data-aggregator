@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Collecrtions;
+namespace Database\Factories\Collections;
 
 use App\Models\Collections\ArtworkTerm;
 
