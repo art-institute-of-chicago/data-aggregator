@@ -8,4 +8,5 @@ class CollectionsModel extends BaseModel
     protected static $source = 'Collections';
 
     protected $isInCiti = true;
+
 }

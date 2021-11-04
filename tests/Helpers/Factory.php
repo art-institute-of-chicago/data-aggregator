@@ -18,7 +18,8 @@ trait Factory
 
     protected function make($type, $fields = [])
     {
-        $models = factory($type, $this->times)
+        $models = $type::factory()
+            ->count($this->times)
             ->create($fields);
 
         $this->ids = array_merge($this->ids, $models->modelKeys());

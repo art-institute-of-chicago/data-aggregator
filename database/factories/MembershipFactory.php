@@ -1,50 +1,47 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Membership Factory
-|--------------------------------------------------------------------------
-|
-| Create models with stub data for all data coming from the Membership
-| Data Service.
-|
-*/
+namespace Database\Factories;
 
-if (!function_exists('membershipIdsAndTitle')) {
-    function membershipIdsAndTitle($faker, $title = '')
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
+class MembershipFactory extends Factory
+{
+
+    public function membershipIdsAndTitle($title = '')
     {
         return [
-            'membership_id' => $faker->unique()->randomNumber(5) + 999 * pow(10, 5),
-            'title' => $title ? $title : ucfirst($faker->words(3, true)),
+            'membership_id' => $this->faker->unique()->randomNumber(5) + 999 * pow(10, 5),
+            'title' => $title ? $title : ucfirst($this->faker->words(3, true)),
         ];
     }
 
-    function membershipDates($faker)
+    public function membershipDates()
     {
         return [
-            'source_created_at' => $faker->dateTimeThisYear,
-            'source_modified_at' => $faker->dateTimeThisYear,
+            'source_created_at' => $this->faker->dateTimeThisYear,
+            'source_modified_at' => $this->faker->dateTimeThisYear,
         ];
     }
 }
 
-$factory->define(App\Models\Membership\TicketedEvent::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Membership\TicketedEvent::class, function (Faker\Generator $this->faker) {
     $has_capacity = rand(0, 1) === 1;
 
     return array_merge(
-        membershipIdsAndTitle($faker),
+        $this->membershipIdsAndTitle(),
         [
-            'image_url' => $faker->imageUrl,
-            'start_at' => $faker->dateTimeThisYear,
-            'end_at' => $faker->dateTimeThisYear,
-            'resource_id' => $faker->randomNumber(2),
-            'resource_title' => ucfirst($faker->words(3, true)),
-            'is_after_hours' => $faker->boolean,
-            'is_private_event' => $faker->boolean,
-            'is_admission_required' => $faker->boolean,
-            'available' => $has_capacity ? $faker->randomDigit * 10 : null,
-            'total_capacity' => $has_capacity ? $faker->randomDigit * 100 : null,
+            'image_url' => $this->faker->imageUrl,
+            'start_at' => $this->faker->dateTimeThisYear,
+            'end_at' => $this->faker->dateTimeThisYear,
+            'resource_id' => $this->faker->randomNumber(2),
+            'resource_title' => ucfirst($this->faker->words(3, true)),
+            'is_after_hours' => $this->faker->boolean,
+            'is_private_event' => $this->faker->boolean,
+            'is_admission_required' => $this->faker->boolean,
+            'available' => $has_capacity ? $this->faker->randomDigit * 10 : null,
+            'total_capacity' => $has_capacity ? $this->faker->randomDigit * 100 : null,
         ],
-        membershipDates($faker)
+        $this->membershipDates()
     );
 });

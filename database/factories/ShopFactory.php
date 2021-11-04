@@ -1,44 +1,40 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Shop Factory
-|--------------------------------------------------------------------------
-|
-| Create models with stub data for all data coming from the Shop
-| Data Service.
-|
-*/
+namespace Database\Factories;
 
-if (!function_exists('shopIdsAndTitle')) {
-    function shopIdsAndTitle($faker, $title = '')
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
+class ShopFactory extends Factory
+{
+    public function shopIdsAndTitle($title = '')
     {
         return [
-            'shop_id' => $faker->unique()->randomNumber(3) + 999 * pow(10, 3),
-            'title' => $title ? $title : ucfirst($faker->words(5, true)),
+            'shop_id' => $this->faker->unique()->randomNumber(3) + 999 * pow(10, 3),
+            'title' => $title ? $title : ucfirst($this->faker->words(5, true)),
         ];
     }
 
-    function shopDates($faker)
+    public function shopDates($this->faker)
     {
         return [
-            'source_modified_at' => $faker->dateTimeThisYear,
+            'source_modified_at' => $this->faker->dateTimeThisYear,
         ];
     }
 }
 
-$factory->define(App\Models\Shop\Product::class, function (Faker\Generator $faker) {
-    $part1 = ucwords($faker->words(2, true));
-    $part2 = ucwords($faker->words(2, true));
-    $part3 = ucwords($faker->words(2, true));
+$factory->define(App\Models\Shop\Product::class, function (Faker\Generator $this->faker) {
+    $part1 = ucwords($this->faker->words(2, true));
+    $part2 = ucwords($this->faker->words(2, true));
+    $part3 = ucwords($this->faker->words(2, true));
     $title = $part1 . ' ' . $part2 . ' ' . $part3;
 
     return array_merge(
-        shopIdsAndTitle($faker, $title),
+        $this->shopIdsAndTitle($this->faker, $title),
         [
-            'external_sku' => $faker->ean8,
-            'description' => $faker->paragraph(3),
+            'external_sku' => $this->faker->ean8,
+            'description' => $this->faker->paragraph(3),
         ],
-        shopDates($faker)
+        $this->shopDates($this->faker)
     );
 });

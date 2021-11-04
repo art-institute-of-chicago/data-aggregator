@@ -13,6 +13,7 @@ npm-debug.log
 !.env.ci
 Envoy.blade.php
 .phpunit.result.cache
+docker-compose.override.yml
 .php_cs.cache
 .php_cs
 
@@ -30,3 +31,5 @@ dist
 config.local.js
 basement_dist
 /public/docs
+/.idea
+/.vscode

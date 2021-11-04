@@ -34,4 +34,14 @@ class Term extends BaseModel
     {
         return preg_match('/[a-z]+[0-9]+/', $id);
     }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\LibraryTermFactory::new();
+    }
 }
