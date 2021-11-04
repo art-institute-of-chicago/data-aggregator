@@ -32,4 +32,14 @@ class Artwork extends MobileModel
     {
         return $this->hasMany('App\Models\Mobile\TourStop', 'mobile_artwork_mobile_id');
     }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\MobileArtworkFactory::new();
+    }
 }

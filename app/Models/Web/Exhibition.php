@@ -28,4 +28,14 @@ class Exhibition extends WebModel
     {
         return $this->belongsTo('App\Models\Collections\Exhibition', 'datahub_id');
     }
+
+        /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Web\ExhibitionFactory::new();
+    }
 }

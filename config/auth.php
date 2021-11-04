@@ -29,7 +29,7 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | Supported: "session", "token"
+    | Supported: "session"
     |
     */
     'guards' => [
@@ -59,7 +59,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Aic\Hub\Foundation\User::class,
+            'model' => Aic\Hub\Foundation\Models\User::class,
         ],
     ],
 

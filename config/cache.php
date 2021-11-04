@@ -13,8 +13,6 @@ return [
     | using this caching library. This connection is used when another is
     | not explicitly specified when executing a given caching function.
     |
-    | Supported: "apc", "array", "database", "file", "memcached", "redis"
-    |
     */
 
     'default' => env('CACHE_DRIVER', 'file'),
@@ -28,6 +26,9 @@ return [
     | well as their drivers. You may even define multiple stores for the
     | same cache driver to group types of items stored in your caches.
     |
+    | Supported drivers: "apc", "array", "database", "file",
+    |         "memcached", "redis", "dynamodb", "octane", "null"
+    |
     */
 
     'stores' => [
@@ -38,12 +39,14 @@ return [
 
         'array' => [
             'driver' => 'array',
+            'serialize' => false,
         ],
 
         'database' => [
             'driver' => 'database',
             'table' => 'cache',
             'connection' => null,
+            'lock_connection' => null,
         ],
 
         'file' => [
@@ -73,6 +76,11 @@ return [
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
+            'lock_connection' => 'default',
+        ],
+
+        'octane' => [
+            'driver' => 'octane',
         ],
 
     ],
