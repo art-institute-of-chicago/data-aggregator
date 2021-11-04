@@ -37,6 +37,6 @@ class Sound extends MobileModel
      */
     protected static function newFactory()
     {
-        return \Database\Factories\MobileSoundFactory::new();
+        return \Database\Factories\Mobile\SoundFactory::new();
     }
 }

@@ -36,6 +36,6 @@ class Exhibition extends WebModel
      */
     protected static function newFactory()
     {
-        return \Database\Factories\WebExhibitionFactory::new();
+        return \Database\Factories\Web\ExhibitionFactory::new();
     }
 }
