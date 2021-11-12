@@ -200,7 +200,7 @@ class SearchController extends BaseController
      */
     private function mquery($requestMethod, $responseMethod, Request $request, $requestArgs = null)
     {
-        $queries = Request::all();
+        $queries = RequestFacade::all();
 
         if (!is_array($queries) || count(array_filter(array_keys($queries), 'is_string')) > 0) {
             // TODO: Accept key'd
