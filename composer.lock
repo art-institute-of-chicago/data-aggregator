@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "345d91709e9178633f4908f4d69977b5eaa3fdd0"
+                "reference": "aabccd56a1dbe618dd16f9febb33abc6e13acdd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/345d91709e9178633f4908f4d69977b5eaa3fdd0",
-                "reference": "345d91709e9178633f4908f4d69977b5eaa3fdd0",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/aabccd56a1dbe618dd16f9febb33abc6e13acdd3",
+                "reference": "aabccd56a1dbe618dd16f9febb33abc6e13acdd3",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/laravel-8-support",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2021-11-04T15:52:04+00:00"
+            "time": "2021-11-15T20:35:35+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
@@ -221,16 +221,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.202.2",
+            "version": "3.203.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4460481cd63446454869534c69ddaf00cffa45be"
+                "reference": "498f2466114bc8f3583b1db6943a3e291dd9ee70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4460481cd63446454869534c69ddaf00cffa45be",
-                "reference": "4460481cd63446454869534c69ddaf00cffa45be",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/498f2466114bc8f3583b1db6943a3e291dd9ee70",
+                "reference": "498f2466114bc8f3583b1db6943a3e291dd9ee70",
                 "shasum": ""
             },
             "require": {
@@ -306,9 +306,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.202.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.203.0"
             },
-            "time": "2021-11-12T19:15:25+00:00"
+            "time": "2021-11-15T20:32:57+00:00"
         },
         {
             "name": "brick/math",
