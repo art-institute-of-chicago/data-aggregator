@@ -1,6 +1,8 @@
 <?php
 
+use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
+use Monolog\Handler\SyslogUdpHandler;
 
 return [
     /*
@@ -14,6 +16,19 @@ return [
     |
     */
     'default' => env('LOG_CHANNEL', 'daily'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Deprecations Log Channel
+    |--------------------------------------------------------------------------
+    |
+    | This option controls the log channel that should be used to log warnings
+    | regarding deprecated PHP and library features. This allows you to get
+    | your application ready for upcoming major versions of dependencies.
+    |
+    */
+
+    'deprecations' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
 
     /*
     |--------------------------------------------------------------------------
@@ -37,12 +52,12 @@ return [
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
-            'level' => 'debug',
+            'level' => env('LOG_LEVEL', 'debug'),
         ],
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
-            'level' => 'debug',
+            'level' => env('LOG_LEVEL', 'debug'),
             'days' => 7,
         ],
         'slack' => [
@@ -50,10 +65,11 @@ return [
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
             'username' => 'Laravel Log',
             'emoji' => ':boom:',
-            'level' => 'critical',
+            'level' => env('LOG_LEVEL', 'critical'),
         ],
         'stderr' => [
             'driver' => 'monolog',
+            'level' => env('LOG_LEVEL', 'debug'),
             'handler' => StreamHandler::class,
             'with' => [
                 'stream' => 'php://stderr',
@@ -61,17 +77,18 @@ return [
         ],
         'syslog' => [
             'driver' => 'syslog',
-            'level' => 'debug',
+            'level' => env('LOG_LEVEL', 'debug'),
         ],
         'errorlog' => [
             'driver' => 'errorlog',
-            'level' => 'debug',
+            'level' => env('LOG_LEVEL', 'debug'),
         ],
-
-        # WEB-2129: Use this log channel to disable log files
-        'none' => [
+        'null' => [
             'driver' => 'monolog',
-            'handler' => \Monolog\Handler\NullHandler::class,
+            'handler' => NullHandler::class,
+        ],
+        'emergency' => [
+            'path' => storage_path('logs/laravel.log'),
         ],
     ],
 ];

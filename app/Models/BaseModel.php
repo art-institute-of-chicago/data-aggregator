@@ -27,11 +27,12 @@ use App\Models\Web\StaticPage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BaseModel extends AbstractModel
 {
 
-    use Transformable, Instancable, Documentable;
+    use Transformable, Instancable, Documentable, HasFactory;
 
     /**
      * The name of the field that the source API provides a last updated timestamp in.

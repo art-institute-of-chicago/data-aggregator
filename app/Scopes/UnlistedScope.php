@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Schema;
 
-class ListedScope implements Scope
+class UnlistedScope implements Scope
 {
     /**
      * Apply the scope to a given Eloquent query builder.

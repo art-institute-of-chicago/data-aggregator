@@ -11,7 +11,8 @@ use App\Http\Middleware\RestrictContent;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Input;
+
+use Illuminate\Http\Request as HttpRequest;
 
 class Request
 {
@@ -232,12 +233,9 @@ class Request
             }
         }
 
-        // Looks like we don't need to implode $indexes and $types
-        // PHP Elasticsearch seems to do so for us
-
         return [
             'index' => $indexes,
-            'type' => $types ?? null,
+            'type' => !empty($types) ? implode(',', $types) : null,
             'preference' => Arr::get($input, 'preference'),
         ];
     }
@@ -383,7 +381,7 @@ class Request
     public static function getValidInput(array $input = null)
     {
         // Grab all user input (query string params or json)
-        $input = $input ?: Input::all();
+        $input = $input ?: HttpRequest::all();
 
         // List of allowed user-specified params
         $allowed = self::$allowed;

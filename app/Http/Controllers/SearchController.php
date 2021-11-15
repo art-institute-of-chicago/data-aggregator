@@ -9,7 +9,7 @@ use App\Http\Search\Response as SearchResponse;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request as RequestFacade;
 use Illuminate\Http\Request;
 use Elasticsearch;
 
@@ -36,7 +36,7 @@ class SearchController extends BaseController
     {
         $this->useCache = config('elasticsearch.cache_enabled');
 
-        $cacheParam = Input::get('cache');
+        $cacheParam = RequestFacade::input('cache');
         $cacheParam = !is_string($cacheParam) ? $cacheParam : filter_var($cacheParam, FILTER_VALIDATE_BOOLEAN);
 
         if ($this->useCache && $cacheParam === false && Gate::allows('restricted-access')) {
@@ -159,7 +159,7 @@ class SearchController extends BaseController
     {
 
         // Combine any configuration params
-        $input = Input::all();
+        $input = RequestFacade::all();
         $input = $requestArgs ? array_merge($input, $requestArgs) : $input;
 
         // Transform our API's syntax into an Elasticsearch params array
@@ -200,7 +200,7 @@ class SearchController extends BaseController
      */
     private function mquery($requestMethod, $responseMethod, Request $request, $requestArgs = null)
     {
-        $queries = Input::all();
+        $queries = RequestFacade::all();
 
         if (!is_array($queries) || count(array_filter(array_keys($queries), 'is_string')) > 0) {
             // TODO: Accept key'd
