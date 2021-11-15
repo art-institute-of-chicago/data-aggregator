@@ -910,6 +910,11 @@ class Request
             return 0;
         }
 
+        // Disable fuzzy search on exact match searches
+        if (count(explode('"', $query ?? $input['q'] ?? '')) > 1) {
+            return 0;
+        }
+
         if (!isset($input['fuzzy'])) {
             return 'AUTO';
         }
