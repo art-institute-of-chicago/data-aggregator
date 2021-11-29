@@ -11,6 +11,8 @@ class DumpConfig extends AbstractDumpCommand
 
     public function handle()
     {
+        $this->info('Dump local/json/config.json');
+
         // Output config.json, which is the same for all models
         $configDocumentation = config('aic.config_documentation');
 

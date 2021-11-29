@@ -11,6 +11,8 @@ class DumpReset extends AbstractDumpCommand
 
     public function handle()
     {
+        $this->info('Clearing local/json dumps');
+
         $dumpPath = $this->getDumpPath('local/json');
 
         $this->shell->passthru('rm -rf %s/*', $dumpPath);

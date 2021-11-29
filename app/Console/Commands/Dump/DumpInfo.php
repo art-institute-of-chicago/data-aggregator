@@ -10,6 +10,8 @@ class DumpInfo extends AbstractDumpCommand
 
     public function handle()
     {
+        $this->info('Dump local/json/info.json');
+
         $resources = $this->getResources();
 
         // Output info.json, which combines the info blocks for all models
