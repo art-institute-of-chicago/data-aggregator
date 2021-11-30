@@ -81,7 +81,7 @@ class Kernel extends ConsoleKernel
 
         if (env('DUMP_SCHEDULE_ENABLED', false)) {
             $schedule->command('dump:schedule')
-                ->monthly()
+                ->weekly()
                 ->sundays()
                 ->withoutOverlapping(self::FOR_ONE_YEAR)
                 ->sendOutputTo(storage_path('logs/data-dump-last-run.log'));
