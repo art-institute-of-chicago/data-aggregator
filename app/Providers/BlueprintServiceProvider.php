@@ -14,13 +14,13 @@ class BlueprintServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blueprint::macro('getDoctrineTable', function() {
+        Blueprint::macro('getDoctrineTable', function () {
             return Schema::getConnection()
                 ->getDoctrineSchemaManager()
                 ->listTableDetails($this->prefix . $this->table);
         });
 
-        Blueprint::macro('hasIndex', function($index, $type = 'index') {
+        Blueprint::macro('hasIndex', function ($index, $type = 'index') {
             if (!in_array($type, ['index', 'primary', 'unique', 'spatialIndex', 'foreign'])) {
                 throw new BadMethodCallException(
                     'Invalid type passed to hasIndex: ' . $type
@@ -38,7 +38,7 @@ class BlueprintServiceProvider extends ServiceProvider
             return $doctrineTable->hasIndex($index);
         });
 
-        Blueprint::macro('dropIndexIfExists', function($index) {
+        Blueprint::macro('dropIndexIfExists', function ($index) {
             if ($this->hasIndex($index)) {
                 return $this->dropIndex($index);
             }
