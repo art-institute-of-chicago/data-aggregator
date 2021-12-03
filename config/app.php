@@ -181,6 +181,7 @@ return [
          * Application Service Providers...
          */
         App\Providers\AuthServiceProvider::class,
+        App\Providers\BlueprintServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FakerServiceProvider::class,
