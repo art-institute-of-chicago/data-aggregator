@@ -135,8 +135,8 @@ return [
         /**
          * Override default Laravel Service Providers...
          */
-        Aic\Hub\Foundation\DatabaseServiceProvider::class,
-        Aic\Hub\Foundation\AuthServiceProvider::class,
+        Aic\Hub\Foundation\Providers\DatabaseServiceProvider::class,
+        Aic\Hub\Foundation\Providers\AuthServiceProvider::class,
 
         /**
          * Laravel Framework Service Providers...
@@ -175,7 +175,7 @@ return [
         /**
          * Foundation Service Providers...
          */
-        Aic\Hub\Foundation\ResourceServiceProvider::class,
+        Aic\Hub\Foundation\Providers\ResourceServiceProvider::class,
 
         /**
          * Application Service Providers...
