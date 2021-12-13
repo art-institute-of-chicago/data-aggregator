@@ -25,17 +25,7 @@ class CategoryTerm extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    $mapping = [
-                        $item::CLASSIFICATION => 'classification',
-                        $item::MATERIAL => 'material',
-                        $item::TECHNIQUE => 'technique',
-                        $item::STYLE => 'style',
-                        $item::SUBJECT => 'subject',
-                        $item::DEPARTMENT => 'department',
-                        $item::THEME => 'theme',
-                    ];
-
-                    return $mapping[$item->subtype] ?? null;
+                    return $item->getSubtypeDisplay();
                 },
             ],
             'parent_id' => [

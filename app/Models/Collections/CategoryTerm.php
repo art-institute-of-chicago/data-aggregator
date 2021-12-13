@@ -224,6 +224,21 @@ class CategoryTerm extends CollectionsModel
         return preg_match($uid, $id);
     }
 
+    public function getSubtypeDisplay()
+    {
+        $mapping = [
+            self::CLASSIFICATION => 'classification',
+            self::MATERIAL => 'material',
+            self::TECHNIQUE => 'technique',
+            self::STYLE => 'style',
+            self::SUBJECT => 'subject',
+            self::DEPARTMENT => 'department',
+            self::THEME => 'theme',
+        ];
+
+        return $mapping[$this->subtype] ?? null;
+    }
+
     /**
      * Filters the `category_terms` table by `is_category` to match `$isCategory` in model.
      * Uses the inline method for scope definition, rather than creating new classes.
