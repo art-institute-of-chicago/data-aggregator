@@ -12,7 +12,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Request as RequestFacade;
 
 class Request
 {
@@ -381,7 +381,7 @@ class Request
     public static function getValidInput(array $input = null)
     {
         // Grab all user input (query string params or json)
-        $input = $input ?: HttpRequest::all();
+        $input = $input ?: RequestFacade::all();
 
         // List of allowed user-specified params
         $allowed = self::$allowed;
