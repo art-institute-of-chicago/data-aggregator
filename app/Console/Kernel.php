@@ -21,8 +21,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \Aic\Hub\Foundation\Commands\DatabaseReset::class,
-        \Aic\Hub\Foundation\Commands\MakeUser::class,
+        //
     ];
 
     /**
@@ -81,7 +80,7 @@ class Kernel extends ConsoleKernel
 
         if (env('DUMP_SCHEDULE_ENABLED', false)) {
             $schedule->command('dump:schedule')
-                ->monthly()
+                ->weekly()
                 ->sundays()
                 ->withoutOverlapping(self::FOR_ONE_YEAR)
                 ->sendOutputTo(storage_path('logs/data-dump-last-run.log'));

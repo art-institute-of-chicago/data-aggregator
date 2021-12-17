@@ -119,11 +119,11 @@ class DumpUpload extends AbstractDumpCommand
         $archiveFile = $archiveName . '.tar.bz2';
         $archivePath = $this->getDumpPath($archiveFile);
 
-        // Create (-c) tar archive file (-f) with bzip2 (-j)
+        // Create (-c) tar archive file (-f) with bzip2 (-j) with verbose output (-v)
         // cd (-C) to repo path and target relative (./) to avoid putting the full absolute path hierarchy inside archive
         // transform archive members so they start in `artic-api-data` directory instead of `.`
         // omitting / from . in sed expression makes it so that . itself gets transformed
-        $this->shell->passthru("tar --transform 's:^.:%s:' -cjf %s -C %s ./", $archiveName, $archivePath, $repoPath);
+        $this->shell->passthru("tar --transform 's:^.:%s:' -cvjf %s -C %s ./", $archiveName, $archivePath, $repoPath);
 
         // Stream the file to S3; be sure to set `AWS_BUCKET` in `.env` and otherwise configure credentials
         Storage::disk('s3')->putFileAs('/', new File($archivePath), $archiveFile);
