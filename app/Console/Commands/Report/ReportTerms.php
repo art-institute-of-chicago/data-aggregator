@@ -27,7 +27,7 @@ class ReportTerms extends BaseCommand
             ->unique('lake_uid')
             ->sortBy([
                 ['subtype', 'asc'],
-                ['lake_uid', 'asc'],
+                ['title', 'asc'],
             ])
             ->values();
 
