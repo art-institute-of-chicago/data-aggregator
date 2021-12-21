@@ -183,7 +183,7 @@ class Agent extends BaseTransformer
         $suggestFields = $this->traitGetSuggestFields();
 
         $newFilter = function ($item) {
-            return $item->createdArtworks()->count() > 1;
+            return $item->createdArtworks()->count() > 0;
         };
 
         foreach (['suggest_autocomplete_all', 'suggest_autocomplete_boosted'] as $fieldName) {
