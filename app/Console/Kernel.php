@@ -80,7 +80,7 @@ class Kernel extends ConsoleKernel
 
         // API-231, API-232: Temporary remediation! Artworks can't touch artists.
         $schedule->command('scout:import', [
-                'model' => \App\Models\Collections\Agent::class,
+                \App\Models\Collections\Agent::class,
             ])
             ->hourly()
             ->withoutOverlapping(self::FOR_ONE_YEAR)
