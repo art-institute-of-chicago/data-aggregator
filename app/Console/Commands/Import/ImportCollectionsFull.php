@@ -54,7 +54,15 @@ class ImportCollectionsFull extends AbstractImportCommand
     {
         $model = $this->getModelForEndpoint($endpoint);
 
+        if (!$this->isPartial) {
+            $model::disableSearchSyncing();
+        }
+
         $this->import('Collections', $model, $endpoint, $page);
+
+        if (!$this->isPartial) {
+            $model::enableSearchSyncing();
+        }
     }
 
     protected function getModelForEndpoint($endpoint)
