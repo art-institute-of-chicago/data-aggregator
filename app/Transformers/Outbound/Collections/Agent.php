@@ -200,7 +200,7 @@ class Agent extends BaseTransformer
                         $item->title,
                         $item->sort_title,
                     ],
-                    $item->alt_titles ?? []
+                    array_filter($item->alt_titles ?? [])
                 ),
                 'weight' => $item->isBoosted() ? 3 : 2,
             ];
@@ -213,7 +213,7 @@ class Agent extends BaseTransformer
                         $item->title,
                         $item->sort_title,
                     ],
-                    $item->alt_titles ?? []
+                    array_filter($item->alt_titles ?? [])
                 ),
                 'weight' => $item->isBoosted() ? 3 : 2,
                 'contexts' => [
