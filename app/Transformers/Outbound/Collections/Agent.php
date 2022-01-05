@@ -35,18 +35,33 @@ class Agent extends BaseTransformer
 
     protected function getTitles()
     {
-        return array_merge(parent::getTitles(), [
+        $baseTitle = parent::getTitles();
+
+        $baseTitle['title']['elasticsearch']['mapping'] = $this->getDefaultStringMapping([
+            'analyzer' => 'name',
+        ]);
+
+        return array_merge($baseTitle, [
             'sort_title' => [
                 'doc' => 'Sortable name for this agent, typically with last name first.',
                 'type' => 'string',
-                'elasticsearch' => 'text',
+                'elasticsearch' => [
+                    'mapping' => [
+                        'type' => 'text',
+                        'analyzer' => 'name',
+                    ],
+                ],
             ],
             'alt_titles' => [
                 'doc' => 'Alternate names for this agent',
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
+
+                    'mapping' => [
+                        'type' => 'text',
+                        'analyzer' => 'name',
+                    ],
 
                     // For better search experiences with Korean, Chinese and Japanese queries.
                     // See https://www.elastic.co/blog/how-to-search-ch-jp-kr-part-2

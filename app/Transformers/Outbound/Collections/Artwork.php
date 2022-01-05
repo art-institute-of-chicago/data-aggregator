@@ -196,7 +196,10 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
+                    'mapping' => [
+                        'type' => 'text',
+                        'analyzer' => 'name',
+                    ],
                 ],
             ],
             'place_of_origin' => [
@@ -475,6 +478,11 @@ class Artwork extends BaseTransformer
             'artist_title' => [
                 'doc' => 'Name of the preferred artist/culture associated with this work',
                 'type' => 'string',
+                'elasticsearch' => [
+                    'mapping' => $this->getDefaultStringMapping([
+                        'analyzer' => 'name',
+                    ]),
+                ],
                 'value' => function ($item) {
                     return $item->artist->title ?? null;
                 },
@@ -502,6 +510,9 @@ class Artwork extends BaseTransformer
                     'default' => true,
                     // This is controllable via .env so we can tweak it without pushing to prod
                     'boost' => (float) (env('SEARCH_BOOST_ARTIST_TITLES') ?: 2),
+                    'mapping' => $this->getDefaultStringMapping([
+                        'analyzer' => 'name',
+                    ]),
                 ],
                 'value' => function ($item) {
                     return $item->artists->pluck('title');

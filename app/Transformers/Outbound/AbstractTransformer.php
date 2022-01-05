@@ -345,6 +345,22 @@ abstract class AbstractTransformer extends BaseTransformer
     }
 
     /**
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-field-mapping.html
+     */
+    protected function getDefaultStringMapping($customMapping)
+    {
+        return array_merge_recursive($customMapping, [
+            'type' => 'text',
+            'fields' => [
+                'keyword' => [
+                    'type' => 'keyword',
+                    'ignore_above' => 256,
+                ],
+            ],
+        ]);
+    }
+
+    /**
      * Helper to parse out the fields variable passed via constructor.
      * Expects a comma-separated string or an array.
      *
