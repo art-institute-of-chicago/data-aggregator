@@ -84,6 +84,12 @@ class Response
             $response
         );
 
+        $config = config('aic.config_documentation');
+
+        if ($config) {
+            $response['config'] = $config;
+        }
+
         return $response;
     }
 
