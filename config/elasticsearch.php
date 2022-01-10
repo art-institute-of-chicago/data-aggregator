@@ -282,7 +282,7 @@ return [
                                 'asciifolding',
                             ],
                         ],
-                        'name' => [
+                        'exact' => [
                             'tokenizer' => 'standard',
                             'filter' => [
                                 'lowercase',

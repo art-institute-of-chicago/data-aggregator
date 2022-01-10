@@ -345,19 +345,38 @@ abstract class AbstractTransformer extends BaseTransformer
     }
 
     /**
+     * ART-44: Support exact matching for quoted text
+     *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-field-mapping.html
      */
-    protected function getDefaultStringMapping($customMapping)
+    protected function getDefaultStringMapping($hasKeyword = false, $customMapping = [])
     {
-        return array_merge_recursive($customMapping, [
+        $mapping = [
             'type' => 'text',
             'fields' => [
-                'keyword' => [
-                    'type' => 'keyword',
-                    'ignore_above' => 256,
+                'exact' => [
+                    'type' => 'text',
+                    'analyzer' => 'exact',
                 ],
             ],
-        ]);
+        ];
+
+        if ($hasKeyword) {
+            $mapping = array_merge_recursive($mapping, [
+                'fields' => [
+                    'keyword' => [
+                        'type' => 'keyword',
+                        'ignore_above' => 256,
+                    ],
+                ],
+            ]);
+        }
+
+        if ($customMapping) {
+            $mapping = array_merge_recursive($mapping, $customMapping);
+        }
+
+        return $mapping;
     }
 
     /**
@@ -404,6 +423,13 @@ abstract class AbstractTransformer extends BaseTransformer
         }
 
         foreach ($mappedFields as $fieldName => $mappedField) {
+            // ART-44: Add `exact` subfield to default fields with undefined mapping
+            if ($mappedField['elasticsearch']['default'] ?? false) {
+                if (!isset($mappedField['elasticsearch']['mapping'])) {
+                    $mappedFields[$fieldName]['elasticsearch']['mapping'] = $this->getDefaultStringMapping();
+                }
+            }
+
             if (!isset($mappedFields[$fieldName]['value'])) {
                 $mappedFields[$fieldName]['value'] = function ($model) use ($fieldName) {
                     return $model->{$fieldName};

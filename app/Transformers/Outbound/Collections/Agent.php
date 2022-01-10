@@ -45,23 +45,12 @@ class Agent extends BaseTransformer
             'sort_title' => [
                 'doc' => 'Sortable name for this agent, typically with last name first.',
                 'type' => 'string',
-                'elasticsearch' => [
-                    'mapping' => [
-                        'type' => 'text',
-                        'analyzer' => 'name',
-                    ],
-                ],
             ],
             'alt_titles' => [
                 'doc' => 'Alternate names for this agent',
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
-
-                    'mapping' => [
-                        'type' => 'text',
-                        'analyzer' => 'name',
-                    ],
 
                     // For better search experiences with Korean, Chinese and Japanese queries.
                     // See https://www.elastic.co/blog/how-to-search-ch-jp-kr-part-2

@@ -32,7 +32,6 @@ class EventOccurrence extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
             ],
             'image_url' => [
