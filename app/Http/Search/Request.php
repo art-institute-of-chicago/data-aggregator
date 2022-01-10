@@ -794,7 +794,7 @@ class Request
         // This boosts docs that have multiple terms in close proximity
         // `phrase` queries are relatively expensive, so check for spaces first
         // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
-        if (strpos($input['q'], ' ')) {
+        if ((count($withoutQuotes) > 0 || count($withQuotes) > 1) && strpos($input['q'], ' ')) {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => str_replace('"', '', $input['q']),
