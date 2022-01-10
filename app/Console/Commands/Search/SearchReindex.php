@@ -45,7 +45,7 @@ class SearchReindex extends BaseCommand
         $index = app('Search')->getIndexForModel($model, $this->source);
 
         $params = [
-            'wait_for_completion' => true,
+            'wait_for_completion' => false,
             'body' => [
                 'source' => [
                     'index' => $index,
@@ -58,10 +58,8 @@ class SearchReindex extends BaseCommand
             ],
         ];
 
-        $this->warn('Reindex from ' . $index . ' is starting...');
-
         $return = Elasticsearch::reindex($params);
 
-        $this->info('Reindex from ' . $index . ' has finished.');
+        $this->info('Reindex from ' . $index . ' has started. Monitor the process here: ' . $this->baseUrl() . '/_tasks/' . $return['task']);
     }
 }
