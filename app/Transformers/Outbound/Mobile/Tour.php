@@ -40,7 +40,6 @@ class Tour extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
                 'value' => function ($item) {
                     return $item->intro_text;
@@ -64,7 +63,6 @@ class Tour extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
                 'value' => function ($item) {
                     return $item->intro->transcript ?? null;
@@ -75,6 +73,7 @@ class Tour extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
                 ],
                 'value' => function ($item) {
                     return $item->tourStops->pluck('artwork')->pluck('artwork')->pluck('title')->filter()->values();
@@ -85,6 +84,7 @@ class Tour extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
                 ],
                 'value' => function ($item) {
                     return $item->tourStops->pluck('artwork')->pluck('artwork')->pluck('artists')->collapse()->pluck('title');

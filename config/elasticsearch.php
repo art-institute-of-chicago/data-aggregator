@@ -282,6 +282,15 @@ return [
                                 'asciifolding',
                             ],
                         ],
+                        'exact' => [
+                            'tokenizer' => 'standard',
+                            'filter' => [
+                                'lowercase',
+                                'english_stop',
+                                'asciifolding',
+                                'shingle',
+                            ],
+                        ],
                     ],
                 ],
             ],

@@ -58,7 +58,6 @@ class Exhibition extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
             ],
             'short_description' => [

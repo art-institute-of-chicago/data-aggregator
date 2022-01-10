@@ -96,6 +96,7 @@ trait ElasticSearchable
     /**
      * Return names of fields marked as default, for simple search.
      * This method appends a boost factor to the field name, if present.
+     * ART-44: Targets `exact` subfield, if present in `mapping`.
      *
      * ```php
      * [
@@ -103,7 +104,6 @@ trait ElasticSearchable
      *     'elasticsearch' => [
      *         'default' => true,
      *         'boost' => 3,
-     *         'type' => 'text',
      *     ]
      * ],
      * ```
@@ -116,9 +116,13 @@ trait ElasticSearchable
     {
         $fields = $this->getDefaultSearchFieldMapping($isExact);
 
-        $fields = array_map(function ($field) {
+        $fields = array_map(function ($field) use ($isExact) {
 
             $label = $field['name'];
+
+            if ($isExact && isset($field['elasticsearch']['mapping']['fields']['exact'])) {
+                $label .= '.exact';
+            }
 
             if (isset($field['elasticsearch']['boost'])) {
                 $label .= '^' . $field['elasticsearch']['boost'];

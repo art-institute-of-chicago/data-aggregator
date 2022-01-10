@@ -14,7 +14,6 @@ trait HasSearchTags
                 'elasticsearch' => [
                     'default' => true,
                     'boost' => 5,
-                    'type' => 'text',
                 ],
                 'value' => function ($item) {
                     if (!$item->search_tags) {
