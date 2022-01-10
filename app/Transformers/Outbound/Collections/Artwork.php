@@ -202,6 +202,8 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                 ],
+                // API-235: Pull this from related place? For now, leaving as-is for performance.
+                // API-204: Eventually, this should be an array of all ancestor place names.
             ],
             'description' => [
                 'doc' => 'Longer explanation describing the work',
