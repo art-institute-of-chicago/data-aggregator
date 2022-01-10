@@ -111,9 +111,7 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'mapping' => [
-                        'type' => 'keyword',
-                    ],
+                    'mapping' => $this->getDefaultStringMapping(true),
                     'boost' => 5,
                 ],
                 'value' => function ($item) {
