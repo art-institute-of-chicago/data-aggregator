@@ -30,20 +30,6 @@ class SearchController extends BaseController
     |
     */
 
-    private $useCache;
-
-    public function __construct()
-    {
-        $this->useCache = config('elasticsearch.cache_enabled');
-
-        $cacheParam = RequestFacade::input('cache');
-        $cacheParam = !is_string($cacheParam) ? $cacheParam : filter_var($cacheParam, FILTER_VALIDATE_BOOLEAN);
-
-        if ($this->useCache && $cacheParam === false && Gate::allows('restricted-access')) {
-            $this->useCache = false;
-        }
-    }
-
     /**
      * General entry point for search. There are three modes:
      *
@@ -140,11 +126,6 @@ class SearchController extends BaseController
         return response($this->getRequest())->header('Content-Type', 'application/json');
     }
 
-    protected function buildCacheKey()
-    {
-        return md5(json_encode(func_get_args()));
-    }
-
     /**
      * Helper method to perform a query against Elasticsearch endpoint.
      *
@@ -164,25 +145,13 @@ class SearchController extends BaseController
 
         // Transform our API's syntax into an Elasticsearch params array
         $params = ( new SearchRequest($resource, $id) )->{$requestMethod}($input);
-        $cacheKey = $this->buildCacheKey($elasticsearchMethod, $params, config('elasticsearch.cache_version'));
         $results = null;
 
         try {
-            // Perform API request and caching
-            if ($this->useCache) {
-                $results = \Cache::remember($cacheKey, config('elasticsearch.cache_ttl'), function () use ($elasticsearchMethod, $params) {
-                    return Elasticsearch::$elasticsearchMethod($params);
-                });
-            } else {
-                $results = Elasticsearch::$elasticsearchMethod($params);
-            }
+            $results = Elasticsearch::$elasticsearchMethod($params);
         } catch (\Exception $e) {
             // Elasticsearch occasionally returns a status code of zero
             $code = $e->getCode() > 0 ? $e->getCode() : 500;
-
-            if ($this->useCache) {
-                \Cache::forget($cacheKey);
-            }
 
             return response($e->getMessage(), $code)->header('Content-Type', 'application/json');
         }
@@ -249,25 +218,13 @@ class SearchController extends BaseController
         }
 
         $params = ['body' => $transformedParams];
-        $cacheKey = $this->buildCacheKey('msearch', $params, config('elasticsearch.cache_version'));
         $results = null;
 
         try {
-            // Perform API request and caching
-            if ($this->useCache) {
-                $results = \Cache::remember($cacheKey, config('elasticsearch.cache_ttl'), function () use ($params) {
-                    return Elasticsearch::msearch($params);
-                });
-            } else {
-                $results = Elasticsearch::msearch($params);
-            }
+            $results = Elasticsearch::msearch($params);
         } catch (\Exception $e) {
             // Elasticsearch occasionally returns a status code of zero
             $code = $e->getCode() > 0 ? $e->getCode() : 500;
-
-            if ($this->useCache) {
-                \Cache::forget($cacheKey);
-            }
 
             return response($e->getMessage(), $code)->header('Content-Type', 'application/json');
         }
