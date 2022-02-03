@@ -2,22 +2,10 @@
 
 namespace Database\Factories\Membership;
 
-use App\Models\Membership\TicketedEvent;
-
 class TicketedEventFactory extends MembershipFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
-    protected $model = TicketedEvent::class;
+    protected $model = \App\Models\Membership\TicketedEvent::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         $has_capacity = rand(0, 1) === 1;

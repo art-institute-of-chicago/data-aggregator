@@ -2,28 +2,16 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Asset;
-
 class AssetFactory extends CollectionsFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
-    protected $model = Asset::class;
+    protected $model = \App\Models\Collections\Asset::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return array_merge(
             $this->idsAndTitle(ucwords($this->faker->words(3, true))),
             [
-                'lake_guid' => '99999999-9999-9999-9999-999999' . $this->faker->randomNumber(6, true),
+                'lake_guid' => $this->faker->uuid(),
                 'content' => $this->faker->url,
                 'published' => true,
                 'description' => $this->faker->paragraph(3),

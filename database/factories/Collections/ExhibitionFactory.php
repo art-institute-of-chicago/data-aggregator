@@ -2,23 +2,12 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Exhibition;
 use App\Models\Collections\Place;
 
 class ExhibitionFactory extends CollectionsFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
-    protected $model = Exhibition::class;
+    protected $model = \App\Models\Collections\Exhibition::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return array_merge(

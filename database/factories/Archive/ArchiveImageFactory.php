@@ -3,25 +3,14 @@
 namespace Database\Factories\Archive;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Archive\ArchiveImage;
 
 class ArchiveImageFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
-    protected $model = ArchiveImage::class;
+    protected $model = \App\Models\Archive\ArchiveImage::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
-        $id = $this->faker->unique()->randomNumber(6) + 999 * pow(10, 6);
+        $id = $this->faker->unique()->randomNumber(6);
         return [
             'id' => $id,
             'title' => ucfirst($this->faker->words(3, true)),
@@ -49,11 +38,6 @@ class ArchiveImageFactory extends Factory
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
     public function unverified()
     {
         return $this->state(function (array $attributes) {

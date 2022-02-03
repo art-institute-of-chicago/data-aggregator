@@ -2,22 +2,10 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Gallery;
-
 class GalleryFactory extends CollectionsFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
-    protected $model = Gallery::class;
+    protected $model = \App\Models\Collections\Gallery::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return array_merge(
