@@ -79,7 +79,7 @@ trait Documentable
     public function docLicense()
     {
         $transformer = app('Resources')->getTransformerForModel(get_called_class());
-        $transformer = new $transformer;
+        $transformer = new $transformer();
         return '_' . $transformer->getLicenseText() . '_';
     }
 
@@ -208,10 +208,10 @@ trait Documentable
     }
 
         /**
-     * For this resource, add this to the full documentation.
-     *
-     * @return string
-     */
+         * For this resource, add this to the full documentation.
+         *
+         * @return string
+         */
     public function docExtra()
     {
         return '';
@@ -373,6 +373,7 @@ trait Documentable
                 $response->data = $this->_addEllipsis($response->data);
             }
         }
+
         if (property_exists($response, 'metadata')) {
             $response->metadata = $this->_addEllipsis($response->metadata);
         }
@@ -402,7 +403,7 @@ trait Documentable
     {
         $appUrl = $this->docAppUrl . $this->_endpointPath() . '/search' . ($getParams ? '?' . $getParams : '');
 
-        $doc = "::: details Example request: " . $appUrl . "\n";
+        $doc = '::: details Example request: ' . $appUrl . "\n";
 
         $response = json_decode(file_get_contents($appUrl));
         sleep(1); // Throttle requests to the API
@@ -462,7 +463,7 @@ trait Documentable
      */
     public function exampleId()
     {
-        self::addGlobalScope(new PublishedScope);
+        self::addGlobalScope(new PublishedScope());
         $exampleRecord = self::first();
 
         return $exampleRecord ? $exampleRecord->getKey() : null;
@@ -735,7 +736,7 @@ trait Documentable
             }
         }
 
-        return rtrim($path, "/");
+        return rtrim($path, '/');
     }
 
     private function _addEllipsis($obj)
@@ -755,6 +756,7 @@ trait Documentable
 
             $obj->{'...'} = null;
         }
+
         if (is_array($obj)) {
             $keys = array_keys($obj);
             $addEllipsis = false;

@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Docs;
 
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 
 class DownloadCssJs extends AbstractDocCommand
 {
@@ -39,12 +38,13 @@ class DownloadCssJs extends AbstractDocCommand
         );
 
         foreach ($files as $vanityName => $fileName) {
-            $contents = file_get_contents('https://www.artic.edu/dist/' .$fileName);
+            $contents = file_get_contents('https://www.artic.edu/dist/' . $fileName);
             Storage::disk('local')->put($vanityName, $contents);
 
             $dest = base_path('docs/.vuepress/public/assets/' . $vanityName);
 
             $path = pathinfo($dest);
+
             if (!file_exists($path['dirname'])) {
                 mkdir($path['dirname'], 0777, true);
             }

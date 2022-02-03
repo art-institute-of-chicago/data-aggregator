@@ -16,6 +16,7 @@ class AssetController extends ResourceController
             $isNetx = true;
         } else {
             $asset = Asset::where('lake_guid', $id)->first();
+
             if ($asset) {
                 $isNetx = false;
             } else {

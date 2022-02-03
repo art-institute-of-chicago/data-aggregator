@@ -47,8 +47,8 @@ class TrustProxies extends Middleware
 
         $this->proxies = array_merge(
             $this->proxies,
-            $ips->{"CLOUDFRONT_GLOBAL_IP_LIST"},
-            $ips->{"CLOUDFRONT_REGIONAL_EDGE_IP_LIST"}
+            $ips->{'CLOUDFRONT_GLOBAL_IP_LIST'},
+            $ips->{'CLOUDFRONT_REGIONAL_EDGE_IP_LIST'}
         );
 
         array_push($this->proxies, $request->server->get('REMOTE_ADDR'));

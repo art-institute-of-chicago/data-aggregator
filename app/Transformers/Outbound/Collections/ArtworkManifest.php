@@ -27,10 +27,10 @@ class ArtworkManifest extends BaseTransformer
             '@type' => 'sc:Manifest',
             'label' => $model->title,
             'description' => [
-              [
-                'value' => strip_tags($model->description),
-                'language' => 'en'
-              ]
+                [
+                    'value' => strip_tags($model->description),
+                    'language' => 'en'
+                ]
             ],
             'metadata' => [
                 [
@@ -89,7 +89,7 @@ class ArtworkManifest extends BaseTransformer
         return [
             '@type' => 'sc:Canvas',
             '@id' => config('aic.config_documentation.iiif_url') . '/' . $imageUuid,
-            'label' => strip_tags($model->title.', '.$model->date_display.'. '.str_replace("\n", ', ', $model->artist_display)),
+            'label' => strip_tags($model->title . ', ' . $model->date_display . '. ' . str_replace("\n", ', ', $model->artist_display)),
             'width' => $width,
             'height' => $height,
             'images' => [

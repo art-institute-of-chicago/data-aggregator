@@ -22,7 +22,7 @@ class CategoryTerm extends CollectionsModel
     public const DEPARTMENT = 'CT-1';
     public const THEME = 'CT-3';
 
-    protected static $isCategory = null;
+    protected static $isCategory;
 
     protected $primaryKey = 'lake_uid';
     protected $keyType = 'string';

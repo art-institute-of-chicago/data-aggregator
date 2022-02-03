@@ -13,7 +13,6 @@ class RemoveCopyrightNoticeFromAssets extends Migration
         });
     }
 
-
     public function down()
     {
         Schema::table('assets', function (Blueprint $table) {

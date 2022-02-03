@@ -9,7 +9,6 @@ use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
 use App\Http\Middleware\RestrictContent;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Support\Facades\Request as RequestFacade;

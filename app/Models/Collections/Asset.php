@@ -21,7 +21,7 @@ class Asset extends CollectionsModel
     // WEB-1870: We can't set this conditionally; default to NetX over LAKE
     // public static $sourceLastUpdateDateField = 'indexed_at';
 
-    protected static $assetType = null;
+    protected static $assetType;
 
     protected $primaryKey = 'lake_guid';
 
@@ -66,8 +66,8 @@ class Asset extends CollectionsModel
         }
 
         $hash = (string) hash('md5', env('ASSET_PREFIX', '') . $id);
-        return substr($hash, 0, 8)  . '-'
-          . substr($hash, 8, 4)  . '-'
+        return substr($hash, 0, 8) . '-'
+          . substr($hash, 8, 4) . '-'
           . substr($hash, 12, 4) . '-'
           . substr($hash, 16, 4) . '-'
           . substr($hash, 20);

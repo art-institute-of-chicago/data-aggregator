@@ -50,7 +50,7 @@ class Product extends BaseTransformer
                     $out = '<p>';
 
                     if ($item->min_current_price < $item->max_current_price) {
-                        $out .=  'From ';
+                        $out .= 'From ';
                     }
 
                     $out .= '$' . $item->min_current_price;

@@ -12,7 +12,6 @@ class DecodeParams
      * quirks. You can pass any API params as a JSON string via the `params` param.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)

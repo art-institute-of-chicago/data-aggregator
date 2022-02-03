@@ -31,6 +31,7 @@ class DumpUpload extends AbstractDumpCommand
         if ($this->isDirEmpty($jsonsSrcPath)) {
             throw new Exception('No JSON files found in ' . $jsonsSrcPath);
         }
+
         if ($this->isDirEmpty($gettingStartedSrcPath)) {
             throw new Exception('No getting started files found in ' . $gettingStartedSrcPath);
         }
@@ -57,29 +58,30 @@ class DumpUpload extends AbstractDumpCommand
 
         // Copy dumps of whitelisted tables and endpoints into the repo
         $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/getting-started', $repoPath . '/getting-started');
-        $this->shell->passthru("
+        $this->shell->passthru('
             for file in %s/*; do
-                if [ -f \$file ]; then
-                    cp %s/$(basename \$file) %s/
+                if [ -f $file ]; then
+                    cp %s/$(basename $file) %s/
                 fi
             done
-        ", $srcPath, $srcPath, $repoPath);
+        ', $srcPath, $srcPath, $repoPath);
         $this->shell->passthru('mkdir %s', $repoPath . '/json');
 
-        $endpointResult = $this->shell->exec("
+        $endpointResult = $this->shell->exec('
             for DIR_SRC in %s/json/*; do
-                if [ -d \"\$DIR_SRC\" ]; then
-                    DIR_DEST=%s/json/$(basename \"\$DIR_SRC\")
-                    mkdir \"\$DIR_DEST\"
-                    echo \"\$(basename \"\$DIR_SRC\")\"
+                if [ -d "$DIR_SRC" ]; then
+                    DIR_DEST=%s/json/$(basename "$DIR_SRC")
+                    mkdir "$DIR_DEST"
+                    echo "$(basename "$DIR_SRC")"
                 fi
             done
-        ", $srcPath, $repoPath);
+        ', $srcPath, $repoPath);
 
         // First, copy only 10 items from each endpoint
         foreach ($endpointResult['output'] as $endpoint) {
             // https://stackoverflow.com/questions/11296809/how-to-avoid-ls-write-error-broken-pipe-with-php-exec
             $fileResult = $this->shell->exec('ls -p1 %s/json/%s | grep -v / | sort -n -k1 2>/dev/null | head -10', $srcPath, $endpoint);
+
             foreach ($fileResult['output'] as $file) {
                 $this->shell->exec(
                     'cp %s/json/%s/%s %s/json/%s',
@@ -136,9 +138,11 @@ class DumpUpload extends AbstractDumpCommand
     protected function isDirEmpty($dir)
     {
         $handle = opendir($dir);
+
         while (false !== ($entry = readdir($handle))) {
-            if ($entry != "." && $entry != "..") {
-                $file  = $dir.$entry;
+            if ($entry != '.' && $entry != '..') {
+                $file = $dir . $entry;
+
                 if (is_dir($file)) {
                     if (!$this->isDirEmpty($file)) {
                         closedir($handle);

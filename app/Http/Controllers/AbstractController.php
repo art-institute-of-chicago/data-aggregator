@@ -8,7 +8,6 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request as RequestFacade;
 use Closure;
@@ -73,6 +72,7 @@ abstract class AbstractController extends BaseController
             ];
 
             $params = http_build_query(collect($request->input())->except('page')->all());
+
             if ($collection->previousPageUrl()) {
                 $paginator['prev_url'] = $collection->previousPageUrl() . ($params ? '&' . $params : '');
             }

@@ -10,7 +10,7 @@ class Asset extends CollectionsTransformer
 
     protected function getIds(Datum $datum)
     {
-        return  [
+        return [
             'lake_guid' => strval($datum->id),
             'netx_uuid' => \App\Models\Collections\Asset::getHashedId($datum->id),
         ];

@@ -13,7 +13,7 @@ class RemoveQlessQueues extends Migration
      */
     public function up()
     {
-        WaitTime::destroy(1980,1981,1982,1983);
+        WaitTime::destroy(1980, 1981, 1982, 1983);
     }
 
     /**

@@ -9,18 +9,18 @@ class Slug
         // Make sure string is in UTF-8 and strip invalid UTF-8 characters
         $str = mb_convert_encoding((string) $str, 'UTF-8', mb_list_encodings());
 
-        $defaults = array(
+        $defaults = [
             'delimiter' => '-',
             'limit' => null,
             'lowercase' => true,
-            'replacements' => array(),
+            'replacements' => [],
             'transliterate' => true,
-        );
+        ];
 
         // Merge options
         $options = array_merge($defaults, $options);
 
-        $char_map = array(
+        $char_map = [
             // Latin
             'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'AE', 'Ç' => 'C',
             'È' => 'E', 'É' => 'E', 'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I',
@@ -85,7 +85,7 @@ class Slug
             'Š' => 'S', 'Ū' => 'u', 'Ž' => 'Z',
             'ā' => 'a', 'č' => 'c', 'ē' => 'e', 'ģ' => 'g', 'ī' => 'i', 'ķ' => 'k', 'ļ' => 'l', 'ņ' => 'n',
             'š' => 's', 'ū' => 'u', 'ž' => 'z',
-        );
+        ];
 
         // Make custom replacements
         $str = preg_replace(array_keys($options['replacements']), $options['replacements'], $str);

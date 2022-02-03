@@ -73,9 +73,9 @@ class DeleteAssets extends AbstractImportCommand
                             $this->warn('Deleting ' . $modelClass . ' ' . $datum->asset_id);
                             $model->delete();
                             break;
-                        } else {
-                            $this->info('Skipped ' . $modelClass . ' ' . $datum->asset_id . ' because it is newer');
                         }
+
+                        $this->info('Skipped ' . $modelClass . ' ' . $datum->asset_id . ' because it is newer');
                     }
                 }
             }

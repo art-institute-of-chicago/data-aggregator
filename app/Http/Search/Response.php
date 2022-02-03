@@ -3,7 +3,6 @@
 namespace App\Http\Search;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request as RequestFacade;
 
@@ -221,7 +220,7 @@ class Response
 
         $transformers = array_map(function ($resource) {
             $transformer = app('Resources')->getTransformerForEndpoint($resource);
-            return new $transformer;
+            return new $transformer();
         }, $resources);
 
         // Sort transformers by license priority, ascending:

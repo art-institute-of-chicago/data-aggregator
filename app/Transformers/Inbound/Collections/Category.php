@@ -9,7 +9,7 @@ class Category extends BaseList
 
     protected function getIds(Datum $datum)
     {
-        return  [
+        return [
             'lake_uid' => $datum->id,
         ];
     }
