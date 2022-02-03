@@ -6,18 +6,8 @@ use App\Models\Collections\ArtworkDate;
 
 class ArtworkDateFactory extends CollectionsFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
     protected $model = ArtworkDate::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return array_merge(

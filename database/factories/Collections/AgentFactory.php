@@ -7,18 +7,8 @@ use App\Models\Collections\AgentType;
 
 class AgentFactory extends CollectionsFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
     protected $model = Agent::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         $first_name = $this->faker->firstName;

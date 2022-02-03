@@ -8,18 +8,8 @@ use App\Models\Collections\Artwork;
 
 class SectionFactory extends DscFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
     protected $model = Section::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return array_merge(

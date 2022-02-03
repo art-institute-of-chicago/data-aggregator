@@ -7,18 +7,8 @@ use App\Models\Web\Exhibition;
 
 class ExhibitionFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
     protected $model = Exhibition::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [

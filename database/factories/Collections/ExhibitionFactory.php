@@ -7,18 +7,8 @@ use App\Models\Collections\Place;
 
 class ExhibitionFactory extends CollectionsFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
     protected $model = Exhibition::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return array_merge(

@@ -7,18 +7,8 @@ use App\Models\Web\DigitalCatalog;
 
 class DigitalCatalogFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
     protected $model = DigitalCatalog::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [

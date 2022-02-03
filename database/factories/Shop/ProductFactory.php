@@ -6,18 +6,8 @@ use App\Models\Shop\Product;
 
 class ProductFactory extends ShopFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
     protected $model = Product::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         $part1 = ucwords($this->faker->words(2, true));

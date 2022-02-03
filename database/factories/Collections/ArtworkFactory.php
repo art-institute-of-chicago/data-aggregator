@@ -10,18 +10,8 @@ use App\Models\Collections\Place;
 
 class ArtworkFactory extends CollectionsFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
     protected $model = Artwork::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         $date_end = $this->faker->year;
