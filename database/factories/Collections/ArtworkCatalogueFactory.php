@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\ArtworkCatalogue;
-
 class ArtworkCatalogueFactory extends CollectionsFactory
 {
-    protected $model = ArtworkCatalogue::class;
+    protected $model = \App\Models\Collections\ArtworkCatalogue::class;
 
     public function definition()
     {

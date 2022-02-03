@@ -3,11 +3,10 @@
 namespace Database\Factories\Web;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Web\Highlight;
 
 class HighlightFactory extends Factory
 {
-    protected $model = Highlight::class;
+    protected $model = \App\Models\Web\Highlight::class;
 
     public function definition()
     {

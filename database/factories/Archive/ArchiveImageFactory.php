@@ -3,11 +3,10 @@
 namespace Database\Factories\Archive;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Archive\ArchiveImage;
 
 class ArchiveImageFactory extends Factory
 {
-    protected $model = ArchiveImage::class;
+    protected $model = \App\Models\Archive\ArchiveImage::class;
 
     public function definition()
     {

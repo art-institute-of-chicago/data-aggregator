@@ -3,11 +3,10 @@
 namespace Database\Factories\StaticArchive;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\StaticArchive\Site;
 
 class SiteFactory extends Factory
 {
-    protected $model = Site::class;
+    protected $model = \App\Models\StaticArchive\Site::class;
 
     public function definition()
     {

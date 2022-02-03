@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Gallery;
-
 class GalleryFactory extends CollectionsFactory
 {
-    protected $model = Gallery::class;
+    protected $model = \App\Models\Collections\Gallery::class;
 
     public function definition()
     {

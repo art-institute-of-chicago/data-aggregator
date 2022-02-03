@@ -2,7 +2,6 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Artwork;
 use App\Models\Collections\Agent;
 use App\Models\Collections\AgentType;
 use App\Models\Collections\ArtworkType;
@@ -10,7 +9,7 @@ use App\Models\Collections\Place;
 
 class ArtworkFactory extends CollectionsFactory
 {
-    protected $model = Artwork::class;
+    protected $model = \App\Models\Collections\Artwork::class;
 
     public function definition()
     {

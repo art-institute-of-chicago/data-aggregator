@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Term;
-
 class TermFactory extends CollectionsFactory
 {
-    protected $model = Term::class;
+    protected $model = \App\Models\Collections\Term::class;
 
     public function definition()
     {

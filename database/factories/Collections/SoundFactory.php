@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Sound;
-
 class SoundFactory extends AssetFactory
 {
-    protected $model = Sound::class;
+    protected $model = \App\Models\Collections\Sound::class;
 
     public function definition()
     {

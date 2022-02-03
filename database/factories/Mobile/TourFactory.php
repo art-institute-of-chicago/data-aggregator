@@ -2,12 +2,11 @@
 
 namespace Database\Factories\Mobile;
 
-use App\Models\Mobile\Tour;
 use App\Models\Mobile\Sound;
 
 class TourFactory extends MobileFactory
 {
-    protected $model = Tour::class;
+    protected $model = \App\Models\Mobile\Tour::class;
 
     public function definition()
     {

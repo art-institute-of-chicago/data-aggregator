@@ -3,11 +3,10 @@
 namespace Database\Factories\Web;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Web\Closure;
 
 class ClosureFactory extends Factory
 {
-    protected $model = Closure::class;
+    protected $model = \App\Models\Web\Closure::class;
 
     public function definition()
     {

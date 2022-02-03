@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\AgentRole;
-
 class AgentRoleFactory extends CollectionsFactory
 {
-    protected $model = AgentRole::class;
+    protected $model = \App\Models\Collections\AgentRole::class;
 
     public function definition()
     {

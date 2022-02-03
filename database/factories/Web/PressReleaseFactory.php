@@ -3,11 +3,10 @@
 namespace Database\Factories\Web;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Web\PressRelease;
 
 class PressReleaseFactory extends Factory
 {
-    protected $model = PressRelease::class;
+    protected $model = \App\Models\Web\PressRelease::class;
 
     public function definition()
     {

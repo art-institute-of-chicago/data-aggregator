@@ -3,11 +3,10 @@
 namespace Database\Factories\Web;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Web\GenericPage;
 
 class GenericPageFactory extends Factory
 {
-    protected $model = GenericPage::class;
+    protected $model = \App\Models\Web\GenericPage::class;
 
     public function definition()
     {

@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Mobile;
 
-use App\Models\Mobile\TourStop;
-
 class TourStopFactory extends MobileFactory
 {
-    protected $model = TourStop::class;
+    protected $model = \App\Models\Mobile\TourStop::class;
 
     public function definition()
     {

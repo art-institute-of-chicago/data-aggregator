@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\ArtworkPlaceQualifier;
-
 class ArtworkPlaceQualifierFactory extends CollectionsFactory
 {
-    protected $model = ArtworkPlaceQualifier::class;
+    protected $model = \App\Models\Collections\ArtworkPlaceQualifier::class;
 
     public function definition()
     {

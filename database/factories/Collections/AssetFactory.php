@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Asset;
-
 class AssetFactory extends CollectionsFactory
 {
-    protected $model = Asset::class;
+    protected $model = \App\Models\Collections\Asset::class;
 
     public function definition()
     {

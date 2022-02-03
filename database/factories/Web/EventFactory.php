@@ -3,11 +3,10 @@
 namespace Database\Factories\Web;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Web\Event;
 
 class EventFactory extends Factory
 {
-    protected $model = Event::class;
+    protected $model = \App\Models\Web\Event::class;
 
     public function definition()
     {

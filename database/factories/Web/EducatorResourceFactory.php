@@ -3,11 +3,10 @@
 namespace Database\Factories\Web;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Web\EducatorResource;
 
 class EducatorResourceFactory extends Factory
 {
-    protected $model = EducatorResource::class;
+    protected $model = \App\Models\Web\EducatorResource::class;
 
     public function definition()
     {

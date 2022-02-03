@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Dsc;
 
-use App\Models\Dsc\Publication;
-
 class PublicationFactory extends DscFactory
 {
-    protected $model = Publication::class;
+    protected $model = \App\Models\Dsc\Publication::class;
 
     public function definition()
     {

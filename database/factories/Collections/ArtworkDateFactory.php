@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\ArtworkDate;
-
 class ArtworkDateFactory extends CollectionsFactory
 {
-    protected $model = ArtworkDate::class;
+    protected $model = \App\Models\Collections\ArtworkDate::class;
 
     public function definition()
     {

@@ -2,12 +2,11 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Exhibition;
 use App\Models\Collections\Place;
 
 class ExhibitionFactory extends CollectionsFactory
 {
-    protected $model = Exhibition::class;
+    protected $model = \App\Models\Collections\Exhibition::class;
 
     public function definition()
     {

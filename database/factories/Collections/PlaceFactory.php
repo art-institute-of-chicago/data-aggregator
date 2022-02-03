@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Place;
-
 class PlaceFactory extends CollectionsFactory
 {
-    protected $model = Place::class;
+    protected $model = \App\Models\Collections\Place::class;
 
     public function definition()
     {

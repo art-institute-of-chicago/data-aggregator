@@ -2,12 +2,11 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Agent;
 use App\Models\Collections\AgentType;
 
 class AgentFactory extends CollectionsFactory
 {
-    protected $model = Agent::class;
+    protected $model = \App\Models\Collections\Agent::class;
 
     public function definition()
     {

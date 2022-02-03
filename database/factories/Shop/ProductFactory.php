@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Shop;
 
-use App\Models\Shop\Product;
-
 class ProductFactory extends ShopFactory
 {
-    protected $model = Product::class;
+    protected $model = \App\Models\Shop\Product::class;
 
     public function definition()
     {

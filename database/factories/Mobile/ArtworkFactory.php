@@ -2,18 +2,16 @@
 
 namespace Database\Factories\Mobile;
 
-use App\Models\Mobile\Artwork;
-
 class ArtworkFactory extends MobileFactory
 {
-    protected $model = Artwork::class;
+    protected $model = \App\Models\Mobile\Artwork::class;
 
     public function definition()
     {
         static $artworks;
 
         if (!$artworks) {
-            $artworks = App\Models\Collections\Artwork::query()->pluck('citi_id')->all();
+            $artworks = \App\Models\Collections\Artwork::query()->pluck('citi_id')->all();
         }
 
         return array_merge(

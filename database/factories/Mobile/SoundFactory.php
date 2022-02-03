@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Mobile;
 
-use App\Models\Mobile\Sound;
-
 class SoundFactory extends MobileFactory
 {
-    protected $model = Sound::class;
+    protected $model = \App\Models\Mobile\Sound::class;
 
     public function definition()
     {

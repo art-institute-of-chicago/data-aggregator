@@ -3,11 +3,10 @@
 namespace Database\Factories\Web;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Web\Article;
 
 class ArticleFactory extends Factory
 {
-    protected $model = Article::class;
+    protected $model = \App\Models\Web\Article::class;
 
     public function definition()
     {

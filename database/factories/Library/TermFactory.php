@@ -3,11 +3,10 @@
 namespace Database\Factories\Library;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Library\Term;
 
 class TermFactory extends Factory
 {
-    protected $model = Term::class;
+    protected $model = \App\Models\Library\Term::class;
 
     public function definition()
     {

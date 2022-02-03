@@ -3,11 +3,10 @@
 namespace Database\Factories\Library;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Library\Material;
 
 class MaterialFactory extends Factory
 {
-    protected $model = Material::class;
+    protected $model = \App\Models\Library\Material::class;
 
     public function definition()
     {

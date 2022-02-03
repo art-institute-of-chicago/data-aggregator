@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Membership;
 
-use App\Models\Membership\TicketedEvent;
-
 class TicketedEventFactory extends MembershipFactory
 {
-    protected $model = TicketedEvent::class;
+    protected $model = \App\Models\Membership\TicketedEvent::class;
 
     public function definition()
     {

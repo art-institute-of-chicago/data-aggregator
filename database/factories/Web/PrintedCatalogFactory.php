@@ -3,11 +3,10 @@
 namespace Database\Factories\Web;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Web\PrintedCatalog;
 
 class PrintedCatalogFactory extends Factory
 {
-    protected $model = PrintedCatalog::class;
+    protected $model = \App\Models\Web\PrintedCatalog::class;
 
     public function definition()
     {

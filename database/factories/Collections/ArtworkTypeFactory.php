@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\ArtworkType;
-
 class ArtworkTypeFactory extends CollectionsFactory
 {
-    protected $model = ArtworkType::class;
+    protected $model = \App\Models\Collections\ArtworkType::class;
 
     public function definition()
     {

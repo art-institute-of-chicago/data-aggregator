@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Text;
-
 class TextFactory extends AssetFactory
 {
-    protected $model = Text::class;
+    protected $model = \App\Models\Collections\Text::class;
 
     public function definition()
     {

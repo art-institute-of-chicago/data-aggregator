@@ -2,11 +2,9 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\ArtworkDateQualifier;
-
 class ArtworkDateQualifierFactory extends CollectionsFactory
 {
-    protected $model = ArtworkDateQualifier::class;
+    protected $model = \App\Models\Collections\ArtworkDateQualifier::class;
 
     public function definition()
     {
