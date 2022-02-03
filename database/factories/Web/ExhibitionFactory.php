@@ -14,7 +14,7 @@ class ExhibitionFactory extends Factory
             'id' => $this->faker->unique()->randomNumber(4),
             'title' => ucfirst($this->faker->words(3, true)),
             'is_published' => true,
-            'datahub_id' => $this->faker->unique()->randomNumber(4) + 999 * pow(10, 4),
+            'datahub_id' => $this->faker->unique()->randomNumber(4),
         ];
     }
 }

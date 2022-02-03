@@ -11,7 +11,7 @@ class AssetFactory extends CollectionsFactory
         return array_merge(
             $this->idsAndTitle(ucwords($this->faker->words(3, true))),
             [
-                'lake_guid' => '99999999-9999-9999-9999-999999' . $this->faker->randomNumber(6, true),
+                'lake_guid' => $this->faker->uuid(),
                 'content' => $this->faker->url,
                 'published' => true,
                 'description' => $this->faker->paragraph(3),

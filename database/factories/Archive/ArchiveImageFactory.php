@@ -10,7 +10,7 @@ class ArchiveImageFactory extends Factory
 
     public function definition()
     {
-        $id = $this->faker->unique()->randomNumber(6) + 999 * pow(10, 6);
+        $id = $this->faker->unique()->randomNumber(6);
         return [
             'id' => $id,
             'title' => ucfirst($this->faker->words(3, true)),

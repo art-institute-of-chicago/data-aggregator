@@ -10,7 +10,7 @@ class MaterialFactory extends Factory
 
     public function definition()
     {
-        $id = env('PRIMO_API_SOURCE') . '999' . $this->faker->unique()->randomNumber(8);
+        $id = env('PRIMO_API_SOURCE') . $this->faker->unique()->randomNumber(8);
         return [
             'id' => $id,
             'title' => ucfirst($this->faker->words(3, true)),
