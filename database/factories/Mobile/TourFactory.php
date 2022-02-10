@@ -2,23 +2,12 @@
 
 namespace Database\Factories\Mobile;
 
-use App\Models\Mobile\Tour;
 use App\Models\Mobile\Sound;
 
 class TourFactory extends MobileFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
-    protected $model = Tour::class;
+    protected $model = \App\Models\Mobile\Tour::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return array_merge(

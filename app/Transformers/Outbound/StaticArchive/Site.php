@@ -24,7 +24,6 @@ class Site extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
             ],
             'web_url' => [
@@ -47,7 +46,6 @@ class Site extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
                 'value' => function ($item) {
                     return $item->exhibitions->pluck('title');
@@ -81,7 +79,6 @@ class Site extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
                 'value' => function ($item) {
                     return $item->artworks->pluck('title');

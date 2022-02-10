@@ -30,7 +30,6 @@ class TourStop extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
                 'value' => function ($item) {
                     return $item->sound->transcript ?? null;

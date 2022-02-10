@@ -9,7 +9,6 @@ use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
 use App\Http\Middleware\RestrictContent;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Support\Facades\Request as RequestFacade;
@@ -751,6 +750,7 @@ class Request
         foreach ($withQuotes as $subquery) {
             $params['body']['query']['bool']['must'][] = [
                 'multi_match' => [
+                    'analyzer' => 'exact',
                     'query' => str_replace('"', '', $subquery),
                     'fields' => $exactFields,
                     'type' => 'phrase',
@@ -760,7 +760,7 @@ class Request
         }
 
         // Determing if fuzzy searching should be used on this query
-        $fuzziness = $this->getFuzzy($input, $input['q']);
+        $fuzziness = $this->getFuzzy($input, $input['q'], count($withQuotes) > 0);
 
         foreach ($withoutQuotes as $subquery) {
             // Pull all docs that match fuzzily into the results
@@ -793,7 +793,7 @@ class Request
         // This boosts docs that have multiple terms in close proximity
         // `phrase` queries are relatively expensive, so check for spaces first
         // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
-        if (strpos($input['q'], ' ')) {
+        if ((count($withoutQuotes) > 0 || count($withQuotes) > 1) && strpos($input['q'], ' ')) {
             $params['body']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => str_replace('"', '', $input['q']),
@@ -904,9 +904,14 @@ class Request
         return $params;
     }
 
-    private function getFuzzy(array $input, string $query = null)
+    private function getFuzzy(array $input, string $query = null, $isExact = false)
     {
         if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7) {
+            return 0;
+        }
+
+        // Disable fuzzy search on exact match searches
+        if ($isExact) {
             return 0;
         }
 

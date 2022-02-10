@@ -31,7 +31,7 @@ abstract class AbstractDumpCommand extends BaseCommand
                 $transformerClass = app('Resources')->getTransformerForModel($model);
                 return [
                     'model' => $model,
-                    'transformer' => new $transformerClass,
+                    'transformer' => new $transformerClass(),
                     'endpoint' => app('Resources')->getEndpointForModel($model),
                 ];
             });

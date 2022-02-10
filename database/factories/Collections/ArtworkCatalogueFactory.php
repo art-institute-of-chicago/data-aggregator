@@ -2,22 +2,10 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\ArtworkCatalogue;
-
 class ArtworkCatalogueFactory extends CollectionsFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
-    protected $model = ArtworkCatalogue::class;
+    protected $model = \App\Models\Collections\ArtworkCatalogue::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [

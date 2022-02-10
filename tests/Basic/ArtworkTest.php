@@ -3,7 +3,6 @@
 namespace Tests\Basic;
 
 use App\Models\Collections\Artwork;
-use App\Models\Collections\Gallery;
 use App\Models\Collections\AgentType;
 use App\Models\Collections\Agent;
 

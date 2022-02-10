@@ -161,12 +161,28 @@ class Artwork extends CollectionsTransformer
     /**
      * Attach artwork places, and what happened to the artwork in each place.
      *
-     * @TODO Waiting on Redmine #2847 – place normalization for non-"Web Everything" works
+     * API-235, API-204: Place normalization for non-"Web Everything" artworks
      *
      * @return array
      */
     private function getSyncPlaces(Datum $datum)
     {
+        // Worst case: no pivots, nor basic place
+        if (!$datum->artwork_places && !$datum->place_of_origin_id) {
+            return [];
+        }
+
+        // No pivots, but basic place
+        if (!$datum->artwork_places && $datum->place_of_origin_id) {
+            // Default `artwork_place_qualifier_citi_id` to 3 (Object made in)
+            return [
+                $datum->place_of_origin_id => [
+                    'artwork_place_qualifier_citi_id' => 3,
+                    'preferred' => true,
+                ],
+            ];
+        }
+
         return $this->getSyncPivots($datum, 'artwork_places', 'place_id', function ($pivot) {
             return [
                 $pivot->place_id => [

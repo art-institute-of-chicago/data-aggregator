@@ -168,7 +168,7 @@ class CreateSwaggerDoc extends AbstractDocCommand
         $doc .= "  },\n";
         $doc .= "  \"externalDocs\": {\n";
         $doc .= "    \"description\": \"See more documentation on our API here:\",\n";
-        $doc .= "    \"url\": \"" . config('app.url') . "\"\n";
+        $doc .= '    "url": "' . config('app.url') . "\"\n";
         $doc .= "  }\n";
         $doc .= "}\n";
 

@@ -9,7 +9,7 @@ abstract class ShopFactory extends Factory
     public function shopIdsAndTitle($title = '')
     {
         return [
-            'shop_id' => $this->faker->unique()->randomNumber(3) + 999 * pow(10, 3),
+            'shop_id' => $this->faker->unique()->randomNumber(3),
             'title' => $title ? $title : ucfirst($this->faker->words(5, true)),
         ];
     }

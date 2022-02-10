@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class BaseModel extends AbstractModel
 {
 
-    use Transformable, Instancable, Documentable, HasFactory;
+    use Transformable, Documentable, HasFactory;
 
     /**
      * The name of the field that the source API provides a last updated timestamp in.
@@ -134,22 +134,22 @@ class BaseModel extends AbstractModel
 
     public static function addRestrictContentScopes($isDump = false)
     {
-        Article::addGlobalScope(new PublishedScope);
-        DigitalCatalog::addGlobalScope(new PublishedScope);
-        DigitalPublicationSection::addGlobalScope(new PublishedScope);
-        EducatorResource::addGlobalScope(new PublishedScope);
-        GenericPage::addGlobalScope(new PublishedScope);
-        PressRelease::addGlobalScope(new PublishedScope);
-        PrintedCatalog::addGlobalScope(new PublishedScope);
-        Highlight::addGlobalScope(new PublishedScope);
-        Sponsor::addGlobalScope(new PublishedScope);
-        StaticPage::addGlobalScope(new PublishedScope);
-        WebExhibition::addGlobalScope(new PublishedScope);
+        Article::addGlobalScope(new PublishedScope());
+        DigitalCatalog::addGlobalScope(new PublishedScope());
+        DigitalPublicationSection::addGlobalScope(new PublishedScope());
+        EducatorResource::addGlobalScope(new PublishedScope());
+        GenericPage::addGlobalScope(new PublishedScope());
+        PressRelease::addGlobalScope(new PublishedScope());
+        PrintedCatalog::addGlobalScope(new PublishedScope());
+        Highlight::addGlobalScope(new PublishedScope());
+        Sponsor::addGlobalScope(new PublishedScope());
+        StaticPage::addGlobalScope(new PublishedScope());
+        WebExhibition::addGlobalScope(new PublishedScope());
 
         if ($isDump) {
-            Event::addGlobalScope(new PublishedScope);
-            EventOccurrence::addGlobalScope(new PublishedScope);
-            Product::addGlobalScope(new PublishedScope);
+            Event::addGlobalScope(new PublishedScope());
+            EventOccurrence::addGlobalScope(new PublishedScope());
+            Product::addGlobalScope(new PublishedScope());
         }
 
         Exhibition::addGlobalScope('is-web-exhibition-published', function (Builder $builder) {
@@ -166,8 +166,8 @@ class BaseModel extends AbstractModel
             // WEB-1419: Using subquery here instead of join to avoid field overrides
             $builder->orWhereIn('citi_id', function ($query) {
                 $query->select('datahub_id')
-                      ->from('web_exhibitions')
-                      ->where('is_published', '=', true);
+                    ->from('web_exhibitions')
+                    ->where('is_published', '=', true);
             });
         });
     }

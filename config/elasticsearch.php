@@ -282,6 +282,15 @@ return [
                                 'asciifolding',
                             ],
                         ],
+                        'exact' => [
+                            'tokenizer' => 'standard',
+                            'filter' => [
+                                'lowercase',
+                                'english_stop',
+                                'asciifolding',
+                                'shingle',
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -290,9 +299,4 @@ return [
         ],
 
     ],
-
-    'cache_enabled' => (bool) env('ELASTICSEARCH_CACHE_ENABLED', false),
-    'cache_ttl' => env('ELASTICSEARCH_CACHE_TTL', 60 * 30), // Half an hour default
-    'cache_version' => env('ELASTICSEARCH_CACHE_VERSION', 1),
-
 ];

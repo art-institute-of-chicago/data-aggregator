@@ -3,8 +3,6 @@
 namespace Tests\Contract;
 
 use App\Models\Collections\Exhibition;
-use App\Models\Collections\Place;
-use App\Models\Collections\Agent;
 
 class ExhibitionTest extends ContractTestCase
 {

@@ -91,7 +91,6 @@ class Section extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
             ],
         ];

@@ -35,18 +35,22 @@ class Agent extends BaseTransformer
 
     protected function getTitles()
     {
-        return array_merge(parent::getTitles(), [
+        $baseTitle = parent::getTitles();
+
+        $baseTitle['title']['elasticsearch']['mapping'] = $this->getDefaultStringMapping([
+            'analyzer' => 'name',
+        ]);
+
+        return array_merge($baseTitle, [
             'sort_title' => [
                 'doc' => 'Sortable name for this agent, typically with last name first.',
                 'type' => 'string',
-                'elasticsearch' => 'text',
             ],
             'alt_titles' => [
                 'doc' => 'Alternate names for this agent',
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
 
                     // For better search experiences with Korean, Chinese and Japanese queries.
                     // See https://www.elastic.co/blog/how-to-search-ch-jp-kr-part-2
@@ -183,7 +187,7 @@ class Agent extends BaseTransformer
         $suggestFields = $this->traitGetSuggestFields();
 
         $newFilter = function ($item) {
-            return $item->createdArtworks()->count() > 1;
+            return $item->createdArtworks()->count() > 0;
         };
 
         foreach (['suggest_autocomplete_all', 'suggest_autocomplete_boosted'] as $fieldName) {
@@ -200,7 +204,7 @@ class Agent extends BaseTransformer
                         $item->title,
                         $item->sort_title,
                     ],
-                    $item->alt_titles ?? []
+                    array_filter($item->alt_titles ?? [])
                 ),
                 'weight' => $item->isBoosted() ? 3 : 2,
             ];
@@ -213,7 +217,7 @@ class Agent extends BaseTransformer
                         $item->title,
                         $item->sort_title,
                     ],
-                    $item->alt_titles ?? []
+                    array_filter($item->alt_titles ?? [])
                 ),
                 'weight' => $item->isBoosted() ? 3 : 2,
                 'contexts' => [

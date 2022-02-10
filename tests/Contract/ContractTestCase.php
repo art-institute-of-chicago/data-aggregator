@@ -4,9 +4,6 @@ namespace Tests\Contract;
 
 use Tests\TestCase;
 
-use App\Models\Collections\AgentType;
-use App\Models\Collections\Agent;
-
 abstract class ContractTestCase extends TestCase
 {
     /**
@@ -48,7 +45,7 @@ abstract class ContractTestCase extends TestCase
             $m = $this->model();
             $models = $this->times(5)->make($m);
 
-            $response = $this->getJson('api/v1/' . $this->route($m) .($pivots ? '?includes=' .implode(',', $pivots) : ''));
+            $response = $this->getJson('api/v1/' . $this->route($m) . ($pivots ? '?includes=' . implode(',', $pivots) : ''));
             $response->assertSuccessful();
 
             $resources = $response->json()['data'];

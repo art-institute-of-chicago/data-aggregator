@@ -2,7 +2,6 @@
 
 namespace Database\Factories\Collections;
 
-use App\Models\Collections\Artwork;
 use App\Models\Collections\Agent;
 use App\Models\Collections\AgentType;
 use App\Models\Collections\ArtworkType;
@@ -10,18 +9,8 @@ use App\Models\Collections\Place;
 
 class ArtworkFactory extends CollectionsFactory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string|null
-     */
-    protected $model = Artwork::class;
+    protected $model = \App\Models\Collections\Artwork::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         $date_end = $this->faker->year;

@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Aic\Hub\Foundation\Models\Concerns\Singletonable;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 abstract class AbstractPivot extends Pivot
 {
-
-    use Instancable, Transformable;
+    use Singletonable;
+    use Transformable;
 
     // TODO: Abstract `getDate` logic from BaseModel into Trait, so that we can `use` it here?
 

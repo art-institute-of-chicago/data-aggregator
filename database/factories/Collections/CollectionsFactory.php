@@ -12,7 +12,7 @@ abstract class CollectionsFactory extends Factory
 
         if ($citiField) {
             $ret = [
-                'citi_id' => $this->faker->unique()->randomNumber($idLength) + 999 * pow(10, $idLength),
+                'citi_id' => $this->faker->unique()->randomNumber($idLength),
             ];
         }
 

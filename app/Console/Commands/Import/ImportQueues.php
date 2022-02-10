@@ -2,10 +2,7 @@
 
 namespace App\Console\Commands\Import;
 
-use Illuminate\Support\Facades\Storage;
-
 use App\Models\Queues\WaitTime;
-use App\Transformers\Inbound\BaseTransformer;
 
 class ImportQueues extends AbstractImportCommand
 {

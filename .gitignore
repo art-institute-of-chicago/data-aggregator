@@ -1,25 +1,36 @@
+# Laravel 8.x Defaults
 /node_modules
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
-/.idea
-/.vagrant
+.env
+.env.backup
+.phpunit.result.cache
+docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 npm-debug.log
+yarn-error.log
+/.idea
+/.vscode
+
+# Foundation workflow [API-118]
+composer-dev.json
+composer-dev.lock
+
+# PHP-CS-Fixer [API-45]
+.php_cs.cache
+.php-cs-fixer.cache
+
+# Custom additions
+/public/js
+/public/css
+/public/docs
+/.vagrant
 .env*
 !.env.*example
 !.env.ci
-Envoy.blade.php
-.phpunit.result.cache
-docker-compose.override.yml
-.php_cs.cache
-.php_cs
-
-/public/js
-/public/css
-
 pids
 logs
 coverage/
@@ -30,6 +41,3 @@ dist
 .basement
 config.local.js
 basement_dist
-/public/docs
-/.idea
-/.vscode

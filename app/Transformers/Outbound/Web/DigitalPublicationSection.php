@@ -46,7 +46,6 @@ class DigitalPublicationSection extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
             ],
             // TODO: This seems to always be null. Remove?

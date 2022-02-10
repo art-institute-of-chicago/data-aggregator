@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 
 class Release extends BaseCommand
 {

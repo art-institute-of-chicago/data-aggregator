@@ -9,7 +9,7 @@ class CollectionsTransformer extends BaseTransformer
 
     protected function getIds(Datum $datum)
     {
-        return  [
+        return [
             'citi_id' => $datum->id,
         ];
     }

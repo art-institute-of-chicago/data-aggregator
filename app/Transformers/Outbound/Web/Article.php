@@ -36,7 +36,6 @@ class Article extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
             ],
         ];

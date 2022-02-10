@@ -2,8 +2,6 @@
 
 namespace Tests\Helpers;
 
-use Illuminate\Support\Str;
-
 trait Factory
 {
 

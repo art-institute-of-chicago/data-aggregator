@@ -82,7 +82,6 @@ class Event extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
             ],
             'location' => [
@@ -139,7 +138,6 @@ class Event extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
-                    'type' => 'text',
                 ],
                 'value' => function ($item) {
                     if ($item->programs) {

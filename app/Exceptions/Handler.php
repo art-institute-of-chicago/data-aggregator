@@ -13,7 +13,7 @@ class Handler extends ExceptionHandler
      * @var string[]
      */
     protected $dontReport = [
-        //
+
     ];
 
     /**
@@ -22,13 +22,12 @@ class Handler extends ExceptionHandler
      * @var string[]
      */
     protected $dontFlash = [
-        //
+
     ];
 
     /**
      * Report or log an exception.
      *
-     * @param  \Throwable  $exception
      * @return void
      *
      * @throws \Throwable

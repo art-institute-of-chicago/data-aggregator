@@ -153,7 +153,7 @@ class ResourceServiceProvider extends ServiceProvider
                 {
                     $transformerClass = $this->getTransformerForEndpoint($endpoint);
 
-                    $mappedFields = (new $transformerClass)->getMappedFields();
+                    $mappedFields = (new $transformerClass())->getMappedFields();
 
                     $restrictedFields = array_filter($mappedFields, function ($mappedField) {
                         return ($mappedField['is_restricted'] ?? false) === true;

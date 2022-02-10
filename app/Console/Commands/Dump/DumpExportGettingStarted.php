@@ -3,10 +3,6 @@
 namespace App\Console\Commands\Dump;
 
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
-use Exception;
-use Throwable;
 
 use League\Csv\Writer;
 
@@ -26,6 +22,7 @@ class DumpExportGettingStarted extends AbstractDumpCommand
 
         // Remove the old getting started JSON in this dump
         $filepath = $this->getDumpPath('local/getting-started');
+
         if (!file_exists($filepath)) {
             mkdir($filepath, 0777, true);
         }
@@ -33,7 +30,7 @@ class DumpExportGettingStarted extends AbstractDumpCommand
 
         // Create transformer used for generating JSON output
         $transformer = app('Resources')->getTransformerForModel($model);
-        $transformer = new $transformer;
+        $transformer = new $transformer();
 
         $csv = $this->getNewWriter($filepath . '/someArtworks.csv', [
             'id',
