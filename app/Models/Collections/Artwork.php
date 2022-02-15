@@ -639,4 +639,19 @@ class Artwork extends CollectionsModel
 
         return $doc;
     }
+
+    /**
+     * API-125, WEB-1903: For use in API by AbstractController. Temporary.
+     */
+    public function scopeByLastMod($query)
+    {
+        return $query
+            ->orderBy(self::getTableName() . '.updated_at', 'desc')
+            ->orderBy(self::getTableName() . '.' . self::getPrimaryKeyName(), 'desc');
+    }
+
+    private static function getPrimaryKeyName()
+    {
+        return with(new static)->getKeyName();
+    }
 }
