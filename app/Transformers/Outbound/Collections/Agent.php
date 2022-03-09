@@ -120,14 +120,6 @@ class Agent extends BaseTransformer
                 'elasticsearch' => 'text',
                 'is_restricted' => true,
             ],
-            'is_licensing_restricted' => [
-                'doc' => 'Whether the use of the images of works by this artist are restricted by licensing',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->licensing_restricted;
-                },
-            ],
             'is_artist' => [
                 'doc' => 'Whether the agent is an artist. Solely based on whether the agent is listed as an artist for an artwork record.',
                 'type' => 'boolean',

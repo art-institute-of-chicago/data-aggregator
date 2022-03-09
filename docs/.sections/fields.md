@@ -117,7 +117,6 @@ Represents a person or organization. In the API, this includes artists. For a de
 * `death_date` *number* - The year this agent died
 * `death_place` *string* - Name of the place this agent died
 * `description` *string* - A biographical description of the agent
-* `is_licensing_restricted` *boolean* - Whether the use of the images of works by this artist are restricted by licensing
 * `is_artist` *boolean* - Whether the agent is an artist. Solely based on whether the agent is listed as an artist for an artwork record.
 * `agent_type_title` *string* - Name of the type of agent, e.g. individual, fund, school, organization, etc.
 * `agent_type_id` *number* - Unique identifier of the type of agent, e.g. individual, fund, school, organization, etc.
