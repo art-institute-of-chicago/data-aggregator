@@ -13,7 +13,6 @@ class ImportScheduleMonthly extends BaseCommand
 
     public function handle()
     {
-        $this->call('import:ulan');
         $this->call('import:analytics');
 
         $this->call('import:library', ['--yes' => 'default']);
