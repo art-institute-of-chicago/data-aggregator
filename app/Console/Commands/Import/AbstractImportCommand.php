@@ -99,10 +99,15 @@ abstract class AbstractImportCommand extends BaseCommand
         $this->info("Importing #{$id}" . (property_exists($datum, 'title') ? ": {$datum->title}" : ''));
 
         // Don't use findOrCreate here, since it can cause errors due to Searchable
-        $resource = $model::findOrNew($id);
+        $resource = $model::find($id);
+        $isNew = is_null($resource);
+
+        if ($isNew) {
+            $resource = $model::make();
+        }
 
         // This will be true almost always, except for lists
-        if ($transformer->shouldSave($resource, $datum)) {
+        if ($transformer->shouldSave($resource, $datum, $isNew)) {
             // Fill should always be called before sync
             // Syncing some relations requires `$instance->getKey()` to work (i.e. id is set)
             $fills = $transformer->fill($resource, $datum);
