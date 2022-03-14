@@ -114,11 +114,13 @@ class Agent extends BaseTransformer
                     return $item->webArtist->intro_copy ?? null;
                 },
             ],
-            'ulan_uri' => [
+            'ulan_id' => [
                 'doc' => 'Unique identifier of this agent in Getty\'s ULAN',
-                'type' => 'uri',
-                'elasticsearch' => 'text',
-                'is_restricted' => true,
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+                'value' => function ($item) {
+                    return $item->ulan_certainty > 3 ? $item->ulan_id : null;
+                },
             ],
             'is_artist' => [
                 'doc' => 'Whether the agent is an artist. Solely based on whether the agent is listed as an artist for an artwork record.',
