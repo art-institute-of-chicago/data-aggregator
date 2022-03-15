@@ -64,7 +64,6 @@ class BulkAll extends BaseCommand
         // Import non-standard data
         $this->call('import:mobile');
         $this->call('import:sites', ['--yes' => 'default']);
-        $this->call('import:ulan');
 
         // TODO: Use upserts for import:analytics
         $this->call('import:analytics');
@@ -79,7 +78,6 @@ class BulkAll extends BaseCommand
             'import:library',
             'import:archive',
             'import:sites',
-            'import:ulan',
             'import:products',
             'import:analytics',
             'import:web',

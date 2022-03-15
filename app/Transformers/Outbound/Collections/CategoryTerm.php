@@ -4,13 +4,14 @@ namespace App\Transformers\Outbound\Collections;
 
 use App\Transformers\Outbound\HasSuggestFields;
 use App\Transformers\Outbound\Collections\Traits\IsCC0;
+use App\Transformers\Outbound\Collections\Traits\HasAatId;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class CategoryTerm extends BaseTransformer
 {
-
     use IsCC0;
+    use HasAatId;
     use HasSuggestFields {
         getSuggestFields as traitGetSuggestFields;
     }
