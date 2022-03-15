@@ -17,7 +17,6 @@ class Agent extends CollectionsModel
 
     protected $casts = [
         'alt_titles' => 'array',
-        'licensing_restricted' => 'boolean',
     ];
 
     protected $touches = [

@@ -70,11 +70,6 @@ return [
             'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
         [
-            'endpoint' => 'artwork-types',
-            'model' => \App\Models\Collections\ArtworkType::class,
-            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
-        ],
-        [
             'endpoint' => 'artwork-place-qualifiers',
             'model' => \App\Models\Collections\ArtworkPlaceQualifier::class,
             'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
@@ -93,6 +88,11 @@ return [
         /**
          * Lists with additional fields:
          */
+        [
+            'endpoint' => 'artwork-types',
+            'model' => \App\Models\Collections\ArtworkType::class,
+            'transformer' => \App\Transformers\Outbound\Collections\ArtworkType::class,
+        ],
         [
             'endpoint' => 'category-terms',
             'model' => \App\Models\Collections\CategoryTerm::class,
@@ -415,7 +415,18 @@ return [
             'transformer' => \App\Transformers\Outbound\Web\Page::class,
             'is_searchable' => true,
         ],
-
+        [
+            'endpoint' => 'issues',
+            'model' => \App\Models\Web\Issue::class,
+            'transformer' => \App\Transformers\Outbound\Web\Issue::class,
+            'is_searchable' => true,
+        ],
+        [
+            'endpoint' => 'issue-articles',
+            'model' => \App\Models\Web\IssueArticle::class,
+            'transformer' => \App\Transformers\Outbound\Web\IssueArticle::class,
+            'is_searchable' => true,
+        ],
     ],
 
 ];

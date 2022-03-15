@@ -37,7 +37,7 @@ class BaseTransformer extends AbstractTransformer
      *
      * @param mixed $datum
      */
-    public function shouldSave(Model $instance, $datum)
+    public function shouldSave(Model $instance, $datum, $isNew = null)
     {
         return true;
     }

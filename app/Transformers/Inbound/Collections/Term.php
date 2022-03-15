@@ -23,9 +23,9 @@ class Term extends BaseList
         ];
     }
 
-    public function shouldSave(Model $instance, $datum)
+    public function shouldSave(Model $instance, $datum, $isNew = null)
     {
-        return parent::shouldSave($instance, $datum) &&
+        return parent::shouldSave($instance, $datum, $isNew) &&
         ('TT-' . $datum->term_type_id == \App\Models\Collections\Term::CLASSIFICATION
          || 'TT-' . $datum->term_type_id == \App\Models\Collections\Term::MATERIAL
          || 'TT-' . $datum->term_type_id == \App\Models\Collections\Term::TECHNIQUE

@@ -114,18 +114,12 @@ class Agent extends BaseTransformer
                     return $item->webArtist->intro_copy ?? null;
                 },
             ],
-            'ulan_uri' => [
+            'ulan_id' => [
                 'doc' => 'Unique identifier of this agent in Getty\'s ULAN',
-                'type' => 'uri',
-                'elasticsearch' => 'text',
-                'is_restricted' => true,
-            ],
-            'is_licensing_restricted' => [
-                'doc' => 'Whether the use of the images of works by this artist are restricted by licensing',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->licensing_restricted;
+                    return $item->ulan_certainty > 3 ? $item->ulan_id : null;
                 },
             ],
             'is_artist' => [

@@ -22,7 +22,6 @@ class AgentFactory extends CollectionsFactory
                 'death_date' => $this->faker->year,
                 'birth_place' => $this->faker->country,
                 'death_place' => $this->faker->country,
-                'licensing_restricted' => $this->faker->boolean,
                 'agent_type_citi_id' => $this->faker->randomElement(AgentType::query()->pluck('citi_id')->all()),
             ],
             $this->dates(true)

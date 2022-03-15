@@ -80,6 +80,25 @@ return [
         ],
     ],
 
+    'enhancer' => [
+        'agents' => [
+            'model' => \App\Models\Collections\Agent::class,
+            'transformer' => \App\Transformers\Inbound\Enhancer\Agent::class,
+        ],
+        'artworks' => [
+            'model' => \App\Models\Collections\Artwork::class,
+            'transformer' => \App\Transformers\Inbound\Enhancer\Artwork::class,
+        ],
+        'artwork-types' => [
+            'model' => \App\Models\Collections\ArtworkType::class,
+            'transformer' => \App\Transformers\Inbound\Enhancer\ArtworkType::class,
+        ],
+        'terms' => [
+            'model' => \App\Models\Collections\CategoryTerm::class,
+            'transformer' => \App\Transformers\Inbound\Enhancer\Term::class,
+        ],
+    ],
+
     'images' => [
         'images' => [
             'model' => \App\Models\Collections\Image::class,
@@ -226,6 +245,14 @@ return [
         'digitalpublicationsections' => [
             'model' => \App\Models\Web\DigitalPublicationSection::class,
             'transformer' => \App\Transformers\Inbound\Web\DigitalPublicationSection::class,
+        ],
+        'issues' => [
+            'model' => \App\Models\Web\Issue::class,
+            'transformer' => \App\Transformers\Inbound\Web\Issue::class,
+        ],
+        'issue-articles' => [
+            'model' => \App\Models\Web\IssueArticle::class,
+            'transformer' => \App\Transformers\Inbound\Web\IssueArticle::class,
         ],
     ],
 

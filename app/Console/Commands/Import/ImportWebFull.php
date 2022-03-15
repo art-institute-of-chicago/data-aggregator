@@ -12,6 +12,8 @@ use App\Models\Web\Exhibition;
 use App\Models\Web\Experience;
 use App\Models\Web\InteractiveFeature;
 use App\Models\Web\Highlight;
+use App\Models\Web\Issue;
+use App\Models\Web\IssueArticle;
 use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
 use App\Models\Web\EducatorResource;
@@ -80,6 +82,8 @@ class ImportWebFull extends AbstractImportCommand
             StaticPage::class => 'static_pages',
             EmailSeries::class => 'email_series',
             Sponsor::class => 'sponsors',
+            Issue::class => 'issues',
+            IssueArticle::class => 'issue_articles',
         ];
 
         if ($endpoint) {
@@ -114,6 +118,9 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('staticpages');
         $this->importFromWeb('emailseries');
         $this->importFromWeb('sponsors');
+
+        $this->importFromWeb('issues');
+        $this->importFromWeb('issue-articles');
     }
 
     protected function getModelForEndpoint($endpoint)

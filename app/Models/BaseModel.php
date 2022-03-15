@@ -184,6 +184,6 @@ class BaseModel extends AbstractModel
 
     private static function getPrimaryKeyName()
     {
-        return with(new static)->getKeyName();
+        return with(new static())->getKeyName();
     }
 }
