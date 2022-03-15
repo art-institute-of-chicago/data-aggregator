@@ -30,9 +30,9 @@ class CategoryTerm extends CollectionsModel
     // This propogates to Category and Term
     protected $table = 'category_terms';
 
-    // protected $touches = [
-    //     'artworks',
-    // ];
+    protected $touches = [
+        'artworks',
+    ];
 
     /**
      * Create a new instance of the given model. For Assets, we use this to set a default `type`.
