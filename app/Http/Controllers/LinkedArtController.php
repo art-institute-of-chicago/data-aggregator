@@ -62,9 +62,11 @@ class LinkedArtController extends BaseController
 
         return [
             'classified_as' => [
-                'id' => 'http://vocab.getty.edu/aat/' . $artworkType->aat_id,
-                'type' => 'Type',
-                '_label' => $artworkType->title,
+                [
+                    'id' => 'http://vocab.getty.edu/aat/' . $artworkType->aat_id,
+                    'type' => 'Type',
+                    '_label' => $artworkType->title,
+                ],
             ],
         ];
     }
@@ -79,7 +81,9 @@ class LinkedArtController extends BaseController
 
         return [
             'see_also' => [
-                'id' => 'https://vangoghworldwide.org/data/artwork/' . $fnumber,
+                [
+                    'id' => 'https://vangoghworldwide.org/data/artwork/' . $fnumber,
+                ],
             ],
         ];
     }
@@ -93,10 +97,12 @@ class LinkedArtController extends BaseController
                 'type' => 'Identifier',
                 'content' => $artwork->main_id,
                 'classified_as' => [
-                    'id' => 'http://vocab.getty.edu/aat/300312355',
-                    'type' => 'Type',
-                    '_label' => 'accession number',
-                ]
+                    [
+                        'id' => 'http://vocab.getty.edu/aat/300312355',
+                        'type' => 'Type',
+                        '_label' => 'accession number',
+                    ],
+                ],
             ];
         }
 
@@ -105,9 +111,11 @@ class LinkedArtController extends BaseController
                 'type' => 'Identifier',
                 'content' => $fnumber,
                 'classified_as' => [
-                    'id' => 'https://vangoghworldwide.org/data/concept/f_number',
-                    'type' => 'Type',
-                    '_label' => 'De La Faille number',
+                    [
+                        'id' => 'https://vangoghworldwide.org/data/concept/f_number',
+                        'type' => 'Type',
+                        '_label' => 'De La Faille number',
+                    ],
                 ],
             ];
         }
