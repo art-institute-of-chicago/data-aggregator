@@ -40,11 +40,12 @@ class LinkedArtController extends BaseController
             'type' => 'HumanMadeObject',
         ];
 
-        $item = array_merge(
+        $item = array_merge_recursive(
             $item,
             $this->getArtworkType($artwork),
             $this->getLinkToVgwUri($artwork),
             $this->getIdentifiers($artwork),
+            $this->getTitles($artwork),
         );
 
         return $item;
@@ -128,4 +129,35 @@ class LinkedArtController extends BaseController
             'identified_by' => $identifiers,
         ];
     }
+
+    private function getTitles($artwork): array
+    {
+        if (empty($artwork->title)) {
+            return [];
+        }
+
+        return [
+            'identified_by' => [
+                [
+                    'type' => 'Name',
+                    'content' => $artwork->title,
+                    'language' => [
+                        [
+                            'id' => 'http://vocab.getty.edu/aat/300388277',
+                            'type' => 'Language',
+                            '_label' => 'English',
+                        ],
+                    ],
+                    'classified_as' => [
+                        [
+                            'id' => 'http://vocab.getty.edu/aat/300404670',
+                            'type' => 'Type',
+                            '_label' => 'Preferred terms',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
 }
