@@ -44,6 +44,7 @@ class LinkedArtController extends BaseController
             $item,
             $this->getArtworkType($artwork),
             $this->getLinkToVgwUri($artwork),
+            $this->getIdentifiers($artwork),
         );
 
         return $item;
@@ -80,6 +81,43 @@ class LinkedArtController extends BaseController
             'see_also' => [
                 'id' => 'https://vangoghworldwide.org/data/artwork/' . $fnumber,
             ],
+        ];
+    }
+
+    private function getIdentifiers($artwork): array
+    {
+        $identifiers = [];
+
+        if ($artwork->main_id) {
+            $identifiers[] = [
+                'type' => 'Identifier',
+                'content' => $artwork->main_id,
+                'classified_as' => [
+                    'id' => 'http://vocab.getty.edu/aat/300312355',
+                    'type' => 'Type',
+                    '_label' => 'accession number',
+                ]
+            ];
+        }
+
+        if ($fnumber = $this->fnumbers[$artwork->getKey()] ?? null) {
+            $identifiers[] = [
+                'type' => 'Identifier',
+                'content' => $fnumber,
+                'classified_as' => [
+                    'id' => 'https://vangoghworldwide.org/data/concept/f_number',
+                    'type' => 'Type',
+                    '_label' => 'De La Faille number',
+                ],
+            ];
+        }
+
+        if (empty($identifiers)) {
+            return [];
+        }
+
+        return [
+            'identified_by' => $identifiers,
         ];
     }
 }
