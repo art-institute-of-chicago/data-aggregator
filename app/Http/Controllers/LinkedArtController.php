@@ -19,6 +19,30 @@ class LinkedArtController extends BaseController
             'type' => 'HumanMadeObject',
         ];
 
+        $item = array_merge(
+            $item,
+            $this->getArtworkType($artwork),
+        );
+
         return $item;
+    }
+
+    private function getArtworkType($artwork)
+    {
+        if (!$artworkType = $artwork->artworkType) {
+            return [];
+        }
+
+        if (!$artworkType->aat_id) {
+            return [];
+        }
+
+        return [
+            'classified_as' => [
+                'id' => 'http://vocab.getty.edu/aat/' . $artworkType->aat_id,
+                'type' => 'Type',
+                '_label' => $artworkType->title,
+            ],
+        ];
     }
 }
