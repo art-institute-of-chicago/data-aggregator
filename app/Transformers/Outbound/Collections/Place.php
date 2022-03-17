@@ -10,6 +10,18 @@ class Place extends BaseTransformer
     protected function getFields()
     {
         return [
+            'latitude' => [
+                'doc' => 'Latitude coordinate of the center of the room',
+                'type' => 'number',
+                'elasticsearch' => 'float',
+                'is_restricted' => true,
+            ],
+            'longitude' => [
+                'doc' => 'Longitude coordinate of the center of the room',
+                'type' => 'number',
+                'elasticsearch' => 'float',
+                'is_restricted' => true,
+            ],
             'type' => [
                 'doc' => 'Type always takes one of the following values: AIC Gallery, AIC Storage, No location',
                 'type' => 'string',
