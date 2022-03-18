@@ -46,6 +46,7 @@ class LinkedArtController extends BaseController
             $this->getLinkToVgwUri($artwork),
             $this->getIdentifiers($artwork),
             $this->getTitles($artwork),
+            $this->getCurrentOwner($artwork),
         );
 
         return $item;
@@ -155,6 +156,22 @@ class LinkedArtController extends BaseController
                             '_label' => 'Preferred terms',
                         ],
                     ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * TODO: Do we need to handle loans?
+     */
+    private function getCurrentOwner($artwork): array
+    {
+        return [
+            'current_owner' => [
+                [
+                    'id' => 'http://vocab.getty.edu/ulan/500304669',
+                    'type' => 'Group',
+                    '_label' => 'Art Institute of Chicago',
                 ],
             ],
         ];
