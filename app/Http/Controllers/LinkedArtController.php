@@ -49,6 +49,7 @@ class LinkedArtController extends BaseController
             $this->getTitles($artwork),
             $this->getCurrentOwner($artwork),
             $this->getProduction($artwork),
+            $this->getDimensions($artwork),
         );
 
         return $item;
@@ -247,6 +248,51 @@ class LinkedArtController extends BaseController
 
         return [
             'produced_by' => $production,
+        ];
+    }
+
+    private function getDimensions($artwork): array
+    {
+        $dimensions = [];
+
+        $unit = [
+            'id' => 'http://vocab.getty.edu/aat/300379097',
+            'type' => 'MeasurementUnit',
+            '_label' => 'millimeters',
+        ];
+
+        if (!empty($artwork->dimension_width)) {
+            $dimensions[] = [
+                'type' => 'Dimension',
+                'value' => $artwork->dimension_width,
+                'classified_as' => [
+                    [
+                        'id' => 'http://vocab.getty.edu/aat/300055647',
+                        'type' => 'Type',
+                        '_label' => 'width',
+                    ],
+                ],
+                'unit' => $unit,
+            ];
+        }
+
+        if (!empty($artwork->dimension_height)) {
+            $dimensions[] = [
+                'type' => 'Dimension',
+                'value' => $artwork->dimension_height,
+                'classified_as' => [
+                    [
+                        'id' => 'http://vocab.getty.edu/aat/300055644',
+                        'type' => 'Type',
+                        '_label' => 'height',
+                    ],
+                ],
+                'unit' => $unit,
+            ];
+        }
+
+        return [
+            'dimension' => $dimensions,
         ];
     }
 
