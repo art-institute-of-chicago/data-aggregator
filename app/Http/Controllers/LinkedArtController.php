@@ -51,6 +51,7 @@ class LinkedArtController extends BaseController
             $this->getProduction($artwork),
             $this->getDimensions($artwork),
             $this->getMaterial($artwork),
+            $this->getMaterialStatement($artwork),
         );
 
         return $item;
@@ -316,6 +317,36 @@ class LinkedArtController extends BaseController
 
         return [
             'made_of' => $materials,
+        ];
+    }
+
+    private function getMaterialStatement($artwork): array
+    {
+        if (empty($artwork->medium_display)) {
+            return [];
+        }
+
+        return [
+            'referred_to_by' => [
+                [
+                    'type' => 'LinguisticObject',
+                    'content' => $artwork->medium_display,
+                    'classified_as' => [
+                        [
+                            'id' => 'http://vocab.getty.edu/aat/300435429',
+                            'type' => 'Type',
+                            '_label' => 'Material Statement',
+                            'classified_as' => [
+                                [
+                                    'id' => 'http://vocab.getty.edu/aat/300418049',
+                                    'type' => 'Type',
+                                    '_label' => 'Brief Text',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 }
