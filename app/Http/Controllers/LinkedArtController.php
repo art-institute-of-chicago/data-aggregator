@@ -50,6 +50,7 @@ class LinkedArtController extends BaseController
             $this->getCurrentOwner($artwork),
             $this->getProduction($artwork),
             $this->getDimensions($artwork),
+            $this->getMaterial($artwork),
         );
 
         return $item;
@@ -296,4 +297,25 @@ class LinkedArtController extends BaseController
         ];
     }
 
+    private function getMaterial($artwork): array
+    {
+        $materials = collect($artwork
+            ->materials)
+            ->filter(fn ($material) => !empty($material->aat_id))
+            ->map(fn ($material) => [
+                'id' => 'http://vocab.getty.edu/aat/' . $material->aat_id,
+                'type' => 'Material',
+                '_label' => $material->title,
+            ])
+            ->values()
+            ->all();
+
+        if (count($materials) < 1) {
+            return [];
+        }
+
+        return [
+            'made_of' => $materials,
+        ];
+    }
 }
