@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Collections\Artwork;
 
@@ -47,6 +48,7 @@ class LinkedArtController extends BaseController
             $this->getIdentifiers($artwork),
             $this->getTitles($artwork),
             $this->getCurrentOwner($artwork),
+            $this->getProduction($artwork),
         );
 
         return $item;
@@ -174,6 +176,77 @@ class LinkedArtController extends BaseController
                     '_label' => 'Art Institute of Chicago',
                 ],
             ],
+        ];
+    }
+
+    private function getProduction($artwork): array
+    {
+        $production = [
+            'type' => 'Production',
+        ];
+
+        $artists = $artwork
+            ->artists
+            ->filter(fn ($artist) => !empty($artist->ulan_id))
+            ->map(fn ($artist) => [
+                'id' => 'http://vocab.getty.edu/ulan/' . $artist->ulan_id,
+                'type' => 'Actor',
+            ])
+            ->values()
+            ->all();
+
+        if (count($artists) > 0) {
+            $production['carried_out_by'] = $artists;
+        }
+
+        $techniques = collect($artwork
+            ->techniques)
+            ->filter(fn ($technique) => !empty($technique->aat_id))
+            ->map(fn ($technique) => [
+                'id' => 'http://vocab.getty.edu/aat/' . $technique->aat_id,
+                // ...do we need to capture type during reconciliation?
+                'type' => 'Type',
+                '_label' => $technique->title,
+            ])
+            ->values()
+            ->all();
+
+        if (count($techniques) > 0) {
+            $production['technique'] = $techniques;
+        }
+
+        // TODO: Provide `took_place_at` [API-12]
+
+        $timespan = [
+            'type' => 'TimeSpan',
+            'begin_of_the_begin' => !empty($artwork->date_start)
+                ? (new Carbon($artwork->date_start . '-01-01T00:00:00Z'))->toIso8601ZuluString()
+                : null,
+            'end_of_the_end' => !empty($artwork->date_end)
+                ? (new Carbon($artwork->date_end . '-12-31T23:59:59Z'))->toIso8601ZuluString()
+                : null,
+        ];
+
+        if (!empty($artwork->date_display)) {
+            $timespan['identified_by'] = [
+                [
+                    'type' => 'Name',
+                    'content' => $artwork->date_display,
+                    'language' => [
+                        [
+                            'id' => 'http://vocab.getty.edu/aat/300388277',
+                            'type' => 'Language',
+                            '_label' => 'English',
+                        ]
+                    ]
+                ]
+            ];
+        }
+
+        $production['timespan'] = $timespan;
+
+        return [
+            'produced_by' => $production,
         ];
     }
 
