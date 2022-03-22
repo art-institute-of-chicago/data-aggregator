@@ -56,6 +56,7 @@ class LinkedArtController extends BaseController
             $this->getMaterialStatement($artwork),
             $this->getSubject($artwork),
             $this->getRepresentation($artwork),
+            $this->getCreditStatement($artwork),
             $this->getProvenanceStatement($artwork),
             $this->getBibliographyStatement($artwork),
             $this->getExhibitionStatement($artwork),
@@ -442,6 +443,36 @@ class LinkedArtController extends BaseController
                             '_label' => 'digital images',
                         ],
                     ],
+                ],
+            ],
+        ];
+    }
+
+    private function getCreditStatement($artwork): array
+    {
+        if (empty($artwork->credit_line)) {
+            return [];
+        }
+
+        return [
+            'referred_to_by' => [
+                [
+                    'type' => 'LinguisticObject',
+                    'classified_as' => [
+                        [
+                            'id' => 'http://vocab.getty.edu/aat/300026687',
+                            'type' => 'Type',
+                            '_label' => 'Credit Statement',
+                            'classified_as' => [
+                                [
+                                    'id' => 'http://vocab.getty.edu/aat/300418049',
+                                    'type' => 'Type',
+                                    '_label' => 'Brief Text',
+                                ],
+                            ],
+                        ],
+                    ],
+                    'content' => $artwork->credit_line
                 ],
             ],
         ];
