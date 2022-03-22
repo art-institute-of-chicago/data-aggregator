@@ -93,6 +93,10 @@ return [
             'model' => \App\Models\Collections\ArtworkType::class,
             'transformer' => \App\Transformers\Inbound\Enhancer\ArtworkType::class,
         ],
+        'places' => [
+            'model' => \App\Models\Collections\Place::class,
+            'transformer' => \App\Transformers\Inbound\Enhancer\Place::class,
+        ],
         'terms' => [
             'model' => \App\Models\Collections\CategoryTerm::class,
             'transformer' => \App\Transformers\Inbound\Enhancer\Term::class,
