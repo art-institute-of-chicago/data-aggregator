@@ -57,6 +57,7 @@ class LinkedArtController extends BaseController
             $this->getSubject($artwork),
             $this->getRepresentation($artwork),
             $this->getProvenanceStatement($artwork),
+            $this->getBibliographyStatement($artwork),
         );
 
         return $item;
@@ -470,6 +471,36 @@ class LinkedArtController extends BaseController
                         ],
                     ],
                     'content' => $artwork->provenance
+                ],
+            ],
+        ];
+    }
+
+    private function getBibliographyStatement($artwork): array
+    {
+        if (empty($artwork->publication_history)) {
+            return [];
+        }
+
+        return [
+            'referred_to_by' => [
+                [
+                    'type' => 'LinguisticObject',
+                    'classified_as' => [
+                        [
+                            'id' => 'http://vocab.getty.edu/aat/300026497',
+                            'type' => 'Type',
+                            '_label' => 'Bibliography Statement',
+                            'classified_as' => [
+                                [
+                                    'id' => 'http://vocab.getty.edu/aat/300418049',
+                                    'type' => 'Type',
+                                    '_label' => 'Brief Text',
+                                ],
+                            ],
+                        ],
+                    ],
+                    'content' => $artwork->publication_history
                 ],
             ],
         ];
