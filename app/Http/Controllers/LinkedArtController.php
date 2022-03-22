@@ -193,6 +193,7 @@ class LinkedArtController extends BaseController
         $artists = $artwork
             ->artists
             ->filter(fn ($artist) => !empty($artist->ulan_id))
+            ->unique('ulan_id')
             ->map(fn ($artist) => [
                 'id' => 'http://vocab.getty.edu/ulan/' . $artist->ulan_id,
                 'type' => 'Actor',
@@ -207,6 +208,7 @@ class LinkedArtController extends BaseController
         $techniques = collect($artwork
             ->techniques)
             ->filter(fn ($technique) => !empty($technique->aat_id))
+            ->unique('aat_id')
             ->map(fn ($technique) => [
                 'id' => 'http://vocab.getty.edu/aat/' . $technique->aat_id,
                 // ...do we need to capture type during reconciliation?
@@ -305,6 +307,7 @@ class LinkedArtController extends BaseController
         $materials = collect($artwork
             ->materials)
             ->filter(fn ($material) => !empty($material->aat_id))
+            ->unique('aat_id')
             ->map(fn ($material) => [
                 'id' => 'http://vocab.getty.edu/aat/' . $material->aat_id,
                 'type' => 'Material',
@@ -385,6 +388,7 @@ class LinkedArtController extends BaseController
         $subjects = collect($artwork
             ->subjects)
             ->filter(fn ($subject) => !empty($subject->aat_id))
+            ->unique('aat_id')
             ->map(fn ($subject) => [
                 'type' => 'VisualItem',
                 'classified_as' => [
