@@ -54,6 +54,7 @@ class LinkedArtController extends BaseController
             $this->getMaterial($artwork),
             $this->getSupportMaterial($artwork),
             $this->getMaterialStatement($artwork),
+            $this->getDimensionStatement($artwork),
             $this->getSubject($artwork),
             $this->getRepresentation($artwork),
             $this->getCreditStatement($artwork),
@@ -375,6 +376,36 @@ class LinkedArtController extends BaseController
                             'id' => 'http://vocab.getty.edu/aat/300435429',
                             'type' => 'Type',
                             '_label' => 'Material Statement',
+                            'classified_as' => [
+                                [
+                                    'id' => 'http://vocab.getty.edu/aat/300418049',
+                                    'type' => 'Type',
+                                    '_label' => 'Brief Text',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    private function getDimensionStatement($artwork): array
+    {
+        if (empty($artwork->dimensions)) {
+            return [];
+        }
+
+        return [
+            'referred_to_by' => [
+                [
+                    'type' => 'LinguisticObject',
+                    'content' => $artwork->dimensions,
+                    'classified_as' => [
+                        [
+                            'id' => 'http://vocab.getty.edu/aat/300435430',
+                            'type' => 'Type',
+                            '_label' => 'Dimension Statement',
                             'classified_as' => [
                                 [
                                     'id' => 'http://vocab.getty.edu/aat/300418049',
