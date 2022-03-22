@@ -56,6 +56,7 @@ class LinkedArtController extends BaseController
             $this->getMaterialStatement($artwork),
             $this->getSubject($artwork),
             $this->getRepresentation($artwork),
+            $this->getProvenanceStatement($artwork),
         );
 
         return $item;
@@ -439,6 +440,36 @@ class LinkedArtController extends BaseController
                             '_label' => 'digital images',
                         ],
                     ],
+                ],
+            ],
+        ];
+    }
+
+    private function getProvenanceStatement($artwork): array
+    {
+        if (empty($artwork->provenance)) {
+            return [];
+        }
+
+        return [
+            'referred_to_by' => [
+                [
+                    'type' => 'LinguisticObject',
+                    'classified_as' => [
+                        [
+                            'id' => 'http://vocab.getty.edu/aat/300435438',
+                            'type' => 'Type',
+                            '_label' => 'Provenance Statement',
+                            'classified_as' => [
+                                [
+                                    'id' => 'http://vocab.getty.edu/aat/300418049',
+                                    'type' => 'Type',
+                                    '_label' => 'Brief Text',
+                                ],
+                            ],
+                        ],
+                    ],
+                    'content' => $artwork->provenance
                 ],
             ],
         ];
