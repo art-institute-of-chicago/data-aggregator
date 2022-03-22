@@ -27,6 +27,11 @@ class Place extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
+            'tgn_id' => [
+                'doc' => 'Reconciled identifier of this object in the Getty\'s Thesauraus of Geographic Names (TGN)',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+            ],
         ];
     }
 

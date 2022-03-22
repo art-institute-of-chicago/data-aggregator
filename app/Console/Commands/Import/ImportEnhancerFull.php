@@ -35,6 +35,7 @@ class ImportEnhancerFull extends AbstractImportCommand
         $this->importEndpoint('agents');
         $this->importEndpoint('artworks');
         $this->importEndpoint('artwork-types');
+        $this->importEndpoint('places');
         $this->importEndpoint('terms');
     }
 
