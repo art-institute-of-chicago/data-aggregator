@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Collections\Artwork;
+use App\Models\Collections\Asset;
 
 use App\Http\Controllers\Controller as BaseController;
 
@@ -54,6 +55,7 @@ class LinkedArtController extends BaseController
             $this->getSupportMaterial($artwork),
             $this->getMaterialStatement($artwork),
             $this->getSubject($artwork),
+            $this->getRepresentation($artwork),
         );
 
         return $item;
@@ -408,6 +410,37 @@ class LinkedArtController extends BaseController
 
         return [
             'shows' => $subjects,
+        ];
+    }
+
+    /**
+     * TODO: Provide non-preferred images
+     */
+    private function getRepresentation($artwork): array
+    {
+        if (empty($artwork->image)) {
+            return [];
+        }
+
+        return [
+            'representation' => [
+                [
+                    'id' => config('aic.config_documentation.iiif_url') . '/' . Asset::getHashedId($artwork->image->getKey()),
+                    'type' => 'VisualItem',
+                    'conforms_to' => [
+                        [
+                            'id' => 'http://iiif.io/api/image'
+                        ],
+                    ],
+                    'classified_as' => [
+                        [
+                            'id' => 'http://vocab.getty.edu/aat/300215302',
+                            'type' => 'Type',
+                            '_label' => 'digital images',
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 }
