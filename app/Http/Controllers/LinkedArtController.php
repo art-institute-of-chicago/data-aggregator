@@ -53,6 +53,7 @@ class LinkedArtController extends BaseController
             $this->getMaterial($artwork),
             $this->getSupportMaterial($artwork),
             $this->getMaterialStatement($artwork),
+            $this->getSubject($artwork),
         );
 
         return $item;
@@ -376,6 +377,33 @@ class LinkedArtController extends BaseController
                     ],
                 ],
             ],
+        ];
+    }
+
+    private function getSubject($artwork): array
+    {
+        $subjects = collect($artwork
+            ->subjects)
+            ->filter(fn ($subject) => !empty($subject->aat_id))
+            ->map(fn ($subject) => [
+                'type' => 'VisualItem',
+                'classified_as' => [
+                    [
+                        'id' => 'http://vocab.getty.edu/aat/' . $subject->aat_id,
+                        'type' => 'Type',
+                        '_label' => $subject->title,
+                    ],
+                ],
+            ])
+            ->values()
+            ->all();
+
+        if (count($subjects) < 1) {
+            return [];
+        }
+
+        return [
+            'shows' => $subjects,
         ];
     }
 }
