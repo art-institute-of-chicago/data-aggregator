@@ -212,8 +212,8 @@ trait ImportsData
             foreach ($json->data as $datum) {
                 // TODO: Careful, this conflicts w/ partial imports – running on one endpoint counts for all!
                 // Break if this is a partial import + this datum is older than last run
-                if ($this->isPartial && isset($datum->{$model::$sourceLastUpdateDateField})) {
-                    $sourceTime = new Carbon($datum->{$model::$sourceLastUpdateDateField});
+                if ($this->isPartial && isset($datum->{$transformer::$sourceLastUpdateDateField})) {
+                    $sourceTime = new Carbon($datum->{$transformer::$sourceLastUpdateDateField});
                     $sourceTime->timezone = config('app.timezone');
 
                     if ($this->since->gt($sourceTime)) {

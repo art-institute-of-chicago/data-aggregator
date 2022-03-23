@@ -8,6 +8,7 @@ use App\Transformers\Inbound\WebTransformer;
 
 class EventOccurrence extends WebTransformer
 {
+    public static $sourceLastUpdateDateField = 'updated_at';
 
     protected $passthrough = true;
 

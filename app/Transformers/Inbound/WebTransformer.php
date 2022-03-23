@@ -6,6 +6,8 @@ use App\Transformers\Datum;
 
 class WebTransformer extends BaseTransformer
 {
+    public static $sourceLastUpdateDateField = 'last_updated';
+
     /**
      * Get dates from source data. Meant to be overwritten.
      *
