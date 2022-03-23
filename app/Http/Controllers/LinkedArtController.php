@@ -32,13 +32,13 @@ class LinkedArtController extends BaseController
         202382 => 'F1241',
     ];
 
-    public function artwork(Request $request, $id)
+    public function showObject(Request $request, $id)
     {
         $artwork = Artwork::find($id);
 
         $item = [
             '@context' => 'https://linked.art/ns/v1/linked-art.json',
-            'id' => route('ld.artwork', ['id' => $artwork]),
+            'id' => route('ld.object', ['id' => $artwork]),
             'type' => 'HumanMadeObject',
         ];
 

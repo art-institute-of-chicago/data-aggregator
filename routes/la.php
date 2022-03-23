@@ -6,5 +6,5 @@ app('url')->forceScheme(config('aic.proxy_scheme'));
 use App\Http\Controllers\LinkedArtController;
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::get('artworks/{id}', [LinkedArtController::class, 'artwork'])->name('ld.artwork');
+    Route::get('objects/{id}', [LinkedArtController::class, 'showObject'])->name('ld.object');
 });
