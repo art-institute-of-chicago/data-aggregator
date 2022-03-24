@@ -88,7 +88,6 @@ class Image extends BaseTransformer
             'fingerprint' => [
                 'doc' => 'Image hashes: aHash, dHash, pHash, wHash',
                 'type' => 'object',
-                // TODO: Elasticsearch is bad at string distance
                 'elasticsearch' => [
                     'mapping' => [
                         'type' => 'object',
@@ -107,6 +106,21 @@ class Image extends BaseTransformer
                         'phash' => $item->metadata->phash ?? null,
                         'whash' => $item->metadata->whash ?? null,
                     ]) ?: null;
+                },
+            ],
+            'ahash' => [
+                // TODO: define `elasticsearch` mapping
+                'value' => function ($item) {
+                    if (empty($item->metadata->ahash)) {
+                        return;
+                    }
+
+                    $hashes = hexToBoolArray($item->metadata->ahash);
+
+                    // TODO: separate these into `hash_*` fields
+                    // cast to object
+
+                    return $hashes;
                 },
             ],
         ];

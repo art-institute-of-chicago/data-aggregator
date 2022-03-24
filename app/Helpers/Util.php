@@ -1,6 +1,20 @@
 <?php
 
 /**
+ * IMG-59: Used for image hashing work.
+ *
+ * @author https://stackoverflow.com/users/1341059/lafor
+ * @link https://stackoverflow.com/questions/32705949
+ */
+function hexToBoolArray($hex_string, $pad_length = 0)
+{
+    return array_map(
+        function($v) { return (bool) $v; },
+        str_split(str_pad(base_convert($hex_string, 16, 2), $pad_length, '0', STR_PAD_LEFT))
+    );
+}
+
+/**
  * Calculates the Cantor tuple function for variable length arguments.
  * Accepts an unlimited amount of ids, each as its own argument.
  *
