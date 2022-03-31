@@ -11,27 +11,6 @@ use App\Http\Controllers\Controller as BaseController;
 
 class LinkedArtController extends BaseController
 {
-    private $fnumbers = [
-        28560 => 'F484',
-        80607 => 'F345',
-        14586 => 'F470',
-        28862 => 'F139',
-        79349 => 'F667',
-        109314 => 'F354',
-        27949 => 'F506',
-        27954 => 'F272',
-        64957 => 'F382',
-        52733 => 'F1468',
-        59774 => 'F1069',
-        31640 => 'F1240a',
-        65479 => 'F1642',
-        87327 => 'F1524',
-        150802 => 'F1690',
-        133605 => 'F1518',
-        88393 => null,
-        202382 => 'F1241',
-    ];
-
     public function showObject(Request $request, $id)
     {
         $artwork = Artwork::find($id);
@@ -45,7 +24,6 @@ class LinkedArtController extends BaseController
         $item = array_merge_recursive(
             $item,
             $this->getArtworkType($artwork),
-            $this->getLinkToVgwUri($artwork),
             $this->getIdentifiers($artwork),
             $this->getTitles($artwork),
             $this->getCurrentOwner($artwork),
@@ -61,6 +39,7 @@ class LinkedArtController extends BaseController
             $this->getProvenanceStatement($artwork),
             $this->getBibliographyStatement($artwork),
             $this->getExhibitionStatement($artwork),
+            $this->getExtraLinkedArtJson($artwork),
         );
 
         return $item;
@@ -87,23 +66,6 @@ class LinkedArtController extends BaseController
         ];
     }
 
-    private function getLinkToVgwUri($artwork): array
-    {
-        $fnumber = $this->fnumbers[$artwork->getKey()] ?? null;
-
-        if (!$fnumber) {
-            return [];
-        }
-
-        return [
-            'see_also' => [
-                [
-                    'id' => 'https://vangoghworldwide.org/data/artwork/' . $fnumber,
-                ],
-            ],
-        ];
-    }
-
     private function getIdentifiers($artwork): array
     {
         $identifiers = [];
@@ -117,20 +79,6 @@ class LinkedArtController extends BaseController
                         'id' => 'http://vocab.getty.edu/aat/300312355',
                         'type' => 'Type',
                         '_label' => 'accession number',
-                    ],
-                ],
-            ];
-        }
-
-        if ($fnumber = $this->fnumbers[$artwork->getKey()] ?? null) {
-            $identifiers[] = [
-                'type' => 'Identifier',
-                'content' => $fnumber,
-                'classified_as' => [
-                    [
-                        'id' => 'https://vangoghworldwide.org/data/concept/f_number',
-                        'type' => 'Type',
-                        '_label' => 'De La Faille number',
                     ],
                 ],
             ];
@@ -597,5 +545,15 @@ class LinkedArtController extends BaseController
                 ],
             ],
         ];
+    }
+
+    private function getExtraLinkedArtJson($artwork): array
+    {
+        if (empty($artwork->linked_art_json)) {
+            return [];
+        }
+
+        // convert object to array recursively
+        return json_decode(json_encode($artwork->linked_art_json), true);
     }
 }
