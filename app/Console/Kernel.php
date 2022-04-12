@@ -76,6 +76,11 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-queues-last-run.log'));
 
+        $schedule->command('import:enhancer')
+            ->everyMinute()
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-enhancer-last-run.log'));
+
         // API-231, API-232: Temporary remediation! Artworks can't touch artists.
         $schedule->command('scout:import', [
             \App\Models\Collections\Agent::class,

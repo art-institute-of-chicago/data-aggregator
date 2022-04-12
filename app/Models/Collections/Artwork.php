@@ -22,6 +22,7 @@ class Artwork extends CollectionsModel
         'is_public_domain' => 'boolean',
         'is_zoomable' => 'boolean',
         'is_on_view' => 'boolean',
+        'linked_art_json' => 'object',
     ];
 
     protected $primaryKey = 'citi_id';

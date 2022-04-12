@@ -11,6 +11,14 @@ use App\Transformers\AbstractTransformer;
 
 class BaseTransformer extends AbstractTransformer
 {
+    /**
+     * The name of the field that the source API provides a last updated timestamp in.
+     *
+     * @todo Move this to inbound transformers! Argh!
+     *
+     * @var string
+     */
+    public static $sourceLastUpdateDateField = 'modified_at';
 
     /**
      * If this property is true, all fields will be copied from the datum to serve as the

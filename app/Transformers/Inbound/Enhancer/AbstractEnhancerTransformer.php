@@ -8,6 +8,8 @@ use App\Transformers\Inbound\BaseTransformer;
 
 abstract class AbstractEnhancerTransformer extends BaseTransformer
 {
+    public static $sourceLastUpdateDateField = 'updated_at';
+
     protected $passthrough = false;
 
     public function shouldSave(Model $instance, $datum, $isNew = null)

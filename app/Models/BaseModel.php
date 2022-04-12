@@ -35,13 +35,6 @@ class BaseModel extends AbstractModel
     use Transformable, Documentable, HasFactory;
 
     /**
-     * The name of the field that the source API provides a last updated timestamp in.
-     *
-     * @var string
-     */
-    public static $sourceLastUpdateDateField = 'modified_at';
-
-    /**
      * String that indicates the sub-namespace of the child models. Used for dynamic model retrieval.
      *
      * TODO: This isn't entirely accurate, since a model might be drawn from multiple sources.
