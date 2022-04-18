@@ -24,6 +24,15 @@ class Article extends BaseTransformer
                 },
                 'is_restricted' => true,
             ],
+            'is_unlisted' => [
+                'doc' => 'Whether the article is unlisted',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+                'value' => function ($item) {
+                    return $item->is_unlisted;
+                },
+                'is_restricted' => true,
+            ],
             // TODO: Is this different from the CMS publish date?
             'date' => [
                 'doc' => 'The date the article was published',
