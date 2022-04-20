@@ -6,11 +6,17 @@
  * @author https://stackoverflow.com/users/1341059/lafor
  * @link https://stackoverflow.com/questions/32705949
  */
-function hexToBoolArray($hex_string, $pad_length = 0)
+function hexToBoolArray($hex_string, $pad_length = 20)
 {
+    // $array = str_split(str_pad(strval(base_convert($hex_string, 16, 2)), 0, '0', STR_PAD_LEFT));
+    // foreach ($array as $key=>$value){
+    //     $string = "\"hash_" . strval($key) . "\" : ";
+    //     $array[$key] = str_pad($value, 12, $string, STR_PAD_LEFT);
+    // }
+    // return $array;
     return array_map(
         function($v) { return (bool) $v; },
-        str_split(str_pad(base_convert($hex_string, 16, 2), $pad_length, '0', STR_PAD_LEFT))
+        str_split(str_pad(base_convert($hex_string, 16, 2), $pad_length, 'hash', STR_PAD_LEFT))
     );
 }
 
