@@ -146,13 +146,18 @@ class Image extends BaseTransformer
 
                     $hashes = hexToBoolArray($item->metadata->{$hashName});
 
-                    $values = collect()
-                        ->range(0, 63)
-                        ->map(fn ($i) => [
-                            'hash_' . $i => $hashes[$i]
-                        ])
-                        ->collapse()
-                        ->all();
+                    try {
+                        $values = collect()
+                            ->range(0, 63)
+                            ->map(fn ($i) => [
+                                'hash_' . $i => $hashes[$i]
+                            ])
+                            ->collapse()
+                            ->all();
+                    } catch (\Throwable $e) {
+                        // IMG-59: Undefined array key 30
+                        return;
+                    }
 
                     return (object) $values;
                 },
