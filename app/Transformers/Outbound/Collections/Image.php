@@ -9,7 +9,7 @@ class Image extends BaseTransformer
 
     protected function getAssetFields()
     {
-        return [
+        $imageFields = [
             'content' => [
                 'doc' => 'Text of or URL to the contents of this asset',
                 'type' => 'string',
@@ -88,7 +88,6 @@ class Image extends BaseTransformer
             'fingerprint' => [
                 'doc' => 'Image hashes: aHash, dHash, pHash, wHash',
                 'type' => 'object',
-                // TODO: Elasticsearch is bad at string distance
                 'elasticsearch' => [
                     'mapping' => [
                         'type' => 'object',
@@ -109,6 +108,60 @@ class Image extends BaseTransformer
                     ]) ?: null;
                 },
             ],
+        ];
+
+        return array_merge(
+            $imageFields,
+            $this->getHashField('ahash'),
+            $this->getHashField('phash'),
+            $this->getHashField('whash'),
+            $this->getHashField('dhash'),
+        );
+    }
+
+    private function getHashField(string $hashName): array
+    {
+        $properties = collect()
+            ->range(0, 63)
+            ->map(fn ($i) => [
+                'hash_' . $i => ['type' => 'boolean'],
+            ])
+            ->collapse()
+            ->all();
+
+        return [
+            $hashName => [
+                'doc' => 'Image hash generated using ' . $hashName . ' algorithm with 64 boolean subfields',
+                'type' => 'object',
+                'elasticsearch' => [
+                    'mapping' => [
+                        'type' => 'object',
+                        'properties' => $properties,
+                    ],
+                ],
+                'value' => function ($item) use ($hashName) {
+                    if (empty($item->metadata->{$hashName})) {
+                        return;
+                    }
+
+                    $hashes = hexToBoolArray($item->metadata->{$hashName});
+
+                    try {
+                        $values = collect()
+                            ->range(0, 63)
+                            ->map(fn ($i) => [
+                                'hash_' . $i => $hashes[$i]
+                            ])
+                            ->collapse()
+                            ->all();
+                    } catch (\Throwable $e) {
+                        // IMG-59: Undefined array key 30
+                        return;
+                    }
+
+                    return (object) $values;
+                },
+            ]
         ];
     }
 }
