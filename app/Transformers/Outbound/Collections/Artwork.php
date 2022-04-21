@@ -201,6 +201,7 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
                 ],
                 // API-235: Pull this from related place? For now, leaving as-is for performance.
                 // API-204: Eventually, this should be an array of all ancestor place names.

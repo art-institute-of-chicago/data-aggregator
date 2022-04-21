@@ -10,7 +10,6 @@ class Artwork extends BaseTransformer
     protected function getExtraFields(Datum $datum)
     {
         return [
-            'support_aat_id' => $datum->support_aat_id,
             'dimension_width' => $datum->width,
             'dimension_height' => $datum->height,
             'linked_art_json' => $datum->linked_art_json,

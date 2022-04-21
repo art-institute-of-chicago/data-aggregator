@@ -2,11 +2,17 @@
 
 namespace App\Models\Web;
 
+use App\Models\WebModel;
+
 /**
  * A press release on the website
  */
-class PressRelease extends Page
+class PressRelease extends WebModel
 {
-
-    protected $table = 'press_releases';
+    protected $casts = [
+        'publish_start_date' => 'datetime',
+        'publish_end_date' => 'datetime',
+        'is_published' => 'boolean',
+        'is_unlisted' => 'boolean',
+    ];
 }

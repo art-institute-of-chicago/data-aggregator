@@ -22,7 +22,8 @@ trait Transformable
     {
         $transformerClass = app('Resources')->getTransformerForModel(get_called_class());
 
-        $fields = (new $transformerClass())->getMappedFields();
+        // include `is_restricted` fields
+        $fields = (new $transformerClass(null, null, false))->getMappedFields();
 
         // TODO: Fix references to transformMapping to use keys instead of 'name'
         foreach ($fields as $fieldName => $fieldMapping) {

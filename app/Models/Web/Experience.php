@@ -14,5 +14,6 @@ class Experience extends WebModel
         'archived' => 'boolean',
         'kiosk_only' => 'boolean',
         'published' => 'boolean',
+        'is_unlisted' => 'boolean',
     ];
 }

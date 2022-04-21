@@ -56,6 +56,15 @@ class Experience extends BaseTransformer
                 },
                 'is_restricted' => true,
             ],
+            'is_unlisted' => [
+                'doc' => 'Whether the experience is unlisted',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+                'value' => function ($item) {
+                    return $item->is_unlisted;
+                },
+                'is_restricted' => true,
+            ],
             'is_archived' => [
                 'doc' => 'Whether the experience has been archived',
                 'type' => 'boolean',
