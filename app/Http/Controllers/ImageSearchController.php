@@ -8,7 +8,7 @@ use Jenssegers\ImageHash\ImageHash;
 use Jenssegers\ImageHash\Implementations\AverageHash;
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 
-use App\Http\Controllers\Controller as BaseController;
+use App\Http\Controllers\SearchController as BaseController;
 
 class ImageSearchController extends BaseController
 {
@@ -27,6 +27,35 @@ class ImageSearchController extends BaseController
         $hasher = new ImageHash(new AverageHash());
         $hash = $hasher->hash($request->file);
 
-        return $hash->toHex();
+        // return $hash->toHex();
+
+        $searchResponse = $this->query(
+            'getSearchParams',
+            'getSearchResponse',
+            'search',
+            'images',
+            null,
+            [
+                'boost' => false,
+                'fields' => [
+                    'id',
+                    'artwork_ids',
+                    'ahash',
+                ],
+                'query' => [
+                    'bool' => [
+                        'filter' => [
+                            'term' => [
+                                'id' => 'foobar',
+                            ]
+                        ],
+                    ],
+                ],
+            ],
+        );
+
+        $images = $searchResponse['data'];
+
+        return $images;
     }
 }
