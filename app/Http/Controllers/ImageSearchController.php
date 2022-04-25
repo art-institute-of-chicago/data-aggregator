@@ -26,8 +26,16 @@ class ImageSearchController extends BaseController
 
         $hasher = new ImageHash(new AverageHash());
         $hash = $hasher->hash($request->file);
+        $hashBinaries = hexToBoolArray($hash, 64);
 
-        // return $hash->toHex();
+        $properties = collect()
+            ->range(0, 63)
+            ->map(fn ($i) => [
+                'term' => [
+                    'hash_' . $i => $hashBinaries[$i]
+                ],
+            ])
+            ->all();
 
         $searchResponse = $this->query(
             'getSearchParams',
@@ -44,11 +52,8 @@ class ImageSearchController extends BaseController
                 ],
                 'query' => [
                     'bool' => [
-                        'filter' => [
-                            'term' => [
-                                'id' => 'foobar',
-                            ]
-                        ],
+                        'minimum_should_match' => '80%',
+                        'should' => $properties
                     ],
                 ],
             ],

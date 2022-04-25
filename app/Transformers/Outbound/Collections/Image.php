@@ -113,9 +113,9 @@ class Image extends BaseTransformer
         return array_merge(
             $imageFields,
             $this->getHashField('ahash'),
-            $this->getHashField('phash'),
-            $this->getHashField('whash'),
-            $this->getHashField('dhash'),
+            // $this->getHashField('phash'),
+            // $this->getHashField('whash'),
+            // $this->getHashField('dhash'),
         );
     }
 
@@ -144,7 +144,7 @@ class Image extends BaseTransformer
                         return;
                     }
 
-                    $hashes = hexToBoolArray($item->metadata->{$hashName});
+                    $hashes = hexToBoolArray($item->metadata->{$hashName}, 64);
 
                     try {
                         $values = collect()
