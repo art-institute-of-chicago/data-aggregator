@@ -32,7 +32,7 @@ class ImageSearchController extends BaseController
             ->range(0, 63)
             ->map(fn ($i) => [
                 'term' => [
-                    'hash_' . $i => $hashBinaries[$i]
+                    'ahash.hash_' . $i => $hashBinaries[$i]
                 ],
             ])
             ->all();

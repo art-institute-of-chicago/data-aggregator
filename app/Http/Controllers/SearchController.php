@@ -245,7 +245,7 @@ class SearchController extends BaseController
      *
      * @return array
      */
-    private function getRequest()
+    protected function getRequest()
     {
         $request = Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request'];
         $request['body'] = json_decode($request['body'], true);
