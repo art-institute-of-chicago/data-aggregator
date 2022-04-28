@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Collections\Artwork;
 use Jenssegers\ImageHash\ImageHash;
 use Jenssegers\ImageHash\Implementations\AverageHash;
 use Aic\Hub\Foundation\Exceptions\DetailedException;
+use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SearchController as BaseController;
 
@@ -46,9 +46,7 @@ class ImageSearchController extends BaseController
             [
                 'boost' => false,
                 'fields' => [
-                    'id',
                     'artwork_ids',
-                    'ahash',
                 ],
                 'query' => [
                     'bool' => [
@@ -59,8 +57,41 @@ class ImageSearchController extends BaseController
             ],
         );
 
+        if (!is_array($searchResponse)) {
+            throw new DetailedException(
+                'Server error',
+                'We encountered an issue while retrieving matching images',
+                500,
+            );
+        }
+
         $images = $searchResponse['data'];
 
-        return $images;
+        $artworkIds = collect($images)
+            ->pluck('artwork_ids')
+            ->collapse()
+            ->unique()
+            ->values()
+            ->all();
+
+        $path = '/api/v1/artworks';
+
+        // Get ServerBag of current reqest, rewrite URI, convert to array
+        $server = request()->server;
+        $server->set('REQUEST_URI', $path);
+        $server = $server->all();
+
+        // Rewrite the current request with one containing new URI and JSON
+        $request = new Request([], [], [], [], [], $server, json_encode([
+            'ids' => $artworkIds,
+            'fields' => $request->fields ?? [],
+        ]));
+
+        app()->request = $request;
+
+        // Now, calling request() returns the new request!
+        $artworkResponse = Route::dispatch($request)->getContent();
+
+        return response($artworkResponse)->header('Content-Type', 'application/json');
     }
 }
