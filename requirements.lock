@@ -2,5 +2,5 @@ Pillow==8.1.0
 ImageHash==4.0
 numpy==1.16.0
 PyWavelets==1.0.1
-scipy==1.8.0
-six==1.14.0
+scipy==1.2.0
+six==1.12.0
