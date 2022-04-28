@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Jenssegers\ImageHash\ImageHash;
-use Jenssegers\ImageHash\Implementations\AverageHash;
+use Intervention\Image\Facades\Image;
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use App\Library\Shell;
 
 use App\Http\Controllers\SearchController as BaseController;
 
@@ -22,10 +23,26 @@ class ImageSearchController extends BaseController
             );
         }
 
-        // TODO: Error out if the file is not an image
+        $diskPath = 'tmp/' . uniqid() . '.jpg';
+        $fullPath = storage_path('app/' . $diskPath);
 
-        $hasher = new ImageHash(new AverageHash());
-        $hash = $hasher->hash($request->file);
+        $image = Image::make($request->file);
+        $image->save($fullPath);
+
+        // TODO: Error out if the file is not an image
+        $shell = new Shell([
+            'is_silent' => true,
+        ]);
+
+        $result = $shell->exec(
+            'python3 %s %s',
+            base_path('bin/ahash.py'),
+            $fullPath,
+        );
+
+        Storage::delete($diskPath);
+
+        $hash = array_pop($result['output']);
         $hashBinaries = hexToBoolArray($hash, 64);
 
         $properties = collect()

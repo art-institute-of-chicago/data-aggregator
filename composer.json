@@ -29,7 +29,7 @@
         "aic/laravel-scout-elastic": "dev-master",
         "cviebrock/laravel-elasticsearch": "^8.0",
         "fruitcake/laravel-cors": "^2.0",
-        "jenssegers/imagehash": "^0.8.0",
+        "intervention/image": "^2.7",
         "jsq/amazon-es-php": "dev-master",
         "laravel/framework": "^8.0",
         "laravel/sanctum": "^2.11",
