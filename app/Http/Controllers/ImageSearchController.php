@@ -23,13 +23,15 @@ class ImageSearchController extends BaseController
             );
         }
 
-        $diskPath = 'tmp/' . uniqid() . '.jpg';
-        $fullPath = storage_path('app/' . $diskPath);
-
         Image::configure(['driver' => 'imagick']);
 
         $image = Image::make($request->file);
-        $image->save($fullPath);
+        $stream = $image->stream('jpg');
+
+        $tempFile = tmpfile();
+        stream_copy_to_stream($stream->detach(), $tempFile);
+
+        $tempPath = stream_get_meta_data($tempFile)['uri'];
 
         // TODO: Error out if the file is not an image
         $shell = new Shell([
@@ -39,10 +41,10 @@ class ImageSearchController extends BaseController
         $result = $shell->exec(
             'python3 %s %s',
             base_path('bin/ahash.py'),
-            $fullPath,
+            $tempPath,
         );
 
-        Storage::delete($diskPath);
+        fclose($tempFile);
 
         $hash = array_pop($result['output']);
         $hashBinaries = hexToBoolArray($hash, 64);
