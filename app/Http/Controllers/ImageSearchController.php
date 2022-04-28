@@ -26,6 +26,8 @@ class ImageSearchController extends BaseController
         $diskPath = 'tmp/' . uniqid() . '.jpg';
         $fullPath = storage_path('app/' . $diskPath);
 
+        Image::configure(['driver' => 'imagick']);
+
         $image = Image::make($request->file);
         $image->save($fullPath);
 
