@@ -50,7 +50,7 @@ class ImageSearchController extends BaseController
                 ],
                 'query' => [
                     'bool' => [
-                        'minimum_should_match' => '80%',
+                        'minimum_should_match' => '70%',
                         'should' => $properties
                     ],
                 ],
@@ -73,6 +73,13 @@ class ImageSearchController extends BaseController
             ->unique()
             ->values()
             ->all();
+
+        // Returns multi-id response with empty `data`
+        if (empty($artworkIds)) {
+            $artworkIds = [
+                1, // almost certainly will never exist
+            ];
+        }
 
         $path = '/api/v1/artworks';
 
