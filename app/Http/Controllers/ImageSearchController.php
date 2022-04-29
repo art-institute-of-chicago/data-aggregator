@@ -23,6 +23,22 @@ class ImageSearchController extends BaseController
             );
         }
 
+        $supportedHashes = ['ahash', 'phash'];
+
+        if (!empty($request->hash_type)) {
+            if (!in_array($request->hash_type, $supportedHashes)){
+                throw new DetailedException(
+                    'Hash type not found',
+                    'Only ahash and phash hash types are allowed',
+                    400,
+                );
+            }
+
+            $hashType = $request->hash_type;
+        } else {
+            $hashType = 'ahash';
+        }
+
         Image::configure(['driver' => 'imagick']);
 
         $image = Image::make($request->file);
@@ -40,7 +56,7 @@ class ImageSearchController extends BaseController
 
         $result = $shell->exec(
             'python3 %s %s',
-            base_path('bin/ahash.py'),
+            base_path('bin/' . $hashType . '.py'),
             $tempPath,
         );
 
@@ -53,7 +69,7 @@ class ImageSearchController extends BaseController
             ->range(0, 63)
             ->map(fn ($i) => [
                 'term' => [
-                    'ahash.hash_' . $i => $hashBinaries[$i]
+                    $hashType . '.hash_' . $i => $hashBinaries[$i]
                 ],
             ])
             ->all();

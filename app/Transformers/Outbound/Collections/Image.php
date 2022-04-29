@@ -113,7 +113,7 @@ class Image extends BaseTransformer
         return array_merge(
             $imageFields,
             $this->getHashField('ahash'),
-            // $this->getHashField('phash'),
+            $this->getHashField('phash'),
             // $this->getHashField('whash'),
             // $this->getHashField('dhash'),
         );
