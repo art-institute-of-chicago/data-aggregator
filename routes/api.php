@@ -7,6 +7,7 @@ use App\Http\Controllers\RestrictedResourceController;
 
 use App\Http\Controllers\SwaggerController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ImageSearchController;
 use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\AssetController;
 
@@ -30,6 +31,9 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::match(['GET', 'POST'], 'autocomplete', [SearchController::class, 'autocompleteWithTitle']);
     Route::match(['GET', 'POST'], 'autosuggest', [SearchController::class, 'autocompleteWithSource']);
+
+    // Image search
+    Route::match(['GET', 'POST'], 'image-search', [ImageSearchController::class, 'imageSearch']);
 
     // For debugging search, show generated request
     if (env('APP_ENV') === 'local') {

@@ -134,7 +134,7 @@ class SearchController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    private function query($requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null, $requestArgs = null)
+    protected function query($requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null, $requestArgs = null)
     {
 
         // Combine any configuration params
@@ -245,7 +245,7 @@ class SearchController extends BaseController
      *
      * @return array
      */
-    private function getRequest()
+    protected function getRequest()
     {
         $request = Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request'];
         $request['body'] = json_decode($request['body'], true);
