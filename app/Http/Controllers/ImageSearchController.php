@@ -55,7 +55,8 @@ class ImageSearchController extends BaseController
         ]);
 
         $result = $shell->exec(
-            'python3 %s %s',
+            '%s %s %s',
+            base_path('venv/bin/python3'),
             base_path('bin/' . $hashType . '.py'),
             $tempPath,
         );

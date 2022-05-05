@@ -28,6 +28,7 @@ composer-dev.lock
 /public/css
 /public/docs
 /.vagrant
+/venv
 .env*
 !.env.*example
 !.env.ci
