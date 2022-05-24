@@ -34,7 +34,6 @@ class ArtworkFactory extends CollectionsFactory
                 'publishing_verification_level' => $this->faker->randomElement(['Web Basic', 'Web Cataloged', 'Web Everything']),
                 'is_public_domain' => $this->faker->boolean,
                 'copyright_notice' => '© ' . $this->faker->year . ' ' . ucfirst($this->faker->words(3, true)),
-                'place_of_origin' => $this->faker->country,
                 'collection_status' => $this->faker->randomElement(['Permanent Collection', 'Long-term Loan']),
                 'artwork_type_citi_id' => $this->faker->randomElement(ArtworkType::query()->pluck('citi_id')->all()),
                 'gallery_citi_id' => $this->faker->randomElement(Place::query()->pluck('citi_id')->all()),

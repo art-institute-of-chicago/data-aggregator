@@ -167,22 +167,6 @@ class Artwork extends CollectionsTransformer
      */
     private function getSyncPlaces(Datum $datum)
     {
-        // Worst case: no pivots, nor basic place
-        if (!$datum->artwork_places && !$datum->place_of_origin_id) {
-            return [];
-        }
-
-        // No pivots, but basic place
-        if (!$datum->artwork_places && $datum->place_of_origin_id) {
-            // Default `artwork_place_qualifier_citi_id` to 3 (Object made in)
-            return [
-                $datum->place_of_origin_id => [
-                    'artwork_place_qualifier_citi_id' => 3,
-                    'preferred' => true,
-                ],
-            ];
-        }
-
         return $this->getSyncPivots($datum, 'artwork_places', 'place_id', function ($pivot) {
             return [
                 $pivot->place_id => [
