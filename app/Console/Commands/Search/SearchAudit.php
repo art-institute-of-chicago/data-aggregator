@@ -26,10 +26,6 @@ class SearchAudit extends BaseCommand
 
         if ($output) {
             $this->info($output);
-
-            $sentry = app('sentry');
-            $sentry->extra_context(['console.output' => $output]);
-            throw new \Exception('Search index and database are out of sync');
         }
     }
 
