@@ -117,24 +117,6 @@ return [
         ],
     ],
 
-    'archive' => [
-        'archival-images' => [
-            'model' => \App\Models\Archive\ArchiveImage::class,
-            'transformer' => \App\Transformers\Inbound\BaseTransformer::class,
-        ],
-    ],
-
-    'library' => [
-        'terms' => [
-            'model' => \App\Models\Library\Term::class,
-            'transformer' => \App\Transformers\Inbound\BaseTransformer::class,
-        ],
-        'materials' => [
-            'model' => \App\Models\Library\Material::class,
-            'transformer' => \App\Transformers\Inbound\Library\Material::class,
-        ],
-    ],
-
     'dsc' => [
         'publications' => [
             'model' => \App\Models\Dsc\Publication::class,
