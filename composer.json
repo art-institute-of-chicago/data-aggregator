@@ -49,6 +49,7 @@
         "fakerphp/faker": "^1.9.1",
         "friendsofphp/php-cs-fixer": "^3.5",
         "itsgoingd/clockwork": "^5.0",
+        "kitloong/laravel-migrations-generator": "^6.0",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
