@@ -25,7 +25,6 @@ abstract class BaseCommand extends AbstractCommand
             'Mobile' => 'Mobile',
             'Dsc' => 'Digital Scholarly Catalogs',
             'StaticArchive' => 'Static Archive',
-            //'Library' => 'Library',
             'Web' => 'Website',
         ];
     }

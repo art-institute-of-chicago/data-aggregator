@@ -117,17 +117,6 @@ return [
         ],
     ],
 
-    'library' => [
-        'terms' => [
-            'model' => \App\Models\Library\Term::class,
-            'transformer' => \App\Transformers\Inbound\BaseTransformer::class,
-        ],
-        'materials' => [
-            'model' => \App\Models\Library\Material::class,
-            'transformer' => \App\Transformers\Inbound\Library\Material::class,
-        ],
-    ],
-
     'dsc' => [
         'publications' => [
             'model' => \App\Models\Dsc\Publication::class,
