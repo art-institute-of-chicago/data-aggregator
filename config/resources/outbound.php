@@ -271,12 +271,6 @@ return [
             'transformer' => \App\Transformers\Outbound\Library\Term::class,
             'is_restricted' => true,
         ],
-        [
-            'endpoint' => 'archive-images',
-            'model' => \App\Models\Archive\ArchiveImage::class,
-            'transformer' => \App\Transformers\Outbound\Archive\ArchiveImage::class,
-            'is_restricted' => true,
-        ],
 
         /**
          * Queues:

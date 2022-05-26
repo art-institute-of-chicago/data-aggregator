@@ -117,13 +117,6 @@ return [
         ],
     ],
 
-    'archive' => [
-        'archival-images' => [
-            'model' => \App\Models\Archive\ArchiveImage::class,
-            'transformer' => \App\Transformers\Inbound\BaseTransformer::class,
-        ],
-    ],
-
     'library' => [
         'terms' => [
             'model' => \App\Models\Library\Term::class,
