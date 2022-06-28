@@ -205,15 +205,15 @@ return [
         ],
         'educatorresources' => [
             'model' => \App\Models\Web\EducatorResource::class,
-            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
+            'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
         'digitalpublications' => [
             'model' => \App\Models\Web\DigitalCatalog::class,
-            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
+            'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
         'printedpublications' => [
             'model' => \App\Models\Web\PrintedCatalog::class,
-            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
+            'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
         'digitalpublicationsections' => [
             'model' => \App\Models\Web\DigitalPublicationSection::class,

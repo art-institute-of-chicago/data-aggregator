@@ -7,10 +7,5 @@ namespace App\Models\Web;
  */
 class PrintedCatalog extends Page
 {
-
     protected $table = 'printed_catalogs';
-
-    protected $casts = [
-        'agent_ids' => 'array',
-    ];
 }
