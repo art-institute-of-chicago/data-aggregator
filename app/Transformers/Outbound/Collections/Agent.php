@@ -19,14 +19,8 @@ class Agent extends BaseTransformer
     }
 
     protected $availableIncludes = [
-        'sites',
         'place_pivots',
     ];
-
-    public function includeSites($agent)
-    {
-        return $this->collection($agent->sites, new SiteTransformer(), false);
-    }
 
     public function includePlacePivots($agent)
     {
@@ -154,14 +148,6 @@ class Agent extends BaseTransformer
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
                     return $item->createdArtworkIds();
-                },
-            ],
-            'site_ids' => [
-                'doc' => 'Unique identifiers of the microsites this exhibition is a part of',
-                'type' => 'array',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->sites->pluck('site_id');
                 },
             ],
         ];
