@@ -3,7 +3,6 @@
 namespace App\Transformers\Outbound\Web;
 
 use App\Models\Web\EventProgram;
-use App\Transformers\Outbound\Web\Sponsor as SponsorTransformer;
 use App\Transformers\Outbound\Web\Traits\HasPublishDates;
 use App\Transformers\Outbound\Web\Traits\HasSearchTags;
 
@@ -14,15 +13,6 @@ class Event extends BaseTransformer
 
     use HasPublishDates;
     use HasSearchTags;
-
-    protected $availableIncludes = [
-        'sponsor',
-    ];
-
-    public function includeSponsor($event)
-    {
-        return $event->sponsor ? $this->item($event->sponsor, new SponsorTransformer(), false) : null;
-    }
 
     protected function getTitles()
     {
@@ -303,14 +293,6 @@ class Event extends BaseTransformer
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
                     return $item->eventHost->title ?? null;
-                },
-            ],
-            'sponsor_id' => [
-                'doc' => 'Unique identifier of the sponsor this website event is tied to',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->sponsor->id ?? null;
                 },
             ],
         ];

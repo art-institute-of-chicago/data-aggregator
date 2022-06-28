@@ -308,14 +308,6 @@ return [
             'is_restricted' => true,
         ],
         [
-            'endpoint' => 'sponsors',
-            'model' => \App\Models\Web\Sponsor::class,
-            'transformer' => \App\Transformers\Outbound\Web\Sponsor::class,
-            'is_searchable' => true,
-            'is_restricted' => false,
-            'no_dump' => true,
-        ],
-        [
             'endpoint' => 'articles',
             'model' => \App\Models\Web\Article::class,
             'transformer' => \App\Transformers\Outbound\Web\Article::class,

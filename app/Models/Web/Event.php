@@ -35,11 +35,6 @@ class Event extends WebModel
         return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'membership_id');
     }
 
-    public function sponsor()
-    {
-        return $this->belongsTo('App\Models\Web\Sponsor');
-    }
-
     /**
      * @todo Consider filtering EventProgram by `is_event_host`, nulling this out if false.
      */
