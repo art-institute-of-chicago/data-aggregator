@@ -162,11 +162,6 @@ return [
             'model' => \App\Models\Web\Artist::class,
             'transformer' => \App\Transformers\Inbound\Web\Artist::class,
         ],
-        // TODO: Consider deleting until needed.
-        'closures' => [
-            'model' => \App\Models\Web\Closure::class,
-            'transformer' => \App\Transformers\Inbound\Web\Closure::class,
-        ],
         'events' => [
             'model' => \App\Models\Web\Event::class,
             'transformer' => \App\Transformers\Inbound\Web\Event::class,

@@ -270,12 +270,6 @@ return [
          * Website:
          */
         [
-            'endpoint' => 'closures',
-            'model' => \App\Models\Web\Closure::class,
-            'transformer' => \App\Transformers\Outbound\Web\Closure::class,
-            'is_searchable' => true, // TODO: Verify?
-        ],
-        [
             'endpoint' => 'web-exhibitions',
             'model' => \App\Models\Web\Exhibition::class,
             'transformer' => \App\Transformers\Outbound\Web\Exhibition::class,
