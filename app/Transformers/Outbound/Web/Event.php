@@ -16,14 +16,8 @@ class Event extends BaseTransformer
     use HasSearchTags;
 
     protected $availableIncludes = [
-        'email_series_pivots',
         'sponsor',
     ];
-
-    public function includeEmailSeriesPivots($event)
-    {
-        return $this->collection($event->emailSeriesPivots, new EventEmailSeriesPivot(), false);
-    }
 
     public function includeSponsor($event)
     {
@@ -318,12 +312,6 @@ class Event extends BaseTransformer
                 'value' => function ($item) {
                     return $item->sponsor->id ?? null;
                 },
-            ],
-            'test_emails' => [
-                'doc' => 'Email addresses to target for email series tests',
-                'type' => 'array',
-                'elasticsearch' => 'text',
-                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
         ];
     }

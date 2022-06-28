@@ -26,7 +26,6 @@ class Event extends WebModel
         'alt_event_types' => 'array',
         'alt_audiences' => 'array',
         'programs' => 'array',
-        'test_emails' => 'array',
         'publish_start_date' => 'datetime',
         'publish_end_date' => 'datetime',
     ];
@@ -34,24 +33,6 @@ class Event extends WebModel
     public function ticketedEvent()
     {
         return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'membership_id');
-    }
-
-    public function emailSeriesPivots()
-    {
-        return $this->hasMany('App\Models\Web\EventEmailSeriesPivot');
-    }
-
-    public function emailSeries()
-    {
-        return $this
-            ->belongsToMany('App\Models\Web\EmailSeries', 'event_email_series')
-            ->using('App\Models\Web\EventEmailSeriesPivot')
-            ->withPivot(
-                'affiliate_copy',
-                'member_copy',
-                'luminary_copy',
-                'nonmember_copy'
-            );
     }
 
     public function sponsor()

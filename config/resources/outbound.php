@@ -301,14 +301,6 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'email-series',
-            'model' => \App\Models\Web\EmailSeries::class,
-            'transformer' => \App\Transformers\Outbound\GenericTransformer::class,
-            'is_searchable' => true,
-            'is_restricted' => false,
-            'no_dump' => true,
-        ],
-        [
             'endpoint' => 'interactive-features',
             'model' => \App\Models\Web\InteractiveFeature::class,
             'transformer' => \App\Transformers\Outbound\Web\InteractiveFeature::class,
@@ -322,10 +314,6 @@ return [
             'is_searchable' => true,
             'is_restricted' => false,
             'no_dump' => true,
-        ],
-        [
-            'model' => \App\Models\Web\EventEmailSeriesPivot::class,
-            'transformer' => \App\Transformers\Outbound\Web\EventEmailSeriesPivot::class,
         ],
         [
             'endpoint' => 'articles',

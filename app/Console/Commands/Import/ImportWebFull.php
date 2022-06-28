@@ -20,7 +20,6 @@ use App\Models\Web\DigitalCatalog;
 use App\Models\Web\DigitalPublicationSection;
 use App\Models\Web\PrintedCatalog;
 use App\Models\Web\StaticPage;
-use App\Models\Web\EmailSeries;
 use App\Models\Web\Sponsor;
 
 class ImportWebFull extends AbstractImportCommand
@@ -78,7 +77,6 @@ class ImportWebFull extends AbstractImportCommand
             DigitalPublicationSection::class => 'digital_publication_sections',
             PrintedCatalog::class => 'printed_catalogs',
             StaticPage::class => 'static_pages',
-            EmailSeries::class => 'email_series',
             Sponsor::class => 'sponsors',
             Issue::class => 'issues',
             IssueArticle::class => 'issue_articles',
@@ -113,7 +111,6 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('printedpublications');
 
         $this->importFromWeb('staticpages');
-        $this->importFromWeb('emailseries');
         $this->importFromWeb('sponsors');
 
         $this->importFromWeb('issues');
