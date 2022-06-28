@@ -21,7 +21,7 @@ class CreateInteractiveFeaturesTables extends Migration
             $table->string('color')->nullable();
             $table->boolean('archived')->default(false);
             $table->boolean('published')->default(false);
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
         });
 
@@ -35,7 +35,7 @@ class CreateInteractiveFeaturesTables extends Migration
             $table->boolean('archived')->default(false);
             $table->boolean('kiosk_only')->default(false);
             $table->boolean('published')->default(false);
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
         });
     }
