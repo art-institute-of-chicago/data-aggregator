@@ -23,7 +23,7 @@ class DropAgentIds extends Migration
     public function down()
     {
         foreach ($this->tables as $tableName => $afterColumn) {
-            Schema::table($tableName, function (Blueprint $table) {
+            Schema::table($tableName, function (Blueprint $table) use ($afterColumn) {
                 $table->json('agent_ids')->nullable()->after($afterColumn);
             });
         }

@@ -27,7 +27,7 @@ class DropSourceCreatedAt extends Migration
     public function down()
     {
         foreach ($this->tables as $tableName => $afterColumn) {
-            Schema::table($tableName, function (Blueprint $table) {
+            Schema::table($tableName, function (Blueprint $table) use ($afterColumn) {
                 $table->timestamp('source_created_at')->nullable()->after($afterColumn);
             });
         }
