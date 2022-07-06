@@ -843,7 +843,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->sites->pluck('site_id');
+                    return $item->sites->pluck('id');
                 },
             ],
         ];
