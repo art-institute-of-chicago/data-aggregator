@@ -14,9 +14,13 @@ class RenameColumnMigration extends Migration
 
     protected $columns;
 
+    protected $prefix;
+
     public function __construct()
     {
         $this->checkProperty('columns');
+
+        $this->prefix = Schema::getConnection()->getTablePrefix();
     }
 
     public function up()
@@ -32,7 +36,7 @@ class RenameColumnMigration extends Migration
         foreach ($this->indexes as $tableName => $indexes) {
             Schema::table($tableName, function (Blueprint $table) use ($indexes) {
                 foreach ($indexes as $oldIndex => $newIndex) {
-                    $table->renameIndex($oldIndex, $newIndex);
+                    $table->renameIndex($this->prefix . $oldIndex, $this->prefix . $newIndex);
                 }
             });
         }
@@ -51,7 +55,7 @@ class RenameColumnMigration extends Migration
         foreach ($this->indexes as $tableName => $indexes) {
             Schema::table($tableName, function (Blueprint $table) use ($indexes) {
                 foreach ($indexes as $oldIndex => $newIndex) {
-                    $table->renameIndex($newIndex, $oldIndex);
+                    $table->renameIndex($this->prefix . $newIndex, $this->prefix . $oldIndex);
                 }
             });
         }

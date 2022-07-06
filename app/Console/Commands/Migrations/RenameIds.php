@@ -44,7 +44,7 @@ class RenameIds extends AbstractCommand
     {
         return $this->getMapping($oldNeedle, $newNeedle, function ($tableName) {
             return array_map(
-                fn ($index) => $index->getName(),
+                fn ($index) => substr($index->getName(), strlen($this->prefix)),
                 $this->manager->listTableIndexes($this->prefix . $tableName)
             );
         });
