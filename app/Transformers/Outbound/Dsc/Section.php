@@ -64,7 +64,7 @@ class Section extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'long',
                 'value' => function ($item) {
-                    return $item->parent->dsc_id ?? null;
+                    return $item->parent->id ?? null;
                 },
             ],
             'publication_title' => [
@@ -80,7 +80,7 @@ class Section extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->publication->dsc_id ?? null;
+                    return $item->publication->id ?? null;
                 },
             ],
 
