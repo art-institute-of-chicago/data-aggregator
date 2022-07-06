@@ -26,11 +26,11 @@ class RenameColumnMigration extends Migration
     public function up()
     {
         foreach ($this->columns as $tableName => $columns) {
-            Schema::table($tableName, function (Blueprint $table) use ($columns) {
-                foreach ($columns as $oldColumn => $newColumn) {
-                    $table->renameColumn($oldColumn, $newColumn);
-                }
-            });
+            foreach ($columns as $old => $new) {
+                Schema::table($tableName, function (Blueprint $table) use ($old, $new) {
+                    $table->renameColumn($old, $new);
+                });
+            }
         }
 
         foreach ($this->indexes as $tableName => $indexes) {
@@ -45,11 +45,11 @@ class RenameColumnMigration extends Migration
     public function down()
     {
         foreach ($this->columns as $tableName => $columns) {
-            Schema::table($tableName, function (Blueprint $table) use ($columns) {
-                foreach ($columns as $oldColumn => $newColumn) {
-                    $table->renameColumn($newColumn, $oldColumn);
-                }
-            });
+            foreach ($columns as $old => $new) {
+                Schema::table($tableName, function (Blueprint $table) use ($old, $new) {
+                    $table->renameColumn($new, $old);
+                });
+            }
         }
 
         foreach ($this->indexes as $tableName => $indexes) {
