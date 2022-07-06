@@ -15,7 +15,7 @@ class ArtworkCatalogue extends BasePivot
         'source_modified_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'preferred' => 'boolean',
+        'is_preferred' => 'boolean',
     ];
 
     public function artwork()

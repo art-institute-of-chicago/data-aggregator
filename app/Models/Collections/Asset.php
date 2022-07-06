@@ -69,7 +69,7 @@ class Asset extends CollectionsModel
     public function artworks()
     {
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_id')
-            ->withPivot('preferred')
+            ->withPivot('is_preferred')
             ->withPivot('is_doc')
             ->artworks();
     }
@@ -77,7 +77,7 @@ class Asset extends CollectionsModel
     public function exhibitions()
     {
         return $this->belongsToMany('App\Models\Collections\Exhibition', 'exhibition_asset', 'asset_id')
-            ->withPivot('preferred')
+            ->withPivot('is_preferred')
             ->withPivot('is_doc');
     }
 

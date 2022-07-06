@@ -11,7 +11,7 @@ class ArtworkAssetPivot extends BasePivot
     protected $table = 'artwork_asset';
 
     protected $casts = [
-        'preferred' => 'boolean',
+        'is_preferred' => 'boolean',
     ];
 
     public function asset()

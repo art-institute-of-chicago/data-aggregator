@@ -106,7 +106,7 @@ class Artwork extends CollectionsModel
     {
         return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_artist')
             ->using('App\Models\Collections\ArtworkArtistPivot')
-            ->withPivot('preferred');
+            ->withPivot('is_preferred');
     }
 
     public function getArtistAttribute()
@@ -163,7 +163,7 @@ class Artwork extends CollectionsModel
 
     public function terms()
     {
-        return $this->belongsToMany('App\Models\Collections\Term')->withPivot('preferred');
+        return $this->belongsToMany('App\Models\Collections\Term')->withPivot('is_preferred');
     }
 
     public function termPivots()
@@ -257,7 +257,7 @@ class Artwork extends CollectionsModel
     {
         return $this->belongsToMany('App\Models\Collections\Catalogue', 'artwork_catalogue')
             ->using('App\Models\Collections\ArtworkCatalogue')
-            ->withPivot('preferred');
+            ->withPivot('is_preferred');
     }
 
     public function gallery()
@@ -268,7 +268,7 @@ class Artwork extends CollectionsModel
     public function images()
     {
         return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_id', 'asset_id')
-            ->withPivot('preferred')
+            ->withPivot('is_preferred')
             ->withPivot('is_doc')
             ->wherePivot('is_doc', '=', false);
     }
@@ -342,7 +342,7 @@ class Artwork extends CollectionsModel
     {
         return $this->belongsToMany('App\Models\Collections\Place')
             ->using('App\Models\Collections\ArtworkPlacePivot')
-            ->withPivot('preferred');
+            ->withPivot('is_preferred');
     }
 
     // Meh, we'll leave out preferred & alternative places for now

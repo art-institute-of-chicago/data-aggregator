@@ -39,7 +39,7 @@ class Exhibition extends CollectionsTransformer
         return $this->getSyncPivots($datum, 'assets', 'netx_id', function ($pivot) {
             return [
                 $pivot->netx_id => [
-                    'preferred' => $pivot->is_preferred,
+                    'is_preferred' => $pivot->is_preferred,
                     'is_doc' => $pivot->is_rep === false,
                 ],
             ];

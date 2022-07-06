@@ -11,7 +11,7 @@ class ArtworkPlacePivot extends BasePivot
     protected $table = 'artwork_place';
 
     protected $casts = [
-        'preferred' => 'boolean',
+        'is_preferred' => 'boolean',
     ];
 
     public function artwork()

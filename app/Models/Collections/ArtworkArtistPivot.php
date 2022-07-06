@@ -11,7 +11,7 @@ class ArtworkArtistPivot extends BasePivot
     protected $table = 'artwork_artist';
 
     protected $casts = [
-        'preferred' => 'boolean',
+        'is_preferred' => 'boolean',
     ];
 
     public function artist()

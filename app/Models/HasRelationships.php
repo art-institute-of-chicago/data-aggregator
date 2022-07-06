@@ -30,7 +30,7 @@ trait HasRelationships
             $key = $pivot->{$resource}()->getForeignKeyName();
 
             if (in_array($pivot->{$key}, $resources_ids)) {
-                if ($pivot->preferred) {
+                if ($pivot->is_preferred) {
                     return head(Arr::where($resources, function ($value) use ($pivot, $key) {
                         return $value->getKey() === $pivot->{$key};
                     }));
@@ -65,7 +65,7 @@ trait HasRelationships
             $key = $pivot->{$resource}()->getForeignKeyName();
 
             if (in_array($pivot->{$key}, $resources_ids)) {
-                if (!$pivot->preferred) {
+                if (!$pivot->is_preferred) {
                     $ret[] = head(Arr::where($resources, function ($value) use ($pivot, $key) {
                         return $value->getKey() === $pivot->{$key};
                     }));

@@ -61,8 +61,7 @@ class ArtworkArtistPivot extends BaseTransformer
     protected function getFields()
     {
         return [
-            // TODO: Rename to `is_preferred`
-            'preferred' => [
+            'is_preferred' => [
                 'doc' => 'Whether this is a preferred artist',
                 'type' => 'boolean',
             ],

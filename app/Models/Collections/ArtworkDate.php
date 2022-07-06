@@ -9,7 +9,7 @@ class ArtworkDate extends CollectionsModel
     protected $casts = [
         'date_earliest' => 'datetime',
         'date_latest' => 'datetime',
-        'preferred' => 'boolean',
+        'is_preferred' => 'boolean',
     ];
 
     public function artwork()

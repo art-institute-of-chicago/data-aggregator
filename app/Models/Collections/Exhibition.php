@@ -59,7 +59,7 @@ class Exhibition extends CollectionsModel
     {
         return $this->belongsToMany('App\Models\Collections\Asset', 'exhibition_asset')
             ->where('type', 'image') // Do we need these if we're targeting Image i/o Asset?
-            ->withPivot('preferred')
+            ->withPivot('is_preferred')
             ->withPivot('is_doc')
             ->wherePivot('is_doc', '=', false);
     }

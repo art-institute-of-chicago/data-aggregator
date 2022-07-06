@@ -15,7 +15,7 @@ class ArtworkDateFactory extends CollectionsFactory
                 'date_earliest' => $this->faker->dateTimeAd,
                 'date_latest' => $this->faker->dateTimeAd,
                 'artwork_date_qualifier_id' => $this->faker->randomElement(App\Models\Collections\ArtworkDateQualifier::query()->pluck('id')->all()),
-                'preferred' => $this->faker->boolean,
+                'is_preferred' => $this->faker->boolean,
             ]
         );
     }

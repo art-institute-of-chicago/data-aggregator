@@ -62,8 +62,7 @@ class ArtworkPlacePivot extends BaseTransformer
     protected function getFields()
     {
         return [
-            // TODO: Rename to `is_preferred`
-            'preferred' => [
+            'is_preferred' => [
                 'doc' => 'Whether this is the preferred place to represent this work',
                 'type' => 'boolean',
             ],

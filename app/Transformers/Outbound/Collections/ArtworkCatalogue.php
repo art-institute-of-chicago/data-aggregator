@@ -17,9 +17,6 @@ class ArtworkCatalogue extends BaseTransformer
             'is_preferred' => [
                 'doc' => 'Whether this catalogue raisonne is the preferred catalogue for this work',
                 'type' => 'boolean',
-                'value' => function ($item) {
-                    return $item->preferred;
-                },
             ],
             'number' => [
                 'doc' => 'The page or section of the catalogue raisonne that represents this work',

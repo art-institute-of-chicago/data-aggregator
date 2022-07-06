@@ -75,7 +75,7 @@ class BaseTransformer extends AbstractTransformer
      *          [
      *              "artwork_id" => 111628,
      *              "category_id" => "PC-2",
-     *              "preferred" => true
+     *              "is_preferred" => true
      *          ]
      *      ]
      *  ]
