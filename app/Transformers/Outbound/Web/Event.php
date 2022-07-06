@@ -145,7 +145,7 @@ class Event extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->ticketedEvent->membership_id ?? null;
+                    return $item->ticketedEvent->id ?? null;
                 },
                 'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],

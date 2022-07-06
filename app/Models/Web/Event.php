@@ -32,7 +32,7 @@ class Event extends WebModel
 
     public function ticketedEvent()
     {
-        return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'membership_id');
+        return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'id');
     }
 
     /**
