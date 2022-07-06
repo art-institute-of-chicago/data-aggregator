@@ -18,12 +18,14 @@ class RenameIds extends AbstractCommand
         $newNeedle = $this->argument('newNeedle');
 
         $columns = $this->getColumns($oldNeedle, $newNeedle);
+        $indexes = $this->getIndexes($oldNeedle, $newNeedle);
 
         $name = sprintf('rename_%s_to_%s', $oldNeedle, $newNeedle);
 
         $this->creator->setStub('migration.rename-ids.stub');
-        $this->creator->setPopulator(function ($stub) use ($columns) {
+        $this->creator->setPopulator(function ($stub) use ($columns, $indexes) {
             $stub = str_replace('{{ columns }}', $this->prepareArray($columns), $stub);
+            $stub = str_replace('{{ indexes }}', $this->prepareArray($indexes), $stub);
 
             return $stub;
         });
@@ -33,29 +35,46 @@ class RenameIds extends AbstractCommand
 
     private function getColumns($oldNeedle, $newNeedle)
     {
+        return $this->getMapping($oldNeedle, $newNeedle, function ($tableName) {
+            return Schema::getColumnListing($tableName);
+        });
+    }
+
+    private function getIndexes($oldNeedle, $newNeedle)
+    {
+        return $this->getMapping($oldNeedle, $newNeedle, function ($tableName) {
+            return array_map(
+                fn ($index) => $index->getName(),
+                $this->manager->listTableIndexes($this->prefix . $tableName)
+            );
+        });
+    }
+
+    private function getMapping($oldNeedle, $newNeedle, $tableCallback)
+    {
         return collect(
                 $this->getTables()
             )
-            ->map(function ($tableName) use ($oldNeedle, $newNeedle) {
-                $columnNames = collect(
-                        Schema::getColumnListing($tableName)
+            ->map(function ($tableName) use ($oldNeedle, $newNeedle, $tableCallback) {
+                $itemNames = collect(
+                        $tableCallback($tableName)
                     )
                     ->filter(
-                        fn ($columnName) => Str::contains($columnName, $oldNeedle)
+                        fn ($itemName) => Str::contains($itemName, $oldNeedle)
                     )
                     ->map(
-                        fn ($columnName) => [
-                            $columnName => str_replace($oldNeedle, $newNeedle, $columnName)
+                        fn ($itemName) => [
+                            $itemName => str_replace($oldNeedle, $newNeedle, $itemName)
                         ]
                     )
                     ->collapse();
 
-                if ($columnNames->isEmpty()) {
+                if ($itemNames->isEmpty()) {
                     return;
                 }
 
                 return [
-                    $tableName => $columnNames->all(),
+                    $tableName => $itemNames->all(),
                 ];
             })
             ->filter()

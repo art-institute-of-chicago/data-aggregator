@@ -14,9 +14,9 @@ abstract class AbstractCommand extends BaseCommand
 
     protected $creator;
 
-    private $manager;
+    protected $manager;
 
-    private $prefix;
+    protected $prefix;
 
     public function __construct()
     {

@@ -28,6 +28,14 @@ class RenameColumnMigration extends Migration
                 }
             });
         }
+
+        foreach ($this->indexes as $tableName => $indexes) {
+            Schema::table($tableName, function (Blueprint $table) use ($indexes) {
+                foreach ($indexes as $oldIndex => $newIndex) {
+                    $table->renameIndex($oldIndex, $newIndex);
+                }
+            });
+        }
     }
 
     public function down()
@@ -36,6 +44,14 @@ class RenameColumnMigration extends Migration
             Schema::table($tableName, function (Blueprint $table) use ($columns) {
                 foreach ($columns as $oldColumn => $newColumn) {
                     $table->renameColumn($newColumn, $oldColumn);
+                }
+            });
+        }
+
+        foreach ($this->indexes as $tableName => $indexes) {
+            Schema::table($tableName, function (Blueprint $table) use ($indexes) {
+                foreach ($indexes as $oldIndex => $newIndex) {
+                    $table->renameIndex($newIndex, $oldIndex);
                 }
             });
         }

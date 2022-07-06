@@ -5,4 +5,6 @@ use App\Library\Migrations\RenameColumnMigration;
 class {{ class }} extends RenameColumnMigration
 {
     protected $columns = {{ columns }};
+
+    protected $indexes = {{ indexes }};
 }
