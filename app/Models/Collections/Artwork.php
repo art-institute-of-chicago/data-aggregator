@@ -13,7 +13,6 @@ use Illuminate\Support\Str;
  */
 class Artwork extends CollectionsModel
 {
-
     use HasRelationships;
     use ElasticSearchable;
 
@@ -268,7 +267,7 @@ class Artwork extends CollectionsModel
 
     public function images()
     {
-        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_id', 'asset_lake_guid')
+        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_id', 'asset_id')
             ->withPivot('preferred')
             ->withPivot('is_doc')
             ->wherePivot('is_doc', '=', false);

@@ -7,7 +7,6 @@ use App\Console\Commands\Import\AbstractImportCommand;
 
 class DeleteAssets extends AbstractImportCommand
 {
-
     protected $signature = 'delete:assets
                             {--since= : How far back to scan for records}';
 
@@ -66,8 +65,8 @@ class DeleteAssets extends AbstractImportCommand
 
                 // Loop through all model types
                 foreach ($this->modelClasses as $modelClass) {
-                    // Check if a resource with a matching lake_guid exists
-                    if ($model = $modelClass::where('lake_guid', '=', $datum->asset_id)->first()) {
+                    // Check if a resource with a matching id exists
+                    if ($model = $modelClass::where('id', '=', $datum->asset_id)->first()) {
                         // Check that the resource was modified at or before the delete
                         if ($model->source_modified_at->lte($sourceDeletedAt)) {
                             $this->warn('Deleting ' . $modelClass . ' ' . $datum->asset_id);

@@ -6,7 +6,6 @@ use App\Models\AbstractPivot as BasePivot;
 
 class ArtworkAssetPivot extends BasePivot
 {
-
     public $incrementing = true;
 
     protected $table = 'artwork_asset';
@@ -17,7 +16,7 @@ class ArtworkAssetPivot extends BasePivot
 
     public function asset()
     {
-        return $this->belongsTo('App\Models\Collections\Asset', 'asset_lake_guid');
+        return $this->belongsTo('App\Models\Collections\Asset', 'asset_id');
     }
 
     public function artwork()

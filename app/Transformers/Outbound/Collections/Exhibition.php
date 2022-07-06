@@ -172,7 +172,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Asset::getHashedId($item->image->lake_guid ?? null);
+                    return Asset::getHashedId($item->image->id ?? null);
                 },
             ],
             'alt_image_ids' => [
@@ -180,8 +180,8 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->altImages->pluck('lake_guid')->map(function ($lake_guid) {
-                        return Asset::getHashedId($lake_guid);
+                    return $item->altImages->pluck('id')->map(function ($id) {
+                        return Asset::getHashedId($id);
                     });
                 },
             ],
@@ -190,8 +190,8 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->documents->pluck('lake_guid')->map(function ($lake_guid) {
-                        return Asset::getHashedId($lake_guid);
+                    return $item->documents->pluck('id')->map(function ($id) {
+                        return Asset::getHashedId($id);
                     });
                 },
             ],

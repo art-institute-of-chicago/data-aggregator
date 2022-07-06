@@ -12,10 +12,10 @@ class AssetController extends ResourceController
     public function netx(Request $request, $id)
     {
         if (is_numeric($id)) {
-            $asset = Asset::where('lake_guid', $id)->first();
+            $asset = Asset::where('id', $id)->first();
             $isNetx = true;
         } else {
-            $asset = Asset::where('lake_guid', $id)->first();
+            $asset = Asset::where('id', $id)->first();
 
             if ($asset) {
                 $isNetx = false;
@@ -31,9 +31,9 @@ class AssetController extends ResourceController
 
         return response()->json([
             'is_netx_asset' => $isNetx,
-            'netx_id' => $isNetx ? $asset->lake_guid : null,
+            'netx_id' => $isNetx ? $asset->id : null,
             'netx_uui' => $isNetx ? $asset->netx_uuid : null,
-            'lake_guid' => $isNetx ? null : $asset->lake_guid,
+            'lake_guid' => $isNetx ? null : $asset->id,
         ]);
     }
 
@@ -43,13 +43,13 @@ class AssetController extends ResourceController
             $ids = $ids instanceof Arrayable ? $ids->toArray() : $ids;
 
             return $this->getBaseQuery()
-                ->whereIn('lake_guid', $ids)
+                ->whereIn('id', $ids)
                 ->orWhereIn('netx_uuid', $ids)
                 ->get();
         }
 
         return $this->getBaseQuery()
-            ->where('lake_guid', $ids)
+            ->where('id', $ids)
             ->orWhere('netx_uuid', $ids)
             ->first();
     }

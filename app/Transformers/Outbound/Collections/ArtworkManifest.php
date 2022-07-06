@@ -73,7 +73,7 @@ class ArtworkManifest extends BaseTransformer
 
     private function _createCanvasImage($model, $image)
     {
-        $imageUuid = Asset::getHashedId($image->lake_guid);
+        $imageUuid = Asset::getHashedId($image->id);
 
         // TODO: Should this be 1686 for public domain?
         if (isset($image->width) && isset($image->height)) {

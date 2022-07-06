@@ -730,7 +730,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Asset::getHashedId($item->image->lake_guid ?? null);
+                    return Asset::getHashedId($item->image->id ?? null);
                 },
             ],
             'alt_image_ids' => [
@@ -738,11 +738,11 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    $ids = Arr::pluck($item->altImages, 'lake_guid');
+                    $ids = Arr::pluck($item->altImages, 'id');
 
                     if ($ids) {
-                        $ids = array_map(function ($lake_guid) {
-                            return Asset::getHashedId($lake_guid);
+                        $ids = array_map(function ($id) {
+                            return Asset::getHashedId($id);
                         }, $ids);
                     }
 
@@ -754,8 +754,8 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->documents->pluck('lake_guid')->map(function ($lake_guid) {
-                        return Asset::getHashedId($lake_guid);
+                    return $item->documents->pluck('id')->map(function ($id) {
+                        return Asset::getHashedId($id);
                     });
                 },
             ],
@@ -764,7 +764,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    $ids = Arr::pluck($item->sounds(), 'lake_guid') ?? null;
+                    $ids = Arr::pluck($item->sounds(), 'id') ?? null;
 
                     if ($ids) {
                         return array_map(function ($id) {
@@ -780,7 +780,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    $ids = Arr::pluck($item->videos(), 'lake_guid') ?? null;
+                    $ids = Arr::pluck($item->videos(), 'id') ?? null;
 
                     if ($ids) {
                         $ids = array_map(function ($id) {
@@ -796,7 +796,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    $ids = Arr::pluck($item->texts(), 'lake_guid') ?? null;
+                    $ids = Arr::pluck($item->texts(), 'id') ?? null;
 
                     if ($ids) {
                         $ids = array_map(function ($id) {
