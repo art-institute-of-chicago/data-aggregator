@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6dc1c9725c3af608d5d97d88fb76392",
+    "content-hash": "2a3dffa537e5aceed0795cb15b58f9b4",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -8151,6 +8151,86 @@
                 }
             ],
             "time": "2021-12-02T09:12:23+00:00"
+        },
+        {
+            "name": "colinodell/indentation",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colinodell/indentation.git",
+                "reference": "8fe4730dc2f0f7546b6eccaf715c972e035e4dcd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colinodell/indentation/zipball/8fe4730dc2f0f7546b6eccaf715c972e035e4dcd",
+                "reference": "8fe4730dc2f0f7546b6eccaf715c972e035e4dcd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "phpstan/phpstan": "^1.0.0",
+                "phpunit/phpunit": "^9.5.5",
+                "scrutinizer/ocular": "^1.8.1",
+                "unleashedtech/php-coding-standard": "^3.1",
+                "vimeo/psalm": "^4.7.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ColinODell\\Indentation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colin O'Dell",
+                    "email": "colinodell@gmail.com",
+                    "homepage": "https://www.colinodell.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "Library to detect and manipulate indentation in strings and files",
+            "homepage": "https://github.com/colinodell/indentation",
+            "keywords": [
+                "deindent",
+                "files",
+                "indent",
+                "indentation",
+                "spaces",
+                "strings",
+                "tabs"
+            ],
+            "support": {
+                "issues": "https://github.com/colinodell/indentation/issues",
+                "rss": "https://github.com/colinodell/indentation/releases.atom",
+                "source": "https://github.com/colinodell/indentation"
+            },
+            "funding": [
+                {
+                    "url": "https://www.colinodell.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.paypal.me/colinpodell/10.00",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/colinodell",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-03-20T19:44:12+00:00"
         },
         {
             "name": "composer/pcre",

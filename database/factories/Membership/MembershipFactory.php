@@ -10,7 +10,7 @@ class MembershipFactory extends Factory
     public function membershipIdsAndTitle($title = '')
     {
         return [
-            'membership_id' => $this->faker->unique()->randomNumber(5),
+            'id' => $this->faker->unique()->randomNumber(5),
             'title' => $title ? $title : ucfirst($this->faker->words(3, true)),
         ];
     }

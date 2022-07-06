@@ -73,8 +73,8 @@ class BaseTransformer extends AbstractTransformer
      *  [
      *      "artwork_category" => [
      *          [
-     *              "artwork_citi_id" => 111628,
-     *              "category_lake_uid" => "PC-2",
+     *              "artwork_id" => 111628,
+     *              "category_id" => "PC-2",
      *              "preferred" => true
      *          ]
      *      ]

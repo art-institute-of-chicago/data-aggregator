@@ -27,7 +27,7 @@ class AgentPlacePivot extends BasePivot
 
     public function qualifier()
     {
-        return $this->belongsTo('App\Models\Collections\AgentPlaceQualifier', 'agent_place_qualifier_citi_id');
+        return $this->belongsTo('App\Models\Collections\AgentPlaceQualifier', 'agent_place_qualifier_id');
     }
 
     public function getUpdatedAtColumn()

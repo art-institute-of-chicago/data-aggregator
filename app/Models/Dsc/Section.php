@@ -10,7 +10,6 @@ use App\Models\ElasticSearchable;
  */
 class Section extends DscModel
 {
-
     use ElasticSearchable;
 
     protected $touches = [
@@ -29,6 +28,6 @@ class Section extends DscModel
 
     public function artwork()
     {
-        return $this->belongsTo('App\Models\Collections\Artwork', 'artwork_citi_id');
+        return $this->belongsTo('App\Models\Collections\Artwork', 'artwork_id');
     }
 }

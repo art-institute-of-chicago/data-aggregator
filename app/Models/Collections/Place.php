@@ -10,10 +10,7 @@ use App\Models\ElasticSearchable;
  */
 class Place extends CollectionsModel
 {
-
     use ElasticSearchable;
-
-    protected $primaryKey = 'citi_id';
 
     public static function validateId($id)
     {

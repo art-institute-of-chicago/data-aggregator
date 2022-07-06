@@ -20,7 +20,7 @@ class Publication extends DscModel
 
     public function getGenericPageIdAttribute()
     {
-        switch ($this->dsc_id) {
+        switch ($this->id) {
             case 7:
                 return 9;
             break;

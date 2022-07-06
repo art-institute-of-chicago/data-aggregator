@@ -14,7 +14,7 @@ class ArtworkFactory extends CollectionsFactory
     public function definition()
     {
         $date_end = $this->faker->year;
-        $artist = Agent::where('agent_type_citi_id', AgentType::where('title', 'Individual')->first()->citi_id)->get()->random();
+        $artist = Agent::where('agent_type_id', AgentType::where('title', 'Individual')->first()->id)->get()->random();
         return array_merge(
             $this->idsAndTitle(ucwords($this->faker->words(4, true)), true, 6),
             [
@@ -35,8 +35,8 @@ class ArtworkFactory extends CollectionsFactory
                 'is_public_domain' => $this->faker->boolean,
                 'copyright_notice' => '© ' . $this->faker->year . ' ' . ucfirst($this->faker->words(3, true)),
                 'collection_status' => $this->faker->randomElement(['Permanent Collection', 'Long-term Loan']),
-                'artwork_type_citi_id' => $this->faker->randomElement(ArtworkType::query()->pluck('citi_id')->all()),
-                'gallery_citi_id' => $this->faker->randomElement(Place::query()->pluck('citi_id')->all()),
+                'artwork_type_id' => $this->faker->randomElement(ArtworkType::query()->pluck('id')->all()),
+                'gallery_id' => $this->faker->randomElement(Place::query()->pluck('id')->all()),
             ],
             $this->dates(true)
         );

@@ -23,7 +23,7 @@ class ArtworkManifest extends BaseTransformer
 
         return [
             '@context' => 'http://iiif.io/api/presentation/2/context.json',
-            '@id' => config('app.url') . '/api/v1/artworks/' . $model->citi_id . '/manifest.json',
+            '@id' => config('app.url') . '/api/v1/artworks/' . $model->id . '/manifest.json',
             '@type' => 'sc:Manifest',
             'label' => $model->title,
             'description' => [
@@ -58,7 +58,7 @@ class ArtworkManifest extends BaseTransformer
             'logo' => 'https://raw.githubusercontent.com/Art-Institute-of-Chicago/template/master/aic-logo.gif',
             'within' => config('aic.config_documentation.website_url') . '/collection',
             'rendering' => [
-                '@id' => config('aic.config_documentation.website_url') . '/artworks/' . $model->citi_id,
+                '@id' => config('aic.config_documentation.website_url') . '/artworks/' . $model->id,
                 'format' => 'text/html',
                 'label' => 'Full record'
             ],
@@ -73,7 +73,7 @@ class ArtworkManifest extends BaseTransformer
 
     private function _createCanvasImage($model, $image)
     {
-        $imageUuid = Asset::getHashedId($image->lake_guid);
+        $imageUuid = Asset::getHashedId($image->id);
 
         // TODO: Should this be 1686 for public domain?
         if (isset($image->width) && isset($image->height)) {

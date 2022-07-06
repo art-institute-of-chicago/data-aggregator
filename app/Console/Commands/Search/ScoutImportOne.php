@@ -6,7 +6,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutImportOne extends BaseCommand
 {
-
     protected $signature = 'scout:import-one
                             {model}
                             {id}';
@@ -22,7 +21,7 @@ class ScoutImportOne extends BaseCommand
 
         if ($model instanceof \App\Models\Collections\Asset) {
             $model::query()
-                ->where('lake_guid', $id)
+                ->where('id', $id)
                 ->orWhere('netx_uuid', $id)
                 ->first()
                 ->searchable();

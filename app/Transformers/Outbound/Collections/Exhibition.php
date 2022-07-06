@@ -14,7 +14,6 @@ use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Exhibition extends BaseTransformer
 {
-
     use IsCC0;
     use HasSuggestFields;
 
@@ -122,7 +121,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->gallery->citi_id ?? null;
+                    return $item->gallery->id ?? null;
                 },
             ],
             'gallery_title' => [
@@ -140,7 +139,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artworks->pluck('citi_id');
+                    return $item->artworks->pluck('id');
                 },
             ],
             'artwork_titles' => [
@@ -156,7 +155,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artists->pluck('citi_id');
+                    return $item->artists->pluck('id');
                 },
             ],
             'site_ids' => [
@@ -164,7 +163,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->sites->pluck('site_id');
+                    return $item->sites->pluck('id');
                 },
             ],
             // TODO: Shared fields w/ artwork – put into trait?
@@ -173,7 +172,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Asset::getHashedId($item->image->lake_guid ?? null);
+                    return Asset::getHashedId($item->image->id ?? null);
                 },
             ],
             'alt_image_ids' => [
@@ -181,8 +180,8 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->altImages->pluck('lake_guid')->map(function ($lake_guid) {
-                        return Asset::getHashedId($lake_guid);
+                    return $item->altImages->pluck('id')->map(function ($id) {
+                        return Asset::getHashedId($id);
                     });
                 },
             ],
@@ -191,8 +190,8 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->documents->pluck('lake_guid')->map(function ($lake_guid) {
-                        return Asset::getHashedId($lake_guid);
+                    return $item->documents->pluck('id')->map(function ($id) {
+                        return Asset::getHashedId($id);
                     });
                 },
             ],

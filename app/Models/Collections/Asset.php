@@ -10,7 +10,6 @@ use App\Models\ElasticSearchable;
  */
 class Asset extends CollectionsModel
 {
-
     use ElasticSearchable;
 
     public const IMAGE = 'image';
@@ -19,8 +18,6 @@ class Asset extends CollectionsModel
     public const VIDEO = 'video';
 
     protected static $assetType;
-
-    protected $primaryKey = 'lake_guid';
 
     protected $keyType = 'string';
 
@@ -71,7 +68,7 @@ class Asset extends CollectionsModel
 
     public function artworks()
     {
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_lake_guid')
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_asset', 'asset_id')
             ->withPivot('preferred')
             ->withPivot('is_doc')
             ->artworks();
@@ -79,7 +76,7 @@ class Asset extends CollectionsModel
 
     public function exhibitions()
     {
-        return $this->belongsToMany('App\Models\Collections\Exhibition', 'exhibition_asset', 'asset_lake_guid')
+        return $this->belongsToMany('App\Models\Collections\Exhibition', 'exhibition_asset', 'asset_id')
             ->withPivot('preferred')
             ->withPivot('is_doc');
     }
@@ -112,7 +109,7 @@ class Asset extends CollectionsModel
         return $this->preloadedArtworks ?? $this->preloadedArtworks = $this->artworks()
             // https://stackoverflow.com/questions/34052056/disable-eager-relations
             ->setEagerLoads([])
-            ->get(['citi_id', 'title']);
+            ->get(['artworks.id', 'artworks.title']);
     }
 
     /**

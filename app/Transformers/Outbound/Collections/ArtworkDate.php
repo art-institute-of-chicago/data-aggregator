@@ -42,7 +42,7 @@ class ArtworkDate extends BaseTransformer
                 'doc' => 'Unique identifier of the work associated with this place',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->artwork->citi_id ?? null;
+                    return $item->artwork->id ?? null;
                 },
             ],
             'qualifier_title' => [
@@ -56,7 +56,7 @@ class ArtworkDate extends BaseTransformer
                 'doc' => 'Unique identifier of the qualifier indicating what happened to the work here',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->qualifier->citi_id ?? null;
+                    return $item->qualifier->id ?? null;
                 },
             ],
         ];

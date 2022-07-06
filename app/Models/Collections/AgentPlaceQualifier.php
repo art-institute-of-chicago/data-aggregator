@@ -10,5 +10,4 @@ use App\Models\CollectionsModel;
 class AgentPlaceQualifier extends CollectionsModel
 {
 
-    protected $primaryKey = 'citi_id';
 }

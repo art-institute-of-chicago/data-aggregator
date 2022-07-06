@@ -32,7 +32,7 @@ class Publication extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'long',
                 'value' => function ($item) {
-                    return $item->sections->pluck('dsc_id');
+                    return $item->sections->pluck('id');
                 },
             ],
         ];

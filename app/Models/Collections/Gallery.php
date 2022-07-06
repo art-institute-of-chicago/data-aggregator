@@ -10,10 +10,7 @@ use App\Models\ElasticSearchable;
  */
 class Gallery extends CollectionsModel
 {
-
     use ElasticSearchable;
-
-    protected $primaryKey = 'citi_id';
 
     protected $casts = [
         'is_closed' => 'boolean',

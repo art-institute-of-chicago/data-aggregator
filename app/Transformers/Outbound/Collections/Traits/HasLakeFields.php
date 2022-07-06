@@ -6,7 +6,6 @@ use App\Models\Collections\Asset;
 
 trait HasLakeFields
 {
-
     protected function getIds()
     {
         $parentIds = parent::getIds();
@@ -22,7 +21,7 @@ trait HasLakeFields
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Asset::getHashedId($item->lake_guid);
+                    return Asset::getHashedId($item->id);
                 },
             ],
         ]);

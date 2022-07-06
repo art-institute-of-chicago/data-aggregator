@@ -47,10 +47,10 @@ class ImportMobile extends AbstractImportCommand
             $id = (int) $datum->nid;
             $artwork = MobileArtwork::findOrNew($id);
 
-            $artwork->mobile_id = $id;
+            $artwork->id = $id;
             $artwork->title = $datum->title;
 
-            $artwork->artwork_citi_id = $datum->id ?? $datum->object_id ?? null;
+            $artwork->artwork_id = $datum->id ?? $datum->object_id ?? null;
 
             $location = explode(', ', $datum->location);
             $artwork->latitude = (float) $location[0];
@@ -74,7 +74,7 @@ class ImportMobile extends AbstractImportCommand
             $id = (int) $datum->nid;
             $sound = Sound::findOrNew($id);
 
-            $sound->mobile_id = $id;
+            $sound->id = $id;
             $sound->title = $datum->title;
 
             $sound->web_url = env('MOBILE_AUDIO_CDN_URL') . array_slice(explode('/', $datum->audio_file_url), -1)[0];
@@ -98,7 +98,7 @@ class ImportMobile extends AbstractImportCommand
             $id = (int) $datum->nid;
             $tour = Tour::findOrNew($id);
 
-            $tour->mobile_id = $id;
+            $tour->id = $id;
             $tour->title = $datum->title;
 
             $tour->image = $datum->image_url;
@@ -115,14 +115,14 @@ class ImportMobile extends AbstractImportCommand
 
     private function importTourStops($data, $tour)
     {
-        $this->info("Flushing tour stops for tour #{$tour->mobile_id}...");
+        $this->info("Flushing tour stops for tour #{$tour->id}...");
 
-        TourStop::where('tour_mobile_id', $tour->mobile_id)->delete();
+        TourStop::where('tour_id', $tour->id)->delete();
 
-        $this->info("Importing tour stops for tour #{$tour->mobile_id}...");
+        $this->info("Importing tour stops for tour #{$tour->id}...");
 
         foreach ($data as $datum) {
-            $this->info("Importing tour stop [ {$tour->mobile_id} / {$datum->object} / {$datum->audio_id} ]");
+            $this->info("Importing tour stop [ {$tour->id} / {$datum->object} / {$datum->audio_id} ]");
 
             $id = cantorTuple($datum->object, $datum->audio_id);
 
@@ -131,7 +131,7 @@ class ImportMobile extends AbstractImportCommand
             $stop->id = $id;
             $stop->weight = $datum->sort;
 
-            $stop->tour()->associate($tour->mobile_id);
+            $stop->tour()->associate($tour->id);
             $stop->artwork()->associate($datum->object);
             $stop->sound()->associate($datum->audio_id);
 

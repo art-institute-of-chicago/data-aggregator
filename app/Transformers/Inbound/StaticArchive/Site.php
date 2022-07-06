@@ -7,14 +7,6 @@ use App\Transformers\Inbound\BaseTransformer;
 
 class Site extends BaseTransformer
 {
-
-    protected function getIds(Datum $datum)
-    {
-        return [
-            'site_id' => $datum->id,
-        ];
-    }
-
     protected function getExtraFields(Datum $datum)
     {
         return [

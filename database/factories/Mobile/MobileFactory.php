@@ -9,7 +9,7 @@ abstract class MobileFactory extends Factory
     public function mobileAppIdsAndTitle($title = '')
     {
         return [
-            'mobile_id' => $this->faker->unique()->randomNumber(4),
+            'id' => $this->faker->unique()->randomNumber(4),
             'title' => $title ? $title : ucfirst($this->faker->words(3, true)),
         ];
     }

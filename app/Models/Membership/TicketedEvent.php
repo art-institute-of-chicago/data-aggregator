@@ -31,7 +31,7 @@ class TicketedEvent extends MembershipModel
 
     public function event()
     {
-        return $this->hasOne('App\Models\Web\Event', 'ticketed_event_id', 'membership_id');
+        return $this->hasOne('App\Models\Web\Event', 'ticketed_event_id', 'id');
     }
 
     public function ticketedEventType()
