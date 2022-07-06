@@ -51,21 +51,6 @@ class Site extends BaseTransformer
                     return $item->exhibitions->pluck('title');
                 },
             ],
-            'artist_ids' => [
-                'doc' => 'Unique identifiers of the artists this site is associated with',
-                'type' => 'array',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->agents->pluck('citi_id');
-                },
-            ],
-            'artist_titles' => [
-                'doc' => 'Names of the artists this site is associated with',
-                'type' => 'array',
-                'value' => function ($item) {
-                    return $item->agents->pluck('title');
-                },
-            ],
             'artwork_ids' => [
                 'doc' => 'Unique identifiers of the artworks this site is associated with',
                 'type' => 'array',

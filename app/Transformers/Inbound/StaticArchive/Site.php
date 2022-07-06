@@ -25,7 +25,6 @@ class Site extends BaseTransformer
     protected function getSync(Datum $datum)
     {
         return [
-            'agents' => $datum->all('agent_ids'),
             'artworks' => $datum->all('artwork_ids'),
             'exhibitions' => $datum->all('exhibition_ids'),
         ];

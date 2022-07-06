@@ -7,10 +7,5 @@ namespace App\Models\Web;
  */
 class EducatorResource extends Page
 {
-
     protected $table = 'educator_resources';
-
-    protected $casts = [
-        'agent_ids' => 'array',
-    ];
 }

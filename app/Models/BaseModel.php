@@ -21,7 +21,6 @@ use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
 use App\Models\Web\PrintedCatalog;
 use App\Models\Web\Highlight;
-use App\Models\Web\Sponsor;
 use App\Models\Web\StaticPage;
 
 use Illuminate\Database\Eloquent\Model;
@@ -135,7 +134,6 @@ class BaseModel extends AbstractModel
         PressRelease::addGlobalScope(new PublishedScope());
         PrintedCatalog::addGlobalScope(new PublishedScope());
         Highlight::addGlobalScope(new PublishedScope());
-        Sponsor::addGlobalScope(new PublishedScope());
         StaticPage::addGlobalScope(new PublishedScope());
         WebExhibition::addGlobalScope(new PublishedScope());
 

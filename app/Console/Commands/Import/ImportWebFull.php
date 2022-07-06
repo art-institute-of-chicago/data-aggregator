@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 use App\Models\Web\Article;
 use App\Models\Web\Artist;
-use App\Models\Web\Closure;
 use App\Models\Web\Event;
 use App\Models\Web\EventOccurrence;
 use App\Models\Web\EventProgram;
@@ -21,8 +20,6 @@ use App\Models\Web\DigitalCatalog;
 use App\Models\Web\DigitalPublicationSection;
 use App\Models\Web\PrintedCatalog;
 use App\Models\Web\StaticPage;
-use App\Models\Web\EmailSeries;
-use App\Models\Web\Sponsor;
 
 class ImportWebFull extends AbstractImportCommand
 {
@@ -65,7 +62,6 @@ class ImportWebFull extends AbstractImportCommand
         $hash = [
             Article::class => 'articles',
             Artist::class => 'web_artists',
-            Closure::class => 'closures',
             Event::class => 'events',
             EventOccurrence::class => 'event_occurrences',
             EventProgram::class => 'event_programs',
@@ -80,8 +76,6 @@ class ImportWebFull extends AbstractImportCommand
             DigitalPublicationSection::class => 'digital_publication_sections',
             PrintedCatalog::class => 'printed_catalogs',
             StaticPage::class => 'static_pages',
-            EmailSeries::class => 'email_series',
-            Sponsor::class => 'sponsors',
             Issue::class => 'issues',
             IssueArticle::class => 'issue_articles',
         ];
@@ -99,7 +93,6 @@ class ImportWebFull extends AbstractImportCommand
     {
         $this->importFromWeb('articles');
         $this->importFromWeb('artists');
-        $this->importFromWeb('closures');
         $this->importFromWeb('events');
         $this->importFromWeb('event-occurrences');
         $this->importFromWeb('event-programs');
@@ -116,8 +109,6 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('printedpublications');
 
         $this->importFromWeb('staticpages');
-        $this->importFromWeb('emailseries');
-        $this->importFromWeb('sponsors');
 
         $this->importFromWeb('issues');
         $this->importFromWeb('issue-articles');

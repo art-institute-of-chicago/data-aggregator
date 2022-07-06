@@ -162,11 +162,6 @@ return [
             'model' => \App\Models\Web\Artist::class,
             'transformer' => \App\Transformers\Inbound\Web\Artist::class,
         ],
-        // TODO: Consider deleting until needed.
-        'closures' => [
-            'model' => \App\Models\Web\Closure::class,
-            'transformer' => \App\Transformers\Inbound\Web\Closure::class,
-        ],
         'events' => [
             'model' => \App\Models\Web\Event::class,
             'transformer' => \App\Transformers\Inbound\Web\Event::class,
@@ -179,14 +174,6 @@ return [
         'event-programs' => [
             'model' => \App\Models\Web\EventProgram::class,
             'transformer' => \App\Transformers\Inbound\Web\EventProgram::class,
-        ],
-        'emailseries' => [
-            'model' => \App\Models\Web\EmailSeries::class,
-            'transformer' => \App\Transformers\Inbound\WebTransformer::class,
-        ],
-        'sponsors' => [
-            'model' => \App\Models\Web\Sponsor::class,
-            'transformer' => \App\Transformers\Inbound\WebTransformer::class,
         ],
         'exhibitions' => [
             'model' => \App\Models\Web\Exhibition::class,
@@ -218,15 +205,15 @@ return [
         ],
         'educatorresources' => [
             'model' => \App\Models\Web\EducatorResource::class,
-            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
+            'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
         'digitalpublications' => [
             'model' => \App\Models\Web\DigitalCatalog::class,
-            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
+            'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
         'printedpublications' => [
             'model' => \App\Models\Web\PrintedCatalog::class,
-            'transformer' => \App\Transformers\Inbound\Web\PageWithRelatedArtists::class,
+            'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
         'digitalpublicationsections' => [
             'model' => \App\Models\Web\DigitalPublicationSection::class,

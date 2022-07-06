@@ -15,7 +15,6 @@ class Exhibition extends WebModel
     protected $casts = [
         'is_featured' => 'boolean',
         'is_published' => 'boolean',
-        'agent_ids' => 'array',
         'public_start_at' => 'datetime',
         'public_end_at' => 'datetime',
     ];

@@ -270,12 +270,6 @@ return [
          * Website:
          */
         [
-            'endpoint' => 'closures',
-            'model' => \App\Models\Web\Closure::class,
-            'transformer' => \App\Transformers\Outbound\Web\Closure::class,
-            'is_searchable' => true, // TODO: Verify?
-        ],
-        [
             'endpoint' => 'web-exhibitions',
             'model' => \App\Models\Web\Exhibition::class,
             'transformer' => \App\Transformers\Outbound\Web\Exhibition::class,
@@ -307,31 +301,11 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'email-series',
-            'model' => \App\Models\Web\EmailSeries::class,
-            'transformer' => \App\Transformers\Outbound\GenericTransformer::class,
-            'is_searchable' => true,
-            'is_restricted' => false,
-            'no_dump' => true,
-        ],
-        [
             'endpoint' => 'interactive-features',
             'model' => \App\Models\Web\InteractiveFeature::class,
             'transformer' => \App\Transformers\Outbound\Web\InteractiveFeature::class,
             'is_searchable' => true,
             'is_restricted' => true,
-        ],
-        [
-            'endpoint' => 'sponsors',
-            'model' => \App\Models\Web\Sponsor::class,
-            'transformer' => \App\Transformers\Outbound\Web\Sponsor::class,
-            'is_searchable' => true,
-            'is_restricted' => false,
-            'no_dump' => true,
-        ],
-        [
-            'model' => \App\Models\Web\EventEmailSeriesPivot::class,
-            'transformer' => \App\Transformers\Outbound\Web\EventEmailSeriesPivot::class,
         ],
         [
             'endpoint' => 'articles',

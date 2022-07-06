@@ -18,7 +18,6 @@ class MembershipFactory extends Factory
     public function membershipDates()
     {
         return [
-            'source_created_at' => $this->faker->dateTimeThisYear,
             'source_modified_at' => $this->faker->dateTimeThisYear,
         ];
     }

@@ -7,10 +7,5 @@ namespace App\Models\Web;
  */
 class DigitalCatalog extends Page
 {
-
     protected $table = 'digital_catalogs';
-
-    protected $casts = [
-        'agent_ids' => 'array',
-    ];
 }
