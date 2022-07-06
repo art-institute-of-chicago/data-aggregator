@@ -109,7 +109,7 @@ class Asset extends CollectionsModel
         return $this->preloadedArtworks ?? $this->preloadedArtworks = $this->artworks()
             // https://stackoverflow.com/questions/34052056/disable-eager-relations
             ->setEagerLoads([])
-            ->get(['id', 'title']);
+            ->get(['artworks.id', 'artworks.title']);
     }
 
     /**
