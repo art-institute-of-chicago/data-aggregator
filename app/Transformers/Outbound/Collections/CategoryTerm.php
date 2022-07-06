@@ -34,7 +34,7 @@ class CategoryTerm extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->parent->lake_uid ?? null;
+                    return $item->parent->id ?? null;
                 },
             ],
         ];

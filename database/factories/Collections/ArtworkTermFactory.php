@@ -10,7 +10,7 @@ class ArtworkTermFactory extends CollectionsFactory
     {
         return [
             'artwork_id' => $this->faker->randomElement(App\Models\Collections\Artwork::query()->pluck('id')->all()),
-            'term_lake_uid' => $this->faker->randomElement(App\Models\Collections\Term::query()->pluck('lake_uid')->all()),
+            'term_id' => $this->faker->randomElement(App\Models\Collections\Term::query()->pluck('id')->all()),
             'preferred' => $this->faker->boolean,
         ];
     }

@@ -24,7 +24,6 @@ class CategoryTerm extends CollectionsModel
 
     protected static $isCategory;
 
-    protected $primaryKey = 'lake_uid';
     protected $keyType = 'string';
 
     // This propogates to Category and Term
@@ -57,7 +56,7 @@ class CategoryTerm extends CollectionsModel
     public function artworks()
     {
         $table = $this->is_category ? 'artwork_category' : 'artwork_term';
-        $column = $this->is_category ? 'category_lake_uid' : 'term_lake_uid';
+        $column = $this->is_category ? 'category_id' : 'term_id';
         return $this->belongsToMany('App\Models\Collections\Artwork', $table, $column)->artworks();
     }
 
