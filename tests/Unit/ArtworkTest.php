@@ -11,13 +11,12 @@ use App\Models\Collections\Agent;
 
 class ArtworkTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
 
         $agentType = $this->make(AgentType::class, ['title' => 'Individual']);
-        $agent = $this->make(Agent::class, ['agent_type_citi_id' => $agentType->citi_id]);
+        $agent = $this->make(Agent::class, ['agent_type_id' => $agentType->id]);
     }
 
     protected function tearDown(): void
@@ -34,7 +33,7 @@ class ArtworkTest extends TestCase
         $gallery = $this->make(Gallery::class, ['is_closed' => false]);
         $galleryKey = $gallery->getAttributeValue($gallery->getKeyName());
 
-        $artwork = $this->make(Artwork::class, ['gallery_citi_id' => $galleryKey, 'is_on_view' => true]);
+        $artwork = $this->make(Artwork::class, ['gallery_id' => $galleryKey, 'is_on_view' => true]);
         $artworkKey = $artwork->getAttributeValue($artwork->getKeyName());
 
         $response = $this->getJson('api/v1/artworks/' . $artworkKey);

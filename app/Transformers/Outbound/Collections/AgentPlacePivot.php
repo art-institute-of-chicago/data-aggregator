@@ -12,7 +12,6 @@ use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class AgentPlacePivot extends BaseTransformer
 {
-
     use HidesDefaultFields;
 
     /**
@@ -79,7 +78,7 @@ class AgentPlacePivot extends BaseTransformer
                 'doc' => 'Unique identifier of the agent associated with this place',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->agent->citi_id ?? null;
+                    return $item->agent->id ?? null;
                 },
             ],
             'place_title' => [
@@ -93,7 +92,7 @@ class AgentPlacePivot extends BaseTransformer
                 'doc' => 'Unique identifier of the place associated with this agent',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->place->citi_id ?? null;
+                    return $item->place->id ?? null;
                 },
             ],
             'qualifier_title' => [
@@ -107,7 +106,7 @@ class AgentPlacePivot extends BaseTransformer
                 'doc' => 'Unique identifier of the qualifier indicating what happened to the agent here',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->qualifier->citi_id ?? null;
+                    return $item->qualifier->id ?? null;
                 },
             ],
         ];

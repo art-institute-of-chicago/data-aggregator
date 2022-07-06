@@ -20,7 +20,6 @@ use Illuminate\Support\Arr;
 
 class Artwork extends BaseTransformer
 {
-
     use IsCC0;
     use HasBoosted;
     use HasSuggestFields {
@@ -186,7 +185,7 @@ class Artwork extends BaseTransformer
                 'type' => 'integer',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artwork_date_qualifier_citi_id;
+                    return $item->artwork_date_qualifier_id;
                 },
             ],
             'artist_display' => [
@@ -429,7 +428,7 @@ class Artwork extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->is_on_view ? ($item->gallery->citi_id ?? null) : null;
+                    return $item->is_on_view ? ($item->gallery->id ?? null) : null;
                 },
             ],
 
@@ -448,7 +447,7 @@ class Artwork extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artworkType->citi_id ?? null;
+                    return $item->artworkType->id ?? null;
                 },
             ],
             'department_title' => [
@@ -471,7 +470,7 @@ class Artwork extends BaseTransformer
                 'type' => 'integer',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artist->citi_id ?? null;
+                    return $item->artist->id ?? null;
                 },
             ],
             'artist_title' => [
@@ -489,7 +488,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return Arr::pluck($item->altArtists, 'citi_id');
+                    return Arr::pluck($item->altArtists, 'id');
                 },
             ],
             'artist_ids' => [
@@ -497,7 +496,7 @@ class Artwork extends BaseTransformer
                 'type' => 'integer',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artists->pluck('citi_id');
+                    return $item->artists->pluck('id');
                 },
             ],
             'artist_titles' => [
@@ -536,7 +535,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artworkCatalogues->pluck('citi_id');
+                    return $item->artworkCatalogues->pluck('id');
                 },
             ],
             'term_titles' => [

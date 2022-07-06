@@ -11,7 +11,7 @@ class TourStopFactory extends MobileFactory
         static $artworks;
 
         if (!$artworks) {
-            $artworks = App\Models\Collections\Artwork::query()->pluck('citi_id')->all();
+            $artworks = App\Models\Collections\Artwork::query()->pluck('id')->all();
         }
 
         return array_merge(

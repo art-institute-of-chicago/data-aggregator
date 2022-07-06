@@ -42,7 +42,7 @@ class ArtworkCatalogue extends BaseTransformer
                 'doc' => 'Unique identifier of the artwork this catalogue raisonne includes',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->artwork->citi_id ?? null;
+                    return $item->artwork->id ?? null;
                 },
             ],
             'catalogue_title' => [
@@ -56,7 +56,7 @@ class ArtworkCatalogue extends BaseTransformer
                 'doc' => 'Unique identifier of the catalogue raisonne',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->catalogue->citi_id ?? null;
+                    return $item->catalogue->id ?? null;
                 },
             ],
         ];

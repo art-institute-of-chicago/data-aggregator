@@ -6,7 +6,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Product extends BaseTransformer
 {
-
     protected function getFields()
     {
         return [
@@ -91,7 +90,7 @@ class Product extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artists->pluck('citi_id');
+                    return $item->artists->pluck('id');
                 },
             ],
             'artwork_ids' => [
@@ -99,7 +98,7 @@ class Product extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artworks->pluck('citi_id');
+                    return $item->artworks->pluck('id');
                 },
             ],
             'exhibition_ids' => [
@@ -107,7 +106,7 @@ class Product extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->exhibitions->pluck('citi_id');
+                    return $item->exhibitions->pluck('id');
                 },
             ],
         ];

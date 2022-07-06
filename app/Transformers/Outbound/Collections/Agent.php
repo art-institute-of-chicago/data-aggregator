@@ -139,7 +139,7 @@ class Agent extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->agentType->citi_id ?? null;
+                    return $item->agentType->id ?? null;
                 },
             ],
             'artwork_ids' => [

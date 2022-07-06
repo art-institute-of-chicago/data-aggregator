@@ -6,7 +6,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Exhibition extends BaseTransformer
 {
-
     protected function getFields()
     {
         return [
@@ -16,7 +15,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->exhibition->citi_id ?? null;
+                    return $item->exhibition->id ?? null;
                 },
             ],
 

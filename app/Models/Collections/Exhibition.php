@@ -10,10 +10,7 @@ use App\Models\ElasticSearchable;
  */
 class Exhibition extends CollectionsModel
 {
-
     use ElasticSearchable;
-
-    protected $primaryKey = 'citi_id';
 
     protected $casts = [
         'date_aic_start' => 'datetime',
@@ -31,7 +28,7 @@ class Exhibition extends CollectionsModel
 
     public function gallery()
     {
-        return $this->belongsTo('App\Models\Collections\Gallery', 'place_citi_id');
+        return $this->belongsTo('App\Models\Collections\Gallery', 'place_id');
     }
 
     public function sites()
@@ -50,7 +47,7 @@ class Exhibition extends CollectionsModel
         $artworkArtists = $this->artworks->pluck('artists')->collapse();
         $siteArtists = $this->sites->pluck('agents')->collapse();
 
-        return $artworkArtists->merge($siteArtists)->unique('citi_id')->values();
+        return $artworkArtists->merge($siteArtists)->unique('id')->values();
     }
 
     // TODO: These relations are shared w/ artwork – consider moving them to e.g. Behaviors/HasRepAndDoc.php?

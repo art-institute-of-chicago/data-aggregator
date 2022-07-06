@@ -14,7 +14,6 @@ use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Exhibition extends BaseTransformer
 {
-
     use IsCC0;
     use HasSuggestFields;
 
@@ -122,7 +121,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->gallery->citi_id ?? null;
+                    return $item->gallery->id ?? null;
                 },
             ],
             'gallery_title' => [
@@ -140,7 +139,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artworks->pluck('citi_id');
+                    return $item->artworks->pluck('id');
                 },
             ],
             'artwork_titles' => [
@@ -156,7 +155,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artists->pluck('citi_id');
+                    return $item->artists->pluck('id');
                 },
             ],
             'site_ids' => [

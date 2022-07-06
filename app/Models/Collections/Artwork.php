@@ -25,8 +25,6 @@ class Artwork extends CollectionsModel
         'linked_art_json' => 'object',
     ];
 
-    protected $primaryKey = 'citi_id';
-
     protected $with = [
         'artistPivots',
         'artists',
@@ -156,7 +154,7 @@ class Artwork extends CollectionsModel
 
     public function dateQualifier()
     {
-        return $this->belongsTo('App\Models\Collections\ArtworkDateQualifier', 'artwork_date_qualifier_citi_id');
+        return $this->belongsTo('App\Models\Collections\ArtworkDateQualifier', 'artwork_date_qualifier_id');
     }
 
     public function dates()
@@ -270,7 +268,7 @@ class Artwork extends CollectionsModel
 
     public function images()
     {
-        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')
+        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_id', 'asset_lake_guid')
             ->withPivot('preferred')
             ->withPivot('is_doc')
             ->wherePivot('is_doc', '=', false);

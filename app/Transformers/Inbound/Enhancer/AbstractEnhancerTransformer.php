@@ -17,13 +17,6 @@ abstract class AbstractEnhancerTransformer extends BaseTransformer
         return !$isNew;
     }
 
-    protected function getIds(Datum $datum)
-    {
-        return [
-            'citi_id' => $datum->id,
-        ];
-    }
-
     protected function getTitle(Datum $datum)
     {
         return [];

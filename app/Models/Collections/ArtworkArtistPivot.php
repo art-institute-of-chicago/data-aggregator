@@ -6,7 +6,6 @@ use App\Models\AbstractPivot as BasePivot;
 
 class ArtworkArtistPivot extends BasePivot
 {
-
     public $incrementing = true;
 
     protected $table = 'artwork_artist';
@@ -17,7 +16,7 @@ class ArtworkArtistPivot extends BasePivot
 
     public function artist()
     {
-        return $this->belongsTo('App\Models\Collections\Agent', 'agent_citi_id');
+        return $this->belongsTo('App\Models\Collections\Agent', 'agent_id');
     }
 
     public function artwork()
@@ -27,7 +26,7 @@ class ArtworkArtistPivot extends BasePivot
 
     public function role()
     {
-        return $this->belongsTo('App\Models\Collections\AgentRole', 'agent_role_citi_id');
+        return $this->belongsTo('App\Models\Collections\AgentRole', 'agent_role_id');
     }
 
     public function getUpdatedAtColumn()

@@ -6,7 +6,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Artist extends BaseTransformer
 {
-
     // TODO: Remove title column + update inbound transformer?
     protected function getTitles()
     {
@@ -40,7 +39,7 @@ class Artist extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->agent->citi_id ?? null;
+                    return $item->agent->id ?? null;
                 },
             ],
         ];

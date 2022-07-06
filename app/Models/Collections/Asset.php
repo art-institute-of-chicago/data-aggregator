@@ -10,7 +10,6 @@ use App\Models\ElasticSearchable;
  */
 class Asset extends CollectionsModel
 {
-
     use ElasticSearchable;
 
     public const IMAGE = 'image';
@@ -112,7 +111,7 @@ class Asset extends CollectionsModel
         return $this->preloadedArtworks ?? $this->preloadedArtworks = $this->artworks()
             // https://stackoverflow.com/questions/34052056/disable-eager-relations
             ->setEagerLoads([])
-            ->get(['citi_id', 'title']);
+            ->get(['id', 'title']);
     }
 
     /**

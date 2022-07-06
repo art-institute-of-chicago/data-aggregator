@@ -51,7 +51,7 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         $json = fopen(Storage::disk('dumps')->path('local/getting-started/allArtworks.jsonl'), 'a');
 
         $artworks = $model::query()
-            ->select('citi_id', 'title', 'main_id', 'department_id')
+            ->select('id', 'title', 'main_id', 'department_id')
             ->setEagerLoads([
                 'artistPivots',
                 'categories',
@@ -61,7 +61,7 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         foreach ($model::cursor() as $item) {
             // JSON
             fwrite($json, json_encode([
-                'id' => $item->citi_id,
+                'id' => $item->id,
                 'title' => $item->title,
                 'main_reference_number' => $item->main_id,
                 'department_title' => ($item->departments->first()->title ?? null),
@@ -71,7 +71,7 @@ class DumpExportGettingStarted extends AbstractDumpCommand
             // CSV
             if ($item->isBoosted()) {
                 $csv->insertOne([
-                    'id' => $item->citi_id,
+                    'id' => $item->id,
                     'title' => $item->title,
                     'main_reference_number' => $item->main_id,
                     'department_title' => ($item->departments->first()->title ?? null),

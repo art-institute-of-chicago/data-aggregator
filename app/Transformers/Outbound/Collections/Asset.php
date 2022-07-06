@@ -103,7 +103,7 @@ class Asset extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->getRelatedArtworks()->pluck('citi_id');
+                    return $item->getRelatedArtworks()->pluck('id');
                 },
             ],
             'artwork_titles' => [

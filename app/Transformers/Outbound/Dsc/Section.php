@@ -54,7 +54,7 @@ class Section extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artwork->citi_id ?? null;
+                    return $item->artwork->id ?? null;
                 },
             ],
 

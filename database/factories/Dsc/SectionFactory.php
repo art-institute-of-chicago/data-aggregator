@@ -22,7 +22,7 @@ class SectionFactory extends DscFactory
                 'weight' => $this->faker->randomNumber(2),
                 'parent_id' => !rand(0, 3) ? null : $this->faker->randomElement(Section::query()->pluck('dsc_id')->all()),
                 'publication_dsc_id' => $this->faker->randomElement(Publication::query()->pluck('dsc_id')->all()),
-                'artwork_citi_id' => $this->faker->randomElement(Artwork::query()->pluck('citi_id')->all()),
+                'artwork_id' => $this->faker->randomElement(Artwork::query()->pluck('id')->all()),
                 'content' => $this->faker->paragraphs(10, true),
             ]
         );

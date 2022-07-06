@@ -8,7 +8,6 @@ use App\Models\Collections\Agent;
 
 class ArtworkTest extends BasicTestCase
 {
-
     protected $model = Artwork::class;
 
     protected $keys = ['id'];
@@ -18,7 +17,7 @@ class ArtworkTest extends BasicTestCase
         parent::setUp();
 
         $agentType = $this->make(AgentType::class, ['title' => 'Individual']);
-        $agent = $this->make(Agent::class, ['agent_type_citi_id' => $agentType->citi_id]);
+        $agent = $this->make(Agent::class, ['agent_type_id' => $agentType->id]);
     }
 
     protected function tearDown(): void

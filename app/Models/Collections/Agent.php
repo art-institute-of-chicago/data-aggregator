@@ -13,8 +13,6 @@ class Agent extends CollectionsModel
 
     use ElasticSearchable;
 
-    protected $primaryKey = 'citi_id';
-
     protected $casts = [
         'alt_titles' => 'array',
     ];
@@ -30,7 +28,7 @@ class Agent extends CollectionsModel
 
     public function webArtist()
     {
-        return $this->belongsTo('App\Models\Web\Artist', 'citi_id', 'datahub_id');
+        return $this->belongsTo('App\Models\Web\Artist', 'id', 'datahub_id');
     }
 
     public function createdArtworks()
@@ -40,7 +38,7 @@ class Agent extends CollectionsModel
 
     public function createdArtworkIds()
     {
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->pluck('artwork_citi_id');
+        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->pluck('artwork_id');
     }
 
     public function placePivots()

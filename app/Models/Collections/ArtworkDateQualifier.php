@@ -9,6 +9,4 @@ use App\Models\CollectionsModel;
  */
 class ArtworkDateQualifier extends CollectionsModel
 {
-
-    protected $primaryKey = 'citi_id';
 }
