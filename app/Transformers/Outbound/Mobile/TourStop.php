@@ -59,7 +59,7 @@ class TourStop extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->tour->mobile_id ?? null;
+                    return $item->tour->id ?? null;
                 },
             ],
             'tour_title' => [

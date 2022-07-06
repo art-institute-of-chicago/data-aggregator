@@ -16,7 +16,7 @@ class TourFactory extends MobileFactory
                 'image' => $this->faker->imageUrl(),
                 'description' => $this->faker->paragraph(5),
                 'intro_text' => $this->faker->paragraph(3),
-                'intro_mobile_id' => $this->faker->randomElement(Sound::query()->pluck('mobile_id')->all()),
+                'intro_id' => $this->faker->randomElement(Sound::query()->pluck('id')->all()),
                 'weight' => $this->faker->randomDigit,
             ]
         );

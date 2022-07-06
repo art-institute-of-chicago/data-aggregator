@@ -19,16 +19,16 @@ class TourStop extends MobileModel
 
     public function tour()
     {
-        return $this->belongsTo('App\Models\Mobile\Tour', 'tour_mobile_id');
+        return $this->belongsTo('App\Models\Mobile\Tour', 'tour_id');
     }
 
     public function artwork()
     {
-        return $this->belongsTo('App\Models\Mobile\Artwork', 'mobile_artwork_mobile_id');
+        return $this->belongsTo('App\Models\Mobile\Artwork', 'mobile_artwork_id');
     }
 
     public function sound()
     {
-        return $this->belongsTo('App\Models\Mobile\Sound', 'mobile_sound_mobile_id');
+        return $this->belongsTo('App\Models\Mobile\Sound', 'mobile_sound_id');
     }
 }

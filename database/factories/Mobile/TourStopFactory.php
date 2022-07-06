@@ -17,9 +17,9 @@ class TourStopFactory extends MobileFactory
         return array_merge(
             [
                 'id' => $this->faker->unique()->randomNumber(4),
-                'tour_mobile_id' => $this->faker->randomElement(App\Models\Mobile\Sound::query()->pluck('mobile_id')->all()),
-                'mobile_artwork_mobile_id' => $this->faker->randomElement(App\Models\Mobile\Artwork::query()->pluck('mobile_id')->all()),
-                'mobile_sound_mobile_id' => $this->faker->randomElement(App\Models\Mobile\Sound::query()->pluck('mobile_id')->all()),
+                'tour_id' => $this->faker->randomElement(App\Models\Mobile\Sound::query()->pluck('id')->all()),
+                'mobile_artwork_id' => $this->faker->randomElement(App\Models\Mobile\Artwork::query()->pluck('id')->all()),
+                'mobile_sound_id' => $this->faker->randomElement(App\Models\Mobile\Sound::query()->pluck('id')->all()),
                 'weight' => $this->faker->randomDigit,
             ]
         );
