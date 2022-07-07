@@ -8,7 +8,8 @@ use App\Transformers\Inbound\WebTransformer;
 class DigitalPublicationSection extends WebTransformer
 {
 
-    use HasBlocks { getExtraFields as getBlockFields;
+    use HasBlocks {
+        getExtraFields as getBlockFields;
     }
 
     protected function getExtraFields(Datum $datum)
@@ -17,6 +18,7 @@ class DigitalPublicationSection extends WebTransformer
             'date' => $datum->date('date'),
 
             // TODO: Move these to trait?
+            'is_published' => $datum->is_published ?? $datum->published,
             'publish_start_date' => $datum->date('publish_start_date'),
         ]);
     }

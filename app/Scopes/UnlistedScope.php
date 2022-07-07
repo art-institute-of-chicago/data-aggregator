@@ -58,14 +58,14 @@ class UnlistedScope implements Scope
                                         'bool' => [
                                             'must_not' => [
                                                 'exists' => [
-                                                    'field' => 'published',
+                                                    'field' => 'is_published',
                                                 ],
                                             ],
                                         ],
                                     ],
                                     [
                                         'term' => [
-                                            'published' => true,
+                                            'is_published' => true,
                                         ],
                                     ],
                                 ],

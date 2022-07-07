@@ -13,6 +13,6 @@ class WebModel extends BaseModel
     protected static $source = 'Web';
 
     protected $casts = [
-        'published' => 'boolean',
+        'is_published' => 'boolean',
     ];
 }

@@ -17,6 +17,7 @@ class Highlight extends WebTransformer
             'title' => $datum->slug,
 
             // TODO: Move these to trait?
+            'is_published' => $datum->is_published ?? $datum->published,
             'publish_start_date' => $datum->date('publish_start_date'),
             'publish_end_date' => $datum->date('publish_end_date'),
         ];

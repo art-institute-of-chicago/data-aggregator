@@ -9,11 +9,10 @@ use App\Models\WebModel;
  */
 class Artist extends WebModel
 {
-
     public $table = 'web_artists';
 
     protected $casts = [
-        'published' => 'boolean',
+        'is_published' => 'boolean',
         'also_known_as' => 'boolean',
     ];
 

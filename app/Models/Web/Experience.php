@@ -9,11 +9,10 @@ use App\Models\WebModel;
  */
 class Experience extends WebModel
 {
-
     protected $casts = [
         'archived' => 'boolean',
         'kiosk_only' => 'boolean',
-        'published' => 'boolean',
+        'is_published' => 'boolean',
         'is_unlisted' => 'boolean',
     ];
 }

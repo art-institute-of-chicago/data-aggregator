@@ -14,7 +14,7 @@ class EventFactory extends Factory
             'id' => $this->faker->unique()->randomNumber(4),
             'title' => ucfirst($this->faker->words(3, true)),
             'is_private' => false,
-            'published' => true,
+            'is_published' => true,
             'layout_type' => $this->faker->randomDigit,
         ];
     }

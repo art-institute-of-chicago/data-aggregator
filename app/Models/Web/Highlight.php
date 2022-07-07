@@ -9,9 +9,8 @@ use App\Models\WebModel;
  */
 class Highlight extends WebModel
 {
-
     protected $casts = [
-        'published' => 'boolean',
+        'is_published' => 'boolean',
         'publish_start_date' => 'datetime',
         'publish_end_date' => 'datetime',
         'is_unlisted' => 'boolean',

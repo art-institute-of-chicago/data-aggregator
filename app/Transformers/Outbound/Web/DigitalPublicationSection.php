@@ -14,14 +14,10 @@ class DigitalPublicationSection extends BaseTransformer
     protected function getFields()
     {
         return [
-            // TODO: Ensure consistent naming and move to HasPublishDates
             'is_published' => [
                 'doc' => 'Whether the section has been published',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->published;
-                },
                 'is_restricted' => true,
             ],
 

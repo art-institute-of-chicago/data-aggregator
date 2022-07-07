@@ -14,8 +14,7 @@ class Highlight extends BaseTransformer
     protected function getFields()
     {
         return [
-            // TODO: Rename to `is_published` and move to trait?
-            'published' => [
+            'is_published' => [
                 'doc' => 'Whether the location is published on the website',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',

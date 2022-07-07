@@ -46,14 +46,10 @@ class Experience extends BaseTransformer
                     return $item->interactive_feature_id;
                 },
             ],
-            // TODO: Remame column to `is_published` and move to HasPublishDates?
             'is_published' => [
                 'doc' => 'Whether the experience has been published',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->published;
-                },
                 'is_restricted' => true,
             ],
             'is_unlisted' => [

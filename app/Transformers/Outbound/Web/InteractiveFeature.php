@@ -38,14 +38,10 @@ class InteractiveFeature extends BaseTransformer
                     return $item->color;
                 },
             ],
-            // TODO: Remame column to `is_published` and move to HasPublishDates?
             'is_published' => [
                 'doc' => 'Whether the interactive feature has been published',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->published;
-                },
                 'is_restricted' => true,
             ],
             'is_archived' => [

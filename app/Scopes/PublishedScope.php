@@ -20,9 +20,6 @@ class PublishedScope implements Scope
     {
         $columns = collect(Schema::getColumnListing($model->getTable()));
         $builder
-            ->when($columns->contains('published'), function ($query) {
-                return $query->where('published', '=', true);
-            })
             ->when($columns->contains('is_published'), function ($query) {
                 return $query->where('is_published', '=', true);
             })
@@ -61,14 +58,14 @@ class PublishedScope implements Scope
                                         'bool' => [
                                             'must_not' => [
                                                 'exists' => [
-                                                    'field' => 'published',
+                                                    'field' => 'is_published',
                                                 ],
                                             ],
                                         ],
                                     ],
                                     [
                                         'term' => [
-                                            'published' => true,
+                                            'is_published' => true,
                                         ],
                                     ],
                                 ],

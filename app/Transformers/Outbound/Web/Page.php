@@ -14,14 +14,10 @@ class Page extends BaseTransformer
     protected function getFields()
     {
         $sharedFields = [
-            // TODO: Ensure consistent naming and move to HasPublishDates
             'is_published' => [
                 'doc' => 'Whether the page has been published',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->published;
-                },
                 'is_restricted' => true,
             ],
 
