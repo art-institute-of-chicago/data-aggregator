@@ -7,12 +7,7 @@ namespace App\Models;
  */
 class WebModel extends BaseModel
 {
-
     use ElasticSearchable;
 
     protected static $source = 'Web';
-
-    protected $casts = [
-        'is_published' => 'boolean',
-    ];
 }

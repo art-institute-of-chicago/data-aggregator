@@ -20,9 +20,6 @@ class PublishedScope implements Scope
     {
         $columns = collect(Schema::getColumnListing($model->getTable()));
         $builder
-            ->when($columns->contains('is_published'), function ($query) {
-                return $query->where('is_published', '=', true);
-            })
             // Account of other field names
             ->when($columns->contains('is_private'), function ($query) {
                 return $query->where('is_private', '=', false);
@@ -34,53 +31,6 @@ class PublishedScope implements Scope
 
     public static function forSearch()
     {
-        return [
-            [
-                'bool' => [
-                    'should' => [
-                        [
-                            'bool' => [
-                                'should' => [
-                                    [
-                                        'bool' => [
-                                            'must_not' => [
-                                                'exists' => [
-                                                    'field' => 'is_published',
-                                                ],
-                                            ],
-                                        ],
-                                    ],
-                                    [
-                                        'term' => [
-                                            'is_published' => true,
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                        [
-                            'bool' => [
-                                'should' => [
-                                    [
-                                        'bool' => [
-                                            'must_not' => [
-                                                'exists' => [
-                                                    'field' => 'is_published',
-                                                ],
-                                            ],
-                                        ],
-                                    ],
-                                    [
-                                        'term' => [
-                                            'is_published' => true,
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ];
+        return [];
     }
 }

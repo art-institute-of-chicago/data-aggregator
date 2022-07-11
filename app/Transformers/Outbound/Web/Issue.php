@@ -9,12 +9,6 @@ class Issue extends BaseTransformer
     protected function getFields()
     {
         return [
-            'is_published' => [
-                'doc' => 'Whether the article has been published',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'is_restricted' => true,
-            ],
             // TODO: Is this different from the CMS publish date?
             'date' => [
                 'doc' => 'The date the article was published',

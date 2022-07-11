@@ -9,8 +9,4 @@ use App\Models\WebModel;
  */
 class Page extends WebModel
 {
-
-    protected $casts = [
-        'is_published' => 'boolean',
-    ];
 }

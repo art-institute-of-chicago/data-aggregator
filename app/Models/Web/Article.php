@@ -11,7 +11,6 @@ class Article extends WebModel
 {
 
     protected $casts = [
-        'is_published' => 'boolean',
         'date' => 'date',
     ];
 }

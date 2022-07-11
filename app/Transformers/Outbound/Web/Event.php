@@ -25,13 +25,6 @@ class Event extends BaseTransformer
     protected function getFields()
     {
         return [
-            'is_published' => [
-                'doc' => 'Whether the event is published on the website',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'is_restricted' => self::RESTRICTED_IN_DUMP,
-            ],
-
             'image_url' => [
                 'doc' => 'The URL of an image representing this page',
                 'type' => 'string',

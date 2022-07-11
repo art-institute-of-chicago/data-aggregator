@@ -41,12 +41,6 @@ class Experience extends BaseTransformer
                     return $item->interactive_feature_id;
                 },
             ],
-            'is_published' => [
-                'doc' => 'Whether the experience has been published',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'is_restricted' => true,
-            ],
             'is_archived' => [
                 'doc' => 'Whether the experience has been archived',
                 'type' => 'boolean',

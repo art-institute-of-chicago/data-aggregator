@@ -33,12 +33,6 @@ class InteractiveFeature extends BaseTransformer
                     return $item->color;
                 },
             ],
-            'is_published' => [
-                'doc' => 'Whether the interactive feature has been published',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'is_restricted' => true,
-            ],
             'is_archived' => [
                 'doc' => 'Whether the interactive feature has been archived',
                 'type' => 'boolean',

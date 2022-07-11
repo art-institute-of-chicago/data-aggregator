@@ -10,7 +10,6 @@ use App\Models\WebModel;
 class Event extends WebModel
 {
     protected $casts = [
-        'is_published' => 'boolean',
         'is_private' => 'boolean',
         'is_after_hours' => 'boolean',
         'is_ticketed' => 'boolean',

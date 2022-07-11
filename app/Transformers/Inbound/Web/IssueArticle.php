@@ -15,9 +15,6 @@ class IssueArticle extends WebTransformer
     {
         return array_merge($this->getBlockFields($datum), [
             'date' => $datum->date('date'),
-
-            // TODO: Move these to trait?
-            'is_published' => $datum->is_published ?? $datum->published,
         ]);
     }
 }

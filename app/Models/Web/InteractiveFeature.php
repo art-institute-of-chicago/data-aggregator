@@ -11,6 +11,5 @@ class InteractiveFeature extends WebModel
 {
     protected $casts = [
         'archived' => 'boolean',
-        'is_published' => 'boolean',
     ];
 }

@@ -9,13 +9,6 @@ class DigitalPublicationSection extends BaseTransformer
     protected function getFields()
     {
         return [
-            'is_published' => [
-                'doc' => 'Whether the section has been published',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'is_restricted' => true,
-            ],
-
             'web_url' => [
                 'doc' => 'The URL to this section on our website',
                 'type' => 'string',

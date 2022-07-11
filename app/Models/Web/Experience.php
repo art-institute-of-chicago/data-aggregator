@@ -12,6 +12,5 @@ class Experience extends WebModel
     protected $casts = [
         'archived' => 'boolean',
         'kiosk_only' => 'boolean',
-        'is_published' => 'boolean',
     ];
 }

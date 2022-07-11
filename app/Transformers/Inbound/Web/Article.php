@@ -8,7 +8,8 @@ use App\Transformers\Inbound\WebTransformer;
 class Article extends WebTransformer
 {
 
-    use HasBlocks { getExtraFields as getBlockFields;
+    use HasBlocks {
+        getExtraFields as getBlockFields;
     }
 
     protected function getTitle(Datum $datum)
@@ -22,9 +23,6 @@ class Article extends WebTransformer
     {
         return array_merge($this->getBlockFields($datum), [
             'date' => $datum->date('date'),
-
-            // TODO: Move these to trait?
-            'is_published' => $datum->is_published ?? $datum->published,
         ]);
     }
 }

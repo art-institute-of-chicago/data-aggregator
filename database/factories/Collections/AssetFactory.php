@@ -13,7 +13,6 @@ class AssetFactory extends CollectionsFactory
             [
                 'id' => $this->faker->uuid(),
                 'content' => $this->faker->url,
-                'is_published' => true,
                 'description' => $this->faker->paragraph(3),
                 'alt_text' => $this->faker->paragraph(3),
                 'source_indexed_at' => $this->faker->dateTimeThisYear,

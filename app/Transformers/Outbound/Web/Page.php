@@ -9,13 +9,6 @@ class Page extends BaseTransformer
     protected function getFields()
     {
         $sharedFields = [
-            'is_published' => [
-                'doc' => 'Whether the page has been published',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'is_restricted' => true,
-            ],
-
             // TODO: This seems to always be null. Remove?
             'type' => [
                 'doc' => 'The type of page this record represents',

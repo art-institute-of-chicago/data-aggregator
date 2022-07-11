@@ -28,16 +28,6 @@ class Exhibition extends BaseTransformer
                     return $item->is_featured ?? false;
                 },
             ],
-            'is_published' => [
-                'doc' => 'Is this exhibition currently published on our website? Only relevant for non-past exhibitions.',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->is_published ?? false;
-                },
-                'is_restricted' => true,
-            ],
-
             // TODO: Provide ability to put lengthy fields below relationships?
             'header_copy' => [
                 'doc' => 'The text at the top of the exhibition page',

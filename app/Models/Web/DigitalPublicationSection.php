@@ -10,7 +10,6 @@ use App\Models\WebModel;
 class DigitalPublicationSection extends WebModel
 {
     protected $casts = [
-        'is_published' => 'boolean',
         'date' => 'date',
     ];
 }

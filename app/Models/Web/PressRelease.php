@@ -9,7 +9,4 @@ use App\Models\WebModel;
  */
 class PressRelease extends WebModel
 {
-    protected $casts = [
-        'is_published' => 'boolean',
-    ];
 }
