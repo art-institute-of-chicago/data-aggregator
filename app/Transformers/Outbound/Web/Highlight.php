@@ -20,15 +20,6 @@ class Highlight extends BaseTransformer
                 'elasticsearch' => 'boolean',
                 'is_restricted' => true,
             ],
-            'is_unlisted' => [
-                'doc' => 'Whether the highlight is unlisted',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->is_unlisted;
-                },
-                'is_restricted' => true,
-            ],
             'short_copy' => [
                 'doc' => 'A brief summary of what is contained in the highlight',
                 'type' => 'string',

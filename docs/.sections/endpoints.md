@@ -3989,7 +3989,6 @@ A list of all articles sorted by last updated date in descending order. For a de
             "api_link": "https://api.artic.edu/api/v1/articles/956",
             "title": "small-wonders",
             "is_published": false,
-            "is_unlisted": null,
             ...
         },
         {
@@ -3998,7 +3997,6 @@ A list of all articles sorted by last updated date in descending order. For a de
             "api_link": "https://api.artic.edu/api/v1/articles/941",
             "title": "conserving-grinling-gibbons-the-michelangelo-of-wood-carving",
             "is_published": false,
-            "is_unlisted": null,
             ...
         }
     ],
@@ -4095,7 +4093,6 @@ A single article by the given identifier.
         "api_link": "https://api.artic.edu/api/v1/articles/14",
         "title": "secrets-of-the-modern-wing",
         "is_published": true,
-        "is_unlisted": null,
         ...
     },
     "info": {
@@ -4146,7 +4143,6 @@ A list of all highlights sorted by last updated date in descending order. For a 
             "api_link": "https://api.artic.edu/api/v1/highlights/44",
             "title": "i-thinking-of-s-you-s-i-mean-s-me-s-i-mean-you-i-360-tours",
             "published": true,
-            "is_unlisted": null,
             ...
         },
         {
@@ -4155,7 +4151,6 @@ A list of all highlights sorted by last updated date in descending order. For a 
             "api_link": "https://api.artic.edu/api/v1/highlights/4",
             "title": "new-on-view",
             "published": true,
-            "is_unlisted": null,
             ...
         }
     ],
@@ -4252,7 +4247,6 @@ A single highlight by the given identifier.
         "api_link": "https://api.artic.edu/api/v1/highlights/3",
         "title": "what-to-see-in-an-hour",
         "published": true,
-        "is_unlisted": null,
         ...
     },
     "info": {
@@ -4774,7 +4768,6 @@ A list of all press-releases sorted by last updated date in descending order. Fo
             "api_link": "https://api.artic.edu/api/v1/press-releases/60",
             "title": "Press Releases from 1998",
             "is_published": true,
-            "is_unlisted": null,
             ...
         },
         {
@@ -4783,7 +4776,6 @@ A list of all press-releases sorted by last updated date in descending order. Fo
             "api_link": "https://api.artic.edu/api/v1/press-releases/59",
             "title": "Press Releases from 1997",
             "is_published": true,
-            "is_unlisted": null,
             ...
         }
     ],
@@ -4880,7 +4872,6 @@ A single press-release by the given identifier.
         "api_link": "https://api.artic.edu/api/v1/press-releases/1",
         "title": "Press Releases from 1939",
         "is_published": true,
-        "is_unlisted": null,
         ...
     },
     "info": {

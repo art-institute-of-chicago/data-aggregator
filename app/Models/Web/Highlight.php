@@ -13,6 +13,5 @@ class Highlight extends WebModel
         'is_published' => 'boolean',
         'publish_start_date' => 'datetime',
         'publish_end_date' => 'datetime',
-        'is_unlisted' => 'boolean',
     ];
 }

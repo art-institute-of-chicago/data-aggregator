@@ -20,15 +20,6 @@ class PressRelease extends BaseTransformer
                 'elasticsearch' => 'boolean',
                 'is_restricted' => true,
             ],
-            'is_unlisted' => [
-                'doc' => 'Whether the press release is unlisted',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->is_unlisted;
-                },
-                'is_restricted' => true,
-            ],
             // TODO: This seems to always be null. Remove?
             'type' => [
                 'doc' => 'The type of page this record represents',

@@ -13,6 +13,5 @@ class PressRelease extends WebModel
         'publish_start_date' => 'datetime',
         'publish_end_date' => 'datetime',
         'is_published' => 'boolean',
-        'is_unlisted' => 'boolean',
     ];
 }
