@@ -802,7 +802,6 @@ A list of all exhibitions sorted by last updated date in descending order. For a
             "api_link": "https://api.artic.edu/api/v1/exhibitions/2931",
             "title": "Andr\u00e9 Kert\u00e9sz: Postcards from Paris",
             "is_featured": true,
-            "is_published": true,
             ...
         },
         {
@@ -811,7 +810,6 @@ A list of all exhibitions sorted by last updated date in descending order. For a
             "api_link": "https://api.artic.edu/api/v1/exhibitions/9536",
             "title": "Landscape in Light: The Tiffany Window at the Art Institute of Chicago",
             "is_featured": true,
-            "is_published": true,
             ...
         }
     ],
@@ -910,7 +908,6 @@ A single exhibition by the given identifier. {id} is the identifier from our col
         "api_link": "https://api.artic.edu/api/v1/exhibitions/5",
         "title": "Manet and the Sea",
         "is_featured": false,
-        "is_published": true,
         ...
     },
     "info": {
@@ -3988,8 +3985,6 @@ A list of all articles sorted by last updated date in descending order. For a de
             "api_model": "articles",
             "api_link": "https://api.artic.edu/api/v1/articles/956",
             "title": "small-wonders",
-            "is_published": false,
-            "is_unlisted": null,
             ...
         },
         {
@@ -3997,8 +3992,6 @@ A list of all articles sorted by last updated date in descending order. For a de
             "api_model": "articles",
             "api_link": "https://api.artic.edu/api/v1/articles/941",
             "title": "conserving-grinling-gibbons-the-michelangelo-of-wood-carving",
-            "is_published": false,
-            "is_unlisted": null,
             ...
         }
     ],
@@ -4094,8 +4087,6 @@ A single article by the given identifier.
         "api_model": "articles",
         "api_link": "https://api.artic.edu/api/v1/articles/14",
         "title": "secrets-of-the-modern-wing",
-        "is_published": true,
-        "is_unlisted": null,
         ...
     },
     "info": {
@@ -4146,7 +4137,6 @@ A list of all highlights sorted by last updated date in descending order. For a 
             "api_link": "https://api.artic.edu/api/v1/highlights/44",
             "title": "i-thinking-of-s-you-s-i-mean-s-me-s-i-mean-you-i-360-tours",
             "published": true,
-            "is_unlisted": null,
             ...
         },
         {
@@ -4155,7 +4145,6 @@ A list of all highlights sorted by last updated date in descending order. For a 
             "api_link": "https://api.artic.edu/api/v1/highlights/4",
             "title": "new-on-view",
             "published": true,
-            "is_unlisted": null,
             ...
         }
     ],
@@ -4252,7 +4241,6 @@ A single highlight by the given identifier.
         "api_link": "https://api.artic.edu/api/v1/highlights/3",
         "title": "what-to-see-in-an-hour",
         "published": true,
-        "is_unlisted": null,
         ...
     },
     "info": {
@@ -4460,7 +4448,6 @@ A list of all static-pages sorted by last updated date in descending order. For 
             "api_link": "https://api.artic.edu/api/v1/static-pages/11",
             "title": "Articles",
             "web_url": "/articles",
-            "is_published": true,
             ...
         },
         {
@@ -4469,7 +4456,6 @@ A list of all static-pages sorted by last updated date in descending order. For 
             "api_link": "https://api.artic.edu/api/v1/static-pages/10",
             "title": "Press Release Archive",
             "web_url": "/press/archive",
-            "is_published": true,
             ...
         }
     ],
@@ -4566,7 +4552,6 @@ A single static-page by the given identifier.
         "api_link": "https://api.artic.edu/api/v1/static-pages/1",
         "title": "Visit",
         "web_url": "/visit",
-        "is_published": true,
         ...
     },
     "info": {
@@ -4616,7 +4601,6 @@ A list of all generic-pages sorted by last updated date in descending order. For
             "api_model": "generic-pages",
             "api_link": "https://api.artic.edu/api/v1/generic-pages/476",
             "title": "Jobs at Art Museums (JAM 2022)",
-            "is_published": true,
             "type": null,
             ...
         },
@@ -4625,7 +4609,6 @@ A list of all generic-pages sorted by last updated date in descending order. For
             "api_model": "generic-pages",
             "api_link": "https://api.artic.edu/api/v1/generic-pages/348",
             "title": "Databases for Newspaper Research",
-            "is_published": false,
             "type": null,
             ...
         }
@@ -4722,7 +4705,6 @@ A single generic-page by the given identifier.
         "api_model": "generic-pages",
         "api_link": "https://api.artic.edu/api/v1/generic-pages/2",
         "title": "Free Admission Opportunities",
-        "is_published": true,
         "type": null,
         ...
     },
@@ -4773,8 +4755,6 @@ A list of all press-releases sorted by last updated date in descending order. Fo
             "api_model": "press-releases",
             "api_link": "https://api.artic.edu/api/v1/press-releases/60",
             "title": "Press Releases from 1998",
-            "is_published": true,
-            "is_unlisted": null,
             ...
         },
         {
@@ -4782,8 +4762,6 @@ A list of all press-releases sorted by last updated date in descending order. Fo
             "api_model": "press-releases",
             "api_link": "https://api.artic.edu/api/v1/press-releases/59",
             "title": "Press Releases from 1997",
-            "is_published": true,
-            "is_unlisted": null,
             ...
         }
     ],
@@ -4879,8 +4857,6 @@ A single press-release by the given identifier.
         "api_model": "press-releases",
         "api_link": "https://api.artic.edu/api/v1/press-releases/1",
         "title": "Press Releases from 1939",
-        "is_published": true,
-        "is_unlisted": null,
         ...
     },
     "info": {
@@ -4930,7 +4906,6 @@ A list of all educator-resources sorted by last updated date in descending order
             "api_model": "educator-resources",
             "api_link": "https://api.artic.edu/api/v1/educator-resources/77",
             "title": "Teacher Manual: Gold of Africa",
-            "is_published": false,
             "type": null,
             ...
         },
@@ -4939,7 +4914,6 @@ A list of all educator-resources sorted by last updated date in descending order
             "api_model": "educator-resources",
             "api_link": "https://api.artic.edu/api/v1/educator-resources/75",
             "title": "Teacher Manual: Hero, Hawk, and Open Hand: American Indian Art of the Ancient Midwest and South",
-            "is_published": false,
             "type": null,
             ...
         }
@@ -5036,7 +5010,6 @@ A single educator-resource by the given identifier.
         "api_model": "educator-resources",
         "api_link": "https://api.artic.edu/api/v1/educator-resources/7",
         "title": "Thematic Curriculum: Art + Science",
-        "is_published": true,
         "type": null,
         ...
     },
@@ -5087,7 +5060,6 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
             "api_model": "digital-catalogs",
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/31",
             "title": "Matisse Paintings, Works on Paper, Sculpture, and Textiles at the Art Institute of Chicago",
-            "is_published": true,
             "type": null,
             ...
         },
@@ -5096,7 +5068,6 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
             "api_model": "digital-catalogs",
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/30",
             "title": "Ivan Albright Paintings at the Art Institute of Chicago",
-            "is_published": true,
             "type": null,
             ...
         }
@@ -5193,7 +5164,6 @@ A single digital-catalog by the given identifier.
         "api_model": "digital-catalogs",
         "api_link": "https://api.artic.edu/api/v1/digital-catalogs/2",
         "title": "American Silver",
-        "is_published": true,
         "type": null,
         ...
     },
@@ -5244,7 +5214,6 @@ A list of all digital-publication-sections sorted by last updated date in descen
             "api_model": "digital-publication-sections",
             "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/11",
             "title": "Installation Views",
-            "is_published": true,
             "web_url": "https://nocache.www.artic.edu/digital-publications/34/malangatana-mozambique-modern/11/installation-views",
             ...
         },
@@ -5253,7 +5222,6 @@ A list of all digital-publication-sections sorted by last updated date in descen
             "api_model": "digital-publication-sections",
             "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/10",
             "title": "Works in the Exhibition",
-            "is_published": true,
             "web_url": "https://nocache.www.artic.edu/digital-publications/34/malangatana-mozambique-modern/10/works-in-the-exhibition",
             ...
         }
@@ -5350,7 +5318,6 @@ A single digital-publication-section by the given identifier.
         "api_model": "digital-publication-sections",
         "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/1",
         "title": "Director's Foreword",
-        "is_published": true,
         "web_url": "https://nocache.www.artic.edu/digital-publications/34/malangatana-mozambique-modern/1/directors-foreword",
         ...
     },
@@ -5401,7 +5368,6 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
             "api_model": "printed-catalogs",
             "api_link": "https://api.artic.edu/api/v1/printed-catalogs/121",
             "title": "Museum Studies (1990)",
-            "is_published": false,
             "type": null,
             ...
         },
@@ -5410,7 +5376,6 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
             "api_model": "printed-catalogs",
             "api_link": "https://api.artic.edu/api/v1/printed-catalogs/117",
             "title": "Museum Studies (1991)",
-            "is_published": false,
             "type": null,
             ...
         }
@@ -5507,7 +5472,6 @@ A single printed-catalog by the given identifier.
         "api_model": "printed-catalogs",
         "api_link": "https://api.artic.edu/api/v1/printed-catalogs/4",
         "title": "The Art Institute of Chicago: The Essential Guide",
-        "is_published": true,
         "type": null,
         ...
     },
@@ -5557,7 +5521,6 @@ A list of all issues sorted by last updated date in descending order. For a desc
             "api_model": "issues",
             "api_link": "https://api.artic.edu/api/v1/issues/2",
             "title": "TEST ISSUE",
-            "is_published": false,
             "date": "2021-10-27T00:00:00-05:00",
             ...
         },
@@ -5566,7 +5529,6 @@ A list of all issues sorted by last updated date in descending order. For a desc
             "api_model": "issues",
             "api_link": "https://api.artic.edu/api/v1/issues/1",
             "title": "Instability",
-            "is_published": true,
             "date": "2021-09-27T00:00:00-05:00",
             ...
         }
@@ -5638,7 +5600,6 @@ A single issue by the given identifier.
         "api_model": "issues",
         "api_link": "https://api.artic.edu/api/v1/issues/1",
         "title": "Instability",
-        "is_published": true,
         "date": "2021-09-27T00:00:00-05:00",
         ...
     },
@@ -5689,7 +5650,6 @@ A list of all issue-articles sorted by last updated date in descending order. Fo
             "api_model": "issue-articles",
             "api_link": "https://api.artic.edu/api/v1/issue-articles/6",
             "title": "From Cloth to Clay: Identities and (Im)permanence in Moche Ceramics",
-            "is_published": true,
             "date": "2021-09-27T00:00:00-05:00",
             ...
         },
@@ -5698,7 +5658,6 @@ A list of all issue-articles sorted by last updated date in descending order. Fo
             "api_model": "issue-articles",
             "api_link": "https://api.artic.edu/api/v1/issue-articles/5",
             "title": "Seven-Figure Settlements and Paid Days Off: An Interview with Devin Kenny",
-            "is_published": false,
             "date": "2021-09-27T00:00:00-05:00",
             ...
         }
@@ -5770,7 +5729,6 @@ A single issue-article by the given identifier.
         "api_model": "issue-articles",
         "api_link": "https://api.artic.edu/api/v1/issue-articles/1",
         "title": "Forces of Instability",
-        "is_published": true,
         "date": "2021-09-27T00:00:00-05:00",
         ...
     },

@@ -13,7 +13,6 @@ class ExhibitionFactory extends Factory
         return [
             'id' => $this->faker->unique()->randomNumber(4),
             'title' => ucfirst($this->faker->words(3, true)),
-            'is_published' => true,
             'datahub_id' => $this->faker->unique()->randomNumber(4),
         ];
     }

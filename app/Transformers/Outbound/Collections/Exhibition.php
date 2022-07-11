@@ -48,7 +48,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
                 'value' => function ($item) {
-                    return $item->webExhibition->is_published ?? false;
+                    return $item->webExhibition !== null;
                 },
                 'is_restricted' => true,
             ],

@@ -2,29 +2,13 @@
 
 namespace App\Transformers\Outbound\Web;
 
-use App\Transformers\Outbound\Web\Traits\HasPublishDates;
-
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class DigitalPublicationSection extends BaseTransformer
 {
-
-    use HasPublishDates;
-
     protected function getFields()
     {
         return [
-            // TODO: Ensure consistent naming and move to HasPublishDates
-            'is_published' => [
-                'doc' => 'Whether the section has been published',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->published;
-                },
-                'is_restricted' => true,
-            ],
-
             'web_url' => [
                 'doc' => 'The URL to this section on our website',
                 'type' => 'string',

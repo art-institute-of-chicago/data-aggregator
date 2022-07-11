@@ -157,8 +157,7 @@ class BaseModel extends AbstractModel
             // WEB-1419: Using subquery here instead of join to avoid field overrides
             $builder->orWhereIn('id', function ($query) {
                 $query->select('datahub_id')
-                    ->from('web_exhibitions')
-                    ->where('is_published', '=', true);
+                    ->from('web_exhibitions');
             });
         });
     }

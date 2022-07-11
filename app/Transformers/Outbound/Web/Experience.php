@@ -2,15 +2,10 @@
 
 namespace App\Transformers\Outbound\Web;
 
-use App\Transformers\Outbound\Web\Traits\HasPublishDates;
-
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Experience extends BaseTransformer
 {
-
-    use HasPublishDates;
-
     protected function getFields()
     {
         return [
@@ -45,25 +40,6 @@ class Experience extends BaseTransformer
                 'value' => function ($item) {
                     return $item->interactive_feature_id;
                 },
-            ],
-            // TODO: Remame column to `is_published` and move to HasPublishDates?
-            'is_published' => [
-                'doc' => 'Whether the experience has been published',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->published;
-                },
-                'is_restricted' => true,
-            ],
-            'is_unlisted' => [
-                'doc' => 'Whether the experience is unlisted',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->is_unlisted;
-                },
-                'is_restricted' => true,
             ],
             'is_archived' => [
                 'doc' => 'Whether the experience has been archived',

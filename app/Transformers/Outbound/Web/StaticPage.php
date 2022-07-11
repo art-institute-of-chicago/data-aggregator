@@ -15,15 +15,6 @@ class StaticPage extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-            'is_published' => [
-                'doc' => 'Whether this static page is available to view (always true)',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return true;
-                },
-                'is_restricted' => true,
-            ],
         ];
     }
 }

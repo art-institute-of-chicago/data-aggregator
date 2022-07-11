@@ -2,37 +2,13 @@
 
 namespace App\Transformers\Outbound\Web;
 
-use App\Transformers\Outbound\Web\Traits\HasPublishDates;
-
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class PressRelease extends BaseTransformer
 {
-
-    use HasPublishDates;
-
     protected function getFields()
     {
         $sharedFields = [
-            // TODO: Ensure consistent naming and move to HasPublishDates
-            'is_published' => [
-                'doc' => 'Whether the page has been published',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->published;
-                },
-                'is_restricted' => true,
-            ],
-            'is_unlisted' => [
-                'doc' => 'Whether the press release is unlisted',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->is_unlisted;
-                },
-                'is_restricted' => true,
-            ],
             // TODO: This seems to always be null. Remove?
             'type' => [
                 'doc' => 'The type of page this record represents',

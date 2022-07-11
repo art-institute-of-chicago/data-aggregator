@@ -9,10 +9,7 @@ use App\Models\WebModel;
  */
 class IssueArticle extends WebModel
 {
-
     protected $casts = [
-        'published' => 'boolean',
         'date' => 'date',
-        'publish_start_date' => 'datetime',
     ];
 }

@@ -2,15 +2,10 @@
 
 namespace App\Transformers\Outbound\Web;
 
-use App\Transformers\Outbound\Web\Traits\HasPublishDates;
-
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class InteractiveFeature extends BaseTransformer
 {
-
-    use HasPublishDates;
-
     protected function getFields()
     {
         return [
@@ -37,16 +32,6 @@ class InteractiveFeature extends BaseTransformer
                 'value' => function ($item) {
                     return $item->color;
                 },
-            ],
-            // TODO: Remame column to `is_published` and move to HasPublishDates?
-            'is_published' => [
-                'doc' => 'Whether the interactive feature has been published',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->published;
-                },
-                'is_restricted' => true,
             ],
             'is_archived' => [
                 'doc' => 'Whether the interactive feature has been archived',

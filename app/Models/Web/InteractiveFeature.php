@@ -9,9 +9,7 @@ use App\Models\WebModel;
  */
 class InteractiveFeature extends WebModel
 {
-
     protected $casts = [
         'archived' => 'boolean',
-        'published' => 'boolean',
     ];
 }

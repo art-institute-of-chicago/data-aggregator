@@ -9,9 +9,7 @@ use App\Models\WebModel;
  */
 class Event extends WebModel
 {
-
     protected $casts = [
-        'published' => 'boolean',
         'is_private' => 'boolean',
         'is_after_hours' => 'boolean',
         'is_ticketed' => 'boolean',
@@ -26,8 +24,6 @@ class Event extends WebModel
         'alt_event_types' => 'array',
         'alt_audiences' => 'array',
         'programs' => 'array',
-        'publish_start_date' => 'datetime',
-        'publish_end_date' => 'datetime',
     ];
 
     public function ticketedEvent()
