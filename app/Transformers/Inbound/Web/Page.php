@@ -16,8 +16,6 @@ class Page extends WebTransformer
         // TODO: Move these to trait?
         return array_merge($this->getBlockFields($datum), [
             'is_published' => $datum->is_published ?? $datum->published,
-            'publish_start_date' => $datum->date('publish_start_date'),
-            'publish_end_date' => $datum->date('publish_end_date'),
         ]);
     }
 }

@@ -19,7 +19,6 @@ class DigitalPublicationSection extends WebTransformer
 
             // TODO: Move these to trait?
             'is_published' => $datum->is_published ?? $datum->published,
-            'publish_start_date' => $datum->date('publish_start_date'),
         ]);
     }
 }

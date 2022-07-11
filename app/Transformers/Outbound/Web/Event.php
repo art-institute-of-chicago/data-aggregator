@@ -3,15 +3,12 @@
 namespace App\Transformers\Outbound\Web;
 
 use App\Models\Web\EventProgram;
-use App\Transformers\Outbound\Web\Traits\HasPublishDates;
 use App\Transformers\Outbound\Web\Traits\HasSearchTags;
 
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Event extends BaseTransformer
 {
-
-    use HasPublishDates;
     use HasSearchTags;
 
     protected function getTitles()

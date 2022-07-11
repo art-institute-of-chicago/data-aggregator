@@ -11,7 +11,5 @@ class Highlight extends WebModel
 {
     protected $casts = [
         'is_published' => 'boolean',
-        'publish_start_date' => 'datetime',
-        'publish_end_date' => 'datetime',
     ];
 }
