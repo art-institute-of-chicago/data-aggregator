@@ -9,8 +9,4 @@ use App\Models\WebModel;
  */
 class Article extends WebModel
 {
-
-    protected $casts = [
-        'date' => 'date',
-    ];
 }
