@@ -205,7 +205,7 @@ abstract class AbstractTransformer extends BaseTransformer
     {
         return [
             // TODO: Rename field to follow _at convention
-            'last_updated_source' => [
+            'source_updated_at' => [
                 'doc' => 'Date and time the resource was updated in the source system',
                 'type' => 'ISO 8601 date and time',
                 'elasticsearch' => 'date',
