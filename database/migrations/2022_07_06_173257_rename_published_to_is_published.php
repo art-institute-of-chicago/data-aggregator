@@ -50,5 +50,6 @@ class RenamePublishedToIsPublished extends RenameColumnMigration
     ];
 
     protected $indexes = [
+        // nothing to change
     ];
 }

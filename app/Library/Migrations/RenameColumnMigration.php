@@ -14,11 +14,14 @@ class RenameColumnMigration extends Migration
 
     protected $columns;
 
+    protected $indexes;
+
     protected $prefix;
 
     public function __construct()
     {
         $this->checkProperty('columns');
+        $this->checkProperty('indexes');
 
         $this->prefix = Schema::getConnection()->getTablePrefix();
     }
