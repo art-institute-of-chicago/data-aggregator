@@ -212,7 +212,7 @@ abstract class AbstractTransformer extends BaseTransformer
                 'value' => $this->getDateValue('source_updated_at'),
             ],
             // TODO: Rename field to follow _at convention
-            'last_updated' => [
+            'updated_at' => [
                 'doc' => 'Date and time the record was updated in the aggregator database',
                 'type' => 'ISO 8601 date and time',
                 'elasticsearch' => 'date',

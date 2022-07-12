@@ -97,7 +97,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -126,7 +126,7 @@ Represents a person or organization. In the API, this includes artists. For a de
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -144,7 +144,7 @@ A room or hall that works of art are displayed in. For a description of all the 
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -168,7 +168,7 @@ A room or hall that works of art are displayed in. For a description of all the 
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -204,7 +204,7 @@ An organized presentation and display of a selection of artworks. For a descript
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -220,7 +220,7 @@ A kind of agent, e.g. Individual, Couple, School, Estate, Culture. For a descrip
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -236,7 +236,7 @@ A qualifier for the relationship an agent may have to an artwork. For a descript
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -252,7 +252,7 @@ A qualifier for the relationship a place may have to an agent. For a description
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -268,7 +268,7 @@ A qualifier for the relationship a place may have to an artwork. For a descripti
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -284,7 +284,7 @@ A kind of date on at artwork, e.g., Made, Reconstructed, Published, etc. For a d
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -300,7 +300,7 @@ Represents a catalogue raisonne. A catalogue raisonné is a comprehensive, annot
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -317,7 +317,7 @@ A kind of object or work, e.g., Painting, Sculpture, Book, etc. For a descriptio
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -335,7 +335,7 @@ Tag-like classifications of artworks and other resources. For a description of a
 * `aat_id` *integer* - Identifier of reconciled (most similar) term in the Getty's Art and Architecture Thesaurus (AAT)
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -371,7 +371,7 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -400,7 +400,7 @@ A moving image representation of a collections resource, like an artwork, artist
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -429,7 +429,7 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -458,7 +458,7 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -488,7 +488,7 @@ An item available for purchase in the museum shop. For a description of all the 
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -514,7 +514,7 @@ A collection of audio tour stops to form a tour. For a description of all the en
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -532,7 +532,7 @@ The audio file for a stop on a tour. For a description of all the endpoints avai
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -554,7 +554,7 @@ Represents an overall digital publication. For a description of all the endpoint
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -581,7 +581,7 @@ Represents a chapter of publication. For a description of all the endpoints avai
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -607,7 +607,7 @@ An archived static microsite. For a description of all the endpoints available f
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -629,7 +629,7 @@ Closure on the website For a description of all the endpoints available for this
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -650,7 +650,7 @@ An enhanced exhibition on the website For a description of all the endpoints ava
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -706,7 +706,7 @@ An event on the website For a description of all the endpoints available for thi
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -733,7 +733,7 @@ An occurrence of an event on the website For a description of all the endpoints 
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -751,7 +751,7 @@ An event on the website For a description of all the endpoints available for thi
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -769,7 +769,7 @@ Article on the website For a description of all the endpoints available for this
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -787,7 +787,7 @@ Highlights are a grouping of artworks on the website For a description of all th
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -806,7 +806,7 @@ Article on the website For a description of all the endpoints available for this
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -823,7 +823,7 @@ Pages defined in the website code. For a description of all the endpoints availa
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -847,7 +847,7 @@ A generic page on the website For a description of all the endpoints available f
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -870,7 +870,7 @@ A press release on the website For a description of all the endpoints available 
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -893,7 +893,7 @@ An educator resource on the website For a description of all the endpoints avail
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -916,7 +916,7 @@ A digital catalog on the website For a description of all the endpoints availabl
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -941,7 +941,7 @@ A digital catalog on the website For a description of all the endpoints availabl
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -964,7 +964,7 @@ A printed catalog on the website For a description of all the endpoints availabl
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -984,7 +984,7 @@ Article on the website For a description of all the endpoints available for this
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 
@@ -1004,7 +1004,7 @@ Article on the website For a description of all the endpoints available for this
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `last_updated` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
 

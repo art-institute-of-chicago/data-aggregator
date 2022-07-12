@@ -58,7 +58,7 @@ class SearchAudit extends BaseCommand
             'type' => app('Search')->getTypeForModel($model),
             'size' => 1,
             'body' => [
-                'sort' => 'last_updated',
+                'sort' => 'updated_at',
             ],
         ]);
 
@@ -67,7 +67,7 @@ class SearchAudit extends BaseCommand
             return;
         }
 
-        $es_latest = new Carbon($response['hits']['hits'][0]['_source']['last_updated']);
+        $es_latest = new Carbon($response['hits']['hits'][0]['_source']['updated_at']);
         $db_latest = $model::first()->updated_at;
 
         // Only report if the database is more than a day ahead of the search index
