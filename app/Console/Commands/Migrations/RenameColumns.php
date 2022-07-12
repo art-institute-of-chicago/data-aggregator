@@ -6,9 +6,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 use ColinODell\Indentation\Indentation;
 
-class RenameIds extends AbstractCommand
+class RenameColumns extends AbstractCommand
 {
-    protected $signature = 'make:migration-rename-ids {oldNeedle} {newNeedle}';
+    protected $signature = 'make:migration-rename-columns {oldNeedle} {newNeedle}';
 
     protected $description = '';
 
@@ -84,7 +84,9 @@ class RenameIds extends AbstractCommand
 
     private function prepareArray(array $input)
     {
-        $output = $this->encodeArray($input);
+        $output = empty($input)
+            ? '[' . PHP_EOL . '    // nothing to change' . PHP_EOL . ']'
+            : $this->encodeArray($input);
 
         $output = Indentation::change($output, new Indentation(4, Indentation::TYPE_SPACE));
         $output = Indentation::indent($output, new Indentation(4, Indentation::TYPE_SPACE));

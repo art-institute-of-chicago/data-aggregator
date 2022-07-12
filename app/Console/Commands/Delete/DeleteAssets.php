@@ -68,7 +68,7 @@ class DeleteAssets extends AbstractImportCommand
                     // Check if a resource with a matching id exists
                     if ($model = $modelClass::where('id', '=', $datum->asset_id)->first()) {
                         // Check that the resource was modified at or before the delete
-                        if ($model->source_modified_at->lte($sourceDeletedAt)) {
+                        if ($model->source_updated_at->lte($sourceDeletedAt)) {
                             $this->warn('Deleting ' . $modelClass . ' ' . $datum->asset_id);
                             $model->delete();
                             break;

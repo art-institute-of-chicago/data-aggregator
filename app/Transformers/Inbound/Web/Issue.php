@@ -7,14 +7,5 @@ use App\Transformers\Inbound\WebTransformer;
 
 class Issue extends WebTransformer
 {
-    use HasBlocks {
-        getExtraFields as getBlockFields;
-    }
-
-    protected function getExtraFields(Datum $datum)
-    {
-        return array_merge($this->getBlockFields($datum), [
-            'date' => $datum->date('date'),
-        ]);
-    }
+    use HasBlocks;
 }

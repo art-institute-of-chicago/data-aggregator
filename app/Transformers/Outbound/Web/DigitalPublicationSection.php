@@ -43,12 +43,6 @@ class DigitalPublicationSection extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
-            'date' => [
-                'doc' => 'The date the section was published',
-                'type' => 'ISO 8601 date and time',
-                'elasticsearch' => 'date',
-                'value' => $this->getDateValue('date'),
-            ],
             'author_display' => [
                 'doc' => 'A display-friendly text of the authors of this section',
                 'type' => 'string',

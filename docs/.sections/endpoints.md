@@ -958,8 +958,8 @@ A list of all agent-types sorted by last updated date in descending order. For a
             "api_model": "agent-types",
             "api_link": "https://api.artic.edu/api/v1/agent-types/29",
             "title": "Artist Collaborative",
-            "last_updated_source": "2019-05-08T18:31:54-05:00",
-            "last_updated": "2019-05-09T17:01:08-05:00",
+            "source_updated_at": "2019-05-08T18:31:54-05:00",
+            "updated_at": "2019-05-09T17:01:08-05:00",
             ...
         },
         {
@@ -967,8 +967,8 @@ A list of all agent-types sorted by last updated date in descending order. For a
             "api_model": "agent-types",
             "api_link": "https://api.artic.edu/api/v1/agent-types/28",
             "title": "Nonprofit",
-            "last_updated_source": "2019-05-08T18:31:54-05:00",
-            "last_updated": "2019-05-09T17:01:08-05:00",
+            "source_updated_at": "2019-05-08T18:31:54-05:00",
+            "updated_at": "2019-05-09T17:01:08-05:00",
             ...
         }
     ],
@@ -1000,8 +1000,8 @@ A single agent-type by the given identifier. {id} is the identifier from our col
         "api_model": "agent-types",
         "api_link": "https://api.artic.edu/api/v1/agent-types/1",
         "title": "Corporate Body",
-        "last_updated_source": "2019-05-08T18:31:53-05:00",
-        "last_updated": "2019-05-09T17:01:08-05:00",
+        "source_updated_at": "2019-05-08T18:31:53-05:00",
+        "updated_at": "2019-05-09T17:01:08-05:00",
         ...
     },
     "info": {
@@ -1052,8 +1052,8 @@ A list of all agent-roles sorted by last updated date in descending order. For a
             "api_model": "agent-roles",
             "api_link": "https://api.artic.edu/api/v1/agent-roles/434",
             "title": "Craftsperson",
-            "last_updated_source": "2020-06-24T16:02:14-05:00",
-            "last_updated": "2020-06-24T21:00:33-05:00",
+            "source_updated_at": "2020-06-24T16:02:14-05:00",
+            "updated_at": "2020-06-24T21:00:33-05:00",
             ...
         },
         {
@@ -1061,8 +1061,8 @@ A list of all agent-roles sorted by last updated date in descending order. For a
             "api_model": "agent-roles",
             "api_link": "https://api.artic.edu/api/v1/agent-roles/574",
             "title": "File Transfer",
-            "last_updated_source": "2019-05-08T19:05:12-05:00",
-            "last_updated": "2019-05-09T17:01:07-05:00",
+            "source_updated_at": "2019-05-08T19:05:12-05:00",
+            "updated_at": "2019-05-09T17:01:07-05:00",
             ...
         }
     ],
@@ -1094,8 +1094,8 @@ A single agent-role by the given identifier. {id} is the identifier from our col
         "api_model": "agent-roles",
         "api_link": "https://api.artic.edu/api/v1/agent-roles/1",
         "title": "Collection",
-        "last_updated_source": "2019-05-08T19:05:07-05:00",
-        "last_updated": "2019-05-09T17:01:07-05:00",
+        "source_updated_at": "2019-05-08T19:05:07-05:00",
+        "updated_at": "2019-05-09T17:01:07-05:00",
         ...
     },
     "info": {
@@ -1193,8 +1193,8 @@ A list of all artwork-place-qualifiers sorted by last updated date in descending
             "api_model": "artwork-place-qualifiers",
             "api_link": "https://api.artic.edu/api/v1/artwork-place-qualifiers/54",
             "title": "Artist's culture:",
-            "last_updated_source": "2020-04-14T09:36:05-05:00",
-            "last_updated": "2020-04-14T13:46:00-05:00",
+            "source_updated_at": "2020-04-14T09:36:05-05:00",
+            "updated_at": "2020-04-14T13:46:00-05:00",
             ...
         },
         {
@@ -1202,8 +1202,8 @@ A list of all artwork-place-qualifiers sorted by last updated date in descending
             "api_model": "artwork-place-qualifiers",
             "api_link": "https://api.artic.edu/api/v1/artwork-place-qualifiers/55",
             "title": "Inhabited place:",
-            "last_updated_source": "2020-04-13T13:01:45-05:00",
-            "last_updated": "2020-04-13T13:05:56-05:00",
+            "source_updated_at": "2020-04-13T13:01:45-05:00",
+            "updated_at": "2020-04-13T13:05:56-05:00",
             ...
         }
     ],
@@ -1235,8 +1235,8 @@ A single artwork-place-qualifier by the given identifier. {id} is the identifier
         "api_model": "artwork-place-qualifiers",
         "api_link": "https://api.artic.edu/api/v1/artwork-place-qualifiers/1",
         "title": "Building address",
-        "last_updated_source": "2019-05-08T18:00:18-05:00",
-        "last_updated": "2019-05-09T17:01:07-05:00",
+        "source_updated_at": "2019-05-08T18:00:18-05:00",
+        "updated_at": "2019-05-09T17:01:07-05:00",
         ...
     },
     "info": {
@@ -1287,8 +1287,8 @@ A list of all artwork-date-qualifiers sorted by last updated date in descending 
             "api_model": "artwork-date-qualifiers",
             "api_link": "https://api.artic.edu/api/v1/artwork-date-qualifiers/63",
             "title": "Between",
-            "last_updated_source": "2021-07-12T16:18:20-05:00",
-            "last_updated": "2021-07-12T16:20:41-05:00",
+            "source_updated_at": "2021-07-12T16:18:20-05:00",
+            "updated_at": "2021-07-12T16:20:41-05:00",
             ...
         },
         {
@@ -1296,8 +1296,8 @@ A list of all artwork-date-qualifiers sorted by last updated date in descending 
             "api_model": "artwork-date-qualifiers",
             "api_link": "https://api.artic.edu/api/v1/artwork-date-qualifiers/62",
             "title": "Manufactured",
-            "last_updated_source": "2019-05-08T21:59:24-05:00",
-            "last_updated": "2019-05-09T17:01:07-05:00",
+            "source_updated_at": "2019-05-08T21:59:24-05:00",
+            "updated_at": "2019-05-09T17:01:07-05:00",
             ...
         }
     ],
@@ -1329,8 +1329,8 @@ A single artwork-date-qualifier by the given identifier. {id} is the identifier 
         "api_model": "artwork-date-qualifiers",
         "api_link": "https://api.artic.edu/api/v1/artwork-date-qualifiers/1",
         "title": "Cast",
-        "last_updated_source": "2019-05-08T21:59:23-05:00",
-        "last_updated": "2019-05-09T17:01:07-05:00",
+        "source_updated_at": "2019-05-08T21:59:23-05:00",
+        "updated_at": "2019-05-09T17:01:07-05:00",
         ...
     },
     "info": {
@@ -1381,8 +1381,8 @@ A list of all catalogues sorted by last updated date in descending order. For a 
             "api_model": "catalogues",
             "api_link": "https://api.artic.edu/api/v1/catalogues/538",
             "title": "Edition",
-            "last_updated_source": "2021-09-20T14:24:35-05:00",
-            "last_updated": "2021-09-20T14:25:20-05:00",
+            "source_updated_at": "2021-09-20T14:24:35-05:00",
+            "updated_at": "2021-09-20T14:25:20-05:00",
             ...
         },
         {
@@ -1390,8 +1390,8 @@ A list of all catalogues sorted by last updated date in descending order. For a 
             "api_model": "catalogues",
             "api_link": "https://api.artic.edu/api/v1/catalogues/537",
             "title": "Walch",
-            "last_updated_source": "2020-11-17T13:20:47-06:00",
-            "last_updated": "2020-11-17T13:25:42-06:00",
+            "source_updated_at": "2020-11-17T13:20:47-06:00",
+            "updated_at": "2020-11-17T13:25:42-06:00",
             ...
         }
     ],
@@ -1423,8 +1423,8 @@ A single catalogue by the given identifier. {id} is the identifier from our coll
         "api_model": "catalogues",
         "api_link": "https://api.artic.edu/api/v1/catalogues/-2147483646",
         "title": "Bliss",
-        "last_updated_source": "2019-05-08T18:18:14-05:00",
-        "last_updated": "2019-05-09T17:01:08-05:00",
+        "source_updated_at": "2019-05-08T18:18:14-05:00",
+        "updated_at": "2019-05-09T17:01:08-05:00",
         ...
     },
     "info": {
@@ -1476,7 +1476,7 @@ A list of all artwork-types sorted by last updated date in descending order. For
             "api_link": "https://api.artic.edu/api/v1/artwork-types/48",
             "title": "Time Based Media",
             "aat_id": null,
-            "last_updated_source": "2020-05-04T12:25:27-05:00",
+            "source_updated_at": "2020-05-04T12:25:27-05:00",
             ...
         },
         {
@@ -1485,7 +1485,7 @@ A list of all artwork-types sorted by last updated date in descending order. For
             "api_link": "https://api.artic.edu/api/v1/artwork-types/47",
             "title": "Materials",
             "aat_id": null,
-            "last_updated_source": "2019-10-07T11:53:19-05:00",
+            "source_updated_at": "2019-10-07T11:53:19-05:00",
             ...
         }
     ],
@@ -1518,7 +1518,7 @@ A single artwork-type by the given identifier. {id} is the identifier from our c
         "api_link": "https://api.artic.edu/api/v1/artwork-types/1",
         "title": "Painting",
         "aat_id": null,
-        "last_updated_source": "2019-05-08T19:03:58-05:00",
+        "source_updated_at": "2019-05-08T19:03:58-05:00",
         ...
     },
     "info": {
