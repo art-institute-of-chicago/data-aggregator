@@ -12,7 +12,7 @@ class ArtworkCatalogue extends BasePivot
     protected $casts = [
         'date_start' => 'datetime',
         'date_end' => 'datetime',
-        'source_modified_at' => 'datetime',
+        'source_updated_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'is_preferred' => 'boolean',

@@ -17,7 +17,7 @@ abstract class ShopFactory extends Factory
     public function shopDates()
     {
         return [
-            'source_modified_at' => $this->faker->dateTimeThisYear,
+            'source_updated_at' => $this->faker->dateTimeThisYear,
         ];
     }
 }

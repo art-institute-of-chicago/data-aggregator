@@ -245,7 +245,7 @@ class BaseTransformer extends AbstractTransformer
     protected function getDates(Datum $datum)
     {
         return [
-            'source_modified_at' => $datum->date('modified_at'),
+            'source_updated_at' => $datum->date('modified_at'),
             'source_indexed_at' => $datum->date('indexed_at'),
         ];
     }

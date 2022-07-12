@@ -59,7 +59,7 @@ class DeleteCollections extends AbstractImportCommand
                 }
 
                 // Ignore the change the if the record has been modified after the delete
-                if ($entity->source_modified_at->gt($deletedAt)) {
+                if ($entity->source_updated_at->gt($deletedAt)) {
                     continue;
                 }
 

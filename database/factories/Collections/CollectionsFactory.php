@@ -27,7 +27,7 @@ abstract class CollectionsFactory extends Factory
     public function dates($citiField = false)
     {
         $ret = [
-            'source_modified_at' => $this->faker->dateTimeThisYear,
+            'source_updated_at' => $this->faker->dateTimeThisYear,
         ];
 
         return $ret;

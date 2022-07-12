@@ -20,7 +20,7 @@ class WebTransformer extends BaseTransformer
         return array_merge(
             parent::getDates($datum),
             [
-                'source_modified_at' => $datum->date('last_updated'),
+                'source_updated_at' => $datum->date('last_updated'),
             ]
         );
     }

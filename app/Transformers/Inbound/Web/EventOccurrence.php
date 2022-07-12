@@ -33,7 +33,7 @@ class EventOccurrence extends WebTransformer
         return array_merge(
             parent::getDates($datum),
             [
-                'source_modified_at' => $datum->date('updated_at'),
+                'source_updated_at' => $datum->date('updated_at'),
             ]
         );
     }
