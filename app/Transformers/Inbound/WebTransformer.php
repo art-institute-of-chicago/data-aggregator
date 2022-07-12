@@ -6,7 +6,7 @@ use App\Transformers\Datum;
 
 class WebTransformer extends BaseTransformer
 {
-    public static $sourceLastUpdateDateField = 'last_updated';
+    public static $sourceLastUpdateDateField = 'updated_at';
 
     /**
      * Get dates from source data. Meant to be overwritten.
@@ -20,7 +20,7 @@ class WebTransformer extends BaseTransformer
         return array_merge(
             parent::getDates($datum),
             [
-                'source_updated_at' => $datum->date('last_updated'),
+                'source_updated_at' => $datum->date('updated_at'),
             ]
         );
     }
