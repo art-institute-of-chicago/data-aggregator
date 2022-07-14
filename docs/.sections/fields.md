@@ -770,7 +770,6 @@ Highlights are a grouping of artworks on the website For a description of all th
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `short_copy` *string* - A brief summary of what is contained in the highlight
 * `copy` *string* - The text of the highlight description
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.

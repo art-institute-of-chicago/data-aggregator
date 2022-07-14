@@ -75,6 +75,12 @@ class DropUnusedColumns extends Migration
             ]);
         });
 
+        Schema::table('highlights', function (Blueprint $table) {
+            $table->dropColumn([
+                'short_copy',
+            ]);
+        });
+
         Schema::table('press_releases', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
@@ -143,6 +149,10 @@ class DropUnusedColumns extends Migration
             $table->text('listing_description')->nullable()->after('slug');
             $table->text('short_description')->nullable()->after('listing_description');
             $table->text('imgix_uuid')->nullable()->after('search_tags');
+        });
+
+        Schema::table('highlights', function (Blueprint $table) {
+            $table->text('short_copy')->nullable()->after('title');
         });
 
         Schema::table('press_releases', function (Blueprint $table) {
