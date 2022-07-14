@@ -44,6 +44,7 @@ class DropUnusedColumns extends Migration
         Schema::table('digital_catalogs', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
+                'short_description',
                 'imgix_uuid',
             ]);
         });
@@ -57,6 +58,7 @@ class DropUnusedColumns extends Migration
         Schema::table('educator_resources', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
+                'short_description',
                 'imgix_uuid',
             ]);
         });
@@ -64,6 +66,7 @@ class DropUnusedColumns extends Migration
         Schema::table('generic_pages', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
+                'short_description',
                 'imgix_uuid',
             ]);
         });
@@ -71,6 +74,7 @@ class DropUnusedColumns extends Migration
         Schema::table('press_releases', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
+                'short_description',
                 'imgix_uuid',
             ]);
         });
@@ -78,6 +82,7 @@ class DropUnusedColumns extends Migration
         Schema::table('printed_catalogs', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
+                'short_description',
                 'imgix_uuid',
             ]);
         });
@@ -110,6 +115,7 @@ class DropUnusedColumns extends Migration
 
         Schema::table('digital_catalogs', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
+            $table->text('short_description')->nullable()->after('listing_description');
             $table->text('imgix_uuid')->nullable()->after('copy');
         });
 
@@ -119,21 +125,25 @@ class DropUnusedColumns extends Migration
 
         Schema::table('educator_resources', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
+            $table->text('short_description')->nullable()->after('listing_description');
             $table->text('imgix_uuid')->nullable()->after('copy');
         });
 
         Schema::table('generic_pages', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
+            $table->text('short_description')->nullable()->after('listing_description');
             $table->text('imgix_uuid')->nullable()->after('search_tags');
         });
 
         Schema::table('press_releases', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
+            $table->text('short_description')->nullable()->after('listing_description');
             $table->text('imgix_uuid')->nullable()->after('copy');
         });
 
         Schema::table('printed_catalogs', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
+            $table->text('short_description')->nullable()->after('listing_description');
             $table->text('imgix_uuid')->nullable()->after('copy');
         });
     }
