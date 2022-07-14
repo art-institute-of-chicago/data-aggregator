@@ -83,12 +83,6 @@ class Asset extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-            'content_modified_at' => [
-                'doc' => 'Date and time the associated binary file was updated',
-                'type' => 'ISO 8601 date and time',
-                'elasticsearch' => 'date',
-                'value' => $this->getDateValue('content_modified_at'),
-            ],
         ];
 
         // TODO: Refactor relationships:

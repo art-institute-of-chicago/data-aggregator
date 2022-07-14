@@ -355,7 +355,6 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 * `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `credit_line` *string* - Asset-specific copyright information
 * `content_e_tag` *string* - Arbitrary unique identifier that changes when the binary file gets updated
-* `content_modified_at` *ISO 8601 date and time* - Date and time the associated binary file was updated
 * `iiif_url` *url* - IIIF URL of this image
 * `width` *number* - Native width of the image
 * `height` *number* - Native height of the image
@@ -390,7 +389,6 @@ A moving image representation of a collections resource, like an artwork, artist
 * `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `credit_line` *string* - Asset-specific copyright information
 * `content_e_tag` *string* - Arbitrary unique identifier that changes when the binary file gets updated
-* `content_modified_at` *ISO 8601 date and time* - Date and time the associated binary file was updated
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
@@ -418,7 +416,6 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 * `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `credit_line` *string* - Asset-specific copyright information
 * `content_e_tag` *string* - Arbitrary unique identifier that changes when the binary file gets updated
-* `content_modified_at` *ISO 8601 date and time* - Date and time the associated binary file was updated
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
@@ -446,7 +443,6 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 * `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `credit_line` *string* - Asset-specific copyright information
 * `content_e_tag` *string* - Arbitrary unique identifier that changes when the binary file gets updated
-* `content_modified_at` *ISO 8601 date and time* - Date and time the associated binary file was updated
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.

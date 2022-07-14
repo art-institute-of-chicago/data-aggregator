@@ -36,6 +36,7 @@ class DropUnusedColumns extends Migration
         Schema::table('assets', function (Blueprint $table) {
             $table->dropColumn([
                 'description',
+                'content_modified_at',
             ]);
         });
 
@@ -102,6 +103,7 @@ class DropUnusedColumns extends Migration
 
         Schema::table('assets', function (Blueprint $table) {
             $table->text('description')->nullable()->after('title');
+            $table->timestamp('content_modified_at')->nullable()->after('content_e_tag');
         });
 
         Schema::table('digital_catalogs', function (Blueprint $table) {
