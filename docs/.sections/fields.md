@@ -366,7 +366,7 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
+* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
 * `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
@@ -393,7 +393,7 @@ A moving image representation of a collections resource, like an artwork, artist
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
+* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
 * `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
@@ -420,7 +420,7 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
+* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
 * `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
@@ -447,7 +447,7 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
+* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
 * `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
@@ -564,7 +564,6 @@ Represents a chapter of publication. For a description of all the endpoints avai
 * `weight` *number* - Number representing this section's sort order
 * `generic_page_id` *number* - Unique identifier of the page on the website that represents the publication this section belongs to
 * `artwork_id` *number* - Unique identifier of the artwork with which this section is associated
-* `parent_id` *number* - Uniquer identifier of the parent section
 * `publication_title` *string* - Name of the publication this section belongs to
 * `publication_id` *number* - Unique identifier of the publication this section belongs to
 * `content` *string* - Content of this section in plaintext
