@@ -19,7 +19,6 @@ trait HasBlocks
         if (is_string($contents)) {
             return [
                 'copy' => $contents,
-                'imgix_uuid' => null,
             ];
         }
 
@@ -27,7 +26,6 @@ trait HasBlocks
 
         return [
             'copy' => $this->getCopy($blocks),
-            'imgix_uuid' => $this->getImage($blocks),
         ];
     }
 
@@ -78,17 +76,6 @@ trait HasBlocks
 
         // Return all texts as one string
         return $texts->implode(' ');
-    }
-
-    /**
-     * Helper to retrieve preferred image.
-     *
-     * @return string
-     */
-    private function getImage(Collection $blocks)
-    {
-        // Get a URL to the first large image
-        return $blocks->firstWhere('type', 'image')->medias[0]->uuid ?? null;
     }
 
     /**
