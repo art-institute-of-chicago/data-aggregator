@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "653b2ad250f6f28f941597c92e97db513d6f4d7b"
+                "reference": "7204e46c6d42f971c07a96cb370add5b4dddb381"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/653b2ad250f6f28f941597c92e97db513d6f4d7b",
-                "reference": "653b2ad250f6f28f941597c92e97db513d6f4d7b",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/7204e46c6d42f971c07a96cb370add5b4dddb381",
+                "reference": "7204e46c6d42f971c07a96cb370add5b4dddb381",
                 "shasum": ""
             },
             "require": {
@@ -51,6 +51,12 @@
                             "title": "API-45: Fix arrow functions in method_chaining_indentation",
                             "url": "vendor/aic/data-hub-foundation/patches/API-45---fix-arrow-functions-in-method-chaining-indentation.diff"
                         }
+                    ],
+                    "doctrine/dbal": [
+                        {
+                            "title": "API-316: Support reorder of database columns",
+                            "url": "vendor/aic/data-hub-foundation/patches/API-316---support-reorder-of-database-columns.diff"
+                        }
                     ]
                 }
             },
@@ -82,7 +88,7 @@
                 "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/laravel-8-support",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2022-07-13T15:15:55+00:00"
+            "time": "2022-07-14T03:48:15+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
