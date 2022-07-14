@@ -33,6 +33,12 @@ class DropUnusedColumns extends Migration
             ]);
         });
 
+        Schema::table('assets', function (Blueprint $table) {
+            $table->dropColumn([
+                'description',
+            ]);
+        });
+
         Schema::table('digital_catalogs', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
@@ -92,6 +98,10 @@ class DropUnusedColumns extends Migration
 
         Schema::table('artworks', function (Blueprint $table) {
             $table->string('collection_status')->nullable()->after('copyright_notice');
+        });
+
+        Schema::table('assets', function (Blueprint $table) {
+            $table->text('description')->nullable()->after('title');
         });
 
         Schema::table('digital_catalogs', function (Blueprint $table) {

@@ -348,7 +348,6 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `type` *string* - Type always takes one of the following values: image, sound, text, video
-* `description` *string* - Explanation of what this asset is
 * `alt_text` *string* - Alternative text for the asset to describe it to people with low or no vision
 * `content` *string* - Text of or URL to the contents of this asset
 * `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
@@ -384,7 +383,6 @@ A moving image representation of a collections resource, like an artwork, artist
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `type` *string* - Type always takes one of the following values: image, sound, text, video
-* `description` *string* - Explanation of what this asset is
 * `alt_text` *string* - Alternative text for the asset to describe it to people with low or no vision
 * `content` *string* - Text of or URL to the contents of this asset
 * `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
@@ -413,7 +411,6 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `type` *string* - Type always takes one of the following values: image, sound, text, video
-* `description` *string* - Explanation of what this asset is
 * `alt_text` *string* - Alternative text for the asset to describe it to people with low or no vision
 * `content` *string* - Text of or URL to the contents of this asset
 * `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
@@ -442,7 +439,6 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `type` *string* - Type always takes one of the following values: image, sound, text, video
-* `description` *string* - Explanation of what this asset is
 * `alt_text` *string* - Alternative text for the asset to describe it to people with low or no vision
 * `content` *string* - Text of or URL to the contents of this asset
 * `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia

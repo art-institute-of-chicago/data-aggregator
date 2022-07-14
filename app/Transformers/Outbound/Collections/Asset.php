@@ -43,11 +43,6 @@ class Asset extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-            'description' => [
-                'doc' => 'Explanation of what this asset is',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
             'alt_text' => [
                 'doc' => 'Alternative text for the asset to describe it to people with low or no vision',
                 'type' => 'string',
