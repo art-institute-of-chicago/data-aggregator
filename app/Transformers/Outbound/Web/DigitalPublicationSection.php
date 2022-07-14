@@ -14,11 +14,6 @@ class DigitalPublicationSection extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-            'slug' => [
-                'doc' => 'A human-readable string used in the URL',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
 
             'listing_description' => [
                 'doc' => 'A brief description of the section used in listings',

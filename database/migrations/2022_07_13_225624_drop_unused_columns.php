@@ -23,30 +23,41 @@ class DropUnusedColumns extends Migration
 
         Schema::table('digital_catalogs', function (Blueprint $table) {
             $table->dropColumn([
+                'slug',
                 'imgix_uuid',
+            ]);
+        });
+
+        Schema::table('digital_publication_sections', function (Blueprint $table) {
+            $table->dropColumn([
+                'slug',
             ]);
         });
 
         Schema::table('educator_resources', function (Blueprint $table) {
             $table->dropColumn([
+                'slug',
                 'imgix_uuid',
             ]);
         });
 
         Schema::table('generic_pages', function (Blueprint $table) {
             $table->dropColumn([
+                'slug',
                 'imgix_uuid',
             ]);
         });
 
         Schema::table('press_releases', function (Blueprint $table) {
             $table->dropColumn([
+                'slug',
                 'imgix_uuid',
             ]);
         });
 
         Schema::table('printed_catalogs', function (Blueprint $table) {
             $table->dropColumn([
+                'slug',
                 'imgix_uuid',
             ]);
         });
@@ -64,22 +75,31 @@ class DropUnusedColumns extends Migration
         });
 
         Schema::table('digital_catalogs', function (Blueprint $table) {
+            $table->string('slug')->nullable()->after('web_url');
             $table->text('imgix_uuid')->nullable()->after('copy');
         });
 
+        Schema::table('digital_publication_sections', function (Blueprint $table) {
+            $table->string('slug')->nullable()->after('web_url');
+        });
+
         Schema::table('educator_resources', function (Blueprint $table) {
+            $table->string('slug')->nullable()->after('web_url');
             $table->text('imgix_uuid')->nullable()->after('copy');
         });
 
         Schema::table('generic_pages', function (Blueprint $table) {
+            $table->string('slug')->nullable()->after('web_url');
             $table->text('imgix_uuid')->nullable()->after('search_tags');
         });
 
         Schema::table('press_releases', function (Blueprint $table) {
+            $table->string('slug')->nullable()->after('web_url');
             $table->text('imgix_uuid')->nullable()->after('copy');
         });
 
         Schema::table('printed_catalogs', function (Blueprint $table) {
+            $table->string('slug')->nullable()->after('web_url');
             $table->text('imgix_uuid')->nullable()->after('copy');
         });
     }

@@ -693,7 +693,6 @@ An event on the website For a description of all the endpoints available for thi
 * `date_display` *string* - A readable display of the event dates
 * `door_time` *string* - The time the doors open for this event
 * `layout_type` *number* - Number indicating the type of layout this event page uses
-* `slug` *string* - A string used in the URL for this event
 * `entrance` *string* - Which entrance to use for this event
 * `join_url` *string* - URL to the membership signup page via this event
 * `survey_url` *string* - URL to the survey associated with this event
@@ -836,7 +835,6 @@ A generic page on the website For a description of all the endpoints available f
 * `title` *string* - The name of this resource
 * `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
-* `slug` *string* - A human-readable string used in the URL
 * `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
@@ -860,7 +858,6 @@ A press release on the website For a description of all the endpoints available 
 * `title` *string* - The name of this resource
 * `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
-* `slug` *string* - A human-readable string used in the URL
 * `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
@@ -883,7 +880,6 @@ An educator resource on the website For a description of all the endpoints avail
 * `title` *string* - The name of this resource
 * `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
-* `slug` *string* - A human-readable string used in the URL
 * `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
@@ -906,7 +902,6 @@ A digital catalog on the website For a description of all the endpoints availabl
 * `title` *string* - The name of this resource
 * `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
-* `slug` *string* - A human-readable string used in the URL
 * `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
@@ -928,7 +923,6 @@ A digital catalog on the website For a description of all the endpoints availabl
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this section on our website
-* `slug` *string* - A human-readable string used in the URL
 * `listing_description` *string* - A brief description of the section used in listings
 * `copy` *string* - The text of the section
 * `type` *string* - The type of section this record represents
@@ -954,7 +948,6 @@ A printed catalog on the website For a description of all the endpoints availabl
 * `title` *string* - The name of this resource
 * `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
-* `slug` *string* - A human-readable string used in the URL
 * `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
