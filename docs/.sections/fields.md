@@ -113,9 +113,7 @@ Represents a person or organization. In the API, this includes artists. For a de
 * `sort_title` *string* - Sortable name for this agent, typically with last name first.
 * `alt_titles` *array* - Alternate names for this agent
 * `birth_date` *number* - The year this agent was born
-* `birth_place` *string* - Name of the place this agent was born
 * `death_date` *number* - The year this agent died
-* `death_place` *string* - Name of the place this agent died
 * `description` *string* - A biographical description of the agent
 * `ulan_id` *number* - Unique identifier of this agent in Getty's ULAN
 * `is_artist` *boolean* - Whether the agent is an artist. Solely based on whether the agent is listed as an artist for an artwork record.
