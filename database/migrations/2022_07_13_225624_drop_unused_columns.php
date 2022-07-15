@@ -15,12 +15,6 @@ class DropUnusedColumns extends Migration
             ]);
         });
 
-        Schema::table('articles', function (Blueprint $table) {
-            $table->dropColumn([
-                'imgix_uuid',
-            ]);
-        });
-
         Schema::table('artwork_dates', function (Blueprint $table) {
             $table->dropColumn([
                 'title',
@@ -46,7 +40,6 @@ class DropUnusedColumns extends Migration
                 'slug',
                 'listing_description',
                 'short_description',
-                'imgix_uuid',
             ]);
         });
 
@@ -62,7 +55,6 @@ class DropUnusedColumns extends Migration
                 'slug',
                 'listing_description',
                 'short_description',
-                'imgix_uuid',
             ]);
         });
 
@@ -71,7 +63,6 @@ class DropUnusedColumns extends Migration
                 'slug',
                 'listing_description',
                 'short_description',
-                'imgix_uuid',
             ]);
         });
 
@@ -86,7 +77,6 @@ class DropUnusedColumns extends Migration
                 'slug',
                 'listing_description',
                 'short_description',
-                'imgix_uuid',
             ]);
         });
 
@@ -95,7 +85,6 @@ class DropUnusedColumns extends Migration
                 'slug',
                 'listing_description',
                 'short_description',
-                'imgix_uuid',
             ]);
         });
     }
@@ -105,10 +94,6 @@ class DropUnusedColumns extends Migration
         Schema::table('agents', function (Blueprint $table) {
             $table->string('birth_place')->nullable()->after('birth_date');
             $table->string('death_place')->nullable()->after('death_date');
-        });
-
-        Schema::table('articles', function (Blueprint $table) {
-            $table->text('imgix_uuid')->nullable()->after('copy');
         });
 
         Schema::table('artwork_dates', function (Blueprint $table) {
@@ -129,7 +114,6 @@ class DropUnusedColumns extends Migration
             $table->string('slug')->nullable()->after('web_url');
             $table->text('listing_description')->nullable()->after('slug');
             $table->text('short_description')->nullable()->after('listing_description');
-            $table->text('imgix_uuid')->nullable()->after('copy');
         });
 
         Schema::table('digital_publication_sections', function (Blueprint $table) {
@@ -141,14 +125,12 @@ class DropUnusedColumns extends Migration
             $table->string('slug')->nullable()->after('web_url');
             $table->text('listing_description')->nullable()->after('slug');
             $table->text('short_description')->nullable()->after('listing_description');
-            $table->text('imgix_uuid')->nullable()->after('copy');
         });
 
         Schema::table('generic_pages', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
             $table->text('listing_description')->nullable()->after('slug');
             $table->text('short_description')->nullable()->after('listing_description');
-            $table->text('imgix_uuid')->nullable()->after('search_tags');
         });
 
         Schema::table('highlights', function (Blueprint $table) {
@@ -159,14 +141,12 @@ class DropUnusedColumns extends Migration
             $table->string('slug')->nullable()->after('web_url');
             $table->text('listing_description')->nullable()->after('slug');
             $table->text('short_description')->nullable()->after('listing_description');
-            $table->text('imgix_uuid')->nullable()->after('copy');
         });
 
         Schema::table('printed_catalogs', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
             $table->text('listing_description')->nullable()->after('slug');
             $table->text('short_description')->nullable()->after('listing_description');
-            $table->text('imgix_uuid')->nullable()->after('copy');
         });
     }
 }
