@@ -34,43 +34,6 @@ class DropUnusedColumns extends Migration
                 'source_indexed_at',
             ]);
         });
-
-        Schema::table('digital_catalogs', function (Blueprint $table) {
-            $table->dropColumn([
-                'slug',
-            ]);
-        });
-
-        Schema::table('digital_publication_sections', function (Blueprint $table) {
-            $table->dropColumn([
-                'slug',
-            ]);
-        });
-
-        Schema::table('educator_resources', function (Blueprint $table) {
-            $table->dropColumn([
-                'slug',
-            ]);
-        });
-
-        Schema::table('generic_pages', function (Blueprint $table) {
-            $table->dropColumn([
-                'slug',
-            ]);
-        });
-
-
-        Schema::table('press_releases', function (Blueprint $table) {
-            $table->dropColumn([
-                'slug',
-            ]);
-        });
-
-        Schema::table('printed_catalogs', function (Blueprint $table) {
-            $table->dropColumn([
-                'slug',
-            ]);
-        });
     }
 
     public function down()
@@ -92,30 +55,6 @@ class DropUnusedColumns extends Migration
             $table->text('description')->nullable()->after('title');
             $table->timestamp('content_modified_at')->nullable()->after('content_e_tag');
             $table->timestamp('source_indexed_at')->nullable()->after('source_updated_at');
-        });
-
-        Schema::table('digital_catalogs', function (Blueprint $table) {
-            $table->string('slug')->nullable()->after('web_url');
-        });
-
-        Schema::table('digital_publication_sections', function (Blueprint $table) {
-            $table->string('slug')->nullable()->after('web_url');
-        });
-
-        Schema::table('educator_resources', function (Blueprint $table) {
-            $table->string('slug')->nullable()->after('web_url');
-        });
-
-        Schema::table('generic_pages', function (Blueprint $table) {
-            $table->string('slug')->nullable()->after('web_url');
-        });
-
-        Schema::table('press_releases', function (Blueprint $table) {
-            $table->string('slug')->nullable()->after('web_url');
-        });
-
-        Schema::table('printed_catalogs', function (Blueprint $table) {
-            $table->string('slug')->nullable()->after('web_url');
         });
     }
 }
