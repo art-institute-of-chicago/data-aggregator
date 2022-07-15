@@ -38,53 +38,37 @@ class DropUnusedColumns extends Migration
         Schema::table('digital_catalogs', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
-                'listing_description',
-                'short_description',
             ]);
         });
 
         Schema::table('digital_publication_sections', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
-                'listing_description',
             ]);
         });
 
         Schema::table('educator_resources', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
-                'listing_description',
-                'short_description',
             ]);
         });
 
         Schema::table('generic_pages', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
-                'listing_description',
-                'short_description',
             ]);
         });
 
-        Schema::table('highlights', function (Blueprint $table) {
-            $table->dropColumn([
-                'short_copy',
-            ]);
-        });
 
         Schema::table('press_releases', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
-                'listing_description',
-                'short_description',
             ]);
         });
 
         Schema::table('printed_catalogs', function (Blueprint $table) {
             $table->dropColumn([
                 'slug',
-                'listing_description',
-                'short_description',
             ]);
         });
     }
@@ -112,41 +96,26 @@ class DropUnusedColumns extends Migration
 
         Schema::table('digital_catalogs', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
-            $table->text('listing_description')->nullable()->after('slug');
-            $table->text('short_description')->nullable()->after('listing_description');
         });
 
         Schema::table('digital_publication_sections', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
-            $table->text('listing_description')->nullable()->after('slug');
         });
 
         Schema::table('educator_resources', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
-            $table->text('listing_description')->nullable()->after('slug');
-            $table->text('short_description')->nullable()->after('listing_description');
         });
 
         Schema::table('generic_pages', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
-            $table->text('listing_description')->nullable()->after('slug');
-            $table->text('short_description')->nullable()->after('listing_description');
-        });
-
-        Schema::table('highlights', function (Blueprint $table) {
-            $table->text('short_copy')->nullable()->after('title');
         });
 
         Schema::table('press_releases', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
-            $table->text('listing_description')->nullable()->after('slug');
-            $table->text('short_description')->nullable()->after('listing_description');
         });
 
         Schema::table('printed_catalogs', function (Blueprint $table) {
             $table->string('slug')->nullable()->after('web_url');
-            $table->text('listing_description')->nullable()->after('slug');
-            $table->text('short_description')->nullable()->after('listing_description');
         });
     }
 }
