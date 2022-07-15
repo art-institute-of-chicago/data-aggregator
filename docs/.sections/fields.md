@@ -633,7 +633,6 @@ An enhanced exhibition on the website For a description of all the endpoints ava
 * `title` *string* - The name of this resource
 * `exhibition_id` *number* - Identifier of the CITI exhibition this website exhibition is tied to
 * `is_featured` *boolean* - Is this exhibition currently featured on our website?
-* `header_copy` *string* - The text at the top of the exhibition page
 * `list_description` *string* - Short description to be used for exhibition listings
 * `exhibition_message` *string* - Pricing or attendance information
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.

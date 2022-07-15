@@ -28,12 +28,6 @@ class Exhibition extends BaseTransformer
                     return $item->is_featured ?? false;
                 },
             ],
-            // TODO: Provide ability to put lengthy fields below relationships?
-            'header_copy' => [
-                'doc' => 'The text at the top of the exhibition page',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
             'list_description' => [
                 'doc' => 'Short description to be used for exhibition listings',
                 'type' => 'string',

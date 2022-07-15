@@ -55,6 +55,12 @@ class DropShortDescriptionAndSimilarColumns extends Migration
                 'short_description',
             ]);
         });
+
+        Schema::table('web_exhibitions', function (Blueprint $table) {
+            $table->dropColumn([
+                'header_copy',
+            ]);
+        });
     }
 
     public function down()
@@ -91,6 +97,10 @@ class DropShortDescriptionAndSimilarColumns extends Migration
         Schema::table('printed_catalogs', function (Blueprint $table) {
             $table->text('listing_description')->nullable()->after('slug');
             $table->text('short_description')->nullable()->after('listing_description');
+        });
+
+        Schema::table('web_exhibitions', function (Blueprint $table) {
+            $table->text('header_copy')->nullable()->after('title');
         });
     }
 }
