@@ -340,7 +340,7 @@ return [
         [
             'endpoint' => 'press-releases',
             'model' => \App\Models\Web\PressRelease::class,
-            'transformer' => \App\Transformers\Outbound\Web\PressRelease::class,
+            'transformer' => \App\Transformers\Outbound\Web\Page::class,
             'is_searchable' => true,
         ],
         [
