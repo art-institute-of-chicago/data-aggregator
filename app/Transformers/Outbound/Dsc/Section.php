@@ -26,11 +26,6 @@ class Section extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-            'source_id' => [
-                'doc' => 'Drupal node id, unique only within the site of this publication',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-            ],
             'weight' => [
                 'doc' => 'Number representing this section\'s sort order',
                 'type' => 'number',
