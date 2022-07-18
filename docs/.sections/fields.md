@@ -629,7 +629,6 @@ An enhanced exhibition on the website For a description of all the endpoints ava
 * `exhibition_id` *number* - Identifier of the CITI exhibition this website exhibition is tied to
 * `is_featured` *boolean* - Is this exhibition currently featured on our website?
 * `list_description` *string* - Short description to be used for exhibition listings
-* `exhibition_message` *string* - Pricing or attendance information
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system

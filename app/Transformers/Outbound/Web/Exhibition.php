@@ -33,12 +33,6 @@ class Exhibition extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
-            'exhibition_message' => [
-                'deprecated' => true,
-                'doc' => 'Pricing or attendance information',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
         ];
     }
 }

@@ -67,6 +67,12 @@ class DropMiscColumns extends Migration
                 'also_known_as',
             ]);
         });
+
+        Schema::table('web_exhibitions', function (Blueprint $table) {
+            $table->dropColumn([
+                'exhibition_message',
+            ]);
+        });
     }
 
     public function down()
@@ -111,6 +117,10 @@ class DropMiscColumns extends Migration
 
         Schema::table('web_artists', function (Blueprint $table) {
             $table->boolean('also_known_as')->nullable()->after('title');
+        });
+
+        Schema::table('web_exhibitions', function (Blueprint $table) {
+            $table->text('exhibition_message')->nullable()->after('datahub_id');
         });
     }
 }
