@@ -17,7 +17,6 @@ class SectionFactory extends DscFactory
             [
                 'web_url' => $this->faker->url,
                 'accession' => $this->faker->accession,
-                'weight' => $this->faker->randomNumber(2),
                 'publication_id' => $this->faker->randomElement(Publication::query()->pluck('id')->all()),
                 'artwork_id' => $this->faker->randomElement(Artwork::query()->pluck('id')->all()),
                 'content' => $this->faker->paragraphs(10, true),

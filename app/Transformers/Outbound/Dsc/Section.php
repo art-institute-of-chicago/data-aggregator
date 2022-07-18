@@ -26,11 +26,6 @@ class Section extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-            'weight' => [
-                'doc' => 'Number representing this section\'s sort order',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-            ],
             'generic_page_id' => [
                 'doc' => 'Unique identifier of the page on the website that represents the publication this section belongs to',
                 'type' => 'number',
