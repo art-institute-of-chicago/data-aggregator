@@ -180,7 +180,6 @@ An organized presentation and display of a selection of artworks. For a descript
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `is_featured` *boolean* - Is this exhibition currently featured on our website?
-* `description` *string* - Explanation of what this exhibition is
 * `short_description` *string* - Brief explanation of what this exhibition is
 * `web_url` *string* - URL to this exhibition on our website
 * `image_url` *string* - URL to the hero image from the website

@@ -40,6 +40,12 @@ class DropMiscColumns extends Migration
                 'type',
             ]);
         });
+
+        Schema::table('exhibitions', function (Blueprint $table) {
+            $table->dropColumn([
+                'description',
+            ]);
+        });
     }
 
     public function down()
@@ -65,6 +71,10 @@ class DropMiscColumns extends Migration
 
         Schema::table('digital_publication_sections', function (Blueprint $table) {
             $table->string('type')->nullable()->after('copy');
+        });
+
+        Schema::table('exhibitions', function (Blueprint $table) {
+            $table->text('description')->nullable()->after('title');
         });
     }
 }

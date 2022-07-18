@@ -52,13 +52,6 @@ class Exhibition extends BaseTransformer
                 },
                 'is_restricted' => true,
             ],
-            'description' => [
-                'doc' => 'Explanation of what this exhibition is',
-                'type' => 'string',
-                'elasticsearch' => [
-                    'default' => true,
-                ],
-            ],
             'short_description' => [
                 'doc' => 'Brief explanation of what this exhibition is',
                 'type' => 'string',
