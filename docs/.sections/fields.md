@@ -183,7 +183,6 @@ An organized presentation and display of a selection of artworks. For a descript
 * `short_description` *string* - Brief explanation of what this exhibition is
 * `web_url` *string* - URL to this exhibition on our website
 * `image_url` *string* - URL to the hero image from the website
-* `type` *string* - The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues.
 * `status` *string* - Whether the exhibition is open or closed
 * `aic_start_at` *ISO 8601 date and time* - Date the exhibition opened at the Art Institute of Chicago
 * `aic_end_at` *ISO 8601 date and time* - Date the exhibition closed at the Art Institute of Chicago

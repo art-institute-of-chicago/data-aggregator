@@ -76,11 +76,6 @@ class Exhibition extends BaseTransformer
                     return $item->webExhibition->image_url ?? null;
                 },
             ],
-            'type' => [
-                'doc' => 'The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues.',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
             'status' => [
                 'doc' => 'Whether the exhibition is open or closed',
                 'type' => 'string',

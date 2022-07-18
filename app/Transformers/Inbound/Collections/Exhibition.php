@@ -11,7 +11,6 @@ class Exhibition extends CollectionsTransformer
     protected function getExtraFields(Datum $datum)
     {
         return [
-            'type' => $datum->exhibition_type,
             'status' => $datum->exhibition_status,
             'place_id' => $datum->gallery_id,
             'place_display' => $datum->gallery,

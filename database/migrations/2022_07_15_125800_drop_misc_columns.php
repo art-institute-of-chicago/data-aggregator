@@ -44,6 +44,7 @@ class DropMiscColumns extends Migration
         Schema::table('exhibitions', function (Blueprint $table) {
             $table->dropColumn([
                 'description',
+                'type',
             ]);
         });
     }
@@ -75,6 +76,7 @@ class DropMiscColumns extends Migration
 
         Schema::table('exhibitions', function (Blueprint $table) {
             $table->text('description')->nullable()->after('title');
+            $table->string('type')->nullable()->after('description');
         });
     }
 }
