@@ -65,6 +65,7 @@ class DropMiscColumns extends Migration
         Schema::table('publications', function (Blueprint $table) {
             $table->dropColumn([
                 'site',
+                'alias',
             ]);
         });
 
@@ -125,6 +126,7 @@ class DropMiscColumns extends Migration
 
         Schema::table('publications', function (Blueprint $table) {
             $table->text('site')->nullable()->after('title');
+            $table->text('alias')->nullable()->after('alias');
         });
 
         Schema::table('web_artists', function (Blueprint $table) {

@@ -12,7 +12,6 @@ class PublicationFactory extends DscFactory
             $this->dscIdsAndTitle(),
             [
                 'web_url' => $this->faker->url,
-                'alias' => implode('', $this->faker->words(2)),
             ]
         );
     }
