@@ -61,6 +61,12 @@ class DropMiscColumns extends Migration
                 'type',
             ]);
         });
+
+        Schema::table('web_artists', function (Blueprint $table) {
+            $table->dropColumn([
+                'also_known_as',
+            ]);
+        });
     }
 
     public function down()
@@ -101,6 +107,10 @@ class DropMiscColumns extends Migration
 
         Schema::table('places', function (Blueprint $table) {
             $table->string('type')->nullable()->after('updated_at');
+        });
+
+        Schema::table('web_artists', function (Blueprint $table) {
+            $table->boolean('also_known_as')->nullable()->after('title');
         });
     }
 }

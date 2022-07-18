@@ -781,7 +781,6 @@ Article on the website For a description of all the endpoints available for this
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `has_also_known_as` *boolean* - Whether the artist will display multiple names
 * `intro_copy` *string* - Description of the artist
 * `agent_id` *number* - Unique identifier of the CITI agent records this artist represents
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
