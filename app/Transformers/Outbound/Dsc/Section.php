@@ -59,14 +59,6 @@ class Section extends BaseTransformer
             ],
 
             // TODO: Refactor relationships:
-            'parent_id' => [
-                'doc' => 'Uniquer identifier of the parent section',
-                'type' => 'number',
-                'elasticsearch' => 'long',
-                'value' => function ($item) {
-                    return $item->parent->id ?? null;
-                },
-            ],
             'publication_title' => [
                 'doc' => 'Name of the publication this section belongs to',
                 'type' => 'string',
