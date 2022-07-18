@@ -532,7 +532,6 @@ Represents an overall digital publication. For a description of all the endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - URL to the publication
-* `site` *string* - Which site in our multi-site Drupal installation owns this publication
 * `alias` *string* - Used by Drupal in lieu of the id to generate pretty paths
 * `section_ids` *array* - Unique identifiers of the sections of this publication
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.

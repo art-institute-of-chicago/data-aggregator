@@ -62,6 +62,12 @@ class DropMiscColumns extends Migration
             ]);
         });
 
+        Schema::table('publications', function (Blueprint $table) {
+            $table->dropColumn([
+                'site',
+            ]);
+        });
+
         Schema::table('web_artists', function (Blueprint $table) {
             $table->dropColumn([
                 'also_known_as',
@@ -115,6 +121,10 @@ class DropMiscColumns extends Migration
 
         Schema::table('places', function (Blueprint $table) {
             $table->string('type')->nullable()->after('updated_at');
+        });
+
+        Schema::table('publications', function (Blueprint $table) {
+            $table->text('site')->nullable()->after('title');
         });
 
         Schema::table('web_artists', function (Blueprint $table) {

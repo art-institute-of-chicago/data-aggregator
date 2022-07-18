@@ -2721,7 +2721,6 @@ A list of all publications sorted by last updated date in descending order. For 
             "api_link": "https://api.artic.edu/api/v1/publications/141096",
             "title": "Gauguin Paintings, Sculpture, and Graphic Works at the Art Institute of Chicago",
             "web_url": "https://publications.artic.edu/gauguin/reader/gauguinart",
-            "site": "gauguin",
             ...
         },
         {
@@ -2730,7 +2729,6 @@ A list of all publications sorted by last updated date in descending order. For 
             "api_link": "https://api.artic.edu/api/v1/publications/140019",
             "title": "Manet Paintings and Works on Paper at the Art Institute of Chicago",
             "web_url": "https://publications.artic.edu/manet/reader/manetart",
-            "site": "manet",
             ...
         }
     ],
@@ -2827,7 +2825,6 @@ A single publication by the given identifier.
         "api_link": "https://api.artic.edu/api/v1/publications/2",
         "title": "American Silver in the Art Institute of Chicago",
         "web_url": "https://publications.artic.edu/americansilver/reader/collection",
-        "site": "americansilver",
         ...
     },
     "info": {
