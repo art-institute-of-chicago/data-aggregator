@@ -13,7 +13,6 @@ class ExhibitionFactory extends CollectionsFactory
         return array_merge(
             $this->idsAndTitle(ucwords($this->faker->words(3, true)), true),
             [
-                'department_display' => ucwords($this->faker->words(2, true)),
                 'place_id' => $this->faker->randomElement(Place::query()->pluck('id')->all()),
                 'place_display' => 'Gallery ' . $this->faker->randomNumber(3),
                 'status' => $this->faker->randomElement(['Open', 'Closed']),

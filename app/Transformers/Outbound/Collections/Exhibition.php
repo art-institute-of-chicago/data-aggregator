@@ -96,11 +96,6 @@ class Exhibition extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
-            'department_display' => [
-                'doc' => 'The name of the department that primarily organized the exhibition',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
 
             // TODO: Rename gallery_title to gallery_display, to accurately reflect that it's a free form display
             //       representation of the galleries an exhibition took place in.
