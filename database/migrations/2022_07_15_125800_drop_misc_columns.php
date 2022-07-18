@@ -70,6 +70,7 @@ class DropMiscColumns extends Migration
 
         Schema::table('web_exhibitions', function (Blueprint $table) {
             $table->dropColumn([
+                'content',
                 'exhibition_message',
             ]);
         });
@@ -120,6 +121,7 @@ class DropMiscColumns extends Migration
         });
 
         Schema::table('web_exhibitions', function (Blueprint $table) {
+            $table->json('content')->nullable()->after('list_description');
             $table->text('exhibition_message')->nullable()->after('datahub_id');
         });
     }
