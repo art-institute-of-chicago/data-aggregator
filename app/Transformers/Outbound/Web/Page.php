@@ -14,14 +14,6 @@ class Page extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-
-            // TODO: This also seems to always be null. Audit?
-            'image_url' => [
-                'doc' => 'The URL of an image representing this page',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
-
             'copy' => [
                 'doc' => 'The text of the page',
                 'type' => 'string',

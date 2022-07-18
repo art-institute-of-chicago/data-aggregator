@@ -815,7 +815,6 @@ A generic page on the website For a description of all the endpoints available f
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this page on our website
-* `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
@@ -837,7 +836,6 @@ A press release on the website For a description of all the endpoints available 
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this page on our website
-* `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
@@ -858,7 +856,6 @@ An educator resource on the website For a description of all the endpoints avail
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this page on our website
-* `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
@@ -879,7 +876,6 @@ A digital catalog on the website For a description of all the endpoints availabl
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this page on our website
-* `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
@@ -922,7 +918,6 @@ A printed catalog on the website For a description of all the endpoints availabl
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this page on our website
-* `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
