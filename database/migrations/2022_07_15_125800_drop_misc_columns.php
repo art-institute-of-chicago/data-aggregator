@@ -49,6 +49,18 @@ class DropMiscColumns extends Migration
                 'department_display',
             ]);
         });
+
+        Schema::table('galleries', function (Blueprint $table) {
+            $table->dropColumn([
+                'type',
+            ]);
+        });
+
+        Schema::table('places', function (Blueprint $table) {
+            $table->dropColumn([
+                'type',
+            ]);
+        });
     }
 
     public function down()
@@ -81,6 +93,14 @@ class DropMiscColumns extends Migration
             $table->string('type')->nullable()->after('description');
             $table->string('place_display')->nullable()->after('place_id');
             $table->string('department_display')->nullable()->after('place_display');
+        });
+
+        Schema::table('galleries', function (Blueprint $table) {
+            $table->string('type')->nullable()->after('longitude');
+        });
+
+        Schema::table('places', function (Blueprint $table) {
+            $table->string('type')->nullable()->after('updated_at');
         });
     }
 }

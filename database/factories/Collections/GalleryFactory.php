@@ -16,7 +16,6 @@ class GalleryFactory extends CollectionsFactory
                 'floor' => $this->faker->randomElement([1, 2, 3, 'LL']),
                 'latitude' => $this->faker->latitude,
                 'longitude' => $this->faker->longitude,
-                'type' => 'AIC Gallery',
             ],
             $this->dates(true)
         );

@@ -137,7 +137,6 @@ A room or hall that works of art are displayed in. For a description of all the 
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - Type always takes one of the following values: AIC Gallery, AIC Storage, No location
 * `tgn_id` *number* - Reconciled identifier of this object in the Getty's Thesauraus of Geographic Names (TGN)
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
@@ -157,7 +156,6 @@ A room or hall that works of art are displayed in. For a description of all the 
 * `title` *string* - The name of this resource
 * `latitude` *number* - Latitude coordinate of the center of the room
 * `longitude` *number* - Longitude coordinate of the center of the room
-* `type` *string* - Type always takes one of the following values: AIC Gallery, AIC Storage, No location
 * `tgn_id` *number* - Reconciled identifier of this object in the Getty's Thesauraus of Geographic Names (TGN)
 * `is_closed` *boolean* - Whether the gallery is currently closed
 * `number` *string* - The gallery's room number. For "Gallery 100A", this would be "100A".
