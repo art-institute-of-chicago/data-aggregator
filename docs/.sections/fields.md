@@ -914,7 +914,6 @@ A digital catalog on the website For a description of all the endpoints availabl
 * `web_url` *string* - The URL to this section on our website
 * `listing_description` *string* - A brief description of the section used in listings
 * `copy` *string* - The text of the section
-* `type` *string* - The type of section this record represents
 * `date` *ISO 8601 date and time* - The date the section was published
 * `author_display` *string* - A display-friendly text of the authors of this section
 * `digital_publication_id` *number* - Unique identifier of the digital publication this section belongs to

@@ -34,6 +34,12 @@ class DropMiscColumns extends Migration
                 'source_indexed_at',
             ]);
         });
+
+        Schema::table('digital_publication_sections', function (Blueprint $table) {
+            $table->dropColumn([
+                'type',
+            ]);
+        });
     }
 
     public function down()
@@ -55,6 +61,10 @@ class DropMiscColumns extends Migration
             $table->text('description')->nullable()->after('title');
             $table->timestamp('content_modified_at')->nullable()->after('content_e_tag');
             $table->timestamp('source_indexed_at')->nullable()->after('source_updated_at');
+        });
+
+        Schema::table('digital_publication_sections', function (Blueprint $table) {
+            $table->string('type')->nullable()->after('copy');
         });
     }
 }

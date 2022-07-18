@@ -21,12 +21,6 @@ class DigitalPublicationSection extends BaseTransformer
                     'default' => true,
                 ],
             ],
-            // TODO: This seems to always be null. Remove?
-            'type' => [
-                'doc' => 'The type of section this record represents',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
             'author_display' => [
                 'doc' => 'A display-friendly text of the authors of this section',
                 'type' => 'string',
