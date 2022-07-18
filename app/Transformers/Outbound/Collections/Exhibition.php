@@ -97,8 +97,6 @@ class Exhibition extends BaseTransformer
                 'elasticsearch' => 'text',
             ],
 
-            // TODO: Rename gallery_title to gallery_display, to accurately reflect that it's a free form display
-            //       representation of the galleries an exhibition took place in.
             'gallery_id' => [
                 'doc' => 'Unique identifier of the gallery that mainly housed the exhibition',
                 'type' => 'number',
@@ -112,7 +110,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
                 'value' => function ($item) {
-                    return $item->place_display;
+                    return $item->gallery->title ?? null;
                 },
             ],
 

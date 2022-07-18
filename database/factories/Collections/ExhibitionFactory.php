@@ -14,7 +14,6 @@ class ExhibitionFactory extends CollectionsFactory
             $this->idsAndTitle(ucwords($this->faker->words(3, true)), true),
             [
                 'place_id' => $this->faker->randomElement(Place::query()->pluck('id')->all()),
-                'place_display' => 'Gallery ' . $this->faker->randomNumber(3),
                 'status' => $this->faker->randomElement(['Open', 'Closed']),
                 'date_aic_start' => $this->faker->dateTimeAd,
                 'date_aic_end' => $this->faker->dateTimeAd,
