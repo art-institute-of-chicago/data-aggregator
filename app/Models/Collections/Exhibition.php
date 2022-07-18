@@ -100,9 +100,4 @@ class Exhibition extends CollectionsModel
     {
         return $this->webExhibition->public_end_at ?? $this->castAttribute('date_aic_end', $value);
     }
-
-    public function getDateDisplayAttribute()
-    {
-        return $this->webExhibition->date_display ?? null;
-    }
 }

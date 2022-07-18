@@ -184,7 +184,6 @@ An organized presentation and display of a selection of artworks. For a descript
 * `status` *string* - Whether the exhibition is open or closed
 * `aic_start_at` *ISO 8601 date and time* - Date the exhibition opened at the Art Institute of Chicago
 * `aic_end_at` *ISO 8601 date and time* - Date the exhibition closed at the Art Institute of Chicago
-* `date_display` *string* - A human-friendly string describing when this exhibition was open
 * `gallery_id` *number* - Unique identifier of the gallery that mainly housed the exhibition
 * `gallery_title` *string* - The name of the gallery that mainly housed the exhibition
 * `artwork_ids` *array* - Unique identifiers of the artworks that were part of the exhibition

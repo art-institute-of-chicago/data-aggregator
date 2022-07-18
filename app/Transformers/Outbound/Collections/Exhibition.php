@@ -91,11 +91,6 @@ class Exhibition extends BaseTransformer
                 'type' => 'ISO 8601 date and time',
                 'value' => $this->getDateValue('date_aic_end'),
             ],
-            'date_display' => [
-                'doc' => 'A human-friendly string describing when this exhibition was open',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
 
             'gallery_id' => [
                 'doc' => 'Unique identifier of the gallery that mainly housed the exhibition',
