@@ -26,11 +26,6 @@ class Section extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-            'revision' => [
-                'doc' => 'Version identifier as provided by Drupal',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-            ],
             'source_id' => [
                 'doc' => 'Drupal node id, unique only within the site of this publication',
                 'type' => 'number',

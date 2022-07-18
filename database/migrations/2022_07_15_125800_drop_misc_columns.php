@@ -71,6 +71,7 @@ class DropMiscColumns extends Migration
 
         Schema::table('sections', function (Blueprint $table) {
             $table->dropColumn([
+                'revision',
                 'parent_id',
             ]);
         });
@@ -136,6 +137,7 @@ class DropMiscColumns extends Migration
         });
 
         Schema::table('sections', function (Blueprint $table) {
+            $table->integer('revision')->nullable()->after('accession');
             $table->unsignedBigInteger('parent_id')->nullable()->index()->after('updated_at');
         });
 

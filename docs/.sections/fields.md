@@ -551,7 +551,6 @@ Represents a chapter of publication. For a description of all the endpoints avai
 * `title` *string* - The name of this resource
 * `web_url` *string* - URL to the section
 * `accession` *string* - An accession number parsed from the title or tombstone
-* `revision` *number* - Version identifier as provided by Drupal
 * `source_id` *number* - Drupal node id, unique only within the site of this publication
 * `weight` *number* - Number representing this section's sort order
 * `generic_page_id` *number* - Unique identifier of the page on the website that represents the publication this section belongs to
