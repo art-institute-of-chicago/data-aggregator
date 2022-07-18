@@ -814,7 +814,6 @@ A generic page on the website For a description of all the endpoints available f
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
 * `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
@@ -837,7 +836,6 @@ A press release on the website For a description of all the endpoints available 
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
 * `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
@@ -859,7 +857,6 @@ An educator resource on the website For a description of all the endpoints avail
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
 * `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
@@ -881,7 +878,6 @@ A digital catalog on the website For a description of all the endpoints availabl
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
 * `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
@@ -925,7 +921,6 @@ A printed catalog on the website For a description of all the endpoints availabl
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
 * `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings

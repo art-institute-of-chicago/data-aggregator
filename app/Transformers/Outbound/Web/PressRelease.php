@@ -9,13 +9,6 @@ class PressRelease extends BaseTransformer
     protected function getFields()
     {
         $sharedFields = [
-            // TODO: This seems to always be null. Remove?
-            'type' => [
-                'doc' => 'The type of page this record represents',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
-
             'web_url' => [
                 'doc' => 'The URL to this page on our website',
                 'type' => 'string',
