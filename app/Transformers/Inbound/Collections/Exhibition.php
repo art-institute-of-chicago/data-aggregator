@@ -12,7 +12,6 @@ class Exhibition extends CollectionsTransformer
     {
         return [
             'status' => $datum->exhibition_status,
-            'place_id' => $datum->gallery_id,
             'date_aic_start' => $datum->date('aic_start_date'),
             'date_aic_end' => $datum->date('aic_end_date'),
         ];

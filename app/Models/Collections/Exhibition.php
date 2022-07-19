@@ -28,7 +28,7 @@ class Exhibition extends CollectionsModel
 
     public function gallery()
     {
-        return $this->belongsTo('App\Models\Collections\Gallery', 'place_id');
+        return $this->belongsTo('App\Models\Collections\Gallery', 'gallery_id');
     }
 
     public function sites()
