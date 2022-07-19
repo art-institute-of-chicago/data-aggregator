@@ -9,13 +9,6 @@ class Article extends WebTransformer
 {
     use HasBlocks;
 
-    protected function getTitle(Datum $datum)
-    {
-        return [
-            'title' => $datum->slug,
-        ];
-    }
-
     protected function getExtraFields(Datum $datum)
     {
         return array_merge($this->getBlockFields($datum), [
