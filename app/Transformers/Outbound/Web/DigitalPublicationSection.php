@@ -14,34 +14,12 @@ class DigitalPublicationSection extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-            'slug' => [
-                'doc' => 'A human-readable string used in the URL',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
-
-            'listing_description' => [
-                'doc' => 'A brief description of the section used in listings',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
             'copy' => [
                 'doc' => 'The text of the section',
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
                 ],
-            ],
-            // TODO: This seems to always be null. Remove?
-            'type' => [
-                'doc' => 'The type of section this record represents',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
-            'heading' => [
-                'doc' => 'A brief description of the section used at the top of the page',
-                'type' => 'string',
-                'elasticsearch' => 'text',
             ],
             'author_display' => [
                 'doc' => 'A display-friendly text of the authors of this section',

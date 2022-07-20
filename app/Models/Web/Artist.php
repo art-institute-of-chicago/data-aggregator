@@ -11,10 +11,6 @@ class Artist extends WebModel
 {
     public $table = 'web_artists';
 
-    protected $casts = [
-        'also_known_as' => 'boolean',
-    ];
-
     protected $with = [
         'agent',
     ];

@@ -113,9 +113,7 @@ Represents a person or organization. In the API, this includes artists. For a de
 * `sort_title` *string* - Sortable name for this agent, typically with last name first.
 * `alt_titles` *array* - Alternate names for this agent
 * `birth_date` *number* - The year this agent was born
-* `birth_place` *string* - Name of the place this agent was born
 * `death_date` *number* - The year this agent died
-* `death_place` *string* - Name of the place this agent died
 * `description` *string* - A biographical description of the agent
 * `ulan_id` *number* - Unique identifier of this agent in Getty's ULAN
 * `is_artist` *boolean* - Whether the agent is an artist. Solely based on whether the agent is listed as an artist for an artwork record.
@@ -139,7 +137,6 @@ A room or hall that works of art are displayed in. For a description of all the 
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - Type always takes one of the following values: AIC Gallery, AIC Storage, No location
 * `tgn_id` *number* - Reconciled identifier of this object in the Getty's Thesauraus of Geographic Names (TGN)
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
@@ -159,7 +156,6 @@ A room or hall that works of art are displayed in. For a description of all the 
 * `title` *string* - The name of this resource
 * `latitude` *number* - Latitude coordinate of the center of the room
 * `longitude` *number* - Longitude coordinate of the center of the room
-* `type` *string* - Type always takes one of the following values: AIC Gallery, AIC Storage, No location
 * `tgn_id` *number* - Reconciled identifier of this object in the Getty's Thesauraus of Geographic Names (TGN)
 * `is_closed` *boolean* - Whether the gallery is currently closed
 * `number` *string* - The gallery's room number. For "Gallery 100A", this would be "100A".
@@ -182,16 +178,12 @@ An organized presentation and display of a selection of artworks. For a descript
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `is_featured` *boolean* - Is this exhibition currently featured on our website?
-* `description` *string* - Explanation of what this exhibition is
 * `short_description` *string* - Brief explanation of what this exhibition is
 * `web_url` *string* - URL to this exhibition on our website
 * `image_url` *string* - URL to the hero image from the website
-* `type` *string* - The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues.
 * `status` *string* - Whether the exhibition is open or closed
 * `aic_start_at` *ISO 8601 date and time* - Date the exhibition opened at the Art Institute of Chicago
 * `aic_end_at` *ISO 8601 date and time* - Date the exhibition closed at the Art Institute of Chicago
-* `date_display` *string* - A human-friendly string describing when this exhibition was open
-* `department_display` *string* - The name of the department that primarily organized the exhibition
 * `gallery_id` *number* - Unique identifier of the gallery that mainly housed the exhibition
 * `gallery_title` *string* - The name of the gallery that mainly housed the exhibition
 * `artwork_ids` *array* - Unique identifiers of the artworks that were part of the exhibition
@@ -350,7 +342,6 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `type` *string* - Type always takes one of the following values: image, sound, text, video
-* `description` *string* - Explanation of what this asset is
 * `alt_text` *string* - Alternative text for the asset to describe it to people with low or no vision
 * `content` *string* - Text of or URL to the contents of this asset
 * `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
@@ -358,7 +349,6 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 * `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `credit_line` *string* - Asset-specific copyright information
 * `content_e_tag` *string* - Arbitrary unique identifier that changes when the binary file gets updated
-* `content_modified_at` *ISO 8601 date and time* - Date and time the associated binary file was updated
 * `iiif_url` *url* - IIIF URL of this image
 * `width` *number* - Native width of the image
 * `height` *number* - Native height of the image
@@ -370,7 +360,7 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
+* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
 * `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
@@ -386,7 +376,6 @@ A moving image representation of a collections resource, like an artwork, artist
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `type` *string* - Type always takes one of the following values: image, sound, text, video
-* `description` *string* - Explanation of what this asset is
 * `alt_text` *string* - Alternative text for the asset to describe it to people with low or no vision
 * `content` *string* - Text of or URL to the contents of this asset
 * `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
@@ -394,12 +383,11 @@ A moving image representation of a collections resource, like an artwork, artist
 * `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `credit_line` *string* - Asset-specific copyright information
 * `content_e_tag` *string* - Arbitrary unique identifier that changes when the binary file gets updated
-* `content_modified_at` *ISO 8601 date and time* - Date and time the associated binary file was updated
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
+* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
 * `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
@@ -415,7 +403,6 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `type` *string* - Type always takes one of the following values: image, sound, text, video
-* `description` *string* - Explanation of what this asset is
 * `alt_text` *string* - Alternative text for the asset to describe it to people with low or no vision
 * `content` *string* - Text of or URL to the contents of this asset
 * `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
@@ -423,12 +410,11 @@ Audio that represents a collections resource, like an artwork, artist, exhibitio
 * `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `credit_line` *string* - Asset-specific copyright information
 * `content_e_tag` *string* - Arbitrary unique identifier that changes when the binary file gets updated
-* `content_modified_at` *ISO 8601 date and time* - Date and time the associated binary file was updated
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
+* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
 * `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
@@ -444,7 +430,6 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `type` *string* - Type always takes one of the following values: image, sound, text, video
-* `description` *string* - Explanation of what this asset is
 * `alt_text` *string* - Alternative text for the asset to describe it to people with low or no vision
 * `content` *string* - Text of or URL to the contents of this asset
 * `is_multimedia_resource` *boolean* - Whether this resource is considered to be multimedia
@@ -452,12 +437,11 @@ Text that represents a collections resource, like an artwork, artist, exhibition
 * `is_teacher_resource` *boolean* - Whether this resource is considered to be educational
 * `credit_line` *string* - Asset-specific copyright information
 * `content_e_tag` *string* - Arbitrary unique identifier that changes when the binary file gets updated
-* `content_modified_at` *ISO 8601 date and time* - Date and time the associated binary file was updated
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data
+* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
 * `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
 
@@ -548,8 +532,6 @@ Represents an overall digital publication. For a description of all the endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - URL to the publication
-* `site` *string* - Which site in our multi-site Drupal installation owns this publication
-* `alias` *string* - Used by Drupal in lieu of the id to generate pretty paths
 * `section_ids` *array* - Unique identifiers of the sections of this publication
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
@@ -569,12 +551,8 @@ Represents a chapter of publication. For a description of all the endpoints avai
 * `title` *string* - The name of this resource
 * `web_url` *string* - URL to the section
 * `accession` *string* - An accession number parsed from the title or tombstone
-* `revision` *number* - Version identifier as provided by Drupal
-* `source_id` *number* - Drupal node id, unique only within the site of this publication
-* `weight` *number* - Number representing this section's sort order
 * `generic_page_id` *number* - Unique identifier of the page on the website that represents the publication this section belongs to
 * `artwork_id` *number* - Unique identifier of the artwork with which this section is associated
-* `parent_id` *number* - Uniquer identifier of the parent section
 * `publication_title` *string* - Name of the publication this section belongs to
 * `publication_id` *number* - Unique identifier of the publication this section belongs to
 * `content` *string* - Content of this section in plaintext
@@ -644,9 +622,7 @@ An enhanced exhibition on the website For a description of all the endpoints ava
 * `title` *string* - The name of this resource
 * `exhibition_id` *number* - Identifier of the CITI exhibition this website exhibition is tied to
 * `is_featured` *boolean* - Is this exhibition currently featured on our website?
-* `header_copy` *string* - The text at the top of the exhibition page
 * `list_description` *string* - Short description to be used for exhibition listings
-* `exhibition_message` *string* - Pricing or attendance information
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
@@ -695,7 +671,6 @@ An event on the website For a description of all the endpoints available for thi
 * `date_display` *string* - A readable display of the event dates
 * `door_time` *string* - The time the doors open for this event
 * `layout_type` *number* - Number indicating the type of layout this event page uses
-* `slug` *string* - A string used in the URL for this event
 * `entrance` *string* - Which entrance to use for this event
 * `join_url` *string* - URL to the membership signup page via this event
 * `survey_url` *string* - URL to the survey associated with this event
@@ -782,7 +757,6 @@ Highlights are a grouping of artworks on the website For a description of all th
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `short_copy` *string* - A brief summary of what is contained in the highlight
 * `copy` *string* - The text of the highlight description
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
@@ -800,7 +774,6 @@ Article on the website For a description of all the endpoints available for this
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `has_also_known_as` *boolean* - Whether the artist will display multiple names
 * `intro_copy` *string* - Description of the artist
 * `agent_id` *number* - Unique identifier of the CITI agent records this artist represents
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
@@ -836,10 +809,7 @@ A generic page on the website For a description of all the endpoints available f
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
-* `slug` *string* - A human-readable string used in the URL
-* `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
@@ -860,10 +830,7 @@ A press release on the website For a description of all the endpoints available 
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
-* `slug` *string* - A human-readable string used in the URL
-* `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
@@ -883,10 +850,7 @@ An educator resource on the website For a description of all the endpoints avail
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
-* `slug` *string* - A human-readable string used in the URL
-* `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
@@ -906,10 +870,7 @@ A digital catalog on the website For a description of all the endpoints availabl
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
-* `slug` *string* - A human-readable string used in the URL
-* `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
@@ -930,11 +891,8 @@ A digital catalog on the website For a description of all the endpoints availabl
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this section on our website
-* `slug` *string* - A human-readable string used in the URL
 * `listing_description` *string* - A brief description of the section used in listings
 * `copy` *string* - The text of the section
-* `type` *string* - The type of section this record represents
-* `heading` *string* - A brief description of the section used at the top of the page
 * `date` *ISO 8601 date and time* - The date the section was published
 * `author_display` *string* - A display-friendly text of the authors of this section
 * `digital_publication_id` *number* - Unique identifier of the digital publication this section belongs to
@@ -954,10 +912,7 @@ A printed catalog on the website For a description of all the endpoints availabl
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `type` *string* - The type of page this record represents
 * `web_url` *string* - The URL to this page on our website
-* `slug` *string* - A human-readable string used in the URL
-* `image_url` *string* - The URL of an image representing this page
 * `listing_description` *string* - A brief description of the page used in listings
 * `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page

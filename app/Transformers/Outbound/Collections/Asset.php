@@ -43,11 +43,6 @@ class Asset extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-            'description' => [
-                'doc' => 'Explanation of what this asset is',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
             'alt_text' => [
                 'doc' => 'Alternative text for the asset to describe it to people with low or no vision',
                 'type' => 'string',
@@ -87,12 +82,6 @@ class Asset extends BaseTransformer
                 'doc' => 'Arbitrary unique identifier that changes when the binary file gets updated',
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
-            ],
-            'content_modified_at' => [
-                'doc' => 'Date and time the associated binary file was updated',
-                'type' => 'ISO 8601 date and time',
-                'elasticsearch' => 'date',
-                'value' => $this->getDateValue('content_modified_at'),
             ],
         ];
 

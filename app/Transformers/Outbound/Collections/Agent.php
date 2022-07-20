@@ -85,20 +85,10 @@ class Agent extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
             ],
-            'birth_place' => [
-                'doc' => 'Name of the place this agent was born',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
             'death_date' => [
                 'doc' => 'The year this agent died',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
-            ],
-            'death_place' => [
-                'doc' => 'Name of the place this agent died',
-                'type' => 'string',
-                'elasticsearch' => 'text',
             ],
             'description' => [
                 'doc' => 'A biographical description of the agent',

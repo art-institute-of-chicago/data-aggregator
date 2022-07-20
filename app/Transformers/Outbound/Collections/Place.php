@@ -22,11 +22,6 @@ class Place extends BaseTransformer
                 'elasticsearch' => 'float',
                 'is_restricted' => true,
             ],
-            'type' => [
-                'doc' => 'Type always takes one of the following values: AIC Gallery, AIC Storage, No location',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
             'tgn_id' => [
                 'doc' => 'Reconciled identifier of this object in the Getty\'s Thesauraus of Geographic Names (TGN)',
                 'type' => 'number',

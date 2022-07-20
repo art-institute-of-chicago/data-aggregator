@@ -20,8 +20,6 @@ class AgentFactory extends CollectionsFactory
                 'alt_titles' => [],
                 'birth_date' => $this->faker->year,
                 'death_date' => $this->faker->year,
-                'birth_place' => $this->faker->country,
-                'death_place' => $this->faker->country,
                 'agent_type_id' => $this->faker->randomElement(AgentType::query()->pluck('id')->all()),
             ],
             $this->dates(true)

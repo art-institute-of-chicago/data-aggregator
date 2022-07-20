@@ -15,16 +15,6 @@ class Publication extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-            'site' => [
-                'doc' => 'Which site in our multi-site Drupal installation owns this publication',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
-            'alias' => [
-                'doc' => 'Used by Drupal in lieu of the id to generate pretty paths',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
 
             // TODO: Refactor relationships:
             'section_ids' => [

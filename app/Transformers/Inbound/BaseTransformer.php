@@ -246,7 +246,6 @@ class BaseTransformer extends AbstractTransformer
     {
         return [
             'source_updated_at' => $datum->date('modified_at'),
-            'source_indexed_at' => $datum->date('indexed_at'),
         ];
     }
 

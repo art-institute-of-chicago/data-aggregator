@@ -271,12 +271,6 @@ class Artwork extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
             ],
-            'collection_status' => [
-                'doc' => 'The works status of belonging to our collection. Values include "Permanent Collection", "Ryerson Collection", and "Long-term Loan".',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-                'is_restricted' => true,
-            ],
             'fiscal_year' => [
                 'doc' => 'The fiscal year in which the work was acquired.',
                 'type' => 'number',

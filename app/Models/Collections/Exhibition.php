@@ -28,7 +28,7 @@ class Exhibition extends CollectionsModel
 
     public function gallery()
     {
-        return $this->belongsTo('App\Models\Collections\Gallery', 'place_id');
+        return $this->belongsTo('App\Models\Collections\Gallery', 'gallery_id');
     }
 
     public function sites()
@@ -99,10 +99,5 @@ class Exhibition extends CollectionsModel
     public function getDateAicEndAttribute($value)
     {
         return $this->webExhibition->public_end_at ?? $this->castAttribute('date_aic_end', $value);
-    }
-
-    public function getDateDisplayAttribute()
-    {
-        return $this->webExhibition->date_display ?? null;
     }
 }

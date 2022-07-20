@@ -18,7 +18,7 @@ class Publication extends DscModel
         return $this->hasMany('App\Models\Dsc\Section');
     }
 
-    public function getGenericPageIdAttribute()
+    public function getGenericPageId()
     {
         switch ($this->id) {
             case 7:

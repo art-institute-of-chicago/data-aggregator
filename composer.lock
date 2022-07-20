@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "dd83bcf6c32d25d958c7e9a6d376c16470e23dd8"
+                "reference": "7204e46c6d42f971c07a96cb370add5b4dddb381"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/dd83bcf6c32d25d958c7e9a6d376c16470e23dd8",
-                "reference": "dd83bcf6c32d25d958c7e9a6d376c16470e23dd8",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/7204e46c6d42f971c07a96cb370add5b4dddb381",
+                "reference": "7204e46c6d42f971c07a96cb370add5b4dddb381",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +25,7 @@
                 "fruitcake/laravel-cors": "^2.0",
                 "laravel/framework": "*",
                 "league/fractal": "^0.16.0",
-                "netresearch/composer-patches-plugin": "~1.0",
+                "netresearch/composer-patches-plugin": "^1.3.1",
                 "php": "^7.3|^8.0"
             },
             "require-dev": {
@@ -50,6 +50,12 @@
                         {
                             "title": "API-45: Fix arrow functions in method_chaining_indentation",
                             "url": "vendor/aic/data-hub-foundation/patches/API-45---fix-arrow-functions-in-method-chaining-indentation.diff"
+                        }
+                    ],
+                    "doctrine/dbal": [
+                        {
+                            "title": "API-316: Support reorder of database columns",
+                            "url": "vendor/aic/data-hub-foundation/patches/API-316---support-reorder-of-database-columns.diff"
                         }
                     ]
                 }
@@ -82,7 +88,7 @@
                 "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/laravel-8-support",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2022-02-09T00:08:14+00:00"
+            "time": "2022-07-14T03:48:15+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
@@ -3330,16 +3336,16 @@
         },
         {
             "name": "netresearch/composer-patches-plugin",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/netresearch/composer-patches-plugin.git",
-                "reference": "12597c59868e8be965e6b0e257bae3dea200ea9b"
+                "reference": "3691e7d67274f8f00817e5631d93d8fae6f673f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/netresearch/composer-patches-plugin/zipball/12597c59868e8be965e6b0e257bae3dea200ea9b",
-                "reference": "12597c59868e8be965e6b0e257bae3dea200ea9b",
+                "url": "https://api.github.com/repos/netresearch/composer-patches-plugin/zipball/3691e7d67274f8f00817e5631d93d8fae6f673f0",
+                "reference": "3691e7d67274f8f00817e5631d93d8fae6f673f0",
                 "shasum": ""
             },
             "require": {
@@ -3378,9 +3384,9 @@
             ],
             "support": {
                 "issues": "https://github.com/netresearch/composer-patches-plugin/issues",
-                "source": "https://github.com/netresearch/composer-patches-plugin/tree/1.3.0"
+                "source": "https://github.com/netresearch/composer-patches-plugin/tree/1.3.1"
             },
-            "time": "2021-02-16T07:32:31+00:00"
+            "time": "2022-04-20T12:08:55+00:00"
         },
         {
             "name": "nikic/php-parser",

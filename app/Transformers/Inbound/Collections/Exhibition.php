@@ -11,13 +11,9 @@ class Exhibition extends CollectionsTransformer
     protected function getExtraFields(Datum $datum)
     {
         return [
-            'type' => $datum->exhibition_type,
             'status' => $datum->exhibition_status,
-            'place_id' => $datum->gallery_id,
-            'place_display' => $datum->gallery,
             'date_aic_start' => $datum->date('aic_start_date'),
             'date_aic_end' => $datum->date('aic_end_date'),
-            'source_indexed_at' => $datum->date('indexed_at'),
         ];
     }
 

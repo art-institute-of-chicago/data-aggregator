@@ -26,14 +26,4 @@ trait HasLakeFields
             ],
         ]);
     }
-
-    protected function getDates()
-    {
-        $dates = parent::getDates();
-
-        $dates['source_updated_at']['doc'] = 'Date and time the resource was updated in the LAKE LPM Solr index, which is our direct source of data';
-        $dates['source_updated_at']['value'] = $this->getDateValue('source_indexed_at');
-
-        return $dates;
-    }
 }

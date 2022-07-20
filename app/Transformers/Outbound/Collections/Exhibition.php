@@ -52,13 +52,6 @@ class Exhibition extends BaseTransformer
                 },
                 'is_restricted' => true,
             ],
-            'description' => [
-                'doc' => 'Explanation of what this exhibition is',
-                'type' => 'string',
-                'elasticsearch' => [
-                    'default' => true,
-                ],
-            ],
             'short_description' => [
                 'doc' => 'Brief explanation of what this exhibition is',
                 'type' => 'string',
@@ -83,11 +76,6 @@ class Exhibition extends BaseTransformer
                     return $item->webExhibition->image_url ?? null;
                 },
             ],
-            'type' => [
-                'doc' => 'The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues.',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
             'status' => [
                 'doc' => 'Whether the exhibition is open or closed',
                 'type' => 'string',
@@ -103,19 +91,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'ISO 8601 date and time',
                 'value' => $this->getDateValue('date_aic_end'),
             ],
-            'date_display' => [
-                'doc' => 'A human-friendly string describing when this exhibition was open',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
-            'department_display' => [
-                'doc' => 'The name of the department that primarily organized the exhibition',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
 
-            // TODO: Rename gallery_title to gallery_display, to accurately reflect that it's a free form display
-            //       representation of the galleries an exhibition took place in.
             'gallery_id' => [
                 'doc' => 'Unique identifier of the gallery that mainly housed the exhibition',
                 'type' => 'number',
@@ -129,7 +105,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
                 'value' => function ($item) {
-                    return $item->place_display;
+                    return $item->gallery->title ?? null;
                 },
             ],
 

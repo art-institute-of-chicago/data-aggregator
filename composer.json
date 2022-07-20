@@ -94,7 +94,7 @@
         ],
         "foundation": [
             "php vendor/aic/data-hub-foundation/composer-dev.php",
-            "COMPOSER=composer-dev.json composer update aic/data-hub-foundation"
+            "COMPOSER=composer-dev.json composer update aic/data-hub-foundation --ignore-platform-reqs"
         ]
     },
     "extra": {

@@ -26,27 +26,12 @@ class Section extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
-            'revision' => [
-                'doc' => 'Version identifier as provided by Drupal',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-            ],
-            'source_id' => [
-                'doc' => 'Drupal node id, unique only within the site of this publication',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-            ],
-            'weight' => [
-                'doc' => 'Number representing this section\'s sort order',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-            ],
             'generic_page_id' => [
                 'doc' => 'Unique identifier of the page on the website that represents the publication this section belongs to',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->publication->generic_page_id ?? null;
+                    return $item->publication->getGenericPageId() ?? null;
                 },
             ],
             'artwork_id' => [
@@ -59,14 +44,6 @@ class Section extends BaseTransformer
             ],
 
             // TODO: Refactor relationships:
-            'parent_id' => [
-                'doc' => 'Uniquer identifier of the parent section',
-                'type' => 'number',
-                'elasticsearch' => 'long',
-                'value' => function ($item) {
-                    return $item->parent->id ?? null;
-                },
-            ],
             'publication_title' => [
                 'doc' => 'Name of the publication this section belongs to',
                 'type' => 'string',
