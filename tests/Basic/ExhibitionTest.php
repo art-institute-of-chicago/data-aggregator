@@ -3,7 +3,7 @@
 namespace Tests\Basic;
 
 use App\Models\Collections\Exhibition;
-use App\Models\Collections\Place;
+use App\Models\Collections\Gallery;
 use App\Models\Collections\Agent;
 
 class ExhibitionTest extends BasicTestCase
@@ -14,7 +14,7 @@ class ExhibitionTest extends BasicTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->make(Place::class, ['type' => 'AIC Gallery']);
+        $this->make(Gallery::class);
         $this->times(5)->make(Agent::class);
     }
 }
