@@ -8,7 +8,6 @@ use App\Models\Web\Event;
 use App\Models\Web\EventOccurrence;
 use App\Models\Web\EventProgram;
 use App\Models\Web\Exhibition;
-use App\Models\Web\Experience;
 use App\Models\Web\InteractiveFeature;
 use App\Models\Web\Highlight;
 use App\Models\Web\Issue;
@@ -66,7 +65,6 @@ class ImportWebFull extends AbstractImportCommand
             EventOccurrence::class => 'event_occurrences',
             EventProgram::class => 'event_programs',
             Exhibition::class => 'web_exhibitions',
-            Experience::class => 'experiences',
             InteractiveFeature::class => 'interactive_features',
             Highlight::class => 'highlights',
             GenericPage::class => 'generic_pages',
@@ -97,7 +95,6 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('event-occurrences');
         $this->importFromWeb('event-programs');
         $this->importFromWeb('exhibitions');
-        $this->importFromWeb('experiences');
         $this->importFromWeb('interactive-features');
         $this->importFromWeb('highlights');
 

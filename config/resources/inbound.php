@@ -179,10 +179,6 @@ return [
             'model' => \App\Models\Web\Exhibition::class,
             'transformer' => \App\Transformers\Inbound\Web\Exhibition::class,
         ],
-        'experiences' => [
-            'model' => \App\Models\Web\Experience::class,
-            'transformer' => \App\Transformers\Inbound\Web\Experience::class,
-        ],
         'interactive-features' => [
             'model' => \App\Models\Web\InteractiveFeature::class,
             'transformer' => \App\Transformers\Inbound\Web\InteractiveFeature::class,
