@@ -294,13 +294,6 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'interactive-features',
-            'model' => \App\Models\Web\InteractiveFeature::class,
-            'transformer' => \App\Transformers\Outbound\Web\InteractiveFeature::class,
-            'is_searchable' => true,
-            'is_restricted' => true,
-        ],
-        [
             'endpoint' => 'articles',
             'model' => \App\Models\Web\Article::class,
             'transformer' => \App\Transformers\Outbound\Web\Article::class,
