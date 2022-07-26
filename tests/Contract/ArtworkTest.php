@@ -129,7 +129,6 @@ class ArtworkTest extends ContractTestCase
             [
                 'dates',
                 'artist_pivots',
-                'catalogue_pivots',
                 'place_pivots',
             ]
         );

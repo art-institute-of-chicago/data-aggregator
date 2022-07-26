@@ -34,8 +34,6 @@ class Artwork extends CollectionsModel
         'dates',
         'terms',
         'termPivots',
-        'artworkCatalogues',
-        // 'catalogues', // unused!
         'gallery',
         'images',
         'imagePivots', // improves, but why?
@@ -244,20 +242,6 @@ class Artwork extends CollectionsModel
     public function getAltTechniquesAttribute()
     {
         return $this->alts('term', CategoryTerm::TECHNIQUE, 'subtype');
-    }
-
-    // TODO: rename this to cataloguePivots
-    public function artworkCatalogues()
-    {
-        return $this->hasMany('App\Models\Collections\ArtworkCatalogue');
-    }
-
-    // TODO: Unused. Delete?
-    public function catalogues()
-    {
-        return $this->belongsToMany('App\Models\Collections\Catalogue', 'artwork_catalogue')
-            ->using('App\Models\Collections\ArtworkCatalogue')
-            ->withPivot('is_preferred');
     }
 
     public function gallery()

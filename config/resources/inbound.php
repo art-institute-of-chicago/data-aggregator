@@ -27,10 +27,6 @@ return [
             'model' => \App\Models\Collections\AgentType::class,
             'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
         ],
-        'catalogues' => [
-            'model' => \App\Models\Collections\Catalogue::class,
-            'transformer' => \App\Transformers\Inbound\Collections\BaseList::class,
-        ],
         'categories' => [
             'model' => \App\Models\Collections\Category::class,
             'transformer' => \App\Transformers\Inbound\Collections\Category::class,

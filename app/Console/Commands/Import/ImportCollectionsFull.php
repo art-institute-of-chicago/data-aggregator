@@ -38,7 +38,6 @@ class ImportCollectionsFull extends AbstractImportCommand
         $this->importEndpoint('artwork-place-qualifiers');
         $this->importEndpoint('object-types');
         $this->importEndpoint('agent-types');
-        $this->importEndpoint('catalogues');
         $this->importEndpoint('categories');
         $this->importEndpoint('terms');
 

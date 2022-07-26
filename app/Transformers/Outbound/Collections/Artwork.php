@@ -5,7 +5,6 @@ namespace App\Transformers\Outbound\Collections;
 use App\Models\Collections\Asset;
 
 use App\Transformers\Outbound\Collections\ArtworkArtistPivot as ArtworkArtistPivotTransformer;
-use App\Transformers\Outbound\Collections\ArtworkCatalogue as ArtworkCatalogueTransformer;
 use App\Transformers\Outbound\Collections\ArtworkDate as ArtworkDateTransformer;
 use App\Transformers\Outbound\Collections\ArtworkPlacePivot as ArtworkPlacePivotTransformer;
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
@@ -28,7 +27,6 @@ class Artwork extends BaseTransformer
 
     protected $availableIncludes = [
         'artist_pivots',
-        'catalogue_pivots',
         'dates',
         'place_pivots',
         'sites',
@@ -37,11 +35,6 @@ class Artwork extends BaseTransformer
     public function includeArtistPivots($artwork)
     {
         return $this->collection($artwork->artistPivots, new ArtworkArtistPivotTransformer(), false);
-    }
-
-    public function includeCataloguePivots($artwork)
-    {
-        return $this->collection($artwork->artworkCatalogues, new ArtworkCatalogueTransformer(), false);
     }
 
     public function includeDates($artwork)
@@ -238,6 +231,11 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                 ],
+            ],
+            'catalogue_display' => [
+                'doc' => 'Brief text listing all the catalogues raisonnés which include this work. This isn\'t an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.',
+                'type' => 'string',
+                'elasticsearch' => 'text',
             ],
             'publication_history' => [
                 'doc' => 'Bibliographic list of all the places this work has been published',
@@ -522,14 +520,6 @@ class Artwork extends BaseTransformer
                 ],
                 'value' => function ($item) {
                     return $item->categories->pluck('title');
-                },
-            ],
-            'artwork_catalogue_ids' => [
-                'doc' => 'This list represents all the catalogues this work is included in. This isn\'t an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.',
-                'type' => 'array',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->artworkCatalogues->pluck('id');
                 },
             ],
             'term_titles' => [

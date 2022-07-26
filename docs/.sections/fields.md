@@ -60,7 +60,6 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `artist_titles` *array* - Names of all artist/cultures associated with this work
 * `category_ids` *array* - Unique identifiers of the categories this work is a part of
 * `category_titles` *array* - Names of the categories this artwork is a part of
-* `artwork_catalogue_ids` *array* - This list represents all the catalogues this work is included in. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.
 * `term_titles` *array* - The names of the taxonomy tags for this work
 * `style_id` *string* - Unique identifier of the preferred style term for this work
 * `style_title` *string* - The name of the preferred style term for this work
@@ -268,22 +267,6 @@ A qualifier for the relationship a place may have to an artwork. For a descripti
 #### Artwork Date Qualifiers
 
 A kind of date on at artwork, e.g., Made, Reconstructed, Published, etc. For a description of all the endpoints available for this resource, see [here](#artwork-date-qualifiers).
-
-* `id` *integer* - Unique identifier of this resource. Taken from the source system.
-* `api_model` *string* - REST API resource type or endpoint
-* `api_link` *string* - REST API link for this resource
-* `title` *string* - The name of this resource
-* `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
-* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
-* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
-
-#### Catalogues
-
-Represents a catalogue raisonne. A catalogue raisonné is a comprehensive, annotated listing of all the known artworks by an artist. For a description of all the endpoints available for this resource, see [here](#catalogues).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint

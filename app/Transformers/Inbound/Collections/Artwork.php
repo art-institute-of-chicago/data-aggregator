@@ -55,7 +55,6 @@ class Artwork extends CollectionsTransformer
 
             'artists' => $this->getSyncArtists($datum),
             'places' => $this->getSyncPlaces($datum),
-            'catalogues' => $this->getSyncCatalogues($datum),
 
             'assets' => $this->getSyncAssets($datum),
         ];
@@ -171,22 +170,6 @@ class Artwork extends CollectionsTransformer
             return [
                 $pivot->place_id => [
                     'artwork_place_qualifier_id' => $pivot->place_qualifier_id,
-                    'is_preferred' => $pivot->is_preferred,
-                ],
-            ];
-        });
-    }
-
-    /**
-     * Attach catalogue raisonnes within which this artwork was published.
-     */
-    private function getSyncCatalogues(Datum $datum)
-    {
-        return $this->getSyncPivots($datum, 'artwork_catalogues', 'catalogue_id', function ($pivot) {
-            return [
-                $pivot->catalogue_id => [
-                    'number' => $pivot->number,
-                    'state_edition' => $pivot->state_edition,
                     'is_preferred' => $pivot->is_preferred,
                 ],
             ];

@@ -18,7 +18,6 @@ A list of all artworks sorted by last updated date in descending order. For a de
 * `fields` - A comma-separated list of fields to return per resource
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `artist_pivots`
-  * `catalogue_pivots`
   * `dates`
   * `place_pivots`
   * `sites`
@@ -1331,100 +1330,6 @@ A single artwork-date-qualifier by the given identifier. {id} is the identifier 
         "title": "Cast",
         "source_updated_at": "2019-05-08T21:59:23-05:00",
         "updated_at": "2019-05-09T17:01:07-05:00",
-        ...
-    },
-    "info": {
-        "license_text": "The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
-        "license_links": [
-            "https://creativecommons.org/publicdomain/zero/1.0/",
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.4"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "https://www.artic.edu"
-    }
-}
-```
-:::
-
-#### Catalogues
-
-_The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
-
-##### `GET /catalogues`
-
-A list of all catalogues sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](#catalogues-2).
-
-###### Available parameters:
-
-* `ids` - A comma-separated list of resource ids to retrieve
-* `limit` - The number of resources to return per page
-* `page` - The page of resources to retrieve
-* `fields` - A comma-separated list of fields to return per resource
-
-::: details Example request: https://api.artic.edu/api/v1/catalogues?limit=2  
-```js
-{
-    "pagination": {
-        "total": 1103,
-        "limit": 2,
-        "offset": 0,
-        "total_pages": 552,
-        "current_page": 1,
-        "next_url": "https://api.artic.edu/api/v1/catalogues?page=2&limit=2"
-    },
-    "data": [
-        {
-            "id": 538,
-            "api_model": "catalogues",
-            "api_link": "https://api.artic.edu/api/v1/catalogues/538",
-            "title": "Edition",
-            "source_updated_at": "2021-09-20T14:24:35-05:00",
-            "updated_at": "2021-09-20T14:25:20-05:00",
-            ...
-        },
-        {
-            "id": 537,
-            "api_model": "catalogues",
-            "api_link": "https://api.artic.edu/api/v1/catalogues/537",
-            "title": "Walch",
-            "source_updated_at": "2020-11-17T13:20:47-06:00",
-            "updated_at": "2020-11-17T13:25:42-06:00",
-            ...
-        }
-    ],
-    "info": {
-        "license_text": "The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
-        "license_links": [
-            "https://creativecommons.org/publicdomain/zero/1.0/",
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.4"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "https://www.artic.edu"
-    }
-}
-```
-:::
-
-##### `GET /catalogues/{id}`
-
-A single catalogue by the given identifier. {id} is the identifier from our collections management system.
-
-::: details Example request: https://api.artic.edu/api/v1/catalogues/-2147483646  
-```js
-{
-    "data": {
-        "id": -2147483646,
-        "api_model": "catalogues",
-        "api_link": "https://api.artic.edu/api/v1/catalogues/-2147483646",
-        "title": "Bliss",
-        "source_updated_at": "2019-05-08T18:18:14-05:00",
-        "updated_at": "2019-05-09T17:01:08-05:00",
         ...
     },
     "info": {
