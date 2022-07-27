@@ -65,11 +65,6 @@ return [
             'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
         [
-            'endpoint' => 'agent-place-qualifiers',
-            'model' => \App\Models\Collections\AgentPlaceQualifier::class,
-            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
-        ],
-        [
             'endpoint' => 'artwork-place-qualifiers',
             'model' => \App\Models\Collections\ArtworkPlaceQualifier::class,
             'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,

@@ -41,18 +41,6 @@ class Agent extends CollectionsModel
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->pluck('artwork_id');
     }
 
-    public function placePivots()
-    {
-        return $this->hasMany('App\Models\Collections\AgentPlacePivot');
-    }
-
-    public function places()
-    {
-        return $this->belongsToMany('App\Models\Collections\Place')
-            ->using('App\Models\Collections\ArtworkPlacePivot')
-            ->withPivot('is_preferred');
-    }
-
     /**
      * Scope a query to only include agents that created an artwork.
      *
