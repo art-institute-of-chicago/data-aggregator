@@ -484,19 +484,6 @@ class Artwork extends CollectionsModel
     }
 
     /**
-     * Get the models representing our essential artworks from the database.
-     *
-     * Artworks from three different catalogues: Paintings at the Art Institute of Chicago: Highlights of the Collection,
-     * The Essential Guide, and Master Paintings in the Art Institute of Chicago.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public static function boosted()
-    {
-        return (new static())->newQuery()->whereKey(static::boostedIds());
-    }
-
-    /**
      * Apply score adjustments to the entire query using `function_score`.
      *
      * @return array
