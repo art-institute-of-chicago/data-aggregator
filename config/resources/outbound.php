@@ -292,12 +292,6 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'web-artists',
-            'model' => \App\Models\Web\Artist::class,
-            'transformer' => \App\Transformers\Outbound\Web\Artist::class,
-            'is_searchable' => true,
-        ],
-        [
             'endpoint' => 'static-pages',
             'model' => \App\Models\Web\StaticPage::class,
             'transformer' => \App\Transformers\Outbound\Web\StaticPage::class,
