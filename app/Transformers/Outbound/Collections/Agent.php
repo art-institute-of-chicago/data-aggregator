@@ -122,14 +122,6 @@ class Agent extends BaseTransformer
                     return $item->agentType->id ?? null;
                 },
             ],
-            'artwork_ids' => [
-                'doc' => 'Unique identifiers of the works this artist created.',
-                'type' => 'array',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->createdArtworkIds();
-                },
-            ],
         ];
     }
 

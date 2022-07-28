@@ -35,11 +35,6 @@ class Agent extends CollectionsModel
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->artworks();
     }
 
-    public function createdArtworkIds()
-    {
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->pluck('artwork_id');
-    }
-
     /**
      * Scope a query to only include agents that created an artwork.
      *
@@ -59,8 +54,8 @@ class Agent extends CollectionsModel
     public static function searchScopeArtists()
     {
         return [
-            'exists' => [
-                'field' => 'artwork_ids',
+            'term' => [
+                'is_artist' => true,
             ],
         ];
     }
