@@ -203,14 +203,6 @@ return [
             'model' => \App\Models\Web\DigitalPublicationSection::class,
             'transformer' => \App\Transformers\Inbound\Web\DigitalPublicationSection::class,
         ],
-        'issues' => [
-            'model' => \App\Models\Web\Issue::class,
-            'transformer' => \App\Transformers\Inbound\Web\Issue::class,
-        ],
-        'issue-articles' => [
-            'model' => \App\Models\Web\IssueArticle::class,
-            'transformer' => \App\Transformers\Inbound\Web\IssueArticle::class,
-        ],
     ],
 
 ];

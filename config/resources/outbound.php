@@ -327,18 +327,6 @@ return [
             'transformer' => \App\Transformers\Outbound\Web\Page::class,
             'is_searchable' => true,
         ],
-        [
-            'endpoint' => 'issues',
-            'model' => \App\Models\Web\Issue::class,
-            'transformer' => \App\Transformers\Outbound\Web\Issue::class,
-            'is_searchable' => true,
-        ],
-        [
-            'endpoint' => 'issue-articles',
-            'model' => \App\Models\Web\IssueArticle::class,
-            'transformer' => \App\Transformers\Outbound\Web\IssueArticle::class,
-            'is_searchable' => true,
-        ],
 
         /**
          * Not meant to be used alone, only here for debugging:
