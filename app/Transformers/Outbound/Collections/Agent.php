@@ -98,6 +98,7 @@ class Agent extends BaseTransformer
                         'type' => 'text',
                     ],
                 ],
+                // API-94: Eager-load `webArtist` for this one!
                 'value' => function ($item) {
                     return $item->webArtist->intro_copy ?? null;
                 },

@@ -16,6 +16,11 @@ class Agent extends CollectionsModel
         'alt_titles' => 'array',
     ];
 
+    protected $with = [
+        // API-94: Passthrough `intro_text` into `description`
+        'webArtist',
+    ];
+
     protected $withCount = [
         'createdArtworks',
     ];
