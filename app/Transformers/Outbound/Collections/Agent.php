@@ -70,6 +70,15 @@ class Agent extends BaseTransformer
     protected function getFields()
     {
         return [
+            'is_artist' => [
+                'doc' => 'Whether the agent is an artist. Solely based on whether the agent is related to an artwork record.',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+                // API-94: Allow dev to specify what `withCount` is needed for each field!
+                'value' => function ($item) {
+                    return $item->created_artworks_count > 0;
+                },
+            ],
             'birth_date' => [
                 'doc' => 'The year this agent was born',
                 'type' => 'number',
@@ -101,14 +110,6 @@ class Agent extends BaseTransformer
                     return $item->ulan_certainty > 3 ? $item->ulan_id : null;
                 },
             ],
-            'is_artist' => [
-                'doc' => 'Whether the agent is an artist. Solely based on whether the agent is listed as an artist for an artwork record.',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->createdArtworks()->count() > 0;
-                },
-            ],
 
             // TODO: Refactor relationships:
             'agent_type_title' => [
@@ -133,6 +134,8 @@ class Agent extends BaseTransformer
     /**
      * Agents are a special case, wherein multiple names are common.
      *
+     * @todo API-94: Add `withCount` for `createdArtworks` here
+     *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-suggesters.html
      * @link https://www.elastic.co/blog/you-complete-me (obsolete)
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.0/breaking_50_suggester.html
@@ -144,7 +147,7 @@ class Agent extends BaseTransformer
         $suggestFields = $this->traitGetSuggestFields();
 
         $newFilter = function ($item) {
-            return $item->createdArtworks()->count() > 0;
+            return $item->created_artworks_count > 0;
         };
 
         foreach (['suggest_autocomplete_all', 'suggest_autocomplete_boosted'] as $fieldName) {

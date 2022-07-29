@@ -16,6 +16,10 @@ class Agent extends CollectionsModel
         'alt_titles' => 'array',
     ];
 
+    protected $withCount = [
+        'createdArtworks',
+    ];
+
     protected $touches = [
         'createdArtworks',
     ];
