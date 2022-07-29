@@ -16,12 +16,21 @@ class CleanWebArtists extends Migration
             $table->renameColumn('datahub_id', 'agent_id');
             $table->index('agent_id');
         });
+
+        Schema::table('web_artists', function (Blueprint $table) {
+            $table->integer('agent_id')->after('id')->change();
+        });
     }
 
     public function down()
     {
         Schema::table('web_artists', function (Blueprint $table) {
+            // API-337: Not nullable as an oversight!
             $table->text('title')->after('id');
+        });
+
+        Schema::table('web_artists', function (Blueprint $table) {
+            $table->integer('agent_id')->after('intro_copy')->change();
         });
 
         Schema::table('web_artists', function (Blueprint $table) {
