@@ -83,7 +83,12 @@ class Agent extends BaseTransformer
             'description' => [
                 'doc' => 'A biographical description of the agent',
                 'type' => 'string',
-                'elasticsearch' => 'text',
+                'elasticsearch' => [
+                    'default' => true,
+                    'mapping' => [
+                        'type' => 'text',
+                    ],
+                ],
                 'value' => function ($item) {
                     return $item->webArtist->intro_copy ?? null;
                 },
