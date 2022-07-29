@@ -11,10 +11,6 @@ class Artist extends WebModel
 {
     public $table = 'web_artists';
 
-    protected $with = [
-        'agent',
-    ];
-
     protected $touches = [
         'agent',
     ];
