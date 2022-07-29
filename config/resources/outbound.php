@@ -345,6 +345,16 @@ return [
             'transformer' => \App\Transformers\Outbound\Web\IssueArticle::class,
             'is_searchable' => true,
         ],
-    ],
 
+        /**
+         * Not meant to be used alone, only here for debugging:
+         */
+        [
+            'endpoint' => 'web-artists',
+            'model' => \App\Models\Web\Artist::class,
+            'transformer' => \App\Transformers\Outbound\Web\Artist::class,
+            'is_searchable' => true,
+            'is_restricted' => true,
+        ],
+    ],
 ];
