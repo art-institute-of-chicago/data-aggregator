@@ -256,12 +256,6 @@ return [
          * Website:
          */
         [
-            'endpoint' => 'web-exhibitions',
-            'model' => \App\Models\Web\Exhibition::class,
-            'transformer' => \App\Transformers\Outbound\Web\Exhibition::class,
-            'is_searchable' => true,
-        ],
-        [
             'endpoint' => 'events',
             'model' => \App\Models\Web\Event::class,
             'transformer' => \App\Transformers\Outbound\Web\Event::class,
@@ -353,6 +347,13 @@ return [
             'endpoint' => 'web-artists',
             'model' => \App\Models\Web\Artist::class,
             'transformer' => \App\Transformers\Outbound\Web\Artist::class,
+            'is_searchable' => true,
+            'is_restricted' => true,
+        ],
+        [
+            'endpoint' => 'web-exhibitions',
+            'model' => \App\Models\Web\Exhibition::class,
+            'transformer' => \App\Transformers\Outbound\Web\Exhibition::class,
             'is_searchable' => true,
             'is_restricted' => true,
         ],
