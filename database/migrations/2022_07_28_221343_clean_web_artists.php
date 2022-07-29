@@ -9,6 +9,10 @@ class CleanWebArtists extends Migration
     public function up()
     {
         Schema::table('web_artists', function (Blueprint $table) {
+            $table->dropColumn('title');
+        });
+
+        Schema::table('web_artists', function (Blueprint $table) {
             $table->renameColumn('datahub_id', 'agent_id');
             $table->index('agent_id');
         });
@@ -16,6 +20,10 @@ class CleanWebArtists extends Migration
 
     public function down()
     {
+        Schema::table('web_artists', function (Blueprint $table) {
+            $table->text('title')->after('id');
+        });
+
         Schema::table('web_artists', function (Blueprint $table) {
             $table->dropIndex(['agent_id']);
             $table->renameColumn('agent_id', 'datahub_id');

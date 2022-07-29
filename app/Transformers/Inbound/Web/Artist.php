@@ -7,12 +7,9 @@ use App\Transformers\Inbound\WebTransformer;
 
 class Artist extends WebTransformer
 {
-
     protected function getTitle(Datum $datum)
     {
-        return [
-            'title' => $datum->datahub_id,
-        ];
+        return [];
     }
 
     protected function getExtraFields(Datum $datum)
