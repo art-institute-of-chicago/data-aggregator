@@ -47,7 +47,8 @@ class Agent extends CollectionsModel
      */
     public function scopeArtists($query)
     {
-        return $query->whereHas('createdArtworks');
+        // API-341: Force `SELECT count(*)` in subquery for speed
+        return $query->whereHas('createdArtworks', null, '>', 0);
     }
 
     /**
