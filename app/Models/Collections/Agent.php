@@ -10,11 +10,20 @@ use App\Models\ElasticSearchable;
  */
 class Agent extends CollectionsModel
 {
-
     use ElasticSearchable;
 
     protected $casts = [
         'alt_titles' => 'array',
+    ];
+
+    protected $with = [
+        // API-94: Passthrough `intro_text` into `description`
+        'webArtist',
+    ];
+
+    protected $withCount = [
+        // API-94, API-341: Speeds up `description` and filters in suggest fields
+        'createdArtworks',
     ];
 
     protected $touches = [
@@ -28,17 +37,12 @@ class Agent extends CollectionsModel
 
     public function webArtist()
     {
-        return $this->belongsTo('App\Models\Web\Artist', 'id', 'datahub_id');
+        return $this->hasOne('App\Models\Web\Artist');
     }
 
     public function createdArtworks()
     {
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->artworks();
-    }
-
-    public function createdArtworkIds()
-    {
-        return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->pluck('artwork_id');
     }
 
     /**
@@ -49,7 +53,8 @@ class Agent extends CollectionsModel
      */
     public function scopeArtists($query)
     {
-        return $query->whereHas('createdArtworks');
+        // API-341: Force `SELECT count(*)` in subquery for speed
+        return $query->whereHas('createdArtworks', null, '>', 0);
     }
 
     /**
@@ -60,21 +65,34 @@ class Agent extends CollectionsModel
     public static function searchScopeArtists()
     {
         return [
-            'exists' => [
-                'field' => 'artwork_ids',
+            'term' => [
+                'is_artist' => true,
             ],
         ];
     }
 
     /**
+     * API-341: Needed for the mobile app. Our mobile app frontends query `api/v1/autocomplete`,
+     * which uses the `suggest_autocomplete_boosted` field. Per the `filter` on that field in
+     * `HasSuggestFields`, only boosted items will have that field. If we remove this method,
+     * then we'd eventually have zero agents in `api/v1/autocomplete`.
+     *
+     * @link https://api.artic.edu/api/v1/autocomplete?q=monet&resources=artists
+     */
+    public function isBoosted()
+    {
+        return in_array($this->getKey(), static::boostedIds());
+    }
+
+    /**
      * Get the IDs representing our essential artists from the database.
      *
-     * These are artists that are included the Artwork::boostedIds list, along with the top
-     * 100 viewed artists on our website in 2017.
+     * These are artists that are included the Artwork::boostedIds list,
+     * along with the top 100 viewed artists on our website in 2017.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function boostedIds()
+    private static function boostedIds()
     {
         return [
             100304, 100363, 100581, 101310, 102174, 102445, 103575, 104036, 104141, 104542,
@@ -106,10 +124,5 @@ class Agent extends CollectionsModel
             57829, 58479, 59979, 60337, 61495, 61535, 61657, 6512, 6656, 69431, 7268, 7353, 73847,
             77459, 81537, 81689, 8363, 8364, 86099, 91529, 9865,
         ];
-    }
-
-    public function isBoosted()
-    {
-        return in_array($this->getKey(), static::boostedIds());
     }
 }
