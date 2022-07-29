@@ -133,6 +133,7 @@ class Agent extends BaseTransformer
             return $item->created_artworks_count > 0;
         };
 
+        // Exclude any agents that are not related to artworks from autocomplete
         foreach (['suggest_autocomplete_all', 'suggest_autocomplete_boosted'] as $fieldName) {
             $oldFilter = $suggestFields[$fieldName]['filter'];
             $suggestFields[$fieldName]['filter'] = function ($item) use ($oldFilter, $newFilter) {

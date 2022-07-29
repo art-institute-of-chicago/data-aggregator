@@ -22,6 +22,7 @@ class Agent extends CollectionsModel
     ];
 
     protected $withCount = [
+        // API-94, API-341: Speeds up `description` and filters in suggest fields
         'createdArtworks',
     ];
 
