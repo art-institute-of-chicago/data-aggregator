@@ -7,7 +7,9 @@ use App\Transformers\Inbound\WebTransformer;
 
 class Article extends WebTransformer
 {
-    use HasBlocks;
+    use HasBlocks {
+        getExtraFields as getBlockFields;
+    }
 
     protected function getExtraFields(Datum $datum)
     {
