@@ -37,7 +37,7 @@ class Agent extends CollectionsModel
 
     public function webArtist()
     {
-        return $this->hasOne('App\Models\Web\Artist', 'datahub_id');
+        return $this->hasOne('App\Models\Web\Artist');
     }
 
     public function createdArtworks()

@@ -17,6 +17,6 @@ class Artist extends WebModel
 
     public function agent()
     {
-        return $this->belongsTo('App\Models\Collections\Agent', 'datahub_id');
+        return $this->belongsTo('App\Models\Collections\Agent');
     }
 }

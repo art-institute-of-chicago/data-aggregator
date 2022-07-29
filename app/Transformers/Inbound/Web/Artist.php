@@ -18,6 +18,7 @@ class Artist extends WebTransformer
     protected function getExtraFields(Datum $datum)
     {
         return [
+            'agent_id' => $datum->datahub_id,
             'intro_copy' => $datum->intro,
         ];
     }
