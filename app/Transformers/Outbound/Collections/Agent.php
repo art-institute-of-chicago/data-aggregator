@@ -110,24 +110,6 @@ class Agent extends BaseTransformer
                     return $item->ulan_certainty > 3 ? $item->ulan_id : null;
                 },
             ],
-
-            // TODO: Refactor relationships:
-            'agent_type_title' => [
-                'doc' => 'Name of the type of agent, e.g. individual, fund, school, organization, etc.',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-                'value' => function ($item) {
-                    return $item->agentType->title ?? null;
-                },
-            ],
-            'agent_type_id' => [
-                'doc' => 'Unique identifier of the type of agent, e.g. individual, fund, school, organization, etc.',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->agentType->id ?? null;
-                },
-            ],
         ];
     }
 
