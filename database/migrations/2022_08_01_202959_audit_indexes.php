@@ -70,11 +70,14 @@ class AuditIndexes extends Migration
         // to artworks. However, I think CITI handles that logic for us.
         // Anyway, I'll keep `gallery_id` in `exhibitions` for now.
 
+        // ...index did not get renamed along with table?
         Schema::table('highlights', function (Blueprint $table) {
             $prefix = DB::connection()->getTablePrefix();
+            $index = $prefix . 'selections_updated_at_index';
 
-            // ...index did not get renamed along with table?
-            $table->dropIndex($prefix . 'selections_updated_at_index');
+            if ($table->getDoctrineTable()->hasIndex($index)) {
+                $table->dropIndex();
+            }
         });
 
         Schema::table('sections', function (Blueprint $table) {
