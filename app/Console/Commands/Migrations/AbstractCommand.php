@@ -4,6 +4,7 @@ namespace App\Console\Commands\Migrations;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Schema\Blueprint;
 use App\Library\Migrations\MigrationCreator;
 
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
@@ -11,6 +12,8 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 abstract class AbstractCommand extends BaseCommand
 {
     private $doctrineTableCache = [];
+
+    private $blueprintCache = [];
 
     protected $creator;
 
@@ -59,6 +62,15 @@ abstract class AbstractCommand extends BaseCommand
     protected function getDoctrineTable($tableName)
     {
         return $this->doctrineTableCache[$tableName] ??= $this->manager->listTableDetails($this->prefix . $tableName);
+    }
+
+    /**
+     * Adapted from Illuminate\Database\Schema\Builder::createBlueprint()
+     * Allows us to use e.g. our `hasIndex` macro defined in BluePrintServiceProvider
+     */
+    protected function getBlueprint($tableName)
+    {
+        return $this->blueprintCache[$tableName] ??= new Blueprint($tableName, null, $this->prefix);
     }
 
     protected function getMigrationPath()
