@@ -21,7 +21,7 @@ class RenameColumns extends AbstractCommand
 
         $name = sprintf('rename_%s_to_%s', $oldNeedle, $newNeedle);
 
-        $this->creator->setStub('migration.rename-ids.stub');
+        $this->creator->setStub('migration.rename-columns.stub');
         $this->creator->setPopulator(function ($stub) use ($columns, $indexes) {
             $stub = str_replace('{{ columns }}', $this->prepareArray($columns), $stub);
             $stub = str_replace('{{ indexes }}', $this->prepareArray($indexes), $stub);
