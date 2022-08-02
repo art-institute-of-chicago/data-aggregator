@@ -76,7 +76,7 @@ class AuditIndexes extends Migration
             $index = $prefix . 'selections_updated_at_index';
 
             if ($table->getDoctrineTable()->hasIndex($index)) {
-                $table->dropIndex();
+                $table->dropIndex($prefix . 'selections_updated_at_index');
             }
         });
 
