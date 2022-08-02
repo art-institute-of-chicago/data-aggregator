@@ -150,8 +150,8 @@ class Artwork extends CollectionsTransformer
         return $this->getSyncPivots($datum, 'artwork_agents', 'agent_id', function ($pivot) {
             return [
                 $pivot->agent_id => [
-                    'agent_role_id' => $pivot->role_id,
-                    'is_preferred' => $pivot->is_preferred,
+                    'agent_role_id' => $pivot->role_id ?? 219,
+                    'is_preferred' => $pivot->is_preferred ?? true,
                 ],
             ];
         });
@@ -203,7 +203,7 @@ class Artwork extends CollectionsTransformer
                 'artwork_id' => $datum->id,
                 'date_earliest' => Carbon::parse($date->date_earliest),
                 'date_latest' => Carbon::parse($date->date_latest),
-                'is_preferred' => $date->is_preferred,
+                'is_preferred' => $date->is_preferred ?? false,
                 'artwork_date_qualifier_id' => $date->date_qualifier_id,
             ]);
         }
