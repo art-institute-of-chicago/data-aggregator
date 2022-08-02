@@ -52,9 +52,8 @@ class RenameColumns extends AbstractCommand
 
     private function getMapping($oldNeedle, $newNeedle, $tableCallback)
     {
-        return collect(
-                $this->getTables()
-            )
+        return $this
+            ->getTables()
             ->map(function ($tableName) use ($oldNeedle, $newNeedle, $tableCallback) {
                 $itemNames = collect(
                         $tableCallback($tableName)

@@ -32,19 +32,16 @@ abstract class AbstractCommand extends BaseCommand
 
     protected function getTables()
     {
-        $tableNames = $this->manager->listTableNames();
-
-        // Only keep tables that start with our prefix
-        $tableNames = array_filter($tableNames, function ($tableName) {
-            return Str::startsWith($tableName, $this->prefix);
-        });
-
-        // Remove prefix from all table names
-        $tableNames = array_map(function ($tableName) {
-            return substr($tableName, strlen($this->prefix));
-        }, $tableNames);
-
-        return array_values($tableNames);
+        return collect($this->manager->listTableNames())
+            ->filter(function ($tableName) {
+                // Only keep tables that start with our prefix
+                return Str::startsWith($tableName, $this->prefix);
+            })
+            ->map(function ($tableName) {
+                // Remove prefix from all table names
+                return substr($tableName, strlen($this->prefix));
+            })
+            ->values();
     }
 
     protected function writeMigration($name)
