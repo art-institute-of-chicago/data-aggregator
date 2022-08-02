@@ -4,7 +4,6 @@ namespace App\Console\Commands\Migrations;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
-use ColinODell\Indentation\Indentation;
 
 class RenameColumns extends AbstractCommand
 {
@@ -79,35 +78,5 @@ class RenameColumns extends AbstractCommand
             ->filter()
             ->collapse()
             ->all();
-    }
-
-    private function prepareArray(array $input)
-    {
-        $output = empty($input)
-            ? '[' . PHP_EOL . '    // nothing to change' . PHP_EOL . ']'
-            : $this->encodeArray($input);
-
-        $output = Indentation::change($output, new Indentation(4, Indentation::TYPE_SPACE));
-        $output = Indentation::indent($output, new Indentation(4, Indentation::TYPE_SPACE));
-        $output = ltrim($output);
-
-        return $output;
-    }
-
-    /**
-     * @link https://www.php.net/manual/en/function.var-export.php#124194
-     */
-    private function encodeArray(array $expression)
-    {
-        $export = var_export($expression, TRUE);
-
-        $patterns = [
-            "/array \(/" => '[',
-            "/^([ ]*)\)(,?)$/m" => '$1]$2',
-            "/=>[ ]?\n[ ]+\[/" => '=> [',
-            "/([ ]*)(\'[^\']+\') => ([\[\'])/" => '$1$2 => $3',
-        ];
-
-        return preg_replace(array_keys($patterns), array_values($patterns), $export);
     }
 }
