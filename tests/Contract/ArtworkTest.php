@@ -8,7 +8,6 @@ use App\Models\Collections\Agent;
 
 class ArtworkTest extends ContractTestCase
 {
-
     protected $model = Artwork::class;
 
     protected function setUp(): void
@@ -16,7 +15,7 @@ class ArtworkTest extends ContractTestCase
         parent::setUp();
 
         $agentType = $this->make(AgentType::class, ['title' => 'Individual']);
-        $agent = $this->make(Agent::class, ['agent_type_citi_id' => $agentType->citi_id]);
+        $agent = $this->make(Agent::class, ['agent_type_id' => $agentType->id]);
     }
 
     protected function tearDown(): void
@@ -130,7 +129,6 @@ class ArtworkTest extends ContractTestCase
             [
                 'dates',
                 'artist_pivots',
-                'catalogue_pivots',
                 'place_pivots',
             ]
         );

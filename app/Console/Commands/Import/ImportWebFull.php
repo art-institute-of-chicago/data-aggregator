@@ -4,16 +4,11 @@ namespace App\Console\Commands\Import;
 
 use App\Models\Web\Article;
 use App\Models\Web\Artist;
-use App\Models\Web\Closure;
 use App\Models\Web\Event;
 use App\Models\Web\EventOccurrence;
 use App\Models\Web\EventProgram;
 use App\Models\Web\Exhibition;
-use App\Models\Web\Experience;
-use App\Models\Web\InteractiveFeature;
 use App\Models\Web\Highlight;
-use App\Models\Web\Issue;
-use App\Models\Web\IssueArticle;
 use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
 use App\Models\Web\EducatorResource;
@@ -21,8 +16,6 @@ use App\Models\Web\DigitalCatalog;
 use App\Models\Web\DigitalPublicationSection;
 use App\Models\Web\PrintedCatalog;
 use App\Models\Web\StaticPage;
-use App\Models\Web\EmailSeries;
-use App\Models\Web\Sponsor;
 
 class ImportWebFull extends AbstractImportCommand
 {
@@ -65,13 +58,10 @@ class ImportWebFull extends AbstractImportCommand
         $hash = [
             Article::class => 'articles',
             Artist::class => 'web_artists',
-            Closure::class => 'closures',
             Event::class => 'events',
             EventOccurrence::class => 'event_occurrences',
             EventProgram::class => 'event_programs',
             Exhibition::class => 'web_exhibitions',
-            Experience::class => 'experiences',
-            InteractiveFeature::class => 'interactive_features',
             Highlight::class => 'highlights',
             GenericPage::class => 'generic_pages',
             PressRelease::class => 'press_releases',
@@ -80,10 +70,6 @@ class ImportWebFull extends AbstractImportCommand
             DigitalPublicationSection::class => 'digital_publication_sections',
             PrintedCatalog::class => 'printed_catalogs',
             StaticPage::class => 'static_pages',
-            EmailSeries::class => 'email_series',
-            Sponsor::class => 'sponsors',
-            Issue::class => 'issues',
-            IssueArticle::class => 'issue_articles',
         ];
 
         if ($endpoint) {
@@ -99,13 +85,10 @@ class ImportWebFull extends AbstractImportCommand
     {
         $this->importFromWeb('articles');
         $this->importFromWeb('artists');
-        $this->importFromWeb('closures');
         $this->importFromWeb('events');
         $this->importFromWeb('event-occurrences');
         $this->importFromWeb('event-programs');
         $this->importFromWeb('exhibitions');
-        $this->importFromWeb('experiences');
-        $this->importFromWeb('interactive-features');
         $this->importFromWeb('highlights');
 
         $this->importFromWeb('genericpages');
@@ -116,11 +99,6 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('printedpublications');
 
         $this->importFromWeb('staticpages');
-        $this->importFromWeb('emailseries');
-        $this->importFromWeb('sponsors');
-
-        $this->importFromWeb('issues');
-        $this->importFromWeb('issue-articles');
     }
 
     protected function getModelForEndpoint($endpoint)

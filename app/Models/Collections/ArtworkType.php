@@ -9,6 +9,4 @@ use App\Models\CollectionsModel;
  */
 class ArtworkType extends CollectionsModel
 {
-
-    protected $primaryKey = 'citi_id';
 }

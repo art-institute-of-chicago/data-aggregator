@@ -25,8 +25,8 @@ class ScoutImportSince extends BaseCommand
         foreach ($models as $model) {
             $column = 'updated_at';
 
-            if (Schema::hasColumn(with(new $model())->getTable(), 'source_modified_at')) {
-                $column = 'source_modified_at';
+            if (Schema::hasColumn(with(new $model())->getTable(), 'source_updated_at')) {
+                $column = 'source_updated_at';
             }
 
             $query = $model::whereDate($column, '>=', $datetime);

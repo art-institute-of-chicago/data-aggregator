@@ -7,18 +7,15 @@ use App\Transformers\Inbound\WebTransformer;
 
 class Artist extends WebTransformer
 {
-
     protected function getTitle(Datum $datum)
     {
-        return [
-            'title' => $datum->datahub_id,
-        ];
+        return [];
     }
 
     protected function getExtraFields(Datum $datum)
     {
         return [
-            'agent_ids' => collect($datum->related)->where('type', 'artists')->pluck('id')->all(),
+            'agent_id' => $datum->datahub_id,
             'intro_copy' => $datum->intro,
         ];
     }

@@ -69,8 +69,8 @@ class CreateShopTables extends Migration
 
     private function _addDates($table, $citiField = true)
     {
-        $table->timestamp('source_created_at')->nullable()->useCurrent();
-        $table->timestamp('source_modified_at')->nullable()->useCurrent();
+        $table->timestamp('source_created_at')->nullable();
+        $table->timestamp('source_modified_at')->nullable();
         $table->timestamps();
         return $table;
     }

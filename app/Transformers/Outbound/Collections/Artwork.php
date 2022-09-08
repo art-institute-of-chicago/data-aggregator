@@ -5,7 +5,6 @@ namespace App\Transformers\Outbound\Collections;
 use App\Models\Collections\Asset;
 
 use App\Transformers\Outbound\Collections\ArtworkArtistPivot as ArtworkArtistPivotTransformer;
-use App\Transformers\Outbound\Collections\ArtworkCatalogue as ArtworkCatalogueTransformer;
 use App\Transformers\Outbound\Collections\ArtworkDate as ArtworkDateTransformer;
 use App\Transformers\Outbound\Collections\ArtworkPlacePivot as ArtworkPlacePivotTransformer;
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
@@ -20,7 +19,6 @@ use Illuminate\Support\Arr;
 
 class Artwork extends BaseTransformer
 {
-
     use IsCC0;
     use HasBoosted;
     use HasSuggestFields {
@@ -29,7 +27,6 @@ class Artwork extends BaseTransformer
 
     protected $availableIncludes = [
         'artist_pivots',
-        'catalogue_pivots',
         'dates',
         'place_pivots',
         'sites',
@@ -38,11 +35,6 @@ class Artwork extends BaseTransformer
     public function includeArtistPivots($artwork)
     {
         return $this->collection($artwork->artistPivots, new ArtworkArtistPivotTransformer(), false);
-    }
-
-    public function includeCataloguePivots($artwork)
-    {
-        return $this->collection($artwork->artworkCatalogues, new ArtworkCatalogueTransformer(), false);
     }
 
     public function includeDates($artwork)
@@ -186,7 +178,7 @@ class Artwork extends BaseTransformer
                 'type' => 'integer',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artwork_date_qualifier_citi_id;
+                    return $item->artwork_date_qualifier_id;
                 },
             ],
             'artist_display' => [
@@ -203,7 +195,11 @@ class Artwork extends BaseTransformer
                     'default' => true,
                     'mapping' => $this->getDefaultStringMapping(true),
                 ],
-                // API-235: Pull this from related place? For now, leaving as-is for performance.
+                'value' => function ($item) {
+                    $place = $item->preferred('place');
+
+                    return $place ? $place->title : null;
+                },
                 // API-204: Eventually, this should be an array of all ancestor place names.
             ],
             'description' => [
@@ -236,6 +232,11 @@ class Artwork extends BaseTransformer
                     'default' => true,
                 ],
             ],
+            'catalogue_display' => [
+                'doc' => 'Brief text listing all the catalogues raisonnés which include this work. This isn\'t an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+            ],
             'publication_history' => [
                 'doc' => 'Bibliographic list of all the places this work has been published',
                 'type' => 'string',
@@ -267,12 +268,6 @@ class Artwork extends BaseTransformer
                 'doc' => 'An internal department id we use for analytics. Does not correspond to departments on the website.',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
-            ],
-            'collection_status' => [
-                'doc' => 'The works status of belonging to our collection. Values include "Permanent Collection", "Ryerson Collection", and "Long-term Loan".',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-                'is_restricted' => true,
             ],
             'fiscal_year' => [
                 'doc' => 'The fiscal year in which the work was acquired.',
@@ -425,7 +420,7 @@ class Artwork extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->is_on_view ? ($item->gallery->citi_id ?? null) : null;
+                    return $item->is_on_view ? ($item->gallery->id ?? null) : null;
                 },
             ],
 
@@ -444,7 +439,7 @@ class Artwork extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artworkType->citi_id ?? null;
+                    return $item->artworkType->id ?? null;
                 },
             ],
             'department_title' => [
@@ -459,7 +454,7 @@ class Artwork extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->departments->first()->lake_uid ?? null;
+                    return $item->departments->first()->id ?? null;
                 },
             ],
             'artist_id' => [
@@ -467,7 +462,7 @@ class Artwork extends BaseTransformer
                 'type' => 'integer',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artist->citi_id ?? null;
+                    return $item->artist->id ?? null;
                 },
             ],
             'artist_title' => [
@@ -485,7 +480,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return Arr::pluck($item->altArtists, 'citi_id');
+                    return Arr::pluck($item->altArtists, 'id');
                 },
             ],
             'artist_ids' => [
@@ -493,7 +488,7 @@ class Artwork extends BaseTransformer
                 'type' => 'integer',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artists->pluck('citi_id');
+                    return $item->artists->pluck('id');
                 },
             ],
             'artist_titles' => [
@@ -514,7 +509,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->categories->pluck('lake_uid');
+                    return $item->categories->pluck('id');
                 },
             ],
             'category_titles' => [
@@ -525,14 +520,6 @@ class Artwork extends BaseTransformer
                 ],
                 'value' => function ($item) {
                     return $item->categories->pluck('title');
-                },
-            ],
-            'artwork_catalogue_ids' => [
-                'doc' => 'This list represents all the catalogues this work is included in. This isn\'t an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.',
-                'type' => 'array',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->artworkCatalogues->pluck('citi_id');
                 },
             ],
             'term_titles' => [
@@ -551,7 +538,7 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->style->lake_uid ?? null;
+                    return $item->style->id ?? null;
                 },
             ],
             'style_title' => [
@@ -566,7 +553,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->altStyles, 'lake_uid');
+                    return Arr::pluck($item->altStyles, 'id');
                 },
             ],
             'style_ids' => [
@@ -574,7 +561,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->styles, 'lake_uid');
+                    return Arr::pluck($item->styles, 'id');
                 },
             ],
             'style_titles' => [
@@ -589,7 +576,7 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->classification->lake_uid ?? null;
+                    return $item->classification->id ?? null;
                 },
             ],
             'classification_title' => [
@@ -604,7 +591,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->altClassifications, 'lake_uid');
+                    return Arr::pluck($item->altClassifications, 'id');
                 },
             ],
             'classification_ids' => [
@@ -612,7 +599,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->classifications, 'lake_uid');
+                    return Arr::pluck($item->classifications, 'id');
                 },
             ],
             'classification_titles' => [
@@ -627,7 +614,7 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->subject->lake_uid ?? null;
+                    return $item->subject->id ?? null;
                 },
             ],
             'alt_subject_ids' => [
@@ -635,7 +622,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->altSubjects, 'lake_uid');
+                    return Arr::pluck($item->altSubjects, 'id');
                 },
             ],
             'subject_ids' => [
@@ -643,7 +630,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->subjects, 'lake_uid');
+                    return Arr::pluck($item->subjects, 'id');
                 },
             ],
             'subject_titles' => [
@@ -658,7 +645,7 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->material->lake_uid ?? null;
+                    return $item->material->id ?? null;
                 },
             ],
             'alt_material_ids' => [
@@ -666,7 +653,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->altMaterials, 'lake_uid');
+                    return Arr::pluck($item->altMaterials, 'id');
                 },
             ],
             'material_ids' => [
@@ -674,7 +661,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->materials, 'lake_uid');
+                    return Arr::pluck($item->materials, 'id');
                 },
             ],
             'material_titles' => [
@@ -689,7 +676,7 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->technique->lake_uid ?? null;
+                    return $item->technique->id ?? null;
                 },
             ],
             'alt_technique_ids' => [
@@ -697,7 +684,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->altTechniques, 'lake_uid');
+                    return Arr::pluck($item->altTechniques, 'id');
                 },
             ],
             'technique_ids' => [
@@ -705,7 +692,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Arr::pluck($item->techniques, 'lake_uid');
+                    return Arr::pluck($item->techniques, 'id');
                 },
             ],
             'technique_titles' => [
@@ -727,7 +714,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Asset::getHashedId($item->image->lake_guid ?? null);
+                    return Asset::getHashedId($item->image->id ?? null);
                 },
             ],
             'alt_image_ids' => [
@@ -735,11 +722,11 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    $ids = Arr::pluck($item->altImages, 'lake_guid');
+                    $ids = Arr::pluck($item->altImages, 'id');
 
                     if ($ids) {
-                        $ids = array_map(function ($lake_guid) {
-                            return Asset::getHashedId($lake_guid);
+                        $ids = array_map(function ($id) {
+                            return Asset::getHashedId($id);
                         }, $ids);
                     }
 
@@ -751,8 +738,8 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->documents->pluck('lake_guid')->map(function ($lake_guid) {
-                        return Asset::getHashedId($lake_guid);
+                    return $item->documents->pluck('id')->map(function ($id) {
+                        return Asset::getHashedId($id);
                     });
                 },
             ],
@@ -761,7 +748,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    $ids = Arr::pluck($item->sounds(), 'lake_guid') ?? null;
+                    $ids = Arr::pluck($item->sounds(), 'id') ?? null;
 
                     if ($ids) {
                         return array_map(function ($id) {
@@ -777,7 +764,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    $ids = Arr::pluck($item->videos(), 'lake_guid') ?? null;
+                    $ids = Arr::pluck($item->videos(), 'id') ?? null;
 
                     if ($ids) {
                         $ids = array_map(function ($id) {
@@ -793,7 +780,7 @@ class Artwork extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    $ids = Arr::pluck($item->texts(), 'lake_guid') ?? null;
+                    $ids = Arr::pluck($item->texts(), 'id') ?? null;
 
                     if ($ids) {
                         $ids = array_map(function ($id) {
@@ -825,7 +812,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'long',
                 'value' => function ($item) {
-                    return $item->sections->pluck('dsc_id');
+                    return $item->sections->pluck('id');
                 },
             ],
             'section_titles' => [
@@ -840,7 +827,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->sites->pluck('site_id');
+                    return $item->sites->pluck('id');
                 },
             ],
         ];

@@ -31,7 +31,7 @@ class DropHoursTable extends Migration
             $table->integer('type');
             $table->integer('day_of_week');
             $table->boolean('closed');
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamp('created_at', 0)->nullable();
             $table->timestamp('updated_at', 0)->nullable()->index();
             $table->softDeletes();

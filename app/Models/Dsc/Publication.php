@@ -13,44 +13,30 @@ class Publication extends DscModel
 
     use ElasticSearchable;
 
+    private static $genericPageIds = [
+        7 => 9,
+        12 => 6,
+        135446 => 12,
+        141096 => 7,
+        135466 => 11,
+        406 => 13,
+        445 => 8,
+        480 => 5,
+        226 => 10,
+        140019 => 4,
+    ];
+
     public function sections()
     {
         return $this->hasMany('App\Models\Dsc\Section');
     }
 
-    public function getGenericPageIdAttribute()
+    /**
+     * WEB-35, API-332: Each publication is represented by a generic
+     * page on our website, which links to that publication.
+     */
+    public function getGenericPageId()
     {
-        switch ($this->dsc_id) {
-            case 7:
-                return 9;
-            break;
-            case 12:
-                return 6;
-            break;
-            case 135446:
-                return 12;
-            break;
-            case 141096:
-                return 7;
-            break;
-            case 135466:
-                return 11;
-            break;
-            case 406:
-                return 13;
-            break;
-            case 445:
-                return 8;
-            break;
-            case 480:
-                return 5;
-            break;
-            case 226:
-                return 10;
-            break;
-            case 140019:
-                return 4;
-            break;
-        }
+        return self::$genericPageIds[$this->id] ?? null;
     }
 }

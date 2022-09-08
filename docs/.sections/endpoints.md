@@ -18,7 +18,6 @@ A list of all artworks sorted by last updated date in descending order. For a de
 * `fields` - A comma-separated list of fields to return per resource
 * `include` - A comma-separated list of subresource to embed in the returned resources. Available options are:
   * `artist_pivots`
-  * `catalogue_pivots`
   * `dates`
   * `place_pivots`
   * `sites`
@@ -802,7 +801,6 @@ A list of all exhibitions sorted by last updated date in descending order. For a
             "api_link": "https://api.artic.edu/api/v1/exhibitions/2931",
             "title": "Andr\u00e9 Kert\u00e9sz: Postcards from Paris",
             "is_featured": true,
-            "is_published": true,
             ...
         },
         {
@@ -811,7 +809,6 @@ A list of all exhibitions sorted by last updated date in descending order. For a
             "api_link": "https://api.artic.edu/api/v1/exhibitions/9536",
             "title": "Landscape in Light: The Tiffany Window at the Art Institute of Chicago",
             "is_featured": true,
-            "is_published": true,
             ...
         }
     ],
@@ -910,7 +907,6 @@ A single exhibition by the given identifier. {id} is the identifier from our col
         "api_link": "https://api.artic.edu/api/v1/exhibitions/5",
         "title": "Manet and the Sea",
         "is_featured": false,
-        "is_published": true,
         ...
     },
     "info": {
@@ -961,8 +957,8 @@ A list of all agent-types sorted by last updated date in descending order. For a
             "api_model": "agent-types",
             "api_link": "https://api.artic.edu/api/v1/agent-types/29",
             "title": "Artist Collaborative",
-            "last_updated_source": "2019-05-08T18:31:54-05:00",
-            "last_updated": "2019-05-09T17:01:08-05:00",
+            "source_updated_at": "2019-05-08T18:31:54-05:00",
+            "updated_at": "2019-05-09T17:01:08-05:00",
             ...
         },
         {
@@ -970,8 +966,8 @@ A list of all agent-types sorted by last updated date in descending order. For a
             "api_model": "agent-types",
             "api_link": "https://api.artic.edu/api/v1/agent-types/28",
             "title": "Nonprofit",
-            "last_updated_source": "2019-05-08T18:31:54-05:00",
-            "last_updated": "2019-05-09T17:01:08-05:00",
+            "source_updated_at": "2019-05-08T18:31:54-05:00",
+            "updated_at": "2019-05-09T17:01:08-05:00",
             ...
         }
     ],
@@ -1003,8 +999,8 @@ A single agent-type by the given identifier. {id} is the identifier from our col
         "api_model": "agent-types",
         "api_link": "https://api.artic.edu/api/v1/agent-types/1",
         "title": "Corporate Body",
-        "last_updated_source": "2019-05-08T18:31:53-05:00",
-        "last_updated": "2019-05-09T17:01:08-05:00",
+        "source_updated_at": "2019-05-08T18:31:53-05:00",
+        "updated_at": "2019-05-09T17:01:08-05:00",
         ...
     },
     "info": {
@@ -1055,8 +1051,8 @@ A list of all agent-roles sorted by last updated date in descending order. For a
             "api_model": "agent-roles",
             "api_link": "https://api.artic.edu/api/v1/agent-roles/434",
             "title": "Craftsperson",
-            "last_updated_source": "2020-06-24T16:02:14-05:00",
-            "last_updated": "2020-06-24T21:00:33-05:00",
+            "source_updated_at": "2020-06-24T16:02:14-05:00",
+            "updated_at": "2020-06-24T21:00:33-05:00",
             ...
         },
         {
@@ -1064,8 +1060,8 @@ A list of all agent-roles sorted by last updated date in descending order. For a
             "api_model": "agent-roles",
             "api_link": "https://api.artic.edu/api/v1/agent-roles/574",
             "title": "File Transfer",
-            "last_updated_source": "2019-05-08T19:05:12-05:00",
-            "last_updated": "2019-05-09T17:01:07-05:00",
+            "source_updated_at": "2019-05-08T19:05:12-05:00",
+            "updated_at": "2019-05-09T17:01:07-05:00",
             ...
         }
     ],
@@ -1097,8 +1093,8 @@ A single agent-role by the given identifier. {id} is the identifier from our col
         "api_model": "agent-roles",
         "api_link": "https://api.artic.edu/api/v1/agent-roles/1",
         "title": "Collection",
-        "last_updated_source": "2019-05-08T19:05:07-05:00",
-        "last_updated": "2019-05-09T17:01:07-05:00",
+        "source_updated_at": "2019-05-08T19:05:07-05:00",
+        "updated_at": "2019-05-09T17:01:07-05:00",
         ...
     },
     "info": {
@@ -1196,8 +1192,8 @@ A list of all artwork-place-qualifiers sorted by last updated date in descending
             "api_model": "artwork-place-qualifiers",
             "api_link": "https://api.artic.edu/api/v1/artwork-place-qualifiers/54",
             "title": "Artist's culture:",
-            "last_updated_source": "2020-04-14T09:36:05-05:00",
-            "last_updated": "2020-04-14T13:46:00-05:00",
+            "source_updated_at": "2020-04-14T09:36:05-05:00",
+            "updated_at": "2020-04-14T13:46:00-05:00",
             ...
         },
         {
@@ -1205,8 +1201,8 @@ A list of all artwork-place-qualifiers sorted by last updated date in descending
             "api_model": "artwork-place-qualifiers",
             "api_link": "https://api.artic.edu/api/v1/artwork-place-qualifiers/55",
             "title": "Inhabited place:",
-            "last_updated_source": "2020-04-13T13:01:45-05:00",
-            "last_updated": "2020-04-13T13:05:56-05:00",
+            "source_updated_at": "2020-04-13T13:01:45-05:00",
+            "updated_at": "2020-04-13T13:05:56-05:00",
             ...
         }
     ],
@@ -1238,8 +1234,8 @@ A single artwork-place-qualifier by the given identifier. {id} is the identifier
         "api_model": "artwork-place-qualifiers",
         "api_link": "https://api.artic.edu/api/v1/artwork-place-qualifiers/1",
         "title": "Building address",
-        "last_updated_source": "2019-05-08T18:00:18-05:00",
-        "last_updated": "2019-05-09T17:01:07-05:00",
+        "source_updated_at": "2019-05-08T18:00:18-05:00",
+        "updated_at": "2019-05-09T17:01:07-05:00",
         ...
     },
     "info": {
@@ -1290,8 +1286,8 @@ A list of all artwork-date-qualifiers sorted by last updated date in descending 
             "api_model": "artwork-date-qualifiers",
             "api_link": "https://api.artic.edu/api/v1/artwork-date-qualifiers/63",
             "title": "Between",
-            "last_updated_source": "2021-07-12T16:18:20-05:00",
-            "last_updated": "2021-07-12T16:20:41-05:00",
+            "source_updated_at": "2021-07-12T16:18:20-05:00",
+            "updated_at": "2021-07-12T16:20:41-05:00",
             ...
         },
         {
@@ -1299,8 +1295,8 @@ A list of all artwork-date-qualifiers sorted by last updated date in descending 
             "api_model": "artwork-date-qualifiers",
             "api_link": "https://api.artic.edu/api/v1/artwork-date-qualifiers/62",
             "title": "Manufactured",
-            "last_updated_source": "2019-05-08T21:59:24-05:00",
-            "last_updated": "2019-05-09T17:01:07-05:00",
+            "source_updated_at": "2019-05-08T21:59:24-05:00",
+            "updated_at": "2019-05-09T17:01:07-05:00",
             ...
         }
     ],
@@ -1332,102 +1328,8 @@ A single artwork-date-qualifier by the given identifier. {id} is the identifier 
         "api_model": "artwork-date-qualifiers",
         "api_link": "https://api.artic.edu/api/v1/artwork-date-qualifiers/1",
         "title": "Cast",
-        "last_updated_source": "2019-05-08T21:59:23-05:00",
-        "last_updated": "2019-05-09T17:01:07-05:00",
-        ...
-    },
-    "info": {
-        "license_text": "The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
-        "license_links": [
-            "https://creativecommons.org/publicdomain/zero/1.0/",
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.4"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "https://www.artic.edu"
-    }
-}
-```
-:::
-
-#### Catalogues
-
-_The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu._
-
-##### `GET /catalogues`
-
-A list of all catalogues sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](#catalogues-2).
-
-###### Available parameters:
-
-* `ids` - A comma-separated list of resource ids to retrieve
-* `limit` - The number of resources to return per page
-* `page` - The page of resources to retrieve
-* `fields` - A comma-separated list of fields to return per resource
-
-::: details Example request: https://api.artic.edu/api/v1/catalogues?limit=2  
-```js
-{
-    "pagination": {
-        "total": 1103,
-        "limit": 2,
-        "offset": 0,
-        "total_pages": 552,
-        "current_page": 1,
-        "next_url": "https://api.artic.edu/api/v1/catalogues?page=2&limit=2"
-    },
-    "data": [
-        {
-            "id": 538,
-            "api_model": "catalogues",
-            "api_link": "https://api.artic.edu/api/v1/catalogues/538",
-            "title": "Edition",
-            "last_updated_source": "2021-09-20T14:24:35-05:00",
-            "last_updated": "2021-09-20T14:25:20-05:00",
-            ...
-        },
-        {
-            "id": 537,
-            "api_model": "catalogues",
-            "api_link": "https://api.artic.edu/api/v1/catalogues/537",
-            "title": "Walch",
-            "last_updated_source": "2020-11-17T13:20:47-06:00",
-            "last_updated": "2020-11-17T13:25:42-06:00",
-            ...
-        }
-    ],
-    "info": {
-        "license_text": "The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
-        "license_links": [
-            "https://creativecommons.org/publicdomain/zero/1.0/",
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.4"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "https://www.artic.edu"
-    }
-}
-```
-:::
-
-##### `GET /catalogues/{id}`
-
-A single catalogue by the given identifier. {id} is the identifier from our collections management system.
-
-::: details Example request: https://api.artic.edu/api/v1/catalogues/-2147483646  
-```js
-{
-    "data": {
-        "id": -2147483646,
-        "api_model": "catalogues",
-        "api_link": "https://api.artic.edu/api/v1/catalogues/-2147483646",
-        "title": "Bliss",
-        "last_updated_source": "2019-05-08T18:18:14-05:00",
-        "last_updated": "2019-05-09T17:01:08-05:00",
+        "source_updated_at": "2019-05-08T21:59:23-05:00",
+        "updated_at": "2019-05-09T17:01:07-05:00",
         ...
     },
     "info": {
@@ -1479,7 +1381,7 @@ A list of all artwork-types sorted by last updated date in descending order. For
             "api_link": "https://api.artic.edu/api/v1/artwork-types/48",
             "title": "Time Based Media",
             "aat_id": null,
-            "last_updated_source": "2020-05-04T12:25:27-05:00",
+            "source_updated_at": "2020-05-04T12:25:27-05:00",
             ...
         },
         {
@@ -1488,7 +1390,7 @@ A list of all artwork-types sorted by last updated date in descending order. For
             "api_link": "https://api.artic.edu/api/v1/artwork-types/47",
             "title": "Materials",
             "aat_id": null,
-            "last_updated_source": "2019-10-07T11:53:19-05:00",
+            "source_updated_at": "2019-10-07T11:53:19-05:00",
             ...
         }
     ],
@@ -1521,7 +1423,7 @@ A single artwork-type by the given identifier. {id} is the identifier from our c
         "api_link": "https://api.artic.edu/api/v1/artwork-types/1",
         "title": "Painting",
         "aat_id": null,
-        "last_updated_source": "2019-05-08T19:03:58-05:00",
+        "source_updated_at": "2019-05-08T19:03:58-05:00",
         ...
     },
     "info": {
@@ -2724,7 +2626,6 @@ A list of all publications sorted by last updated date in descending order. For 
             "api_link": "https://api.artic.edu/api/v1/publications/141096",
             "title": "Gauguin Paintings, Sculpture, and Graphic Works at the Art Institute of Chicago",
             "web_url": "https://publications.artic.edu/gauguin/reader/gauguinart",
-            "site": "gauguin",
             ...
         },
         {
@@ -2733,7 +2634,6 @@ A list of all publications sorted by last updated date in descending order. For 
             "api_link": "https://api.artic.edu/api/v1/publications/140019",
             "title": "Manet Paintings and Works on Paper at the Art Institute of Chicago",
             "web_url": "https://publications.artic.edu/manet/reader/manetart",
-            "site": "manet",
             ...
         }
     ],
@@ -2830,7 +2730,6 @@ A single publication by the given identifier.
         "api_link": "https://api.artic.edu/api/v1/publications/2",
         "title": "American Silver in the Art Institute of Chicago",
         "web_url": "https://publications.artic.edu/americansilver/reader/collection",
-        "site": "americansilver",
         ...
     },
     "info": {
@@ -3988,8 +3887,6 @@ A list of all articles sorted by last updated date in descending order. For a de
             "api_model": "articles",
             "api_link": "https://api.artic.edu/api/v1/articles/956",
             "title": "small-wonders",
-            "is_published": false,
-            "is_unlisted": null,
             ...
         },
         {
@@ -3997,8 +3894,6 @@ A list of all articles sorted by last updated date in descending order. For a de
             "api_model": "articles",
             "api_link": "https://api.artic.edu/api/v1/articles/941",
             "title": "conserving-grinling-gibbons-the-michelangelo-of-wood-carving",
-            "is_published": false,
-            "is_unlisted": null,
             ...
         }
     ],
@@ -4094,8 +3989,6 @@ A single article by the given identifier.
         "api_model": "articles",
         "api_link": "https://api.artic.edu/api/v1/articles/14",
         "title": "secrets-of-the-modern-wing",
-        "is_published": true,
-        "is_unlisted": null,
         ...
     },
     "info": {
@@ -4146,7 +4039,6 @@ A list of all highlights sorted by last updated date in descending order. For a 
             "api_link": "https://api.artic.edu/api/v1/highlights/44",
             "title": "i-thinking-of-s-you-s-i-mean-s-me-s-i-mean-you-i-360-tours",
             "published": true,
-            "is_unlisted": null,
             ...
         },
         {
@@ -4155,7 +4047,6 @@ A list of all highlights sorted by last updated date in descending order. For a 
             "api_link": "https://api.artic.edu/api/v1/highlights/4",
             "title": "new-on-view",
             "published": true,
-            "is_unlisted": null,
             ...
         }
     ],
@@ -4252,7 +4143,6 @@ A single highlight by the given identifier.
         "api_link": "https://api.artic.edu/api/v1/highlights/3",
         "title": "what-to-see-in-an-hour",
         "published": true,
-        "is_unlisted": null,
         ...
     },
     "info": {
@@ -4302,7 +4192,6 @@ A list of all web-artists sorted by last updated date in descending order. For a
             "api_model": "web-artists",
             "api_link": "https://api.artic.edu/api/v1/web-artists/3",
             "title": "Neue Galerie New York",
-            "has_also_known_as": null,
             "intro_copy": null,
             ...
         },
@@ -4311,7 +4200,6 @@ A list of all web-artists sorted by last updated date in descending order. For a
             "api_model": "web-artists",
             "api_link": "https://api.artic.edu/api/v1/web-artists/2",
             "title": "Don A. DuBroff",
-            "has_also_known_as": null,
             "intro_copy": null,
             ...
         }
@@ -4408,7 +4296,6 @@ A single web-artist by the given identifier.
         "api_model": "web-artists",
         "api_link": "https://api.artic.edu/api/v1/web-artists/1",
         "title": "Winslow Homer",
-        "has_also_known_as": null,
         "intro_copy": "<p>Winslow Homer, one of the most influential American painters of the nineteenth century, is known for his dynamic depictions of the power and beauty of nature and reflections on humanity\u2019s struggle with the sea. A keen observer of the world around him, Homer likewise experimented with color, form, and composition, pushing his landscapes and genre pictures in modern directions. Raised in Massachusetts, he apprenticed in a lithography shop in Boston in the mid-1850s and soon secured work as a freelance illustrator. Relocating to New York, he undertook assignments for <em>Harper\u2019s Weekly</em><span>, among other journals, and enrolled in drawing classes at the National Academy of Design.&nbsp;</span></p><p>During the Civil War, <em>Harper\u2019s Weekly</em><span> sent</span><em><span> </span></em><span>Homer to the front, where he made drawings of </span><a href=\"https://www.artic.edu/artworks/158367/the-war-for-the-union-1862-a-cavalry-charge\" target=\"_blank\"><span>Union battlefields</span></a><span>, camps, and military hospitals that appeared as wood engravings in the widely circulated publication. Homer also took up painting during his time as an artist-correspondent. After the war, he focused on oil painting, working in New York and also traveling to France in 1866\u201367. Over the following decade, Homer painted </span><a href=\"https://www.artic.edu/artworks/44018/croquet-scene\" target=\"_blank\"><span>scenes of leisure</span></a><span> set in nature, such as </span><a href=\"https://www.artic.edu/artworks/75957/mount-washington\" target=\"_blank\"><span>the White Mountains</span></a><span> in New Hampshire and the Adirondacks in upstate New York. He also spent his summers visiting </span><a href=\"https://www.artic.edu/artworks/16800/boy-in-boat-gloucester\" target=\"_blank\"><span>New England fishing villages</span></a><span>, discovering new subjects that had a profound effect on his career.&nbsp;</span></p><p>In 1881, he spent more than a year in the small fishing village of Cullercoats, England. This extended stay in the seaside community catalyzed a new, enduring interest in humankind\u2019s age-old contest with nature, rendered in larger-scale compositions with more monumental figures and forms. In the summer of 1883 Homer moved to the coastal village of Prouts Neck, Maine, which remained his home for the rest of his life. There, he observed the shoreline in various weather conditions and seasons, creating his great seascapes, such as the iconic work <a href=\"https://www.artic.edu/artworks/25865/the-herring-net\" target=\"_blank\"><em>The Herring Net</em></a><span>. Amid the remote and dramatic landscape, he depicted views void of human life, focusing instead on an emotional response to nature, as in </span><a href=\"https://www.artic.edu/artworks/8971/coast-of-maine\" target=\"_blank\"><em><span>Coast of Maine</span></em></a><span>.&nbsp;</span></p><p>Late in his career, during visits to the Bahamas, Bermuda, Cuba, and Florida, Homer applied his sophisticated understanding of color and light to a new set of atmospheric conditions, most spectacularly in his watercolors, such as <a href=\"https://www.artic.edu/artworks/16776/after-the-hurricane-bahamas\" target=\"_blank\"><em>After the Hurricane, Bahamas</em></a><span>.</span></p><p>The Art Institute\u2019s collection of works by Winslow Homer spans his career. The artist\u2019s works on paper were featured in the 2008 exhibition <a href=\"https://archive.artic.edu/homer_exhb/overview/\" target=\"_blank\"><em>Watercolors by Winslow Homer: The Color of Light</em></a><em>.</em></p>",
         ...
     },
@@ -4460,7 +4347,6 @@ A list of all static-pages sorted by last updated date in descending order. For 
             "api_link": "https://api.artic.edu/api/v1/static-pages/11",
             "title": "Articles",
             "web_url": "/articles",
-            "is_published": true,
             ...
         },
         {
@@ -4469,7 +4355,6 @@ A list of all static-pages sorted by last updated date in descending order. For 
             "api_link": "https://api.artic.edu/api/v1/static-pages/10",
             "title": "Press Release Archive",
             "web_url": "/press/archive",
-            "is_published": true,
             ...
         }
     ],
@@ -4566,7 +4451,6 @@ A single static-page by the given identifier.
         "api_link": "https://api.artic.edu/api/v1/static-pages/1",
         "title": "Visit",
         "web_url": "/visit",
-        "is_published": true,
         ...
     },
     "info": {
@@ -4616,7 +4500,6 @@ A list of all generic-pages sorted by last updated date in descending order. For
             "api_model": "generic-pages",
             "api_link": "https://api.artic.edu/api/v1/generic-pages/476",
             "title": "Jobs at Art Museums (JAM 2022)",
-            "is_published": true,
             "type": null,
             ...
         },
@@ -4625,7 +4508,6 @@ A list of all generic-pages sorted by last updated date in descending order. For
             "api_model": "generic-pages",
             "api_link": "https://api.artic.edu/api/v1/generic-pages/348",
             "title": "Databases for Newspaper Research",
-            "is_published": false,
             "type": null,
             ...
         }
@@ -4722,7 +4604,6 @@ A single generic-page by the given identifier.
         "api_model": "generic-pages",
         "api_link": "https://api.artic.edu/api/v1/generic-pages/2",
         "title": "Free Admission Opportunities",
-        "is_published": true,
         "type": null,
         ...
     },
@@ -4773,8 +4654,6 @@ A list of all press-releases sorted by last updated date in descending order. Fo
             "api_model": "press-releases",
             "api_link": "https://api.artic.edu/api/v1/press-releases/60",
             "title": "Press Releases from 1998",
-            "is_published": true,
-            "is_unlisted": null,
             ...
         },
         {
@@ -4782,8 +4661,6 @@ A list of all press-releases sorted by last updated date in descending order. Fo
             "api_model": "press-releases",
             "api_link": "https://api.artic.edu/api/v1/press-releases/59",
             "title": "Press Releases from 1997",
-            "is_published": true,
-            "is_unlisted": null,
             ...
         }
     ],
@@ -4879,8 +4756,6 @@ A single press-release by the given identifier.
         "api_model": "press-releases",
         "api_link": "https://api.artic.edu/api/v1/press-releases/1",
         "title": "Press Releases from 1939",
-        "is_published": true,
-        "is_unlisted": null,
         ...
     },
     "info": {
@@ -4930,7 +4805,6 @@ A list of all educator-resources sorted by last updated date in descending order
             "api_model": "educator-resources",
             "api_link": "https://api.artic.edu/api/v1/educator-resources/77",
             "title": "Teacher Manual: Gold of Africa",
-            "is_published": false,
             "type": null,
             ...
         },
@@ -4939,7 +4813,6 @@ A list of all educator-resources sorted by last updated date in descending order
             "api_model": "educator-resources",
             "api_link": "https://api.artic.edu/api/v1/educator-resources/75",
             "title": "Teacher Manual: Hero, Hawk, and Open Hand: American Indian Art of the Ancient Midwest and South",
-            "is_published": false,
             "type": null,
             ...
         }
@@ -5036,7 +4909,6 @@ A single educator-resource by the given identifier.
         "api_model": "educator-resources",
         "api_link": "https://api.artic.edu/api/v1/educator-resources/7",
         "title": "Thematic Curriculum: Art + Science",
-        "is_published": true,
         "type": null,
         ...
     },
@@ -5087,7 +4959,6 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
             "api_model": "digital-catalogs",
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/31",
             "title": "Matisse Paintings, Works on Paper, Sculpture, and Textiles at the Art Institute of Chicago",
-            "is_published": true,
             "type": null,
             ...
         },
@@ -5096,7 +4967,6 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
             "api_model": "digital-catalogs",
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/30",
             "title": "Ivan Albright Paintings at the Art Institute of Chicago",
-            "is_published": true,
             "type": null,
             ...
         }
@@ -5193,7 +5063,6 @@ A single digital-catalog by the given identifier.
         "api_model": "digital-catalogs",
         "api_link": "https://api.artic.edu/api/v1/digital-catalogs/2",
         "title": "American Silver",
-        "is_published": true,
         "type": null,
         ...
     },
@@ -5244,7 +5113,6 @@ A list of all digital-publication-sections sorted by last updated date in descen
             "api_model": "digital-publication-sections",
             "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/11",
             "title": "Installation Views",
-            "is_published": true,
             "web_url": "https://nocache.www.artic.edu/digital-publications/34/malangatana-mozambique-modern/11/installation-views",
             ...
         },
@@ -5253,7 +5121,6 @@ A list of all digital-publication-sections sorted by last updated date in descen
             "api_model": "digital-publication-sections",
             "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/10",
             "title": "Works in the Exhibition",
-            "is_published": true,
             "web_url": "https://nocache.www.artic.edu/digital-publications/34/malangatana-mozambique-modern/10/works-in-the-exhibition",
             ...
         }
@@ -5350,7 +5217,6 @@ A single digital-publication-section by the given identifier.
         "api_model": "digital-publication-sections",
         "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/1",
         "title": "Director's Foreword",
-        "is_published": true,
         "web_url": "https://nocache.www.artic.edu/digital-publications/34/malangatana-mozambique-modern/1/directors-foreword",
         ...
     },
@@ -5401,7 +5267,6 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
             "api_model": "printed-catalogs",
             "api_link": "https://api.artic.edu/api/v1/printed-catalogs/121",
             "title": "Museum Studies (1990)",
-            "is_published": false,
             "type": null,
             ...
         },
@@ -5410,7 +5275,6 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
             "api_model": "printed-catalogs",
             "api_link": "https://api.artic.edu/api/v1/printed-catalogs/117",
             "title": "Museum Studies (1991)",
-            "is_published": false,
             "type": null,
             ...
         }
@@ -5507,7 +5371,6 @@ A single printed-catalog by the given identifier.
         "api_model": "printed-catalogs",
         "api_link": "https://api.artic.edu/api/v1/printed-catalogs/4",
         "title": "The Art Institute of Chicago: The Essential Guide",
-        "is_published": true,
         "type": null,
         ...
     },
@@ -5526,266 +5389,4 @@ A single printed-catalog by the given identifier.
 ```
 :::
 
-#### Issues
-
-_The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
-
-##### `GET /issues`
-
-A list of all issues sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](#issues-2).
-
-###### Available parameters:
-
-* `ids` - A comma-separated list of resource ids to retrieve
-* `limit` - The number of resources to return per page
-* `page` - The page of resources to retrieve
-* `fields` - A comma-separated list of fields to return per resource
-
-::: details Example request: https://api.artic.edu/api/v1/issues?limit=2  
-```js
-{
-    "pagination": {
-        "total": 2,
-        "limit": 2,
-        "offset": 0,
-        "total_pages": 1,
-        "current_page": 1
-    },
-    "data": [
-        {
-            "id": 2,
-            "api_model": "issues",
-            "api_link": "https://api.artic.edu/api/v1/issues/2",
-            "title": "TEST ISSUE",
-            "is_published": false,
-            "date": "2021-10-27T00:00:00-05:00",
-            ...
-        },
-        {
-            "id": 1,
-            "api_model": "issues",
-            "api_link": "https://api.artic.edu/api/v1/issues/1",
-            "title": "Instability",
-            "is_published": true,
-            "date": "2021-09-27T00:00:00-05:00",
-            ...
-        }
-    ],
-    "info": {
-        "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
-        "license_links": [
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.4"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "https://www.artic.edu"
-    }
-}
-```
-:::
-
-##### `GET /issues/search`
-
-Search issues data in the aggregator. 
-
-###### Available parameters:
-
-* `q` - Your search query
-* `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
-* `sort` - Used in conjunction with `query`
-* `from` - Starting point of results. Pagination via Elasticsearch conventions
-* `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of 'count' aggregation facets to include in the results.
-
-::: details Example request: https://api.artic.edu/api/v1/issues/search
-```js
-{
-    "preference": null,
-    "pagination": {
-        "total": 0,
-        "limit": 10,
-        "offset": 0,
-        "total_pages": 0,
-        "current_page": 1
-    },
-    "data": [],
-    "info": {
-        "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
-        "license_links": [
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.3"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "http://www.artic.edu"
-    }
-}
-```
-:::
-
-##### `GET /issues/{id}`
-
-A single issue by the given identifier.
-
-::: details Example request: https://api.artic.edu/api/v1/issues/1  
-```js
-{
-    "data": {
-        "id": 1,
-        "api_model": "issues",
-        "api_link": "https://api.artic.edu/api/v1/issues/1",
-        "title": "Instability",
-        "is_published": true,
-        "date": "2021-09-27T00:00:00-05:00",
-        ...
-    },
-    "info": {
-        "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
-        "license_links": [
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.4"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "https://www.artic.edu"
-    }
-}
-```
-:::
-
-#### Issue Articles
-
-_The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
-
-##### `GET /issue-articles`
-
-A list of all issue-articles sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](#issue-articles-2).
-
-###### Available parameters:
-
-* `ids` - A comma-separated list of resource ids to retrieve
-* `limit` - The number of resources to return per page
-* `page` - The page of resources to retrieve
-* `fields` - A comma-separated list of fields to return per resource
-
-::: details Example request: https://api.artic.edu/api/v1/issue-articles?limit=2  
-```js
-{
-    "pagination": {
-        "total": 9,
-        "limit": 2,
-        "offset": 0,
-        "total_pages": 5,
-        "current_page": 1,
-        "next_url": "https://api.artic.edu/api/v1/issue-articles?page=2&limit=2"
-    },
-    "data": [
-        {
-            "id": 6,
-            "api_model": "issue-articles",
-            "api_link": "https://api.artic.edu/api/v1/issue-articles/6",
-            "title": "From Cloth to Clay: Identities and (Im)permanence in Moche Ceramics",
-            "is_published": true,
-            "date": "2021-09-27T00:00:00-05:00",
-            ...
-        },
-        {
-            "id": 5,
-            "api_model": "issue-articles",
-            "api_link": "https://api.artic.edu/api/v1/issue-articles/5",
-            "title": "Seven-Figure Settlements and Paid Days Off: An Interview with Devin Kenny",
-            "is_published": false,
-            "date": "2021-09-27T00:00:00-05:00",
-            ...
-        }
-    ],
-    "info": {
-        "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
-        "license_links": [
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.4"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "https://www.artic.edu"
-    }
-}
-```
-:::
-
-##### `GET /issue-articles/search`
-
-Search issue-articles data in the aggregator. 
-
-###### Available parameters:
-
-* `q` - Your search query
-* `query` - For complex queries, you can pass Elasticsearch domain syntax queries here
-* `sort` - Used in conjunction with `query`
-* `from` - Starting point of results. Pagination via Elasticsearch conventions
-* `size` - Number of results to return. Pagination via Elasticsearch conventions
-* `facets` - A comma-separated list of 'count' aggregation facets to include in the results.
-
-::: details Example request: https://api.artic.edu/api/v1/issue-articles/search
-```js
-{
-    "preference": null,
-    "pagination": {
-        "total": 0,
-        "limit": 10,
-        "offset": 0,
-        "total_pages": 0,
-        "current_page": 1
-    },
-    "data": [],
-    "info": {
-        "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
-        "license_links": [
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.3"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "http://www.artic.edu"
-    }
-}
-```
-:::
-
-##### `GET /issue-articles/{id}`
-
-A single issue-article by the given identifier.
-
-::: details Example request: https://api.artic.edu/api/v1/issue-articles/1  
-```js
-{
-    "data": {
-        "id": 1,
-        "api_model": "issue-articles",
-        "api_link": "https://api.artic.edu/api/v1/issue-articles/1",
-        "title": "Forces of Instability",
-        "is_published": true,
-        "date": "2021-09-27T00:00:00-05:00",
-        ...
-    },
-    "info": {
-        "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
-        "license_links": [
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.4"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "https://www.artic.edu"
-    }
-}
-```
-:::
 

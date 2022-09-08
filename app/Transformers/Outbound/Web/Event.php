@@ -3,32 +3,13 @@
 namespace App\Transformers\Outbound\Web;
 
 use App\Models\Web\EventProgram;
-use App\Transformers\Outbound\Web\Sponsor as SponsorTransformer;
-use App\Transformers\Outbound\Web\Traits\HasPublishDates;
 use App\Transformers\Outbound\Web\Traits\HasSearchTags;
 
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Event extends BaseTransformer
 {
-
-    use HasPublishDates;
     use HasSearchTags;
-
-    protected $availableIncludes = [
-        'email_series_pivots',
-        'sponsor',
-    ];
-
-    public function includeEmailSeriesPivots($event)
-    {
-        return $this->collection($event->emailSeriesPivots, new EventEmailSeriesPivot(), false);
-    }
-
-    public function includeSponsor($event)
-    {
-        return $event->sponsor ? $this->item($event->sponsor, new SponsorTransformer(), false) : null;
-    }
 
     protected function getTitles()
     {
@@ -44,14 +25,6 @@ class Event extends BaseTransformer
     protected function getFields()
     {
         return [
-            // TODO: Rename to `is_published` and move to HasPublishDates?
-            'published' => [
-                'doc' => 'Whether the event is published on the website',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'is_restricted' => self::RESTRICTED_IN_DUMP,
-            ],
-
             'image_url' => [
                 'doc' => 'The URL of an image representing this page',
                 'type' => 'string',
@@ -161,7 +134,7 @@ class Event extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->ticketedEvent->membership_id ?? null;
+                    return $item->ticketedEvent->id ?? null;
                 },
                 'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
@@ -310,20 +283,6 @@ class Event extends BaseTransformer
                 'value' => function ($item) {
                     return $item->eventHost->title ?? null;
                 },
-            ],
-            'sponsor_id' => [
-                'doc' => 'Unique identifier of the sponsor this website event is tied to',
-                'type' => 'number',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->sponsor->id ?? null;
-                },
-            ],
-            'test_emails' => [
-                'doc' => 'Email addresses to target for email series tests',
-                'type' => 'array',
-                'elasticsearch' => 'text',
-                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
         ];
     }

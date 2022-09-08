@@ -65,11 +65,6 @@ return [
             'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
         [
-            'endpoint' => 'agent-place-qualifiers',
-            'model' => \App\Models\Collections\AgentPlaceQualifier::class,
-            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
-        ],
-        [
             'endpoint' => 'artwork-place-qualifiers',
             'model' => \App\Models\Collections\ArtworkPlaceQualifier::class,
             'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
@@ -77,11 +72,6 @@ return [
         [
             'endpoint' => 'artwork-date-qualifiers',
             'model' => \App\Models\Collections\ArtworkDateQualifier::class,
-            'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
-        ],
-        [
-            'endpoint' => 'catalogues',
-            'model' => \App\Models\Collections\Catalogue::class,
             'transformer' => \App\Transformers\Outbound\CollectionsCC0Transformer::class,
         ],
 
@@ -124,10 +114,6 @@ return [
         [
             'model' => \App\Models\Collections\ArtworkArtistPivot::class,
             'transformer' => \App\Transformers\Outbound\Collections\ArtworkArtistPivot::class,
-        ],
-        [
-            'model' => \App\Models\Collections\ArtworkCatalogue::class,
-            'transformer' => \App\Transformers\Outbound\Collections\ArtworkCatalogue::class,
         ],
         [
             'model' => \App\Models\Collections\ArtworkDate::class,
@@ -257,28 +243,6 @@ return [
         ],
 
         /**
-         * Library and archives:
-         */
-        [
-            'endpoint' => 'library-materials',
-            'model' => \App\Models\Library\Material::class,
-            'transformer' => \App\Transformers\Outbound\Library\Material::class,
-            'is_restricted' => true,
-        ],
-        [
-            'endpoint' => 'library-terms',
-            'model' => \App\Models\Library\Term::class,
-            'transformer' => \App\Transformers\Outbound\Library\Term::class,
-            'is_restricted' => true,
-        ],
-        [
-            'endpoint' => 'archive-images',
-            'model' => \App\Models\Archive\ArchiveImage::class,
-            'transformer' => \App\Transformers\Outbound\Archive\ArchiveImage::class,
-            'is_restricted' => true,
-        ],
-
-        /**
          * Queues:
          */
         [
@@ -291,25 +255,6 @@ return [
         /**
          * Website:
          */
-        [
-            'endpoint' => 'closures',
-            'model' => \App\Models\Web\Closure::class,
-            'transformer' => \App\Transformers\Outbound\Web\Closure::class,
-            'is_searchable' => true, // TODO: Verify?
-        ],
-        [
-            'endpoint' => 'web-exhibitions',
-            'model' => \App\Models\Web\Exhibition::class,
-            'transformer' => \App\Transformers\Outbound\Web\Exhibition::class,
-            'is_searchable' => true,
-        ],
-        [
-            'endpoint' => 'experiences',
-            'model' => \App\Models\Web\Experience::class,
-            'transformer' => \App\Transformers\Outbound\Web\Experience::class,
-            'is_searchable' => true,
-            'is_restricted' => true,
-        ],
         [
             'endpoint' => 'events',
             'model' => \App\Models\Web\Event::class,
@@ -329,33 +274,6 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'email-series',
-            'model' => \App\Models\Web\EmailSeries::class,
-            'transformer' => \App\Transformers\Outbound\GenericTransformer::class,
-            'is_searchable' => true,
-            'is_restricted' => false,
-            'no_dump' => true,
-        ],
-        [
-            'endpoint' => 'interactive-features',
-            'model' => \App\Models\Web\InteractiveFeature::class,
-            'transformer' => \App\Transformers\Outbound\Web\InteractiveFeature::class,
-            'is_searchable' => true,
-            'is_restricted' => true,
-        ],
-        [
-            'endpoint' => 'sponsors',
-            'model' => \App\Models\Web\Sponsor::class,
-            'transformer' => \App\Transformers\Outbound\Web\Sponsor::class,
-            'is_searchable' => true,
-            'is_restricted' => false,
-            'no_dump' => true,
-        ],
-        [
-            'model' => \App\Models\Web\EventEmailSeriesPivot::class,
-            'transformer' => \App\Transformers\Outbound\Web\EventEmailSeriesPivot::class,
-        ],
-        [
             'endpoint' => 'articles',
             'model' => \App\Models\Web\Article::class,
             'transformer' => \App\Transformers\Outbound\Web\Article::class,
@@ -365,12 +283,6 @@ return [
             'endpoint' => 'highlights',
             'model' => \App\Models\Web\Highlight::class,
             'transformer' => \App\Transformers\Outbound\Web\Highlight::class,
-            'is_searchable' => true,
-        ],
-        [
-            'endpoint' => 'web-artists',
-            'model' => \App\Models\Web\Artist::class,
-            'transformer' => \App\Transformers\Outbound\Web\Artist::class,
             'is_searchable' => true,
         ],
         [
@@ -388,7 +300,7 @@ return [
         [
             'endpoint' => 'press-releases',
             'model' => \App\Models\Web\PressRelease::class,
-            'transformer' => \App\Transformers\Outbound\Web\PressRelease::class,
+            'transformer' => \App\Transformers\Outbound\Web\Page::class,
             'is_searchable' => true,
         ],
         [
@@ -415,18 +327,23 @@ return [
             'transformer' => \App\Transformers\Outbound\Web\Page::class,
             'is_searchable' => true,
         ],
+
+        /**
+         * Not meant to be used alone, only here for debugging:
+         */
         [
-            'endpoint' => 'issues',
-            'model' => \App\Models\Web\Issue::class,
-            'transformer' => \App\Transformers\Outbound\Web\Issue::class,
+            'endpoint' => 'web-artists',
+            'model' => \App\Models\Web\Artist::class,
+            'transformer' => \App\Transformers\Outbound\Web\Artist::class,
             'is_searchable' => true,
+            'is_restricted' => true,
         ],
         [
-            'endpoint' => 'issue-articles',
-            'model' => \App\Models\Web\IssueArticle::class,
-            'transformer' => \App\Transformers\Outbound\Web\IssueArticle::class,
+            'endpoint' => 'web-exhibitions',
+            'model' => \App\Models\Web\Exhibition::class,
+            'transformer' => \App\Transformers\Outbound\Web\Exhibition::class,
             'is_searchable' => true,
+            'is_restricted' => true,
         ],
     ],
-
 ];

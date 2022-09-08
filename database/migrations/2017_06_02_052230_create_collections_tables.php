@@ -218,9 +218,9 @@ class CreateCollectionsTables extends Migration
             $table->json('metadata')->nullable();
             $table->string('content_e_tag', 40)->nullable();
             $table->timestamp('content_modified_at')->nullable();
-            $table->timestamp('source_created_at')->nullable()->useCurrent();
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
-            $table->timestamp('source_indexed_at')->nullable()->useCurrent();
+            $table->timestamp('source_created_at')->nullable();
+            $table->timestamp('source_modified_at')->nullable();
+            $table->timestamp('source_indexed_at')->nullable();
             $table->timestamps();
             $table->text('alt_text')->nullable();
         });
@@ -286,7 +286,7 @@ class CreateCollectionsTables extends Migration
 
     private function _addDates($table, $citiField = true)
     {
-        $table->timestamp('source_modified_at')->nullable()->useCurrent();
+        $table->timestamp('source_modified_at')->nullable();
         $table->timestamps();
         return $table;
     }

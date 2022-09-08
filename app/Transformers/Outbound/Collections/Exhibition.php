@@ -14,7 +14,6 @@ use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Exhibition extends BaseTransformer
 {
-
     use IsCC0;
     use HasSuggestFields;
 
@@ -49,16 +48,9 @@ class Exhibition extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
                 'value' => function ($item) {
-                    return $item->webExhibition->is_published ?? false;
+                    return $item->webExhibition !== null;
                 },
                 'is_restricted' => true,
-            ],
-            'description' => [
-                'doc' => 'Explanation of what this exhibition is',
-                'type' => 'string',
-                'elasticsearch' => [
-                    'default' => true,
-                ],
             ],
             'short_description' => [
                 'doc' => 'Brief explanation of what this exhibition is',
@@ -84,11 +76,6 @@ class Exhibition extends BaseTransformer
                     return $item->webExhibition->image_url ?? null;
                 },
             ],
-            'type' => [
-                'doc' => 'The type of exhibition. In particular this notes whether the exhibition was only displayed at the Art Institute or whether it traveled to other venues.',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
             'status' => [
                 'doc' => 'Whether the exhibition is open or closed',
                 'type' => 'string',
@@ -104,25 +91,13 @@ class Exhibition extends BaseTransformer
                 'type' => 'ISO 8601 date and time',
                 'value' => $this->getDateValue('date_aic_end'),
             ],
-            'date_display' => [
-                'doc' => 'A human-friendly string describing when this exhibition was open',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
-            'department_display' => [
-                'doc' => 'The name of the department that primarily organized the exhibition',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
 
-            // TODO: Rename gallery_title to gallery_display, to accurately reflect that it's a free form display
-            //       representation of the galleries an exhibition took place in.
             'gallery_id' => [
                 'doc' => 'Unique identifier of the gallery that mainly housed the exhibition',
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->gallery->citi_id ?? null;
+                    return $item->gallery->id ?? null;
                 },
             ],
             'gallery_title' => [
@@ -130,7 +105,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
                 'value' => function ($item) {
-                    return $item->place_display;
+                    return $item->gallery->title ?? null;
                 },
             ],
 
@@ -140,7 +115,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artworks->pluck('citi_id');
+                    return $item->artworks->pluck('id');
                 },
             ],
             'artwork_titles' => [
@@ -156,7 +131,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artists->pluck('citi_id');
+                    return $item->artists->pluck('id');
                 },
             ],
             'site_ids' => [
@@ -164,7 +139,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->sites->pluck('site_id');
+                    return $item->sites->pluck('id');
                 },
             ],
             // TODO: Shared fields w/ artwork – put into trait?
@@ -173,7 +148,7 @@ class Exhibition extends BaseTransformer
                 'type' => 'uuid',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return Asset::getHashedId($item->image->lake_guid ?? null);
+                    return Asset::getHashedId($item->image->id ?? null);
                 },
             ],
             'alt_image_ids' => [
@@ -181,8 +156,8 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->altImages->pluck('lake_guid')->map(function ($lake_guid) {
-                        return Asset::getHashedId($lake_guid);
+                    return $item->altImages->pluck('id')->map(function ($id) {
+                        return Asset::getHashedId($id);
                     });
                 },
             ],
@@ -191,8 +166,8 @@ class Exhibition extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->documents->pluck('lake_guid')->map(function ($lake_guid) {
-                        return Asset::getHashedId($lake_guid);
+                    return $item->documents->pluck('id')->map(function ($id) {
+                        return Asset::getHashedId($id);
                     });
                 },
             ],

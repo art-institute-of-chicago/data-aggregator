@@ -23,7 +23,6 @@ class TicketedEvent extends MembershipModel
         'is_after_hours' => 'boolean',
         'is_private_event' => 'boolean',
         'is_admission_required' => 'boolean',
-        'source_created_at' => 'datetime',
     ];
 
     protected $touches = [
@@ -32,7 +31,7 @@ class TicketedEvent extends MembershipModel
 
     public function event()
     {
-        return $this->hasOne('App\Models\Web\Event', 'ticketed_event_id', 'membership_id');
+        return $this->hasOne('App\Models\Web\Event', 'ticketed_event_id', 'id');
     }
 
     public function ticketedEventType()

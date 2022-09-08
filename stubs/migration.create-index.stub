@@ -1,0 +1,10 @@
+<?php
+
+use App\Library\Migrations\CreateIndexMigration;
+
+class {{ class }} extends CreateIndexMigration
+{
+    protected $columnName = '{{ columnName }}';
+
+    protected $tableNames = {{ tableNames }};
+}

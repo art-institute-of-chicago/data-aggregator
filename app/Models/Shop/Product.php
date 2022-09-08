@@ -9,10 +9,6 @@ use App\Models\ShopModel;
  */
 class Product extends ShopModel
 {
-    protected $casts = [
-        'source_created_at' => 'datetime',
-    ];
-
     public function artists()
     {
         return $this->belongsToMany('App\Models\Collections\Agent', 'artist_product');

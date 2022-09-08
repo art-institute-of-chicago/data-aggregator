@@ -8,7 +8,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Site extends BaseTransformer
 {
-
     protected $availableIncludes = ['artworks'];
 
     public function includeArtworks($site)
@@ -38,7 +37,7 @@ class Site extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->exhibitions->pluck('citi_id');
+                    return $item->exhibitions->pluck('id');
                 },
             ],
             'exhibition_titles' => [
@@ -51,27 +50,12 @@ class Site extends BaseTransformer
                     return $item->exhibitions->pluck('title');
                 },
             ],
-            'artist_ids' => [
-                'doc' => 'Unique identifiers of the artists this site is associated with',
-                'type' => 'array',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->agents->pluck('citi_id');
-                },
-            ],
-            'artist_titles' => [
-                'doc' => 'Names of the artists this site is associated with',
-                'type' => 'array',
-                'value' => function ($item) {
-                    return $item->agents->pluck('title');
-                },
-            ],
             'artwork_ids' => [
                 'doc' => 'Unique identifiers of the artworks this site is associated with',
                 'type' => 'array',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artworks->pluck('citi_id');
+                    return $item->artworks->pluck('id');
                 },
             ],
             'artwork_titles' => [

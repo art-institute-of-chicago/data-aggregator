@@ -61,8 +61,7 @@ class ArtworkArtistPivot extends BaseTransformer
     protected function getFields()
     {
         return [
-            // TODO: Rename to `is_preferred`
-            'preferred' => [
+            'is_preferred' => [
                 'doc' => 'Whether this is a preferred artist',
                 'type' => 'boolean',
             ],
@@ -77,7 +76,7 @@ class ArtworkArtistPivot extends BaseTransformer
                 'doc' => 'Unique identifier of the artist',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->artist->citi_id ?? null;
+                    return $item->artist->id ?? null;
                 },
             ],
             'role_title' => [
@@ -91,7 +90,7 @@ class ArtworkArtistPivot extends BaseTransformer
                 'doc' => 'Unique identifier of the role this artist played in the making of the work',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->role->citi_id ?? null;
+                    return $item->role->id ?? null;
                 },
             ],
         ];

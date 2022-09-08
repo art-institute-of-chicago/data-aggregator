@@ -9,7 +9,7 @@ abstract class ShopFactory extends Factory
     public function shopIdsAndTitle($title = '')
     {
         return [
-            'shop_id' => $this->faker->unique()->randomNumber(3),
+            'id' => $this->faker->unique()->randomNumber(3),
             'title' => $title ? $title : ucfirst($this->faker->words(5, true)),
         ];
     }
@@ -17,7 +17,7 @@ abstract class ShopFactory extends Factory
     public function shopDates()
     {
         return [
-            'source_modified_at' => $this->faker->dateTimeThisYear,
+            'source_updated_at' => $this->faker->dateTimeThisYear,
         ];
     }
 }

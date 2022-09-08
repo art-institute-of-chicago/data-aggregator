@@ -9,18 +9,7 @@ use App\Models\WebModel;
  */
 class Artist extends WebModel
 {
-
     public $table = 'web_artists';
-
-    protected $casts = [
-        'published' => 'boolean',
-        'also_known_as' => 'boolean',
-        'agent_ids' => 'array',
-    ];
-
-    protected $with = [
-        'agent',
-    ];
 
     protected $touches = [
         'agent',
@@ -28,6 +17,6 @@ class Artist extends WebModel
 
     public function agent()
     {
-        return $this->belongsTo('App\Models\Collections\Agent', 'datahub_id');
+        return $this->belongsTo('App\Models\Collections\Agent');
     }
 }

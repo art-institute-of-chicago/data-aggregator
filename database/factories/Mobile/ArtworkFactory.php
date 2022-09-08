@@ -11,13 +11,13 @@ class ArtworkFactory extends MobileFactory
         static $artworks;
 
         if (!$artworks) {
-            $artworks = \App\Models\Collections\Artwork::query()->pluck('citi_id')->all();
+            $artworks = \App\Models\Collections\Artwork::query()->pluck('id')->all();
         }
 
         return array_merge(
             $this->mobileAppIdsAndTitle(),
             [
-                'artwork_citi_id' => $this->faker->randomElement($artworks),
+                'artwork_id' => $this->faker->randomElement($artworks),
                 'latitude' => $this->faker->latitude,
                 'longitude' => $this->faker->longitude,
             ]

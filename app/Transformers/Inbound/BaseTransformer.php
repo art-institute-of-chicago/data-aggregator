@@ -73,9 +73,9 @@ class BaseTransformer extends AbstractTransformer
      *  [
      *      "artwork_category" => [
      *          [
-     *              "artwork_citi_id" => 111628,
-     *              "category_lake_uid" => "PC-2",
-     *              "preferred" => true
+     *              "artwork_id" => 111628,
+     *              "category_id" => "PC-2",
+     *              "is_preferred" => true
      *          ]
      *      ]
      *  ]
@@ -245,9 +245,7 @@ class BaseTransformer extends AbstractTransformer
     protected function getDates(Datum $datum)
     {
         return [
-            'source_created_at' => $datum->date('created_at'),
-            'source_modified_at' => $datum->date('modified_at'),
-            'source_indexed_at' => $datum->date('indexed_at'),
+            'source_updated_at' => $datum->date('modified_at'),
         ];
     }
 

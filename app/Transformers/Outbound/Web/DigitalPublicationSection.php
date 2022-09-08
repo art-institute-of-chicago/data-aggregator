@@ -2,44 +2,17 @@
 
 namespace App\Transformers\Outbound\Web;
 
-use App\Transformers\Outbound\Web\Traits\HasPublishDates;
-
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class DigitalPublicationSection extends BaseTransformer
 {
-
-    use HasPublishDates;
-
     protected function getFields()
     {
         return [
-            // TODO: Ensure consistent naming and move to HasPublishDates
-            'is_published' => [
-                'doc' => 'Whether the section has been published',
-                'type' => 'boolean',
-                'elasticsearch' => 'boolean',
-                'value' => function ($item) {
-                    return $item->published;
-                },
-                'is_restricted' => true,
-            ],
-
             'web_url' => [
                 'doc' => 'The URL to this section on our website',
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
-            ],
-            'slug' => [
-                'doc' => 'A human-readable string used in the URL',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
-
-            'listing_description' => [
-                'doc' => 'A brief description of the section used in listings',
-                'type' => 'string',
-                'elasticsearch' => 'text',
             ],
             'copy' => [
                 'doc' => 'The text of the section',
@@ -47,23 +20,6 @@ class DigitalPublicationSection extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                 ],
-            ],
-            // TODO: This seems to always be null. Remove?
-            'type' => [
-                'doc' => 'The type of section this record represents',
-                'type' => 'string',
-                'elasticsearch' => 'keyword',
-            ],
-            'heading' => [
-                'doc' => 'A brief description of the section used at the top of the page',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-            ],
-            'date' => [
-                'doc' => 'The date the section was published',
-                'type' => 'ISO 8601 date and time',
-                'elasticsearch' => 'date',
-                'value' => $this->getDateValue('date'),
             ],
             'author_display' => [
                 'doc' => 'A display-friendly text of the authors of this section',

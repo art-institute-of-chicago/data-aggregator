@@ -21,7 +21,7 @@ class CreateWebCmsTables extends Migration
             $table->integer('type');
             $table->integer('day_of_week');
             $table->boolean('closed');
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -184,7 +184,7 @@ class CreateWebCmsTables extends Migration
             $table->text('short_copy')->nullable();
             $table->text('copy')->nullable();
             $table->boolean('published');
-            $table->timestamp('source_modified_at')->nullable()->useCurrent();
+            $table->timestamp('source_modified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

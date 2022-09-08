@@ -18,7 +18,7 @@ https://api.artic.edu/api/v1/artworks
 
 ...and here's a query that shows identifiers, titles, and last modified dates for all artworks that have been updated in our collections system in the past seven days from this moment, sorted in reverse chronological order:
 
-https://api.artic.edu/api/v1/artworks/search?fields=id,title,last_updated_source&query[range][last_updated_source][gte]=now-7d&sort[last_updated_source][order]=desc
+https://api.artic.edu/api/v1/artworks/search?fields=id,title,source_updated_at&query[range][source_updated_at][gte]=now-7d&sort[source_updated_at][order]=desc
 
 Our API is a wrapper around [Elasticsearch's Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl.html). Depending on your needs, these queries can get quite complex.
 

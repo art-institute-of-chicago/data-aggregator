@@ -40,10 +40,10 @@ class Artwork extends CollectionsTransformer
             'publication_history' => $datum->publications,
             'exhibition_history' => $datum->exhibitions,
             'copyright_notice' => $copyright_notice,
-            'gallery_citi_id' => $datum->gallery_id,
+            'gallery_id' => $datum->gallery_id,
             'internal_department_id' => $datum->department_id,
-            'artwork_date_qualifier_citi_id' => $datum->date_qualifier_id,
-            'artwork_type_citi_id' => $datum->object_type_id,
+            'artwork_date_qualifier_id' => $datum->date_qualifier_id,
+            'artwork_type_id' => $datum->object_type_id,
         ];
     }
 
@@ -55,7 +55,6 @@ class Artwork extends CollectionsTransformer
 
             'artists' => $this->getSyncArtists($datum),
             'places' => $this->getSyncPlaces($datum),
-            'catalogues' => $this->getSyncCatalogues($datum),
 
             'assets' => $this->getSyncAssets($datum),
         ];
@@ -70,11 +69,11 @@ class Artwork extends CollectionsTransformer
         return [
             'artwork_dates' => collect($datum->artwork_dates ?? [])->map(function ($date) use ($datum, $now) {
                 return [
-                    'artwork_citi_id' => $datum->id,
+                    'artwork_id' => $datum->id,
                     'date_earliest' => Carbon::parse($date->date_earliest),
                     'date_latest' => Carbon::parse($date->date_latest),
-                    'preferred' => $date->is_preferred,
-                    'artwork_date_qualifier_citi_id' => $date->date_qualifier_id,
+                    'is_preferred' => $date->is_preferred,
+                    'artwork_date_qualifier_id' => $date->date_qualifier_id,
                     'created_at' => $now,
                     'updated_at' => $now,
                 ];
@@ -106,7 +105,7 @@ class Artwork extends CollectionsTransformer
         $pref_terms = collect($datum->pref_term_ids)->map(function ($term_id) {
             return [
                 ('TM-' . $term_id) => [
-                    'preferred' => true,
+                    'is_preferred' => true,
                 ],
             ];
         });
@@ -114,7 +113,7 @@ class Artwork extends CollectionsTransformer
         $alt_terms = collect($datum->alt_term_ids)->map(function ($term_id) {
             return [
                 ('TM-' . $term_id) => [
-                    'preferred' => false,
+                    'is_preferred' => false,
                 ],
             ];
         });
@@ -139,11 +138,11 @@ class Artwork extends CollectionsTransformer
 
         // No pivots, but basic artist
         if (!$datum->artwork_agents && $datum->creator_id) {
-            // Default `preferred` to true and `agent_role_citi_id` to 219
+            // Default `is_preferred` to true and `agent_role_id` to 219
             return [
                 $datum->creator_id => [
-                    'agent_role_citi_id' => $datum->creator_role_id ?? 219,
-                    'preferred' => true,
+                    'agent_role_id' => $datum->creator_role_id ?? 219,
+                    'is_preferred' => true,
                 ],
             ];
         }
@@ -151,8 +150,8 @@ class Artwork extends CollectionsTransformer
         return $this->getSyncPivots($datum, 'artwork_agents', 'agent_id', function ($pivot) {
             return [
                 $pivot->agent_id => [
-                    'agent_role_citi_id' => $pivot->role_id,
-                    'preferred' => $pivot->is_preferred,
+                    'agent_role_id' => $pivot->role_id ?? 219,
+                    'is_preferred' => $pivot->is_preferred ?? true,
                 ],
             ];
         });
@@ -167,43 +166,11 @@ class Artwork extends CollectionsTransformer
      */
     private function getSyncPlaces(Datum $datum)
     {
-        // Worst case: no pivots, nor basic place
-        if (!$datum->artwork_places && !$datum->place_of_origin_id) {
-            return [];
-        }
-
-        // No pivots, but basic place
-        if (!$datum->artwork_places && $datum->place_of_origin_id) {
-            // Default `artwork_place_qualifier_citi_id` to 3 (Object made in)
-            return [
-                $datum->place_of_origin_id => [
-                    'artwork_place_qualifier_citi_id' => 3,
-                    'preferred' => true,
-                ],
-            ];
-        }
-
         return $this->getSyncPivots($datum, 'artwork_places', 'place_id', function ($pivot) {
             return [
                 $pivot->place_id => [
-                    'artwork_place_qualifier_citi_id' => $pivot->place_qualifier_id,
-                    'preferred' => $pivot->is_preferred,
-                ],
-            ];
-        });
-    }
-
-    /**
-     * Attach catalogue raisonnes within which this artwork was published.
-     */
-    private function getSyncCatalogues(Datum $datum)
-    {
-        return $this->getSyncPivots($datum, 'artwork_catalogues', 'catalogue_id', function ($pivot) {
-            return [
-                $pivot->catalogue_id => [
-                    'number' => $pivot->number,
-                    'state_edition' => $pivot->state_edition,
-                    'preferred' => $pivot->is_preferred,
+                    'artwork_place_qualifier_id' => $pivot->place_qualifier_id,
+                    'is_preferred' => $pivot->is_preferred,
                 ],
             ];
         });
@@ -217,7 +184,7 @@ class Artwork extends CollectionsTransformer
         return $this->getSyncPivots($datum, 'assets', 'netx_id', function ($pivot) {
             return [
                 $pivot->netx_id => [
-                    'preferred' => $pivot->is_preferred,
+                    'is_preferred' => $pivot->is_preferred,
                     'is_doc' => $pivot->is_rep === false,
                 ],
             ];
@@ -233,11 +200,11 @@ class Artwork extends CollectionsTransformer
 
         foreach (($datum->artwork_dates ?? []) as $date) {
             ArtworkDate::create([
-                'artwork_citi_id' => $datum->id,
+                'artwork_id' => $datum->id,
                 'date_earliest' => Carbon::parse($date->date_earliest),
                 'date_latest' => Carbon::parse($date->date_latest),
-                'preferred' => $date->is_preferred,
-                'artwork_date_qualifier_citi_id' => $date->date_qualifier_id,
+                'is_preferred' => $date->is_preferred ?? false,
+                'artwork_date_qualifier_id' => $date->date_qualifier_id,
             ]);
         }
     }

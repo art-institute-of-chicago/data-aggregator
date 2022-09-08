@@ -6,7 +6,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class TourStop extends BaseTransformer
 {
-
     protected $keyType = 'long';
 
     protected function getFields()
@@ -44,7 +43,7 @@ class TourStop extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->artwork->artwork->citi_id ?? null;
+                    return $item->artwork->artwork->id ?? null;
                 },
             ],
             'artwork_title' => [
@@ -60,7 +59,7 @@ class TourStop extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->tour->mobile_id ?? null;
+                    return $item->tour->id ?? null;
                 },
             ],
             'tour_title' => [

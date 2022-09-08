@@ -13,7 +13,6 @@ use Illuminate\Support\Str;
  */
 class Artwork extends CollectionsModel
 {
-
     use HasRelationships;
     use ElasticSearchable;
 
@@ -25,8 +24,6 @@ class Artwork extends CollectionsModel
         'linked_art_json' => 'object',
     ];
 
-    protected $primaryKey = 'citi_id';
-
     protected $with = [
         'artistPivots',
         'artists',
@@ -37,8 +34,6 @@ class Artwork extends CollectionsModel
         'dates',
         'terms',
         'termPivots',
-        'artworkCatalogues',
-        // 'catalogues', // unused!
         'gallery',
         'images',
         'imagePivots', // improves, but why?
@@ -109,7 +104,7 @@ class Artwork extends CollectionsModel
     {
         return $this->belongsToMany('App\Models\Collections\Agent', 'artwork_artist')
             ->using('App\Models\Collections\ArtworkArtistPivot')
-            ->withPivot('preferred');
+            ->withPivot('is_preferred');
     }
 
     public function getArtistAttribute()
@@ -156,7 +151,7 @@ class Artwork extends CollectionsModel
 
     public function dateQualifier()
     {
-        return $this->belongsTo('App\Models\Collections\ArtworkDateQualifier', 'artwork_date_qualifier_citi_id');
+        return $this->belongsTo('App\Models\Collections\ArtworkDateQualifier', 'artwork_date_qualifier_id');
     }
 
     public function dates()
@@ -166,7 +161,7 @@ class Artwork extends CollectionsModel
 
     public function terms()
     {
-        return $this->belongsToMany('App\Models\Collections\Term')->withPivot('preferred');
+        return $this->belongsToMany('App\Models\Collections\Term')->withPivot('is_preferred');
     }
 
     public function termPivots()
@@ -249,20 +244,6 @@ class Artwork extends CollectionsModel
         return $this->alts('term', CategoryTerm::TECHNIQUE, 'subtype');
     }
 
-    // TODO: rename this to cataloguePivots
-    public function artworkCatalogues()
-    {
-        return $this->hasMany('App\Models\Collections\ArtworkCatalogue');
-    }
-
-    // TODO: Unused. Delete?
-    public function catalogues()
-    {
-        return $this->belongsToMany('App\Models\Collections\Catalogue', 'artwork_catalogue')
-            ->using('App\Models\Collections\ArtworkCatalogue')
-            ->withPivot('preferred');
-    }
-
     public function gallery()
     {
         return $this->belongsTo('App\Models\Collections\Gallery');
@@ -270,8 +251,8 @@ class Artwork extends CollectionsModel
 
     public function images()
     {
-        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_citi_id', 'asset_lake_guid')
-            ->withPivot('preferred')
+        return $this->belongsToMany('App\Models\Collections\Image', 'artwork_asset', 'artwork_id', 'asset_id')
+            ->withPivot('is_preferred')
             ->withPivot('is_doc')
             ->wherePivot('is_doc', '=', false);
     }
@@ -345,7 +326,7 @@ class Artwork extends CollectionsModel
     {
         return $this->belongsToMany('App\Models\Collections\Place')
             ->using('App\Models\Collections\ArtworkPlacePivot')
-            ->withPivot('preferred');
+            ->withPivot('is_preferred');
     }
 
     // Meh, we'll leave out preferred & alternative places for now
@@ -500,19 +481,6 @@ class Artwork extends CollectionsModel
     public function isBoosted()
     {
         return in_array($this->getKey(), static::boostedIds());
-    }
-
-    /**
-     * Get the models representing our essential artworks from the database.
-     *
-     * Artworks from three different catalogues: Paintings at the Art Institute of Chicago: Highlights of the Collection,
-     * The Essential Guide, and Master Paintings in the Art Institute of Chicago.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public static function boosted()
-    {
-        return (new static())->newQuery()->whereKey(static::boostedIds());
     }
 
     /**

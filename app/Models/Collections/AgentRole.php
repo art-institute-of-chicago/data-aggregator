@@ -10,5 +10,4 @@ use App\Models\CollectionsModel;
 class AgentRole extends CollectionsModel
 {
 
-    protected $primaryKey = 'citi_id';
 }

@@ -10,10 +10,7 @@ use App\Models\ElasticSearchable;
  */
 class Site extends BaseModel
 {
-
     use ElasticSearchable;
-
-    protected $primaryKey = 'site_id';
 
     protected $hasSourceDates = false;
 
@@ -24,11 +21,6 @@ class Site extends BaseModel
     public function exhibitions()
     {
         return $this->belongsToMany('App\Models\Collections\Exhibition');
-    }
-
-    public function agents()
-    {
-        return $this->belongsToMany('App\Models\Collections\Agent');
     }
 
     public function artworks()

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7a03271817746eb10f0e26334448026",
+    "content-hash": "2a3dffa537e5aceed0795cb15b58f9b4",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "dd83bcf6c32d25d958c7e9a6d376c16470e23dd8"
+                "reference": "7204e46c6d42f971c07a96cb370add5b4dddb381"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/dd83bcf6c32d25d958c7e9a6d376c16470e23dd8",
-                "reference": "dd83bcf6c32d25d958c7e9a6d376c16470e23dd8",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/7204e46c6d42f971c07a96cb370add5b4dddb381",
+                "reference": "7204e46c6d42f971c07a96cb370add5b4dddb381",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +25,7 @@
                 "fruitcake/laravel-cors": "^2.0",
                 "laravel/framework": "*",
                 "league/fractal": "^0.16.0",
-                "netresearch/composer-patches-plugin": "~1.0",
+                "netresearch/composer-patches-plugin": "^1.3.1",
                 "php": "^7.3|^8.0"
             },
             "require-dev": {
@@ -50,6 +50,12 @@
                         {
                             "title": "API-45: Fix arrow functions in method_chaining_indentation",
                             "url": "vendor/aic/data-hub-foundation/patches/API-45---fix-arrow-functions-in-method-chaining-indentation.diff"
+                        }
+                    ],
+                    "doctrine/dbal": [
+                        {
+                            "title": "API-316: Support reorder of database columns",
+                            "url": "vendor/aic/data-hub-foundation/patches/API-316---support-reorder-of-database-columns.diff"
                         }
                     ]
                 }
@@ -82,7 +88,7 @@
                 "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/laravel-8-support",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2022-02-09T00:08:14+00:00"
+            "time": "2022-07-14T03:48:15+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
@@ -3330,16 +3336,16 @@
         },
         {
             "name": "netresearch/composer-patches-plugin",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/netresearch/composer-patches-plugin.git",
-                "reference": "12597c59868e8be965e6b0e257bae3dea200ea9b"
+                "reference": "3691e7d67274f8f00817e5631d93d8fae6f673f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/netresearch/composer-patches-plugin/zipball/12597c59868e8be965e6b0e257bae3dea200ea9b",
-                "reference": "12597c59868e8be965e6b0e257bae3dea200ea9b",
+                "url": "https://api.github.com/repos/netresearch/composer-patches-plugin/zipball/3691e7d67274f8f00817e5631d93d8fae6f673f0",
+                "reference": "3691e7d67274f8f00817e5631d93d8fae6f673f0",
                 "shasum": ""
             },
             "require": {
@@ -3378,9 +3384,9 @@
             ],
             "support": {
                 "issues": "https://github.com/netresearch/composer-patches-plugin/issues",
-                "source": "https://github.com/netresearch/composer-patches-plugin/tree/1.3.0"
+                "source": "https://github.com/netresearch/composer-patches-plugin/tree/1.3.1"
             },
-            "time": "2021-02-16T07:32:31+00:00"
+            "time": "2022-04-20T12:08:55+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -8153,6 +8159,86 @@
             "time": "2021-12-02T09:12:23+00:00"
         },
         {
+            "name": "colinodell/indentation",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colinodell/indentation.git",
+                "reference": "8fe4730dc2f0f7546b6eccaf715c972e035e4dcd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colinodell/indentation/zipball/8fe4730dc2f0f7546b6eccaf715c972e035e4dcd",
+                "reference": "8fe4730dc2f0f7546b6eccaf715c972e035e4dcd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "phpstan/phpstan": "^1.0.0",
+                "phpunit/phpunit": "^9.5.5",
+                "scrutinizer/ocular": "^1.8.1",
+                "unleashedtech/php-coding-standard": "^3.1",
+                "vimeo/psalm": "^4.7.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ColinODell\\Indentation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colin O'Dell",
+                    "email": "colinodell@gmail.com",
+                    "homepage": "https://www.colinodell.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "Library to detect and manipulate indentation in strings and files",
+            "homepage": "https://github.com/colinodell/indentation",
+            "keywords": [
+                "deindent",
+                "files",
+                "indent",
+                "indentation",
+                "spaces",
+                "strings",
+                "tabs"
+            ],
+            "support": {
+                "issues": "https://github.com/colinodell/indentation/issues",
+                "rss": "https://github.com/colinodell/indentation/releases.atom",
+                "source": "https://github.com/colinodell/indentation"
+            },
+            "funding": [
+                {
+                    "url": "https://www.colinodell.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.paypal.me/colinpodell/10.00",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/colinodell",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-03-20T19:44:12+00:00"
+        },
+        {
             "name": "composer/pcre",
             "version": "1.0.1",
             "source": {
@@ -9055,6 +9141,80 @@
             "time": "2021-12-07T18:24:19+00:00"
         },
         {
+            "name": "kitloong/laravel-migrations-generator",
+            "version": "v6.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kitloong/laravel-migrations-generator.git",
+                "reference": "2a7828e845023b3809c9b63f05ca5e9c3caff40b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kitloong/laravel-migrations-generator/zipball/2a7828e845023b3809c9b63f05ca5e9c3caff40b",
+                "reference": "2a7828e845023b3809c9b63f05ca5e9c3caff40b",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.4|^3.0",
+                "illuminate/support": "^5.6|^6.0|^7.0|^8.0|^9.0",
+                "myclabs/php-enum": "^1.8",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "barryvdh/laravel-ide-helper": "^2.7",
+                "ext-pdo": "*",
+                "friendsofphp/php-cs-fixer": "^2.19.0|^3.1",
+                "mockery/mockery": "^1.0",
+                "nunomaduro/larastan": "^0.4|^0.5|^0.6|^0.7|^1.0|^2.0",
+                "orchestra/testbench": "^3.6|^4.0|^5.0|^6.0|^7.0",
+                "phpmd/phpmd": "^2.10",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "KitLoong\\MigrationsGenerator\\MigrationsGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "KitLoong\\MigrationsGenerator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kit Loong",
+                    "email": "kitloong1008@gmail.com"
+                }
+            ],
+            "description": "Generates Laravel Migrations from an existing database",
+            "keywords": [
+                "artisan",
+                "generator",
+                "laravel",
+                "lumen",
+                "migration",
+                "migrations"
+            ],
+            "support": {
+                "issues": "https://github.com/kitloong/laravel-migrations-generator/issues",
+                "source": "https://github.com/kitloong/laravel-migrations-generator/tree/v6.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/kitloong",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-05-21T14:31:48+00:00"
+        },
+        {
             "name": "laravel/sail",
             "version": "v1.12.10",
             "source": {
@@ -9240,6 +9400,66 @@
                 }
             ],
             "time": "2020-11-13T09:40:50+00:00"
+        },
+        {
+            "name": "myclabs/php-enum",
+            "version": "1.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/myclabs/php-enum.git",
+                "reference": "b942d263c641ddb5190929ff840c68f78713e937"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/b942d263c641ddb5190929ff840c68f78713e937",
+                "reference": "b942d263c641ddb5190929ff840c68f78713e937",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "1.*",
+                "vimeo/psalm": "^4.6.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MyCLabs\\Enum\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP Enum contributors",
+                    "homepage": "https://github.com/myclabs/php-enum/graphs/contributors"
+                }
+            ],
+            "description": "PHP Enum implementation",
+            "homepage": "http://github.com/myclabs/php-enum",
+            "keywords": [
+                "enum"
+            ],
+            "support": {
+                "issues": "https://github.com/myclabs/php-enum/issues",
+                "source": "https://github.com/myclabs/php-enum/tree/1.8.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/mnapoli",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/myclabs/php-enum",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-07-05T08:18:36+00:00"
         },
         {
             "name": "nunomaduro/collision",

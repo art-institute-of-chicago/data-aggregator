@@ -6,13 +6,12 @@ use App\Models\AbstractPivot as BasePivot;
 
 class ArtworkPlacePivot extends BasePivot
 {
-
     public $incrementing = true;
 
     protected $table = 'artwork_place';
 
     protected $casts = [
-        'preferred' => 'boolean',
+        'is_preferred' => 'boolean',
     ];
 
     public function artwork()
@@ -27,7 +26,7 @@ class ArtworkPlacePivot extends BasePivot
 
     public function qualifier()
     {
-        return $this->belongsTo('App\Models\Collections\ArtworkPlaceQualifier', 'artwork_place_qualifier_citi_id');
+        return $this->belongsTo('App\Models\Collections\ArtworkPlaceQualifier', 'artwork_place_qualifier_id');
     }
 
     public function getUpdatedAtColumn()

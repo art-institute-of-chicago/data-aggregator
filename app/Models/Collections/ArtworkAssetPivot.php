@@ -6,18 +6,17 @@ use App\Models\AbstractPivot as BasePivot;
 
 class ArtworkAssetPivot extends BasePivot
 {
-
     public $incrementing = true;
 
     protected $table = 'artwork_asset';
 
     protected $casts = [
-        'preferred' => 'boolean',
+        'is_preferred' => 'boolean',
     ];
 
     public function asset()
     {
-        return $this->belongsTo('App\Models\Collections\Asset', 'asset_lake_guid');
+        return $this->belongsTo('App\Models\Collections\Asset', 'asset_id');
     }
 
     public function artwork()

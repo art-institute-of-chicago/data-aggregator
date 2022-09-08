@@ -9,9 +9,7 @@ use App\Models\WebModel;
  */
 class Event extends WebModel
 {
-
     protected $casts = [
-        'published' => 'boolean',
         'is_private' => 'boolean',
         'is_after_hours' => 'boolean',
         'is_ticketed' => 'boolean',
@@ -26,37 +24,11 @@ class Event extends WebModel
         'alt_event_types' => 'array',
         'alt_audiences' => 'array',
         'programs' => 'array',
-        'test_emails' => 'array',
-        'publish_start_date' => 'datetime',
-        'publish_end_date' => 'datetime',
     ];
 
     public function ticketedEvent()
     {
-        return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'membership_id');
-    }
-
-    public function emailSeriesPivots()
-    {
-        return $this->hasMany('App\Models\Web\EventEmailSeriesPivot');
-    }
-
-    public function emailSeries()
-    {
-        return $this
-            ->belongsToMany('App\Models\Web\EmailSeries', 'event_email_series')
-            ->using('App\Models\Web\EventEmailSeriesPivot')
-            ->withPivot(
-                'affiliate_copy',
-                'member_copy',
-                'luminary_copy',
-                'nonmember_copy'
-            );
-    }
-
-    public function sponsor()
-    {
-        return $this->belongsTo('App\Models\Web\Sponsor');
+        return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'id');
     }
 
     /**

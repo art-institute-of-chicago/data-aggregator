@@ -21,7 +21,6 @@ use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
 use App\Models\Web\PrintedCatalog;
 use App\Models\Web\Highlight;
-use App\Models\Web\Sponsor;
 use App\Models\Web\StaticPage;
 
 use Illuminate\Database\Eloquent\Model;
@@ -69,7 +68,7 @@ class BaseModel extends AbstractModel
         }
 
         return array_merge($casts, [
-            'source_modified_at' => 'datetime',
+            'source_updated_at' => 'datetime',
         ]);
     }
 
@@ -135,7 +134,6 @@ class BaseModel extends AbstractModel
         PressRelease::addGlobalScope(new PublishedScope());
         PrintedCatalog::addGlobalScope(new PublishedScope());
         Highlight::addGlobalScope(new PublishedScope());
-        Sponsor::addGlobalScope(new PublishedScope());
         StaticPage::addGlobalScope(new PublishedScope());
         WebExhibition::addGlobalScope(new PublishedScope());
 
@@ -157,10 +155,9 @@ class BaseModel extends AbstractModel
 
             // For present and future exhibitions, only show if they're published on the web
             // WEB-1419: Using subquery here instead of join to avoid field overrides
-            $builder->orWhereIn('citi_id', function ($query) {
+            $builder->orWhereIn('id', function ($query) {
                 $query->select('datahub_id')
-                    ->from('web_exhibitions')
-                    ->where('is_published', '=', true);
+                    ->from('web_exhibitions');
             });
         });
     }

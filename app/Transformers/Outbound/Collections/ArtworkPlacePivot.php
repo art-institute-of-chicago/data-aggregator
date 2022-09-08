@@ -62,8 +62,7 @@ class ArtworkPlacePivot extends BaseTransformer
     protected function getFields()
     {
         return [
-            // TODO: Rename to `is_preferred`
-            'preferred' => [
+            'is_preferred' => [
                 'doc' => 'Whether this is the preferred place to represent this work',
                 'type' => 'boolean',
             ],
@@ -80,7 +79,7 @@ class ArtworkPlacePivot extends BaseTransformer
                 'doc' => 'Unique identifier of the work associated with this place',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->artwork->citi_id ?? null;
+                    return $item->artwork->id ?? null;
                 },
             ],
             'place_title' => [
@@ -94,7 +93,7 @@ class ArtworkPlacePivot extends BaseTransformer
                 'doc' => 'Unique identifier of the place associated with this work',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->place->citi_id ?? null;
+                    return $item->place->id ?? null;
                 },
             ],
             'qualifier_title' => [
@@ -108,7 +107,7 @@ class ArtworkPlacePivot extends BaseTransformer
                 'doc' => 'Unique identifier of the qualifier indicating what happened to the work here',
                 'type' => 'number',
                 'value' => function ($item) {
-                    return $item->qualifier->citi_id ?? null;
+                    return $item->qualifier->id ?? null;
                 },
             ],
         ];

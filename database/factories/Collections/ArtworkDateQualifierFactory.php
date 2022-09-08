@@ -8,6 +8,6 @@ class ArtworkDateQualifierFactory extends CollectionsFactory
 
     public function definition()
     {
-        return $this->idsAndTitle($this->faker->randomElement(['Made', 'Designed', 'Reconstructed', 'Published']), true, 2);
+        return $this->idsAndTitle($this->faker->randomElement(['Made', 'Designed', 'Reconstructed']), true, 2);
     }
 }

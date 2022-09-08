@@ -25,12 +25,12 @@ class Artwork extends MobileModel
 
     public function sounds()
     {
-        return $this->belongsToMany('App\Models\Mobile\Sound', 'mobile_artwork_mobile_sound', 'mobile_artwork_mobile_id', 'mobile_sound_mobile_id');
+        return $this->belongsToMany('App\Models\Mobile\Sound', 'mobile_artwork_mobile_sound', 'mobile_artwork_id', 'mobile_sound_id');
     }
 
     public function stops()
     {
-        return $this->hasMany('App\Models\Mobile\TourStop', 'mobile_artwork_mobile_id');
+        return $this->hasMany('App\Models\Mobile\TourStop', 'mobile_artwork_id');
     }
 
     /**

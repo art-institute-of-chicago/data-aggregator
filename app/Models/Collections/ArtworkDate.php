@@ -6,11 +6,10 @@ use App\Models\CollectionsModel;
 
 class ArtworkDate extends CollectionsModel
 {
-
     protected $casts = [
         'date_earliest' => 'datetime',
         'date_latest' => 'datetime',
-        'preferred' => 'boolean',
+        'is_preferred' => 'boolean',
     ];
 
     public function artwork()
@@ -20,7 +19,7 @@ class ArtworkDate extends CollectionsModel
 
     public function qualifier()
     {
-        return $this->belongsTo('App\Models\Collections\ArtworkDateQualifier', 'artwork_date_qualifier_citi_id');
+        return $this->belongsTo('App\Models\Collections\ArtworkDateQualifier', 'artwork_date_qualifier_id');
     }
 
     public function getUpdatedAtColumn()
