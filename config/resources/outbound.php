@@ -339,6 +339,13 @@ return [
             'is_restricted' => true,
         ],
         [
+            'endpoint' => 'web-artworks',
+            'model' => \App\Models\Web\Artwork::class,
+            'transformer' => \App\Transformers\Outbound\Web\Artwork::class,
+            'is_searchable' => true,
+            'is_restricted' => true,
+        ],
+        [
             'endpoint' => 'web-exhibitions',
             'model' => \App\Models\Web\Exhibition::class,
             'transformer' => \App\Transformers\Outbound\Web\Exhibition::class,

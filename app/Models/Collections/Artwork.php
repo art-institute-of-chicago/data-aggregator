@@ -329,6 +329,11 @@ class Artwork extends CollectionsModel
             ->withPivot('is_preferred');
     }
 
+    public function webArtwork()
+    {
+        return $this->hasOne('App\Models\Web\Artwork');
+    }
+
     // Meh, we'll leave out preferred & alternative places for now
 
     public function getAltTextAttribute($value)
