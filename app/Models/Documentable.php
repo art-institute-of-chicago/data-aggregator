@@ -466,7 +466,14 @@ trait Documentable
         self::addGlobalScope(new PublishedScope());
         $exampleRecord = self::first();
 
-        return $exampleRecord ? $exampleRecord->getKey() : null;
+        return $exampleRecord
+            ? $exampleRecord->getKeyForDoc()
+            : null;
+    }
+
+    protected function getKeyForDoc()
+    {
+        return $this->getKey();
     }
 
     /**
