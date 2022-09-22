@@ -95,6 +95,10 @@
         "foundation": [
             "php vendor/aic/data-hub-foundation/composer-dev.php",
             "COMPOSER=composer-dev.json composer update aic/data-hub-foundation --ignore-platform-reqs"
+        ],
+        "test": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit --order-by=defects --stop-on-failure"
         ]
     },
     "extra": {
