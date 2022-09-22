@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Zend\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\ClassReflection;
 
 use Illuminate\Support\Str;
 

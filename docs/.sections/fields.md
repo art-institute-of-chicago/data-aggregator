@@ -27,6 +27,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `medium_display` *string* - The substances or materials used in the creation of a work
 * `inscriptions` *string* - A description of distinguishing or identifying physical markings that are on the work
 * `credit_line` *string* - Brief statement indicating how the work came into the collection
+* `catalogue_display` *string* - Brief text listing all the catalogues raisonnés which include this work. This isn't an exhaustive list of publications where the work has been mentioned. For that, see `publication_history`.
 * `publication_history` *string* - Bibliographic list of all the places this work has been published
 * `exhibition_history` *string* - List of all the places this work has been exhibited
 * `provenance_text` *string* - Ownership/collecting history of the work. May include names of owners, dates, and possibly methods of transfer of ownership. Free-form text formatted in a house style.
@@ -40,6 +41,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `copyright_notice` *string* - Statement notifying how the work is protected by copyright. Applies to the work itself, not image or other related assets.
 * `has_multimedia_resources` *boolean* - Whether this artwork has any associated microsites, digital publications, or documents tagged as multimedia
 * `has_educational_resources` *boolean* - Whether this artwork has any documents tagged as educational
+* `has_advanced_imaging` *boolean* - Whether this artwork is enhanced with 3D models, 360 image sequences, Mirador views, etc.
 * `colorfulness` *float* - Unbounded positive float representing an abstract measure of colorfulness.
 * `color` *object* - Dominant color of this artwork in HSL
 * `latitude` *number* - Latitude coordinate of the location of this work in our galleries
@@ -111,15 +113,11 @@ Represents a person or organization. In the API, this includes artists. For a de
 * `title` *string* - The name of this resource
 * `sort_title` *string* - Sortable name for this agent, typically with last name first.
 * `alt_titles` *array* - Alternate names for this agent
+* `is_artist` *boolean* - Whether the agent is an artist. Solely based on whether the agent is related to an artwork record.
 * `birth_date` *number* - The year this agent was born
 * `death_date` *number* - The year this agent died
 * `description` *string* - A biographical description of the agent
 * `ulan_id` *number* - Unique identifier of this agent in Getty's ULAN
-* `is_artist` *boolean* - Whether the agent is an artist. Solely based on whether the agent is listed as an artist for an artwork record.
-* `agent_type_title` *string* - Name of the type of agent, e.g. individual, fund, school, organization, etc.
-* `agent_type_id` *number* - Unique identifier of the type of agent, e.g. individual, fund, school, organization, etc.
-* `artwork_ids` *array* - Unique identifiers of the works this artist created.
-* `site_ids` *array* - Unique identifiers of the microsites this exhibition is a part of
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
@@ -232,22 +230,6 @@ A qualifier for the relationship an agent may have to an artwork. For a descript
 
 
 
-#### Agent Place Qualifiers
-
-A qualifier for the relationship a place may have to an agent. For a description of all the endpoints available for this resource, see [here](#agent-place-qualifiers).
-
-* `id` *integer* - Unique identifier of this resource. Taken from the source system.
-* `api_model` *string* - REST API resource type or endpoint
-* `api_link` *string* - REST API link for this resource
-* `title` *string* - The name of this resource
-* `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
-* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
-* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
-
 #### Artwork Place Qualifiers
 
 A qualifier for the relationship a place may have to an artwork. For a description of all the endpoints available for this resource, see [here](#artwork-place-qualifiers).
@@ -339,6 +321,8 @@ A pictorial representation of a collections resource, like an artwork, artist, e
 * `colorfulness` *float* - Unbounded positive float representing an abstract measure of colorfulness.
 * `color` *object* - Dominant color of this image in HSL
 * `fingerprint` *object* - Image hashes: aHash, dHash, pHash, wHash
+* `ahash` *object* - Image hash generated using ahash algorithm with 64 boolean subfields
+* `phash` *object* - Image hash generated using phash algorithm with 64 boolean subfields
 * `artwork_ids` *array* - Unique identifiers of the artworks associated with this asset
 * `artwork_titles` *array* - Names of the artworks associated with this asset
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
@@ -561,8 +545,6 @@ An archived static microsite. For a description of all the endpoints available f
 * `web_url` *url* - URL to this site
 * `exhibition_ids` *array* - Unique identifier of the exhibitions this site is associated with
 * `exhibition_titles` *array* - Names of the exhibitions this site is associated with
-* `artist_ids` *array* - Unique identifiers of the artists this site is associated with
-* `artist_titles` *array* - Names of the artists this site is associated with
 * `artwork_ids` *array* - Unique identifiers of the artworks this site is associated with
 * `artwork_titles` *array* - Names of the artworks this site is associated with
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
@@ -574,45 +556,6 @@ An archived static microsite. For a description of all the endpoints available f
 
 
 ### Website
-
-#### Closures
-
-Closure on the website For a description of all the endpoints available for this resource, see [here](#closures).
-
-* `id` *integer* - Unique identifier of this resource. Taken from the source system.
-* `api_model` *string* - REST API resource type or endpoint
-* `api_link` *string* - REST API link for this resource
-* `title` *string* - The name of this resource
-* `date_start` *ISO 8601 date and time* - The date the closure begins
-* `date_end` *ISO 8601 date and time* - The date the closure ends
-* `closure_copy` *string* - Description of the closure
-* `type` *number* - Number indicating the type of closure
-* `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
-* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
-* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
-
-#### Web Exhibitions
-
-An enhanced exhibition on the website For a description of all the endpoints available for this resource, see [here](#web-exhibitions).
-
-* `id` *integer* - Unique identifier of this resource. Taken from the source system.
-* `api_model` *string* - REST API resource type or endpoint
-* `api_link` *string* - REST API link for this resource
-* `title` *string* - The name of this resource
-* `exhibition_id` *number* - Identifier of the CITI exhibition this website exhibition is tied to
-* `is_featured` *boolean* - Is this exhibition currently featured on our website?
-* `list_description` *string* - Short description to be used for exhibition listings
-* `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
-* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
-* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
 
 #### Events
 
@@ -654,12 +597,12 @@ An event on the website For a description of all the endpoints available for thi
 * `date_display` *string* - A readable display of the event dates
 * `door_time` *string* - The time the doors open for this event
 * `layout_type` *number* - Number indicating the type of layout this event page uses
+* `slug` *string* - A string used in the URL for this event
 * `entrance` *string* - Which entrance to use for this event
 * `join_url` *string* - URL to the membership signup page via this event
 * `survey_url` *string* - URL to the survey associated with this event
 * `event_host_id` *number* - Unique identifier of the host (cf. event programs) that is presenting this event
 * `event_host_title` *string* - Unique identifier of the host (cf. event programs) that is presenting this event
-* `sponsor_id` *number* - Unique identifier of the sponsor this website event is tied to
 * `search_tags` *array* - Editor-specified list of tags to aid in internal search
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
@@ -722,7 +665,6 @@ Article on the website For a description of all the endpoints available for this
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `date` *ISO 8601 date and time* - The date the article was published
 * `copy` *string* - The text of the article
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
@@ -741,24 +683,6 @@ Highlights are a grouping of artworks on the website For a description of all th
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `copy` *string* - The text of the highlight description
-* `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
-* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
-* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
-
-#### Web Artists
-
-Article on the website For a description of all the endpoints available for this resource, see [here](#web-artists).
-
-* `id` *integer* - Unique identifier of this resource. Taken from the source system.
-* `api_model` *string* - REST API resource type or endpoint
-* `api_link` *string* - REST API link for this resource
-* `title` *string* - The name of this resource
-* `intro_copy` *string* - Description of the artist
-* `agent_id` *number* - Unique identifier of the CITI agent records this artist represents
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
@@ -793,8 +717,6 @@ A generic page on the website For a description of all the endpoints available f
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this page on our website
-* `listing_description` *string* - A brief description of the page used in listings
-* `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
 * `search_tags` *array* - Editor-specified list of tags to aid in internal search
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
@@ -814,8 +736,6 @@ A press release on the website For a description of all the endpoints available 
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this page on our website
-* `listing_description` *string* - A brief description of the page used in listings
-* `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
@@ -834,8 +754,6 @@ An educator resource on the website For a description of all the endpoints avail
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this page on our website
-* `listing_description` *string* - A brief description of the page used in listings
-* `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
@@ -854,8 +772,6 @@ A digital catalog on the website For a description of all the endpoints availabl
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this page on our website
-* `listing_description` *string* - A brief description of the page used in listings
-* `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
@@ -874,9 +790,7 @@ A digital catalog on the website For a description of all the endpoints availabl
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this section on our website
-* `listing_description` *string* - A brief description of the section used in listings
 * `copy` *string* - The text of the section
-* `date` *ISO 8601 date and time* - The date the section was published
 * `author_display` *string* - A display-friendly text of the authors of this section
 * `digital_publication_id` *number* - Unique identifier of the digital publication this section belongs to
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
@@ -896,49 +810,7 @@ A printed catalog on the website For a description of all the endpoints availabl
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this page on our website
-* `listing_description` *string* - A brief description of the page used in listings
-* `short_description` *string* - A brief description of the page used in mobile and meta tags
 * `copy` *string* - The text of the page
-* `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
-* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
-* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
-
-#### Issues
-
-Article on the website For a description of all the endpoints available for this resource, see [here](#issues).
-
-* `id` *integer* - Unique identifier of this resource. Taken from the source system.
-* `api_model` *string* - REST API resource type or endpoint
-* `api_link` *string* - REST API link for this resource
-* `title` *string* - The name of this resource
-* `date` *ISO 8601 date and time* - The date the article was published
-* `copy` *string* - The text of the article
-* `issue_number` *number* - The number of the issue
-* `cite_as` *string* - How to cite the issue
-* `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
-* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
-* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
-* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
-* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
-
-#### Issue Articles
-
-Article on the website For a description of all the endpoints available for this resource, see [here](#issue-articles).
-
-* `id` *integer* - Unique identifier of this resource. Taken from the source system.
-* `api_model` *string* - REST API resource type or endpoint
-* `api_link` *string* - REST API link for this resource
-* `title` *string* - The name of this resource
-* `date` *ISO 8601 date and time* - The date the article was published
-* `copy` *string* - The text of the article
-* `issue_id` *number* - Unique identifier of the issue this article belongs to
-* `cite_as` *string* - How to cite the issue
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
