@@ -14,6 +14,9 @@ class AssetFactory extends CollectionsFactory
                 'id' => $this->faker->uuid(),
                 'content' => $this->faker->url,
                 'alt_text' => $this->faker->paragraph(3),
+                'is_multimedia_resource' => false,
+                'is_educational_resource' => false,
+                'is_teacher_resource' => false,
             ],
             $this->dates($this->faker)
         );

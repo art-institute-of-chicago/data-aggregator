@@ -4,7 +4,8 @@
          bootstrap="bootstrap/autoload.php"
          colors="true"
          backupGlobals="false"
-         backupStaticAttributes="false">
+         backupStaticAttributes="false"
+         cacheResult="true">
     <testsuites>
         <testsuite name="Basic">
             <directory suffix="Test.php">./tests/Basic</directory>

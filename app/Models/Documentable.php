@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Zend\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\ClassReflection;
 
 use Illuminate\Support\Str;
 
@@ -466,7 +466,14 @@ trait Documentable
         self::addGlobalScope(new PublishedScope());
         $exampleRecord = self::first();
 
-        return $exampleRecord ? $exampleRecord->getKey() : null;
+        return $exampleRecord
+            ? $exampleRecord->getKeyForDoc()
+            : null;
+    }
+
+    protected function getKeyForDoc()
+    {
+        return $this->getKey();
     }
 
     /**
