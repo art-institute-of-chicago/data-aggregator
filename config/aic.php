@@ -92,4 +92,18 @@ return [
         'access_whitelist_ips' => array_map('trim', explode(',', env('ACCESS_WHITELIST_IPS', ''))),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Wait Times
+    |--------------------------------------------------------------------------
+    |
+    | URL and key for connecting to Qudini.
+    |
+    */
+
+    'queues' => [
+        'api_url' => env('QUEUES_API_URL', 'http://exampleapi.source.com/'),
+        'api_key' => env('QUEUES_API_KEY'),
+    ],
+
 ];
