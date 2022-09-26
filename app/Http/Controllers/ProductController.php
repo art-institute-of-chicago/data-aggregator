@@ -12,7 +12,7 @@ class ProductController extends Controller
     use ImportsData;
 
     /**
-     * time curl -F csv=@storage/app/DatahubChainDriveProductData.csv http://data-aggregator.test/push/v1/products
+     * time curl -F csv=@storage/app/DatahubChainDriveProductData.csv http://username:password@data-aggregator.test/push/v1/products
      */
     public function upload(Request $request)
     {

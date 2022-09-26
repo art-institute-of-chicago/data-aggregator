@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'restrict' => \App\Http\Middleware\RestrictContent::class,
         'loginIp' => \App\Http\Middleware\LoginIpMiddleware::class,
+        'basic_auth' => \Aic\Hub\Foundation\Middleware\BasicAuthMiddleware::class,
     ];
 }

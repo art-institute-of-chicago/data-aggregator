@@ -49,6 +49,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/la.php'));
 
             Route::prefix('push')
+                ->middleware('basic_auth')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/push.php'));
 
