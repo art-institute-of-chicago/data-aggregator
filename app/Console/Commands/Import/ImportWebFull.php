@@ -4,6 +4,7 @@ namespace App\Console\Commands\Import;
 
 use App\Models\Web\Article;
 use App\Models\Web\Artist;
+use App\Models\Web\Artwork;
 use App\Models\Web\Event;
 use App\Models\Web\EventOccurrence;
 use App\Models\Web\EventProgram;
@@ -58,6 +59,7 @@ class ImportWebFull extends AbstractImportCommand
         $hash = [
             Article::class => 'articles',
             Artist::class => 'web_artists',
+            Artwork::class => 'web_artworks',
             Event::class => 'events',
             EventOccurrence::class => 'event_occurrences',
             EventProgram::class => 'event_programs',
@@ -85,6 +87,7 @@ class ImportWebFull extends AbstractImportCommand
     {
         $this->importFromWeb('articles');
         $this->importFromWeb('artists');
+        $this->importFromWeb('artworks');
         $this->importFromWeb('events');
         $this->importFromWeb('event-occurrences');
         $this->importFromWeb('event-programs');

@@ -329,6 +329,14 @@ class Artwork extends BaseTransformer
                     return $item->documents->where('is_educational_resource', true)->count() > 0;
                 },
             ],
+            'has_advanced_imaging' => [
+                'doc' => 'Whether this artwork is enhanced with 3D models, 360 image sequences, Mirador views, etc.',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+                'value' => function ($item) {
+                    return $item->webArtwork->has_advanced_imaging ?? false;
+                },
+            ],
 
             /**
              * Enhanced image metadata:

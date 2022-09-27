@@ -154,6 +154,10 @@ return [
             'model' => \App\Models\Web\Artist::class,
             'transformer' => \App\Transformers\Inbound\Web\Artist::class,
         ],
+        'artworks' => [
+            'model' => \App\Models\Web\Artwork::class,
+            'transformer' => \App\Transformers\Inbound\Web\Artwork::class,
+        ],
         'events' => [
             'model' => \App\Models\Web\Event::class,
             'transformer' => \App\Transformers\Inbound\Web\Event::class,

@@ -35,12 +35,12 @@ class ResourceController extends AbstractController
         return parent::indexScope(...func_get_args());
     }
 
-    private function getEndpoint(Request $request, int $offset)
+    protected function getEndpoint(Request $request, int $offset)
     {
         return array_slice($request->segments(), $offset, 1)[0];
     }
 
-    private function setModelTransformer(string $endpoint)
+    protected function setModelTransformer(string $endpoint)
     {
         $this->model = app('Resources')->getModelForEndpoint($endpoint);
         $this->transformer = app('Resources')->getTransformerForEndpoint($endpoint);

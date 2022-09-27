@@ -15,15 +15,18 @@ use Aic\Hub\Foundation\Exceptions\ItemNotFoundException;
 
 class ArtworkController extends ResourceController
 {
-
     public function __construct()
     {
         $this->fractal = app()->make('League\Fractal\Manager');
         $this->fractal->setSerializer(new ArraySerializer());
     }
+
     public function manifest(Request $request, $id)
     {
         $this->validateMethod($request);
+
+        $endpoint = $this->getEndpoint($request, -3);
+        $this->setModelTransformer($endpoint);
 
         if (!$this->validateId($id)) {
             throw new InvalidSyntaxException();
