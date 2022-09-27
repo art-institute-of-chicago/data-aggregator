@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands\Import;
 
-use App\Models\Shop\Product;
+use Illuminate\Support\Facades\Storage;
+use League\Csv\Reader;
 
 class ImportProductsFull extends AbstractImportCommand
 {
-
     protected $signature = 'import:products-full
                             {--y|yes : Answer "yes" to all prompts}';
 
@@ -14,13 +14,22 @@ class ImportProductsFull extends AbstractImportCommand
 
     public function handle()
     {
-        $this->api = env('SHOP_DATA_SERVICE_URL');
+        // API-344: Make sure this matches upload filename in ProductController
+        $stream = Storage::disk('s3')->getDriver()->readStream('DatahubChainDriveProductData.csv');
 
-        if (!$this->reset()) {
-            return false;
+        $csv = Reader::createFromStream($stream);
+        $csv->setHeaderOffset(0);
+
+        $csv->getHeader();
+        $records = $csv->getRecords();
+
+        foreach ($records as $datum) {
+            $this->save(
+                $datum,
+                \App\Models\Shop\Product::class,
+                \App\Transformers\Inbound\Shop\Product::class
+            );
         }
-
-        $this->importResources();
     }
 
     protected function reset()
@@ -33,10 +42,5 @@ class ImportProductsFull extends AbstractImportCommand
                 'products',
             ]
         );
-    }
-
-    protected function importResources()
-    {
-        $this->import('Shop', Product::class, 'products');
     }
 }
