@@ -312,7 +312,14 @@ trait ImportsData
 
         // TODO: Use transformed title
         if (app()->runningInConsole()) {
-            $this->info("Importing #{$id}" . (property_exists($datum, 'title') ? ": {$datum->title}" : ''));
+            $title = is_array($datum)
+                ? ($datum['title'] ?? '')
+                : (
+                    property_exists($datum, 'title')
+                    ? $datum->title
+                    : ''
+                );
+            $this->info("Importing #{$id}" . $title);
         }
 
         // Don't use findOrCreate here, since it can cause errors due to Searchable

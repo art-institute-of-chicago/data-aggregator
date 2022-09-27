@@ -22,6 +22,7 @@ class ImportAllCommand extends BaseCommand
         $this->call('import:dsc', ['--yes' => 'default', '-v' => 'default']);
         $this->call('import:mobile');
         $this->call('import:sites', ['--yes' => 'default']);
+        $this->call('import:products-full', ['--yes' => 'default']);
         $this->call('import:analytics');
         $this->call('import:web-full', ['--yes' => 'default']);
     }
