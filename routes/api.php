@@ -26,6 +26,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::match(['GET', 'POST'], 'search', [SearchController::class, 'search']);
     Route::match(['GET', 'POST'], '{resource}/search', [SearchController::class, 'search']);
 
+    Route::match(['GET', 'POST'], '{resource}/search-mapping', [SearchController::class, 'searchMapping']);
+
     Route::match(['GET', 'POST'], 'msearch', [SearchController::class, 'msearch']);
     Route::match(['GET', 'POST'], 'msuggest', [SearchController::class, 'msuggest']);
 
