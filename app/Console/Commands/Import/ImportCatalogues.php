@@ -15,7 +15,9 @@ class ImportCatalogues extends AbstractImportCommand
 
     public function handle()
     {
-        $this->api = env('DSC_DATA_SERVICE_URL');
+        // API-345: Catalogues data service has been retired!
+        // We now import a static export from the enhancer.
+        $this->api = env('ENHANCER_URL');
 
         if (!$this->reset()) {
             return false;

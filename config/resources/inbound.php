@@ -116,7 +116,7 @@ return [
         ],
         'sections' => [
             'model' => \App\Models\Dsc\Section::class,
-            'transformer' => \App\Transformers\Inbound\Dsc\Section::class,
+            'transformer' => \App\Transformers\Inbound\DscTransformer::class,
         ],
     ],
 

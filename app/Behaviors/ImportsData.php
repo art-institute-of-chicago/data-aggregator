@@ -319,7 +319,7 @@ trait ImportsData
                     ? $datum->title
                     : ''
                 );
-            $this->info("Importing #{$id}" . $title);
+            $this->info("Importing #{$id}: " . $title);
         }
 
         // Don't use findOrCreate here, since it can cause errors due to Searchable
