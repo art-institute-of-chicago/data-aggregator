@@ -295,15 +295,55 @@ trait ImportsData
     }
 
     /**
-     * This method is meant to be overwritten in a class that uses this trait.
+     * Save a new model instance given an object retrieved from an external source.
      *
-     * @param array $datum
-     * @param string $model
-     * @param string $transformer
+     * @param object  $datum
+     * @param string  $model
+     * @param string  $transformer
+     *
+     * @return ?\Illuminate\Database\Eloquent\Model
      */
     protected function save($datum, $model, $transformer)
     {
-        throw new \Exception('You must overwrite the `save` method.');
+        $transformer = new $transformer();
+
+        // Use the id and title after they are transformed, not before!
+        $id = $transformer->getId($datum);
+
+        // TODO: Use transformed title
+        if (app()->runningInConsole()) {
+            $title = is_array($datum)
+                ? ($datum['title'] ?? '')
+                : (
+                    property_exists($datum, 'title')
+                    ? $datum->title
+                    : ''
+                );
+            $this->info("Importing #{$id}: " . $title);
+        }
+
+        // Don't use findOrCreate here, since it can cause errors due to Searchable
+        $resource = $model::find($id);
+        $isNew = is_null($resource);
+
+        if ($isNew) {
+            $resource = $model::make();
+        }
+
+        // This will be true almost always, except for lists
+        if ($transformer->shouldSave($resource, $datum, $isNew)) {
+            // Fill should always be called before sync
+            // Syncing some relations requires `$instance->getKey()` to work (i.e. id is set)
+            $fills = $transformer->fill($resource, $datum);
+            $syncs = $transformer->sync($resource, $datum);
+
+            $resource->save();
+        }
+
+        // For debugging ids and titles:
+        // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");
+
+        return $resource;
     }
 
     protected function updateSentryTags($datum = null, $endpoint = null, $source = null)

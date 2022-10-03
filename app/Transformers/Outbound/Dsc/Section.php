@@ -31,7 +31,7 @@ class Section extends BaseTransformer
                 'type' => 'number',
                 'elasticsearch' => 'integer',
                 'value' => function ($item) {
-                    return $item->publication->getGenericPageId() ?? null;
+                    return $item->publication->generic_page_id ?? null;
                 },
             ],
             'artwork_id' => [

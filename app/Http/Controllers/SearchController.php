@@ -7,6 +7,7 @@ use Aic\Hub\Foundation\Exceptions\DetailedException;
 use App\Http\Search\Request as SearchRequest;
 use App\Http\Search\Response as SearchResponse;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request as RequestFacade;
 use Illuminate\Http\Request;
 use Elasticsearch;
@@ -53,6 +54,52 @@ class SearchController extends BaseController
     public function search(Request $request, $resource = null)
     {
         return $this->query('getSearchParams', 'getSearchResponse', 'search', $resource);
+    }
+
+    /**
+     * API-351: Shows `/_mapping` result for a resource vs. its intended mapping according to the code.
+     */
+    public function searchMapping(Request $request, $resource)
+    {
+        // Resolve `scope_of` and `alias_of`
+        $model = app('Resources')->getModelForEndpoint($resource);
+        $resource = app('Resources')->getEndpointForModel($model);
+
+        if (!$resource) {
+            throw new DetailedException(
+                'Invalid Resource',
+                'Requested endpoint is not a valid resource.',
+                400
+            );
+        }
+
+        $response = Elasticsearch::indices()->getMapping();
+        $index = env('ELASTICSEARCH_INDEX') . '-' . $resource;
+
+        $currentMapping = $response[$index]['mappings']['doc']['properties'] ?? null;
+
+        if (!$currentMapping) {
+            throw new DetailedException(
+                'Resource Not Indexed',
+                'Requested resource has no associated search index.',
+                400
+            );
+        }
+
+        $intendedMapping = app('Search')->getElasticsearchMapping($model)['doc']['properties'];
+
+        if (Gate::denies('restricted-access')) {
+            $transformerClass = app('Resources')->getTransformerForModel($model);
+            $unrestrictedFields = (new $transformerClass(null, null, true))->getMappedFields();
+
+            $currentMapping = array_intersect_key($currentMapping, $unrestrictedFields);
+            $intendedMapping = array_intersect_key($intendedMapping, $unrestrictedFields);
+        }
+
+        return [
+            'current' => $currentMapping,
+            'intended' => $intendedMapping,
+        ];
     }
 
     /**

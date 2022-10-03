@@ -11,7 +11,7 @@ return [
      */
     'collections' => env('COLLECTIONS_DATA_SERVICE_URL'),
     'assets' => env('ASSETS_DATA_SERVICE_URL'),
-    'dsc' => env('DSC_DATA_SERVICE_URL'),
+    'dsc' => env('ENHANCER_URL'), // See API-345
     'shop' => env('SHOP_DATA_SERVICE_URL'),
     'membership' => env('EVENTS_DATA_SERVICE_URL'),
     'web' => env('WEB_CMS_DATA_SERVICE_URL'),

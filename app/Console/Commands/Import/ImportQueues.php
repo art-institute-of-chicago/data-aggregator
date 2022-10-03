@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\Import;
 
-use App\Models\Queues\WaitTime;
 
 class ImportQueues extends AbstractImportCommand
 {
@@ -14,26 +13,23 @@ class ImportQueues extends AbstractImportCommand
 
     public function handle()
     {
-        $this->api = env('QUEUES_DATA_SERVICE_URL');
-
         $endpoint = 'wait-times';
+        $model = app('Resources')->getModelForInboundEndpoint($endpoint, 'queues');
+        $transformer = app('Resources')->getInboundTransformerForModel($model, 'Queues');
 
-        foreach (WaitTime::$aicQueueIds as $id => $title) {
-            $model = $this->getModelForEndpoint($endpoint);
+        $url = config('aic.queues.api_url')
+            . '/kiosk/data/'
+            . config('aic.queues.api_key')
+            . '?serial=web';
 
-            $transformer = app('Resources')->getInboundTransformerForModel($model, 'Queues');
+        $queues = $this->fetch($url, true);
 
-            $json = $this->fetchItem($endpoint, $id);
-
-            if (isset($json->data)) {
-                $datum = $json->data;
-                $datum->title = $title;
-
-                $this->updateSentryTags($datum, $endpoint, 'Queues');
-
-                $this->save($datum, $model, $transformer);
-            }
+        foreach ($queues as $datum) {
+            $this->updateSentryTags($datum, $endpoint, 'Queues');
+            $this->save($datum, $model, $transformer);
         }
+
+        // TODO: Automatically delete any queues that are not in WaitTime:$aicQueueIds?
     }
 
     protected function reset()
@@ -44,19 +40,5 @@ class ImportQueues extends AbstractImportCommand
                 'wait_times'
             ]
         );
-    }
-
-    private function fetchItem($endpoint, $id)
-    {
-        $url = env('QUEUES_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
-
-        $this->info('Fetching: ' . $url);
-
-        return $this->fetch($url, true);
-    }
-
-    protected function getModelForEndpoint($endpoint)
-    {
-        return app('Resources')->getModelForInboundEndpoint($endpoint, 'queues');
     }
 }

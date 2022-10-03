@@ -92,4 +92,31 @@ return [
         'access_whitelist_ips' => array_map('trim', explode(',', env('ACCESS_WHITELIST_IPS', ''))),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Basic HTTP Auth
+    |--------------------------------------------------------------------------
+    |
+    | Use the `basic_auth` middleware to secure routes.
+    |
+    */
+    'basic_auth' => [
+        'username' => env('BASIC_AUTH_USERNAME'),
+        'password' => env('BASIC_AUTH_PASSWORD'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Wait Times
+    |--------------------------------------------------------------------------
+    |
+    | URL and key for connecting to Qudini.
+    |
+    */
+
+    'queues' => [
+        'api_url' => env('QUEUES_API_URL', 'http://exampleapi.source.com/'),
+        'api_key' => env('QUEUES_API_KEY'),
+    ],
+
 ];
