@@ -232,7 +232,7 @@ class SearchServiceProvider extends ServiceProvider
                  * @param string $endpoint
                  * @return array
                  */
-                public function getSearchScopeForEndpoint($endpoint)
+                public function getSearchScopeForEndpoint($endpoint, $useBoost = true)
                 {
                     $model = app('Resources')->getModelForEndpoint($endpoint);
 
@@ -253,21 +253,23 @@ class SearchServiceProvider extends ServiceProvider
                         $settings['scope'] = $this->getScopedQuery($resource, $scope);
                     }
 
-                    // ex. `searchBoostArtworks` for `artworks` endpoint boosts `is_on_view`
-                    $searchBoostMethod = 'searchBoost' . Str::studly($endpoint);
+                    if ($useBoost) {
+                        // ex. `searchBoostArtworks` for `artworks` endpoint boosts `is_on_view`
+                        $searchBoostMethod = 'searchBoost' . Str::studly($endpoint);
 
-                    if (method_exists($model, $searchBoostMethod)) {
-                        $boost = $model::$searchBoostMethod();
+                        if (method_exists($model, $searchBoostMethod)) {
+                            $boost = $model::$searchBoostMethod();
 
-                        $settings['boost'] = $this->getScopedQuery($resource, $boost);
-                    }
+                            $settings['boost'] = $this->getScopedQuery($resource, $boost);
+                        }
 
-                    // ex. `searchFunctionScoreArtworks` for `artworks` endpoint applies `pageviews` and `boost_rank`
-                    $searchFunctionScoreMethod = 'searchFunctionScore' . Str::studly($endpoint);
+                        // ex. `searchFunctionScoreArtworks` for `artworks` endpoint applies `pageviews` and `boost_rank`
+                        $searchFunctionScoreMethod = 'searchFunctionScore' . Str::studly($endpoint);
 
-                    if (method_exists($model, $searchFunctionScoreMethod)) {
-                        // TODO: Inject `getScopedQuery` into the filter..?
-                        $settings['function_score'] = $model::$searchFunctionScoreMethod();
+                        if (method_exists($model, $searchFunctionScoreMethod)) {
+                            // TODO: Inject `getScopedQuery` into the filter..?
+                            $settings['function_score'] = $model::$searchFunctionScoreMethod();
+                        }
                     }
 
                     return $settings;

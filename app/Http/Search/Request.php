@@ -194,10 +194,16 @@ class Request
         // Make resources into a Laravel collection
         $resources = collect($resources);
 
+        // If more artworks are being searched alongside other resource types, disbale artworks boost
+        $artworksUseBoost = true;
+        if ($resources->contains('artworks') && $resources->count() > 1) {
+            $artworksUseBoost = false;
+        }
+
         // Grab settings from our models via the service provider
-        $settings = $resources->map(function ($resource) {
+        $settings = $resources->map(function ($resource) use ($artworksUseBoost) {
             return [
-                $resource => app('Search')->getSearchScopeForEndpoint($resource),
+                $resource => app('Search')->getSearchScopeForEndpoint($resource, $resource == 'artworks' ? $artworksUseBoost : null),
             ];
         })->collapse();
 
