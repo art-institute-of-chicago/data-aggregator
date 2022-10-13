@@ -85,6 +85,12 @@ class Agent extends CollectionsModel
                     'is_artist' => true,
                 ],
             ],
+            // Boost agents that have an image
+            [
+                'exists' => [
+                    'field' => 'image_id',
+                ],
+            ],
         ];
     }
     /**
