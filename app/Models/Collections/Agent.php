@@ -91,6 +91,11 @@ class Agent extends CollectionsModel
                     'field' => 'image_id',
                 ],
             ],
+            [
+                'terms' => [
+                    'id' => $this->boostedIds(),
+                ]
+            ]
         ];
     }
     /**
