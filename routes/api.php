@@ -54,7 +54,7 @@ Route::group(['prefix' => 'v1'], function () {
         $isRestricted = $resource['is_restricted'] ?? false;
 
         $controller = $resource['controller'] ?? (
-            $isRestricted ? RestrictedResourceController::class : ResourceController::class
+            ($isRestricted && env('APP_ENV') !== 'testing') ? RestrictedResourceController::class : ResourceController::class
         );
 
         Route::any($resource['endpoint'], [$controller, ($isScoped ? 'indexScope' : 'index')]);
