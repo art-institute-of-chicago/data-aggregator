@@ -100,10 +100,8 @@ class Exhibition extends CollectionsModel
     {
         return [
             // Boost anything that has an image
-            [
-                'exists' => [
-                    'field' => 'image_id',
-                ],
+            'exists' => [
+                'field' => 'image_id',
             ],
         ];
     }

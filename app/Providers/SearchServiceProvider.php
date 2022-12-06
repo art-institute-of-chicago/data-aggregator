@@ -291,17 +291,13 @@ class SearchServiceProvider extends ServiceProvider
                         ];
                     }
 
-                    if (Arr::isAssoc($scope)) {
-                        $scope = [$scope];
-                    }
-
                     return [
                         'bool' => [
                             'should' => [
                                 [
                                     'bool' => [
                                         'must' => [
-                                            [$query],
+                                            $query,
                                             $scope,
                                         ],
                                     ],

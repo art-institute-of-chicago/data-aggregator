@@ -80,21 +80,17 @@ class Agent extends CollectionsModel
     {
         return [
             // Boost agents that are artists
-            [
-                'term' => [
-                    'is_artist' => true,
-                ],
+            'term' => [
+                'is_artist' => true,
             ],
+
             // Boost agents that have an image
-            [
-                'exists' => [
-                    'field' => 'image_id',
-                ],
+            'exists' => [
+                'field' => 'image_id',
             ],
-            [
-                'terms' => [
-                    'id' => $this->boostedIds(),
-                ]
+
+            'terms' => [
+                'id' => $this->boostedIds(),
             ]
         ];
     }
