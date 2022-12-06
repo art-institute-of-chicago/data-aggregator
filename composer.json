@@ -27,7 +27,7 @@
         "php": "^7.3|^8.0",
         "aic/data-hub-foundation": "dev-laravel-8-support",
         "aic/laravel-scout-elastic": "dev-master",
-        "cviebrock/laravel-elasticsearch": "^8.0",
+        "cviebrock/laravel-elasticsearch": "^9.0",
         "fruitcake/laravel-cors": "^2.0",
         "intervention/image": "^2.7",
         "jsq/amazon-es-php": "dev-master",

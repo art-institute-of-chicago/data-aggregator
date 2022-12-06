@@ -41,11 +41,25 @@ return [
 
             'hosts' => [
                 [
-                    'host' => env('ELASTICSEARCH_HOST', 'localhost'),
-                    'port' => env('ELASTICSEARCH_PORT', 9200),
-                    'scheme' => env('ELASTICSEARCH_SCHEME', null),
-                    'user' => env('ELASTICSEARCH_USER', null),
-                    'pass' => env('ELASTICSEARCH_PASS', null),
+                    'host'              => env('ELASTICSEARCH_HOST', 'localhost'),
+                    // For local development, the default Elasticsearch port is 9200.
+                    // If you are connecting to an Elasticsearch instance on AWS, you probably want to set this to null
+                    'port'              => env('ELASTICSEARCH_PORT', 9200),
+                    'scheme'            => env('ELASTICSEARCH_SCHEME', null),
+                    'user'              => env('ELASTICSEARCH_USER', null),
+                    'pass'              => env('ELASTICSEARCH_PASS', null),
+
+                    // Alternatively, you can log in via API keys
+                    'api_id'            => env('ELASTICSEARCH_API_ID', null),
+                    'api_key'           => env('ELASTICSEARCH_API_KEY', null),
+
+                    // If you are connecting to an Elasticsearch instance on AWS, you will need these values as well
+                    'aws'               => env('AWS_ELASTICSEARCH_ENABLED', false),
+                    'aws_region'        => env('AWS_REGION', ''),
+                    'aws_key'           => env('AWS_ACCESS_KEY_ID', ''),
+                    'aws_secret'        => env('AWS_SECRET_ACCESS_KEY', ''),
+                    'aws_credentials'   => null,
+                    'aws_session_token' => env('AWS_SESSION_TOKEN', null),
                 ],
             ],
 
@@ -85,7 +99,7 @@ return [
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#enabling_logger
              */
 
-            'logging' => false,
+            'logging' => true,
 
             // If you have an existing instance of Monolog you can use it here.
             // 'logObject' => \Log::getMonolog(),
@@ -126,7 +140,6 @@ return [
              *
              * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_configure_the_http_handler
              * @see http://ringphp.readthedocs.org/en/latest/client_handlers.html
-             * @link https://github.com/jeskew/amazon-es-php
              */
 
             'httpHandler' => (
@@ -173,10 +186,30 @@ return [
             /**
              * Endpoint
              *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_set_the_endpoint_closure
+             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/6.0/_configuration.html#_set_the_endpoint_closure
              */
 
             'endpoint' => null,
+
+
+            /**
+             * Register additional namespaces
+             *
+             * An array of additional namespaces to register.
+             *
+             * @example 'namespaces' => [XPack::Security(), XPack::Watcher()]
+             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/ElasticsearchPHP_Endpoints.html#Elasticsearch_ClientBuilderregisterNamespace_registerNamespace
+             */
+            'namespaces' => [],
+
+            /**
+             * Tracer
+             *
+             * Tracer is handled by passing in a name of the class implements Psr\Log\LoggerInterface.
+             *
+             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_setting_a_custom_connectionfactory
+             */
+            'tracer' => null,
 
         ],
 
