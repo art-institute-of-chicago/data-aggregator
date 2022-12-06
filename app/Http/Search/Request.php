@@ -336,6 +336,7 @@ class Request
          * 2. If `q` is present, add full-text search to the `must` clause.
          * 3. If `q` is absent, show all results.
          */
+
         if (isset($input['query'])) {
             $params = $this->addFullSearchParams($params, $input);
         }
@@ -823,9 +824,7 @@ class Request
     {
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
-        $params['body']['query']['bool']['must'][] = [
-            Arr::get($input, 'query'),
-        ];
+        $params['body']['query']['bool']['must'][] = Arr::get($input, 'query');
 
         return $params;
     }
