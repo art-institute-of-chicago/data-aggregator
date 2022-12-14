@@ -18,18 +18,9 @@ class DownloadCssJs extends AbstractDocCommand
         $files = array_merge(
             json_decode(file_get_contents($this->manifest), true),
             [
-                'fonts/3545D5_0_0.eot' => 'fonts/3545D5_0_0.eot',
-                'fonts/3545D5_0_0.woff' => 'fonts/3545D5_0_0.woff',
-                'fonts/3545D5_0_0.woff2' => 'fonts/3545D5_0_0.woff2',
-                'fonts/3545D5_0_0.ttf' => 'fonts/3545D5_0_0.ttf',
-                'fonts/3545D5_1_0.eot' => 'fonts/3545D5_1_0.eot',
-                'fonts/3545D5_1_0.woff' => 'fonts/3545D5_1_0.woff',
-                'fonts/3545D5_1_0.woff2' => 'fonts/3545D5_1_0.woff2',
-                'fonts/3545D5_1_0.ttf' => 'fonts/3545D5_1_0.ttf',
-                'fonts/3545D5_2_0.eot' => 'fonts/3545D5_2_0.eot',
-                'fonts/3545D5_2_0.woff' => 'fonts/3545D5_2_0.woff',
-                'fonts/3545D5_2_0.woff2' => 'fonts/3545D5_2_0.woff2',
-                'fonts/3545D5_2_0.ttf' => 'fonts/3545D5_2_0.ttf',
+                'fonts/sabon/3545D5_0_0.woff2' => '../fonts/sabon/3545D5_0_0.woff2',
+                'fonts/sabon/3545D5_1_0.woff2' => '../fonts/sabon/3545D5_1_0.woff2',
+                'fonts/sabon/3545D5_2_0.woff2' => '../fonts/sabon/3545D5_2_0.woff2',
                 'images/favicon-16.png' => 'images/favicon-16.png',
                 'images/favicon-152.png' => 'images/favicon-152.png',
                 'images/favicon-120.png' => 'images/favicon-120.png',
@@ -38,7 +29,9 @@ class DownloadCssJs extends AbstractDocCommand
         );
 
         foreach ($files as $vanityName => $fileName) {
-            $contents = file_get_contents('https://www.artic.edu/dist/' . $fileName);
+            $file = 'https://www.artic.edu/dist/' . $fileName;
+            $file = str_replace('dist/../', '', $file);
+            $contents = file_get_contents($file);
             Storage::disk('local')->put($vanityName, $contents);
 
             $dest = base_path('docs/.vuepress/public/assets/' . $vanityName);

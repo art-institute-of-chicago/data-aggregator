@@ -155,7 +155,7 @@ class BaseModel extends AbstractModel
 
             // For present and future exhibitions, only show if they're published on the web
             // WEB-1419: Using subquery here instead of join to avoid field overrides
-            $builder->orWhereIn('id', function ($query) {
+            $builder->orWhereIn('exhibitions.id', function ($query) {
                 $query->select('datahub_id')
                     ->from('web_exhibitions');
             });

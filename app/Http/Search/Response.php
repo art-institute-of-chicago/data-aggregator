@@ -140,7 +140,7 @@ class Response
         // This method should not be used for endpoints that return no results
 
         // LengthAwarePaginator has trouble here
-        $total = $this->searchResponse['hits']['total'];
+        $total = $this->searchResponse['hits']['total']['value'] ?? 0;
         $limit = $this->searchParams['size'] ?? 10;
         $offset = $this->searchParams['from'] ?? 0;
 

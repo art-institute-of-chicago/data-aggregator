@@ -91,6 +91,21 @@ class Exhibition extends CollectionsModel
         return $this->webExhibition->is_featured ?? false;
     }
 
+    /**
+     * Add relevancy tweaks to exhibitions.
+     *
+     * @return array
+     */
+    public static function searchBoostExhibitions()
+    {
+        return [
+            // Boost anything that has an image
+            'exists' => [
+                'field' => 'image_id',
+            ],
+        ];
+    }
+
     public function getDateAicStartAttribute($value)
     {
         return $this->webExhibition->public_start_at ?? $this->castAttribute('date_aic_start', $value);

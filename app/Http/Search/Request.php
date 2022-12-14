@@ -194,10 +194,16 @@ class Request
         // Make resources into a Laravel collection
         $resources = collect($resources);
 
+        // If more artworks are being searched alongside other resource types, disbale artworks boost
+        $artworksUseBoost = true;
+        if ($resources->contains('artworks') && $resources->count() > 1) {
+            $artworksUseBoost = false;
+        }
+
         // Grab settings from our models via the service provider
-        $settings = $resources->map(function ($resource) {
+        $settings = $resources->map(function ($resource) use ($artworksUseBoost) {
             return [
-                $resource => app('Search')->getSearchScopeForEndpoint($resource),
+                $resource => app('Search')->getSearchScopeForEndpoint($resource, $resource == 'artworks' ? $artworksUseBoost : null),
             ];
         })->collapse();
 
@@ -330,6 +336,7 @@ class Request
          * 2. If `q` is present, add full-text search to the `must` clause.
          * 3. If `q` is absent, show all results.
          */
+
         if (isset($input['query'])) {
             $params = $this->addFullSearchParams($params, $input);
         }
@@ -817,9 +824,7 @@ class Request
     {
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
-        $params['body']['query']['bool']['must'][] = [
-            Arr::get($input, 'query'),
-        ];
+        $params['body']['query']['bool']['must'][] = Arr::get($input, 'query');
 
         return $params;
     }

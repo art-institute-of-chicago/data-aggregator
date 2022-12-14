@@ -72,6 +72,29 @@ class Agent extends CollectionsModel
     }
 
     /**
+     * Add relevancy tweaks to agents.
+     *
+     * @return array
+     */
+    public static function searchBoostAgents()
+    {
+        return [
+            // Boost agents that are artists
+            'term' => [
+                'is_artist' => true,
+            ],
+
+            // Boost agents that have an image
+            'exists' => [
+                'field' => 'image_id',
+            ],
+
+            'terms' => [
+                'id' => $this->boostedIds(),
+            ]
+        ];
+    }
+    /**
      * API-341: Needed for the mobile app. Our mobile app frontends query `api/v1/autocomplete`,
      * which uses the `suggest_autocomplete_boosted` field. Per the `filter` on that field in
      * `HasSuggestFields`, only boosted items will have that field. If we remove this method,

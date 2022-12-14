@@ -157,9 +157,7 @@ trait ElasticSearchable
 
         // Now bring it all together
         return [
-            $this->searchableType() => [
-                'properties' => $default,
-            ],
+            'properties' => $default,
         ];
     }
 

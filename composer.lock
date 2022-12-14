@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33591b425ae96412e7a2988bcbb996f8",
+    "content-hash": "bdd99d72f8cb542b0504f75d714a0e1e",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -475,31 +475,31 @@
         },
         {
             "name": "cviebrock/laravel-elasticsearch",
-            "version": "8.0.6",
+            "version": "9.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cviebrock/laravel-elasticsearch.git",
-                "reference": "fcf4e0e9edfbf128375aacf8e947252da2866cc8"
+                "reference": "00d350bea2e2a629636d2d5a71cc675de1c17b08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cviebrock/laravel-elasticsearch/zipball/fcf4e0e9edfbf128375aacf8e947252da2866cc8",
-                "reference": "fcf4e0e9edfbf128375aacf8e947252da2866cc8",
+                "url": "https://api.github.com/repos/cviebrock/laravel-elasticsearch/zipball/00d350bea2e2a629636d2d5a71cc675de1c17b08",
+                "reference": "00d350bea2e2a629636d2d5a71cc675de1c17b08",
                 "shasum": ""
             },
             "require": {
                 "elasticsearch/elasticsearch": "^7.11",
                 "ext-json": "*",
-                "guzzlehttp/psr7": "^1.7",
-                "illuminate/contracts": "^8.0",
-                "illuminate/support": "^8.0",
-                "php": "^7.3||^8.0",
+                "guzzlehttp/psr7": "^1.7|^2.0",
+                "illuminate/contracts": "^7.0|^8.0|^9.0",
+                "illuminate/support": "^7.0|^8.0|^9.0",
+                "php": "^7.3|^8.0",
                 "psr/http-message": "^1.0"
             },
             "require-dev": {
                 "limedeck/phpunit-detailed-printer": "^6.0",
                 "mockery/mockery": "^1.4.3",
-                "orchestra/testbench": "^6.5",
+                "orchestra/testbench": "^6.5|^7.0",
                 "phpunit/phpunit": "^9.4"
             },
             "suggest": {
@@ -541,7 +541,7 @@
             ],
             "support": {
                 "issues": "https://github.com/cviebrock/laravel-elasticsearch/issues",
-                "source": "https://github.com/cviebrock/laravel-elasticsearch/tree/8.0.6"
+                "source": "https://github.com/cviebrock/laravel-elasticsearch/tree/9.0.4"
             },
             "funding": [
                 {
@@ -549,7 +549,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-10-26T03:35:18+00:00"
+            "time": "2022-11-09T04:30:18+00:00"
         },
         {
             "name": "doctrine/cache",
