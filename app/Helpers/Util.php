@@ -9,7 +9,9 @@
 function hexToBoolArray($hex_string, $pad_length = 0)
 {
     return array_map(
-        function ($v) { return (bool) $v; },
+        function ($v) {
+            return (bool) $v;
+        },
         str_split(str_pad(base_convert($hex_string, 16, 2), $pad_length, '0', STR_PAD_LEFT))
     );
 }

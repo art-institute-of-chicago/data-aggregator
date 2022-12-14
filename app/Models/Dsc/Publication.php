@@ -17,5 +17,4 @@ class Publication extends DscModel
     {
         return $this->hasMany('App\Models\Dsc\Section');
     }
-
 }

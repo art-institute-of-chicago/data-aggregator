@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\Import;
 
-
 class ImportQueues extends AbstractImportCommand
 {
 

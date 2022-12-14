@@ -26,7 +26,7 @@ class ImageSearchController extends BaseController
         $supportedHashes = ['ahash', 'phash'];
 
         if (!empty($request->hash_type)) {
-            if (!in_array($request->hash_type, $supportedHashes)){
+            if (!in_array($request->hash_type, $supportedHashes)) {
                 throw new DetailedException(
                     'Hash type not found',
                     'Only ahash and phash hash types are allowed',
