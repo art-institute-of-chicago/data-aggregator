@@ -122,6 +122,6 @@ class RestrictContent
             ];
         }
 
-        return $restrictions;
+        return count($restrictions) == 1 ? $restrictions[0] : $restrictions;
     }
 }
