@@ -307,7 +307,7 @@ class Request
         // This is the canonical body structure. It is required.
         // Various
         $params['body'] = [
-
+            'track_total_hits' => true,
             'query' => [
                 'bool' => [
                     'must' => [],
