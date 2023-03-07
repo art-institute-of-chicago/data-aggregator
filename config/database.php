@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\DBAL\TimestampType;
 use Illuminate\Support\Str;
 
 $config = [
@@ -112,6 +113,20 @@ $config = [
     */
 
     'migrations' => 'migrations',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Column Types
+    |--------------------------------------------------------------------------
+    | This allows for modifying `timestamp` columns in migrations.
+    | See https://laravel.com/docs/8.x/migrations#prerequisites.
+    */
+
+    'dbal' => [
+        'types' => [
+            'timestamp' => TimestampType::class,
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
