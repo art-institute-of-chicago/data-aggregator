@@ -28,6 +28,7 @@
         "aic/data-hub-foundation": "dev-laravel-8-support",
         "aic/laravel-scout-elastic": "dev-master",
         "cviebrock/laravel-elasticsearch": "^9.0",
+        "doctrine/dbal": "^2.13",
         "fruitcake/laravel-cors": "^2.0",
         "intervention/image": "^2.7",
         "jsq/amazon-es-php": "dev-master",

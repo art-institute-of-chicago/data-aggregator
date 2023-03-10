@@ -36,6 +36,7 @@ class ArtworkFactory extends CollectionsFactory
                 'copyright_notice' => '© ' . $this->faker->year . ' ' . ucfirst($this->faker->words(3, true)),
                 'artwork_type_id' => $this->faker->randomElement(ArtworkType::query()->pluck('id')->all()),
                 'gallery_id' => $this->faker->randomElement(Place::query()->pluck('id')->all()),
+                'edition' => $this->faker->randomNumber(1) . ' of ' . $this->faker->randomNumber(2, true),
             ],
             $this->dates(true)
         );

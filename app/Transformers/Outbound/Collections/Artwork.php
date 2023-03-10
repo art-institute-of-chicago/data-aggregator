@@ -255,6 +255,10 @@ class Artwork extends BaseTransformer
                     return $item->provenance;
                 },
             ],
+            'edition' => [
+                'doc' => 'Edition number if the work is one of many',
+                'type' => 'text',
+            ],
 
             /**
              * Publishing fields:
