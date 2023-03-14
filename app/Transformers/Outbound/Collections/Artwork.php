@@ -213,6 +213,26 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
             ],
+            'dimensions_detail' => [
+                'doc' => 'The height, width, depth, and/or diameter of each section of the work, in both centimeters and inches',
+                'type' => 'object',
+                'elasticsearch' => [
+                    'mapping' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'clarification' => ['type' => 'text'],
+                            'depth_cm' => ['type' => 'float'],
+                            'depth_in' => ['type' => 'float'],
+                            'diameter_cm' => ['type' => 'float'],
+                            'diameter_in' => ['type' => 'float'],
+                            'height_cm' => ['type' => 'float'],
+                            'height_in' => ['type' => 'float'],
+                            'width_cm' => ['type' => 'float'],
+                            'width_in' => ['type' => 'float'],
+                        ],
+                    ],
+                ],
+            ],
             'medium_display' => [
                 'doc' => 'The substances or materials used in the creation of a work',
                 'type' => 'string',

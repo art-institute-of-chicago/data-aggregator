@@ -106,6 +106,7 @@ class ArtworkTest extends ContractTestCase
                 'department_id',
                 'department_title',
                 'dimensions',
+                'dimensions_detail',
                 'edition',
                 'gallery_id',
                 'gallery_title',
