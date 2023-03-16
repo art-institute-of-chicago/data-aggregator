@@ -47,20 +47,12 @@ class ArtworkFactory extends CollectionsFactory
     {
         $dimensions = array();
         for ($i = 0; $i < $count; $i++) {
-            $diameter = $this->faker->randomFloat();
-            $depth = $this->faker->randomFloat();
-            $height = $this->faker->randomFloat();
-            $width = $this->faker->randomFloat();
             $dimensions[] = [
                 'clarification' => ucfirst($this->faker->word()),
-                'diameter_cm' => $diameter,
-                'diameter_in' => $this->cmToIn($diameter),
-                'depth_cm' => $depth,
-                'depth_in' => $this->cmToIn($depth),
-                'height_cm' => $height,
-                'height_in' => $this->cmToIn($height),
-                'width_cm' => $width,
-                'width_in' => $this->cmToIn($width),
+                'diameter' => $this->faker->randomFloat(),
+                'depth' => $this->faker->randomFloat(),
+                'height' => $this->faker->randomFloat(),
+                'width' => $this->faker->randomFloat(),
             ];
         }
         return $dimensions;
