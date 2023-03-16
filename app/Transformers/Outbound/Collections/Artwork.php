@@ -214,7 +214,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => 'keyword',
             ],
             'dimensions_detail' => [
-                'doc' => 'The height, width, depth, and/or diameter of each section of the work, in both centimeters and inches',
+                'doc' => 'The height, width, depth, and/or diameter of each section of the work in centimeters',
                 'type' => 'object',
                 'elasticsearch' => [
                     'mapping' => [
