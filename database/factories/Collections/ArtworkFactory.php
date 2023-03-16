@@ -57,12 +57,4 @@ class ArtworkFactory extends CollectionsFactory
         }
         return $dimensions;
     }
-
-    /**
-     * Convert centimeters to inches.
-     */
-    private function cmToIn(float $centimeters): float
-    {
-        return $centimeters * 0.39;
-    }
 }
