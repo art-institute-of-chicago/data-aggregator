@@ -18,6 +18,7 @@ class Artwork extends CollectionsModel
 
     protected $casts = [
         'alt_titles' => 'array',
+        'dimensions_detail' => 'array',
         'is_public_domain' => 'boolean',
         'is_zoomable' => 'boolean',
         'is_on_view' => 'boolean',

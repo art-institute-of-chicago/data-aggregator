@@ -25,6 +25,7 @@ class ArtworkFactory extends CollectionsFactory
                 'description' => $this->faker->paragraph(5),
                 'artist_display' => $artist->title_raw . "\n" . $this->faker->country . ', ' . $this->faker->year . '–' . $this->faker->year,
                 'dimensions' => $this->faker->randomFloat(1, 0, 200) . ' x ' . $this->faker->randomFloat(1, 0, 200) . ' (' . $this->faker->randomNumber(2) . $this->faker->randomElement(['', ' 1/8', ' 1/4', ' 3/8', ' 1/2', ' 5/8', ' 3/4', ' 7/8']) . ' x ' . $this->faker->randomNumber(2) . $this->faker->randomElement(['', ' 1/8', ' 1/4', ' 3/8', ' 1/2', ' 5/8', ' 3/4', ' 7/8']) . ' in.)',
+                'dimensions_detail' => $this->fakeDimensionsDetail(3),
                 'medium_display' => ucfirst($this->faker->word) . ' on ' . $this->faker->word,
                 'credit_line' => $this->faker->randomElement(['', 'Friends of ', 'Gift of ', 'Bequest of ']) . $this->faker->words(3, true),
                 'inscriptions' => $this->faker->words(4, true),
@@ -40,5 +41,20 @@ class ArtworkFactory extends CollectionsFactory
             ],
             $this->dates(true)
         );
+    }
+
+    protected function fakeDimensionsDetail(int $count = 1): array
+    {
+        $dimensions = array();
+        for ($i = 0; $i < $count; $i++) {
+            $dimensions[] = [
+                'clarification' => ucfirst($this->faker->word()),
+                'diameter' => $this->faker->randomFloat(),
+                'depth' => $this->faker->randomFloat(),
+                'height' => $this->faker->randomFloat(),
+                'width' => $this->faker->randomFloat(),
+            ];
+        }
+        return $dimensions;
     }
 }
