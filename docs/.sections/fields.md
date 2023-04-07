@@ -24,6 +24,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `artist_display` *string* - Readable description of the creator of this work. Includes artist names, nationality and lifespan dates
 * `place_of_origin` *string* - The location where the creation, design, or production of the work took place, or the original location of the work
 * `dimensions` *string* - The size, shape, scale, and dimensions of the work. May include multiple dimensions like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.
+* `dimensions_detail` *object* - The height, width, depth, and/or diameter of each section of the work in centimeters
 * `medium_display` *string* - The substances or materials used in the creation of a work
 * `inscriptions` *string* - A description of distinguishing or identifying physical markings that are on the work
 * `credit_line` *string* - Brief statement indicating how the work came into the collection
@@ -31,6 +32,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `publication_history` *string* - Bibliographic list of all the places this work has been published
 * `exhibition_history` *string* - List of all the places this work has been exhibited
 * `provenance_text` *string* - Ownership/collecting history of the work. May include names of owners, dates, and possibly methods of transfer of ownership. Free-form text formatted in a house style.
+* `edition` *text* - Edition number if the work is one of many
 * `publishing_verification_level` *string* - Indicator of how much metadata on the work in published. Web Basic is the least amount, Web Everything is the greatest.
 * `internal_department_id` *number* - An internal department id we use for analytics. Does not correspond to departments on the website.
 * `fiscal_year` *number* - The fiscal year in which the work was acquired.

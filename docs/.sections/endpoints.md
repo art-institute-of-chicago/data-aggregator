@@ -26,29 +26,29 @@ A list of all artworks sorted by last updated date in descending order. For a de
 ```js
 {
     "pagination": {
-        "total": 118760,
+        "total": 118873,
         "limit": 2,
         "offset": 0,
-        "total_pages": 59380,
+        "total_pages": 59437,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/artworks?page=2&limit=2"
     },
     "data": [
         {
-            "id": 76771,
+            "id": 54488,
             "api_model": "artworks",
-            "api_link": "https://api.artic.edu/api/v1/artworks/76771",
+            "api_link": "https://api.artic.edu/api/v1/artworks/54488",
             "is_boosted": false,
-            "title": "Pan",
+            "title": "Man Ploughing, Dalby",
             "alt_titles": null,
             ...
         },
         {
-            "id": 76795,
+            "id": 86395,
             "api_model": "artworks",
-            "api_link": "https://api.artic.edu/api/v1/artworks/76795",
+            "api_link": "https://api.artic.edu/api/v1/artworks/86395",
             "is_boosted": false,
-            "title": "Pan",
+            "title": "Centerpiece and Stand with Pair of Sugar Casters",
             "alt_titles": null,
             ...
         }
@@ -59,7 +59,7 @@ A list of all artworks sorted by last updated date in descending order. For a de
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -95,7 +95,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
     },
     "data": [
         {
-            "_score": 229.52556,
+            "_score": 209.39456,
             "thumbnail": {
                 "alt_text": "Painting of a pond seen up close spotted with thickly painted pink and white water lilies and a shadow across the top third of the picture.",
                 "width": 8808,
@@ -107,10 +107,10 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "api_link": "https://api.artic.edu/api/v1/artworks/16568",
             "id": 16568,
             "title": "Water Lilies",
-            "timestamp": "2022-12-13T23:16:39-06:00"
+            "timestamp": "2023-03-22T23:15:27-05:00"
         },
         {
-            "_score": 212.65619,
+            "_score": 194.00476,
             "thumbnail": {
                 "alt_text": "Loosely painted image of an open-air train station. On the right, a parked train gives off an enormous plumb of white smoke, making the scene look as though it were full of clouds. A huddled mass of barely discernible people crowd around the train on both sides of the tracks. Blue, green, and gray tones dominate.",
                 "width": 6786,
@@ -122,10 +122,10 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "api_link": "https://api.artic.edu/api/v1/artworks/16571",
             "id": 16571,
             "title": "Arrival of the Normandy Train, Gare Saint-Lazare",
-            "timestamp": "2022-12-13T23:14:53-06:00"
+            "timestamp": "2023-03-22T23:13:52-05:00"
         },
         {
-            "_score": 210.31189,
+            "_score": 191.86606,
             "thumbnail": {
                 "alt_text": "Painting composed of short, dense brushstrokes depicts two domed stacks of wheat that cast long shadows on a field. The angled light indicates either a rising or setting sun.",
                 "width": 6884,
@@ -137,7 +137,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "api_link": "https://api.artic.edu/api/v1/artworks/64818",
             "id": 64818,
             "title": "Stacks of Wheat (End of Summer)",
-            "timestamp": "2022-12-13T23:16:37-06:00"
+            "timestamp": "2023-03-22T23:15:24-05:00"
         }
     ],
     "info": {
@@ -146,7 +146,7 @@ Search artworks data in the aggregator. Artworks in the groups of essentials are
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -178,7 +178,7 @@ A single artwork by the given identifier. {id} is the identifier from our collec
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -292,32 +292,33 @@ A list of all agents sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 14982,
+        "total": 15009,
         "limit": 2,
         "offset": 0,
-        "total_pages": 7491,
+        "total_pages": 7505,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/agents?page=2&limit=2"
     },
     "data": [
         {
-            "id": 36548,
+            "id": 115387,
             "api_model": "agents",
-            "api_link": "https://api.artic.edu/api/v1/agents/36548",
-            "title": "Naomi Savage",
-            "sort_title": "Savage, Naomi",
-            "alt_titles": [
-                "Naomi Siegler"
-            ],
+            "api_link": "https://api.artic.edu/api/v1/agents/115387",
+            "title": "Josephine Pryde",
+            "sort_title": "Pryde, Josephine",
+            "alt_titles": null,
             ...
         },
         {
-            "id": 117796,
+            "id": 6717,
             "api_model": "agents",
-            "api_link": "https://api.artic.edu/api/v1/agents/117796",
-            "title": "groana melendez",
-            "sort_title": "melendez, groana",
-            "alt_titles": null,
+            "api_link": "https://api.artic.edu/api/v1/agents/6717",
+            "title": "Dikran G. Kelekian, Inc.",
+            "sort_title": "Dikran G. Kelekian, Inc.",
+            "alt_titles": [
+                "Dikran G. Kelekian Inc.",
+                "Kelekian, Inc."
+            ],
             ...
         }
     ],
@@ -327,7 +328,7 @@ A list of all agents sorted by last updated date in descending order. For a desc
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -355,36 +356,36 @@ Search agents data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 14982,
+        "total": 15090,
         "limit": 10,
         "offset": 0,
-        "total_pages": 1499,
+        "total_pages": 1509,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "agents",
-            "api_link": "https://api.artic.edu/api/v1/agents/33625",
-            "id": 33625,
-            "title": "Francesco Bertos",
-            "timestamp": "2022-12-14T15:01:09-06:00"
+            "api_link": "https://api.artic.edu/api/v1/agents/2",
+            "id": 2,
+            "title": "Antiquarian Society",
+            "timestamp": "2023-04-07T10:02:30-05:00"
         },
         {
             "_score": 1,
             "api_model": "agents",
-            "api_link": "https://api.artic.edu/api/v1/agents/33626",
-            "id": 33626,
-            "title": "Charles Cl\u00e9ment Bervic",
-            "timestamp": "2022-12-14T15:01:09-06:00"
+            "api_link": "https://api.artic.edu/api/v1/agents/25",
+            "id": 25,
+            "title": "Anonymous",
+            "timestamp": "2023-04-07T10:02:30-05:00"
         },
         {
             "_score": 1,
             "api_model": "agents",
-            "api_link": "https://api.artic.edu/api/v1/agents/33627",
-            "id": 33627,
-            "title": "Albert Besnard",
-            "timestamp": "2022-12-14T15:01:09-06:00"
+            "api_link": "https://api.artic.edu/api/v1/agents/102",
+            "id": 102,
+            "title": "Alvar Aalto",
+            "timestamp": "2023-04-07T10:02:30-05:00"
         }
     ],
     "info": {
@@ -393,7 +394,7 @@ Search agents data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -429,7 +430,7 @@ A single agent by the given identifier. {id} is the identifier from our collecti
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -458,30 +459,30 @@ A list of all places sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 3971,
+        "total": 3973,
         "limit": 2,
         "offset": 0,
-        "total_pages": 1986,
+        "total_pages": 1987,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/places?page=2&limit=2"
     },
     "data": [
         {
-            "id": -2147476188,
+            "id": -1891,
             "api_model": "places",
-            "api_link": "https://api.artic.edu/api/v1/places/-2147476188",
-            "title": "United States",
-            "latitude": 38,
-            "longitude": -98,
+            "api_link": "https://api.artic.edu/api/v1/places/-1891",
+            "title": "Jemez Pueblo",
+            "tgn_id": null,
+            "source_updated_at": "2022-12-27T11:44:25-06:00",
             ...
         },
         {
-            "id": -2147476354,
+            "id": -2147476187,
             "api_model": "places",
-            "api_link": "https://api.artic.edu/api/v1/places/-2147476354",
-            "title": "Maine",
-            "latitude": 45,
-            "longitude": -69,
+            "api_link": "https://api.artic.edu/api/v1/places/-2147476187",
+            "title": "New York",
+            "tgn_id": null,
+            "source_updated_at": "2022-12-22T12:10:04-06:00",
             ...
         }
     ],
@@ -491,7 +492,7 @@ A list of all places sorted by last updated date in descending order. For a desc
             "https://www.artic.edu/terms",
             "https://creativecommons.org/licenses/by/4.0/"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -519,7 +520,7 @@ Search places data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 3971,
+        "total": 3977,
         "limit": 10,
         "offset": 0,
         "total_pages": 398,
@@ -529,25 +530,25 @@ Search places data in the aggregator.
         {
             "_score": 1,
             "api_model": "places",
-            "api_link": "https://api.artic.edu/api/v1/places/-2147474044",
-            "id": -2147474044,
-            "title": "Brimfield",
+            "api_link": "https://api.artic.edu/api/v1/places/-2147471508",
+            "id": -2147471508,
+            "title": "Haycock Township",
             "timestamp": "2022-05-08T23:17:35-05:00"
         },
         {
             "_score": 1,
             "api_model": "places",
-            "api_link": "https://api.artic.edu/api/v1/places/-2147474041",
-            "id": -2147474041,
-            "title": "Bryn Mawr",
+            "api_link": "https://api.artic.edu/api/v1/places/-2147471507",
+            "id": -2147471507,
+            "title": "Rainrod",
             "timestamp": "2022-05-08T23:17:35-05:00"
         },
         {
             "_score": 1,
             "api_model": "places",
-            "api_link": "https://api.artic.edu/api/v1/places/-2147474034",
-            "id": -2147474034,
-            "title": "Canterbury",
+            "api_link": "https://api.artic.edu/api/v1/places/-2147471505",
+            "id": -2147471505,
+            "title": "Sevenoaks",
             "timestamp": "2022-05-08T23:17:35-05:00"
         }
     ],
@@ -557,7 +558,7 @@ Search places data in the aggregator.
             "https://www.artic.edu/terms",
             "https://creativecommons.org/licenses/by/4.0/"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -579,8 +580,8 @@ A single place by the given identifier. {id} is the identifier from our collecti
         "api_model": "places",
         "api_link": "https://api.artic.edu/api/v1/places/-2147483613",
         "title": "Peoria",
-        "latitude": 40.683,
-        "longitude": -89.583,
+        "tgn_id": null,
+        "source_updated_at": "1976-09-02T11:20:00-05:00",
         ...
     },
     "info": {
@@ -589,7 +590,7 @@ A single place by the given identifier. {id} is the identifier from our collecti
             "https://www.artic.edu/terms",
             "https://creativecommons.org/licenses/by/4.0/"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -627,21 +628,21 @@ A list of all galleries sorted by last updated date in descending order. For a d
     },
     "data": [
         {
-            "id": 26129,
+            "id": 23968,
             "api_model": "galleries",
-            "api_link": "https://api.artic.edu/api/v1/galleries/26129",
-            "title": "Gallery 50",
-            "latitude": 41.879562775663,
-            "longitude": -87.6221331954,
+            "api_link": "https://api.artic.edu/api/v1/galleries/23968",
+            "title": "Gallery 284",
+            "latitude": 41.880123635586,
+            "longitude": -87.622311842749,
             ...
         },
         {
-            "id": 23975,
+            "id": 23967,
             "api_model": "galleries",
-            "api_link": "https://api.artic.edu/api/v1/galleries/23975",
-            "title": "Gallery 294",
-            "latitude": 41.880509059365,
-            "longitude": -87.621473652432,
+            "api_link": "https://api.artic.edu/api/v1/galleries/23967",
+            "title": "Gallery 283",
+            "latitude": 41.880226482055,
+            "longitude": -87.622314524958,
             ...
         }
     ],
@@ -651,7 +652,7 @@ A list of all galleries sorted by last updated date in descending order. For a d
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -679,36 +680,36 @@ Search galleries data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 94,
+        "total": 38,
         "limit": 10,
         "offset": 0,
-        "total_pages": 10,
+        "total_pages": 4,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "galleries",
-            "api_link": "https://api.artic.edu/api/v1/galleries/2147476836",
-            "id": 2147476836,
-            "title": "Gallery 227",
-            "timestamp": "2022-05-08T23:17:36-05:00"
+            "api_link": "https://api.artic.edu/api/v1/galleries/2147475440",
+            "id": 2147475440,
+            "title": "Gallery 136",
+            "timestamp": "2023-01-03T13:06:56-06:00"
         },
         {
             "_score": 1,
             "api_model": "galleries",
-            "api_link": "https://api.artic.edu/api/v1/galleries/2147477076",
-            "id": 2147477076,
-            "title": "North Stanley McCormick Memorial Garden",
-            "timestamp": "2022-05-08T23:17:36-05:00"
+            "api_link": "https://api.artic.edu/api/v1/galleries/2147483637",
+            "id": 2147483637,
+            "title": "Gallery 204",
+            "timestamp": "2023-01-12T17:16:54-06:00"
         },
         {
             "_score": 1,
             "api_model": "galleries",
-            "api_link": "https://api.artic.edu/api/v1/galleries/2147477218",
-            "id": 2147477218,
-            "title": "Gallery 200",
-            "timestamp": "2022-05-08T23:17:36-05:00"
+            "api_link": "https://api.artic.edu/api/v1/galleries/2147483638",
+            "id": 2147483638,
+            "title": "Gallery 203",
+            "timestamp": "2023-01-09T00:16:46-06:00"
         }
     ],
     "info": {
@@ -717,7 +718,7 @@ Search galleries data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -749,7 +750,7 @@ A single gallery by the given identifier. {id} is the identifier from our collec
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -781,30 +782,30 @@ A list of all exhibitions sorted by last updated date in descending order. For a
 ```js
 {
     "pagination": {
-        "total": 6441,
+        "total": 6170,
         "limit": 2,
         "offset": 0,
-        "total_pages": 3221,
+        "total_pages": 3085,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/exhibitions?page=2&limit=2"
     },
     "data": [
         {
-            "id": 9287,
+            "id": 3070,
             "api_model": "exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/exhibitions/9287",
-            "title": "Canova: Sketching in Clay",
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/3070",
+            "title": "Van Gogh",
             "is_featured": false,
-            "is_published": false,
+            "short_description": "Please note: this exhibition is open on weekdays only.",
             ...
         },
         {
-            "id": 9639,
+            "id": 2999,
             "api_model": "exhibitions",
-            "api_link": "https://api.artic.edu/api/v1/exhibitions/9639",
-            "title": "Van Gogh and the Avant-Garde: The Modern Landscape",
-            "is_featured": true,
-            "is_published": true,
+            "api_link": "https://api.artic.edu/api/v1/exhibitions/2999",
+            "title": "Tools of the Trade: 19th- and 20th- Century Architectural Trade Catalogs",
+            "is_featured": false,
+            "short_description": null,
             ...
         }
     ],
@@ -814,7 +815,7 @@ A list of all exhibitions sorted by last updated date in descending order. For a
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -842,7 +843,7 @@ Search exhibitions data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 6441,
+        "total": 6446,
         "limit": 10,
         "offset": 0,
         "total_pages": 645,
@@ -880,7 +881,7 @@ Search exhibitions data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -903,7 +904,7 @@ A single exhibition by the given identifier. {id} is the identifier from our col
         "api_link": "https://api.artic.edu/api/v1/exhibitions/5",
         "title": "Manet and the Sea",
         "is_featured": false,
-        "is_published": true,
+        "short_description": "This landmark exhibition is devoted to the marine paintings of Edouard Manet (1832\u20131883), a little-studied but highly significant aspect of the career of the artist who is sometimes referred to as the father of Impressionism.",
         ...
     },
     "info": {
@@ -912,7 +913,7 @@ A single exhibition by the given identifier. {id} is the identifier from our col
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -974,7 +975,7 @@ A list of all agent-types sorted by last updated date in descending order. For a
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1006,7 +1007,7 @@ A single agent-type by the given identifier. {id} is the identifier from our col
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1068,7 +1069,7 @@ A list of all agent-roles sorted by last updated date in descending order. For a
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1100,7 +1101,7 @@ A single agent-role by the given identifier. {id} is the identifier from our col
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1162,7 +1163,7 @@ A list of all artwork-place-qualifiers sorted by last updated date in descending
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1194,7 +1195,7 @@ A single artwork-place-qualifier by the given identifier. {id} is the identifier
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1256,7 +1257,7 @@ A list of all artwork-date-qualifiers sorted by last updated date in descending 
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1288,7 +1289,7 @@ A single artwork-date-qualifier by the given identifier. {id} is the identifier 
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1350,7 +1351,7 @@ A list of all artwork-types sorted by last updated date in descending order. For
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1382,7 +1383,7 @@ A single artwork-type by the given identifier. {id} is the identifier from our c
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1411,28 +1412,28 @@ A list of all category-terms sorted by last updated date in descending order. Fo
 ```js
 {
     "pagination": {
-        "total": 9764,
+        "total": 9766,
         "limit": 2,
         "offset": 0,
-        "total_pages": 4882,
+        "total_pages": 4883,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/category-terms?page=2&limit=2"
     },
     "data": [
         {
-            "id": "TM-15393",
+            "id": "TM-15398",
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-15393",
-            "title": "seashells",
+            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-15398",
+            "title": "copper plate",
             "subtype": "material",
             "parent_id": null,
             ...
         },
         {
-            "id": "TM-15392",
+            "id": "TM-15397",
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-15392",
-            "title": "chain",
+            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-15397",
+            "title": "silver plate",
             "subtype": "material",
             "parent_id": null,
             ...
@@ -1444,7 +1445,7 @@ A list of all category-terms sorted by last updated date in descending order. Fo
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1472,36 +1473,36 @@ Search category-terms data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 9764,
+        "total": 9780,
         "limit": 10,
         "offset": 0,
-        "total_pages": 977,
+        "total_pages": 978,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-13494",
-            "id": "TM-13494",
-            "title": "babessi",
-            "timestamp": "2022-05-08T23:19:07-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-13183",
+            "id": "TM-13183",
+            "title": "washington, D.C.",
+            "timestamp": "2022-05-08T23:19:06-05:00"
         },
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-13495",
-            "id": "TM-13495",
-            "title": "bankoni",
-            "timestamp": "2022-05-08T23:19:07-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-13184",
+            "id": "TM-13184",
+            "title": "united states of america",
+            "timestamp": "2022-05-08T23:19:06-05:00"
         },
         {
             "_score": 1,
             "api_model": "category-terms",
-            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-13496",
-            "id": "TM-13496",
-            "title": "lagoons peoples",
-            "timestamp": "2022-05-08T23:19:07-05:00"
+            "api_link": "https://api.artic.edu/api/v1/category-terms/TM-13185",
+            "id": "TM-13185",
+            "title": "kasterlee (municipality)",
+            "timestamp": "2022-05-08T23:19:06-05:00"
         }
     ],
     "info": {
@@ -1510,7 +1511,7 @@ Search category-terms data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1542,7 +1543,7 @@ A single category-term by the given identifier. {id} is the identifier from our 
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1571,29 +1572,29 @@ A list of all images sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 154078,
+        "total": 154189,
         "limit": 2,
         "offset": 0,
-        "total_pages": 77039,
+        "total_pages": 77095,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/images?page=2&limit=2"
     },
     "data": [
         {
-            "id": "39a11346-5c86-70e0-93c5-201f1e0d46f1",
-            "lake_guid": "39a11346-5c86-70e0-93c5-201f1e0d46f1",
+            "id": "d6e4181d-dc08-ed5f-1f9f-95fb71e1aa6a",
+            "lake_guid": "d6e4181d-dc08-ed5f-1f9f-95fb71e1aa6a",
             "api_model": "images",
-            "api_link": "https://api.artic.edu/api/v1/images/39a11346-5c86-70e0-93c5-201f1e0d46f1",
-            "title": "J9289-int",
+            "api_link": "https://api.artic.edu/api/v1/images/d6e4181d-dc08-ed5f-1f9f-95fb71e1aa6a",
+            "title": "243266",
             "type": "image",
             ...
         },
         {
-            "id": "1a5929a0-5d07-6b60-85f1-2c759769da8f",
-            "lake_guid": "1a5929a0-5d07-6b60-85f1-2c759769da8f",
+            "id": "f4c55af0-d797-989c-2581-ba92b2ba5043",
+            "lake_guid": "f4c55af0-d797-989c-2581-ba92b2ba5043",
             "api_model": "images",
-            "api_link": "https://api.artic.edu/api/v1/images/1a5929a0-5d07-6b60-85f1-2c759769da8f",
-            "title": "J9397-int",
+            "api_link": "https://api.artic.edu/api/v1/images/f4c55af0-d797-989c-2581-ba92b2ba5043",
+            "title": "243268",
             "type": "image",
             ...
         }
@@ -1604,7 +1605,7 @@ A list of all images sorted by last updated date in descending order. For a desc
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1632,36 +1633,36 @@ Search images data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 154078,
+        "total": 155219,
         "limit": 10,
         "offset": 0,
-        "total_pages": 15408,
+        "total_pages": 15522,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "images",
-            "api_link": "https://api.artic.edu/api/v1/images/3b96d8d0-68c9-cb16-e5ea-6d7889a9928c",
-            "id": "3b96d8d0-68c9-cb16-e5ea-6d7889a9928c",
-            "title": "G59063",
-            "timestamp": "2022-09-09T16:57:00-05:00"
+            "api_link": "https://api.artic.edu/api/v1/images/154b8da1-cfc9-5e58-f996-9c46e6211b73",
+            "id": "154b8da1-cfc9-5e58-f996-9c46e6211b73",
+            "title": "G28125",
+            "timestamp": "2022-05-08T23:31:16-05:00"
         },
         {
             "_score": 1,
             "api_model": "images",
-            "api_link": "https://api.artic.edu/api/v1/images/559c01e7-76dc-2a0b-309e-1a67603ce00e",
-            "id": "559c01e7-76dc-2a0b-309e-1a67603ce00e",
-            "title": "AIC_1999ElsworthKelly020.jpg",
-            "timestamp": "2022-05-08T23:33:57-05:00"
+            "api_link": "https://api.artic.edu/api/v1/images/da377b99-3363-fb09-57b1-e2cd1a43719e",
+            "id": "da377b99-3363-fb09-57b1-e2cd1a43719e",
+            "title": "G21772",
+            "timestamp": "2022-05-08T23:31:17-05:00"
         },
         {
             "_score": 1,
             "api_model": "images",
-            "api_link": "https://api.artic.edu/api/v1/images/3cc53520-929e-052e-10ea-9c706ffa4bba",
-            "id": "3cc53520-929e-052e-10ea-9c706ffa4bba",
-            "title": "AIC_1999ElsworthKelly016.jpg",
-            "timestamp": "2022-05-08T23:33:57-05:00"
+            "api_link": "https://api.artic.edu/api/v1/images/78f6ad73-80d5-6bc5-0553-56529aca8457",
+            "id": "78f6ad73-80d5-6bc5-0553-56529aca8457",
+            "title": "G21767",
+            "timestamp": "2022-05-08T23:31:11-05:00"
         }
     ],
     "info": {
@@ -1670,7 +1671,7 @@ Search images data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1702,7 +1703,7 @@ A single image by the given identifier. {id} is the identifier from our collecti
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1744,7 +1745,7 @@ A list of all videos sorted by last updated date in descending order. For a desc
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1772,20 +1773,29 @@ Search videos data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 0,
+        "total": 1,
         "limit": 10,
         "offset": 0,
-        "total_pages": 0,
+        "total_pages": 1,
         "current_page": 1
     },
-    "data": [],
+    "data": [
+        {
+            "_score": 1,
+            "api_model": "videos",
+            "api_link": "https://api.artic.edu/api/v1/videos/fae3fdc2-7a52-5fc4-c634-c2033f9b2a46",
+            "id": "fae3fdc2-7a52-5fc4-c634-c2033f9b2a46",
+            "title": "Skeele_FruitPiece_Essentials_Main",
+            "timestamp": "2023-02-14T16:12:02-06:00"
+        }
+    ],
     "info": {
         "license_text": "The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
         "license_links": [
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1819,7 +1829,7 @@ A list of all sounds sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 808,
+        "total": 807,
         "limit": 2,
         "offset": 0,
         "total_pages": 404,
@@ -1852,7 +1862,7 @@ A list of all sounds sorted by last updated date in descending order. For a desc
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1880,7 +1890,7 @@ Search sounds data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 808,
+        "total": 807,
         "limit": 10,
         "offset": 0,
         "total_pages": 81,
@@ -1893,7 +1903,7 @@ Search sounds data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sounds/f38522ed-05e8-8761-953e-77d965c87ccf",
             "id": "f38522ed-05e8-8761-953e-77d965c87ccf",
             "title": "Audio Lecture: The History and Transformation of a Benin Exhibition",
-            "timestamp": "2022-05-08T23:34:10-05:00"
+            "timestamp": "2023-02-14T15:28:12-06:00"
         },
         {
             "_score": 1,
@@ -1901,7 +1911,7 @@ Search sounds data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sounds/586f399e-1566-b42a-c4a9-5b4aa77a0d2f",
             "id": "586f399e-1566-b42a-c4a9-5b4aa77a0d2f",
             "title": "Audio Lecture: Mel Bochner Symposium, Introduction and Keynote",
-            "timestamp": "2022-05-08T23:34:10-05:00"
+            "timestamp": "2023-02-14T15:28:12-06:00"
         },
         {
             "_score": 1,
@@ -1909,7 +1919,7 @@ Search sounds data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/sounds/df8dcfba-6535-64e2-a4d1-7701e2d121e8",
             "id": "df8dcfba-6535-64e2-a4d1-7701e2d121e8",
             "title": "Audio Lecture: Mel Bochner Symposium, Panel I: Language (Eric de Bruyn)",
-            "timestamp": "2022-05-08T23:34:10-05:00"
+            "timestamp": "2023-02-14T15:28:12-06:00"
         }
     ],
     "info": {
@@ -1918,7 +1928,7 @@ Search sounds data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -1950,7 +1960,7 @@ A single sound by the given identifier. {id} is the identifier from our collecti
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2012,7 +2022,7 @@ A list of all texts sorted by last updated date in descending order. For a descr
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2078,7 +2088,7 @@ Search texts data in the aggregator.
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2110,7 +2120,7 @@ A single text by the given identifier. {id} is the identifier from our collectio
             "https://creativecommons.org/publicdomain/zero/1.0/",
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2141,30 +2151,30 @@ A list of all products sorted by last updated date in descending order. For a de
 ```js
 {
     "pagination": {
-        "total": 1189,
+        "total": 1194,
         "limit": 2,
         "offset": 0,
-        "total_pages": 595,
+        "total_pages": 597,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/products?page=2&limit=2"
     },
     "data": [
         {
-            "id": 288335,
+            "id": 288516,
             "api_model": "products",
-            "api_link": "https://api.artic.edu/api/v1/products/288335",
-            "title": "C\u00f4te d\u2019Ivoire Face Mask T-Shirt",
-            "external_sku": 288335,
-            "image_url": "https://shop-images.imgix.net288335_2.jpg",
+            "api_link": "https://api.artic.edu/api/v1/products/288516",
+            "title": "Forming Abstraction: Art and Institutions in Postwar Brazil",
+            "external_sku": 288516,
+            "image_url": "https://shop-images.imgix.net288516_2.jpg",
             ...
         },
         {
-            "id": 288229,
+            "id": 288473,
             "api_model": "products",
-            "api_link": "https://api.artic.edu/api/v1/products/288229",
-            "title": "I Can Change the World Portfolio",
-            "external_sku": 288229,
-            "image_url": "https://shop-images.imgix.net288229_2.jpg",
+            "api_link": "https://api.artic.edu/api/v1/products/288473",
+            "title": "Richard Hunt",
+            "external_sku": 288473,
+            "image_url": "https://shop-images.imgix.net288473_2.jpg",
             ...
         }
     ],
@@ -2173,7 +2183,7 @@ A list of all products sorted by last updated date in descending order. For a de
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2201,21 +2211,13 @@ Search products data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 1189,
+        "total": 1284,
         "limit": 10,
         "offset": 0,
-        "total_pages": 119,
+        "total_pages": 129,
         "current_page": 1
     },
     "data": [
-        {
-            "_score": 1,
-            "api_model": "products",
-            "api_link": "https://api.artic.edu/api/v1/products/263767",
-            "id": "263767",
-            "title": "Lion Tote",
-            "timestamp": "2022-12-07T23:00:53-06:00"
-        },
         {
             "_score": 1,
             "api_model": "products",
@@ -2231,6 +2233,14 @@ Search products data in the aggregator.
             "id": "248377",
             "title": "Edward Gorey Frawgge Mfrg Co. Puzzle",
             "timestamp": "2022-12-07T23:00:50-06:00"
+        },
+        {
+            "_score": 1,
+            "api_model": "products",
+            "api_link": "https://api.artic.edu/api/v1/products/248669",
+            "id": "248669",
+            "title": "Awika Windup Toy",
+            "timestamp": "2022-12-07T23:00:50-06:00"
         }
     ],
     "info": {
@@ -2238,7 +2248,7 @@ Search products data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2269,7 +2279,7 @@ A single product by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2334,7 +2344,7 @@ A list of all tours sorted by last updated date in descending order. For a descr
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2362,7 +2372,7 @@ Search tours data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 19,
+        "total": 20,
         "limit": 10,
         "offset": 0,
         "total_pages": 2,
@@ -2388,10 +2398,10 @@ Search tours data in the aggregator.
         {
             "_score": 1,
             "api_model": "tours",
-            "api_link": "https://api.artic.edu/api/v1/tours/5164",
-            "id": 5164,
-            "title": "The Language of Beauty in African Art",
-            "timestamp": "2022-12-13T23:00:42-06:00"
+            "api_link": "https://api.artic.edu/api/v1/tours/5155",
+            "id": 5155,
+            "title": "Sophie Calle Verbal Description Tour",
+            "timestamp": "2023-01-23T23:00:36-06:00"
         }
     ],
     "info": {
@@ -2399,7 +2409,7 @@ Search tours data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2430,7 +2440,7 @@ A single tour by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2491,7 +2501,7 @@ A list of all mobile-sounds sorted by last updated date in descending order. For
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2519,7 +2529,7 @@ Search mobile-sounds data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 878,
+        "total": 879,
         "limit": 10,
         "offset": 0,
         "total_pages": 88,
@@ -2529,26 +2539,26 @@ Search mobile-sounds data in the aggregator.
         {
             "_score": 1,
             "api_model": "mobile-sounds",
-            "api_link": "https://api.artic.edu/api/v1/mobile-sounds/1320",
-            "id": 1320,
-            "title": "Ogre-Headed Guardian Beast (Zhenmushou)",
-            "timestamp": "2022-12-13T23:00:13-06:00"
+            "api_link": "https://api.artic.edu/api/v1/mobile-sounds/226",
+            "id": 226,
+            "title": "Justus Sustermans",
+            "timestamp": "2023-03-22T23:00:10-05:00"
         },
         {
             "_score": 1,
             "api_model": "mobile-sounds",
-            "api_link": "https://api.artic.edu/api/v1/mobile-sounds/1336",
-            "id": 1336,
-            "title": "American Gothic",
-            "timestamp": "2022-12-13T23:00:14-06:00"
+            "api_link": "https://api.artic.edu/api/v1/mobile-sounds/227",
+            "id": 227,
+            "title": "Self-Portrait, Etching at a Window",
+            "timestamp": "2023-03-22T23:00:11-05:00"
         },
         {
             "_score": 1,
             "api_model": "mobile-sounds",
-            "api_link": "https://api.artic.edu/api/v1/mobile-sounds/1339",
-            "id": 1339,
-            "title": "Chicago Stock Exchange: Bank of Five Elevator Grilles with Four Plates",
-            "timestamp": "2022-12-13T23:00:14-06:00"
+            "api_link": "https://api.artic.edu/api/v1/mobile-sounds/235",
+            "id": 235,
+            "title": "Self-Portrait, Anthony Van Dyck",
+            "timestamp": "2023-03-22T23:00:11-05:00"
         }
     ],
     "info": {
@@ -2556,7 +2566,7 @@ Search mobile-sounds data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2587,7 +2597,7 @@ A single mobile-sound by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2913,7 +2923,7 @@ A list of all publications sorted by last updated date in descending order. For 
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -2978,7 +2988,7 @@ Search publications data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3137,7 +3147,7 @@ A single publication by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3198,7 +3208,7 @@ A list of all sections sorted by last updated date in descending order. For a de
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3263,7 +3273,7 @@ Search sections data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3294,7 +3304,7 @@ A single section by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3359,7 +3369,7 @@ A list of all sites sorted by last updated date in descending order. For a descr
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3399,7 +3409,7 @@ Search sites data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3430,7 +3440,7 @@ A single site by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3461,30 +3471,30 @@ A list of all events sorted by last updated date in descending order. For a desc
 ```js
 {
     "pagination": {
-        "total": 2322,
+        "total": 2326,
         "limit": 2,
         "offset": 0,
-        "total_pages": 1161,
+        "total_pages": 1163,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/events?page=2&limit=2"
     },
     "data": [
         {
-            "id": 5575,
+            "id": 5605,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/5575",
-            "title": "Member Lecture: Salvador Dal\u00ed\u2014The Image Disappears",
-            "title_display": "Member Lecture: <i>Salvador Dal\u00ed\u2014The Image Disappears</i>",
-            "image_url": "https://artic-web.imgix.net/c6c97c77-359e-4007-8be3-be302010c32c/dali.png?rect=0%2C25%2C1280%2C719&auto=format%2Ccompress&q=80&fit=crop&crop=faces%2Cedges%2Centropy&w=1200&h=674",
+            "api_link": "https://api.artic.edu/api/v1/events/5605",
+            "title": "Member Lecture: The Journey of the Noble Dos Aguas Armory",
+            "title_display": "Member Lecture: The Journey of the Noble Dos Aguas Armory",
+            "image_url": "https://artic-web.imgix.net/e425db37-aa3d-4452-ad3d-56fc385ca2d6/default1.jpg?rect=0%2C11%2C843%2C473&auto=format%2Ccompress&q=80&fit=crop&crop=faces%2Cedges%2Centropy&w=1200&h=673",
             ...
         },
         {
-            "id": 5580,
+            "id": 5651,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/5580",
-            "title": "Lecture: The Power of Display: Gold in Akan Art and Aesthetics",
-            "title_display": "Lecture: The Power of Display\u2014Gold in Akan Art and Aesthetics",
-            "image_url": "https://artic-web.imgix.net/9941566d-db3f-4031-8e12-93fb4899a580/default.jpg?rect=0%2C421%2C843%2C473&auto=format%2Ccompress&q=80&fit=crop&crop=faces%2Cedges%2Centropy&w=1200&h=673",
+            "api_link": "https://api.artic.edu/api/v1/events/5651",
+            "title": "Lecture: Diego Vel\u00e1zquez in Seville",
+            "title_display": null,
+            "image_url": "https://artic-web.imgix.net/100b6ca4-879d-4402-9c23-902090b40725/default1.jpg?rect=27%2C0%2C1550%2C872&auto=format%2Ccompress&q=80&fit=crop&crop=faces%2Cedges%2Centropy&w=1200&h=675",
             ...
         }
     ],
@@ -3493,7 +3503,7 @@ A list of all events sorted by last updated date in descending order. For a desc
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3521,36 +3531,36 @@ Search events data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 2322,
+        "total": 2359,
         "limit": 10,
         "offset": 0,
-        "total_pages": 233,
+        "total_pages": 236,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/5590",
-            "id": 5590,
-            "title": "The Art Exchange (Dec 23\u201324)",
-            "timestamp": "2022-12-13T23:17:49-06:00"
+            "api_link": "https://api.artic.edu/api/v1/events/5603",
+            "id": 5603,
+            "title": "Virtual Rebroadcast: Lecture\u2014The Language of Beauty in African Art",
+            "timestamp": "2023-03-22T23:16:45-05:00"
         },
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/5589",
-            "id": 5589,
-            "title": "The Art Exchange (Dec 16\u201318)",
-            "timestamp": "2022-12-13T23:17:49-06:00"
+            "api_link": "https://api.artic.edu/api/v1/events/5604",
+            "id": 5604,
+            "title": "Museum Closed Today",
+            "timestamp": "2023-03-22T23:16:45-05:00"
         },
         {
             "_score": 1,
             "api_model": "events",
-            "api_link": "https://api.artic.edu/api/v1/events/5588",
-            "id": 5588,
-            "title": "The Art Exchange (Dec 9\u201311",
-            "timestamp": "2022-12-13T23:17:49-06:00"
+            "api_link": "https://api.artic.edu/api/v1/events/5564",
+            "id": 5564,
+            "title": "Virtual Lecture: Fabricating Fashion",
+            "timestamp": "2023-03-22T23:16:45-05:00"
         }
     ],
     "info": {
@@ -3558,7 +3568,7 @@ Search events data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3589,7 +3599,7 @@ A single event by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3618,30 +3628,30 @@ A list of all event-occurrences sorted by last updated date in descending order.
 ```js
 {
     "pagination": {
-        "total": 424,
+        "total": 411,
         "limit": 2,
         "offset": 0,
-        "total_pages": 212,
+        "total_pages": 206,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/event-occurrences?page=2&limit=2"
     },
     "data": [
         {
-            "id": "75eb4fd8-d7b5-5ae3-9cfe-f850277e5b53",
+            "id": "f0ffa14b-2388-5971-be1b-e3357d053d6f",
             "api_model": "event-occurrences",
-            "api_link": "https://api.artic.edu/api/v1/event-occurrences/75eb4fd8-d7b5-5ae3-9cfe-f850277e5b53",
-            "title": "Lecture: The Power of Display: Gold in Akan Art and Aesthetics",
-            "event_id": 5580,
-            "short_description": "Join Nii Otokunor Quarcoopome, curator of African art and department head of Africa, Oceania, and Indigenous Americas at the Detroit Institute of Arts, to learn more about the historic and contemporary functions and meanings of gold in Akan arts.",
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/f0ffa14b-2388-5971-be1b-e3357d053d6f",
+            "title": "Lecture: Goryeo Celadon and Material Culture",
+            "event_id": 5598,
+            "short_description": "Join ceramic specialist Namwon Jang for a discussion of the Goryeo celadons from the Art Institute\u2019s collection currently on view in the Korean galleries.",
             ...
         },
         {
-            "id": "afdc8c55-1846-5dbc-84ea-12b5490599fc",
+            "id": "d53bd05c-88e9-5c0e-9d98-3307167e4fa0",
             "api_model": "event-occurrences",
-            "api_link": "https://api.artic.edu/api/v1/event-occurrences/afdc8c55-1846-5dbc-84ea-12b5490599fc",
-            "title": "Public Gallery Tour: The Art Institute (Friday)",
-            "event_id": 5533,
-            "short_description": "Looking for a good place to start your museum visit? Join a knowledgeable guide for a 45-minute tour of museum icons and lesser-known treasures.",
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/d53bd05c-88e9-5c0e-9d98-3307167e4fa0",
+            "title": "The Start Here Tour (Sunday)",
+            "event_id": 5554,
+            "short_description": "Start your Art Institute visit with a one-stop tour\u2014get a peek at the collection, learn about the day\u2019s events, and receive tips for navigating the museum.",
             ...
         }
     ],
@@ -3650,7 +3660,7 @@ A list of all event-occurrences sorted by last updated date in descending order.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3678,36 +3688,36 @@ Search event-occurrences data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 424,
+        "total": 452,
         "limit": 10,
         "offset": 0,
-        "total_pages": 43,
+        "total_pages": 46,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "event-occurrences",
-            "api_link": "https://api.artic.edu/api/v1/event-occurrences/1c465b7c-9c84-55a3-9777-9ac5cf18b2db",
-            "id": "1c465b7c-9c84-55a3-9777-9ac5cf18b2db",
-            "title": "Conversation: Discovering Dal\u00ed\u2019s Dream of Venus",
-            "timestamp": "2022-12-13T23:26:06-06:00"
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/2e228f55-25c1-59dd-9cdc-943102de3d89",
+            "id": "2e228f55-25c1-59dd-9cdc-943102de3d89",
+            "title": "Slow Looking: Museum Makeover Edition (May 19)",
+            "timestamp": "2023-03-22T23:26:32-05:00"
         },
         {
             "_score": 1,
             "api_model": "event-occurrences",
-            "api_link": "https://api.artic.edu/api/v1/event-occurrences/d659b687-0d0f-5d34-b0e9-e4c673ccb8e6",
-            "id": "d659b687-0d0f-5d34-b0e9-e4c673ccb8e6",
-            "title": "Member Lecture: The Journey of the Noble Dos Aguas Armory",
-            "timestamp": "2022-12-13T23:26:06-06:00"
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/87e2d02d-00de-530c-8b78-de133b9b287d",
+            "id": "87e2d02d-00de-530c-8b78-de133b9b287d",
+            "title": "Slow Looking: Museum Makeover Edition (May 5)",
+            "timestamp": "2023-03-22T23:26:32-05:00"
         },
         {
             "_score": 1,
             "api_model": "event-occurrences",
-            "api_link": "https://api.artic.edu/api/v1/event-occurrences/61fdff14-c4b8-5c6b-9c4b-1c761a66055f",
-            "id": "61fdff14-c4b8-5c6b-9c4b-1c761a66055f",
-            "title": "The Art Exchange (Apr 28\u201330)",
-            "timestamp": "2022-12-13T23:26:06-06:00"
+            "api_link": "https://api.artic.edu/api/v1/event-occurrences/e95cb9c3-1506-5e17-8525-b4ebcc48ea71",
+            "id": "e95cb9c3-1506-5e17-8525-b4ebcc48ea71",
+            "title": "Gallery Tour: (Thursday at 1:00, Modern Wing start)",
+            "timestamp": "2023-03-23T12:56:26-05:00"
         }
     ],
     "info": {
@@ -3715,7 +3725,7 @@ Search event-occurrences data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3746,7 +3756,7 @@ A single event-occurrence by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3775,28 +3785,28 @@ A list of all event-programs sorted by last updated date in descending order. Fo
 ```js
 {
     "pagination": {
-        "total": 36,
+        "total": 34,
         "limit": 2,
         "offset": 0,
-        "total_pages": 18,
+        "total_pages": 17,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/event-programs?page=2&limit=2"
     },
     "data": [
         {
-            "id": 27,
+            "id": 16,
             "api_model": "event-programs",
-            "api_link": "https://api.artic.edu/api/v1/event-programs/27",
-            "title": "Accessibility",
+            "api_link": "https://api.artic.edu/api/v1/event-programs/16",
+            "title": "Antiquarian Society",
             "is_affiliate_group": false,
             "is_event_host": false,
             ...
         },
         {
-            "id": 16,
+            "id": 12,
             "api_model": "event-programs",
-            "api_link": "https://api.artic.edu/api/v1/event-programs/16",
-            "title": "Antiquarian Society",
+            "api_link": "https://api.artic.edu/api/v1/event-programs/12",
+            "title": "Verbal Description Tours",
             "is_affiliate_group": false,
             "is_event_host": false,
             ...
@@ -3807,7 +3817,7 @@ A list of all event-programs sorted by last updated date in descending order. Fo
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3848,23 +3858,23 @@ Search event-programs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/event-programs/79",
             "id": 79,
             "title": "Start Here Tours",
-            "timestamp": "2022-12-13T23:27:19-06:00"
+            "timestamp": "2023-03-22T23:26:34-05:00"
         },
         {
             "_score": 1,
             "api_model": "event-programs",
-            "api_link": "https://api.artic.edu/api/v1/event-programs/87",
-            "id": 87,
-            "title": "Joseph Cornell",
-            "timestamp": "2022-12-13T23:27:19-06:00"
+            "api_link": "https://api.artic.edu/api/v1/event-programs/85",
+            "id": 85,
+            "title": "Volunteers",
+            "timestamp": "2023-03-22T23:26:34-05:00"
         },
         {
             "_score": 1,
             "api_model": "event-programs",
-            "api_link": "https://api.artic.edu/api/v1/event-programs/86",
-            "id": 86,
-            "title": "Kelly Church",
-            "timestamp": "2022-12-13T23:27:19-06:00"
+            "api_link": "https://api.artic.edu/api/v1/event-programs/84",
+            "id": 84,
+            "title": "Art + Science",
+            "timestamp": "2023-03-22T23:26:34-05:00"
         }
     ],
     "info": {
@@ -3872,7 +3882,7 @@ Search event-programs data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3903,7 +3913,7 @@ A single event-program by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3932,14 +3942,23 @@ A list of all articles sorted by last updated date in descending order. For a de
 ```js
 {
     "pagination": {
-        "total": 389,
+        "total": 391,
         "limit": 2,
         "offset": 0,
-        "total_pages": 195,
+        "total_pages": 196,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/articles?page=2&limit=2"
     },
     "data": [
+        {
+            "id": 1029,
+            "api_model": "articles",
+            "api_link": "https://api.artic.edu/api/v1/articles/1029",
+            "title": "Bessie Potter Vonnoh, Trailblazing Chicago Sculptor",
+            "copy": " Her remarkable career, like those of many women artists, eventually faded from view. Let\u2019s look anew at Vonnoh (1872\u20131955).   In 1895 the museum acquired seven of Vonnoh's sculptures: singular female figures (save for one of a male) in contemporary dress, about 12 to 15 inches in height, including The Chrysanthemum Girl. Cast in plaster, the compositions were conceived to be finished works in a material oftentimes employed by artists as an intermediate step\u2014a sketch for a composition yet to be refined.   Vonnoh, in contrast, embraced plaster as an accessible medium with possibilities. It captured the rough, freely modeled surfaces of her statuettes (dubbed \u201cPotterines\u201d in her day), suggestive and appealingly tactile in form. For French artist Jean-Fran\u00e7ois Rafa\u00eblli, her three-dimensional works resonated with the canvases of modern plein-air painters. Vonnoh was, in his words, \u201can impressionist in plaster.\u201d   Today, her name remains unfamiliar to many art enthusiasts and scholars, but at the turn of the 20th century, Bessie Potter Vonnoh made headlines. A total of nine of her sculptures were in the Art Institute\u2019s holdings by 1901. And in 1914\u201315, the museum mounted a solo exhibition on the artist. A number of sculptures\u2014this time bronze casts\u2014were purchased by the museum out of the exhibition.   Vonnoh was born Bessie Onahotema Potter in St. Louis in 1872, her middle name meaning \u201cshe gives with an open hand\u201d in the language of the Choctaw Nation. (Vonnoh was white; her mother sought out a Native name, according to the artist.) A short time later, after the death of her father, she and her mother moved to Chicago. Vonnoh suffered from an unknown illness as a young child. The prescribed medical treatments left her immobile much of the time, which greatly stunted her growth, although she eventually regained her health. Years later, as she garnered artistic fame, much was made in the press about her diminutive stature in relation to her big talents.   Her achievements as a young female artist were considerable. As a schoolgirl in Chicago, sculpture drew her in. In 1886 at age 14, Vonnoh was already a student at the School of the Art Institute of Chicago, working in the studio of sculptor and instructor Lorado Taft. Five years later, while wrapping up coursework, she stepped into the art world as a professional, exhibiting a portrait bust at the museum\u2019s Fourth Annual Exhibition of American Oil Paintings and Sculpture . Vonnoh had arrived.   Her path to success was certainly noteworthy, but Vonnoh was not alone. In late 19th-century Chicago, networks of and opportunities for (largely white) female professionals were on the rise. Women studied at the School of the Art Institute in strong numbers at the time of Vonnoh\u2019s tenure. In 1892 female students surpassed male students six to one. And the school\u2019s faculty mirrored that drive toward professionalism: painter Alice Kellogg (later Tyler), a graduate of the program, became an instructor there in 1881, and by the following decade women comprised almost one-third of the faculty. Women artists were on the rosters of early exhibitions at the Art Institute, including various annuals for contemporary American art, Chicago artists, and students of the school. (To be sure, the percentage of female exhibitors remained small, but a nexus of artists demonstrated that it could be done, despite persistent obstacles.) Additionally, women in Chicago created their own organizations, such as the Bohemian Art Club (later the Palette Club), whose annual exhibitions were held at the museum beginning in 1883\u2014just four years after the founding of the Art Institute itself.   Her training completed, Vonnoh seized an important opportunity: executing public commissions in sculpture for the city\u2019s 1893 World\u2019s Columbian Exposition. She, along with a cadre of local female sculptors including Julia Bracken (later Wendt) and Janet Scudder, who had likewise studied with Taft, assisted on projects for the fair\u2019s Horticulture Building. Additionally, Vonnoh made her mark with individual contributions to the Illinois State Building and the Fine Arts exhibition.   Establishing a studio in 1894, Vonnoh carved out a niche in Chicago\u2019s artistic life, honing in on what would become her celebrated forms: domestically scaled sculptures of contemporary women. Rapidly sketched, they were genre studies as well as portraits, evoking a fleeting moment or a familiar activity.   In the mid-1890s, Vonnoh\u2019s sculptures were in high demand. She could produce plaster casts from her clay models in large editions and offer them at prices accessible to middle-class patrons. The artist experimented with the finish of her plasters through tinting\u2014applying soft, matte color to portions of an object to heighten the visual interest of its active surfaces, as she did in An American Girl .   In 1895 the seven plasters by Vonnoh that entered the Art Institute were The Chrysanthemum Girl , An American Girl , Miss F. , William , Mildred , Evelyn , and A Summer Girl (the first three were tinted sculptures). The set was purchased and presented to the museum by the Arch\u00e9 Club, a local women\u2019s group dedicated to the study of art and history. Records for the acquisition note, \u201cThe Arch\u00e9 Club gave $100 to be devoted to the work of a woman sculptor in Chicago.\u201d Here again is an example of a (modest) structure of support for female professionals in the city in the late 19th century.   With these acquisitions, Vonnoh became the first named woman sculptor\u2014and only the second woman artist\u2014represented at the Art Institute (Annie C. Shaw was the first, with paintings acquired in 1892 and 1894). Neither Rosa Bonheur nor Mary Cassatt, for instance\u2014artists whose names and reputations have fared much better over the last century\u2014had a work in the permanent collection yet (not until 1901 and 1910, respectively).   After her early achievements in Chicago, Bessie Potter Vonnoh set her sights further afield, traveling abroad and eventually settling in New York, where she married painter Robert Vonnoh in 1899. Her pace did not slow. Attracting patrons with deeper pockets, she was then able to translate her sculptures into bronze, a new challenge.   Her 1914\u201315 exhibition at the Art Institute featured thirty-three sculptures, largely in bronze. Examples of her work in this medium are what can be found in the collection today. Sadly, none of her plasters remain at the Art Institute. When seven bronzes were purchased in 1915, Vonnoh requested that her earlier plasters be returned, and the museum obliged. We can assume that the artist felt the bronzes better represented her mature work. The Art Institute currently holds five of her sculptures.   Vonnoh\u2019s fascinating story comes to light when we take time to experience her sculptures and comb the archives. The dividends are many: we come to understand better our own institutional histories, elevate and celebrate objects too long neglected, and carve a different path forward in the galleries. \u2014Annelise K. Madsen, Gilda and Henry Buchbinder Associate Curator, Arts of the Americas ",
+            "source_updated_at": "2023-01-06T09:26:03-06:00",
+            ...
+        },
         {
             "id": 705,
             "api_model": "articles",
@@ -3948,15 +3967,6 @@ A list of all articles sorted by last updated date in descending order. For a de
             "copy": " While John Singer Sargent is most widely known for his oil portraits of august men and women in fashionable interiors, he cultivated a love of painting outdoors from an early age. As a boy he recorded his family\u2019s European travels in sketchbooks, and as his talent and repertoire grew, he acquired numerous accoutrements such as portable easels, sketching umbrellas, rigid pads of paper, and compact palettes of watercolors that allowed him to paint multiple pictures during one outing, even in challenging conditions. In fact, Sargent was an official war artist for Britain during World War I and spent four months on the front painting and sketching.   A fellow war artist, Henry Tonks, painted this watercolor caricature of Sargent in 1918, depicting the artist clothed in army greens and shielded by a sketching umbrella that Sargent camouflaged for the purpose. The painting (held in the collection of the Museum of Fine Arts in Boston, and not a part of this exhibition) gives new meaning to challenging conditions\u2014and shows us a glimpse of Sargent\u2019s life apart from glamorous portraits.   In preparation for the current exhibition John Singer Sargent and Chicago\u2019s Gilded Age , Art Institute curators, conservators, and conservation scientists examined some of Sargent\u2019s paintings and investigated his less obvious materials, finding evidence that provides valuable insight into the artist\u2019s working process. A Newsworthy Surprise Sargent captured hundreds of landscapes in watercolor as he traveled across Europe and North America. In 1908 he painted Tarragona Terrace and Garden when he visited the eastern coast of Spain. Seated in the arcade of Tarragona\u2019s cathedral, Sargent made a quick study of its columns.   While he generally preferred to leave parts of the paper bare to delineate highlights, the foliage in the upper left corner of this picture was painted using a different technique. Here it appears that Sargent simply laid in a mass of greens and browns and then returned with an opaque, zinc white paint to create his highlights. In order to fully conceal the dark colors underneath, Sargent had to use thick dabs of white as if he were making a correction in oils. Sargent often made multiple paintings in one day and would interleave his paintings with sheets of newspaper for protection as he carried them. He did this with Tarragona Terrace and Garden , perhaps not realizing that the thickly applied areas of paint had not dried completely when he laid the newspaper on its surface. As an unintended consequence, fragments from a Spanish newspaper stuck to the painting, remnants of Sargent\u2019s panting process that survive today.   In normal light these tiny pieces of newsprint are barely noticeable, but they stand out in an infrared photograph, which makes some of the Spanish text almost legible.   Wax in a Watercolor Nearly 10 years after he painted Tarragona Terrace and Garden , Sargent made another series of stunning architectural studies while visiting his friends Charles and James Deering in Florida. Sargent was drawn to Vizcaya, the lavish estate that James had recently built, not least of all because it reminded him of the Italian landscapes and gardens that he loved to paint.   Analytical instruments in the conservation science lab at the Art Institute can help answer a lot of questions about artists\u2019 materials. In the case of this work, scientists sought more information about a soft, translucent material found in discrete areas on its surface. The material was analyzed and determined to be a wax, which Sargent used as a \u201cresist\u201d\u2014meaning that he marked the paper with a transparent material that would repel the water-based paint and leave highlights in the composition.   Analysis also revealed that the wax is a type called spermaceti, a product obtained from sperm whales and a major commercial product of the whaling industry. In Sargent\u2019s time this wax was commonly used to make candles. Finding it here helps to explain Sargent\u2019s process\u2014because spermaceti is softer than other common waxes such as beeswax, it would have been the logical choice for use as a drawing material. To learn more about Sargent\u2019s process and materials come visit John Singer Sargent and Chicago\u2019s Gilded Age in the Art Institute\u2019s Regenstein Hall through September 30, and check out the technical essay in the exhibition catalogue . \u2014Mary Broadway, associate conservator of prints and drawings ",
             "source_updated_at": "2018-08-08T16:04:54-05:00",
             ...
-        },
-        {
-            "id": 702,
-            "api_model": "articles",
-            "api_link": "https://api.artic.edu/api/v1/articles/702",
-            "title": "American Egyptomania",
-            "copy": " Ancient Egypt has fascinated the American public for centuries. The grandeur and \u201cexoticism\u201d of its pyramids, temples, Great Sphinx, and culture have made this great civilization a recurring subject in architecture, film, art, and popular culture. In fact, Egyptian imagery, often taken out of context and presented as a stereotype, has been so present in American culture that it feels strangely familiar. During the 20th century Egyptomania reached a fever pitch in the United States: Howard Carter\u2019s 1922 discovery of King Tutankhamen\u2019s Tomb caused a nationwide craze, and Elizabeth Taylor\u2019s portrayal of Cleopatra in the 1963 classic film inspired a new interest in ancient Egyptian fashion.   Chicago was not immune to the Egyptian Revival craze, and many fine examples of Egyptian-inspired architecture can be found in the city. Graceland Cemetery in Uptown and Rosehill Cemetery in Ravenswood are two sites that house Victorian-era memorial tombs and mausoleums in the Egyptian style. A more modern and commercial example is a warehouse built by the Chicago-based storage and moving company Reebie, founded in 1880 by William C. Reebie. In 1922, the same year King Tut\u2019s tomb was discovered, the Reebie Storage and Moving Company opened a historical warehouse on the 2300 block of North Clark Street.   The building\u2019s singular fa\u00e7ade, decorated in a colorful Egyptian Revival style, features an entrance guarded by twin statues of Pharaoh Ramses II. Not surprisingly, the Reebie warehouse was designated a Chicago historical landmark in 1999.   Another Egyptian Revival\u2013style building, captured by photographer and scholar Harold Allen, is the Cairo Supper Club, a one-story building whose exterior is adorned with glazed polychromatic terra-cotta, lotus-capped columns, and a winged-scarab medallion in the cornice. Designed in 1920 by architect Paul Gerhardt Sr., the building was first used as an automobile showroom and then housed the Cairo Supper Club from the 1940s to the 1960s. The Egyptian-themed fa\u00e7ade combined with the Art Deco\u2013inflected neon lights and large plate-glass windows seem to provide a vivid marriage of two different but equally influential cultures. The Egyptian-themed fa\u00e7ade combined with the Art Deco-inflected neon lights and large plate-glass windows seems to provide a vivid marriage of two different but equally influential cultures.   Similar to the Reebie warehouse, the Cairo Supper Club building was named a Chicago historical landmark in 2013 under the guidelines of exemplary architecture with a unique exterior. The Cairo Supper Club wasn\u2019t the only Egyptian-inspired building that attracted Allen\u2019s attention and his camera. In fact, he made it his goal to photograph all the Egyptian Revival\u2013style architecture ever built and simultaneously began collecting his other items that grew out the country\u2019s Egyptomania craze\u2014magazines, print and mass-manufactured material, Wedgwood, ceramics, and memorabilia. You can experience his photographs and selections from his collection now in the exhibition Forever \u201cEgypt!\u201d: Works from the Collection of Harold Allen .   The exhibition runs through August 31 in the museum\u2019s Ryerson and Burnham Libraries. Please note: The libraries are closed Saturday and Sunday. \u2014Alejandra Vargas and Margarita Lizcano Hernandez, 2016\u201318 Andrew W. Mellon Undergraduate Curatorial Fellows and exhibition co-curators ",
-            "source_updated_at": "2018-08-14T09:38:13-05:00",
-            ...
         }
     ],
     "info": {
@@ -3964,7 +3974,7 @@ A list of all articles sorted by last updated date in descending order. For a de
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -3992,36 +4002,36 @@ Search articles data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 389,
+        "total": 405,
         "limit": 10,
         "offset": 0,
-        "total_pages": 39,
+        "total_pages": 41,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "articles",
-            "api_link": "https://api.artic.edu/api/v1/articles/823",
-            "id": 823,
-            "title": "Watch This: Art and Artists on the Silver Screen",
-            "timestamp": "2022-12-13T23:01:48-06:00"
+            "api_link": "https://api.artic.edu/api/v1/articles/1020",
+            "id": 1020,
+            "title": "Expanding Perspectives: Finding a Language for Beauty",
+            "timestamp": "2023-03-22T23:01:37-05:00"
         },
         {
             "_score": 1,
             "api_model": "articles",
-            "api_link": "https://api.artic.edu/api/v1/articles/972",
-            "id": 972,
-            "title": "More Kinds of Blue",
-            "timestamp": "2022-12-13T23:01:48-06:00"
+            "api_link": "https://api.artic.edu/api/v1/articles/1015",
+            "id": 1015,
+            "title": "Water, Lasers, and Wax: Conserving the Art Institute Lions",
+            "timestamp": "2023-03-22T23:01:37-05:00"
         },
         {
             "_score": 1,
             "api_model": "articles",
-            "api_link": "https://api.artic.edu/api/v1/articles/963",
-            "id": 963,
-            "title": "Kinds of Blue",
-            "timestamp": "2022-12-13T23:01:48-06:00"
+            "api_link": "https://api.artic.edu/api/v1/articles/1019",
+            "id": 1019,
+            "title": "Photographer, Subject, Viewer: A Triangulated Relationship",
+            "timestamp": "2023-03-22T23:01:37-05:00"
         }
     ],
     "info": {
@@ -4029,7 +4039,7 @@ Search articles data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4060,7 +4070,7 @@ A single article by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4089,7 +4099,7 @@ A list of all highlights sorted by last updated date in descending order. For a 
 ```js
 {
     "pagination": {
-        "total": 29,
+        "total": 30,
         "limit": 2,
         "offset": 0,
         "total_pages": 15,
@@ -4098,21 +4108,21 @@ A list of all highlights sorted by last updated date in descending order. For a 
     },
     "data": [
         {
+            "id": 35,
+            "api_model": "highlights",
+            "api_link": "https://api.artic.edu/api/v1/highlights/35",
+            "title": "portraits",
+            "copy": " But these works can do that and so much more. They can communicate and challenge ideas, values, and histories, and\u2014as seen on this tour\u2014they can take a variety of forms.   Jordan Casteel's Barack (2020) On view in Gallery 295   New York\u2013based Jordan Casteel is known for her expressive and sensitive depictions of people she encounters in her everyday sphere. Her portrait of the former president, Barack , was painted to accompany a 2020 interview in the Atlantic with Obama. As a painting of an iconic individual, Barack is somewhat of an outlier in her body of work. It is also, unlike her other portraits, based on a photograph that was not taken by the artist herself. And yet the painting process remained intimate and empathic: as Casteel remarked, \u201cThere is another level of \u2018knowing\u2019 that occurs when you take the time to paint the likeness of someone.\u201d (Fun fact: Chicago\u2019s Whitney Young High School on the Near West Side\u2014the school from which Michelle Obama graduated\u2014is named after Casteel\u2019s grandfather.)   Felix Gonzalez-Torres\u2019s Untitled (1989) On view in Gallery 293   This self-portrait by Cuban-American artist Felix Gonzalez-Torres, takes the form of words and dates that run across the top of the gallery walls close to the ceiling. Merging private histories with collective memory, the artist combined historical events and enigmatic personal milestones. Gonzalez-Torres first realized the work in 1989 and continued to change it with each iteration of the installation until his premature death in 1996. By the artist\u2019s instruction, the work can continue to shift in ongoing manifestations, anchored in its own history yet also perpetually changing.   Shepard Fairey's Barack Obama \u201cHope\u201d Poster (2008) On view in Gallery 285   Street artist, graphic designer, and activist Shepard Fairey created this visionary portrait of Barack Obama in 2008 and distributed the poster as a form of grassroots activism. Fairey created other versions of the stylized, stenciled design, with the words \u201cchange\u201d and \u201cprogress\u201d under Obama\u2019s upturned face and the Sol Sender\u2013 designed campaign logo, but the final \u201chope\u201d version became famous around the world when it was adopted as one of the official images of Obama\u2019s 2008 presidential campaign. New Yorker art critic Peter Schjeldahl called the poster \u201cthe most efficacious American political illustration since \u2018Uncle Sam Wants You.\u2019\u201d   Solidus (Coin) of Empress Irene (797\u2013802) On view in Gallery 153   Throughout history, coins have been one of the most prevalent mediums for portraits of powerful people. This rare example depicts Empress Irene, one of only three female rulers to hold sole power during the Byzantine Empire. Here Irene wears a crown with pendilia (long pearl adornments) and a jewel-encrusted loros (an imperial scarf) and holds in her hands the globus cruciger (cross-topped orb) and cross-topped staff\u2014all signs of male imperial power and dominion over the Christian world. Irene left her mark on the male-dominated world of Byzantine politics. She came to power by blinding and exiling her son and also reversed her husband\u2019s previous policies. And because of her gender, her reign was challenged by the Christian West when Charlemagne was crowned Holy Roman Emperor, starting a long-lasting controversy about rightful claims to imperial authority.   Elizabeth Catlett\u2019s Sharecropper (1952, printed 1970) On view in Gallery 263   Considered Elizabeth Catlett\u2019s most famous work, Sharecropper is not a portrait of a specific person but rather a heroic depiction of the everywoman sharecropper, an embodiment of the strength and persistence of Black tenant farmers in the American South. Sharecropping was a legacy of slavery that required farmers to pay for the land they rented with part of their crop; as a result, they often faced lifelong debt. Catlett made this print in Mexico at the Taller de Gr\u00e1fica Popular (People\u2019s Graphic Arts Workshop). Influenced by the spirit of activism at the workshop, she produced images of Sojourner Truth and Harriet Tubman as well as of everyday African American women persevering amid hardship.   Portrait Vessel of a Ruler , Moche (100 BCE/500 CE) On view in Gallery 136   Ceramic portrait vessels produced by artists of the Moche culture are the only discernible examples of portraiture, in a Euro-American sense, from the ancient Andes. This large and particularly fine example probably depicts an elite male, notable for his proud and commanding expression. His status is also likely articulated through his painted face and the headcloth and intricately woven band that he wears. Vessels such as this were often placed in burials as funerary offerings. They may also have been sent as emblems of royal authority, or even emissaries, to other elite individuals in nearby settlements.   Mbeudjang\u2019s Portrait of Metang, the 10th King of Batufam (1912\u201314) On view in Gallery 137   Carved by the eastern Bangwa artist Mbeudjang, this figure represents Metang, an early 20th-century ruler of Batufam, a kingdom in the Cameroon Grassfields. He wears a tall, pointed hat reserved for royals; is seated on a one-legged stool that evokes prestige; and holds a gourd vessel and a buffalo-horn drinking cup\u2014two of the most important regalia among kingdoms in this region. Though called \u201cportraits,\u201d commemorative figures like this are not intended to be lifelike renderings. Rather they are idealized images of kingship and served as valued partners to rulers in protecting their realm and its people.   Vincent van Gogh\u2019s Self-Portrait (1887) On view in Gallery 241   Over his short five-year career, Vincent van Gogh painted 35 self-portraits\u201424 of them, including this early example, during his two-year stay in Paris with his brother Theo. Here, Van Gogh used densely dabbed brushwork, an approach influenced by Georges Seurat\u2019s revolutionary technique in A Sunday on La Grande Jatte\u20141884 (on view Gallery in 240), to create a dynamic portrayal of himself. The dazzling array of dots and dashes in brilliant greens, blues, reds, and oranges is anchored by his intense gaze.   John Philip Simpson\u2019s The Captive Slave (Portrait of Ira Aldridge) (1827) On view in Gallery 220   This painting by John Philip Simpson is both a powerful abolitionist statement and a striking portrait of the celebrated Shakespearean actor Ira Aldridge. A freeborn American, Aldridge became the first Black man to play Othello on the London stage in 1833. Simpson\u2019s painting highlights Aldridge\u2019s gifts of expression as a tragic actor. He draws particular attention to Aldridge\u2019s upward gaze with a glint of white in the eye. His artful application of highlights is also noticeable on the shackles and Aldridge's fingernails.   Bisa Butler\u2019s The Safety Patrol (2018) On view in Gallery 215   Bisa Butler often finds inspiration for her portrait quilts in historical photographs. The spark for this work was found in an image taken in 1949 by Charles Harris that features seven school children, including a central safety patrol officer, waiting to cross the street. Butler\u2019s vibrant textile interpretation considers the potential of these children as future caretakers of the world. As the artist has noted, the letters OK printed diagonally on the safety officer\u2019s shirt and the yellow eye on his left side simultaneously ward off evil forces and forecast that the children are prepared for the future and will be alright. ",
+            "source_updated_at": "2021-10-22T13:25:40-05:00",
+            ...
+        },
+        {
             "id": 29,
             "api_model": "highlights",
             "api_link": "https://api.artic.edu/api/v1/highlights/29",
             "title": "contemporary-chicago-artists",
             "copy": " Explore all the works by Chicago artists in the museum's collection.   Dawoud Bey   Photographer Dawoud Bey has called Chicago home since 1998. While known for his color photography and striking portraits, for this project, Bey returned to black-and-white printing of his early years and turned his attention on an unpeopled landscape: homes and patches of land that are understood to have formed part of the Underground Railroad. For the title of the series, Night Coming Tenderly, Black , Bey was inspired by the closing couplet of a short poem \u201cDream Variations\u201d by Langston Hughes: \u201cNight coming tenderly / Black like me.\u201d   Gladys Nilsson   Among the most celebrated watercolorists working today, longtime Chicagoan Gladys Nilsson studied at the School of the Art Institute of Chicago (SAIC) and has taught at the school for over 25 years. As a member of the artist group known as the Hairy Who , Nilsson helped inject new and unique energy into the city's art landscape. Her mischievous scenes of figures interacting and engaging in various pursuits, including disguise and voyeurism, express her sense of humor and boundless curiosity. This watercolor, originally commissioned by SAIC to be used as an advertising poster, depicts playfully arranged crowds of students painting, listening to music, chatting, and hanging out in many different spaces.   Jeanne Gang   Internationally renowned for her Aqua Tower , Jeanne Gang has designed buildings across the world, and many in and around Chicago, including the Writers' Theatre, several residential buildings, two boat houses along the river, the Nature Boardwalk at Lincoln Park Zoo, and a community center in the Auburn-Gresham neighborhood. Gang designed this space to provide a welcoming, familiar space for Chinese immigrants arriving in Chicago. Finding subtle ways to incorporate traditional Chinese colors and signs within a modern, airy space, Gang organized the small structure to maximize the intergenerational connections common within the Chicago Chinese community.   Kerry James Marshall   For the last three decades, artist Kerry James Marshall has applied themes from art history to examine and recontextualize the representation of black culture. In his painting series Vignette Suite, Marshall used characteristics of the fanciful 18th-century French Rococo style and projected positive images of black life, centered around the notion of love. He focused his series on the air-borne embrace of a man and woman and surrounded them with various emblems of black affirmation, including a Black Power clenched fist, hands breaking through chains, the Black Liberation flag, African artifacts, and a panther. The result is both a multifaceted and evolving depiction of love and black identity as well as a powerful reinterpretation of a traditional art form.   Richard Hunt   One of the most important sculptors of our time, Richard Hunt was raised in Chicago and graduated from the School of the Art Institute of Chicago. Still in the city today, Hunt works out of a repurposed Chicago Railway Systems electrical substation built in 1909, creating both towering sculptures and more intimate constructions. His 2020 installation on the Art Institute\u2019s Bluhm Family Terrace features the title work, Scholar\u2019s Rock or Stone of Hope or Love of Bronze , a monumental bronze sculpture that Hunt created over six years through a durational process of adding, removing, and reshaping the work. Read more about this installation in a conversation between Hunt and curator Jordan Carter.   Anne Wilson   Anne Wilson , the Chicago-based artist and professor emeritus of Fiber and Material Studies at the School of the Art Institute of Chicago, defies easy categorization. Working with everyday materials such as table linens, bed sheets, human hair, lace, thread, glass, and wire, Wilson considers the inequities of factory labor, the impact of globalization, domestic and social rituals, and themes of time and loss. For her Dispersions series, Wilson created 26 works from fragments of heirloom damask tablecloths and napkins. Wilson opened up a damaged area in each piece of cloth into a perfect circle and embellished the edges with colored thread and hair. These are ambiguous material images, suggesting the trace from a gunshot or a celestial explosion and evoking the mortal and physical alongside the transcendent and unknowable. Wilson draws our attention to the contrasts between the machine-made cloth and the intricate hand stitching; creating tension between the artist's intervention and its foundation, and between the formal tone-on-tone design of the white cloth and the small bursts of color and texture dispersed around damaged cloth.   Amanda Williams   Currently based in the South Side neighborhood of Bridgeport, Amanda Williams was born and raised in the Chicagoland area. Her work blends her architectural training with traditional art approaches to confront issues of race, value, and urban space. For her most famous project, Color(ed) Theory , which debuted at the Chicago Architecture Biennial in 2015, Williams painted eight soon-to-be-demolished houses in Chicago's Englewood using a palette of colors found in products and services marketed primarily toward Black people, such as Flamin\u2019 Red Hots. Drawing attention to the underinvestment in African American communities around the city, the series asks: What color is poverty? What color is gentrification?   Pope.L   Known for his groundbreaking performances as well as for text-based drawings and paintings that disrupt the conventions of cultural identity and explode traditional artistic categories, artist Pope.L has lived in Chicago for over a decade and has been a professor at University of Chicago since 2010. The title of this work, Finnish Painting evokes a strangely specific yet enigmatic sense of national identity while also offering a play on words, the imperative to \u201cfinish painting.\u201d This work presents the barely legible text of a poem, the last word of which is \u201cdecode\u201d\u2014as if acknowledging that to see, read, and understand others is always a struggle, and that meaning is often fluid. Another text-based feature is the attribution at the lower right, \u201cR. Ryman,\u201d referring to Minimalist artist Robert Ryman , whose monochromatic white paintings were often layered color underpainting and who treated his signature as an important visual element within a painting\u2019s composition, never simply as authorization of a finished canvas. Perhaps this Pope.L work reveals what might lie beneath Ryman\u2019s white surfaces.   Stanley Tigerman   Architect, designer, and provocateur Stanley Tigerman \u2014a lifelong Chicagoan\u2014made it his mission to push the city's architecture beyond the then reigning style of the modernist glass box. His design for the Holocaust Museum and Education Center in Skokie integrates symbolic gestures of Judaism in various ways\u2014the site plan, materials, and formal language. This model for an early scheme shows how the museum is composed of two wings\u2014the darkened wing points six degrees toward the Western Wall in Jerusalem, and the lighter education center toward the rising sun. He suggested that the use of such symbolism serves an act of defiance to those who would eliminate a particular culture and its history.   Bethany Collins   Originally from Alabama, Bethany Collins currently lives in Chicago making work that explores the deep-rooted connections between race and language. In The Birmingham News, 1963 , Collins presents 18 embossed and distressed front pages from issues of the Birmingham News published during 1963, a seismic year for the civil rights movement. While most national media outlets were covering the area\u2019s sit-ins, demonstrations, and police brutality, the Birmingham News did not, supposedly to subdue racial tension. By embossing, darkening, and distressing these pages, Collins transforms them into a kind of memorial to events ignored by the Birmingham press and demonstrates how authored and institutional texts are always politicized.   Terry Evans   A Kansas City native, Terry Evans moved to Chicago in 1994 and has lived here since. After focusing on the Midwestern prairie for many years, Evans took to the skies and photographed the city from above for her Revealing Chicago project. From backyard pools to the city jail, the lakefront to industrial areas, Evans sought to show \"the diversity and complexity of Chicago.\" She lamented that she \"hadn't even come close. This is an incomplete portrait, a fraction of a second in the life of Chicago, and every picture contains more stories than the image reveals.\"   Judy Ledgerwood   A longtime Midwesterner and decades-long Chicagoan, Judy Ledgerwood paints monumental abstractions that explore both the perceptual effects and the politics of color, luminosity, pattern, and scale. After earning her MFA from the School of the Art Institute of Chicago in 1984, she turned to traditionally \u201cfeminine\u201d pastels and decorative forms in order to challenge the stereotypes of gendered approaches to painting. Ledgerwood borrowed this work\u2019s title, So What , from a 1959 \u201ccool period\u201d jazz composition by Miles Davis. Made during winter, the painting features pale colors evocative of the season and at first appears quiet and serene. Yet sustained looking reveals subtle modulations in the blue-green, yellow, and white circles, which seem to alternately recede and advance across the work\u2019s surface. ",
             "source_updated_at": "2021-03-24T16:22:26-05:00",
-            ...
-        },
-        {
-            "id": 28,
-            "api_model": "highlights",
-            "api_link": "https://api.artic.edu/api/v1/highlights/28",
-            "title": "art-activism",
-            "copy": " This tour looks at works across time and cultures to examine how art can activate ideas for both the maker and the audience, and asks you to think critically about different approaches to activism and how you can use your own voice.   In 2003 photographer Gauri Gill was invited to the Balika Mela, or \u201cfair celebrating girls,\u201d which is held annually in the Indian state of Rajasthan and aims to raise awareness of difficulties for women in surrounding communities. At the fair Gill set up a photo booth and invited young women to \u201cportray themselves, as they are, or as they see themselves, or to invent new selves for the camera.\u201d Revanti, the subject of this photo, is a young girl from Rajasthan, an area in which girls and women are often marginalized and not permitted to pursue their own interests and identities. How would you pose to represent the way you want to be seen?   Benny Andrews painted this image of a black man wrapped in the American flag in 1966 during the Civil Rights Era. This powerful image poses numerous questions, both relevant to the time it was made and resonant in American society today: Is the man protected by the flag, or imprisoned by it? Whose freedom is safeguarded by the American flag? Can the flag be used to reinforce oppression? What other political or national symbols can be examined in this way?   The Kamakura period (1185\u20131333) was a time of significant political and cultural change in Japan, bringing about disagreements over the national religion, Buddhism, and its purest form. One sect, Pure Land, promised that all people could attain spiritual enlightenment. It was widely promoted by traveling priests and became popular among the general population. The figure of Jizo, a gentle, peaceful monk who shakes the rings on his staff to alert creatures in his path of his presence so they are not trampled, models Pure Land\u2019s compassion for all living beings while quietly campaigning for this form of Buddhism. What other kinds of quiet and seemingly small gestures can be effective as activism?   During the second World War, Japan had been largely isolated, ruled by a totalitarian regime where individual freedoms were significantly limited. In the aftermath of the war, in 1954, a group of artists formed the collective known as the Gutai Art Association and invited everyone to make art that would transform both art and society. Embracing the vitality of raw materials and the directness of gesture, Gutai advocated for abstraction as a path to individual self-expression. For her collages, Shiraga used what she called \u201cdangerous things,\u201d like the broken glass in this work, reflecting an aggressive stance toward the tradition of fine art, and perhaps tradition in general. How can the process of making art using everyday materials and free-flowing abstraction inspire us to act on our beliefs? How can it inspire others?   Brazilian artist Wanda Pimentel created Involvement Series in the late 1960s. An important work of International Pop Art, the vivid, graphic-style painting comments on social and political systems that reinforced economic inequities and gender stereotypes. Cropping, flat areas of color, and heavy outlines define everyday objects and glimpses of a fragmented and anonymous female form, a pair of feet. These familiar markers of domestic labor are presented in a compressed, alienating space that suggests the constraints imposed on women by a male-dominated society. How can everyday words and symbols be reclaimed or reframed to actively resist stereotypes and oppression?   In 1967, the artists of the Organization for Black American Culture (OBAC) created the Wall of Respect, a public mural in Chicago at the intersection of East 43rd Street and South Langley Avenue. The mural was to include representations of over 50 notable African Americans, including political figures, artists, musicians, authors, and athletes. Norman Parish\u2019s contributions to the mural\u2014portraits of H. Rap Brown, Stokely Carmichael, Marcus Garvey, Adam Clayton Powell, and Malcolm X\u2014were painted over by his peers who felt that Parish\u2019s fine-art training at the School of the Art Institute made his work too \u201cwesternized.\u201d Black Pride Whitewashed is Parish\u2019s record of his excluded portraits. It was originally two panels; the second (later destroyed by the artist) showed the same view after his work had been covered over. How can public art amplify, and at times obscure, voices? What questions does this raise about possible tensions between the individual voice and the community in acts of activism?   Honor\u00e9 Victorin Daumier\u2019s caricatures of French King Louis-Philippe (reigned 1830\u20131848) used satire as a form of political critique. This print, published in the satirical journal La Caricature in 1834, depicts the king with an exaggerated pear-shaped head and three faces, reflecting the sharp shift in public opinion of the king\u2014from inspiring hope at his coronation to inciting despair once his reign took hold. Daumier\u2019s caricatures did get him into trouble: his earlier print, Gargantua , an even more biting critique of the monarchy\u2019s gluttonous economic policies, resulted in the artist and his publisher Charles Philipon being sentenced to six months in jail in 1832. How can we use humor to communicate, critique, and persuade? Is satire effective even if it only serves to strengthen already existing points of view? ",
-            "source_updated_at": "2021-10-22T13:19:26-05:00",
             ...
         }
     ],
@@ -4121,7 +4131,7 @@ A list of all highlights sorted by last updated date in descending order. For a 
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4149,28 +4159,28 @@ Search highlights data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 29,
+        "total": 31,
         "limit": 10,
         "offset": 0,
-        "total_pages": 3,
+        "total_pages": 4,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "highlights",
-            "api_link": "https://api.artic.edu/api/v1/highlights/52",
-            "id": 52,
-            "title": "chicagos-home-for-the-holidays",
-            "timestamp": "2022-12-13T23:30:54-06:00"
+            "api_link": "https://api.artic.edu/api/v1/highlights/37",
+            "id": 37,
+            "title": "making-a-difference-a-tour-for-families",
+            "timestamp": "2023-03-22T23:30:37-05:00"
         },
         {
             "_score": 1,
             "api_model": "highlights",
-            "api_link": "https://api.artic.edu/api/v1/highlights/3",
-            "id": 3,
-            "title": "what-to-see-in-an-hour",
-            "timestamp": "2022-12-13T23:30:54-06:00"
+            "api_link": "https://api.artic.edu/api/v1/highlights/52",
+            "id": 52,
+            "title": "chicagos-home-for-the-holidays",
+            "timestamp": "2023-03-22T23:30:37-05:00"
         },
         {
             "_score": 1,
@@ -4178,7 +4188,7 @@ Search highlights data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/highlights/53",
             "id": 53,
             "title": "beauty-around-the-world",
-            "timestamp": "2022-12-13T23:30:54-06:00"
+            "timestamp": "2023-03-22T23:30:37-05:00"
         }
     ],
     "info": {
@@ -4186,7 +4196,7 @@ Search highlights data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4217,7 +4227,7 @@ A single highlight by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4246,39 +4256,19 @@ A list of all static-pages sorted by last updated date in descending order. For 
 ```js
 {
     "pagination": {
-        "total": 11,
+        "total": 0,
         "limit": 2,
         "offset": 0,
-        "total_pages": 6,
-        "current_page": 1,
-        "next_url": "https://api.artic.edu/api/v1/static-pages?page=2&limit=2"
+        "total_pages": 1,
+        "current_page": 1
     },
-    "data": [
-        {
-            "id": 11,
-            "api_model": "static-pages",
-            "api_link": "https://api.artic.edu/api/v1/static-pages/11",
-            "title": "Articles",
-            "web_url": "/articles",
-            "source_updated_at": null,
-            ...
-        },
-        {
-            "id": 10,
-            "api_model": "static-pages",
-            "api_link": "https://api.artic.edu/api/v1/static-pages/10",
-            "title": "Press Release Archive",
-            "web_url": "/press/archive",
-            "source_updated_at": null,
-            ...
-        }
-    ],
+    "data": [],
     "info": {
         "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4306,44 +4296,19 @@ Search static-pages data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 11,
+        "total": 0,
         "limit": 10,
         "offset": 0,
-        "total_pages": 2,
+        "total_pages": 0,
         "current_page": 1
     },
-    "data": [
-        {
-            "_score": 1,
-            "api_model": "static-pages",
-            "api_link": "https://api.artic.edu/api/v1/static-pages/1",
-            "id": 1,
-            "title": "Visit",
-            "timestamp": "2022-12-14T15:55:06-06:00"
-        },
-        {
-            "_score": 1,
-            "api_model": "static-pages",
-            "api_link": "https://api.artic.edu/api/v1/static-pages/2",
-            "id": 2,
-            "title": "Events",
-            "timestamp": "2022-12-14T15:55:06-06:00"
-        },
-        {
-            "_score": 1,
-            "api_model": "static-pages",
-            "api_link": "https://api.artic.edu/api/v1/static-pages/3",
-            "id": 3,
-            "title": "Exhibitions",
-            "timestamp": "2022-12-14T15:55:06-06:00"
-        }
-    ],
+    "data": [],
     "info": {
         "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4357,32 +4322,6 @@ Search static-pages data in the aggregator.
 
 A single static-page by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/static-pages/1  
-```js
-{
-    "data": {
-        "id": 1,
-        "api_model": "static-pages",
-        "api_link": "https://api.artic.edu/api/v1/static-pages/1",
-        "title": "Visit",
-        "web_url": "/visit",
-        "source_updated_at": null,
-        ...
-    },
-    "info": {
-        "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
-        "license_links": [
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.6"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "https://www.artic.edu"
-    }
-}
-```
-:::
 
 #### Generic Pages
 
@@ -4403,30 +4342,30 @@ A list of all generic-pages sorted by last updated date in descending order. For
 ```js
 {
     "pagination": {
-        "total": 222,
+        "total": 216,
         "limit": 2,
         "offset": 0,
-        "total_pages": 111,
+        "total_pages": 108,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/generic-pages?page=2&limit=2"
     },
     "data": [
         {
-            "id": 185,
+            "id": 417,
             "api_model": "generic-pages",
-            "api_link": "https://api.artic.edu/api/v1/generic-pages/185",
-            "title": "Contact",
-            "web_url": "https://nocache.www.artic.edu/contact",
-            "copy": " Answers to our most frequently asked questions are available right here on our website: Looking for museum hours, admission information, and tips for planning your visit? Check out our Visit page . Want to know what\u2019s on view? Wondering about taking pictures in the galleries? Curious about our lions? Find answers to these questions and more in our FAQs . Wondering if you\u2019re eligible for one of our free admission programs? Head to our Free Admission Opportunities page for more information.   For specific inquiries, please reach out via the phone numbers and email addresses below. Ticketing and Sales Questions about your tickets? We\u2019re happy to help answer questions about pricing, help with error messages, and more. ticketing@artic.edu Membership As a reminder, members never need tickets or reservations to visit the museum or special exhibitions\u2014your membership acts as your reservation. membership@artic.edu Research Center Do you have a question about a piece in our collection, one of our exhibitions, a research project, or the history of the museum itself? Our library and archive staff are happy to help. archives@artic.edu reference@artic.edu Careers at the Art Institute of Chicago career-opportunities@artic.edu (312) 629-9420 Image Licensing image-requests@artic.edu (312) 443-7245 Visiting with a Group Currently we are offering options for both K\u201312 students and adults to visit as a group, but our offerings for university students, outside of our University Partners program , are on pause. K\u201312 Student Tours studenttours@artic.edu Adult Group Visits groupsales@artic.edu Venue Rental The Art Institute offers a variety of unique settings to choose from as you plan your perfect event. Please fill out our inquiry form to learn more about rental opportunities. ",
+            "api_link": "https://api.artic.edu/api/v1/generic-pages/417",
+            "title": "Instagram",
+            "web_url": "https://nocache.www.artic.edu/instagram",
+            "copy": null,
             ...
         },
         {
-            "id": 64,
+            "id": 298,
             "api_model": "generic-pages",
-            "api_link": "https://api.artic.edu/api/v1/generic-pages/64",
-            "title": "Personal Papers",
-            "web_url": "https://nocache.www.artic.edu/institutional-archives/personal-papers",
-            "copy": " These records from outside sources consist of the personal papers of individuals related in some way to the history of the Art Institute, people closely associated with the institution, or the collections. Similar materials that have no association with the Art Institute have been transferred to the Ryerson and Burnham Archives of the Ryerson and Burnham Libraries. Bartlett, Frederic Clay (1873\u20131953) Artist, teacher, donor, and trustee Blake, Margaret Day Donor, trustee, and founder of the Woman's Board Chassaing, Edouard and Olga Artists and teachers Gardner, Helen (1878\u20131946) Teacher Halstead, Whitney (1926\u20131978) Teacher and biographer of Joseph Yoakum (1886\u20131972) Harding, George (1868\u20131939) Collector and founder of the Harding Museum Schniewind, Carl (1900\u20131957) Curator Taft, Lorado (1860\u20131936) Artist and teacher Tyler, Alice Kellogg (1866\u20131900) Teacher Ufer, Walter (1876\u20131936) Artist Wade, Caroline (1857\u20131943) Artist and teacher ",
+            "api_link": "https://api.artic.edu/api/v1/generic-pages/298",
+            "title": "George Eggers Papers",
+            "web_url": "https://nocache.www.artic.edu/institutional-archives/former-directors-papers/george-eggers-papers",
+            "copy": " Director, 1916\u20131921 8 linear inches 1 microfilm roll History George William Eggers (1883\u20131958) was born in Dunkirk, New York, and was trained as an artist at the Pratt Institute Art School. He came to Chicago in 1906 to serve on the faculty of the Chicago Normal College. He was hired as director of the Art Institute of Chicago in 1916 and served in that post until 1921, at which time he left to become director of the Denver Art Museum. Later positions included the directorship of the Worcester Art Museum and cChairman of the Art Department for the City Colleges of New York. While at the Art Institute of Chicago, George Eggers was responsible for creating the extension program, inaugurating the international water color exhibitions, and planning for the first permanent installation of the museum's collection. Scope and Content The records of George Eggers consist primarily of correspondence from his tenure as director, 1916\u20131921. No records from the first two years of his directorship have yet been located. The records begin in 1918 and continue through 1921. They contain such routine museum business as acquisitions, lecture programs, and exhibition arrangements. Correspondents include artists, donors, dealers, scholars, and staff from other art institutions. ",
             ...
         }
     ],
@@ -4435,7 +4374,7 @@ A list of all generic-pages sorted by last updated date in descending order. For
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4463,7 +4402,7 @@ Search generic-pages data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 222,
+        "total": 224,
         "limit": 10,
         "offset": 0,
         "total_pages": 23,
@@ -4473,26 +4412,26 @@ Search generic-pages data in the aggregator.
         {
             "_score": 1,
             "api_model": "generic-pages",
-            "api_link": "https://api.artic.edu/api/v1/generic-pages/281",
-            "id": 281,
-            "title": "Explore the Collection",
-            "timestamp": "2022-12-13T23:31:11-06:00"
+            "api_link": "https://api.artic.edu/api/v1/generic-pages/397",
+            "id": 397,
+            "title": "Predoctoral Fellows and Interns",
+            "timestamp": "2023-03-22T23:30:58-05:00"
         },
         {
             "_score": 1,
             "api_model": "generic-pages",
-            "api_link": "https://api.artic.edu/api/v1/generic-pages/44",
-            "id": 44,
-            "title": "Chicago Commercial, Residential, and Landscape Architecture, Post-WWII",
-            "timestamp": "2022-12-13T23:31:11-06:00"
+            "api_link": "https://api.artic.edu/api/v1/generic-pages/265",
+            "id": 265,
+            "title": "Photograph Conservation",
+            "timestamp": "2023-03-22T23:30:58-05:00"
         },
         {
             "_score": 1,
             "api_model": "generic-pages",
-            "api_link": "https://api.artic.edu/api/v1/generic-pages/405",
-            "id": 405,
-            "title": "Open Access",
-            "timestamp": "2022-12-13T23:31:11-06:00"
+            "api_link": "https://api.artic.edu/api/v1/generic-pages/269",
+            "id": 269,
+            "title": "Time-Based Media Conservation",
+            "timestamp": "2023-03-22T23:30:58-05:00"
         }
     ],
     "info": {
@@ -4500,7 +4439,7 @@ Search generic-pages data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4523,7 +4462,7 @@ A single generic-page by the given identifier.
         "api_link": "https://api.artic.edu/api/v1/generic-pages/2",
         "title": "Free Admission Opportunities",
         "web_url": "https://nocache.www.artic.edu/visit/free-admission-opportunities",
-        "copy": " NO ADVANCE TICKET REQUIRED The following groups are invited to visit our galleries at no cost every day\u2014even when museum admission tickets are sold out. In order to receive your free admission benefits, simply show the corresponding identification at the admissions desk in either museum lobby. Free admission benefits are not single use\u2014you are welcome to use them any time you would like to visit. Kids under 14 Admission is always free for children under 14. These free tickets are available online as well as on-site at the admissions counters. Chicago Teens Museum admission is free for Chicago teens under the age of 18, thanks to the extraordinary generosity of Glenn and Claire Swogger and the Redbud Foundation. See more opportunities and resources for teens . Active-Duty Military As part of the Blue Star Museums program, active-duty service members receive free admission all year long. Plus, from Armed Forces Day through Labor Day, we also welcome service members and their households. Please bring your active-duty military ID to the admissions counter to receive this benefit. LINK and WIC Cardholders As part of Museums for All, LINK and WIC cardholders and anyone in their households receive free general admission to the museum and all ticketed special exhibitions. Simply present your card along with a valid photo ID. Illinois Educators Free admission is available to current Illinois educators, including pre-K\u201312 teachers, teaching artists working in schools, and homeschool parents. Educators can register online to receive a voucher for a complimentary ticket to the museum. This voucher must be presented\u2014as a printed document or on a smartphone\u2014with a valid educator ID at one of the museum\u2019s admission counters. Learn more about requesting complimentary educator admission. Kids Museum Passport Sponsored by the 15 Museums Work for Chicago institutions, this program allows individuals with a Chicago Public Library card to check out a pass for free general admission to the Art Institute. Please note the following parameters for use of the Kids Museum Passport: Each pass admits a maximum of four people for general admission\u2014at least one child under the age of 18 and a maximum of two adults. Ticketed exhibitions and activities are not included and must be purchased separately. University Partners Students of colleges and universities in the University Partner Program are entitled to free general and special exhibition admission by showing a valid student ID at the ticket counter. Check the full list of partnering colleges and universities . Corporate Partners Employees of certain companies in the Corporate Partner Program are entitled to free general and special exhibition admission by showing proof of employment at the ticket counter. Learn more about the Corporate Partner Program . Check the full list of Corporate Partner companies whose employees are entitled to free admission.   More Corporate Partner Opportunities   RESERVE ONLINE IN ADVANCE Illinois Residents Admission will be free for Illinois residents on weekdays (Mondays, Thursdays, and Fridays) January 9\u2013March 24, 2023. If you reserve your free tickets online in advance , your resident status will be verified using the zip code associated with the billing address provided. If you're unable to reserve tickets in advance, please stop by the admissions desks on the day of your visit for assistance. ",
+        "copy": " RESERVE ONLINE IN ADVANCE Free Winter Weekdays 2023 for Illinois Residents Admission is free for Illinois residents on weekdays (Mondays, Thursdays, and Fridays) January 9\u2013March 24, 2023. If you reserve your free tickets online in advance , your resident status will be verified using the zip code associated with the billing address provided. If you're unable to reserve tickets in advance, please stop by the admissions desks on the day of your visit for assistance.   NO ADVANCE TICKET REQUIRED The following groups are invited to visit our galleries at no cost every day\u2014even when museum admission tickets are sold out. In order to receive your free admission benefits, simply show the corresponding identification at the admissions desk in either museum lobby. Free admission benefits are not single use\u2014you are welcome to use them any time you would like to visit. Kids under 14 Admission is always free for children under 14. These free tickets are available online as well as on-site at the admissions counters. Chicago Teens Museum admission is free for Chicago teens under the age of 18, thanks to the extraordinary generosity of Glenn and Claire Swogger and the Redbud Foundation. See more opportunities and resources for teens . Active-Duty Military As part of the Blue Star Museums program, active-duty service members receive free admission all year long. Plus, from Armed Forces Day through Labor Day, we also welcome service members and their households. Please bring your active-duty military ID to the admissions counter to receive this benefit. LINK and WIC Cardholders As part of Museums for All, LINK and WIC cardholders and anyone in their households receive free general admission to the museum and all ticketed special exhibitions. Simply present your card along with a valid photo ID. Illinois Educators Free admission is available to current Illinois educators, including pre-K\u201312 teachers, teaching artists working in schools, and homeschool parents. Educators can register online to receive a voucher for a complimentary ticket to the museum. This voucher must be presented\u2014as a printed document or on a smartphone\u2014with a valid educator ID at one of the museum\u2019s admission counters. Learn more about requesting complimentary educator admission. Kids Museum Passport Sponsored by the 15 Museums Work for Chicago institutions, this program allows individuals with a Chicago Public Library card to check out a pass for free general admission to the Art Institute. Please note the following parameters for use of the Kids Museum Passport: Each pass admits a maximum of four people for general admission\u2014at least one child under the age of 18 and a maximum of two adults. Ticketed exhibitions and activities are not included and must be purchased separately. University Partners Students of colleges and universities in the University Partner Program are entitled to free general and special exhibition admission by showing a valid student ID at the ticket counter. Check the full list of partnering colleges and universities . Corporate Partners Employees of certain companies in the Corporate Partner Program are entitled to free general and special exhibition admission by showing proof of employment at the ticket counter. Learn more about the Corporate Partner Program . Check the full list of Corporate Partner companies whose employees are entitled to free admission.   More Corporate Partner Opportunities ",
         ...
     },
     "info": {
@@ -4531,7 +4470,7 @@ A single generic-page by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4592,7 +4531,7 @@ A list of all press-releases sorted by last updated date in descending order. Fo
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4620,7 +4559,7 @@ Search press-releases data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 284,
+        "total": 289,
         "limit": 10,
         "offset": 0,
         "total_pages": 29,
@@ -4630,26 +4569,26 @@ Search press-releases data in the aggregator.
         {
             "_score": 1,
             "api_model": "press-releases",
+            "api_link": "https://api.artic.edu/api/v1/press-releases/294",
+            "id": 294,
+            "title": "Art Institute of Chicago Appoints Norissa Bailey as Senior Vice President People and Culture",
+            "timestamp": "2023-03-22T23:31:28-05:00"
+        },
+        {
+            "_score": 1,
+            "api_model": "press-releases",
+            "api_link": "https://api.artic.edu/api/v1/press-releases/293",
+            "id": 293,
+            "title": "Irene Sunwoo to Join Art Institute of Chicago as John H. Bryan Chair of Architecture and Design",
+            "timestamp": "2023-03-22T23:31:28-05:00"
+        },
+        {
+            "_score": 1,
+            "api_model": "press-releases",
             "api_link": "https://api.artic.edu/api/v1/press-releases/287",
             "id": 287,
             "title": "Malangatana: Mozambique Modern",
-            "timestamp": "2022-12-13T23:31:43-06:00"
-        },
-        {
-            "_score": 1,
-            "api_model": "press-releases",
-            "api_link": "https://api.artic.edu/api/v1/press-releases/288",
-            "id": 288,
-            "title": "Fabricating Fashion: Textiles for Dress, 1700-1850",
-            "timestamp": "2022-12-13T23:31:43-06:00"
-        },
-        {
-            "_score": 1,
-            "api_model": "press-releases",
-            "api_link": "https://api.artic.edu/api/v1/press-releases/289",
-            "id": 289,
-            "title": "Art Institute of Chicago Welcomes Lisa Ayla \u00c7akmak as the Chair of Arts of the Ancient Mediterranean and Byzantium Department",
-            "timestamp": "2022-12-13T23:31:43-06:00"
+            "timestamp": "2023-03-22T23:31:28-05:00"
         }
     ],
     "info": {
@@ -4657,7 +4596,7 @@ Search press-releases data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4688,7 +4627,7 @@ A single press-release by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4749,7 +4688,7 @@ A list of all educator-resources sorted by last updated date in descending order
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4790,7 +4729,7 @@ Search educator-resources data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/educator-resources/123",
             "id": 123,
             "title": "Lesson Plan: Bisa Butler's Safety Patrol",
-            "timestamp": "2022-12-13T23:32:28-06:00"
+            "timestamp": "2023-03-22T23:32:12-05:00"
         },
         {
             "_score": 1,
@@ -4798,7 +4737,7 @@ Search educator-resources data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/educator-resources/120",
             "id": 120,
             "title": "Virtual Lesson Plan: Cobalt and the Color Blue",
-            "timestamp": "2022-12-13T23:32:28-06:00"
+            "timestamp": "2023-03-22T23:32:12-05:00"
         },
         {
             "_score": 1,
@@ -4806,7 +4745,7 @@ Search educator-resources data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/educator-resources/119",
             "id": 119,
             "title": "Virtual Lesson Plan: Following the Phoenix",
-            "timestamp": "2022-12-13T23:32:28-06:00"
+            "timestamp": "2023-03-22T23:32:12-05:00"
         }
     ],
     "info": {
@@ -4814,7 +4753,7 @@ Search educator-resources data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4845,7 +4784,7 @@ A single educator-resource by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4874,14 +4813,23 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
 ```js
 {
     "pagination": {
-        "total": 17,
+        "total": 19,
         "limit": 2,
         "offset": 0,
-        "total_pages": 9,
+        "total_pages": 10,
         "current_page": 1,
         "next_url": "https://api.artic.edu/api/v1/digital-catalogs?page=2&limit=2"
     },
     "data": [
+        {
+            "id": 31,
+            "api_model": "digital-catalogs",
+            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/31",
+            "title": "Matisse Paintings, Works on Paper, Sculpture, and Textiles at the Art Institute of Chicago",
+            "web_url": "https://nocache.www.artic.edu/digital-publications/31/matisse-at-the-art-institute-of-chicago",
+            "copy": " Matisse: Paintings, Works on Paper, Sculpture, and Textiles at the Art Institute of Chicago highlights the ten paintings, five bronzes, forty-one works on paper, and one textile by Henri Matisse in the museum\u2019s collection. These extraordinary objects narrate the numerous stylistic and thematic paths the artist explored and present a comprehensive story of his entire career. Highlights include an extended entry on Bathers by a River , in which our curatorial and conservation colleagues use state-of-the-art imaging to \u201cexcavate\u201d the canvas, charting how the artist\u2019s radical changes to composition and palette marked a creative evolution at a pivotal moment in his career.   Edited by Stephanie D\u2019Alessandro, with entries by Kristi Dahm, Stephanie D\u2019Alessandro, Kathleen Kiefer, Kristin Hoermann Lister, Katja Rivera, Brandon Ruud, Marin Sarv\u00e9-Tarr, Suzanne Schnepp, Mel Becker Solomon, Martha Tedeschi, Kirk Vuillemot, Daniel S. Walker, and Debora Wood.   The Andrew W. Mellon Foundation provided essential funding and ongoing support for the project. A generous grant from the Grainger Foundation supported the purchase of equipment used for the technical analysis. Jim Ziebart contributed equipment. ",
+            ...
+        },
         {
             "id": 30,
             "api_model": "digital-catalogs",
@@ -4890,15 +4838,6 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
             "web_url": "https://nocache.www.artic.edu/digital-publications/30/ivan-albright-paintings-at-the-art-institute-of-chicago",
             "copy": " Renowned as the \u201cmaster of the macabre,\u201d Chicago native Ivan Albright (1897\u20131983) is famous for richly detailed paintings of ghoulish subjects including Into the World There Came a Soul Called Ida and Picture of Dorian Gray . This catalogue brings together fresh perspectives on the artist: professor emerita of art history Sarah Burns reveals Albright\u2019s fascination with popular culture, and curator John P. Murphy explores his philosophy of ugliness. Painting conservator Kelly Keegan examines the artist\u2019s process and details how he achieved his unique painterly effects. A plate section of the 44 oil paintings in the collection of the Art Institute of Chicago, reproduced in high resolution to enable close looking, documents Albright\u2019s portrayal of the body\u2019s vulnerability to age, disease, and death. This includes a haunting series of self-portraits, one of which the artist made in his hospital bed three days before he died.   Edited by Sarah Kelly Oehler, with an introduction by Sarah Kelly Oehler and essays by Sarah Burns, Kelly Keegan, and John P. Murphy   This publication follows the exhibition Flesh: Ivan Albright at the Art Institute of Chicago (May 4\u2013Aug. 4, 2018).   The publication is free and has received generous funding from the Northwestern University Department of Art History Warnock Publication Fund. ",
             ...
-        },
-        {
-            "id": 13,
-            "api_model": "digital-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/13",
-            "title": "Whistler and Roussel: Linked Visions",
-            "web_url": "https://nocache.www.artic.edu/digital-publications/13/whistler-and-roussel-linked-visions",
-            "copy": " Whistler and Roussel: Linked Visions, an exhibition catalogue that accompanies that Art Institute show by the same title, explores the relationship and artistic collaboration between James McNeill Whistler and Theodore Roussel. The exhibition and catalogue offer a new perspective on the artists, their artistic circle, and the resulting innovation. The catalogue features an in-depth essay as well as an illustrated checklist are illustrated by 214 images that feature the works of art that are in the show   Meg Hausberg and Victoria Sancho Lobis ",
-            ...
         }
     ],
     "info": {
@@ -4906,7 +4845,7 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -4934,7 +4873,7 @@ Search digital-catalogs data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 17,
+        "total": 19,
         "limit": 10,
         "offset": 0,
         "total_pages": 2,
@@ -4947,7 +4886,7 @@ Search digital-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/32",
             "id": 32,
             "title": "Whistler Paintings and Drawings at the Art Institute of Chicago",
-            "timestamp": "2022-12-13T23:32:41-06:00"
+            "timestamp": "2023-03-22T23:32:24-05:00"
         },
         {
             "_score": 1,
@@ -4955,7 +4894,7 @@ Search digital-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/34",
             "id": 34,
             "title": "Malangatana: Mozambique Modern",
-            "timestamp": "2022-12-13T23:32:41-06:00"
+            "timestamp": "2023-03-22T23:32:24-05:00"
         },
         {
             "_score": 1,
@@ -4963,7 +4902,7 @@ Search digital-catalogs data in the aggregator.
             "api_link": "https://api.artic.edu/api/v1/digital-catalogs/33",
             "id": 33,
             "title": "The Lithographs of James McNeill Whistler: The Digital Edition",
-            "timestamp": "2022-12-13T23:32:41-06:00"
+            "timestamp": "2023-03-22T23:32:24-05:00"
         }
     ],
     "info": {
@@ -4971,7 +4910,7 @@ Search digital-catalogs data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5002,7 +4941,7 @@ A single digital-catalog by the given identifier.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5031,39 +4970,19 @@ A list of all digital-publication-sections sorted by last updated date in descen
 ```js
 {
     "pagination": {
-        "total": 11,
+        "total": 0,
         "limit": 2,
         "offset": 0,
-        "total_pages": 6,
-        "current_page": 1,
-        "next_url": "https://api.artic.edu/api/v1/digital-publication-sections?page=2&limit=2"
+        "total_pages": 1,
+        "current_page": 1
     },
-    "data": [
-        {
-            "id": 11,
-            "api_model": "digital-publication-sections",
-            "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/11",
-            "title": "Installation Views",
-            "web_url": "https://nocache.www.artic.edu/digital-publications/34/malangatana-mozambique-modern/11/installation-views",
-            "copy": " Video   Photographs ",
-            ...
-        },
-        {
-            "id": 10,
-            "api_model": "digital-publication-sections",
-            "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/10",
-            "title": "Works in the Exhibition",
-            "web_url": "https://nocache.www.artic.edu/digital-publications/34/malangatana-mozambique-modern/10/works-in-the-exhibition",
-            "copy": " Artist, poet, and revered national hero Malangatana Ngwenya (1936\u20132011) was a pioneer of modern art in Africa. Born in Mozambique, in southeast Africa, Malangatana depicted vivid allegorical scenes that draw from local religious practices, his cultural background, and life under colonial rule. This exhibition presented a selection of the artist\u2019s early paintings and drawings, made between 1959 and 1975. During this period Malangatana embarked on bold formal experiments that coalesced into a signature style characterized by dense compositions of human, animal, and monstrous figures. Malangatana\u2019s early career coincided with Mozambique\u2019s liberation struggle, in particular the armed resistance against the Portuguese in 1964, which was spearheaded by the Front for the Liberation of Mozambique (FRELIMO). A Portuguese colony until 1975, Mozambique was among the last countries on the African continent to gain independence. Malangatana explored the rapidly changing world around him and addressed the country\u2019s social and political context in his paintings and drawings. These works exemplify the confluence of artistic innovation and political liberation that has shaped the history of modern art in Africa during the second half of the twentieth century.   A Hybrid Education Growing up in the village of Matalana, Malangatana encountered local art and craft traditions such as pottery, basketry, and painting before moving to Mozambique\u2019s capital, Louren\u00e7o Marques (now Maputo), to find work. Racial and social barriers of the colonial system limited black Mozambicans\u2019 access to formal art education. However, colonial policies promoting integration through assimilation\u2014pressuring the local black population to adopt the language, religion, and values of the Portuguese\u2014made art classes available to Malangatana at the Industrial School as well as the Art Center of the Colony of Mozambique in the late 1950s. At the Art Center, Malangatana encountered European styles of painting and met Portuguese architect Am\u00e2ncio d\u2019Alpoim Miranda \u201cPancho\u201d Guedes, who became a significant mentor and patron. Guedes encouraged him to leave the Art Center in order to avoid, in Malangatana\u2019s words, \u201cpollution\u201d by a formal education anchored in European painting traditions. Guedes gave Malangatana studio space and a salary, and commissioned a large number of paintings in the years prior to the artist\u2019s first solo exhibition in 1961.   Mythology and Religion Many of Malangatana\u2019s works from the late 1950s to the early 1970s refer to the artist\u2019s Mozambican roots, specifically his Ronga cultural background. The paintings in this section feature Ronga folklore, mythology, and healing rituals. Frequently the artist included Catholic symbols, signs of the pervasive Portuguese influence in Mozambique. Malangatana\u2019s exaggerated depictions of Ronga culture verge on the satirical, and his references to Christianity are similarly unflattering, suggesting a critique of Portuguese colonial rule. Malangatana\u2019s work demonstrates how he carefully balanced all aspects of life in Mozambique, from colonial influences and indigenous customs and practices to the struggle for independence. These experiences\u2014as well as his art education and the structures of patronage he was embedded in\u2014were layered and complex, subverting the clich\u00e9d notion of the self-taught African artist who, unspoiled by foreign influences, finds inspiration in \u201cprimitive\u201d practices and beliefs, an idea that persists in the art history and reception of modern African art.   Beyond Painting and Drawing Malangatana was also active as an educator, muralist, sculptor, and writer. He frequently published in journals and corresponded extensively with peers and friends all over the world. In addition, he wrote poetry, at times to accompany his paintings. Malangatana drew from personal aspects of his life in his poems, some of which were presented in an issue of the African literary journal Black Orpheus.   In 1995 Malangatana started building a cultural center in his birth village of Matalana to host art education and community events. The center\u2019s architecture combines the geometric logic and industrial materials of Bauhaus design\u2014inspired by the work of Malangatana\u2019s friend and patron Pancho Guedes, a renowned modern architect\u2014with elements such as circular windows, teeth, grids, and figurative wall reliefs (fig. 1). The grid design of this exhibition borrowed from the center\u2019s architecture (fig. 2).   Prison Drawings In 1965\u201366 the International and State Defense Police (PIDE) imprisoned Malangatana for 18 months because of his suspected involvement with the Front for the Liberation of Mozambique (FRELIMO). While incarcerated, the artist began a series of drawings that he continued to work on after his release. The works capture the harsh conditions of life in Machava Central Prison through striking realism interrupted by fantasy scenes and dreams, their tension amplified by distorted bodies and monstrous figures. In 1961 mentor and patron Pancho Guedes introduced Malangatana to Eduardo Chivambo Mondlane, the founding president of the movement FRELIMO. Malangatana hoped to go abroad for international opportunities and exposure, but Mondlane encouraged him to stay in Mozambique and use art to contribute to the anti-colonial struggle. The artist\u2019s growing political awareness during the 1960s is apparent in the increasingly political tone of his work. He also expressed dissent by withdrawing from the 1964 exhibition Artists in Mozambique to protest Nelson Mandela\u2019s imprisonment and by refusing to represent Portugal at the 1965 S\u00e3o Paulo Art Biennial.   Artist of the Revolution After receiving a yearlong scholarship in 1971 from the Gulbenkian Foundation in Lisbon, Malangatana explored new media and pursued exhibition opportunities across Europe\u2014before returning permanently to Mozambique in 1974. There he continued experimenting in his art by elongating limbs, introducing opaque colors, and moving further into abstraction with thick outlines and flattened compositions. The titles of his works during this period, such as The Cry for Freedom and Remember Those Who Entered Bleeding? , reflect the focus on the war for independence and the sense of urgency Mozambicans felt at the time: in 1974 a ceasefire ended the war, followed by ten months of negotiations and the country\u2019s independence on June 25, 1975. After independence Malangatana was embraced as an artist of the revolution, and his work, including state-funded murals, was recognized as an exemplar of Mozambican culture. In addition to holding multiple roles within the newly formed government, he was appointed ambassador of peace during Mozambique\u2019s civil war (1977\u201392) and UNESCO Artist for Peace in 1997. He was also instrumental in establishing Mozambique\u2019s National Museum of Art in Maputo. Malangatana continued working as a civic leader, educator, poet, and, foremost, as an artist until his death in 2011. ",
-            ...
-        }
-    ],
+    "data": [],
     "info": {
         "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5091,36 +5010,36 @@ Search digital-publication-sections data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 11,
+        "total": 9,
         "limit": 10,
         "offset": 0,
-        "total_pages": 2,
+        "total_pages": 1,
         "current_page": 1
     },
     "data": [
         {
             "_score": 1,
             "api_model": "digital-publication-sections",
-            "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/9",
-            "id": 9,
-            "title": "\u201c'The Complete Painter': Malangatana\u2019s Approach to Painting, 1959\u201375\" by Allison Langley, Katrina Rush, and Julie Simek",
-            "timestamp": "2022-12-13T23:32:45-06:00"
+            "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/24",
+            "id": 24,
+            "title": "Digital Methods for Inquiry into the Eurocentric Structure of Architectural History Surveys",
+            "timestamp": "2023-04-07T11:01:53-05:00"
         },
         {
             "_score": 1,
             "api_model": "digital-publication-sections",
-            "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/6",
-            "id": 6,
-            "title": "\u201cMalangatana as Ethnographer? Modern Paintings of Village Life\u201d by Constantine Petridis",
-            "timestamp": "2022-12-13T23:32:45-06:00"
+            "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/22",
+            "id": 22,
+            "title": "Crowdsourcing Metadata in Museums: Expanding Descriptions, Access, Transparency, and Experience",
+            "timestamp": "2023-04-07T11:01:53-05:00"
         },
         {
             "_score": 1,
             "api_model": "digital-publication-sections",
-            "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/8",
-            "id": 8,
-            "title": "\u201cDeep Ambivalences: Malangatana\u2019s Anti/Colonial Aesthetic\u201d by M\u00e1rio Pissarra",
-            "timestamp": "2022-12-13T23:32:45-06:00"
+            "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/29",
+            "id": 29,
+            "title": "Credits",
+            "timestamp": "2023-04-07T11:01:53-05:00"
         }
     ],
     "info": {
@@ -5128,7 +5047,7 @@ Search digital-publication-sections data in the aggregator.
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5142,32 +5061,6 @@ Search digital-publication-sections data in the aggregator.
 
 A single digital-publication-section by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/digital-publication-sections/1  
-```js
-{
-    "data": {
-        "id": 1,
-        "api_model": "digital-publication-sections",
-        "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/1",
-        "title": "Director's Foreword",
-        "web_url": "https://nocache.www.artic.edu/digital-publications/34/malangatana-mozambique-modern/1/directors-foreword",
-        "copy": " The Art Institute of Chicago has been at the forefront of American museums in collecting and displaying modern art since the early twentieth century, and boasts an ongoing commitment to extending this vital legacy with research, publications, and exhibitions. In that spirit, a number of our curators came together in 2013 for a series of discussions exploring ideas about modern art, in particular the ways in which it manifests across our collections. This gave rise to the Modern Series, a set of three experimental, challenging, and provocative exhibitions and publications that are co-organized by curators across departments, with divergent but complementary specialties. The two previous iterations\u2014 Shatter Rupture Break (February 15\u2013May 3, 2015) and Go (February 23\u2013June 4, 2017)\u2014sought to present the museum\u2019s holdings in departments including Arts of the Americas, Modern and Contemporary Art, Photography and Media, and Textiles in fresh and exciting ways. Malangatana: Mozambique Modern (July 30\u2013November 16, 2020), the third and final project in the series, expands our understanding of modernism and modern art in a global context by bringing the work of celebrated Mozambican artist Malangatana Ngwenya (1936\u20132011) into conversation with our own international collection. It not only showcases the evolution in style and content within his early paintings and drawings, but also contextualizes his practice within the social and political conditions that framed the emergence of modern art in Mozambique and across the African continent. The exhibition also contributed to the cultivation of a more global perspective on artistic creation and its representation in the museum, both by providing the basis for this publication and, not least, by prompting us to acquire a painting and six works on paper by Malangatana for our permanent collection. Africa and its diasporas, with their deep history and wide geographical reach, occupy a prominent place within global art history and modern art that merits many more such efforts and programs in the years to come. Our colleagues\u2014notably Sarah Guernsey, Ann Goldstein, and Greg Nosan\u2014deserve my sincere gratitude for their continuing critical support for the Modern Series. But I am especially thankful to the exhibition\u2019s curators, Hendrik Folkerts, Felicia Mings, and Constantine Petridis, for introducing our staff and visitors to the fascinating milieu and work of Malangatana Ngwenya and for helping the Art Institute expand its representation of modern art from around the world. This exhibition would not have been possible without the generosity of the individuals and institutions in the United States, Portugal, and Mozambique who lent works from their collections. I am particularly grateful to the Malangatana Valente Ngwenya Foundation in Maputo for its invaluable loan of a significant number of paintings and drawings. Major funding for Malangatana: Mozambique Modern was provided by Sylvia Neil and Dan Fischel and the Alfred L. McDougal and Nancy Lauter McDougal Fund for Contemporary Art. Additional support is contributed by the Society for Contemporary Art through the SCA Activation Fund and the Miriam U. Hoover Foundation. Members of the Luminary Trust provide annual leadership support for the museum\u2019s operations, including exhibition development, conservation and collection care, and educational programming. The Luminary Trust includes an anonymous donor; Neil Bluhm and the Bluhm Family Charitable Foundation; Jay Franke and David Herro; Karen Gray-Krehbiel and John Krehbiel, Jr.; Kenneth Griffin; Caryn and King Harris, The Harris Family Foundation; Josef and Margot Lakonishok; Robert M. and Diane v.S. Levy; Ann and Samuel M. Mencoff; Sylvia Neil and Dan Fischel; Anne and Chris Reyes; Cari and Michael J. Sacks; and the Earl and Brenda Shapiro Foundation. Most importantly, I acknowledge with deepest thanks the intellectual and financial support of Sylvia Neil and Dan Fischel, who have provided crucial funding for the realization of this catalogue as well as the previous two in the Modern Series. Their ongoing commitment has enabled and encouraged our continued explorations into the possibilities of digital publication. James Rondeau President and Eloise W. Martin Director ",
-        ...
-    },
-    "info": {
-        "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
-        "license_links": [
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.6"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "https://www.artic.edu"
-    }
-}
-```
-:::
 
 #### Printed Catalogs
 
@@ -5188,39 +5081,19 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
 ```js
 {
     "pagination": {
-        "total": 127,
+        "total": 0,
         "limit": 2,
         "offset": 0,
-        "total_pages": 64,
-        "current_page": 1,
-        "next_url": "https://api.artic.edu/api/v1/printed-catalogs?page=2&limit=2"
+        "total_pages": 1,
+        "current_page": 1
     },
-    "data": [
-        {
-            "id": 41,
-            "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/41",
-            "title": "2001: Building for Space Travel",
-            "web_url": "https://nocache.www.artic.edu/print-publications/41/2001-building-for-space-travel",
-            "copy": " This book accompanied a pathbreaking exhibition devoted to exploring the relationship between the products actually designed for space flight and the imaginary visions of such materials in science fiction, films, and television. Recognizing the contributions of architects and design professionals to space exploration and technology, a field generally associated with scientists and aerospace engineers, this publication includes color reproductions of approximately 150 objects. Photographs, models, computer-assisted drawings and renderings as well as selected artifacts of the space age document the dreams and realities of design for space travel. An introduction by Art Institute architecture curator John Zukowsky illuminates the historical contexts in which space technology and fantasy developed. This is followed by 13 brief essays addressing topics as diverse as the future of space tourism, the interior design of Skylab, the training of Soviet cosmonauts, and Norman Rockwell's painting The Longest Step . This book offers readers a broader understanding of how designs for space travel are informed by military, political, and scientific imperatives, and how space travel itself provides raw material for art, literature, and film.   Edited by John Zukowsky   192 pages, 9 3/8 x 11 13/16 in. 230 ills. Out of print ISBN: 978-0-810-94490-9 (hardcover) ",
-            ...
-        },
-        {
-            "id": 39,
-            "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/39",
-            "title": "1945: Creativity and Crisis, Chicago Architecture and Design of the World War II Era",
-            "web_url": "https://nocache.www.artic.edu/print-publications/39/1945-creativity-and-crisis-chicago-architecture-and-design-of-the-world-war-ii-era",
-            "copy": " One of the most important years in modern history, 1945 marked the end of a conflict that united many Western democracies and some communist adversaries in a struggle for survival against the Axis powers led by Germany, Italy, and Japan. Although the sociopolitical impact of World War II is the subject of numerous books, films, lectures, and television shows, the contribution to the war effort by visual arts professionals\u2014artists, architects, and industrial designers\u2014has been barely touched upon. This publication outlines the work of several practitioners, many of whom worked in and around the Chicago area, during and immediately after the war. Architects Bruce Goff, Bertrand Goldberg, Ludwig Mies van der Rohe, and L. Morgan Yost, and designers Henry P. Glass and Richard Ten Eyck are featured, showcasing a vast range of ideas on prefabricated structures, cost- and material-efficient housing, and functional design objects. Presented to coincide with the 60th anniversary of the end of World War II, this catalogue elucidates that architects and designers put their creativity to work in the war effort, and, at the war\u2019s end, helped rebuild respective environments into a new society.   John Zukowsky, Martha Thorne, Carissa Kowalski, Marta Wojcik, Lori Hanna Boyer, and Kay Manning   40 pages; 9 1/2 x 8 1/2 in. 35 ills. Out of print ISBN 0-86559-218-7 (softcover) ",
-            ...
-        }
-    ],
+    "data": [],
     "info": {
         "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.6"
+        "version": "1.8"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5248,44 +5121,19 @@ Search printed-catalogs data in the aggregator.
 {
     "preference": null,
     "pagination": {
-        "total": 127,
+        "total": 0,
         "limit": 10,
         "offset": 0,
-        "total_pages": 13,
+        "total_pages": 0,
         "current_page": 1
     },
-    "data": [
-        {
-            "_score": 1,
-            "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/59",
-            "id": 59,
-            "title": "Northern European and Spanish Paintings before 1600 in the Art Institute of Chicago: A Catalogue of the Collection",
-            "timestamp": "2022-12-13T23:33:00-06:00"
-        },
-        {
-            "_score": 1,
-            "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/8",
-            "id": 8,
-            "title": "Avant-Garde Art in Everyday Life: Early Twentieth-Century European Modernism",
-            "timestamp": "2022-12-13T23:33:00-06:00"
-        },
-        {
-            "_score": 1,
-            "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/28",
-            "id": 28,
-            "title": "Bertrand Goldberg: Architecture of Invention",
-            "timestamp": "2022-12-13T23:33:00-06:00"
-        }
-    ],
+    "data": [],
     "info": {
         "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
         "license_links": [
             "https://www.artic.edu/terms"
         ],
-        "version": "1.5"
+        "version": "1.6"
     },
     "config": {
         "iiif_url": "https://www.artic.edu/iiif/2",
@@ -5299,30 +5147,4 @@ Search printed-catalogs data in the aggregator.
 
 A single printed-catalog by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/printed-catalogs/4  
-```js
-{
-    "data": {
-        "id": 4,
-        "api_model": "printed-catalogs",
-        "api_link": "https://api.artic.edu/api/v1/printed-catalogs/4",
-        "title": "The Art Institute of Chicago: The Essential Guide",
-        "web_url": "https://nocache.www.artic.edu/print-publications/4/the-art-institute-of-chicago-the-essential-guide",
-        "copy": " The Essential Guide presents the diverse holdings of the Art Institute\u2019s collections. Featuring more than three hundred objects, it provides a journey through time\u2014from ancient Egypt until the present day\u2014and across the globe. Beautifully illustrated with short texts about each work, the publication includes beloved icons such as Georges Seurat\u2019s Sunday on La Grande Jatte\u20141884 and Edward Hopper\u2019s Nighthawks , as well as exciting recent acquisitions like a Teotihuacan shell mask, Marcel Duchamp\u2019s readymade Bottle Rack , and Thomas Hart Benton\u2019s Cotton Pickers . Read about objects currently on view in the galleries as well as exquisite textiles and works on paper that, because of the fragility of their materials, are less frequently shown. Use it as a guide to the museum or a souvenir of your visit. Four distinctive covers\u2014one great book! Choose your favorite cover image by Katsushika Hokusai, Archibald Motley Jr., Georgia O\u2019Keeffe, or Georges Seurat.   Foreword by James Rondeau   352 pages, 6 x 9 x 1 in. 335 color ills. Softcover $25 ($22.50 members) ISBN 978-0-86559-301-5 ",
-        ...
-    },
-    "info": {
-        "license_text": "The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for \"fair use\" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials.",
-        "license_links": [
-            "https://www.artic.edu/terms"
-        ],
-        "version": "1.6"
-    },
-    "config": {
-        "iiif_url": "https://www.artic.edu/iiif/2",
-        "website_url": "https://www.artic.edu"
-    }
-}
-```
-:::
 
