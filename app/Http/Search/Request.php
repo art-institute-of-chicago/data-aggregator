@@ -196,6 +196,7 @@ class Request
 
         // If more artworks are being searched alongside other resource types, disbale artworks boost
         $artworksUseBoost = true;
+
         if ($resources->contains('artworks') && $resources->count() > 1) {
             $artworksUseBoost = false;
         }

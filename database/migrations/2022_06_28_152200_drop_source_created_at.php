@@ -14,7 +14,6 @@ class DropSourceCreatedAt extends Migration
         'ticketed_events' => 'total_capacity',
     ];
 
-
     public function up()
     {
         foreach ($this->tables as $tableName => $afterColumn) {
