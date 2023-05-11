@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands\Migrations;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
-use ColinODell\Indentation\Indentation;
 
 class CreateIndex extends AbstractCommand
 {
