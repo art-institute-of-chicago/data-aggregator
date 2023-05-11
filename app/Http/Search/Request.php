@@ -240,7 +240,6 @@ class Request
 
         return [
             'index' => $indexes,
-            'type' => !empty($types) ? implode(',', $types) : null,
             'preference' => Arr::get($input, 'preference'),
         ];
     }
