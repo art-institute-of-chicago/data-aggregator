@@ -267,6 +267,7 @@ class Request
             'main_reference_number',
             'api_model',
             'subtype', // TODO: Allow each model to specify exposed autocomplete fields?
+            'fiscal_year_deaccession',
         ];
 
         // Suggest also returns `_source`, which we can parse to get the cannonical title
