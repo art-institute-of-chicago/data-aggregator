@@ -22,11 +22,19 @@ class Agent extends BaseTransformer
         $baseTitle['title']['elasticsearch']['mapping'] = $this->getDefaultStringMapping([
             'analyzer' => 'name',
         ]);
+        $baseTitle['title']['elasticsearch']['boost'] = 200.0;
 
         return array_merge($baseTitle, [
             'sort_title' => [
                 'doc' => 'Sortable name for this agent, typically with last name first.',
                 'type' => 'string',
+                'elasticsearch' => [
+                    'default' => true,
+                    'mapping' => [
+                        'type' => 'text',
+                    ],
+                    'boost' => 2.5,
+                ],
             ],
             'alt_titles' => [
                 'doc' => 'Alternate names for this agent',
