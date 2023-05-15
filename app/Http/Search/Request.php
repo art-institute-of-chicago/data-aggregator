@@ -196,6 +196,7 @@ class Request
 
         // If more artworks are being searched alongside other resource types, disbale artworks boost
         $artworksUseBoost = true;
+
         if ($resources->contains('artworks') && $resources->count() > 1) {
             $artworksUseBoost = false;
         }
@@ -240,7 +241,6 @@ class Request
 
         return [
             'index' => $indexes,
-            'type' => !empty($types) ? implode(',', $types) : null,
             'preference' => Arr::get($input, 'preference'),
         ];
     }
@@ -267,6 +267,7 @@ class Request
             'main_reference_number',
             'api_model',
             'subtype', // TODO: Allow each model to specify exposed autocomplete fields?
+            'fiscal_year_deaccession',
         ];
 
         // Suggest also returns `_source`, which we can parse to get the cannonical title

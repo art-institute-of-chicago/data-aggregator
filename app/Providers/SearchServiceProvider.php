@@ -6,7 +6,6 @@ use Elasticsearch;
 use Laravel\Scout\EngineManager;
 // use ScoutEngines\Elasticsearch\ElasticsearchEngine;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 // TODO: Remove this after we're ready to handle exceptions

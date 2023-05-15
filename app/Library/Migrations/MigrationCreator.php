@@ -26,7 +26,7 @@ class MigrationCreator extends BaseMigrationCreator
             throw new LogicException('No stub filename defined');
         }
 
-        $stubPath = $this->customStubPath.'/'.$this->stubFilename;
+        $stubPath = $this->customStubPath . '/' . $this->stubFilename;
 
         if (!$this->files->exists($stubPath)) {
             throw new LogicException('Stub does not exist: ' . $stubPath);

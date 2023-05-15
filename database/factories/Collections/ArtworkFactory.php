@@ -45,7 +45,8 @@ class ArtworkFactory extends CollectionsFactory
 
     protected function fakeDimensionsDetail(int $count = 1): array
     {
-        $dimensions = array();
+        $dimensions = [];
+
         for ($i = 0; $i < $count; $i++) {
             $dimensions[] = [
                 'clarification' => ucfirst($this->faker->word()),
