@@ -25,7 +25,7 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
-        "aic/data-hub-foundation": "1.0",
+        "aic/data-hub-foundation": "^1.0",
         "aic/laravel-scout-elastic": "dev-master",
         "cviebrock/laravel-elasticsearch": "^9.0",
         "intervention/image": "^2.7",
