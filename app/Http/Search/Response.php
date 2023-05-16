@@ -133,7 +133,8 @@ class Response
                     }
                     return $item;
                 },
-                Arr::pluck($options, '_source'));
+                Arr::pluck($options, '_source')
+            );
         }
 
         return [];
