@@ -27,6 +27,13 @@ class Agent extends BaseTransformer
             'sort_title' => [
                 'doc' => 'Sortable name for this agent, typically with last name first.',
                 'type' => 'string',
+                'elasticsearch' => [
+                    'default' => true,
+                    'mapping' => [
+                        'type' => 'text',
+                    ],
+                    'boost' => 2.5,
+                ],
             ],
             'alt_titles' => [
                 'doc' => 'Alternate names for this agent',
