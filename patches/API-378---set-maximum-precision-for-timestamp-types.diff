@@ -1,0 +1,13 @@
+diff --git a/src/TimestampType.php b/src/TimestampType.php
+index 67c1126..6430e4a 100644
+--- a/src/TimestampType.php
++++ b/src/TimestampType.php
+@@ -45,7 +45,7 @@ class TimestampType extends Type
+      */
+     protected function getMysqlPlatformSQLDeclaration(array $fieldDeclaration)
+     {
+-        $columnType = $fieldDeclaration['precision'] ? "TIMESTAMP({$fieldDeclaration['precision']})" : 'TIMESTAMP';
++        $columnType = $fieldDeclaration['precision'] ? "TIMESTAMP(".min((int) $fieldDeclaration['precision'], 6).")" : 'TIMESTAMP';
+ 
+         if (isset($fieldDeclaration['notnull']) && $fieldDeclaration['notnull'] == true) {
+             return $columnType;
