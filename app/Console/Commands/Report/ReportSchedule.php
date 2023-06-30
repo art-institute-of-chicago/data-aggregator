@@ -7,7 +7,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ReportSchedule extends BaseCommand
 {
-
     protected $signature = 'report:schedule';
 
     protected $description = 'Show which scheduled tasks are currently running';

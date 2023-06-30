@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMobileTables extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -79,5 +78,4 @@ class CreateMobileTables extends Migration
         $table->{$titleType}('title');
         return $table;
     }
-
 }

@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCollectionsTables extends Migration
 {
-
     /**
      * Run the migrations.
      *

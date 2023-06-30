@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportCollections extends ImportCollectionsFull
 {
-
     protected $signature = 'import:collections
                             {endpoint? : Endpoint on dataservice to query, e.g. `object-types`}
                             {--since= : How far back to scan for records}';

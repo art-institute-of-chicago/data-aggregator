@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportWebOne extends ImportWebFull
 {
-
     protected $signature = 'import:web-one
                             {endpoint : Endpoint on dataservice to query, e.g. `events` }
                             {id : Identifier of the specific resource to import}';

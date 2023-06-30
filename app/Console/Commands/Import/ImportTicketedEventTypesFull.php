@@ -6,7 +6,6 @@ use App\Models\Membership\TicketedEventType;
 
 class ImportTicketedEventTypesFull extends AbstractImportCommand
 {
-
     protected $signature = 'import:events-ticketed-types-full
                             {--y|yes : Answer "yes" to all prompts}';
 

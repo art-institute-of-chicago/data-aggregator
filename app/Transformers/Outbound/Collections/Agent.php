@@ -9,7 +9,6 @@ use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Agent extends BaseTransformer
 {
-
     use IsCC0;
     use HasSuggestFields {
         getSuggestFields as traitGetSuggestFields;

@@ -8,7 +8,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class BulkImport extends BaseCommand
 {
-
     protected $signature = 'bulk:import
                             {source : Name of dataservice to query}
                             {endpoint : Endpoint on dataservice to import}

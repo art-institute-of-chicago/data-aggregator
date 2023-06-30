@@ -13,7 +13,6 @@ use App\ElasticsearchEngine;
 
 class SearchServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap the application services.
      */
@@ -41,9 +40,7 @@ class SearchServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('Search', function ($app) {
-
-            return new class() {
-
+            return new class () {
                 /**
                  * Array of models with the Searchable trait. Converted to Eloquent collection on init.
                  *

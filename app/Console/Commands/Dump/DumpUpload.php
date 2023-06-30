@@ -8,7 +8,6 @@ use Exception;
 
 class DumpUpload extends AbstractDumpCommand
 {
-
     protected $signature = 'dump:upload';
 
     protected $description = 'Pushes the local dump to a remote repo';

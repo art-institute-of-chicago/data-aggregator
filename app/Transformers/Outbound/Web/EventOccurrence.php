@@ -6,7 +6,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class EventOccurrence extends BaseTransformer
 {
-
     /**
      * Event occurrences use UUIDs, not integers.
      *

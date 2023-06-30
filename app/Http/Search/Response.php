@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Request as RequestFacade;
 
 class Response
 {
-
     /**
      * Response as it came back from Elasticsearch
      *

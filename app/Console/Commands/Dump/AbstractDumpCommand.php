@@ -10,7 +10,6 @@ use App\Console\Commands\BaseCommand;
 
 abstract class AbstractDumpCommand extends BaseCommand
 {
-
     protected $shell;
 
     public function __construct()

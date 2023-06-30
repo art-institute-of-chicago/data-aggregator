@@ -6,6 +6,5 @@ use App\Models\Collections\Agent;
 
 class AgentTest extends BasicTestCase
 {
-
     protected $model = Agent::class;
 }

@@ -4,7 +4,6 @@ namespace App\Transformers\Outbound\Collections\Traits;
 
 trait IsCC0
 {
-
     public function getLicenseText()
     {
         return 'The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.';

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Storage;
 
 class CreateFieldsDocs extends AbstractDocCommand
 {
-
     protected $signature = 'docs:fields';
 
     protected $description = 'Generate documentation for all the fields on each endpoint';

@@ -6,7 +6,6 @@ use App\Models\Collections\Exhibition;
 
 class ExhibitionTest extends ContractTestCase
 {
-
     protected $model = Exhibition::class;
 
     /** @test

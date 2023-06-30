@@ -8,7 +8,6 @@ use App\Models\Collections\Term;
 
 class CategoryTermTest extends BasicTestCase
 {
-
     protected $model = CategoryTerm::class;
 
     protected $route = 'category-terms';

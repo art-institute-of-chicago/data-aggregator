@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 
 trait HasRelationships
 {
-
     /**
      * Helper method to get the preferred term of a specified type from the eager-loaded array
      * instead of executing a new SQL query.

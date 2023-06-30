@@ -18,7 +18,7 @@ class EventOccurrence extends WebTransformer
      * @link https://stackoverflow.com/questions/10867405/generating-v5-uuid-what-is-name-and-namespace
      * @link https://uuid.ramsey.dev/en/latest/rfc4122/version5.html
      */
-    const UUID_NAMESPACE = '39cb3cac-c8ec-4b8f-9326-56c0e838056c';
+    public const UUID_NAMESPACE = '39cb3cac-c8ec-4b8f-9326-56c0e838056c';
 
     protected function getIds(Datum $datum)
     {

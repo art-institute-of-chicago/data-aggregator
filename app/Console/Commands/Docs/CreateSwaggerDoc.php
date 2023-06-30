@@ -7,7 +7,6 @@ use Carbon\Carbon;
 
 class CreateSwaggerDoc extends AbstractDocCommand
 {
-
     protected $signature = 'docs:swagger
                             {appUrl? : The root URL to use for the documentation. Defaults to APP_URL}';
 

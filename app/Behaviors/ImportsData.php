@@ -9,7 +9,6 @@ use Sentry\State\Scope;
 
 trait ImportsData
 {
-
     /**
      * Base URL of the API to hit.
      *

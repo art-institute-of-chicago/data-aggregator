@@ -10,7 +10,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class SearchInstall extends BaseCommand
 {
-
     use Indexer;
 
     protected $signature = 'search:install

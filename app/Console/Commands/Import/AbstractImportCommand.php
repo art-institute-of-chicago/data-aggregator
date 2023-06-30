@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 
 abstract class AbstractImportCommand extends BaseCommand
 {
-
     use ImportsData;
 
     /**

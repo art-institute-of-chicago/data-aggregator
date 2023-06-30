@@ -8,7 +8,6 @@ use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class ArtworkDate extends BaseTransformer
 {
-
     use HidesDefaultFields;
 
     protected function getFields()

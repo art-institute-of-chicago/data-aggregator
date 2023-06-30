@@ -90,7 +90,7 @@ class ArtworkTest extends TestCase
         $this->assertCount(2, $resource['objects']);
 
         // Check that the works we added to the database are in the repsonse
-        $idsInResponse = array_merge(array_keys($resource['objects'][0]),array_keys($resource['objects'][1]));
+        $idsInResponse = array_merge(array_keys($resource['objects'][0]), array_keys($resource['objects'][1]));
         $this->assertContains($artwork1Key, $idsInResponse);
 
         // Check that each of those works include expected data

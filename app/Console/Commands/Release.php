@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Storage;
 
 class Release extends BaseCommand
 {
-
     protected $signature = 'release {version : Version number to set}';
 
     protected $description = 'Bump the version number and run some small tasks';

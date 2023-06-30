@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateShopTables extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -74,5 +73,4 @@ class CreateShopTables extends Migration
         $table->timestamps();
         return $table;
     }
-
 }

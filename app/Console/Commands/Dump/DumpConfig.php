@@ -4,7 +4,6 @@ namespace App\Console\Commands\Dump;
 
 class DumpConfig extends AbstractDumpCommand
 {
-
     protected $signature = 'dump:config';
 
     protected $description = 'Dump local/json/config.json';

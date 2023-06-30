@@ -8,7 +8,6 @@ use App\Models\Collections\Agent;
 
 class ExhibitionTest extends BasicTestCase
 {
-
     protected $model = Exhibition::class;
 
     protected function setUp(): void

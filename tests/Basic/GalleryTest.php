@@ -6,6 +6,5 @@ use App\Models\Collections\Gallery;
 
 class GalleryTest extends BasicTestCase
 {
-
     protected $model = Gallery::class;
 }

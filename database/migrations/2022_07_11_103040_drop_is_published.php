@@ -92,6 +92,5 @@ class DropIsPublished extends Migration
         Schema::table('web_exhibitions', function (Blueprint $table) {
             $table->boolean('is_published')->after('date_display');
         });
-
     }
 }

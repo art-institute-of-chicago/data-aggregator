@@ -9,5 +9,4 @@ use App\Models\CollectionsModel;
  */
 class AgentRole extends CollectionsModel
 {
-
 }

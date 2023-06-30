@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMembershipTables extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -68,5 +67,4 @@ class CreateMembershipTables extends Migration
         $table->timestamps();
         return $table;
     }
-
 }

@@ -6,7 +6,6 @@ use App\Models\MobileModel;
 
 class Artwork extends MobileModel
 {
-
     /**
      * The table associated with the model.
      *

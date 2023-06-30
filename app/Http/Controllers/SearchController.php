@@ -16,7 +16,6 @@ use Illuminate\Routing\Controller as BaseController;
 
 class SearchController extends BaseController
 {
-
     /*
     |--------------------------------------------------------------------------
     | Search Controller
@@ -183,7 +182,6 @@ class SearchController extends BaseController
      */
     protected function query($requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null, $requestArgs = null)
     {
-
         // Combine any configuration params
         $input = RequestFacade::all();
         $input = $requestArgs ? array_merge($input, $requestArgs) : $input;

@@ -10,7 +10,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class SearchUninstall extends BaseCommand
 {
-
     use Indexer;
 
     protected $signature = 'search:uninstall

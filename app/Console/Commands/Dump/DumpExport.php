@@ -4,7 +4,6 @@ namespace App\Console\Commands\Dump;
 
 class DumpExport extends AbstractDumpCommand
 {
-
     protected $signature = 'dump:export
                             {--path= : Directory where to save dump, with `json` subdir }';
 

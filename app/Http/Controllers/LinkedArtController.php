@@ -15,7 +15,7 @@ use App\Http\Controllers\Controller as BaseController;
 
 class LinkedArtController extends BaseController
 {
-    const LIMIT_MAX = 100;
+    public const LIMIT_MAX = 100;
 
     public function showObject(Request $request, $id)
     {
@@ -56,7 +56,8 @@ class LinkedArtController extends BaseController
         return $this->getCollectionResponse($all, $request);
     }
 
-    protected function itemResponse(Artwork $artwork) {
+    protected function itemResponse(Artwork $artwork)
+    {
         $item = [
             '@context' => 'https://linked.art/ns/v1/linked-art.json',
             'id' => route('ld.object', ['id' => $artwork]),

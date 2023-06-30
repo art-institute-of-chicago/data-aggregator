@@ -39,7 +39,8 @@ class MigrationCreator extends BaseMigrationCreator
     {
         $stub = str_replace(
             ['DummyClass', '{{ class }}', '{{class}}'],
-            $this->getClassName($name), $stub
+            $this->getClassName($name),
+            $stub
         );
 
         if (!empty($this->stubPopulator)) {
@@ -48,5 +49,4 @@ class MigrationCreator extends BaseMigrationCreator
 
         return $stub;
     }
-
 }

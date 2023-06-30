@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateStaticArchiveTables extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -53,5 +52,4 @@ class CreateStaticArchiveTables extends Migration
         Schema::dropIfExists('exhibition_site');
         Schema::dropIfExists('sites');
     }
-
 }

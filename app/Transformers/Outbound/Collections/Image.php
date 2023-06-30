@@ -6,7 +6,6 @@ use App\Transformers\Outbound\Collections\Asset as BaseTransformer;
 
 class Image extends BaseTransformer
 {
-
     protected function getAssetFields()
     {
         $imageFields = [

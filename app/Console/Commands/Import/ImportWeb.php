@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportWeb extends ImportWebFull
 {
-
     protected $signature = 'import:web
                             {--since= : How far back to scan for records}';
 

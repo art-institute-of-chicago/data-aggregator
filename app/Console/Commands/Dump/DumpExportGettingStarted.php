@@ -8,7 +8,6 @@ use League\Csv\Writer;
 
 class DumpExportGettingStarted extends AbstractDumpCommand
 {
-
     protected $signature = 'dump:getting-started';
 
     protected $description = 'Create a getting started JSON dumps of all artworks';

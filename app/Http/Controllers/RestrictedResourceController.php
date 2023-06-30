@@ -9,7 +9,6 @@ use Aic\Hub\Foundation\Exceptions\UnauthorizedException;
 
 class RestrictedResourceController extends ResourceController
 {
-
     public function show(Request $request, $id)
     {
         $this->checkIfAuthorized();

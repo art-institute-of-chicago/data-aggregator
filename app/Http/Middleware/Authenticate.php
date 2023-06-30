@@ -7,7 +7,6 @@ use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
 {
-
     /**
      * Determine if the user is logged in to any of the given guards.
      * If they're not logged in, still let them through. The app will limit

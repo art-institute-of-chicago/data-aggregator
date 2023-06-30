@@ -7,7 +7,6 @@ use App\Console\Commands\Import\AbstractImportCommand;
 
 class DeleteCollections extends AbstractImportCommand
 {
-
     protected $signature = 'delete:collections
                             {--since= : How far back to scan for records}';
 

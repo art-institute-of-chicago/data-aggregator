@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 
 trait ElasticSearchable
 {
-
     use Searchable;
 
     /**
@@ -117,7 +116,6 @@ trait ElasticSearchable
         $fields = $this->getDefaultSearchFieldMapping($isExact);
 
         $fields = array_map(function ($field) use ($isExact) {
-
             $label = $field['name'];
 
             if ($isExact && isset($field['elasticsearch']['mapping']['fields']['exact'])) {

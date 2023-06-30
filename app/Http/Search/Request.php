@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Request as RequestFacade;
 
 class Request
 {
-
     /**
      * Resource targeted by this search request. Derived from API endpoint, or from `resources` param.
      * Accepted as comma-separated string, or as array. Converted to array shortly after `__construct()`.

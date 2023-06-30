@@ -55,8 +55,8 @@ class RenameColumns extends AbstractCommand
             ->getTables()
             ->map(function ($tableName) use ($oldNeedle, $newNeedle, $tableCallback) {
                 $itemNames = collect(
-                        $tableCallback($tableName)
-                    )
+                    $tableCallback($tableName)
+                )
                     ->filter(
                         fn ($itemName) => Str::contains($itemName, $oldNeedle)
                     )

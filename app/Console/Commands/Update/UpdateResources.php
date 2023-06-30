@@ -8,7 +8,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class UpdateResources extends BaseCommand
 {
-
     protected $signature = 'update:resources';
 
     protected $description = 'Re-indexes artworks that have multimedia or educational resources';
@@ -16,8 +15,8 @@ class UpdateResources extends BaseCommand
     public function handle()
     {
         Artwork::whereHas('documents', function ($query) {
-                $query->where('is_educational_resource', '=', true)
-                    ->orWhere('is_multimedia_resource', '=', true);
+            $query->where('is_educational_resource', '=', true)
+                ->orWhere('is_multimedia_resource', '=', true);
         })
             ->orWhereHas('sites')
             ->orWhereHas('sections')

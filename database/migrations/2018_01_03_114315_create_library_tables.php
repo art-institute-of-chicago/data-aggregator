@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateLibraryTables extends Migration
 {
-
     protected $material_terms = [
         'library_material_creator',
         'library_material_subject',
@@ -47,5 +46,4 @@ class CreateLibraryTables extends Migration
         Schema::dropIfExists('library_materials');
         Schema::dropIfExists('library_terms');
     }
-
 }

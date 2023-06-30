@@ -6,7 +6,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutRefreshAll extends BaseCommand
 {
-
     protected $signature = 'scout:refresh-all';
 
     protected $description = 'Flush and re-import all models into the search index';

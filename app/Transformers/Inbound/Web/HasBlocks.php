@@ -9,7 +9,6 @@ use App\Transformers\Datum;
 
 trait HasBlocks
 {
-
     protected function getExtraFields(Datum $datum)
     {
         // Articles use `copy`, but pages use `content`

@@ -7,7 +7,6 @@ use JsonSerializable;
 
 class Datum implements JsonSerializable
 {
-
     private $datum;
 
     private $subdatums = [];

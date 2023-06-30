@@ -8,6 +8,5 @@ use App\Transformers\Outbound\Web\Page as BaseTransformer;
 
 class GenericPage extends BaseTransformer
 {
-
     use HasSearchTags;
 }

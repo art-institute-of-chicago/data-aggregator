@@ -9,7 +9,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class SearchAudit extends BaseCommand
 {
-
     protected $signature = 'search:audit';
 
     protected $description = 'Compare the counts of database records with those in the search index';

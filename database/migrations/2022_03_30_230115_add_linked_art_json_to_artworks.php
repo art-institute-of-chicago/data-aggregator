@@ -10,7 +10,6 @@ class AddLinkedArtJsonToArtworks extends Migration
     {
         Schema::table('artworks', function (Blueprint $table) {
             $table->json('linked_art_json')->nullable()->after('provenance');
-
         });
     }
 

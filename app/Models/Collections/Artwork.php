@@ -137,7 +137,6 @@ class Artwork extends CollectionsModel
 
     public function departments()
     {
-
         // We assumed this was a many-to-one relationship; this is a patch. Put `null` first:
         // https://stackoverflow.com/questions/2051602/mysql-orderby-a-number-nulls-last
         // This doesn't work great b/c the ids are alphanumeric, not numeric

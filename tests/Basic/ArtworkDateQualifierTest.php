@@ -6,6 +6,5 @@ use App\Models\Collections\ArtworkDateQualifier;
 
 class ArtworkDateQualifierTest extends BasicTestCase
 {
-
     protected $model = ArtworkDateQualifier::class;
 }
