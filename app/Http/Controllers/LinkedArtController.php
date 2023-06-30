@@ -24,7 +24,7 @@ class LinkedArtController extends BaseController
         return $this->itemResponse($artwork);
     }
 
-        /**
+    /**
      * Display multiple resources.
      *
      * @param string $ids
