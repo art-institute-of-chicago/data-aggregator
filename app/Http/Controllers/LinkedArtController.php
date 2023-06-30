@@ -3,18 +3,61 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Asset;
+use Aic\Hub\Foundation\Exceptions\InvalidSyntaxException;
+use Aic\Hub\Foundation\Exceptions\TooManyIdsException;
 
 use App\Http\Controllers\Controller as BaseController;
 
 class LinkedArtController extends BaseController
 {
+    public const LIMIT_MAX = 100;
+
     public function showObject(Request $request, $id)
     {
         $artwork = Artwork::find($id);
 
+        return $this->itemResponse($artwork);
+    }
+
+    /**
+     * Display multiple resources.
+     *
+     * @param string $ids
+     * @return \Illuminate\Http\Response
+     */
+    protected function showMultiple(Request $request)
+    {
+        // Process ?ids= query param
+        $ids = $request->input('ids');
+
+        if (is_string($ids)) {
+            $ids = explode(',', $ids);
+        }
+
+        if (Gate::denies('restricted-access') && count($ids) > static::LIMIT_MAX) {
+            throw new TooManyIdsException();
+        }
+
+        // Validate the syntax for each $id
+        foreach ($ids as $id) {
+            if (!$this->validateId($id)) {
+                throw new InvalidSyntaxException();
+            }
+        }
+
+        // Illuminate\Database\Eloquent\Collection
+        $all = Artwork::find($ids);
+
+        return $this->getCollectionResponse($all, $request);
+    }
+
+    protected function itemResponse(Artwork $artwork)
+    {
         $item = [
             '@context' => 'https://linked.art/ns/v1/linked-art.json',
             'id' => route('ld.object', ['id' => $artwork]),
@@ -42,6 +85,26 @@ class LinkedArtController extends BaseController
         );
 
         return $item;
+    }
+
+    /**
+     * Return a response with multiple resources, given an arrayable object.
+     * For multiple ids, this is a an Eloquent Collection.
+     * For pagination, this is LengthAwarePaginator.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function getCollectionResponse(Arrayable $collection, Request $request)
+    {
+        $response = ['objects' => []];
+
+        foreach ($collection as $artwork) {
+            $response['objects'][] = [
+                $artwork->id => $this->itemResponse($artwork)
+            ];
+        }
+
+        return response()->json($response);
     }
 
     private function getArtworkType($artwork): array
@@ -526,5 +589,21 @@ class LinkedArtController extends BaseController
 
         // convert object to array recursively
         return json_decode(json_encode($artwork->linked_art_json), true);
+    }
+
+    /**
+     * Validate `id` route or query string param format.
+     *
+     * @param mixed $id
+     * @return boolean
+     */
+    protected function validateId($id)
+    {
+        // Only execute this validation if the model has defined a `validateId` method
+        if (method_exists(Artwork::class, 'validateId')) {
+            return Artwork::validateId($id);
+        }
+
+        return true;
     }
 }

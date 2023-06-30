@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class MakeDatesNullByDefault extends Migration
 {
-
     public function up()
     {
         if (App::environment('testing')) {

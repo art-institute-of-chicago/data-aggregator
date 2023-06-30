@@ -7,7 +7,6 @@ use App\Transformers\Inbound\CollectionsTransformer;
 
 class Asset extends CollectionsTransformer
 {
-
     protected function getIds(Datum $datum)
     {
         return [

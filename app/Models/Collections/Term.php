@@ -8,6 +8,5 @@ namespace App\Models\Collections;
  */
 class Term extends CategoryTerm
 {
-
     protected static $isCategory = false;
 }

@@ -8,7 +8,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutSince extends BaseCommand
 {
-
     protected $signature = 'scout:since
                             {since : ISO 8601 datetime string with timezone}';
 

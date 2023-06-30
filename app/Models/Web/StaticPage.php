@@ -9,5 +9,4 @@ use App\Models\WebModel;
  */
 class StaticPage extends WebModel
 {
-
 }

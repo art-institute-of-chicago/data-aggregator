@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Command extends Model
 {
-
     protected $casts = [
         'last_attempt_at' => 'datetime',
         'last_success_at' => 'datetime',

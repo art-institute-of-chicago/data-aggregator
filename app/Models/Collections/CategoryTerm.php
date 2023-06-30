@@ -10,7 +10,6 @@ use App\Models\ElasticSearchable;
  */
 class CategoryTerm extends CollectionsModel
 {
-
     use ElasticSearchable;
 
     public const CLASSIFICATION = 'TT-1';

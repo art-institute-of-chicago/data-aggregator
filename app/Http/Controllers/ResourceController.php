@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 class ResourceController extends AbstractController
 {
-
     public function show(Request $request, $id)
     {
         $endpoint = $this->getEndpoint($request, -2);

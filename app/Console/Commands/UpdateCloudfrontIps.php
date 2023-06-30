@@ -8,7 +8,6 @@ use Illuminate\Console\Command;
 
 class UpdateCloudfrontIps extends Command
 {
-
     protected $signature = 'update:cloudfront-ips';
 
     protected $description = 'Update file cache of CloudFront IPs for TrustProxies';

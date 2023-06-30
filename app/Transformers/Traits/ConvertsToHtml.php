@@ -6,7 +6,6 @@ use League\CommonMark\CommonMarkConverter;
 
 trait ConvertsToHtml
 {
-
     private $htmlConverter;
 
     /**

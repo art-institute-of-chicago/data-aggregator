@@ -4,7 +4,6 @@ namespace App\Transformers\Outbound\Collections\Traits;
 
 trait HasBoosted
 {
-
     protected function getSearchFields()
     {
         return array_merge(parent::getSearchFields(), [

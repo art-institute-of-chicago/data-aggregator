@@ -10,7 +10,6 @@ use App\Models\ElasticSearchable;
  */
 class Publication extends DscModel
 {
-
     use ElasticSearchable;
 
     public function sections()

@@ -4,7 +4,6 @@ namespace App\Transformers\Outbound\Collections\Traits;
 
 trait HidesDefaultFields
 {
-
     protected function getIds()
     {
         return [];

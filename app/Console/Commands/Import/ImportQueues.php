@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportQueues extends AbstractImportCommand
 {
-
     protected $signature = 'import:queues
                             {--y|yes : Answer "yes" to all prompts}';
 

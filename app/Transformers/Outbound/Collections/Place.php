@@ -6,7 +6,6 @@ use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Place extends BaseTransformer
 {
-
     protected function getFields()
     {
         return [

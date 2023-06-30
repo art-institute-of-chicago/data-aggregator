@@ -10,7 +10,6 @@ use App\Scopes\PublishedScope;
 
 trait Documentable
 {
-
     private $docAppUrl;
     private $docRequestUrl;
 

@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportAssetsFull extends AbstractImportCommand
 {
-
     protected $signature = 'import:assets-full
                             {endpoint? : Endpoint on dataservice to query, e.g. `images`}
                             {page? : Page to begin importing from}

@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportAssets extends ImportAssetsFull
 {
-
     protected $signature = 'import:assets
                             {endpoint? : Endpoint on dataservice to query, e.g. `images`}
                             {--since= : How far back to scan for records}';

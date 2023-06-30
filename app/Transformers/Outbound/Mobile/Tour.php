@@ -10,7 +10,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Tour extends BaseTransformer
 {
-
     use HasSuggestFields {
         getSuggestFields as traitGetSuggestFields;
     }

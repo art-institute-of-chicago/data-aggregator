@@ -8,7 +8,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class TicketedEvent extends BaseTransformer
 {
-
     protected $availableIncludes = [
         'event',
     ];

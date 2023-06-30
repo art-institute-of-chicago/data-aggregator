@@ -8,7 +8,6 @@ use Tamayo\LaravelScoutElastic\Engines\ElasticsearchEngine as BaseEngine;
 
 class ElasticsearchEngine extends BaseEngine
 {
-
     private $errorStreak = 0;
 
     private $maxErrorStreak = 3;

@@ -4,7 +4,6 @@ namespace App\Transformers\Outbound\Web\Traits;
 
 trait HasSearchTags
 {
-
     protected function getFieldsForHasSearchTags()
     {
         return [

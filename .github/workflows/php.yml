@@ -14,6 +14,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      MYSQL_USER: homestead
+      MYSQL_DB: homestead
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DB }}
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
     - uses: actions/checkout@v3
 
@@ -24,11 +46,6 @@ jobs:
 
     - name: Create environment file
       run: cp .env.ci .env
-
-    - name: Create unit testing database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
 
     - name: Cache Composer packages
       id: composer-cache

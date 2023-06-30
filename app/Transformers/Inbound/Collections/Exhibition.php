@@ -7,7 +7,6 @@ use App\Transformers\Inbound\CollectionsTransformer;
 
 class Exhibition extends CollectionsTransformer
 {
-
     protected function getExtraFields(Datum $datum)
     {
         return [

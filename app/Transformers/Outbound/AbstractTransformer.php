@@ -53,7 +53,7 @@ abstract class AbstractTransformer extends BaseTransformer
      *
      * @var integer
      */
-    const RESTRICTED_IN_DUMP = -1;
+    public const RESTRICTED_IN_DUMP = -1;
 
     /**
      * Be sure to call parent::__construct() if you overwrite this.

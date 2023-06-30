@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCommandTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -32,5 +31,4 @@ class CreateCommandTable extends Migration
     {
         Schema::dropIfExists('commands');
     }
-
 }

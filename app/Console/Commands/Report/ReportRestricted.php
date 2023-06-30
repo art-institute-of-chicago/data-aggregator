@@ -6,7 +6,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ReportRestricted extends BaseCommand
 {
-
     protected $signature = 'report:restricted';
 
     protected $description = 'List all restricted fields and endpoints';

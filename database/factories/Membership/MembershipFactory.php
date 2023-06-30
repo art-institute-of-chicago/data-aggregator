@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MembershipFactory extends Factory
 {
-
     public function membershipIdsAndTitle($title = '')
     {
         return [

@@ -9,7 +9,6 @@ use App\Transformers\Inbound\StaticArchive\Site as SiteTransformer;
 
 class ImportSites extends AbstractImportCommand
 {
-
     protected $signature = 'import:sites
                             {--y|yes : Answer "yes" to all prompts}';
 

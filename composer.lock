@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd3d4368b713f07928c0a3dfa85e1ec5",
+    "content-hash": "8b19c43aa6476213fc54796e9363f35b",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -8452,6 +8452,24 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.6"
             },
             "time": "2023-01-03T09:29:04+00:00"
+        },
+        {
+            "name": "vendor/package-patches",
+            "version": "1.1.0",
+            "require": {
+                "netresearch/composer-patches-plugin": "~1.2"
+            },
+            "type": "metapackage",
+            "extra": {
+                "patches": {
+                    "marktopper/doctrine-dbal-timestamp-type": [
+                        {
+                            "title": "API-378: Get unit tests working with fresh database",
+                            "url": "patches/API-378---set-maximum-precision-for-timestamp-types.diff"
+                        }
+                    ]
+                }
+            }
         },
         {
             "name": "vlucas/phpdotenv",

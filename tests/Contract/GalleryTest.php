@@ -6,7 +6,6 @@ use App\Models\Collections\Gallery;
 
 class GalleryTest extends ContractTestCase
 {
-
     protected $model = Gallery::class;
 
     /** @test

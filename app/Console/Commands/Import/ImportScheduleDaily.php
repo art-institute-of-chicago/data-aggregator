@@ -6,7 +6,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ImportScheduleDaily extends BaseCommand
 {
-
     protected $signature = 'import:daily';
 
     protected $description = 'Run all increment commands on sources that we\'re able to, and do a full refresh on sources that require it.';

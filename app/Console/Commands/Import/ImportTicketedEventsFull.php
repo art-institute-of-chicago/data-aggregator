@@ -6,7 +6,6 @@ use App\Models\Membership\TicketedEvent;
 
 class ImportTicketedEventsFull extends AbstractImportCommand
 {
-
     protected $signature = 'import:events-ticketed-full
                             {--y|yes : Answer "yes" to all prompts}
                             {--u|unreset : Do not reset}';

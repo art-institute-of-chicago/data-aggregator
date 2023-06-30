@@ -4,7 +4,6 @@ namespace App\Console\Commands\Dump;
 
 class DumpSchedule extends AbstractDumpCommand
 {
-
     protected $signature = 'dump:schedule';
 
     protected $description = 'Sequence of commands to run for scheduled dumps';

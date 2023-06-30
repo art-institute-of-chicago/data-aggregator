@@ -6,7 +6,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutFlushAll extends BaseCommand
 {
-
     protected $signature = 'scout:flush-all';
 
     protected $description = 'Remove all models from search index';

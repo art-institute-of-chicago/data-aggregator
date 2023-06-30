@@ -7,7 +7,6 @@ use App\Models\Dsc\Section;
 
 class ImportCatalogues extends AbstractImportCommand
 {
-
     protected $signature = 'import:dsc
                             {--y|yes : Answer "yes" to all prompts}';
 

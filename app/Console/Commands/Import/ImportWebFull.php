@@ -20,7 +20,6 @@ use App\Models\Web\StaticPage;
 
 class ImportWebFull extends AbstractImportCommand
 {
-
     protected $signature = 'import:web-full
                             {endpoint? : Endpoint on dataservice to query, e.g. `events`}
                             {page? : Page to begin importing from}

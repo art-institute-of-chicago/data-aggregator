@@ -6,7 +6,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ImportScheduleMonthly extends BaseCommand
 {
-
     protected $signature = 'import:monthly';
 
     protected $description = 'Do a full refresh on some hefty, infrequently updated sources.';

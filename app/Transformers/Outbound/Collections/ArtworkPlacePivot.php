@@ -12,7 +12,6 @@ use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class ArtworkPlacePivot extends BaseTransformer
 {
-
     use HidesDefaultFields;
 
     /**

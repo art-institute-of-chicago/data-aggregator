@@ -6,7 +6,6 @@ use Elasticsearch;
 
 trait Indexer
 {
-
     /**
      * Check if the index already exists. If it exists, the user is prompted to delete it.
      */

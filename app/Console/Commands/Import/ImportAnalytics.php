@@ -6,7 +6,6 @@ use App\Models\Collections\Artwork;
 
 class ImportAnalytics extends AbstractImportCommand
 {
-
     protected $signature = 'import:analytics
                             {page? : Page to begin importing from}';
 

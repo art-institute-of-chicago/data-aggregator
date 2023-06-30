@@ -9,7 +9,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutImportCsv extends BaseCommand
 {
-
     protected $signature = 'scout:import-csv
                             {model : Fully namespaced model name}
                             {filename : CSV file in `storage/app` directory}

@@ -25,7 +25,6 @@ class EventOccurrence extends WebModel
 
     public static function validateId($id)
     {
-
         return Uuid::isValid($id);
     }
 }

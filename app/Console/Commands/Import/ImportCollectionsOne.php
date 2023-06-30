@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportCollectionsOne extends ImportCollectionsFull
 {
-
     protected $signature = 'import:collections-one
                             {endpoint : Endpoint on dataservice to query, e.g. `object-types` }
                             {id : Identifier of the specific resource to import}';

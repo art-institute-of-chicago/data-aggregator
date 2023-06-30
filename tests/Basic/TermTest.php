@@ -6,7 +6,6 @@ use App\Models\Collections\Term;
 
 class TermTest extends BasicTestCase
 {
-
     protected $model = Term::class;
 
     protected function getRandomId()

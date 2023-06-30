@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportEnhancerFull extends AbstractImportCommand
 {
-
     protected $signature = 'import:enhancer-full
                             {endpoint? : Endpoint on dataservice to query}
                             {page? : Page to begin importing from}

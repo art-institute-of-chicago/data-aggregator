@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateDscTables extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -64,5 +63,4 @@ class CreateDscTables extends Migration
 
         return $table;
     }
-
 }

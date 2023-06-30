@@ -4,7 +4,6 @@ namespace App\Console\Commands\Dump;
 
 class DumpReset extends AbstractDumpCommand
 {
-
     protected $signature = 'dump:reset';
 
     protected $description = 'Clear local/json dumps';

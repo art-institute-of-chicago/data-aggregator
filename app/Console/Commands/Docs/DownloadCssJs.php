@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Storage;
 
 class DownloadCssJs extends AbstractDocCommand
 {
-
     protected $signature = 'docs:download-css-js';
 
     protected $description = 'Download CSS and JS from the main website';
@@ -42,8 +41,10 @@ class DownloadCssJs extends AbstractDocCommand
                 mkdir($path['dirname'], 0777, true);
             }
 
-            copy(storage_path('app/' . $vanityName),
-                 $dest);
+            copy(
+                storage_path('app/' . $vanityName),
+                $dest
+            );
         }
 
         // @TODO: once the website is public, pull the logo SVG from the GitHub repo

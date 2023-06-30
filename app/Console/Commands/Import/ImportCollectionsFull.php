@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportCollectionsFull extends AbstractImportCommand
 {
-
     protected $signature = 'import:collections-full
                             {endpoint? : Endpoint on dataservice to query, e.g. `object-types`}
                             {page? : Page to begin importing from}

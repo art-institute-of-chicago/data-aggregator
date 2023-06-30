@@ -10,7 +10,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class SearchReindex extends BaseCommand
 {
-
     use Indexer;
 
     protected $signature = 'search:reindex

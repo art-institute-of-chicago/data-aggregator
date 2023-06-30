@@ -48,7 +48,8 @@ abstract class AbstractCommand extends BaseCommand
     protected function writeMigration($name)
     {
         $file = $this->creator->create(
-            $name, $this->getMigrationPath()
+            $name,
+            $this->getMigrationPath()
         );
 
         $this->line("<info>Created Migration:</info> {$file}");
@@ -94,7 +95,7 @@ abstract class AbstractCommand extends BaseCommand
      */
     protected function encodeArray(array $expression)
     {
-        $export = var_export($expression, TRUE);
+        $export = var_export($expression, true);
 
         $patterns = [
             "/array \(/" => '[',
