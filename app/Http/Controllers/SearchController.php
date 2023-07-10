@@ -73,7 +73,7 @@ class SearchController extends BaseController
         }
 
         $response = Elasticsearch::indices()->getMapping();
-        $index = env('ELASTICSEARCH_INDEX') . '-' . $resource;
+        $index = config('elasticsearch.indexParams.index') . '-' . $resource;
 
         $currentMapping = $response[$index]['mappings']['doc']['properties'] ?? null;
 

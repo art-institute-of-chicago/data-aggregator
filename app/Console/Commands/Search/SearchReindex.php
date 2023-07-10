@@ -26,7 +26,7 @@ class SearchReindex extends BaseCommand
     public function handle()
     {
         $this->dest = $this->argument('dest');
-        $this->source = $this->argument('source') ?? env('ELASTICSEARCH_INDEX');
+        $this->source = $this->argument('source') ?? config('elasticsearch.indexParams.index');
 
         if ($this->argument('model')) {
             $this->reindex($this->argument('model'));

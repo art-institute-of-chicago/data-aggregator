@@ -178,7 +178,7 @@ class SearchServiceProvider extends ServiceProvider
                  */
                 public function getIndexForModel($model, $prefix = null)
                 {
-                    $prefix = $prefix ?? env('ELASTICSEARCH_INDEX');
+                    $prefix = $prefix ?? config('elasticsearch.indexParams.index');
 
                     return $prefix . '-' . $model::instance()->searchableIndex();
                 }
