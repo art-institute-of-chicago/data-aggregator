@@ -12,7 +12,7 @@ trait Indexer
     public function destroy($index = null, $yes = false)
     {
         if (!$index) {
-            $index = env('ELASTICSEARCH_INDEX');
+            $index = config('elasticsearch.indexParams.index');
         }
 
         $params = [
