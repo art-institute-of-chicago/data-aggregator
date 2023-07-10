@@ -169,7 +169,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
-        Cviebrock\LaravelElasticsearch\ServiceProvider::class,
+        MailerLite\LaravelElasticsearch\ServiceProvider::class,
         MarkTopper\DoctrineDBALTimestampType\Laravel5ServiceProvider::class,
 
         /**
@@ -241,7 +241,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Elasticsearch' => Cviebrock\LaravelElasticsearch\Facade::class,
+        'Elasticsearch' => MailerLite\LaravelElasticsearch\Facade::class,
 
     ],
 
