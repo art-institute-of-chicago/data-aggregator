@@ -607,13 +607,12 @@ class LinkedArtController extends BaseController
         return true;
     }
 
-    private function year($year) {
+    private function year($year)
+    {
         if ($year < 0) {
             return '-' . Str::padLeft(($year * -1), 4, '0');
-        }
-        else {
+        } else {
             return Str::padLeft($year, 4, '0');
         }
-
     }
 }
