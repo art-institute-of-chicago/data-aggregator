@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Asset;
@@ -240,14 +241,13 @@ class LinkedArtController extends BaseController
         }
 
         // TODO: Provide `took_place_at` [API-12]
-
         $timespan = [
             'type' => 'TimeSpan',
             'begin_of_the_begin' => !empty($artwork->date_start)
-                ? (new Carbon($artwork->date_start . '-01-01T00:00:00Z'))->toIso8601ZuluString()
+                ? (new Carbon($this->year($artwork->date_start) . '-01-01T00:00:00'))->toIso8601ZuluString()
                 : null,
             'end_of_the_end' => !empty($artwork->date_end)
-                ? (new Carbon($artwork->date_end . '-12-31T23:59:59Z'))->toIso8601ZuluString()
+                ? (new Carbon($this->year($artwork->date_end) . '-12-31T23:59:59'))->toIso8601ZuluString()
                 : null,
         ];
 
@@ -605,5 +605,15 @@ class LinkedArtController extends BaseController
         }
 
         return true;
+    }
+
+    private function year($year) {
+        if ($year < 0) {
+            return '-' . Str::padLeft(($year * -1), 4, '0');
+        }
+        else {
+            return Str::padLeft($year, 4, '0');
+        }
+
     }
 }
