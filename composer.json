@@ -45,7 +45,7 @@
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0.2",
         "aic/data-hub-foundation": "^1.0",
         "aic/laravel-scout-elastic": "dev-master",
         "intervention/image": "^2.7",
@@ -67,13 +67,15 @@
         "brianium/paratest": "^6.0",
         "colinodell/indentation": "^1.0",
         "fakerphp/faker": "^1.0",
+        "laravel/pint": "^1.0",
         "itsgoingd/clockwork": "^5.0",
         "kitloong/laravel-migrations-generator": "^6.0",
         "laravel/sail": "^1.0",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^7.0",
         "phpstan/phpstan": "^1.0",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.0",
+        "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
         "files": [
@@ -128,11 +130,12 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
+            "pestphp/pest-plugin": true,
             "ocramius/package-versions": true,
             "netresearch/composer-patches-plugin": true,
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
