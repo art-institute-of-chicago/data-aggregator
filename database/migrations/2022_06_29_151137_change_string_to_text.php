@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeStringToText extends Migration
+return new class extends Migration
 {
     private $fields = [
         'agent_place_qualifiers' => [
@@ -142,4 +142,4 @@ class ChangeStringToText extends Migration
             });
         }
     }
-}
+};

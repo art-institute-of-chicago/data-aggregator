@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropSoftDeletes extends Migration
+return new class extends Migration
 {
     // aka the `deleted_at` column
     private $tables = [
@@ -39,4 +39,4 @@ class DropSoftDeletes extends Migration
             });
         }
     }
-}
+};

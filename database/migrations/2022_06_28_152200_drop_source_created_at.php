@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropSourceCreatedAt extends Migration
+return new class extends Migration
 {
     private $tables = [
         'assets' => 'content_modified_at',
@@ -31,4 +31,4 @@ class DropSourceCreatedAt extends Migration
             });
         }
     }
-}
+};

@@ -2,7 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-class RenameCitiIdToId extends RenameColumnMigration
+return new class extends RenameColumnMigration
 {
     protected $columns = [
         'agent_place' => [
@@ -179,4 +179,4 @@ class RenameCitiIdToId extends RenameColumnMigration
             'sections_artwork_citi_id_index' => 'sections_artwork_id_index',
         ],
     ];
-}
+};

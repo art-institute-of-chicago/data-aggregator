@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropAgentIds extends Migration
+return new class extends Migration
 {
     private $tables = [
         'agents' => 'updated_at',
@@ -28,4 +28,4 @@ class DropAgentIds extends Migration
             });
         }
     }
-}
+};

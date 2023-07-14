@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RemoveLicensingRestrictedFromAgents extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -19,4 +19,4 @@ class RemoveLicensingRestrictedFromAgents extends Migration
             $table->boolean('licensing_restricted')->nullable()->after('death_place');
         });
     }
-}
+};

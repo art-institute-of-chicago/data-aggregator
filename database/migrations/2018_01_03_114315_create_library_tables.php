@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLibraryTables extends Migration
+return new class extends Migration
 {
     protected $material_terms = [
         'library_material_creator',
@@ -46,4 +46,4 @@ class CreateLibraryTables extends Migration
         Schema::dropIfExists('library_materials');
         Schema::dropIfExists('library_terms');
     }
-}
+};

@@ -2,7 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-class RenameLakeGuidToId extends RenameColumnMigration
+return new class extends RenameColumnMigration
 {
     protected $columns = [
         'artwork_asset' => [
@@ -24,4 +24,4 @@ class RenameLakeGuidToId extends RenameColumnMigration
             'exhibition_asset_asset_lake_guid_index' => 'exhibition_asset_asset_id_index',
         ],
     ];
-}
+};

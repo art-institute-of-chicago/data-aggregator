@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MakeCiteAsTextColumn extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -27,4 +27,4 @@ class MakeCiteAsTextColumn extends Migration
             $table->string('cite_as')->nullable()->change();
         });
     }
-}
+};

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RefactorWaitTimes extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -29,4 +29,4 @@ class RefactorWaitTimes extends Migration
             $table->renameColumn('wait_display', 'display');
         });
     }
-}
+};

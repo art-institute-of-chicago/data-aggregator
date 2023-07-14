@@ -2,7 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-class RenameSiteIdToId extends RenameColumnMigration
+return new class extends RenameColumnMigration
 {
     protected $columns = [
         'artwork_site' => [
@@ -24,4 +24,4 @@ class RenameSiteIdToId extends RenameColumnMigration
             'exhibition_site_site_site_id_index' => 'exhibition_site_site_id_index',
         ],
     ];
-}
+};

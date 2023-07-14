@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAuthTables extends Migration
+return new class extends Migration
 {
     private $schema;
 
@@ -91,4 +91,4 @@ class CreateAuthTables extends Migration
         $this->schema->dropIfExists('oauth_clients');
         $this->schema->dropIfExists('oauth_personal_access_clients');
     }
-}
+};

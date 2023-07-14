@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDigitalPublicationSectionsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -40,4 +40,4 @@ class CreateDigitalPublicationSectionsTable extends Migration
     {
         Schema::dropIfExists('digital_publication_sections');
     }
-}
+};

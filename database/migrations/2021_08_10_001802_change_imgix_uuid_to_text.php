@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeImgixUuidToText extends Migration
+return new class extends Migration
 {
     private $tableNames = [
         'articles',
@@ -42,4 +42,4 @@ class ChangeImgixUuidToText extends Migration
             });
         }
     }
-}
+};

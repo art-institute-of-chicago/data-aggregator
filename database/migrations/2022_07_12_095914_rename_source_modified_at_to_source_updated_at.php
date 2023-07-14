@@ -2,7 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-class RenameSourceModifiedAtToSourceUpdatedAt extends RenameColumnMigration
+return new class extends RenameColumnMigration
 {
     protected $columns = [
         'agent_place_qualifiers' => [
@@ -109,4 +109,4 @@ class RenameSourceModifiedAtToSourceUpdatedAt extends RenameColumnMigration
     protected $indexes = [
         // nothing to change
     ];
-}
+};

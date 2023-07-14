@@ -2,7 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-class RenamePlaceIdToGalleryIdOnExhibitions extends RenameColumnMigration
+return new class extends RenameColumnMigration
 {
     protected $columns = [
         'exhibitions' => [
@@ -15,4 +15,4 @@ class RenamePlaceIdToGalleryIdOnExhibitions extends RenameColumnMigration
             'exhibitions_place_id_index' => 'exhibitions_gallery_id_index',
         ],
     ];
-}
+};

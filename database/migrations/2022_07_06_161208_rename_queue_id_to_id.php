@@ -2,7 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-class RenameQueueIdToId extends RenameColumnMigration
+return new class extends RenameColumnMigration
 {
     protected $columns = [
         'wait_times' => [
@@ -13,4 +13,4 @@ class RenameQueueIdToId extends RenameColumnMigration
     protected $indexes = [
         // nothing to change
     ];
-}
+};

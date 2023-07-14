@@ -8,7 +8,7 @@ use Illuminate\Database\Migrations\Migration;
  * WEB-1379: This is a reverse of the `CreateAuthTables` migration.
  * We are moving from Passport to a simpler API-token-based model.
  */
-class RemoveAuthTables extends Migration
+return new class extends Migration
 {
     private $schema;
 
@@ -93,4 +93,4 @@ class RemoveAuthTables extends Migration
             $table->timestamps();
         });
     }
-}
+};

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIndexesToImprovePerformance extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -29,4 +29,4 @@ class CreateIndexesToImprovePerformance extends Migration
             $table->dropIndex(['artwork_citi_id']);
         });
     }
-}
+};

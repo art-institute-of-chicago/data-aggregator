@@ -2,7 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-class RenameShopIdToId extends RenameColumnMigration
+return new class extends RenameColumnMigration
 {
     protected $columns = [
         'artist_product' => [
@@ -30,4 +30,4 @@ class RenameShopIdToId extends RenameColumnMigration
             'exhibition_product_product_shop_id_index' => 'exhibition_product_product_id_index',
         ],
     ];
-}
+};

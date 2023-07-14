@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropEmailSeries extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -43,4 +43,4 @@ class DropEmailSeries extends Migration
             $table->boolean('send_nonmember_test')->nullable();
         });
     }
-}
+};

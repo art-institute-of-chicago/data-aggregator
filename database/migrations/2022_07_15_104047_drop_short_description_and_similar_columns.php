@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropShortDescriptionAndSimilarColumns extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -103,4 +103,4 @@ class DropShortDescriptionAndSimilarColumns extends Migration
             $table->text('header_copy')->nullable()->after('title');
         });
     }
-}
+};
