@@ -85,7 +85,7 @@ return [
 
     'auth' => [
         'restricted' => env('APP_RESTRICTED', true),
-        'max_attempts' => 60,
+        'max_attempts' => env('AIC_AUTH_MAX_ATTEMPTS', 60),
         'max_resources_guest' => 1000,
         'max_resources_user' => 10000,
         'login_whitelist_ips' => array_map('trim', explode(',', env('LOGIN_WHITELIST_IPS', '127.0.0.1/32'))),
