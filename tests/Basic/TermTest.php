@@ -10,6 +10,6 @@ class TermTest extends BasicTestCase
 
     protected function getRandomId()
     {
-        return app('Faker')->unique()->regexify('[A-Z]{2}') . '-' . app('Faker')->unique()->randomNumber(5);
+        return fake()->unique()->regexify('[A-Z]{2}') . '-' . fake()->unique()->randomNumber(5);
     }
 }

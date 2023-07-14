@@ -17,9 +17,9 @@ class ArtworkFactory extends MobileFactory
         return array_merge(
             $this->mobileAppIdsAndTitle(),
             [
-                'artwork_id' => $this->faker->randomElement($artworks),
-                'latitude' => $this->faker->latitude,
-                'longitude' => $this->faker->longitude,
+                'artwork_id' => fake()->randomElement($artworks),
+                'latitude' => fake()->latitude,
+                'longitude' => fake()->longitude,
             ]
         );
     }

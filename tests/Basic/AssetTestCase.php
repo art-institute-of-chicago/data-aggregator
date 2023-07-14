@@ -13,6 +13,6 @@ abstract class AssetTestCase extends BasicTestCase
      */
     protected function getRandomId()
     {
-        return app('Faker')->unique()->uuid;
+        return fake()->unique()->uuid;
     }
 }

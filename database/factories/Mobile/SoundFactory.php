@@ -11,8 +11,8 @@ class SoundFactory extends MobileFactory
         return array_merge(
             $this->mobileAppIdsAndTitle(),
             [
-                'web_url' => $this->faker->url,
-                'transcript' => $this->faker->paragraph(3),
+                'web_url' => fake()->url,
+                'transcript' => fake()->paragraph(3),
             ]
         );
     }

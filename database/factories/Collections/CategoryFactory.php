@@ -11,12 +11,12 @@ class CategoryFactory extends CollectionsFactory
     public function definition()
     {
         return array_merge(
-            $this->idsAndTitle(ucfirst($this->faker->word(3, true))),
+            $this->idsAndTitle(ucfirst(fake()->word(3, true))),
             [
                 'is_category' => true,
-                'id' => 'PC-' . $this->faker->unique()->randomNumber(6),
-                'subtype' => $this->faker->randomElement(['CT-1', 'CT-3']),
-                'parent_id' => $this->faker->randomElement(Category::query()->pluck('id')->all()),
+                'id' => 'PC-' . fake()->unique()->randomNumber(6),
+                'subtype' => fake()->randomElement(['CT-1', 'CT-3']),
+                'parent_id' => fake()->randomElement(Category::query()->pluck('id')->all()),
             ]
         );
     }

@@ -11,8 +11,8 @@ class PrintedCatalogFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(4),
-            'title' => ucfirst($this->faker->words(3, true)),
+            'id' => fake()->unique()->randomNumber(4),
+            'title' => ucfirst(fake()->words(3, true)),
         ];
     }
 }

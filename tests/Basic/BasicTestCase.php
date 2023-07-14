@@ -270,7 +270,7 @@ abstract class BasicTestCase extends TestCase
      */
     protected function getRandomId()
     {
-        return app('Faker')->unique()->randomNumber(5);
+        return fake()->unique()->randomNumber(5);
     }
 
     /**

@@ -8,6 +8,6 @@ class ArtworkTypeFactory extends CollectionsFactory
 
     public function definition()
     {
-        return $this->idsAndTitle($this->faker->randomElement(['Painting', 'Design', 'Drawing and ' . ucfirst($this->faker->word), ucfirst($this->faker->word) . ' Arts', 'Sculpture']), true, 2);
+        return $this->idsAndTitle(fake()->randomElement(['Painting', 'Design', 'Drawing and ' . ucfirst(fake()->word), ucfirst(fake()->word) . ' Arts', 'Sculpture']), true, 2);
     }
 }

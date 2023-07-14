@@ -15,11 +15,11 @@ class SectionFactory extends DscFactory
         return array_merge(
             $this->dscIdsAndTitle(),
             [
-                'web_url' => $this->faker->url,
-                'accession' => $this->faker->accession,
-                'publication_id' => $this->faker->randomElement(Publication::query()->pluck('id')->all()),
-                'artwork_id' => $this->faker->randomElement(Artwork::query()->pluck('id')->all()),
-                'content' => $this->faker->paragraphs(10, true),
+                'web_url' => fake()->url,
+                'accession' => fake()->accession,
+                'publication_id' => fake()->randomElement(Publication::query()->pluck('id')->all()),
+                'artwork_id' => fake()->randomElement(Artwork::query()->pluck('id')->all()),
+                'content' => fake()->paragraphs(10, true),
             ]
         );
     }

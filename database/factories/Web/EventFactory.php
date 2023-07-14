@@ -11,10 +11,10 @@ class EventFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(4),
-            'title' => ucfirst($this->faker->words(3, true)),
+            'id' => fake()->unique()->randomNumber(4),
+            'title' => ucfirst(fake()->words(3, true)),
             'is_private' => false,
-            'layout_type' => $this->faker->randomDigit,
+            'layout_type' => fake()->randomDigit,
         ];
     }
 }
