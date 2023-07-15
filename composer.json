@@ -72,7 +72,7 @@
         "kitloong/laravel-migrations-generator": "^6.0",
         "laravel/sail": "^1.0",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^7.0",
+        "nunomaduro/collision": "^6.0",
         "phpstan/phpstan": "^1.0",
         "phpunit/phpunit": "^9.0",
         "spatie/laravel-ignition": "^1.0"
