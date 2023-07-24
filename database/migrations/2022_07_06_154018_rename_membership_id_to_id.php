@@ -2,8 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-return new class extends RenameColumnMigration
-{
+return new class () extends RenameColumnMigration {
     protected $columns = [
         'ticketed_event_types' => [
             'membership_id' => 'id',

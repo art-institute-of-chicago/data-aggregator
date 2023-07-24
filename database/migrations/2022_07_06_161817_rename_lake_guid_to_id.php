@@ -2,8 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-return new class extends RenameColumnMigration
-{
+return new class () extends RenameColumnMigration {
     protected $columns = [
         'artwork_asset' => [
             'asset_lake_guid' => 'asset_id',

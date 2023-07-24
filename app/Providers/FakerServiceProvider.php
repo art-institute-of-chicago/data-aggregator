@@ -19,7 +19,7 @@ class FakerServiceProvider extends ServiceProvider
 
         $this->app->afterResolving(function (mixed $instance) {
             if ($instance instanceof \Faker\Generator) {
-                $instance->addProvider(new class ()  {
+                $instance->addProvider(new class () {
                     // Used in Collections\Artwork and Dsc\Section
                     public function accession()
                     {

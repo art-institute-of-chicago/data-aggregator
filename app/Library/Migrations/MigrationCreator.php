@@ -40,7 +40,8 @@ class MigrationCreator extends BaseMigrationCreator
         if (! is_null($table)) {
             $stub = str_replace(
                 ['DummyTable', '{{ table }}', '{{table}}'],
-                $table, $stub
+                $table,
+                $stub
             );
         }
 

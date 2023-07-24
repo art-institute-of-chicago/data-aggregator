@@ -2,8 +2,7 @@
 
 use App\Library\Migrations\CreateIndexMigration;
 
-return new class extends CreateIndexMigration
-{
+return new class () extends CreateIndexMigration {
     protected $columnName = 'updated_at';
 
     protected $tableNames = [

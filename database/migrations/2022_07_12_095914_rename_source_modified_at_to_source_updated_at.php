@@ -2,8 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-return new class extends RenameColumnMigration
-{
+return new class () extends RenameColumnMigration {
     protected $columns = [
         'agent_place_qualifiers' => [
             'source_modified_at' => 'source_updated_at',

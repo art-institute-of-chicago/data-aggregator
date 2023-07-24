@@ -16,7 +16,8 @@ trait ConvertsToHtml
         ],
     ];
 
-    private function getEnvironment() {
+    private function getEnvironment()
+    {
         $environment = Environment::createCommonMarkEnvironment();
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new TableExtension());

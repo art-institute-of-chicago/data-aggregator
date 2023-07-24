@@ -2,8 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-return new class extends RenameColumnMigration
-{
+return new class () extends RenameColumnMigration {
     protected $columns = [
         'mobile_artwork_mobile_sound' => [
             'mobile_artwork_mobile_id' => 'mobile_artwork_id',

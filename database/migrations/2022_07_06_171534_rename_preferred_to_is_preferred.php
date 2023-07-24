@@ -4,8 +4,7 @@ use App\Library\Migrations\RenameColumnMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends RenameColumnMigration
-{
+return new class () extends RenameColumnMigration {
     protected $columns = [
         'artwork_artist' => [
             'preferred' => 'is_preferred',
