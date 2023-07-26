@@ -47,7 +47,7 @@
     "require": {
         "php": "^8.0.2",
         "aic/data-hub-foundation": "^1.0",
-        "aic/laravel-scout-elastic": "dev-master",
+        "aic/laravel-scout-elastic": "^9.0",
         "intervention/image": "^2.7",
         "jsq/amazon-es-php": "dev-master",
         "laminas/laminas-code": "^4.0",
