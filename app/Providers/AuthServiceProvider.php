@@ -20,8 +20,6 @@ class AuthServiceProvider extends BaseServiceProvider
 
     public function boot()
     {
-        $this->registerPolicies();
-
         // API-189: Gate gets called before middleware initializes!
         $temp = new TrustProxies(config());
         $temp->handle(request(), function () {
