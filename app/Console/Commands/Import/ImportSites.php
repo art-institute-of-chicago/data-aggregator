@@ -39,7 +39,6 @@ class ImportSites extends AbstractImportCommand
             ],
             [
                 'artwork_site',
-                'agent_site',
                 'exhibition_site',
                 'sites',
             ]
