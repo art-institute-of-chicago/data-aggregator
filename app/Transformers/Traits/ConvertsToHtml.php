@@ -3,7 +3,7 @@
 namespace App\Transformers\Traits;
 
 use League\CommonMark\MarkdownConverter;
-use League\CommonMark\Environment;
+use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\Table\TableExtension;
 
@@ -18,10 +18,9 @@ trait ConvertsToHtml
 
     private function getEnvironment()
     {
-        $environment = Environment::createCommonMarkEnvironment();
+        $environment = new Environment($this->config);
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new TableExtension());
-        $environment->mergeConfig($this->config);
         return $environment;
     }
 
