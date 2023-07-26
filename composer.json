@@ -45,15 +45,15 @@
         }
     ],
     "require": {
-        "php": "^8.0.2",
-        "aic/data-hub-foundation": "^1.0",
-        "aic/laravel-scout-elastic": "^9.0",
+        "php": "^8.1",
+        "aic/data-hub-foundation": "^2.0",
+        "aic/laravel-scout-elastic": "^10.0",
         "intervention/image": "^2.7",
         "jsq/amazon-es-php": "dev-master",
         "laminas/laminas-code": "^4.0",
-        "laravel/framework": "^9.0",
-        "laravel/sanctum": "^3.0",
-        "laravel/scout": "^9.0",
+        "laravel/framework": "^10.0",
+        "laravel/sanctum": "^3.2",
+        "laravel/scout": "^10.0",
         "laravel/tinker": "^2.0",
         "league/commonmark": "^2.0",
         "league/csv": "^9.0",
@@ -65,7 +65,7 @@
         "vendor/package-patches": "^1.1"
     },
     "require-dev": {
-        "brianium/paratest": "^6.0",
+        "brianium/paratest": "^7.0",
         "colinodell/indentation": "^1.0",
         "fakerphp/faker": "^1.0",
         "laravel/pint": "^1.0",
@@ -73,10 +73,10 @@
         "kitloong/laravel-migrations-generator": "^6.0",
         "laravel/sail": "^1.0",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^6.0",
+        "nunomaduro/collision": "^7.0",
         "phpstan/phpstan": "^1.0",
-        "phpunit/phpunit": "^9.0",
-        "spatie/laravel-ignition": "^1.0"
+        "phpunit/phpunit": "^10.0",
+        "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
         "files": [
@@ -137,6 +137,5 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
     "prefer-stable": true
 }
