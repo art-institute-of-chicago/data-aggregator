@@ -55,7 +55,7 @@ class Asset extends BaseTransformer
                     'default' => true,
                 ],
                 'value' => function ($item) {
-                    return $item->content ?? (env('ASSET_URL') . AssetModel::getHashedId($item->getKey()));
+                    return $item->content ?? (config('aic.asset.url') . AssetModel::getHashedId($item->getKey()));
                 },
             ],
             'is_multimedia_resource' => [

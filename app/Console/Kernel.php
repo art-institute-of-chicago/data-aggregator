@@ -88,7 +88,7 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/scout-import-agents-last-run.log'));
 
-        if (env('DUMP_SCHEDULE_ENABLED', false)) {
+        if (config('aic.dump.schedule_enabled')) {
             $schedule->command('dump:schedule')
                 ->weekly()
                 ->sundays()

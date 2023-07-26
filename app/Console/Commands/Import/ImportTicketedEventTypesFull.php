@@ -13,7 +13,7 @@ class ImportTicketedEventTypesFull extends AbstractImportCommand
 
     public function handle()
     {
-        $this->api = env('EVENTS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.membership');
 
         if (!$this->reset()) {
             return false;

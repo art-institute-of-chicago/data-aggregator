@@ -56,7 +56,7 @@ class Asset extends CollectionsModel
             return null;
         }
 
-        $hash = (string) hash('md5', env('ASSET_PREFIX', '') . $id);
+        $hash = (string) hash('md5', config('aic.asset.prefix') . $id);
         return substr($hash, 0, 8) . '-'
           . substr($hash, 8, 4) . '-'
           . substr($hash, 12, 4) . '-'

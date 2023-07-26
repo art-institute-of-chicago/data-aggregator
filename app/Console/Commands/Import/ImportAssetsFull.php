@@ -17,7 +17,7 @@ class ImportAssetsFull extends AbstractImportCommand
             $this->isTest = true;
         }
 
-        $this->api = env('ASSETS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.assets');
 
         $endpoint = $this->argument('endpoint');
 

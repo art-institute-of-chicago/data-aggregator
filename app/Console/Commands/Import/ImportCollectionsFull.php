@@ -17,7 +17,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             $this->isTest = true;
         }
 
-        $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.collections');
 
         $endpoint = $this->argument('endpoint');
 
@@ -95,7 +95,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             $chunked_ids = partition($ids, $n);
 
             $urls = array_map(function ($ids) use ($endpoint) {
-                return env('COLLECTIONS_DATA_SERVICE_URL')
+                return config('resources.sources.collections')
                     . '/' . $endpoint
                     . '?limit=' . count($ids)
                     . '&ids=' . implode(',', $ids);

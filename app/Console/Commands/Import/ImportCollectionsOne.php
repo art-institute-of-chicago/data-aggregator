@@ -30,7 +30,7 @@ class ImportCollectionsOne extends ImportCollectionsFull
 
     private function fetchItem($endpoint, $id)
     {
-        $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
+        $url = config('resources.sources.collections') . '/' . $endpoint . '/' . $id;
 
         $this->info('Fetching: ' . $url);
 

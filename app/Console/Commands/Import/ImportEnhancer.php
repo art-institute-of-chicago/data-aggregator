@@ -14,7 +14,7 @@ class ImportEnhancer extends ImportEnhancerFull
 
     public function handle()
     {
-        $this->api = env('ENHANCER_URL');
+        $this->api = config('resources.sources.dsc');
 
         $endpoint = $this->argument('endpoint');
 
