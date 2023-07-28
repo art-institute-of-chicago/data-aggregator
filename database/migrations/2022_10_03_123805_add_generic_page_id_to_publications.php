@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddGenericPageIdToPublications extends Migration
-{
+return new class () extends Migration {
     public function up()
     {
         Schema::table('publications', function (Blueprint $table) {
@@ -19,4 +18,4 @@ class AddGenericPageIdToPublications extends Migration
             $table->dropColumn('generic_page_id');
         });
     }
-}
+};

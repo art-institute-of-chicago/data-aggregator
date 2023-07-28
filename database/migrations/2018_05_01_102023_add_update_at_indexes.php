@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUpdateAtIndexes extends Migration
-{
+return new class () extends Migration {
     /**
      * TODO: Create custom `timestamps()` function?
      */
@@ -65,10 +64,14 @@ class AddUpdateAtIndexes extends Migration
 
     public function down()
     {
+        if (App::environment('testing')) {
+            return;
+        }
+
         foreach ($this->tableNames as $tableName) {
             Schema::table($tableName, function (Blueprint $table) {
                 $table->dropIndex(['updated_at']);
             });
         }
     }
-}
+};

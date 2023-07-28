@@ -2,22 +2,31 @@
 
 namespace App\Transformers\Traits;
 
-use League\CommonMark\CommonMarkConverter;
+use League\CommonMark\MarkdownConverter;
+use League\CommonMark\Environment\Environment;
+use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+use League\CommonMark\Extension\Table\TableExtension;
 
 trait ConvertsToHtml
 {
     private $htmlConverter;
+    private $config = [
+        'renderer' => [
+            'soft_break' => '<br>',
+        ],
+    ];
 
-    /**
-     * TODO: Consider moving this into a MarkdownServiceProvider?
-     */
+    private function getEnvironment()
+    {
+        $environment = new Environment($this->config);
+        $environment->addExtension(new CommonMarkCoreExtension());
+        $environment->addExtension(new TableExtension());
+        return $environment;
+    }
+
     private function getHtmlConverter()
     {
-        return $this->htmlConverter ?? $this->htmlConverter = new CommonMarkConverter([
-            'renderer' => [
-                'soft_break' => '<br>',
-            ],
-        ]);
+        return $this->htmlConverter ?? $this->htmlConverter = new MarkdownConverter($this->getEnvironment());
     }
 
     /**
@@ -27,6 +36,6 @@ trait ConvertsToHtml
      */
     private function convertToHtml($value)
     {
-        return isset($value) ? $this->getHtmlConverter()->convertToHtml($value) : null;
+        return isset($value) ? $this->getHtmlConverter()->convertToHtml($value)->getContent() : null;
     }
 }

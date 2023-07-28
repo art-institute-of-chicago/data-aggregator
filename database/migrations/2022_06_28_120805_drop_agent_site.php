@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropAgentSite extends Migration
-{
+return new class () extends Migration {
     public function up()
     {
         Schema::dropIfExists('agent_site');
@@ -19,4 +18,4 @@ class DropAgentSite extends Migration
             $table->unsignedInteger('site_site_id')->index();
         });
     }
-}
+};

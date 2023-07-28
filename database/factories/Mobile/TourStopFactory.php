@@ -16,11 +16,11 @@ class TourStopFactory extends MobileFactory
 
         return array_merge(
             [
-                'id' => $this->faker->unique()->randomNumber(4),
-                'tour_id' => $this->faker->randomElement(App\Models\Mobile\Sound::query()->pluck('id')->all()),
-                'mobile_artwork_id' => $this->faker->randomElement(App\Models\Mobile\Artwork::query()->pluck('id')->all()),
-                'mobile_sound_id' => $this->faker->randomElement(App\Models\Mobile\Sound::query()->pluck('id')->all()),
-                'weight' => $this->faker->randomDigit,
+                'id' => fake()->unique()->randomNumber(4),
+                'tour_id' => fake()->randomElement(App\Models\Mobile\Sound::query()->pluck('id')->all()),
+                'mobile_artwork_id' => fake()->randomElement(App\Models\Mobile\Artwork::query()->pluck('id')->all()),
+                'mobile_sound_id' => fake()->randomElement(App\Models\Mobile\Sound::query()->pluck('id')->all()),
+                'weight' => fake()->randomDigit,
             ]
         );
     }

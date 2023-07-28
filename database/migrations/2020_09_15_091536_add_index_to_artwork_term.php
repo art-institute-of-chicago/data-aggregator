@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIndexToArtworkTerm extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -29,4 +28,4 @@ class AddIndexToArtworkTerm extends Migration
             $table->dropIndex(['artwork_citi_id', 'term_lake_uid']);
         });
     }
-}
+};

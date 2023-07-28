@@ -11,10 +11,10 @@ class SiteFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(4),
-            'title' => ucfirst($this->faker->words(3, true)),
-            'description' => $this->faker->paragraph(5),
-            'web_url' => $this->faker->url,
+            'id' => fake()->unique()->randomNumber(4),
+            'title' => ucfirst(fake()->words(3, true)),
+            'description' => fake()->paragraph(5),
+            'web_url' => fake()->url,
         ];
     }
 }

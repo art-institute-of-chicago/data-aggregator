@@ -75,7 +75,7 @@ $config = [
             'charset' => 'utf8',
             'prefix' => env('DB_PREFIX', ''),
             'prefix_indexes' => true,
-            'schema' => 'public',
+            'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
 
@@ -90,6 +90,8 @@ $config = [
             'charset' => 'utf8',
             'prefix' => env('DB_PREFIX', ''),
             'prefix_indexes' => true,
+            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
+            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
     ],
 
@@ -105,20 +107,6 @@ $config = [
     */
 
     'migrations' => 'migrations',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Column Types
-    |--------------------------------------------------------------------------
-    | This allows for modifying `timestamp` columns in migrations.
-    | See https://laravel.com/docs/8.x/migrations#prerequisites.
-    */
-
-    'dbal' => [
-        'types' => [
-            'timestamp' => TimestampType::class,
-        ],
-    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -143,6 +131,7 @@ $config = [
         'default' => [
             'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
+            'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_DB', '0'),
@@ -151,6 +140,7 @@ $config = [
         'cache' => [
             'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
+            'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_CACHE_DB', '1'),

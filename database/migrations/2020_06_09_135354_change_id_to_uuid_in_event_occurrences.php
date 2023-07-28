@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeIdToUuidInEventOccurrences extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -39,4 +38,4 @@ class ChangeIdToUuidInEventOccurrences extends Migration
             $table->increments('id')->change();
         });
     }
-}
+};

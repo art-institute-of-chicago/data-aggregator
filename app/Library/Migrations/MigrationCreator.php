@@ -35,13 +35,15 @@ class MigrationCreator extends BaseMigrationCreator
         return $this->files->get($stubPath);
     }
 
-    protected function populateStub($name, $stub, $table)
+    protected function populateStub($stub, $table)
     {
-        $stub = str_replace(
-            ['DummyClass', '{{ class }}', '{{class}}'],
-            $this->getClassName($name),
-            $stub
-        );
+        if (! is_null($table)) {
+            $stub = str_replace(
+                ['DummyTable', '{{ table }}', '{{table}}'],
+                $table,
+                $stub
+            );
+        }
 
         if (!empty($this->stubPopulator)) {
             $stub = ($this->stubPopulator)($stub);

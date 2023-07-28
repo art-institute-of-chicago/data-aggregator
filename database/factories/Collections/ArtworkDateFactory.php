@@ -9,13 +9,13 @@ class ArtworkDateFactory extends CollectionsFactory
     public function definition()
     {
         return array_merge(
-            $this->idsAndTitle($this->faker->word . ' date', true),
+            $this->idsAndTitle(fake()->word . ' date', true),
             [
-                'artwork_id' => $this->faker->randomElement(App\Models\Collections\Artwork::query()->pluck('id')->all()),
-                'date_earliest' => $this->faker->dateTimeAd,
-                'date_latest' => $this->faker->dateTimeAd,
-                'artwork_date_qualifier_id' => $this->faker->randomElement(App\Models\Collections\ArtworkDateQualifier::query()->pluck('id')->all()),
-                'is_preferred' => $this->faker->boolean,
+                'artwork_id' => fake()->randomElement(App\Models\Collections\Artwork::query()->pluck('id')->all()),
+                'date_earliest' => fake()->dateTimeAd,
+                'date_latest' => fake()->dateTimeAd,
+                'artwork_date_qualifier_id' => fake()->randomElement(App\Models\Collections\ArtworkDateQualifier::query()->pluck('id')->all()),
+                'is_preferred' => fake()->boolean,
             ]
         );
     }

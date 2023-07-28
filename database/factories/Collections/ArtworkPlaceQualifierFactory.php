@@ -8,6 +8,6 @@ class ArtworkPlaceQualifierFactory extends CollectionsFactory
 
     public function definition()
     {
-        return $this->idsAndTitle('Object ' . $this->faker->word(1) . ' in', true, 2);
+        return $this->idsAndTitle('Object ' . fake()->word(1) . ' in', true, 2);
     }
 }

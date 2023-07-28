@@ -9,13 +9,13 @@ class GalleryFactory extends CollectionsFactory
     public function definition()
     {
         return array_merge(
-            $this->idsAndTitle($this->faker->randomElement(['Gallery ' . $this->faker->unique()->randomNumber(3), $this->faker->lastName . ' ' . $this->faker->randomElement(['Hall', 'Building', 'Memorial Garden', 'Reading Room', 'Study Room'])]), true, 6),
+            $this->idsAndTitle(fake()->randomElement(['Gallery ' . fake()->unique()->randomNumber(3), fake()->lastName . ' ' . fake()->randomElement(['Hall', 'Building', 'Memorial Garden', 'Reading Room', 'Study Room'])]), true, 6),
             [
-                'is_closed' => $this->faker->boolean(25),
-                'number' => $this->faker->randomNumber(3) . ($this->faker->boolean(25) ? 'A' : ''),
-                'floor' => $this->faker->randomElement([1, 2, 3, 'LL']),
-                'latitude' => $this->faker->latitude,
-                'longitude' => $this->faker->longitude,
+                'is_closed' => fake()->boolean(25),
+                'number' => fake()->randomNumber(3) . (fake()->boolean(25) ? 'A' : ''),
+                'floor' => fake()->randomElement([1, 2, 3, 'LL']),
+                'latitude' => fake()->latitude,
+                'longitude' => fake()->longitude,
             ],
             $this->dates(true)
         );

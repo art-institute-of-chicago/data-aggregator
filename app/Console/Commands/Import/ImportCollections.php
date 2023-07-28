@@ -14,7 +14,7 @@ class ImportCollections extends ImportCollectionsFull
 
     public function handle()
     {
-        $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.collections');
 
         $endpoint = $this->argument('endpoint');
 

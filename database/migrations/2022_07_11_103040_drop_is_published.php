@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropIsPublished extends Migration
-{
+return new class () extends Migration {
     public function up()
     {
         foreach ([
@@ -93,4 +92,4 @@ class DropIsPublished extends Migration
             $table->boolean('is_published')->after('date_display');
         });
     }
-}
+};

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CleanWebArtists extends Migration
-{
+return new class () extends Migration {
     public function up()
     {
         Schema::table('web_artists', function (Blueprint $table) {
@@ -38,4 +37,4 @@ class CleanWebArtists extends Migration
             $table->renameColumn('agent_id', 'datahub_id');
         });
     }
-}
+};

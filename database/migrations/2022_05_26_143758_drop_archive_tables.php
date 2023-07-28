@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropArchiveTables extends Migration
-{
+return new class () extends Migration {
     public function up()
     {
         Schema::dropIfExists('archival_images');
@@ -44,4 +43,4 @@ class DropArchiveTables extends Migration
             $table->timestamp('updated_at')->nullable()->index();
         });
     }
-}
+};

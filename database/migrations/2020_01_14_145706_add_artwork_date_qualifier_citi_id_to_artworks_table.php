@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddArtworkDateQualifierCitiIdToArtworksTable extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -29,4 +28,4 @@ class AddArtworkDateQualifierCitiIdToArtworksTable extends Migration
             $table->dropColumn(['artwork_date_qualifier_citi_id']);
         });
     }
-}
+};

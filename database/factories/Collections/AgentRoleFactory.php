@@ -8,6 +8,6 @@ class AgentRoleFactory extends CollectionsFactory
 
     public function definition()
     {
-        return $this->idsAndTitle($this->faker->words(3, true), true, 2);
+        return $this->idsAndTitle(fake()->words(3, true), true, 2);
     }
 }

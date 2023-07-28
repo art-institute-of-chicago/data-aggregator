@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJournalIssueTables extends Migration
-{
+return new class () extends Migration {
     public function up()
     {
         Schema::create('issues', function (Blueprint $table) {
@@ -42,4 +41,4 @@ class CreateJournalIssueTables extends Migration
         Schema::dropIfExists('issues');
         Schema::dropIfExists('issue_articles');
     }
-}
+};

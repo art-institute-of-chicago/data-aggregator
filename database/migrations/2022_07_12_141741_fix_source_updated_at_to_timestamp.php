@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class FixSourceUpdatedAtToTimestamp extends Migration
-{
+return new class () extends Migration {
     private $tableNames = [
         'agent_place_qualifiers',
         'agent_roles',
@@ -59,4 +58,4 @@ class FixSourceUpdatedAtToTimestamp extends Migration
             });
         }
     }
-}
+};

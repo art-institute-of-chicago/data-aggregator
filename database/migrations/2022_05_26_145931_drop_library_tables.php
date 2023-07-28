@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropLibraryTables extends Migration
-{
+return new class () extends Migration {
     public function up()
     {
         Schema::dropIfExists('library_material_creator');
@@ -48,4 +47,4 @@ class DropLibraryTables extends Migration
             $table->timestamp('updated_at')->nullable()->index();
         });
     }
-}
+};

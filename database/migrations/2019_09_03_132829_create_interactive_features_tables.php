@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInteractiveFeaturesTables extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -50,4 +49,4 @@ class CreateInteractiveFeaturesTables extends Migration
         Schema::dropIfExists('interactive_features');
         Schema::dropIfExists('experiences');
     }
-}
+};

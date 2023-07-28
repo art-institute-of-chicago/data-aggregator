@@ -526,7 +526,7 @@ class Artwork extends BaseTransformer
                     'default' => true,
                     'mapping' => $this->getDefaultStringMapping(true),
                     // This is controllable via .env so we can tweak it without pushing to prod
-                    'boost' => (float) (env('SEARCH_BOOST_ARTIST_TITLES') ?: 2),
+                    'boost' => (float) (config('aic.search.boost_artist_titles') ?: 2),
                 ],
                 'value' => function ($item) {
                     return $item->artists->pluck('title');

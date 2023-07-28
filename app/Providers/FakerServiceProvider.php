@@ -16,26 +16,17 @@ class FakerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('Faker', function ($app) {
-            $faker = \Faker\Factory::create();
 
-            // This illustrates how to add custom Faker providers
-            $newProvider = new class ($faker) extends \Faker\Provider\Base {
-                // Used in Collections\Artwork and Dsc\Section
-                public function accession()
-                {
-                    return (string) ($this->generator->randomFloat(3, 1900, 2018));
-                }
-            };
-
-            $faker->addProvider($newProvider);
-
-            return $faker;
-        });
-
-        // This forces factories to use our enhanced Faker by default
-        $this->app->singleton('Faker\Generator', function ($app) {
-            return app('Faker');
+        $this->app->afterResolving(function (mixed $instance) {
+            if ($instance instanceof \Faker\Generator) {
+                $instance->addProvider(new class () {
+                    // Used in Collections\Artwork and Dsc\Section
+                    public function accession()
+                    {
+                        return (string) (fake()->randomFloat(3, 1900, 2018));
+                    }
+                });
+            }
         });
     }
 }

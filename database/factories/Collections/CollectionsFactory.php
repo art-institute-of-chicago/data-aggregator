@@ -12,7 +12,7 @@ abstract class CollectionsFactory extends Factory
 
         if ($citiField) {
             $ret = [
-                'id' => $this->faker->unique()->randomNumber($idLength),
+                'id' => fake()->unique()->randomNumber($idLength),
             ];
         }
 
@@ -27,7 +27,7 @@ abstract class CollectionsFactory extends Factory
     public function dates($citiField = false)
     {
         $ret = [
-            'source_updated_at' => $this->faker->dateTimeThisYear,
+            'source_updated_at' => fake()->dateTimeThisYear,
         ];
 
         return $ret;

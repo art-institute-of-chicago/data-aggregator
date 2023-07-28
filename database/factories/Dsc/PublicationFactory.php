@@ -11,7 +11,7 @@ class PublicationFactory extends DscFactory
         return array_merge(
             $this->dscIdsAndTitle(),
             [
-                'web_url' => $this->faker->url,
+                'web_url' => fake()->url,
             ]
         );
     }

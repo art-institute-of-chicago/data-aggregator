@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropSupportAatIdFromArtworks extends Migration
-{
+return new class () extends Migration {
     public function up()
     {
         Schema::table('artworks', function (Blueprint $table) {
@@ -21,4 +20,4 @@ class DropSupportAatIdFromArtworks extends Migration
             $table->integer('support_aat_id')->signed()->nullable()->after('medium_display');
         });
     }
-}
+};

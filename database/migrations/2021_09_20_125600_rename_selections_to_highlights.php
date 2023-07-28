@@ -3,8 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
-class RenameSelectionsToHighlights extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -24,4 +23,4 @@ class RenameSelectionsToHighlights extends Migration
     {
         Schema::rename('highlights', 'selections');
     }
-}
+};

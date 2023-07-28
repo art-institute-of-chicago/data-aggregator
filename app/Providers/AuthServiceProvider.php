@@ -3,13 +3,17 @@
 namespace App\Providers;
 
 use App\Http\Middleware\TrustProxies;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as BaseServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends BaseServiceProvider
 {
+    /**
+     * The model to policy mappings for the application.
+     *
+     * @var array<class-string, class-string>
+     */
     protected $policies = [
         'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];

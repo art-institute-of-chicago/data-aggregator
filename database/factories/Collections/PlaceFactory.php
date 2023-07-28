@@ -9,10 +9,10 @@ class PlaceFactory extends CollectionsFactory
     public function definition()
     {
         return array_merge(
-            $this->idsAndTitle($this->faker->country, true),
+            $this->idsAndTitle(fake()->country, true),
             [
-                'latitude' => $this->faker->latitude,
-                'longitude' => $this->faker->longitude,
+                'latitude' => fake()->latitude,
+                'longitude' => fake()->longitude,
             ],
             $this->dates(true)
         );

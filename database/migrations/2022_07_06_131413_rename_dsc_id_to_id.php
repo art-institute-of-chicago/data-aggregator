@@ -2,8 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-class RenameDscIdToId extends RenameColumnMigration
-{
+return new class () extends RenameColumnMigration {
     protected $columns = [
         'publications' => [
             'dsc_id' => 'id',
@@ -19,4 +18,4 @@ class RenameDscIdToId extends RenameColumnMigration
             'sections_publication_dsc_id_index' => 'sections_publication_id_index',
         ],
     ];
-}
+};

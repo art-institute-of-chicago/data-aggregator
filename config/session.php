@@ -14,7 +14,7 @@ return [
     | you may specify any of the other wonderful drivers provided here.
     |
     | Supported: "file", "cookie", "database", "apc",
-    |            "memcached", "redis", "array"
+    |            "memcached", "redis", "dynamodb", "array"
     |
     */
 
@@ -72,7 +72,7 @@ return [
     |
     */
 
-    'connection' => null,
+    'connection' => env('SESSION_CONNECTION'),
 
     /*
     |--------------------------------------------------------------------------
@@ -93,14 +93,14 @@ return [
     |--------------------------------------------------------------------------
     |
     | While using one of the framework's cache driven session backends you may
-    | cache store that should be used for these sessions. This value must
-    | correspond with one of the application's configured cache stores.
+    | list a cache store that should be used for these sessions. This value
+    | must match with one of the application's configured cache "stores".
     |
     | Affects: "apc", "dynamodb", "memcached", "redis"
     |
     */
 
-    'store' => env('SESSION_STORE', null),
+    'store' => env('SESSION_STORE'),
 
     /*
     |--------------------------------------------------------------------------
@@ -128,7 +128,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'laravel'), '_') . '_session'
+        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
     ),
 
     /*
@@ -155,7 +155,7 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN', null),
+    'domain' => env('SESSION_DOMAIN'),
 
     /*
     |--------------------------------------------------------------------------
@@ -164,11 +164,11 @@ return [
     |
     | By setting this option to true, session cookies will only be sent back
     | to the server if the browser has a HTTPS connection. This will keep
-    | the cookie from being sent to you if it can not be done securely.
+    | the cookie from being sent to you when it can't be done securely.
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE', null),
+    'secure' => env('SESSION_SECURE_COOKIE'),
 
     /*
     |--------------------------------------------------------------------------

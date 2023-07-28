@@ -25,7 +25,7 @@ class ImportMobile extends AbstractImportCommand
     {
         if (!$this->option('no-download')) {
             $this->info('Retrieving events JSON from artic.edu');
-            $contents = $this->fetch(env('MOBILE_JSON'));
+            $contents = $this->fetch(config('resources.sources.mobile'));
             Storage::disk('local')->put($this->filename, $contents);
         }
 
@@ -77,7 +77,7 @@ class ImportMobile extends AbstractImportCommand
             $sound->id = $id;
             $sound->title = $datum->title;
 
-            $sound->web_url = env('MOBILE_AUDIO_CDN_URL') . array_slice(explode('/', $datum->audio_file_url), -1)[0];
+            $sound->web_url = config('aic.mobile.audio_cdn_url') . array_slice(explode('/', $datum->audio_file_url), -1)[0];
             $sound->transcript = $this->convertToHtml($datum->audio_transcript);
 
             // Sounds are attached to Artworks on the Artwork side

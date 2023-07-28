@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIndexToNetxUuidOnAssets extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -30,8 +29,12 @@ class AddIndexToNetxUuidOnAssets extends Migration
      */
     public function down()
     {
+        if (App::environment('testing')) {
+            return;
+        }
+
         Schema::table('assets', function (Blueprint $table) {
             $table->dropIndex(['netx_uuid']);
         });
     }
-}
+};

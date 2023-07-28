@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropSponsors extends Migration
-{
+return new class () extends Migration {
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
@@ -30,4 +29,4 @@ class DropSponsors extends Migration
             $table->timestamps();
         });
     }
-}
+};

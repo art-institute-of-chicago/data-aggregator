@@ -30,7 +30,7 @@ class ImportAssetsOne extends ImportAssetsFull
 
     private function fetchItem($endpoint, $id)
     {
-        $url = env('ASSETS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
+        $url = config('resources.sources.assets') . '/' . $endpoint . '/' . $id;
 
         $this->info('Fetching: ' . $url);
 

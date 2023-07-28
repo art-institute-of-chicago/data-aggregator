@@ -11,8 +11,8 @@ class ArtistFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(4),
-            'agent_id' => $this->faker->unique()->randomNumber(4),
+            'id' => fake()->unique()->randomNumber(4),
+            'agent_id' => fake()->unique()->randomNumber(4),
         ];
     }
 }
