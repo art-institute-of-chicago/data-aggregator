@@ -6,7 +6,7 @@ class SoundFactory extends MobileFactory
 {
     protected $model = \App\Models\Mobile\Sound::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
             $this->mobileAppIdsAndTitle(),

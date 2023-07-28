@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MembershipFactory extends Factory
 {
-    public function membershipIdsAndTitle($title = '')
+    public function membershipIdsAndTitle($title = ''): array
     {
         return [
             'id' => fake()->unique()->randomNumber(5),
@@ -14,14 +14,14 @@ class MembershipFactory extends Factory
         ];
     }
 
-    public function membershipDates()
+    public function membershipDates(): array
     {
         return [
             'source_updated_at' => fake()->dateTimeThisYear,
         ];
     }
 
-    public function definition()
+    public function definition(): array
     {
         $has_capacity = rand(0, 1) === 1;
 

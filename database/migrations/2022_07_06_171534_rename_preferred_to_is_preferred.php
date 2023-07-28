@@ -50,7 +50,7 @@ return new class () extends RenameColumnMigration {
         'artwork_dates',
     ];
 
-    public function up()
+    public function up(): void
     {
         parent::up();
 
@@ -61,7 +61,7 @@ return new class () extends RenameColumnMigration {
         }
     }
 
-    public function down()
+    public function down(): void
     {
         parent::down();
 

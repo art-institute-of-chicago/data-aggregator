@@ -8,7 +8,7 @@ class TourFactory extends MobileFactory
 {
     protected $model = \App\Models\Mobile\Tour::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
             $this->mobileAppIdsAndTitle(),

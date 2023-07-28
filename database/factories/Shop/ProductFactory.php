@@ -6,7 +6,7 @@ class ProductFactory extends ShopFactory
 {
     protected $model = \App\Models\Shop\Product::class;
 
-    public function definition()
+    public function definition(): array
     {
         $part1 = ucwords(fake()->words(2, true));
         $part2 = ucwords(fake()->words(2, true));

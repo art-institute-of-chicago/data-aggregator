@@ -4,17 +4,16 @@ namespace App\Http\Middleware;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DecodeParams
 {
     /**
      * WEB-979: This middleware is a work-around for `http_build_query` and its many
      * quirks. You can pass any API params as a JSON string via the `params` param.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         $params = $request->get('params');
 

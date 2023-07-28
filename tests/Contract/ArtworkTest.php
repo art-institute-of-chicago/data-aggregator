@@ -29,7 +29,7 @@ class ArtworkTest extends ContractTestCase
     /** @test
      * List of fields taken from https://docs.google.com/spreadsheets/d/1F8YkAb-xaAAfsuWtXmll84nthfsfbBnxm4yU3lX0uLY
      */
-    public function it_fetches_fields_used_by_mobile()
+    public function it_fetches_fields_used_by_mobile(): void
     {
         $this->it_fetches_fields([
             'title',
@@ -54,7 +54,7 @@ class ArtworkTest extends ContractTestCase
      * * Access a page and watch the log
      * * After the page is done loading, the log will dump all the fields requests for each API model
      */
-    public function it_fetches_fields_used_on_website_home_page()
+    public function it_fetches_fields_used_on_website_home_page(): void
     {
         $this->it_fetches_fields(
             [
@@ -71,7 +71,7 @@ class ArtworkTest extends ContractTestCase
     }
 
     /** @test */
-    public function it_fetches_fields_used_on_website_collection_landing_page()
+    public function it_fetches_fields_used_on_website_collection_landing_page(): void
     {
         $this->it_fetches_fields([
             'main_reference_number',
@@ -84,7 +84,7 @@ class ArtworkTest extends ContractTestCase
     }
 
     /** @test */
-    public function it_fetches_fields_used_on_website_artwork_detail_page()
+    public function it_fetches_fields_used_on_website_artwork_detail_page(): void
     {
         $this->it_fetches_fields(
             [
@@ -136,7 +136,7 @@ class ArtworkTest extends ContractTestCase
     }
 
     /** @test */
-    public function it_fetches_fields_used_on_website_artist_detail_page()
+    public function it_fetches_fields_used_on_website_artist_detail_page(): void
     {
         $this->it_fetches_fields(
             [
@@ -154,7 +154,7 @@ class ArtworkTest extends ContractTestCase
     }
 
     /** @test */
-    public function it_fetches_fields_used_on_website_article_page_with_artwork_block_and_gallery()
+    public function it_fetches_fields_used_on_website_article_page_with_artwork_block_and_gallery(): void
     {
         $this->it_fetches_fields([
             'image_id',

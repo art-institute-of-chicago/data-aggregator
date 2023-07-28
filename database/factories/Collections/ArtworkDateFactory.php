@@ -6,7 +6,7 @@ class ArtworkDateFactory extends CollectionsFactory
 {
     protected $model = \App\Models\Collections\ArtworkDate::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
             $this->idsAndTitle(fake()->word . ' date', true),

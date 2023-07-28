@@ -10,7 +10,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('artwork_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
@@ -245,7 +245,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('artwork_types');
         Schema::dropIfExists('agent_types');

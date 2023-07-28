@@ -5,14 +5,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::table('artworks', function (Blueprint $table) {
             $table->json('dimensions_detail')->nullable();
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('artworks', function (Blueprint $table) {
             $table->dropColumn('dimensions_detail');

@@ -10,7 +10,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('sites', function (Blueprint $table) {
             $table->integer('site_id')->unsigned()->primary();
@@ -44,7 +44,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('artwork_site');
         Schema::dropIfExists('agent_site');

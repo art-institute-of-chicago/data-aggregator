@@ -13,7 +13,7 @@ return new class () extends Migration {
         'ticketed_events' => 'total_capacity',
     ];
 
-    public function up()
+    public function up(): void
     {
         foreach ($this->tables as $tableName => $afterColumn) {
             Schema::table($tableName, function (Blueprint $table) {
@@ -22,7 +22,7 @@ return new class () extends Migration {
         }
     }
 
-    public function down()
+    public function down(): void
     {
         foreach ($this->tables as $tableName => $afterColumn) {
             Schema::table($tableName, function (Blueprint $table) use ($afterColumn) {

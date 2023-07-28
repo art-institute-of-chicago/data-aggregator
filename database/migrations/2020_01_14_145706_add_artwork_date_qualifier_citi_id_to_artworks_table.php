@@ -10,7 +10,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('artworks', function (Blueprint $table) {
             $table->integer('artwork_date_qualifier_citi_id')->default(null)->nullable();
@@ -22,7 +22,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('artworks', function (Blueprint $table) {
             $table->dropColumn(['artwork_date_qualifier_citi_id']);

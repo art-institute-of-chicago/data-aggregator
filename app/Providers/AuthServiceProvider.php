@@ -15,10 +15,10 @@ class AuthServiceProvider extends BaseServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        'App\Models\Model' => 'App\Policies\ModelPolicy',
+        //
     ];
 
-    public function boot()
+    public function boot(): void
     {
         // API-189: Gate gets called before middleware initializes!
         $temp = new TrustProxies(config());

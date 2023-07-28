@@ -5,12 +5,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::dropIfExists('closures');
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::create('closures', function (Blueprint $table) {
             $table->increments('id');

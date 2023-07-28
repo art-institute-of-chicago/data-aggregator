@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->dropColumn(['publish_start_date', 'publish_end_date']);
@@ -52,7 +52,7 @@ return new class () extends Migration {
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->dateTime('publish_start_date')->nullable()->after('is_published');

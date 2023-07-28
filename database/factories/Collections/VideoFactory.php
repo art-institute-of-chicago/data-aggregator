@@ -6,7 +6,7 @@ class VideoFactory extends AssetFactory
 {
     protected $model = \App\Models\Collections\Video::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
             parent::definition(),

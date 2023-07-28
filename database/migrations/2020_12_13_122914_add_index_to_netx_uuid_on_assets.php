@@ -10,7 +10,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         // TODO: Creating indexes isn't friendly with SQLite
         if (App::environment('testing')) {
@@ -27,7 +27,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         if (App::environment('testing')) {
             return;

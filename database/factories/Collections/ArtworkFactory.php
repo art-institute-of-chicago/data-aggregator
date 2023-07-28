@@ -11,7 +11,7 @@ class ArtworkFactory extends CollectionsFactory
 {
     protected $model = \App\Models\Collections\Artwork::class;
 
-    public function definition()
+    public function definition(): array
     {
         $date_end = fake()->year;
         $artist = Agent::where('agent_type_id', AgentType::where('title', 'Individual')->first()->id)->get()->random();

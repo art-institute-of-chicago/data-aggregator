@@ -1,4 +1,5 @@
-# Laravel 9.x Defaults
+# Laravel 10.x Defaults
+/.phpunit.cache
 /node_modules
 /public/build
 /public/hot

@@ -6,7 +6,7 @@ class ArtworkTermFactory extends CollectionsFactory
 {
     protected $model = \App\Models\Collections\ArtworkTerm::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'artwork_id' => fake()->randomElement(App\Models\Collections\Artwork::query()->pluck('id')->all()),

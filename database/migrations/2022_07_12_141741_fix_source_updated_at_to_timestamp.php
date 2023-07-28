@@ -41,7 +41,7 @@ return new class () extends Migration {
         'web_exhibitions',
     ];
 
-    public function up()
+    public function up(): void
     {
         foreach ($this->tableNames as $tableName) {
             Schema::table($tableName, function (Blueprint $table) {
@@ -50,7 +50,7 @@ return new class () extends Migration {
         }
     }
 
-    public function down()
+    public function down(): void
     {
         foreach ($this->tableNames as $tableName) {
             Schema::table($tableName, function (Blueprint $table) {

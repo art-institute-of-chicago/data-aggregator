@@ -10,7 +10,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('shop_categories', function (Blueprint $table) {
             $table = $this->_addId($table);
@@ -52,7 +52,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('products');
         Schema::dropIfExists('shop_categories');

@@ -6,7 +6,7 @@ class PublicationFactory extends DscFactory
 {
     protected $model = \App\Models\Dsc\Publication::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
             $this->dscIdsAndTitle(),

@@ -10,7 +10,7 @@ return new class () extends Migration {
         'library_material_subject',
     ];
 
-    public function up()
+    public function up(): void
     {
         Schema::create('library_materials', function (Blueprint $table) {
             $table->string('id')->primary();
@@ -36,7 +36,7 @@ return new class () extends Migration {
         }
     }
 
-    public function down()
+    public function down(): void
     {
         foreach ($this->material_terms as $material_term) {
             Schema::dropIfExists($material_term);

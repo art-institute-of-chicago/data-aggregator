@@ -3,6 +3,17 @@
 use App\Http\Controllers\LinkedArtController;
 use App\Http\Controllers\LinkedArtSearchController;
 
+/*
+|--------------------------------------------------------------------------
+| Linked Art Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register Linked Art routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "la" middleware group. Make something great!
+|
+*/
+
 app('url')->forceRootUrl(config('aic.proxy_url'));
 app('url')->forceScheme(config('aic.proxy_scheme'));
 

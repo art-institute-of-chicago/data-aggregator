@@ -5,6 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Routing\Middleware\ThrottleRequests as BaseMiddleware;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class ThrottleRequests extends BaseMiddleware
 {
@@ -14,7 +17,7 @@ class ThrottleRequests extends BaseMiddleware
      * The function signature has to stay the same, but the extra parameters are ignored.
      * If the app is unrestricted or the user is logged in keep their throttle clear.
      */
-    public function handle($request, Closure $next, $maxAttempts = 60, $decayMinutes = 1)
+    public function handle($request, Closure $next, $maxAttempts = 60, $decayMinutes = 1, $prefix = ''): Response
     {
         if (Gate::allows('restricted-access')) {
             $key = $this->resolveRequestSignature($request);

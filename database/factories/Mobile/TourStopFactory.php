@@ -6,7 +6,7 @@ class TourStopFactory extends MobileFactory
 {
     protected $model = \App\Models\Mobile\TourStop::class;
 
-    public function definition()
+    public function definition(): array
     {
         static $artworks;
 

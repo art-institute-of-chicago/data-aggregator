@@ -29,7 +29,7 @@ class ArtworkTest extends TestCase
     }
 
     /** @test */
-    public function it_fetches_the_gallery_for_an_artwork()
+    public function it_fetches_the_gallery_for_an_artwork(): void
     {
         $gallery = $this->make(Gallery::class, ['is_closed' => false]);
         $galleryKey = $gallery->getAttributeValue($gallery->getKeyName());
@@ -48,7 +48,7 @@ class ArtworkTest extends TestCase
     }
 
     /** @test */
-    public function it_fetches_artwork_linked_art_endpoint()
+    public function it_fetches_artwork_linked_art_endpoint(): void
     {
         $artworkType = $this->make(ArtworkType::class, ['aat_id' => '300033618', 'title' => 'Painting']);
         $artworkTypeKey = $artworkType->getAttributeValue($artworkType->getKeyName());
@@ -69,7 +69,7 @@ class ArtworkTest extends TestCase
     }
 
     /** @test */
-    public function it_fetches_multiple_artwork_linked_art_endpoint()
+    public function it_fetches_multiple_artwork_linked_art_endpoint(): void
     {
         $artwork1Type = $this->make(ArtworkType::class, ['aat_id' => '300033618', 'title' => 'Painting']);
         $artwork1TypeKey = $artwork1Type->getAttributeValue($artwork1Type->getKeyName());
