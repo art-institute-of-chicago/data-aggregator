@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SearchController as BaseController;
