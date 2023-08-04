@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
         config(['elasticsearch.defaultConnection' => 'testing']);
     }
 
-    protected function assertArrayHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
+    protected function assertArrayHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false): void
     {
         // Standardize $resources into an array of multiple objects
         if (!$arrayIsMultipleObjects) {
@@ -36,7 +36,7 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    protected function assertArrayNotHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false)
+    protected function assertArrayNotHasKeys($resources = [], $keys = [], $arrayIsMultipleObjects = false): void
     {
         // Standardize $resources into an array of multiple objects
         if (!$arrayIsMultipleObjects) {
@@ -50,7 +50,7 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    protected function debug($output)
+    protected function debug($output): void
     {
         fwrite(STDERR, 'DEBUG: ' . print_r($output, true) . "\n");
     }

@@ -10,7 +10,7 @@ class SectionFactory extends DscFactory
 {
     protected $model = Section::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
             $this->dscIdsAndTitle(),

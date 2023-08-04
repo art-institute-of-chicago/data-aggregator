@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::dropIfExists('library_material_creator');
         Schema::dropIfExists('library_material_subject');
@@ -13,7 +13,7 @@ return new class () extends Migration {
         Schema::dropIfExists('library_terms');
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::create('library_material_creator', function (Blueprint $table) {
             $table->increments('id');

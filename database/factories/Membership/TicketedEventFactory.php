@@ -6,7 +6,7 @@ class TicketedEventFactory extends MembershipFactory
 {
     protected $model = \App\Models\Membership\TicketedEvent::class;
 
-    public function definition()
+    public function definition(): array
     {
         $has_capacity = rand(0, 1) === 1;
 

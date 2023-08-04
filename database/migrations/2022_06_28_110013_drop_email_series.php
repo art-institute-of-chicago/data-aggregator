@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::table('events', function (Blueprint $table) {
             $table->dropColumn('test_emails');
@@ -16,7 +16,7 @@ return new class () extends Migration {
         Schema::dropIfExists('event_email_series');
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('events', function (Blueprint $table) {
             $table->text('test_emails')->nullable()->after('image_url');

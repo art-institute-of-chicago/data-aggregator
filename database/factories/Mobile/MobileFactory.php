@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 abstract class MobileFactory extends Factory
 {
-    public function mobileAppIdsAndTitle($title = '')
+    public function mobileAppIdsAndTitle($title = ''): array
     {
         return [
             'id' => fake()->unique()->randomNumber(4),

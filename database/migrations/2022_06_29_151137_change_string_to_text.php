@@ -120,7 +120,7 @@ return new class () extends Migration {
         ],
     ];
 
-    public function up()
+    public function up(): void
     {
         foreach ($this->fields as $tableName => $fieldNames) {
             Schema::table($tableName, function (Blueprint $table) use ($fieldNames) {
@@ -131,7 +131,7 @@ return new class () extends Migration {
         }
     }
 
-    public function down()
+    public function down(): void
     {
         foreach ($this->fields as $tableName => $fieldNames) {
             Schema::table($tableName, function (Blueprint $table) use ($fieldNames) {

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 abstract class DscFactory extends Factory
 {
-    public function dscIdsAndTitle($id = '')
+    public function dscIdsAndTitle($id = ''): array
     {
         return [
             'id' => $id ?: fake()->unique()->randomNumber(4),

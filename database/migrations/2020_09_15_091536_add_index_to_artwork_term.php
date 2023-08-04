@@ -10,7 +10,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('artwork_term', function (Blueprint $table) {
             $table->index(['artwork_citi_id', 'term_lake_uid']);
@@ -22,7 +22,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('artwork_term', function (Blueprint $table) {
             $table->dropIndex(['artwork_citi_id', 'term_lake_uid']);

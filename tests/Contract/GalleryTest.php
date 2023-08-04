@@ -11,7 +11,7 @@ class GalleryTest extends ContractTestCase
     /** @test
      * List of fields taken from https://docs.google.com/spreadsheets/d/1F8YkAb-xaAAfsuWtXmll84nthfsfbBnxm4yU3lX0uLY
      */
-    public function it_fetches_fields_used_by_mobile()
+    public function it_fetches_fields_used_by_mobile(): void
     {
         $this->it_fetches_fields([
             'title',

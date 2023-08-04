@@ -20,7 +20,7 @@ return new class () extends Migration {
         $this->schema = Schema::connection('userdata');
     }
 
-    public function up()
+    public function up(): void
     {
         $this->schema->dropIfExists('users');
         $this->schema->dropIfExists('oauth_auth_codes');
@@ -35,7 +35,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         $this->schema->create('users', function (Blueprint $table) {
             $table->increments('id');

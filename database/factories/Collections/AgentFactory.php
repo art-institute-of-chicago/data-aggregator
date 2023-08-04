@@ -8,7 +8,7 @@ class AgentFactory extends CollectionsFactory
 {
     protected $model = \App\Models\Collections\Agent::class;
 
-    public function definition()
+    public function definition(): array
     {
         $first_name = fake()->firstName;
         $last_name = fake()->lastName;

@@ -8,7 +8,7 @@ class GenericPageFactory extends Factory
 {
     protected $model = \App\Models\Web\GenericPage::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'id' => fake()->unique()->randomNumber(4),

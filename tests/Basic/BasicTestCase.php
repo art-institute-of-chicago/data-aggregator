@@ -56,7 +56,7 @@ abstract class BasicTestCase extends TestCase
     }
 
     /** @test */
-    public function it_400s_if_nonnumerid_nonuuid_is_passed()
+    public function it_400s_if_nonnumerid_nonuuid_is_passed(): void
     {
         $class = $this->model();
         $endpoint = $this->route($class);
@@ -74,7 +74,7 @@ abstract class BasicTestCase extends TestCase
      * WEB-1382, WEB-1189: If the user is authenticated, or the restrictions are removed,
      * then it won't error out. It'll just 200. Removing this test for now.
      */
-    public function it_403s_if_limit_is_too_high()
+    public function it_403s_if_limit_is_too_high(): void
     {
         $class = $this->model();
         $endpoint = $this->route($class);
@@ -91,7 +91,7 @@ abstract class BasicTestCase extends TestCase
     // @TODO: Fix 404s tests w/ regards to id format
 
     /** @test */
-    public function it_404s_if_not_found()
+    public function it_404s_if_not_found(): void
     {
         $class = $this->model();
         $endpoint = $this->route($class);
@@ -105,7 +105,7 @@ abstract class BasicTestCase extends TestCase
         $class::query()->delete();
     }
 
-    public function it_fetches_all()
+    public function it_fetches_all(): void
     {
         $class = $this->model();
         $endpoint = $this->route($class);
@@ -127,7 +127,7 @@ abstract class BasicTestCase extends TestCase
         $class::query()->delete();
     }
 
-    public function it_fetches_a_single($extraValue = '')
+    public function it_fetches_a_single($extraValue = ''): void
     {
         $class = $this->model();
         $endpoint = $this->route($class);
@@ -146,7 +146,7 @@ abstract class BasicTestCase extends TestCase
         $class::query()->delete();
     }
 
-    public function it_fetches_multiple()
+    public function it_fetches_multiple(): void
     {
         $class = $this->model();
         $endpoint = $this->route($class);
@@ -168,7 +168,7 @@ abstract class BasicTestCase extends TestCase
     }
 
     /** @test */
-    public function it_fetches_all_with_fields()
+    public function it_fetches_all_with_fields(): void
     {
         $validFields = $this->getValidFields();
         $retrievedFields = $validFields->slice(0, 2);
@@ -192,7 +192,7 @@ abstract class BasicTestCase extends TestCase
     }
 
     /** @test */
-    public function it_fetches_a_single_with_fields()
+    public function it_fetches_a_single_with_fields(): void
     {
         $validFields = $this->getValidFields();
         $retrievedFields = $validFields->slice(0, 2);
@@ -214,7 +214,7 @@ abstract class BasicTestCase extends TestCase
     }
 
     /** @test */
-    public function it_fetches_multiple_with_fields()
+    public function it_fetches_multiple_with_fields(): void
     {
         $validFields = $this->getValidFields();
         $retrievedFields = $validFields->slice(0, 2);
@@ -239,7 +239,7 @@ abstract class BasicTestCase extends TestCase
     /** @test
      * List of fields taken from https://docs.google.com/spreadsheets/d/1F8YkAb-xaAAfsuWtXmll84nthfsfbBnxm4yU3lX0uLY
      */
-    public function it_fetches_fields_used_by_mobile_app()
+    public function it_fetches_fields_used_by_mobile_app(): void
     {
         if ($this->fieldsUsedByMobile) {
             $m = $this->model();

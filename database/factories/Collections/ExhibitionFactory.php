@@ -8,7 +8,7 @@ class ExhibitionFactory extends CollectionsFactory
 {
     protected $model = \App\Models\Collections\Exhibition::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
             $this->idsAndTitle(ucwords(fake()->words(3, true)), true),

@@ -8,7 +8,7 @@ class EventProgramFactory extends Factory
 {
     protected $model = \App\Models\Web\EventProgram::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'id' => fake()->unique()->randomNumber(4),

@@ -6,7 +6,7 @@ class TermFactory extends CollectionsFactory
 {
     protected $model = \App\Models\Collections\Term::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
             $this->idsAndTitle(ucfirst(fake()->word(3, true))),

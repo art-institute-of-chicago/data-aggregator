@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::table('events', function (Blueprint $table) {
             $table->dropColumn('sponsor_id');
@@ -14,7 +14,7 @@ return new class () extends Migration {
         Schema::dropIfExists('sponsors');
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('events', function (Blueprint $table) {
             $table->integer('sponsor_id')->nullable()->after('deleted_at');

@@ -10,7 +10,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('event_email_series', function (Blueprint $table) {
             $table->renameColumn('sustaining_fellow_copy', 'luminary_copy');
@@ -26,7 +26,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('event_email_series', function (Blueprint $table) {
             $table->renameColumn('luminary_copy', 'sustaining_fellow_copy');

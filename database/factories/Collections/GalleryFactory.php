@@ -6,7 +6,7 @@ class GalleryFactory extends CollectionsFactory
 {
     protected $model = \App\Models\Collections\Gallery::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
             $this->idsAndTitle(fake()->randomElement(['Gallery ' . fake()->unique()->randomNumber(3), fake()->lastName . ' ' . fake()->randomElement(['Hall', 'Building', 'Memorial Garden', 'Reading Room', 'Study Room'])]), true, 6),

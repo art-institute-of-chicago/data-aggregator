@@ -12,7 +12,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         foreach (EventOccurrence::cursor() as $eventOccurrence) {
             $eventOccurrence->delete();
@@ -28,7 +28,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         foreach (EventOccurrence::cursor() as $eventOccurrence) {
             $eventOccurrence->delete();

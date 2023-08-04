@@ -10,7 +10,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('ticketed_events', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
@@ -46,7 +46,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('ticketed_events');
         Schema::dropIfExists('ticketed_event_types');

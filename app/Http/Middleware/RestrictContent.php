@@ -8,6 +8,7 @@ use Closure;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 use App\Models\BaseModel;
 use App\Scopes\PublishedScope;
@@ -16,11 +17,8 @@ class RestrictContent
 {
     /**
      * Handle an incoming request.
-     *
-     * @param  string|null  $guard
-     * @return mixed
      */
-    public function handle(Request $request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next, $guard = null): Response
     {
         // Define what to show to anonymous users
         if (Gate::denies('restricted-access')) {

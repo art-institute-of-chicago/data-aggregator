@@ -16,7 +16,7 @@ class SearchServiceProvider extends ServiceProvider
     /**
      * Bootstrap the application services.
      */
-    public function boot()
+    public function boot(): void
     {
         /**
          * Override the laravel-scout-elastic package boot method so we can use
@@ -37,7 +37,7 @@ class SearchServiceProvider extends ServiceProvider
     /**
      * Register a search application service, which tracks Searchable models.
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('Search', function ($app) {
             return new class () {

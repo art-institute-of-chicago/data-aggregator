@@ -11,10 +11,8 @@ class FakerServiceProvider extends ServiceProvider
      *
      * Peruse the following link for tips on implementing custom Faker providers:
      * @link https://stackoverflow.com/questions/38250776/how-to-implement-your-own-faker-provider-in-laravel
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
 
         $this->app->afterResolving(function (mixed $instance) {
