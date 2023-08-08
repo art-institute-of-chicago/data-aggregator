@@ -37,9 +37,37 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-daily-last-run.log'));
 
-        $schedule->command('import:monthly')
+        $schedule->command('delete:collections')
+            ->dailyAt('23:00')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/delete-collections-last-run.log'));
+
+        $schedule->command('import:mobile')
+            ->dailyAt('23:05')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-mobile-last-run.log'));
+
+        $schedule->command('import:products-full', ['--yes' => 'default'])
+            ->dailyAt('23:10')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-products-full-last-run.log'));
+
+        $schedule->command('import:web-full', ['--yes' => 'default'])
+            ->dailyAt('23:15')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-last-run.log'));
+
+        $schedule->command('import:sites', ['--yes' => 'default'])
             ->monthlyOn(1, '03:00')
-            ->sendOutputTo(storage_path('logs/import-monthly-last-run.log'));
+            ->sendOutputTo(storage_path('logs/import-sites-last-run.log'));
+
+        $schedule->command('import:dsc', ['--yes' => 'default'])
+            ->monthlyOn(1, '03:05')
+            ->sendOutputTo(storage_path('logs/import-dsc-last-run.log'));
+
+        $schedule->command('import:analytics')
+            ->monthlyOn(1, '03:10')
+            ->sendOutputTo(storage_path('logs/import-analytics-last-run.log'));
 
         $schedule->command('import:web')
             ->everyFiveMinutes()
