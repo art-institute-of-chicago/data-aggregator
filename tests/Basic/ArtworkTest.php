@@ -8,8 +8,12 @@ use App\Models\Collections\Gallery;
 use App\Models\Collections\AgentType;
 use App\Models\Collections\Agent;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
 class ArtworkTest extends BasicTestCase
 {
+    use RefreshDatabase;
+
     protected $model = Artwork::class;
 
     protected $keys = ['id'];
@@ -20,14 +24,6 @@ class ArtworkTest extends BasicTestCase
 
         $agentType = $this->make(AgentType::class, ['title' => 'Individual']);
         $agent = $this->make(Agent::class, ['agent_type_id' => $agentType->id]);
-    }
-
-    protected function tearDown(): void
-    {
-        AgentType::query()->delete();
-        Agent::query()->delete();
-
-        parent::tearDown();
     }
 
     /** @test */
@@ -44,9 +40,6 @@ class ArtworkTest extends BasicTestCase
 
         $resource = $response->json()['data'];
         $this->assertTrue($resource['is_on_view']);
-
-        Artwork::query()->delete();
-        Gallery::query()->delete();
     }
 
     /** @test */
@@ -64,10 +57,6 @@ class ArtworkTest extends BasicTestCase
         $resource = $response->json();
         $this->assertCount(1, $resource['classified_as']);
         $this->assertEquals($resource['classified_as'][0]['id'], 'http://vocab.getty.edu/aat/300033618');
-
-
-        Artwork::query()->delete();
-        ArtworkType::query()->delete();
     }
 
     /** @test */
@@ -91,21 +80,16 @@ class ArtworkTest extends BasicTestCase
         $resource = $response->json();
         $this->assertCount(2, $resource['objects']);
 
-        // Check that the works we added to the database are in the repsonse
         $idsInResponse = array_merge(array_keys($resource['objects'][0]), array_keys($resource['objects'][1]));
-        $this->assertContains($artwork1Key, $idsInResponse);
+        $this->assertContains($artwork1Key, $idsInResponse, 'The works we added to the database are not in the repsonse');
 
-        // Check that each of those works include expected data
         $artwork1Response = array_pop($resource['objects'][0]);
         $artwork2Response = array_pop($resource['objects'][1]);
-        $this->assertCount(1, $artwork1Response['classified_as']);
-        $this->assertCount(1, $artwork2Response['classified_as']);
+        $this->assertCount(1, $artwork1Response['classified_as'], 'The works do not include expected data');
+        $this->assertCount(1, $artwork2Response['classified_as'], 'The works do not include expected data');
 
         $classifiedIdsInResponse = [$artwork1Response['classified_as'][0]['id'], $artwork2Response['classified_as'][0]['id']];
         $this->assertContains('http://vocab.getty.edu/aat/300033618', $classifiedIdsInResponse);
         $this->assertContains('http://vocab.getty.edu/aat/300193015', $classifiedIdsInResponse);
-
-        Artwork::query()->delete();
-        ArtworkType::query()->delete();
     }
 }
