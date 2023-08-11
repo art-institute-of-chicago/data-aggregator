@@ -10,7 +10,7 @@ use App\Transformers\Outbound\Collections\ArtworkPlacePivot as ArtworkPlacePivot
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
 
 use App\Transformers\Outbound\Collections\Traits\HasBoosted;
-use App\Transformers\Outbound\Collections\Traits\IsCC0;
+use App\Transformers\Outbound\Collections\Traits\IsCCBy;
 use App\Transformers\Outbound\HasSuggestFields;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
@@ -19,7 +19,7 @@ use Illuminate\Support\Arr;
 
 class Artwork extends BaseTransformer
 {
-    use IsCC0;
+    use IsCCBy;
     use HasBoosted;
     use HasSuggestFields {
         getSuggestFields as traitGetSuggestFields;

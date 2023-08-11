@@ -89,4 +89,25 @@ class ArtworkTest extends TestCase
         $this->assertContains('http://vocab.getty.edu/aat/300033618', $classifiedIdsInResponse);
         $this->assertContains('http://vocab.getty.edu/aat/300193015', $classifiedIdsInResponse);
     }
+
+    /** @test */
+    public function it_provides_ccby_licensing_details(): void
+    {
+        $artwork = $this->make(Artwork::class);
+        $artworkKey = $artwork->getAttributeValue($artwork->getKeyName());
+
+        $response = $this->getJson('api/v1/artworks/' . $artworkKey);
+        $response->assertSuccessful();
+
+        $resource = $response->json()['info'];
+        $this->assertStringContainsString('CC-By', $resource['license_text']);
+        $this->assertStringNotContainsString('CC0', $resource['license_text']);
+
+        $response = $this->getJson('api/v1/artworks');
+        $response->assertSuccessful();
+
+        $resource = $response->json()['info'];
+        $this->assertStringContainsString('CC-By', $resource['license_text']);
+        $this->assertStringNotContainsString('CC0', $resource['license_text']);
+    }
 }
