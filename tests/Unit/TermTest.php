@@ -30,4 +30,5 @@ class TermTest extends TestCase
         $resource = $response->json()['info'];
         $this->assertStringContainsString('CC0', $resource['license_text']);
         $this->assertStringNotContainsString('CC-By', $resource['license_text']);
-    }}
+    }
+}
