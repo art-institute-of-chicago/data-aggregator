@@ -110,4 +110,17 @@ class ArtworkTest extends TestCase
         $this->assertStringContainsString('CC-By', $resource['license_text']);
         $this->assertStringNotContainsString('CC0', $resource['license_text']);
     }
+
+    /** @test */
+    public function it_provides_description_field(): void
+    {
+        $artwork = $this->make(Artwork::class, ['description' => fake()->paragraph(5)]);
+        $artworkKey = $artwork->getAttributeValue($artwork->getKeyName());
+
+        $response = $this->getJson('api/v1/artworks/' . $artworkKey);
+        $response->assertSuccessful();
+
+        $resource = $response->json()['data'];
+        $this->assertNotEmpty($resource['description']);
+    }
 }
