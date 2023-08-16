@@ -43,6 +43,14 @@ class Exhibition extends BaseTransformer
                     return $item->webExhibition->is_featured ?? false;
                 },
             ],
+            'position' => [
+                'doc' => 'Numering position represnting the order in which this exhibition is featured on the website',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+                'value' => function ($item) {
+                    return $item->webExhibition->position ?? -1;
+                },
+            ],
             'is_published' => [
                 'doc' => 'Is this exhibition currently published on our website? Only relevant for non-past exhibitions.',
                 'type' => 'boolean',
