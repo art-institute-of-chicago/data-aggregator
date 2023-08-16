@@ -91,7 +91,7 @@ class ArtworkTest extends TestCase
     }
 
     /** @test */
-    public function it_provides_ccby_licensing_details(): void
+    public function it_provides_cc0_licensing_details(): void
     {
         $artwork = $this->make(Artwork::class);
         $artworkKey = $artwork->getAttributeValue($artwork->getKeyName());
@@ -100,15 +100,15 @@ class ArtworkTest extends TestCase
         $response->assertSuccessful();
 
         $resource = $response->json()['info'];
-        $this->assertStringContainsString('CC-By', $resource['license_text']);
-        $this->assertStringNotContainsString('CC0', $resource['license_text']);
+        $this->assertStringContainsString('The `description` field in this response is licensed under a Creative Commons Attribution 4.0 Generic License (CC-By)', $resource['license_text']);
+        $this->assertStringContainsString('All other data in this response is licensed under a Creative Commons Zero (CC0)', $resource['license_text']);
 
         $response = $this->getJson('api/v1/artworks');
         $response->assertSuccessful();
 
         $resource = $response->json()['info'];
-        $this->assertStringContainsString('CC-By', $resource['license_text']);
-        $this->assertStringNotContainsString('CC0', $resource['license_text']);
+        $this->assertStringContainsString('The `description` field in this response is licensed under a Creative Commons Attribution 4.0 Generic License (CC-By)', $resource['license_text']);
+        $this->assertStringContainsString('All other data in this response is licensed under a Creative Commons Zero (CC0)', $resource['license_text']);
     }
 
     /** @test */

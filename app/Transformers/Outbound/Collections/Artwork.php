@@ -10,16 +10,19 @@ use App\Transformers\Outbound\Collections\ArtworkPlacePivot as ArtworkPlacePivot
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
 
 use App\Transformers\Outbound\Collections\Traits\HasBoosted;
-use App\Transformers\Outbound\Collections\Traits\IsCCBy;
+use App\Transformers\Outbound\Collections\Traits\IsCC0;
 use App\Transformers\Outbound\HasSuggestFields;
 
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class Artwork extends BaseTransformer
 {
-    use IsCCBy;
+    use IsCC0 {
+        IsCC0::getLicenseText as cc0LicenseText;
+    }
     use HasBoosted;
     use HasSuggestFields {
         getSuggestFields as traitGetSuggestFields;
@@ -915,5 +918,11 @@ class Artwork extends BaseTransformer
                 },
             ],
         ]);
+    }
+
+    public function getLicenseText()
+    {
+        return 'The `description` field in this response is licensed under a Creative Commons Attribution 4.0 Generic License (CC-By) and the Terms and Conditions of artic.edu. All other data '
+         . Str::after($this->cc0LicenseText(), 'The data ');
     }
 }
