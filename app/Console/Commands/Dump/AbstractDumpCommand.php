@@ -56,7 +56,7 @@ abstract class AbstractDumpCommand extends BaseCommand
      */
     protected function getDumpPath(string $subpath): string
     {
-        return Storage::disk('dumps')->getDriver()->getAdapter()->getPathPrefix() . $subpath;
+        return Storage::disk('dumps')->path($subpath);
     }
 
     /**
@@ -87,11 +87,11 @@ abstract class AbstractDumpCommand extends BaseCommand
     /**
      * Throw an exception if an `.env` var is empty.
      */
-    protected function validateEnv(array $vars)
+    protected function validateConfig(array $vars)
     {
         foreach ($vars as $var) {
-            if (empty(env($var))) {
-                throw new Exception('Please specify `' . $var . '` in .env');
+            if (empty(config($var))) {
+                throw new Exception('Please specify `' . $var . '` in config');
             }
         }
     }

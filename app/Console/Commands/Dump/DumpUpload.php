@@ -15,7 +15,7 @@ class DumpUpload extends AbstractDumpCommand
     public function handle()
     {
         // Be sure to set these in your .env
-        $this->validateEnv(['DUMP_REPO_REMOTE', 'DUMP_REPO_NAME', 'DUMP_REPO_EMAIL']);
+        $this->validateConfig(['aic.dump.repo_remote', 'aic.dump.repo_name', 'aic.dump.repo_email']);
 
         $repoRemote = config('aic.dump.repo_remote');
         $repoPath = $this->getDumpPath('remote');
