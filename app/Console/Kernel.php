@@ -32,11 +32,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('update:cloudfront-ips')
             ->hourly();
 
-        $schedule->command('import:daily')
-            ->dailyAt('23:00')
-            ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/import-daily-last-run.log'));
-
         $schedule->command('delete:collections')
             ->dailyAt('23:00')
             ->withoutOverlapping(self::FOR_ONE_YEAR)
