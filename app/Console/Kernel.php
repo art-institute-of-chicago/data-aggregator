@@ -42,21 +42,21 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-mobile-last-run.log'));
 
-        $schedule->command('import:products-full', ['--yes' => 'default'])
+        $schedule->command('import:products-full', ['--yes'])
             ->dailyAt('23:10')
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-products-full-last-run.log'));
 
-        $schedule->command('import:web-full', ['--yes' => 'default'])
+        $schedule->command('import:web-full', ['--yes'])
             ->dailyAt('23:15')
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-web-full-last-run.log'));
 
-        $schedule->command('import:sites', ['--yes' => 'default'])
+        $schedule->command('import:sites', ['--yes'])
             ->monthlyOn(1, '03:00')
             ->sendOutputTo(storage_path('logs/import-sites-last-run.log'));
 
-        $schedule->command('import:dsc', ['--yes' => 'default'])
+        $schedule->command('import:dsc', ['--yes'])
             ->monthlyOn(1, '03:05')
             ->sendOutputTo(storage_path('logs/import-dsc-last-run.log'));
 
@@ -69,7 +69,7 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-web-last-run.log'));
 
-        $schedule->command('import:events-ticketed-full --unreset')
+        $schedule->command('import:events-ticketed-full', ['--unreset'])
             ->everyFiveMinutes()
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-events-ticketed-last-run.log'));
