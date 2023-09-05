@@ -455,6 +455,18 @@ class Artwork extends BaseTransformer
             ],
 
             /**
+             * External vocabularies
+             */
+            'nomisma_id' => [
+                'doc' => 'Unique identifier of this work in the nomisma coin database',
+                'type' => 'string',
+                'elasticsearch' => 'keyword',
+                'value' => function ($item) {
+                    return $item->nomisma_id ?: null;
+                },
+            ],
+
+            /**
              * TODO: Refactor relationships:
              */
             'artwork_type_title' => [

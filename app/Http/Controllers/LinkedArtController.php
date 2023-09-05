@@ -119,13 +119,25 @@ class LinkedArtController extends BaseController
         }
 
         return [
-            'classified_as' => [
+            'classified_as' => array_filter(array_merge([
                 [
                     'id' => 'http://vocab.getty.edu/aat/' . $artworkType->aat_id,
                     'type' => 'Type',
                     '_label' => $artworkType->title,
                 ],
-            ],
+                $artwork->nomisma_id ? [
+                    'id' => $artwork->nomisma_id,
+                    'type' => 'Type',
+                    '_label' => null,
+                    'classified_as' => [
+                        [
+                            'id' => 'aat:300067209',
+                            'type' => 'Type',
+                            '_label' => 'typology'
+                        ]
+                    ]
+                  ] : [],
+            ])),
         ];
     }
 
