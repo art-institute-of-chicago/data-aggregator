@@ -123,4 +123,32 @@ class ArtworkTest extends TestCase
         $resource = $response->json()['data'];
         $this->assertNotEmpty($resource['description']);
     }
+
+    /** @test */
+    public function it_fetches_the_nomisma_id_for_an_artwork(): void
+    {
+        $artwork = $this->make(Artwork::class, ['nomisma_id' => 'http://nomisma-1234.abc/id/LMNOP']);
+        $artworkKey = $artwork->getAttributeValue($artwork->getKeyName());
+
+        $response = $this->getJson('api/v1/artworks/' . $artworkKey);
+        $response->assertSuccessful();
+
+        $resource = $response->json()['data'];
+        $this->assertNotEmpty($resource['nomisma_id']);
+    }
+
+    /** @test */
+    public function it_fetches_the_nomisma_id_for_a_linked_art_object(): void
+    {
+        $artwork = $this->make(Artwork::class, ['nomisma_id' => 'http://nomisma-1234.abc/id/LMNOP']);
+        $artworkKey = $artwork->getAttributeValue($artwork->getKeyName());
+
+        $response = $this->getJson('la/v1/objects/' . $artworkKey);
+        $response->assertSuccessful();
+
+        $resource = $response->json();
+        $this->assertCount(1, $resource['classified_as']);
+        $this->assertEquals($resource['classified_as'][0]['classified_as'][0]['id'], 'aat:300067209');
+        $this->assertEquals($resource['classified_as'][0]['classified_as'][0]['_label'], 'typology');
+    }
 }
