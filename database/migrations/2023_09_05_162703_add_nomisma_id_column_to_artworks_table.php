@@ -7,15 +7,15 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::table('web_exhibitions', function (Blueprint $table) {
-            $table->integer('position')->nullable();
+        Schema::table('artworks', function (Blueprint $table) {
+            $table->string('nomisma_id')->nullable();
         });
     }
 
     public function down(): void
     {
-        Schema::table('web_exhibitions', function (Blueprint $table) {
-            $table->dropColumn('position');
+        Schema::table('artworks', function (Blueprint $table) {
+            $table->dropColumn('nomisma_id');
         });
     }
 };

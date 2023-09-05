@@ -110,22 +110,28 @@ class LinkedArtController extends BaseController
 
     private function getArtworkType($artwork): array
     {
-        if (!$artworkType = $artwork->artworkType) {
-            return [];
-        }
-
-        if (!$artworkType->aat_id) {
-            return [];
-        }
+        $artworkType = $artwork->artworkType;
 
         return [
-            'classified_as' => [
-                [
+            'classified_as' => array_values(array_filter(array_merge([
+                $artworkType && $artworkType->aat_id ? [
                     'id' => 'http://vocab.getty.edu/aat/' . $artworkType->aat_id,
                     'type' => 'Type',
                     '_label' => $artworkType->title,
-                ],
-            ],
+                ] : [],
+                $artwork->nomisma_id ? [
+                    'id' => $artwork->nomisma_id,
+                    'type' => 'Type',
+                    '_label' => null,
+                    'classified_as' => [
+                        [
+                            'id' => 'aat:300067209',
+                            'type' => 'Type',
+                            '_label' => 'typology'
+                        ]
+                    ]
+                  ] : [],
+            ]))),
         ];
     }
 
