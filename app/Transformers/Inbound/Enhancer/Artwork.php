@@ -13,6 +13,7 @@ class Artwork extends BaseTransformer
             'dimension_width' => $datum->width,
             'dimension_height' => $datum->height,
             'linked_art_json' => $datum->linked_art_json,
+            'nomisma_id' => $datum->nomisma_id,
         ];
     }
 }
