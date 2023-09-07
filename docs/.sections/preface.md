@@ -79,7 +79,7 @@ https://api.artic.edu/api/v1/artworks/search?params=%7B%22q%22%3A%22cats%22%2C%2
 ```
 
 ::: warning
-Our API is flexible in how it accepts queries, but each method of querying is meant for a specific purpose. See [GET vs. POST](#get-vs-post) for more details.
+Our API is flexible in how it accepts queries, but each method of querying is meant for a specific purpose. Use `GET` for simple queries, and use `POST` when you have complex payloads to submit with your query.
 :::
 
 There's a lot of information you can get about our collection, and there's a lot more than artworks in our API. Explore our documentation to learn more!
@@ -357,7 +357,7 @@ If you'd like to scrape images from our IIIF API, please follow these guidelines
  * Use the following URL pattern to download our [most common image size](image-sizes):
    ```
    https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
-   ``` 
+   ```
 
 
 ### Copyright
@@ -436,5 +436,3 @@ All paginated endpoints include a `pagination` block in their responses:
     ]
 }
 ```
-
-
