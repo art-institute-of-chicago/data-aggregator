@@ -6,12 +6,10 @@ use Illuminate\Support\ServiceProvider;
 
 class ResourceServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('Resources', function ($app) {
-
-            return new class() {
-
+            return new class () {
                 /**
                  * Array of resources (endpoints), mapped to their models.
                  * Currently, only top-level endpoints are tracked.

@@ -6,7 +6,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ImportAllCommand extends BaseCommand
 {
-
     protected $signature = 'import:all';
 
     protected $description = 'Run all import commands';

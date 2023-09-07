@@ -6,7 +6,6 @@ use App\Models\Membership\TicketedEvent;
 
 class ImportTicketedEventsFull extends AbstractImportCommand
 {
-
     protected $signature = 'import:events-ticketed-full
                             {--y|yes : Answer "yes" to all prompts}
                             {--u|unreset : Do not reset}';
@@ -15,7 +14,7 @@ class ImportTicketedEventsFull extends AbstractImportCommand
 
     public function handle()
     {
-        $this->api = env('EVENTS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.membership');
 
         if (!$this->option('unreset')) {
             if (!$this->reset()) {

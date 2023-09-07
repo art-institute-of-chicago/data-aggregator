@@ -26,7 +26,7 @@ class DeleteAssets extends AbstractImportCommand
 
     public function handle()
     {
-        $this->api = env('ASSETS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.assets');
         $this->shallow();
     }
 

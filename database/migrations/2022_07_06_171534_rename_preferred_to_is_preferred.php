@@ -4,8 +4,7 @@ use App\Library\Migrations\RenameColumnMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RenamePreferredToIsPreferred extends RenameColumnMigration
-{
+return new class () extends RenameColumnMigration {
     protected $columns = [
         'artwork_artist' => [
             'preferred' => 'is_preferred',
@@ -51,7 +50,7 @@ class RenamePreferredToIsPreferred extends RenameColumnMigration
         'artwork_dates',
     ];
 
-    public function up()
+    public function up(): void
     {
         parent::up();
 
@@ -62,7 +61,7 @@ class RenamePreferredToIsPreferred extends RenameColumnMigration
         }
     }
 
-    public function down()
+    public function down(): void
     {
         parent::down();
 
@@ -72,4 +71,4 @@ class RenamePreferredToIsPreferred extends RenameColumnMigration
             });
         }
     }
-}
+};

@@ -4,14 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddArtworkDateQualifierCitiIdToArtworksTable extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('artworks', function (Blueprint $table) {
             $table->integer('artwork_date_qualifier_citi_id')->default(null)->nullable();
@@ -23,10 +22,10 @@ class AddArtworkDateQualifierCitiIdToArtworksTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('artworks', function (Blueprint $table) {
             $table->dropColumn(['artwork_date_qualifier_citi_id']);
         });
     }
-}
+};

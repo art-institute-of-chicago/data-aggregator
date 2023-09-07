@@ -9,7 +9,6 @@ use App\Models\MobileModel;
  */
 class TourStop extends MobileModel
 {
-
     protected $primaryKey = 'id';
 
     protected $with = [

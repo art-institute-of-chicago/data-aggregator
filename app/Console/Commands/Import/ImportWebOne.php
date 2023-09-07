@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportWebOne extends ImportWebFull
 {
-
     protected $signature = 'import:web-one
                             {endpoint : Endpoint on dataservice to query, e.g. `events` }
                             {id : Identifier of the specific resource to import}';
@@ -13,8 +12,8 @@ class ImportWebOne extends ImportWebFull
 
     public function handle()
     {
-        if (env('WEB_CMS_DATA_SERVICE_USERNAME')) {
-            $this->auth = env('WEB_CMS_DATA_SERVICE_USERNAME') . ':' . env('WEB_CMS_DATA_SERVICE_PASSWORD');
+        if (config('aic.web.username')) {
+            $this->auth = config('aic.web.username') . ':' . config('aic.web.password');
         }
 
         $endpoint = $this->argument('endpoint');
@@ -35,7 +34,7 @@ class ImportWebOne extends ImportWebFull
 
     private function fetchItem($endpoint, $id)
     {
-        $url = env('WEB_CMS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
+        $url = config('resources.sources.web') . '/' . $endpoint . '/' . $id;
 
         $this->info('Fetching: ' . $url);
 

@@ -8,7 +8,6 @@ use App\Models\Collections\Term;
 
 class CategoryTermTest extends BasicTestCase
 {
-
     protected $model = CategoryTerm::class;
 
     protected $route = 'category-terms';
@@ -24,6 +23,6 @@ class CategoryTermTest extends BasicTestCase
 
     protected function getRandomId()
     {
-        return app('Faker')->unique()->regexify('[A-Z]{2}') . '-' . app('Faker')->unique()->randomNumber(5);
+        return fake()->unique()->regexify('[A-Z]{2}') . '-' . fake()->unique()->randomNumber(5);
     }
 }

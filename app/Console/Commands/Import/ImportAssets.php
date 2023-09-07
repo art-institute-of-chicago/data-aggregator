@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportAssets extends ImportAssetsFull
 {
-
     protected $signature = 'import:assets
                             {endpoint? : Endpoint on dataservice to query, e.g. `images`}
                             {--since= : How far back to scan for records}';
@@ -15,7 +14,7 @@ class ImportAssets extends ImportAssetsFull
 
     public function handle()
     {
-        $this->api = env('ASSETS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.assets');
 
         $endpoint = $this->argument('endpoint');
 

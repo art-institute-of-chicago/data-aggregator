@@ -6,14 +6,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeIdToUuidInEventOccurrences extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         foreach (EventOccurrence::cursor() as $eventOccurrence) {
             $eventOccurrence->delete();
@@ -29,7 +28,7 @@ class ChangeIdToUuidInEventOccurrences extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         foreach (EventOccurrence::cursor() as $eventOccurrence) {
             $eventOccurrence->delete();
@@ -39,4 +38,4 @@ class ChangeIdToUuidInEventOccurrences extends Migration
             $table->increments('id')->change();
         });
     }
-}
+};

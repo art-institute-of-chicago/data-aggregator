@@ -8,15 +8,15 @@ class ExhibitionFactory extends CollectionsFactory
 {
     protected $model = \App\Models\Collections\Exhibition::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
-            $this->idsAndTitle(ucwords($this->faker->words(3, true)), true),
+            $this->idsAndTitle(ucwords(fake()->words(3, true)), true),
             [
-                'gallery_id' => $this->faker->randomElement(Gallery::query()->pluck('id')->all()),
-                'status' => $this->faker->randomElement(['Open', 'Closed']),
-                'date_aic_start' => $this->faker->dateTimeAd,
-                'date_aic_end' => $this->faker->dateTimeAd,
+                'gallery_id' => fake()->randomElement(Gallery::query()->pluck('id')->all()),
+                'status' => fake()->randomElement(['Open', 'Closed']),
+                'date_aic_start' => fake()->dateTimeAd,
+                'date_aic_end' => fake()->dateTimeAd,
             ],
             $this->dates(true)
         );

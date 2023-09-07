@@ -10,7 +10,6 @@ use App\Scopes\PublishedScope;
 
 trait Documentable
 {
-
     private $docAppUrl;
     private $docRequestUrl;
 
@@ -207,11 +206,11 @@ trait Documentable
         return $doc;
     }
 
-        /**
-         * For this resource, add this to the full documentation.
-         *
-         * @return string
-         */
+    /**
+     * For this resource, add this to the full documentation.
+     *
+     * @return string
+     */
     public function docExtra()
     {
         return '';

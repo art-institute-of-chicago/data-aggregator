@@ -9,5 +9,4 @@ use App\Models\MembershipModel;
  */
 class TicketedEventType extends MembershipModel
 {
-
 }

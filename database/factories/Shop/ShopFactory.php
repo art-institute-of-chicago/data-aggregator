@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 abstract class ShopFactory extends Factory
 {
-    public function shopIdsAndTitle($title = '')
+    public function shopIdsAndTitle($title = ''): array
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(3),
-            'title' => $title ? $title : ucfirst($this->faker->words(5, true)),
+            'id' => fake()->unique()->randomNumber(3),
+            'title' => $title ? $title : ucfirst(fake()->words(5, true)),
         ];
     }
 
-    public function shopDates()
+    public function shopDates(): array
     {
         return [
-            'source_updated_at' => $this->faker->dateTimeThisYear,
+            'source_updated_at' => fake()->dateTimeThisYear,
         ];
     }
 }

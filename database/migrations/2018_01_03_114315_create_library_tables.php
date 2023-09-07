@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLibraryTables extends Migration
-{
-
+return new class () extends Migration {
     protected $material_terms = [
         'library_material_creator',
         'library_material_subject',
     ];
 
-    public function up()
+    public function up(): void
     {
         Schema::create('library_materials', function (Blueprint $table) {
             $table->string('id')->primary();
@@ -38,7 +36,7 @@ class CreateLibraryTables extends Migration
         }
     }
 
-    public function down()
+    public function down(): void
     {
         foreach ($this->material_terms as $material_term) {
             Schema::dropIfExists($material_term);
@@ -47,5 +45,4 @@ class CreateLibraryTables extends Migration
         Schema::dropIfExists('library_materials');
         Schema::dropIfExists('library_terms');
     }
-
-}
+};

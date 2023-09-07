@@ -4,14 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUlanCertaintyToAgents extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('agents', function (Blueprint $table) {
             $table->integer('ulan_certainty')->nullable()->after('ulan_uri');
@@ -23,10 +22,10 @@ class AddUlanCertaintyToAgents extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('agents', function (Blueprint $table) {
             $table->dropColumn('ulan_certainty');
         });
     }
-}
+};

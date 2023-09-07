@@ -16,7 +16,6 @@ use Illuminate\Routing\Controller as BaseController;
 
 class SearchController extends BaseController
 {
-
     /*
     |--------------------------------------------------------------------------
     | Search Controller
@@ -74,7 +73,7 @@ class SearchController extends BaseController
         }
 
         $response = Elasticsearch::indices()->getMapping();
-        $index = env('ELASTICSEARCH_INDEX') . '-' . $resource;
+        $index = config('elasticsearch.indexParams.index') . '-' . $resource;
 
         $currentMapping = $response[$index]['mappings']['doc']['properties'] ?? null;
 
@@ -183,7 +182,6 @@ class SearchController extends BaseController
      */
     protected function query($requestMethod, $responseMethod, $elasticsearchMethod, $resource, $id = null, $requestArgs = null)
     {
-
         // Combine any configuration params
         $input = RequestFacade::all();
         $input = $requestArgs ? array_merge($input, $requestArgs) : $input;

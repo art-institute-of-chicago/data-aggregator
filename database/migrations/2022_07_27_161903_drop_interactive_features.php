@@ -4,14 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropInteractiveFeatures extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::dropIfExists('interactive_features');
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::create('interactive_features', function (Blueprint $table) {
             $table->unsignedInteger('id')->primary();
@@ -24,4 +23,4 @@ class DropInteractiveFeatures extends Migration
             $table->timestamps();
         });
     }
-}
+};

@@ -6,8 +6,8 @@ class AgentRoleFactory extends CollectionsFactory
 {
     protected $model = \App\Models\Collections\AgentRole::class;
 
-    public function definition()
+    public function definition(): array
     {
-        return $this->idsAndTitle($this->faker->words(3, true), true, 2);
+        return $this->idsAndTitle(fake()->words(3, true), true, 2);
     }
 }

@@ -7,7 +7,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-
     /**
      * WEB-874: Make commands never overlap.
      */
@@ -24,29 +23,53 @@ class Kernel extends ConsoleKernel
 
     /**
      * Define the application's command schedule.
-     *
-     * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('cache:prune-stale-tags')
+            ->hourly();
+
         $schedule->command('update:cloudfront-ips')
             ->hourly();
 
-        $schedule->command('import:daily')
+        $schedule->command('delete:collections')
             ->dailyAt('23:00')
             ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/import-daily-last-run.log'));
+            ->sendOutputTo(storage_path('logs/delete-collections-last-run.log'));
 
-        $schedule->command('import:monthly')
+        $schedule->command('import:mobile')
+            ->dailyAt('23:05')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-mobile-last-run.log'));
+
+        $schedule->command('import:products-full', ['--yes'])
+            ->dailyAt('23:10')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-products-full-last-run.log'));
+
+        $schedule->command('import:web-full', ['--yes'])
+            ->dailyAt('23:15')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-last-run.log'));
+
+        $schedule->command('import:sites', ['--yes'])
             ->monthlyOn(1, '03:00')
-            ->sendOutputTo(storage_path('logs/import-monthly-last-run.log'));
+            ->sendOutputTo(storage_path('logs/import-sites-last-run.log'));
+
+        $schedule->command('import:dsc', ['--yes'])
+            ->monthlyOn(1, '03:05')
+            ->sendOutputTo(storage_path('logs/import-dsc-last-run.log'));
+
+        $schedule->command('import:analytics')
+            ->monthlyOn(1, '03:10')
+            ->sendOutputTo(storage_path('logs/import-analytics-last-run.log'));
 
         $schedule->command('import:web')
             ->everyFiveMinutes()
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-web-last-run.log'));
 
-        $schedule->command('import:events-ticketed-full --unreset')
+        $schedule->command('import:events-ticketed-full', ['--unreset'])
             ->everyFiveMinutes()
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-events-ticketed-last-run.log'));
@@ -89,7 +112,7 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/scout-import-agents-last-run.log'));
 
-        if (env('DUMP_SCHEDULE_ENABLED', false)) {
+        if (config('aic.dump.schedule_enabled')) {
             $schedule->command('dump:schedule')
                 ->weekly()
                 ->sundays()
@@ -100,10 +123,8 @@ class Kernel extends ConsoleKernel
 
     /**
      * Register the Closure based commands for the application.
-     *
-     * @return void
      */
-    protected function commands()
+    protected function commands(): void
     {
         $this->load(__DIR__ . '/Commands');
         $this->load(__DIR__ . '/Commands/Docs');

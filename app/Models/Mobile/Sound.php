@@ -10,7 +10,6 @@ use App\Models\ElasticSearchable;
  */
 class Sound extends MobileModel
 {
-
     use ElasticSearchable;
 
     protected $table = 'mobile_sounds';

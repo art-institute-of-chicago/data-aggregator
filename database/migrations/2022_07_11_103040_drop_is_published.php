@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropIsPublished extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         foreach ([
             'articles',
@@ -31,7 +30,7 @@ class DropIsPublished extends Migration
         }
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->boolean('is_published')->after('imgix_uuid');
@@ -92,6 +91,5 @@ class DropIsPublished extends Migration
         Schema::table('web_exhibitions', function (Blueprint $table) {
             $table->boolean('is_published')->after('date_display');
         });
-
     }
-}
+};

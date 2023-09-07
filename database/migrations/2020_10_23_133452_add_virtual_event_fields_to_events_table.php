@@ -4,14 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddVirtualEventFieldsToEventsTable extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('events', function (Blueprint $table) {
             $table->boolean('is_virtual_event')->default(false);
@@ -25,10 +24,10 @@ class AddVirtualEventFieldsToEventsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('events', function (Blueprint $table) {
             $table->dropColumn(['is_virtual_event', 'virtual_event_url', 'virtual_event_passcode']);
         });
     }
-}
+};

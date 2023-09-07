@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropSponsors extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::table('events', function (Blueprint $table) {
             $table->dropColumn('sponsor_id');
@@ -15,7 +14,7 @@ class DropSponsors extends Migration
         Schema::dropIfExists('sponsors');
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('events', function (Blueprint $table) {
             $table->integer('sponsor_id')->nullable()->after('deleted_at');
@@ -30,4 +29,4 @@ class DropSponsors extends Migration
             $table->timestamps();
         });
     }
-}
+};

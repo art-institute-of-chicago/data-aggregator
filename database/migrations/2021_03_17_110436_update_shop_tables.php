@@ -4,14 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateShopTables extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::dropIfExists('shop_categories');
 
@@ -60,7 +59,7 @@ class UpdateShopTables extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('artwork_product');
         Schema::dropIfExists('exhibition_product');
@@ -102,4 +101,4 @@ class UpdateShopTables extends Migration
             $table->boolean('active')->nullable()->after('glass');
         });
     }
-}
+};

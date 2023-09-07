@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RefactorArtworkCatalogues extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::table('artworks', function (Blueprint $table) {
             $table->text('catalogue_display')->nullable()->after('inscriptions');
@@ -17,7 +16,7 @@ class RefactorArtworkCatalogues extends Migration
         Schema::dropIfExists('catalogues');
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('artworks', function (Blueprint $table) {
             $table->dropColumn('catalogue_display');
@@ -40,4 +39,4 @@ class RefactorArtworkCatalogues extends Migration
             $table->timestamp('updated_at')->nullable()->index();
         });
     }
-}
+};

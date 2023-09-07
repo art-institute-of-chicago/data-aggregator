@@ -6,14 +6,13 @@ use Elasticsearch;
 
 trait Indexer
 {
-
     /**
      * Check if the index already exists. If it exists, the user is prompted to delete it.
      */
     public function destroy($index = null, $yes = false)
     {
         if (!$index) {
-            $index = env('ELASTICSEARCH_INDEX');
+            $index = config('elasticsearch.indexParams.index');
         }
 
         $params = [
@@ -40,9 +39,9 @@ trait Indexer
 
     public function baseUrl()
     {
-        $host = env('ELASTICSEARCH_HOST', 'localhost');
-        $port = env('ELASTICSEARCH_PORT', 9200);
-        $scheme = env('ELASTICSEARCH_SCHEME', null);
+        $host = config('scout.elasticsearch.hosts.0.host', 'localhost');
+        $port = config('scout.elasticsearch.hosts.0.port', 9200);
+        $scheme = config('scout.elasticsearch.hosts.0.sceme', null);
 
         return $scheme . '://' . $host . ':' . $port;
     }

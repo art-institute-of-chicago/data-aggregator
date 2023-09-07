@@ -4,7 +4,6 @@ namespace Tests\Helpers;
 
 trait Factory
 {
-
     protected $times = 1;
     protected $ids = [];
 

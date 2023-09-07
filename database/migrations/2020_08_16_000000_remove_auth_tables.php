@@ -8,8 +8,7 @@ use Illuminate\Database\Migrations\Migration;
  * WEB-1379: This is a reverse of the `CreateAuthTables` migration.
  * We are moving from Passport to a simpler API-token-based model.
  */
-class RemoveAuthTables extends Migration
-{
+return new class () extends Migration {
     private $schema;
 
     /**
@@ -21,7 +20,7 @@ class RemoveAuthTables extends Migration
         $this->schema = Schema::connection('userdata');
     }
 
-    public function up()
+    public function up(): void
     {
         $this->schema->dropIfExists('users');
         $this->schema->dropIfExists('oauth_auth_codes');
@@ -36,7 +35,7 @@ class RemoveAuthTables extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         $this->schema->create('users', function (Blueprint $table) {
             $table->increments('id');
@@ -93,4 +92,4 @@ class RemoveAuthTables extends Migration
             $table->timestamps();
         });
     }
-}
+};

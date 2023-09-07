@@ -3,7 +3,6 @@
 namespace App\Transformers\Inbound\Shop;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 use App\Transformers\Datum;
 use App\Transformers\Inbound\ShopTransformer;
 

@@ -6,7 +6,6 @@ use Elasticsearch;
 use Laravel\Scout\EngineManager;
 // use ScoutEngines\Elasticsearch\ElasticsearchEngine;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 // TODO: Remove this after we're ready to handle exceptions
@@ -14,11 +13,10 @@ use App\ElasticsearchEngine;
 
 class SearchServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap the application services.
      */
-    public function boot()
+    public function boot(): void
     {
         /**
          * Override the laravel-scout-elastic package boot method so we can use
@@ -39,12 +37,10 @@ class SearchServiceProvider extends ServiceProvider
     /**
      * Register a search application service, which tracks Searchable models.
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('Search', function ($app) {
-
-            return new class() {
-
+            return new class () {
                 /**
                  * Array of models with the Searchable trait. Converted to Eloquent collection on init.
                  *
@@ -182,7 +178,7 @@ class SearchServiceProvider extends ServiceProvider
                  */
                 public function getIndexForModel($model, $prefix = null)
                 {
-                    $prefix = $prefix ?? env('ELASTICSEARCH_INDEX');
+                    $prefix = $prefix ?? config('elasticsearch.indexParams.index');
 
                     return $prefix . '-' . $model::instance()->searchableIndex();
                 }

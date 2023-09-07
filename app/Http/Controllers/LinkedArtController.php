@@ -3,18 +3,62 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Asset;
+use Aic\Hub\Foundation\Exceptions\InvalidSyntaxException;
+use Aic\Hub\Foundation\Exceptions\TooManyIdsException;
 
 use App\Http\Controllers\Controller as BaseController;
 
 class LinkedArtController extends BaseController
 {
+    public const LIMIT_MAX = 100;
+
     public function showObject(Request $request, $id)
     {
         $artwork = Artwork::find($id);
 
+        return $this->itemResponse($artwork);
+    }
+
+    /**
+     * Display multiple resources.
+     *
+     * @param string $ids
+     * @return \Illuminate\Http\Response
+     */
+    protected function showMultiple(Request $request)
+    {
+        // Process ?ids= query param
+        $ids = $request->input('ids');
+
+        if (is_string($ids)) {
+            $ids = explode(',', $ids);
+        }
+
+        if (Gate::denies('restricted-access') && count($ids) > static::LIMIT_MAX) {
+            throw new TooManyIdsException();
+        }
+
+        // Validate the syntax for each $id
+        foreach ($ids as $id) {
+            if (!$this->validateId($id)) {
+                throw new InvalidSyntaxException();
+            }
+        }
+
+        // Illuminate\Database\Eloquent\Collection
+        $all = Artwork::find($ids);
+
+        return $this->getCollectionResponse($all, $request);
+    }
+
+    protected function itemResponse(Artwork $artwork)
+    {
         $item = [
             '@context' => 'https://linked.art/ns/v1/linked-art.json',
             'id' => route('ld.object', ['id' => $artwork]),
@@ -44,24 +88,50 @@ class LinkedArtController extends BaseController
         return $item;
     }
 
+    /**
+     * Return a response with multiple resources, given an arrayable object.
+     * For multiple ids, this is a an Eloquent Collection.
+     * For pagination, this is LengthAwarePaginator.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function getCollectionResponse(Arrayable $collection, Request $request)
+    {
+        $response = ['objects' => []];
+
+        foreach ($collection as $artwork) {
+            $response['objects'][] = [
+                $artwork->id => $this->itemResponse($artwork)
+            ];
+        }
+
+        return response()->json($response);
+    }
+
     private function getArtworkType($artwork): array
     {
-        if (!$artworkType = $artwork->artworkType) {
-            return [];
-        }
-
-        if (!$artworkType->aat_id) {
-            return [];
-        }
+        $artworkType = $artwork->artworkType;
 
         return [
-            'classified_as' => [
-                [
+            'classified_as' => array_values(array_filter(array_merge([
+                $artworkType && $artworkType->aat_id ? [
                     'id' => 'http://vocab.getty.edu/aat/' . $artworkType->aat_id,
                     'type' => 'Type',
                     '_label' => $artworkType->title,
-                ],
-            ],
+                ] : [],
+                $artwork->nomisma_id ? [
+                    'id' => $artwork->nomisma_id,
+                    'type' => 'Type',
+                    '_label' => null,
+                    'classified_as' => [
+                        [
+                            'id' => 'aat:300067209',
+                            'type' => 'Type',
+                            '_label' => 'typology'
+                        ]
+                    ]
+                  ] : [],
+            ]))),
         ];
     }
 
@@ -177,14 +247,13 @@ class LinkedArtController extends BaseController
         }
 
         // TODO: Provide `took_place_at` [API-12]
-
         $timespan = [
             'type' => 'TimeSpan',
             'begin_of_the_begin' => !empty($artwork->date_start)
-                ? (new Carbon($artwork->date_start . '-01-01T00:00:00Z'))->toIso8601ZuluString()
+                ? (new Carbon($this->year($artwork->date_start) . '-01-01T00:00:00'))->toIso8601ZuluString()
                 : null,
             'end_of_the_end' => !empty($artwork->date_end)
-                ? (new Carbon($artwork->date_end . '-12-31T23:59:59Z'))->toIso8601ZuluString()
+                ? (new Carbon($this->year($artwork->date_end) . '-12-31T23:59:59'))->toIso8601ZuluString()
                 : null,
         ];
 
@@ -526,5 +595,30 @@ class LinkedArtController extends BaseController
 
         // convert object to array recursively
         return json_decode(json_encode($artwork->linked_art_json), true);
+    }
+
+    /**
+     * Validate `id` route or query string param format.
+     *
+     * @param mixed $id
+     * @return boolean
+     */
+    protected function validateId($id)
+    {
+        // Only execute this validation if the model has defined a `validateId` method
+        if (method_exists(Artwork::class, 'validateId')) {
+            return Artwork::validateId($id);
+        }
+
+        return true;
+    }
+
+    private function year($year)
+    {
+        if ($year < 0) {
+            return '-' . Str::padLeft(($year * -1), 4, '0');
+        } else {
+            return Str::padLeft($year, 4, '0');
+        }
     }
 }

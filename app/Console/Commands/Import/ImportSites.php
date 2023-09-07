@@ -9,7 +9,6 @@ use App\Transformers\Inbound\StaticArchive\Site as SiteTransformer;
 
 class ImportSites extends AbstractImportCommand
 {
-
     protected $signature = 'import:sites
                             {--y|yes : Answer "yes" to all prompts}';
 
@@ -21,7 +20,7 @@ class ImportSites extends AbstractImportCommand
             return false;
         }
 
-        $contents = $this->fetch(env('STATIC_ARCHIVE_JSON'));
+        $contents = $this->fetch(config('resources.sources.static_archive'));
 
         Storage::disk('local')->put('archive.json', $contents);
 
@@ -40,7 +39,6 @@ class ImportSites extends AbstractImportCommand
             ],
             [
                 'artwork_site',
-                'agent_site',
                 'exhibition_site',
                 'sites',
             ]

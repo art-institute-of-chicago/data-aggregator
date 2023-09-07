@@ -4,7 +4,6 @@ namespace App\Transformers\Outbound;
 
 trait HasSuggestFields
 {
-
     protected function getSuggestFields()
     {
         return array_replace_recursive(parent::getSuggestFields(), [

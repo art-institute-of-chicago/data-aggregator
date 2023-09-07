@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Request as RequestFacade;
 
 class Response
 {
-
     /**
      * Response as it came back from Elasticsearch
      *
@@ -123,7 +122,18 @@ class Response
         $options = Arr::get($this->searchResponse, 'suggest.autocomplete.0.options');
 
         if ($options) {
-            return Arr::pluck($options, '_source');
+            return array_map(
+                function ($item) {
+                    if (isset($item['fiscal_year_deaccession'])) {
+                        if (!empty($item['fiscal_year_deaccession'])) {
+                            $item['title'] = $item['title'] . ' (deaccessioned)';
+                        }
+                        unset($item['fiscal_year_deaccession']);
+                    }
+                    return $item;
+                },
+                Arr::pluck($options, '_source')
+            );
         }
 
         return [];

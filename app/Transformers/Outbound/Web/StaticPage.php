@@ -6,7 +6,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class StaticPage extends BaseTransformer
 {
-
     protected function getFields()
     {
         return [

@@ -6,14 +6,13 @@ use App\Models\Collections\Exhibition;
 
 class ExhibitionTest extends ContractTestCase
 {
-
     protected $model = Exhibition::class;
 
     /** @test
      * @link https://github.com/art-institute-of-chicago/aic-mobile-cms/blob/b74ddc9/sites/all/modules/custom/aicapp/includes/aicapp.admin.inc#L788
      * @link https://github.com/art-institute-of-chicago/aic-mobile-ios/blob/72bb520/aic/aic/Data/SearchDataManager.swift#L132
      */
-    public function it_fetches_fields_used_by_mobile()
+    public function it_fetches_fields_used_by_mobile(): void
     {
         $this->it_fetches_fields([
             'id',

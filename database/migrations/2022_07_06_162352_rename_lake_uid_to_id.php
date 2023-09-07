@@ -2,8 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-class RenameLakeUidToId extends RenameColumnMigration
-{
+return new class () extends RenameColumnMigration {
     protected $columns = [
         'artwork_category' => [
             'category_lake_uid' => 'category_id',
@@ -25,4 +24,4 @@ class RenameLakeUidToId extends RenameColumnMigration
             'artwork_term_term_lake_uid_index' => 'artwork_term_term_id_index',
         ],
     ];
-}
+};

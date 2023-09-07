@@ -2,8 +2,7 @@
 
 use App\Library\Migrations\RenameColumnMigration;
 
-class RenameMobileIdToId extends RenameColumnMigration
-{
+return new class () extends RenameColumnMigration {
     protected $columns = [
         'mobile_artwork_mobile_sound' => [
             'mobile_artwork_mobile_id' => 'mobile_artwork_id',
@@ -40,4 +39,4 @@ class RenameMobileIdToId extends RenameColumnMigration
             'tours_intro_mobile_id_index' => 'tours_intro_id_index',
         ],
     ];
-}
+};

@@ -11,11 +11,21 @@ use App\Http\Controllers\ImageSearchController;
 use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\AssetController;
 
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "api" middleware group. Make something great!
+|
+*/
+
 app('url')->forceRootUrl(config('aic.proxy_url'));
 app('url')->forceScheme(config('aic.proxy_scheme'));
 
 Route::group(['prefix' => 'v1'], function () {
-
     Route::any('/', function () {
         return redirect('/api/v1/swagger.json');
     });

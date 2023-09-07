@@ -191,7 +191,6 @@ return [
 
             'endpoint' => null,
 
-
             /**
              * Register additional namespaces
              *

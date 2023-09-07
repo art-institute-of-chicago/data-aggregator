@@ -7,7 +7,6 @@ use App\Console\Commands\Import\AbstractImportCommand;
 
 class DeleteCollections extends AbstractImportCommand
 {
-
     protected $signature = 'delete:collections
                             {--since= : How far back to scan for records}';
 
@@ -17,7 +16,7 @@ class DeleteCollections extends AbstractImportCommand
 
     public function handle()
     {
-        $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.collections');
 
         $this->deleteByEndpoint();
 
@@ -78,7 +77,7 @@ class DeleteCollections extends AbstractImportCommand
 
             $daIds = $resources->pluck($modelClass::instance()->getKeyName());
 
-            $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '?' . http_build_query([
+            $url = config('resources.sources.collections') . '/' . $endpoint . '?' . http_build_query([
                 'fields' => 'id',
                 'limit' => $this->chunkSize,
                 'ids' => implode(',', $daIds->all()),

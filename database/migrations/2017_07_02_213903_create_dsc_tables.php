@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDscTables extends Migration
-{
-
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('publications', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
@@ -46,7 +44,7 @@ class CreateDscTables extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('sections');
         Schema::dropIfExists('publications');
@@ -64,5 +62,4 @@ class CreateDscTables extends Migration
 
         return $table;
     }
-
-}
+};

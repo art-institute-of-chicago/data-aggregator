@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCollectionsTables extends Migration
-{
-
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('artwork_types', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
@@ -247,7 +245,7 @@ class CreateCollectionsTables extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('artwork_types');
         Schema::dropIfExists('agent_types');
@@ -290,4 +288,4 @@ class CreateCollectionsTables extends Migration
         $table->timestamps();
         return $table;
     }
-}
+};

@@ -8,7 +8,6 @@ use Exception;
 
 class DumpUpload extends AbstractDumpCommand
 {
-
     protected $signature = 'dump:upload';
 
     protected $description = 'Pushes the local dump to a remote repo';
@@ -16,9 +15,9 @@ class DumpUpload extends AbstractDumpCommand
     public function handle()
     {
         // Be sure to set these in your .env
-        $this->validateEnv(['DUMP_REPO_REMOTE', 'DUMP_REPO_NAME', 'DUMP_REPO_EMAIL']);
+        $this->validateConfig(['aic.dump.repo_remote', 'aic.dump.repo_name', 'aic.dump.repo_email']);
 
-        $repoRemote = env('DUMP_REPO_REMOTE');
+        $repoRemote = config('aic.dump.repo_remote');
         $repoPath = $this->getDumpPath('remote');
         $srcPath = $this->getDumpPath('local');
 
@@ -107,9 +106,9 @@ class DumpUpload extends AbstractDumpCommand
         $this->shell->passthru(
             'git -C %s -c %s -c %s commit --author %s -m "Update data"',
             $repoPath,
-            'user.name=' . env('DUMP_REPO_NAME'),
-            'user.email=' . env('DUMP_REPO_EMAIL'),
-            env('DUMP_REPO_NAME') . ' <' . env('DUMP_REPO_EMAIL') . '>'
+            'user.name=' . config('aic.dump.repo_name'),
+            'user.email=' . config('aic.dump.repo_email'),
+            config('aic.dump.repo_name') . ' <' . config('aic.dump.repo_email') . '>'
         );
 
         $this->shell->passthru('git -C %s push --set-upstream origin master %s', $repoPath, '--force');

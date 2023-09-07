@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropDateColumns extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         foreach ([
             'articles',
@@ -20,7 +19,7 @@ class DropDateColumns extends Migration
         }
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->timestamp('date')->nullable()->after('title');
@@ -38,4 +37,4 @@ class DropDateColumns extends Migration
             $table->timestamp('date')->nullable()->after('title');
         });
     }
-}
+};

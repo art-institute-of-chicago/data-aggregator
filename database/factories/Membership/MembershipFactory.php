@@ -6,39 +6,38 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MembershipFactory extends Factory
 {
-
-    public function membershipIdsAndTitle($title = '')
+    public function membershipIdsAndTitle($title = ''): array
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(5),
-            'title' => $title ? $title : ucfirst($this->faker->words(3, true)),
+            'id' => fake()->unique()->randomNumber(5),
+            'title' => $title ? $title : ucfirst(fake()->words(3, true)),
         ];
     }
 
-    public function membershipDates()
+    public function membershipDates(): array
     {
         return [
-            'source_updated_at' => $this->faker->dateTimeThisYear,
+            'source_updated_at' => fake()->dateTimeThisYear,
         ];
     }
 
-    public function definition()
+    public function definition(): array
     {
         $has_capacity = rand(0, 1) === 1;
 
         return array_merge(
             $this->membershipIdsAndTitle(),
             [
-                'image_url' => $this->faker->imageUrl,
-                'start_at' => $this->faker->dateTimeThisYear,
-                'end_at' => $this->faker->dateTimeThisYear,
-                'resource_id' => $this->faker->randomNumber(2),
-                'resource_title' => ucfirst($this->faker->words(3, true)),
-                'is_after_hours' => $this->faker->boolean,
-                'is_private_event' => $this->faker->boolean,
-                'is_admission_required' => $this->faker->boolean,
-                'available' => $has_capacity ? $this->faker->randomDigit * 10 : null,
-                'total_capacity' => $has_capacity ? $this->faker->randomDigit * 100 : null,
+                'image_url' => fake()->imageUrl,
+                'start_at' => fake()->dateTimeThisYear,
+                'end_at' => fake()->dateTimeThisYear,
+                'resource_id' => fake()->randomNumber(2),
+                'resource_title' => ucfirst(fake()->words(3, true)),
+                'is_after_hours' => fake()->boolean,
+                'is_private_event' => fake()->boolean,
+                'is_admission_required' => fake()->boolean,
+                'available' => $has_capacity ? fake()->randomDigit * 10 : null,
+                'total_capacity' => $has_capacity ? fake()->randomDigit * 100 : null,
             ],
             $this->membershipDates()
         );

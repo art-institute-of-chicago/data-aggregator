@@ -30,8 +30,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BaseModel extends AbstractModel
 {
-
-    use Transformable, Documentable, HasFactory;
+    use Transformable;
+    use Documentable;
+    use HasFactory;
 
     /**
      * String that indicates the sub-namespace of the child models. Used for dynamic model retrieval.

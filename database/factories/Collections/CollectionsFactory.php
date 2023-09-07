@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 abstract class CollectionsFactory extends Factory
 {
-    public function idsAndTitle($title, $citiField = false, $idLength = 6)
+    public function idsAndTitle($title, $citiField = false, $idLength = 6): array
     {
         $ret = [];
 
         if ($citiField) {
             $ret = [
-                'id' => $this->faker->unique()->randomNumber($idLength),
+                'id' => fake()->unique()->randomNumber($idLength),
             ];
         }
 
@@ -24,10 +24,10 @@ abstract class CollectionsFactory extends Factory
         );
     }
 
-    public function dates($citiField = false)
+    public function dates($citiField = false): array
     {
         $ret = [
-            'source_updated_at' => $this->faker->dateTimeThisYear,
+            'source_updated_at' => fake()->dateTimeThisYear,
         ];
 
         return $ret;

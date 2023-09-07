@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropLibraryTables extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::dropIfExists('library_material_creator');
         Schema::dropIfExists('library_material_subject');
@@ -14,7 +13,7 @@ class DropLibraryTables extends Migration
         Schema::dropIfExists('library_terms');
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::create('library_material_creator', function (Blueprint $table) {
             $table->increments('id');
@@ -48,4 +47,4 @@ class DropLibraryTables extends Migration
             $table->timestamp('updated_at')->nullable()->index();
         });
     }
-}
+};

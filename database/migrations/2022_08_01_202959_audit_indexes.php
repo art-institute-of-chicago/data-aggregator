@@ -5,9 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class AuditIndexes extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::table('agents', function (Blueprint $table) {
             // API-341: We don't need this b/c we don't show agent type
@@ -93,7 +92,7 @@ class AuditIndexes extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('agents', function (Blueprint $table) {
             $table->index(['agent_type_id']);
@@ -158,4 +157,4 @@ class AuditIndexes extends Migration
             $table->dropIndex(['datahub_id']);
         });
     }
-}
+};

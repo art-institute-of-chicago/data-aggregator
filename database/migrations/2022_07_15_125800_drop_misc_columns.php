@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropMiscColumns extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::table('agents', function (Blueprint $table) {
             $table->dropColumn([
@@ -93,7 +92,7 @@ class DropMiscColumns extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('agents', function (Blueprint $table) {
             $table->string('birth_place')->nullable()->after('birth_date');
@@ -155,4 +154,4 @@ class DropMiscColumns extends Migration
             $table->text('date_display')->nullable()->after('public_end_at');
         });
     }
-}
+};

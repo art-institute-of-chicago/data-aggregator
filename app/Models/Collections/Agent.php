@@ -90,7 +90,7 @@ class Agent extends CollectionsModel
             ],
 
             'terms' => [
-                'id' => $this->boostedIds(),
+                'id' => static::boostedIds(),
             ]
         ];
     }

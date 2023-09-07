@@ -23,6 +23,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `date_qualifier_id` *integer* - Unique identifier of the qualifer to the dates provided for this record.
 * `artist_display` *string* - Readable description of the creator of this work. Includes artist names, nationality and lifespan dates
 * `place_of_origin` *string* - The location where the creation, design, or production of the work took place, or the original location of the work
+* `description` *string* - Longer explanation describing the work
 * `dimensions` *string* - The size, shape, scale, and dimensions of the work. May include multiple dimensions like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.
 * `dimensions_detail` *object* - The height, width, depth, and/or diameter of each section of the work in centimeters
 * `medium_display` *string* - The substances or materials used in the creation of a work
@@ -53,6 +54,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `on_loan_display` *string* - If an artwork is on loan, this contains details about the loan
 * `gallery_title` *string* - The location of this work in our museum
 * `gallery_id` *number* - Unique identifier of the location of this work in our museum
+* `nomisma_id` *string* - Unique identifier of this work in the nomisma coin database
 * `artwork_type_title` *string* - The kind of object or work (e.g. Painting, Sculpture, Book)
 * `artwork_type_id` *number* - Unique identifier of the kind of object or work
 * `department_title` *string* - Name of the curatorial department that this work belongs to
@@ -177,6 +179,7 @@ An organized presentation and display of a selection of artworks. For a descript
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
 * `is_featured` *boolean* - Is this exhibition currently featured on our website?
+* `position` *number* - Numering position represnting the order in which this exhibition is featured on the website
 * `short_description` *string* - Brief explanation of what this exhibition is
 * `web_url` *string* - URL to this exhibition on our website
 * `image_url` *string* - URL to the hero image from the website

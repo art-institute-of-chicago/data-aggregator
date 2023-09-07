@@ -8,12 +8,12 @@ class ExhibitionFactory extends Factory
 {
     protected $model = \App\Models\Web\Exhibition::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(4),
-            'title' => ucfirst($this->faker->words(3, true)),
-            'datahub_id' => $this->faker->unique()->randomNumber(4),
+            'id' => fake()->unique()->randomNumber(4),
+            'title' => ucfirst(fake()->words(3, true)),
+            'datahub_id' => fake()->unique()->randomNumber(4),
         ];
     }
 }

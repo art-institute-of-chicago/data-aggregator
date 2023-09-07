@@ -9,7 +9,6 @@ use App\Models\WebModel;
  */
 class Exhibition extends WebModel
 {
-
     public $table = 'web_exhibitions';
 
     protected $casts = [

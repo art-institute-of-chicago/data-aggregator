@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMembershipTables extends Migration
-{
-
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('ticketed_events', function (Blueprint $table) {
             $table = $this->_addIdsAndTitle($table);
@@ -48,7 +46,7 @@ class CreateMembershipTables extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('ticketed_events');
         Schema::dropIfExists('ticketed_event_types');
@@ -68,5 +66,4 @@ class CreateMembershipTables extends Migration
         $table->timestamps();
         return $table;
     }
-
-}
+};

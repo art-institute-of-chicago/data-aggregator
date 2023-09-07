@@ -4,16 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropIssuesAndIssueArticles extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::dropIfExists('issues');
 
         Schema::dropIfExists('issue_articles');
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::create('issues', function (Blueprint $table) {
             $table->unsignedInteger('id')->primary();
@@ -35,4 +34,4 @@ class DropIssuesAndIssueArticles extends Migration
             $table->timestamps();
         });
     }
-}
+};

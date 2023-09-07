@@ -6,19 +6,19 @@ class AssetFactory extends CollectionsFactory
 {
     protected $model = \App\Models\Collections\Asset::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
-            $this->idsAndTitle(ucwords($this->faker->words(3, true))),
+            $this->idsAndTitle(ucwords(fake()->words(3, true))),
             [
-                'id' => $this->faker->uuid(),
-                'content' => $this->faker->url,
-                'alt_text' => $this->faker->paragraph(3),
+                'id' => fake()->uuid(),
+                'content' => fake()->url,
+                'alt_text' => fake()->paragraph(3),
                 'is_multimedia_resource' => false,
                 'is_educational_resource' => false,
                 'is_teacher_resource' => false,
             ],
-            $this->dates($this->faker)
+            $this->dates(fake())
         );
     }
 }

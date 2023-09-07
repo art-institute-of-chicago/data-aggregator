@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportCollections extends ImportCollectionsFull
 {
-
     protected $signature = 'import:collections
                             {endpoint? : Endpoint on dataservice to query, e.g. `object-types`}
                             {--since= : How far back to scan for records}';
@@ -15,7 +14,7 @@ class ImportCollections extends ImportCollectionsFull
 
     public function handle()
     {
-        $this->api = env('COLLECTIONS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.collections');
 
         $endpoint = $this->argument('endpoint');
 

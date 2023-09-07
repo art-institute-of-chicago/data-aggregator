@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropImgixUuidColumns extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         foreach ([
             'articles',
@@ -22,7 +21,7 @@ class DropImgixUuidColumns extends Migration
         }
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->text('imgix_uuid')->nullable()->after('copy');
@@ -48,4 +47,4 @@ class DropImgixUuidColumns extends Migration
             $table->text('imgix_uuid')->nullable()->after('copy');
         });
     }
-}
+};

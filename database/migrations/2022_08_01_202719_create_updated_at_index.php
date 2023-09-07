@@ -2,8 +2,7 @@
 
 use App\Library\Migrations\CreateIndexMigration;
 
-class CreateUpdatedAtIndex extends CreateIndexMigration
-{
+return new class () extends CreateIndexMigration {
     protected $columnName = 'updated_at';
 
     protected $tableNames = [
@@ -21,4 +20,4 @@ class CreateUpdatedAtIndex extends CreateIndexMigration
         11 => 'ticketed_event_types',
         12 => 'wait_times',
     ];
-}
+};

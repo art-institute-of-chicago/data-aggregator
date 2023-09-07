@@ -10,7 +10,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class SearchInstall extends BaseCommand
 {
-
     use Indexer;
 
     protected $signature = 'search:install
@@ -22,7 +21,7 @@ class SearchInstall extends BaseCommand
 
     public function handle()
     {
-        $prefix = $this->argument('prefix') ?? env('ELASTICSEARCH_INDEX');
+        $prefix = $this->argument('prefix') ?? config('elasticsearch.indexParams.index');
 
         if ($this->argument('model')) {
             $this->install($this->argument('model'), $prefix);

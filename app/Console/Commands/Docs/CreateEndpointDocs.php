@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Storage;
 
 class CreateEndpointDocs extends AbstractDocCommand
 {
-
     protected $signature = 'docs:endpoints';
 
     protected $description = 'Generate documentation for API endpoints';

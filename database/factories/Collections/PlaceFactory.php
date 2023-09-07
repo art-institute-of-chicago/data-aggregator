@@ -6,13 +6,13 @@ class PlaceFactory extends CollectionsFactory
 {
     protected $model = \App\Models\Collections\Place::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
-            $this->idsAndTitle($this->faker->country, true),
+            $this->idsAndTitle(fake()->country, true),
             [
-                'latitude' => $this->faker->latitude,
-                'longitude' => $this->faker->longitude,
+                'latitude' => fake()->latitude,
+                'longitude' => fake()->longitude,
             ],
             $this->dates(true)
         );

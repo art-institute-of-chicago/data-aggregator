@@ -4,7 +4,7 @@ return [
     'dsn' => env('SENTRY_LARAVEL_DSN', env('SENTRY_DSN')),
 
     // capture release as git sha
-    // 'release' => trim(exec('git log --pretty="%h" -n1 HEAD')),
+    'release' => trim(exec('git log --pretty="%h" -n1 HEAD')),
 
     // When left empty or `null` the Laravel environment will be used
     'environment' => env('SENTRY_ENVIRONMENT'),
@@ -12,6 +12,12 @@ return [
     'breadcrumbs' => [
         // Capture Laravel logs in breadcrumbs
         'logs' => true,
+
+        // Capture Laravel cache events in breadcrumbs
+        'cache' => true,
+
+        // // Capture Livewire components in breadcrumbs
+        // 'livewire' => true,
 
         // Capture SQL queries in breadcrumbs
         'sql_queries' => true,
@@ -24,6 +30,9 @@ return [
 
         // Capture command information in breadcrumbs
         'command_info' => true,
+
+        // Capture HTTP client requests information in breadcrumbs
+        'http_client_requests' => true,
     ],
 
     'tracing' => [
@@ -42,14 +51,35 @@ return [
         // Capture views as spans
         'views' => true,
 
+        // // Capture Livewire components as spans
+        // 'livewire' => true,
+
+        // Capture HTTP client requests as spans
+        'http_client_requests' => true,
+
+        //  // Capture Redis operations as spans (this enables Redis events in Laravel)
+        //  'redis_commands' => env('SENTRY_TRACE_REDIS_COMMANDS', false),
+
+        //  // Try to find out where the Redis command originated from and add it to the command spans
+        //  'redis_origin' => true,
+
         // Indicates if the tracing integrations supplied by Sentry should be loaded
         'default_integrations' => true,
+
+        // Indicates that requests without a matching route should be traced
+        'missing_routes' => false,
+
+        // Indicates if the performance trace should continue after the response has been sent to the user until the application terminates
+        // This is required to capture any spans that are created after the response has been sent like queue jobs dispatched using `dispatch(...)->afterResponse()` for example
+        // 'continue_after_response' => true,
     ],
 
     // @see: https://docs.sentry.io/platforms/php/configuration/options/#send-default-pii
-    'send_default_pii' => false,
+    'send_default_pii' => env('SENTRY_SEND_DEFAULT_PII', false),
 
-    'traces_sample_rate' => (float) (env('SENTRY_TRACES_SAMPLE_RATE', 0.0)),
+    // @see: https://docs.sentry.io/platforms/php/guides/laravel/configuration/options/#traces-sample-rate
+    'traces_sample_rate' => env('SENTRY_TRACES_SAMPLE_RATE') === null ? null : (float)env('SENTRY_TRACES_SAMPLE_RATE'),
 
-    'controllers_base_namespace' => env('SENTRY_CONTROLLERS_BASE_NAMESPACE', 'App\\Http\\Controllers'),
+    'profiles_sample_rate' => env('SENTRY_PROFILES_SAMPLE_RATE') === null ? null : (float)env('SENTRY_PROFILES_SAMPLE_RATE'),
+
 ];

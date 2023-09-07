@@ -9,7 +9,6 @@ use App\Transformers\Inbound\MembershipTransformer;
 
 class TicketedEvent extends MembershipTransformer
 {
-
     protected function getExtraFields(Datum $datum)
     {
         return [

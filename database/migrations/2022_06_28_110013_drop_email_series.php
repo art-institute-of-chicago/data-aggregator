@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropEmailSeries extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::table('events', function (Blueprint $table) {
             $table->dropColumn('test_emails');
@@ -17,7 +16,7 @@ class DropEmailSeries extends Migration
         Schema::dropIfExists('event_email_series');
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('events', function (Blueprint $table) {
             $table->text('test_emails')->nullable()->after('image_url');
@@ -43,4 +42,4 @@ class DropEmailSeries extends Migration
             $table->boolean('send_nonmember_test')->nullable();
         });
     }
-}
+};

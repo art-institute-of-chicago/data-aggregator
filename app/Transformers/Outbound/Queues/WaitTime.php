@@ -6,7 +6,6 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class WaitTime extends BaseTransformer
 {
-
     protected function getFields()
     {
         return [

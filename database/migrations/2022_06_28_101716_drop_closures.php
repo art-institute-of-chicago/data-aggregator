@@ -4,14 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropClosures extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::dropIfExists('closures');
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::create('closures', function (Blueprint $table) {
             $table->increments('id');
@@ -26,4 +25,4 @@ class DropClosures extends Migration
             $table->softDeletes();
         });
     }
-}
+};

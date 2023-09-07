@@ -2,8 +2,6 @@
 
 namespace App\Scopes;
 
-use Carbon\Carbon;
-
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;

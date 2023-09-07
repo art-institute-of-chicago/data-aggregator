@@ -10,7 +10,6 @@ use App\Models\ElasticSearchable;
  */
 class TicketedEvent extends MembershipModel
 {
-
     use ElasticSearchable {
         getDefaultSearchFields as public traitGetDefaultSearchFields;
     }

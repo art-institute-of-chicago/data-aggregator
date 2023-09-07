@@ -6,7 +6,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutRefresh extends BaseCommand
 {
-
     protected $signature = 'scout:refresh
                             {model}';
 

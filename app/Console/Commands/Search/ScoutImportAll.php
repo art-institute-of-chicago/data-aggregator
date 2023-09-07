@@ -8,7 +8,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutImportAll extends BaseCommand
 {
-
     protected $signature = 'scout:import-all
                             {prefix? : Prefix for index(es) for versioning}';
 

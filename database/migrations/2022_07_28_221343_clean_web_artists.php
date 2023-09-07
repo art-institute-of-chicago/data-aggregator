@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CleanWebArtists extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::table('web_artists', function (Blueprint $table) {
             $table->dropColumn('title');
@@ -22,7 +21,7 @@ class CleanWebArtists extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('web_artists', function (Blueprint $table) {
             // API-337: Not nullable as an oversight!
@@ -38,4 +37,4 @@ class CleanWebArtists extends Migration
             $table->renameColumn('agent_id', 'datahub_id');
         });
     }
-}
+};

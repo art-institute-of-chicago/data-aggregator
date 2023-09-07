@@ -7,7 +7,6 @@ use App\Models\Dsc\Section;
 
 class ImportCatalogues extends AbstractImportCommand
 {
-
     protected $signature = 'import:dsc
                             {--y|yes : Answer "yes" to all prompts}';
 
@@ -17,7 +16,7 @@ class ImportCatalogues extends AbstractImportCommand
     {
         // API-345: Catalogues data service has been retired!
         // We now import a static export from the enhancer.
-        $this->api = env('ENHANCER_URL');
+        $this->api = config('resources.sources.dsc');
 
         if (!$this->reset()) {
             return false;

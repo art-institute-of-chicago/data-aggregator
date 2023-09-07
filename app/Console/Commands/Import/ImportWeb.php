@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportWeb extends ImportWebFull
 {
-
     protected $signature = 'import:web
                             {--since= : How far back to scan for records}';
 
@@ -14,7 +13,7 @@ class ImportWeb extends ImportWebFull
 
     public function handle()
     {
-        $this->api = env('WEB_CMS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.web');
 
         $this->importEndpoints();
     }

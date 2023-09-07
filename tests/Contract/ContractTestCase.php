@@ -39,7 +39,7 @@ abstract class ContractTestCase extends TestCase
         return $this->route ?: app('Resources')->getEndpointForModel($m);
     }
 
-    protected function it_fetches_fields($fields = [], $pivots = [])
+    protected function it_fetches_fields($fields = [], $pivots = []): void
     {
         if ($fields) {
             $m = $this->model();

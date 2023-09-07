@@ -10,7 +10,6 @@ use App\Models\ElasticSearchable;
  */
 class Tour extends MobileModel
 {
-
     use ElasticSearchable;
 
     protected $with = [

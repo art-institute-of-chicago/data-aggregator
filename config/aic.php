@@ -85,7 +85,7 @@ return [
 
     'auth' => [
         'restricted' => env('APP_RESTRICTED', true),
-        'max_attempts' => 60,
+        'max_attempts' => env('AIC_AUTH_MAX_ATTEMPTS', 60),
         'max_resources_guest' => 1000,
         'max_resources_user' => 10000,
         'login_whitelist_ips' => array_map('trim', explode(',', env('LOGIN_WHITELIST_IPS', '127.0.0.1/32'))),
@@ -106,4 +106,35 @@ return [
         'api_key' => env('QUEUES_API_KEY'),
     ],
 
+    'dump' => [
+        'schedule_enabled' => env('DUMP_SCHEDULE_ENABLED', false),
+        'repo_remote' => env('DUMP_REPO_REMOTE'),
+        'repo_name' => env('DUMP_REPO_NAME'),
+        'repo_email' => env('DUMP_REPO_EMAIL'),
+    ],
+
+    'mobile' => [
+        'audio_cdn_url' => env('MOBILE_AUDIO_CDN_URL'),
+    ],
+
+    'web' => [
+        'username' => env('WEB_CMS_DATA_SERVICE_USERNAME'),
+        'password' => env('WEB_CMS_DATA_SERVICE_PASSWORD'),
+    ],
+
+    'asset' => [
+        'url' => env('ASSET_URL', ''),
+        'prefix' => env('ASSET_PREFIX', ''),
+        'iiif_url' => env('IIIF_URL', null),
+    ],
+
+    'search' => [
+        'boost_artist_titles' => env('SEARCH_BOOST_ARTIST_TITLES')
+    ],
+
+    'shop' => [
+        'image_url' => env('SHOP_IMGIX_URL'),
+        'product_url' => env('SHOP_PRODUCT_URL'),
+
+    ],
 ];

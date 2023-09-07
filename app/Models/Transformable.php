@@ -4,7 +4,6 @@ namespace App\Models;
 
 trait Transformable
 {
-
     public function transform(array $requestedFields = null)
     {
         $transformer = app('Resources')->getTransformerForModel(get_called_class());

@@ -8,11 +8,11 @@ class PressReleaseFactory extends Factory
 {
     protected $model = \App\Models\Web\PressRelease::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(4),
-            'title' => ucfirst($this->faker->words(3, true)),
+            'id' => fake()->unique()->randomNumber(4),
+            'title' => ucfirst(fake()->words(3, true)),
         ];
     }
 }

@@ -16,10 +16,13 @@ use App\Transformers\Outbound\HasSuggestFields;
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class Artwork extends BaseTransformer
 {
-    use IsCC0;
+    use IsCC0 {
+        IsCC0::getLicenseText as cc0LicenseText;
+    }
     use HasBoosted;
     use HasSuggestFields {
         getSuggestFields as traitGetSuggestFields;
@@ -206,7 +209,6 @@ class Artwork extends BaseTransformer
                 'doc' => 'Longer explanation describing the work',
                 'type' => 'string',
                 'elasticsearch' => 'text',
-                'is_restricted' => true,
             ],
             'dimensions' => [
                 'doc' => 'The size, shape, scale, and dimensions of the work. May include multiple dimensions like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.',
@@ -453,6 +455,18 @@ class Artwork extends BaseTransformer
             ],
 
             /**
+             * External vocabularies
+             */
+            'nomisma_id' => [
+                'doc' => 'Unique identifier of this work in the nomisma coin database',
+                'type' => 'string',
+                'elasticsearch' => 'keyword',
+                'value' => function ($item) {
+                    return $item->nomisma_id ?: null;
+                },
+            ],
+
+            /**
              * TODO: Refactor relationships:
              */
             'artwork_type_title' => [
@@ -526,7 +540,7 @@ class Artwork extends BaseTransformer
                     'default' => true,
                     'mapping' => $this->getDefaultStringMapping(true),
                     // This is controllable via .env so we can tweak it without pushing to prod
-                    'boost' => (float) (env('SEARCH_BOOST_ARTIST_TITLES') ?: 2),
+                    'boost' => (float) (config('aic.search.boost_artist_titles') ?: 2),
                 ],
                 'value' => function ($item) {
                     return $item->artists->pluck('title');
@@ -916,5 +930,11 @@ class Artwork extends BaseTransformer
                 },
             ],
         ]);
+    }
+
+    public function getLicenseText()
+    {
+        return 'The `description` field in this response is licensed under a Creative Commons Attribution 4.0 Generic License (CC-By) and the Terms and Conditions of artic.edu. All other data '
+         . Str::after($this->cc0LicenseText(), 'The data ');
     }
 }

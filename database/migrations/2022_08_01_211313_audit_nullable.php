@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AuditNullable extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->text('title')->nullable()->change();
@@ -104,7 +103,7 @@ class AuditNullable extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->text('title')->nullable(false)->change();
@@ -201,4 +200,4 @@ class AuditNullable extends Migration
             $table->text('title')->nullable(false)->change();
         });
     }
-}
+};

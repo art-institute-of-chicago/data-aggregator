@@ -6,7 +6,6 @@ use App\Models\AbstractPivot as BasePivot;
 
 class ArtworkTerm extends BasePivot
 {
-
     public $incrementing = true;
 
     public function term()

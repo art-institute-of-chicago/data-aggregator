@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportEnhancer extends ImportEnhancerFull
 {
-
     protected $signature = 'import:enhancer
                             {endpoint? : Endpoint on dataservice to query}
                             {--since= : How far back to scan for records}';
@@ -15,7 +14,7 @@ class ImportEnhancer extends ImportEnhancerFull
 
     public function handle()
     {
-        $this->api = env('ENHANCER_URL');
+        $this->api = config('resources.sources.dsc');
 
         $endpoint = $this->argument('endpoint');
 

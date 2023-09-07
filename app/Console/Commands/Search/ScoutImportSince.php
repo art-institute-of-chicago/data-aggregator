@@ -9,7 +9,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutImportSince extends BaseCommand
 {
-
     protected $signature = 'scout:import-since {datetime} {chunksize=20}';
 
     protected $description = 'Import all instances of all searchable models since an ISO 8601 datetime';
@@ -32,7 +31,6 @@ class ScoutImportSince extends BaseCommand
             $query = $model::whereDate($column, '>=', $datetime);
 
             $query->chunk($chunksize, function ($instances) use ($model) {
-
                 $instances->searchable();
 
                 foreach ($instances as $instance) {

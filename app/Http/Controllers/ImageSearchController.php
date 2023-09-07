@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 use App\Library\Shell;
 
 use App\Http\Controllers\SearchController as BaseController;

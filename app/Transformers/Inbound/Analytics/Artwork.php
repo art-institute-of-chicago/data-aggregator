@@ -7,7 +7,6 @@ use App\Transformers\Inbound\BaseTransformer;
 
 class Artwork extends BaseTransformer
 {
-
     protected function getTitle(Datum $datum)
     {
         return [];

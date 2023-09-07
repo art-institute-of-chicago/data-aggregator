@@ -6,7 +6,6 @@ use App\Models\Membership\TicketedEventType;
 
 class ImportTicketedEventTypesFull extends AbstractImportCommand
 {
-
     protected $signature = 'import:events-ticketed-types-full
                             {--y|yes : Answer "yes" to all prompts}';
 
@@ -14,7 +13,7 @@ class ImportTicketedEventTypesFull extends AbstractImportCommand
 
     public function handle()
     {
-        $this->api = env('EVENTS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.membership');
 
         if (!$this->reset()) {
             return false;

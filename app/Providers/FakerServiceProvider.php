@@ -11,35 +11,20 @@ class FakerServiceProvider extends ServiceProvider
      *
      * Peruse the following link for tips on implementing custom Faker providers:
      * @link https://stackoverflow.com/questions/38250776/how-to-implement-your-own-faker-provider-in-laravel
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->app->singleton('Faker', function ($app) {
 
-            $faker = \Faker\Factory::create();
-
-            // This illustrates how to add custom Faker providers
-            $newProvider = new class($faker) extends \Faker\Provider\Base {
-
-                // Used in Collections\Artwork and Dsc\Section
-                public function accession()
-                {
-                    return (string) ($this->generator->randomFloat(3, 1900, 2018));
-                }
-
-            };
-
-            $faker->addProvider($newProvider);
-
-            return $faker;
-        });
-
-        // This forces factories to use our enhanced Faker by default
-        $this->app->singleton('Faker\Generator', function ($app) {
-
-            return app('Faker');
+        $this->app->afterResolving(function (mixed $instance) {
+            if ($instance instanceof \Faker\Generator) {
+                $instance->addProvider(new class () {
+                    // Used in Collections\Artwork and Dsc\Section
+                    public function accession()
+                    {
+                        return (string) (fake()->randomFloat(3, 1900, 2018));
+                    }
+                });
+            }
         });
     }
 }

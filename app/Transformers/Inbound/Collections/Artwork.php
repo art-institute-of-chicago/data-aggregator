@@ -15,7 +15,6 @@ use Carbon\Carbon;
 
 class Artwork extends CollectionsTransformer
 {
-
     use ConvertsToHtml;
 
     public function syncEx(Model $instance, Datum $datum)

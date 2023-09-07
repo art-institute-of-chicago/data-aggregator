@@ -26,7 +26,7 @@ class MigrationCreator extends BaseMigrationCreator
             throw new LogicException('No stub filename defined');
         }
 
-        $stubPath = $this->customStubPath.'/'.$this->stubFilename;
+        $stubPath = $this->customStubPath . '/' . $this->stubFilename;
 
         if (!$this->files->exists($stubPath)) {
             throw new LogicException('Stub does not exist: ' . $stubPath);
@@ -35,12 +35,15 @@ class MigrationCreator extends BaseMigrationCreator
         return $this->files->get($stubPath);
     }
 
-    protected function populateStub($name, $stub, $table)
+    protected function populateStub($stub, $table)
     {
-        $stub = str_replace(
-            ['DummyClass', '{{ class }}', '{{class}}'],
-            $this->getClassName($name), $stub
-        );
+        if (! is_null($table)) {
+            $stub = str_replace(
+                ['DummyTable', '{{ table }}', '{{table}}'],
+                $table,
+                $stub
+            );
+        }
 
         if (!empty($this->stubPopulator)) {
             $stub = ($this->stubPopulator)($stub);
@@ -48,5 +51,4 @@ class MigrationCreator extends BaseMigrationCreator
 
         return $stub;
     }
-
 }

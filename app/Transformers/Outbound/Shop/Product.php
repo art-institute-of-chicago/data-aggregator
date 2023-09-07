@@ -19,7 +19,7 @@ class Product extends BaseTransformer
                 'type' => 'url',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return env('SHOP_IMGIX_URL') . $item->external_sku . '_2.jpg';
+                    return config('aic.shop.imgix_url') . $item->external_sku . '_2.jpg';
                 },
             ],
             'web_url' => [
@@ -27,7 +27,7 @@ class Product extends BaseTransformer
                 'type' => 'url',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return env('SHOP_PRODUCT_URL') . $item->external_sku;
+                    return config('aic.shop.product_url') . $item->external_sku;
                 },
             ],
             'description' => [

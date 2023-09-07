@@ -6,7 +6,6 @@ use Aic\Hub\Foundation\AbstractCommand;
 
 abstract class BaseCommand extends AbstractCommand
 {
-
     /**
      * Keys are namespaces under `\App\Models`. Values are human-readable headings for the docs.
      * Here, order determines order of sections in the docs. Resources under these sections will

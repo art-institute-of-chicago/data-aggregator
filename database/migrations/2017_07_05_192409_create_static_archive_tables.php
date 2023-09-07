@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStaticArchiveTables extends Migration
-{
-
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('sites', function (Blueprint $table) {
             $table->integer('site_id')->unsigned()->primary();
@@ -46,12 +44,11 @@ class CreateStaticArchiveTables extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('artwork_site');
         Schema::dropIfExists('agent_site');
         Schema::dropIfExists('exhibition_site');
         Schema::dropIfExists('sites');
     }
-
-}
+};

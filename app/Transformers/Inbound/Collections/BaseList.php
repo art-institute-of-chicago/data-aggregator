@@ -8,7 +8,6 @@ use App\Transformers\Inbound\CollectionsTransformer;
 
 class BaseList extends CollectionsTransformer
 {
-
     /**
      * CITI lists have no real lastmod dates.
      * Each item is just a combination of an id and a title.

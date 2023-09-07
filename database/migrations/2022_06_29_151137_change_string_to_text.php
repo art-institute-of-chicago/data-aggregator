@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeStringToText extends Migration
-{
+return new class () extends Migration {
     private $fields = [
         'agent_place_qualifiers' => [
             'title',
@@ -121,7 +120,7 @@ class ChangeStringToText extends Migration
         ],
     ];
 
-    public function up()
+    public function up(): void
     {
         foreach ($this->fields as $tableName => $fieldNames) {
             Schema::table($tableName, function (Blueprint $table) use ($fieldNames) {
@@ -132,7 +131,7 @@ class ChangeStringToText extends Migration
         }
     }
 
-    public function down()
+    public function down(): void
     {
         foreach ($this->fields as $tableName => $fieldNames) {
             Schema::table($tableName, function (Blueprint $table) use ($fieldNames) {
@@ -142,4 +141,4 @@ class ChangeStringToText extends Migration
             });
         }
     }
-}
+};

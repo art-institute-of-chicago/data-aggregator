@@ -8,16 +8,16 @@ class TourFactory extends MobileFactory
 {
     protected $model = \App\Models\Mobile\Tour::class;
 
-    public function definition()
+    public function definition(): array
     {
         return array_merge(
             $this->mobileAppIdsAndTitle(),
             [
-                'image' => $this->faker->imageUrl(),
-                'description' => $this->faker->paragraph(5),
-                'intro_text' => $this->faker->paragraph(3),
-                'intro_id' => $this->faker->randomElement(Sound::query()->pluck('id')->all()),
-                'weight' => $this->faker->randomDigit,
+                'image' => fake()->imageUrl(),
+                'description' => fake()->paragraph(5),
+                'intro_text' => fake()->paragraph(3),
+                'intro_id' => fake()->randomElement(Sound::query()->pluck('id')->all()),
+                'weight' => fake()->randomDigit,
             ]
         );
     }

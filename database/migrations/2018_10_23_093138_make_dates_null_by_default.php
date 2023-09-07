@@ -4,10 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MakeDatesNullByDefault extends Migration
-{
-
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         if (App::environment('testing')) {
             return; // TODO: Move away from SQLite for testing
@@ -36,8 +34,8 @@ class MakeDatesNullByDefault extends Migration
         }
     }
 
-    public function down()
+    public function down(): void
     {
         // Before, some used to be CURRENT_TIMESTAMP. This is a one-way migration.
     }
-}
+};

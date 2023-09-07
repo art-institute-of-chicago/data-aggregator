@@ -3,41 +3,24 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Sentry\Laravel\Integration;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
     /**
-     * A list of the exception types that are not reported.
+     * The list of the inputs that are never flashed to the session on validation exceptions.
      *
-     * @var string[]
-     */
-    protected $dontReport = [
-
-    ];
-
-    /**
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @var string[]
+     * @var array<int, string>
      */
     protected $dontFlash = [
 
     ];
 
-    /**
-     * Report or log an exception.
-     *
-     * @return void
-     *
-     * @throws \Throwable
-     */
-    public function report(Throwable $exception)
+    public function register(): void
     {
-        if (app()->bound('sentry') && $this->shouldReport($exception)) {
-            app('sentry')->captureException($exception);
-        }
-
-        parent::report($exception);
+        $this->reportable(function (Throwable $e) {
+            Integration::captureUnhandledException($e);
+        });
     }
 }

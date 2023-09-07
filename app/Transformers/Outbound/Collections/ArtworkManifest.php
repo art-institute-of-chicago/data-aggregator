@@ -10,7 +10,6 @@ use App\Transformers\Outbound\Collections\Traits\IsCC0;
 
 class ArtworkManifest extends BaseTransformer
 {
-
     use IsCC0;
 
     public function transform(Artwork $model)

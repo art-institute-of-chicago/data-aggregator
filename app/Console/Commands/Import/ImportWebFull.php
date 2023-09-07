@@ -20,7 +20,6 @@ use App\Models\Web\StaticPage;
 
 class ImportWebFull extends AbstractImportCommand
 {
-
     protected $signature = 'import:web-full
                             {endpoint? : Endpoint on dataservice to query, e.g. `events`}
                             {page? : Page to begin importing from}
@@ -35,7 +34,7 @@ class ImportWebFull extends AbstractImportCommand
             $this->isTest = true;
         }
 
-        $this->api = env('WEB_CMS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.web');
 
         $endpoint = $this->argument('endpoint');
 
@@ -117,8 +116,8 @@ class ImportWebFull extends AbstractImportCommand
 
     protected function query($endpoint, $page = 1, $limit = 10)
     {
-        if (env('WEB_CMS_DATA_SERVICE_USERNAME')) {
-            $this->auth = env('WEB_CMS_DATA_SERVICE_USERNAME') . ':' . env('WEB_CMS_DATA_SERVICE_PASSWORD');
+        if (config('aic.web.username')) {
+            $this->auth = config('aic.web.username') . ':' . config('aic.web.password');
         }
 
         return parent::query($endpoint, $page, $limit);

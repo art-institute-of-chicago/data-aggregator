@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropShortDescriptionAndSimilarColumns extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
         Schema::table('digital_catalogs', function (Blueprint $table) {
             $table->dropColumn([
@@ -63,7 +62,7 @@ class DropShortDescriptionAndSimilarColumns extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('digital_catalogs', function (Blueprint $table) {
             $table->text('listing_description')->nullable()->after('slug');
@@ -103,4 +102,4 @@ class DropShortDescriptionAndSimilarColumns extends Migration
             $table->text('header_copy')->nullable()->after('title');
         });
     }
-}
+};

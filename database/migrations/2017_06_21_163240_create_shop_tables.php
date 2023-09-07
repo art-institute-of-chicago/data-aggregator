@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateShopTables extends Migration
-{
-
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('shop_categories', function (Blueprint $table) {
             $table = $this->_addId($table);
@@ -54,7 +52,7 @@ class CreateShopTables extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('products');
         Schema::dropIfExists('shop_categories');
@@ -74,5 +72,4 @@ class CreateShopTables extends Migration
         $table->timestamps();
         return $table;
     }
-
-}
+};

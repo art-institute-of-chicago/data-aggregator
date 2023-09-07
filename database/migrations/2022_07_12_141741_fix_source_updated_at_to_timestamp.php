@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class FixSourceUpdatedAtToTimestamp extends Migration
-{
+return new class () extends Migration {
     private $tableNames = [
         'agent_place_qualifiers',
         'agent_roles',
@@ -42,7 +41,7 @@ class FixSourceUpdatedAtToTimestamp extends Migration
         'web_exhibitions',
     ];
 
-    public function up()
+    public function up(): void
     {
         foreach ($this->tableNames as $tableName) {
             Schema::table($tableName, function (Blueprint $table) {
@@ -51,7 +50,7 @@ class FixSourceUpdatedAtToTimestamp extends Migration
         }
     }
 
-    public function down()
+    public function down(): void
     {
         foreach ($this->tableNames as $tableName) {
             Schema::table($tableName, function (Blueprint $table) {
@@ -59,4 +58,4 @@ class FixSourceUpdatedAtToTimestamp extends Migration
             });
         }
     }
-}
+};

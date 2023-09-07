@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropSourceCreatedAt extends Migration
-{
+return new class () extends Migration {
     private $tables = [
         'assets' => 'content_modified_at',
         'event_occurrences' => 'button_caption',
@@ -14,8 +13,7 @@ class DropSourceCreatedAt extends Migration
         'ticketed_events' => 'total_capacity',
     ];
 
-
-    public function up()
+    public function up(): void
     {
         foreach ($this->tables as $tableName => $afterColumn) {
             Schema::table($tableName, function (Blueprint $table) {
@@ -24,7 +22,7 @@ class DropSourceCreatedAt extends Migration
         }
     }
 
-    public function down()
+    public function down(): void
     {
         foreach ($this->tables as $tableName => $afterColumn) {
             Schema::table($tableName, function (Blueprint $table) use ($afterColumn) {
@@ -32,4 +30,4 @@ class DropSourceCreatedAt extends Migration
             });
         }
     }
-}
+};

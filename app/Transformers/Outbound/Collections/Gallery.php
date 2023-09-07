@@ -7,7 +7,6 @@ use App\Transformers\Outbound\Collections\Traits\IsCC0;
 
 class Gallery extends BaseTransformer
 {
-
     use IsCC0;
 
     protected function getFields()

@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportCollectionsOne extends ImportCollectionsFull
 {
-
     protected $signature = 'import:collections-one
                             {endpoint : Endpoint on dataservice to query, e.g. `object-types` }
                             {id : Identifier of the specific resource to import}';
@@ -31,7 +30,7 @@ class ImportCollectionsOne extends ImportCollectionsFull
 
     private function fetchItem($endpoint, $id)
     {
-        $url = env('COLLECTIONS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
+        $url = config('resources.sources.collections') . '/' . $endpoint . '/' . $id;
 
         $this->info('Fetching: ' . $url);
 

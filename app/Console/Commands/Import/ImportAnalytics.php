@@ -6,7 +6,6 @@ use App\Models\Collections\Artwork;
 
 class ImportAnalytics extends AbstractImportCommand
 {
-
     protected $signature = 'import:analytics
                             {page? : Page to begin importing from}';
 
@@ -14,7 +13,7 @@ class ImportAnalytics extends AbstractImportCommand
 
     public function handle()
     {
-        $this->api = env('ANALYTICS_DATA_SERVICE_URL');
+        $this->api = config('resources.sources.analytics');
 
         $this->import('analytics', Artwork::class, 'artworks', $this->argument('page') ?: 1);
     }

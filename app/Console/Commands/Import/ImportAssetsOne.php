@@ -4,7 +4,6 @@ namespace App\Console\Commands\Import;
 
 class ImportAssetsOne extends ImportAssetsFull
 {
-
     protected $signature = 'import:assets-one
                             {endpoint : Endpoint on dataservice to query, e.g. `object-types` }
                             {id : Identifier of the specific resource to import}';
@@ -31,7 +30,7 @@ class ImportAssetsOne extends ImportAssetsFull
 
     private function fetchItem($endpoint, $id)
     {
-        $url = env('ASSETS_DATA_SERVICE_URL') . '/' . $endpoint . '/' . $id;
+        $url = config('resources.sources.assets') . '/' . $endpoint . '/' . $id;
 
         $this->info('Fetching: ' . $url);
 

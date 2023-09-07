@@ -2,8 +2,6 @@
 
 namespace App\Transformers\Outbound\Collections;
 
-use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
-
 use App\Transformers\Outbound\HasSuggestFields;
 use App\Transformers\Outbound\Collections\Traits\IsCC0;
 
@@ -11,7 +9,6 @@ use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Agent extends BaseTransformer
 {
-
     use IsCC0;
     use HasSuggestFields {
         getSuggestFields as traitGetSuggestFields;
@@ -29,6 +26,13 @@ class Agent extends BaseTransformer
             'sort_title' => [
                 'doc' => 'Sortable name for this agent, typically with last name first.',
                 'type' => 'string',
+                'elasticsearch' => [
+                    'default' => true,
+                    'mapping' => [
+                        'type' => 'text',
+                    ],
+                    'boost' => 2.5,
+                ],
             ],
             'alt_titles' => [
                 'doc' => 'Alternate names for this agent',

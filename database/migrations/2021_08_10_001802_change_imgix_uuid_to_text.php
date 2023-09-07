@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeImgixUuidToText extends Migration
-{
+return new class () extends Migration {
     private $tableNames = [
         'articles',
         'generic_pages',
@@ -20,7 +19,7 @@ class ChangeImgixUuidToText extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         foreach ($this->tableNames as $tableName) {
             Schema::table($tableName, function (Blueprint $table) {
@@ -34,7 +33,7 @@ class ChangeImgixUuidToText extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         foreach ($this->tableNames as $tableName) {
             Schema::table($tableName, function (Blueprint $table) {
@@ -42,4 +41,4 @@ class ChangeImgixUuidToText extends Migration
             });
         }
     }
-}
+};

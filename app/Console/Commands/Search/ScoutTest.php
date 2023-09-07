@@ -6,7 +6,6 @@ use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutTest extends BaseCommand
 {
-
     protected $signature = 'scout:test';
 
     protected $description = 'Attempt to import a single batch of all models';
