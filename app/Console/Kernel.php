@@ -47,10 +47,81 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-products-full-last-run.log'));
 
-        $schedule->command('import:web-full', ['--yes'])
+
+        $schedule->command('import:web-full', ['articles', '--yes'])
             ->dailyAt('23:15')
             ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/import-web-full-last-run.log'));
+            ->sendOutputTo(storage_path('logs/import-web-full-articles-last-run.log'));
+
+        $schedule->command('import:web-full', ['artworks', '--yes'])
+            ->dailyAt('23:18')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-artworks-last-run.log'));
+
+        $schedule->command('import:web-full', ['artists', '--yes'])
+            ->dailyAt('23:21')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-artists-last-run.log'));
+
+        $schedule->command('import:web-full', ['events', '--yes'])
+            ->dailyAt('23:24')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-events-last-run.log'));
+
+        $schedule->command('import:web-full', ['event-occurrences', '--yes'])
+            ->dailyAt('23:27')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-event-occurrences-last-run.log'));
+
+        $schedule->command('import:web-full', ['event-programs', '--yes'])
+            ->dailyAt('23:30')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-event-programs-last-run.log'));
+
+        $schedule->command('import:web-full', ['exhibitions', '--yes'])
+            ->dailyAt('23:33')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-exhibitions-last-run.log'));
+
+        $schedule->command('import:web-full', ['highlights', '--yes'])
+            ->dailyAt('23:36')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-highlights-last-run.log'));
+
+        $schedule->command('import:web-full', ['genericpages', '--yes'])
+            ->dailyAt('23:39')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-genericpages-last-run.log'));
+
+        $schedule->command('import:web-full', ['pressreleases', '--yes'])
+            ->dailyAt('23:42')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-pressreleases-last-run.log'));
+
+        $schedule->command('import:web-full', ['educatorresources', '--yes'])
+            ->dailyAt('23:45')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-educatorresources-last-run.log'));
+
+        $schedule->command('import:web-full', ['digitalpublications', '--yes'])
+            ->dailyAt('23:48')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-digitalpublications-last-run.log'));
+
+        $schedule->command('import:web-full', ['digitalpublicationsections', '--yes'])
+            ->dailyAt('23:51')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-digitalpublicationsections-last-run.log'));
+
+        $schedule->command('import:web-full', ['printedpublications', '--yes'])
+            ->dailyAt('23:54')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-printedpublications-last-run.log'));
+
+        $schedule->command('import:web-full', ['staticpages', '--yes'])
+            ->dailyAt('23:57')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/import-web-full-staticpages-last-run.log'));
 
         $schedule->command('import:sites', ['--yes'])
             ->monthlyOn(1, '03:00')
