@@ -133,7 +133,7 @@ return [
     ],
 
     'shop' => [
-        'image_url' => env('SHOP_IMGIX_URL'),
+        'imgix_url' => env('SHOP_IMGIX_URL'),
         'product_url' => env('SHOP_PRODUCT_URL'),
 
     ],
