@@ -151,4 +151,17 @@ class ArtworkTest extends TestCase
         $this->assertEquals($resource['classified_as'][0]['classified_as'][0]['id'], 'aat:300067209');
         $this->assertEquals($resource['classified_as'][0]['classified_as'][0]['_label'], 'typology');
     }
+
+    /** @test */
+    public function it_fetches_the_short_description_for_an_artwork(): void
+    {
+        $artwork = $this->make(Artwork::class, ['short_description' => fake()->paragraph()]);
+        $artworkKey = $artwork->getAttributeValue($artwork->getKeyName());
+
+        $response = $this->getJson('api/v1/artworks/' . $artworkKey);
+        $response->assertSuccessful();
+
+        $resource = $response->json()['data'];
+        $this->assertNotEmpty($resource['short_description']);
+    }
 }

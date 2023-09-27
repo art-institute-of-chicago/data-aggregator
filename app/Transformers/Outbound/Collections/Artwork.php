@@ -210,6 +210,11 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'text',
             ],
+            'short_description' => [
+                'doc' => 'Short explanation describing the work',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+            ],
             'dimensions' => [
                 'doc' => 'The size, shape, scale, and dimensions of the work. May include multiple dimensions like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.',
                 'type' => 'string',
