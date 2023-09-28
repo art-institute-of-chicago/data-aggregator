@@ -597,10 +597,10 @@ class Artwork extends CollectionsModel
      */
     public function docExtra()
     {
-        $endpointAsCopyText = $this->_endpointAsCopyText();
+        $endpointAsCopyText = $this->endpointAsCopyText();
 
         // Title
-        $doc = '##### `GET ' . $this->_endpointPath(['extraPath' => '{id}/manifest[.json]']) . "`\n\n";
+        $doc = '##### `GET ' . $this->endpointPath(['extraPath' => '{id}/manifest[.json]']) . "`\n\n";
 
         $doc .= "A representation of this artwork in the IIIF Presentation API format.\n\n";
 
