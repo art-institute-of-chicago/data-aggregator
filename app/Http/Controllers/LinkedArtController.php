@@ -290,8 +290,7 @@ class LinkedArtController extends BaseController
             '_label' => 'millimeters',
         ];
 
-        $diameterValue = $artwork->dimensions_detail[0]['diameter_cm'] ?? 0;
-        if ($diameterValue > 0) {
+        if ($diameterValue = $artwork->dimensions_detail[0]['diameter_cm'] ?? 0) {
             $dimensions[] = [
                 'type' => 'Dimension',
                 'value' => $diameterValue * 10,
@@ -306,8 +305,7 @@ class LinkedArtController extends BaseController
             ];
         }
 
-        $widthValue = $artwork->dimensions_detail[0]['width_cm'] ?? 0;
-        if ($widthValue > 0) {
+        if ($widthValue = $artwork->dimensions_detail[0]['width_cm'] ?? 0) {
             $dimensions[] = [
                 'type' => 'Dimension',
                 'value' => $widthValue * 10,
@@ -322,8 +320,7 @@ class LinkedArtController extends BaseController
             ];
         }
 
-        $heightValue = $artwork->dimensions_detail[0]['height_cm'] ?? 0;
-        if ($heightValue > 0) {
+        if ($heightValue = $artwork->dimensions_detail[0]['height_cm'] ?? 0) {
             $dimensions[] = [
                 'type' => 'Dimension',
                 'value' => $heightValue * 10,
