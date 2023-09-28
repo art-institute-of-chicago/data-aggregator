@@ -5,7 +5,6 @@ namespace App\Transformers\Outbound\Collections;
 use App\Models\Collections\Asset as AssetModel;
 use App\Transformers\Outbound\Collections\Traits\HasLakeFields;
 use App\Transformers\Outbound\Collections\Traits\IsCC0;
-
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Asset extends BaseTransformer

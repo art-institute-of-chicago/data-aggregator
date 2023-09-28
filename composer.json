@@ -109,8 +109,12 @@
             "php artisan key:generate --ansi"
         ],
         "lint": [
-            "php-cs-fixer fix --diff --config vendor/aic/data-hub-foundation/.php-cs-fixer.dist.php",
-            "DIR='vendor/aic/data-hub-foundation' && [ -L ${DIR} ] && [ -d ${DIR} ] && cd ${DIR} && php-cs-fixer fix --diff --config .php-cs-fixer.dist.php || true"
+            "@putenv COMPOSER=vendor/aic/data-hub-foundation/composer.json",
+            "@composer lint"
+        ],
+        "format": [
+            "@putenv COMPOSER=vendor/aic/data-hub-foundation/composer.json",
+            "@composer format"
         ],
         "foundation": [
             "php vendor/aic/data-hub-foundation/composer-dev.php",

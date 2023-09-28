@@ -7,7 +7,6 @@ use Intervention\Image\Facades\Image;
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Illuminate\Support\Facades\Route;
 use App\Library\Shell;
-
 use App\Http\Controllers\SearchController as BaseController;
 
 class ImageSearchController extends BaseController

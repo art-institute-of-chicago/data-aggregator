@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Search;
 
 use Carbon\Carbon;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutSince extends BaseCommand

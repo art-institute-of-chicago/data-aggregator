@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
 use App\Models\Web\DigitalPublicationSection;
 
 class DigitalPublicationSectionTest extends TestCase

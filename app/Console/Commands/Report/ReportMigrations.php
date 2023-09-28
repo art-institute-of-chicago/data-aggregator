@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Report;
 
 use App\Library\Shell;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ReportMigrations extends BaseCommand

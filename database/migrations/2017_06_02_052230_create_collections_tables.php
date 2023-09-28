@@ -13,37 +13,37 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('artwork_types', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
-            $table = $this->_addDates($table);
+            $table = $this->addIdsAndTitle($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('agent_types', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
-            $table = $this->_addDates($table);
+            $table = $this->addIdsAndTitle($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('agent_roles', function (Blueprint $table) {
             $table->integer('citi_id')->signed()->primary();
             $table->string('title')->nullable();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('artwork_date_qualifiers', function (Blueprint $table) {
             $table->integer('citi_id')->unsigned()->primary();
             $table->string('title')->nullable();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('artwork_place_qualifiers', function (Blueprint $table) {
             $table->integer('citi_id')->signed()->primary();
             $table->string('title')->nullable();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('catalogues', function (Blueprint $table) {
             $table->integer('citi_id')->primary();
             $table->string('title')->nullable();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('category_terms', function (Blueprint $table) {
@@ -56,14 +56,14 @@ return new class () extends Migration {
             // Category fields
             $table->string('parent_id')->nullable()->index();
 
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('places', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+            $table = $this->addIdsAndTitle($table);
             $table->double('latitude', 16, 13)->nullable();
             $table->double('longitude', 16, 13)->nullable();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
             $table->string('type')->nullable();
         });
 
@@ -76,11 +76,11 @@ return new class () extends Migration {
             $table->double('latitude', 16, 13)->nullable();
             $table->double('longitude', 16, 13)->nullable();
             $table->string('type')->nullable();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('agents', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+            $table = $this->addIdsAndTitle($table);
             $table->string('sort_title')->nullable();
             $table->integer('birth_date')->nullable();
             $table->string('birth_place')->nullable();
@@ -90,12 +90,12 @@ return new class () extends Migration {
             $table->string('ulan_uri')->nullable();
             $table->json('alt_titles')->nullable();
             $table->integer('agent_type_citi_id')->nullable()->index();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
             $table->json('agent_ids')->nullable();
         });
 
         Schema::create('exhibitions', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table, true, 'text');
+            $table = $this->addIdsAndTitle($table, true, 'text');
             $table->text('description')->nullable();
             $table->string('type')->nullable();
             $table->integer('place_citi_id')->nullable()->index();
@@ -106,11 +106,11 @@ return new class () extends Migration {
             $table->date('date_end')->nullable();
             $table->date('date_aic_start')->nullable();
             $table->date('date_aic_end')->nullable();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('artworks', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table, true, 'text');
+            $table = $this->addIdsAndTitle($table, true, 'text');
             $table->json('alt_titles')->nullable();
             $table->string('main_id')->nullable();
             $table->integer('pageviews')->nullable()->index();
@@ -139,7 +139,7 @@ return new class () extends Migration {
             $table->integer('artwork_type_citi_id')->nullable()->index();
             $table->integer('gallery_citi_id')->nullable()->index();
             $table->boolean('is_on_view')->nullable();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
             $table->integer('pageviews_recent')->nullable()->index();
         });
 
@@ -275,14 +275,14 @@ return new class () extends Migration {
         Schema::dropIfExists('artwork_asset');
     }
 
-    private function _addIdsAndTitle($table, $citiField = true, $titleField = 'string')
+    private function addIdsAndTitle($table, $citiField = true, $titleField = 'string')
     {
         $table->integer('citi_id')->primary();
         $table->{$titleField}('title')->nullable();
         return $table;
     }
 
-    private function _addDates($table, $citiField = true)
+    private function addDates($table, $citiField = true)
     {
         $table->timestamp('source_modified_at')->nullable();
         $table->timestamps();

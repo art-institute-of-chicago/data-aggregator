@@ -5,7 +5,6 @@ namespace App\Models\Collections;
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\HasRelationships;
-
 use Illuminate\Support\Str;
 
 /**

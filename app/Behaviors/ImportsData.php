@@ -3,7 +3,6 @@
 namespace App\Behaviors;
 
 use Illuminate\Support\Facades\DB;
-
 use Carbon\Carbon;
 use Sentry\State\Scope;
 

@@ -1,4 +1,4 @@
-name: PHP
+name: Testing
 
 on:
   push:
@@ -67,6 +67,3 @@ jobs:
 
     - name: Run test suite
       run: vendor/bin/phpunit
-
-    - name: Run code sniffer
-      run: vendor/bin/phpcs --warning-severity=6

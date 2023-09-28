@@ -3,9 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-
 use Aic\Hub\Foundation\AbstractModel;
-
 use App\BelongsToManyOrOne;
 use App\Scopes\PublishedScope;
 use App\Models\Collections\Exhibition;
@@ -22,7 +20,6 @@ use App\Models\Web\PressRelease;
 use App\Models\Web\PrintedCatalog;
 use App\Models\Web\Highlight;
 use App\Models\Web\StaticPage;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

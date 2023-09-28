@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Search;
 
 use Illuminate\Support\Facades\Config;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutImportAll extends BaseCommand

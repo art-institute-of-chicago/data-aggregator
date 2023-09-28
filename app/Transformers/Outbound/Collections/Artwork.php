@@ -3,18 +3,14 @@
 namespace App\Transformers\Outbound\Collections;
 
 use App\Models\Collections\Asset;
-
 use App\Transformers\Outbound\Collections\ArtworkArtistPivot as ArtworkArtistPivotTransformer;
 use App\Transformers\Outbound\Collections\ArtworkDate as ArtworkDateTransformer;
 use App\Transformers\Outbound\Collections\ArtworkPlacePivot as ArtworkPlacePivotTransformer;
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
-
 use App\Transformers\Outbound\Collections\Traits\HasBoosted;
 use App\Transformers\Outbound\Collections\Traits\IsCC0;
 use App\Transformers\Outbound\HasSuggestFields;
-
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
-
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 

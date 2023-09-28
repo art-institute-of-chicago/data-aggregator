@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        foreach ([
+        foreach (
+            [
             'articles',
             'assets',
             'digital_catalogs',
@@ -23,7 +24,8 @@ return new class () extends Migration {
             'press_releases',
             'printed_catalogs',
             'web_exhibitions',
-        ] as $tableName) {
+            ] as $tableName
+        ) {
             Schema::table($tableName, function (Blueprint $table) {
                 $table->dropColumn(['is_published']);
             });

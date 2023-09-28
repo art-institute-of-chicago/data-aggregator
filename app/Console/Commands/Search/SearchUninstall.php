@@ -3,9 +3,7 @@
 namespace App\Console\Commands\Search;
 
 use Elasticsearch;
-
 use App\Console\Helpers\Indexer;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class SearchUninstall extends BaseCommand
@@ -22,7 +20,8 @@ class SearchUninstall extends BaseCommand
     {
         $prefix = $this->argument('index') ?? config('elasticsearch.indexParams.index');
 
-        if (!$this->option('yes') &&
+        if (
+            !$this->option('yes') &&
             !$this->confirm('This will delete all indexes with `' . $prefix . '` prefix. Are you sure?')
         ) {
             return false;

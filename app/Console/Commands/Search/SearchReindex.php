@@ -3,9 +3,7 @@
 namespace App\Console\Commands\Search;
 
 use Elasticsearch;
-
 use App\Console\Helpers\Indexer;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class SearchReindex extends BaseCommand

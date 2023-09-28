@@ -7,7 +7,6 @@ use Laravel\Scout\EngineManager;
 // use ScoutEngines\Elasticsearch\ElasticsearchEngine;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-
 // TODO: Remove this after we're ready to handle exceptions
 use App\ElasticsearchEngine;
 

@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Dump;
 
 use Illuminate\Support\Facades\Storage;
-
 use League\Csv\Writer;
 
 class DumpExportGettingStarted extends AbstractDumpCommand

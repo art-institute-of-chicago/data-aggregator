@@ -3,7 +3,6 @@
 namespace App\Transformers\Outbound\StaticArchive;
 
 use App\Transformers\Outbound\Collections\Artwork as ArtworkTransformer;
-
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Site extends BaseTransformer

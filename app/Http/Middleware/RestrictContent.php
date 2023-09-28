@@ -3,13 +3,10 @@
 namespace App\Http\Middleware;
 
 use Carbon\Carbon;
-
 use Closure;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
-
 use App\Models\BaseModel;
 use App\Scopes\PublishedScope;
 
@@ -37,7 +34,8 @@ class RestrictContent
     {
         $restrictions = [];
 
-        if (in_array($endpoint, [
+        if (
+            in_array($endpoint, [
             'articles',
             'digital-catalogs',
             'educator-resources',
@@ -50,14 +48,17 @@ class RestrictContent
 
             // WEB-1929: Re-enable restriction when ready!
             // 'events',
-        ])) {
+            ])
+        ) {
             $restrictions = array_merge($restrictions, PublishedScope::forSearch());
         }
 
-        if (in_array($endpoint, [
+        if (
+            in_array($endpoint, [
             'events',
             'event-occurrences',
-        ])) {
+            ])
+        ) {
             $restrictions[] = [
                 'term' => [
                     'is_private' => false,

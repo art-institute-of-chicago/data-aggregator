@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Update;
 
 use App\Models\Collections\Artwork;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class UpdateResources extends BaseCommand

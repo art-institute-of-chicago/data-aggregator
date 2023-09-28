@@ -3,12 +3,10 @@
 namespace App\Console\Commands\Import;
 
 use Illuminate\Support\Facades\Storage;
-
 use App\Models\Mobile\Artwork as MobileArtwork;
 use App\Models\Mobile\Sound;
 use App\Models\Mobile\Tour;
 use App\Models\Mobile\TourStop;
-
 use App\Transformers\Traits\ConvertsToHtml;
 
 class ImportMobile extends AbstractImportCommand
