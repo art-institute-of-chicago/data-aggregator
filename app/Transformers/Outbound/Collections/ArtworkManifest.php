@@ -3,7 +3,6 @@
 namespace App\Transformers\Outbound\Collections;
 
 use League\Fractal\TransformerAbstract as BaseTransformer;
-
 use App\Models\Collections\Artwork;
 use App\Models\Collections\Asset;
 use App\Transformers\Outbound\Collections\Traits\IsCC0;

@@ -3,9 +3,7 @@
 namespace App\Transformers\Outbound\Mobile;
 
 use App\Transformers\Outbound\Mobile\TourStop as TourStopTransformer;
-
 use App\Transformers\Outbound\HasSuggestFields;
-
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Tour extends BaseTransformer

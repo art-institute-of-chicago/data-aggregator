@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
 use App\Models\Collections\Artwork;
 use App\Models\Collections\ArtworkType;
 use App\Models\Collections\Gallery;

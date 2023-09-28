@@ -3,13 +3,10 @@
 namespace App\Transformers\Outbound\Collections;
 
 use App\Models\Collections\Asset;
-
 use App\Transformers\Outbound\Collections\Artwork as ArtworkTransformer;
 use App\Transformers\Outbound\StaticArchive\Site as SiteTransformer;
-
 use App\Transformers\Outbound\HasSuggestFields;
 use App\Transformers\Outbound\Collections\Traits\IsCC0;
-
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class Exhibition extends BaseTransformer

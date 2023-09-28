@@ -5,11 +5,8 @@ namespace App\Console\Commands\Import;
 use Carbon\Carbon;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
-
 use App\Behaviors\ImportsData;
-
 use Illuminate\Support\Str;
 
 abstract class AbstractImportCommand extends BaseCommand

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Laravel\Scout\Searchable;
-
 use Illuminate\Support\Str;
 
 trait ElasticSearchable

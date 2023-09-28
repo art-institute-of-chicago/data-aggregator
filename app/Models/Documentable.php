@@ -3,9 +3,7 @@
 namespace App\Models;
 
 use Laminas\Code\Reflection\ClassReflection;
-
 use Illuminate\Support\Str;
-
 use App\Scopes\PublishedScope;
 
 trait Documentable

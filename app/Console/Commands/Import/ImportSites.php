@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Import;
 
 use Illuminate\Support\Facades\Storage;
-
 use App\Models\StaticArchive\Site;
 use App\Transformers\Inbound\StaticArchive\Site as SiteTransformer;
 

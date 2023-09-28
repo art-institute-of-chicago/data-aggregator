@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
@@ -11,16 +10,13 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request as RequestFacade;
 use Closure;
-
 use League\Fractal\Resource\Item;
 use League\Fractal\Resource\Collection;
-
 use Aic\Hub\Foundation\ResourceSerializer;
 use Aic\Hub\Foundation\Exceptions\BigLimitException;
 use Aic\Hub\Foundation\Exceptions\InvalidSyntaxException;
 use Aic\Hub\Foundation\Exceptions\ItemNotFoundException;
 use Aic\Hub\Foundation\Exceptions\TooManyIdsException;
-
 use Aic\Hub\Foundation\AbstractController as BaseController;
 
 abstract class AbstractController extends BaseController

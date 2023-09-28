@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Schema\Blueprint;
 use App\Library\Migrations\MigrationCreator;
 use ColinODell\Indentation\Indentation;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 abstract class AbstractCommand extends BaseCommand

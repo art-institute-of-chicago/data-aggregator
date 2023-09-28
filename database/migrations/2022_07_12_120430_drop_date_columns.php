@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        foreach ([
+        foreach (
+            [
             'articles',
             'digital_publication_sections',
             'issue_articles',
             'issues',
-        ] as $tableName) {
+            ] as $tableName
+        ) {
             Schema::table($tableName, function (Blueprint $table) {
                 $table->dropColumn(['date']);
             });

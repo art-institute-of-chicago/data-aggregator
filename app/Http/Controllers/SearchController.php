@@ -3,15 +3,12 @@
 namespace App\Http\Controllers;
 
 use Aic\Hub\Foundation\Exceptions\DetailedException;
-
 use App\Http\Search\Request as SearchRequest;
 use App\Http\Search\Response as SearchResponse;
-
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request as RequestFacade;
 use Illuminate\Http\Request;
 use Elasticsearch;
-
 use Illuminate\Routing\Controller as BaseController;
 
 class SearchController extends BaseController

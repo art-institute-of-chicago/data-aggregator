@@ -5,7 +5,6 @@ namespace App\Console\Commands\Dump;
 use Illuminate\Support\Facades\Storage;
 use App\Library\Shell;
 use Exception;
-
 use App\Console\Commands\BaseCommand;
 
 abstract class AbstractDumpCommand extends BaseCommand

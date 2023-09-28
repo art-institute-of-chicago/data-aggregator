@@ -11,7 +11,6 @@ use App\Models\Collections\Artwork;
 use App\Models\Collections\Asset;
 use Aic\Hub\Foundation\Exceptions\InvalidSyntaxException;
 use Aic\Hub\Foundation\Exceptions\TooManyIdsException;
-
 use App\Http\Controllers\Controller as BaseController;
 
 class LinkedArtController extends BaseController
