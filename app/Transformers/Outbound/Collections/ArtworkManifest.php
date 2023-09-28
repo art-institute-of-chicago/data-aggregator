@@ -16,7 +16,7 @@ class ArtworkManifest extends BaseTransformer
         $canvases = [];
 
         foreach ($model->images as $image) {
-            $canvases[] = $this->_createCanvasImage($model, $image);
+            $canvases[] = $this->createCanvasImage($model, $image);
         }
 
         return [
@@ -69,7 +69,7 @@ class ArtworkManifest extends BaseTransformer
         ];
     }
 
-    private function _createCanvasImage($model, $image)
+    private function createCanvasImage($model, $image)
     {
         $imageUuid = Asset::getHashedId($image->id);
 

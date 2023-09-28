@@ -106,7 +106,7 @@ trait Documentable
         $endpoint = app('Resources')->getEndpointForModel(get_called_class());
 
         // Title
-        $doc = '##### `GET ' . $this->_endpointPath() . "`\n\n";
+        $doc = '##### `GET ' . $this->endpointPath() . "`\n\n";
 
         $doc .= $this->docListDescription() . ' For a description of all the fields included with this response, see [here](#' . $endpoint . "-2).\n\n";
 
@@ -124,7 +124,7 @@ trait Documentable
      */
     public function docListDescription($endpoint = '')
     {
-        $endpointAsCopyText = $this->_endpointAsCopyText($endpoint);
+        $endpointAsCopyText = $this->endpointAsCopyText($endpoint);
 
         return 'A list of all ' . $endpointAsCopyText . ' sorted by last updated date in descending order.';
     }
@@ -157,10 +157,10 @@ trait Documentable
      */
     public function docSearch()
     {
-        $endpointAsCopyText = $this->_endpointAsCopyText();
+        $endpointAsCopyText = $this->endpointAsCopyText();
 
         // Title
-        $doc = '##### `GET ' . $this->_endpointPath(['extraPath' => 'search']) . "`\n\n";
+        $doc = '##### `GET ' . $this->endpointPath(['extraPath' => 'search']) . "`\n\n";
 
         $doc .= $this->docSearchDescription() . "\n\n";
 
@@ -178,7 +178,7 @@ trait Documentable
      */
     public function docSearchDescription()
     {
-        $endpointAsCopyText = $this->_endpointAsCopyText();
+        $endpointAsCopyText = $this->endpointAsCopyText();
 
         return 'Search ' . $endpointAsCopyText . ' data in the aggregator. ' . $this->extraSearchDescription();
     }
@@ -190,10 +190,10 @@ trait Documentable
      */
     public function docSingle()
     {
-        $endpointAsCopyText = $this->_endpointAsCopyText();
+        $endpointAsCopyText = $this->endpointAsCopyText();
 
         // Title
-        $doc = '##### `GET ' . $this->_endpointPath(['extraPath' => '{id}']) . "`\n\n";
+        $doc = '##### `GET ' . $this->endpointPath(['extraPath' => '{id}']) . "`\n\n";
 
         $doc .= $this->docSingleDescription() . "\n\n";
 
@@ -221,7 +221,7 @@ trait Documentable
      */
     public function docSingleDescription($endpoint = '')
     {
-        $endpointAsCopyText = $this->_endpointAsCopyText($endpoint);
+        $endpointAsCopyText = $this->endpointAsCopyText($endpoint);
 
         $doc = 'A single ' . Str::singular($endpointAsCopyText) . ' by the given identifier.';
 
@@ -344,8 +344,8 @@ trait Documentable
 
         $options = array_merge($defaults, $options);
 
-        $requestUrl = $this->docRequestUrl . $this->_endpointPath($options) . (!$options['id'] ? '?' . $options['getParams'] : '');
-        $appUrl = $this->docAppUrl . $this->_endpointPath($options) . (!$options['id'] ? '?' . $options['getParams'] : '');
+        $requestUrl = $this->docRequestUrl . $this->endpointPath($options) . (!$options['id'] ? '?' . $options['getParams'] : '');
+        $appUrl = $this->docAppUrl . $this->endpointPath($options) . (!$options['id'] ? '?' . $options['getParams'] : '');
 
         $doc = '::: details Example request: ' . $appUrl . "  \n";
 
@@ -364,19 +364,19 @@ trait Documentable
         if (property_exists($response, 'data')) {
             if (is_array($response->data)) {
                 foreach ($response->data as $index => $datum) {
-                    $response->data[$index] = $this->_addEllipsis($response->data[$index]);
+                    $response->data[$index] = $this->addEllipsis($response->data[$index]);
                 }
             } else {
-                $response->data = $this->_addEllipsis($response->data);
+                $response->data = $this->addEllipsis($response->data);
             }
         }
 
         if (property_exists($response, 'metadata')) {
-            $response->metadata = $this->_addEllipsis($response->metadata);
+            $response->metadata = $this->addEllipsis($response->metadata);
         }
 
         if (property_exists($response, 'sequences')) {
-            $response->sequences = $this->_addEllipsis($response->sequences);
+            $response->sequences = $this->addEllipsis($response->sequences);
         }
 
         $json = json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
@@ -398,7 +398,7 @@ trait Documentable
      */
     public function docExampleSearchOutput($getParams = '')
     {
-        $appUrl = $this->docAppUrl . $this->_endpointPath() . '/search' . ($getParams ? '?' . $getParams : '');
+        $appUrl = $this->docAppUrl . $this->endpointPath() . '/search' . ($getParams ? '?' . $getParams : '');
 
         $doc = '::: details Example request: ' . $appUrl . "\n";
 
@@ -696,7 +696,7 @@ trait Documentable
      *
      * @return string
      */
-    protected function _endpointAsCopyText($endpoint = '')
+    protected function endpointAsCopyText($endpoint = '')
     {
         if (!$endpoint) {
             $endpoint = app('Resources')->getEndpointForModel(get_called_class());
@@ -710,7 +710,7 @@ trait Documentable
      *
      * @return string
      */
-    protected function _endpointPath($options = [])
+    protected function endpointPath($options = [])
     {
         $defaults = [
             'extraPath' => '',
@@ -743,7 +743,7 @@ trait Documentable
         return rtrim($path, '/');
     }
 
-    private function _addEllipsis($obj)
+    private function addEllipsis($obj)
     {
         if (is_object($obj)) {
             $keys = get_object_vars($obj);

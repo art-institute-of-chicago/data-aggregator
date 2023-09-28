@@ -13,7 +13,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('mobile_artworks', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+            $table = $this->addIdsAndTitle($table);
             $table->integer('artwork_citi_id')->nullable()->index();
 
             // https://laracasts.com/discuss/channels/laravel/schema-float-function-generated-a-double-type
@@ -24,7 +24,7 @@ return new class () extends Migration {
         });
 
         Schema::create('mobile_sounds', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+            $table = $this->addIdsAndTitle($table);
             $table->string('web_url');
             $table->text('transcript')->nullable();
             $table->timestamps();
@@ -37,7 +37,7 @@ return new class () extends Migration {
         });
 
         Schema::create('tours', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table, 'string');
+            $table = $this->addIdsAndTitle($table, 'string');
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->text('intro_text')->nullable();
@@ -71,7 +71,7 @@ return new class () extends Migration {
         Schema::dropIfExists('mobile_artworks');
     }
 
-    private function _addIdsAndTitle($table, $titleType = 'text')
+    private function addIdsAndTitle($table, $titleType = 'text')
     {
         $table->integer('mobile_id')->unsigned()->primary();
         $table->{$titleType}('title');

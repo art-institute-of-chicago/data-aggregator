@@ -13,7 +13,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('publications', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+            $table = $this->addIdsAndTitle($table);
             $table->string('site')->nullable();
             $table->string('alias')->nullable();
             $table->string('web_url')->nullable();
@@ -21,7 +21,7 @@ return new class () extends Migration {
         });
 
         Schema::create('sections', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table, 'bigInteger');
+            $table = $this->addIdsAndTitle($table, 'bigInteger');
             $table->string('web_url')->nullable();
             $table->string('accession')->nullable()->index();
             $table->integer('revision')->nullable();
@@ -50,7 +50,7 @@ return new class () extends Migration {
         Schema::dropIfExists('publications');
     }
 
-    private function _addIdsAndTitle($table, $idType = 'integer')
+    private function addIdsAndTitle($table, $idType = 'integer')
     {
         if (in_array($idType, ['integer', 'bigInteger'])) {
             $table->{$idType}('dsc_id')->unsigned()->primary();
