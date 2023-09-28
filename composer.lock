@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aic/data-hub-foundation",
-            "version": "2.2",
+            "version": "2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "0cd7ae077e1eed15742c4ea17043eec45b5e066f"
+                "reference": "cc6d507a4ebdc5f46a578580158e589d738bc6ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/0cd7ae077e1eed15742c4ea17043eec45b5e066f",
-                "reference": "0cd7ae077e1eed15742c4ea17043eec45b5e066f",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/cc6d507a4ebdc5f46a578580158e589d738bc6ff",
+                "reference": "cc6d507a4ebdc5f46a578580158e589d738bc6ff",
                 "shasum": ""
             },
             "require": {
@@ -81,10 +81,10 @@
             ],
             "description": "Shared components for our data hub services.",
             "support": {
-                "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/2.2",
+                "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/2.3",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2023-07-28T16:48:33+00:00"
+            "time": "2023-09-20T21:14:09+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
@@ -12189,5 +12189,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
