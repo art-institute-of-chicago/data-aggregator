@@ -1,0 +1,16 @@
+name: Linting
+on: [push]
+jobs:
+    lint:
+        runs-on: ubuntu-20.04
+        steps:
+            - name: Install PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.1
+            - name: Checkout code
+              uses: actions/checkout@v3
+            - name: Install PHP dependencies
+              run: composer install --no-interaction --no-progress --no-scripts
+            - name: Run PHP CodeSniffer
+              run: composer lint
