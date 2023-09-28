@@ -290,10 +290,25 @@ class LinkedArtController extends BaseController
             '_label' => 'millimeters',
         ];
 
-        if (!empty($artwork->dimension_width)) {
+        if ($diameterValue = $artwork->dimensions_detail[0]['diameter_cm'] ?? 0) {
             $dimensions[] = [
                 'type' => 'Dimension',
-                'value' => $artwork->dimension_width,
+                'value' => $diameterValue * 10,
+                'classified_as' => [
+                    [
+                        'id' => 'http://vocab.getty.edu/aat/300055624',
+                        'type' => 'Type',
+                        '_label' => 'diameter',
+                    ],
+                ],
+                'unit' => $unit,
+            ];
+        }
+
+        if ($widthValue = $artwork->dimensions_detail[0]['width_cm'] ?? 0) {
+            $dimensions[] = [
+                'type' => 'Dimension',
+                'value' => $widthValue * 10,
                 'classified_as' => [
                     [
                         'id' => 'http://vocab.getty.edu/aat/300055647',
@@ -305,10 +320,10 @@ class LinkedArtController extends BaseController
             ];
         }
 
-        if (!empty($artwork->dimension_height)) {
+        if ($heightValue = $artwork->dimensions_detail[0]['height_cm'] ?? 0) {
             $dimensions[] = [
                 'type' => 'Dimension',
-                'value' => $artwork->dimension_height,
+                'value' => $heightValue * 10,
                 'classified_as' => [
                     [
                         'id' => 'http://vocab.getty.edu/aat/300055644',
