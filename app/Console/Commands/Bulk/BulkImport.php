@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Bulk;
 
 use Illuminate\Support\Facades\DB;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class BulkImport extends BaseCommand

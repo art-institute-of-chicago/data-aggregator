@@ -4,7 +4,6 @@ namespace App\Console\Commands\Search;
 
 use Carbon\Carbon;
 use Elasticsearch;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class SearchAudit extends BaseCommand

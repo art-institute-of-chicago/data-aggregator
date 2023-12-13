@@ -3,14 +3,10 @@
 namespace App\Transformers\Inbound\Collections;
 
 use Illuminate\Database\Eloquent\Model;
-
 use App\Models\Collections\ArtworkDate;
-
 use App\Transformers\Datum;
 use App\Transformers\Inbound\CollectionsTransformer;
-
 use App\Transformers\Traits\ConvertsToHtml;
-
 use Carbon\Carbon;
 
 class Artwork extends CollectionsTransformer

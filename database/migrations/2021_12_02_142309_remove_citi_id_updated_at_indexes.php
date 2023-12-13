@@ -14,7 +14,8 @@ return new class () extends Migration {
         // 2021_11_02_161218_add_citi_id_updated_at_indexes
         // 2021_11_02_170800_add_citi_id_updated_at_descinding_index
         // 2021_11_29_125454_add_id_updated_at_desc_index_to_more_tables
-        foreach ([
+        foreach (
+            [
             'agent_place_qualifiers',
             'agent_roles',
             'agent_types',
@@ -27,7 +28,8 @@ return new class () extends Migration {
             'exhibitions',
             'galleries',
             'places',
-        ] as $tableName) {
+            ] as $tableName
+        ) {
             Schema::table($tableName, function (Blueprint $table) {
                 $table->dropIndexIfExists(['citi_id', 'updated_at']);
                 $table->dropIndexIfExists(['citi_id', 'updated_at_desc']);

@@ -4,7 +4,6 @@ namespace App\Console\Commands\Search;
 
 use League\Csv\Reader;
 use Illuminate\Support\Facades\Storage;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutImportCsv extends BaseCommand

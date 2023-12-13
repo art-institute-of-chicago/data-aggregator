@@ -3,7 +3,6 @@
 namespace App\Transformers\Outbound\Membership;
 
 use App\Transformers\Outbound\Web\Event as EventTransformer;
-
 use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class TicketedEvent extends BaseTransformer

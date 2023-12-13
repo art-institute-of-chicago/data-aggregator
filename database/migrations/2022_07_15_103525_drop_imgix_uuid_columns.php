@@ -7,14 +7,16 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        foreach ([
+        foreach (
+            [
             'articles',
             'digital_catalogs',
             'educator_resources',
             'generic_pages',
             'press_releases',
             'printed_catalogs',
-        ] as $tableName) {
+            ] as $tableName
+        ) {
             Schema::table($tableName, function (Blueprint $table) {
                 $table->dropColumn('imgix_uuid');
             });

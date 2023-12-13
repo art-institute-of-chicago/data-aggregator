@@ -3,10 +3,8 @@
 namespace App\Transformers\Inbound;
 
 use App\Transformers\Datum;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
-
 use App\Transformers\AbstractTransformer;
 
 class BaseTransformer extends AbstractTransformer

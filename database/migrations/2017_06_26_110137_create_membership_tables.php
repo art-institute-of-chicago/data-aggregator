@@ -13,7 +13,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('ticketed_events', function (Blueprint $table) {
-            $table = $this->_addIdsAndTitle($table);
+            $table = $this->addIdsAndTitle($table);
             $table->integer('event_type_id')->nullable();
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
@@ -27,7 +27,7 @@ return new class () extends Migration {
             $table->text('image_url')->nullable();
             $table->integer('available')->nullable();
             $table->integer('total_capacity')->nullable();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('ticketed_event_types', function (Blueprint $table) {
@@ -52,14 +52,14 @@ return new class () extends Migration {
         Schema::dropIfExists('ticketed_event_types');
     }
 
-    private function _addIdsAndTitle($table)
+    private function addIdsAndTitle($table)
     {
         $table->integer('membership_id')->unsigned()->primary();
         $table->string('title')->nullable();
         return $table;
     }
 
-    private function _addDates($table, $citiField = true)
+    private function addDates($table, $citiField = true)
     {
         $table->timestamp('source_created_at')->nullable();
         $table->timestamp('source_modified_at')->nullable();

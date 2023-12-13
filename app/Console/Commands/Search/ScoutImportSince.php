@@ -4,7 +4,6 @@ namespace App\Console\Commands\Search;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class ScoutImportSince extends BaseCommand

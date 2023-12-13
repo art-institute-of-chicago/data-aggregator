@@ -24,6 +24,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `artist_display` *string* - Readable description of the creator of this work. Includes artist names, nationality and lifespan dates
 * `place_of_origin` *string* - The location where the creation, design, or production of the work took place, or the original location of the work
 * `description` *string* - Longer explanation describing the work
+* `short_description` *string* - Short explanation describing the work
 * `dimensions` *string* - The size, shape, scale, and dimensions of the work. May include multiple dimensions like overall, frame, or dimension for each section of a work. Free-form text formatted in a house style.
 * `dimensions_detail` *object* - The height, width, depth, and/or diameter of each section of the work in centimeters
 * `medium_display` *string* - The substances or materials used in the creation of a work

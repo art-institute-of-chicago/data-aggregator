@@ -13,14 +13,14 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('shop_categories', function (Blueprint $table) {
-            $table = $this->_addId($table);
+            $table = $this->addId($table);
             $table->string('title');
             $table->integer('parent_category_shop_id')->unsigned()->nullable()->index();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('products', function (Blueprint $table) {
-            $table = $this->_addId($table);
+            $table = $this->addId($table);
             $table->string('title')->nullable();
             $table->string('title_sort')->nullable();
             $table->integer('parent_id')->nullable();
@@ -37,7 +37,7 @@ return new class () extends Migration {
             $table->boolean('architecture')->nullable();
             $table->boolean('glass')->nullable();
             $table->boolean('active')->nullable();
-            $table = $this->_addDates($table);
+            $table = $this->addDates($table);
         });
 
         Schema::create('artist_product', function (Blueprint $table) {
@@ -59,13 +59,13 @@ return new class () extends Migration {
         Schema::dropIfExists('artist_product');
     }
 
-    private function _addId($table)
+    private function addId($table)
     {
         $table->integer('shop_id')->unsigned()->primary();
         return $table;
     }
 
-    private function _addDates($table, $citiField = true)
+    private function addDates($table, $citiField = true)
     {
         $table->timestamp('source_created_at')->nullable();
         $table->timestamp('source_modified_at')->nullable();

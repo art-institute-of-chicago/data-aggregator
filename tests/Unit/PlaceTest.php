@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
 use App\Models\Collections\Place;
 
 class PlaceTest extends TestCase

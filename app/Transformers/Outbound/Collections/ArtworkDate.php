@@ -3,7 +3,6 @@
 namespace App\Transformers\Outbound\Collections;
 
 use App\Transformers\Outbound\Collections\Traits\HidesDefaultFields;
-
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class ArtworkDate extends BaseTransformer

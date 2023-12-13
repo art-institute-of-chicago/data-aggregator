@@ -4,9 +4,7 @@ namespace App\Transformers\Outbound;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
-
 use Carbon\Carbon;
-
 use League\Fractal\TransformerAbstract as BaseTransformer;
 
 abstract class AbstractTransformer extends BaseTransformer

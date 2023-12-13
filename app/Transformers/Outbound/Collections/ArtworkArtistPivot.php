@@ -5,9 +5,7 @@ namespace App\Transformers\Outbound\Collections;
 use App\Transformers\Outbound\Collections\Artwork as ArtworkTransformer;
 use App\Transformers\Outbound\Collections\Agent as AgentTransformer;
 use App\Transformers\Outbound\CollectionsTransformer;
-
 use App\Transformers\Outbound\Collections\Traits\HidesDefaultFields;
-
 use App\Transformers\Outbound\CollectionsTransformer as BaseTransformer;
 
 class ArtworkArtistPivot extends BaseTransformer

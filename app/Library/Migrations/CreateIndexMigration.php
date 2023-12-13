@@ -3,7 +3,6 @@
 namespace App\Library\Migrations;
 
 use Aic\Hub\Foundation\Concerns\HasAbstractProperties;
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Update;
 
 use App\Models\Collections\Asset;
-
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 
 class UpdateNetx extends BaseCommand

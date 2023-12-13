@@ -144,7 +144,7 @@ class Response
      *
      * @return array
      */
-    private function paginate()
+    protected function paginate()
     {
         // We assume that `size` and `from` have been set via getPaginationParams()
         // This method should not be used for endpoints that return no results
@@ -181,7 +181,7 @@ class Response
      *
      * @return array
      */
-    private function data()
+    protected function data()
     {
         $hits = $this->searchResponse['hits']['hits'];
         $results = [];
@@ -224,7 +224,7 @@ class Response
         ];
     }
 
-    private function info()
+    protected function info()
     {
         $resources = $this->getResources();
 
@@ -283,7 +283,7 @@ class Response
      *
      * @return array
      */
-    private function aggregate()
+    protected function aggregate()
     {
         $aggregations = $this->searchResponse['aggregations'] ?? null;
 

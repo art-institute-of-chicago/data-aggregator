@@ -3,7 +3,6 @@
 namespace App\Transformers\Inbound\Membership;
 
 use Carbon\Carbon;
-
 use App\Transformers\Datum;
 use App\Transformers\Inbound\MembershipTransformer;
 

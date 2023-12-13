@@ -3,7 +3,6 @@
 namespace App;
 
 use Exception;
-
 use Tamayo\LaravelScoutElastic\Engines\ElasticsearchEngine as BaseEngine;
 
 class ElasticsearchEngine extends BaseEngine

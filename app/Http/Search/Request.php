@@ -5,12 +5,9 @@ namespace App\Http\Search;
 use Aic\Hub\Foundation\Exceptions\BigLimitException;
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
-
 use App\Http\Middleware\RestrictContent;
-
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
-
 use Illuminate\Support\Facades\Request as RequestFacade;
 
 class Request
@@ -934,11 +931,13 @@ class Request
     private function getColorParams(array $params, array $input)
     {
         // Exit early if the query is not an exact hex string
-        if (!(
-            strlen($input['q']) === 7 && preg_match('/^#[0-9a-f]{6}/i', $input['q'])
-        ) || (
-            strlen($input['q']) === 4 && preg_match('/^#[0-9a-f]{3}/i', $input['q'])
-        )) {
+        if (
+            !(
+                strlen($input['q']) === 7 && preg_match('/^#[0-9a-f]{6}/i', $input['q'])
+            ) || (
+                strlen($input['q']) === 4 && preg_match('/^#[0-9a-f]{3}/i', $input['q'])
+            )
+        ) {
             return false;
         }
 
