@@ -11,7 +11,6 @@ use Elasticsearch;
 
 class CsvSearchController extends SearchController
 {
-
     public function search(Request $request, $resource = null)
     {
         $headers = [
