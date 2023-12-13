@@ -19,10 +19,7 @@ class CsvSearchController extends SearchController
             'Content-Disposition' => 'inline',
         ];
         $data = $this->query('getSearchParams', 'getSearchResponse', 'search', $resource);
-        $titles = [];
-        foreach ($data[0] as $key => $value) {
-            $titles[] = $key;
-        }
+        $titles = array_keys($data[0]);
 
         $callback = function () use ($data, $titles) {
             $output = fopen('php://output', 'w');
