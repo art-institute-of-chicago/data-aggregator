@@ -197,6 +197,14 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/scout-import-agents-last-run.log'));
 
+        // API-401: Make sure the artworks index is always in sync with the datebase
+        $schedule->command('scout:import', [
+            \App\Models\Collections\Artwork::class,
+        ])
+            ->dailyAt('22:10')
+            ->withoutOverlapping(self::FOR_ONE_YEAR)
+            ->sendOutputTo(storage_path('logs/scout-import-artworks-last-run.log'));
+
         if (config('aic.dump.schedule_enabled')) {
             $schedule->command('dump:schedule')
                 ->weekly()
