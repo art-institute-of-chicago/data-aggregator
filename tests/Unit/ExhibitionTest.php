@@ -2,14 +2,10 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Collections\Exhibition;
-use App\Models\Collections\ArtworkType;
-use App\Models\Collections\Gallery;
-use App\Models\Collections\AgentType;
-use App\Models\Collections\Agent;
 use App\Models\Web\Exhibition as WebExhibition;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ExhibitionTest extends TestCase
 {
@@ -27,5 +23,19 @@ class ExhibitionTest extends TestCase
 
         $resource = $response->json()['data'];
         $this->assertEquals(4, $resource['position']);
+    }
+
+    /** @test */
+    public function it_does_not_use_nocache_in_web_url_field(): void
+    {
+        $exhibition = $this->make(Exhibition::class);
+        $exhibitionKey = $exhibition->getAttributeValue($exhibition->getKeyName());
+        WebExhibition::factory()->withNocacheUrl()->create(['datahub_id' => $exhibitionKey]);
+
+        $response = $this->getJson('api/v1/exhibitions/' . $exhibitionKey);
+        $response->assertSuccessful();
+
+        $resource = $response->json()['data'];
+        $this->assertStringNotContainsString('nocache.', $resource['web_url']);
     }
 }

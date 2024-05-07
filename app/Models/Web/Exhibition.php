@@ -3,6 +3,8 @@
 namespace App\Models\Web;
 
 use App\Models\WebModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Str;
 
 /**
  * An enhanced exhibition on the website
@@ -20,6 +22,13 @@ class Exhibition extends WebModel
     protected $touches = [
         'exhibition',
     ];
+
+    protected function webUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn (?string $webUrl) => $webUrl ? Str::replace('nocache.', '', $webUrl) : null,
+        );
+    }
 
     public function exhibition()
     {
