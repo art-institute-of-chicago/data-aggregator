@@ -195,6 +195,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Elasticsearch' => MailerLite\LaravelElasticsearch\Facade::class,
+        'Redis' => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
 
 ];
