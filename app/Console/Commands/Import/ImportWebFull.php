@@ -14,7 +14,7 @@ use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
 use App\Models\Web\EducatorResource;
 use App\Models\Web\DigitalCatalog;
-use App\Models\Web\DigitalPublicationSection;
+use App\Models\Web\DigitalPublicationArticle;
 use App\Models\Web\PrintedCatalog;
 use App\Models\Web\StaticPage;
 
@@ -68,7 +68,7 @@ class ImportWebFull extends AbstractImportCommand
             PressRelease::class => 'press_releases',
             EducatorResource::class => 'educator_resources',
             DigitalCatalog::class => 'digital_catalogs',
-            DigitalPublicationSection::class => 'digital_publication_sections',
+            DigitalPublicationArticle::class => 'digital_publication_articles',
             PrintedCatalog::class => 'printed_catalogs',
             StaticPage::class => 'static_pages',
         ];
@@ -97,7 +97,7 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('pressreleases');
         $this->importFromWeb('educatorresources');
         $this->importFromWeb('digitalpublications');
-        $this->importFromWeb('digitalpublicationsections');
+        $this->importFromWeb('digitalpublicationarticles');
         $this->importFromWeb('printedpublications');
 
         $this->importFromWeb('staticpages');

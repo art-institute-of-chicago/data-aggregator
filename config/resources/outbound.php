@@ -316,9 +316,9 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'digital-publication-sections',
-            'model' => \App\Models\Web\DigitalPublicationSection::class,
-            'transformer' => \App\Transformers\Outbound\Web\DigitalPublicationSection::class,
+            'endpoint' => 'digital-publication-articles',
+            'model' => \App\Models\Web\DigitalPublicationArticle::class,
+            'transformer' => \App\Transformers\Outbound\Web\DigitalPublicationArticle::class,
             'is_searchable' => true,
         ],
         [
