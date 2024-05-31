@@ -32,11 +32,6 @@ class DigitalPublicationArticle extends BaseTransformer
                 'elasticsearch' => 'integer',
             ],
         ];
-
-        return array_merge(
-            $sharedFields,
-            $this->getPageFields()
-        );
     }
 
     /**
