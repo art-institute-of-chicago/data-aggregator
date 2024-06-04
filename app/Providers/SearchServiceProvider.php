@@ -179,7 +179,7 @@ class SearchServiceProvider extends ServiceProvider
                 {
                     $prefix = $prefix ?? config('elasticsearch.indexParams.index');
 
-                    return $prefix . $model::instance()->searchableIndex();
+                    return $prefix . '-' . $model::instance()->searchableIndex();
                 }
 
                 /**
