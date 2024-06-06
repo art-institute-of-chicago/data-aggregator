@@ -108,10 +108,10 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(self::FOR_ONE_YEAR)
             ->sendOutputTo(storage_path('logs/import-web-full-digitalpublications-last-run.log'));
 
-        $schedule->command('import:web-full', ['digitalpublicationsections', '--yes'])
+        $schedule->command('import:web-full', ['digitalpublicationarticles', '--yes'])
             ->dailyAt('23:51')
             ->withoutOverlapping(self::FOR_ONE_YEAR)
-            ->sendOutputTo(storage_path('logs/import-web-full-digitalpublicationsections-last-run.log'));
+            ->sendOutputTo(storage_path('logs/import-web-full-digitalpublicationarticles-last-run.log'));
 
         $schedule->command('import:web-full', ['printedpublications', '--yes'])
             ->dailyAt('23:54')

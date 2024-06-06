@@ -10,7 +10,7 @@ use App\Models\Collections\Exhibition;
 use App\Models\Shop\Product;
 use App\Models\Web\Article;
 use App\Models\Web\DigitalCatalog;
-use App\Models\Web\DigitalPublicationSection;
+use App\Models\Web\DigitalPublicationArticle;
 use App\Models\Web\EducatorResource;
 use App\Models\Web\Event;
 use App\Models\Web\EventOccurrence;
@@ -126,7 +126,7 @@ class BaseModel extends AbstractModel
     {
         Article::addGlobalScope(new PublishedScope());
         DigitalCatalog::addGlobalScope(new PublishedScope());
-        DigitalPublicationSection::addGlobalScope(new PublishedScope());
+        DigitalPublicationArticle::addGlobalScope(new PublishedScope());
         EducatorResource::addGlobalScope(new PublishedScope());
         GenericPage::addGlobalScope(new PublishedScope());
         PressRelease::addGlobalScope(new PublishedScope());

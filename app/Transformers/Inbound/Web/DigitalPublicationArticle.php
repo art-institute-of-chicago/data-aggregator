@@ -4,7 +4,7 @@ namespace App\Transformers\Inbound\Web;
 
 use App\Transformers\Inbound\WebTransformer;
 
-class DigitalPublicationSection extends WebTransformer
+class DigitalPublicationArticle extends WebTransformer
 {
     use HasBlocks;
 }

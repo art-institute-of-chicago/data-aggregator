@@ -203,9 +203,9 @@ return [
             'model' => \App\Models\Web\PrintedCatalog::class,
             'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
-        'digitalpublicationsections' => [
-            'model' => \App\Models\Web\DigitalPublicationSection::class,
-            'transformer' => \App\Transformers\Inbound\Web\DigitalPublicationSection::class,
+        'digitalpublicationarticles' => [
+            'model' => \App\Models\Web\DigitalPublicationArticle::class,
+            'transformer' => \App\Transformers\Inbound\Web\DigitalPublicationArticle::class,
         ],
     ],
 
