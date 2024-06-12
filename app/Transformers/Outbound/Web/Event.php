@@ -191,6 +191,11 @@ class Event extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
+            'is_sales_button_hidden' => [
+                'doc' => 'Whether the buy tickets button is hidden on the website event page',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+            ],
             'is_virtual_event' => [
                 'doc' => 'Whether the event is being held virtually',
                 'type' => 'boolean',

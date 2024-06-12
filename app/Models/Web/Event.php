@@ -24,6 +24,7 @@ class Event extends WebModel
         'alt_event_types' => 'array',
         'alt_audiences' => 'array',
         'programs' => 'array',
+        'is_sales_button_hidden' => 'boolean',
     ];
 
     public function ticketedEvent()
