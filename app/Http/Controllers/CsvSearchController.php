@@ -48,7 +48,7 @@ class CsvSearchController extends SearchController
         $input = $requestArgs ? array_merge($input, $requestArgs) : $input;
 
         // Transform our API's syntax into an Elasticsearch params array
-        $params = ( new SearchRequest($resource, $id) )->{$requestMethod}($input);
+        $params = (new SearchRequest($resource, $id))->{$requestMethod}($input);
         $results = null;
 
         try {
@@ -61,7 +61,7 @@ class CsvSearchController extends SearchController
         }
 
         // Transform Elasticsearch results into our API standard
-        $response = ( new SearchResponse($results, $params, $resource) )->{$responseMethod}();
+        $response = (new SearchResponse($results, $params, $resource))->{$responseMethod}();
 
         return $response;
     }
