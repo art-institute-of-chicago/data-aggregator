@@ -311,7 +311,7 @@ return [
         ],
         [
             'endpoint' => 'digital-catalogs',
-            'model' => \App\Models\Web\DigitalCatalog::class,
+            'model' => \App\Models\Web\DigitalPublication::class,
             'transformer' => \App\Transformers\Outbound\Web\Page::class,
             'is_searchable' => true,
         ],
@@ -322,8 +322,8 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'printed-catalogs',
-            'model' => \App\Models\Web\PrintedCatalog::class,
+            'endpoint' => 'printed-publications',
+            'model' => \App\Models\Web\PrintedPublication::class,
             'transformer' => \App\Transformers\Outbound\Web\Page::class,
             'is_searchable' => true,
         ],

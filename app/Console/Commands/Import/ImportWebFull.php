@@ -13,9 +13,9 @@ use App\Models\Web\Highlight;
 use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
 use App\Models\Web\EducatorResource;
-use App\Models\Web\DigitalCatalog;
+use App\Models\Web\DigitalPublication;
 use App\Models\Web\DigitalPublicationArticle;
-use App\Models\Web\PrintedCatalog;
+use App\Models\Web\PrintedPublication;
 use App\Models\Web\StaticPage;
 
 class ImportWebFull extends AbstractImportCommand
@@ -67,9 +67,9 @@ class ImportWebFull extends AbstractImportCommand
             GenericPage::class => 'generic_pages',
             PressRelease::class => 'press_releases',
             EducatorResource::class => 'educator_resources',
-            DigitalCatalog::class => 'digital_catalogs',
+            DigitalPublication::class => 'digital_publications',
             DigitalPublicationArticle::class => 'digital_publication_articles',
-            PrintedCatalog::class => 'printed_catalogs',
+            PrintedPublication::class => 'printed_publications',
             StaticPage::class => 'static_pages',
         ];
 

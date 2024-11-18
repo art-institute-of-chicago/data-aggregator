@@ -769,9 +769,9 @@ An educator resource on the website For a description of all the endpoints avail
 
 
 
-#### Digital Catalogs
+#### Digital Publications
 
-A digital catalog on the website For a description of all the endpoints available for this resource, see [here](#digital-catalogs).
+A digital publication on the website For a description of all the endpoints available for this resource, see [here](#digital-publications).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -789,7 +789,7 @@ A digital catalog on the website For a description of all the endpoints availabl
 
 #### Digital Publication Sections
 
-A digital catalog on the website For a description of all the endpoints available for this resource, see [here](#digital-publication-sections).
+A digital publication on the website For a description of all the endpoints available for this resource, see [here](#digital-publication-articles).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -807,9 +807,9 @@ A digital catalog on the website For a description of all the endpoints availabl
 
 
 
-#### Printed Catalogs
+#### Printed Publication
 
-A printed catalog on the website For a description of all the endpoints available for this resource, see [here](#printed-catalogs).
+A printed publication on the website For a description of all the endpoints available for this resource, see [here](#printed-publications).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint

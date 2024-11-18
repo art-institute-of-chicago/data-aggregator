@@ -37,11 +37,11 @@ class RestrictContent
         if (
             in_array($endpoint, [
             'articles',
-            'digital-catalogs',
+            'digital-publications',
             'educator-resources',
             'generic-pages',
             'press-releases',
-            'printed-catalogues',
+            'printed-publications',
             'highlights',
             'static-pages',
             'web-exhibitions',
