@@ -310,7 +310,7 @@ return [
             'is_searchable' => true,
         ],
         [
-            'endpoint' => 'digital-catalogs',
+            'endpoint' => 'digital-publications',
             'model' => \App\Models\Web\DigitalPublication::class,
             'transformer' => \App\Transformers\Outbound\Web\Page::class,
             'is_searchable' => true,
