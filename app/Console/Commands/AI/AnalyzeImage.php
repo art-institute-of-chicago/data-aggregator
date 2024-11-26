@@ -33,13 +33,13 @@ class AnalyzeImage extends BaseCommand
         try {
             $artwork = $this->getArtwork();
             $imageUrl = $this->buildImageUrl($artwork);
-            
+
             $this->info("Analyzing artwork: {$artwork->title}");
             $this->info("Image URL: {$imageUrl}");
 
             // Get and save image analysis
             $analysisResults = $this->analyzeImage($artwork, $imageUrl);
-            
+
             // Process and save embeddings
             $this->processEmbeddings($artwork, $imageUrl, $analysisResults);
 
@@ -69,7 +69,7 @@ class AnalyzeImage extends BaseCommand
     protected function getArtwork(): Artwork
     {
         $id = $this->argument('id') ?? $this->ask('What is the datahub_id of the artwork to process?');
-        
+
         $artwork = Artwork::find($id);
         if (!$artwork) {
             throw new Exception("Artwork with ID {$id} not found.");
