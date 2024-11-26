@@ -13,6 +13,55 @@ class VectorSearchService
 {
     protected string $connection = 'vectors';
 
+    public function getItem(string $model, int $id): array
+    {
+        $modelMap = [
+            'artworks' => \App\Models\Collections\Artwork::class,
+            'articles' => \App\Models\Web\Article::class,
+            'exhibitions' => \App\Models\Web\Exhibition::class
+        ];
+
+        // Get base model data
+        $modelClass = $modelMap[$model] ?? null;
+        if (!$modelClass) {
+            throw new \Exception('Invalid model type');
+        }
+
+        $item = $modelClass::find($id);
+        if (!$item) {
+            throw new \Exception('Item not found');
+        }
+
+        // Get both text and image embeddings
+        $embeddings = collect(['text', 'image'])->mapWithKeys(function ($type) use ($model, $id) {
+            $embeddingClass = $type === 'image' ? ImageEmbedding::class : TextEmbedding::class;
+
+            $embedding = $embeddingClass::on($this->connection)
+                ->where('model_name', $model)
+                ->where('model_id', $id)
+                ->first();
+
+            if ($embedding) {
+                return [$type => [
+                    'id' => $embedding->id,
+                    'version' => $embedding->version,
+                    'data' => $embedding->data,
+                    'created_at' => $embedding->created_at,
+                    'updated_at' => $embedding->updated_at
+                ]];
+            }
+
+            return [$type => null];
+        })->filter()->all();
+
+        return [
+            'model' => $model,
+            'id' => $id,
+            'data' => $item,
+            'embeddings' => $embeddings
+        ];
+    }
+
     public function performSemanticSearch(string $model, array $embeddings, int $limit): Collection
     {
         $searchVector = new Vector($embeddings);
