@@ -80,9 +80,11 @@ Route::group(['prefix' => 'v1'], function () {
 
 // Azure AI Search
 
-Route::group(['prefix' => 'ai'], function () {
-    // routes/api.php
+Route::group(['prefix' => 'ai', 'middleware' => 'ai.service.status'], function () {
+    Route::any('/', [AzureAIController::class, 'show']);
+
     Route::prefix('search')->group(function () {
+
         // Semantic search
         Route::get('{model}/semantic', [AzureAIController::class, 'semanticSearch']);
 
@@ -93,6 +95,6 @@ Route::group(['prefix' => 'ai'], function () {
         Route::get('{model}/{id}/similarity/{compareId}', [AzureAIController::class, 'similarity']);
 
         // Get single item with embeddings
-        Route::get('{model}/{id}', [AzureAIController::class, 'show']);
+        Route::get('{model}/{id}', [AzureAIController::class, 'getItem']);
     });
 });
