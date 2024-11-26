@@ -10,6 +10,7 @@ return [
     | Configuration endpoints and keys for Azure AI Cognitive Services
     |
     */
+    'status' => env(key: 'AI_SERVICES_ENABLED'),
 
     'embedding' => [
         'endpoint' => env(key: 'AZURE_EMBEDDING_API_ENDPOINT'),
