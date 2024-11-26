@@ -196,11 +196,11 @@ return [
             'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
         'digitalpublications' => [
-            'model' => \App\Models\Web\DigitalCatalog::class,
+            'model' => \App\Models\Web\DigitalPublication::class,
             'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
         'printedpublications' => [
-            'model' => \App\Models\Web\PrintedCatalog::class,
+            'model' => \App\Models\Web\PrintedPublication::class,
             'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
         'digitalpublicationarticles' => [

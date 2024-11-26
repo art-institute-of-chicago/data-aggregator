@@ -4,9 +4,9 @@ namespace Database\Factories\Web;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PrintedCatalogFactory extends Factory
+class DigitalPublicationFactory extends Factory
 {
-    protected $model = \App\Models\Web\PrintedCatalog::class;
+    protected $model = \App\Models\Web\DigitalPublication::class;
 
     public function definition(): array
     {
