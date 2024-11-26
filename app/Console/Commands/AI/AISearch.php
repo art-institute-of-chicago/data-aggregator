@@ -70,7 +70,6 @@ class AISearch extends BaseCommand
 
             $this->displayResults($allResults, $searchType, $embeddingType);
             return 0;
-
         } catch (\Exception $e) {
             $this->error("Error: " . $e->getMessage());
             Log::error('AI Search error:', [
@@ -112,17 +111,23 @@ class AISearch extends BaseCommand
 
     protected function getAvailableEmbeddingTypes(string $model): array
     {
-        $textCount = TextEmbedding::when($model !== 'all', fn($q) => $q->where('model_name', $model))->count();
-        $imageCount = ImageEmbedding::when($model !== 'all', fn($q) => $q->where('model_name', $model))->count();
+        $textCount = TextEmbedding::when($model !== 'all', fn ($q) => $q->where('model_name', $model))->count();
+        $imageCount = ImageEmbedding::when($model !== 'all', fn ($q) => $q->where('model_name', $model))->count();
 
         if ($textCount === 0 && $imageCount === 0) {
             throw new \Exception("No embeddings found for " . ($model === 'all' ? 'any model' : $model));
         }
 
         $types = [];
-        if ($textCount > 0) $types[] = 'text';
-        if ($imageCount > 0) $types[] = 'image';
-        if (count($types) === 2) $types[] = 'both';
+        if ($textCount > 0) {
+            $types[] = 'text';
+        }
+        if ($imageCount > 0) {
+            $types[] = 'image';
+        }
+        if (count($types) === 2) {
+            $types[] = 'both';
+        }
 
         return $types;
     }
@@ -135,7 +140,7 @@ class AISearch extends BaseCommand
             case 'semantic':
                 $query = $this->option('query') ?? $this->ask('Enter your search query:');
                 $this->info("\nUsing query: " . $query);
-                
+
                 $embeddings = $this->embeddingService->getEmbeddings($query);
                 return $this->searchService->performSemanticSearch($model, $embeddings, $limit);
 
@@ -164,8 +169,8 @@ class AISearch extends BaseCommand
         $table = new Table($this->output);
         $table->setHeaders(['Type', 'Count']);
 
-        $textCount = TextEmbedding::when($model !== 'all', fn($q) => $q->where('model_name', $model))->count();
-        $imageCount = ImageEmbedding::when($model !== 'all', fn($q) => $q->where('model_name', $model))->count();
+        $textCount = TextEmbedding::when($model !== 'all', fn ($q) => $q->where('model_name', $model))->count();
+        $imageCount = ImageEmbedding::when($model !== 'all', fn ($q) => $q->where('model_name', $model))->count();
 
         $table->setRows([
             ['Text Embeddings', $textCount],
@@ -195,7 +200,7 @@ class AISearch extends BaseCommand
                 $item['id'] ?? 'N/A',
                 $item['title'] ?? 'N/A',
                 $item['embedding_type'] ?? 'N/A',
-                isset($item['similarity_score']) 
+                isset($item['similarity_score'])
                     ? number_format($item['similarity_score'] * 100, 2) . '%'
                     : 'N/A'
             ]);
