@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
+use Pgvector\Laravel\Vector;
 use Exception;
 
 class EmbeddingService
@@ -74,19 +75,17 @@ class EmbeddingService
     public function saveEmbeddings(
         string $modelName,
         int $modelId,
-        array|string $embedding,
+        array $embedding,
         string $type,
         ?array $additionalData = null
     ): array {
-        $version = $this->config[$type === 'text' ? 'embedding' : 'image_embedding']['version'];
+        // Create vector from array
+        $vector = new Vector($embedding);
+
         $embeddingModel = $type === 'text' ? TextEmbedding::class : ImageEmbedding::class;
+        $version = $this->config[$type === 'text' ? 'embedding' : 'image_embedding']['version'];
 
-        // Format embedding as vector string if needed
-        $embeddingVector = is_array($embedding)
-            ? sprintf('[%s]', implode(',', $embedding))
-            : $embedding;
-
-        $embedding = $embeddingModel::on($this->connection)
+        $result = $embeddingModel::on($this->connection)
             ->updateOrCreate(
                 [
                     'model_name' => $modelName,
@@ -95,15 +94,14 @@ class EmbeddingService
                 [
                     'version' => $version,
                     'data' => $additionalData,
-                    'embedding' => DB::raw("?::vector"),
-                ],
-                [$embeddingVector]
+                    'embedding' => $vector,
+                ]
             );
 
         return [
             'success' => true,
             'message' => 'Embedding saved successfully',
-            'embedding_id' => $embedding->id
+            'embedding_id' => $result->id
         ];
     }
 
