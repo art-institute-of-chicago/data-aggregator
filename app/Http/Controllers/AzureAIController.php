@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Services\VectorSearchService;
 use App\Services\EmbeddingService;
-use App\Models\Web\Vectors\TextEmbedding;
-use App\Models\Web\Vectors\ImageEmbedding;
+use App\Services\VectorSearchService;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Pgvector\Laravel\Vector;
 
 class AzureAIController extends Controller
 {
