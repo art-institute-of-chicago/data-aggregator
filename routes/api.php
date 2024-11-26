@@ -9,6 +9,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ImageSearchController;
 use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\AzureAIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,4 +76,23 @@ Route::group(['prefix' => 'v1'], function () {
     Route::any('artworks/{id}/manifest.json', [ArtworkController::class, 'manifest']);
 
     Route::any('netx/{id}', [AssetController::class, 'netx']);
+});
+
+// Azure AI Search
+
+Route::group(['prefix' => 'ai'], function () {
+// routes/api.php
+    Route::prefix('search')->group(function () {
+        // Semantic search
+        Route::get('{model}/semantic', [AzureAIController::class, 'semanticSearch']);
+
+        // Nearest neighbor search
+        Route::get('{model}/{id}/nearest', [AzureAIController::class, 'nearestNeighbor']);
+
+        // Similarity search
+        Route::get('{model}/{id}/similarity/{compareId}', [AzureAIController::class, 'similarity']);
+
+        // Get single item with embeddings
+        Route::get('{model}/{id}', [AzureAIController::class, 'show']);
+    });
 });
