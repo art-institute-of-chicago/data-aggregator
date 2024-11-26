@@ -55,7 +55,6 @@ class AnalyzeImage extends BaseCommand
             );
 
             return 0;
-
         } catch (Exception $e) {
             $this->error("Error: " . $e->getMessage());
             Log::error('AI Analysis error:', [
@@ -123,14 +122,32 @@ class AnalyzeImage extends BaseCommand
         $this->info("\nProcessing embeddings...");
 
         // Get and save image embeddings
-        $imageEmbedding = $this->embeddingService->getImageEmbeddings($imageUrl);
-        $this->saveImageEmbeddings($artwork, $imageEmbedding, $imageUrl, $analysisResults);
-        $this->info("Saved image embeddings");
+        $imageEmbeddingArray = $this->embeddingService->getImageEmbeddings($imageUrl);
+
+        $this->info("Image embedding response type: " . gettype($imageEmbeddingArray));
+        if (is_array($imageEmbeddingArray)) {
+            $this->info("Image embedding array count: " . count($imageEmbeddingArray));
+        }
+
+        try {
+            // Pass array directly to saveEmbeddings
+            $this->saveImageEmbeddings($artwork, $imageEmbeddingArray, $imageUrl, $analysisResults);
+            $this->info("Saved image embeddings");
+        } catch (\Exception $e) {
+            throw new Exception("Failed to save image embeddings: " . $e->getMessage());
+        }
 
         // Get and save text embeddings
-        $textEmbedding = $this->embeddingService->getEmbeddings($analysisResults['summarized']);
-        $this->saveTextEmbeddings($artwork, $textEmbedding, $imageUrl, $analysisResults);
-        $this->info("Saved text embeddings");
+        $this->info("\nGetting text embeddings...");
+        $textEmbeddingArray = $this->embeddingService->getEmbeddings($analysisResults['summarized']);
+
+        try {
+            // Pass array directly to saveEmbeddings
+            $this->saveTextEmbeddings($artwork, $textEmbeddingArray, $imageUrl, $analysisResults);
+            $this->info("Saved text embeddings");
+        } catch (\Exception $e) {
+            throw new Exception("Failed to save text embeddings: " . $e->getMessage());
+        }
     }
 
     protected function saveImageEmbeddings(
