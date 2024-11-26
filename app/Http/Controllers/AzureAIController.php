@@ -21,6 +21,22 @@ class AzureAIController extends Controller
         $this->searchService = $searchService;
     }
 
+    public function show() {
+        return response()->json([
+            'message' => 'Hello, World!'
+        ], 200);
+    }
+
+    public function getItem(string $model, int $id): JsonResponse
+    {
+        try {
+            $result = $this->searchService->getItem($model, $id);
+            return response()->json($result);
+        } catch (\Exception $e) {
+            return $this->handleError($e);
+        }
+    }
+
     public function semanticSearch(Request $request, string $model): JsonResponse
     {
         try {
