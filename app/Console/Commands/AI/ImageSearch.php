@@ -55,7 +55,6 @@ class ImageSearch extends BaseCommand
 
             $this->displayResults($results, $url);
             return 0;
-
         } catch (\Exception $e) {
             $this->error("Error: " . $e->getMessage());
             return 1;
@@ -108,7 +107,7 @@ class ImageSearch extends BaseCommand
 
         foreach ($results as $result) {
             $similarity = (1 - $result->distance) * 100;
-            
+
             $table->addRow([
                 $result->model_id,
                 $result->model_name,
