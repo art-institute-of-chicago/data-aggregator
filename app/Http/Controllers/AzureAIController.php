@@ -21,7 +21,8 @@ class AzureAIController extends Controller
         $this->searchService = $searchService;
     }
 
-    public function show() {
+    public function show()
+    {
         return response()->json([
             'message' => 'Hello, World!'
         ], 200);
