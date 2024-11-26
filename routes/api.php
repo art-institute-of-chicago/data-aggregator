@@ -81,7 +81,7 @@ Route::group(['prefix' => 'v1'], function () {
 // Azure AI Search
 
 Route::group(['prefix' => 'ai'], function () {
-// routes/api.php
+    // routes/api.php
     Route::prefix('search')->group(function () {
         // Semantic search
         Route::get('{model}/semantic', [AzureAIController::class, 'semanticSearch']);

@@ -35,7 +35,7 @@ class AzureAIController extends Controller
             );
 
             $embeddings = $this->embeddingService->getEmbeddings($searchQuery);
-            
+
             if (!$embeddings) {
                 return response()->json([
                     'error' => 'Could not generate embeddings for search query'
@@ -49,7 +49,6 @@ class AzureAIController extends Controller
             );
 
             return $this->searchService->formatResponse($results, $model);
-
         } catch (\Exception $e) {
             return $this->handleError($e);
         }
@@ -65,7 +64,6 @@ class AzureAIController extends Controller
             );
 
             return $this->searchService->formatResponse($results, $model, $id);
-
         } catch (\Exception $e) {
             return $this->handleError($e);
         }

@@ -20,7 +20,7 @@ class VectorSearchService
         $results = TextEmbedding::on($this->connection)
             ->select([
                 '*',
-                DB::raw("embedding <-> '".$searchVector."' as distance")
+                DB::raw("embedding <-> '" . $searchVector . "' as distance")
             ])
             ->where('model_name', $model)
             ->whereNotNull('embedding')
@@ -51,7 +51,7 @@ class VectorSearchService
         return $embeddingClass::on($this->connection)
             ->select([
                 '*',
-                DB::raw("embedding <-> '".$reference->embedding."' as distance")
+                DB::raw("embedding <-> '" . $reference->embedding . "' as distance")
             ])
             ->where('model_name', $model)
             ->where('model_id', '!=', $id)
@@ -69,23 +69,23 @@ class VectorSearchService
     {
         return collect(['text', 'image'])->map(function ($type) use ($model, $id, $compareId) {
             $embeddingClass = $type === 'image' ? ImageEmbedding::class : TextEmbedding::class;
-            
+
             $embeddings = $embeddingClass::on($this->connection)
                 ->select('*')
                 ->whereIn('model_id', [$id, $compareId])
                 ->where('model_name', $model)
                 ->get();
-    
+
             if ($embeddings->count() === 2) {
                 $distance = DB::connection($this->connection)
                     ->selectOne(
-                        "SELECT (?::vector <-> ?::vector) as distance", 
+                        "SELECT (?::vector <-> ?::vector) as distance",
                         [
                             $embeddings[0]->embedding,
                             $embeddings[1]->embedding
                         ]
                     )->distance;
-                
+
                 return [
                     'embedding_type' => $type,
                     'similarity_score' => 1 - $distance,

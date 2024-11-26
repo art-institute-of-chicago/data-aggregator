@@ -4,7 +4,6 @@ namespace App\Models\Web\Vectors;
 
 use App\Models\WebModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
 use Pgvector\Laravel\Vector;
 use Pgvector\Laravel\Distance as distance;
 

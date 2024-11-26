@@ -82,7 +82,7 @@ class EmbeddingService
         $embeddingModel = $type === 'text' ? TextEmbedding::class : ImageEmbedding::class;
 
         // Format embedding as vector string if needed
-        $embeddingVector = is_array($embedding) 
+        $embeddingVector = is_array($embedding)
             ? sprintf('[%s]', implode(',', $embedding))
             : $embedding;
 
@@ -108,8 +108,8 @@ class EmbeddingService
     }
 
     public function saveArtworkDescription(
-        int $artworkId, 
-        array $description, 
+        int $artworkId,
+        array $description,
         array $generationData
     ): array {
         $modelName = 'artworks';
