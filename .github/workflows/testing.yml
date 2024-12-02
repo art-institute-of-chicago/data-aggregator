@@ -41,7 +41,8 @@ jobs:
 
     - name: Install Postgres
       id: postgres
-      uses: ikalnytskyi/action-setup-postgres@v4
+      image: pgvector/pgvector:pg17
+      uses: ikalnytskyi/action-setup-postgres@v7
       with:
           username: homestead
           password: secret
