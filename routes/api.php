@@ -44,6 +44,25 @@ Route::group(['prefix' => 'v1'], function () {
     Route::match(['GET', 'POST'], 'autocomplete', [SearchController::class, 'autocompleteWithTitle']);
     Route::match(['GET', 'POST'], 'autosuggest', [SearchController::class, 'autocompleteWithSource']);
 
+    // AI Search
+    Route::group(['prefix' => 'ai', 'middleware' => 'ai.service.status'], function () {
+        
+        Route::any('/', [AzureAIController::class, 'show']);
+
+        // Semantic search
+        Route::get('{model}/semantic', [AzureAIController::class, 'semanticSearch']);
+
+        // Nearest neighbor search
+        Route::get('{model}/{id}/nearest', [AzureAIController::class, 'nearestNeighbor']);
+
+        // Similarity search
+        Route::get('{model}/{id}/similarity/{compareId}', [AzureAIController::class, 'similarity']);
+
+        // Get single item with embeddings
+        Route::get('{model}/{id}', [AzureAIController::class, 'getItem']);
+
+    });
+
     // Image search
     Route::match(['GET', 'POST'], 'image-search', [ImageSearchController::class, 'imageSearch']);
 
@@ -76,25 +95,4 @@ Route::group(['prefix' => 'v1'], function () {
     Route::any('artworks/{id}/manifest.json', [ArtworkController::class, 'manifest']);
 
     Route::any('netx/{id}', [AssetController::class, 'netx']);
-});
-
-// Azure AI Search
-
-Route::group(['prefix' => 'ai', 'middleware' => 'ai.service.status'], function () {
-    Route::any('/', [AzureAIController::class, 'show']);
-
-    Route::prefix('search')->group(function () {
-
-        // Semantic search
-        Route::get('{model}/semantic', [AzureAIController::class, 'semanticSearch']);
-
-        // Nearest neighbor search
-        Route::get('{model}/{id}/nearest', [AzureAIController::class, 'nearestNeighbor']);
-
-        // Similarity search
-        Route::get('{model}/{id}/similarity/{compareId}', [AzureAIController::class, 'similarity']);
-
-        // Get single item with embeddings
-        Route::get('{model}/{id}', [AzureAIController::class, 'getItem']);
-    });
 });
