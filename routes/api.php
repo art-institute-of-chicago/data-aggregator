@@ -46,7 +46,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     // AI Search
     Route::group(['prefix' => 'ai', 'middleware' => 'ai.service.status'], function () {
-        
+
         Route::any('/', [AzureAIController::class, 'show']);
 
         // Semantic search
@@ -60,7 +60,6 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Get single item with embeddings
         Route::get('{model}/{id}', [AzureAIController::class, 'getItem']);
-
     });
 
     // Image search
