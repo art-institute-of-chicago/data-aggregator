@@ -13,7 +13,7 @@ use Symfony\Component\Console\Helper\Table;
 
 class AISearch extends BaseCommand
 {
-    protected $signature = 'ai:search 
+    protected $signature = 'ai:search
         {model=all : Model type to search (all, artworks, articles, exhibitions)}
         {--type=semantic : Type of search (semantic, nearest_neighbor, similarity)}
         {--embedding=both : Type of embedding to search (text, image, both)}

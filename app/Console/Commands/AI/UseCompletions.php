@@ -13,7 +13,7 @@ use Symfony\Component\Console\Helper\Table;
 
 class UseCompletions extends BaseCommand
 {
-    protected $signature = 'ai:chat 
+    protected $signature = 'ai:chat
         {--mode=chat : Mode of operation (chat, summarize)}
         {--id= : ID of artwork to analyze}
         {--compare : Compare multiple summarization attempts}

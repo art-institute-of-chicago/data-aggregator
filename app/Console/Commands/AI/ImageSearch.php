@@ -11,7 +11,7 @@ use Symfony\Component\Console\Helper\Table;
 
 class ImageSearch extends BaseCommand
 {
-    protected $signature = 'ai:search-image 
+    protected $signature = 'ai:search-image
         {url? : URL of the image to search}
         {--limit=10 : Number of results to return}
         {--threshold=0.8 : Similarity threshold (0-1)}
