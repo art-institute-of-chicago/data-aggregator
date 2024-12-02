@@ -2,12 +2,12 @@
 
 namespace App\Models\Web\Vectors;
 
-use App\Models\WebModel;
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Pgvector\Laravel\Vector;
 use TextEmbeddingWeight;
 
-class TextEmbedding extends WebModel
+class TextEmbedding extends BaseModel
 {
     /**
      * The connection name for the model.
@@ -38,6 +38,11 @@ class TextEmbedding extends WebModel
         'model_id' => 'integer',
         'embedding' => Vector::class,
     ];
+
+    public function shouldBeSearchable()
+    {
+        return false;
+    }
 
     /**
      * Get the weights for the text embedding.
