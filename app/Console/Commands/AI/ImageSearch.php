@@ -8,6 +8,8 @@ use App\Services\VectorSearchService;
 use App\Models\Web\Vectors\ImageEmbedding;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Output\OutputInterface;
+
 
 class ImageSearch extends BaseCommand
 {
@@ -33,7 +35,7 @@ class ImageSearch extends BaseCommand
 
     public function handle(): int
     {
-        $this->getAicLogo();
+        $this->info($this->getAicLogo(), OutputInterface::VERBOSITY_VERBOSE);
 
         try {
             // Get image URL
@@ -42,10 +44,10 @@ class ImageSearch extends BaseCommand
                 throw new \Exception('Invalid URL provided');
             }
 
-            $this->info("\nFetching image embeddings...");
+            $this->info("\nFetching image embeddings...", OutputInterface::VERBOSITY_VERBOSE);
             $vector = $this->embeddingService->getImageEmbeddings($url);
 
-            $this->info("Searching for similar images...");
+            $this->info("Searching for similar images...", OutputInterface::VERBOSITY_VERBOSE);
             $results = $this->searchSimilarImages(
                 vector: $vector,
                 limit: (int) $this->option('limit'),

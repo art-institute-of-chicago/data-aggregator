@@ -7,6 +7,7 @@ use App\Services\EmbeddingService;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Console\Output\OutputInterface;
 use Exception;
 
 class AnalyzeImage extends BaseCommand
@@ -28,14 +29,14 @@ class AnalyzeImage extends BaseCommand
 
     public function handle(): int
     {
-        $this->getAicLogo();
+        $this->info($this->getAicLogo(), OutputInterface::VERBOSITY_VERBOSE);
 
         try {
             $artwork = $this->getArtwork();
             $imageUrl = $this->buildImageUrl($artwork);
 
-            $this->info("Analyzing artwork: {$artwork->title}");
-            $this->info("Image URL: {$imageUrl}");
+            $this->info("Analyzing artwork: {$artwork->title}", OutputInterface::VERBOSITY_VERBOSE);
+            $this->info("Image URL: {$imageUrl}", OutputInterface::VERBOSITY_VERBOSE);
 
             // Get and save image analysis
             $analysisResults = $this->analyzeImage($artwork, $imageUrl);
@@ -43,7 +44,7 @@ class AnalyzeImage extends BaseCommand
             // Process and save embeddings
             $this->processEmbeddings($artwork, $imageUrl, $analysisResults);
 
-            $this->info("\nAnalysis completed successfully!");
+            $this->info("\nAnalysis completed successfully!", OutputInterface::VERBOSITY_VERBOSE);
             $this->table(
                 ['Component', 'Status'],
                 [
@@ -91,11 +92,11 @@ class AnalyzeImage extends BaseCommand
 
     protected function analyzeImage(Artwork $artwork, string $imageUrl): array
     {
-        $this->info("\nPerforming image analysis...");
+        $this->info("\nPerforming image analysis...", OutputInterface::VERBOSITY_VERBOSE);
 
         // Get image description
         $generatedDescription = $this->embeddingService->getImageDescription($imageUrl);
-        $this->info("Generated base description");
+        $this->info("Generated base description", OutputInterface::VERBOSITY_VERBOSE);
 
         // Get AIC description if available
         $aicDescription = $artwork->description;
@@ -105,7 +106,7 @@ class AnalyzeImage extends BaseCommand
             $aicDescription,
             $generatedDescription
         );
-        $this->info("Generated summarized description");
+        $this->info("Generated summarized description", OutputInterface::VERBOSITY_VERBOSE);
 
         return [
             'generated' => $generatedDescription,
@@ -119,32 +120,32 @@ class AnalyzeImage extends BaseCommand
         string $imageUrl,
         array $analysisResults
     ): void {
-        $this->info("\nProcessing embeddings...");
+        $this->info("\nProcessing embeddings...", OutputInterface::VERBOSITY_VERBOSE);
 
         // Get and save image embeddings
         $imageEmbeddingArray = $this->embeddingService->getImageEmbeddings($imageUrl);
 
-        $this->info("Image embedding response type: " . gettype($imageEmbeddingArray));
+        $this->info("Image embedding response type: " . gettype($imageEmbeddingArray), OutputInterface::VERBOSITY_VERBOSE);
         if (is_array($imageEmbeddingArray)) {
-            $this->info("Image embedding array count: " . count($imageEmbeddingArray));
+            $this->info("Image embedding array count: " . count($imageEmbeddingArray), OutputInterface::VERBOSITY_VERBOSE);
         }
 
         try {
             // Pass array directly to saveEmbeddings
             $this->saveImageEmbeddings($artwork, $imageEmbeddingArray, $imageUrl, $analysisResults);
-            $this->info("Saved image embeddings");
+            $this->info("Saved image embeddings", OutputInterface::VERBOSITY_VERBOSE);
         } catch (\Exception $e) {
             throw new Exception("Failed to save image embeddings: " . $e->getMessage());
         }
 
         // Get and save text embeddings
-        $this->info("\nGetting text embeddings...");
+        $this->info("\nGetting text embeddings...", OutputInterface::VERBOSITY_VERBOSE);
         $textEmbeddingArray = $this->embeddingService->getEmbeddings($analysisResults['summarized']);
 
         try {
             // Pass array directly to saveEmbeddings
             $this->saveTextEmbeddings($artwork, $textEmbeddingArray, $imageUrl, $analysisResults);
-            $this->info("Saved text embeddings");
+            $this->info("Saved text embeddings", OutputInterface::VERBOSITY_VERBOSE);
         } catch (\Exception $e) {
             throw new Exception("Failed to save text embeddings: " . $e->getMessage());
         }

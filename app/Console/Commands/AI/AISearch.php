@@ -10,6 +10,7 @@ use App\Models\Web\Vectors\ImageEmbedding;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class AISearch extends BaseCommand
 {
@@ -39,7 +40,7 @@ class AISearch extends BaseCommand
 
     public function handle(): int
     {
-        $this->getAicLogo();
+        $this->info($this->getAicLogo(), OutputInterface::VERBOSITY_VERBOSE);
 
         try {
             $model = $this->getModelType();
@@ -134,12 +135,12 @@ class AISearch extends BaseCommand
 
     protected function performSearch(string $model, string $embeddingType, string $searchType, int $limit): Collection
     {
-        $this->info("\nSearching {$embeddingType} embeddings...");
+        $this->info("\nSearching {$embeddingType} embeddings...", OutputInterface::VERBOSITY_VERBOSE);
 
         switch ($searchType) {
             case 'semantic':
                 $query = $this->option('query') ?? $this->ask('Enter your search query:');
-                $this->info("\nUsing query: " . $query);
+                $this->info("\nUsing query: " . $query, OutputInterface::VERBOSITY_VERBOSE);
 
                 $embeddings = $this->embeddingService->getEmbeddings($query);
                 return $this->searchService->performSemanticSearch($model, $embeddings, $limit);

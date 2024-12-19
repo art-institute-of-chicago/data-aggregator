@@ -10,6 +10,8 @@ use App\Models\Web\Vectors\ImageEmbedding;
 use App\Models\Web\Vectors\TextEmbedding;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Output\OutputInterface;
+
 
 class UseCompletions extends BaseCommand
 {
@@ -38,7 +40,7 @@ class UseCompletions extends BaseCommand
 
     public function handle(): int
     {
-        $this->getAicLogo();
+        $this->info($this->getAicLogo(), OutputInterface::VERBOSITY_VERBOSE);
 
         try {
             $mode = $this->option('mode');
@@ -122,7 +124,7 @@ class UseCompletions extends BaseCommand
 
         $artwork = Artwork::findOrFail($imageEmbedding->model_id);
 
-        $this->info("Selected random artwork: {$artwork->id} - {$artwork->title}");
+        $this->info("Selected random artwork: {$artwork->id} - {$artwork->title}", OutputInterface::VERBOSITY_VERBOSE);
 
         return $artwork;
     }
@@ -146,7 +148,7 @@ class UseCompletions extends BaseCommand
         ?ImageEmbedding $imageEmbedding,
         ?TextEmbedding $textEmbedding
     ): void {
-        $this->info("\nGenerating new summary...");
+        $this->info("\nGenerating new summary...", OutputInterface::VERBOSITY_VERBOSE);
 
         if (!$imageEmbedding?->data['analysis_data']) {
             throw new \Exception("No AI analysis data found for artwork {$artwork->id}");
@@ -170,12 +172,12 @@ class UseCompletions extends BaseCommand
             ]
         );
 
-        $this->info("\nNew Summary Generated and Saved:");
-        $this->line($newSummary);
+        $this->info("\nNew Summary Generated and Saved:", OutputInterface::VERBOSITY_VERBOSE);
+        $this->line($newSummary, OutputInterface::VERBOSITY_VERBOSE);
 
         if ($textEmbedding?->data['description']) {
-            $this->info("\nPrevious Summary:");
-            $this->line($textEmbedding->data['description']);
+            $this->info("\nPrevious Summary:", OutputInterface::VERBOSITY_VERBOSE);
+            $this->line($textEmbedding->data['description'], OutputInterface::VERBOSITY_VERBOSE);
 
             $similarity = $this->calculateSimilarity(
                 $newSummary,
@@ -224,11 +226,11 @@ class UseCompletions extends BaseCommand
         array $generatedDescription,
         int $attempts
     ): void {
-        $this->info("\nGenerating {$attempts} different summarizations for comparison...");
+        $this->info("\nGenerating {$attempts} different summarizations for comparison...", OutputInterface::VERBOSITY_VERBOSE);
 
         $summaries = [];
         for ($i = 0; $i < $attempts; $i++) {
-            $this->line("\nAttempt " . ($i + 1) . "...");
+            $this->line("\nAttempt " . ($i + 1) . "...", OutputInterface::VERBOSITY_VERBOSE);
             $summaries[] = $this->descriptionService->summarizeImageDescription(
                 $originalDescription,
                 $generatedDescription
