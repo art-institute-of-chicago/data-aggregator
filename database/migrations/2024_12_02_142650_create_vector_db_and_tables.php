@@ -13,9 +13,6 @@ return new class () extends Migration {
 
     public function up(): void
     {
-        // Ensure extension is enabled on the database
-        DB::statement('CREATE EXTENSION IF NOT EXISTS vector');
-
         // Text embeddings table
         Schema::create('text_embeddings', function (Blueprint $table) {
             $table->id();
