@@ -17,7 +17,7 @@ class ImageSearch extends BaseCommand
         {url? : URL of the image to search}
         {--limit=10 : Number of results to return}
         {--threshold=0.8 : Similarity threshold (0-1)}
-        {--model= : Specific model type to search (artworks, articles, exhibitions)}';
+        {--model= : Specific model to search (artworks, articles, exhibitions)}';
 
     protected $description = 'Search for similar images using vector embeddings';
 

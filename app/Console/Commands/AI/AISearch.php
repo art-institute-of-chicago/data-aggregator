@@ -15,10 +15,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class AISearch extends BaseCommand
 {
     protected $signature = 'ai:search
-        {model=all : Model type to search (all, artworks, articles, exhibitions)}
+        {model=all : Model to search (all, artworks, articles, exhibitions)}
         {--type=semantic : Type of search (semantic, nearest_neighbor, similarity)}
         {--embedding=both : Type of embedding to search (text, image, both)}
-        {--query= : Semantic query to search}
+        {--query= : Semantic search query}
         {--id= : ID for nearest neighbor or similarity search}
         {--compare-id= : Second ID for similarity comparison}
         {--limit=20 : Number of results to return}

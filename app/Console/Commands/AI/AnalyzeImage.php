@@ -12,7 +12,7 @@ use Exception;
 
 class AnalyzeImage extends BaseCommand
 {
-    protected $signature = 'ai:analyze {id? : Artwork id to analyze}';
+    protected $signature = 'ai:analyze {id? : Artwork ID to analyze}';
     protected $description = 'Analyze an artwork using AI for descriptions and embeddings';
 
     protected EmbeddingService $embeddingService;
