@@ -9,7 +9,6 @@ use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class AISearch extends BaseCommand
@@ -167,19 +166,17 @@ class AISearch extends BaseCommand
 
     protected function showEmbeddingCounts(string $model): void
     {
-        $table = new Table($this->output);
-        $table->setHeaders(['Type', 'Count']);
-
         $textCount = TextEmbedding::when($model !== 'all', fn ($q) => $q->where('model_name', $model))->count();
         $imageCount = ImageEmbedding::when($model !== 'all', fn ($q) => $q->where('model_name', $model))->count();
 
-        $table->setRows([
-            ['Text Embeddings', $textCount],
-            ['Image Embeddings', $imageCount],
-            ['Total', $textCount + $imageCount]
-        ]);
-
-        $table->render();
+        $this->table(
+            ['Type', 'Count'],
+            [
+                ['Text Embeddings', $textCount],
+                ['Image Embeddings', $imageCount],
+                ['Total', $textCount + $imageCount]
+            ]
+        );
     }
 
     protected function displayResults(Collection $results, string $searchType, string $embeddingType): void
@@ -190,13 +187,10 @@ class AISearch extends BaseCommand
         $this->info("Query Type: " . $searchType);
         $this->info("Embedding Types Searched: " . $embeddingType);
 
-        $table = new Table($this->output);
-        $table->setHeaders(['#', 'ID', 'Title', 'Source', 'Similarity']);
-
         $results = $results->sortByDesc('similarity_score');
 
-        $results->each(function ($item, $index) use ($table) {
-            $table->addRow([
+        $tableResults = $results->map(function ($item, $index) {
+            return [
                 $index + 1,
                 $item['id'] ?? 'N/A',
                 $item['title'] ?? 'N/A',
@@ -204,9 +198,12 @@ class AISearch extends BaseCommand
                 isset($item['similarity_score'])
                     ? number_format($item['similarity_score'] * 100, 2) . '%'
                     : 'N/A'
-            ]);
-        });
+            ];
+        })->toArray();
 
-        $table->render();
+        $this->table(
+            ['#', 'ID', 'Title', 'Source', 'Similarity'],
+            $tableResults
+        );
     }
 }

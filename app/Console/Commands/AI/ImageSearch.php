@@ -7,7 +7,6 @@ use App\Services\EmbeddingService;
 use App\Services\VectorSearchService;
 use App\Models\Web\Vectors\ImageEmbedding;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
@@ -98,38 +97,37 @@ class ImageSearch extends BaseCommand
             return;
         }
 
-        $table = new Table($this->output);
-        $table->setHeaders([
-            'ID',
-            'Model',
-            'Similarity %',
-            'Created',
-            'Updated'
-        ]);
-
-        foreach ($results as $result) {
-            $similarity = (1 - $result->distance) * 100;
-
-            $table->addRow([
-                $result->model_id,
-                $result->model_name,
-                number_format($similarity, 2) . '%',
-                $result->created_at,
-                $result->updated_at
-            ]);
-
+        $tableResults = $results->map(function ($item, $index) {
             // Show additional data if available
-            if (!empty($result->data)) {
-                $this->line("\nDetails for ID: " . $result->model_id);
-                $data = json_decode($result->data, true);
+            if (!empty($item->data)) {
+                $this->line("\nDetails for ID: " . $item->model_id);
+                $data = json_decode($item->data, true);
                 foreach ($data as $key => $value) {
                     if (is_string($value)) {
                         $this->line("- {$key}: {$value}");
                     }
                 }
             }
-        }
 
-        $table->render();
+            $similarity = (1 - $result->distance) * 100;
+            return [
+                $result->model_id,
+                $result->model_name,
+                number_format($similarity, 2) . '%',
+                $result->created_at,
+                $result->updated_at
+            ];
+        })->toArray();
+
+        $this->table(
+            [
+                'ID',
+                'Model',
+                'Similarity %',
+                'Created',
+                'Updated'
+            ],
+            $tableResults
+        );
     }
 }

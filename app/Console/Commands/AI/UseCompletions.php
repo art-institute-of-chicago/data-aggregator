@@ -9,13 +9,13 @@ use App\Models\Collections\Artwork;
 use App\Models\Web\Vectors\ImageEmbedding;
 use App\Models\Web\Vectors\TextEmbedding;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
 class UseCompletions extends BaseCommand
 {
     protected $signature = 'ai:chat
+        {query? : A question to ask chat}
         {--mode=chat : Mode of operation (chat, summarize)}
         {--id= : ID of artwork to analyze}
         {--compare : Compare multiple summarization attempts}
@@ -195,20 +195,19 @@ class UseCompletions extends BaseCommand
         ?TextEmbedding $textEmbedding
     ): void {
         $this->info("\nArtwork Information:");
-        $this->info("-------------------");
 
-        $table = new Table($this->output);
-        $table->setHeaders(['Field', 'Value']);
-        $table->addRows([
-            ['ID', $artwork->id],
-            ['Title', $artwork->title],
-            ['Date', $artwork->date_display],
-            ['Has Image Embedding', $imageEmbedding ? 'Yes' : 'No'],
-            ['Has Text Embedding', $textEmbedding ? 'Yes' : 'No'],
-            ['Has AIC Description', !empty($artwork->description) ? 'Yes' : 'No'],
-            ['Has AI Analysis', !empty($imageEmbedding?->data['analysis_data']) ? 'Yes' : 'No'],
-        ]);
-        $table->render();
+        $this->table(
+            ['Field', 'Value'],
+            [
+                ['ID', $artwork->id],
+                ['Title', $artwork->title],
+                ['Date', $artwork->date_display],
+                ['Has Image Embedding', $imageEmbedding ? 'Yes' : 'No'],
+                ['Has Text Embedding', $textEmbedding ? 'Yes' : 'No'],
+                ['Has AIC Description', !empty($artwork->description) ? 'Yes' : 'No'],
+                ['Has AI Analysis', !empty($imageEmbedding?->data['analysis_data']) ? 'Yes' : 'No'],
+            ]
+        );
 
         if ($artwork->description) {
             $this->info("\nAIC Description:");
@@ -260,14 +259,14 @@ class UseCompletions extends BaseCommand
         $this->line($summary);
 
         $this->info("\nCharacter Counts:");
-        $table = new Table($this->output);
-        $table->setHeaders(['Source', 'Length']);
-        $table->addRows([
-            ['AIC Description', $originalDescription ? strlen($originalDescription) : 0],
-            ['AI Analysis', strlen(json_encode($generatedDescription))],
-            ['Summarized', strlen($summary)],
-        ]);
-        $table->render();
+        $this->table(
+            ['Source', 'Length'],
+            [
+                ['AIC Description', $originalDescription ? strlen($originalDescription) : 0],
+                ['AI Analysis', strlen(json_encode($generatedDescription))],
+                ['Summarized', strlen($summary)],
+            ]
+        );
     }
 
     protected function displayComparison(array $summaries, ?string $originalDescription, array $generatedDescription): void
@@ -282,20 +281,22 @@ class UseCompletions extends BaseCommand
         }
 
         $this->info("\nSimilarity Analysis:");
-        $table = new Table($this->output);
-        $table->setHeaders(['Comparison', 'Similarity %']);
 
+        $tableResults = [];
         for ($i = 0; $i < count($summaries); $i++) {
             for ($j = $i + 1; $j < count($summaries); $j++) {
                 $similarity = $this->calculateSimilarity($summaries[$i], $summaries[$j]);
-                $table->addRow([
+                $tableResults[] = [
                     "Version " . ($i + 1) . " vs " . ($j + 1),
                     number_format($similarity * 100, 2) . '%'
-                ]);
+                ];
             }
         }
 
-        $table->render();
+        $this->table(
+            ['Comparison', 'Similarity %'],
+            $tableResults
+        );
     }
 
     protected function calculateSimilarity(string $text1, string $text2): float
