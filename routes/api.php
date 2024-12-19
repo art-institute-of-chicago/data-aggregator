@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\RestrictedResourceController;
@@ -9,7 +8,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ImageSearchController;
 use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\AssetController;
-use App\Http\Controllers\AzureAIController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,24 +42,6 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::match(['GET', 'POST'], 'autocomplete', [SearchController::class, 'autocompleteWithTitle']);
     Route::match(['GET', 'POST'], 'autosuggest', [SearchController::class, 'autocompleteWithSource']);
-
-    // AI Search
-    Route::group(['prefix' => 'ai', 'middleware' => 'ai.service.status'], function () {
-
-        Route::any('/', [AzureAIController::class, 'show']);
-
-        // Semantic search
-        Route::get('{model}/semantic', [AzureAIController::class, 'semanticSearch']);
-
-        // Nearest neighbor search
-        Route::get('{model}/{id}/nearest', [AzureAIController::class, 'nearestNeighbor']);
-
-        // Similarity search
-        Route::get('{model}/{id}/similarity/{compareId}', [AzureAIController::class, 'similarity']);
-
-        // Get single item with embeddings
-        Route::get('{model}/{id}', [AzureAIController::class, 'getItem']);
-    });
 
     // Image search
     Route::match(['GET', 'POST'], 'image-search', [ImageSearchController::class, 'imageSearch']);
