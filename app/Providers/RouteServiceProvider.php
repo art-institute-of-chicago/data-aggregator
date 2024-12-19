@@ -33,6 +33,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 
+            Route::middleware('ai.service.status')
+                ->prefix('ai')
+                ->group(base_path('routes/ai.php'));
+
             Route::middleware('api')
                 ->prefix('la')
                 ->group(base_path('routes/la.php'));
