@@ -85,7 +85,7 @@ class AnalyzeImage extends BaseCommand
         }
 
         return sprintf(
-            'https://www.artic.edu/iiif/2/%s/full/full/0/default.jpg',
+            config('aic.config_documentation.iiif_url').'/%s/full/full/0/default.jpg',
             $artwork->getImageAttribute()->netx_uuid
         );
     }
