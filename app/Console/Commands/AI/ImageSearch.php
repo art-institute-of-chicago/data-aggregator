@@ -5,10 +5,8 @@ namespace App\Console\Commands\AI;
 use App\Console\Commands\BaseCommand;
 use App\Services\EmbeddingService;
 use App\Services\VectorSearchService;
-use App\Models\Web\Vectors\ImageEmbedding;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Output\OutputInterface;
-
 
 class ImageSearch extends BaseCommand
 {

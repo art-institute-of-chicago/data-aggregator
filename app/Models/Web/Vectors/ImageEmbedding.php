@@ -5,7 +5,6 @@ namespace App\Models\Web\Vectors;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Pgvector\Laravel\Vector;
-use Pgvector\Laravel\Distance as distance;
 
 class ImageEmbedding extends BaseModel
 {

@@ -11,7 +11,6 @@ use App\Models\Web\Vectors\TextEmbedding;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
 class UseCompletions extends BaseCommand
 {
     protected $signature = 'ai:chat

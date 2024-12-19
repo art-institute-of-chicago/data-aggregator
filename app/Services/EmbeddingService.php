@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\DB;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
 use Pgvector\Laravel\Vector;
@@ -11,9 +10,8 @@ use Exception;
 
 class EmbeddingService
 {
-
-    const CONFIDENCE_THRESHOLD_CAPTION = 0.7;
-    const CONFIDENCE_THRESHOLD_TAG = 0.9;
+    public const CONFIDENCE_THRESHOLD_CAPTION = 0.7;
+    public const CONFIDENCE_THRESHOLD_TAG = 0.9;
 
     protected string $connection = 'vectors';
     protected array $config;

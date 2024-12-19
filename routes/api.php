@@ -9,7 +9,6 @@ use App\Http\Controllers\ImageSearchController;
 use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\AssetController;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
