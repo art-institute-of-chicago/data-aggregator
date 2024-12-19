@@ -107,13 +107,13 @@ class ImageSearch extends BaseCommand
                 }
             }
 
-            $similarity = (1 - $result->distance) * 100;
+            $similarity = (1 - $item->distance) * 100;
             return [
-                $result->model_id,
-                $result->model_name,
+                $item->model_id,
+                $item->model_name,
                 number_format($similarity, 2) . '%',
-                $result->created_at,
-                $result->updated_at
+                $item->created_at,
+                $item->updated_at
             ];
         })->toArray();
 
