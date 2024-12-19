@@ -6,7 +6,7 @@ class AIServiceStatus
 {
     public function handle($request, \Closure $next)
     {
-        if (!config('azure.status', true)) {
+        if (!config('azure.status', false)) {
             return response()->json([
                 'error' => 'AI services are currently disabled'
             ], 503);
