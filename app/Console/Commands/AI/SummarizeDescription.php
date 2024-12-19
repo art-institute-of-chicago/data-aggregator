@@ -41,14 +41,14 @@ class SummarizeDescription extends BaseCommand
 
         try {
             // Get artwork and embeddings
-            $artwork = $this->option('random') 
+            $artwork = $this->option('random')
                 ? $this->getRandomArtwork()
                 : Artwork::findOrFail($this->option('id') ?? $this->ask('Enter artwork ID:'));
 
             $imageEmbedding = ImageEmbedding::where('model_name', 'artworks')
                 ->where('model_id', $artwork->id)
                 ->first();
-            
+
             $textEmbedding = TextEmbedding::where('model_name', 'artworks')
                 ->where('model_id', $artwork->id)
                 ->first();

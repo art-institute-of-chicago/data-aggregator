@@ -40,7 +40,7 @@ class AnalyzeAllArtworks extends BaseCommand
 
             $artworks = $this->getArtworksToProcess($cutoffDate);
             $total = $artworks->count();
-            
+
             if ($total === 0) {
                 $this->info("No artworks need processing at this time.");
                 return 0;
@@ -48,7 +48,7 @@ class AnalyzeAllArtworks extends BaseCommand
 
             $this->info("Found {$total} artworks to process");
             $bar = $this->output->createProgressBar($total);
-            
+
             $processed = 0;
             $skipped = 0;
             $errors = 0;
@@ -69,12 +69,12 @@ class AnalyzeAllArtworks extends BaseCommand
                         'trace' => $e->getTraceAsString()
                     ]);
                 }
-                
+
                 $bar->advance();
             }
 
             $bar->finish();
-            
+
             $this->newLine(2);
             $this->table(
                 ['Metric', 'Count'],
