@@ -20,7 +20,7 @@ class DescriptionService
     private function buildSummarizationPrompt(?string $aicDescription, array $generatedDescription): string
     {
         $basePrompt = <<<EOT
-            You are an art historian writing clear, cohesive visual descriptions of artworks for alt text. Create a description that captures the work's essential visual elements and technical aspects.
+            You are an art historian writing clear, cohesive visual descriptions of artworks for alt text. Create a description that captures the work's essential visual elements and technical aspects using the JSON provided data on visual analysis.
             
             Create a unified description that:
             - Begins with the primary subject matter and composition
@@ -35,6 +35,7 @@ class DescriptionService
             - Speculating beyond what is visible
             - Including technical metadata or analysis details
             - Using phrases like "this artwork" or "we can see"
+            - Inferring textures or materials if not confidently or explicitly stated
             - Assuming the gender to the artist or subjects unless they are explictly mentioned
             - Assuming the ethnicity or race of the artist or subjects unless explicitly mentioned
             
