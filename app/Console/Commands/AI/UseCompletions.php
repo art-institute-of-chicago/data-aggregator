@@ -158,7 +158,23 @@ class UseCompletions extends BaseCommand
             $imageEmbedding->data['description_generation_data']['analysis_data']
         );
 
-        // Update or create text embedding with new summary
+        // Save to both image and text embeddings
+        $imageData = $imageEmbedding->data;
+        $imageData['description'] = $newSummary;
+        $imageData['generated_at'] = now()->toDateTimeString();
+
+        // Convert Vector to array for image embedding
+        $embeddingArray = $imageEmbedding->embedding ? $imageEmbedding->embedding->toArray() : [];
+
+        $this->embeddingService->saveEmbeddings(
+            modelName: "artworks",
+            modelId: $artwork->id,
+            embedding: $embeddingArray,
+            type: 'image',
+            additionalData: $imageData
+        );
+
+        // Update or create text embedding
         $this->embeddingService->saveEmbeddings(
             modelName: "artworks",
             modelId: $artwork->id,
