@@ -75,19 +75,19 @@ class UseCompletions extends BaseCommand
         if ($this->option('compare')) {
             $this->compareSummarizations(
                 $artwork->description,
-                $imageEmbedding?->data['analysis_data'] ?? [],
+                $imageEmbedding?->data['description_generation_data']['analysis_data'] ?? [],
                 (int) $this->option('attempts')
             );
         } else {
             $summary = $this->descriptionService->summarizeImageDescription(
                 $artwork->description,
-                $imageEmbedding?->data['analysis_data'] ?? []
+                $imageEmbedding?->data['description_generation_data']['analysis_data'] ?? []
             );
 
             $this->displaySummary(
                 $summary,
                 $artwork->description,
-                $imageEmbedding?->data['analysis_data'] ?? []
+                $imageEmbedding?->data['description_generation_data']['analysis_data'] ?? []
             );
         }
 
@@ -117,7 +117,7 @@ class UseCompletions extends BaseCommand
     protected function getRandomArtwork(): Artwork
     {
         $imageEmbedding = ImageEmbedding::where('model_name', 'artworks')
-            ->whereNotNull('data->analysis_data')
+            ->whereNotNull('data->description_generation_data->analysis_data')
             ->inRandomOrder()
             ->firstOrFail();
 
@@ -149,13 +149,13 @@ class UseCompletions extends BaseCommand
     ): void {
         $this->info("\nGenerating new summary...", OutputInterface::VERBOSITY_VERBOSE);
 
-        if (!$imageEmbedding?->data['analysis_data']) {
+        if (!$imageEmbedding?->data['description_generation_data']['analysis_data']) {
             throw new \Exception("No AI analysis data found for artwork {$artwork->id}");
         }
 
         $newSummary = $this->descriptionService->summarizeImageDescription(
             $artwork->description,
-            $imageEmbedding->data['analysis_data']
+            $imageEmbedding->data['description_generation_data']['analysis_data']
         );
 
         // Update or create text embedding with new summary
@@ -204,7 +204,7 @@ class UseCompletions extends BaseCommand
                 ['Has Image Embedding', $imageEmbedding ? 'Yes' : 'No'],
                 ['Has Text Embedding', $textEmbedding ? 'Yes' : 'No'],
                 ['Has AIC Description', !empty($artwork->description) ? 'Yes' : 'No'],
-                ['Has AI Analysis', !empty($imageEmbedding?->data['analysis_data']) ? 'Yes' : 'No'],
+                ['Has AI Analysis', !empty($imageEmbedding?->data['description_generation_data']['analysis_data']) ? 'Yes' : 'No'],
             ]
         );
 
@@ -213,9 +213,9 @@ class UseCompletions extends BaseCommand
             $this->line($artwork->description);
         }
 
-        if ($imageEmbedding?->data['analysis_data']) {
+        if ($imageEmbedding?->data['description_generation_data']['analysis_data']) {
             $this->info("\nAI Analysis Data:");
-            $this->line(json_encode($imageEmbedding?->data['analysis_data'], JSON_PRETTY_PRINT));
+            $this->line(json_encode($imageEmbedding?->data['description_generation_data']['analysis_data'], JSON_PRETTY_PRINT));
         }
     }
 
