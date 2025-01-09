@@ -247,7 +247,7 @@ Let's jump right into an example. Here's how you can construct IIIF URLs:
         "data": {
             "id": 27992,
             "title": "A Sunday on La Grande Jatte — 1884",
-            "image_id": "1adf2696-8489-499b-cad2-821d7fde4b33"
+            "image_id": "2d484387-2509-5e8e-2c43-22f9981972eb"
         },
         "config": {
             "iiif_url": "https://www.artic.edu/iiif/2",
@@ -266,18 +266,18 @@ Let's jump right into an example. Here's how you can construct IIIF URLs:
  3. Append the `image_id` of the artwork as a segment to this URL:
 
     ```
-    https://www.artic.edu/iiif/2/1adf2696-8489-499b-cad2-821d7fde4b33
+    https://www.artic.edu/iiif/2/2d484387-2509-5e8e-2c43-22f9981972eb
     ```
 
  4. Append `/full/843,/0/default.jpg` to the URL:
 
     ```
-    https://www.artic.edu/iiif/2/1adf2696-8489-499b-cad2-821d7fde4b33/full/843,/0/default.jpg
+    https://www.artic.edu/iiif/2/2d484387-2509-5e8e-2c43-22f9981972eb/full/843,/0/default.jpg
     ```
 
 That's it! This is a valid IIIF URL. It will return the same image as we use on our website:
 
-![La Grande Jatte](https://www.artic.edu/iiif/2/1adf2696-8489-499b-cad2-821d7fde4b33/full/843,/0/default.jpg)
+![La Grande Jatte](https://www.artic.edu/iiif/2/2d484387-2509-5e8e-2c43-22f9981972eb/full/843,/0/default.jpg)
 
 Some artworks also have `alt_image_ids`, such as the [Coronation Stone of Motecuhzoma II](https://www.artic.edu/artworks/75644/coronation-stone-of-motecuhzoma-ii-stone-of-the-five-suns):
 
