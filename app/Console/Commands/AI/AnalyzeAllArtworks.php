@@ -43,7 +43,7 @@ class AnalyzeAllArtworks extends BaseCommand
                 "Re-analyzing artworks last processed before: " . $cutoffDate->toDateTimeString(),
                 OutputInterface::VERBOSITY_VERBOSE
             );
-            
+
             if ($startId) {
                 $this->info("Starting from artwork ID: " . $startId, OutputInterface::VERBOSITY_VERBOSE);
             }
@@ -62,7 +62,7 @@ class AnalyzeAllArtworks extends BaseCommand
             // Define custom placeholder names
             $bar->setMessage('Processing artworks...');
             $bar->setMessage('Starting...', 'title');
-            
+
             $bar->setFormat(
                 " %message%\n" .
                 " %current%/%max% [%bar%] %percent:3s%%\n" .
@@ -78,28 +78,28 @@ class AnalyzeAllArtworks extends BaseCommand
 
             $query = $this->getArtworksToProcess($startId);
             $query->chunk($chunkSize, function ($artworks) use (
-                &$processed, 
-                &$skipped, 
-                &$errors, 
-                $bar, 
+                &$processed,
+                &$skipped,
+                &$errors,
+                $bar,
                 $total
             ) {
                 foreach ($artworks as $artwork) {
                     // Update the progress bar with current artwork title
                     $bar->setMessage($artwork->title ?? "Artwork #{$artwork->id}", 'title');
-                    
+
                     try {
                         $this->info(
                             "\nProcessing artwork: {$artwork->title} (ID: {$artwork->id})",
                             OutputInterface::VERBOSITY_VERBOSE
                         );
-                        
+
                         $imageUrl = $this->buildImageUrl($artwork);
                         $this->info("Image URL: {$imageUrl}", OutputInterface::VERBOSITY_VERBOSE);
-                        
+
                         $analysisResults = $this->analyzeImage($artwork, $imageUrl);
                         $this->processEmbeddings($artwork, $imageUrl, $analysisResults);
-                        
+
                         $processed++;
                     } catch (Exception $e) {
                         $errors[] = [
@@ -107,13 +107,13 @@ class AnalyzeAllArtworks extends BaseCommand
                             'title' => $artwork->title,
                             'error' => $e->getMessage()
                         ];
-                        
+
                         Log::error('Error processing artwork:', [
                             'artwork_id' => $artwork->id,
                             'message' => $e->getMessage(),
                             'trace' => $e->getTraceAsString()
                         ]);
-                        
+
                         $this->error(
                             "\nFailed processing artwork ID {$artwork->id}: {$e->getMessage()}",
                             OutputInterface::VERBOSITY_VERBOSE
@@ -121,7 +121,7 @@ class AnalyzeAllArtworks extends BaseCommand
                     }
 
                     $bar->advance();
-                    
+
                     // Update progress message with current statistics
                     $completedPercentage = ($processed + count($errors)) / $total * 100;
                     $errorPercentage = count($errors) / $total * 100;
@@ -139,7 +139,7 @@ class AnalyzeAllArtworks extends BaseCommand
 
             $this->newLine(2);
             $this->info("Analysis completed in {$duration}!", OutputInterface::VERBOSITY_VERBOSE);
-            
+
             $this->table(
                 ['Component', 'Status'],
                 [
@@ -245,7 +245,7 @@ class AnalyzeAllArtworks extends BaseCommand
             "Image embedding response type: " . gettype($imageEmbeddingArray),
             OutputInterface::VERBOSITY_VERBOSE
         );
-        
+
         if (is_array($imageEmbeddingArray)) {
             $this->info(
                 "Image embedding array count: " . count($imageEmbeddingArray),
