@@ -13,7 +13,7 @@ use Exception;
 
 class AnalyzeAllArtworks extends BaseCommand
 {
-    protected $signature = 'ai:analyze-all {--days=30 : Number of days before re-analyzing artwork} 
+    protected $signature = 'ai:analyze-all {--days=30 : Number of days before re-analyzing artwork}
                                          {--start-id= : Start processing from this artwork ID}';
     protected $description = 'Analyze all artworks that need embeddings or haven\'t been analyzed recently';
 
@@ -66,7 +66,7 @@ class AnalyzeAllArtworks extends BaseCommand
             $bar->setFormat(
                 " %message%\n" .
                 " %current%/%max% [%bar%] %percent:3s%%\n" .
-                " Current: %title%\n" .
+                " Current: %title% (ID: %id%)\n" .
                 " Elapsed: %elapsed:6s%"
             );
 
@@ -86,7 +86,8 @@ class AnalyzeAllArtworks extends BaseCommand
             ) {
                 foreach ($artworks as $artwork) {
                     // Update the progress bar with current artwork title
-                    $bar->setMessage($artwork->title ?? "Artwork #{$artwork->id}", 'title');
+                    $bar->setMessage($artwork->title, 'title');
+                    $bar->setMessage($artwork->id, 'id');
 
                     try {
                         $this->info(
@@ -115,8 +116,7 @@ class AnalyzeAllArtworks extends BaseCommand
                         ]);
 
                         $this->error(
-                            "\nFailed processing artwork ID {$artwork->id}: {$e->getMessage()}",
-                            OutputInterface::VERBOSITY_VERBOSE
+                            "\nFailed processing artwork ID {$artwork->id}: {$e->getMessage()}"
                         );
                     }
 
