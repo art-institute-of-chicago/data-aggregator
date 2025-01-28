@@ -10,6 +10,7 @@ use App\Models\Collections\Exhibition;
 use App\Models\Shop\Product;
 use App\Models\Web\Article;
 use App\Models\Web\DigitalCatalog;
+use App\Models\Web\DigitalPublication;
 use App\Models\Web\DigitalPublicationArticle;
 use App\Models\Web\EducatorResource;
 use App\Models\Web\Event;
@@ -17,7 +18,7 @@ use App\Models\Web\EventOccurrence;
 use App\Models\Web\Exhibition as WebExhibition;
 use App\Models\Web\GenericPage;
 use App\Models\Web\PressRelease;
-use App\Models\Web\PrintedCatalog;
+use App\Models\Web\PrintedPublication;
 use App\Models\Web\Highlight;
 use App\Models\Web\StaticPage;
 use Illuminate\Database\Eloquent\Model;
@@ -125,12 +126,12 @@ class BaseModel extends AbstractModel
     public static function addRestrictContentScopes($isDump = false)
     {
         Article::addGlobalScope(new PublishedScope());
-        DigitalCatalog::addGlobalScope(new PublishedScope());
+        DigitalPublication::addGlobalScope(new PublishedScope());
         DigitalPublicationArticle::addGlobalScope(new PublishedScope());
         EducatorResource::addGlobalScope(new PublishedScope());
         GenericPage::addGlobalScope(new PublishedScope());
         PressRelease::addGlobalScope(new PublishedScope());
-        PrintedCatalog::addGlobalScope(new PublishedScope());
+        PrintedPublication::addGlobalScope(new PublishedScope());
         Highlight::addGlobalScope(new PublishedScope());
         StaticPage::addGlobalScope(new PublishedScope());
         WebExhibition::addGlobalScope(new PublishedScope());

@@ -67,4 +67,9 @@ abstract class BaseCommand extends AbstractCommand
             })
             ->collapse();
     }
+
+    protected function getAicLogo()
+    {
+        return " --------------- \n|               |\n|               |\n|               |\n|               |\n|               |\n|               |\n|        A I C  |\n --------------- ";
+    }
 }

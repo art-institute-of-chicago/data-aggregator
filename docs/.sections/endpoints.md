@@ -2646,7 +2646,7 @@ A single mobile-sound by the given identifier.
 ```
 :::
 
-### Digital Scholarly Catalogs
+### Digital Scholarly Publications
 
 #### Publications
 
@@ -4929,13 +4929,13 @@ A single educator-resource by the given identifier.
 ```
 :::
 
-#### Digital Catalogs
+#### Digital Publications
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-##### `GET /digital-catalogs`
+##### `GET /digital-publications`
 
-A list of all digital-catalogs sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](#digital-catalogs-2).
+A list of all digital-publications sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](#digital-publications-2).
 
 ###### Available parameters:
 
@@ -4944,7 +4944,7 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-::: details Example request: https://api.artic.edu/api/v1/digital-catalogs?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/digital-publications?limit=2  
 ```js
 {
     "pagination": {
@@ -4953,13 +4953,13 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
         "offset": 0,
         "total_pages": 10,
         "current_page": 1,
-        "next_url": "https://api.artic.edu/api/v1/digital-catalogs?page=2&limit=2"
+        "next_url": "https://api.artic.edu/api/v1/digital-publications?page=2&limit=2"
     },
     "data": [
         {
             "id": 31,
-            "api_model": "digital-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/31",
+            "api_model": "digital-publications",
+            "api_link": "https://api.artic.edu/api/v1/digital-publications/31",
             "title": "Matisse Paintings, Works on Paper, Sculpture, and Textiles at the Art Institute of Chicago",
             "web_url": "https://nocache.www.artic.edu/digital-publications/31/matisse-at-the-art-institute-of-chicago",
             "copy": " Matisse: Paintings, Works on Paper, Sculpture, and Textiles at the Art Institute of Chicago highlights the ten paintings, five bronzes, forty-one works on paper, and one textile by Henri Matisse in the museum\u2019s collection. These extraordinary objects narrate the numerous stylistic and thematic paths the artist explored and present a comprehensive story of his entire career. Highlights include an extended entry on Bathers by a River , in which our curatorial and conservation colleagues use state-of-the-art imaging to \u201cexcavate\u201d the canvas, charting how the artist\u2019s radical changes to composition and palette marked a creative evolution at a pivotal moment in his career.   Edited by Stephanie D\u2019Alessandro, with entries by Kristi Dahm, Stephanie D\u2019Alessandro, Kathleen Kiefer, Kristin Hoermann Lister, Katja Rivera, Brandon Ruud, Marin Sarv\u00e9-Tarr, Suzanne Schnepp, Mel Becker Solomon, Martha Tedeschi, Kirk Vuillemot, Daniel S. Walker, and Debora Wood.   The Andrew W. Mellon Foundation provided essential funding and ongoing support for the project. A generous grant from the Grainger Foundation supported the purchase of equipment used for the technical analysis. Jim Ziebart contributed equipment. ",
@@ -4967,8 +4967,8 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
         },
         {
             "id": 30,
-            "api_model": "digital-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/30",
+            "api_model": "digital-publications",
+            "api_link": "https://api.artic.edu/api/v1/digital-publications/30",
             "title": "Ivan Albright Paintings at the Art Institute of Chicago",
             "web_url": "https://nocache.www.artic.edu/digital-publications/30/ivan-albright-paintings-at-the-art-institute-of-chicago",
             "copy": " Renowned as the \u201cmaster of the macabre,\u201d Chicago native Ivan Albright (1897\u20131983) is famous for richly detailed paintings of ghoulish subjects including Into the World There Came a Soul Called Ida and Picture of Dorian Gray . This catalogue brings together fresh perspectives on the artist: professor emerita of art history Sarah Burns reveals Albright\u2019s fascination with popular culture, and curator John P. Murphy explores his philosophy of ugliness. Painting conservator Kelly Keegan examines the artist\u2019s process and details how he achieved his unique painterly effects. A plate section of the 44 oil paintings in the collection of the Art Institute of Chicago, reproduced in high resolution to enable close looking, documents Albright\u2019s portrayal of the body\u2019s vulnerability to age, disease, and death. This includes a haunting series of self-portraits, one of which the artist made in his hospital bed three days before he died.   Edited by Sarah Kelly Oehler, with an introduction by Sarah Kelly Oehler and essays by Sarah Burns, Kelly Keegan, and John P. Murphy   This publication follows the exhibition Flesh: Ivan Albright at the Art Institute of Chicago (May 4\u2013Aug. 4, 2018).   The publication is free and has received generous funding from the Northwestern University Department of Art History Warnock Publication Fund. ",
@@ -4990,9 +4990,9 @@ A list of all digital-catalogs sorted by last updated date in descending order. 
 ```
 :::
 
-##### `GET /digital-catalogs/search`
+##### `GET /digital-publications/search`
 
-Search digital-catalogs data in the aggregator. 
+Search digital-publications data in the aggregator. 
 
 ###### Available parameters:
 
@@ -5003,7 +5003,7 @@ Search digital-catalogs data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of 'count' aggregation facets to include in the results.
 
-::: details Example request: https://api.artic.edu/api/v1/digital-catalogs/search
+::: details Example request: https://api.artic.edu/api/v1/digital-publications/search
 ```js
 {
     "preference": null,
@@ -5017,24 +5017,24 @@ Search digital-catalogs data in the aggregator.
     "data": [
         {
             "_score": 1,
-            "api_model": "digital-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/38",
+            "api_model": "digital-publications",
+            "api_link": "https://api.artic.edu/api/v1/digital-publications/38",
             "id": 38,
             "title": "Perspectives on Place",
             "timestamp": "2023-12-12T23:53:57-06:00"
         },
         {
             "_score": 1,
-            "api_model": "digital-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/37",
+            "api_model": "digital-publications",
+            "api_link": "https://api.artic.edu/api/v1/digital-publications/37",
             "id": 37,
             "title": "Perspectives on Data",
             "timestamp": "2023-12-12T23:53:57-06:00"
         },
         {
             "_score": 1,
-            "api_model": "digital-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/digital-catalogs/36",
+            "api_model": "digital-publications",
+            "api_link": "https://api.artic.edu/api/v1/digital-publications/36",
             "id": 36,
             "title": "Perspectives on In/stability",
             "timestamp": "2023-12-12T23:53:57-06:00"
@@ -5055,17 +5055,17 @@ Search digital-catalogs data in the aggregator.
 ```
 :::
 
-##### `GET /digital-catalogs/{id}`
+##### `GET /digital-publications/{id}`
 
-A single digital-catalog by the given identifier.
+A single digital-publications by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/digital-catalogs/2  
+::: details Example request: https://api.artic.edu/api/v1/digital-publications/2  
 ```js
 {
     "data": {
         "id": 2,
-        "api_model": "digital-catalogs",
-        "api_link": "https://api.artic.edu/api/v1/digital-catalogs/2",
+        "api_model": "digital-publications",
+        "api_link": "https://api.artic.edu/api/v1/digital-publications/2",
         "title": "American Silver",
         "web_url": "https://nocache.www.artic.edu/digital-publications/2/american-silver",
         "copy": " American Silver in the Art Institute of Chicago showcases the museum's superb collection of American silver. In-depth essays relate a fascinating story about eating, drinking, and entertaining that spans the history of the Republic and traces the development of the museum\u2019s holdings of American silver over nearly a century, and a catalogue incorporates detailed analysis of objects written by leading specialists. This digital augmentation of the 2017 publication provides stunning high-resolution photography and, for a select number of objects, three-dimensional captures that allow for close viewing. In addition, this edition includes an extensive illustrated checklist of additional objects.   Edited by Elizabeth McGoey with contributions by Debra Schmidt Bach, David L. Barquist, Judith A. Barter, Jennifer Goldsborough, Medill Higgins Harvey, Patricia Kane, Elizabeth McGoey, Barbara K. Schnitzer, Janine E. Skerry, Ann Wagner, Gerald W. R. Ward, Deborah Dependahl Waters, Beth Carver Wees, and Elizabeth A. Williams   American Silver in the Art Institute of Chicago is free and has received major support for this catalogue is provided by the Henry Luce Foundation. It is also made by possible by the generosity of the Community Associates of the Art Institute of Chicago, Mr. and Mrs. Henry M. Buchbinder, Carl and Marilynn Thoma, Louise Ingersoll Tausche, Jamee and Marshal Field V, Kay Bucksbaum, Celia and David Hilliard, and Jan and Bill Jentes. ",
@@ -5212,7 +5212,7 @@ Search digital-publication-sections data in the aggregator.
 ```
 :::
 
-##### `GET /digital-publication-sections/{id}`
+##### `GET /digital-publication-articles/{id}`
 
 A single digital-publication-section by the given identifier.
 
@@ -5221,8 +5221,8 @@ A single digital-publication-section by the given identifier.
 {
     "data": {
         "id": 1,
-        "api_model": "digital-publication-sections",
-        "api_link": "https://api.artic.edu/api/v1/digital-publication-sections/1",
+        "api_model": "digital-publication-articles",
+        "api_link": "https://api.artic.edu/api/v1/digital-publication-articles/1",
         "title": "Director's Foreword",
         "web_url": "https://nocache.www.artic.edu/digital-publications/34/malangatana-mozambique-modern/1/directors-foreword",
         "copy": " The Art Institute of Chicago has been at the forefront of American museums in collecting and displaying modern art since the early twentieth century, and boasts an ongoing commitment to extending this vital legacy with research, publications, and exhibitions. In that spirit, a number of our curators came together in 2013 for a series of discussions exploring ideas about modern art, in particular the ways in which it manifests across our collections. This gave rise to the Modern Series, a set of three experimental, challenging, and provocative exhibitions and publications that are co-organized by curators across departments, with divergent but complementary specialties. The two previous iterations\u2014 Shatter Rupture Break (February 15\u2013May 3, 2015) and Go (February 23\u2013June 4, 2017)\u2014sought to present the museum\u2019s holdings in departments including Arts of the Americas, Modern and Contemporary Art, Photography and Media, and Textiles in fresh and exciting ways. Malangatana: Mozambique Modern (July 30\u2013November 16, 2020), the third and final project in the series, expands our understanding of modernism and modern art in a global context by bringing the work of celebrated Mozambican artist Malangatana Ngwenya (1936\u20132011) into conversation with our own international collection. It not only showcases the evolution in style and content within his early paintings and drawings, but also contextualizes his practice within the social and political conditions that framed the emergence of modern art in Mozambique and across the African continent. The exhibition also contributed to the cultivation of a more global perspective on artistic creation and its representation in the museum, both by providing the basis for this publication and, not least, by prompting us to acquire a painting and six works on paper by Malangatana for our permanent collection. Africa and its diasporas, with their deep history and wide geographical reach, occupy a prominent place within global art history and modern art that merits many more such efforts and programs in the years to come. Our colleagues\u2014notably Sarah Guernsey, Ann Goldstein, and Greg Nosan\u2014deserve my sincere gratitude for their continuing critical support for the Modern Series. But I am especially thankful to the exhibition\u2019s curators, Hendrik Folkerts, Felicia Mings, and Constantine Petridis, for introducing our staff and visitors to the fascinating milieu and work of Malangatana Ngwenya and for helping the Art Institute expand its representation of modern art from around the world. This exhibition would not have been possible without the generosity of the individuals and institutions in the United States, Portugal, and Mozambique who lent works from their collections. I am particularly grateful to the Malangatana Valente Ngwenya Foundation in Maputo for its invaluable loan of a significant number of paintings and drawings. Major funding for Malangatana: Mozambique Modern was provided by Sylvia Neil and Dan Fischel and the Alfred L. McDougal and Nancy Lauter McDougal Fund for Contemporary Art. Additional support is contributed by the Society for Contemporary Art through the SCA Activation Fund and the Miriam U. Hoover Foundation. Members of the Luminary Trust provide annual leadership support for the museum\u2019s operations, including exhibition development, conservation and collection care, and educational programming. The Luminary Trust includes an anonymous donor; Neil Bluhm and the Bluhm Family Charitable Foundation; Jay Franke and David Herro; Karen Gray-Krehbiel and John Krehbiel, Jr.; Kenneth Griffin; Caryn and King Harris, The Harris Family Foundation; Josef and Margot Lakonishok; Robert M. and Diane v.S. Levy; Ann and Samuel M. Mencoff; Sylvia Neil and Dan Fischel; Anne and Chris Reyes; Cari and Michael J. Sacks; and the Earl and Brenda Shapiro Foundation. Most importantly, I acknowledge with deepest thanks the intellectual and financial support of Sylvia Neil and Dan Fischel, who have provided crucial funding for the realization of this catalogue as well as the previous two in the Modern Series. Their ongoing commitment has enabled and encouraged our continued explorations into the possibilities of digital publication. James Rondeau President and Eloise W. Martin Director ",
@@ -5243,13 +5243,13 @@ A single digital-publication-section by the given identifier.
 ```
 :::
 
-#### Printed Catalogs
+#### Printed Publications
 
 _The data in this response may be protected by copyright, and other restrictions, of the Art Institute of Chicago and third parties. You may use this data for noncommercial educational and personal use and for "fair use" as authorized under law, provided that you also retain all copyright and other proprietary notices contained on the materials and cite the author and source of the materials._
 
-##### `GET /printed-catalogs`
+##### `GET /printed-publications`
 
-A list of all printed-catalogs sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](#printed-catalogs-2).
+A list of all printed-publications sorted by last updated date in descending order. For a description of all the fields included with this response, see [here](#printed-publications-2).
 
 ###### Available parameters:
 
@@ -5258,7 +5258,7 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
 * `page` - The page of resources to retrieve
 * `fields` - A comma-separated list of fields to return per resource
 
-::: details Example request: https://api.artic.edu/api/v1/printed-catalogs?limit=2  
+::: details Example request: https://api.artic.edu/api/v1/printed-publications?limit=2  
 ```js
 {
     "pagination": {
@@ -5267,13 +5267,13 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
         "offset": 0,
         "total_pages": 66,
         "current_page": 1,
-        "next_url": "https://api.artic.edu/api/v1/printed-catalogs?page=2&limit=2"
+        "next_url": "https://api.artic.edu/api/v1/printed-publications?page=2&limit=2"
     },
     "data": [
         {
             "id": 41,
-            "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/41",
+            "api_model": "printed-publications",
+            "api_link": "https://api.artic.edu/api/v1/printed-publications/41",
             "title": "2001: Building for Space Travel",
             "web_url": "https://nocache.www.artic.edu/print-publications/41/2001-building-for-space-travel",
             "copy": " This book accompanied a pathbreaking exhibition devoted to exploring the relationship between the products actually designed for space flight and the imaginary visions of such materials in science fiction, films, and television. Recognizing the contributions of architects and design professionals to space exploration and technology, a field generally associated with scientists and aerospace engineers, this publication includes color reproductions of approximately 150 objects. Photographs, models, computer-assisted drawings and renderings as well as selected artifacts of the space age document the dreams and realities of design for space travel. An introduction by Art Institute architecture curator John Zukowsky illuminates the historical contexts in which space technology and fantasy developed. This is followed by 13 brief essays addressing topics as diverse as the future of space tourism, the interior design of Skylab, the training of Soviet cosmonauts, and Norman Rockwell's painting The Longest Step . This book offers readers a broader understanding of how designs for space travel are informed by military, political, and scientific imperatives, and how space travel itself provides raw material for art, literature, and film.   Edited by John Zukowsky   192 pages, 9 3/8 x 11 13/16 in. 230 ills. Out of print ISBN: 978-0-810-94490-9 (hardcover) ",
@@ -5281,8 +5281,8 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
         },
         {
             "id": 39,
-            "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/39",
+            "api_model": "printed-publications",
+            "api_link": "https://api.artic.edu/api/v1/printed-publications/39",
             "title": "1945: Creativity and Crisis, Chicago Architecture and Design of the World War II Era",
             "web_url": "https://nocache.www.artic.edu/print-publications/39/1945-creativity-and-crisis-chicago-architecture-and-design-of-the-world-war-ii-era",
             "copy": " One of the most important years in modern history, 1945 marked the end of a conflict that united many Western democracies and some communist adversaries in a struggle for survival against the Axis powers led by Germany, Italy, and Japan. Although the sociopolitical impact of World War II is the subject of numerous books, films, lectures, and television shows, the contribution to the war effort by visual arts professionals\u2014artists, architects, and industrial designers\u2014has been barely touched upon. This publication outlines the work of several practitioners, many of whom worked in and around the Chicago area, during and immediately after the war. Architects Bruce Goff, Bertrand Goldberg, Ludwig Mies van der Rohe, and L. Morgan Yost, and designers Henry P. Glass and Richard Ten Eyck are featured, showcasing a vast range of ideas on prefabricated structures, cost- and material-efficient housing, and functional design objects. Presented to coincide with the 60th anniversary of the end of World War II, this catalogue elucidates that architects and designers put their creativity to work in the war effort, and, at the war\u2019s end, helped rebuild respective environments into a new society.   John Zukowsky, Martha Thorne, Carissa Kowalski, Marta Wojcik, Lori Hanna Boyer, and Kay Manning   40 pages; 9 1/2 x 8 1/2 in. 35 ills. Out of print ISBN 0-86559-218-7 (softcover) ",
@@ -5304,9 +5304,9 @@ A list of all printed-catalogs sorted by last updated date in descending order. 
 ```
 :::
 
-##### `GET /printed-catalogs/search`
+##### `GET /printed-publications/search`
 
-Search printed-catalogs data in the aggregator. 
+Search printed-publications data in the aggregator. 
 
 ###### Available parameters:
 
@@ -5317,7 +5317,7 @@ Search printed-catalogs data in the aggregator.
 * `size` - Number of results to return. Pagination via Elasticsearch conventions
 * `facets` - A comma-separated list of 'count' aggregation facets to include in the results.
 
-::: details Example request: https://api.artic.edu/api/v1/printed-catalogs/search
+::: details Example request: https://api.artic.edu/api/v1/printed-publications/search
 ```js
 {
     "preference": null,
@@ -5331,24 +5331,24 @@ Search printed-catalogs data in the aggregator.
     "data": [
         {
             "_score": 1,
-            "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/211",
+            "api_model": "printed-publications",
+            "api_link": "https://api.artic.edu/api/v1/printed-publications/211",
             "id": 211,
             "title": "David Goldblatt: No Ulterior Motive",
             "timestamp": "2023-12-12T23:54:16-06:00"
         },
         {
             "_score": 1,
-            "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/210",
+            "api_model": "printed-publications",
+            "api_link": "https://api.artic.edu/api/v1/printed-publications/210",
             "id": 210,
             "title": "Radical Clay: Contemporary Women Artists from Japan",
             "timestamp": "2023-12-12T23:54:16-06:00"
         },
         {
             "_score": 1,
-            "api_model": "printed-catalogs",
-            "api_link": "https://api.artic.edu/api/v1/printed-catalogs/208",
+            "api_model": "printed-publications",
+            "api_link": "https://api.artic.edu/api/v1/printed-publications/208",
             "id": 208,
             "title": "Remedios Varo: Science Fictions",
             "timestamp": "2023-12-12T23:54:16-06:00"
@@ -5369,17 +5369,17 @@ Search printed-catalogs data in the aggregator.
 ```
 :::
 
-##### `GET /printed-catalogs/{id}`
+##### `GET /printed-publications/{id}`
 
-A single printed-catalog by the given identifier.
+A single printed-publication by the given identifier.
 
-::: details Example request: https://api.artic.edu/api/v1/printed-catalogs/4  
+::: details Example request: https://api.artic.edu/api/v1/printed-publications/4  
 ```js
 {
     "data": {
         "id": 4,
-        "api_model": "printed-catalogs",
-        "api_link": "https://api.artic.edu/api/v1/printed-catalogs/4",
+        "api_model": "printed-publications",
+        "api_link": "https://api.artic.edu/api/v1/printed-publications/4",
         "title": "The Art Institute of Chicago: The Essential Guide",
         "web_url": "https://nocache.www.artic.edu/print-publications/4/the-art-institute-of-chicago-the-essential-guide",
         "copy": " The Essential Guide presents the diverse holdings of the Art Institute\u2019s collections. Featuring more than three hundred objects, it provides a journey through time\u2014from ancient Egypt until the present day\u2014and across the globe. Beautifully illustrated with short texts about each work, the publication includes beloved icons such as Georges Seurat\u2019s Sunday on La Grande Jatte\u20141884 and Edward Hopper\u2019s Nighthawks , as well as exciting recent acquisitions like a Teotihuacan shell mask, Marcel Duchamp\u2019s readymade Bottle Rack , and Thomas Hart Benton\u2019s Cotton Pickers . Read about objects currently on view in the galleries as well as exquisite textiles and works on paper that, because of the fragility of their materials, are less frequently shown. Use it as a guide to the museum or a souvenir of your visit. Four distinctive covers\u2014one great book! Choose your favorite cover image by Katsushika Hokusai, Archibald Motley Jr., Georgia O\u2019Keeffe, or Georges Seurat.   Foreword by James Rondeau   352 pages, 6 x 9 x 1 in. 335 color ills. Softcover $25 ($22.50 members) ISBN 978-0-86559-301-5 ",
