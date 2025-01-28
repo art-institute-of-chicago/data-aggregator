@@ -20,10 +20,6 @@ class DownloadCssJs extends AbstractDocCommand
                 'fonts/sabon/3545D5_0_0.woff2' => '../fonts/sabon/3545D5_0_0.woff2',
                 'fonts/sabon/3545D5_1_0.woff2' => '../fonts/sabon/3545D5_1_0.woff2',
                 'fonts/sabon/3545D5_2_0.woff2' => '../fonts/sabon/3545D5_2_0.woff2',
-                'images/favicon-16.png' => 'images/favicon-16.png',
-                'images/favicon-152.png' => 'images/favicon-152.png',
-                'images/favicon-120.png' => 'images/favicon-120.png',
-                'images/favicon-76.png' => 'images/favicon-76.png',
             ]
         );
 
