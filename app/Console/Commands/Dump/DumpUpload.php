@@ -111,7 +111,7 @@ class DumpUpload extends AbstractDumpCommand
             config('aic.dump.repo_name') . ' <' . config('aic.dump.repo_email') . '>'
         );
 
-        $this->shell->passthru('git -C %s push --set-upstream origin master %s', $repoPath, '--force');
+        $this->shell->passthru('git -C %s push --set-upstream origin main %s', $repoPath, '--force');
 
         // Now, copy full dataset (takes about 1 min 45 sec)
         $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/json', $repoPath . '/json');
