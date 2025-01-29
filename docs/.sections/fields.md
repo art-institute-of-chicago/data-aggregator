@@ -595,6 +595,7 @@ An event on the website For a description of all the endpoints available for thi
 * `is_free` *boolean* - Whether the event is free
 * `is_admission_required` *boolean* - Whether admission to the museum is required to attend this event
 * `is_after_hours` *boolean* - Whether the event is to be held after the museum closes
+* `is_sales_button_hidden` *boolean* - Whether the buy tickets button is hidden on the website event page
 * `is_virtual_event` *boolean* - Whether the event is being held virtually
 * `start_date` *ISO 8601 date and time* - The date the event begins
 * `end_date` *ISO 8601 date and time* - The date the event ends
@@ -771,7 +772,7 @@ An educator resource on the website For a description of all the endpoints avail
 
 #### Digital Publications
 
-A digital publication on the website For a description of all the endpoints available for this resource, see [here](#digital-publications).
+A digital catalog on the website For a description of all the endpoints available for this resource, see [here](#digital-publications).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
@@ -787,18 +788,18 @@ A digital publication on the website For a description of all the endpoints avai
 
 
 
-#### Digital Publication Sections
+#### Digital Publication Articles
 
-A digital publication on the website For a description of all the endpoints available for this resource, see [here](#digital-publication-articles).
+A digital catalog on the website For a description of all the endpoints available for this resource, see [here](#digital-publication-articles).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
-* `web_url` *string* - The URL to this section on our website
-* `copy` *string* - The text of the section
-* `author_display` *string* - A display-friendly text of the authors of this section
-* `digital_publication_id` *number* - Unique identifier of the digital publication this section belongs to
+* `web_url` *string* - The URL to this article on our website
+* `copy` *string* - The text of the article
+* `author_display` *string* - A display-friendly text of the authors of this article
+* `digital_publication_id` *number* - Unique identifier of the digital publication this article belongs to
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
@@ -807,9 +808,9 @@ A digital publication on the website For a description of all the endpoints avai
 
 
 
-#### Printed Publication
+#### Printed Publications
 
-A printed publication on the website For a description of all the endpoints available for this resource, see [here](#printed-publications).
+A printed catalog on the website For a description of all the endpoints available for this resource, see [here](#printed-publications).
 
 * `id` *integer* - Unique identifier of this resource. Taken from the source system.
 * `api_model` *string* - REST API resource type or endpoint
