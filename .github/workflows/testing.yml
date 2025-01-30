@@ -41,13 +41,18 @@ jobs:
 
     - name: Install Postgres
       id: postgres
-      image: pgvector/pgvector:pg17
       uses: ikalnytskyi/action-setup-postgres@v7
       with:
           username: homestead
           password: secret
           database: vectors
           port: 5432
+          postgres-version: "16"
+
+    - name: Install pgvector
+      run: |
+        sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+        sudo apt-get install postgresql-16-pgvector
 
     - name: Setup PHP with PECL extension
       uses: shivammathur/setup-php@v2
