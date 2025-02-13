@@ -181,6 +181,12 @@ class Kernel extends ConsoleKernel
                 ->sundays()
                 ->withoutOverlapping(self::FOR_ONE_YEAR);
         }
+
+        if (config('aic.monitoring.enabled')) {
+            $schedule->command('monitor:website ' . implode(' ', config('aic.monitoring.domains')))
+                ->daily()
+                ->withoutOverlapping(self::FOR_ONE_YEAR);
+        }
     }
 
     /**
