@@ -137,4 +137,12 @@ return [
         'product_url' => env('SHOP_PRODUCT_URL'),
 
     ],
+
+    'monitoring' => [
+        'enabled' => env('MONITORING_ENABLED'),
+        'slack' => [
+            'webhook_url' => env('SLACK_ALERT_WEBHOOK'),
+        ],
+        'domains' => explode(',', env('MONITORED_DOMAINS', '')),
+    ],
 ];
