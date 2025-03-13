@@ -13,6 +13,17 @@ class EventOccurrence extends BaseTransformer
      */
     protected $keyType = 'keyword';
 
+    protected function getTitles()
+    {
+        return array_merge(parent::getTitles(), [
+            'title_display' => [
+                'doc' => 'The name of this event formatted with HTML (optional)',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+            ],
+        ]);
+    }
+
     protected function getFields()
     {
         return [
@@ -65,6 +76,14 @@ class EventOccurrence extends BaseTransformer
                 'type' => 'ISO 8601 date and time',
                 'elasticsearch' => 'date',
                 'value' => $this->getDateValue('end_at'),
+            ],
+            'date_display' => [
+                'doc' => 'A readable display of the event dates',
+                'type' => 'string',
+                'elasticsearch' => 'text',
+                'value' => function ($item) {
+                    return $item->forced_date;
+                },
             ],
             'location' => [
                 'doc' => 'Where the event takes place',

@@ -2,15 +2,19 @@
 
 namespace Tests;
 
+use Illuminate\Contracts\Console\Kernel;
 use Tests\Helpers\Factory;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabaseState;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
-    use RefreshDatabase;
     use Factory;
+    use RefreshDatabase {
+        RefreshDatabase::refreshTestDatabase as parentRefreshTestDatabase;
+    }
 
     protected function setUp(): void
     {
@@ -52,5 +56,16 @@ abstract class TestCase extends BaseTestCase
     protected function debug($output): void
     {
         fwrite(STDERR, 'DEBUG: ' . print_r($output, true) . "\n");
+    }
+
+    protected function refreshTestDatabase()
+    {
+        if (! RefreshDatabaseState::$migrated) {
+            $this->artisan('db:wipe', [
+                '--database' => 'vectors',
+                '--force' => true
+            ]);
+        }
+        $this->parentRefreshTestDatabase();
     }
 }
