@@ -77,14 +77,6 @@ class EventOccurrence extends BaseTransformer
                 'elasticsearch' => 'date',
                 'value' => $this->getDateValue('end_at'),
             ],
-            'date_display' => [
-                'doc' => 'A readable display of the event dates',
-                'type' => 'string',
-                'elasticsearch' => 'text',
-                'value' => function ($item) {
-                    return $item->forced_date;
-                },
-            ],
             'location' => [
                 'doc' => 'Where the event takes place',
                 'type' => 'string',
