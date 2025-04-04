@@ -211,7 +211,7 @@ class Response
                 $result = array_diff_key($result, array_flip($restrictedFields));
 
                 // We needed it for typechecking, but not anymore
-                if (!empty($fields) && !in_array('api_model', $fields)) {
+                if (is_array($fields) && !empty($fields) && !in_array('api_model', $fields)) {
                     unset($result['api_model']);
                 }
             }
