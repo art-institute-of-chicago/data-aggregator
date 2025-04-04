@@ -473,7 +473,11 @@ class Request
      */
     private function getFieldParams(array $input, $default = null)
     {
-        $fields = $input['fields'] ?? ($default ?? self::$defaultFields);
+        if (is_bool($input['fields']) && $input['fields'] == true) {
+            $fields = $default ?? self::$defaultFields;
+        } else {
+            $fields = $input['fields'] ?? ($default ?? self::$defaultFields);
+        }
 
         $fields = is_string($fields) ? array_map('trim', explode(',', $fields)) : $fields;
 

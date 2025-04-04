@@ -4,26 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b289b5197c4ef8ce8c86eb2ce2973aa",
+    "content-hash": "431925b56aec016a0a16f77ef911c609",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
-            "version": "2.3",
+            "version": "3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "cc6d507a4ebdc5f46a578580158e589d738bc6ff"
+                "reference": "b36fa4b9f11348c8c30d705634323a04125cbc13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/cc6d507a4ebdc5f46a578580158e589d738bc6ff",
-                "reference": "cc6d507a4ebdc5f46a578580158e589d738bc6ff",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/b36fa4b9f11348c8c30d705634323a04125cbc13",
+                "reference": "b36fa4b9f11348c8c30d705634323a04125cbc13",
                 "shasum": ""
             },
             "require": {
                 "composer": "^2.2.0",
                 "doctrine/dbal": "^3.0",
                 "friendsofphp/php-cs-fixer": "^3.5",
+                "guzzlehttp/guzzle": "^7.0",
                 "laravel/framework": "^10.0",
                 "league/fractal": "^0.16.0",
                 "netresearch/composer-patches-plugin": "^1.3.1",
@@ -81,10 +82,10 @@
             ],
             "description": "Shared components for our data hub services.",
             "support": {
-                "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/2.3",
+                "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/3.6",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2023-09-20T21:14:09+00:00"
+            "time": "2025-04-04T17:28:37+00:00"
         },
         {
             "name": "aic/laravel-scout-elastic",
