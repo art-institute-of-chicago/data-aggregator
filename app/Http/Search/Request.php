@@ -475,8 +475,7 @@ class Request
     {
         if (is_bool($input['fields']) && $input['fields'] == true) {
             $fields = $default ?? self::$defaultFields;
-        }
-        else {
+        } else {
             $fields = $input['fields'] ?? ($default ?? self::$defaultFields);
         }
 
