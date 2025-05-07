@@ -40,8 +40,8 @@ module.exports = {
     logo: '/assets/logo.svg',
     nav: [
       {
-        text: 'swagger.json',
-        link: 'https://api.artic.edu/api/v1/swagger.json'
+        text: 'openapi.json',
+        link: 'https://api.artic.edu/api/v1/openapi.json'
       }
     ]
   },

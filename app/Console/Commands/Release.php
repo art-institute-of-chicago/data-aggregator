@@ -24,8 +24,8 @@ class Release extends BaseCommand
         $this->info('Creating fields docs...');
         $this->call('docs:fields');
 
-        $this->info('Creating swagger docs...');
-        $this->call('docs:swagger');
+        $this->info('Creating openapi docs...');
+        $this->call('docs:openapi');
     }
 
     private function bumpVersionNumber()
