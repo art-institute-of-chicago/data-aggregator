@@ -562,7 +562,6 @@ trait Documentable
     {
         $doc = '    "/' . ($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) . "\": {" . self::$NL;
         $doc .= "      \"get\": {" . self::$NL;
-        $doc .= $this->openapiTags();
         $doc .= '        "description": "' . $this->docListDescription($endpoint) . "\"," . self::$NL;
         $doc .= $this->openapiProduces();
         $doc .= $this->openapiParameters();
@@ -582,8 +581,7 @@ trait Documentable
     {
         $doc = '    "/' . app('Resources')->getEndpointForModel(get_called_class()) . "/search\": {" . self::$NL;
         $doc .= "      \"get\": {" . self::$NL;
-        $doc .= $this->openapiTags(['search']);
-        $doc .= '        "summary": "' . $this->docSearchDescription() . "\"," . self::$NL;
+        $doc .= '        "description": "' . $this->docSearchDescription() . "\"," . self::$NL;
         $doc .= $this->openapiParameters($this->docSearchParametersRaw());
         $doc .= $this->openapiResponses('SearchResult');
         $doc .= "      }" . self::$NL;
@@ -601,34 +599,11 @@ trait Documentable
     {
         $doc = '    "/' . ($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) . "/{id}\": {" . self::$NL;
         $doc .= "      \"get\": {" . self::$NL;
-        $doc .= $this->openapiTags();
-        $doc .= '        "summary": "' . $this->docSingleDescription($endpoint) . "\"," . self::$NL;
         $doc .= $this->openapiProduces();
         $doc .= $this->openapiParameters(['id' => 'Resource id to retrieve']);
         $doc .= $this->openapiResponses();
         $doc .= "      }" . self::$NL;
         $doc .= "    }," . self::$NL;
-
-        return $doc;
-    }
-
-    public function openapiTags($extras = [])
-    {
-        $model = get_called_class();
-        $endpoint = app('Resources')->getEndpointForModel($model);
-        $source = $model::source();
-
-        $doc = "        \"tags\": [" . self::$NL;
-        $doc .= '            "' . $endpoint . "\"," . self::$NL;
-        $doc .= '            "' . strtolower($source) . '"';
-
-        foreach ($extras as $tag) {
-            $doc .= "," . self::$NL;
-            $doc .= '            "' . $tag . '"';
-        }
-
-        $doc .= self::$NL;
-        $doc .= "        ]," . self::$NL;
 
         return $doc;
     }
