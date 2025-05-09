@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@art-institute-of-chicago/data-aggregator",
-    "version": "1.6",
+    "version": "1.13.0",
     "description": "The Art Institute of Chicago's API provides JSON formatted data as a REST-style service that allows developers to explore and integrate the museum’s data into their projects. This API is the same tool that powers our website, our mobile app, and many other technologies in the museum.",
     "main": "index.js",
     "authors": {
@@ -16,10 +16,10 @@
         "docs-build": "node docs/generate_readme.js --full && vuepress build docs"
     },
     "dependencies": {
-        "@vuepress/plugin-back-to-top": "^1.9.7",
-        "@vuepress/plugin-medium-zoom": "^1.9.7",
+        "@vuepress/plugin-back-to-top": "^1.9.10",
+        "@vuepress/plugin-medium-zoom": "^1.9.10",
         "concurrently": "^7.6.0",
-        "vuepress": "^1.9.2",
+        "vuepress": "^1.9.10",
         "watch": "^1.0.2"
     }
 }
