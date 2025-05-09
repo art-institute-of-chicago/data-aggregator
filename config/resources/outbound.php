@@ -298,6 +298,12 @@ return [
             'is_searchable' => true,
         ],
         [
+            'endpoint' => 'landing-pages',
+            'model' => \App\Models\Web\LandingPage::class,
+            'transformer' => \App\Transformers\Outbound\Web\LandingPage::class,
+            'is_searchable' => true,
+        ],
+        [
             'endpoint' => 'press-releases',
             'model' => \App\Models\Web\PressRelease::class,
             'transformer' => \App\Transformers\Outbound\Web\Page::class,

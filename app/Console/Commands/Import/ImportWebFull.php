@@ -11,6 +11,7 @@ use App\Models\Web\EventProgram;
 use App\Models\Web\Exhibition;
 use App\Models\Web\Highlight;
 use App\Models\Web\GenericPage;
+use App\Models\Web\LandingPage;
 use App\Models\Web\PressRelease;
 use App\Models\Web\EducatorResource;
 use App\Models\Web\DigitalPublication;
@@ -65,6 +66,7 @@ class ImportWebFull extends AbstractImportCommand
             Exhibition::class => 'web_exhibitions',
             Highlight::class => 'highlights',
             GenericPage::class => 'generic_pages',
+            LandingPage::class => 'landing_pages',
             PressRelease::class => 'press_releases',
             EducatorResource::class => 'educator_resources',
             DigitalPublication::class => 'digital_publications',
@@ -94,6 +96,7 @@ class ImportWebFull extends AbstractImportCommand
         $this->importFromWeb('highlights');
 
         $this->importFromWeb('genericpages');
+        $this->importFromWeb('landingpages');
         $this->importFromWeb('pressreleases');
         $this->importFromWeb('educatorresources');
         $this->importFromWeb('digitalpublications');

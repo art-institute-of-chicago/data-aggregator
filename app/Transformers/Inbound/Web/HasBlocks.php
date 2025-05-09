@@ -101,6 +101,33 @@ trait HasBlocks
                     return $this->cleanRichText($block->content->subhead);
                 },
             ],
+            [
+                'filter' => function ($block) {
+                    return ($block->type === 'showcase' || $block->type === 'grid_item' || $block->type === 'showcase_item')
+                            && isset($block->content->title) && isset($block->content->description);
+                },
+                'extract' => function ($block) {
+                    return trim($this->cleanRichText($block->content->title)) . ". " . trim($this->cleanRichText($block->content->description));
+                },
+            ],
+            [
+                'filter' => function ($block) {
+                    return ($block->type === 'editorial_block' || $block->type === 'feature_block')
+                            && isset($block->content->heading) && isset($block->content->body);
+                },
+                'extract' => function ($block) {
+                    return trim($this->cleanRichText($block->content->heading)) . ". " . trim($this->cleanRichText($block->content->body));
+                },
+            ],
+            [
+                'filter' => function ($block) {
+                    return ($block->type === 'showcase_multiple')
+                            && isset($block->content->heading) && isset($block->content->intro);
+                },
+                'extract' => function ($block) {
+                    return trim($this->cleanRichText($block->content->heading)) . ". " . trim($this->cleanRichText($block->content->intro));
+                },
+            ],
         ];
     }
 

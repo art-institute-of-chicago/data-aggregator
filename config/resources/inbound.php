@@ -187,6 +187,10 @@ return [
             'model' => \App\Models\Web\GenericPage::class,
             'transformer' => \App\Transformers\Inbound\Web\Page::class,
         ],
+        'landingpages' => [
+            'model' => \App\Models\Web\LandingPage::class,
+            'transformer' => \App\Transformers\Inbound\Web\Page::class,
+        ],
         'pressreleases' => [
             'model' => \App\Models\Web\PressRelease::class,
             'transformer' => \App\Transformers\Inbound\Web\Page::class,
