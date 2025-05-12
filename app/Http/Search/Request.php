@@ -813,6 +813,16 @@ class Request
             ];
         }
 
+        // General boost for landing pages, since those should hold more weight in results
+        $params['body']['query']['bool']['should'][] = [
+            'term' => [
+                'api_model' => [
+                    'value' => 'landing-pages',
+                    'boost' => 300,
+                ],
+            ],
+        ];
+
         return $params;
     }
 
