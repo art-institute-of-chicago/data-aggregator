@@ -20,12 +20,12 @@ https://api.artic.edu/api/v1/artworks
 
 https://api.artic.edu/api/v1/artworks/search?fields=id,title,source_updated_at&query[range][source_updated_at][gte]=now-7d&sort[source_updated_at][order]=desc
 
-Our API is a wrapper around [Elasticsearch's Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl.html). Depending on your needs, these queries can get quite complex.
+Our API is a wrapper around [Elasticsearch's Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/8.17/query-dsl.html). Depending on your needs, these queries can get quite complex.
 
 Here are some resources to get you started:
 
 * [Art Institute of Chicago — API Documentation](https://api.artic.edu/docs) (fields and endpoints)
-* [Elasticsearch 6.0 — Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl.html) (query syntax)
+* [Elasticsearch 6.0 — Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/8.17/query-dsl.html) (query syntax)
 * [Art Institute of Chicago — Open Access — Public API](https://www.artic.edu/open-access/public-api) (example projects)
 
 We are currently working on improving our documentation. In the meantime, feel free to open an issue here or reach out to engineering@artic.edu with any questions. We would love to hear about any projects you pursue with our API.
@@ -49,13 +49,14 @@ The aggregator interfaces with several internal APIs to collect its data. All da
 
 The project has been built in Laravel, and includes the following requirements:
 
-* Laravel 5.8
-* PHP 7.1
-* MySQL 5.7
-* [Composer](https://getcomposer.org/)
-* Elasticsearch 6.0
+* Laravel 10.x
+* PHP 8.1
+* MySQL 8.0
+* Elasticsearch 8.17
+* [Composer 2](https://getcomposer.org/)
+* Node v18
 
-For development, we recommend that you use [Laravel Homestead](https://laravel.com/docs/5.8/homestead). It includes everything you need to run this project. Note that you will need to [enable the optional Elasticsearch feature](https://laravel.com/docs/5.8/homestead#installing-optional-features) in your Homestead.yaml.
+For development, we recommend that you use [Laravel Homestead](https://laravel.com/docs/10.x/homestead). It includes everything you need to run this project. Note that you will need to [enable the optional Elasticsearch feature](https://laravel.com/docs/10.x/homestead#installing-optional-features) in your Homestead.yaml.
 
 
 ## Installing
@@ -112,6 +113,7 @@ php artisan import:all
 ### Compiling documentation
 
 ```bash
+npm install
 npm run docs-dev
 npm run docs-build
 ```

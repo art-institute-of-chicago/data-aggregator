@@ -2,6 +2,8 @@ const fs = require('fs');
 
 let sections = [
   'preface',
+  'endpoints',
+  'fields',
 ];
 
 if (process.argv[2] && process.argv[2] === '--full') {

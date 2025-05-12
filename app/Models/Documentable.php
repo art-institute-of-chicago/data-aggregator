@@ -485,46 +485,46 @@ trait Documentable
     }
 
     /**
-     * Generate swagger endpoint documentation for this model
+     * Generate openapi endpoint documentation for this model
      *
      * @return string
      */
-    public function swaggerEndpoints()
+    public function openapiEndpoints()
     {
-        $doc = $this->swaggerList() . self::$NL;
+        $doc = $this->openapiList() . self::$NL;
 
         if ($this->hasSearchEndpoint()) {
-            $doc .= $this->swaggerSearch() . self::$NL;
+            $doc .= $this->openapiSearch() . self::$NL;
         }
 
-        $doc .= $this->swaggerSingle() . self::$NL;
+        $doc .= $this->openapiSingle() . self::$NL;
 
         if (get_called_class() === Collections\Agent::class) {
             // Artists
-            $doc .= $this->swaggerList('artists') . self::$NL;
-            $doc .= $this->swaggerSingle('artists') . self::$NL;
+            $doc .= $this->openapiList('artists') . self::$NL;
+            $doc .= $this->openapiSingle('artists') . self::$NL;
         } elseif (get_called_class() === Collections\Category::class) {
             // Department
-            $doc .= $this->swaggerList('departments') . self::$NL;
-            $doc .= $this->swaggerSingle('departments') . self::$NL;
+            $doc .= $this->openapiList('departments') . self::$NL;
+            $doc .= $this->openapiSingle('departments') . self::$NL;
         }
 
         return $doc;
     }
 
     /**
-     * Generate swagger field documentation for this model
+     * Generate openapi field documentation for this model
      *
      * @return string
      */
-    public function swaggerFields()
+    public function openapiFields()
     {
         $model = get_called_class();
         $modelBasename = class_basename($model);
 
         $doc = '    "' . $modelBasename . "\": {" . self::$NL;
         $doc .= "      \"properties\": {" . self::$NL;
-        $doc .= $this->swaggerListFields();
+        $doc .= $this->openapiListFields();
         $doc .= "      }," . self::$NL;
         $doc .= "      \"type\": \"object\"" . self::$NL;
         $doc .= "    }," . self::$NL;
@@ -535,11 +535,11 @@ trait Documentable
     }
 
     /**
-     * Generate swagger documentation for listing fields
+     * Generate openapi documentation for listing fields
      *
      * @return string
      */
-    public function swaggerListFields()
+    public function openapiListFields()
     {
         $doc = '';
         $mapping = $this->transformMapping();
@@ -554,19 +554,18 @@ trait Documentable
     }
 
     /**
-     * Generate swagger list endpoint documentation for this model
+     * Generate openapi list endpoint documentation for this model
      *
      * @return string
      */
-    public function swaggerList($endpoint = null)
+    public function openapiList($endpoint = null)
     {
         $doc = '    "/' . ($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) . "\": {" . self::$NL;
         $doc .= "      \"get\": {" . self::$NL;
-        $doc .= $this->swaggerTags();
-        $doc .= '        "summary": "' . $this->docListDescription($endpoint) . "\"," . self::$NL;
-        $doc .= $this->swaggerProduces();
-        $doc .= $this->swaggerParameters();
-        $doc .= $this->swaggerResponses();
+        $doc .= '        "description": "' . $this->docListDescription($endpoint) . "\"," . self::$NL;
+        $doc .= $this->openapiProduces();
+        $doc .= $this->openapiParameters();
+        $doc .= $this->openapiResponses();
         $doc .= "      }" . self::$NL;
         $doc .= "    }," . self::$NL;
 
@@ -574,19 +573,17 @@ trait Documentable
     }
 
     /**
-     * Generate swagger search endpoint documentation for this model
+     * Generate openapi search endpoint documentation for this model
      *
      * @return string
      */
-    public function swaggerSearch()
+    public function openapiSearch()
     {
         $doc = '    "/' . app('Resources')->getEndpointForModel(get_called_class()) . "/search\": {" . self::$NL;
         $doc .= "      \"get\": {" . self::$NL;
-        $doc .= $this->swaggerTags(['search']);
-        $doc .= '        "summary": "' . $this->docSearchDescription() . "\"," . self::$NL;
-        $doc .= $this->swaggerProduces();
-        $doc .= $this->swaggerParameters($this->docSearchParametersRaw());
-        $doc .= $this->swaggerResponses('SearchResult');
+        $doc .= '        "description": "' . $this->docSearchDescription() . "\"," . self::$NL;
+        $doc .= $this->openapiParameters($this->docSearchParametersRaw());
+        $doc .= $this->openapiResponses('SearchResult');
         $doc .= "      }" . self::$NL;
         $doc .= "    }," . self::$NL;
 
@@ -594,47 +591,24 @@ trait Documentable
     }
 
     /**
-     * Generate swagger single endpoint documentation for this model
+     * Generate openapi single endpoint documentation for this model
      *
      * @return string
      */
-    public function swaggerSingle($endpoint = null)
+    public function openapiSingle($endpoint = null)
     {
         $doc = '    "/' . ($endpoint ?? app('Resources')->getEndpointForModel(get_called_class())) . "/{id}\": {" . self::$NL;
         $doc .= "      \"get\": {" . self::$NL;
-        $doc .= $this->swaggerTags();
-        $doc .= '        "summary": "' . $this->docSingleDescription($endpoint) . "\"," . self::$NL;
-        $doc .= $this->swaggerProduces();
-        $doc .= $this->swaggerParameters(['id' => 'Resource id to retrieve']);
-        $doc .= $this->swaggerResponses();
+        $doc .= $this->openapiProduces();
+        $doc .= $this->openapiParameters(['id' => 'Resource id to retrieve']);
+        $doc .= $this->openapiResponses();
         $doc .= "      }" . self::$NL;
         $doc .= "    }," . self::$NL;
 
         return $doc;
     }
 
-    public function swaggerTags($extras = [])
-    {
-        $model = get_called_class();
-        $endpoint = app('Resources')->getEndpointForModel($model);
-        $source = $model::source();
-
-        $doc = "        \"tags\": [" . self::$NL;
-        $doc .= '            "' . $endpoint . "\"," . self::$NL;
-        $doc .= '            "' . strtolower($source) . '"';
-
-        foreach ($extras as $tag) {
-            $doc .= "," . self::$NL;
-            $doc .= '            "' . $tag . '"';
-        }
-
-        $doc .= self::$NL;
-        $doc .= "        ]," . self::$NL;
-
-        return $doc;
-    }
-
-    public function swaggerProduces()
+    public function openapiProduces()
     {
         $doc = "        \"produces\": [" . self::$NL;
         $doc .= "          \"application/json\"" . self::$NL;
@@ -644,11 +618,11 @@ trait Documentable
     }
 
     /**
-     * Generate swagger parameters for this model
+     * Generate openapi parameters for this model
      *
      * @return string
      */
-    public function swaggerParameters($params = [])
+    public function openapiParameters($params = [])
     {
         $doc = "        \"parameters\": [" . self::$NL;
         $array = $params ?? $this->docListParametersRaw();
@@ -664,7 +638,7 @@ trait Documentable
         return $doc;
     }
 
-    public function swaggerResponses($modelBasename = null)
+    public function openapiResponses($modelBasename = null)
     {
         if (!$modelBasename) {
             $model = get_called_class();

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\RestrictedResourceController;
-use App\Http\Controllers\SwaggerController;
+use App\Http\Controllers\OpenapiController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ImageSearchController;
 use App\Http\Controllers\ArtworkController;
@@ -25,10 +25,10 @@ app('url')->forceScheme(config('aic.proxy_scheme'));
 
 Route::group(['prefix' => 'v1'], function () {
     Route::any('/', function () {
-        return redirect('/api/v1/swagger.json');
+        return redirect('/api/v1/openapi.json');
     });
 
-    Route::any('swagger.json', [SwaggerController::class, 'index'])->name('doc-swagger');
+    Route::any('openapi.json', [OpenapiController::class, 'index'])->name('doc-openapi');
 
     // Elasticsearch
     Route::match(['GET', 'POST'], 'search', [SearchController::class, 'search']);

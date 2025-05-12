@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 
-class SwaggerController extends Controller
+class OpenapiController extends Controller
 {
-    protected $filename = 'swagger.json';
+    protected $filename = 'openapi.json';
 
     public function __construct()
     {
@@ -17,7 +17,7 @@ class SwaggerController extends Controller
     {
         $content = Storage::get($this->filename);
         return response(
-            view('swagger', ['content' => $content]),
+            view('openapi', ['content' => $content]),
             200,
             ['Content-Type' => 'application/json']
         );
