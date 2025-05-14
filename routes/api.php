@@ -29,9 +29,7 @@ Route::group(['prefix' => 'v1'], function () {
     });
 
     Route::any('openapi.json', [OpenapiController::class, 'index'])->name('doc-openapi');
-    Route::any('swagger.json', function () {
-        return redirect()->route('doc-openapi');
-    });
+    Route::any('swagger.json', fn () => redirect()->route('doc-openapi'));
 
     // Elasticsearch
     Route::match(['GET', 'POST'], 'search', [SearchController::class, 'search']);
