@@ -7,15 +7,15 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::table('generic_pages', function (Blueprint $table) {
-            $table->longText('copy')->nullable()->change();
+        Schema::table('artworks', function (Blueprint $table) {
+            $table->index(['fiscal_year_deaccession', 'updated_at', 'id']);
         });
     }
 
     public function down(): void
     {
-        Schema::table('generic_pages', function (Blueprint $table) {
-            $table->text('copy')->nullable()->change();
+        Schema::table('artworks', function (Blueprint $table) {
+            $table->index(['fiscal_year_deaccession', 'updated_at', 'id']);
         });
     }
 };
