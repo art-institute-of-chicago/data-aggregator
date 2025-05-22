@@ -648,7 +648,7 @@ class Request
     /**
      * Add param for vector search
      *
-     * @link https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl-function-score-query.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.18/query-dsl-script-score-query.html#vector-functions-cosine
      *
      * @param array $params
      *
@@ -659,6 +659,7 @@ class Request
         if ($input['q']) {
             $queryVector = app('Embeddings')->getEmbeddings($input['q']);
 
+            // The `cosineSimilarity()` function here is a built-in Elasticsearch function that calculates the measure of similarity between a given query vector and document vectors.
             $params['body']['query']['script_score']['script'] = [
                 'source' => "if (doc['text_embedding'].size() == 0) { return 0; } else { return cosineSimilarity(params.query_vector, 'text_embedding') + 1.0; }",
                 'params' => [
