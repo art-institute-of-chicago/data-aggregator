@@ -61,10 +61,10 @@ class EmbeddingService
                 if ($response->successful()) {
                     return $response->json()['data'][0]['embedding'] ?? null;
                 }
+
+                throw new Exception('Failed to get embeddings: ' . $response->json()['error'] ?? 'Unknown error');
             }
         );
-
-        throw new Exception('Failed to get embeddings: ' . $response->json()['error'] ?? 'Unknown error');
     }
 
     public function getImageEmbeddings(string $imageUrl): ?array
