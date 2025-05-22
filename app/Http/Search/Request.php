@@ -768,8 +768,7 @@ class Request
                     'query_vector' => $queryVector,
                 ],
             ];
-        }
-        else {
+        } else {
             $params['body']['query']['script_score']['script']['source'] = 'return 1.0;';
         }
 
