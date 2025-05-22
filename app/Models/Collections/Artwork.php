@@ -335,6 +335,16 @@ class Artwork extends CollectionsModel
 
     // Meh, we'll leave out preferred & alternative places for now
 
+    public function imageEmbedding()
+    {
+        return $this->hasOne('App\Models\Web\Vectors\ImageEmbedding', 'model_id')->where('model_name', '=', 'artworks');
+    }
+
+    public function textEmbedding()
+    {
+        return $this->hasOne('App\Models\Web\Vectors\TextEmbedding', 'model_id')->where('model_name', '=', 'artworks');
+    }
+
     public function getAltTextAttribute($value)
     {
         // If CITI provided `visual_description`, return that
@@ -609,5 +619,22 @@ class Artwork extends CollectionsModel
         }
 
         return $doc;
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->transform();
+        $keysToUnset = [];
+        foreach ($array as $key => $value) {
+            if (empty($value)) {
+                $keysToUnset[] = $key;
+            }
+        }
+
+        foreach ($keysToUnset as $key) {
+            unset($array[$key]);
+        }
+
+        return $array;
     }
 }
