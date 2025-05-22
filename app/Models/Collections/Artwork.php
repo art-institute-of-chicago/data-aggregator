@@ -625,18 +625,6 @@ class Artwork extends CollectionsModel
 
     public function toSearchableArray()
     {
-        $array = $this->transform();
-        $keysToUnset = [];
-        foreach ($array as $key => $value) {
-            if (empty($value)) {
-                $keysToUnset[] = $key;
-            }
-        }
-
-        foreach ($keysToUnset as $key) {
-            unset($array[$key]);
-        }
-
-        return $array;
+        return array_filter($this->transform());
     }
 }
