@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\EmbeddingService;
 use Illuminate\Support\ServiceProvider;
 
 class ResourceServiceProvider extends ServiceProvider
@@ -213,6 +214,10 @@ class ResourceServiceProvider extends ServiceProvider
                     return $model;
                 }
             };
+        });
+
+        $this->app->singleton('Embeddings', function () {
+            return new EmbeddingService();
         });
     }
 }
