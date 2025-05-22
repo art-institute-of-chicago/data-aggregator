@@ -656,14 +656,19 @@ class Request
      */
     public function addScriptParam($params, $input)
     {
-        $queryVector = app('Embeddings')->getEmbeddings($input['q']);
+        if ($input['q']) {
+            $queryVector = app('Embeddings')->getEmbeddings($input['q']);
 
-        $params['body']['query']['script_score']['script'] = [
-            'source' => "if (doc['text_embedding'].size() == 0) { return 0; } else { return cosineSimilarity(params.query_vector, 'text_embedding') + 1.0; }",
-            'params' => [
-                'query_vector' => $queryVector,
-            ],
-        ];
+            $params['body']['query']['script_score']['script'] = [
+                'source' => "if (doc['text_embedding'].size() == 0) { return 0; } else { return cosineSimilarity(params.query_vector, 'text_embedding') + 1.0; }",
+                'params' => [
+                    'query_vector' => $queryVector,
+                ],
+            ];
+        }
+        else {
+            $params['body']['query']['script_score']['script']['source'] = 'return 1.0;';
+        }
 
         return $params;
     }
