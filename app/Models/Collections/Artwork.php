@@ -5,6 +5,8 @@ namespace App\Models\Collections;
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\HasRelationships;
+use App\Models\Web\Vectors\ImageEmbedding;
+use App\Models\Web\Vectors\TextEmbedding;
 use Illuminate\Support\Str;
 
 /**
@@ -337,12 +339,12 @@ class Artwork extends CollectionsModel
 
     public function imageEmbedding()
     {
-        return $this->hasOne('App\Models\Web\Vectors\ImageEmbedding', 'model_id')->where('model_name', '=', 'artworks');
+        return $this->morphOne(ImageEmbedding::class, 'model', 'model_name');
     }
 
     public function textEmbedding()
     {
-        return $this->hasOne('App\Models\Web\Vectors\TextEmbedding', 'model_id')->where('model_name', '=', 'artworks');
+        return $this->morphOne(TextEmbedding::class, 'model', 'model_name');
     }
 
     public function getAltTextAttribute($value)
