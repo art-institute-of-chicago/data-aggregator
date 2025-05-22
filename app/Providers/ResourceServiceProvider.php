@@ -215,5 +215,9 @@ class ResourceServiceProvider extends ServiceProvider
                 }
             };
         });
+
+        $this->app->singleton('Embeddings', function ($app) {
+            return new EmbeddingService();
+        });
     }
 }
