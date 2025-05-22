@@ -356,6 +356,9 @@ class Request
         // Apply `function_score` (if any)
         $params = $this->addFunctionScore($params, $input);
 
+        // Add text_embeddings search
+        $params = $this->addScriptParam($params, $input);
+
         return $params;
     }
 
@@ -636,6 +639,29 @@ class Request
         $params['body']['query']['script_score']['query'] = [
             'bool' => [
                 'must' => $scopedQueries->all(),
+            ],
+        ];
+
+        return $params;
+    }
+
+    /**
+     * Add param for vector search
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl-function-score-query.html
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    public function addScriptParam($params, $input)
+    {
+        $queryVector = app('Embeddings')->getEmbeddings($input['q']);
+
+        $params['body']['query']['script_score']['script'] = [
+            'source' => "if (doc['text_embedding'].size() == 0) { return 0; } else { return cosineSimilarity(params.query_vector, 'text_embedding') + 1.0; }",
+            'params' => [
+                'query_vector' => $queryVector,
             ],
         ];
 
