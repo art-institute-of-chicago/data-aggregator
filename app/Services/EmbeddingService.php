@@ -7,6 +7,7 @@ use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
 use Pgvector\Laravel\Vector;
 use Exception;
+use Illuminate\Support\Facades\Cache;
 
 class EmbeddingService
 {
@@ -44,17 +45,24 @@ class EmbeddingService
 
     public function getEmbeddings(string $input): ?array
     {
-        $response = Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'api-key' => $this->config['embedding']['key'],
-        ])->post($this->config['embedding']['endpoint'], [
-            'input' => [$input],
-            'model' => 'text-embedding-ada-002'
-        ]);
+        return Cache::remember(
+            "embedding:search:" . md5($input),
+            now()->addDays(7),
+            function () use ($input) {
+                \Log::info('making call to Azure');
+                $response = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'api-key' => $this->config['embedding']['key'],
+                ])->post($this->config['embedding']['endpoint'], [
+                    'input' => [$input],
+                    'model' => 'text-embedding-ada-002'
+                ]);
 
-        if ($response->successful()) {
-            return $response->json()['data'][0]['embedding'] ?? null;
-        }
+                if ($response->successful()) {
+                    return $response->json()['data'][0]['embedding'] ?? null;
+                }
+            }
+        );
 
         throw new Exception('Failed to get embeddings: ' . $response->json()['error'] ?? 'Unknown error');
     }
