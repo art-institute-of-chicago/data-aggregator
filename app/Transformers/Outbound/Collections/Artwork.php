@@ -873,6 +873,42 @@ class Artwork extends BaseTransformer
                     return $item->sites->pluck('id');
                 },
             ],
+            'image_embedding' => [
+                'doc' => 'The generated embeddings describing the artwork image',
+                'type' => 'vector',
+                'elasticsearch' => [
+                    'type' => 'dense_vector',
+                    'dims' => 1024,
+                    'index' => true,
+                    'index_options' => [
+                        'type' => 'hnsw',
+                        'm' => 16,
+                        'ef_construction' => 64
+                    ],
+                ],
+                'value' => function ($item) {
+                    return $item->imageEmbedding?->embedding->toArray() ?? [];
+                },
+                'is_restricted' => true,
+            ],
+            'text_embedding' => [
+                'doc' => 'The generated embeddings of artwork text',
+                'type' => 'vector',
+                'elasticsearch' => [
+                    'type' => 'dense_vector',
+                    'dims' => 1536,
+                    'index' => true,
+                    'index_options' => [
+                        'type' => 'hnsw',
+                        'm' => 16,
+                        'ef_construction' => 64
+                    ],
+                ],
+                'value' => function ($item) {
+                    return $item->textEmbedding?->embedding->toArray() ?? [];
+                },
+                'is_restricted' => true,
+            ],
         ];
     }
 
