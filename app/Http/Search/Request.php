@@ -306,9 +306,13 @@ class Request
         $params['body'] = [
             'track_total_hits' => true,
             'query' => [
-                'bool' => [
-                    'must' => [],
-                    'should' => [],
+                'script_score' => [
+                    'query' => [
+                        'bool' => [
+                            'must' => [],
+                            'should' => [],
+                        ],
+                    ],
                 ],
             ],
 
@@ -534,7 +538,7 @@ class Request
 
         if (!isset($input['q'])) {
             // Boost anything with `is_boosted` true
-            $params['body']['query']['bool']['should'][] = [
+            $params['body']['query']['script_score']['query']['bool']['should'][] = [
                 'term' => [
                     'is_boosted' => [
                         'value' => true,
@@ -545,7 +549,7 @@ class Request
 
             // Add any resource-specific boosts
             foreach ($this->boosts as $boost) {
-                $params['body']['query']['bool']['should'][] = $boost;
+                $params['body']['query']['script_score']['query']['bool']['should'][] = $boost;
             }
         }
 
@@ -568,7 +572,7 @@ class Request
         }
 
         // We'll duplicate this, nesting it in `function_score` queries
-        $baseQuery = $params['body']['query'];
+        $baseQuery = $params['body']['query']['script_score']['query'];
 
         // Keep track of this to create a "left over" non-scored query
         $resourcesWithoutFunctions = collect([]);
@@ -629,7 +633,7 @@ class Request
         }
 
         // Override the existing query with our queries
-        $params['body']['query'] = [
+        $params['body']['query']['script_score']['query'] = [
             'bool' => [
                 'must' => $scopedQueries->all(),
             ],
@@ -650,7 +654,7 @@ class Request
         }
 
         // Assumes that `scopes` has no null members
-        $params['body']['query']['bool']['must'][] = [
+        $params['body']['query']['script_score']['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $this->scopes,
             ],
@@ -674,7 +678,7 @@ class Request
             $restrictions = RestrictContent::getSearchRestrictForEndpoint($resource);
 
             if (!empty($restrictions)) {
-                $params['body']['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
+                $params['body']['query']['script_score']['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
             }
         }
 
@@ -690,7 +694,7 @@ class Request
     private function addEmptySearchParams(array $params)
     {
         // PHP JSON-encodes empty array as [], not {}
-        $params['body']['query']['bool']['must'][] = [
+        $params['body']['query']['script_score']['query']['bool']['must'][] = [
             'match_all' => new \stdClass(),
         ];
 
@@ -756,7 +760,7 @@ class Request
         $exactFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, true);
 
         foreach ($withQuotes as $subquery) {
-            $params['body']['query']['bool']['must'][] = [
+            $params['body']['query']['script_score']['query']['bool']['must'][] = [
                 'multi_match' => [
                     'analyzer' => 'exact',
                     'query' => str_replace('"', '', $subquery),
@@ -772,7 +776,7 @@ class Request
 
         foreach ($withoutQuotes as $subquery) {
             // Pull all docs that match fuzzily into the results
-            $params['body']['query']['bool']['must'][] = [
+            $params['body']['query']['script_score']['query']['bool']['must'][] = [
                 'multi_match' => [
                     'query' => $subquery,
                     'fuzziness' => $fuzziness,
@@ -790,7 +794,7 @@ class Request
 
         // This acts as a boost for docs that match precisely, if fuzzy search is enabled
         if (!$isExact && ($fuzziness ?? false)) {
-            $params['body']['query']['bool']['should'][] = [
+            $params['body']['query']['script_score']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $input['q'],
                     'fields' => $allFields,
@@ -802,7 +806,7 @@ class Request
         // `phrase` queries are relatively expensive, so check for spaces first
         // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
         if ((count($withoutQuotes) > 0 || count($withQuotes) > 1) && strpos($input['q'], ' ')) {
-            $params['body']['query']['bool']['should'][] = [
+            $params['body']['query']['script_score']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => str_replace('"', '', $input['q']),
                     'type' => 'phrase',
@@ -814,7 +818,7 @@ class Request
         }
 
         // General boost for landing pages, since those should hold more weight in results
-        $params['body']['query']['bool']['should'][] = [
+        $params['body']['query']['script_score']['query']['bool']['should'][] = [
             'term' => [
                 'api_model' => [
                     'value' => 'landing-pages',
@@ -835,7 +839,7 @@ class Request
     {
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
-        $params['body']['query']['bool']['must'][] = Arr::get($input, 'query');
+        $params['body']['query']['script_score']['query']['bool']['must'][] = Arr::get($input, 'query');
 
         return $params;
     }
@@ -1003,13 +1007,13 @@ class Request
             ];
         }
 
-        $params['body']['query']['bool']['must'][] = [
+        $params['body']['query']['script_score']['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $hueQueries,
             ],
         ];
 
-        $params['body']['query']['bool']['must'][] = [
+        $params['body']['query']['script_score']['query']['bool']['must'][] = [
             'range' => [
                 'color.s' => [
                     'gte' => max($hsl['s'] - $saturationTolerance, 0),
@@ -1018,7 +1022,7 @@ class Request
             ],
         ];
 
-        $params['body']['query']['bool']['must'][] = [
+        $params['body']['query']['script_score']['query']['bool']['must'][] = [
             'range' => [
                 'color.l' => [
                     'gte' => max($hsl['l'] - $lightnessTolerance, 0),
@@ -1028,13 +1032,13 @@ class Request
         ];
 
         // We can't do an exists[field]=lqip, b/c lqip isn't indexed
-        $params['body']['query']['bool']['must'][] = [
+        $params['body']['query']['script_score']['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.width',
             ],
         ];
 
-        $params['body']['query']['bool']['must'][] = [
+        $params['body']['query']['script_score']['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.height',
             ],
