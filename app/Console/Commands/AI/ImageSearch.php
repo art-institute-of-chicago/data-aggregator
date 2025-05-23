@@ -2,14 +2,16 @@
 
 namespace App\Console\Commands\AI;
 
+use App\Behaviors\HandleEmbeddings;
 use App\Console\Commands\BaseCommand;
-use App\Services\EmbeddingService;
 use App\Services\VectorSearchService;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ImageSearch extends BaseCommand
 {
+    use HandleEmbeddings;
+
     protected $signature = 'ai:search-image
         {url? : URL of the image to search}
         {--limit=10 : Number of results to return}
@@ -18,15 +20,12 @@ class ImageSearch extends BaseCommand
 
     protected $description = 'Search for similar images using vector embeddings';
 
-    protected EmbeddingService $embeddingService;
     protected VectorSearchService $searchService;
 
     public function __construct(
-        EmbeddingService $embeddingService,
         VectorSearchService $searchService
     ) {
         parent::__construct();
-        $this->embeddingService = $embeddingService;
         $this->searchService = $searchService;
     }
 
@@ -42,7 +41,7 @@ class ImageSearch extends BaseCommand
             }
 
             $this->info("\nFetching image embeddings...", OutputInterface::VERBOSITY_VERBOSE);
-            $vector = $this->embeddingService->getImageEmbeddings($url);
+            $vector = app('Embeddings')->getImageEmbeddings($url);
 
             $this->info("Searching for similar images...", OutputInterface::VERBOSITY_VERBOSE);
             $results = $this->searchSimilarImages(

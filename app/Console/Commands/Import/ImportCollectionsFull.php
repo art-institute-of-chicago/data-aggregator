@@ -2,8 +2,12 @@
 
 namespace App\Console\Commands\Import;
 
+use App\Behaviors\HandleEmbeddings;
+
 class ImportCollectionsFull extends AbstractImportCommand
 {
+    use HandleEmbeddings;
+
     protected $signature = 'import:collections-full
                             {endpoint? : Endpoint on dataservice to query, e.g. `object-types`}
                             {page? : Page to begin importing from}
@@ -89,8 +93,8 @@ class ImportCollectionsFull extends AbstractImportCommand
             // If the primary image was updated in the last five minute,
             // or if this artwork doesn't have either of the embeddings,
             // retrieve fresh embeddings
-            if (!$resource->imageEmbedding || !$resource->textEmbedding || ($resource->image && $resource->image->source_updated_at > now()->subMinutes(5))) {
-                app('Embeddings')->generateAndSaveArtworkEmbeddngs($resource, $this);
+            if (!$resource->imageEmbedding || !$resource->textEmbedding || $resource?->image->source_updated_at > now()->subMinutes(5)) {
+                $this->generateAndSaveArtworkEmbeddngs($resource, $this);
             }
         }
         return $resource;
