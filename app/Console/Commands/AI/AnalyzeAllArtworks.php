@@ -90,17 +90,7 @@ class AnalyzeAllArtworks extends BaseCommand
                     $bar->setMessage($artwork->id, 'id');
 
                     try {
-                        $this->info(
-                            "\nProcessing artwork: {$artwork->title} (ID: {$artwork->id})",
-                            OutputInterface::VERBOSITY_VERBOSE
-                        );
-
-                        $imageUrl = $this->embeddingService->buildImageUrl($artwork);
-                        $this->info("Image URL: {$imageUrl}", OutputInterface::VERBOSITY_VERBOSE);
-
-                        $analysisResults = $this->embeddingService->analyzeImage($artwork, $imageUrl, $this);
-                        $this->embeddingService->processEmbeddings($artwork, $imageUrl, $analysisResults, $this);
-
+                        app('Embeddings')->generateAndSaveArtworkEmbeddngs($artwork, $this);
                         $processed++;
                     } catch (Exception $e) {
                         $errors[] = [
@@ -108,16 +98,6 @@ class AnalyzeAllArtworks extends BaseCommand
                             'title' => $artwork->title,
                             'error' => $e->getMessage()
                         ];
-
-                        Log::error('Error processing artwork:', [
-                            'artwork_id' => $artwork->id,
-                            'message' => $e->getMessage(),
-                            'trace' => $e->getTraceAsString()
-                        ]);
-
-                        $this->error(
-                            "\nFailed processing artwork ID {$artwork->id}: {$e->getMessage()}"
-                        );
                     }
 
                     $bar->advance();
