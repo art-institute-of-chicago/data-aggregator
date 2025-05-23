@@ -18,33 +18,6 @@ class EmbeddingService
     public const CONFIDENCE_THRESHOLD_TAG = 0.9;
 
     protected string $connection = 'vectors';
-    protected array $config;
-
-    public function __construct()
-    {
-        $this->config = [
-            'embedding' => [
-                'endpoint' => config('azure.embedding.endpoint'),
-                'key' => config('azure.embedding.key'),
-                'version' => config('azure.embedding.version'),
-            ],
-            'image_embedding' => [
-                'endpoint' => config('azure.image_embedding.endpoint'),
-                'key' => config('azure.image_embedding.key'),
-                'version' => config('azure.image_embedding.version'),
-            ],
-            'image_analysis' => [
-                'endpoint' => config('azure.image_analysis.endpoint'),
-                'key' => config('azure.image_analysis.key'),
-                'version' => config('azure.image_analysis.version'),
-            ],
-            'completion' => [
-                'endpoint' => config('azure.completion.endpoint'),
-                'key' => config('azure.completion.key'),
-                'version' => config('azure.completion.version'),
-            ],
-        ];
-    }
 
     public function generateAndSaveArtworkEmbeddngs(Artwork $artwork, Command $consoleCommand)
     {
@@ -81,8 +54,8 @@ class EmbeddingService
                 \Log::info('making call to Azure');
                 $response = Http::withHeaders([
                     'Content-Type' => 'application/json',
-                    'api-key' => $this->config['embedding']['key'],
-                ])->post($this->config['embedding']['endpoint'], [
+                    'api-key' => config('azure.embedding.key'),
+                ])->post(config('azure.embedding.endpoint'), [
                     'input' => [$input],
                     'model' => 'text-embedding-ada-002'
                 ]);
@@ -99,8 +72,8 @@ class EmbeddingService
     public function getImageEmbeddings(string $imageUrl): ?array
     {
         $response = Http::withHeaders([
-            'Ocp-Apim-Subscription-Key' => $this->config['image_embedding']['key']
-        ])->post($this->config['image_embedding']['endpoint'], [
+            'Ocp-Apim-Subscription-Key' => config('azure.image_embedding.key')
+        ])->post(config('azure.image_embedding.endpoint'), [
             'url' => $imageUrl
         ]);
 
@@ -122,7 +95,7 @@ class EmbeddingService
         $vector = new Vector($embedding);
 
         $embeddingModel = $type === 'text' ? TextEmbedding::class : ImageEmbedding::class;
-        $version = $this->config[$type === 'text' ? 'embedding' : 'image_embedding']['version'];
+        $version = config('azure.' . ($type === 'text' ? 'embedding' : 'image_embedding') . '.version');
 
         $result = $embeddingModel::on($this->connection)
             ->updateOrCreate(
@@ -150,7 +123,7 @@ class EmbeddingService
         array $generationData
     ): array {
         $modelName = 'artworks';
-        $version = $this->config['image_analysis']['version'];
+        $version = config('azure.image_analysis.version');
 
         // Save image analysis data
         $newData = [
@@ -204,8 +177,8 @@ class EmbeddingService
     public function getImageDescription(string $imageUrl): array
     {
         $response = Http::withHeaders([
-            'Ocp-Apim-Subscription-Key' => $this->config['image_analysis']['key']
-        ])->post($this->config['image_analysis']['endpoint'], [
+            'Ocp-Apim-Subscription-Key' => config('azure.image_analysis.key')
+        ])->post(config('azure.image_analysis.endpoint'), [
             'url' => $imageUrl
         ]);
 
@@ -249,8 +222,8 @@ class EmbeddingService
     public function getCompletions(string $input): string
     {
         $response = Http::withHeaders([
-            'api-key' => $this->config['completion']['key']
-        ])->post($this->config['completion']['endpoint'], [
+            'api-key' => config('azure.completion.key')
+        ])->post(config('azure.completion.endpoint'), [
             'messages' => [
                 [
                     'role' => 'user',
