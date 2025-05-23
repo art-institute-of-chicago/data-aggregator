@@ -56,16 +56,16 @@ trait HandleEmbeddings
         $version = config('azure.' . ($type === 'text' ? 'embedding' : 'image_embedding') . '.version');
 
         $result = $embeddingModel::updateOrCreate(
-                [
+            [
                     'model_name' => $modelName,
                     'model_id' => $modelId,
                 ],
-                [
+            [
                     'version' => $version,
                     'data' => $additionalData,
                     'embedding' => $vector,
                 ]
-            );
+        );
 
         return [
             'success' => true,
@@ -90,15 +90,15 @@ trait HandleEmbeddings
         ];
 
         $imageEmbedding = ImageEmbedding::updateOrCreate(
-                [
+            [
                     'model_name' => $modelName,
                     'model_id' => $artworkId,
                 ],
-                [
+            [
                     'version' => $version,
                     'data' => $newData,
                 ]
-            );
+        );
 
         // Generate and save text embeddings from description
         $descriptionText = $this->formatDescriptionText($description);
