@@ -3,20 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\EmbeddingService;
 use App\Services\VectorSearchService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AzureAIController extends Controller
 {
-    protected EmbeddingService $embeddingService;
     protected VectorSearchService $searchService;
 
     public function __construct(
-        EmbeddingService $embeddingService,
         VectorSearchService $searchService
     ) {
-        $this->embeddingService = $embeddingService;
         $this->searchService = $searchService;
     }
 
@@ -46,11 +42,11 @@ class AzureAIController extends Controller
                 ], 400);
             }
 
-            $searchQuery = $this->embeddingService->normalizeQuery(
+            $searchQuery = app('Embeddings')->normalizeQuery(
                 htmlspecialchars($request->query('q'), ENT_QUOTES, 'UTF-8')
             );
 
-            $embeddings = $this->embeddingService->getEmbeddings($searchQuery);
+            $embeddings = app('Embeddings')->getEmbeddings($searchQuery);
 
             if (!$embeddings) {
                 return response()->json([
