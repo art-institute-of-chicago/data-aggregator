@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands\AI;
 
-use App\Behaviors\HandleEmbeddings;
-use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
+use App\Services\EmbeddingService;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
 use Illuminate\Support\Facades\Log;
@@ -12,20 +11,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Carbon\Carbon;
 use Exception;
 
-class AnalyzeAllArtworks extends BaseCommand implements Thresholds
+class AnalyzeAllArtworks extends BaseCommand
 {
-    use HandleEmbeddings;
-
-    protected $signature = 'ai:analyze-all-artworks {--days=30 : Number of days before re-analyzing artwork}
-                                                    {--start-id= : Start processing from this artwork ID}';
+    protected $signature = 'ai:analyze-all {--days=30 : Number of days before re-analyzing artwork}
+                                         {--start-id= : Start processing from this artwork ID}';
     protected $description = 'Analyze all artworks that need embeddings or haven\'t been analyzed recently';
 
+    protected EmbeddingService $embeddingService;
     protected DescriptionService $descriptionService;
 
     public function __construct(
+        EmbeddingService $embeddingService,
         DescriptionService $descriptionService
     ) {
         parent::__construct();
+        $this->embeddingService = $embeddingService;
         $this->descriptionService = $descriptionService;
     }
 
@@ -90,7 +90,17 @@ class AnalyzeAllArtworks extends BaseCommand implements Thresholds
                     $bar->setMessage($artwork->id, 'id');
 
                     try {
-                        $this->generateAndSaveArtworkEmbeddngs($artwork, $this);
+                        $this->info(
+                            "\nProcessing artwork: {$artwork->title} (ID: {$artwork->id})",
+                            OutputInterface::VERBOSITY_VERBOSE
+                        );
+
+                        $imageUrl = $this->embeddingService->buildImageUrl($artwork);
+                        $this->info("Image URL: {$imageUrl}", OutputInterface::VERBOSITY_VERBOSE);
+
+                        $analysisResults = $this->embeddingService->analyzeImage($artwork, $imageUrl, $this);
+                        $this->embeddingService->processEmbeddings($artwork, $imageUrl, $analysisResults, $this);
+
                         $processed++;
                     } catch (Exception $e) {
                         $errors[] = [
@@ -98,6 +108,16 @@ class AnalyzeAllArtworks extends BaseCommand implements Thresholds
                             'title' => $artwork->title,
                             'error' => $e->getMessage()
                         ];
+
+                        Log::error('Error processing artwork:', [
+                            'artwork_id' => $artwork->id,
+                            'message' => $e->getMessage(),
+                            'trace' => $e->getTraceAsString()
+                        ]);
+
+                        $this->error(
+                            "\nFailed processing artwork ID {$artwork->id}: {$e->getMessage()}"
+                        );
                     }
 
                     $bar->advance();
