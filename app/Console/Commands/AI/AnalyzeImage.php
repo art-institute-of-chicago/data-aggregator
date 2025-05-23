@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands\AI;
 
+use App\Behaviors\HandleEmbeddings;
 use App\Console\Commands\BaseCommand;
-use App\Services\EmbeddingService;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
 use Illuminate\Support\Facades\Log;
@@ -12,18 +12,17 @@ use Exception;
 
 class AnalyzeImage extends BaseCommand
 {
+    use HandleEmbeddings;
+
     protected $signature = 'ai:analyze {id? : Artwork ID to analyze}';
     protected $description = 'Analyze an artwork using AI for descriptions and embeddings';
 
-    protected EmbeddingService $embeddingService;
     protected DescriptionService $descriptionService;
 
     public function __construct(
-        EmbeddingService $embeddingService,
         DescriptionService $descriptionService
     ) {
         parent::__construct();
-        $this->embeddingService = $embeddingService;
         $this->descriptionService = $descriptionService;
     }
 
@@ -95,7 +94,7 @@ class AnalyzeImage extends BaseCommand
         $this->info("\nPerforming image analysis...", OutputInterface::VERBOSITY_VERBOSE);
 
         // Get image description
-        $generatedDescription = $this->embeddingService->getImageDescription($imageUrl);
+        $generatedDescription = $this->getImageDescription($imageUrl);
         $this->info("Generated base description", OutputInterface::VERBOSITY_VERBOSE);
 
         // Get AIC description if available
@@ -123,7 +122,7 @@ class AnalyzeImage extends BaseCommand
         $this->info("\nProcessing embeddings...", OutputInterface::VERBOSITY_VERBOSE);
 
         // Get and save image embeddings
-        $imageEmbeddingArray = $this->embeddingService->getImageEmbeddings($imageUrl);
+        $imageEmbeddingArray = app('Embeddings')->getImageEmbeddings($imageUrl);
 
         $this->info("Image embedding response type: " . gettype($imageEmbeddingArray), OutputInterface::VERBOSITY_VERBOSE);
         if (is_array($imageEmbeddingArray)) {
@@ -140,7 +139,7 @@ class AnalyzeImage extends BaseCommand
 
         // Get and save text embeddings
         $this->info("\nGetting text embeddings...", OutputInterface::VERBOSITY_VERBOSE);
-        $textEmbeddingArray = $this->embeddingService->getEmbeddings($analysisResults['summarized']);
+        $textEmbeddingArray = app('Embeddings')->getEmbeddings($analysisResults['summarized']);
 
         try {
             // Pass array directly to saveEmbeddings
@@ -157,7 +156,7 @@ class AnalyzeImage extends BaseCommand
         string $imageUrl,
         array $analysisResults
     ): void {
-        $this->embeddingService->saveEmbeddings(
+        $this->saveEmbeddings(
             modelName: "artworks",
             modelId: $artwork->id,
             embedding: $embedding,
@@ -180,7 +179,7 @@ class AnalyzeImage extends BaseCommand
         string $imageUrl,
         array $analysisResults
     ): void {
-        $this->embeddingService->saveEmbeddings(
+        $this->saveEmbeddings(
             modelName: "artworks",
             modelId: $artwork->id,
             embedding: $embedding,
