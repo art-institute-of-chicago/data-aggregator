@@ -34,8 +34,7 @@ class VectorSearchService
         $embeddings = collect(['text', 'image'])->mapWithKeys(function ($type) use ($model, $id) {
             $embeddingClass = $type === 'image' ? ImageEmbedding::class : TextEmbedding::class;
 
-            $embedding = $embeddingClass
-                ::where('model_name', $model)
+            $embedding = $embeddingClass::where('model_name', $model)
                 ->where('model_id', $id)
                 ->first();
 
@@ -64,8 +63,7 @@ class VectorSearchService
     {
         $searchVector = new Vector($embeddings);
 
-        $results = TextEmbedding
-            ::select([
+        $results = TextEmbedding::select([
                 '*',
                 DB::raw("embedding <-> '" . $searchVector . "' as distance")
             ])
@@ -90,13 +88,11 @@ class VectorSearchService
     {
         $embeddingClass = $model === 'artworks' ? ImageEmbedding::class : TextEmbedding::class;
 
-        $reference = $embeddingClass
-            ::where('model_name', $model)
+        $reference = $embeddingClass::where('model_name', $model)
             ->where('model_id', $id)
             ->firstOrFail();
 
-        return $embeddingClass
-            ::select([
+        return $embeddingClass::select([
                 '*',
                 DB::raw("embedding <-> '" . $reference->embedding . "' as distance")
             ])
@@ -117,8 +113,7 @@ class VectorSearchService
         return collect(['text', 'image'])->map(function ($type) use ($model, $id, $compareId) {
             $embeddingClass = $type === 'image' ? ImageEmbedding::class : TextEmbedding::class;
 
-            $embeddings = $embeddingClass
-                ::select('*')
+            $embeddings = $embeddingClass::select('*')
                 ->whereIn('model_id', [$id, $compareId])
                 ->where('model_name', $model)
                 ->get();
@@ -148,8 +143,7 @@ class VectorSearchService
 
     protected function loadImageEmbeddings(Collection $results, string $model): void
     {
-        $imageEmbeddings = ImageEmbedding
-            ::where('model_name', $model)
+        $imageEmbeddings = ImageEmbedding::where('model_name', $model)
             ->whereIn('model_id', $results->pluck('model_id'))
             ->get()
             ->keyBy('model_id');
