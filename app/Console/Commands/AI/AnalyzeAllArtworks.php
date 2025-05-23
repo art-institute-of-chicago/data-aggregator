@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands\AI;
 
+use App\Behaviors\HandleEmbeddings;
 use App\Console\Commands\BaseCommand;
-use App\Services\EmbeddingService;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
 use Illuminate\Support\Facades\Log;
@@ -13,19 +13,18 @@ use Exception;
 
 class AnalyzeAllArtworks extends BaseCommand
 {
+    use HandleEmbeddings;
+
     protected $signature = 'ai:analyze-all {--days=30 : Number of days before re-analyzing artwork}
                                          {--start-id= : Start processing from this artwork ID}';
     protected $description = 'Analyze all artworks that need embeddings or haven\'t been analyzed recently';
 
-    protected EmbeddingService $embeddingService;
     protected DescriptionService $descriptionService;
 
     public function __construct(
-        EmbeddingService $embeddingService,
         DescriptionService $descriptionService
     ) {
         parent::__construct();
-        $this->embeddingService = $embeddingService;
         $this->descriptionService = $descriptionService;
     }
 
@@ -90,7 +89,7 @@ class AnalyzeAllArtworks extends BaseCommand
                     $bar->setMessage($artwork->id, 'id');
 
                     try {
-                        app('Embeddings')->generateAndSaveArtworkEmbeddngs($artwork, $this);
+                        $this->generateAndSaveArtworkEmbeddngs($artwork, $this);
                         $processed++;
                     } catch (Exception $e) {
                         $errors[] = [

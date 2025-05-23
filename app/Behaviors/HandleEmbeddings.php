@@ -3,17 +3,20 @@
 namespace App\Behaviors;
 
 use App\Models\Collections\Artwork;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
 use Pgvector\Laravel\Vector;
 use Exception;
-use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Console\Output\OutputInterface;
 
 trait HandleEmbeddings
 {
-    public function generateAndSaveArtworkEmbeddngs(Artwork $artwork): void
+    public const CONFIDENCE_THRESHOLD_CAPTION = 0.7;
+    public const CONFIDENCE_THRESHOLD_TAG = 0.9;
+
+    public function generateAndSaveArtworkEmbeddngs(Artwork $artwork)
     {
         try {
             $this->info(
@@ -24,7 +27,7 @@ trait HandleEmbeddings
             $imageUrl = $this->buildImageUrl($artwork);
             $this->info("Image URL: {$imageUrl}", OutputInterface::VERBOSITY_VERBOSE);
 
-            $analysisResults = $this->analyzeArtworkImage($artwork, $imageUrl);
+            $analysisResults = $this->analyzeImage($artwork, $imageUrl);
             $this->processEmbeddings($artwork, $imageUrl, $analysisResults);
         } catch (\Exception $e) {
             \Log::error('Error processing artwork:', [
@@ -35,33 +38,6 @@ trait HandleEmbeddings
 
             $this->error(
                 "\nFailed processing artwork ID {$artwork->id}: {$e->getMessage()}"
-            );
-        }
-    }
-
-    public function generateAndSaveWebEmbeddngs($item): void
-    {
-        try {
-            $this->info(
-                "\nProcessing web content: {$item->title} (ID: {$item->id})",
-                OutputInterface::VERBOSITY_VERBOSE
-            );
-
-            // Get and save text embeddings
-            $this->info("\nGetting text embeddings...", OutputInterface::VERBOSITY_VERBOSE);
-            $textEmbeddingArray = app('Embeddings')->getEmbeddings($item->copy);
-
-            $this->saveTextEmbeddings($item, $textEmbeddingArray);
-            $this->info("Saved text embeddings", OutputInterface::VERBOSITY_VERBOSE);
-        } catch (\Exception $e) {
-            \Log::error('Error processing artwork:', [
-                'artwork_id' => $item->id,
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-
-            $this->error(
-                "\nFailed processing artwork ID {$item->id}: {$e->getMessage()}"
             );
         }
     }
@@ -80,16 +56,16 @@ trait HandleEmbeddings
         $version = config('azure.' . ($type === 'text' ? 'embedding' : 'image_embedding') . '.version');
 
         $result = $embeddingModel::updateOrCreate(
-            [
+                [
                     'model_name' => $modelName,
                     'model_id' => $modelId,
                 ],
-            [
+                [
                     'version' => $version,
                     'data' => $additionalData,
                     'embedding' => $vector,
                 ]
-        );
+            );
 
         return [
             'success' => true,
@@ -114,15 +90,15 @@ trait HandleEmbeddings
         ];
 
         $imageEmbedding = ImageEmbedding::updateOrCreate(
-            [
+                [
                     'model_name' => $modelName,
                     'model_id' => $artworkId,
                 ],
-            [
+                [
                     'version' => $version,
                     'data' => $newData,
                 ]
-        );
+            );
 
         // Generate and save text embeddings from description
         $descriptionText = $this->formatDescriptionText($description);
@@ -173,93 +149,10 @@ trait HandleEmbeddings
             ];
         }
 
-        throw new Exception('Failed to get image description: ' . app('Embeddings')->getResponseError($response->json()));
+        throw new Exception('Failed to get image description: ' . $response->json()['message'] ?? 'Unknown error');
     }
-    public function getLLMImageDescription(string $imageUrl): array
-    {
-        $response = Http::withHeaders([
-            'api-key' => config('azure.chat.key'),
-            'Content-Type' => 'application/json'
-        ])->post(config('azure.chat.endpoint') . '/openai/deployments/' . config('azure.chat.model') . '/chat/completions?api-version=' . config('azure.chat.version'), [
-            'messages' => [
-                [
-                    'role' => 'system',
-                    'content' => 'You are an expert at analyzing images for accessibility.'
-                ],
-                [
-                    'role' => 'user',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' =>
-                              'Analyze this image following accessibility best practices. Please provide it in a short 2-4 sentence paragraph following these practices:
 
-                              Consider:
-                                - Focusing purely on subject matter and not the composition or techniques of the image.
-                                - Structure the description by spatial order (top-to-bottom, left-to-right, or foreground-to-background as appropriate). Use common language without art-historical jargon.
-                                - Subject matter in each region
-                                - Colors using familiar names (red, blue, yellow, etc.)
-                                - Spatial relationships and orientation
-                                - Size and scale of elements
-                                - Stating if there are multiple images in the composition and comparing them
 
-                              Avoid:
-                                - Describing objects or features that are not clearly discernable
-                                - Assuming the material of the image and techniques
-                                - Using interpretive statements like "suggests" or "indicating"
-                                - Starting with statements like "the image", "the painting", "the artwork", "the drawing"
-                                - Including statements on subjects if none are present
-
-                              If people are present, describe:
-                                - Physical features that are immediately noticeable
-                                - Age using simple terms (child, youth, adult, older person)
-                                - Skin tone if clearly visible (light, medium-light, medium, medium-dark, dark)
-                                - Avoid gender assumptions unless clearly performed/verifiable
-                                - Named individuals if recognizable
-
-                                Focus on observable information, not interpretation. Describe what can be seen, not what it might mean. If an aspect is not present do not mention it in your analysis'
-
-                        ],
-                        [
-                            'type' => 'image_url',
-                            'image_url' => [
-                                'url' => $imageUrl
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            'max_completion_tokens' => 2000,
-            'temperature' => 1
-        ]);
-
-        if ($response->successful()) {
-            $data = $response->json();
-
-            // Extract the content from the response
-            $messageContent = $data['choices'][0]['message']['content'] ?? null;
-
-            if (!$messageContent) {
-                throw new Exception('No content in response');
-            }
-
-            // Ensure all fields are properly formatted
-            return [
-                'caption' => $messageContent,
-            ];
-        }
-
-        $errorMessage = 'Failed to get image description';
-
-        if ($response->json() && isset($response->json()['error'])) {
-            $error = $response->json()['error'];
-            $errorMessage .= ': ' . ($error['message'] ?? json_encode($error));
-        } else {
-            $errorMessage .= ': ' . $response->body();
-        }
-
-        throw new Exception($errorMessage);
-    }
 
     protected function formatDescriptionText(array $description): string
     {
@@ -300,7 +193,7 @@ trait HandleEmbeddings
         );
     }
 
-    public function analyzeArtworkImage(Artwork $artwork, string $imageUrl): array
+    public function analyzeImage(Artwork $artwork, string $imageUrl): array
     {
         $this->info("\nPerforming image analysis...", OutputInterface::VERBOSITY_VERBOSE);
 
@@ -390,21 +283,21 @@ trait HandleEmbeddings
     }
 
     protected function saveTextEmbeddings(
-        Model $model,
+        Artwork $artwork,
         array $embedding,
-        string $imageUrl = null,
-        array $analysisResults = []
+        string $imageUrl,
+        array $analysisResults
     ): void {
         $this->saveEmbeddings(
-            modelName: app('Resources')->getEndpointForModel(get_class($model)),
-            modelId: $model->id,
+            modelName: "artworks",
+            modelId: $artwork->id,
             embedding: $embedding,
             type: 'text',
-            additionalData: array_filter([
-                'description' => $analysisResults['summarized'] ?? $model->copy ?? null,
+            additionalData: [
+                'description' => $analysisResults['summarized'],
                 'generated_at' => now()->toDateTimeString(),
                 'image_url' => $imageUrl,
-            ])
+            ]
         );
     }
 }

@@ -3,13 +3,12 @@
 namespace App\Console\Commands\AI;
 
 use App\Behaviors\HandleEmbeddings;
-use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
 use App\Services\VectorSearchService;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ImageSearch extends BaseCommand implements Thresholds
+class ImageSearch extends BaseCommand
 {
     use HandleEmbeddings;
 
