@@ -2,12 +2,15 @@
 
 namespace App\Services;
 
+use App\Models\Collections\Artwork;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
 use Pgvector\Laravel\Vector;
 use Exception;
 use Illuminate\Support\Facades\Cache;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class EmbeddingService
 {
@@ -262,5 +265,126 @@ class EmbeddingService
         }
 
         return trim($text);
+    }
+
+    public function buildImageUrl(Artwork $artwork): string
+    {
+        if (empty($artwork->getImageAttribute()?->netx_uuid)) {
+            throw new Exception("No image ID found for artwork {$artwork->id}");
+        }
+
+        return sprintf(
+            config('aic.config_documentation.iiif_url') . '/%s/full/full/0/default.jpg',
+            $artwork->getImageAttribute()->netx_uuid
+        );
+    }
+
+    public function analyzeImage(Artwork $artwork, string $imageUrl, Command $consoleCommand): array
+    {
+        $consoleCommand->info("\nPerforming image analysis...", OutputInterface::VERBOSITY_VERBOSE);
+
+        // Get image description
+        $generatedDescription = $this->getImageDescription($imageUrl);
+        $consoleCommand->info("Generated base description", OutputInterface::VERBOSITY_VERBOSE);
+
+        // Get AIC description if available
+        $aicDescription = $artwork->description;
+
+        // Summarize descriptions
+        $summarizedDescription = app('Descriptions')->summarizeImageDescription(
+            $aicDescription,
+            $generatedDescription
+        );
+        $consoleCommand->info("Generated summarized description", OutputInterface::VERBOSITY_VERBOSE);
+
+        return [
+            'generated' => $generatedDescription,
+            'original' => $aicDescription,
+            'summarized' => $summarizedDescription,
+        ];
+    }
+
+    public function processEmbeddings(
+        Artwork $artwork,
+        string $imageUrl,
+        array $analysisResults,
+        Command $consoleCommand
+    ): void {
+        $consoleCommand->info("\nProcessing embeddings...", OutputInterface::VERBOSITY_VERBOSE);
+
+        // Get and save image embeddings
+        $imageEmbeddingArray = $this->getImageEmbeddings($imageUrl);
+
+        $consoleCommand->info(
+            "Image embedding response type: " . gettype($imageEmbeddingArray),
+            OutputInterface::VERBOSITY_VERBOSE
+        );
+
+        if (is_array($imageEmbeddingArray)) {
+            $consoleCommand->info(
+                "Image embedding array count: " . count($imageEmbeddingArray),
+                OutputInterface::VERBOSITY_VERBOSE
+            );
+        }
+
+        try {
+            $this->saveImageEmbeddings($artwork, $imageEmbeddingArray, $imageUrl, $analysisResults);
+            $consoleCommand->info("Saved image embeddings", OutputInterface::VERBOSITY_VERBOSE);
+        } catch (\Exception $e) {
+            throw new Exception("Failed to save image embeddings: " . $e->getMessage());
+        }
+
+        // Get and save text embeddings
+        $consoleCommand->info("\nGetting text embeddings...", OutputInterface::VERBOSITY_VERBOSE);
+        $textEmbeddingArray = $this->getEmbeddings($analysisResults['summarized']);
+
+        try {
+            $this->saveTextEmbeddings($artwork, $textEmbeddingArray, $imageUrl, $analysisResults);
+            $consoleCommand->info("Saved text embeddings", OutputInterface::VERBOSITY_VERBOSE);
+        } catch (\Exception $e) {
+            throw new Exception("Failed to save text embeddings: " . $e->getMessage());
+        }
+    }
+
+    protected function saveImageEmbeddings(
+        Artwork $artwork,
+        array $embedding,
+        string $imageUrl,
+        array $analysisResults
+    ): void {
+        $this->saveEmbeddings(
+            modelName: "artworks",
+            modelId: $artwork->id,
+            embedding: $embedding,
+            type: 'image',
+            additionalData: [
+                'description_generation_data' => [
+                    'analysis_data' => $analysisResults['generated'],
+                    'aic_description' => $analysisResults['original'] ?? null,
+                ],
+                'description' => $analysisResults['summarized'],
+                'generated_at' => now()->toDateTimeString(),
+                'image_url' => $imageUrl,
+            ]
+        );
+    }
+
+    protected function saveTextEmbeddings(
+        Artwork $artwork,
+        array $embedding,
+        string $imageUrl,
+        array $analysisResults
+    ): void {
+        $this->saveEmbeddings(
+            modelName: "artworks",
+            modelId: $artwork->id,
+            embedding: $embedding,
+            type: 'text',
+            additionalData: [
+                'description' => $analysisResults['summarized'],
+                'generated_at' => now()->toDateTimeString(),
+                'image_url' => $imageUrl,
+            ]
+        );
     }
 }
