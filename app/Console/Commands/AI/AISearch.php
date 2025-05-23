@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands\AI;
 
+use App\Behaviors\HandleEmbeddings;
 use App\Console\Commands\BaseCommand;
 use App\Services\VectorSearchService;
-use App\Services\EmbeddingService;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
 use Illuminate\Support\Collection;
@@ -13,6 +13,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AISearch extends BaseCommand
 {
+    use HandleEmbeddings;
+
     protected $signature = 'ai:search
         {model=all : Model to search (all, artworks, articles, exhibitions)}
         {--type=semantic : Type of search (semantic, nearest_neighbor, similarity)}
@@ -26,15 +28,12 @@ class AISearch extends BaseCommand
     protected $description = 'Search content using vector embeddings';
 
     protected VectorSearchService $searchService;
-    protected EmbeddingService $embeddingService;
 
     public function __construct(
-        VectorSearchService $searchService,
-        EmbeddingService $embeddingService
+        VectorSearchService $searchService
     ) {
         parent::__construct();
         $this->searchService = $searchService;
-        $this->embeddingService = $embeddingService;
     }
 
     public function handle(): int
@@ -141,7 +140,7 @@ class AISearch extends BaseCommand
                 $query = $this->option('query') ?? $this->ask('Enter your search query:');
                 $this->info("\nUsing query: " . $query, OutputInterface::VERBOSITY_VERBOSE);
 
-                $embeddings = $this->embeddingService->getEmbeddings($query);
+                $embeddings = app('Embeddings')->getEmbeddings($query);
                 return $this->searchService->performSemanticSearch($model, $embeddings, $limit);
 
             case 'nearest_neighbor':

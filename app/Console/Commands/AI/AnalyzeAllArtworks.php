@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands\AI;
 
+use App\Behaviors\HandleEmbeddings;
 use App\Console\Commands\BaseCommand;
-use App\Services\EmbeddingService;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
 use Illuminate\Support\Facades\Log;
@@ -13,19 +13,18 @@ use Exception;
 
 class AnalyzeAllArtworks extends BaseCommand
 {
+    use HandleEmbeddings;
+
     protected $signature = 'ai:analyze-all {--days=30 : Number of days before re-analyzing artwork}
                                          {--start-id= : Start processing from this artwork ID}';
     protected $description = 'Analyze all artworks that need embeddings or haven\'t been analyzed recently';
 
-    protected EmbeddingService $embeddingService;
     protected DescriptionService $descriptionService;
 
     public function __construct(
-        EmbeddingService $embeddingService,
         DescriptionService $descriptionService
     ) {
         parent::__construct();
-        $this->embeddingService = $embeddingService;
         $this->descriptionService = $descriptionService;
     }
 
@@ -90,17 +89,7 @@ class AnalyzeAllArtworks extends BaseCommand
                     $bar->setMessage($artwork->id, 'id');
 
                     try {
-                        $this->info(
-                            "\nProcessing artwork: {$artwork->title} (ID: {$artwork->id})",
-                            OutputInterface::VERBOSITY_VERBOSE
-                        );
-
-                        $imageUrl = $this->buildImageUrl($artwork);
-                        $this->info("Image URL: {$imageUrl}", OutputInterface::VERBOSITY_VERBOSE);
-
-                        $analysisResults = $this->analyzeImage($artwork, $imageUrl);
-                        $this->processEmbeddings($artwork, $imageUrl, $analysisResults);
-
+                        $this->generateAndSaveArtworkEmbeddngs($artwork, $this);
                         $processed++;
                     } catch (Exception $e) {
                         $errors[] = [
@@ -108,16 +97,6 @@ class AnalyzeAllArtworks extends BaseCommand
                             'title' => $artwork->title,
                             'error' => $e->getMessage()
                         ];
-
-                        Log::error('Error processing artwork:', [
-                            'artwork_id' => $artwork->id,
-                            'message' => $e->getMessage(),
-                            'trace' => $e->getTraceAsString()
-                        ]);
-
-                        $this->error(
-                            "\nFailed processing artwork ID {$artwork->id}: {$e->getMessage()}"
-                        );
                     }
 
                     $bar->advance();
@@ -192,125 +171,5 @@ class AnalyzeAllArtworks extends BaseCommand
         }
 
         return $query->orderBy('id');
-    }
-
-    protected function buildImageUrl(Artwork $artwork): string
-    {
-        if (empty($artwork->getImageAttribute()?->netx_uuid)) {
-            throw new Exception("No image ID found for artwork {$artwork->id}");
-        }
-
-        return sprintf(
-            config('aic.config_documentation.iiif_url') . '/%s/full/full/0/default.jpg',
-            $artwork->getImageAttribute()->netx_uuid
-        );
-    }
-
-    protected function analyzeImage(Artwork $artwork, string $imageUrl): array
-    {
-        $this->info("\nPerforming image analysis...", OutputInterface::VERBOSITY_VERBOSE);
-
-        // Get image description
-        $generatedDescription = $this->embeddingService->getImageDescription($imageUrl);
-        $this->info("Generated base description", OutputInterface::VERBOSITY_VERBOSE);
-
-        // Get AIC description if available
-        $aicDescription = $artwork->description;
-
-        // Summarize descriptions
-        $summarizedDescription = $this->descriptionService->summarizeImageDescription(
-            $aicDescription,
-            $generatedDescription
-        );
-        $this->info("Generated summarized description", OutputInterface::VERBOSITY_VERBOSE);
-
-        return [
-            'generated' => $generatedDescription,
-            'original' => $aicDescription,
-            'summarized' => $summarizedDescription,
-        ];
-    }
-
-    protected function processEmbeddings(
-        Artwork $artwork,
-        string $imageUrl,
-        array $analysisResults
-    ): void {
-        $this->info("\nProcessing embeddings...", OutputInterface::VERBOSITY_VERBOSE);
-
-        // Get and save image embeddings
-        $imageEmbeddingArray = $this->embeddingService->getImageEmbeddings($imageUrl);
-
-        $this->info(
-            "Image embedding response type: " . gettype($imageEmbeddingArray),
-            OutputInterface::VERBOSITY_VERBOSE
-        );
-
-        if (is_array($imageEmbeddingArray)) {
-            $this->info(
-                "Image embedding array count: " . count($imageEmbeddingArray),
-                OutputInterface::VERBOSITY_VERBOSE
-            );
-        }
-
-        try {
-            $this->saveImageEmbeddings($artwork, $imageEmbeddingArray, $imageUrl, $analysisResults);
-            $this->info("Saved image embeddings", OutputInterface::VERBOSITY_VERBOSE);
-        } catch (\Exception $e) {
-            throw new Exception("Failed to save image embeddings: " . $e->getMessage());
-        }
-
-        // Get and save text embeddings
-        $this->info("\nGetting text embeddings...", OutputInterface::VERBOSITY_VERBOSE);
-        $textEmbeddingArray = $this->embeddingService->getEmbeddings($analysisResults['summarized']);
-
-        try {
-            $this->saveTextEmbeddings($artwork, $textEmbeddingArray, $imageUrl, $analysisResults);
-            $this->info("Saved text embeddings", OutputInterface::VERBOSITY_VERBOSE);
-        } catch (\Exception $e) {
-            throw new Exception("Failed to save text embeddings: " . $e->getMessage());
-        }
-    }
-
-    protected function saveImageEmbeddings(
-        Artwork $artwork,
-        array $embedding,
-        string $imageUrl,
-        array $analysisResults
-    ): void {
-        $this->embeddingService->saveEmbeddings(
-            modelName: "artworks",
-            modelId: $artwork->id,
-            embedding: $embedding,
-            type: 'image',
-            additionalData: [
-                'description_generation_data' => [
-                    'analysis_data' => $analysisResults['generated'],
-                    'aic_description' => $analysisResults['original'] ?? null,
-                ],
-                'description' => $analysisResults['summarized'],
-                'generated_at' => now()->toDateTimeString(),
-                'image_url' => $imageUrl,
-            ]
-        );
-    }
-
-    protected function saveTextEmbeddings(
-        Artwork $artwork,
-        array $embedding,
-        string $imageUrl,
-        array $analysisResults
-    ): void {
-        $this->embeddingService->saveEmbeddings(
-            modelName: "artworks",
-            modelId: $artwork->id,
-            embedding: $embedding,
-            type: 'text',
-            additionalData: [
-                'description' => $analysisResults['summarized'],
-                'generated_at' => now()->toDateTimeString(),
-                'image_url' => $imageUrl,
-            ]
-        );
     }
 }

@@ -3,20 +3,20 @@
 namespace App\Behaviors;
 
 use App\Models\Collections\Artwork;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
 use Pgvector\Laravel\Vector;
 use Exception;
-use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Console\Output\OutputInterface;
 
 trait HandleEmbeddings
 {
-    public static $CONFIDENCE_THRESHOLD_CAPTION = 0.7;
-    public static $CONFIDENCE_THRESHOLD_TAG = 0.9;
+    public const CONFIDENCE_THRESHOLD_CAPTION = 0.7;
+    public const CONFIDENCE_THRESHOLD_TAG = 0.9;
 
-    public function generateAndSaveArtworkEmbeddngs(Artwork $artwork): void
+    public function generateAndSaveArtworkEmbeddngs(Artwork $artwork)
     {
         try {
             $this->info(
@@ -27,7 +27,7 @@ trait HandleEmbeddings
             $imageUrl = $this->buildImageUrl($artwork);
             $this->info("Image URL: {$imageUrl}", OutputInterface::VERBOSITY_VERBOSE);
 
-            $analysisResults = $this->analyzeArtworkImage($artwork, $imageUrl);
+            $analysisResults = $this->analyzeImage($artwork, $imageUrl);
             $this->processEmbeddings($artwork, $imageUrl, $analysisResults);
         } catch (\Exception $e) {
             \Log::error('Error processing artwork:', [
@@ -38,33 +38,6 @@ trait HandleEmbeddings
 
             $this->error(
                 "\nFailed processing artwork ID {$artwork->id}: {$e->getMessage()}"
-            );
-        }
-    }
-
-    public function generateAndSaveWebEmbeddngs($item): void
-    {
-        try {
-            $this->info(
-                "\nProcessing web content: {$item->title} (ID: {$item->id})",
-                OutputInterface::VERBOSITY_VERBOSE
-            );
-
-            // Get and save text embeddings
-            $this->info("\nGetting text embeddings...", OutputInterface::VERBOSITY_VERBOSE);
-            $textEmbeddingArray = app('Embeddings')->getEmbeddings($item->copy);
-
-            $this->saveTextEmbeddings($item, $textEmbeddingArray);
-            $this->info("Saved text embeddings", OutputInterface::VERBOSITY_VERBOSE);
-        } catch (\Exception $e) {
-            \Log::error('Error processing artwork:', [
-                'artwork_id' => $item->id,
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-
-            $this->error(
-                "\nFailed processing artwork ID {$item->id}: {$e->getMessage()}"
             );
         }
     }
@@ -178,6 +151,7 @@ trait HandleEmbeddings
 
         throw new Exception('Failed to get image description: ' . app('Embeddings')->getResponseError($response->json()));
     }
+
     public function getLLMImageDescription(string $imageUrl): array
     {
         $response = Http::withHeaders([
@@ -273,7 +247,7 @@ trait HandleEmbeddings
 
         if (!empty($description['denseCaption'])) {
             foreach ($description['denseCaption'] as $caption) {
-                if (!empty($caption['text']) && ($caption['confidence'] ?? 0) > self::$CONFIDENCE_THRESHOLD_CAPTION) {
+                if (!empty($caption['text']) && ($caption['confidence'] ?? 0) > self::CONFIDENCE_THRESHOLD_CAPTION) {
                     $text .= $caption['text'] . ' ';
                 }
             }
@@ -281,7 +255,7 @@ trait HandleEmbeddings
 
         if (!empty($description['tags'])) {
             foreach ($description['tags'] as $tag) {
-                if (!empty($tag['name']) && ($tag['confidence'] ?? 0) > self::$CONFIDENCE_THRESHOLD_TAG) {
+                if (!empty($tag['name']) && ($tag['confidence'] ?? 0) > self::CONFIDENCE_THRESHOLD_TAG) {
                     $text .= $tag['name'] . ' ';
                 }
             }
@@ -302,7 +276,7 @@ trait HandleEmbeddings
         );
     }
 
-    public function analyzeArtworkImage(Artwork $artwork, string $imageUrl): array
+    public function analyzeImage(Artwork $artwork, string $imageUrl): array
     {
         $this->info("\nPerforming image analysis...", OutputInterface::VERBOSITY_VERBOSE);
 
@@ -392,21 +366,21 @@ trait HandleEmbeddings
     }
 
     protected function saveTextEmbeddings(
-        Model $model,
+        Artwork $artwork,
         array $embedding,
-        string $imageUrl = null,
-        array $analysisResults = []
+        string $imageUrl,
+        array $analysisResults
     ): void {
         $this->saveEmbeddings(
-            modelName: app('Resources')->getEndpointForModel(get_class($model)),
-            modelId: $model->id,
+            modelName: "artworks",
+            modelId: $artwork->id,
             embedding: $embedding,
             type: 'text',
-            additionalData: array_filter([
-                'description' => $analysisResults['summarized'] ?? $model->copy ?? null,
+            additionalData: [
+                'description' => $analysisResults['summarized'],
                 'generated_at' => now()->toDateTimeString(),
                 'image_url' => $imageUrl,
-            ])
+            ]
         );
     }
 }
