@@ -11,8 +11,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class VectorSearchService
 {
-    protected string $connection = 'vectors';
-
     public function getItem(string $model, int $id): array
     {
         $modelMap = [
@@ -36,8 +34,8 @@ class VectorSearchService
         $embeddings = collect(['text', 'image'])->mapWithKeys(function ($type) use ($model, $id) {
             $embeddingClass = $type === 'image' ? ImageEmbedding::class : TextEmbedding::class;
 
-            $embedding = $embeddingClass::on($this->connection)
-                ->where('model_name', $model)
+            $embedding = $embeddingClass
+                ::where('model_name', $model)
                 ->where('model_id', $id)
                 ->first();
 
@@ -66,8 +64,8 @@ class VectorSearchService
     {
         $searchVector = new Vector($embeddings);
 
-        $results = TextEmbedding::on($this->connection)
-            ->select([
+        $results = TextEmbedding
+            ::select([
                 '*',
                 DB::raw("embedding <-> '" . $searchVector . "' as distance")
             ])
@@ -92,13 +90,13 @@ class VectorSearchService
     {
         $embeddingClass = $model === 'artworks' ? ImageEmbedding::class : TextEmbedding::class;
 
-        $reference = $embeddingClass::on($this->connection)
-            ->where('model_name', $model)
+        $reference = $embeddingClass
+            ::where('model_name', $model)
             ->where('model_id', $id)
             ->firstOrFail();
 
-        return $embeddingClass::on($this->connection)
-            ->select([
+        return $embeddingClass
+            ::select([
                 '*',
                 DB::raw("embedding <-> '" . $reference->embedding . "' as distance")
             ])
@@ -119,14 +117,14 @@ class VectorSearchService
         return collect(['text', 'image'])->map(function ($type) use ($model, $id, $compareId) {
             $embeddingClass = $type === 'image' ? ImageEmbedding::class : TextEmbedding::class;
 
-            $embeddings = $embeddingClass::on($this->connection)
-                ->select('*')
+            $embeddings = $embeddingClass
+                ::select('*')
                 ->whereIn('model_id', [$id, $compareId])
                 ->where('model_name', $model)
                 ->get();
 
             if ($embeddings->count() === 2) {
-                $distance = DB::connection($this->connection)
+                $distance = DB::connection('vectors')
                     ->selectOne(
                         "SELECT (?::vector <-> ?::vector) as distance",
                         [
@@ -150,8 +148,8 @@ class VectorSearchService
 
     protected function loadImageEmbeddings(Collection $results, string $model): void
     {
-        $imageEmbeddings = ImageEmbedding::on($this->connection)
-            ->where('model_name', $model)
+        $imageEmbeddings = ImageEmbedding
+            ::where('model_name', $model)
             ->whereIn('model_id', $results->pluck('model_id'))
             ->get()
             ->keyBy('model_id');
