@@ -17,8 +17,6 @@ class EmbeddingService
     public const CONFIDENCE_THRESHOLD_CAPTION = 0.7;
     public const CONFIDENCE_THRESHOLD_TAG = 0.9;
 
-    protected string $connection = 'vectors';
-
     public function generateAndSaveArtworkEmbeddngs(Artwork $artwork, Command $consoleCommand)
     {
         try {
@@ -97,8 +95,7 @@ class EmbeddingService
         $embeddingModel = $type === 'text' ? TextEmbedding::class : ImageEmbedding::class;
         $version = config('azure.' . ($type === 'text' ? 'embedding' : 'image_embedding') . '.version');
 
-        $result = $embeddingModel::on($this->connection)
-            ->updateOrCreate(
+        $result = $embeddingModel::updateOrCreate(
                 [
                     'model_name' => $modelName,
                     'model_id' => $modelId,
@@ -132,8 +129,7 @@ class EmbeddingService
             'description_generated_at' => now()->toDateTimeString(),
         ];
 
-        $imageEmbedding = ImageEmbedding::on($this->connection)
-            ->updateOrCreate(
+        $imageEmbedding = ImageEmbedding::updateOrCreate(
                 [
                     'model_name' => $modelName,
                     'model_id' => $artworkId,
