@@ -77,6 +77,27 @@ class ImportCollectionsFull extends AbstractImportCommand
     }
 
     /**
+     * If an artwork was updated, and if the primary image was updated, reimport the
+     * image embeddings.
+     *
+     * @param \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function afterSave($resource)
+    {
+        if (get_class($resource) == \App\Models\Collections\Artwork::class) {
+            // If the primary image was updated in the last five minute,
+            // or if this artwork doesn't have either of the embeddings,
+            // retrieve fresh embeddings
+            if (!$resource->imageEmbedding || !$resource->textEmbedding || ($resource->image && $resource->image->source_updated_at > now()->subMinutes(5))) {
+                app('Embeddings')->generateAndSaveArtworkEmbeddngs($resource, $this);
+            }
+        }
+        return $resource;
+    }
+
+
+    /**
      * This method will take an array of ids and return an array of URLs to the CDS API,
      * which utilize the `?ids=a,b,c` syntax. It'll iterate on chunking the ids until the
      * URLs it generates all satisfy a reasonable length criteria (600 chars).
