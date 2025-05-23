@@ -46,6 +46,32 @@ class EmbeddingService
         ];
     }
 
+    public function generateAndSaveArtworkEmbeddngs(Artwork $artwork, Command $consoleCommand)
+    {
+        try {
+            $consoleCommand->info(
+                "\nProcessing artwork: {$artwork->title} (ID: {$artwork->id})",
+                OutputInterface::VERBOSITY_VERBOSE
+            );
+
+            $imageUrl = app('Embeddings')->buildImageUrl($artwork);
+            $consoleCommand->info("Image URL: {$imageUrl}", OutputInterface::VERBOSITY_VERBOSE);
+
+            $analysisResults = app('Embeddings')->analyzeImage($artwork, $imageUrl, $consoleCommand);
+            app('Embeddings')->processEmbeddings($artwork, $imageUrl, $analysisResults, $consoleCommand);
+        } catch (\Exception $e) {
+            \Log::error('Error processing artwork:', [
+                'artwork_id' => $artwork->id,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            $consoleCommand->error(
+                "\nFailed processing artwork ID {$artwork->id}: {$e->getMessage()}"
+            );
+        }
+    }
+
     public function getEmbeddings(string $input): ?array
     {
         return Cache::remember(
