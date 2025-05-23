@@ -336,11 +336,24 @@ trait ImportsData
             $syncs = $transformer->sync($resource, $datum);
 
             $resource->save();
+            $this->afterSave($resource);
         }
 
         // For debugging ids and titles:
         // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");
 
+        return $resource;
+    }
+
+    /**
+     * If an import process needs to do anything after a resource has been sucessfully imported
+     * do it here.
+     *
+     * @param \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function afterSave($resource)
+    {
         return $resource;
     }
 
