@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AzureAIController extends Controller
 {
-    protected string $connection = 'vectors';
     protected EmbeddingService $embeddingService;
     protected VectorSearchService $searchService;
 
