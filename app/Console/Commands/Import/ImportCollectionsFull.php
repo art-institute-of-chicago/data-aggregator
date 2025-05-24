@@ -93,7 +93,7 @@ class ImportCollectionsFull extends AbstractImportCommand
             // If the primary image was updated in the last five minute,
             // or if this artwork doesn't have either of the embeddings,
             // retrieve fresh embeddings
-            if (!$resource->imageEmbedding || !$resource->textEmbedding || $resource?->image->source_updated_at > now()->subMinutes(5)) {
+            if (!$resource->imageEmbedding || !$resource->textEmbedding || $resource?->image?->source_updated_at > now()->subMinutes(5)) {
                 $this->generateAndSaveArtworkEmbeddngs($resource, $this);
             }
         }
