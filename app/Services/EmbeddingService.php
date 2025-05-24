@@ -14,7 +14,6 @@ class EmbeddingService
             "embedding:search:" . md5($input),
             now()->addDays(7),
             function () use ($input) {
-                \Log::info('making call to Azure');
                 $response = Http::withHeaders([
                     'Content-Type' => 'application/json',
                     'api-key' => config('azure.embedding.key'),
@@ -27,7 +26,7 @@ class EmbeddingService
                     return $response->json()['data'][0]['embedding'] ?? null;
                 }
 
-                throw new Exception('Failed to get embeddings: ' . $response->json()['error'] ?? 'Unknown error');
+                throw new Exception('Failed to get embeddings: ' . $response->json()['error']['message'] ?? $response->json()['error'] ?? 'Unknown error');
             }
         );
     }
@@ -44,7 +43,7 @@ class EmbeddingService
             return $response->json()['vector'] ?? null;
         }
 
-        throw new Exception('Failed to get image embeddings: ' . $response->json()['error'] ?? 'Unknown error');
+        throw new Exception('Failed to get image embeddings: ' . $response->json()['error']['message'] ?? $response->json()['error'] ?? 'Unknown error');
     }
 
     public function normalizeQuery(string $input): string
@@ -87,6 +86,6 @@ class EmbeddingService
             return $response->json()['choices'][0]['message']['content'] ?? '';
         }
 
-        throw new Exception('Failed to get completions: ' . $response->json()['error'] ?? 'Unknown error');
+        throw new Exception('Failed to get completions: ' . $response->json()['error']['message'] ?? $response->json()['error'] ?? 'Unknown error');
     }
 }
