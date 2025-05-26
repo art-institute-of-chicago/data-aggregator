@@ -149,7 +149,7 @@ trait HandleEmbeddings
             ];
         }
 
-        throw new Exception('Failed to get image description: ' . $response->json()['message'] ?? 'Unknown error');
+        throw new Exception('Failed to get image description: ' . app('Embeddings')->getResponseError($response->json()));
     }
 
 
