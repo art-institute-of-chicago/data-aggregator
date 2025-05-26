@@ -26,7 +26,7 @@ class EmbeddingService
                     return $response->json()['data'][0]['embedding'] ?? null;
                 }
 
-                throw new Exception('Failed to get embeddings: ' . $response->json()['error']['message'] ?? $response->json()['error'] ?? 'Unknown error');
+                throw new Exception('Failed to get embeddings: ' . $this->getResponseError($response->json()));
             }
         );
     }
@@ -43,7 +43,7 @@ class EmbeddingService
             return $response->json()['vector'] ?? null;
         }
 
-        throw new Exception('Failed to get image embeddings: ' . $response->json()['error']['message'] ?? $response->json()['error'] ?? 'Unknown error');
+        throw new Exception('Failed to get image embeddings: ' . $this->getResponseError($response->json()));
     }
 
     public function normalizeQuery(string $input): string
@@ -86,6 +86,13 @@ class EmbeddingService
             return $response->json()['choices'][0]['message']['content'] ?? '';
         }
 
-        throw new Exception('Failed to get completions: ' . $response->json()['error']['message'] ?? $response->json()['error'] ?? 'Unknown error');
+        throw new Exception('Failed to get completions: ' . $this->getResponseError($response->json()));
+    }
+
+    public function getResponseError($res) {
+        if (isset($res['error']['message'])) return $res['error']['message'];
+        if (isset($res['error'])) return $res['error'];
+        if (isset($res['message'])) return $res['message'];
+        return 'Unknown error';
     }
 }
