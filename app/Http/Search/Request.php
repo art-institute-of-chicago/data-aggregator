@@ -655,19 +655,15 @@ class Request
      */
     public function addScriptParam($params, $input)
     {
-        if ($input['q']) {
-            $queryVector = app('Embeddings')->getEmbeddings($input['q']);
+        $queryVector = app('Embeddings')->getEmbeddings($input['q']);
 
-            // The `cosineSimilarity()` function here is a built-in Elasticsearch function that calculates the measure of similarity between a given query vector and document vectors.
-            $params['body']['query']['script_score']['script'] = [
-                'source' => "if (doc['text_embedding'].size() == 0) { return 0; } else { return cosineSimilarity(params.query_vector, 'text_embedding') + 1.0; }",
-                'params' => [
-                    'query_vector' => $queryVector,
-                ],
-            ];
-        } else {
-            $params['body']['query']['script_score']['script']['source'] = '_score';
-        }
+        // The `cosineSimilarity()` function here is a built-in Elasticsearch function that calculates the measure of similarity between a given query vector and document vectors.
+        $params['body']['query']['script_score']['script'] = [
+            'source' => "double base_score = _score; double vector_score = 0; if (doc['text_embedding'].size() > 0) { vector_score = cosineSimilarity(params.query_vector, 'text_embedding') + 1.0; } double boost_multiplier = 1.0; if (doc['is_boosted'].size() > 0 && doc['is_boosted'].value == true) { boost_multiplier = 1.5; } return (base_score + vector_score) * boost_multiplier;",
+            'params' => [
+                'query_vector' => $queryVector,
+            ],
+        ];
 
         return $params;
     }
