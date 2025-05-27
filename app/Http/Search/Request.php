@@ -667,7 +667,7 @@ class Request
                 ],
             ];
         } else {
-            $params['body']['query']['script_score']['script']['source'] = 'return 1.0;';
+            $params['body']['query']['script_score']['script']['source'] = '_score';
         }
 
         return $params;
