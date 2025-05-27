@@ -2,12 +2,17 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Exception;
-use Illuminate\Support\Facades\Cache;
 
 class EmbeddingService
 {
+    public const COMPLETIONS_MAX_RETRIES = 5;
+    public const COMPLETIONS_MAX_DELAY = 32000; // 32 seconds
+    public const COMPLETIONS_BASE_DELAY = 1000; // 1 second
+    public const COMPLETIONS_BACKOFF_MULTIPLIER = 2;
+
     public function getEmbeddings(string $input): ?array
     {
         return Cache::remember(
@@ -71,28 +76,82 @@ class EmbeddingService
 
     public function getCompletions(string $input): string
     {
-        $response = Http::withHeaders([
-            'api-key' => config('azure.completion.key')
-        ])->post(config('azure.completion.endpoint'), [
-            'messages' => [
-                [
-                    'role' => 'user',
-                    'content' => $input
+        $attempt = 0;
+        $response = null;
+        while ($attempt <= self::COMPLETIONS_MAX_RETRIES) {
+            $response = Http::withHeaders([
+                'api-key' => config('azure.completion.key')
+            ])->post(config('azure.completion.endpoint'), [
+                'messages' => [
+                    [
+                        'role' => 'user',
+                        'content' => $input
+                    ]
                 ]
-            ]
-        ]);
+            ]);
 
-        if ($response->successful()) {
-            return $response->json()['choices'][0]['message']['content'] ?? '';
+            if ($response->successful()) {
+                return $response->json()['choices'][0]['message']['content'] ?? '';
+            }
+
+            if ($response->status() === 429) {
+                $attempt++;
+
+                if ($attempt > self::COMPLETIONS_MAX_RETRIES) {
+                    break;
+                }
+
+                $delay = $this->calculateDelay($attempt, $response);
+
+                \Log::warning("Rate limit hit, retrying in {$delay}ms", [
+                    'attempt' => $attempt,
+                    'max_retries' => self::COMPLETIONS_MAX_RETRIES,
+                    'response_body' => $response->json()
+                ]);
+
+                usleep($delay * 1000); // Convert ms to microseconds
+                continue;
+            }
+
+            throw new Exception('Failed to get completions: ' . $this->getResponseError($response->json()));
         }
 
-        throw new Exception('Failed to get completions: ' . $this->getResponseError($response->json()));
+        throw new Exception('Maximum retries to get completions exceeded: ' . $this->getResponseError($response->json()));
     }
 
-    public function getResponseError($res) {
+    public function getResponseError($res): string
+    {
         if (isset($res['error']['message'])) return $res['error']['message'];
         if (isset($res['error'])) return $res['error'];
         if (isset($res['message'])) return $res['message'];
         return 'Unknown error';
+    }
+
+    private function calculateDelay(int $attempt, $response = null): int
+    {
+        if ($response && $response->header('Retry-After')) {
+            $retryAfter = (int) $response->header('Retry-After');
+            return min($retryAfter * 1000, self::COMPLETIONS_MAX_DELAY);
+        }
+
+        if ($response) {
+            $body = $response->json();
+            if (isset($body['error']['message'])) {
+                preg_match('/retry after (\d+) seconds?/', $body['error']['message'], $matches);
+                if (!empty($matches[1])) {
+                    $suggestedDelay = (int) $matches[1] * 1000;
+                    return min($suggestedDelay, self::COMPLETIONS_MAX_DELAY);
+                }
+            }
+        }
+
+        // Exponential backoff with jitter
+        $exponentialDelay = self::COMPLETIONS_BASE_DELAY * pow(self::COMPLETIONS_BACKOFF_MULTIPLIER, $attempt - 1);
+
+        // Add jitter (+/- 25% randomization)
+        $jitter = $exponentialDelay * 0.25 * (mt_rand() / mt_getrandmax() * 2 - 1);
+        $finalDelay = $exponentialDelay + $jitter;
+
+        return min((int) $finalDelay, self::COMPLETIONS_MAX_DELAY);
     }
 }
