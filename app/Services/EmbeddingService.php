@@ -121,9 +121,15 @@ class EmbeddingService
 
     public function getResponseError($res): string
     {
-        if (isset($res['error']['message'])) return $res['error']['message'];
-        if (isset($res['error'])) return $res['error'];
-        if (isset($res['message'])) return $res['message'];
+        if (isset($res['error']['message'])) {
+            return $res['error']['message'];
+        }
+        if (isset($res['error'])) {
+            return $res['error'];
+        }
+        if (isset($res['message'])) {
+            return $res['message'];
+        }
         return 'Unknown error';
     }
 
