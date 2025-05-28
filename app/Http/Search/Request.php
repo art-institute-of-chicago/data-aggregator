@@ -387,7 +387,7 @@ class Request
      *
      * @return array
      */
-    public static function getValidInput(array|null $input = null)
+    public static function getValidInput(?array $input = null)
     {
         // Grab all user input (query string params or json)
         $input = $input ?: RequestFacade::all();
@@ -950,7 +950,7 @@ class Request
         return $params;
     }
 
-    private function getFuzzy(array $input, string|null $query = null, $isExact = false)
+    private function getFuzzy(array $input, ?string $query = null, $isExact = false)
     {
         if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7) {
             return 0;
