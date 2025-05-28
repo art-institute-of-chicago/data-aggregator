@@ -13,8 +13,12 @@ class EmbeddingService
     public const COMPLETIONS_BASE_DELAY = 1000; // 1 second
     public const COMPLETIONS_BACKOFF_MULTIPLIER = 2;
 
-    public function getEmbeddings(string $input): ?array
+    public function getEmbeddings(?string $input): ?array
     {
+        if (!$input) {
+            return [];
+        }
+
         return Cache::remember(
             "embedding:search:" . md5($input),
             now()->addDays(7),
