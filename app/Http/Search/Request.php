@@ -302,7 +302,6 @@ class Request
         );
 
         // This is the canonical body structure. It is required.
-        // Various
         $params['body'] = [
             'track_total_hits' => true,
             'query' => [
@@ -388,7 +387,7 @@ class Request
      *
      * @return array
      */
-    public static function getValidInput(array $input = null)
+    public static function getValidInput(?array $input = null)
     {
         // Grab all user input (query string params or json)
         $input = $input ?: RequestFacade::all();
@@ -656,19 +655,32 @@ class Request
      */
     public function addScriptParam($params, $input)
     {
-        if ($input['q']) {
-            $queryVector = app('Embeddings')->getEmbeddings($input['q']);
+        $queryVector = app('Embeddings')->getEmbeddings($input['q']);
 
-            // The `cosineSimilarity()` function here is a built-in Elasticsearch function that calculates the measure of similarity between a given query vector and document vectors.
-            $params['body']['query']['script_score']['script'] = [
-                'source' => "if (doc['text_embedding'].size() == 0) { return 0; } else { return cosineSimilarity(params.query_vector, 'text_embedding') + 1.0; }",
-                'params' => [
-                    'query_vector' => $queryVector,
-                ],
-            ];
-        } else {
-            $params['body']['query']['script_score']['script']['source'] = 'return 1.0;';
-        }
+        // The `cosineSimilarity()` function here is a built-in Elasticsearch function that calculates the measure of similarity between a given query vector and document vectors.
+        $params['body']['query']['script_score']['script'] = [
+            'source' => <<<'SOURCE'
+                double vector_score = 0;
+                if (doc['text_embedding'].size() > 0 && params.query_vector != null && params.query_vector.length > 0) {
+                    vector_score = cosineSimilarity(params.query_vector, 'text_embedding') + 1.0;
+                }
+
+                double boost_multiplier = 1.0;
+                if (doc['is_boosted'].size() > 0 && doc['is_boosted'].value == true) {
+                    boost_multiplier = 1.02;
+                }
+
+                if (params.query_vector != null && params.query_vector.length > 0) {
+                    return vector_score * boost_multiplier;
+                }
+                else {
+                    return _score;
+                }
+                SOURCE,
+            'params' => [
+                'query_vector' => $queryVector,
+            ],
+        ];
 
         return $params;
     }
@@ -955,7 +967,7 @@ class Request
         return $params;
     }
 
-    private function getFuzzy(array $input, string $query = null, $isExact = false)
+    private function getFuzzy(array $input, ?string $query = null, $isExact = false)
     {
         if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7) {
             return 0;
