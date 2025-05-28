@@ -669,7 +669,13 @@ class Request
                 if (doc['is_boosted'].size() > 0 && doc['is_boosted'].value == true) {
                     boost_multiplier = 1.02;
                 }
-                return vector_score * boost_multiplier;
+
+                if (params.query_vector != null && params.query_vector.length > 0) {
+                    return vector_score * boost_multiplier;
+                }
+                else {
+                    return _score;
+                }
                 SOURCE,
             'params' => [
                 'query_vector' => $queryVector,
