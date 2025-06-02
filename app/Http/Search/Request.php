@@ -661,12 +661,12 @@ class Request
         $params['body']['query']['script_score']['script'] = [
             'source' => <<<'SOURCE'
                 double vector_score = 0;
-                if (doc['text_embedding'].size() > 0 && params.query_vector != null && params.query_vector.length > 0) {
+                if (doc.containsKey('text_embedding) && doc['text_embedding'] && doc['text_embedding'].size() > 0 && params.query_vector != null && params.query_vector.length > 0) {
                     vector_score = cosineSimilarity(params.query_vector, 'text_embedding') + 1.0;
                 }
 
                 double boost_multiplier = 1.0;
-                if (doc['is_boosted'].size() > 0 && doc['is_boosted'].value == true) {
+                if (doc.containsKey('is_boosted') && doc['is_boosted'].size() > 0 && doc['is_boosted'].value == true) {
                     boost_multiplier = 1.02;
                 }
 
