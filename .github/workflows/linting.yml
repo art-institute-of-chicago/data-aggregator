@@ -2,7 +2,7 @@ name: Linting
 on: [push]
 jobs:
     lint:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-latest
         steps:
             - name: Install PHP
               uses: shivammathur/setup-php@v2
