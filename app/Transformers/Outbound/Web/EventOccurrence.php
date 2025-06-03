@@ -60,6 +60,11 @@ class EventOccurrence extends BaseTransformer
                 },
             ],
             */
+            'is_ticketed' => [
+                'doc' => 'Whether a ticket is required to attend the event',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+            ],
             'is_private' => [
                 'doc' => 'Whether the event is private. Private events should be omitted from listings.',
                 'type' => 'boolean',
