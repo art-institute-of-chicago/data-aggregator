@@ -1,0 +1,14 @@
+/*! fontfaceonload - v1.0.2 - 2017-06-28
+ * https://github.com/zachleat/fontfaceonload
+ * Copyright (c) 2017 Zach Leatherman (@zachleat)
+ * MIT License */
+
+//! Built on 2017-09-19
+
+//! Git commit: v2.3.1-0-08414cd
+
+//! License: http://openseadragon.github.io/license/
+
+//! http://openseadragon.github.io
+
+//! openseadragon 2.3.1
