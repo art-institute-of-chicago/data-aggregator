@@ -25,6 +25,11 @@ class EventOccurrence extends WebModel
         return $this->belongsTo('App\Models\Membership\Event');
     }
 
+    public function ticketedEvent()
+    {
+        return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'id');
+    }
+
     public static function validateId($id)
     {
         return Uuid::isValid($id);

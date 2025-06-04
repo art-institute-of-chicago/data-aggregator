@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::table('event_occurrences', function (Blueprint $table) {
             $table->boolean('is_sales_button_hidden')->default(false);
+            $table->integer('ticketed_event_id')->unsigned()->nullable();
         });
     }
 
@@ -17,6 +18,7 @@ return new class extends Migration
     {
         Schema::table('event_occurrences', function (Blueprint $table) {
             $table->dropColumn('is_sales_button_hidden');
+            $table->dropColumn('ticketed_event_id');
         });
     }
 };
