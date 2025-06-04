@@ -14,6 +14,7 @@ class EventOccurrence extends WebModel
 
     protected $casts = [
         'is_private' => 'boolean',
+        'is_ticketed' => 'boolean',
         'start_at' => 'datetime',
         'end_at' => 'datetime',
     ];
