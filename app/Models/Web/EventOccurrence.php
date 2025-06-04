@@ -15,6 +15,7 @@ class EventOccurrence extends WebModel
     protected $casts = [
         'is_private' => 'boolean',
         'is_ticketed' => 'boolean',
+        'is_sales_button_hidden' => 'boolean',
         'start_at' => 'datetime',
         'end_at' => 'datetime',
     ];
@@ -22,6 +23,11 @@ class EventOccurrence extends WebModel
     public function event()
     {
         return $this->belongsTo('App\Models\Membership\Event');
+    }
+
+    public function ticketedEvent()
+    {
+        return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'id');
     }
 
     public static function validateId($id)

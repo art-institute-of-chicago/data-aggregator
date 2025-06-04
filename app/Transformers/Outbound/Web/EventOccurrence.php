@@ -82,6 +82,24 @@ class EventOccurrence extends BaseTransformer
                 'elasticsearch' => 'date',
                 'value' => $this->getDateValue('end_at'),
             ],
+            'on_sale_at' => [
+                'doc' => 'Date and time the event goes on sale',
+                'type' => 'ISO 8601 date and time',
+                'elasticsearch' => 'date',
+                'value' => function ($item) {
+                    return $item->ticketedEvent?->on_sale_at ? $item->ticketedEvent->on_sale_at->toIso8601String() : null;
+                },
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
+            ],
+            'off_sale_at' => [
+                'doc' => 'Date and time the event goes off sale',
+                'type' => 'ISO 8601 date and time',
+                'elasticsearch' => 'date',
+                'value' => function ($item) {
+                    return $item->ticketedEvent?->off_sale_at ? $item->ticketedEvent->off_sale_at->toIso8601String() : null;
+                },
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
+            ],
             'location' => [
                 'doc' => 'Where the event takes place',
                 'type' => 'string',
