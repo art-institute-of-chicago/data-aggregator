@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\EmbeddingService;
 use App\Services\VectorSearchService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

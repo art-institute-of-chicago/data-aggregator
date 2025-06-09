@@ -60,6 +60,11 @@ class EventOccurrence extends BaseTransformer
                 },
             ],
             */
+            'is_ticketed' => [
+                'doc' => 'Whether a ticket is required to attend the event',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+            ],
             'is_private' => [
                 'doc' => 'Whether the event is private. Private events should be omitted from listings.',
                 'type' => 'boolean',
@@ -76,6 +81,24 @@ class EventOccurrence extends BaseTransformer
                 'type' => 'ISO 8601 date and time',
                 'elasticsearch' => 'date',
                 'value' => $this->getDateValue('end_at'),
+            ],
+            'on_sale_at' => [
+                'doc' => 'Date and time the event goes on sale',
+                'type' => 'ISO 8601 date and time',
+                'elasticsearch' => 'date',
+                'value' => function ($item) {
+                    return $item->ticketedEvent?->on_sale_at ? $item->ticketedEvent->on_sale_at->toIso8601String() : null;
+                },
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
+            ],
+            'off_sale_at' => [
+                'doc' => 'Date and time the event goes off sale',
+                'type' => 'ISO 8601 date and time',
+                'elasticsearch' => 'date',
+                'value' => function ($item) {
+                    return $item->ticketedEvent?->off_sale_at ? $item->ticketedEvent->off_sale_at->toIso8601String() : null;
+                },
+                'is_restricted' => self::RESTRICTED_IN_DUMP,
             ],
             'location' => [
                 'doc' => 'Where the event takes place',
