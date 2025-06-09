@@ -121,7 +121,7 @@ class AzureAIController extends Controller
                 'results' => $results->map(function ($item) {
                     return [
                         'id' => $item->model_id,
-                        'url' => 'https://artic.edu/artworks/'. $item->model_id,
+                        'url' => 'https://artic.edu/artworks/' . $item->model_id,
                         'distance' => round($item->distance, 4),
                         'similarity_score' => round(1 - $item->distance, 4),
                         'embedding_type' => $item->embedding_type,
@@ -131,7 +131,6 @@ class AzureAIController extends Controller
                     ];
                 })->sortBy('distance')->values()
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Failed to process image search',
