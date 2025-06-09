@@ -38,7 +38,6 @@ class AnalyzeAllWeb extends BaseCommand
             $this->analyzeModels();
             $this->info('Imported all web CMS content!');
         }
-
     }
 
     protected function analyzeModels()
