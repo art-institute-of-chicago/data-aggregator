@@ -42,6 +42,37 @@ trait HandleEmbeddings
         }
     }
 
+    public function generateAndSaveWebEmbeddngs($item): void
+    {
+        try {
+            $this->info(
+                "\nProcessing web content: {$item->title} (ID: {$item->id})",
+                OutputInterface::VERBOSITY_VERBOSE
+            );
+
+            // Get and save text embeddings
+            $this->info("\nGetting text embeddings...", OutputInterface::VERBOSITY_VERBOSE);
+            $textEmbeddingArray = app('Embeddings')->getEmbeddings($item->copy);
+
+            try {
+                $this->saveTextEmbeddings($item, $textEmbeddingArray);
+                $this->info("Saved text embeddings", OutputInterface::VERBOSITY_VERBOSE);
+            } catch (\Exception $e) {
+                throw new Exception("Failed to save text embeddings: " . $e->getMessage());
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error processing artwork:', [
+                'artwork_id' => $item->id,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            $this->error(
+                "\nFailed processing artwork ID {$item->id}: {$e->getMessage()}"
+            );
+        }
+    }
+
     public function saveEmbeddings(
         string $modelName,
         int $modelId,
