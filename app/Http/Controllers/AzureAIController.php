@@ -3,21 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\EmbeddingService;
 use App\Services\VectorSearchService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AzureAIController extends Controller
 {
     protected VectorSearchService $searchService;
-    protected EmbeddingService $embeddingService;
 
     public function __construct(
-        VectorSearchService $searchService,
-        EmbeddingService $embeddingService
+        VectorSearchService $searchService
     ) {
         $this->searchService = $searchService;
-        $this->embeddingService = $embeddingService;
     }
 
     public function show()
@@ -103,7 +99,7 @@ class AzureAIController extends Controller
             $limit = $request->input('limit', 10);
 
             // Generate embeddings for the provided image URL
-            $imageEmbeddings = $this->embeddingService->getImageEmbeddings($imageUrl);
+            $imageEmbeddings = app('Embeddings')->getImageEmbeddings($imageUrl);
 
             if (!$imageEmbeddings) {
                 return response()->json([
