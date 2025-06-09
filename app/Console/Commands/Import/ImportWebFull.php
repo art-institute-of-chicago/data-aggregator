@@ -19,15 +19,9 @@ use App\Models\Web\DigitalPublication;
 use App\Models\Web\DigitalPublicationArticle;
 use App\Models\Web\PrintedPublication;
 use App\Models\Web\StaticPage;
-use App\Behaviors\HandleEmbeddings;
-use App\Behaviors\Thresholds;
 
-class ImportWebFull extends AbstractImportCommand implements Thresholds
+class ImportWebFull extends AbstractImportCommand
 {
-    use HandleEmbeddings;
-
-    protected $zeroTrustAuth = true;
-
     protected $signature = 'import:web-full
                             {endpoint? : Endpoint on dataservice to query, e.g. `events`}
                             {page? : Page to begin importing from}
@@ -143,15 +137,13 @@ class ImportWebFull extends AbstractImportCommand implements Thresholds
      */
     protected function afterSave($resource)
     {
-        if (
-            in_array(get_class($resource), [
+        if (in_array(get_class($resource), [
             \App\Models\Web\Article::class,
             \App\Models\Web\Highlight::class,
             \App\Models\Web\LandingPage::class,
             \App\Models\Web\DigitalPublicationArticle::class,
             \App\Models\Web\PrintedPublication::class,
-            ])
-        ) {
+        ])) {
             $this->generateAndSaveWebEmbeddngs($resource, $this);
         }
         return $resource;
