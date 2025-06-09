@@ -4,18 +4,16 @@ namespace App\Console\Commands\AI;
 
 use App\Behaviors\HandleEmbeddings;
 use App\Behaviors\ImportsData;
-use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Sleep;
 use Symfony\Component\Console\Output\OutputInterface;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 
-class AnalyzeAllWeb extends BaseCommand implements Thresholds
+class AnalyzeAllWeb extends BaseCommand
 {
     use HandleEmbeddings;
     use ImportsData;
@@ -27,8 +25,6 @@ class AnalyzeAllWeb extends BaseCommand implements Thresholds
 
     public function handle()
     {
-        $this->sleepFor = 1 / 10;  // 0.1 seconds or 100 milliseconds
-
         $this->info($this->getAicLogo(), OutputInterface::VERBOSITY_VERBOSE);
 
         $this->api = config('resources.sources.web');
@@ -42,6 +38,7 @@ class AnalyzeAllWeb extends BaseCommand implements Thresholds
             $this->analyzeModels();
             $this->info('Imported all web CMS content!');
         }
+
     }
 
     protected function analyzeModels()
@@ -76,6 +73,6 @@ class AnalyzeAllWeb extends BaseCommand implements Thresholds
             }
         });
 
-        Sleep::for($this->sleepFor)->seconds();
+        usleep($this->sleepFor * 10000);
     }
 }
