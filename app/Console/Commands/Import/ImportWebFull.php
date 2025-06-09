@@ -137,13 +137,15 @@ class ImportWebFull extends AbstractImportCommand
      */
     protected function afterSave($resource)
     {
-        if (in_array(get_class($resource), [
+        if (
+            in_array(get_class($resource), [
             \App\Models\Web\Article::class,
             \App\Models\Web\Highlight::class,
             \App\Models\Web\LandingPage::class,
             \App\Models\Web\DigitalPublicationArticle::class,
             \App\Models\Web\PrintedPublication::class,
-        ])) {
+            ])
+        ) {
             $this->generateAndSaveWebEmbeddngs($resource, $this);
         }
         return $resource;
