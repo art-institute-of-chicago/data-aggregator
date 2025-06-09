@@ -15,8 +15,8 @@ class AnalyzeAllArtworks extends BaseCommand
 {
     use HandleEmbeddings;
 
-    protected $signature = 'ai:analyze-all {--days=30 : Number of days before re-analyzing artwork}
-                                         {--start-id= : Start processing from this artwork ID}';
+    protected $signature = 'ai:analyze-all-artworks {--days=30 : Number of days before re-analyzing artwork}
+                                                    {--start-id= : Start processing from this artwork ID}';
     protected $description = 'Analyze all artworks that need embeddings or haven\'t been analyzed recently';
 
     protected DescriptionService $descriptionService;
