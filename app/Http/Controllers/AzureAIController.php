@@ -91,6 +91,54 @@ class AzureAIController extends Controller
         }
     }
 
+    public function findImageNearestNeighbors(Request $request): JsonResponse
+    {
+        try {
+            $imageUrl = $request->input('image_url');
+            $model = $request->input('model', 'artworks');
+            $limit = $request->input('limit', 10);
+
+            // Generate embeddings for the provided image URL
+            $imageEmbeddings = app('Embeddings')->getImageEmbeddings($imageUrl);
+
+            if (!$imageEmbeddings) {
+                return response()->json([
+                    'error' => 'Failed to generate embeddings for the provided image'
+                ], 400);
+            }
+
+            // Find nearest neighbors using the generated embeddings
+            $results = $this->searchService->findImageNearestNeighbors(
+                $model,
+                $imageEmbeddings,
+                $limit
+            );
+
+            return response()->json([
+                'count' => $results->count(),
+                'query_image_url' => $imageUrl,
+                'model' => $model,
+                'results' => $results->map(function ($item) {
+                    return [
+                        'id' => $item->model_id,
+                        'url' => 'https://artic.edu/artworks/' . $item->model_id,
+                        'distance' => round($item->distance, 4),
+                        'similarity_score' => round(1 - $item->distance, 4),
+                        'embedding_type' => $item->embedding_type,
+                        'model_data' => $item->model_data ?? null,
+                        'created_at' => $item->created_at,
+                        'updated_at' => $item->updated_at
+                    ];
+                })->sortBy('distance')->values()
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to process image search',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     protected function handleError(\Exception $e): JsonResponse
     {
         return response()->json([
