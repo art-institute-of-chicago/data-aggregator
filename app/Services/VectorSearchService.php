@@ -141,6 +141,44 @@ class VectorSearchService
         })->filter();
     }
 
+    public function findImageNearestNeighbors(string $model, array $embeddings, int $limit): Collection
+    {
+        $searchVector = new Vector($embeddings);
+
+        $modelMap = [
+            'artworks' => \App\Models\Collections\Artwork::class,
+            'articles' => \App\Models\Web\Article::class,
+            'exhibitions' => \App\Models\Web\Exhibition::class
+        ];
+
+        $results = ImageEmbedding::select([
+                '*',
+                DB::raw("embedding <-> '" . $searchVector . "' as distance")
+            ])
+            ->where('model_name', $model)
+            ->whereNotNull('embedding')
+            ->orderBy('distance')
+            ->limit($limit)
+            ->get()
+            ->map(function ($item) {
+                $item->embedding_type = 'image';
+                return $item;
+            });
+
+        if ($results->isNotEmpty() && isset($modelMap[$model])) {
+            $modelClass = $modelMap[$model];
+            $modelData = $modelClass::whereIn('id', $results->pluck('model_id'))
+                ->get()
+                ->keyBy('id');
+
+            $results->each(function ($item) use ($modelData) {
+                $item->model_data = $modelData->get($item->model_id);
+            });
+        }
+
+        return $results;
+    }
+
     protected function loadImageEmbeddings(Collection $results, string $model): void
     {
         $imageEmbeddings = ImageEmbedding::where('model_name', $model)

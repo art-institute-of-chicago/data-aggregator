@@ -30,4 +30,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     // Get single item with embeddings
     Route::get('{model}/{id}', [AzureAIController::class, 'getItem']);
+
+    // Custom image search for visually similar embeddings
+    Route::post('custom/nearest', [AzureAIController::class, 'findImageNearestNeighbors']);
 });
