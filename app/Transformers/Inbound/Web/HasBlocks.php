@@ -87,10 +87,10 @@ trait HasBlocks
         return [
             [
                 'filter' => function ($block) {
-                    return $block->type === 'paragraph' && isset($block->content->paragraph);
+                    return $block->type === 'paragraph' && isset($block->content->paragraph->en);
                 },
                 'extract' => function ($block) {
-                    return $this->cleanRichText($block->content->paragraph);
+                    return $this->cleanRichText($block->content->paragraph->en);
                 },
             ],
             [
@@ -113,10 +113,10 @@ trait HasBlocks
             [
                 'filter' => function ($block) {
                     return ($block->type === 'editorial_block' || $block->type === 'feature_block')
-                            && isset($block->content->heading) && isset($block->content->body);
+                            && isset($block->content->heading->en) && isset($block->content->body->en);
                 },
                 'extract' => function ($block) {
-                    return trim($this->cleanRichText($block->content->heading)) . ". " . trim($this->cleanRichText($block->content->body));
+                    return trim($this->cleanRichText($block->content->heading->en)) . ". " . trim($this->cleanRichText($block->content->body->en));
                 },
             ],
             [
