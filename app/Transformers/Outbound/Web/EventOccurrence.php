@@ -70,6 +70,12 @@ class EventOccurrence extends BaseTransformer
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
             ],
+            'is_sales_button_hidden' => [
+                'doc' => 'Whether the buy tickets button is hidden on the website event page',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+            ],
+
             'start_at' => [
                 'doc' => 'The date the event occurrence begins',
                 'type' => 'ISO 8601 date and time',
