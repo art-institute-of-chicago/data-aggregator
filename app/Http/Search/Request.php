@@ -661,7 +661,7 @@ class Request
         $params['body']['query']['script_score']['script'] = [
             'source' => <<<'SOURCE'
                 double vector_score = 0;
-                if (doc.containsKey('text_embedding') && doc['text_embedding'] && doc['text_embedding'].size() > 0 && params.query_vector != null && params.query_vector.length > 0) {
+                if (doc.containsKey('text_embedding') && doc['text_embedding'].size() > 0 && params.query_vector != null && params.query_vector.length > 0) {
                     vector_score = cosineSimilarity(params.query_vector, 'text_embedding') + 1.0;
                 }
 
