@@ -355,7 +355,7 @@ class Request
         // Apply `function_score` (if any)
         $params = $this->addFunctionScore($params, $input);
 
-        // Add text_embeddings search
+        // Add embeddings search
         $params = $this->addScriptParam($params, $input);
 
         return $params;
@@ -655,14 +655,22 @@ class Request
      */
     public function addScriptParam($params, $input)
     {
-        $queryVector = app('Embeddings')->getEmbeddings($input['q']);
+        // Determine if input query is a url or not and generate the appropriate embedding for it
+
+        if (filter_var($input['q'], FILTER_VALIDATE_URL)) {
+            $queryVector = app('Embeddings')->getImageEmbeddings($input['q']);
+            $vectorType = 'image_embedding';
+        } else {
+            $queryVector = app('Embeddings')->getEmbeddings($input['q']);
+            $vectorType = 'text_embedding';
+        }
 
         // The `cosineSimilarity()` function here is a built-in Elasticsearch function that calculates the measure of similarity between a given query vector and document vectors.
         $params['body']['query']['script_score']['script'] = [
-            'source' => <<<'SOURCE'
+            'source' => <<<SOURCE
                 double vector_score = 0;
-                if (doc.containsKey('text_embedding') && doc['text_embedding'].size() > 0 && params.query_vector != null && params.query_vector.length > 0) {
-                    vector_score = cosineSimilarity(params.query_vector, 'text_embedding') + 1.0;
+                if (doc.containsKey('$vectorType') && doc['$vectorType'].size() > 0 && params.query_vector != null && params.query_vector.length > 0) {
+                    vector_score = cosineSimilarity(params.query_vector, '$vectorType') + 1.0;
                 }
 
                 double boost_multiplier = 1.0;
