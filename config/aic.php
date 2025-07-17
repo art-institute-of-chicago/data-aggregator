@@ -129,7 +129,8 @@ return [
     ],
 
     'search' => [
-        'boost_artist_titles' => env('SEARCH_BOOST_ARTIST_TITLES')
+        'boost_artist_titles' => env('SEARCH_BOOST_ARTIST_TITLES'),
+        'image_url_search' => env('IMAGE_URL_SEARCH')
     ],
 
     'shop' => [
