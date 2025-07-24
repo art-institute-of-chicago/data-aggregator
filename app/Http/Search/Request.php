@@ -659,7 +659,7 @@ class Request
     {
         // Determine if input query is a url or not and generate the appropriate embedding for it
 
-        if (filter_var($input['q'], FILTER_VALIDATE_URL)) {
+        if (filter_var($input['q'], FILTER_VALIDATE_URL) && config('aic.search.image_url_search')) {
             $queryVector = app('Embeddings')->getImageEmbeddings($input['q']);
             $vectorType = 'image_embedding';
         } else {
