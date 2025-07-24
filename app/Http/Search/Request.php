@@ -342,7 +342,9 @@ class Request
         }
 
         if (isset($input['q'])) {
-            $params = $this->addSimpleSearchParams($params, $input);
+            // Check if the query is a URL
+            $isUrlSearch = filter_var($input['q'], FILTER_VALIDATE_URL) !== false;
+            $params = $this->addSimpleSearchParams($params, $input, $isUrlSearch);
         } else {
             $params = $this->addEmptySearchParams($params);
         }
@@ -762,7 +764,7 @@ class Request
      *
      * @return array
      */
-    private function addSimpleSearchParams(array $params, array $input)
+    private function addSimpleSearchParams(array $params, array $input, bool $isUrlSearch = false)
     {
         if ($colorParams = $this->getColorParams($params, $input)) {
             return $colorParams;
@@ -809,6 +811,12 @@ class Request
         // Only pull default fields for the resources targeted by this request
         $allFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, false);
         $exactFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, true);
+
+        // If query is a URL, omit title from search
+        if ($isUrlSearch) {
+            $allFields = array_diff($allFields, ['title']);
+            $exactFields = array_diff($exactFields, ['title']);
+        }
 
         foreach ($withQuotes as $subquery) {
             $params['body']['query']['script_score']['query']['bool']['must'][] = [
