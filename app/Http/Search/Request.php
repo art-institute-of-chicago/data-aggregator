@@ -359,7 +359,9 @@ class Request
         }
 
         if (isset($input['q'])) {
-            $params = $this->addSimpleSearchParams($params, $input);
+            // Check if the query is a URL
+            $isUrlSearch = filter_var($input['q'], FILTER_VALIDATE_URL) !== false;
+            $params = $this->addSimpleSearchParams($params, $input, $isUrlSearch);
         } else {
             $searchParams = $this->addEmptySearchParams($searchParams);
         }
@@ -865,7 +867,7 @@ class Request
      *
      * @return array
      */
-    private function addSimpleSearchParams(array $params, array $input)
+    private function addSimpleSearchParams(array $params, array $input, bool $isUrlSearch = false)
     {
         // Semantic-only: skip lexical search entirely
         if (isset($input['semantic_only'])) {
