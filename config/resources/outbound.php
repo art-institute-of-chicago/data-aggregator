@@ -333,6 +333,12 @@ return [
             'transformer' => \App\Transformers\Outbound\Web\Page::class,
             'is_searchable' => true,
         ],
+        [
+            'endpoint' => 'hours',
+            'model' => \App\Models\Web\Hour::class,
+            'transformer' => \App\Transformers\Outbound\Web\Page::class,
+            'is_searchable' => true,
+        ],
 
         /**
          * Not meant to be used alone, only here for debugging:

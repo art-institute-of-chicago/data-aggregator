@@ -106,6 +106,10 @@ class Kernel extends ConsoleKernel
             ->dailyAt('23:57')
             ->withoutOverlapping(self::FOR_ONE_YEAR);
 
+        $schedule->command('import:web-full', ['hours', '--yes'])
+            ->everyFiveMinutes()
+            ->withoutOverlapping(self::FOR_ONE_YEAR);
+
         $schedule->command('import:web')
             ->everyFiveMinutes()
             ->withoutOverlapping(self::FOR_ONE_YEAR);
