@@ -10,6 +10,7 @@ use App\Models\Web\EventOccurrence;
 use App\Models\Web\EventProgram;
 use App\Models\Web\Exhibition;
 use App\Models\Web\Highlight;
+use App\Models\Web\Hour;
 use App\Models\Web\GenericPage;
 use App\Models\Web\LandingPage;
 use App\Models\Web\PressRelease;
@@ -73,6 +74,7 @@ class ImportWebFull extends AbstractImportCommand
             DigitalPublicationArticle::class => 'digital_publication_articles',
             PrintedPublication::class => 'printed_publications',
             StaticPage::class => 'static_pages',
+            Hour::class => 'hours',
         ];
 
         if ($endpoint) {

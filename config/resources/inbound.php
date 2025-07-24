@@ -211,6 +211,11 @@ return [
             'model' => \App\Models\Web\DigitalPublicationArticle::class,
             'transformer' => \App\Transformers\Inbound\Web\DigitalPublicationArticle::class,
         ],
+        'hours' => [
+            'model' => \App\Models\Web\Hour::class,
+            'transformer' => \App\Transformers\Inbound\WebTransformer::class,
+        ],
+
     ],
 
 ];
