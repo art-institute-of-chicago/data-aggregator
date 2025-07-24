@@ -48,7 +48,7 @@ class ImportWebFull extends AbstractImportCommand
             $page = $this->argument('page') ?: 1;
 
             $this->importFromWeb($endpoint, $page);
-            $this->info("Imported ${endpoint} web CMS content!");
+            $this->info("Imported {$endpoint} web CMS content!");
         } else {
             $this->importEndpoints();
             $this->info('Imported all web CMS content!');

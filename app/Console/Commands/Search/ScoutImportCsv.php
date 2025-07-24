@@ -35,7 +35,7 @@ class ScoutImportCsv extends BaseCommand
 
             $class::find($id)->searchable();
 
-            $this->info("Imported #${id} of model ${class}");
+            $this->info("Imported #{$id} of model {$class}");
         }
     }
 
