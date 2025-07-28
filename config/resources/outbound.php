@@ -336,7 +336,7 @@ return [
         [
             'endpoint' => 'hours',
             'model' => \App\Models\Web\Hour::class,
-            'transformer' => \App\Transformers\Outbound\Web\Page::class,
+            'transformer' => \App\Transformers\Outbound\Web\Hour::class,
             'is_searchable' => true,
         ],
 
