@@ -16,8 +16,7 @@ class EmbedDescription extends BaseCommand
     use HandleEmbeddings;
 
     protected $signature = 'ai:embed-description {model_name? : The name of the model (e.g., artworks)}
-                                                 {model_id? : The ID of the model instance}
-                                                 {--reindex : Regenerate the index on the text_embeddings table}';
+                                                 {model_id? : The ID of the model instance}';
 
     protected $description = 'Re-embeds the description for a specific model instance';
 
