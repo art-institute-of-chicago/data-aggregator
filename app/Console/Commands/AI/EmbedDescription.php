@@ -3,7 +3,6 @@
 namespace App\Console\Commands\AI;
 
 use App\Behaviors\HandleEmbeddings;
-use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
 use App\Models\Web\Vectors\TextEmbedding;
 use Illuminate\Support\Facades\DB;
@@ -12,12 +11,13 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Output\OutputInterface;
 use Exception;
 
-class EmbedDescription extends BaseCommand implements Thresholds
+class EmbedDescription extends BaseCommand
 {
     use HandleEmbeddings;
 
     protected $signature = 'ai:embed-description {model_name? : The name of the model (e.g., artworks)}
-                                                 {model_id? : The ID of the model instance}';
+                                                 {model_id? : The ID of the model instance}
+                                                 {--reindex : Regenerate the index on the text_embeddings table}';
 
     protected $description = 'Re-embeds the description for a specific model instance';
 
@@ -66,8 +66,7 @@ class EmbedDescription extends BaseCommand implements Thresholds
                         return 0;
                     }
 
-                    $this->info("Found existing description. '" . Str::limit($descriptionText, 30) . "'", OutputInterface::VERBOSITY_VERBOSE);
-                    $this->info("Re-generating text embedding...", OutputInterface::VERBOSITY_VERBOSE);
+                    $this->info("Found existing description. Re-generating text embedding...", OutputInterface::VERBOSITY_VERBOSE);
 
                     $newEmbeddingVector = app('Embeddings')->getEmbeddings($descriptionText);
 
@@ -76,12 +75,9 @@ class EmbedDescription extends BaseCommand implements Thresholds
                         return 1;
                     }
 
-                    $this->info("[" . collect($newEmbeddingVector)->take(5)->implode(', ') . ", ...]", OutputInterface::VERBOSITY_VERBOSE);
+                    $this->info("Embeddings re-generated successfully. Updating the record in the database...", OutputInterface::VERBOSITY_VERBOSE);
 
-                    $this->info("Embeddings re-generated successfully.", OutputInterface::VERBOSITY_VERBOSE);
-                    $this->info("Updating the record in the database...", OutputInterface::VERBOSITY_VERBOSE);
-
-                    $result = $this->saveEmbeddings(
+                    $this->saveEmbeddings(
                         modelName: $modelName,
                         modelId: $modelId,
                         embedding: $newEmbeddingVector,
@@ -92,11 +88,6 @@ class EmbedDescription extends BaseCommand implements Thresholds
                         'image_url' => $textEmbeddingRecord->data['image_url'] ?? null
                         ]
                     );
-
-                    if (!$result['success']) {
-                        $this->error("Failed to save new embeddings.", OutputInterface::VERBOSITY_VERBOSE);
-                        return 1;
-                    }
 
                     $this->info("Successfully updated text embeddings for model [{$modelName}] ID [{$modelId}].", OutputInterface::VERBOSITY_VERBOSE);
 
