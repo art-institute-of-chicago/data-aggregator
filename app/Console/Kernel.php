@@ -114,6 +114,10 @@ class Kernel extends ConsoleKernel
             ->everyFiveMinutes()
             ->withoutOverlapping(self::FOR_ONE_YEAR);
 
+        $schedule->command('ai:embed-description')
+            ->everyMinute()
+            ->withoutOverlapping(self::FOR_ONE_YEAR);
+
         //
         // Archived Static sites
         $schedule->command('import:sites', ['--yes'])
