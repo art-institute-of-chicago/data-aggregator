@@ -28,6 +28,12 @@ Route::group(['prefix' => 'v1'], function () {
     // Similarity search
     Route::get('{model}/{id}/similarity/{compareId}', [AzureAIController::class, 'similarity']);
 
+    // Between search
+    Route::get('{embeddingType}/{firstItemModel}/{firstItemId}/between/{secondItemModel}/{secondItemId}', [AzureAIController::class, 'between']);
+
+    // Compare search
+    Route::get('{firstEmbeddingType}/{firstItemModel}/{firstItemId}/compare/{secondEmbeddingType}/{secondItemModel}/{secondItemId}', [AzureAIController::class, 'compare']);
+
     // Get single item with embeddings
     Route::get('{model}/{id}', [AzureAIController::class, 'getItem']);
 
