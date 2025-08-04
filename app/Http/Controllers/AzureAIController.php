@@ -91,6 +91,41 @@ class AzureAIController extends Controller
         }
     }
 
+    public function between(string $embeddingType, string $firstItemModel, int $firstItemId, string $secondItemModel, int $secondItemId)
+    {
+        try {
+            $results = $this->searchService->findNeighborsBetween(
+                embeddingType: $embeddingType,
+                firstItemModel: $firstItemModel,
+                firstItemId: $firstItemId,
+                secondItemModel: $secondItemModel,
+                secondItemId: $secondItemId
+            );
+
+            return $this->searchService->formatResponse($results, [$firstItemModel, $secondItemModel], [$firstItemId, $secondItemId]);
+        } catch (\Exception $e) {
+            return $this->handleError($e);
+        }
+    }
+
+    public function compare(string $firstEmbeddingType, string $firstItemModel, int $firstItemId, string $secondEmbeddingType, string $secondItemModel, int $secondItemId): mixed
+    {
+        try {
+            $results = $this->searchService->compareNeighbors(
+                firstEmbeddingType: $firstEmbeddingType,
+                firstItemModel: $firstItemModel,
+                firstItemId: $firstItemId,
+                secondEmbeddingType: $secondEmbeddingType,
+                secondItemModel: $secondItemModel,
+                secondItemId: $secondItemId
+            );
+
+            return $this->searchService->formatResponse($results, [$firstItemModel, $secondItemModel], [$firstItemId, $secondItemId]);
+        } catch (\Exception $e) {
+            return $this->handleError($e);
+        }
+    }
+
     public function findImageNearestNeighbors(Request $request): JsonResponse
     {
         try {
