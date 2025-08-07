@@ -38,7 +38,7 @@ class DumpUpload extends AbstractDumpCommand
         $this->shell->passthru('rm -rf %s', $repoPath);
         $this->shell->passthru('mkdir %s', $repoPath);
         $this->shell->passthru('git -C %s init', $repoPath);
-
+        $this->shell->passthru('git config --global --add safe.directory %s', $repoPath);
         $this->shell->passthru('git -C %s remote add origin %s', $repoPath, $repoRemote);
 
         // Copy README into the repo
