@@ -38,7 +38,7 @@ class DumpUpload extends AbstractDumpCommand
         $this->shell->passthru('rm -rf %s', $repoPath);
         $this->shell->passthru('mkdir %s', $repoPath);
         $this->shell->passthru('git -C %s init', $repoPath);
-
+        $this->shell->passthru('git config --global --add safe.directory %s', $repoPath);
         $this->shell->passthru('git -C %s remote add origin %s', $repoPath, $repoRemote);
 
         // Copy README into the repo
@@ -56,7 +56,7 @@ class DumpUpload extends AbstractDumpCommand
         );
 
         // Copy dumps of whitelisted tables and endpoints into the repo
-        $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/getting-started', $repoPath . '/getting-started');
+        $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/getting-started', $gettingStartedDestPath);
         $this->shell->passthru('
             for file in %s/*; do
                 if [ -f $file ]; then
@@ -64,7 +64,7 @@ class DumpUpload extends AbstractDumpCommand
                 fi
             done
         ', $srcPath, $srcPath, $repoPath);
-        $this->shell->passthru('mkdir %s', $repoPath . '/json');
+        $this->shell->passthru('mkdir %s', $jsonsDestPath);
 
         $endpointResult = $this->shell->exec('
             for DIR_SRC in %s/json/*; do
@@ -114,7 +114,7 @@ class DumpUpload extends AbstractDumpCommand
         $this->shell->passthru('git -C %s push --set-upstream origin main %s', $repoPath, '--force');
 
         // Now, copy full dataset (takes about 1 min 45 sec)
-        $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/json', $repoPath . '/json');
+        $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/json', $jsonsDestPath);
 
         $archiveName = 'artic-api-data';
         $archiveFile = $archiveName . '.tar.bz2';
