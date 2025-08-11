@@ -4,13 +4,14 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Sleep;
 use Exception;
 
 class EmbeddingService
 {
     public const COMPLETIONS_MAX_RETRIES = 5;
-    public const COMPLETIONS_MAX_DELAY = 32000; // 32 seconds
-    public const COMPLETIONS_BASE_DELAY = 1000; // 1 second
+    public const COMPLETIONS_MAX_DELAY = 32;
+    public const COMPLETIONS_BASE_DELAY = 1;
     public const COMPLETIONS_BACKOFF_MULTIPLIER = 2;
 
     public function getEmbeddings(?string $input): ?array
@@ -113,7 +114,7 @@ class EmbeddingService
                     'response_body' => $response->json()
                 ]);
 
-                usleep($delay * 1000); // Convert ms to microseconds
+                Sleep::for($delay)->seconds();
                 continue;
             }
 
@@ -141,7 +142,7 @@ class EmbeddingService
     {
         if ($response && $response->header('Retry-After')) {
             $retryAfter = (int) $response->header('Retry-After');
-            return min($retryAfter * 1000, self::COMPLETIONS_MAX_DELAY);
+            return min($retryAfter, self::COMPLETIONS_MAX_DELAY);
         }
 
         if ($response) {
@@ -149,7 +150,7 @@ class EmbeddingService
             if (isset($body['error']['message'])) {
                 preg_match('/retry after (\d+) seconds?/', $body['error']['message'], $matches);
                 if (!empty($matches[1])) {
-                    $suggestedDelay = (int) $matches[1] * 1000;
+                    $suggestedDelay = (int) $matches[1];
                     return min($suggestedDelay, self::COMPLETIONS_MAX_DELAY);
                 }
             }
