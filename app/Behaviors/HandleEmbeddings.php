@@ -3,12 +3,12 @@
 namespace App\Behaviors;
 
 use App\Models\Collections\Artwork;
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
 use Pgvector\Laravel\Vector;
 use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Console\Output\OutputInterface;
 
 trait HandleEmbeddings
@@ -16,7 +16,7 @@ trait HandleEmbeddings
     public const CONFIDENCE_THRESHOLD_CAPTION = 0.7;
     public const CONFIDENCE_THRESHOLD_TAG = 0.9;
 
-    public function generateAndSaveArtworkEmbeddngs(Artwork $artwork)
+    public function generateAndSaveArtworkEmbeddngs(Artwork $artwork): void
     {
         try {
             $this->info(
@@ -38,6 +38,33 @@ trait HandleEmbeddings
 
             $this->error(
                 "\nFailed processing artwork ID {$artwork->id}: {$e->getMessage()}"
+            );
+        }
+    }
+
+    public function generateAndSaveWebEmbeddngs($item): void
+    {
+        try {
+            $this->info(
+                "\nProcessing web content: {$item->title} (ID: {$item->id})",
+                OutputInterface::VERBOSITY_VERBOSE
+            );
+
+            // Get and save text embeddings
+            $this->info("\nGetting text embeddings...", OutputInterface::VERBOSITY_VERBOSE);
+            $textEmbeddingArray = app('Embeddings')->getEmbeddings($item->copy);
+
+            $this->saveTextEmbeddings($item, $textEmbeddingArray);
+            $this->info("Saved text embeddings", OutputInterface::VERBOSITY_VERBOSE);
+        } catch (\Exception $e) {
+            \Log::error('Error processing artwork:', [
+                'artwork_id' => $item->id,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            $this->error(
+                "\nFailed processing artwork ID {$item->id}: {$e->getMessage()}"
             );
         }
     }
@@ -283,21 +310,21 @@ trait HandleEmbeddings
     }
 
     protected function saveTextEmbeddings(
-        Artwork $artwork,
+        Model $model,
         array $embedding,
-        string $imageUrl,
-        array $analysisResults
+        string $imageUrl = null,
+        array $analysisResults = []
     ): void {
         $this->saveEmbeddings(
-            modelName: "artworks",
-            modelId: $artwork->id,
+            modelName: app('Resources')->getEndpointForModel(get_class($model)),
+            modelId: $model->id,
             embedding: $embedding,
             type: 'text',
-            additionalData: [
-                'description' => $analysisResults['summarized'],
+            additionalData: array_filter([
+                'description' => $analysisResults['summarized'] ?? $model->copy ?? null,
                 'generated_at' => now()->toDateTimeString(),
                 'image_url' => $imageUrl,
-            ]
+            ])
         );
     }
 }

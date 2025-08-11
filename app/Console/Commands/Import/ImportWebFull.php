@@ -127,4 +127,27 @@ class ImportWebFull extends AbstractImportCommand
 
         return parent::query($endpoint, $page, $limit);
     }
+
+    /**
+     * If an artwork was updated, and if the primary image was updated, reimport the
+     * image embeddings.
+     *
+     * @param \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function afterSave($resource)
+    {
+        if (
+            in_array(get_class($resource), [
+            \App\Models\Web\Article::class,
+            \App\Models\Web\Highlight::class,
+            \App\Models\Web\LandingPage::class,
+            \App\Models\Web\DigitalPublicationArticle::class,
+            \App\Models\Web\PrintedPublication::class,
+            ])
+        ) {
+            $this->generateAndSaveWebEmbeddngs($resource, $this);
+        }
+        return $resource;
+    }
 }
