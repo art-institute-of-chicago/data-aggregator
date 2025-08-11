@@ -24,10 +24,10 @@ class AnalyzeAllWeb extends BaseCommand
 
     protected $description = 'Analyze all web content';
 
-    protected $sleepFor = 1 / 10;  // 0.1 seconds or 100 milliseconds
-
     public function handle()
     {
+        $this->sleepFor = 1 / 10;  // 0.1 seconds or 100 milliseconds
+
         $this->info($this->getAicLogo(), OutputInterface::VERBOSITY_VERBOSE);
 
         $this->api = config('resources.sources.web');
