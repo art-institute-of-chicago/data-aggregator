@@ -54,12 +54,8 @@ trait HandleEmbeddings
             $this->info("\nGetting text embeddings...", OutputInterface::VERBOSITY_VERBOSE);
             $textEmbeddingArray = app('Embeddings')->getEmbeddings($item->copy);
 
-            try {
-                $this->saveTextEmbeddings($item, $textEmbeddingArray);
-                $this->info("Saved text embeddings", OutputInterface::VERBOSITY_VERBOSE);
-            } catch (\Exception $e) {
-                throw new Exception("Failed to save text embeddings: " . $e->getMessage());
-            }
+            $this->saveTextEmbeddings($item, $textEmbeddingArray);
+            $this->info("Saved text embeddings", OutputInterface::VERBOSITY_VERBOSE);
         } catch (\Exception $e) {
             \Log::error('Error processing artwork:', [
                 'artwork_id' => $item->id,
