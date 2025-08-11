@@ -3,6 +3,7 @@
 namespace App\Behaviors;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Sleep;
 use Carbon\Carbon;
 use Sentry\State\Scope;
 
@@ -227,7 +228,7 @@ trait ImportsData
 
             $current++;
 
-            usleep($this->sleepFor * 1000000);
+            Sleep::for($this->sleepFor)->seconds();
 
             // TODO: This structure causes an extra query to be run, when it might not need to be
             $json = $this->query($endpoint, $current);

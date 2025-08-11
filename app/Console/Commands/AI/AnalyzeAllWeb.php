@@ -8,6 +8,7 @@ use App\Console\Commands\BaseCommand;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Sleep;
 use Symfony\Component\Console\Output\OutputInterface;
 use Carbon\Carbon;
 use Exception;
@@ -22,6 +23,8 @@ class AnalyzeAllWeb extends BaseCommand
                             {model? : Model to process, e.g. `\\App\\Models\\Web\\Article`}';
 
     protected $description = 'Analyze all web content';
+
+    protected $sleepFor = 1 / 10;  // 0.1 seconds or 100 milliseconds
 
     public function handle()
     {
@@ -72,6 +75,6 @@ class AnalyzeAllWeb extends BaseCommand
             }
         });
 
-        usleep($this->sleepFor * 10000);
+        Sleep::for($this->sleepFor)->seconds();
     }
 }
