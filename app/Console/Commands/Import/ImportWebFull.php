@@ -19,9 +19,12 @@ use App\Models\Web\DigitalPublication;
 use App\Models\Web\DigitalPublicationArticle;
 use App\Models\Web\PrintedPublication;
 use App\Models\Web\StaticPage;
+use App\Behaviors\HandleEmbeddings;
 
 class ImportWebFull extends AbstractImportCommand
 {
+    use HandleEmbeddings;
+
     protected $signature = 'import:web-full
                             {endpoint? : Endpoint on dataservice to query, e.g. `events`}
                             {page? : Page to begin importing from}
