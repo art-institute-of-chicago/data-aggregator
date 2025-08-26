@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Aic\Hub\Foundation\Exceptions\UnauthorizedException;
 use App\Services\VectorSearchService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -18,6 +20,7 @@ class AzureAIController extends Controller
 
     public function show()
     {
+        $this->checkIfAuthorized();
         return response()->json([
             'message' => 'Hello, World!'
         ], 200);
@@ -25,6 +28,7 @@ class AzureAIController extends Controller
 
     public function getItem(string $model, int $id): JsonResponse
     {
+        $this->checkIfAuthorized();
         try {
             $result = $this->searchService->getItem($model, $id);
             return response()->json($result);
@@ -35,6 +39,7 @@ class AzureAIController extends Controller
 
     public function semanticSearch(Request $request, string $model): JsonResponse
     {
+        $this->checkIfAuthorized();
         try {
             if (empty($request->query('q'))) {
                 return response()->json([
@@ -68,6 +73,7 @@ class AzureAIController extends Controller
 
     public function nearestNeighbor(Request $request, string $model, int $id): JsonResponse
     {
+        $this->checkIfAuthorized();
         try {
             $results = $this->searchService->findNearestNeighbors(
                 model: $model,
@@ -83,6 +89,7 @@ class AzureAIController extends Controller
 
     public function similarity(string $model, int $id, int $compareId): JsonResponse
     {
+        $this->checkIfAuthorized();
         try {
             $similarityScores = $this->searchService->calculateSimilarity($model, $id, $compareId);
             return response()->json(['similarity_scores' => $similarityScores]);
@@ -93,6 +100,7 @@ class AzureAIController extends Controller
 
     public function between(string $embeddingType, string $firstItemModel, int $firstItemId, string $secondItemModel, int $secondItemId)
     {
+        $this->checkIfAuthorized();
         try {
             $results = $this->searchService->findNeighborsBetween(
                 embeddingType: $embeddingType,
@@ -110,6 +118,7 @@ class AzureAIController extends Controller
 
     public function compare(string $firstEmbeddingType, string $firstItemModel, int $firstItemId, string $secondEmbeddingType, string $secondItemModel, int $secondItemId): mixed
     {
+        $this->checkIfAuthorized();
         try {
             $results = $this->searchService->compareNeighbors(
                 firstEmbeddingType: $firstEmbeddingType,
@@ -128,6 +137,7 @@ class AzureAIController extends Controller
 
     public function findImageNearestNeighbors(Request $request): JsonResponse
     {
+        $this->checkIfAuthorized();
         try {
             $imageUrl = $request->input('image_url');
             $model = $request->input('model', 'artworks');
@@ -181,5 +191,12 @@ class AzureAIController extends Controller
             'message' => $e->getMessage(),
             'trace' => config('app.debug') ? $e->getTraceAsString() : null
         ], 500);
+    }
+
+    private function checkIfAuthorized()
+    {
+        if (Gate::denies('restricted-access')) {
+            throw new UnauthorizedException();
+        }
     }
 }
