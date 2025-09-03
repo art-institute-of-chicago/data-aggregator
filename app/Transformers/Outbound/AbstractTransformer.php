@@ -366,6 +366,7 @@ abstract class AbstractTransformer extends BaseTransformer
                     'keyword' => [
                         'type' => 'keyword',
                         'ignore_above' => 256,
+                        'normalizer' => 'lowercase_normalizer',
                     ],
                 ],
             ]);

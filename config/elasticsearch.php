@@ -324,6 +324,15 @@ return [
                             ],
                         ],
                     ],
+                    'normalizer' => [
+                        'lowercase_normalizer' => [
+                            'type' => 'custom',
+                            'filter' => [
+                                'lowercase',
+                                'asciifolding',
+                            ],
+                        ],
+                    ],
                 ],
             ],
             // Mappings are defined in SearchServiceProvider
