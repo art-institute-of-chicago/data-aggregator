@@ -540,8 +540,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                     'mapping' => $this->getDefaultStringMapping(true),
-                    // This is controllable via .env so we can tweak it without pushing to prod
-                    'boost' => (float) (config('aic.search.boost_artist_titles') ?: 2),
+                    'boost' => 2.5,
                 ],
                 'value' => function ($item) {
                     return $item->artists->pluck('title');
