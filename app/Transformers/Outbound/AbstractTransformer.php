@@ -169,7 +169,7 @@ abstract class AbstractTransformer extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                     'mapping' => $this->getDefaultStringMapping(true),
-                    'boost' => 1.5,
+                    'boost' => 3.5,
                 ],
             ],
         ];
