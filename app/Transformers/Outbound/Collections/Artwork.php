@@ -206,7 +206,6 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'mapping' => $this->getDefaultStringMapping(true),
-                    'boost' => 2.5,
                 ],
             ],
             'short_description' => [
@@ -562,7 +561,6 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => 'except_exact',
-                    'boost' => 2.5,
                 ],
                 'value' => function ($item) {
                     return $item->categories->pluck('title');
@@ -573,7 +571,6 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => 'except_exact',
-                    'boost' => 2.5,
                 ],
                 'value' => function ($item) {
                     return $item->terms->pluck('title');
@@ -593,7 +590,6 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                     'mapping' => $this->getDefaultStringMapping(true),
-                    'boost' => 2000.5,
                 ],
                 'value' => function ($item) {
                     return $item->style->title ?? null;

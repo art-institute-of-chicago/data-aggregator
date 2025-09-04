@@ -891,22 +891,6 @@ class Request
             ],
         ];
 
-        // Boost text fields using their keyword subfields
-        foreach ($allFields as $f) {
-            $parts = Str::of($f)->explode('^');
-            if ($parts->count() > 1) {
-                $params['body']['query']['script_score']['query']['bool']['should'][] = [
-                    'term' => [
-                        $parts->get(0) .'.keyword' => [
-                            'value' => $input['q'],
-                            'boost' => $parts->get(1),
-                        ],
-                    ],
-                ];
-
-            }
-        }
-
         return $params;
     }
 
