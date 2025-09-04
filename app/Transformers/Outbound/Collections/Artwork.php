@@ -571,6 +571,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => 'except_exact',
+                    'boost' => 2,
                 ],
                 'value' => function ($item) {
                     return $item->terms->pluck('title');
