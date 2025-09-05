@@ -204,7 +204,9 @@ class Artwork extends BaseTransformer
             'description' => [
                 'doc' => 'Longer explanation describing the work',
                 'type' => 'string',
-                'elasticsearch' => 'text',
+                'elasticsearch' => [
+                    'mapping' => $this->getDefaultStringMapping(true),
+                ],
             ],
             'short_description' => [
                 'doc' => 'Short explanation describing the work',
@@ -540,8 +542,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                     'mapping' => $this->getDefaultStringMapping(true),
-                    // This is controllable via .env so we can tweak it without pushing to prod
-                    'boost' => (float) (config('aic.search.boost_artist_titles') ?: 2),
+                    'boost' => 2.5,
                 ],
                 'value' => function ($item) {
                     return $item->artists->pluck('title');
@@ -587,6 +588,10 @@ class Artwork extends BaseTransformer
             'style_title' => [
                 'doc' => 'The name of the preferred style term for this work',
                 'type' => 'string',
+                'elasticsearch' => [
+                    'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
+                ],
                 'value' => function ($item) {
                     return $item->style->title ?? null;
                 },
