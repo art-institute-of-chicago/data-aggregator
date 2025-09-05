@@ -841,7 +841,7 @@ class Request
                 'multi_match' => [
                     'query' => $subquery,
                     'fuzziness' => $fuzziness,
-                    'prefix_length' => 1,
+                    'prefix_length' => 2, // Value of '2' helps with 'Monet' vs 'Manet'
                     'fields' => $allFields,
                 ],
             ];
