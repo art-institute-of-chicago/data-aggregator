@@ -7,6 +7,7 @@ use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
 use App\Http\Middleware\RestrictContent;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request as RequestFacade;
 
@@ -678,13 +679,14 @@ class Request
                     vector_score = cosineSimilarity(params.query_vector, '$vectorType') + 1.0;
                 }
 
+                double lexical_score = _score;
                 double boost_multiplier = 1.0;
                 if (doc.containsKey('is_boosted') && doc['is_boosted'].size() > 0 && doc['is_boosted'].value == true) {
-                    boost_multiplier = 1.02;
+                    boost_multiplier = 1.04;
                 }
 
                 if (params.query_vector != null && params.query_vector.length > 0) {
-                    return vector_score * boost_multiplier;
+                    return (lexical_score + (vector_score * 1000)) * boost_multiplier;
                 }
                 else {
                     return _score;
