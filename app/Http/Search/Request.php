@@ -361,6 +361,9 @@ class Request
         // Add embeddings search
         $params = $this->addScriptParam($params, $input);
 
+        // If you want to see the raw query that gets sent to Elasticsearch, uncomment this line here:
+        // dd(json_encode($params));
+
         return $params;
     }
 
