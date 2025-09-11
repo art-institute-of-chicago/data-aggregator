@@ -685,14 +685,14 @@ class Request
                 double lexical_score = _score;
                 double boost_multiplier = 1.0;
                 if (doc.containsKey('is_boosted') && doc['is_boosted'].size() > 0 && doc['is_boosted'].value == true) {
-                    boost_multiplier = 1.04;
+                    boost_multiplier = 1.25;
                 }
 
                 if (params.query_vector != null && params.query_vector.length > 0) {
-                    return (lexical_score + (vector_score * 1000)) * boost_multiplier;
+                    return ((lexical_score * boost_multiplier) + (vector_score * 1000));
                 }
                 else {
-                    return _score;
+                    return lexical_score * boost_multiplier;
                 }
                 SOURCE,
             'params' => [
