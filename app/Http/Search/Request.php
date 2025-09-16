@@ -990,6 +990,9 @@ class Request
 
     private function getFuzzy(array $input, ?string $query = null, $isExact = false)
     {
+        // Disbale fuzzy search on all queries
+        return 0;
+
         if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7) {
             return 0;
         }
