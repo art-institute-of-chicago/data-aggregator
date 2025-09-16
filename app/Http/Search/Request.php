@@ -686,7 +686,7 @@ class Request
                 }
 
                 if (params.query_vector != null && params.query_vector.length > 0) {
-                    return ((lexical_score * boost_multiplier) + (vector_score * 1000));
+                    return ((lexical_score * boost_multiplier) + (vector_score * 1500));
                 }
                 else {
                     return lexical_score * boost_multiplier;
@@ -990,6 +990,9 @@ class Request
 
     private function getFuzzy(array $input, ?string $query = null, $isExact = false)
     {
+        // Disbale fuzzy search on all queries
+        return 0;
+
         if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7) {
             return 0;
         }
