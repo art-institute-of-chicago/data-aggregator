@@ -30,6 +30,7 @@ class DescriptionService
             - Includes relevant textural and surface qualities
 
             Avoid:
+            - Including the Artist name and Artwork title in the description
             - Using section headers or separate analyses
             - Making interpretive or emotional statements
             - Speculating beyond what is visible
