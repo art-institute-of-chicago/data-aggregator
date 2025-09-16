@@ -686,7 +686,7 @@ class Request
                 }
 
                 if (params.query_vector != null && params.query_vector.length > 0) {
-                    return ((lexical_score * boost_multiplier) + (vector_score * 1000));
+                    return ((lexical_score * boost_multiplier) + (vector_score * 1500));
                 }
                 else {
                     return lexical_score * boost_multiplier;
