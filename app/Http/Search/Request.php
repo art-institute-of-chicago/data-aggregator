@@ -646,7 +646,8 @@ class Request
         // Override the existing query with our queries
         $params['body']['query']['script_score']['query'] = [
             'bool' => [
-                'must' => $scopedQueries->all(),
+                'should' => $scopedQueries->all(),
+                'minimum_should_match' => $scopedQueries->count() ?? 1,
             ],
         ];
 
@@ -843,7 +844,7 @@ class Request
 
         foreach ($withoutQuotes as $subquery) {
             // Pull all docs that match fuzzily into the results
-            $params['body']['query']['script_score']['query']['bool']['must'][] = [
+            $params['body']['query']['script_score']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $subquery,
                     'fuzziness' => $fuzziness,
@@ -893,6 +894,8 @@ class Request
                 ],
             ],
         ];
+
+        $params['body']['min_score'] = 2675;
 
         return $params;
     }

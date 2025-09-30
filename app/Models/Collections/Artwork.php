@@ -69,6 +69,13 @@ class Artwork extends CollectionsModel
                     ]
                 ],
             ],
+            'bool' => [
+                'should' => [
+                    'exists' => [
+                        'field' => 'text_embedding'
+                    ]
+                ],
+            ],
         ];
     }
 
