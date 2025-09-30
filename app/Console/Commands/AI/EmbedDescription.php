@@ -65,7 +65,8 @@ class EmbedDescription extends BaseCommand
                         return 0;
                     }
 
-                    $this->info("Found existing description. Re-generating text embedding...", OutputInterface::VERBOSITY_VERBOSE);
+                    $this->info("Found existing description. '" . Str::limit($descriptionText, 30). "'", OutputInterface::VERBOSITY_VERBOSE);
+                    $this->info("Re-generating text embedding...", OutputInterface::VERBOSITY_VERBOSE);
 
                     $newEmbeddingVector = app('Embeddings')->getEmbeddings($descriptionText);
 
@@ -74,9 +75,12 @@ class EmbedDescription extends BaseCommand
                         return 1;
                     }
 
-                    $this->info("Embeddings re-generated successfully. Updating the record in the database...", OutputInterface::VERBOSITY_VERBOSE);
+                    $this->info("[" . collect($newEmbeddingVector)->take(5)->implode(', ') . ", ...]", OutputInterface::VERBOSITY_VERBOSE);
 
-                    $this->saveEmbeddings(
+                    $this->info("Embeddings re-generated successfully.", OutputInterface::VERBOSITY_VERBOSE);
+                    $this->info("Updating the record in the database...", OutputInterface::VERBOSITY_VERBOSE);
+
+                    $result = $this->saveEmbeddings(
                         modelName: $modelName,
                         modelId: $modelId,
                         embedding: $newEmbeddingVector,
@@ -87,6 +91,11 @@ class EmbedDescription extends BaseCommand
                         'image_url' => $textEmbeddingRecord->data['image_url'] ?? null
                         ]
                     );
+
+                    if (!$result['success']) {
+                        $this->error("Failed to save new embeddings.", OutputInterface::VERBOSITY_VERBOSE);
+                        return 1;
+                    }
 
                     $this->info("Successfully updated text embeddings for model [{$modelName}] ID [{$modelId}].", OutputInterface::VERBOSITY_VERBOSE);
 
