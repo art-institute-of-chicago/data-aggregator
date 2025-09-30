@@ -76,6 +76,13 @@ class Artwork extends CollectionsModel
                     ]
                 ],
             ],
+            'bool' => [
+                'should' => [
+                    'exists' => [
+                        'field' => 'text_embedding'
+                    ]
+                ],
+            ],
         ];
 
         if (!config('aic.search.suppress_vector_search')) {
