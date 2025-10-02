@@ -704,7 +704,8 @@ class Request
         return $params;
     }
 
-    public function addMinScoreParam(array $params, array $input) {
+    public function addMinScoreParam(array $params, array $input)
+    {
         $minScore = 0;
         if (count($params['index']) == 1 && $params['index']['0'] == config('elasticsearch.indexParams.index') . '-artworks') {
             $minScore = 2675;
