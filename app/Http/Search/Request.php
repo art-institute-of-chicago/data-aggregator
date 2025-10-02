@@ -361,6 +361,9 @@ class Request
         // Add embeddings search
         $params = $this->addScriptParam($params, $input);
 
+        // Add embeddings search
+        $params = $this->addMinScoreParam($params, $input);
+
         // If you want to see the raw query that gets sent to Elasticsearch, uncomment this line here:
         // dd(json_encode($params));
 
@@ -701,6 +704,17 @@ class Request
         return $params;
     }
 
+    public function addMinScoreParam(array $params, array $input) {
+        $minScore = 0;
+        if (count($params['index']) == 1 && $params['index']['0'] == config('elasticsearch.indexParams.index') . '-artworks') {
+            $minScore = 2675;
+        }
+
+        $params['body']['min_score'] = $minScore;
+
+        return $params;
+    }
+
     /**
      * Append any search clauses that are needed to isolate scoped resources.
      *
@@ -891,8 +905,6 @@ class Request
                 ],
             ],
         ];
-
-        $params['body']['min_score'] = 2675;
 
         return $params;
     }
