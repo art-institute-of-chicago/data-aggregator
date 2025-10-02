@@ -65,7 +65,7 @@ class EmbedDescription extends BaseCommand
                         return 0;
                     }
 
-                    $this->info("Found existing description. '" . Str::limit($descriptionText, 30). "'", OutputInterface::VERBOSITY_VERBOSE);
+                    $this->info("Found existing description. '" . Str::limit($descriptionText, 30) . "'", OutputInterface::VERBOSITY_VERBOSE);
                     $this->info("Re-generating text embedding...", OutputInterface::VERBOSITY_VERBOSE);
 
                     $newEmbeddingVector = app('Embeddings')->getEmbeddings($descriptionText);
