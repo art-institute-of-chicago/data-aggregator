@@ -39,7 +39,7 @@ class AnalyzeImage extends BaseCommand
             $this->info("Image URL: {$imageUrl}", OutputInterface::VERBOSITY_VERBOSE);
 
             // Get and save image analysis
-            $analysisResults = $this->analyzeImage($artwork, $imageUrl);
+            $analysisResults = $this->analyzeArtworkImage($artwork, $imageUrl);
 
             // Process and save embeddings
             $this->processEmbeddings($artwork, $imageUrl, $analysisResults);

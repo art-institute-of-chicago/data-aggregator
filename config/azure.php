@@ -32,5 +32,11 @@ return [
         'key' => env(key: 'AZURE_COMPLETIONS_API_KEY'),
         'version' => env(key: 'AZURE_COMPLETIONS_API_VERSION', default: '2024-08-01'),
     ],
+      'chat' => [
+        'endpoint' => env(key: 'AZURE_CHAT_ENDPOINT'),
+        'key' => env(key: 'AZURE_CHAT_MODEL_API_KEY'),
+        'model' => env(key: 'AZURE_CHAT_MODEL'),
+        'version' => env(key: 'AZURE_CHAT_MODEL_API_VERSION')
+    ],
 
 ];
