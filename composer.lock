@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "431925b56aec016a0a16f77ef911c609",
+    "content-hash": "81f5e07ba84ea3be77add4e5c288cd35",
     "packages": [
         {
             "name": "aic/data-hub-foundation",
@@ -86,64 +86,6 @@
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
             "time": "2025-07-24T20:40:40+00:00"
-        },
-        {
-            "name": "aic/laravel-scout-elastic",
-            "version": "10.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/art-institute-of-chicago/laravel-scout-elastic.git",
-                "reference": "4057ce9d60fcbdb7860e88d5b9857ee306d283df"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/laravel-scout-elastic/zipball/4057ce9d60fcbdb7860e88d5b9857ee306d283df",
-                "reference": "4057ce9d60fcbdb7860e88d5b9857ee306d283df",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/scout": "^10.0",
-                "php": "^8.1"
-            },
-            "require-dev": {
-                "elasticsearch/elasticsearch": "^7.9",
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^10.0"
-            },
-            "suggest": {
-                "elasticsearch/elasticsearch": "Required to use the Elasticsearch engine (^7.15.0)."
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Tamayo\\LaravelScoutElastic\\LaravelScoutElasticProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Tamayo\\LaravelScoutElastic\\": "src/"
-                }
-            },
-            "authors": [
-                {
-                    "name": "Erick Tamayo",
-                    "email": "ErickTamayo@users.noreply.github.com"
-                }
-            ],
-            "description": "Elastic Driver for Laravel Scout",
-            "keywords": [
-                "elastic",
-                "elasticsearch",
-                "laravel",
-                "scout"
-            ],
-            "support": {
-                "source": "https://github.com/art-institute-of-chicago/laravel-scout-elastic/tree/10.0",
-                "issues": "https://github.com/art-institute-of-chicago/laravel-scout-elastic/issues"
-            },
-            "time": "2023-07-26T19:46:33+00:00"
         },
         {
             "name": "aws/aws-crt-php",
@@ -1425,16 +1367,16 @@
         },
         {
             "name": "elasticsearch/elasticsearch",
-            "version": "v7.17.2",
+            "version": "v7.17.3",
             "source": {
                 "type": "git",
-                "url": "git@github.com:elastic/elasticsearch-php.git",
-                "reference": "2d302233f2bb0926812d82823bb820d405e130fc"
+                "url": "https://github.com/elastic/elasticsearch-php.git",
+                "reference": "b8a60b4136ee31117d1aa1b19879530eb6d11efb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/2d302233f2bb0926812d82823bb820d405e130fc",
-                "reference": "2d302233f2bb0926812d82823bb820d405e130fc",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/b8a60b4136ee31117d1aa1b19879530eb6d11efb",
+                "reference": "b8a60b4136ee31117d1aa1b19879530eb6d11efb",
                 "shasum": ""
             },
             "require": {
@@ -1484,7 +1426,11 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2023-04-21T15:31:12+00:00"
+            "support": {
+                "issues": "https://github.com/elastic/elasticsearch-php/issues",
+                "source": "https://github.com/elastic/elasticsearch-php/tree/v7.17.3"
+            },
+            "time": "2025-07-14T09:07:02+00:00"
         },
         {
             "name": "ezimuel/guzzlestreams",
