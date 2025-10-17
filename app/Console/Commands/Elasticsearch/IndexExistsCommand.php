@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\Elasticsearch;
 
-use Elastic\Elasticsearch\Client;
+use Elasticsearch\Client;
 use Illuminate\Console\Command;
 
 final class IndexExistsCommand extends Command
@@ -32,15 +32,20 @@ final class IndexExistsCommand extends Command
     {
         $indexName = $this->argument('index-name');
 
-        if (!$this->argumentIsValid($indexName)) {
+        if ($indexName === null ||
+            !is_string($indexName) ||
+            mb_strlen($indexName) === 0
+        ) {
+            $this->output->writeln(
+                '<error>Argument index-name must be a non empty string.</error>'
+            );
+
             return self::FAILURE;
         }
 
-        if (
-            $this->client->indices()->exists([
+        if ($this->client->indices()->exists([
             'index' => $indexName,
-            ])
-        ) {
+        ])) {
             $this->output->writeln(
                 sprintf(
                     '<info>Index %s exists.</info>',

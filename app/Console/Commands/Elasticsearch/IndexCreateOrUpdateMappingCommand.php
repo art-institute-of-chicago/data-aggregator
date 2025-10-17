@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\Elasticsearch;
 
-use App\Console\Commands\Elasticsearch\Behaviors\ValidateArguments;
-use Elastic\Elasticsearch\Client;
+use Elasticsearch\Client;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Throwable;
 
 final class IndexCreateOrUpdateMappingCommand extends Command
 {
-    use ValidateArguments;
-
     /**
      * @var string
      */
@@ -46,20 +43,16 @@ final class IndexCreateOrUpdateMappingCommand extends Command
         $indexName = $this->argument('index-name');
         $mappingFilePath = $this->argument('mapping-file-path');
 
-        if (
-            !$this->argumentsAreValid(
-                $indexName,
-                $mappingFilePath
-            )
-        ) {
+        if (!$this->argumentsAreValid(
+            $indexName,
+            $mappingFilePath
+        )) {
             return self::FAILURE;
         }
 
-        if (
-            !$this->client->indices()->exists([
+        if (!$this->client->indices()->exists([
             'index' => $indexName,
-            ])
-        ) {
+        ])) {
             try {
                 $this->client->indices()->create([
                     'index' => $indexName,
@@ -122,5 +115,33 @@ final class IndexCreateOrUpdateMappingCommand extends Command
         );
 
         return self::SUCCESS;
+    }
+
+    private function argumentsAreValid($indexName, $mappingFilePath): bool
+    {
+        if ($indexName === null ||
+            !is_string($indexName) ||
+            mb_strlen($indexName) === 0
+        ) {
+            $this->output->writeln(
+                '<error>Argument index-name must be a non empty string.</error>'
+            );
+
+            return false;
+        }
+
+        if ($mappingFilePath === null ||
+            !is_string($mappingFilePath) ||
+            mb_strlen($mappingFilePath) === 0 ||
+            !$this->filesystem->exists($mappingFilePath)
+        ) {
+            $this->output->writeln(
+                '<error>Argument mapping-file-path must exists on filesystem and must be a non empty string.</error>'
+            );
+
+            return false;
+        }
+
+        return true;
     }
 }

@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\Elasticsearch;
 
-use App\Console\Commands\Elasticsearch\Behaviors\ValidateArguments;
-use Elastic\Elasticsearch\Client;
+use Elasticsearch\Client;
 use Illuminate\Console\Command;
 use Throwable;
 
 final class IndexDeleteCommand extends Command
 {
-    use ValidateArguments;
-
     /**
      * @var string
      */
@@ -40,11 +37,9 @@ final class IndexDeleteCommand extends Command
             return self::FAILURE;
         }
 
-        if (
-            !$this->client->indices()->exists([
+        if (!$this->client->indices()->exists([
             'index' => $indexName,
-            ])
-        ) {
+        ])) {
             $this->output->writeln(
                 sprintf(
                     '<error>Index %s doesn\'t exists and cannot be deleted.</error>',
@@ -79,5 +74,21 @@ final class IndexDeleteCommand extends Command
         );
 
         return self::SUCCESS;
+    }
+
+    private function argumentIsValid($indexName): bool
+    {
+        if ($indexName === null ||
+            !is_string($indexName) ||
+            mb_strlen($indexName) === 0
+        ) {
+            $this->output->writeln(
+                '<error>Argument index-name must be a non empty string.</error>'
+            );
+
+            return false;
+        }
+
+        return true;
     }
 }
