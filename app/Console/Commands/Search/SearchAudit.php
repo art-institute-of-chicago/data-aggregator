@@ -29,11 +29,11 @@ class SearchAudit extends BaseCommand
 
     public function compareTotals($model)
     {
-        $response = Elasticsearch::search([
+        $response = app('elasticsearch')->search([
             'index' => app('Search')->getIndexForModel($model),
             'type' => app('Search')->getTypeForModel($model),
             'size' => 0,
-        ]);
+        ])->asArray();
 
         $es_count = $response['hits']['total'];
         $db_count = $model::count();
@@ -51,14 +51,14 @@ class SearchAudit extends BaseCommand
             return;
         }
 
-        $response = Elasticsearch::search([
+        $response = app('elasticsearch')->search([
             'index' => app('Search')->getIndexForModel($model),
             'type' => app('Search')->getTypeForModel($model),
             'size' => 1,
             'body' => [
                 'sort' => 'updated_at',
             ],
-        ]);
+        ])->asArray();
 
         // Nothing to compare to. Jump out and let compareTotal report the quantity discrepancy.
         if (count($response['hits']['hits']) === 0) {

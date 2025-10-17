@@ -81,11 +81,9 @@ class ElasticsearchFactory
         }
 
         // Build and return the client
-        if (
-            !empty($host['api_id']) && $host['api_id'] !== null &&
-            !empty($host['api_key']) && $host['api_key'] !== null
-        ) {
-            $clientBuilder->setApiKey($host['api_id'], $host['api_key']);
+        if (!empty($config['api_key']) && $config['api_key'] !== null)
+        {
+            $clientBuilder->setApiKey($config['api_key']);
         }
 
         return $clientBuilder->build();

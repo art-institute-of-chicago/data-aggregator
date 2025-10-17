@@ -46,7 +46,7 @@ class SearchInstall extends BaseCommand
         $params['index'] = $index;
         $params['body']['mappings'] = app('Search')->getElasticsearchMapping($model);
 
-        $return = Elasticsearch::indices()->create($params);
+        $return = app('elasticsearch')->indices()->create($params)->asArray();
 
         $this->info($this->done($return));
     }
