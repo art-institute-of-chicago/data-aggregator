@@ -3,6 +3,7 @@
 namespace App\Console\Commands\AI;
 
 use App\Behaviors\HandleEmbeddings;
+use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
 use App\Models\Web\Vectors\TextEmbedding;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +12,7 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Output\OutputInterface;
 use Exception;
 
-class EmbedDescription extends BaseCommand
+class EmbedDescription extends BaseCommand implements Thresholds
 {
     use HandleEmbeddings;
 

@@ -4,6 +4,7 @@ namespace App\Console\Commands\AI;
 
 use App\Behaviors\HandleEmbeddings;
 use App\Behaviors\ImportsData;
+use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
@@ -14,7 +15,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 
-class AnalyzeAllWeb extends BaseCommand
+class AnalyzeAllWeb extends BaseCommand implements Thresholds
 {
     use HandleEmbeddings;
     use ImportsData;

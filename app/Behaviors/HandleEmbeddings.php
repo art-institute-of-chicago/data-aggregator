@@ -13,9 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 trait HandleEmbeddings
 {
-    public const CONFIDENCE_THRESHOLD_CAPTION = 0.7;
-    public const CONFIDENCE_THRESHOLD_TAG = 0.9;
-
     public function generateAndSaveArtworkEmbeddngs(Artwork $artwork): void
     {
         try {

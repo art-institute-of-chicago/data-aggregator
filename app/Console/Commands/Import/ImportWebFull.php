@@ -20,8 +20,9 @@ use App\Models\Web\DigitalPublicationArticle;
 use App\Models\Web\PrintedPublication;
 use App\Models\Web\StaticPage;
 use App\Behaviors\HandleEmbeddings;
+use App\Behaviors\Thresholds;
 
-class ImportWebFull extends AbstractImportCommand
+class ImportWebFull extends AbstractImportCommand implements Thresholds
 {
     use HandleEmbeddings;
 
