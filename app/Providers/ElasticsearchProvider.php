@@ -9,12 +9,16 @@ use App\Console\Commands\Elasticsearch\IndexCreateCommand;
 use App\Console\Commands\Elasticsearch\IndexCreateOrUpdateMappingCommand;
 use App\Console\Commands\Elasticsearch\IndexDeleteCommand;
 use App\Console\Commands\Elasticsearch\IndexExistsCommand;
+use App\Providers\Engines\ElasticsearchEngine;
 use App\Providers\Managers\ElasticsearchManager;
 use Database\Factories\ElasticsearchFactory;
 use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientBuilder;
 use Illuminate\Container\Container;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Laravel\Scout\EngineManager;
+
 
 /**
  * Class ServiceProvider
@@ -51,6 +55,18 @@ class ElasticsearchProvider extends BaseServiceProvider
 
         $app->singleton(Client::class, function(Container $app) {
             return $app->make('elasticsearch')->connection();
+        });
+
+        resolve(EngineManager::class)->extend('elasticsearch', function () {
+            return new ElasticsearchEngine(
+                ClientBuilder::create()
+                    ->setHosts(config('scout.elasticsearch.hosts'))
+                    ->setApiKey(config('scout.elasticsearch.api_key'))
+                    ->build(),
+                config('scout.elasticsearch.index'),
+                false,
+                config('scout.elasticsearch.perModelIndex', false)
+            );
         });
     }
 
