@@ -69,7 +69,7 @@ class SearchController extends BaseController
             );
         }
 
-        $response = Elasticsearch::indices()->getMapping();
+        $response = app('elasticsearch')->indices()->getMapping()->asArray();
         $index = config('elasticsearch.indexParams.index') . '-' . $resource;
 
         $currentMapping = $response[$index]['mappings']['doc']['properties'] ?? null;
@@ -188,7 +188,7 @@ class SearchController extends BaseController
         $results = null;
 
         try {
-            $results = Elasticsearch::$elasticsearchMethod($params);
+            $results = app('elasticsearch')->$elasticsearchMethod($params)->asArray();
         } catch (\Exception $e) {
             // Elasticsearch occasionally returns a status code of zero
             $code = $e->getCode() > 0 ? $e->getCode() : 500;
@@ -261,7 +261,7 @@ class SearchController extends BaseController
         $results = null;
 
         try {
-            $results = Elasticsearch::msearch($params);
+            $results = app('elasticsearch')->msearch($params)->asArray();
         } catch (\Exception $e) {
             // Elasticsearch occasionally returns a status code of zero
             $code = $e->getCode() > 0 ? $e->getCode() : 500;
@@ -289,7 +289,7 @@ class SearchController extends BaseController
      */
     protected function getRequest()
     {
-        $request = Elasticsearch::connection('default')->transport->lastConnection->getLastRequestInfo()['request'];
+        $request = app('elasticsearch')->connection('default')->transport->lastConnection->getLastRequestInfo()->asArray()['request'];
         $request['body'] = json_decode($request['body'], true);
 
         return $request;
