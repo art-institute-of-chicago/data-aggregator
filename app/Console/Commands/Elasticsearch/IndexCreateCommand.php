@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\Elasticsearch;
 
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Console\Command;
 use Throwable;
 
