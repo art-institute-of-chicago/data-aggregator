@@ -38,8 +38,8 @@ class SearchUninstall extends BaseCommand
                 'index' => $index,
             ];
 
-            if (Elasticsearch::indices()->exists($params)) {
-                $return = Elasticsearch::indices()->delete($params);
+            if (app('elasticsearch')->indices()->exists($params)->asBool()) {
+                $return = app('elasticsearch')->indices()->delete($params)->asArray();
 
                 $this->info($this->done($return));
             } else {
