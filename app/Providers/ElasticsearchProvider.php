@@ -11,7 +11,7 @@ use App\Console\Commands\Elasticsearch\IndexDeleteCommand;
 use App\Console\Commands\Elasticsearch\IndexExistsCommand;
 use App\Providers\Managers\ElasticsearchManager;
 use Database\Factories\ElasticsearchFactory;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Container\Container;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
