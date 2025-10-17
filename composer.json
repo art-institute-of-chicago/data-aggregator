@@ -47,7 +47,7 @@
     "require": {
         "php": "^8.1",
         "aic/data-hub-foundation": "^3.0",
-        "elasticsearch/elasticsearch": "^7.9",
+        "elasticsearch/elasticsearch": "^9.1",
         "intervention/image": "^2.7",
         "jsq/amazon-es-php": "dev-master",
         "laminas/laminas-code": "^4.0",
