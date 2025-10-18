@@ -303,19 +303,30 @@ class Request
         );
 
         // This is the canonical body structure. It is required.
+        // We use a hybrid linear query here to weigh the results of each query differently.
+        // @see https://www.elastic.co/docs/reference/elasticsearch/rest-apis/retrievers/linear-retriever
         $params['body'] = [
             'track_total_hits' => true,
-            'query' => [
-                'script_score' => [
-                    'query' => [
-                        'bool' => [
-                            'must' => [],
-                            'should' => [],
+            'retriever' => [
+                'linear' => [
+                    'retrievers' => [
+                        [
+                            'retriever' => [
+                                'standard' => [
+                                    'query' => [
+                                        'bool' => [
+                                            'must' => [],
+                                            'should' => [],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            'weight' => 1.0,
                         ],
                     ],
-                ],
-            ],
-
+                    'rank_window_size' => 10000,
+                ]
+            ]
         ];
 
         // Add sort into the body, not the request
@@ -359,10 +370,7 @@ class Request
         $params = $this->addFunctionScore($params, $input);
 
         // Add embeddings search
-        $params = $this->addScriptParam($params, $input);
-
-        // Add embeddings search
-        $params = $this->addMinScoreParam($params, $input);
+        $params = $this->addKnnAndRankParam($params, $input);
 
         // If you want to see the raw query that gets sent to Elasticsearch, uncomment this line here:
         // dd(json_encode($params));
@@ -549,7 +557,7 @@ class Request
 
         if (!isset($input['q'])) {
             // Boost anything with `is_boosted` true
-            $params['body']['query']['script_score']['query']['bool']['should'][] = [
+            $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
                 'term' => [
                     'is_boosted' => [
                         'value' => true,
@@ -560,7 +568,7 @@ class Request
 
             // Add any resource-specific boosts
             foreach ($this->boosts as $boost) {
-                $params['body']['query']['script_score']['query']['bool']['should'][] = $boost;
+                $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = $boost;
             }
         }
 
@@ -583,7 +591,7 @@ class Request
         }
 
         // We'll duplicate this, nesting it in `function_score` queries
-        $baseQuery = $params['body']['query']['script_score']['query'];
+        $baseQuery = $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query'];
 
         // Keep track of this to create a "left over" non-scored query
         $resourcesWithoutFunctions = collect([]);
@@ -644,7 +652,7 @@ class Request
         }
 
         // Override the existing query with our queries
-        $params['body']['query']['script_score']['query'] = [
+        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query'] = [
             'bool' => [
                 'should' => $scopedQueries->all(),
                 'minimum_should_match' => $scopedQueries->count() ?? 1,
@@ -663,7 +671,7 @@ class Request
      *
      * @return array
      */
-    public function addScriptParam($params, $input)
+    public function addKnnAndRankParam($params, $input)
     {
         // Determine if input query is a url or not and generate the appropriate embedding for it
 
@@ -675,43 +683,17 @@ class Request
             $vectorType = 'text_embedding';
         }
 
-        // The `cosineSimilarity()` function here is a built-in Elasticsearch function that calculates the measure of similarity between a given query vector and document vectors.
-        $params['body']['query']['script_score']['script'] = [
-            'source' => <<<SOURCE
-                double vector_score = 0;
-                if (doc.containsKey('$vectorType') && doc['$vectorType'].size() > 0 && params.query_vector != null && params.query_vector.length > 0) {
-                    vector_score = cosineSimilarity(params.query_vector, '$vectorType') + 1.0;
-                }
-
-                double lexical_score = _score;
-                double boost_multiplier = 1.0;
-                if (doc.containsKey('is_boosted') && doc['is_boosted'].size() > 0 && doc['is_boosted'].value == true) {
-                    boost_multiplier = 1.25;
-                }
-
-                if (params.query_vector != null && params.query_vector.length > 0) {
-                    return ((lexical_score * boost_multiplier) + (vector_score * 1500));
-                }
-                else {
-                    return lexical_score * boost_multiplier;
-                }
-                SOURCE,
-            'params' => [
-                'query_vector' => $queryVector,
+        $params['body']['retriever']['linear']['retrievers'][] = [
+            'retriever' => [
+                'knn' => [
+                    'field' => $vectorType,
+                    'query_vector' => $queryVector,
+                    'k' => 10,
+                    'num_candidates' => 50,
+                ]
             ],
+            'weight' => 3.0
         ];
-
-        return $params;
-    }
-
-    public function addMinScoreParam(array $params, array $input)
-    {
-        $minScore = 0;
-        if (count($params['index']) == 1 && $params['index']['0'] == config('elasticsearch.indexParams.index') . '-artworks') {
-            $minScore = 2675;
-        }
-
-        $params['body']['min_score'] = $minScore;
 
         return $params;
     }
@@ -728,7 +710,7 @@ class Request
         }
 
         // Assumes that `scopes` has no null members
-        $params['body']['query']['script_score']['query']['bool']['must'][] = [
+        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $this->scopes,
             ],
@@ -752,7 +734,7 @@ class Request
             $restrictions = RestrictContent::getSearchRestrictForEndpoint($resource);
 
             if (!empty($restrictions)) {
-                $params['body']['query']['script_score']['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
+                $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
             }
         }
 
@@ -768,7 +750,7 @@ class Request
     private function addEmptySearchParams(array $params)
     {
         // PHP JSON-encodes empty array as [], not {}
-        $params['body']['query']['script_score']['query']['bool']['must'][] = [
+        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'match_all' => new \stdClass(),
         ];
 
@@ -840,7 +822,7 @@ class Request
         }
 
         foreach ($withQuotes as $subquery) {
-            $params['body']['query']['script_score']['query']['bool']['must'][] = [
+            $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
                 'multi_match' => [
                     'analyzer' => 'exact',
                     'query' => str_replace('"', '', $subquery),
@@ -856,7 +838,7 @@ class Request
 
         foreach ($withoutQuotes as $subquery) {
             // Pull all docs that match fuzzily into the results
-            $params['body']['query']['script_score']['query']['bool']['should'][] = [
+            $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $subquery,
                     'fuzziness' => $fuzziness,
@@ -865,6 +847,7 @@ class Request
                 ],
             ];
         }
+        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['minimum_should_match'] = 1;
 
         // Queries below depend on `q`, but act as relevany tweaks
         // Don't tweak relevancy further if sort is passed
@@ -874,7 +857,7 @@ class Request
 
         // This acts as a boost for docs that match precisely, if fuzzy search is enabled
         if (!$isExact && ($fuzziness ?? false)) {
-            $params['body']['query']['script_score']['query']['bool']['should'][] = [
+            $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $input['q'],
                     'fields' => $allFields,
@@ -886,7 +869,7 @@ class Request
         // `phrase` queries are relatively expensive, so check for spaces first
         // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
         if ((count($withoutQuotes) > 0 || count($withQuotes) > 1) && strpos($input['q'], ' ')) {
-            $params['body']['query']['script_score']['query']['bool']['should'][] = [
+            $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => str_replace('"', '', $input['q']),
                     'type' => 'phrase',
@@ -898,7 +881,7 @@ class Request
         }
 
         // General boost for landing pages, since those should hold more weight in results
-        $params['body']['query']['script_score']['query']['bool']['should'][] = [
+        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
             'term' => [
                 'api_model' => [
                     'value' => 'landing-pages',
@@ -919,7 +902,7 @@ class Request
     {
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
-        $params['body']['query']['script_score']['query']['bool']['must'][] = Arr::get($input, 'query');
+        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = Arr::get($input, 'query');
 
         return $params;
     }
@@ -1090,13 +1073,13 @@ class Request
             ];
         }
 
-        $params['body']['query']['script_score']['query']['bool']['must'][] = [
+        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $hueQueries,
             ],
         ];
 
-        $params['body']['query']['script_score']['query']['bool']['must'][] = [
+        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'range' => [
                 'color.s' => [
                     'gte' => max($hsl['s'] - $saturationTolerance, 0),
@@ -1105,7 +1088,7 @@ class Request
             ],
         ];
 
-        $params['body']['query']['script_score']['query']['bool']['must'][] = [
+        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'range' => [
                 'color.l' => [
                     'gte' => max($hsl['l'] - $lightnessTolerance, 0),
@@ -1115,13 +1098,13 @@ class Request
         ];
 
         // We can't do an exists[field]=lqip, b/c lqip isn't indexed
-        $params['body']['query']['script_score']['query']['bool']['must'][] = [
+        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.width',
             ],
         ];
 
-        $params['body']['query']['script_score']['query']['bool']['must'][] = [
+        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.height',
             ],
