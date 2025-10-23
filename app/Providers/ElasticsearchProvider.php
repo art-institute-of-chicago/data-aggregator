@@ -74,9 +74,7 @@ class ElasticsearchProvider extends BaseServiceProvider
     {
         $source = config_path('elasticsearch.php');
 
-        if ($this->app instanceof LaravelApplication) {
-            $this->publishes([$source => config_path('elasticsearch.php')], 'config');
-        }
+        $this->publishes([$source => config_path('elasticsearch.php')], 'config');
 
         $this->mergeConfigFrom($source, 'elasticsearch');
     }
