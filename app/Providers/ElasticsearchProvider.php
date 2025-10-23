@@ -19,7 +19,6 @@ use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Laravel\Scout\EngineManager;
 
-
 /**
  * Class ServiceProvider
  */
@@ -43,17 +42,17 @@ class ElasticsearchProvider extends BaseServiceProvider
     {
         $app = $this->app;
 
-        $app->singleton('elasticsearch.factory', function($app) {
+        $app->singleton('elasticsearch.factory', function ($app) {
             return new ElasticsearchFactory();
         });
 
-        $app->singleton('elasticsearch', function($app) {
+        $app->singleton('elasticsearch', function ($app) {
             return new ElasticsearchManager($app, $app['elasticsearch.factory']);
         });
 
         $app->alias('elasticsearch', ElasticsearchManager::class);
 
-        $app->singleton(Client::class, function(Container $app) {
+        $app->singleton(Client::class, function (Container $app) {
             return $app->make('elasticsearch')->connection();
         });
 

@@ -14,7 +14,6 @@ use Psr\Log\LoggerInterface;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-
 class ElasticsearchFactory
 {
     /**
@@ -81,8 +80,7 @@ class ElasticsearchFactory
         }
 
         // Build and return the client
-        if (!empty($config['api_key']) && $config['api_key'] !== null)
-        {
+        if (!empty($config['api_key']) && $config['api_key'] !== null) {
             $clientBuilder->setApiKey($config['api_key']);
         }
 

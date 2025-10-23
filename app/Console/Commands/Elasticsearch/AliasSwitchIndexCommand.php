@@ -37,17 +37,21 @@ final class AliasSwitchIndexCommand extends Command
         $oldIndexName = $this->argument('old-index-name');
         $aliasName = $this->argument('alias-name');
 
-        if (!$this->argumentsAreValid(
-            $newIndexName,
-            $oldIndexName,
-            $aliasName
-        )) {
+        if (
+            !$this->argumentsAreValid(
+                $newIndexName,
+                $oldIndexName,
+                $aliasName
+            )
+        ) {
             return self::FAILURE;
         }
 
-        if (!$this->client->indices()->exists([
+        if (
+            !$this->client->indices()->exists([
             'index' => $newIndexName,
-        ])) {
+            ])
+        ) {
             $this->output->writeln(
                 sprintf(
                     '<error>Index %s cannot be linked to alias because doesn\'t exists.</error>',
@@ -96,7 +100,8 @@ final class AliasSwitchIndexCommand extends Command
 
     private function argumentsAreValid($newIndexName, $oldIndexName, $aliasName): bool
     {
-        if ($newIndexName === null ||
+        if (
+            $newIndexName === null ||
             !is_string($newIndexName) ||
             mb_strlen($newIndexName) === 0
         ) {
@@ -107,7 +112,8 @@ final class AliasSwitchIndexCommand extends Command
             return false;
         }
 
-        if ($oldIndexName === null ||
+        if (
+            $oldIndexName === null ||
             !is_string($oldIndexName) ||
             mb_strlen($oldIndexName) === 0
         ) {
@@ -118,7 +124,8 @@ final class AliasSwitchIndexCommand extends Command
             return false;
         }
 
-        if ($aliasName === null ||
+        if (
+            $aliasName === null ||
             !is_string($aliasName) ||
             mb_strlen($aliasName) === 0
         ) {
