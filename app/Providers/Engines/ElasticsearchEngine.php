@@ -59,8 +59,7 @@ class ElasticsearchEngine extends Engine
      */
     protected function getIndex($model)
     {
-        if (!$this->indexIsPrefix)
-        {
+        if (!$this->indexIsPrefix) {
             return $this->index;
         }
 
@@ -138,8 +137,7 @@ class ElasticsearchEngine extends Engine
 
         $result = $this->elastic->bulk($params);
 
-        if (isset($result['errors']) === true && $result['errors'] === true)
-        {
+        if (isset($result['errors']) === true && $result['errors'] === true) {
             throw new \Exception(json_encode($result));
         }
     }
@@ -299,12 +297,13 @@ class ElasticsearchEngine extends Engine
         $modelIdPositions = array_flip($keys);
 
         return $model->getScoutModelsByIds(
-                $builder, $keys
-            )->filter(function ($model) use ($keys) {
-                return in_array($model->getScoutKey(), $keys);
-            })->sortBy(function ($model) use ($modelIdPositions) {
-                return $modelIdPositions[$model->getScoutKey()];
-            })->values();
+            $builder,
+            $keys
+        )->filter(function ($model) use ($keys) {
+            return in_array($model->getScoutKey(), $keys);
+        })->sortBy(function ($model) use ($modelIdPositions) {
+            return $modelIdPositions[$model->getScoutKey()];
+        })->values();
     }
 
     /**

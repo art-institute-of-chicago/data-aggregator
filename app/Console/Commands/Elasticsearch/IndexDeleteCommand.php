@@ -40,9 +40,11 @@ final class IndexDeleteCommand extends Command
             return self::FAILURE;
         }
 
-        if (!$this->client->indices()->exists([
+        if (
+            !$this->client->indices()->exists([
             'index' => $indexName,
-        ])) {
+            ])
+        ) {
             $this->output->writeln(
                 sprintf(
                     '<error>Index %s doesn\'t exists and cannot be deleted.</error>',

@@ -6,7 +6,8 @@ trait ValidateArguments
 {
     protected function argumentIsValid($indexName): bool
     {
-        if ($indexName === null ||
+        if (
+            $indexName === null ||
             !is_string($indexName) ||
             mb_strlen($indexName) === 0
         ) {

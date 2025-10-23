@@ -43,16 +43,20 @@ final class IndexCreateOrUpdateMappingCommand extends Command
         $indexName = $this->argument('index-name');
         $mappingFilePath = $this->argument('mapping-file-path');
 
-        if (!$this->argumentsAreValid(
-            $indexName,
-            $mappingFilePath
-        )) {
+        if (
+            !$this->argumentsAreValid(
+                $indexName,
+                $mappingFilePath
+            )
+        ) {
             return self::FAILURE;
         }
 
-        if (!$this->client->indices()->exists([
+        if (
+            !$this->client->indices()->exists([
             'index' => $indexName,
-        ])) {
+            ])
+        ) {
             try {
                 $this->client->indices()->create([
                     'index' => $indexName,
@@ -119,7 +123,8 @@ final class IndexCreateOrUpdateMappingCommand extends Command
 
     private function argumentsAreValid($indexName, $mappingFilePath): bool
     {
-        if ($indexName === null ||
+        if (
+            $indexName === null ||
             !is_string($indexName) ||
             mb_strlen($indexName) === 0
         ) {
@@ -130,7 +135,8 @@ final class IndexCreateOrUpdateMappingCommand extends Command
             return false;
         }
 
-        if ($mappingFilePath === null ||
+        if (
+            $mappingFilePath === null ||
             !is_string($mappingFilePath) ||
             mb_strlen($mappingFilePath) === 0 ||
             !$this->filesystem->exists($mappingFilePath)

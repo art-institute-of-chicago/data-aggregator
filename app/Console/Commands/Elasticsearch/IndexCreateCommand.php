@@ -40,9 +40,11 @@ final class IndexCreateCommand extends Command
             return self::FAILURE;
         }
 
-        if ($this->client->indices()->exists([
+        if (
+            $this->client->indices()->exists([
             'index' => $indexName,
-        ])) {
+            ])
+        ) {
             $this->output->writeln(
                 sprintf(
                     '<error>Index %s already exists and cannot be created.</error>',

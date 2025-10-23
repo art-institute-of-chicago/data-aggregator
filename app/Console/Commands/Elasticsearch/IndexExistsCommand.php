@@ -32,7 +32,8 @@ final class IndexExistsCommand extends Command
     {
         $indexName = $this->argument('index-name');
 
-        if ($indexName === null ||
+        if (
+            $indexName === null ||
             !is_string($indexName) ||
             mb_strlen($indexName) === 0
         ) {
@@ -43,9 +44,11 @@ final class IndexExistsCommand extends Command
             return self::FAILURE;
         }
 
-        if ($this->client->indices()->exists([
+        if (
+            $this->client->indices()->exists([
             'index' => $indexName,
-        ])) {
+            ])
+        ) {
             $this->output->writeln(
                 sprintf(
                     '<info>Index %s exists.</info>',

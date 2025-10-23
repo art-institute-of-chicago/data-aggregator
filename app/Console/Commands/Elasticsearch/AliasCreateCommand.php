@@ -35,16 +35,20 @@ final class AliasCreateCommand extends Command
         $indexName = $this->argument('index-name');
         $aliasName = $this->argument('alias-name');
 
-        if (!$this->argumentsAreValid(
-            $indexName,
-            $aliasName
-        )) {
+        if (
+            !$this->argumentsAreValid(
+                $indexName,
+                $aliasName
+            )
+        ) {
             return self::FAILURE;
         }
 
-        if (!$this->client->indices()->exists([
+        if (
+            !$this->client->indices()->exists([
             'index' => $indexName,
-        ])) {
+            ])
+        ) {
             $this->output->writeln(
                 sprintf(
                     '<error>Index %s doesn\'t exists and alias cannot be created.</error>',
@@ -86,7 +90,8 @@ final class AliasCreateCommand extends Command
 
     private function argumentsAreValid($indexName, $aliasName): bool
     {
-        if ($indexName === null ||
+        if (
+            $indexName === null ||
             !is_string($indexName) ||
             mb_strlen($indexName) === 0
         ) {
@@ -97,7 +102,8 @@ final class AliasCreateCommand extends Command
             return false;
         }
 
-        if ($aliasName === null ||
+        if (
+            $aliasName === null ||
             !is_string($aliasName) ||
             mb_strlen($aliasName) === 0
         ) {
