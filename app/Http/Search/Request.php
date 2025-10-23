@@ -308,7 +308,7 @@ class Request
         $params['body'] = [
             'track_total_hits' => true,
             'retriever' => [
-                'linear' => [
+                'rrf' => [
                     'retrievers' => [
                         [
                             'retriever' => [
@@ -557,7 +557,7 @@ class Request
 
         if (!isset($input['q'])) {
             // Boost anything with `is_boosted` true
-            $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
+            $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
                 'term' => [
                     'is_boosted' => [
                         'value' => true,
@@ -568,7 +568,7 @@ class Request
 
             // Add any resource-specific boosts
             foreach ($this->boosts as $boost) {
-                $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = $boost;
+                $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = $boost;
             }
         }
 
@@ -591,7 +591,7 @@ class Request
         }
 
         // We'll duplicate this, nesting it in `function_score` queries
-        $baseQuery = $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query'];
+        $baseQuery = $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query'];
 
         // Keep track of this to create a "left over" non-scored query
         $resourcesWithoutFunctions = collect([]);
@@ -652,7 +652,7 @@ class Request
         }
 
         // Override the existing query with our queries
-        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query'] = [
+        $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query'] = [
             'bool' => [
                 'should' => $scopedQueries->all(),
                 'minimum_should_match' => $scopedQueries->count() ?? 1,
@@ -683,7 +683,7 @@ class Request
             $vectorType = 'text_embedding';
         }
 
-        $params['body']['retriever']['linear']['retrievers'][] = [
+        $params['body']['retriever']['rrf']['retrievers'][] = [
             'retriever' => [
                 'knn' => [
                     'field' => $vectorType,
@@ -710,7 +710,7 @@ class Request
         }
 
         // Assumes that `scopes` has no null members
-        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
+        $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $this->scopes,
             ],
@@ -734,7 +734,7 @@ class Request
             $restrictions = RestrictContent::getSearchRestrictForEndpoint($resource);
 
             if (!empty($restrictions)) {
-                $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
+                $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
             }
         }
 
@@ -750,7 +750,7 @@ class Request
     private function addEmptySearchParams(array $params)
     {
         // PHP JSON-encodes empty array as [], not {}
-        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
+        $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'match_all' => new \stdClass(),
         ];
 
@@ -822,7 +822,7 @@ class Request
         }
 
         foreach ($withQuotes as $subquery) {
-            $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
+            $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
                 'multi_match' => [
                     'analyzer' => 'exact',
                     'query' => str_replace('"', '', $subquery),
@@ -838,7 +838,7 @@ class Request
 
         foreach ($withoutQuotes as $subquery) {
             // Pull all docs that match fuzzily into the results
-            $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
+            $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $subquery,
                     'fuzziness' => $fuzziness,
@@ -847,7 +847,7 @@ class Request
                 ],
             ];
         }
-        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['minimum_should_match'] = 1;
+        $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['minimum_should_match'] = 1;
 
         // Queries below depend on `q`, but act as relevany tweaks
         // Don't tweak relevancy further if sort is passed
@@ -857,7 +857,7 @@ class Request
 
         // This acts as a boost for docs that match precisely, if fuzzy search is enabled
         if (!$isExact && ($fuzziness ?? false)) {
-            $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
+            $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $input['q'],
                     'fields' => $allFields,
@@ -869,7 +869,7 @@ class Request
         // `phrase` queries are relatively expensive, so check for spaces first
         // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
         if ((count($withoutQuotes) > 0 || count($withQuotes) > 1) && strpos($input['q'], ' ')) {
-            $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
+            $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => str_replace('"', '', $input['q']),
                     'type' => 'phrase',
@@ -881,7 +881,7 @@ class Request
         }
 
         // General boost for landing pages, since those should hold more weight in results
-        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
+        $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['should'][] = [
             'term' => [
                 'api_model' => [
                     'value' => 'landing-pages',
@@ -902,7 +902,7 @@ class Request
     {
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
-        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = Arr::get($input, 'query');
+        $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = Arr::get($input, 'query');
 
         return $params;
     }
@@ -1073,13 +1073,13 @@ class Request
             ];
         }
 
-        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
+        $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $hueQueries,
             ],
         ];
 
-        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
+        $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'range' => [
                 'color.s' => [
                     'gte' => max($hsl['s'] - $saturationTolerance, 0),
@@ -1088,7 +1088,7 @@ class Request
             ],
         ];
 
-        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
+        $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'range' => [
                 'color.l' => [
                     'gte' => max($hsl['l'] - $lightnessTolerance, 0),
@@ -1098,13 +1098,13 @@ class Request
         ];
 
         // We can't do an exists[field]=lqip, b/c lqip isn't indexed
-        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
+        $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.width',
             ],
         ];
 
-        $params['body']['retriever']['linear']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
+        $params['body']['retriever']['rrf']['retrievers'][0]['retriever']['standard']['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.height',
             ],
