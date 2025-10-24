@@ -55,7 +55,7 @@ class SearchReindex extends BaseCommand
             ],
         ];
 
-        $return = Elasticsearch::reindex($params);
+        $return = app('elasticsearch')->reindex($params)->asArray();
 
         $this->info('Reindex from ' . $index . ' has started. Monitor the process here: ' . $this->baseUrl() . '/_tasks/' . $return['task']);
     }
