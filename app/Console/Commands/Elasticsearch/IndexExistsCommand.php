@@ -32,15 +32,7 @@ final class IndexExistsCommand extends Command
     {
         $indexName = $this->argument('index-name');
 
-        if (
-            $indexName === null ||
-            !is_string($indexName) ||
-            mb_strlen($indexName) === 0
-        ) {
-            $this->output->writeln(
-                '<error>Argument index-name must be a non empty string.</error>'
-            );
-
+        if (!$this->argumentIsValid($indexName)) {
             return self::FAILURE;
         }
 
