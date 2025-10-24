@@ -52,7 +52,7 @@ class CsvSearchController extends SearchController
         $results = null;
 
         try {
-            $results = Elasticsearch::$elasticsearchMethod($params);
+            $results = app('elasticsearch')->$elasticsearchMethod($params)->asArray();
         } catch (\Exception $e) {
             // Elasticsearch occasionally returns a status code of zero
             $code = $e->getCode() > 0 ? $e->getCode() : 500;

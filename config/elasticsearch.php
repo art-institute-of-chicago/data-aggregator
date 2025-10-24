@@ -30,56 +30,29 @@ return [
              *
              * This is the only configuration value that is mandatory.
              *
-             * Presently using "extended" host configuration method
-             *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_extended_host_configuration
-             *
-             * There is also the shorter "inline" configuration method available
-             *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_inline_host_configuration
+             * @see https://www.elastic.co/docs/reference/elasticsearch/clients/php/host-config
              */
 
             'hosts' => [
-                [
-                    'host'              => env('ELASTICSEARCH_HOST', 'localhost'),
-                    // For local development, the default Elasticsearch port is 9200.
-                    // If you are connecting to an Elasticsearch instance on AWS, you probably want to set this to null
-                    'port'              => env('ELASTICSEARCH_PORT', 9200),
-                    'scheme'            => env('ELASTICSEARCH_SCHEME', null),
-                    'user'              => env('ELASTICSEARCH_USER', null),
-                    'pass'              => env('ELASTICSEARCH_PASS', null),
-
-                    // Alternatively, you can log in via API keys
-                    'api_id'            => env('ELASTICSEARCH_API_ID', null),
-                    'api_key'           => env('ELASTICSEARCH_API_KEY', null),
-
-                    // If you are connecting to an Elasticsearch instance on AWS, you will need these values as well
-                    'aws'               => env('AWS_ELASTICSEARCH_ENABLED', false),
-                    'aws_region'        => env('AWS_REGION', ''),
-                    'aws_key'           => env('AWS_ACCESS_KEY_ID', ''),
-                    'aws_secret'        => env('AWS_SECRET_ACCESS_KEY', ''),
-                    'aws_credentials'   => null,
-                    'aws_session_token' => env('AWS_SESSION_TOKEN', null),
-                ],
+                env('ELASTICSEARCH_SCHEME', '')
+                . (env('ELASTICSEARCH_SCHEME', null) ? '://' : '')
+                . env('ELASTICSEARCH_HOST', 'localhost')
+                . ':' . env('ELASTICSEARCH_PORT', 9200)
             ],
 
+            'api_key' => env('ELASTICSEARCH_API_KEY', null),
+
             /**
-             * SSL
+             * Retries
              *
-             * If your Elasticsearch instance uses an out-dated or self-signed SSL
-             * certificate, you will need to pass in the certificate bundle.  This can
-             * either be the path to the certificate file (for self-signed certs), or a
-             * package like https://github.com/Kdyby/CurlCaBundle.  See the documentation
-             * below for all the details.
+             * By default, the client will retry n times, where n = number of nodes in
+             * your cluster. If you would like to disable retries, or change the number,
+             * you can do so here.
              *
-             * If you are using SSL instances, and the certificates are up-to-date and
-             * signed by a public certificate authority, then you can leave this null and
-             * just use "https" in the host path(s) above and you should be fine.
-             *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_security.html#_ssl_encryption_2
+             * @see https://www.elastic.co/docs/reference/elasticsearch/clients/php/set-retries
              */
 
-            'sslVerification' => null,
+            'retries' => null,
 
             /**
              * Logging
@@ -96,7 +69,7 @@ return [
              * Note: 'logObject' takes precedent over 'logPath'/'logLevel', so set
              * 'logObject' null if you just want file-based logging to a custom path.
              *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#enabling_logger
+             * @see https://www.elastic.co/docs/reference/elasticsearch/clients/php/enabling_logger
              */
 
             'logging' => true,
@@ -119,112 +92,17 @@ return [
              */
 
             'retries' => null,
-
-            /**
-             * The remainder of the configuration options can almost always be left
-             * as-is unless you have specific reasons to change them.  Refer to the
-             * appropriate sections in the Elasticsearch documentation for what each option
-             * does and what values it expects.
-             */
-
-            /**
-             * Sniff On Start
-             *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html
-             */
-
-            'sniffOnStart' => false,
-
-            /**
-             * HTTP Handler
-             *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_configure_the_http_handler
-             * @see http://ringphp.readthedocs.org/en/latest/client_handlers.html
-             */
-
-            'httpHandler' => (
-                Illuminate\Support\Str::endsWith(env('ELASTICSEARCH_HOST', ''), 'es.amazonaws.com') ? (
-                    new Aws\ElasticsearchService\ElasticsearchPhpHandler(env('ELASTICSEARCH_AWS_REGION', 'us-east-1'))
-                ) : null
-            ),
-
-            /**
-             * Connection Pool
-             *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_setting_the_connection_pool
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_connection_pool.html
-             */
-
-            'connectionPool' => null,
-
-            /**
-             * Connection Selector
-             *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_setting_the_connection_selector
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_selectors.html
-             */
-
-            'connectionSelector' => null,
-
-            /**
-             * Serializer
-             *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_setting_the_serializer
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_serializers.html
-             */
-
-            'serializer' => null,
-
-            /**
-             * Connection Factory
-             *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_setting_a_custom_connectionfactory
-             */
-
-            'connectionFactory' => null,
-
-            /**
-             * Endpoint
-             *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/6.0/_configuration.html#_set_the_endpoint_closure
-             */
-
-            'endpoint' => null,
-
-            /**
-             * Register additional namespaces
-             *
-             * An array of additional namespaces to register.
-             *
-             * @example 'namespaces' => [XPack::Security(), XPack::Watcher()]
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/ElasticsearchPHP_Endpoints.html#Elasticsearch_ClientBuilderregisterNamespace_registerNamespace
-             */
-            'namespaces' => [],
-
-            /**
-             * Tracer
-             *
-             * Tracer is handled by passing in a name of the class implements Psr\Log\LoggerInterface.
-             *
-             * @see https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_configuration.html#_setting_a_custom_connectionfactory
-             */
-            'tracer' => null,
-
         ],
 
         'testing' => [
 
             'hosts' => [
                 [
-                    'host' => 'localhost',
-                    'port' => 9200,
-                    'scheme' => null,
-                    'user' => null,
-                    'pass' => null,
+                    'localhost:9200'
                 ],
             ],
 
-            'sslVerification' => null,
+            'retries' => null,
 
             'logging' => false,
 
@@ -233,26 +111,6 @@ return [
             'logLevel' => Monolog\Logger::INFO,
 
             'retries' => null,
-
-            /**
-             * The remainder of the configuration options can almost always be left
-             * as-is unless you have specific reasons to change them.  Refer to the
-             * appropriate sections in the Elasticsearch documentation for what each option
-             * does and what values it expects.
-             */
-
-            'sniffOnStart' => false,
-
-            'connectionPool' => null,
-
-            'connectionSelector' => null,
-
-            'serializer' => null,
-
-            'connectionFactory' => null,
-
-            'endpoint' => null,
-
         ],
 
     ],

@@ -3,6 +3,7 @@
 namespace App\Console\Commands\AI;
 
 use App\Behaviors\HandleEmbeddings;
+use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Symfony\Component\Console\Output\OutputInterface;
 use Exception;
 
-class AnalyzeImage extends BaseCommand
+class AnalyzeImage extends BaseCommand implements Thresholds
 {
     use HandleEmbeddings;
 
