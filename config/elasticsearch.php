@@ -97,9 +97,7 @@ return [
         'testing' => [
 
             'hosts' => [
-                [
-                    'localhost:9200'
-                ],
+                'localhost:9200'
             ],
 
             'retries' => null,
