@@ -908,6 +908,35 @@ class Artwork extends BaseTransformer
                 },
                 'is_restricted' => true,
             ],
+            'catalog_based_search_keyword_embeddings' => [
+                'doc' => 'The generated embeddings of keyword search values that would be catalog-based searches on this record',
+                'type' => 'vector',
+                'elasticsearch' => [
+                    'type' => 'dense_vector',
+                    'dims' => 1536,
+                    'index' => true,
+                    'index_options' => [
+                        'type' => 'hnsw',
+                        'm' => 16,
+                        'ef_construction' => 64
+                    ],
+                ],
+                'value' => function ($item) {
+                    $titles = [];
+                    if ($item->artists) {
+                        array_merge($titles, $item->artists->pluck('title')->all());
+                    }
+                    if ($item->style) {
+                        $titles[] = $item->style->title;
+                    }
+                    if ($item->isBoosted()) {
+                        $titles[] = $item->title;
+                    }
+
+                    return app('Embeddings')->getEmbeddings($titles);
+                },
+                'is_restricted' => true,
+            ],
         ];
     }
 
