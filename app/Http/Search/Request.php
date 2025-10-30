@@ -321,7 +321,7 @@ class Request
                                     ],
                                 ],
                             ],
-                            'weight' => 1.0,
+                            'weight' => 3.0,
                         ],
                     ],
                     'rank_window_size' => 10000,
@@ -676,27 +676,28 @@ class Request
      */
     public function addKnnAndRankParam($params, $input)
     {
-        // Determine if input query is a url or not and generate the appropriate embedding for it
+        if ($input['q']) {
+            // Determine if input query is a url or not and generate the appropriate embedding for it
+            if (filter_var($input['q'], FILTER_VALIDATE_URL) && config('aic.search.image_url_search')) {
+                $queryVector = app('Embeddings')->getImageEmbeddings($input['q']);
+                $vectorType = 'image_embedding';
+            } else {
+                $queryVector = app('Embeddings')->getEmbeddings($input['q']);
+                $vectorType = 'text_embedding';
+            }
 
-        if (filter_var($input['q'], FILTER_VALIDATE_URL) && config('aic.search.image_url_search')) {
-            $queryVector = app('Embeddings')->getImageEmbeddings($input['q']);
-            $vectorType = 'image_embedding';
-        } else {
-            $queryVector = app('Embeddings')->getEmbeddings($input['q']);
-            $vectorType = 'text_embedding';
+            $params['body']['retriever']['rrf']['retrievers'][] = [
+                'retriever' => [
+                    'knn' => [
+                        'field' => $vectorType,
+                        'query_vector' => $queryVector,
+                        'k' => 10,
+                        'num_candidates' => 50,
+                    ]
+                ],
+                'weight' => 1.0
+            ];
         }
-
-        $params['body']['retriever']['rrf']['retrievers'][] = [
-            'retriever' => [
-                'knn' => [
-                    'field' => $vectorType,
-                    'query_vector' => $queryVector,
-                    'k' => 10,
-                    'num_candidates' => 50,
-                ]
-            ],
-            'weight' => 3.0
-        ];
 
         return $params;
     }
