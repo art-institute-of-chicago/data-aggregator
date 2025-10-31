@@ -908,6 +908,14 @@ class Artwork extends BaseTransformer
                 },
                 'is_restricted' => true,
             ],
+            'catalog_based_search_keyword_titles' => [
+                'doc' => 'The keyword search values that would be catalog-based searches on this record',
+                'type' => 'array',
+                'value' => function ($item) {
+                    return $item->catalog_based_search_keywords;
+                },
+                'is_restricted' => true,
+            ],
             'catalog_based_search_keyword_embeddings' => [
                 'doc' => 'The generated embeddings of keyword search values that would be catalog-based searches on this record',
                 'type' => 'vector',
@@ -922,18 +930,7 @@ class Artwork extends BaseTransformer
                     ],
                 ],
                 'value' => function ($item) {
-                    $titles = [];
-                    if ($item->artists) {
-                        array_merge($titles, $item->artists->pluck('title')->all());
-                    }
-                    if ($item->style) {
-                        $titles[] = $item->style->title;
-                    }
-                    if ($item->isBoosted()) {
-                        $titles[] = $item->title;
-                    }
-
-                    return app('Embeddings')->getEmbeddings($titles);
+                    return app('Embeddings')->getEmbeddings($item->catalog_based_search_keywords);
                 },
                 'is_restricted' => true,
             ],

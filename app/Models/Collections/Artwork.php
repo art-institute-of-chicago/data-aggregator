@@ -354,6 +354,22 @@ class Artwork extends CollectionsModel
         return $this->morphOne(TextEmbedding::class, 'model', 'model_name');
     }
 
+    public function getCatalogBasedSearchKeywordsAttribute()
+    {
+        $titles = [];
+        if ($this->artists) {
+            array_merge($titles, $this->artists->pluck('title')->all());
+        }
+        if ($this->style) {
+            $titles[] = $this->style->title;
+        }
+        if ($this->isBoosted()) {
+            $titles[] = $this->title;
+        }
+
+        return $titles;
+    }
+
     public function getAltTextAttribute($value)
     {
         // If CITI provided `visual_description`, return that
