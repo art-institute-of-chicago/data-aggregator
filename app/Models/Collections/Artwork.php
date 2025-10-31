@@ -354,7 +354,8 @@ class Artwork extends CollectionsModel
         return $this->morphOne(TextEmbedding::class, 'model', 'model_name');
     }
 
-    public function getCatalogBasedSearchKeywordsAttribute() {
+    public function getCatalogBasedSearchKeywordsAttribute()
+    {
         $titles = [];
         if ($this->artists) {
             array_merge($titles, $this->artists->pluck('title')->all());
