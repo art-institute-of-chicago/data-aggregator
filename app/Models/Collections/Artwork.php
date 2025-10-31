@@ -358,7 +358,7 @@ class Artwork extends CollectionsModel
     {
         $titles = [];
         if ($this->artists) {
-            array_merge($titles, $this->artists->pluck('title')->all());
+            $titles = array_merge($titles, $this->artists->pluck('title')->all());
         }
         if ($this->style) {
             $titles[] = $this->style->title;
