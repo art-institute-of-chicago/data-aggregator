@@ -130,6 +130,9 @@ return [
 
     'search' => [
         'image_url_search' => env('IMAGE_URL_SEARCH'),
+        'catalog_match_threshold' => 5.0,
+        'catalog_vector_weight' => 1.0,
+        'catalog_lexical_weight' => 5.0,
     ],
 
     'shop' => [
