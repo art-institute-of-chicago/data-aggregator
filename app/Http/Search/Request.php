@@ -55,7 +55,7 @@ class Request
      *
      * @var float
      */
-    private $vectorWeight = 7.0;
+    private $vectorWeight = 6.0;
 
     /**
      * Weight of lexical search
@@ -740,7 +740,6 @@ class Request
                         'match' => [
                             'catalog_based_search_keyword_titles' => [
                                 'query' => $input['q'],
-                                'analyzer' => 'standard',
                             ],
                         ],
                     ],
@@ -759,11 +758,11 @@ class Request
             // For kNN queries the score meaning may differ depending on index settings
             // (dot-product vs cosine). Expose a configurable threshold to decide
             // when to boost the retriever. Default threshold is 0.75.
-            $threshold = config('aic.search.catalog_match_threshold', 5.0);
+            $threshold = config('aic.search.catalog_match_threshold', 10.0);
 
             if ($score !== null && $score >= $threshold) {
                 $this->vectorWeight = config('aic.search.catalog_vector_weight', 1.0);
-                $this->lexicalWeight = config('aic.search.catalog_lexical_weight', 7.0);
+                $this->lexicalWeight = config('aic.search.catalog_lexical_weight', 6.0);
             }
         }
 
