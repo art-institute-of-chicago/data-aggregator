@@ -705,7 +705,7 @@ class Request
      *
      * @return array
      */
-    public function addFunctionScore($params, $input)
+    public function addFunctionScore(array $params, array $input)
     {
         if (empty($this->functionScores) || !isset($this->resources)) {
             return $params;
@@ -792,7 +792,7 @@ class Request
      *
      * @return array
      */
-    public function addKnnAndRankParam($params, $input)
+    public function addKnnAndRankParam(array $params, array $input)
     {
         if ($input['q']) {
             // Determine if input query is a url or not and generate the appropriate embedding for it
@@ -829,7 +829,7 @@ class Request
      *
      * @return array
      */
-    public function adjustRetrieverWeights($params, $input)
+    public function adjustRetrieverWeights(array $params, array $input)
     {
         if (!empty($input['q'])) {
             $esParams = [
