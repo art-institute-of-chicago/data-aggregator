@@ -14,21 +14,25 @@ class EmbeddingService
     public const COMPLETIONS_BASE_DELAY = 1;
     public const COMPLETIONS_BACKOFF_MULTIPLIER = 2;
 
-    public function getEmbeddings(?string $input): ?array
+    public function getEmbeddings(mixed $input): ?array
     {
         if (!$input) {
             return [];
         }
 
+        if (!is_array($input)) {
+            $input = [$input];
+        }
+
         return Cache::remember(
-            "embedding:search:" . md5($input),
+            "embedding:search:" . md5(serialize($input)),
             now()->addDays(7),
             function () use ($input) {
                 $response = Http::withHeaders([
                     'Content-Type' => 'application/json',
                     'api-key' => config('azure.embedding.key'),
                 ])->post(config('azure.embedding.endpoint'), [
-                    'input' => [$input],
+                    'input' => $input,
                     'model' => 'text-embedding-ada-002'
                 ]);
 
