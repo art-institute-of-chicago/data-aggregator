@@ -10,6 +10,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request as RequestFacade;
+use Illuminate\Support\Facades\Log;
 
 class Request
 {
@@ -48,6 +49,20 @@ class Request
      * @var array
      */
     protected $functionScores;
+
+    /**
+     * Weight of vector search
+     *
+     * @var float
+     */
+    private $vectorWeight = 6.0;
+
+    /**
+     * Weight of lexical search
+     *
+     * @var float
+     */
+    private $lexicalWeight = 1.0;
 
     /**
      * List of allowed Input params for querying.
@@ -302,6 +317,9 @@ class Request
             $this->getPaginationParams($input)
         );
 
+        // Adust retriever weights
+        $params = $this->adjustRetrieverWeights($params, $input);
+
         // This is the canonical body structure. It is required.
         // We use a hybrid linear query here to weigh the results of each query differently.
         // @see https://www.elastic.co/docs/reference/elasticsearch/rest-apis/retrievers/linear-retriever
@@ -321,7 +339,7 @@ class Request
                                     ],
                                 ],
                             ],
-                            'weight' => 3.0,
+                            'weight' => $this->lexicalWeight,
                         ],
                     ],
                     'rank_window_size' => 10000,
@@ -692,8 +710,57 @@ class Request
                         'num_candidates' => 50,
                     ]
                 ],
-                'weight' => 1.0
+                'weight' => $this->vectorWeight,
             ];
+        }
+
+        return $params;
+    }
+
+    /**
+     * Add param for vector search
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.18/query-dsl-script-score-query.html#vector-functions-cosine
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    public function adjustRetrieverWeights($params, $input)
+    {
+        if (!empty($input['q'])) {
+            $esParams = [
+                'index' => $params['index'],
+                'size' => 1,
+                'body' => [
+                    'query' => [
+                        'match' => [
+                            'catalog_based_search_keyword_titles' => [
+                                'query' => $input['q'],
+                            ],
+                        ],
+                    ],
+                ],
+            ];
+
+            $response = app('elasticsearch')->search($esParams)->asArray();
+
+            $score = null;
+            if (isset($response['hits']['max_score']) && $response['hits']['max_score'] !== null) {
+                $score = $response['hits']['max_score'];
+            } elseif (!empty($response['hits']['hits'][0]['_score'])) {
+                $score = $response['hits']['hits'][0]['_score'];
+            }
+
+            // For kNN queries the score meaning may differ depending on index settings
+            // (dot-product vs cosine). Expose a configurable threshold to decide
+            // when to boost the retriever. Default threshold is 0.75.
+            $threshold = config('aic.search.catalog_match_threshold', 10.0);
+
+            if ($score !== null && $score >= $threshold) {
+                $this->vectorWeight = config('aic.search.catalog_vector_weight', 1.0);
+                $this->lexicalWeight = config('aic.search.catalog_lexical_weight', 6.0);
+            }
         }
 
         return $params;
