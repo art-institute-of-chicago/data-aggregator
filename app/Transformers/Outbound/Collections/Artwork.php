@@ -916,24 +916,6 @@ class Artwork extends BaseTransformer
                 },
                 'is_restricted' => true,
             ],
-            'catalog_based_search_keyword_embeddings' => [
-                'doc' => 'The generated embeddings of keyword search values that would be catalog-based searches on this record',
-                'type' => 'vector',
-                'elasticsearch' => [
-                    'type' => 'dense_vector',
-                    'dims' => 1536,
-                    'index' => true,
-                    'index_options' => [
-                        'type' => 'hnsw',
-                        'm' => 16,
-                        'ef_construction' => 64
-                    ],
-                ],
-                'value' => function ($item) {
-                    return app('Embeddings')->getEmbeddings($item->catalog_based_search_keywords);
-                },
-                'is_restricted' => true,
-            ],
         ];
     }
 
