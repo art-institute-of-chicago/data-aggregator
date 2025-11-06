@@ -357,14 +357,16 @@ class Artwork extends CollectionsModel
     public function getCatalogBasedSearchKeywordsAttribute()
     {
         $titles = [];
-        if ($this->artists->isNotEmpty() && $this->artist->isBoosted()) {
-            $titles = array_merge($titles, $this->artists->pluck('title')->all());
-        }
-        if ($this->style) {
-            $titles[] = $this->style->title;
-        }
-        if ($this->isBoosted()) {
-            $titles[] = $this->title;
+        if (!isset($this->fiscal_year_deaccession)) {
+            if ($this->artists->isNotEmpty() && $this->artist->isBoosted()) {
+                $titles = array_merge($titles, $this->artists->pluck('title')->all());
+            }
+            if ($this->style) {
+                $titles[] = $this->style->title;
+            }
+            if ($this->isBoosted()) {
+                $titles[] = $this->title;
+            }
         }
 
         return $titles;
