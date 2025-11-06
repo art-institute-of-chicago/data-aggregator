@@ -754,7 +754,7 @@ class Request
                 $score = $response['hits']['hits'][0]['_score'];
             }
 
-            $threshold = config('aic.search.catalog_match_threshold', 10.0);
+            $threshold = config('aic.search.catalog_match_threshold', 8.0);
 
             if ($score !== null && $score >= $threshold && !$isSemantic) {
                 $this->vectorWeight = config('aic.search.catalog_vector_weight', 1.0);
@@ -787,10 +787,8 @@ class Request
                 'the', 'a', 'an', 'and', 'or', 'into', 'onto', 'near', 'beside'
             ];
 
-            foreach ($functionWords as $fw) {
-                if (preg_match('/\b' . preg_quote($fw, '/') . '\b/', $q)) {
-                    return true;
-                }
+            if (preg_match('\/b' . implode('\b|\b', $functionWords) . '\b/', $q)) {
+                return true;
             }
 
             // Treat multi-word phrases with adjectives or verbs as semantic
