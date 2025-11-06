@@ -729,6 +729,8 @@ class Request
     public function adjustRetrieverWeights(array $params, array $input)
     {
         if (!empty($input['q'])) {
+            $isSemantic = $this->isSemantic($params, $input);
+
             $esParams = [
                 'index' => $params['index'],
                 'size' => 1,
@@ -752,18 +754,53 @@ class Request
                 $score = $response['hits']['hits'][0]['_score'];
             }
 
-            // For kNN queries the score meaning may differ depending on index settings
-            // (dot-product vs cosine). Expose a configurable threshold to decide
-            // when to boost the retriever. Default threshold is 0.75.
             $threshold = config('aic.search.catalog_match_threshold', 10.0);
 
-            if ($score !== null && $score >= $threshold) {
+            if ($score !== null && $score >= $threshold && !$isSemantic) {
                 $this->vectorWeight = config('aic.search.catalog_vector_weight', 1.0);
                 $this->lexicalWeight = config('aic.search.catalog_lexical_weight', 6.0);
             }
         }
 
         return $params;
+    }
+
+    public function isSemantic(array $params, array $input)
+    {
+        if (!empty($input['q'])) {
+            $q = mb_strtolower(trim($input['q']));
+
+            // If the string looks like an international name, treat it as lexical
+            if (preg_match('/\b(?:van|von|de)\s\p{L}+/u', $q)) {
+                return false;
+            }
+
+            // Short single or double-word phrases usually aren't semantic
+            $wordCount = Str::wordCount($q);
+            if ($wordCount <= 2) {
+                return false;
+            }
+
+            // Look for common "function" words that appear in natural phrases
+            $functionWords = [
+                'on', 'in', 'of', 'with', 'at', 'to', 'from', 'for', 'by', 'under', 'over',
+                'the', 'a', 'an', 'and', 'or', 'into', 'onto', 'near', 'beside'
+            ];
+
+            foreach ($functionWords as $fw) {
+                if (preg_match('/\b' . preg_quote($fw, '/') . '\b/', $q)) {
+                    return true;
+                }
+            }
+
+            // Treat multi-word phrases with adjectives or verbs as semantic
+            if (preg_match('/ing\b|ly\b|ed\b/', $q)) {
+                return true;
+            }
+
+            // If it’s multiple words but none of the above, still likely a descriptive phrase
+            return $wordCount >= 3;
+        }
     }
 
     /**
