@@ -357,7 +357,7 @@ class Artwork extends CollectionsModel
     public function getCatalogBasedSearchKeywordsAttribute()
     {
         $titles = [];
-        if ($this->artists) {
+        if ($this->artists && $this->artist->isBoosted()) {
             $titles = array_merge($titles, $this->artists->pluck('title')->all());
         }
         if ($this->style) {
