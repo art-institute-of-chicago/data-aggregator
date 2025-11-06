@@ -754,7 +754,7 @@ class Request
                 $score = $response['hits']['hits'][0]['_score'];
             }
 
-            $threshold = config('aic.search.catalog_match_threshold', 8.0);
+            $threshold = config('aic.search.catalog_match_threshold', 6.0);
 
             if ($score !== null && $score >= $threshold && !$isSemantic) {
                 $this->vectorWeight = config('aic.search.catalog_vector_weight', 1.0);
