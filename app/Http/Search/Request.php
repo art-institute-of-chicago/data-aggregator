@@ -790,11 +790,13 @@ class Request
                 'the', 'a', 'an', 'and', 'or', 'into', 'onto', 'near', 'beside'
             ];
 
-            if (preg_match('\/b' . implode('\b|\b', $functionWords) . '\b/', $q)) {
-                return true;
+            foreach ($functionWords as $fw) {
+                if (preg_match('/\b' . preg_quote($fw, '/') . '\b/', $q)) {
+                    return true;
+                }
             }
 
-            // Treat multi-word phrases with adjectives or verbs as semantic
+            // Treat multi-word phrases with verbs or adverbs as semantic
             if (preg_match('/ing\b|ly\b|ed\b/', $q)) {
                 return true;
             }
