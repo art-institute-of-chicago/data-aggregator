@@ -201,6 +201,7 @@ trait HandleEmbeddings
                                 - Colors using familiar names (red, blue, yellow, etc.)
                                 - Spatial relationships and orientation
                                 - Size and scale of elements
+                                - Stating if there are multiple images in the composition and comparing them
 
                               Avoid:
                                 - Describing objects or features that are not clearly discernable
