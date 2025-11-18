@@ -195,6 +195,31 @@ class GenerateAltText extends BaseCommand implements Thresholds
                 'updated_at' => now()
             ]);
 
+        // Tag it as AI generated
+        $tagId = DB::connection('website')
+            ->table('tags')
+            ->where('slug', 'ai-generated-alt-text')
+            ->value('id');
+
+        if ($tagId) {
+            $tagExists = DB::connection('website')
+                ->table('tagged')
+                ->where('taggable_type', 'medias')
+                ->where('taggable_id', $media->id)
+                ->where('tag_id', $tagId)
+                ->exists();
+
+            if (!$tagExists) {
+                DB::connection('website')
+                    ->table('tagged')
+                    ->insert([
+                        'taggable_type' => 'medias',
+                        'taggable_id' => $media->id,
+                        'tag_id' => $tagId,
+                    ]);
+            }
+        }
+
         $this->line("Alt text generated for media #{$media->id}\n", OutputInterface::VERBOSITY_VERBOSE);
         $this->line("Description:\n\n{$analysis['caption']}\n", OutputInterface::VERBOSITY_VERBOSE);
     }
@@ -339,6 +364,31 @@ class GenerateAltText extends BaseCommand implements Thresholds
                         'alt_text' => $analysis['caption'],
                         'updated_at' => now()
                     ]);
+
+                // Tag it as AI generated
+                $tagId = DB::connection('website')
+                    ->table('tags')
+                    ->where('slug', 'ai-generated-alt-text')
+                    ->value('id');
+
+                if ($tagId) {
+                    $tagExists = DB::connection('website')
+                        ->table('tagged')
+                        ->where('taggable_type', 'medias')
+                        ->where('taggable_id', $block->media_id)
+                        ->where('tag_id', $tagId)
+                        ->exists();
+
+                    if (!$tagExists) {
+                        DB::connection('website')
+                            ->table('tagged')
+                            ->insert([
+                                'taggable_type' => 'medias',
+                                'taggable_id' => $block->media_id,
+                                'tag_id' => $tagId,
+                            ]);
+                    }
+                }
 
                 $processedCount++;
             } catch (Exception $e) {
