@@ -204,7 +204,7 @@ class GenerateAltText extends BaseCommand implements Thresholds
         if ($tagId) {
             $tagExists = DB::connection('website')
                 ->table('tagged')
-                ->where('taggable_type', 'medias')
+                ->where('taggable_type', 'media')
                 ->where('taggable_id', $media->id)
                 ->where('tag_id', $tagId)
                 ->exists();
@@ -213,7 +213,7 @@ class GenerateAltText extends BaseCommand implements Thresholds
                 DB::connection('website')
                     ->table('tagged')
                     ->insert([
-                        'taggable_type' => 'medias',
+                        'taggable_type' => 'media',
                         'taggable_id' => $media->id,
                         'tag_id' => $tagId,
                     ]);
