@@ -229,8 +229,8 @@ trait HandleEmbeddings
                     ]
                 ]
             ],
-            'max_tokens' => 2000,
-            'temperature' => 0.3
+            'max_completion_tokens' => 2000,
+            'temperature' => 1
         ]);
 
         if ($response->successful()) {
