@@ -592,8 +592,10 @@ class Request
                 $outFunctions = array_merge($outFunctions, $rawFunctions['all']);
             }
 
-            if ($input['boost'] && !isset($input['q']) && isset($rawFunctions['except_full_text'])
-                && $input['query'] != ['bool' => ['must' => [['term' => ['is_on_view' => true]]]]]) {
+            if (
+                $input['boost'] && !isset($input['q']) && isset($rawFunctions['except_full_text'])
+                && $input['query'] != ['bool' => ['must' => [['term' => ['is_on_view' => true]]]]]
+            ) {
                 $outFunctions = array_merge($outFunctions, $rawFunctions['except_full_text']);
             }
 
