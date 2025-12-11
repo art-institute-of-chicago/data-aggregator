@@ -13,8 +13,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 trait HandleEmbeddings
 {
-    public const CONFIDENCE_THRESHOLD_CAPTION = 0.7;
-    public const CONFIDENCE_THRESHOLD_TAG = 0.9;
+    public static $CONFIDENCE_THRESHOLD_CAPTION = 0.7;
+    public static $CONFIDENCE_THRESHOLD_TAG = 0.9;
 
     public function generateAndSaveArtworkEmbeddngs(Artwork $artwork): void
     {
@@ -273,7 +273,7 @@ trait HandleEmbeddings
 
         if (!empty($description['denseCaption'])) {
             foreach ($description['denseCaption'] as $caption) {
-                if (!empty($caption['text']) && ($caption['confidence'] ?? 0) > self::CONFIDENCE_THRESHOLD_CAPTION) {
+                if (!empty($caption['text']) && ($caption['confidence'] ?? 0) > self::$CONFIDENCE_THRESHOLD_CAPTION) {
                     $text .= $caption['text'] . ' ';
                 }
             }
@@ -281,7 +281,7 @@ trait HandleEmbeddings
 
         if (!empty($description['tags'])) {
             foreach ($description['tags'] as $tag) {
-                if (!empty($tag['name']) && ($tag['confidence'] ?? 0) > self::CONFIDENCE_THRESHOLD_TAG) {
+                if (!empty($tag['name']) && ($tag['confidence'] ?? 0) > self::$CONFIDENCE_THRESHOLD_TAG) {
                     $text .= $tag['name'] . ' ';
                 }
             }
