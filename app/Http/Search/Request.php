@@ -367,8 +367,7 @@ class Request
 
             // Add sort into the body, not the request
             $params = $this->addSortParams($params, $input);
-        }
-        else {
+        } else {
             // Adust retriever weights
             $params = $this->adjustRetrieverWeights($params, $input);
 
