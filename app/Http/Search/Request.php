@@ -332,10 +332,10 @@ class Request
         }
 
         // Add params to isolate "scoped" resources into `must`
-        $searchParams = $this->addScopeParams($searchParams, $input);
+        $searchParams = $this->addScopeParams($searchParams);
 
         // Add params to filter out restricted resources into `must`
-        $searchParams = $this->addRestrictParams($searchParams, $input);
+        $searchParams = $this->addRestrictParams($searchParams);
 
         /**
          * 1. If `query` is present, append it to the `must` clause.
@@ -821,7 +821,7 @@ class Request
      *
      * @return array
      */
-    public function addScopeParams(array $searchParams, array $input)
+    public function addScopeParams(array $searchParams)
     {
         if (!isset($this->scopes) || count($this->scopes) < 1) {
             return $searchParams;
@@ -842,7 +842,7 @@ class Request
      *
      * @return array
      */
-    public function addRestrictParams(array $searchParams, array $input)
+    public function addRestrictParams(array $searchParams)
     {
         if (Gate::allows('restricted-access')) {
             return $searchParams;
