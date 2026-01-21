@@ -611,7 +611,7 @@ class Request
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl-function-score-query.html
      *
-     * @param array $params
+     * @param array $searchParams
      *
      * @return array
      */
@@ -852,11 +852,11 @@ class Request
             $restrictions = RestrictContent::getSearchRestrictForEndpoint($resource);
 
             if (!empty($restrictions)) {
-                $params['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
+                $searchParams['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
             }
         }
 
-        return $params;
+        return $searchParams;
     }
 
     /**
@@ -1020,9 +1020,9 @@ class Request
     {
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
-        $params['query']['bool']['must'][] = Arr::get($input, 'query');
+        $searchParams['query']['bool']['must'][] = Arr::get($input, 'query');
 
-        return $params;
+        return $searchParams;
     }
 
     /**
