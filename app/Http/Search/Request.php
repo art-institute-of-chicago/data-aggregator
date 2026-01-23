@@ -358,7 +358,7 @@ class Request
         // Apply `function_score` (if any)
         $searchParams = $this->addFunctionScore($searchParams, $input);
 
-        if (isset($input['sort'])) {
+        if (isset($input['sort']) || config('aic.search.supress_vector_search')) {
             $params['body'] = [
                 'track_total_hits' => true,
                 'query' => $searchParams['query'],
