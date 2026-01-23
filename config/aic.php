@@ -133,6 +133,7 @@ return [
         'catalog_match_threshold' => 6.0,
         'catalog_vector_weight' => 1.0,
         'catalog_lexical_weight' => 6.0,
+        'suppress_vector_search' => enV('SEARCH_SUPPRESS_VECTOR_SEARCH', false),
     ],
 
     'shop' => [
