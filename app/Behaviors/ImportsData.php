@@ -33,6 +33,13 @@ trait ImportsData
     protected $auth;
 
     /**
+     * Set to `true` to pass ZeroTrust authentication headers in the request to the source.
+     *
+     * @var boolean
+     */
+    protected $zeroTrustAuth = false;
+
+    /**
      * Is this a full import, or a partial? If partial, import stops when it
      * encounters the first items older than the last successful run.
      *
@@ -84,6 +91,13 @@ trait ImportsData
         if ($this->auth) {
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
             curl_setopt($ch, CURLOPT_USERPWD, $this->auth);
+        }
+
+        if ($this->zeroTrustAuth) {
+            $headers = [];
+            $headers[] = 'CF-Access-Client-Id:' . config('aic.web.zerotrust_client_id');
+            $headers[] = 'CF-Access-Client-Secret: ' . config('aic.web.zerotrust_client_secret');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
