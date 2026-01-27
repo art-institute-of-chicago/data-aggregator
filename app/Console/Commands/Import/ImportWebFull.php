@@ -26,6 +26,8 @@ class ImportWebFull extends AbstractImportCommand implements Thresholds
 {
     use HandleEmbeddings;
 
+    protected $zeroTrustAuth = true;
+
     protected $signature = 'import:web-full
                             {endpoint? : Endpoint on dataservice to query, e.g. `events`}
                             {page? : Page to begin importing from}
