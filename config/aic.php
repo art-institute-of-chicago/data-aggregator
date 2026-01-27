@@ -120,6 +120,8 @@ return [
     'web' => [
         'username' => env('WEB_CMS_DATA_SERVICE_USERNAME'),
         'password' => env('WEB_CMS_DATA_SERVICE_PASSWORD'),
+        'zerotrust_client_id' => env('CLOUDFLARE_ZEROTRUST_CLIENT_ID'),
+        'zerotrust_client_secret' => env('CLOUDFLARE_ZEROTRUST_CLIENT_SECRET'),
     ],
 
     'asset' => [
