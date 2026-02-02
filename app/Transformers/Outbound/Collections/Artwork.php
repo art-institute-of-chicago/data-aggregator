@@ -569,7 +569,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => 'except_exact',
-                    'boost' => 1.2,
+                    'boost' => config('aic.search.suppress_vector_search') ? 2 : 1.2,
                 ],
                 'value' => function ($item) {
                     return $item->terms->pluck('title');
