@@ -358,7 +358,7 @@ class Artwork extends CollectionsModel
     {
         $titles = [];
         if (!isset($this->fiscal_year_deaccession)) {
-            if ($this->artists->isNotEmpty() && $this->artist->isBoosted()) {
+            if ($this->artists->isNotEmpty() && $this->artist && $this->artist->isBoosted()) {
                 $titles = array_merge($titles, $this->artists->pluck('title')->all());
             }
             if ($this->style) {
