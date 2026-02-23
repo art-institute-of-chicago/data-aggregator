@@ -489,9 +489,11 @@ class Artwork extends CollectionsModel
             24306, // Blue and Green Music
             79307, // Bathers by a River
 
+            282198, // The Dugout
             28067, // The Old Guitarist
             89503, // Under the Wave off Kanagawa
             87479, // The Assumption of the Virgin
+
             64818, // Stacks of Wheat
         ];
     }
