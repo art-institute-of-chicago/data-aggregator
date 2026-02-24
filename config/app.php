@@ -163,7 +163,6 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
-        MailerLite\LaravelElasticsearch\ServiceProvider::class,
         MarkTopper\DoctrineDBALTimestampType\Laravel5ServiceProvider::class,
 
         /**
@@ -174,12 +173,14 @@ return [
         /**
          * Application Service Providers...
          */
+        App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FakerServiceProvider::class,
         App\Providers\SearchServiceProvider::class,
         App\Providers\ResourceServiceProvider::class,
+        App\Providers\ElasticsearchProvider::class,
     ])->toArray(),
 
     /*
@@ -194,7 +195,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Elasticsearch' => MailerLite\LaravelElasticsearch\Facade::class,
+        'Elasticsearch' => App\Facades\Elasticsearch::class,
         'Redis' => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
 

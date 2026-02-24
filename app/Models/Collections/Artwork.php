@@ -5,6 +5,8 @@ namespace App\Models\Collections;
 use App\Models\CollectionsModel;
 use App\Models\ElasticSearchable;
 use App\Models\HasRelationships;
+use App\Models\Web\Vectors\ImageEmbedding;
+use App\Models\Web\Vectors\TextEmbedding;
 use Illuminate\Support\Str;
 
 /**
@@ -64,6 +66,13 @@ class Artwork extends CollectionsModel
                 'must_not' => [
                     'exists' => [
                         'field' => 'fiscal_year_deaccession'
+                    ]
+                ],
+            ],
+            'bool' => [
+                'should' => [
+                    'exists' => [
+                        'field' => 'text_embedding'
                     ]
                 ],
             ],
@@ -335,6 +344,34 @@ class Artwork extends CollectionsModel
 
     // Meh, we'll leave out preferred & alternative places for now
 
+    public function imageEmbedding()
+    {
+        return $this->morphOne(ImageEmbedding::class, 'model', 'model_name');
+    }
+
+    public function textEmbedding()
+    {
+        return $this->morphOne(TextEmbedding::class, 'model', 'model_name');
+    }
+
+    public function getCatalogBasedSearchKeywordsAttribute()
+    {
+        $titles = [];
+        if (!isset($this->fiscal_year_deaccession)) {
+            if ($this->artists->isNotEmpty() && $this->artist && $this->artist->isBoosted()) {
+                $titles = array_merge($titles, $this->artists->pluck('title')->all());
+            }
+            if ($this->style) {
+                $titles[] = $this->style->title;
+            }
+            if ($this->isBoosted()) {
+                $titles[] = $this->title;
+            }
+        }
+
+        return $titles;
+    }
+
     public function getAltTextAttribute($value)
     {
         // If CITI provided `visual_description`, return that
@@ -414,7 +451,7 @@ class Artwork extends CollectionsModel
                 118661, 217201, 191556, 198809, 34299, 15563, 220272, 229354, 229351, 229406, 223309, 129884, 234004, 227420, 24836,
                 234433, 218612, 199002, 229510, 189932, 230189, 225016, 221885, 229866, 109439, 869, 4081, 4773, 16146, 23333, 23700,
                 30709, 31285, 43145, 49702, 62042, 62371, 76240, 79600, 81564, 105466, 109926, 111377, 111559, 119521, 146701, 146953,
-                150054, 238749, 100858, 229393, 151363, 53001, 189807, 9010, 220179, 37368,
+                150054, 238749, 100858, 229393, 151363, 53001, 189807, 9010, 220179, 37368, 120048, 217536
             ],
             self::getFeaturedIds()
         );
@@ -452,9 +489,11 @@ class Artwork extends CollectionsModel
             24306, // Blue and Green Music
             79307, // Bathers by a River
 
+            282198, // The Dugout
             28067, // The Old Guitarist
             89503, // Under the Wave off Kanagawa
             87479, // The Assumption of the Virgin
+
             64818, // Stacks of Wheat
         ];
     }
@@ -609,5 +648,10 @@ class Artwork extends CollectionsModel
         }
 
         return $doc;
+    }
+
+    public function toSearchableArray()
+    {
+        return array_filter($this->transform());
     }
 }

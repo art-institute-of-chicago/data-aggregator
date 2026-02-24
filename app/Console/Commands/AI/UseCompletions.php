@@ -2,8 +2,9 @@
 
 namespace App\Console\Commands\AI;
 
+use App\Behaviors\HandleEmbeddings;
+use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
-use App\Services\EmbeddingService;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
 use App\Models\Web\Vectors\ImageEmbedding;
@@ -11,8 +12,10 @@ use App\Models\Web\Vectors\TextEmbedding;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class UseCompletions extends BaseCommand
+class UseCompletions extends BaseCommand implements Thresholds
 {
+    use HandleEmbeddings;
+
     protected $signature = 'ai:chat
         {query? : A question to ask chat}
         {--mode=chat : Mode of operation (chat, summarize)}
@@ -25,15 +28,12 @@ class UseCompletions extends BaseCommand
 
     protected $description = 'Interactive AI completions and description summarization tool';
 
-    protected EmbeddingService $embeddingService;
     protected DescriptionService $descriptionService;
 
     public function __construct(
-        EmbeddingService $embeddingService,
         DescriptionService $descriptionService
     ) {
         parent::__construct();
-        $this->embeddingService = $embeddingService;
         $this->descriptionService = $descriptionService;
     }
 
@@ -166,7 +166,7 @@ class UseCompletions extends BaseCommand
         // Convert Vector to array for image embedding
         $embeddingArray = $imageEmbedding->embedding ? $imageEmbedding->embedding->toArray() : [];
 
-        $this->embeddingService->saveEmbeddings(
+        $this->saveEmbeddings(
             modelName: "artworks",
             modelId: $artwork->id,
             embedding: $embeddingArray,
@@ -175,10 +175,10 @@ class UseCompletions extends BaseCommand
         );
 
         // Update or create text embedding
-        $this->embeddingService->saveEmbeddings(
+        $this->saveEmbeddings(
             modelName: "artworks",
             modelId: $artwork->id,
-            embedding: $this->embeddingService->getEmbeddings($newSummary),
+            embedding: app('Embeddings')->getEmbeddings($newSummary),
             type: 'text',
             additionalData: [
                 'description' => $newSummary,
@@ -357,7 +357,7 @@ class UseCompletions extends BaseCommand
     protected function handleChatCompletion(): int
     {
         $query = $this->argument('query') ?? $this->ask('Type a chat query:');
-        $response = $this->embeddingService->getCompletions($query);
+        $response = app('Embeddings')->getCompletions($query);
 
         $this->info("\nResponse:");
         $this->line($response);

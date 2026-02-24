@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\EmbeddingService;
 use Illuminate\Support\ServiceProvider;
 
 class ResourceServiceProvider extends ServiceProvider

@@ -13,9 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 trait HandleEmbeddings
 {
-    public static $CONFIDENCE_THRESHOLD_CAPTION = 0.7;
-    public static $CONFIDENCE_THRESHOLD_TAG = 0.9;
-
     public function generateAndSaveArtworkEmbeddngs(Artwork $artwork): void
     {
         try {
@@ -204,6 +201,7 @@ trait HandleEmbeddings
                                 - Colors using familiar names (red, blue, yellow, etc.)
                                 - Spatial relationships and orientation
                                 - Size and scale of elements
+                                - Stating if there are multiple images in the composition and comparing them
 
                               Avoid:
                                 - Describing objects or features that are not clearly discernable
@@ -231,8 +229,8 @@ trait HandleEmbeddings
                     ]
                 ]
             ],
-            'max_tokens' => 2000,
-            'temperature' => 0.3
+            'max_completion_tokens' => 2000,
+            'temperature' => 1
         ]);
 
         if ($response->successful()) {
@@ -273,7 +271,7 @@ trait HandleEmbeddings
 
         if (!empty($description['denseCaption'])) {
             foreach ($description['denseCaption'] as $caption) {
-                if (!empty($caption['text']) && ($caption['confidence'] ?? 0) > self::$CONFIDENCE_THRESHOLD_CAPTION) {
+                if (!empty($caption['text']) && ($caption['confidence'] ?? 0) > self::CONFIDENCE_THRESHOLD_CAPTION) {
                     $text .= $caption['text'] . ' ';
                 }
             }
@@ -281,7 +279,7 @@ trait HandleEmbeddings
 
         if (!empty($description['tags'])) {
             foreach ($description['tags'] as $tag) {
-                if (!empty($tag['name']) && ($tag['confidence'] ?? 0) > self::$CONFIDENCE_THRESHOLD_TAG) {
+                if (!empty($tag['name']) && ($tag['confidence'] ?? 0) > self::CONFIDENCE_THRESHOLD_TAG) {
                     $text .= $tag['name'] . ' ';
                 }
             }

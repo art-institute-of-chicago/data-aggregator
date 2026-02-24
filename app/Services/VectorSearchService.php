@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
 use Pgvector\Laravel\Vector;
@@ -11,8 +12,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class VectorSearchService
 {
-    protected string $connection = 'vectors';
-
     public function getItem(string $model, int $id): array
     {
         $modelMap = [
@@ -36,8 +35,7 @@ class VectorSearchService
         $embeddings = collect(['text', 'image'])->mapWithKeys(function ($type) use ($model, $id) {
             $embeddingClass = $type === 'image' ? ImageEmbedding::class : TextEmbedding::class;
 
-            $embedding = $embeddingClass::on($this->connection)
-                ->where('model_name', $model)
+            $embedding = $embeddingClass::where('model_name', $model)
                 ->where('model_id', $id)
                 ->first();
 
@@ -66,8 +64,7 @@ class VectorSearchService
     {
         $searchVector = new Vector($embeddings);
 
-        $results = TextEmbedding::on($this->connection)
-            ->select([
+        $results = TextEmbedding::select([
                 '*',
                 DB::raw("embedding <-> '" . $searchVector . "' as distance")
             ])
@@ -92,13 +89,11 @@ class VectorSearchService
     {
         $embeddingClass = $model === 'artworks' ? ImageEmbedding::class : TextEmbedding::class;
 
-        $reference = $embeddingClass::on($this->connection)
-            ->where('model_name', $model)
+        $reference = $embeddingClass::where('model_name', $model)
             ->where('model_id', $id)
             ->firstOrFail();
 
-        return $embeddingClass::on($this->connection)
-            ->select([
+        return $embeddingClass::select([
                 '*',
                 DB::raw("embedding <-> '" . $reference->embedding . "' as distance")
             ])
@@ -119,14 +114,13 @@ class VectorSearchService
         return collect(['text', 'image'])->map(function ($type) use ($model, $id, $compareId) {
             $embeddingClass = $type === 'image' ? ImageEmbedding::class : TextEmbedding::class;
 
-            $embeddings = $embeddingClass::on($this->connection)
-                ->select('*')
+            $embeddings = $embeddingClass::select('*')
                 ->whereIn('model_id', [$id, $compareId])
                 ->where('model_name', $model)
                 ->get();
 
             if ($embeddings->count() === 2) {
-                $distance = DB::connection($this->connection)
+                $distance = DB::connection('vectors')
                     ->selectOne(
                         "SELECT (?::vector <-> ?::vector) as distance",
                         [
@@ -148,10 +142,168 @@ class VectorSearchService
         })->filter();
     }
 
+    public function findNeighborsBetween(string $embeddingType, string $firstItemModel, int $firstItemId, string $secondItemModel, int $secondItemId)
+    {
+        if (!in_array($embeddingType, ['text', 'image'])) {
+            return collect();
+        }
+
+        if (!isset($firstItemModel, $firstItemId, $secondItemModel, $secondItemId)) {
+            return collect();
+        }
+
+        $embeddingClass = 'App\\Models\\Web\\Vectors\\' . Str::ucfirst($embeddingType) . 'Embedding';
+
+        $items = [
+            (object) [
+                'model_name' => $firstItemModel,
+                'model_id' => $firstItemId,
+            ],
+            (object) [
+                'model_name' => $secondItemModel,
+                'model_id' => $secondItemId,
+            ]
+        ];
+
+        foreach ($items as $item) {
+            $reference = $embeddingClass::where('model_name', $item->model_name)
+                ->where('model_id', $item->model_id)
+                ->firstOrFail();
+            $item->embedding = $reference->embedding;
+        }
+
+        $referenceDistance = DB::connection('vectors')->selectOne(
+            "SELECT (e1.embedding <=> e2.embedding) as distance
+            FROM {$embeddingClass::getModel()->getTable()} e1, {$embeddingClass::getModel()->getTable()} e2
+            WHERE e1.model_name = ? AND e1.model_id = ?
+            AND e2.model_name = ? AND e2.model_id = ?",
+            [$items[0]->model_name, $items[0]->model_id, $items[1]->model_name, $items[1]->model_id]
+        )->distance;
+
+        if ($referenceDistance < 0.001) {
+            $betweenItems = $embeddingClass::query()
+                ->whereRaw(
+                    'embedding <=> (SELECT embedding FROM ' . $embeddingClass::getModel()->getTable() . ' WHERE model_name = ? AND model_id = ?) < 1.0',
+                    [$items[0]->model_name, $items[0]->model_id]
+                )
+                ->orderByRaw(
+                    'embedding <=> (SELECT embedding FROM ' . $embeddingClass::getModel()->getTable() . ' WHERE model_name = ? AND model_id = ?)',
+                    [$items[0]->model_name, $items[0]->model_id]
+                )
+                ->limit(50)
+                ->get();
+        } else {
+            $tolerance = max($referenceDistance * 0.5, 0.1);
+
+            $betweenItems = $embeddingClass::query()
+              ->whereRaw('ABS(((embedding <=> (SELECT embedding FROM ' . $embeddingClass::getModel()->getTable() . ' WHERE model_name = ? AND model_id = ?)) +
+                                  (embedding <=> (SELECT embedding FROM ' . $embeddingClass::getModel()->getTable() . ' WHERE model_name = ? AND model_id = ?))) - ?) < ?', [
+                  $items[0]->model_name, $items[0]->model_id,
+                  $items[1]->model_name, $items[1]->model_id,
+                  $referenceDistance,
+                  $tolerance
+              ])
+              ->orderByRaw('ABS(((embedding <=> (SELECT embedding FROM ' . $embeddingClass::getModel()->getTable() . ' WHERE model_name = ? AND model_id = ?)) +
+                                  (embedding <=> (SELECT embedding FROM ' . $embeddingClass::getModel()->getTable() . ' WHERE model_name = ? AND model_id = ?))) - ?)', [
+                  $items[0]->model_name, $items[0]->model_id,
+                  $items[1]->model_name, $items[1]->model_id,
+                  $referenceDistance
+              ])
+              ->limit(1000)
+              ->get();
+        }
+
+        return $betweenItems;
+    }
+
+    public function compareNeighbors(string $firstEmbeddingType, string $firstItemModel, int $firstItemId, string $secondEmbeddingType, string $secondItemModel, int $secondItemId)
+    {
+        if (!in_array($firstEmbeddingType, ['text', 'image']) || !in_array($secondEmbeddingType, ['text', 'image'])) {
+            return collect();
+        }
+
+        if (!isset($firstItemModel, $firstItemId, $secondItemModel, $secondItemId)) {
+            return collect();
+        }
+
+        $firstEmbeddingClass = 'App\\Models\\Web\\Vectors\\' . Str::ucfirst($firstEmbeddingType) . 'Embedding';
+        $secondEmbeddingClass = 'App\\Models\\Web\\Vectors\\' . Str::ucfirst($secondEmbeddingType) . 'Embedding';
+
+        $firstNeighbors = $firstEmbeddingClass::query()
+          ->whereRaw(
+              'embedding <=> (SELECT embedding FROM ' . $firstEmbeddingClass::getModel()->getTable() . ' WHERE model_name = ? AND model_id = ?) < 1.0',
+              [$firstItemModel, $firstItemId]
+          )
+          ->orderByRaw(
+              'embedding <=> (SELECT embedding FROM ' . $firstEmbeddingClass::getModel()->getTable() . ' WHERE model_name = ? AND model_id = ?)',
+              [$firstItemModel, $firstItemId]
+          )
+          ->limit(100)
+          ->get();
+
+        $secondNeighbors = $secondEmbeddingClass::query()
+          ->whereRaw(
+              'embedding <=> (SELECT embedding FROM ' . $secondEmbeddingClass::getModel()->getTable() . ' WHERE model_name = ? AND model_id = ?) < 1.0',
+              [$secondItemModel, $secondItemId]
+          )
+          ->orderByRaw(
+              'embedding <=> (SELECT embedding FROM ' . $secondEmbeddingClass::getModel()->getTable() . ' WHERE model_name = ? AND model_id = ?)',
+              [$secondItemModel, $secondItemId]
+          )
+          ->limit(100)
+          ->get();
+
+        $sharedItems = $firstNeighbors->filter(function ($firstItem) use ($secondNeighbors) {
+            return $secondNeighbors->contains(function ($secondItem) use ($firstItem) {
+                return $firstItem->model_name === $secondItem->model_name &&
+                    $firstItem->model_id === $secondItem->model_id;
+            });
+        });
+
+        return $sharedItems;
+    }
+
+    public function findImageNearestNeighbors(string $model, array $embeddings, int $limit): Collection
+    {
+        $searchVector = new Vector($embeddings);
+
+        $modelMap = [
+            'artworks' => \App\Models\Collections\Artwork::class,
+            'articles' => \App\Models\Web\Article::class,
+            'exhibitions' => \App\Models\Web\Exhibition::class
+        ];
+
+        $results = ImageEmbedding::select([
+                '*',
+                DB::raw("embedding <-> '" . $searchVector . "' as distance")
+            ])
+            ->where('model_name', $model)
+            ->whereNotNull('embedding')
+            ->orderBy('distance')
+            ->limit($limit)
+            ->get()
+            ->map(function ($item) {
+                $item->embedding_type = 'image';
+                return $item;
+            });
+
+        if ($results->isNotEmpty() && isset($modelMap[$model])) {
+            $modelClass = $modelMap[$model];
+            $modelData = $modelClass::whereIn('id', $results->pluck('model_id'))
+                ->get()
+                ->keyBy('id');
+
+            $results->each(function ($item) use ($modelData) {
+                $item->model_data = $modelData->get($item->model_id);
+            });
+        }
+
+        return $results;
+    }
+
     protected function loadImageEmbeddings(Collection $results, string $model): void
     {
-        $imageEmbeddings = ImageEmbedding::on($this->connection)
-            ->where('model_name', $model)
+        $imageEmbeddings = ImageEmbedding::where('model_name', $model)
             ->whereIn('model_id', $results->pluck('model_id'))
             ->get()
             ->keyBy('model_id');
@@ -161,7 +313,7 @@ class VectorSearchService
         });
     }
 
-    public function formatResponse($results, string $model, ?int $id = null): JsonResponse
+    public function formatResponse($results, mixed $model, mixed $id = null): JsonResponse
     {
         if ($results->isEmpty()) {
             return response()->json([

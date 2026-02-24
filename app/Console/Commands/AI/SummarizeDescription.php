@@ -2,8 +2,9 @@
 
 namespace App\Console\Commands\AI;
 
+use App\Behaviors\HandleEmbeddings;
+use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
-use App\Services\EmbeddingService;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
 use App\Models\Web\Vectors\ImageEmbedding;
@@ -11,8 +12,10 @@ use App\Models\Web\Vectors\TextEmbedding;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Console\Helper\Table;
 
-class SummarizeDescription extends BaseCommand
+class SummarizeDescription extends BaseCommand implements Thresholds
 {
+    use HandleEmbeddings;
+
     protected $signature = 'ai:summarize
         {--id= : ID of artwork to analyze}
         {--random : Pick a random artwork with existing embeddings}
@@ -22,16 +25,13 @@ class SummarizeDescription extends BaseCommand
 
     protected $description = 'Generate or update AI-powered artwork descriptions';
 
-    protected EmbeddingService $embeddingService;
     protected DescriptionService $descriptionService;
     protected array $latestResults = [];
 
     public function __construct(
-        EmbeddingService $embeddingService,
         DescriptionService $descriptionService
     ) {
         parent::__construct();
-        $this->embeddingService = $embeddingService;
         $this->descriptionService = $descriptionService;
     }
 
@@ -68,10 +68,10 @@ class SummarizeDescription extends BaseCommand
             );
 
             // Save the new embedding
-            $this->embeddingService->saveEmbeddings(
+            $this->saveEmbeddings(
                 modelName: "artworks",
                 modelId: $artwork->id,
-                embedding: $this->embeddingService->getEmbeddings($newSummary),
+                embedding: app('Embeddings')->getEmbeddings($newSummary),
                 type: 'text',
                 additionalData: [
                     'description' => $newSummary,

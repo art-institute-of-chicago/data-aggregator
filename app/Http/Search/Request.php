@@ -7,8 +7,10 @@ use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
 use App\Http\Middleware\RestrictContent;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request as RequestFacade;
+use Illuminate\Support\Facades\Log;
 
 class Request
 {
@@ -47,6 +49,20 @@ class Request
      * @var array
      */
     protected $functionScores;
+
+    /**
+     * Weight of vector search
+     *
+     * @var float
+     */
+    private $vectorWeight = 6.0;
+
+    /**
+     * Weight of lexical search
+     *
+     * @var float
+     */
+    private $lexicalWeight = 1.0;
 
     /**
      * List of allowed Input params for querying.
@@ -301,32 +317,25 @@ class Request
             $this->getPaginationParams($input)
         );
 
-        // This is the canonical body structure. It is required.
-        // Various
-        $params['body'] = [
-            'track_total_hits' => true,
+        $searchParams = [
             'query' => [
                 'bool' => [
                     'must' => [],
                     'should' => [],
                 ],
             ],
-
         ];
-
-        // Add sort into the body, not the request
-        $params = $this->addSortParams($params, $input);
 
         // Add our custom relevancy tweaks into `should`
         if ($input['boost']) {
-            $params = $this->addRelevancyParams($params, $input);
+            $searchParams = $this->addRelevancyParams($searchParams, $input);
         }
 
         // Add params to isolate "scoped" resources into `must`
-        $params = $this->addScopeParams($params, $input);
+        $searchParams = $this->addScopeParams($searchParams);
 
         // Add params to filter out restricted resources into `must`
-        $params = $this->addRestrictParams($params, $input);
+        $searchParams = $this->addRestrictParams($searchParams);
 
         /**
          * 1. If `query` is present, append it to the `must` clause.
@@ -335,13 +344,57 @@ class Request
          */
 
         if (isset($input['query'])) {
-            $params = $this->addFullSearchParams($params, $input);
+            $searchParams = $this->addFullSearchParams($searchParams, $input);
         }
 
         if (isset($input['q'])) {
-            $params = $this->addSimpleSearchParams($params, $input);
+            // Check if the query is a URL
+            $isUrlSearch = filter_var($input['q'], FILTER_VALIDATE_URL) !== false;
+            $searchParams = $this->addSimpleSearchParams($searchParams, $input, $isUrlSearch);
         } else {
-            $params = $this->addEmptySearchParams($params);
+            $searchParams = $this->addEmptySearchParams($searchParams);
+        }
+
+        // Apply `function_score` (if any)
+        $searchParams = $this->addFunctionScore($searchParams, $input);
+
+        if (isset($input['sort']) || config('aic.search.suppress_vector_search')) {
+            $params['body'] = [
+                'track_total_hits' => true,
+                'query' => $searchParams['query'],
+            ];
+
+
+            // Add sort into the body, not the request
+            $params = $this->addSortParams($params, $input);
+        } else {
+            // Adust retriever weights
+            $params = $this->adjustRetrieverWeights($params, $input);
+
+            // This is the canonical body structure. It is required.
+            // We use a hybrid linear query here to weigh the results of each query differently.
+            // @see https://www.elastic.co/docs/reference/elasticsearch/rest-apis/retrievers/linear-retriever
+            $params['body'] = [
+                'track_total_hits' => true,
+                'retriever' => [
+                    'rrf' => [
+                        'retrievers' => [
+                            [
+                                'retriever' => [
+                                    'standard' => [
+                                        'query' => $searchParams['query']
+                                    ],
+                                ],
+                                'weight' => $this->lexicalWeight,
+                            ],
+                        ],
+                        'rank_window_size' => 10000,
+                    ]
+                ]
+            ];
+
+            // Add embeddings search
+            $params = $this->addKnnAndRankParam($params, $input);
         }
 
         // Add Aggregations (facets)
@@ -349,8 +402,8 @@ class Request
             $params = $this->addAggregationParams($params, $input);
         }
 
-        // Apply `function_score` (if any)
-        $params = $this->addFunctionScore($params, $input);
+        // If you want to see the raw query that gets sent to Elasticsearch, uncomment this line here:
+        // dd(json_encode($params));
 
         return $params;
     }
@@ -381,7 +434,7 @@ class Request
      *
      * @return array
      */
-    public static function getValidInput(array $input = null)
+    public static function getValidInput(?array $input = null)
     {
         // Grab all user input (query string params or json)
         $input = $input ?: RequestFacade::all();
@@ -525,16 +578,16 @@ class Request
      *
      * @return array
      */
-    public function addRelevancyParams(array $params, array $input)
+    public function addRelevancyParams(array $searchParams, array $input)
     {
         // Don't tweak relevancy if sort is passed
         if (isset($input['sort'])) {
-            return $params;
+            return $searchParams;
         }
 
         if (!isset($input['q'])) {
             // Boost anything with `is_boosted` true
-            $params['body']['query']['bool']['should'][] = [
+            $searchParams['query']['bool']['should'][] = [
                 'term' => [
                     'is_boosted' => [
                         'value' => true,
@@ -545,11 +598,11 @@ class Request
 
             // Add any resource-specific boosts
             foreach ($this->boosts as $boost) {
-                $params['body']['query']['bool']['should'][] = $boost;
+                $searchParams['query']['bool']['should'][] = $boost;
             }
         }
 
-        return $params;
+        return $searchParams;
     }
 
     /**
@@ -557,18 +610,18 @@ class Request
      *
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl-function-score-query.html
      *
-     * @param array $params
+     * @param array $searchParams
      *
      * @return array
      */
-    public function addFunctionScore($params, $input)
+    public function addFunctionScore(array $searchParams, array $input)
     {
         if (empty($this->functionScores) || !isset($this->resources)) {
-            return $params;
+            return $searchParams;
         }
 
         // We'll duplicate this, nesting it in `function_score` queries
-        $baseQuery = $params['body']['query'];
+        $baseQuery = $searchParams['query'];
 
         // Keep track of this to create a "left over" non-scored query
         $resourcesWithoutFunctions = collect([]);
@@ -632,13 +685,137 @@ class Request
         }
 
         // Override the existing query with our queries
-        $params['body']['query'] = [
+        $searchParams['query'] = [
             'bool' => [
-                'must' => $scopedQueries->all(),
+                'should' => $scopedQueries->all(),
+                'minimum_should_match' => $scopedQueries->count() ?? 1,
             ],
         ];
 
+        return $searchParams;
+    }
+
+    /**
+     * Add param for vector search
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.18/query-dsl-script-score-query.html#vector-functions-cosine
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    public function addKnnAndRankParam(array $params, array $input)
+    {
+        if ($input['q']) {
+            // Determine if input query is a url or not and generate the appropriate embedding for it
+            if (filter_var($input['q'], FILTER_VALIDATE_URL) && config('aic.search.image_url_search')) {
+                $queryVector = app('Embeddings')->getImageEmbeddings($input['q']);
+                $vectorType = 'image_embedding';
+            } else {
+                $queryVector = app('Embeddings')->getEmbeddings($input['q']);
+                $vectorType = 'text_embedding';
+            }
+
+            $params['body']['retriever']['rrf']['retrievers'][] = [
+                'retriever' => [
+                    'knn' => [
+                        'field' => $vectorType,
+                        'query_vector' => $queryVector,
+                        'k' => 10,
+                        'num_candidates' => 50,
+                    ]
+                ],
+                'weight' => $this->vectorWeight,
+            ];
+        }
+
         return $params;
+    }
+
+    /**
+     * Add param for vector search
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/8.18/query-dsl-script-score-query.html#vector-functions-cosine
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    public function adjustRetrieverWeights(array $params, array $input)
+    {
+        if (!empty($input['q'])) {
+            $isSemantic = $this->isSemantic($params, $input);
+
+            $esParams = [
+                'index' => $params['index'],
+                'size' => 1,
+                'body' => [
+                    'query' => [
+                        'match' => [
+                            'catalog_based_search_keyword_titles' => [
+                                'query' => $input['q'],
+                            ],
+                        ],
+                    ],
+                ],
+            ];
+
+            $response = app('elasticsearch')->search($esParams)->asArray();
+
+            $score = null;
+            if (isset($response['hits']['max_score']) && $response['hits']['max_score'] !== null) {
+                $score = $response['hits']['max_score'];
+            } elseif (!empty($response['hits']['hits'][0]['_score'])) {
+                $score = $response['hits']['hits'][0]['_score'];
+            }
+
+            $threshold = config('aic.search.catalog_match_threshold', 6.0);
+
+            if ($score !== null && $score >= $threshold && !$isSemantic) {
+                $this->vectorWeight = config('aic.search.catalog_vector_weight', 1.0);
+                $this->lexicalWeight = config('aic.search.catalog_lexical_weight', 6.0);
+            }
+        }
+
+        return $params;
+    }
+
+    public function isSemantic(array $params, array $input)
+    {
+        if (!empty($input['q'])) {
+            $q = mb_strtolower(trim($input['q']));
+
+            // If the string looks like an international name, treat it as lexical
+            if (preg_match('/\b(?:van|von|de)\s\p{L}+/u', $q)) {
+                return false;
+            }
+
+            // Short single or double-word phrases usually aren't semantic
+            $wordCount = Str::wordCount($q);
+            if ($wordCount <= 2) {
+                return false;
+            }
+
+            // Look for common "function" words that appear in natural phrases
+            $functionWords = [
+                'on', 'in', 'of', 'with', 'at', 'to', 'from', 'for', 'by', 'under', 'over',
+                'the', 'a', 'an', 'and', 'or', 'into', 'onto', 'near', 'beside'
+            ];
+
+            foreach ($functionWords as $fw) {
+                if (preg_match('/\b' . preg_quote($fw, '/') . '\b/', $q)) {
+                    return true;
+                }
+            }
+
+            // Treat multi-word phrases with verbs or adverbs as semantic
+            if (preg_match('/ing\b|ly\b|ed\b/', $q)) {
+                return true;
+            }
+
+            // If it’s multiple words but none of the above, still likely a descriptive phrase
+            return $wordCount >= 3;
+        }
     }
 
     /**
@@ -646,20 +823,20 @@ class Request
      *
      * @return array
      */
-    public function addScopeParams(array $params, array $input)
+    public function addScopeParams(array $searchParams)
     {
         if (!isset($this->scopes) || count($this->scopes) < 1) {
-            return $params;
+            return $searchParams;
         }
 
         // Assumes that `scopes` has no null members
-        $params['body']['query']['bool']['must'][] = [
+        $searchParams['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $this->scopes,
             ],
         ];
 
-        return $params;
+        return $searchParams;
     }
 
     /**
@@ -667,21 +844,21 @@ class Request
      *
      * @return array
      */
-    public function addRestrictParams(array $params, array $input)
+    public function addRestrictParams(array $searchParams)
     {
         if (Gate::allows('restricted-access')) {
-            return $params;
+            return $searchParams;
         }
 
         foreach ($this->resources as $resource) {
             $restrictions = RestrictContent::getSearchRestrictForEndpoint($resource);
 
             if (!empty($restrictions)) {
-                $params['body']['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
+                $searchParams['query']['bool']['must'][] = app('Search')->getScopedQuery($resource, $restrictions);
             }
         }
 
-        return $params;
+        return $searchParams;
     }
 
     /**
@@ -690,14 +867,14 @@ class Request
      *
      * @return array
      */
-    private function addEmptySearchParams(array $params)
+    private function addEmptySearchParams(array $searchParams)
     {
         // PHP JSON-encodes empty array as [], not {}
-        $params['body']['query']['bool']['must'][] = [
+        $searchParams['query']['bool']['must'][] = [
             'match_all' => new \stdClass(),
         ];
 
-        return $params;
+        return $searchParams;
     }
 
     /**
@@ -710,9 +887,9 @@ class Request
      *
      * @return array
      */
-    private function addSimpleSearchParams(array $params, array $input)
+    private function addSimpleSearchParams(array $searchParams, array $input, bool $isUrlSearch = false)
     {
-        if ($colorParams = $this->getColorParams($params, $input)) {
+        if ($colorParams = $this->getColorParams($searchParams, $input)) {
             return $colorParams;
         }
 
@@ -758,8 +935,14 @@ class Request
         $allFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, false);
         $exactFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, true);
 
+        // If query is a URL, omit title from search
+        if ($isUrlSearch) {
+            $allFields = array_diff($allFields, ['title']);
+            $exactFields = array_diff($exactFields, ['title']);
+        }
+
         foreach ($withQuotes as $subquery) {
-            $params['body']['query']['bool']['must'][] = [
+            $searchParams['query']['bool']['must'][] = [
                 'multi_match' => [
                     'analyzer' => 'exact',
                     'query' => str_replace('"', '', $subquery),
@@ -775,25 +958,26 @@ class Request
 
         foreach ($withoutQuotes as $subquery) {
             // Pull all docs that match fuzzily into the results
-            $params['body']['query']['bool']['must'][] = [
+            $searchParams['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $subquery,
                     'fuzziness' => $fuzziness,
-                    'prefix_length' => 1,
+                    'prefix_length' => 2, // Value of '2' helps with 'Monet' vs 'Manet'
                     'fields' => $allFields,
                 ],
             ];
         }
+        $searchParams['query']['bool']['minimum_should_match'] = 1;
 
         // Queries below depend on `q`, but act as relevany tweaks
         // Don't tweak relevancy further if sort is passed
         if (isset($input['sort'])) {
-            return $params;
+            return $searchParams;
         }
 
         // This acts as a boost for docs that match precisely, if fuzzy search is enabled
         if (!$isExact && ($fuzziness ?? false)) {
-            $params['body']['query']['bool']['should'][] = [
+            $searchParams['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => $input['q'],
                     'fields' => $allFields,
@@ -805,7 +989,7 @@ class Request
         // `phrase` queries are relatively expensive, so check for spaces first
         // https://www.elastic.co/guide/en/elasticsearch/guide/current/_improving_performance.html
         if ((count($withoutQuotes) > 0 || count($withQuotes) > 1) && strpos($input['q'], ' ')) {
-            $params['body']['query']['bool']['should'][] = [
+            $searchParams['query']['bool']['should'][] = [
                 'multi_match' => [
                     'query' => str_replace('"', '', $input['q']),
                     'type' => 'phrase',
@@ -817,7 +1001,7 @@ class Request
         }
 
         // General boost for landing pages, since those should hold more weight in results
-        $params['body']['query']['bool']['should'][] = [
+        $searchParams['query']['bool']['should'][] = [
             'term' => [
                 'api_model' => [
                     'value' => 'landing-pages',
@@ -826,7 +1010,7 @@ class Request
             ],
         ];
 
-        return $params;
+        return $searchParams;
     }
 
     /**
@@ -834,13 +1018,13 @@ class Request
      *
      * @return array
      */
-    private function addFullSearchParams(array $params, array $input)
+    private function addFullSearchParams(array $searchParams, array $input)
     {
         // TODO: Validate `query` input to reduce shenanigans
         // TODO: Deep-find `fields` in certain queries + replace them w/ our custom field list
-        $params['body']['query']['bool']['must'][] = Arr::get($input, 'query');
+        $searchParams['query']['bool']['must'][] = Arr::get($input, 'query');
 
-        return $params;
+        return $searchParams;
     }
 
     /**
@@ -923,8 +1107,11 @@ class Request
         return $params;
     }
 
-    private function getFuzzy(array $input, string $query = null, $isExact = false)
+    private function getFuzzy(array $input, ?string $query = null, $isExact = false)
     {
+        // Disbale fuzzy search on all queries
+        return 0;
+
         if (count(explode(' ', $query ?? $input['q'] ?? '')) > 7) {
             return 0;
         }
@@ -945,7 +1132,7 @@ class Request
         return min([2, (int) $input['fuzzy']]);
     }
 
-    private function getColorParams(array $params, array $input)
+    private function getColorParams(array $searchParams, array $input)
     {
         // Exit early if the query is not an exact hex string
         if (
@@ -1006,13 +1193,13 @@ class Request
             ];
         }
 
-        $params['body']['query']['bool']['must'][] = [
+        $searchParams['query']['bool']['must'][] = [
             'bool' => [
                 'should' => $hueQueries,
             ],
         ];
 
-        $params['body']['query']['bool']['must'][] = [
+        $searchParams['query']['bool']['must'][] = [
             'range' => [
                 'color.s' => [
                     'gte' => max($hsl['s'] - $saturationTolerance, 0),
@@ -1021,7 +1208,7 @@ class Request
             ],
         ];
 
-        $params['body']['query']['bool']['must'][] = [
+        $searchParams['query']['bool']['must'][] = [
             'range' => [
                 'color.l' => [
                     'gte' => max($hsl['l'] - $lightnessTolerance, 0),
@@ -1031,18 +1218,18 @@ class Request
         ];
 
         // We can't do an exists[field]=lqip, b/c lqip isn't indexed
-        $params['body']['query']['bool']['must'][] = [
+        $searchParams['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.width',
             ],
         ];
 
-        $params['body']['query']['bool']['must'][] = [
+        $searchParams['query']['bool']['must'][] = [
             'exists' => [
                 'field' => 'thumbnail.height',
             ],
         ];
 
-        return $params;
+        return $searchParams;
     }
 }

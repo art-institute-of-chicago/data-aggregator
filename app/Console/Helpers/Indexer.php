@@ -2,7 +2,7 @@
 
 namespace App\Console\Helpers;
 
-use Elasticsearch;
+use Laravel\Scout\EngineManager;
 
 trait Indexer
 {
@@ -20,7 +20,7 @@ trait Indexer
         ];
 
         // No need to do anything if the index doesn't exist
-        if (!Elasticsearch::indices()->exists($params)) {
+        if (!app('elasticsearch')->indices()->exists($params)->asBool()) {
             return true;
         }
 
@@ -32,7 +32,7 @@ trait Indexer
         $this->info('Deleting ' . $index . ' index...');
 
         // @TODO: Catch exceptions?
-        Elasticsearch::indices()->delete($params);
+        app('elasticsearch')->indices()->delete($params);
 
         return true;
     }

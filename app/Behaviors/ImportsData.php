@@ -3,6 +3,7 @@
 namespace App\Behaviors;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Sleep;
 use Carbon\Carbon;
 use Sentry\State\Scope;
 
@@ -30,6 +31,13 @@ trait ImportsData
      * @var string
      */
     protected $auth;
+
+    /**
+     * Set to `true` to pass ZeroTrust authentication headers in the request to the source.
+     *
+     * @var boolean
+     */
+    protected $zeroTrustAuth = false;
 
     /**
      * Is this a full import, or a partial? If partial, import stops when it
@@ -83,6 +91,13 @@ trait ImportsData
         if ($this->auth) {
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
             curl_setopt($ch, CURLOPT_USERPWD, $this->auth);
+        }
+
+        if ($this->zeroTrustAuth) {
+            $headers = [];
+            $headers[] = 'CF-Access-Client-Id:' . config('aic.web.zerotrust_client_id');
+            $headers[] = 'CF-Access-Client-Secret: ' . config('aic.web.zerotrust_client_secret');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -227,7 +242,7 @@ trait ImportsData
 
             $current++;
 
-            usleep($this->sleepFor * 1000000);
+            Sleep::for($this->sleepFor)->seconds();
 
             // TODO: This structure causes an extra query to be run, when it might not need to be
             $json = $this->query($endpoint, $current);
@@ -336,11 +351,24 @@ trait ImportsData
             $syncs = $transformer->sync($resource, $datum);
 
             $resource->save();
+            $this->afterSave($resource);
         }
 
         // For debugging ids and titles:
         // $this->warn("Imported #{$resource->getKey()}: {$resource->title}");
 
+        return $resource;
+    }
+
+    /**
+     * If an import process needs to do anything after a resource has been sucessfully imported
+     * do it here.
+     *
+     * @param \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function afterSave($resource)
+    {
         return $resource;
     }
 

@@ -120,6 +120,8 @@ return [
     'web' => [
         'username' => env('WEB_CMS_DATA_SERVICE_USERNAME'),
         'password' => env('WEB_CMS_DATA_SERVICE_PASSWORD'),
+        'zerotrust_client_id' => env('CLOUDFLARE_ZEROTRUST_CLIENT_ID'),
+        'zerotrust_client_secret' => env('CLOUDFLARE_ZEROTRUST_CLIENT_SECRET'),
     ],
 
     'asset' => [
@@ -129,7 +131,11 @@ return [
     ],
 
     'search' => [
-        'boost_artist_titles' => env('SEARCH_BOOST_ARTIST_TITLES')
+        'image_url_search' => env('IMAGE_URL_SEARCH'),
+        'catalog_match_threshold' => 6.0,
+        'catalog_vector_weight' => 1.0,
+        'catalog_lexical_weight' => 6.0,
+        'suppress_vector_search' => env('SEARCH_SUPPRESS_VECTOR_SEARCH', false),
     ],
 
     'shop' => [

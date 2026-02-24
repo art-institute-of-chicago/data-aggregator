@@ -540,8 +540,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                     'mapping' => $this->getDefaultStringMapping(true),
-                    // This is controllable via .env so we can tweak it without pushing to prod
-                    'boost' => (float) (config('aic.search.boost_artist_titles') ?: 2),
+                    'boost' => 2.5,
                 ],
                 'value' => function ($item) {
                     return $item->artists->pluck('title');
@@ -570,7 +569,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => 'except_exact',
-                    'boost' => 2,
+                    'boost' => config('aic.search.suppress_vector_search') ? 2 : 1.2,
                 ],
                 'value' => function ($item) {
                     return $item->terms->pluck('title');
@@ -872,6 +871,50 @@ class Artwork extends BaseTransformer
                 'value' => function ($item) {
                     return $item->sites->pluck('id');
                 },
+            ],
+            'image_embedding' => [
+                'doc' => 'The generated embeddings describing the artwork image',
+                'type' => 'vector',
+                'elasticsearch' => [
+                    'type' => 'dense_vector',
+                    'dims' => 1024,
+                    'index' => true,
+                    'index_options' => [
+                        'type' => 'hnsw',
+                        'm' => 16,
+                        'ef_construction' => 64
+                    ],
+                ],
+                'value' => function ($item) {
+                    return $item->imageEmbedding?->embedding->toArray() ?? [];
+                },
+                'is_restricted' => true,
+            ],
+            'text_embedding' => [
+                'doc' => 'The generated embeddings of artwork text',
+                'type' => 'vector',
+                'elasticsearch' => [
+                    'type' => 'dense_vector',
+                    'dims' => 1536,
+                    'index' => true,
+                    'index_options' => [
+                        'type' => 'hnsw',
+                        'm' => 16,
+                        'ef_construction' => 64
+                    ],
+                ],
+                'value' => function ($item) {
+                    return $item->textEmbedding?->embedding->toArray() ?? [];
+                },
+                'is_restricted' => true,
+            ],
+            'catalog_based_search_keyword_titles' => [
+                'doc' => 'The keyword search values that would be catalog-based searches on this record',
+                'type' => 'array',
+                'value' => function ($item) {
+                    return $item->catalog_based_search_keywords;
+                },
+                'is_restricted' => true,
             ],
         ];
     }

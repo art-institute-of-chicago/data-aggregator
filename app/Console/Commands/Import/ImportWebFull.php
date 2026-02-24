@@ -10,6 +10,7 @@ use App\Models\Web\EventOccurrence;
 use App\Models\Web\EventProgram;
 use App\Models\Web\Exhibition;
 use App\Models\Web\Highlight;
+use App\Models\Web\Hour;
 use App\Models\Web\GenericPage;
 use App\Models\Web\LandingPage;
 use App\Models\Web\PressRelease;
@@ -18,9 +19,15 @@ use App\Models\Web\DigitalPublication;
 use App\Models\Web\DigitalPublicationArticle;
 use App\Models\Web\PrintedPublication;
 use App\Models\Web\StaticPage;
+use App\Behaviors\HandleEmbeddings;
+use App\Behaviors\Thresholds;
 
-class ImportWebFull extends AbstractImportCommand
+class ImportWebFull extends AbstractImportCommand implements Thresholds
 {
+    use HandleEmbeddings;
+
+    protected $zeroTrustAuth = true;
+
     protected $signature = 'import:web-full
                             {endpoint? : Endpoint on dataservice to query, e.g. `events`}
                             {page? : Page to begin importing from}
@@ -47,7 +54,7 @@ class ImportWebFull extends AbstractImportCommand
             $page = $this->argument('page') ?: 1;
 
             $this->importFromWeb($endpoint, $page);
-            $this->info("Imported ${endpoint} web CMS content!");
+            $this->info("Imported {$endpoint} web CMS content!");
         } else {
             $this->importEndpoints();
             $this->info('Imported all web CMS content!');
@@ -73,6 +80,7 @@ class ImportWebFull extends AbstractImportCommand
             DigitalPublicationArticle::class => 'digital_publication_articles',
             PrintedPublication::class => 'printed_publications',
             StaticPage::class => 'static_pages',
+            Hour::class => 'hours',
         ];
 
         if ($endpoint) {
@@ -124,5 +132,28 @@ class ImportWebFull extends AbstractImportCommand
         }
 
         return parent::query($endpoint, $page, $limit);
+    }
+
+    /**
+     * If an artwork was updated, and if the primary image was updated, reimport the
+     * image embeddings.
+     *
+     * @param \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function afterSave($resource)
+    {
+        if (
+            in_array(get_class($resource), [
+            \App\Models\Web\Article::class,
+            \App\Models\Web\Highlight::class,
+            \App\Models\Web\LandingPage::class,
+            \App\Models\Web\DigitalPublicationArticle::class,
+            \App\Models\Web\PrintedPublication::class,
+            ])
+        ) {
+            $this->generateAndSaveWebEmbeddngs($resource, $this);
+        }
+        return $resource;
     }
 }
