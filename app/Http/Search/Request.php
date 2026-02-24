@@ -593,7 +593,7 @@ class Request
                 'term' => [
                     'is_boosted' => [
                         'value' => true,
-                        'boost' => 1.5,
+                        'boost' => config('aic.search.suppress_vector_search') ? 600.0 : 1.5,
                     ],
                 ],
             ];
