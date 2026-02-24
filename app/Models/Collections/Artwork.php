@@ -61,7 +61,7 @@ class Artwork extends CollectionsModel
 
     public static function searchScopeArtworks()
     {
-        return [
+        $ret = [
             'bool' => [
                 'must_not' => [
                     'exists' => [
@@ -69,14 +69,21 @@ class Artwork extends CollectionsModel
                     ]
                 ],
             ],
-            'bool' => [
-                'should' => [
-                    'exists' => [
-                        'field' => 'text_embedding'
-                    ]
-                ],
-            ],
         ];
+
+        if (!config('aic.search.suppress_vector_search')) {
+            $ret[] = [
+                'bool' => [
+                    'should' => [
+                        'exists' => [
+                            'field' => 'text_embedding'
+                        ]
+                    ],
+                ],
+            ];
+        }
+
+        return $ret;
     }
 
     /**

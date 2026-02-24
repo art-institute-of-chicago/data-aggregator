@@ -394,7 +394,9 @@ class Request
             ];
 
             // Add embeddings search
-            $params = $this->addKnnAndRankParam($params, $input);
+            if (!config('aic.search.suppress_vector_search')) {
+                $params = $this->addKnnAndRankParam($params, $input);
+            }
         }
 
         // Add Aggregations (facets)
