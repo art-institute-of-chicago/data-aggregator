@@ -28,12 +28,9 @@ object-assign
  * http://api.jqueryui.com/category/ui-core/
  */
 
-/*! @license DOMPurify 2.5.6 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.5.6/LICENSE */
+/*! @license DOMPurify 2.5.8 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.5.8/LICENSE */
 
-/*! fontfaceonload - v1.0.2 - 2017-06-28
- * https://github.com/zachleat/fontfaceonload
- * Copyright (c) 2017 Zach Leatherman (@zachleat)
- * MIT License */
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
 
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
@@ -52,12 +49,6 @@ object-assign
  * @copyright Oleg Isonen (Slobodskoi) / Isonen 2014-present
  * @website https://github.com/cssinjs/jss
  * @license MIT
- */
-
-/** @license Material-UI v4.11.3
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
  */
 
 /** @license React v0.19.1
@@ -88,6 +79,15 @@ object-assign
  */
 
 /** @license React v16.14.0
+ * react-jsx-runtime.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.14.0
  * react.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -105,12 +105,12 @@ object-assign
  * LICENSE file in the root directory of this source tree.
  */
 
-//! Built on 2020-03-05
+//! Built on 2024-12-09
 
-//! Git commit: v2.4.2-0-c450749
+//! Git commit: v5.0.1-0-480de92d
 
 //! License: http://openseadragon.github.io/license/
 
 //! http://openseadragon.github.io
 
-//! openseadragon 2.4.2
+//! openseadragon 5.0.1

@@ -1,9 +1,11 @@
-//! Built on 2022-12-16
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
 
-//! Git commit: v4.0.0-0-8e6196a
+//! Built on 2024-12-09
+
+//! Git commit: v5.0.1-0-480de92d
 
 //! License: http://openseadragon.github.io/license/
 
 //! http://openseadragon.github.io
 
-//! openseadragon 4.0.0
+//! openseadragon 5.0.1

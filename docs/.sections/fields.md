@@ -627,11 +627,14 @@ An occurrence of an event on the website For a description of all the endpoints 
 * `api_model` *string* - REST API resource type or endpoint
 * `api_link` *string* - REST API link for this resource
 * `title` *string* - The name of this resource
+* `title_display` *string* - The name of this event formatted with HTML (optional)
 * `event_id` *integer* - Identifier of the master event of which this is an occurrence
 * `short_description` *string* - Brief description of the event
 * `description` *string* - Description of the event
 * `image_url` *string* - The URL of an image representing this page
+* `is_ticketed` *boolean* - Whether a ticket is required to attend the event
 * `is_private` *boolean* - Whether the event is private. Private events should be omitted from listings.
+* `is_sales_button_hidden` *boolean* - Whether the buy tickets button is hidden on the website event page
 * `start_at` *ISO 8601 date and time* - The date the event occurrence begins
 * `end_at` *ISO 8601 date and time* - The date the event occurrence ends
 * `location` *string* - Where the event takes place
@@ -734,6 +737,25 @@ A generic page on the website For a description of all the endpoints available f
 
 
 
+#### Landing Pages
+
+A landing page on the website For a description of all the endpoints available for this resource, see [here](#landing-pages).
+
+* `id` *integer* - Unique identifier of this resource. Taken from the source system.
+* `api_model` *string* - REST API resource type or endpoint
+* `api_link` *string* - REST API link for this resource
+* `title` *string* - The name of this resource
+* `web_url` *string* - The URL to this page on our website
+* `copy` *string* - The text of the page
+* `search_tags` *array* - Editor-specified list of tags to aid in internal search
+* `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
+* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
+* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
+
+
+
 #### Press Releases
 
 A press release on the website For a description of all the endpoints available for this resource, see [here](#press-releases).
@@ -818,6 +840,59 @@ A printed catalog on the website For a description of all the endpoints availabl
 * `title` *string* - The name of this resource
 * `web_url` *string* - The URL to this page on our website
 * `copy` *string* - The text of the page
+* `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
+* `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
+* `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
+* `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
+* `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
+
+
+
+#### Hours
+
+An event on the website For a description of all the endpoints available for this resource, see [here](#hours).
+
+* `id` *integer* - Unique identifier of this resource. Taken from the source system.
+* `api_model` *string* - REST API resource type or endpoint
+* `api_link` *string* - REST API link for this resource
+* `title` *string* - The name of this resource
+* `monday_is_closed` *boolean* - Whether the museum is closed on Mondays
+* `monday_member_open` *string* - The time member hours starts on Mondays
+* `monday_member_close` *string* - The time member hours ends on Mondays
+* `monday_public_open` *string* - The time public hours starts on Mondays
+* `monday_public_close` *string* - The time public hours ends on Mondays
+* `tuesday_is_closed` *boolean* - Whether the museum is closed on Tuesdays
+* `tuesday_member_open` *string* - The time member hours starts on Tuesdays
+* `tuesday_member_close` *string* - The time member hours ends on Tuesdays
+* `tuesday_public_open` *string* - The time public hours starts on Tuesdays
+* `tuesday_public_close` *string* - The time public hours ends on Tuesdays
+* `wednesday_is_closed` *boolean* - Whether the museum is closed on Wednesdays
+* `wednesday_member_open` *string* - The time member hours starts on Wednesdays
+* `wednesday_member_close` *string* - The time member hours ends on Wednesdays
+* `wednesday_public_open` *string* - The time public hours starts on Wednesdays
+* `wednesday_public_close` *string* - The time public hours ends on Wednesdays
+* `thursday_is_closed` *boolean* - Whether the museum is closed on Thursdays
+* `thursday_member_open` *string* - The time member hours starts on Thursdays
+* `thursday_member_close` *string* - The time member hours ends on Thursdays
+* `thursday_public_open` *string* - The time public hours starts on Thursdays
+* `thursday_public_close` *string* - The time public hours ends on Thursdays
+* `friday_is_closed` *boolean* - Whether the museum is closed on Fridays
+* `friday_member_open` *string* - The time member hours starts on Fridays
+* `friday_member_close` *string* - The time member hours ends on Fridays
+* `friday_public_open` *string* - The time public hours starts on Fridays
+* `friday_public_close` *string* - The time public hours ends on Fridays
+* `saturday_is_closed` *boolean* - Whether the museum is closed on Saturdays
+* `saturday_member_open` *string* - The time member hours starts on Saturdays
+* `saturday_member_close` *string* - The time member hours ends on Saturdays
+* `saturday_public_open` *string* - The time public hours starts on Saturdays
+* `saturday_public_close` *string* - The time public hours ends on Saturdays
+* `sunday_is_closed` *boolean* - Whether the museum is closed on Sundays
+* `sunday_member_open` *string* - The time member hours starts on Sundays
+* `sunday_member_close` *string* - The time member hours ends on Sundays
+* `sunday_public_open` *string* - The time public hours starts on Sundays
+* `sunday_public_close` *string* - The time public hours ends on Sundays
+* `summary` *string* - Readable summary of the hours
+* `additional_text` *string* - Additional information about the hours
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
