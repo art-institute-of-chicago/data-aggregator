@@ -193,6 +193,8 @@ trait ImportsData
             }
         }
 
+        $this->since->subHours(3);
+
         if ($this->isPartial) {
             $this->info('Looking for resources since ' . $this->since->toIso8601String());
         }
@@ -229,7 +231,7 @@ trait ImportsData
                     $sourceTime = new Carbon($datum->{$transformer::$sourceLastUpdateDateField});
                     $sourceTime->timezone = config('app.timezone');
 
-                    if ($this->since->subHours(3)->gt($sourceTime)) {
+                    if ($this->since->gt($sourceTime)) {
                         break 2;
                     }
                 }
