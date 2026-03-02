@@ -72,14 +72,10 @@ class Artwork extends CollectionsModel
         ];
 
         if (!config('aic.search.suppress_vector_search')) {
-            $ret[] = [
-                'bool' => [
-                    'should' => [
-                        'exists' => [
-                            'field' => 'text_embedding'
-                        ]
-                    ],
-                ],
+            $ret['bool']['should'] = [
+                'exists' => [
+                    'field' => 'text_embedding'
+                ]
             ];
         }
 

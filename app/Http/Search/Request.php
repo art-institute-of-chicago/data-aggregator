@@ -969,7 +969,7 @@ class Request
                 ],
             ];
         }
-        $searchParams['query']['bool']['minimum_should_match'] = 1;
+        $searchParams['query']['bool']['minimum_should_match'] = config('aic.search.suppress_vector_search') ? 0 : 1;
 
         // Queries below depend on `q`, but act as relevany tweaks
         // Don't tweak relevancy further if sort is passed
