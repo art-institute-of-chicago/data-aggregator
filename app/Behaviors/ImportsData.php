@@ -229,7 +229,7 @@ trait ImportsData
                     $sourceTime = new Carbon($datum->{$transformer::$sourceLastUpdateDateField});
                     $sourceTime->timezone = config('app.timezone');
 
-                    if ($this->since->gt($sourceTime)) {
+                    if ($this->since->subHours(3)->gt($sourceTime)) {
                         break 2;
                     }
                 }
