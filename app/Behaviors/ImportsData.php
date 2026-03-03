@@ -193,6 +193,8 @@ trait ImportsData
             }
         }
 
+        $this->since->subHours(3);
+
         if ($this->isPartial) {
             $this->info('Looking for resources since ' . $this->since->toIso8601String());
         }
