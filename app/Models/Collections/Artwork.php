@@ -655,6 +655,6 @@ class Artwork extends CollectionsModel
 
     public function toSearchableArray()
     {
-        return array_filter($this->transform());
+        return array_filter($this->transform(), fn ($value) => !is_null($value));
     }
 }
