@@ -422,7 +422,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => 'geo_point',
                 'value' => function ($item) {
                     $latitude = $item->mobileArtwork->latitude ?? null;
-                    $longitude = $item->mobileArtwork->latitude ?? null;
+                    $longitude = $item->mobileArtwork->longitude ?? null;
 
                     if ($latitude && $longitude) {
                         return $latitude . ',' . $longitude;
