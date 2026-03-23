@@ -655,14 +655,14 @@ class Artwork extends CollectionsModel
 
     public function toSearchableArray()
     {
-        $ret = array_filter($this->transform(), fn ($value) => !is_null($value));
+        $ret = $this->transform();
 
-        // If the embeddings values are empty, don't sync them
+        // If the embeddings values are empty, explicitly set them to null
         if (empty($ret['text_embedding'])) {
-            unset($ret['text_embedding']);
+            $ret['text_embedding'] = null;
         }
         if (empty($ret['image_embedding'])) {
-            unset($ret['image_embedding']);
+            $ret['image_embedding'] = null;
         }
 
         return $ret;
