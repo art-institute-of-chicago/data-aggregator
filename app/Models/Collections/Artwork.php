@@ -662,7 +662,7 @@ class Artwork extends CollectionsModel
             $ret['text_embedding'] = null;
         }
         if (empty($ret['image_embedding'])) {
-            $ret['text_embedding'] = null;
+            $ret['image_embedding'] = null;
         }
 
         return $ret;
