@@ -3,6 +3,7 @@
 namespace App\Behaviors;
 
 use App\Models\Collections\Artwork;
+use App\Services\AIPrompts;
 use Illuminate\Support\Facades\Http;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
@@ -175,8 +176,10 @@ trait HandleEmbeddings
 
         throw new Exception('Failed to get image description: ' . app('Embeddings')->getResponseError($response->json()));
     }
-    public function getLLMImageDescription(string $imageUrl): array
+    public function getLLMImageDescription(string $imageUrl, string $promptType = 'standard'): array
     {
+        $promptText = AIPrompts::getAltTextPrompt($promptType);
+
         $response = Http::withHeaders([
             'api-key' => config('azure.chat.key'),
             'Content-Type' => 'application/json'
@@ -191,34 +194,7 @@ trait HandleEmbeddings
                     'content' => [
                         [
                             'type' => 'text',
-                            'text' =>
-                              'Analyze this image following accessibility best practices. Please provide it in a short 2-4 sentence paragraph following these practices:
-
-                              Consider:
-                                - Focusing purely on subject matter and not the composition or techniques of the image.
-                                - Structure the description by spatial order (top-to-bottom, left-to-right, or foreground-to-background as appropriate). Use common language without art-historical jargon.
-                                - Subject matter in each region
-                                - Colors using familiar names (red, blue, yellow, etc.)
-                                - Spatial relationships and orientation
-                                - Size and scale of elements
-                                - Stating if there are multiple images in the composition and comparing them
-
-                              Avoid:
-                                - Describing objects or features that are not clearly discernable
-                                - Assuming the material of the image and techniques
-                                - Using interpretive statements like "suggests" or "indicating"
-                                - Starting with statements like "the image", "the painting", "the artwork", "the drawing"
-                                - Including statements on subjects if none are present
-
-                              If people are present, describe:
-                                - Physical features that are immediately noticeable
-                                - Age using simple terms (child, youth, adult, older person)
-                                - Skin tone if clearly visible (light, medium-light, medium, medium-dark, dark)
-                                - Avoid gender assumptions unless clearly performed/verifiable
-                                - Named individuals if recognizable
-
-                                Focus on observable information, not interpretation. Describe what can be seen, not what it might mean. If an aspect is not present do not mention it in your analysis'
-
+                            'text' => $promptText
                         ],
                         [
                             'type' => 'image_url',
