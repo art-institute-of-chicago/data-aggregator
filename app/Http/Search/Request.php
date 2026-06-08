@@ -108,6 +108,9 @@ class Request
         // Determines which shards to use, ensures consistent result order
         'preference',
 
+        // Allow restricted field search
+        'search_field',
+
         // Allow clients to turn fuzzy off
         'fuzzy',
 
@@ -167,6 +170,11 @@ class Request
     {
         // Grab resource target from resource endpoint or `resources` param
         $resources = $this->resources ?? $input['resources'] ?? null;
+
+        // If a specific artwork field is searched, force the resource context to artworks.
+        if (isset($input['search_field']) && in_array($input['search_field'], ['title', 'artist_title', 'credit_line'])) {
+            $resources = ['artworks'];
+        }
 
         // Ensure that resources is an array, not string
         if (is_string($resources)) {
@@ -394,7 +402,7 @@ class Request
             ];
 
             // Add embeddings search
-            if (!config('aic.search.suppress_vector_search')) {
+            if (!config('aic.search.suppress_vector_search') && !isset($input['search_field'])) {
                 $params = $this->addKnnAndRankParam($params, $input);
             }
         }
@@ -895,6 +903,23 @@ class Request
             return $colorParams;
         }
 
+        // If a specific artwork field is searched, perform a strict phrase search and exit.
+        if (isset($input['search_field']) && in_array($input['search_field'], ['title', 'artist_title', 'credit_line'])) {
+            // Normalize frontend field name to the backend elasticsearch field name.
+            $field = $input['search_field'] === 'artist_title' ? 'artist_titles' : $input['search_field'];
+
+            // This query requires all terms to be present in the field in the exact order.
+            $searchParams['query']['bool']['must'][] = [
+                'match_phrase' => [
+                    $field => [
+                        'query' => $input['q'],
+                    ],
+                ],
+            ];
+
+            return $searchParams;
+        }
+
         // Check for quoted substrings
         $subqueries = explode('"', $input['q']);
 
@@ -936,6 +961,13 @@ class Request
         // Only pull default fields for the resources targeted by this request
         $allFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, false);
         $exactFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, true);
+
+        if (isset($input['search_field']) && in_array($input['search_field'], ['title', 'artist_title', 'credit_line'])) {
+            $field = $input['search_field'] === 'artist_title' ? 'artist_titles' : $input['search_field'];
+            $allFields = [$field];
+            $exactFields = [$field];
+            $input['fuzzy'] = 0;
+        }
 
         // If query is a URL, omit title from search
         if ($isUrlSearch) {
