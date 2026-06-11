@@ -366,7 +366,49 @@ class Request
         // Apply `function_score` (if any)
         $searchParams = $this->addFunctionScore($searchParams, $input);
 
-        if (isset($input['sort']) || config('aic.search.suppress_vector_search')) {
+        $isSemanticOnly = isset($input['semantic_only']);
+
+        if ($isSemanticOnly && isset($input['q']) && !config('aic.search.suppress_vector_search')) {
+            // Semantic-only: top-level knn query, no lexical search.
+            // Generate the embedding for the query.
+            if (filter_var($input['q'], FILTER_VALIDATE_URL) && config('aic.search.image_url_search')) {
+                $queryVector = app('Embeddings')->getImageEmbeddings($input['q']);
+                $vectorType = 'image_embedding';
+            } else {
+                $queryVector = app('Embeddings')->getEmbeddings($input['q']);
+                $vectorType = 'text_embedding';
+            }
+
+            // Build scope + restrict filter so knn searches only allowed documents.
+            $knnFilter = [];
+            if (!empty($this->scopes)) {
+                $knnFilter[] = ['bool' => ['should' => $this->scopes]];
+            }
+            if (Gate::denies('restricted-access')) {
+                foreach ($this->resources as $resource) {
+                    $restrictions = \App\Http\Middleware\RestrictContent::getSearchRestrictForEndpoint($resource);
+                    if (!empty($restrictions)) {
+                        $knnFilter[] = app('Search')->getScopedQuery($resource, $restrictions);
+                    }
+                }
+            }
+
+            $knnQuery = [
+                'field' => $vectorType,
+                'query_vector' => $queryVector,
+                'k' => 100,
+                'num_candidates' => 500,
+            ];
+
+            if (!empty($knnFilter)) {
+                $knnQuery['filter'] = $knnFilter;
+            }
+
+            $params['body'] = [
+                'track_total_hits' => true,
+                'knn' => $knnQuery,
+            ];
+        } elseif (isset($input['sort']) || config('aic.search.suppress_vector_search')) {
             $params['body'] = [
                 'track_total_hits' => true,
                 'query' => $searchParams['query'],
@@ -899,6 +941,11 @@ class Request
      */
     private function addSimpleSearchParams(array $searchParams, array $input, bool $isUrlSearch = false)
     {
+        // Semantic-only: skip lexical search entirely
+        if (isset($input['semantic_only'])) {
+            return $searchParams;
+        }
+
         if ($colorParams = $this->getColorParams($searchParams, $input)) {
             return $colorParams;
         }
