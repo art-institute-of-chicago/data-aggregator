@@ -368,7 +368,7 @@ class Request
             // Check if the query is a URL
             $isUrlSearch = filter_var($input['q'], FILTER_VALIDATE_URL) !== false;
             $searchParams = $this->addSimpleSearchParams($searchParams, $input, $isUrlSearch);
-        } elseif (!isset($input['semantic_only'])) {
+        } else {
             $searchParams = $this->addEmptySearchParams($searchParams);
         }
 
