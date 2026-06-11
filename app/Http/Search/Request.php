@@ -6,6 +6,7 @@ use Aic\Hub\Foundation\Exceptions\BigLimitException;
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
 use App\Http\Middleware\RestrictContent;
+use App\Models\Collections\Artwork;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
@@ -180,7 +181,7 @@ class Request
         }
 
         // If a specific artwork field is searched, force the resource context to artworks.
-        if (isset($input['search_field']) && in_array($input['search_field'], ['title', 'artist_title', 'credit_line'])) {
+        if (isset($input['search_field']) && in_array($input['search_field'], Artwork::RESTRICTED_FIELD_NAMES)) {
             $resources = ['artworks'];
         }
 
@@ -959,7 +960,7 @@ class Request
         }
 
         // If a specific artwork field is searched, perform a strict phrase search and exit.
-        if (isset($input['search_field']) && in_array($input['search_field'], ['title', 'artist_title', 'credit_line'])) {
+        if (isset($input['search_field']) && in_array($input['search_field'], Artwork::RESTRICTED_FIELD_NAMES)) {
             // Normalize frontend field name to the backend elasticsearch field name.
             $field = $input['search_field'] === 'artist_title' ? 'artist_titles' : $input['search_field'];
 
@@ -1017,7 +1018,7 @@ class Request
         $allFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, false);
         $exactFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, true);
 
-        if (isset($input['search_field']) && in_array($input['search_field'], ['title', 'artist_title', 'credit_line'])) {
+        if (isset($input['search_field']) && in_array($input['search_field'], Artwork::RESTRICTED_FIELD_NAMES)) {
             $field = $input['search_field'] === 'artist_title' ? 'artist_titles' : $input['search_field'];
             $allFields = [$field];
             $exactFields = [$field];
