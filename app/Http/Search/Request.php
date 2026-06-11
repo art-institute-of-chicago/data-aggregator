@@ -111,6 +111,9 @@ class Request
         // Allow restricted field search
         'search_field',
 
+        // Force vector-only semantic search
+        'semantic_only',
+
         // Allow clients to turn fuzzy off
         'fuzzy',
 
@@ -170,6 +173,11 @@ class Request
     {
         // Grab resource target from resource endpoint or `resources` param
         $resources = $this->resources ?? $input['resources'] ?? null;
+
+        // If semantic-only search, force the resource context to artworks.
+        if (isset($input['semantic_only'])) {
+            $resources = ['artworks'];
+        }
 
         // If a specific artwork field is searched, force the resource context to artworks.
         if (isset($input['search_field']) && in_array($input['search_field'], ['title', 'artist_title', 'credit_line'])) {
@@ -359,7 +367,7 @@ class Request
             // Check if the query is a URL
             $isUrlSearch = filter_var($input['q'], FILTER_VALIDATE_URL) !== false;
             $searchParams = $this->addSimpleSearchParams($searchParams, $input, $isUrlSearch);
-        } else {
+        } elseif (!isset($input['semantic_only'])) {
             $searchParams = $this->addEmptySearchParams($searchParams);
         }
 
