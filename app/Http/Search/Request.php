@@ -6,6 +6,7 @@ use Aic\Hub\Foundation\Exceptions\BigLimitException;
 use Aic\Hub\Foundation\Exceptions\DetailedException;
 use Aic\Hub\Foundation\Exceptions\TooManyResultsException;
 use App\Http\Middleware\RestrictContent;
+use App\Models\Collections\Artwork;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
@@ -108,6 +109,12 @@ class Request
         // Determines which shards to use, ensures consistent result order
         'preference',
 
+        // Allow restricted field search
+        'search_field',
+
+        // Force vector-only semantic search
+        'semantic_only',
+
         // Allow clients to turn fuzzy off
         'fuzzy',
 
@@ -167,6 +174,16 @@ class Request
     {
         // Grab resource target from resource endpoint or `resources` param
         $resources = $this->resources ?? $input['resources'] ?? null;
+
+        // If semantic-only search, force the resource context to artworks.
+        if (isset($input['semantic_only'])) {
+            $resources = ['artworks'];
+        }
+
+        // If a specific artwork field is searched, force the resource context to artworks.
+        if (isset($input['search_field']) && in_array($input['search_field'], Artwork::RESTRICTED_FIELD_NAMES)) {
+            $resources = ['artworks'];
+        }
 
         // Ensure that resources is an array, not string
         if (is_string($resources)) {
@@ -358,7 +375,49 @@ class Request
         // Apply `function_score` (if any)
         $searchParams = $this->addFunctionScore($searchParams, $input);
 
-        if (isset($input['sort']) || config('aic.search.suppress_vector_search')) {
+        $isSemanticOnly = isset($input['semantic_only']);
+
+        if ($isSemanticOnly && isset($input['q']) && !config('aic.search.suppress_vector_search')) {
+            // Semantic-only: top-level knn query, no lexical search.
+            // Generate the embedding for the query.
+            if (filter_var($input['q'], FILTER_VALIDATE_URL) && config('aic.search.image_url_search')) {
+                $queryVector = app('Embeddings')->getImageEmbeddings($input['q']);
+                $vectorType = 'image_embedding';
+            } else {
+                $queryVector = app('Embeddings')->getEmbeddings($input['q']);
+                $vectorType = 'text_embedding';
+            }
+
+            // Build scope + restrict filter so knn searches only allowed documents.
+            $knnFilter = [];
+            if (!empty($this->scopes)) {
+                $knnFilter[] = ['bool' => ['should' => $this->scopes]];
+            }
+            if (Gate::denies('restricted-access')) {
+                foreach ($this->resources as $resource) {
+                    $restrictions = \App\Http\Middleware\RestrictContent::getSearchRestrictForEndpoint($resource);
+                    if (!empty($restrictions)) {
+                        $knnFilter[] = app('Search')->getScopedQuery($resource, $restrictions);
+                    }
+                }
+            }
+
+            $knnQuery = [
+                'field' => $vectorType,
+                'query_vector' => $queryVector,
+                'k' => 100,
+                'num_candidates' => 500,
+            ];
+
+            if (!empty($knnFilter)) {
+                $knnQuery['filter'] = $knnFilter;
+            }
+
+            $params['body'] = [
+                'track_total_hits' => true,
+                'knn' => $knnQuery,
+            ];
+        } elseif (isset($input['sort']) || config('aic.search.suppress_vector_search')) {
             $params['body'] = [
                 'track_total_hits' => true,
                 'query' => $searchParams['query'],
@@ -394,7 +453,7 @@ class Request
             ];
 
             // Add embeddings search
-            if (!config('aic.search.suppress_vector_search')) {
+            if (!config('aic.search.suppress_vector_search') && !isset($input['search_field'])) {
                 $params = $this->addKnnAndRankParam($params, $input);
             }
         }
@@ -891,8 +950,30 @@ class Request
      */
     private function addSimpleSearchParams(array $searchParams, array $input, bool $isUrlSearch = false)
     {
+        // Semantic-only: skip lexical search entirely
+        if (isset($input['semantic_only'])) {
+            return $searchParams;
+        }
+
         if ($colorParams = $this->getColorParams($searchParams, $input)) {
             return $colorParams;
+        }
+
+        // If a specific artwork field is searched, perform a strict phrase search and exit.
+        if (isset($input['search_field']) && in_array($input['search_field'], Artwork::RESTRICTED_FIELD_NAMES)) {
+            // Normalize frontend field name to the backend elasticsearch field name.
+            $field = $input['search_field'] === 'artist_title' ? 'artist_titles' : $input['search_field'];
+
+            // This query requires all terms to be present in the field in the exact order.
+            $searchParams['query']['bool']['must'][] = [
+                'match_phrase' => [
+                    $field => [
+                        'query' => $input['q'],
+                    ],
+                ],
+            ];
+
+            return $searchParams;
         }
 
         // Check for quoted substrings
@@ -936,6 +1017,13 @@ class Request
         // Only pull default fields for the resources targeted by this request
         $allFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, false);
         $exactFields = app('Search')->getDefaultFieldsForEndpoints($this->resources, true);
+
+        if (isset($input['search_field']) && in_array($input['search_field'], Artwork::RESTRICTED_FIELD_NAMES)) {
+            $field = $input['search_field'] === 'artist_title' ? 'artist_titles' : $input['search_field'];
+            $allFields = [$field];
+            $exactFields = [$field];
+            $input['fuzzy'] = 0;
+        }
 
         // If query is a URL, omit title from search
         if ($isUrlSearch) {

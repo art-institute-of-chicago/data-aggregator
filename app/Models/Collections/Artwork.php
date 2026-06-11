@@ -50,6 +50,12 @@ class Artwork extends CollectionsModel
     ];
 
     /**
+     * Search field names that can be used as a search_field parameter
+     * to restrict ES to one field for search
+     */
+    public const RESTRICTED_FIELD_NAMES = ['title', 'artist_title', 'credit_line'];
+
+    /**
      * Scope a query to only include permanent collection items.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
