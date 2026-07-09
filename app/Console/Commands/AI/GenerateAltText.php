@@ -20,17 +20,21 @@ class GenerateAltText extends BaseCommand implements Thresholds
      *
      * Examples:
      *  php artisan ai:generate-alt-text articles 1247 1253
-     *  php artisan ai:generate-alt-text articles {1200..1203}
+     *  php artisan ai:generate-alt-text articles {1200..1203} --force --export --preview
+     *  php artisan ai:generate-alt-text digitalPublicationArticles {300..400} {415..450} --force --prompt=editorial --concurrency=4 --verbose
      *
      * Options:
-     *  --force      Overwrite ALL existing alt text
-     *  --force-ai   Overwrite ONLY AI-generated alt text
-     *  --skip-ai    Skip media already tagged as AI-generated
-     *  --mediables  Only process direct attachments
-     *  --blocks     Only process images in PageBuilder blocks
-     *  --export     Export results to CSV in storage/app/
-     *  --preview    Run analysis without saving to DB
-     *  --prompt=    Prompt type to use ('standard', 'editorial')
+     *  --verbose.      Print output of processes
+     *  --force         Overwrite ALL existing alt text
+     *  --force-ai      Overwrite ONLY AI-generated alt text
+     *  --skip-ai       Skip media already tagged as AI-generated
+     *  --mediables     Only process direct attachments
+     *  --blocks        Only process images in PageBuilder blocks
+     *  --export        Export results to CSV in storage/app/
+     *  --preview       Run analysis without saving to DB
+     *  --prompt=       Prompt type to use ('standard', 'editorial')
+     *  --concurrency=N Number of parallel processes (default: 1)
+     *  --rate-limit=N  Max requests per minute across all processes (default: 0 = no limit)
      */
 
     protected $signature = 'ai:generate-alt-text
@@ -43,13 +47,47 @@ class GenerateAltText extends BaseCommand implements Thresholds
                             {--skip-ai : Skip media with AI-generated alt text}
                             {--export : Export the results to a CSV file in storage/app}
                             {--preview : Run the analysis without saving to the database}
-                            {--prompt=standard : The type of prompt to use (e.g., standard, editorial)}';
+                            {--prompt=standard : The type of prompt to use (e.g., standard, editorial)}
+                            {--concurrency=1 : Number of parallel processes}
+                            {--rate-limit=0 : Max requests per minute across all processes (0 = no limit)}';
 
     protected $description = 'Generate a visual description for use in alt text';
+
+    private const ARTISTS = [
+        'DaVinci', 'Michelangelo', 'Rembrandt', 'Vermeer', 'Monet',
+        'VanGogh', 'Picasso', 'Dali', 'Kahlo', 'Warhol',
+        'Hopper', 'OKeeffe', 'Matisse', 'Cezanne', 'Degas',
+        'Renoir', 'Goya', 'Turner', 'Klimt', 'Munch',
+        'Kandinsky', 'Mondrian', 'Pollock', 'Rothko', 'Basquiat', 'Hockney',
+    ];
 
     private ?int $aiGeneratedTagId = null;
     private ?int $manualNeededTagId = null;
     private $csvExport = null;
+    private array $childPids = [];
+    private ?string $workerName = null;
+    private string $workerColor = '';
+
+    private const COLORS = [
+        '32', // green
+        '33', // yellow
+        '34', // blue
+        '35', // magenta
+        '36', // cyan
+        '91', // bright red
+        '92', // bright green
+        '93', // bright yellow
+        '94', // bright blue
+        '95', // bright magenta
+        '96', // bright cyan
+        '37', // white
+    ];
+
+    private function colorWrap(string $text, int $index): string
+    {
+        $code = self::COLORS[$index % count(self::COLORS)];
+        return "\033[{$code}m{$text}\033[0m";
+    }
 
     public function handle(): int
     {
@@ -65,43 +103,55 @@ class GenerateAltText extends BaseCommand implements Thresholds
                 return self::FAILURE;
             }
 
-            $this->cacheTagIds();
-            $this->initExport();
+            $rateLimit = (int) $this->option('rate-limit');
+            if ($rateLimit > 0) {
+                config(['azure.chat.rate_limit_rpm' => $rateLimit]);
+            }
 
-            $processedCount = 0;
+            $this->cacheTagIds();
+
+            $concurrency = (int) $this->option('concurrency');
+            if ($concurrency <= 1) {
+                $this->initExport();
+            }
+
             $modelName = $this->argument('model_name');
             $modelIds = $this->argument('model_ids') ?? [];
-            $hasSpecificIds = !empty($modelIds);
+            $hasSpecificIds = ! empty($modelIds);
 
-            // Determine processing mode
-            if ($this->option('mediables') && !$this->option('blocks')) {
+            if ($this->option('mediables') && ! $this->option('blocks')) {
                 $processedCount = $hasSpecificIds
                     ? $this->processMultipleModels($modelName, $modelIds)
                     : $this->processAllMediables();
-            } elseif ($this->option('blocks') && !$this->option('mediables')) {
-                $processedCount = $this->processImageBlocksForMultipleModels($modelName, $modelIds);
+            } elseif ($this->option('blocks') && ! $this->option('mediables')) {
+                $processedCount = $this->processImageBlocks($modelName, $modelIds);
             } else {
+                $processedCount = 0;
                 if ($modelName && $hasSpecificIds) {
                     $processedCount += $this->processMultipleModels($modelName, $modelIds);
-                    $processedCount += $this->processImageBlocksForMultipleModels($modelName, $modelIds);
+                    $processedCount += $this->processImageBlocks($modelName, $modelIds);
                 } else {
                     $processedCount += $this->processAllMediables();
                     $processedCount += $this->processImageBlocks(null, null);
                 }
             }
 
-            $this->closeExport();
+            if ($concurrency <= 1) {
+                $this->closeExport();
+            }
 
             $status = $this->option('preview') ? 'Analyzed (Preview)' : 'Processed';
             $this->info("\n✅ Command complete. Total {$status}: {$processedCount}");
 
             return self::SUCCESS;
         } catch (Exception $e) {
-            $this->closeExport();
+            if (((int) $this->option('concurrency')) <= 1) {
+                $this->closeExport();
+            }
             $this->error("\n💥 Error: " . $e->getMessage(), OutputInterface::VERBOSITY_VERBOSE);
             Log::error('GenerateAltText command failed', [
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
             return self::FAILURE;
         }
@@ -128,27 +178,182 @@ class GenerateAltText extends BaseCommand implements Thresholds
         }
     }
 
+    protected function processMultipleModels(string $modelName, array $modelIds): int
+    {
+        $concurrency = (int) $this->option('concurrency');
+        $this->info("🔍 Processing {$modelName} for " . count($modelIds) . " ID(s)...", OutputInterface::VERBOSITY_VERBOSE);
+
+        // Collect all mediables up-front so parallel workers split actual items, not arbitrary ID boundaries
+        $allMediables = DB::connection('website')
+            ->table('mediables')
+            ->where('mediable_type', $modelName)
+            ->whereIn('mediable_id', $modelIds)
+            ->get();
+
+        if ($allMediables->isEmpty()) {
+            $this->info('No mediables found.');
+            return 0;
+        }
+
+        $this->info("Found {$allMediables->count()} total mediable(s).", OutputInterface::VERBOSITY_VERBOSE);
+
+        if ($concurrency > 1 && $allMediables->count() >= $concurrency) {
+            return $this->dispatchParallel($allMediables);
+        }
+
+        return $this->processMediables($allMediables, $modelName);
+    }
+
+    protected function processAllMediables(): int
+    {
+        $this->info('🔍 Searching for all mediables...', OutputInterface::VERBOSITY_VERBOSE);
+        $query = DB::connection('website')->table('mediables')
+            ->leftJoin('medias', 'mediables.media_id', '=', 'medias.id')
+            ->select('mediables.*');
+
+        $mediables = $this->applyFilters($query)->get();
+        $this->info("Found {$mediables->count()} mediable(s).", OutputInterface::VERBOSITY_VERBOSE);
+
+        $concurrency = (int) $this->option('concurrency');
+        if ($concurrency > 1 && $mediables->count() >= $concurrency) {
+            return $this->dispatchParallel($mediables);
+        }
+
+        return $this->processMediables($mediables);
+    }
+
+    protected function processImageBlocks($modelName, $modelIds = null): int
+    {
+        $this->info('🔍 Searching for image blocks...', OutputInterface::VERBOSITY_VERBOSE);
+
+        $query = DB::connection('website')->table('mediables')
+            ->join('medias', 'mediables.media_id', '=', 'medias.id')
+            ->join('blocks', 'mediables.mediable_id', '=', 'blocks.id')
+            ->where('mediables.mediable_type', 'blocks')
+            ->select('mediables.*');
+
+        if ($modelName && $modelIds) {
+            if (is_array($modelIds)) {
+                $query->where('blocks.blockable_type', $modelName)
+                      ->whereIn('blocks.blockable_id', $modelIds);
+            } else {
+                $query->where('blocks.blockable_type', $modelName)
+                      ->where('blocks.blockable_id', $modelIds);
+            }
+        }
+
+        $mediables = $this->applyFilters($query)->get();
+        $this->info("Found {$mediables->count()} image block(s).", OutputInterface::VERBOSITY_VERBOSE);
+
+        $concurrency = (int) $this->option('concurrency');
+        if ($concurrency > 1 && $mediables->count() >= $concurrency) {
+            return $this->dispatchParallel($mediables);
+        }
+
+        return $this->processMediables($mediables, 'blocks');
+    }
+
+    private function workerLabel(): string
+    {
+        if (! $this->workerName) {
+            return '';
+        }
+        return "\033[{$this->workerColor}m[{$this->workerName}]\033[0m ";
+    }
+
+    protected function processMediables($mediables, ?string $mName = null, ?string $mId = null): int
+    {
+        if ($mediables->isEmpty()) {
+            return 0;
+        }
+
+        $label = $this->workerLabel();
+        $total = $mediables->count();
+        $this->info("{$label}Found {$total} mediable(s) to check.", OutputInterface::VERBOSITY_VERBOSE);
+
+        $isParallel = $this->workerName !== null;
+        if (! $isParallel) {
+            $progressBar = $this->output->createProgressBar($total);
+        }
+
+        $processedCount = 0;
+        $checked = 0;
+
+        foreach ($mediables as $mediable) {
+            $checked++;
+
+            try {
+                $media = DB::connection('website')->table('medias')
+                    ->where('id', $mediable->media_id)
+                    ->first();
+
+                if (! $media || $this->shouldSkipMedia($media)) {
+                    if (! $isParallel) {
+                        $progressBar->advance();
+                    }
+                    continue;
+                }
+
+                if ($isParallel) {
+                    $this->info("{$label}[{$checked}/{$total}] Processing media #{$media->id}…", OutputInterface::VERBOSITY_VERBOSE);
+                }
+
+                $this->analyzeAndStoreImage(
+                    $media,
+                    $mName ?? $mediable->mediable_type,
+                    $mId ?? $mediable->mediable_id,
+                );
+                $processedCount++;
+            } catch (Exception $e) {
+                if (! $this->option('preview')) {
+                    $this->tagMediaAsManualNeeded($mediable->media_id);
+                }
+                $this->warn("{$label}⚠️ Error media #{$mediable->media_id}: {$e->getMessage()}", OutputInterface::VERBOSITY_VERBOSE);
+            }
+
+            if (! $isParallel) {
+                $progressBar->advance();
+            }
+        }
+
+        if (! $isParallel) {
+            $progressBar->finish();
+            $this->newLine();
+        }
+
+        return $processedCount;
+    }
+
     protected function analyzeAndStoreImage($media, $sourceModel, $sourceId): void
     {
         $url = "https://artic-web.imgix.net/{$media->uuid}?w=843";
+        $prefix = $this->workerLabel();
 
-        $this->info("\n  → Analyzing: {$url}", OutputInterface::VERBOSITY_VERBOSE);
+        $this->info("{$prefix}\n  → Analyzing: {$url}", OutputInterface::VERBOSITY_VERBOSE);
 
         $promptType = $this->option('prompt') ?? 'standard';
-        $analysis = $this->getLLMImageDescription($url, $promptType);
+
+        try {
+            $analysis = $this->getLLMImageDescription($url, $promptType);
+        } catch (Exception $e) {
+            if (str_contains($e->getMessage(), 'unsupported image')) {
+                $this->warn("{$prefix}⏭️ Unsupported format — skipping media #{$media->id}", OutputInterface::VERBOSITY_VERBOSE);
+                return;
+            }
+            throw $e;
+        }
 
         if (empty($analysis['caption'])) {
             throw new Exception('LLM returned empty caption');
         }
 
-        // Only save if NOT in preview mode
-        if (!$this->option('preview')) {
+        if (! $this->option('preview')) {
             DB::connection('website')
                 ->table('medias')
                 ->where('id', $media->id)
                 ->update([
                     'alt_text' => $analysis['caption'],
-                    'updated_at' => now()
+                    'updated_at' => now(),
                 ]);
 
             $this->tagMediaAsAiGenerated($media->id);
@@ -163,35 +368,49 @@ class GenerateAltText extends BaseCommand implements Thresholds
                 $sourceId,
                 $analysis['caption'],
                 $url,
-                $this->option('preview') ? 'Preview Only' : 'Saved'
+                $this->option('preview') ? 'Preview Only' : 'Saved',
             ]);
         }
 
-        $label = $this->option('preview') ? "Preview Text" : "Alt Text";
-        $this->info("  {$label}: " . Str::limit($analysis['caption'], 75), OutputInterface::VERBOSITY_VERBOSE);
+        $label = $this->option('preview') ? 'Preview Text' : 'Alt Text';
+        $this->info("{$prefix}  {$label}: " . Str::limit($analysis['caption'], 75), OutputInterface::VERBOSITY_VERBOSE);
+    }
+
+    protected function cacheTagIds(): void
+    {
+        $this->aiGeneratedTagId = DB::connection('website')->table('tags')
+            ->where('slug', 'ai-generated-alt-text')->value('id');
+        $this->manualNeededTagId = DB::connection('website')->table('tags')
+            ->where('slug', 'manual-alt-text-needed')->value('id');
     }
 
     protected function tagMediaAsAiGenerated(int $mediaId): void
     {
-        if (!$this->aiGeneratedTagId || $this->option('preview')) return;
+        if (! $this->aiGeneratedTagId || $this->option('preview')) {
+            return;
+        }
         DB::connection('website')->table('tagged')->updateOrInsert(
             ['taggable_type' => 'media', 'taggable_id' => $mediaId, 'tag_id' => $this->aiGeneratedTagId],
-            []
+            [],
         );
     }
 
     protected function tagMediaAsManualNeeded(int $mediaId): void
     {
-        if (!$this->manualNeededTagId || $this->option('preview')) return;
+        if (! $this->manualNeededTagId || $this->option('preview')) {
+            return;
+        }
         DB::connection('website')->table('tagged')->updateOrInsert(
             ['taggable_type' => 'media', 'taggable_id' => $mediaId, 'tag_id' => $this->manualNeededTagId],
-            []
+            [],
         );
     }
 
     protected function removeManualNeededTag(int $mediaId): void
     {
-        if (!$this->manualNeededTagId || $this->option('preview')) return;
+        if (! $this->manualNeededTagId || $this->option('preview')) {
+            return;
+        }
         DB::connection('website')->table('tagged')
             ->where('taggable_type', 'media')
             ->where('taggable_id', $mediaId)
@@ -199,24 +418,29 @@ class GenerateAltText extends BaseCommand implements Thresholds
             ->delete();
     }
 
-    protected function cacheTagIds(): void
-    {
-        $this->aiGeneratedTagId = DB::connection('website')->table('tags')->where('slug', 'ai-generated-alt-text')->value('id');
-        $this->manualNeededTagId = DB::connection('website')->table('tags')->where('slug', 'manual-alt-text-needed')->value('id');
-    }
-
     protected function shouldSkipMedia($media): bool
     {
         $hasAiTag = $this->mediaHasAiTag($media->id);
-        if ($this->option('force')) return $this->option('skip-ai') && $hasAiTag;
-        if ($this->option('force-ai')) return !$hasAiTag;
-        if ($this->option('skip-ai')) return $hasAiTag;
-        return !empty($media->alt_text);
+
+        if ($this->option('force')) {
+            return $this->option('skip-ai') && $hasAiTag;
+        }
+        if ($this->option('force-ai')) {
+            return ! $hasAiTag;
+        }
+        if ($this->option('skip-ai')) {
+            return $hasAiTag;
+        }
+
+        return ! empty($media->alt_text);
     }
 
     protected function mediaHasAiTag(int $mediaId): bool
     {
-        if (!$this->aiGeneratedTagId) return false;
+        if (! $this->aiGeneratedTagId) {
+            return false;
+        }
+
         return DB::connection('website')->table('tagged')
             ->where('taggable_type', 'media')
             ->where('taggable_id', $mediaId)
@@ -224,112 +448,123 @@ class GenerateAltText extends BaseCommand implements Thresholds
             ->exists();
     }
 
-    protected function processMultipleModels(string $modelName, array $modelIds): int
-    {
-        $this->info("🔍 Processing {$modelName} for " . count($modelIds) . " ID(s)...", OutputInterface::VERBOSITY_VERBOSE);
-
-        $processedCount = 0;
-        foreach ($modelIds as $modelId) {
-            $mediables = DB::connection('website')
-                ->table('mediables')
-                ->where('mediable_type', $modelName)
-                ->where('mediable_id', $modelId)
-                ->get();
-
-            $processedCount += $this->processMediables($mediables, $modelName, $modelId);
-        }
-        return $processedCount;
-    }
-
-    protected function processMediables($mediables, ?string $mName = null, ?string $mId = null): int
-    {
-        if ($mediables->isEmpty()) return 0;
-
-        $this->info("Found {$mediables->count()} mediable(s) to check.", OutputInterface::VERBOSITY_VERBOSE);
-        $progressBar = $this->output->createProgressBar($mediables->count());
-        $processedCount = 0;
-
-        foreach ($mediables as $mediable) {
-            try {
-                $media = DB::connection('website')->table('medias')->where('id', $mediable->media_id)->first();
-
-                if (!$media || $this->shouldSkipMedia($media)) {
-                    $progressBar->advance();
-                    continue;
-                }
-
-                $this->analyzeAndStoreImage($media, $mName ?? $mediable->mediable_type, $mId ?? $mediable->mediable_id);
-                $processedCount++;
-            } catch (Exception $e) {
-                if (!$this->option('preview')) {
-                    $this->tagMediaAsManualNeeded($mediable->media_id);
-                }
-                $this->warn("\n⚠️ Error media #{$mediable->media_id}: {$e->getMessage()}", OutputInterface::VERBOSITY_VERBOSE);
-            }
-            $progressBar->advance();
-        }
-
-        $progressBar->finish();
-        $this->newLine();
-        return $processedCount;
-    }
-
-    protected function processAllMediables(): int
-    {
-        $this->info("🔍 Searching for all mediables...", OutputInterface::VERBOSITY_VERBOSE);
-        $query = DB::connection('website')->table('mediables')
-            ->leftJoin('medias', 'mediables.media_id', '=', 'medias.id')
-            ->select('mediables.*');
-
-        $query = $this->applyFilters($query);
-        return $this->processMediables($query->get());
-    }
-
-    protected function processImageBlocksForMultipleModels(?string $modelName, array $modelIds): int
-    {
-        if (!$modelName || empty($modelIds)) return $this->processImageBlocks(null, null);
-        $count = 0;
-        foreach ($modelIds as $modelId) {
-            $count += $this->processImageBlocks($modelName, $modelId);
-        }
-        return $count;
-    }
-
-    protected function processImageBlocks($modelName, $modelId): int
-    {
-        $this->info("🔍 Searching for image blocks...", OutputInterface::VERBOSITY_VERBOSE);
-
-        $query = DB::connection('website')->table('mediables')
-            ->join('medias', 'mediables.media_id', '=', 'medias.id')
-            ->join('blocks', 'mediables.mediable_id', '=', 'blocks.id')
-            ->where('mediables.mediable_type', 'blocks')
-            ->select('mediables.*');
-
-        if ($modelName && $modelId) {
-            $query->where('blocks.blockable_type', $modelName)
-                  ->where('blocks.blockable_id', $modelId);
-        }
-
-        $query = $this->applyFilters($query);
-        return $this->processMediables($query->get(), 'blocks');
-    }
-
     protected function applyFilters($query)
     {
         if ($this->option('force-ai')) {
-            $query->join('tagged', fn($j) => $j->on('medias.id', 'tagged.taggable_id')
+            $query->join('tagged', fn ($j) => $j->on('medias.id', 'tagged.taggable_id')
                 ->where('tagged.taggable_type', 'media')
                 ->where('tagged.tag_id', $this->aiGeneratedTagId));
         } elseif ($this->option('skip-ai')) {
-            $query->leftJoin('tagged', fn($j) => $j->on('medias.id', 'tagged.taggable_id')
+            $query->leftJoin('tagged', fn ($j) => $j->on('medias.id', 'tagged.taggable_id')
                 ->where('tagged.taggable_type', 'media')
                 ->where('tagged.tag_id', $this->aiGeneratedTagId))
                 ->whereNull('tagged.id');
         }
 
-        if (!$this->option('force') && !$this->option('force-ai')) {
-            $query->where(fn($q) => $q->whereNull('medias.alt_text')->orWhere('medias.alt_text', ''));
+        if (! $this->option('force') && ! $this->option('force-ai')) {
+            $query->where(fn ($q) => $q->whereNull('medias.alt_text')->orWhere('medias.alt_text', ''));
         }
+
         return $query;
+    }
+
+    private function artistName(int $index): string
+    {
+        $count = count(self::ARTISTS);
+
+        return self::ARTISTS[$index % $count]
+            . ($index >= $count ? '-' . (intdiv($index, $count) + 1) : '');
+    }
+
+    protected function dispatchParallel($mediables): int
+    {
+        $concurrency = (int) $this->option('concurrency');
+        $chunks = $mediables->chunk((int) ceil($mediables->count() / $concurrency));
+
+        $this->info('⚡ Parallel mode: ' . count($chunks) . " workers, {$mediables->count()} items", OutputInterface::VERBOSITY_VERBOSE);
+        $this->setupSignalHandler();
+
+        foreach ($chunks as $i => $chunk) {
+            $name = $this->artistName($i);
+            $pid = pcntl_fork();
+
+            if ($pid === -1) {
+                $this->error("Failed to fork {$name}");
+                continue;
+            }
+
+            if ($pid === 0) {
+                $this->workerName = $name;
+                $this->workerColor = self::COLORS[$i % count(self::COLORS)];
+                $this->reconnectDb();
+                $this->cacheTagIds();
+                $count = $this->processMediables($chunk);
+                exit($count);
+            }
+
+            $this->childPids[$name] = ['pid' => $pid, 'colorIdx' => $i];
+            $coloredName = $this->colorWrap($name, $i);
+            $this->info("  {$coloredName}: PID {$pid} — {$chunk->count()} items", OutputInterface::VERBOSITY_VERBOSE);
+        }
+
+        return $this->waitForChildren();
+    }
+
+    protected function reconnectDb(): void
+    {
+        DB::purge('website');
+        DB::reconnect('website');
+        DB::purge();
+        DB::reconnect();
+    }
+
+    protected function setupSignalHandler(): void
+    {
+        $handler = function (int $signo) {
+            foreach ($this->childPids as $name => $data) {
+                posix_kill($data['pid'], SIGTERM);
+                pcntl_waitpid($data['pid'], $status);
+            }
+            $this->warn("\n⚠️ Interrupted. Children terminated.");
+            exit(1);
+        };
+
+        pcntl_async_signals(true);
+        pcntl_signal(SIGINT, $handler);
+        pcntl_signal(SIGTERM, $handler);
+    }
+
+    protected function waitForChildren(): int
+    {
+        $totalProcessed = 0;
+
+        while (count($this->childPids) > 0) {
+            $pid = pcntl_wait($status);
+
+            if ($pid > 0) {
+                // Find worker by PID
+                $name = null;
+                $colorIdx = 0;
+                foreach ($this->childPids as $n => $data) {
+                    if ($data['pid'] === $pid) {
+                        $name = $n;
+                        $colorIdx = $data['colorIdx'];
+                        break;
+                    }
+                }
+
+                if ($name) {
+                    unset($this->childPids[$name]);
+                    $exitCode = pcntl_wexitstatus($status);
+                    $totalProcessed += $exitCode;
+
+                    $colorCode = self::COLORS[$colorIdx % count(self::COLORS)];
+                    $coloredName = "\033[{$colorCode}m{$name}\033[0m";
+                    $this->info("  ✅ {$coloredName} done — {$exitCode} new alt texts", OutputInterface::VERBOSITY_VERBOSE);
+                }
+            }
+        }
+
+        return $totalProcessed;
     }
 }
