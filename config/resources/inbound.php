@@ -2,6 +2,13 @@
 
 return [
 
+    'archives' => [
+        'archives' => [
+            'model' => \App\Models\Archive\Archive::class,
+            'transformer' => \App\Transformers\Inbound\Archive\Archive::class,
+        ],
+    ],
+
     'collections' => [
         'artwork-agent-roles' => [
             'model' => \App\Models\Collections\AgentRole::class,

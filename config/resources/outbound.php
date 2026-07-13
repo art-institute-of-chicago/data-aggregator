@@ -341,6 +341,17 @@ return [
         ],
 
         /**
+         * Archive materials:
+         */
+        [
+            'endpoint' => 'archives',
+            'model' => \App\Models\Archive\Archive::class,
+            'transformer' => \App\Transformers\Outbound\Archive\Archive::class,
+            'is_searchable' => true,
+        ],
+
+        /**
+         * Archive materials:
          * Not meant to be used alone, only here for debugging:
          */
         [

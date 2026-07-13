@@ -124,6 +124,12 @@ class Kernel extends ConsoleKernel
             ->monthlyOn(1, '03:00');
 
         //
+        // Archival materials from Alma/Primo
+        $schedule->command('import:archives', ['--yes'])
+            ->dailyAt('23:08')
+            ->withoutOverlapping(self::FOR_ONE_YEAR);
+
+        //
         // Digital scholarly catalogues
         $schedule->command('import:dsc', ['--yes'])
             ->monthlyOn(1, '03:05');
