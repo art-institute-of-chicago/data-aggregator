@@ -8,6 +8,7 @@ use App\Models\ElasticSearchable;
 class Archive extends BaseModel
 {
     use ElasticSearchable;
+
     protected $hasSourceDates = false;
 
     protected $casts = [
