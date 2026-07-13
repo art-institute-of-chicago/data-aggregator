@@ -20,5 +20,6 @@ return [
     'mobile' => env('MOBILE_JSON'),
     'static_archive' => env('STATIC_ARCHIVE_JSON'),
     'archives' => env('ARCHIVES_DATA_SERVICE_URL'),
+    'artist_enrichment' => env('ARTIST_ENRICHMENT_DATA_SERVICE_URL'),
 
 ];

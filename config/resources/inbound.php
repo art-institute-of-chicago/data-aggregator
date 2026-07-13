@@ -79,6 +79,13 @@ return [
         ],
     ],
 
+    'artist_enrichment' => [
+        'agents' => [
+            'model' => \App\Models\Collections\Agent::class,
+            'transformer' => \App\Transformers\Inbound\ArtistEnrichment\Agent::class,
+        ],
+    ],
+
     'enhancer' => [
         'agents' => [
             'model' => \App\Models\Collections\Agent::class,

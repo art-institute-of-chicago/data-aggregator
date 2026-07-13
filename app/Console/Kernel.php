@@ -175,6 +175,10 @@ class Kernel extends ConsoleKernel
             ->everyMinute()
             ->withoutOverlapping(self::FOR_ONE_YEAR);
 
+        $schedule->command('import:artist-enrichment')
+            ->hourly()
+            ->withoutOverlapping(self::FOR_ONE_YEAR);
+
         // API-231, API-232: Temporary remediation! Artworks can't touch artists.
         $schedule->command('scout:import', [
             \App\Models\Collections\Agent::class,
