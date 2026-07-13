@@ -114,6 +114,41 @@ class Agent extends BaseTransformer
                     return $item->ulan_certainty > 3 ? $item->ulan_id : null;
                 },
             ],
+            'vocab_ids' => [
+                'doc' => 'Map of vocabulary names to external identifiers (viaf, lccn, isni, gnd, etc.)',
+                'type' => 'object',
+                'value' => function ($item) {
+                    return $item->vocab_ids ?? null;
+                },
+            ],
+            'wikidata_id' => [
+                'doc' => 'Wikidata Q-ID for this agent',
+                'type' => 'string',
+                'value' => function ($item) {
+                    return $item->wikidata_id ?? null;
+                },
+            ],
+            'lccn' => [
+                'doc' => 'Library of Congress Control Numbers associated with this agent',
+                'type' => 'array',
+                'value' => function ($item) {
+                    return $item->lccn ?? null;
+                },
+            ],
+            'archives' => [
+                'doc' => 'Archive materials linked to this agent via LCCN',
+                'type' => 'array',
+                'value' => function ($item) {
+                    return $item->archives->map(fn ($a) => [
+                        'id' => $a->id,
+                        'title' => $a->title,
+                        'mms_id' => $a->mms_id,
+                        'lccn' => $a->lccn,
+                        'contentdm_url' => $a->contentdm_url,
+                        'api_url' => config('app.url') . '/api/v1/archives/' . $a->id,
+                    ])->values()->all();
+                },
+            ],
         ];
     }
 

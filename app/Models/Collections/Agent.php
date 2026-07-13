@@ -14,6 +14,7 @@ class Agent extends CollectionsModel
 
     protected $casts = [
         'alt_titles' => 'array',
+        'vocab_ids' => 'array',
     ];
 
     protected $with = [
@@ -43,6 +44,16 @@ class Agent extends CollectionsModel
     public function createdArtworks()
     {
         return $this->belongsToMany('App\Models\Collections\Artwork', 'artwork_artist')->artworks();
+    }
+
+    public function archives()
+    {
+        return $this->belongsToMany(
+            'App\Models\Archive\Archive',
+            'agent_archive',
+            'agent_citi_id',
+            'archive_id'
+        );
     }
 
     /**
