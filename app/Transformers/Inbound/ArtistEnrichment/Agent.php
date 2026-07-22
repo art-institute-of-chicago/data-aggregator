@@ -13,9 +13,6 @@ class Agent extends BaseTransformer
 
         return [
             'vocab_ids' => $vocabIds ? $vocabIds->all() : null,
-            'wikidata_id' => $datum->wikidata_id,
-            'match_confidence' => $datum->match_confidence,
-            'match_source' => $datum->match_source,
         ];
     }
 }

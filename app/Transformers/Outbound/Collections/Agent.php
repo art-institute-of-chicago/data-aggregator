@@ -128,13 +128,6 @@ class Agent extends BaseTransformer
                     return $item->wikidata_id ?? null;
                 },
             ],
-            'lccn' => [
-                'doc' => 'Library of Congress Control Numbers associated with this agent',
-                'type' => 'array',
-                'value' => function ($item) {
-                    return $item->lccn ?? null;
-                },
-            ],
             'archives' => [
                 'doc' => 'Archive materials linked to this agent via LCCN',
                 'type' => 'array',
