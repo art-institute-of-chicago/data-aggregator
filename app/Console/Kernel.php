@@ -124,6 +124,12 @@ class Kernel extends ConsoleKernel
             ->monthlyOn(1, '03:00');
 
         //
+        // Archival materials from Alma/Primo
+        $schedule->command('import:archives', ['--yes'])
+            ->dailyAt('23:08')
+            ->withoutOverlapping(self::FOR_ONE_YEAR);
+
+        //
         // Digital scholarly catalogues
         $schedule->command('import:dsc', ['--yes'])
             ->monthlyOn(1, '03:05');
@@ -167,6 +173,10 @@ class Kernel extends ConsoleKernel
         // Data enhancer
         $schedule->command('import:enhancer')
             ->everyMinute()
+            ->withoutOverlapping(self::FOR_ONE_YEAR);
+
+        $schedule->command('import:artist-enrichment')
+            ->hourly()
             ->withoutOverlapping(self::FOR_ONE_YEAR);
 
         // API-231, API-232: Temporary remediation! Artworks can't touch artists.

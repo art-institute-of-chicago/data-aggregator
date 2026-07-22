@@ -2,6 +2,13 @@
 
 return [
 
+    'archives' => [
+        'archives' => [
+            'model' => \App\Models\Archive\Archive::class,
+            'transformer' => \App\Transformers\Inbound\Archive\Archive::class,
+        ],
+    ],
+
     'collections' => [
         'artwork-agent-roles' => [
             'model' => \App\Models\Collections\AgentRole::class,
@@ -69,6 +76,13 @@ return [
         'texts' => [
             'model' => \App\Models\Collections\Text::class,
             'transformer' => \App\Transformers\Inbound\Collections\Asset::class,
+        ],
+    ],
+
+    'artist_enrichment' => [
+        'agents' => [
+            'model' => \App\Models\Collections\Agent::class,
+            'transformer' => \App\Transformers\Inbound\ArtistEnrichment\Agent::class,
         ],
     ],
 
