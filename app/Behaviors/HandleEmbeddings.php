@@ -185,7 +185,7 @@ trait HandleEmbeddings
         $lockFile = sys_get_temp_dir() . '/alt-text-rate-limiter.lock';
         $fp = fopen($lockFile, 'c+');
         if (!$fp) {
-            usleep((int)($delaySeconds * 1_000_000));
+            sleep(1);
             return;
         }
 
