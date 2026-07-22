@@ -13,6 +13,7 @@ class Archive extends BaseModel
 
     protected $casts = [
         'lccn' => 'array',
+        'subjects' => 'array',
         'metadata' => 'array',
     ];
 

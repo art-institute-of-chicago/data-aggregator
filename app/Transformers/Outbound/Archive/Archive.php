@@ -16,6 +16,65 @@ class Archive extends BaseTransformer
                     'default' => true,
                 ],
             ],
+            'creator' => [
+                'doc' => 'Creator/author of the archival material',
+                'type' => 'string',
+                'elasticsearch' => [
+                    'default' => true,
+                ],
+            ],
+            'date_display' => [
+                'doc' => 'Human-readable creation date',
+                'type' => 'string',
+                'elasticsearch' => 'keyword',
+            ],
+            'date_start' => [
+                'doc' => 'Earliest year for date range queries',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+            ],
+            'date_end' => [
+                'doc' => 'Latest year for date range queries',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+            ],
+            'format' => [
+                'doc' => 'Genre/form of the archival material (letters, photographs, etc.)',
+                'type' => 'string',
+                'elasticsearch' => 'keyword',
+            ],
+            'collection_type' => [
+                'doc' => 'Collection type: archives or library',
+                'type' => 'string',
+                'elasticsearch' => 'keyword',
+            ],
+            'record_type' => [
+                'doc' => 'Record type within the collection (book, exhibition_catalog, artist_files, etc.)',
+                'type' => 'string',
+                'elasticsearch' => 'keyword',
+            ],
+            'has_media' => [
+                'doc' => 'Whether the archive has associated media files',
+                'type' => 'boolean',
+                'elasticsearch' => 'boolean',
+            ],
+            'subjects' => [
+                'doc' => 'Subject headings for this archive',
+                'type' => 'array',
+                'elasticsearch' => 'keyword',
+            ],
+            'language' => [
+                'doc' => 'Language code of the material',
+                'type' => 'string',
+                'elasticsearch' => 'keyword',
+            ],
+            'description' => [
+                'doc' => 'Physical description or summary of the material',
+                'type' => 'string',
+                'elasticsearch' => [
+                    'default' => true,
+                ],
+            ],
             'lccn' => [
                 'doc' => 'LCCN identifiers for this archive',
                 'type' => 'array',
