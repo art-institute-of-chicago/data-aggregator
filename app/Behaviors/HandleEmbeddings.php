@@ -3,6 +3,7 @@
 namespace App\Behaviors;
 
 use App\Models\Collections\Artwork;
+use App\Services\AIPrompts;
 use Illuminate\Support\Facades\Http;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
@@ -175,90 +176,141 @@ trait HandleEmbeddings
 
         throw new Exception('Failed to get image description: ' . app('Embeddings')->getResponseError($response->json()));
     }
-    public function getLLMImageDescription(string $imageUrl): array
+    /**
+     * Rate-limit requests across parallel processes using a shared temp file.
+     * Returns after the required delay has elapsed.
+     */
+    private static function rateLimitWait(float $delaySeconds): void
     {
-        $response = Http::withHeaders([
-            'api-key' => config('azure.chat.key'),
-            'Content-Type' => 'application/json'
-        ])->post(config('azure.chat.endpoint') . '/openai/deployments/' . config('azure.chat.model') . '/chat/completions?api-version=' . config('azure.chat.version'), [
-            'messages' => [
-                [
-                    'role' => 'system',
-                    'content' => 'You are an expert at analyzing images for accessibility.'
-                ],
-                [
-                    'role' => 'user',
-                    'content' => [
-                        [
-                            'type' => 'text',
-                            'text' =>
-                              'Analyze this image following accessibility best practices. Please provide it in a short 2-4 sentence paragraph following these practices:
+        $lockFile = sys_get_temp_dir() . '/alt-text-rate-limiter.lock';
+        $fp = fopen($lockFile, 'c+');
+        if (!$fp) {
+            sleep(1);
+            return;
+        }
 
-                              Consider:
-                                - Focusing purely on subject matter and not the composition or techniques of the image.
-                                - Structure the description by spatial order (top-to-bottom, left-to-right, or foreground-to-background as appropriate). Use common language without art-historical jargon.
-                                - Subject matter in each region
-                                - Colors using familiar names (red, blue, yellow, etc.)
-                                - Spatial relationships and orientation
-                                - Size and scale of elements
-                                - Stating if there are multiple images in the composition and comparing them
+        flock($fp, LOCK_EX);
+        $lastTime = (float)(fgets($fp) ?: 0);
+        $now = microtime(true);
+        $wait = $delaySeconds - ($now - $lastTime);
 
-                              Avoid:
-                                - Describing objects or features that are not clearly discernable
-                                - Assuming the material of the image and techniques
-                                - Using interpretive statements like "suggests" or "indicating"
-                                - Starting with statements like "the image", "the painting", "the artwork", "the drawing"
-                                - Including statements on subjects if none are present
+        if ($wait > 0) {
+            flock($fp, LOCK_UN);
+            fclose($fp);
+            usleep((int)($wait * 1_000_000));
+            // Re-acquire to update timestamp
+            $fp = fopen($lockFile, 'c+');
+            flock($fp, LOCK_EX);
+        }
 
-                              If people are present, describe:
-                                - Physical features that are immediately noticeable
-                                - Age using simple terms (child, youth, adult, older person)
-                                - Skin tone if clearly visible (light, medium-light, medium, medium-dark, dark)
-                                - Avoid gender assumptions unless clearly performed/verifiable
-                                - Named individuals if recognizable
+        ftruncate($fp, 0);
+        rewind($fp);
+        fwrite($fp, (string)microtime(true));
+        flock($fp, LOCK_UN);
+        fclose($fp);
+    }
 
-                                Focus on observable information, not interpretation. Describe what can be seen, not what it might mean. If an aspect is not present do not mention it in your analysis'
+    public function getLLMImageDescription(string $imageUrl, string $promptType = 'standard'): array
+    {
+        $promptText = AIPrompts::getAltTextPrompt($promptType);
 
-                        ],
-                        [
-                            'type' => 'image_url',
-                            'image_url' => [
-                                'url' => $imageUrl
+        $maxRetries = 5;
+        $baseDelay = 2; // seconds
+
+        for ($attempt = 0; $attempt <= $maxRetries; $attempt++) {
+            // Honor global rate limit if set
+            $rpm = (int)config('azure.chat.rate_limit_rpm', 0);
+            if ($rpm > 0) {
+                self::rateLimitWait(60.0 / $rpm);
+            }
+
+            $response = Http::withHeaders([
+                'api-key' => config('azure.chat.key'),
+                'Content-Type' => 'application/json'
+            ])->post(config('azure.chat.endpoint') . '/openai/deployments/' . config('azure.chat.model') . '/chat/completions?api-version=' . config('azure.chat.version'), [
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => 'You are an expert at analyzing images for accessibility.'
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => [
+                            [
+                                'type' => 'text',
+                                'text' => $promptText
+                            ],
+                            [
+                                'type' => 'image_url',
+                                'image_url' => [
+                                    'url' => $imageUrl
+                                ]
                             ]
                         ]
                     ]
-                ]
-            ],
-            'max_completion_tokens' => 2000,
-            'temperature' => 1
-        ]);
+                ],
+                'max_completion_tokens' => 2000,
+                'temperature' => 1
+            ]);
 
-        if ($response->successful()) {
-            $data = $response->json();
-
-            // Extract the content from the response
-            $messageContent = $data['choices'][0]['message']['content'] ?? null;
-
-            if (!$messageContent) {
-                throw new Exception('No content in response');
+            // Unsupported format — permanent failure, don't retry
+            if ($response->status() === 400 && str_contains($response->body(), 'unsupported image')) {
+                $msg = $response->json()['error']['message'] ?? 'unsupported image format';
+                throw new Exception('Failed to get image description: ' . $msg);
             }
 
-            // Ensure all fields are properly formatted
-            return [
-                'caption' => $messageContent,
-            ];
+            // Rate-limited: back off and retry
+            if ($response->status() === 429) {
+                $retryAfter = (int)($response->header('Retry-After') ?? 0);
+                $delay = $retryAfter > 0 ? $retryAfter : $baseDelay * pow(2, $attempt);
+                $delay = min($delay, 120); // cap at 2 min
+
+                if ($attempt < $maxRetries) {
+                    if (isset($this->output) && method_exists($this, 'warn')) {
+                        $this->warn("  ⚠️ Rate limited (429). Retry {$attempt}/{$maxRetries} after {$delay}s…", OutputInterface::VERBOSITY_VERBOSE);
+                    }
+                    sleep((int)$delay);
+                    continue;
+                }
+            }
+
+            if ($response->successful()) {
+                $data = $response->json();
+                $messageContent = $data['choices'][0]['message']['content'] ?? null;
+
+                if (!$messageContent) {
+                    throw new Exception('No content in response');
+                }
+
+                return [
+                    'caption' => $messageContent,
+                ];
+            }
+
+            // Server error: retry
+            if ($response->serverError() && $attempt < $maxRetries) {
+                sleep($baseDelay * pow(2, $attempt));
+                continue;
+            }
+
+            $errorMessage = 'Failed to get image description';
+
+            if ($response->json() && isset($response->json()['error'])) {
+                $error = $response->json()['error'];
+                $errorMessage .= ': ' . ($error['message'] ?? json_encode($error));
+            } else {
+                $errorMessage .= ': ' . $response->body();
+            }
+
+            if ($attempt < $maxRetries) {
+                sleep($baseDelay);
+                continue;
+            }
+
+            throw new Exception($errorMessage);
         }
 
-        $errorMessage = 'Failed to get image description';
-
-        if ($response->json() && isset($response->json()['error'])) {
-            $error = $response->json()['error'];
-            $errorMessage .= ': ' . ($error['message'] ?? json_encode($error));
-        } else {
-            $errorMessage .= ': ' . $response->body();
-        }
-
-        throw new Exception($errorMessage);
+        throw new Exception('Failed to get image description after ' . $maxRetries . ' retries');
     }
 
     protected function formatDescriptionText(array $description): string
