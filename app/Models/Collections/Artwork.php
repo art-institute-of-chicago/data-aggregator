@@ -53,7 +53,7 @@ class Artwork extends CollectionsModel
      * Search field names that can be used as a search_field parameter
      * to restrict ES to one field for search
      */
-    public const RESTRICTED_FIELD_NAMES = ['title', 'artist_title', 'credit_line'];
+    public const RESTRICTED_FIELD_NAMES = ['title', 'artist_title', 'credit_line', 'medium_display', 'provenance_text', 'exhibition_history', 'publication_history'];
 
     /**
      * Scope a query to only include permanent collection items.
