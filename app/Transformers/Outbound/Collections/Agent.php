@@ -82,6 +82,22 @@ class Agent extends BaseTransformer
                     return $item->created_artworks_count > 0;
                 },
             ],
+            'agent_type_id' => [
+                'doc' => 'Unique identifier of the kind of agent ' .
+                    '(e.g. Individual, Couple, Culture, Organization)',
+                'type' => 'number',
+                'elasticsearch' => 'integer',
+                'value' => function ($item) {
+                    return $item->agent_type_id;
+                },
+            ],
+            'agent_type_title' => [
+                'doc' => 'The kind of agent (e.g. Individual, Couple, Culture, Organization)',
+                'type' => 'string',
+                'value' => function ($item) {
+                    return $item->agentType->title ?? null;
+                },
+            ],
             'birth_date' => [
                 'doc' => 'The year this agent was born',
                 'type' => 'number',
