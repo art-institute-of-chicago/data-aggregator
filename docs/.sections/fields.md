@@ -18,7 +18,7 @@ Represents a work of art in our collections. For a description of all the endpoi
 * `boost_rank` *number* - Manual indication of what rank this artwork should take in search results. Noncontiguous.
 * `date_start` *number* - The year of the period of time associated with the creation of this work
 * `date_end` *number* - The year of the period of time associated with the creation of this work
-* `date_display` *string* - Readable, free-text description of the period of time associated with the creation of this work. This might include date terms like Dynasty, Era etc. Written by curators and editors in house style, and is the preferred field for display on websites and apps. 
+* `date_display` *string* - Readable, free-text description of the period of time associated with the creation of this work. This might include date terms like Dynasty, Era etc. Written by curators and editors in house style, and is the preferred field for display on websites and apps.
 * `date_qualifier_title` *string* - Readable, text qualifer to the dates provided for this record.
 * `date_qualifier_id` *integer* - Unique identifier of the qualifer to the dates provided for this record.
 * `artist_display` *string* - Readable description of the creator of this work. Includes artist names, nationality and lifespan dates
@@ -119,6 +119,8 @@ Represents a person or organization. In the API, this includes artists. For a de
 * `sort_title` *string* - Sortable name for this agent, typically with last name first.
 * `alt_titles` *array* - Alternate names for this agent
 * `is_artist` *boolean* - Whether the agent is an artist. Solely based on whether the agent is related to an artwork record.
+* `agent_type_id` *number* - Unique identifier of the kind of agent (e.g. Individual, Couple, Culture, Organization)
+* `agent_type_title` *string* - The kind of agent (e.g. Individual, Couple, Culture, Organization)
 * `birth_date` *number* - The year this agent was born
 * `death_date` *number* - The year this agent died
 * `description` *string* - A biographical description of the agent
@@ -898,6 +900,3 @@ An event on the website For a description of all the endpoints available for thi
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
 * `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
-
-
-
