@@ -22,9 +22,7 @@ class CreateIndex extends AbstractCommand
             })
             ->filter(function ($tableName) use ($columnName) {
                 // Only keep tables that don't have our index
-                return !$this
-                    ->getBlueprint($tableName)
-                    ->hasIndex([$columnName]);
+                return !Schema::hasIndex($tableName, [$columnName]);
             })
             ->values()
             ->all();
