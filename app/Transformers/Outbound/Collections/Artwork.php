@@ -546,14 +546,6 @@ class Artwork extends BaseTransformer
                     return $item->artists->pluck('title');
                 },
             ],
-            'part_ids' => [
-                'doc' => 'Unique identifiers of the works that are a part of this work',
-                'type' => 'array',
-                'elasticsearch' => 'integer',
-                'value' => function ($item) {
-                    return $item->part_ids ?: null;
-                },
-            ],
             'category_ids' => [
                 'doc' => 'Unique identifiers of the categories this work is a part of',
                 'type' => 'array',

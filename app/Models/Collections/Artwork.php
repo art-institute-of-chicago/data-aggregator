@@ -24,7 +24,6 @@ class Artwork extends CollectionsModel
         'is_zoomable' => 'boolean',
         'is_on_view' => 'boolean',
         'linked_art_json' => 'object',
-        'part_ids' => 'array',
     ];
 
     protected $with = [
