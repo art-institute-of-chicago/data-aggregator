@@ -12,11 +12,6 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        // TODO: Creating indexes isn't friendly with SQLite
-        if (App::environment('testing')) {
-            return;
-        }
-
         Schema::table('assets', function (Blueprint $table) {
             $table->index('netx_uuid');
         });
@@ -29,10 +24,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        if (App::environment('testing')) {
-            return;
-        }
-
         Schema::table('assets', function (Blueprint $table) {
             $table->dropIndex(['netx_uuid']);
         });
