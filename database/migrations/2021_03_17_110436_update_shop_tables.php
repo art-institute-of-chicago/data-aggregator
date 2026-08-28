@@ -33,7 +33,7 @@ return new class () extends Migration {
         });
 
         Schema::table('products', function (Blueprint $table) {
-            $table->text('title')->change();
+            $table->text('title')->nullable()->change();
             $table->text('price_display')->nullable()->after('description');
             $table->float('min_compare_at_price')->nullable()->after('price_display');
             $table->float('max_compare_at_price')->nullable()->after('min_compare_at_price');
@@ -75,7 +75,7 @@ return new class () extends Migration {
         });
 
         Schema::table('products', function (Blueprint $table) {
-            $table->string('title')->change();
+            $table->string('title')->nullable()->change();
             $table->dropColumn([
                 'price_display',
                 'min_compare_at_price',

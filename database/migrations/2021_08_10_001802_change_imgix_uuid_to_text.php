@@ -23,7 +23,7 @@ return new class () extends Migration {
     {
         foreach ($this->tableNames as $tableName) {
             Schema::table($tableName, function (Blueprint $table) {
-                $table->text('imgix_uuid')->change();
+                $table->text('imgix_uuid')->nullable()->change();
             });
         }
     }
@@ -37,7 +37,7 @@ return new class () extends Migration {
     {
         foreach ($this->tableNames as $tableName) {
             Schema::table($tableName, function (Blueprint $table) {
-                $table->string('imgix_uuid')->change();
+                $table->string('imgix_uuid')->nullable()->change();
             });
         }
     }
