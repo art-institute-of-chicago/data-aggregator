@@ -1,4 +1,5 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "aic/api",
     "type": "project",
     "description": "Art Institute of Chicago Public API",
@@ -74,7 +75,7 @@
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^8.1",
         "phpstan/phpstan": "^1.0",
-        "phpunit/phpunit": "^10.0",
+        "phpunit/phpunit": "^11.0",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
@@ -105,7 +106,13 @@
             "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "php artisan key:generate --ansi"
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
         ],
         "lint": [
             "@putenv COMPOSER=vendor/aic/data-hub-foundation/composer.json",

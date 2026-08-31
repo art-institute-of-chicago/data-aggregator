@@ -1,55 +1,91 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Create The Application
-|--------------------------------------------------------------------------
-|
-| The first thing we will do is create a new Laravel application instance
-| which serves as the "glue" for all the components of Laravel, and is
-| the IoC container for the system binding all of the various parts.
-|
-*/
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Route;
+use Sentry\Laravel\Integration;
 
-$app = new Illuminate\Foundation\Application(
-    realpath(__DIR__ . '/../')
-);
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        api: __DIR__.'/../routes/api.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+        then: function () {
+            Route::middleware('ai.service.status')
+                ->prefix('ai')
+                ->group(base_path('routes/ai.php'));
 
-/*
-|--------------------------------------------------------------------------
-| Bind Important Interfaces
-|--------------------------------------------------------------------------
-|
-| Next, we need to bind some important interfaces into the container so
-| we will be able to resolve them when needed. The kernels serve the
-| incoming requests to this application from both the web and CLI.
-|
-*/
+            Route::middleware('api')
+                ->prefix('la')
+                ->group(base_path('routes/la.php'));
 
-$app->singleton(
-    Illuminate\Contracts\Http\Kernel::class,
-    App\Http\Kernel::class
-);
+            Route::middleware('api')
+                ->prefix('csv')
+                ->group(base_path('routes/csv.php'));
+        }
+    )
+    ->withMiddleware(function (Middleware $middleware) {
+        // Override middleware so we can add our own TrustProxies middleware
+        $middleware->use([
+            \App\Http\Middleware\TrustProxies::class,
+            \Illuminate\Http\Middleware\HandleCors::class,
+            \Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class,
+            \Illuminate\Http\Middleware\ValidatePostSize::class,
+            \Illuminate\Foundation\Http\Middleware\TrimStrings::class,
+            \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+            \Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks::class,
 
-$app->singleton(
-    Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
-);
+            \Aic\Hub\Foundation\Middleware\ETagMiddleware::class,
+            \Aic\Hub\Foundation\Middleware\RedirectTrailingSlash::class,
+            \App\Http\Middleware\TrailingNewline::class,
+            // \App\Http\Middleware\DebugHeaders::class,
+        ]);
 
-$app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    Aic\Hub\Foundation\ExceptionHandler::class
-);
+        // $middleware->trustHosts();
 
-/*
-|--------------------------------------------------------------------------
-| Return The Application
-|--------------------------------------------------------------------------
-|
-| This script returns the application instance. The instance is given to
-| the calling script so we can separate the building of the instances
-| from the actual running of the application and sending responses.
-|
-*/
+        $middleware->web(append: [
+            \Illuminate\Cookie\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ]);
 
-return $app;
+        $middleware->api(append: [
+            \App\Http\Middleware\DecodeParams::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'auth:api',
+            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            // WEB-1929: Enable throttling when ready!
+            // Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+            'restrict',
+        ]);
+
+        $middleware->alias([
+            'ai.service.status' => \App\Http\Middleware\AIServiceStatus::class,
+            'auth' => \App\Http\Middleware\Authenticate::class,
+            'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+            'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
+            'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+            'can' => \Illuminate\Auth\Middleware\Authorize::class,
+            // 'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+            // 'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
+            // 'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
+            'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
+            'throttle' => \App\Http\Middleware\ThrottleRequests::class,
+            'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+            'restrict' => \App\Http\Middleware\RestrictContent::class,
+            'loginIp' => \App\Http\Middleware\LoginIpMiddleware::class,
+        ]);
+
+        $middleware->redirectGuestsTo(fn ($request) => $request->expectsJson() ? null : route('login'));
+    })
+    ->withExceptions(function (Exceptions $exceptions) {
+        // Sentrty error reporting
+        $exceptions->reportable(function (Throwable $e) {
+            Integration::captureUnhandledException($e);
+        });
+    })->create();
