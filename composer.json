@@ -1,4 +1,5 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "aic/api",
     "type": "project",
     "description": "Art Institute of Chicago Public API",
@@ -21,61 +22,37 @@
         {
             "type": "vcs",
             "url": "https://github.com/jeskew/amazon-es-php.git"
-        },
-        {
-            "type": "package",
-            "package": {
-                "type": "metapackage",
-                "name": "vendor/package-patches",
-                "version": "1.1.0",
-                "require": {
-                    "netresearch/composer-patches-plugin": "~1.2"
-                },
-                "extra": {
-                    "patches": {
-                        "marktopper/doctrine-dbal-timestamp-type": [
-                            {
-                                "title": "API-378: Get unit tests working with fresh database",
-                                "url": "patches/API-378---set-maximum-precision-for-timestamp-types.diff"
-                            }
-                        ]
-                    }
-                }
-            }
         }
     ],
     "require": {
-        "php": "^8.1",
-        "aic/data-hub-foundation": "^3.0",
+        "php": "^8.2",
+        "aic/data-hub-foundation": "^4.0",
         "elasticsearch/elasticsearch": "^9.1",
         "intervention/image": "^2.7",
         "jsq/amazon-es-php": "dev-master",
         "laminas/laminas-code": "^4.0",
-        "laravel/framework": "^10.0",
-        "laravel/sanctum": "^3.2",
+        "laravel/framework": "^11.0",
+        "laravel/sanctum": "^4.0",
         "laravel/scout": "^10.0",
         "laravel/tinker": "^2.0",
         "league/commonmark": "^2.0",
         "league/csv": "^9.0",
         "league/flysystem-aws-s3-v3": "^3.0",
         "marijnvdwerf/material-palette": "^1.3",
-        "marktopper/doctrine-dbal-timestamp-type": "^1.0",
         "pgvector/pgvector": "^0.2.0",
-        "sentry/sentry-laravel": "^3.0",
-        "vendor/package-patches": "^1.1"
+        "sentry/sentry-laravel": "^4.0"
     },
     "require-dev": {
-        "brianium/paratest": "^6.0",
+        "brianium/paratest": "^7.0",
         "colinodell/indentation": "^1.0",
         "fakerphp/faker": "^1.0",
         "laravel/pint": "^1.0",
         "itsgoingd/clockwork": "^5.0",
-        "kitloong/laravel-migrations-generator": "^6.0",
         "laravel/sail": "^1.0",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^7.0",
+        "nunomaduro/collision": "^8.1",
         "phpstan/phpstan": "^1.0",
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^11.0",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
@@ -106,7 +83,13 @@
             "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "php artisan key:generate --ansi"
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
         ],
         "lint": [
             "@putenv COMPOSER=vendor/aic/data-hub-foundation/composer.json",
@@ -135,9 +118,9 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "ocramius/package-versions": true,
             "netresearch/composer-patches-plugin": true,
+            "ocramius/package-versions": true,
+            "pestphp/pest-plugin": true,
             "php-http/discovery": true
         }
     },

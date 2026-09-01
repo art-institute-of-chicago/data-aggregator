@@ -7,11 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 return new class () extends Migration {
     public function up(): void
     {
-        if (App::environment('testing')) {
-            return; // TODO: Move away from SQLite for testing
-        }
-
-        $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
+        $tables = DB::connection()->getSchemaBuilder()->getTableListing();
 
         $columns = [
             'source_created_at',

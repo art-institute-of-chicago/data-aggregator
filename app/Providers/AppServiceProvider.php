@@ -4,7 +4,10 @@ namespace App\Providers;
 
 use App\Services\EmbeddingService;
 use App\Services\DescriptionService;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
             'articles' => 'App\Models\Web\Article',
             'highlights' => 'App\Models\Web\Highlight',
         ]);
+
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
     }
 
     public function register(): void

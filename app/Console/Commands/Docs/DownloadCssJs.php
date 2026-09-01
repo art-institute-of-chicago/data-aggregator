@@ -38,7 +38,7 @@ class DownloadCssJs extends AbstractDocCommand
             }
 
             copy(
-                storage_path('app/' . $vanityName),
+                storage_path('app/private/' . $vanityName),
                 $dest
             );
         }

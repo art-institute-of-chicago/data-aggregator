@@ -61,8 +61,8 @@ return new class () extends Migration {
 
         Schema::create('places', function (Blueprint $table) {
             $table = $this->addIdsAndTitle($table);
-            $table->double('latitude', 16, 13)->nullable();
-            $table->double('longitude', 16, 13)->nullable();
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table = $this->addDates($table);
             $table->string('type')->nullable();
         });
@@ -73,8 +73,8 @@ return new class () extends Migration {
             $table->boolean('is_closed')->nullable();
             $table->string('number')->nullable();
             $table->string('floor')->nullable();
-            $table->double('latitude', 16, 13)->nullable();
-            $table->double('longitude', 16, 13)->nullable();
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->string('type')->nullable();
             $table = $this->addDates($table);
         });
