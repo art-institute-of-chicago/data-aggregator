@@ -138,6 +138,10 @@ return [
         'suppress_vector_search' => env('SEARCH_SUPPRESS_VECTOR_SEARCH', false),
     ],
 
+    'embeddings' => [
+        'process_on_import' => env('PROCESS_EMBEDDINGS_ON_IMPORT', false),
+    ],
+
     'shop' => [
         'imgix_url' => env('SHOP_IMGIX_URL'),
         'product_url' => env('SHOP_PRODUCT_URL'),
