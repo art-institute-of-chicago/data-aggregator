@@ -3,9 +3,8 @@
 namespace App\Console\Commands\Import;
 
 use App\Behaviors\HandleEmbeddings;
-use App\Behaviors\Thresholds;
 
-class ImportCollectionsFull extends AbstractImportCommand implements Thresholds
+class ImportCollectionsFull extends AbstractImportCommand
 {
     use HandleEmbeddings;
 

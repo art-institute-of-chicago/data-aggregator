@@ -3,7 +3,6 @@
 namespace App\Console\Commands\AI;
 
 use App\Behaviors\HandleEmbeddings;
-use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
 use App\Services\VectorSearchService;
 use App\Models\Web\Vectors\TextEmbedding;
@@ -12,7 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class AISearch extends BaseCommand implements Thresholds
+class AISearch extends BaseCommand
 {
     use HandleEmbeddings;
 
