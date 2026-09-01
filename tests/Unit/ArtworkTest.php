@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\ArtworkType;
@@ -22,7 +23,7 @@ class ArtworkTest extends TestCase
         $agent = $this->make(Agent::class, ['agent_type_id' => $agentType->id]);
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_the_gallery_for_an_artwork(): void
     {
         $gallery = $this->make(Gallery::class, ['is_closed' => false]);
@@ -38,7 +39,7 @@ class ArtworkTest extends TestCase
         $this->assertTrue($resource['is_on_view']);
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_artwork_linked_art_endpoint(): void
     {
         $artworkType = $this->make(ArtworkType::class, ['aat_id' => '300033618', 'title' => 'Painting']);
@@ -55,7 +56,7 @@ class ArtworkTest extends TestCase
         $this->assertEquals($resource['classified_as'][0]['id'], 'http://vocab.getty.edu/aat/300033618');
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_multiple_artwork_linked_art_endpoint(): void
     {
         $artwork1Type = $this->make(ArtworkType::class, ['aat_id' => '300033618', 'title' => 'Painting']);
@@ -89,7 +90,7 @@ class ArtworkTest extends TestCase
         $this->assertContains('http://vocab.getty.edu/aat/300193015', $classifiedIdsInResponse);
     }
 
-    /** @test */
+    #[Test]
     public function it_provides_cc0_licensing_details(): void
     {
         $artwork = $this->make(Artwork::class);
@@ -110,7 +111,7 @@ class ArtworkTest extends TestCase
         $this->assertStringContainsString('All other data in this response is licensed under a Creative Commons Zero (CC0)', $resource['license_text']);
     }
 
-    /** @test */
+    #[Test]
     public function it_provides_description_field(): void
     {
         $artwork = $this->make(Artwork::class, ['description' => fake()->paragraph(5)]);
@@ -123,7 +124,7 @@ class ArtworkTest extends TestCase
         $this->assertNotEmpty($resource['description']);
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_the_nomisma_id_for_an_artwork(): void
     {
         $artwork = $this->make(Artwork::class, ['nomisma_id' => 'http://nomisma-1234.abc/id/LMNOP']);
@@ -136,7 +137,7 @@ class ArtworkTest extends TestCase
         $this->assertNotEmpty($resource['nomisma_id']);
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_the_nomisma_id_for_a_linked_art_object(): void
     {
         $artwork = $this->make(Artwork::class, ['nomisma_id' => 'http://nomisma-1234.abc/id/LMNOP']);
@@ -151,7 +152,7 @@ class ArtworkTest extends TestCase
         $this->assertEquals($resource['classified_as'][0]['classified_as'][0]['_label'], 'typology');
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_the_short_description_for_an_artwork(): void
     {
         $artwork = $this->make(Artwork::class, ['short_description' => fake()->paragraph()]);
