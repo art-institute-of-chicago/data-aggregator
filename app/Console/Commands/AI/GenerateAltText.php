@@ -3,7 +3,6 @@
 namespace App\Console\Commands\AI;
 
 use App\Behaviors\HandleEmbeddings;
-use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -11,7 +10,7 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Output\OutputInterface;
 use Exception;
 
-class GenerateAltText extends BaseCommand implements Thresholds
+class GenerateAltText extends BaseCommand
 {
     use HandleEmbeddings;
 

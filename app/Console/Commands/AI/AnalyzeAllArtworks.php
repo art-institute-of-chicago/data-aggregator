@@ -3,7 +3,6 @@
 namespace App\Console\Commands\AI;
 
 use App\Behaviors\HandleEmbeddings;
-use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
@@ -12,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Carbon\Carbon;
 use Exception;
 
-class AnalyzeAllArtworks extends BaseCommand implements Thresholds
+class AnalyzeAllArtworks extends BaseCommand
 {
     use HandleEmbeddings;
 
