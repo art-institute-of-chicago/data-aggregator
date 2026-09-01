@@ -14,7 +14,6 @@ return [
      */
     Laravel\Tinker\TinkerServiceProvider::class,
     Laravel\Scout\ScoutServiceProvider::class,
-    MarkTopper\DoctrineDBALTimestampType\Laravel5ServiceProvider::class,
 
     /**
      * Foundation Service Providers...
