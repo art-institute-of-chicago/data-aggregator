@@ -65,8 +65,10 @@ class VectorSearchService
         $searchVector = new Vector($embeddings);
 
         $results = TextEmbedding::select([
-                '*',
-                DB::raw("embedding <-> '" . $searchVector . "' as distance")
+                'id',
+                'model_name',
+                'model_id',
+                DB::raw("embedding <=> '" . $searchVector . "' as distance")
             ])
             ->where('model_name', $model)
             ->whereNotNull('embedding')
@@ -93,9 +95,15 @@ class VectorSearchService
             ->where('model_id', $id)
             ->firstOrFail();
 
+        // Only select the fields the caller needs. Skipping `embedding` and `data`
+        // avoids transferring full vectors and large JSON blobs (avg ~2KB, max ~39KB each).
+        // Use `<=>` (cosine distance) so the hnsw (vector_cosine_ops) index is used;
+        // `<->` (L2) does a full sequential scan instead.
         return $embeddingClass::select([
-                '*',
-                DB::raw("embedding <-> '" . $reference->embedding . "' as distance")
+                'id',
+                'model_name',
+                'model_id',
+                DB::raw("embedding <=> '" . $reference->embedding . "' as distance")
             ])
             ->where('model_name', $model)
             ->where('model_id', '!=', $id)
@@ -114,7 +122,7 @@ class VectorSearchService
         return collect(['text', 'image'])->map(function ($type) use ($model, $id, $compareId) {
             $embeddingClass = $type === 'image' ? ImageEmbedding::class : TextEmbedding::class;
 
-            $embeddings = $embeddingClass::select('*')
+            $embeddings = $embeddingClass::select(['model_id', 'embedding'])
                 ->whereIn('model_id', [$id, $compareId])
                 ->where('model_name', $model)
                 ->get();
@@ -122,7 +130,7 @@ class VectorSearchService
             if ($embeddings->count() === 2) {
                 $distance = DB::connection('vectors')
                     ->selectOne(
-                        "SELECT (?::vector <-> ?::vector) as distance",
+                        "SELECT (?::vector <=> ?::vector) as distance",
                         [
                             $embeddings[0]->embedding,
                             $embeddings[1]->embedding
@@ -266,8 +274,12 @@ class VectorSearchService
         ];
 
         $results = ImageEmbedding::select([
-                '*',
-                DB::raw("embedding <-> '" . $searchVector . "' as distance")
+                'id',
+                'model_name',
+                'model_id',
+                'created_at',
+                'updated_at',
+                DB::raw("embedding <=> '" . $searchVector . "' as distance")
             ])
             ->where('model_name', $model)
             ->whereNotNull('embedding')
@@ -297,6 +309,7 @@ class VectorSearchService
     {
         $imageEmbeddings = ImageEmbedding::where('model_name', $model)
             ->whereIn('model_id', $results->pluck('model_id'))
+            ->select(['model_id', 'data'])
             ->get()
             ->keyBy('model_id');
 
