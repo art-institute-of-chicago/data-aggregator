@@ -60,7 +60,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth:api',
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             // WEB-1929: Enable throttling when ready!
-            // Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+            // \App\Http\Middleware\ThrottleRequests::class.':api',
             'restrict',
         ]);
 
