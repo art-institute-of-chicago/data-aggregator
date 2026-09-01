@@ -74,7 +74,7 @@ return new class () extends Migration {
             $prefix = DB::connection()->getTablePrefix();
             $index = $prefix . 'selections_updated_at_index';
 
-            if (!Schema::hasIndex($table->getTable(), [$index])) {
+            if (Schema::hasIndex($table->getTable(), [$index])) {
                 $table->dropIndex($prefix . 'selections_updated_at_index');
             }
         });
