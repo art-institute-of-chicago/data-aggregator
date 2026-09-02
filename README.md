@@ -25,7 +25,7 @@ Our API is a wrapper around [Elasticsearch's Query DSL](https://www.elastic.co/g
 Here are some resources to get you started:
 
 * [Art Institute of Chicago — API Documentation](https://api.artic.edu/docs) (fields and endpoints)
-* [Elasticsearch 6.0 — Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/8.17/query-dsl.html) (query syntax)
+* [Elasticsearch 9.0 — Query DSL](https://www.elastic.co/docs/explore-analyze/query-filter/languages/querydsl) (query syntax)
 * [Art Institute of Chicago — Open Access — Public API](https://www.artic.edu/open-access/public-api) (example projects)
 
 We are currently working on improving our documentation. In the meantime, feel free to open an issue here or reach out to engineering@artic.edu with any questions. We would love to hear about any projects you pursue with our API.
@@ -49,10 +49,10 @@ The aggregator interfaces with several internal APIs to collect its data. All da
 
 The project has been built in Laravel, and includes the following requirements:
 
-* Laravel 10.x
-* PHP 8.1
-* MySQL 8.0
-* Elasticsearch 8.17
+* Laravel 13.x
+* PHP 8.5
+* MySQL 8.x
+* Elasticsearch 9.x
 * [Composer 2](https://getcomposer.org/)
 * Node v18
 
