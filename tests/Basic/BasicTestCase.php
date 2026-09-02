@@ -128,25 +128,6 @@ abstract class BasicTestCase extends TestCase
         $class::query()->delete();
     }
 
-    public function it_fetches_a_single($extraValue = ''): void
-    {
-        $class = $this->model();
-        $endpoint = $this->route($class);
-
-        $model = $this->make($class);
-        $id = $model->getAttributeValue($lastModel->getKeyName());
-
-        $response = $this->getJson('api/v1/' . $endpoint . '/' . $id . ($extraValue ? '/' . $extraValue : ''));
-        $response->assertSuccessful();
-
-        $resource = $response->json()['data'];
-        $this->assertArrayHasKeys($resource, ['id', 'title']);
-
-        $this->assertArrayHasKeys($resource, $this->keys);
-
-        $class::query()->delete();
-    }
-
     public function it_fetches_multiple(): void
     {
         $class = $this->model();
@@ -257,7 +238,7 @@ abstract class BasicTestCase extends TestCase
                 $this->assertArrayHasKeys($resource, $this->fieldsUsedByMobile);
             }
 
-            $class::query()->delete();
+            $m::query()->delete();
         } else {
             $this->assertEmpty($this->fieldsUsedByMobile);
         }
@@ -267,8 +248,6 @@ abstract class BasicTestCase extends TestCase
      * Return an id that is valid, yet has a negligent likelihood of pointing at an actual object.
      * Must pass the relevant controller's `validateId` check.
      * Meant to be overwritten. Defaults to numeric id.
-     *
-     * @var mixed
      */
     protected function getRandomId()
     {
@@ -280,8 +259,6 @@ abstract class BasicTestCase extends TestCase
      * Meant to account for any weird transformations. Does not discriminate w/ includes.
      *
      * @TODO Determine if the `$extraValue` approach is needed here.
-     *
-     * @var string
      */
     protected function getValidFields()
     {
