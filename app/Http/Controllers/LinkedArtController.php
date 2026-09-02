@@ -60,7 +60,7 @@ class LinkedArtController extends BaseController
     {
         $item = [
             '@context' => 'https://linked.art/ns/v1/linked-art.json',
-            'id' => route('ld.object', ['id' => $artwork]),
+            'id' => route('la.object', ['id' => $artwork]),
             'type' => 'HumanMadeObject',
         ];
 
