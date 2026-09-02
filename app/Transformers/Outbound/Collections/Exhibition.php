@@ -14,7 +14,7 @@ class Exhibition extends BaseTransformer
     use IsCC0;
     use HasSuggestFields;
 
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'artworks',
         'sites',
     ];

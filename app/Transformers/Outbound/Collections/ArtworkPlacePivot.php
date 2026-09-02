@@ -17,7 +17,7 @@ class ArtworkPlacePivot extends BaseTransformer
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'artwork',
         'place',
         'qualifier',
