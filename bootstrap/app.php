@@ -26,7 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->group(base_path('routes/csv.php'));
         }
     )
-    ->withMiddleware(function (Middleware $middleware) {
+    ->withMiddleware(function (Middleware $middleware): void {
         // Override middleware so we can add our own TrustProxies middleware
         $middleware->use([
             \App\Http\Middleware\TrustProxies::class,
@@ -83,7 +83,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->redirectGuestsTo(fn ($request) => $request->expectsJson() ? null : route('login'));
     })
-    ->withExceptions(function (Exceptions $exceptions) {
+    ->withExceptions(function (Exceptions $exceptions): void {
         // Sentrty error reporting
         $exceptions->reportable(function (Throwable $e) {
             Integration::captureUnhandledException($e);
