@@ -36,7 +36,7 @@
         }
     ],
     "require": {
-        "php": "^8.4",
+        "php": "^8.5",
         "aic/data-hub-foundation": "^5.0",
         "elasticsearch/elasticsearch": "^9.1",
         "intervention/image": "^2.7",
