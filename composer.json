@@ -117,6 +117,9 @@
         "test": [
             "Composer\\Config::disableProcessTimeout",
             "phpunit --order-by=defects --stop-on-failure"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ]
     },
     "extra": {

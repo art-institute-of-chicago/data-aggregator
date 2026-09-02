@@ -15,7 +15,7 @@ return new class () extends Migration {
         Schema::create('cache', function (Blueprint $table) {
             $table->string('key')->unique();
             $table->mediumText('value');
-            $table->integer('expiration');
+            $table->integer('expiration')->index();
         });
     }
 
