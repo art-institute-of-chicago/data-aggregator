@@ -6,12 +6,8 @@ use App\Behaviors\HandleEmbeddings;
 use App\Behaviors\ImportsData;
 use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
-use App\Services\DescriptionService;
-use App\Models\Collections\Artwork;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Sleep;
 use Symfony\Component\Console\Output\OutputInterface;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -65,7 +61,7 @@ class AnalyzeAllWeb extends BaseCommand implements Thresholds
                 $this->updateSentryTags($item, $endpoint, 'Web');
 
                 try {
-                    $this->generateAndSaveWebEmbeddngs($item, $this);
+                    $this->generateAndSaveWebEmbeddngs($item);
                 } catch (Exception $e) {
                     $errors[] = [
                         'id' => $item->id,

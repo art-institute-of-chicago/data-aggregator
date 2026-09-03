@@ -57,7 +57,7 @@ trait ImportsData
     /**
      * Seconds to sleep between requests.
      *
-     * @var int
+     * @var int|float
      */
     protected $sleepFor = 1;
 
@@ -78,8 +78,8 @@ trait ImportsData
      * @link https://stackoverflow.com/questions/18046637/should-i-close-curl-or-not
      *
      * @param string $url
-     *
-     * @return string
+     * @param bool   $decode
+     * @return string|array|\stdClass|null
      */
     protected function fetch($url, $decode = false)
     {
@@ -176,8 +176,6 @@ trait ImportsData
      * @param string $model
      * @param string $endpoint
      * @param integer $current  Current page for offset start
-     *
-     * @return object
      */
     protected function import($source, $model, $endpoint, $current = 1)
     {
@@ -364,7 +362,7 @@ trait ImportsData
      * If an import process needs to do anything after a resource has been sucessfully imported
      * do it here.
      *
-     * @param \Illuminate\Database\Eloquent\Model
+     * @param \Illuminate\Database\Eloquent\Model $resource
      * @return \Illuminate\Database\Eloquent\Model
      */
     protected function afterSave($resource)

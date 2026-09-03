@@ -79,7 +79,6 @@ class AnalyzeAllArtworks extends BaseCommand implements Thresholds
             $query = $this->getArtworksToProcess($startId);
             $query->chunk($chunkSize, function ($artworks) use (
                 &$processed,
-                &$skipped,
                 &$errors,
                 $bar,
                 $total
@@ -90,7 +89,7 @@ class AnalyzeAllArtworks extends BaseCommand implements Thresholds
                     $bar->setMessage($artwork->id, 'id');
 
                     try {
-                        $this->generateAndSaveArtworkEmbeddngs($artwork, $this);
+                        $this->generateAndSaveArtworkEmbeddngs($artwork);
                         $processed++;
                     } catch (Exception $e) {
                         $errors[] = [
@@ -163,7 +162,7 @@ class AnalyzeAllArtworks extends BaseCommand implements Thresholds
         return $query->count();
     }
 
-    protected function getArtworksToProcess(?int $startId = null): \Illuminate\Database\Eloquent\Builder
+    protected function getArtworksToProcess(?int $startId = null): \Illuminate\Database\Query\Builder
     {
         $query = Artwork::query();
 

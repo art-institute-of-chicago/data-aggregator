@@ -9,7 +9,6 @@ use App\Scopes\PublishedScope;
 use App\Models\Collections\Exhibition;
 use App\Models\Shop\Product;
 use App\Models\Web\Article;
-use App\Models\Web\DigitalCatalog;
 use App\Models\Web\DigitalPublication;
 use App\Models\Web\DigitalPublicationArticle;
 use App\Models\Web\EducatorResource;
@@ -87,7 +86,7 @@ class BaseModel extends AbstractModel
         parent::touchOwners();
 
         foreach ($this->touches as $relation) {
-            if ($this->{$relation} instanceof self) {
+            if ($this->{$relation} && method_exists($this->{$relation}, 'searchable')) {
                 $this->{$relation}->searchable();
             } elseif ($this->{$relation} instanceof Collection) {
                 foreach ($this->{$relation}->chunk(50) as $chunk) {
@@ -168,11 +167,6 @@ class BaseModel extends AbstractModel
     {
         return $query
             ->orderBy(self::getTableName() . '.updated_at', 'desc')
-            ->orderBy(self::getTableName() . '.' . self::getPrimaryKeyName(), 'desc');
-    }
-
-    private static function getPrimaryKeyName()
-    {
-        return with(new static())->getKeyName();
+            ->orderBy(self::getTableName() . '.' . $this->getKeyName(), 'desc');
     }
 }

@@ -6,6 +6,7 @@ use Laravel\Scout\Builder;
 use Laravel\Scout\Engines\Engine;
 use Elastic\Elasticsearch\Client as Elastic;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\LazyCollection;
 
 class ElasticsearchEngine extends Engine
 {
@@ -84,7 +85,7 @@ class ElasticsearchEngine extends Engine
 
     public function lazyMap(Builder $builder, $results, $model)
     {
-        return Collection::make($results['hits']['hits'])->map(function ($hit) use ($model) {
+        return LazyCollection::make($results['hits']['hits'])->map(function ($hit) use ($model) {
             return $model->newFromBuilder($hit['_source']);
         });
     }

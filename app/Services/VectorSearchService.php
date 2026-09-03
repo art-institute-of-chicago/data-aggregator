@@ -148,10 +148,6 @@ class VectorSearchService
             return collect();
         }
 
-        if (!isset($firstItemModel, $firstItemId, $secondItemModel, $secondItemId)) {
-            return collect();
-        }
-
         $embeddingClass = 'App\\Models\\Web\\Vectors\\' . Str::ucfirst($embeddingType) . 'Embedding';
 
         $items = [
@@ -219,10 +215,6 @@ class VectorSearchService
     public function compareNeighbors(string $firstEmbeddingType, string $firstItemModel, int $firstItemId, string $secondEmbeddingType, string $secondItemModel, int $secondItemId)
     {
         if (!in_array($firstEmbeddingType, ['text', 'image']) || !in_array($secondEmbeddingType, ['text', 'image'])) {
-            return collect();
-        }
-
-        if (!isset($firstItemModel, $firstItemId, $secondItemModel, $secondItemId)) {
             return collect();
         }
 

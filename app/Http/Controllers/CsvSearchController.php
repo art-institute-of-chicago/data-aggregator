@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Aic\Hub\Foundation\Exceptions\DetailedException;
 use App\Http\Search\Request as SearchRequest;
 use App\Http\Search\CsvResponse as SearchResponse;
 use Illuminate\Support\Facades\Request as RequestFacade;
 use Illuminate\Http\Request;
-use Elasticsearch;
 
 class CsvSearchController extends SearchController
 {
@@ -23,7 +21,7 @@ class CsvSearchController extends SearchController
         $callback = function () use ($data, $titles) {
             $output = fopen('php://output', 'w');
             fputcsv($output, $titles);
-            foreach ($data as $row) {
+            foreach ($data->data as $row) {
                 fputcsv($output, $row);
             }
             fclose($output);
