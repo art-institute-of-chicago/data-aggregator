@@ -8,6 +8,7 @@ use App\Console\Commands\BaseCommand;
 use App\Services\VectorSearchService;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Output\OutputInterface;
+use Pgvector\Laravel\Vector;
 
 class ImageSearch extends BaseCommand implements Thresholds
 {
@@ -68,11 +69,9 @@ class ImageSearch extends BaseCommand implements Thresholds
     ): object {
         return DB::connection('vectors')
             ->table('image_embeddings')
-            ->select([
-                'image_embeddings.*',
-                DB::raw('embedding <=> ? as distance', [$vector]),
-                DB::raw("'image' as embedding_type")
-            ])
+            ->select(['image_embeddings.*'])
+            ->selectRaw('embedding <=> ?::vector as distance', [new Vector($vector)])
+            ->selectRaw("'image' as embedding_type")
             ->when($model, function ($query, $model) {
                 return $query->where('model_name', $model);
             })
