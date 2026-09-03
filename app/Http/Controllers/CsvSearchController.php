@@ -21,7 +21,7 @@ class CsvSearchController extends SearchController
         $callback = function () use ($data, $titles) {
             $output = fopen('php://output', 'w');
             fputcsv($output, $titles);
-            foreach ($data as $row) {
+            foreach ($data->data as $row) {
                 fputcsv($output, $row);
             }
             fclose($output);
