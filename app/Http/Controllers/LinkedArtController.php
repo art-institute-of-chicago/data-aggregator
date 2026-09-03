@@ -27,8 +27,8 @@ class LinkedArtController extends BaseController
     /**
      * Display multiple resources.
      *
-     * @param string $ids
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function showMultiple(Request $request)
     {
