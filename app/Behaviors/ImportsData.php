@@ -119,8 +119,6 @@ trait ImportsData
             throw new \Exception(curl_error($ch));
         }
 
-        curl_close($ch);
-
         $contents = ob_get_contents();
 
         ob_end_clean();

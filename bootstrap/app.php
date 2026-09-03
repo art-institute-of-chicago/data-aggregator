@@ -80,8 +80,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'restrict' => \App\Http\Middleware\RestrictContent::class,
             'loginIp' => \App\Http\Middleware\LoginIpMiddleware::class,
         ]);
-
-        $middleware->redirectGuestsTo(fn ($request) => $request->expectsJson() ? null : route('login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // Sentrty error reporting

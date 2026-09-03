@@ -50,7 +50,7 @@ class ElasticsearchManager
      *
      * @return \Elastic\Elasticsearch\Client
      */
-    public function connection(string $name = null): Client
+    public function connection(?string $name = null): Client
     {
         $name = $name ?: $this->getDefaultConnection();
 

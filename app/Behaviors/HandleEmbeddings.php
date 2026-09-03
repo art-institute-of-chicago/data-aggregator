@@ -444,7 +444,7 @@ trait HandleEmbeddings
     protected function saveTextEmbeddings(
         Model $model,
         array $embedding,
-        string $imageUrl = null,
+        ?string $imageUrl = null,
         array $analysisResults = []
     ): void {
         $this->saveEmbeddings(

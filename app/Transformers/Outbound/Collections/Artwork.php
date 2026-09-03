@@ -24,7 +24,7 @@ class Artwork extends BaseTransformer
         getSuggestFields as traitGetSuggestFields;
     }
 
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'artist_pivots',
         'dates',
         'place_pivots',
