@@ -6,10 +6,6 @@ use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Collections\Exhibition;
-use App\Models\Collections\ArtworkType;
-use App\Models\Collections\Gallery;
-use App\Models\Collections\AgentType;
-use App\Models\Collections\Agent;
 use App\Models\Web\Exhibition as WebExhibition;
 
 class ExhibitionTest extends TestCase
