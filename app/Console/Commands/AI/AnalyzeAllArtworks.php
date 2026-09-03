@@ -162,7 +162,7 @@ class AnalyzeAllArtworks extends BaseCommand implements Thresholds
         return $query->count();
     }
 
-    protected function getArtworksToProcess(?int $startId = null): \Illuminate\Database\Eloquent\Builder
+    protected function getArtworksToProcess(?int $startId = null): \Illuminate\Database\Query\Builder
     {
         $query = Artwork::query();
 

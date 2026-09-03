@@ -26,7 +26,7 @@ abstract class AbstractController extends BaseController
     /**
      * @var \League\Fractal\Manager
      */
-    private $fractal;
+    protected $fractal;
 
     public function __construct()
     {

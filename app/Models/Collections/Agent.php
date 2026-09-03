@@ -126,7 +126,7 @@ class Agent extends CollectionsModel
      *
      * @return \Illuminate\Database\Eloquent\Collection|array
      */
-    private static function boostedIds()
+    public static function boostedIds()
     {
         return [
             100304, 100363, 100581, 101310, 102174, 102445, 103575, 104036, 104141, 104542,
