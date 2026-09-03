@@ -3,7 +3,7 @@ parameters:
         - app
         - routes
         - database/migrations
-        - database/seeds
+        - database/seeders
         - tests
     level: 3
     reportUnmatchedIgnoredErrors: false
