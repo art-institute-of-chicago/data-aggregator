@@ -13,6 +13,11 @@ class Image extends Asset
 
     protected $appends = ['iiif_url'];
 
+    protected $casts = [
+        'scale_factors' => 'array',
+        'iiif_synced_at' => 'datetime',
+    ];
+
     /**
      * Get the IIIF URL. Corresponds to the `@id` attribute in the image's `/info.json`
      *
