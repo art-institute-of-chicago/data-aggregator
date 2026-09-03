@@ -36,6 +36,11 @@ class CategoryTerm extends BaseTransformer
                     return $item->parent->id ?? null;
                 },
             ],
+            'usage_count' => [
+                'doc' => 'Number of artworks in the collection that use this term',
+                'type' => 'integer',
+                'elasticsearch' => 'integer',
+            ],
         ];
     }
 
