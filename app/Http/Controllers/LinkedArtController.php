@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -94,7 +93,7 @@ class LinkedArtController extends BaseController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function getCollectionResponse(Arrayable $collection, Request $request)
+    protected function getCollectionResponse(iterable $collection, Request $request)
     {
         $response = ['objects' => []];
 

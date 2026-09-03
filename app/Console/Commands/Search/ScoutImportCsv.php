@@ -17,7 +17,7 @@ class ScoutImportCsv extends BaseCommand
 
     public function handle()
     {
-        $class = $this->argument('model');
+        $class = (string) $this->argument('model');
 
         $csv = Reader::createFromPath($this->getCsvPath(), 'r');
 
