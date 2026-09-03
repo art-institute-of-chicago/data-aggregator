@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\Elasticsearch;
 
+use App\Console\Commands\Elasticsearch\Behaviors\ValidateArguments;
 use Elastic\Elasticsearch\Client;
 use Illuminate\Console\Command;
 
 final class IndexExistsCommand extends Command
 {
+    use ValidateArguments;
+
     /**
      * @var string
      */
