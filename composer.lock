@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aic/data-hub-foundation",
-            "version": "6.7",
+            "version": "6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/art-institute-of-chicago/data-hub-foundation.git",
-                "reference": "2c79352d0c29b279b48ab0e0d2360c0ad23d2034"
+                "reference": "b6322f47e45d92ebb5d6e824a3f3c6f271251cf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/2c79352d0c29b279b48ab0e0d2360c0ad23d2034",
-                "reference": "2c79352d0c29b279b48ab0e0d2360c0ad23d2034",
+                "url": "https://api.github.com/repos/art-institute-of-chicago/data-hub-foundation/zipball/b6322f47e45d92ebb5d6e824a3f3c6f271251cf7",
+                "reference": "b6322f47e45d92ebb5d6e824a3f3c6f271251cf7",
                 "shasum": ""
             },
             "require": {
@@ -68,10 +68,10 @@
             ],
             "description": "Shared components for our data hub services.",
             "support": {
-                "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/6.7",
+                "source": "https://github.com/art-institute-of-chicago/data-hub-foundation/tree/6.8",
                 "issues": "https://github.com/art-institute-of-chicago/data-hub-foundation/issues"
             },
-            "time": "2026-09-03T02:02:30+00:00"
+            "time": "2026-09-03T17:08:27+00:00"
         },
         {
             "name": "aws/aws-crt-php",

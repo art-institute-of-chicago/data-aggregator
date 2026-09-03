@@ -95,7 +95,7 @@ class ImportCollectionsFull extends AbstractImportCommand implements Thresholds
             // or if this artwork doesn't have either of the embeddings,
             // retrieve fresh embeddings
             if (!$resource->imageEmbedding || !$resource->textEmbedding || (isset($resource->image) && isset($resource->image['source_updated_at']) ? $resource->image['source_updated_at'] > now()->subMinutes(5) : false)) {
-                $this->generateAndSaveArtworkEmbeddngs($resource, $this);
+                $this->generateAndSaveArtworkEmbeddngs($resource);
             }
         }
         return $resource;

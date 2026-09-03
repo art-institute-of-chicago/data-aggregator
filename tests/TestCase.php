@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Illuminate\Contracts\Console\Kernel;
 use Tests\Helpers\Factory;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;

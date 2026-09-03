@@ -152,7 +152,7 @@ class ImportWebFull extends AbstractImportCommand implements Thresholds
             \App\Models\Web\PrintedPublication::class,
             ])
         ) {
-            $this->generateAndSaveWebEmbeddngs($resource, $this);
+            $this->generateAndSaveWebEmbeddngs($resource);
         }
         return $resource;
     }
