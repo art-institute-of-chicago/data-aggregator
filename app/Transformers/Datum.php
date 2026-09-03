@@ -87,7 +87,7 @@ class Datum implements JsonSerializable
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->all();
     }
@@ -97,7 +97,7 @@ class Datum implements JsonSerializable
      *
      * @link http://php.net/manual/en/function.spl-object-hash.php
      *
-     * @return \App\Transformers\Datum;
+     * @return \App\Transformers\Datum
      */
     private function getSubDatum($object)
     {
@@ -113,7 +113,7 @@ class Datum implements JsonSerializable
     /**
      * A place to standardize values, e.g. return null instead of empty strings.
      *
-     * @return mixed;
+     * @return mixed
      */
     private function getCleanValue($value)
     {

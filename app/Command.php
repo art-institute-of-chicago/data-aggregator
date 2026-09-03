@@ -15,7 +15,7 @@ class Command extends Model
     /**
      * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var array<string>
      */
     protected $guarded = [];
 
@@ -23,7 +23,7 @@ class Command extends Model
      * Accessor function to ease date comparison.
      *
      * @param string $value
-     * @var \Carbon\CarbonInterface;
+     * @return \Carbon\CarbonInterface
      */
     public function getLastSuccessAtAttribute($value)
     {
@@ -33,7 +33,7 @@ class Command extends Model
     /**
      * Functional value for a "never" Carbon date. Enables date comparison.
      *
-     * @return \Carbon\Carbon;
+     * @return \Carbon\Carbon
      */
     public static function never()
     {

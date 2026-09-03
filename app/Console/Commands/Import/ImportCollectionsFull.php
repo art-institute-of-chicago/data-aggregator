@@ -85,7 +85,7 @@ class ImportCollectionsFull extends AbstractImportCommand implements Thresholds
      * If an artwork was updated, and if the primary image was updated, reimport the
      * image embeddings.
      *
-     * @param \Illuminate\Database\Eloquent\Model
+     * @param \Illuminate\Database\Eloquent\Model $resource
      * @return \Illuminate\Database\Eloquent\Model
      */
     protected function afterSave($resource)
