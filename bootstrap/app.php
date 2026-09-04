@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
 use Sentry\Laravel\Integration;
 
@@ -86,4 +87,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->reportable(function (Throwable $e) {
             Integration::captureUnhandledException($e);
         });
+    })
+    ->withSchedule(function (Schedule $schedule): void {
+        $schedule->command('report:category-terms')
+            ->dailyAt('20:00')
+            ->withoutOverlapping();
     })->create();
