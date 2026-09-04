@@ -77,7 +77,7 @@ class ReportCategoryTerms extends BaseCommand
             $totalAssignments += $assignments;
         }
 
-        if ($summary) {
+        if ($summary && $this->output->isVerbose()) {
             $this->table(['Subtype', 'Distinct terms', 'Total artworks'], $summary);
             $this->info("Grand total: {$totalTerms} distinct terms across {$totalAssignments} artwork-term assignments");
         }
