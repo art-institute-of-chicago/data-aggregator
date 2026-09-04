@@ -61,7 +61,7 @@ class ReportCategoryTerms extends BaseCommand
             $display = $rows->first()->getSubtypeDisplay() ?: ($subtype ?: 'other');
 
             if ($this->output->isVerbose()) {
-                $this->warn(ucfirst($display).':');
+                $this->warn(ucfirst($display) . ':');
 
                 $this->table(['ID', 'Title', 'Artworks'], $rows->map(function ($row) {
                     return [$row->id, $row->title, $row->artwork_count];
