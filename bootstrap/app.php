@@ -92,6 +92,6 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withSchedule(function (Schedule $schedule): void {
         $schedule->command('report:category-terms')
-            ->daily()
+            ->dailyAt('20:00')
             ->withoutOverlapping();
     })->create();
