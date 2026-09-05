@@ -37,11 +37,11 @@ jobs:
           --health-retries=3
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - name: Install Postgres
       id: postgres
-      uses: ikalnytskyi/action-setup-postgres@v7
+      uses: ikalnytskyi/action-setup-postgres@v8
       with:
           username: homestead
           password: secret
@@ -67,7 +67,7 @@ jobs:
       run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
 
     - name: Cache Composer packages
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
