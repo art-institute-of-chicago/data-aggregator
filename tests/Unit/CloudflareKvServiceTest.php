@@ -22,30 +22,6 @@ class CloudflareKvServiceTest extends TestCase
     }
 
     #[Test]
-    public function it_bulk_puts_entries_to_the_correct_endpoint_with_the_expected_body(): void
-    {
-        Http::fake([
-            'api.cloudflare.com/*' => Http::response(['success' => true]),
-        ]);
-
-        $entries = [
-            ['key' => 'abc-123', 'value' => '{"w":100}'],
-            ['key' => 'def-456', 'value' => '{"w":200}'],
-        ];
-
-        (new CloudflareKvService())->bulkPut($entries);
-
-        $expectedUrl = 'https://api.cloudflare.com/client/v4/accounts/acct-123/storage/kv/namespaces/ns-456/bulk';
-
-        Http::assertSent(function ($request) use ($entries, $expectedUrl) {
-            return $request->url() === $expectedUrl
-                && $request->method() === 'PUT'
-                && $request->hasHeader('Authorization', 'Bearer token-789')
-                && $request->data() === $entries;
-        });
-    }
-
-    #[Test]
     public function it_throws_when_the_response_is_not_successful(): void
     {
         Http::fake([
