@@ -290,7 +290,7 @@ trait Documentable
     /**
      * Raw list of parameters used with search endpoints
      *
-     * @return string
+     * @return array
      */
     public function docSearchParametersRaw()
     {

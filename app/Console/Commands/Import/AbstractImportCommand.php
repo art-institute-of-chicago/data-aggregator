@@ -34,7 +34,7 @@ abstract class AbstractImportCommand extends BaseCommand
      * @link http://api.symfony.com/3.3/Symfony/Component/Console/Command/Command.html
      * @link https://github.com/laravel/framework/blob/5.4/src/Illuminate/Console/Command.php
      *
-     * @return mixed
+     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

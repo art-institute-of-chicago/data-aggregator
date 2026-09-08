@@ -5,7 +5,6 @@ namespace App\Console\Commands\AI;
 use App\Console\Commands\BaseCommand;
 use App\Models\Collections\Agent;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class EmbedDescriptionByArtist extends BaseCommand

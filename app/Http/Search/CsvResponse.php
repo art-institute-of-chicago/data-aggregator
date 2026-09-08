@@ -2,10 +2,6 @@
 
 namespace App\Http\Search;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Request as RequestFacade;
-
 class CsvResponse extends Response
 {
     /**

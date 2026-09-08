@@ -22,7 +22,7 @@ class ElasticsearchManager
     /**
      * The Elasticsearch connection factory instance.
      *
-     * @var \Database\Factory\ElasticsearchFactory
+     * @var \Database\Factories\ElasticsearchFactory
      */
     protected $factory;
 

@@ -383,7 +383,7 @@ abstract class AbstractTransformer extends BaseTransformer
      * Helper to parse out the fields variable passed via constructor.
      * Expects a comma-separated string or an array.
      *
-     * @var array|null
+     * @param array|string|null $requestedFields
      */
     private function getRequestedFields($requestedFields = null)
     {

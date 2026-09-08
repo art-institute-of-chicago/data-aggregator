@@ -323,7 +323,7 @@ trait HandleEmbeddings
 
         if (!empty($description['denseCaption'])) {
             foreach ($description['denseCaption'] as $caption) {
-                if (!empty($caption['text']) && ($caption['confidence'] ?? 0) > self::CONFIDENCE_THRESHOLD_CAPTION) {
+                if (!empty($caption['text']) && ($caption['confidence'] ?? 0) > Thresholds::CONFIDENCE_THRESHOLD_CAPTION) {
                     $text .= $caption['text'] . ' ';
                 }
             }
@@ -331,7 +331,7 @@ trait HandleEmbeddings
 
         if (!empty($description['tags'])) {
             foreach ($description['tags'] as $tag) {
-                if (!empty($tag['name']) && ($tag['confidence'] ?? 0) > self::CONFIDENCE_THRESHOLD_TAG) {
+                if (!empty($tag['name']) && ($tag['confidence'] ?? 0) > Thresholds::CONFIDENCE_THRESHOLD_TAG) {
                     $text .= $tag['name'] . ' ';
                 }
             }

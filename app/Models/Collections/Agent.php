@@ -124,9 +124,9 @@ class Agent extends CollectionsModel
      * These are artists that are included the Artwork::boostedIds list,
      * along with the top 100 viewed artists on our website in 2017.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection|array
      */
-    private static function boostedIds()
+    public static function boostedIds()
     {
         return [
             100304, 100363, 100581, 101310, 102174, 102445, 103575, 104036, 104141, 104542,
