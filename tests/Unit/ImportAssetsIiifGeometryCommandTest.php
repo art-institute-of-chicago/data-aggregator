@@ -4,46 +4,36 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use App\Models\Collections\Image;
 
 class ImportAssetsIiifGeometryCommandTest extends TestCase
 {
+    protected $upToDate;
+
+    protected $stale;
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        config(['aic.asset.iiif_url' => 'https://example.com/iiif/2']);
-    }
+        $this->upToDate = $this->make(Image::class, [
+            'iiif_synced_at' => now()->subHour(),
+            'updated_at' => now()->subDay(),
+        ]);
 
-    private function fakeInfoJsonResponse(): array
-    {
-        return [
-            'width' => 557,
-            'height' => 768,
-            'tiles' => [
-                ['width' => 256, 'height' => 256, 'scaleFactors' => [1, 2, 4, 8]],
-            ],
-        ];
+        $this->stale = $this->make(Image::class, [
+            'iiif_synced_at' => now()->subDay(),
+            'updated_at' => now(),
+        ]);
+
+        config(['aic.asset.iiif_url' => 'https://example.com/iiif/2']);
     }
 
     #[Test]
     public function it_only_fetches_new_or_stale_images_by_default(): void
     {
         $new = $this->make(Image::class);
-
-        $upToDate = $this->make(Image::class);
-        DB::table('assets')->where('id', $upToDate->id)->update([
-            'iiif_synced_at' => now()->subHour(),
-            'updated_at' => now()->subDay(),
-        ]);
-
-        $stale = $this->make(Image::class);
-        DB::table('assets')->where('id', $stale->id)->update([
-            'iiif_synced_at' => now()->subDay(),
-            'updated_at' => now(),
-        ]);
 
         Http::fake([
             '*/info.json' => Http::response($this->fakeInfoJsonResponse()),
@@ -55,8 +45,8 @@ class ImportAssetsIiifGeometryCommandTest extends TestCase
         Http::assertSentCount(2);
 
         Http::assertSent(fn ($request) => $request->url() === $new->iiif_url . '/info.json');
-        Http::assertSent(fn ($request) => $request->url() === $stale->iiif_url . '/info.json');
-        Http::assertNotSent(fn ($request) => $request->url() === $upToDate->iiif_url . '/info.json');
+        Http::assertSent(fn ($request) => $request->url() === $this->stale->iiif_url . '/info.json');
+        Http::assertNotSent(fn ($request) => $request->url() === $this->upToDate->iiif_url . '/info.json');
 
         $new->refresh();
         $this->assertSame(557, $new->width);
@@ -70,12 +60,6 @@ class ImportAssetsIiifGeometryCommandTest extends TestCase
     #[Test]
     public function it_resyncs_every_image_with_the_full_flag(): void
     {
-        $upToDate = $this->make(Image::class);
-        DB::table('assets')->where('id', $upToDate->id)->update([
-            'iiif_synced_at' => now()->subHour(),
-            'updated_at' => now()->subDay(),
-        ]);
-
         Http::fake([
             '*/info.json' => Http::response($this->fakeInfoJsonResponse()),
         ]);
@@ -83,7 +67,7 @@ class ImportAssetsIiifGeometryCommandTest extends TestCase
         $this->artisan('import:assets-iiif-geometry', ['--full' => true, '--dry-run' => true])
             ->assertSuccessful();
 
-        Http::assertSentCount(1);
+        Http::assertSentCount(2);
     }
 
     #[Test]
