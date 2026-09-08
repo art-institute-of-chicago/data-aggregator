@@ -19,6 +19,8 @@ class ImportAssetsIiifGeometry extends BaseCommand
 
     protected $description = 'Fetches IIIF info.json geometry for images, pushes it to the Cloudflare KV store';
 
+    protected $zeroTrustAuth = true;
+
     protected CloudflareKvService $kv;
 
     public function __construct(CloudflareKvService $kv)
@@ -51,6 +53,10 @@ class ImportAssetsIiifGeometry extends BaseCommand
                 fn ($image) => $pool->as((string) $image->id)
                     ->timeout(IiifGeometryService::TIMEOUT_SECONDS)
                     ->retry(IiifGeometryService::MAX_RETRIES, 500, throw: false)
+                    ->when($this->zeroTrustAuth, fn ($request) => $request->withHeaders([
+                        'CF-Access-Client-Id' => config('aic.web.zerotrust_client_id'),
+                        'CF-Access-Client-Secret' => config('aic.web.zerotrust_client_secret'),
+                    ]))
                     ->get($image->iiif_url . '/info.json')
             ));
 
