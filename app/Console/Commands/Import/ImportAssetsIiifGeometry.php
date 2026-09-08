@@ -8,6 +8,7 @@ use App\Models\Collections\Image;
 use App\Services\CloudflareKvService;
 use App\Services\IiifGeometryService;
 use Illuminate\Support\Facades\Http;
+use Throwable;
 
 class ImportAssetsIiifGeometry extends BaseCommand
 {
@@ -55,6 +56,11 @@ class ImportAssetsIiifGeometry extends BaseCommand
 
             foreach ($images as $image) {
                 $response = $responses[(string) $image->id];
+
+                if ($response instanceof Throwable) {
+                    $this->warn("  info.json failed for #{$image->id}: " . $response->getMessage());
+                    continue;
+                }
 
                 if (!$response->successful()) {
                     $this->warn("  info.json failed for #{$image->id}: " . $response->status());
