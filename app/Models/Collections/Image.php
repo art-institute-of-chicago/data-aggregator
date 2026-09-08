@@ -13,6 +13,11 @@ class Image extends Asset
 
     protected $appends = ['iiif_url'];
 
+    protected $casts = [
+        'scale_factors' => 'array',
+        'iiif_synced_at' => 'datetime',
+    ];
+
     /**
      * Get the IIIF URL. Corresponds to the `@id` attribute in the image's `/info.json`
      *
@@ -20,7 +25,7 @@ class Image extends Asset
      */
     public function getIiifUrlAttribute()
     {
-        return config('aic.assets.iiif_url') . '/' . Asset::getHashedId($this->id);
+        return config('aic.asset.iiif_url') . '/' . Asset::getHashedId($this->id);
     }
 
     public function searchableImage()
