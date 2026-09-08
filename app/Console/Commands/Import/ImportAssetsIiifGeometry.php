@@ -21,13 +21,9 @@ class ImportAssetsIiifGeometry extends BaseCommand
 
     protected $zeroTrustAuth = true;
 
-    protected CloudflareKvService $kv;
-
-    public function __construct(CloudflareKvService $kv)
+    public function __construct(protected CloudflareKvService $kv)
     {
         parent::__construct();
-
-        $this->kv = $kv;
     }
 
     public function handle()
