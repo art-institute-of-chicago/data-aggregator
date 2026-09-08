@@ -14,7 +14,7 @@ class ImportAssetsIiifGeometryCommandTest extends TestCase
     {
         parent::setUp();
 
-        config(['aic.assets.iiif_url' => 'https://example.com/iiif/2']);
+        config(['aic.asset.iiif_url' => 'https://example.com/iiif/2']);
     }
 
     private function fakeInfoJsonResponse(): array

@@ -25,7 +25,7 @@ class Image extends Asset
      */
     public function getIiifUrlAttribute()
     {
-        return config('aic.assets.iiif_url') . '/' . Asset::getHashedId($this->id);
+        return config('aic.asset.iiif_url') . '/' . Asset::getHashedId($this->id);
     }
 
     public function searchableImage()
