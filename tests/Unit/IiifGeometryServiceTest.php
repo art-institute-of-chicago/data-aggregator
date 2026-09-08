@@ -9,17 +9,19 @@ use App\Services\IiifGeometryService;
 
 class IiifGeometryServiceTest extends TestCase
 {
+    public const JSON_RESPONSE = [
+        'width' => 557,
+        'height' => 768,
+        'tiles' => [
+            ['width' => 256, 'height' => 256, 'scaleFactors' => [1, 2, 4, 8]],
+        ],
+    ];
+
     #[Test]
     public function it_parses_geometry_from_a_successful_info_json(): void
     {
         Http::fake([
-            'https://example.com/iiif/2/some-id/info.json' => Http::response([
-                'width' => 557,
-                'height' => 768,
-                'tiles' => [
-                    ['width' => 256, 'height' => 256, 'scaleFactors' => [1, 2, 4, 8]],
-                ],
-            ]),
+            'https://example.com/iiif/2/some-id/info.json' => Http::response(self::JSON_RESPONSE),
         ]);
 
         $result = (new IiifGeometryService())->fetch('https://example.com/iiif/2/some-id');

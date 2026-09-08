@@ -36,7 +36,7 @@ class ImportAssetsIiifGeometryCommandTest extends TestCase
         $new = $this->make(Image::class);
 
         Http::fake([
-            '*/info.json' => Http::response($this->fakeInfoJsonResponse()),
+            '*/info.json' => Http::response(IiifGeometryServiceTest::JSON_RESPONSE),
         ]);
 
         $this->artisan('import:assets-iiif-geometry', ['--dry-run' => true])
@@ -61,7 +61,7 @@ class ImportAssetsIiifGeometryCommandTest extends TestCase
     public function it_resyncs_every_image_with_the_full_flag(): void
     {
         Http::fake([
-            '*/info.json' => Http::response($this->fakeInfoJsonResponse()),
+            '*/info.json' => Http::response(IiifGeometryServiceTest::JSON_RESPONSE),
         ]);
 
         $this->artisan('import:assets-iiif-geometry', ['--full' => true, '--dry-run' => true])
@@ -76,7 +76,7 @@ class ImportAssetsIiifGeometryCommandTest extends TestCase
         $this->make(Image::class);
 
         Http::fake([
-            '*/info.json' => Http::response($this->fakeInfoJsonResponse()),
+            '*/info.json' => Http::response(IiifGeometryServiceTest::JSON_RESPONSE),
             'api.cloudflare.com/*' => Http::response(['success' => true]),
         ]);
 
