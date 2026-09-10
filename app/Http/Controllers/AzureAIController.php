@@ -189,7 +189,8 @@ class AzureAIController extends Controller
         return response()->json([
             'error' => 'An error occurred while processing your request',
             'message' => $e->getMessage(),
-            'trace' => config('app.debug') ? $e->getTraceAsString() : null
+            'trace' => config('app.debug') ? $e->getTraceAsString() : null,
+            'status' => 500,
         ], 500);
     }
 
