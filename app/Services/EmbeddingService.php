@@ -47,11 +47,19 @@ class EmbeddingService
 
     public function getImageEmbeddings(string $imageUrl): ?array
     {
+        // Azure cannot fetch URLs behind Cloudflare (www.artic.edu) server-side,
+        // so we download the image and upload it as binary instead of a URL.
+        $image = Http::retry(3, 1000, throw: false)->timeout(60)->get($imageUrl);
+
+        if (!$image->successful()) {
+            throw new Exception("Failed to download image ({$image->status()}): {$imageUrl}");
+        }
+
         $response = Http::withHeaders([
-            'Ocp-Apim-Subscription-Key' => config('azure.image_embedding.key')
-        ])->post(config('azure.image_embedding.endpoint'), [
-            'url' => $imageUrl
-        ]);
+            'Ocp-Apim-Subscription-Key' => config('azure.image_embedding.key'),
+            'Content-Type' => 'application/octet-stream'
+        ])->withBody($image->body(), 'application/octet-stream')
+            ->post(config('azure.image_embedding.endpoint'));
 
         if ($response->successful()) {
             return $response->json()['vector'] ?? null;
