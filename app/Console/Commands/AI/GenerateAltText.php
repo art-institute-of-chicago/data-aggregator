@@ -34,6 +34,8 @@ class GenerateAltText extends BaseCommand
      *  --prompt=       Prompt type to use ('standard', 'editorial')
      *  --concurrency=N Number of parallel processes (default: 1)
      *  --rate-limit=N  Max requests per minute across all processes (default: 0 = no limit)
+     *  --recursive     Also process records that reference the given models via a foreign key
+     *                  (e.g. digitalPublicationArticles whose digital_publication_id matches)
      */
 
     protected $signature = 'ai:generate-alt-text
@@ -48,7 +50,8 @@ class GenerateAltText extends BaseCommand
                             {--preview : Run the analysis without saving to the database}
                             {--prompt=standard : The type of prompt to use (e.g., standard, editorial)}
                             {--concurrency=1 : Number of parallel processes}
-                            {--rate-limit=0 : Max requests per minute across all processes (0 = no limit)}';
+                            {--rate-limit=0 : Max requests per minute across all processes (0 = no limit)}
+                            {--recursive : Also process records that reference the given models via a foreign key}';
 
     protected $description = 'Generate a visual description for use in alt text';
 
@@ -66,6 +69,23 @@ class GenerateAltText extends BaseCommand
     private array $childPids = [];
     private ?string $workerName = null;
     private string $workerColor = '';
+
+    /**
+     * Foreign key columns that are never traversed by `--recursive`.
+     */
+    private const RECURSION_SKIP_COLUMNS = [
+        'parent_id',
+        'datahub_id',
+        'migrated_node_id',
+        'type_id',
+        'user_id',
+        'blockable_id',
+        'mediable_id',
+        'object_id',
+        'imagable_id',
+    ];
+
+    private ?array $morphTypeMap = null;
 
     private const COLORS = [
         '32', // green
@@ -117,6 +137,13 @@ class GenerateAltText extends BaseCommand
             $modelName = $this->argument('model_name');
             $modelIds = $this->argument('model_ids') ?? [];
             $hasSpecificIds = ! empty($modelIds);
+
+            if ($this->option('recursive') && ! ($modelName && $hasSpecificIds)) {
+                $this->warn(
+                    '⚠️ --recursive has no additional effect on full sweeps: every record is already scanned.',
+                    OutputInterface::VERBOSITY_VERBOSE
+                );
+            }
 
             if ($this->option('mediables') && ! $this->option('blocks')) {
                 $processedCount = $hasSpecificIds
@@ -182,12 +209,10 @@ class GenerateAltText extends BaseCommand
         $concurrency = (int) $this->option('concurrency');
         $this->info("🔍 Processing {$modelName} for " . count($modelIds) . " ID(s)...", OutputInterface::VERBOSITY_VERBOSE);
 
+        $targets = $this->resolveTargets($modelName, $modelIds);
+
         // Collect all mediables up-front so parallel workers split actual items, not arbitrary ID boundaries
-        $allMediables = DB::connection('website')
-            ->table('mediables')
-            ->where('mediable_type', $modelName)
-            ->whereIn('mediable_id', $modelIds)
-            ->get();
+        $allMediables = $this->fetchMediablesForTargets($targets);
 
         if ($allMediables->isEmpty()) {
             $this->info('No mediables found.');
@@ -200,7 +225,172 @@ class GenerateAltText extends BaseCommand
             return $this->dispatchParallel($allMediables);
         }
 
-        return $this->processMediables($allMediables, $modelName);
+        return $this->processMediables($allMediables, $this->option('recursive') ? null : $modelName);
+    }
+
+    /**
+     * Normalise a starting model + ids into a morph type => ids map, expanding one
+     * hop inward when `--recursive` is set.
+     */
+    protected function resolveTargets(string $modelName, array $modelIds): array
+    {
+        $modelIds = array_values(array_unique($modelIds));
+
+        if (! $this->option('recursive')) {
+            return [$modelName => $modelIds];
+        }
+
+        $targets = $this->expandRecursiveTargets([$modelName => $modelIds]);
+
+        foreach ($targets as $type => $ids) {
+            $this->info("↳ Recursive: {$type} " . count($ids) . ' ID(s)', OutputInterface::VERBOSITY_VERBOSE);
+        }
+
+        return $targets;
+    }
+
+    /**
+     * Add one hop of records that reference the given records through a direct
+     * foreign key column (e.g. digital_publication_articles.digital_publication_id).
+     *
+     * @param array<string, array<int>> $targets
+     * @return array<string, array<int>>
+     */
+    protected function expandRecursiveTargets(array $targets): array
+    {
+        $expanded = $targets;
+
+        foreach ($targets as $type => $ids) {
+            foreach ($this->findChildTargets($type, $ids) as $childType => $childIds) {
+                $expanded[$childType] = array_values(array_unique(
+                    array_merge($expanded[$childType] ?? [], $childIds)
+                ));
+            }
+        }
+
+        return $expanded;
+    }
+
+    /**
+     * Find records in other content tables whose foreign key points at the given records.
+     * Only morph-backed content tables are considered, so pivots, revisions and slugs are
+     * never traversed.
+     *
+     * @return array<string, array<int>> Morph type => referencing record ids.
+     */
+    protected function findChildTargets(string $modelName, array $ids): array
+    {
+        $ids = array_values(array_unique($ids));
+        $table = $this->morphTypes()[$modelName] ?? null;
+
+        if (! $table || empty($ids)) {
+            return [];
+        }
+
+        $columns = DB::connection('website')->select(
+            "select table_name, column_name from information_schema.columns
+             where table_schema = current_schema()
+             and column_name like '%\\_id'"
+        );
+
+        $children = [];
+        $morphTables = $this->morphTypes();
+
+        foreach ($columns as $column) {
+            $childType = array_search($column->table_name, $morphTables, true);
+
+            // Only content tables that are valid morph targets
+            if ($childType === false || $column->table_name === $table) {
+                continue;
+            }
+
+            if (in_array($column->column_name, self::RECURSION_SKIP_COLUMNS, true)) {
+                continue;
+            }
+
+            // `digital_publication_id` -> `digital_publications`
+            $referenced = Str::plural(Str::snake(Str::beforeLast($column->column_name, '_id')));
+
+            if ($referenced !== $table) {
+                continue;
+            }
+
+            $childIds = DB::connection('website')->table($column->table_name)
+                ->whereIn($column->column_name, $ids)
+                ->pluck('id')
+                ->all();
+
+            if (! empty($childIds)) {
+                $children[$childType] = array_values(array_unique(
+                    array_merge($children[$childType] ?? [], $childIds)
+                ));
+            }
+        }
+
+        return $children;
+    }
+
+    /**
+     * Morph type => table for every model currently attached to a mediable or blockable.
+     *
+     * @return array<string, string>
+     */
+    protected function morphTypes(): array
+    {
+        if ($this->morphTypeMap !== null) {
+            return $this->morphTypeMap;
+        }
+
+        $types = collect()
+            ->merge(DB::connection('website')->table('mediables')->distinct()->pluck('mediable_type'))
+            ->merge(DB::connection('website')->table('blocks')->distinct()->pluck('blockable_type'))
+            ->filter(fn ($type) => is_string($type) && $type !== '')
+            ->unique();
+
+        $map = [];
+
+        foreach ($types as $type) {
+            $map[$type] = $this->tableForMorphType($type);
+        }
+
+        return $this->morphTypeMap = $map;
+    }
+
+    protected function tableForMorphType(string $type): string
+    {
+        if (str_contains($type, '\\')) {
+            return Str::snake(Str::pluralStudly(class_basename($type)));
+        }
+
+        return Str::snake($type);
+    }
+
+    /**
+     * @param array<string, array<int>> $targets
+     * @return \Illuminate\Support\Collection
+     */
+    protected function fetchMediablesForTargets(array $targets)
+    {
+        $mediables = collect();
+
+        foreach ($targets as $type => $ids) {
+            if (empty($ids)) {
+                continue;
+            }
+
+            $mediables = $mediables->merge(
+                DB::connection('website')->table('mediables')
+                    ->where('mediable_type', $type)
+                    ->whereIn('mediable_id', $ids)
+                    ->get()
+            );
+        }
+
+        return $mediables
+            ->unique(fn ($mediable) => $mediable->media_id
+                . ':' . $mediable->mediable_type
+                . ':' . $mediable->mediable_id)
+            ->values();
     }
 
     protected function processAllMediables(): int
@@ -232,12 +422,19 @@ class GenerateAltText extends BaseCommand
             ->select('mediables.*');
 
         if ($modelName && $modelIds) {
-            if (is_array($modelIds)) {
-                $query->where('blocks.blockable_type', $modelName)
-                      ->whereIn('blocks.blockable_id', $modelIds);
-            } else {
-                $query->where('blocks.blockable_type', $modelName)
-                      ->where('blocks.blockable_id', $modelIds);
+            $ids = is_array($modelIds) ? $modelIds : [$modelIds];
+            $targets = $this->resolveTargets($modelName, $ids);
+            $targets = array_filter($targets, fn ($targetIds) => ! empty($targetIds));
+
+            if (! empty($targets)) {
+                $query->where(function ($q) use ($targets) {
+                    foreach ($targets as $type => $targetIds) {
+                        $q->orWhere(function ($q) use ($type, $targetIds) {
+                            $q->where('blocks.blockable_type', $type)
+                              ->whereIn('blocks.blockable_id', $targetIds);
+                        });
+                    }
+                });
             }
         }
 

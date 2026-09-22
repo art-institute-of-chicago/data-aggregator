@@ -47,10 +47,11 @@ class AnalyzeImage extends BaseCommand
             $this->table(
                 ['Component', 'Status'],
                 [
-                    ['Image Analysis', '✓'],
+                    ['Image Analysis', !empty($analysisResults['visual_description']) ? '✓' : '✗'],
                     ['Image Embeddings', '✓'],
                     ['Text Embeddings', '✓'],
-                    ['Description', '✓']
+                    ['Visual Description', !empty($analysisResults['visual_description']) ? '✓' : '✗'],
+                    ['Alt Text', !empty($analysisResults['alt_text']) ? '✓' : '✗']
                 ]
             );
 
