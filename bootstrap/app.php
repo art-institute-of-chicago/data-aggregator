@@ -6,6 +6,10 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
 use Sentry\Laravel\Integration;
+use Aic\Hub\Foundation\Exceptions\AbstractException;
+use Aic\Hub\Foundation\Exceptions\UnauthorizedException;
+use Illuminate\Auth\AuthenticationException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -83,7 +87,46 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        // Sentrty error reporting
+        // Always render JSON for API routes, regardless of the request's Accept header
+        $exceptions->shouldRenderJsonWhen(
+            fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
+        );
+
+        // Avoid redirecting to a nonexistent `login` route on unauthenticated API requests
+        $exceptions->map(AuthenticationException::class, fn () => new UnauthorizedException());
+
+        // Render our own exceptions (and any other exception once debugging is off) using
+        // our API's standard {status, error, detail} shape instead of Laravel's default
+        // error page/stack trace dump
+        $exceptions->render(function (Throwable $e, $request) {
+            if (!$request->is('api/*') && !$request->expectsJson()) {
+                return null;
+            }
+
+            $isDetailed = $e instanceof AbstractException;
+
+            // Laravel's debug page is too useful to forgo for genuinely unexpected errors
+            if (config('app.debug') && !$isDetailed) {
+                return null;
+            }
+
+            $status = $e instanceof HttpExceptionInterface ? $e->getStatusCode() : 500;
+
+            $response = [
+                'status' => $status,
+                'error' => 'Sorry, something went wrong.',
+                'detail' => 'An unrecognized exception was thrown. Our developers have been alerted to the situation.',
+            ];
+
+            if ($isDetailed) {
+                $response['error'] = $e->getMessage();
+                $response['detail'] = $e->getDetail();
+            }
+
+            return response()->json($response, $status);
+        });
+
+        // Sentry error reporting
         $exceptions->reportable(function (Throwable $e) {
             Integration::captureUnhandledException($e);
         });
