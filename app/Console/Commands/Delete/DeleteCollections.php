@@ -89,7 +89,25 @@ class DeleteCollections extends AbstractImportCommand
                 ],
             ]));
 
+            $statusCode = null;
+            $statusLine = $http_response_header[0] ?? null;
+
+            if ($statusLine && preg_match('{^HTTP/\S+\s+(\d+)}', $statusLine, $match)) {
+                $statusCode = (int) $match[1];
+            }
+
+            if ($contents === false || $statusCode !== 200) {
+                $reason = $statusCode ? " (HTTP {$statusCode})" : '';
+                $this->warn('Skipping chunk: request to ' . $url . ' failed' . $reason);
+                return;
+            }
+
             $json = json_decode($contents);
+
+            if (!isset($json->data)) {
+                $this->warn('Skipping chunk: unexpected response from ' . $url);
+                return;
+            }
 
             $cdsIds = collect($json->data)->pluck('id');
 
