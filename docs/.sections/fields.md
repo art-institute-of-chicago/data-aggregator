@@ -125,6 +125,9 @@ Represents a person or organization. In the API, this includes artists. For a de
 * `death_date` *number* - The year this agent died
 * `description` *string* - A biographical description of the agent
 * `ulan_id` *number* - Unique identifier of this agent in Getty's ULAN
+* `vocab_ids` *object* - Map of vocabulary names to external identifiers (viaf, lccn, isni, gnd, etc.)
+* `wikidata_id` *string* - Wikidata Q-ID for this agent
+* `archives` *array* - Archive materials linked to this agent via LCCN
 * `suggest_autocomplete_boosted` *object* - Internal field to power the `/autocomplete` endpoint. Do not use directly.
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
@@ -297,6 +300,7 @@ Tag-like classifications of artworks and other resources. For a description of a
 * `title` *string* - The name of this resource
 * `subtype` *string* - Takes one of the following values: classification, material, technique, style, subject, department, theme
 * `parent_id` *string* - Unique identifier of this category's parent
+* `usage_count` *integer* - Number of artworks in the collection that use this term
 * `aat_id` *integer* - Identifier of reconciled (most similar) term in the Getty's Art and Architecture Thesaurus (AAT)
 * `suggest_autocomplete_all` *object* - Internal field to power the `/autosuggest` endpoint. Do not use directly.
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
@@ -900,3 +904,6 @@ An event on the website For a description of all the endpoints available for thi
 * `source_updated_at` *ISO 8601 date and time* - Date and time the resource was updated in the source system
 * `updated_at` *ISO 8601 date and time* - Date and time the record was updated in the aggregator database
 * `timestamp` *ISO 8601 date and time* - Date and time the record was updated in the aggregator search index
+
+
+
