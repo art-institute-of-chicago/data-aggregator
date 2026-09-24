@@ -8,7 +8,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->default(null)->nullable()->change();
         });
 
         Schema::table('artwork_artist', function (Blueprint $table) {
@@ -21,12 +21,12 @@ return new class () extends Migration {
         });
 
         Schema::table('artwork_dates', function (Blueprint $table) {
-            $table->boolean('is_preferred')->default(null)->change();
+            $table->boolean('is_preferred')->default(null)->nullable()->change();
         });
 
         Schema::table('artwork_place', function (Blueprint $table) {
-            $table->integer('artwork_place_qualifier_id')->nullable()->change();
-            $table->boolean('is_preferred')->nullable()->change();
+            $table->integer('artwork_place_qualifier_id')->nullable()->default(null)->change();
+            $table->boolean('is_preferred')->nullable()->default(null)->change();
         });
 
         Schema::table('artwork_term', function (Blueprint $table) {
@@ -36,70 +36,70 @@ return new class () extends Migration {
         });
 
         Schema::table('assets', function (Blueprint $table) {
-            $table->boolean('is_multimedia_resource')->default(null)->change();
-            $table->boolean('is_educational_resource')->default(null)->change();
-            $table->boolean('is_teacher_resource')->default(null)->change();
+            $table->boolean('is_multimedia_resource')->nullable()->default(null)->change();
+            $table->boolean('is_educational_resource')->nullable()->default(null)->change();
+            $table->boolean('is_teacher_resource')->nullable()->default(null)->change();
         });
 
         Schema::table('digital_catalogs', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('educator_resources', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('event_programs', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('events', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('generic_pages', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('highlights', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('mobile_artworks', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('mobile_sounds', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
-            $table->text('web_url')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
+            $table->text('web_url')->nullable()->default(null)->change();
         });
 
         Schema::table('press_releases', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('printed_catalogs', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('publications', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('sections', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('sites', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('tours', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
 
         Schema::table('web_exhibitions', function (Blueprint $table) {
-            $table->text('title')->nullable()->change();
+            $table->text('title')->nullable()->default(null)->change();
         });
     }
 

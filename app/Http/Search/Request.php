@@ -11,7 +11,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request as RequestFacade;
-use Illuminate\Support\Facades\Log;
 
 class Request
 {
@@ -551,7 +550,7 @@ class Request
             throw new BigLimitException();
         }
 
-        if (isset($size) && isset($from)) {
+        if (isset($from)) {
             if (Gate::allows('restricted-access')) {
                 $maxResources = config('aic.auth.max_resources_user');
             } else {

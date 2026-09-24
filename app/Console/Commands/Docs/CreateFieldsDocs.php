@@ -25,7 +25,7 @@ class CreateFieldsDocs extends AbstractDocCommand
         Storage::disk('local')->put('FIELDS.md', $doc);
 
         copy(
-            storage_path('app/FIELDS.md'),
+            storage_path('app/private/FIELDS.md'),
             base_path('docs/.sections/fields.md')
         );
     }

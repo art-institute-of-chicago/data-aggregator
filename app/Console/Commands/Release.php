@@ -36,6 +36,6 @@ class Release extends BaseCommand
 
         $dest = base_path('VERSION');
 
-        copy(storage_path('app/VERSION'), $dest);
+        copy(storage_path('app/private/VERSION'), $dest);
     }
 }

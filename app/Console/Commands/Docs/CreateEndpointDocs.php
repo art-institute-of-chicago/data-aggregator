@@ -25,7 +25,7 @@ class CreateEndpointDocs extends AbstractDocCommand
         Storage::disk('local')->put('ENDPOINTS.md', $doc);
 
         copy(
-            storage_path('app/ENDPOINTS.md'),
+            storage_path('app/private/ENDPOINTS.md'),
             base_path('docs/.sections/endpoints.md')
         );
     }

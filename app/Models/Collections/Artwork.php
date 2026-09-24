@@ -58,7 +58,7 @@ class Artwork extends CollectionsModel
      * Scope a query to only include permanent collection items.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Query\Builder
      */
     public function scopeArtworks($query)
     {
@@ -92,7 +92,7 @@ class Artwork extends CollectionsModel
      * Scope a query to only include deaccessioned artworks.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Query\Builder
      */
     public function scopeDeaccessions($query)
     {
@@ -425,7 +425,7 @@ class Artwork extends CollectionsModel
      * Artworks from three different catalogues: Paintings at the Art Institute of Chicago: Highlights of the Collection,
      * The Essential Guide, and Master Paintings in the Art Institute of Chicago.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection|array
      */
     public static function boostedIds()
     {
@@ -511,7 +511,7 @@ class Artwork extends CollectionsModel
      * Provides a bucketed rank number for this artwork. Only featured artworks
      * are given a rank number. Rank is noncontiguous.
      *
-     * @return int
+     * @return int|null
      */
     public function getBoostRank()
     {

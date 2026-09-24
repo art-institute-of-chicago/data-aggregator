@@ -4,12 +4,7 @@ namespace Database\Factories;
 
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\Ring\Future\CompletedFutureArray;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Reflector;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;

@@ -12,7 +12,7 @@ class Tour extends BaseTransformer
         getSuggestFields as traitGetSuggestFields;
     }
 
-    protected $availableIncludes = ['tour_stops'];
+    protected array $availableIncludes = ['tour_stops'];
 
     public function includeTourStops($tour)
     {

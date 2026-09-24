@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Illuminate\Contracts\Console\Kernel;
 use Tests\Helpers\Factory;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -10,7 +9,6 @@ use Illuminate\Foundation\Testing\RefreshDatabaseState;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
     use Factory;
     use RefreshDatabase {
         RefreshDatabase::refreshTestDatabase as parentRefreshTestDatabase;

@@ -2,6 +2,7 @@
 
 namespace App\Library\Migrations;
 
+use Exception;
 use Illuminate\Database\Migrations\MigrationCreator as BaseMigrationCreator;
 
 class MigrationCreator extends BaseMigrationCreator
@@ -23,13 +24,13 @@ class MigrationCreator extends BaseMigrationCreator
     protected function getStub($table, $create)
     {
         if (empty($this->stubFilename)) {
-            throw new LogicException('No stub filename defined');
+            throw new Exception('No stub filename defined');
         }
 
         $stubPath = $this->customStubPath . '/' . $this->stubFilename;
 
         if (!$this->files->exists($stubPath)) {
-            throw new LogicException('Stub does not exist: ' . $stubPath);
+            throw new Exception('Stub does not exist: ' . $stubPath);
         }
 
         return $this->files->get($stubPath);

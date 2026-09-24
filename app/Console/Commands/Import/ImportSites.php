@@ -23,7 +23,7 @@ class ImportSites extends AbstractImportCommand
 
         Storage::disk('local')->put('archive.json', $contents);
 
-        $contents = Storage::get('archive.json');
+        $contents = Storage::disk('local')->get('archive.json');
 
         $results = json_decode($contents);
 

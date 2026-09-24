@@ -8,7 +8,8 @@ class AIServiceStatus
     {
         if (!config('azure.status', false)) {
             return response()->json([
-                'error' => 'AI services are currently disabled'
+                'status' => 503,
+                'error' => 'AI services are currently disabled',
             ], 503);
         }
 

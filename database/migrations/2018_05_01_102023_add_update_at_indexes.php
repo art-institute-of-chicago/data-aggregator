@@ -50,11 +50,6 @@ return new class () extends Migration {
 
     public function up(): void
     {
-        // TODO: Creating indexes isn't friendly with SQLite
-        if (App::environment('testing')) {
-            return;
-        }
-
         foreach ($this->tableNames as $tableName) {
             Schema::table($tableName, function (Blueprint $table) {
                 $table->index('updated_at');
@@ -64,10 +59,6 @@ return new class () extends Migration {
 
     public function down(): void
     {
-        if (App::environment('testing')) {
-            return;
-        }
-
         foreach ($this->tableNames as $tableName) {
             Schema::table($tableName, function (Blueprint $table) {
                 $table->dropIndex(['updated_at']);

@@ -42,6 +42,10 @@ class ImportAssetsFull extends AbstractImportCommand
         $model = $this->getModelForEndpoint($endpoint);
 
         $this->import('assets', $model, $endpoint, $page);
+
+        if ($endpoint === 'images') {
+            $this->call('import:assets-iiif-geometry');
+        }
     }
 
     protected function getModelForEndpoint($endpoint)

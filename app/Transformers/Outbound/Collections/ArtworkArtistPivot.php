@@ -17,7 +17,7 @@ class ArtworkArtistPivot extends BaseTransformer
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'artist',
         'artwork',
         'role',

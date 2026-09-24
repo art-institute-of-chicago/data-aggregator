@@ -5,7 +5,6 @@ namespace App\Models\Web\Vectors;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Pgvector\Laravel\Vector;
-use TextEmbeddingWeight;
 
 class TextEmbedding extends BaseModel
 {

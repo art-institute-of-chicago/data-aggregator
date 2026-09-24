@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Aic\Hub\Foundation\AbstractCommand as BaseCommand;
 use App\Behaviors\ImportsData;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 abstract class AbstractImportCommand extends BaseCommand
@@ -34,9 +35,9 @@ abstract class AbstractImportCommand extends BaseCommand
      * @link http://api.symfony.com/3.3/Symfony/Component/Console/Command/Command.html
      * @link https://github.com/laravel/framework/blob/5.4/src/Illuminate/Console/Command.php
      *
-     * @return mixed
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Not an ideal solution, but some models are really heavy
         ini_set('memory_limit', '-1');
@@ -73,5 +74,50 @@ abstract class AbstractImportCommand extends BaseCommand
         }
 
         return $result;
+    }
+
+    /**
+     * Write a string as information output, and also log it so it's
+     * forwarded to Sentry via the `sentry_logs` channel.
+     *
+     * @param  string  $string
+     * @param  string|int|null  $verbosity
+     * @return void
+     */
+    public function info($string, $verbosity = null)
+    {
+        parent::info($string, $verbosity);
+
+        Log::info($string);
+    }
+
+    /**
+     * Write a string as warning output, and also log it so it's
+     * forwarded to Sentry via the `sentry_logs` channel.
+     *
+     * @param  string  $string
+     * @param  string|int|null  $verbosity
+     * @return void
+     */
+    public function warn($string, $verbosity = null)
+    {
+        parent::warn($string, $verbosity);
+
+        Log::warning($string);
+    }
+
+    /**
+     * Write a string as error output, and also log it so it's
+     * forwarded to Sentry via the `sentry_logs` channel.
+     *
+     * @param  string  $string
+     * @param  string|int|null  $verbosity
+     * @return void
+     */
+    public function error($string, $verbosity = null)
+    {
+        parent::error($string, $verbosity);
+
+        Log::error($string);
     }
 }

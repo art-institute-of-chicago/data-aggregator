@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +25,7 @@ class DecodeParams
             }
 
             // Prevents issues with `msearch`, which expects array as root item
-            $request->query = new ParameterBag($request->except(['params']));
+            $request->query = new InputBag($request->except(['params']));
         }
 
         return $next($request);

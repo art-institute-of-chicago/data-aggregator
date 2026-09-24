@@ -43,8 +43,8 @@ class RenameColumns extends AbstractCommand
     {
         return $this->getMapping($oldNeedle, $newNeedle, function ($tableName) {
             return array_map(
-                fn ($index) => substr($index->getName(), strlen($this->prefix)),
-                $this->manager->listTableIndexes($this->prefix . $tableName)
+                fn ($index) => substr($index['name'], strlen($this->prefix)),
+                Schema::getIndexes($tableName)
             );
         });
     }

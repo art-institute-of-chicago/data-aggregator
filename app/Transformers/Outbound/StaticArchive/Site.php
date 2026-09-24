@@ -7,7 +7,7 @@ use App\Transformers\Outbound\AbstractTransformer as BaseTransformer;
 
 class Site extends BaseTransformer
 {
-    protected $availableIncludes = ['artworks'];
+    protected array $availableIncludes = ['artworks'];
 
     public function includeArtworks($site)
     {

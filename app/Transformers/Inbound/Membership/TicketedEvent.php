@@ -20,7 +20,7 @@ class TicketedEvent extends MembershipTransformer
     }
 
     // TODO: Abstract this to Datum?
-    private function getDateTime(string $value = null)
+    private function getDateTime(?string $value = null)
     {
         return $value ? new Carbon($value) : null;
     }

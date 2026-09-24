@@ -2,8 +2,6 @@
 
 namespace App\Console\Helpers;
 
-use Laravel\Scout\EngineManager;
-
 trait Indexer
 {
     /**

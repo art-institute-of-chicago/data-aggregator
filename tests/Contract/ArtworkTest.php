@@ -2,6 +2,7 @@
 
 namespace Tests\Contract;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\AgentType;
 use App\Models\Collections\Agent;
@@ -26,9 +27,10 @@ class ArtworkTest extends ContractTestCase
         parent::tearDown();
     }
 
-    /** @test
+    /**
      * List of fields taken from https://docs.google.com/spreadsheets/d/1F8YkAb-xaAAfsuWtXmll84nthfsfbBnxm4yU3lX0uLY
      */
+    #[Test]
     public function it_fetches_fields_used_by_mobile(): void
     {
         $this->it_fetches_fields([
@@ -48,12 +50,13 @@ class ArtworkTest extends ContractTestCase
         ]);
     }
 
-    /** @test
+    /**
      * The following tests determin which fields are used on the website by:
      * * On the website, set `API_LOGGER=true` in `.env`
      * * Access a page and watch the log
      * * After the page is done loading, the log will dump all the fields requests for each API model
      */
+    #[Test]
     public function it_fetches_fields_used_on_website_home_page(): void
     {
         $this->it_fetches_fields(
@@ -70,7 +73,7 @@ class ArtworkTest extends ContractTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_fields_used_on_website_collection_landing_page(): void
     {
         $this->it_fetches_fields([
@@ -83,7 +86,7 @@ class ArtworkTest extends ContractTestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_fields_used_on_website_artwork_detail_page(): void
     {
         $this->it_fetches_fields(
@@ -135,7 +138,7 @@ class ArtworkTest extends ContractTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_fields_used_on_website_artist_detail_page(): void
     {
         $this->it_fetches_fields(
@@ -153,7 +156,7 @@ class ArtworkTest extends ContractTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_fields_used_on_website_article_page_with_artwork_block_and_gallery(): void
     {
         $this->it_fetches_fields([

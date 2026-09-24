@@ -22,7 +22,7 @@ class ElasticsearchManager
     /**
      * The Elasticsearch connection factory instance.
      *
-     * @var \Database\Factory\ElasticsearchFactory
+     * @var \Database\Factories\ElasticsearchFactory
      */
     protected $factory;
 
@@ -50,7 +50,7 @@ class ElasticsearchManager
      *
      * @return \Elastic\Elasticsearch\Client
      */
-    public function connection(string $name = null): Client
+    public function connection(?string $name = null): Client
     {
         $name = $name ?: $this->getDefaultConnection();
 

@@ -79,7 +79,7 @@ class Artwork extends CollectionsTransformer
     /**
      * Get an artwork's publish categories for syncing.
      *
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     private function getSyncCategories(Datum $datum)
     {
@@ -93,7 +93,7 @@ class Artwork extends CollectionsTransformer
     /**
      * Get an artwork's index terms for syncing.
      *
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     private function getSyncTerms(Datum $datum)
     {

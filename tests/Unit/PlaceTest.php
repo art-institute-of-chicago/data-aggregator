@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Collections\Place;
 
@@ -10,7 +11,7 @@ class PlaceTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_provides_ccby_licensing_details(): void
     {
         $place = $this->make(Place::class);

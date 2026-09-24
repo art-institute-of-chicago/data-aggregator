@@ -3,6 +3,7 @@
 namespace Tests\Basic;
 
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 abstract class BasicTestCase extends TestCase
 {
@@ -55,7 +56,7 @@ abstract class BasicTestCase extends TestCase
         return $this->route ?: app('Resources')->getEndpointForModel($m);
     }
 
-    /** @test */
+    #[Test]
     public function it_400s_if_nonnumerid_nonuuid_is_passed(): void
     {
         $class = $this->model();
@@ -90,7 +91,7 @@ abstract class BasicTestCase extends TestCase
 
     // @TODO: Fix 404s tests w/ regards to id format
 
-    /** @test */
+    #[Test]
     public function it_404s_if_not_found(): void
     {
         $class = $this->model();
@@ -127,25 +128,6 @@ abstract class BasicTestCase extends TestCase
         $class::query()->delete();
     }
 
-    public function it_fetches_a_single($extraValue = ''): void
-    {
-        $class = $this->model();
-        $endpoint = $this->route($class);
-
-        $model = $this->make($class);
-        $id = $model->getAttributeValue($lastModel->getKeyName());
-
-        $response = $this->getJson('api/v1/' . $endpoint . '/' . $id . ($extraValue ? '/' . $extraValue : ''));
-        $response->assertSuccessful();
-
-        $resource = $response->json()['data'];
-        $this->assertArrayHasKeys($resource, ['id', 'title']);
-
-        $this->assertArrayHasKeys($resource, $this->keys);
-
-        $class::query()->delete();
-    }
-
     public function it_fetches_multiple(): void
     {
         $class = $this->model();
@@ -167,7 +149,7 @@ abstract class BasicTestCase extends TestCase
         $class::query()->delete();
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_all_with_fields(): void
     {
         $validFields = $this->getValidFields();
@@ -191,7 +173,7 @@ abstract class BasicTestCase extends TestCase
         $m::query()->delete();
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_a_single_with_fields(): void
     {
         $validFields = $this->getValidFields();
@@ -213,7 +195,7 @@ abstract class BasicTestCase extends TestCase
         $m::query()->delete();
     }
 
-    /** @test */
+    #[Test]
     public function it_fetches_multiple_with_fields(): void
     {
         $validFields = $this->getValidFields();
@@ -236,9 +218,10 @@ abstract class BasicTestCase extends TestCase
         $m::query()->delete();
     }
 
-    /** @test
+    /**
      * List of fields taken from https://docs.google.com/spreadsheets/d/1F8YkAb-xaAAfsuWtXmll84nthfsfbBnxm4yU3lX0uLY
      */
+    #[Test]
     public function it_fetches_fields_used_by_mobile_app(): void
     {
         if ($this->fieldsUsedByMobile) {
@@ -255,7 +238,7 @@ abstract class BasicTestCase extends TestCase
                 $this->assertArrayHasKeys($resource, $this->fieldsUsedByMobile);
             }
 
-            $class::query()->delete();
+            $m::query()->delete();
         } else {
             $this->assertEmpty($this->fieldsUsedByMobile);
         }
@@ -265,8 +248,6 @@ abstract class BasicTestCase extends TestCase
      * Return an id that is valid, yet has a negligent likelihood of pointing at an actual object.
      * Must pass the relevant controller's `validateId` check.
      * Meant to be overwritten. Defaults to numeric id.
-     *
-     * @var mixed
      */
     protected function getRandomId()
     {
@@ -278,8 +259,6 @@ abstract class BasicTestCase extends TestCase
      * Meant to account for any weird transformations. Does not discriminate w/ includes.
      *
      * @TODO Determine if the `$extraValue` approach is needed here.
-     *
-     * @var string
      */
     protected function getValidFields()
     {

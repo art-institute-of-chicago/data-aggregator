@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Import;
 
+use App\Models\Shop\Product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use League\Csv\Reader;

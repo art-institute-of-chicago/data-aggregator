@@ -105,7 +105,7 @@ class SearchController extends BaseController
      * @link https://www.elastic.co/guide/en/elasticsearch/reference/5.3/search-multi-search.html
      * @link https://discuss.elastic.co/t/elasticsearch-5-0-php-msearch/66716
      *
-     * @return array
+     * @return \Illuminate\Http\Response
      */
     public function msearch(Request $request)
     {
@@ -205,7 +205,7 @@ class SearchController extends BaseController
     /**
      * Helper for shared multi-query functionality.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|array
      */
     private function mquery($requestMethod, $responseMethod, Request $request, $requestArgs = null)
     {

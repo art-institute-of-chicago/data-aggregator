@@ -125,7 +125,7 @@ return new class () extends Migration {
         foreach ($this->fields as $tableName => $fieldNames) {
             Schema::table($tableName, function (Blueprint $table) use ($fieldNames) {
                 foreach ($fieldNames as $fieldName) {
-                    $table->text($fieldName)->change();
+                    $table->text($fieldName)->nullable()->change();
                 }
             });
         }
@@ -136,7 +136,7 @@ return new class () extends Migration {
         foreach ($this->fields as $tableName => $fieldNames) {
             Schema::table($tableName, function (Blueprint $table) use ($fieldNames) {
                 foreach ($fieldNames as $fieldName) {
-                    $table->string($fieldName)->change();
+                    $table->string($fieldName)->nullable()->change();
                 }
             });
         }

@@ -24,7 +24,7 @@ class Artwork extends BaseTransformer
         getSuggestFields as traitGetSuggestFields;
     }
 
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'artist_pivots',
         'dates',
         'place_pivots',
@@ -158,7 +158,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => 'integer',
             ],
             'date_display' => [
-                'doc' => 'Readable, free-text description of the period of time associated with the creation of this work. This might include date terms like Dynasty, Era etc. Written by curators and editors in house style, and is the preferred field for display on websites and apps. ',
+                'doc' => 'Readable, free-text description of the period of time associated with the creation of this work. This might include date terms like Dynasty, Era etc. Written by curators and editors in house style, and is the preferred field for display on websites and apps.',
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
