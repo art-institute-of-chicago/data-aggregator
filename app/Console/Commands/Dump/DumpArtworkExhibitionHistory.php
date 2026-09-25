@@ -7,6 +7,7 @@ use App\Models\Collections\Exhibition;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Uri;
 
 #[Signature('dump:artwork-to-exhibition')]
@@ -49,32 +50,44 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
         'Recto: ',
     ];
 
+    public const EXHIBITION_SIMILARITY = .90; // 90%
+
     public Collection $artworksWithExhibitionHistory;
+
+    public Collection $exhibitionTitlesById;
 
     public array $aicMatches = [];
 
-    public array $exhibitions = [];
+    public array $exhibitionMatches = [];
 
     public function handle()
     {
         $this->info('Loading artworks with exhibition history');
-        $this->artworksWithExhibitionHistory = Artwork::whereNotNull('exhibition_history')->get();
-        $matchCount = $this->artworksWithExhibitionHistory->count();
-        $this->info("Found: {$matchCount} artworks");
+        $this->artworksWithExhibitionHistory = Artwork::whereNotNull('exhibition_history')->limit(1000)->get();
+        $artworkCount = $this->artworksWithExhibitionHistory->count();
+        Log::info("Artwork Exhibition History: {$artworkCount} artworks with exhibition history");
 
-        $titles = collect(self::INSTITUTE_TITLES)->pluck('text')->join(', ');
-        $this->info("Matching: {$titles}");
+        $titles = collect(self::INSTITUTE_TITLES)->pluck('text')->map(fn($title) => "\"$title\"")->join(', ');
+        $this->info("Matching entries with similar institute titles: {$titles}");
         $this->setAicMatches();
-        $matchCount = collect($this->aicMatches)->flatten(1)->count();
-        $this->info("Found: {$matchCount} exhibition history matches");
+        $aicMatchCount = collect($this->aicMatches)->flatten(1)->count();
+        Log::info("Artwork Exhibition History: {$aicMatchCount} {$titles} exhibition history entries");
 
-        $this->info('Matching: exhibitions');
-        $this->setExhibitions();
-        $matchCount = collect($this->exhibitions)->count();
-        $this->info("Found: {$matchCount} exhibitions");
+        $this->info('Loading exhibition titles');
+        $this->exhibitionTitlesById = Exhibition::all()->pluck('title', 'id');
+        $exhibitionCount = $this->exhibitionTitlesById->count();
+        Log::info("Artwork Exhibition History: {$exhibitionCount} exhibitions");
 
+        $this->info('Matching exhibitions by title');
+        $this->setExhibitionMatches();
+        $exhibitionMatchCount = collect($this->exhibitionMatches)->count();
+        Log::info("Artwork Exhibition History: {$exhibitionMatchCount} matching exhibitions");
+
+        $this->info('Saving matches to file');
         $path = $this->saveToCsv();
-        $this->info("Saved to $path");
+        Log::info("Artwork Exhibition History: {$exhibitionMatchCount} entries saved to $path");
+
+        $this->info('Done!');
     }
 
     protected function setAicMatches(): void
@@ -98,44 +111,55 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
         }
     }
 
-    protected function setExhibitions()
+    protected function setExhibitionMatches()
     {
-        $this->info('- Matching on `a href=`');
-        $matchCount = 0;
-        foreach ($this->aicMatches as $artworkId => $exhibitions) {
-            foreach ($exhibitions as $exhibition) {
-                $uriMatches = [];
-                preg_match('/a href="([^"]*)"/', $exhibition['description'], $uriMatches);
-                if (isset($uriMatches[1]) && str($uriMatches[1])->isUrl()) {
-                    $uri = Uri::of($uriMatches[1]);
-                    $host = $uri->host();
-                    $segments = $uri->pathSegments();
-                    if (in_array($host, self::ALLOWED_HOSTS) && $segments[0] == 'exhibitions') {
-                        $matchCount++;
-                        $this->exhibitions[] = [
-                            'artwork_id' => $artworkId,
-                            'exhibition_id' => $segments[1],
-                            'exhibition_history' => $exhibition['exhibition_history'],
-                        ];
+        foreach ($this->aicMatches as $artworkId => $matches) {
+            foreach ($matches as $match) {
+                $metadata = [
+                    'artwork_id' => $artworkId,
+                    'exhibition_history' => $match['exhibition_history']
+                ];
+                foreach ([
+                    'findByUrl',
+                    'findByTitle',
+                    'findBySimilarTitle'
+                ] as $method) {
+                    $exhibitions = $this->$method($metadata, $match);
+                    if (!empty($exhibitions)) {
+                        $this->exhibitionMatches = array_merge($this->exhibitionMatches, $exhibitions);
                     }
                 }
             }
         }
-        $this->info("- Found: {$matchCount} urls");
     }
 
     protected function saveToCsv()
     {
+        $matches = collect($this->exhibitionMatches)->sortBy([['artwork_id', 'asc'], ['exhibition_id', 'asc']]);
         $path = storage_path('app/exhibition_history-' . now()->format('Y-m-d-His') . '.csv');
         $csv = fopen($path, 'w');
         fwrite($csv, chr(0xEF) . chr(0xBB) . chr(0xBF)); // UTF-8 BOM
-        fputcsv($csv, ['artwork_id', 'exhibition_id', 'exhibition_history']);
-        foreach (collect($this->exhibitions) as $exhibition) {
-            fputcsv($csv, [
-                (int) $exhibition['artwork_id'],
-                (int) $exhibition['exhibition_id'],
-                addslashes($exhibition['exhibition_history']),
-            ]);
+        fputcsv($csv,
+            [
+                'artwork_id',
+                'exhibition_id',
+                'exhibition_title',
+                'match_type',
+                'exhibition_history',
+            ],
+            separator: "\t",
+        );
+        foreach ($matches as $match) {
+            fputcsv($csv,
+                [
+                    (int) $match['artwork_id'],
+                    (int) $match['exhibition_id'],
+                    $match['exhibition_title'],
+                    $match['match_type'],
+                    addslashes($match['exhibition_history']),
+                ],
+                separator: "\t",
+            );
         }
 
         return $path;
@@ -161,5 +185,67 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
         }
 
         return $aicReferences;
+    }
+
+    private function findByUrl(array $metadata, array $match): array
+    {
+        $matches = [];
+        $uriMatches = [];
+        preg_match('/a href="([^"]*)"/', $match['description'], $uriMatches);
+        if (isset($uriMatches[1]) && str($uriMatches[1])->isUrl()) {
+            $uri = Uri::of($uriMatches[1]);
+            $host = $uri->host();
+            $segments = $uri->pathSegments();
+            if (in_array($host, self::ALLOWED_HOSTS) && $segments[0] == 'exhibitions') {
+                $exhibition = Exhibition::find($segments[1]);
+                $matches[] = $metadata + [
+                    'match_type' => 'url',
+                    'exhibition_id' => $exhibition->id,
+                    'exhibition_title' => $exhibition->title,
+                ];
+            }
+        }
+        return $matches;
+    }
+
+    private function findByTitle(array $metadata, array $match): array
+    {
+        $matches = [];
+        $titleMatches = [];
+        preg_match('/(?<!a href=)"([^"]*)"/', $match['description'], $titleMatches);
+        if (isset($titleMatches[1])) {
+            $normalizedTitle = trim($titleMatches[1], ',.');
+            foreach (Exhibition::whereLike('title', "%$normalizedTitle%")->get() as $exhibition) {
+                $matches[] = $metadata + [
+                    'match_type' => 'title',
+                    'exhibition_id' => $exhibition->id,
+                    'exhibition_title' => $exhibition->title,
+                ];
+            }
+        }
+        return $matches;
+    }
+
+    private function findBySimilarTitle(array $metadata, array $match): array
+    {
+        $matches = [];
+        $titleMatches = [];
+        preg_match('/(?<!a href=)"([^"]*)"/', $match['description'], $titleMatches);
+        if (isset($titleMatches[1])) {
+            foreach ($this->exhibitionTitlesById as $id => $title) {
+                $percent = 0.0;
+                $similarity = similar_text($title, $titleMatches[1], $percent);
+                if ($percent >= (self::EXHIBITION_SIMILARITY * 100) &&
+                    $similarity >= (self::EXHIBITION_SIMILARITY * strlen($title))
+                ) {
+                    $matches[] = $metadata + [
+                        'match_type' => 'similarity',
+                        'exhibition_id' => $id,
+                        'exhibition_title' => $title,
+                    ];
+                }
+            }
+        }
+        return $matches;
     }
 }
