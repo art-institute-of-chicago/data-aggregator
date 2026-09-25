@@ -233,7 +233,8 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
             foreach ($this->exhibitionTitlesById as $id => $title) {
                 $percent = 0.0;
                 $similarity = similar_text($title, $titleMatches[1], $percent);
-                if ($percent >= (self::EXHIBITION_SIMILARITY * 100) &&
+                if (
+                    $percent >= (self::EXHIBITION_SIMILARITY * 100) &&
                     $similarity >= (self::EXHIBITION_SIMILARITY * strlen($title))
                 ) {
                     $matches[] = $metadata + [
