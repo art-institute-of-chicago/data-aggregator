@@ -76,12 +76,12 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
         $this->info('Loading exhibition titles');
         $this->exhibitionTitlesById = Exhibition::all()->pluck('title', 'id');
         $exhibitionCount = $this->exhibitionTitlesById->count();
-        Log::info("Artwork Exhibition History: {$exhibitionCount} exhibitions");
+        Log::info("Artwork Exhibition History: {$exhibitionCount} exhibitions total");
 
         $this->info('Matching exhibitions by title');
         $this->setExhibitionMatches();
         $exhibitionMatchCount = collect($this->exhibitionMatches)->count();
-        Log::info("Artwork Exhibition History: {$exhibitionMatchCount} matching exhibitions");
+        Log::info("Artwork Exhibition History: {$exhibitionMatchCount} exhibition matches");
 
         $this->info('Saving matches to file');
         $path = $this->saveToCsv();
@@ -212,8 +212,8 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
         $titleMatches = [];
         preg_match('/(?<!a href=)"([^"]*)"/', $match['description'], $titleMatches);
         if (isset($titleMatches[1])) {
-            $normalizedTitle = trim($titleMatches[1], ',.');
-            foreach (Exhibition::whereLike('title', "%$normalizedTitle%")->get() as $exhibition) {
+            $normalizedTitle = trim($titleMatches[1], ',. ');
+            foreach (Exhibition::whereLike('title', "$normalizedTitle")->get() as $exhibition) {
                 $matches[] = $metadata + [
                     'match_type' => 'title',
                     'exhibition_id' => $exhibition->id,
