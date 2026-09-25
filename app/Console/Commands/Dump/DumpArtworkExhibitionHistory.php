@@ -111,7 +111,7 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
         }
     }
 
-    protected function setExhibitionMatches()
+    protected function setExhibitionMatches(): void
     {
         foreach ($this->aicMatches as $artworkId => $matches) {
             foreach ($matches as $match) {
@@ -119,11 +119,7 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
                     'artwork_id' => $artworkId,
                     'exhibition_history' => $match['exhibition_history']
                 ];
-                foreach ([
-                    'findByUrl',
-                    'findByTitle',
-                    'findBySimilarTitle'
-                ] as $method) {
+                foreach (['findByUrl', 'findByTitle', 'findBySimilarTitle'] as $method) {
                     $exhibitions = $this->$method($metadata, $match);
                     if (!empty($exhibitions)) {
                         $this->exhibitionMatches = array_merge($this->exhibitionMatches, $exhibitions);
@@ -133,13 +129,14 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
         }
     }
 
-    protected function saveToCsv()
+    protected function saveToCsv(): string
     {
         $matches = collect($this->exhibitionMatches)->sortBy([['artwork_id', 'asc'], ['exhibition_id', 'asc']]);
         $path = storage_path('app/exhibition_history-' . now()->format('Y-m-d-His') . '.csv');
         $csv = fopen($path, 'w');
         fwrite($csv, chr(0xEF) . chr(0xBB) . chr(0xBF)); // UTF-8 BOM
-        fputcsv($csv,
+        fputcsv(
+            $csv,
             [
                 'artwork_id',
                 'exhibition_id',
@@ -150,7 +147,8 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
             separator: "\t",
         );
         foreach ($matches as $match) {
-            fputcsv($csv,
+            fputcsv(
+                $csv,
                 [
                     (int) $match['artwork_id'],
                     (int) $match['exhibition_id'],
