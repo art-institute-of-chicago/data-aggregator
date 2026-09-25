@@ -63,7 +63,7 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
     public function handle()
     {
         $this->info('Loading artworks with exhibition history');
-        $this->artworksWithExhibitionHistory = Artwork::whereNotNull('exhibition_history')->limit(1000)->get();
+        $this->artworksWithExhibitionHistory = Artwork::whereNotNull('exhibition_history')->get();
         $artworkCount = $this->artworksWithExhibitionHistory->count();
         Log::info("Artwork Exhibition History: {$artworkCount} artworks with exhibition history");
 
