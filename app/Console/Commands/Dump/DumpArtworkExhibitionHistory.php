@@ -123,6 +123,7 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
                     $exhibitions = $this->$method($metadata, $match);
                     if (!empty($exhibitions)) {
                         $this->exhibitionMatches = array_merge($this->exhibitionMatches, $exhibitions);
+                        continue 2; // Do not add duplicate exhibitions found by another method
                     }
                 }
             }
@@ -195,11 +196,12 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
             $host = $uri->host();
             $segments = $uri->pathSegments();
             if (in_array($host, self::ALLOWED_HOSTS) && $segments[0] == 'exhibitions') {
-                $exhibition = Exhibition::find($segments[1]);
+                $id = $segments[1];
+                $title = $this->exhibitionTitlesById[$id];
                 $matches[] = $metadata + [
                     'match_type' => 'url',
-                    'exhibition_id' => $exhibition->id,
-                    'exhibition_title' => $exhibition->title,
+                    'exhibition_id' => $id,
+                    'exhibition_title' => $title,
                 ];
             }
         }
