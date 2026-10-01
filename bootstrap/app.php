@@ -5,6 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use Sentry\Laravel\Integration;
 use Aic\Hub\Foundation\Exceptions\AbstractException;
 use Aic\Hub\Foundation\Exceptions\UnauthorizedException;
@@ -15,7 +16,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__ . '/../routes/web.php',
         api: __DIR__ . '/../routes/api.php',
-        commands: __DIR__ . '/../routes/console.php',
         health: '/up',
         then: function () {
             Route::middleware('ai.service.status')
@@ -132,7 +132,225 @@ return Application::configure(basePath: dirname(__DIR__))
         });
     })
     ->withSchedule(function (Schedule $schedule): void {
+        $FOR_ONE_YEAR = 525600;
+
         $schedule->command('report:category-terms')
             ->dailyAt('20:00')
-            ->withoutOverlapping();
+            ->withoutOverlapping()
+            ->sentryMonitor();
+
+        $schedule->command('cache:prune-stale-tags')
+            ->hourly()
+            ->sentryMonitor();
+
+        $schedule->command('update:cloudfront-ips')
+            ->hourly()
+            ->sentryMonitor();
+
+        //
+        // Mobile app
+        $schedule->command('import:mobile')
+            ->dailyAt('23:05')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        //
+        // Shop
+        $schedule->command('import:products-full', ['--yes'])
+            ->dailyAt('23:10')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        //
+        // Website
+        $schedule->command('import:web-full', ['articles', '--yes'])
+            ->dailyAt('23:15')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['artworks', '--yes'])
+            ->dailyAt('23:18')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['artists', '--yes'])
+            ->dailyAt('23:21')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['events', '--yes'])
+            ->dailyAt('23:24')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['event-occurrences', '--yes'])
+            ->dailyAt('23:27')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['event-programs', '--yes'])
+            ->dailyAt('23:30')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['exhibitions', '--yes'])
+            ->dailyAt('23:33')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['highlights', '--yes'])
+            ->dailyAt('23:36')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['genericpages', '--yes'])
+            ->dailyAt('23:39')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['pressreleases', '--yes'])
+            ->dailyAt('23:42')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['educatorresources', '--yes'])
+            ->dailyAt('23:45')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['digitalpublications', '--yes'])
+            ->dailyAt('23:48')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['digitalpublicationarticles', '--yes'])
+            ->dailyAt('23:51')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['printedpublications', '--yes'])
+            ->dailyAt('23:54')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['staticpages', '--yes'])
+            ->dailyAt('23:57')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web-full', ['hours', '--yes'])
+            ->everyFiveMinutes()
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:web')
+            ->everyFiveMinutes()
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('ai:embed-description')
+            ->everyMinute()
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        //
+        // Archived Static sites
+        $schedule->command('import:sites', ['--yes'])
+            ->monthlyOn(1, '03:00')
+            ->sentryMonitor();
+
+        //
+        // Archival materials from Alma/Primo
+        if (!App::environment('production')) {
+            $schedule->command('import:archives', ['--yes'])
+                ->dailyAt('23:08')
+                ->withoutOverlapping($FOR_ONE_YEAR)
+                ->sentryMonitor();
+        }
+
+        //
+        // Digital scholarly catalogues
+        $schedule->command('import:dsc', ['--yes'])
+            ->monthlyOn(1, '03:05')
+            ->sentryMonitor();
+
+        //
+        // Google Analytics
+        $schedule->command('import:analytics')
+            ->monthlyOn(1, '03:10')
+            ->sentryMonitor();
+
+        //
+        // Ticketed events
+        $schedule->command('import:events-ticketed-full', ['--unreset'])
+            ->everyFiveMinutes()
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        //
+        // Collections and DAMS
+        $schedule->command('delete:assets')
+            ->everyFiveMinutes()
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('delete:collections')
+            ->everyFiveMinutes()
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:assets')
+            ->everyFiveMinutes()
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('import:collections')
+            ->everyFiveMinutes()
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        //
+        // Virtual lines
+        $schedule->command('import:queues')
+            ->everyMinute()
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        //
+        // Data enhancer
+        $schedule->command('import:enhancer')
+            ->everyMinute()
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        if (!App::environment('production')) {
+            $schedule->command('import:artist-enrichment')
+                ->hourly()
+                ->withoutOverlapping($FOR_ONE_YEAR)
+                ->sentryMonitor();
+        }
+
+        // API-231, API-232: Temporary remediation! Artworks can't touch artists.
+        $schedule->command('scout:import', [
+            \App\Models\Collections\Agent::class,
+        ])
+            ->hourly()
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        // API-401: Make sure the artworks index is always in sync with the datebase
+        $schedule->command('scout:import', [
+            \App\Models\Collections\Artwork::class,
+        ])
+            ->dailyAt('22:10')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        if (config('aic.dump.schedule_enabled')) {
+            $schedule->command('dump:schedule')
+                ->weekly()
+                ->sundays()
+                ->withoutOverlapping($FOR_ONE_YEAR)
+                ->sentryMonitor();
+        }
     })->create();
