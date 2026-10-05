@@ -125,6 +125,20 @@ class Artwork extends BaseTransformer
                 ],
                 'is_restricted' => true,
             ],
+            'pageviews_by_month' => [
+                'doc' => 'Approx. number of times this artwork was viewed on our website, per calendar month, over the last 24 months',
+                'type' => 'array',
+                'elasticsearch' => [
+                    'mapping' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'date' => ['type' => 'keyword'],
+                            'pageviews' => ['type' => 'integer'],
+                        ],
+                    ],
+                ],
+                'is_restricted' => true,
+            ],
             'has_not_been_viewed_much' => [
                 'doc' => 'Whether the artwork hasn\'t been visited on our website very much',
                 'type' => 'boolean',
