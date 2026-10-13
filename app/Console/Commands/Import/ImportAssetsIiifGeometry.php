@@ -33,6 +33,7 @@ class ImportAssetsIiifGeometry extends BaseCommand
         if (!$this->option('full')) {
             $query->where(function ($q) {
                 $q->whereNull('iiif_synced_at')
+                  ->whereNull('iiif_not_found_at')
                     ->orWhereColumn('updated_at', '>', 'iiif_synced_at');
             });
         }
@@ -66,6 +67,10 @@ class ImportAssetsIiifGeometry extends BaseCommand
 
                 if (!$response->successful()) {
                     $this->warn("  info.json failed for #{$image->id}: " . $response->status());
+                    if ($response->status() == 404) {
+                        $image->iiif_not_found_at = now();
+                        $image->save();
+                    }
                     continue;
                 }
 
