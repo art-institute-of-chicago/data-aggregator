@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Collections\Artwork;
 use App\Models\Collections\ArtworkType;
 use App\Models\Collections\Gallery;
@@ -13,8 +12,6 @@ use App\Models\Collections\Agent;
 
 class ArtworkTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected function setUp(): void
     {
         parent::setUp();

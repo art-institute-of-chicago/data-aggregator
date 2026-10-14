@@ -5,12 +5,9 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ThrottleTest extends TestCase
 {
-    use RefreshDatabase;
-
     private const ENDPOINT = 'api/v1/artworks/999999999';
 
     protected function setUp(): void
