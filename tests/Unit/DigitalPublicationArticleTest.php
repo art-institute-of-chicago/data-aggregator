@@ -4,13 +4,10 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Web\DigitalPublicationArticle;
 
 class DigitalPublicationArticleTest extends TestCase
 {
-    use RefreshDatabase;
-
     #[Test]
     public function it_inserts_long_text_in_the_copy_field(): void
     {
