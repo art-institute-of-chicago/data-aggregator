@@ -11,9 +11,9 @@ class ExhibitionFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => fake()->unique()->randomNumber(4),
+            'id' => fake()->unique()->numberBetween(1, 10 ** 4 - 1),
             'title' => ucfirst(fake()->words(3, true)),
-            'datahub_id' => fake()->unique()->randomNumber(4),
+            'datahub_id' => fake()->unique()->numberBetween(1, 10 ** 4 - 1),
         ];
     }
 }

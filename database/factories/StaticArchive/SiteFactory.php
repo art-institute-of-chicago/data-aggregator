@@ -11,7 +11,7 @@ class SiteFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => fake()->unique()->randomNumber(4),
+            'id' => fake()->unique()->numberBetween(1, 10 ** 4 - 1),
             'title' => ucfirst(fake()->words(3, true)),
             'description' => fake()->paragraph(5),
             'web_url' => fake()->url,
