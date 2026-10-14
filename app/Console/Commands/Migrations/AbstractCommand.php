@@ -24,7 +24,8 @@ abstract class AbstractCommand extends BaseCommand
 
     protected function getTables()
     {
-        return collect(DB::connection()->getSchemaBuilder()->getTableListing())
+        // Limit to our own database, otherwise this lists tables from every database on the server
+        return collect(DB::connection()->getSchemaBuilder()->getTableListing(DB::connection()->getDatabaseName(), false))
             ->filter(function ($tableName) {
                 // Only keep tables that start with our prefix
                 return Str::startsWith($tableName, $this->prefix);
