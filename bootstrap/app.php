@@ -18,7 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
         api: __DIR__ . '/../routes/api.php',
         health: '/up',
         then: function () {
-            Route::middleware('ai.service.status')
+            // Check service status first so requests are not throttled while AI is disabled
+            Route::middleware(['ai.service.status', 'api'])
                 ->prefix('ai')
                 ->group(base_path('routes/ai.php'));
 
