@@ -9,7 +9,7 @@ class MembershipFactory extends Factory
     public function membershipIdsAndTitle($title = ''): array
     {
         return [
-            'id' => fake()->unique()->randomNumber(5),
+            'id' => fake()->unique()->numberBetween(1, 10 ** 5 - 1),
             'title' => $title ? $title : ucfirst(fake()->words(3, true)),
         ];
     }
