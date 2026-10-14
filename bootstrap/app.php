@@ -64,8 +64,8 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             'auth:api',
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            // WEB-1929: Enable throttling when ready!
-            // \App\Http\Middleware\ThrottleRequests::class.':api',
+            // WEB-1929: Must run after `auth:api` so the `api` rate limiter can see logged-in users
+            'throttle:api',
             'restrict',
         ]);
 
@@ -80,7 +80,7 @@ return Application::configure(basePath: dirname(__DIR__))
             // 'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
             // 'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
             'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-            'throttle' => \App\Http\Middleware\ThrottleRequests::class,
+            'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
             'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
             'restrict' => \App\Http\Middleware\RestrictContent::class,
             'loginIp' => \App\Http\Middleware\LoginIpMiddleware::class,
