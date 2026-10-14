@@ -32,7 +32,17 @@ class AppServiceProvider extends ServiceProvider
                 return Limit::none();
             }
 
-            return Limit::perMinute((int) config('aic.auth.max_attempts'))->by($request->ip());
+            $limits = [
+                Limit::perMinute((int) config('aic.auth.max_attempts'))->by($request->ip()),
+            ];
+
+            // AI requests also count toward a stricter limit of their own. Keep it last
+            // so its values are the ones reported in the X-RateLimit-* headers.
+            if ($request->is('ai/*')) {
+                $limits[] = Limit::perMinute((int) config('aic.auth.max_attempts_ai'))->by('ai|' . $request->ip());
+            }
+
+            return $limits;
         });
     }
 

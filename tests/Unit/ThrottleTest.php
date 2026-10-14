@@ -10,6 +10,8 @@ class ThrottleTest extends TestCase
 {
     private const ENDPOINT = 'api/v1/artworks/999999999';
 
+    private const AI_ENDPOINT = 'ai/v1';
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -17,7 +19,9 @@ class ThrottleTest extends TestCase
         config([
             'aic.auth.restricted' => true,
             'aic.auth.max_attempts' => 2,
+            'aic.auth.max_attempts_ai' => 2,
             'aic.auth.access_whitelist_ips' => ['10.0.0.0/8'],
+            'azure.status' => true,
         ]);
     }
 
@@ -25,7 +29,7 @@ class ThrottleTest extends TestCase
     {
         return [
             'api' => [self::ENDPOINT],
-            'ai' => ['ai/v1'],
+            'ai' => [self::AI_ENDPOINT],
             'la' => ['la/v1/objects/999999999'],
             'csv' => ['csv/v1/artworks/999999999'],
         ];
@@ -35,11 +39,33 @@ class ThrottleTest extends TestCase
     #[DataProvider('endpointProvider')]
     public function it_throttles_anonymous_users(string $endpoint): void
     {
-        config(['azure.status' => true]);
-
         $this->requestFrom('192.0.2.1', $endpoint)->assertHeader('X-RateLimit-Limit', 2);
         $this->requestFrom('192.0.2.1', $endpoint)->assertHeader('X-RateLimit-Remaining', 0);
         $this->requestFrom('192.0.2.1', $endpoint)->assertStatus(429);
+    }
+
+    #[Test]
+    public function it_applies_a_stricter_limit_to_ai(): void
+    {
+        config(['aic.auth.max_attempts' => 5]);
+
+        $this->requestFrom('192.0.2.1', self::AI_ENDPOINT)->assertHeader('X-RateLimit-Limit', 2);
+        $this->requestFrom('192.0.2.1', self::AI_ENDPOINT);
+        $this->requestFrom('192.0.2.1', self::AI_ENDPOINT)->assertStatus(429);
+
+        // Other endpoints still have attempts left under the general limit
+        $this->requestFrom('192.0.2.1')->assertNotFound();
+    }
+
+    #[Test]
+    public function it_counts_ai_requests_toward_the_general_limit(): void
+    {
+        config(['aic.auth.max_attempts_ai' => 5]);
+
+        $this->requestFrom('192.0.2.1', self::AI_ENDPOINT);
+        $this->requestFrom('192.0.2.1', self::AI_ENDPOINT);
+
+        $this->requestFrom('192.0.2.1')->assertStatus(429);
     }
 
     #[Test]
