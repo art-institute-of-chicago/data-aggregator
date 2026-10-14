@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -23,12 +24,25 @@ class ThrottleTest extends TestCase
         ]);
     }
 
-    #[Test]
-    public function it_throttles_anonymous_users(): void
+    public static function endpointProvider(): array
     {
-        $this->requestFrom('192.0.2.1')->assertHeader('X-RateLimit-Limit', 2);
-        $this->requestFrom('192.0.2.1')->assertHeader('X-RateLimit-Remaining', 0);
-        $this->requestFrom('192.0.2.1')->assertStatus(429);
+        return [
+            'api' => [self::ENDPOINT],
+            'ai' => ['ai/v1'],
+            'la' => ['la/v1/objects/999999999'],
+            'csv' => ['csv/v1/artworks/999999999'],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('endpointProvider')]
+    public function it_throttles_anonymous_users(string $endpoint): void
+    {
+        config(['azure.status' => true]);
+
+        $this->requestFrom('192.0.2.1', $endpoint)->assertHeader('X-RateLimit-Limit', 2);
+        $this->requestFrom('192.0.2.1', $endpoint)->assertHeader('X-RateLimit-Remaining', 0);
+        $this->requestFrom('192.0.2.1', $endpoint)->assertStatus(429);
     }
 
     #[Test]
@@ -61,8 +75,8 @@ class ThrottleTest extends TestCase
         }
     }
 
-    private function requestFrom(string $ip)
+    private function requestFrom(string $ip, string $endpoint = self::ENDPOINT)
     {
-        return $this->withServerVariables(['REMOTE_ADDR' => $ip])->getJson(self::ENDPOINT);
+        return $this->withServerVariables(['REMOTE_ADDR' => $ip])->getJson($endpoint);
     }
 }
