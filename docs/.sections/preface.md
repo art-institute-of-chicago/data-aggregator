@@ -434,11 +434,11 @@ To get a randomly selected work of that is in the public domain that has an imag
 
 ### Authentication
 
-You may access our API without authentication. Anonymous users are throttled to 60 requests per minute. (Each IP counts as a separate user.) If you are working on an application that needs to exceed this restriction, please get in touch with us at engineering@artic.edu.
+You may access our API without authentication. Anonymous users are throttled to 60 requests per minute. If you are working on an application that needs to exceed this restriction, please get in touch with us at engineering@artic.edu.
 
-Please use [HTTPS](https://en.wikipedia.org/wiki/HTTPS) to access our API. To support legacy applications, our API is currently accessible via both HTTP and HTTPS, but HTTP access will be removed in the future.
+Please use [HTTPS](https://en.wikipedia.org/wiki/HTTPS) to access our API. All requests to HTTP will be redirected to HTTPS.
 
-Lastly, consider adding a `AIC-User-Agent` header with the name of your project and a contact email to your API requests. For example:
+Lastly, please add a `AIC-User-Agent` header with the name of your project and a contact email to your API requests. For example:
 
 ```bash
 curl 'https://api.artic.edu/api/v1/artworks/24645' \
