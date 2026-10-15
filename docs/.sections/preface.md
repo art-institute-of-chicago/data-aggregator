@@ -216,7 +216,7 @@ The [International Image Interoperability Framework (IIIF)](https://iiif.io/) st
 We deliver our images via the [IIIF Image API 2.0](https://iiif.io/api/image/2.0/). Our IIIF URLs have the following structure:
 
 ```
-https://www.artic.edu/iiif/2/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
+https://www.artic.edu/iiif/2/{identifier}/full/{size}/0/default.jpg
 ```
 
 We recommend the following URL structure for most use-cases:
@@ -294,7 +294,7 @@ https://api.artic.edu/api/v1/exhibitions/4568?fields=id,title,image_id,alt_image
 
 ### Image Sizes
 
-The [IIIF Image API 2.0](https://iiif.io/api/image/2.0/) has a lot of options. However, we prefer to use it conservatively. As mentioned above, here's the URL pattern we use for most projects:
+While the [IIIF Image API 2.0](https://iiif.io/api/image/2.0/) has a lot of options, we've set some restrictions in place for what we make available in our endpoint. As mentioned above, here's the URL pattern we use for most projects:
 
 ```
 https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
@@ -302,22 +302,21 @@ https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
 
 We recommend using `/full/843,/0/default.jpg` because this is the most common size used by our website, so there's a good chance that the image has previously been requested and cached. If you use this pattern in your projects, it will make images load faster in your application and decrease load on our systems.
 
-::: tip
-We don't mind if you hotlink to our images. Our images support CORS with `Access-Control-Allow-Origin: *` headers—same as our API responses! However, please be aware that any image can get unpublished or replaced at any time.
-:::
-
-If you'd like to display the full image at smaller sizes, we recommend the following size increments, as these are likely to give you a cache hit as well:
+Access to other image sizes is limited. If you'd like to display the full image at smaller sizes, only the following image size increments are allowed:
 
 ```
+https://www.artic.edu/iiif/2/{identifier}/full/112,/0/default.jpg
 https://www.artic.edu/iiif/2/{identifier}/full/200,/0/default.jpg
 https://www.artic.edu/iiif/2/{identifier}/full/400,/0/default.jpg
 https://www.artic.edu/iiif/2/{identifier}/full/600,/0/default.jpg
+https://www.artic.edu/iiif/2/{identifier}/full/800,/0/default.jpg
 https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
 ```
 
-If you are accessing public domain images, you may also use the following pattern for larger images:
+If you are accessing public domain images, you may also use the following sizes for larger images:
 
 ```
+https://www.artic.edu/iiif/2/{identifier}/full/1200,/0/default.jpg
 https://www.artic.edu/iiif/2/{identifier}/full/1686,/0/default.jpg
 ```
 
