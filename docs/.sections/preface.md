@@ -59,7 +59,7 @@ Behind the scenes, our search is powered by [Elasticsearch](https://www.elastic.
 
 Our API accepts queries through both `GET` and `POST`. It might be easier to visualize how the `GET` query above is structured by comparing it to its `POST` equivallent:
 
-``` bash
+```bash
 curl --location --request POST 'https://api.artic.edu/api/v1/artworks/search' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -242,7 +242,7 @@ Let's jump right into an example. Here's how you can construct IIIF URLs:
 
     Let's go with the first one, [_La Grande Jatte_](https://www.artic.edu/artworks/27992/a-sunday-on-la-grande-jatte-1884). Your response will look something like this:
 
-    ```
+    ```json
     {
         "data": {
             "id": 27992,
