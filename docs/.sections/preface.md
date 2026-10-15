@@ -461,12 +461,12 @@ Listing and search endpoints are paginated. We show 12 records per page by defau
 
 **Example:** https://api.artic.edu/api/v1/artists?page=2&limit=10
 
-For performance reasons, `limit` cannot exceed 100. Additionally, you cannot request more than 10,000 records from a single search query through any combination of `limit` and `page`. For example:
+For performance reasons, `limit` cannot exceed 100. Additionally, you cannot request more than 1,000 records from a single search query through any combination of `limit` and `page`. For example:
 
-  - **Success:** https://api.artic.edu/api/v1/artists/search?limit=100&page=100
-  - **Error:** https://api.artic.edu/api/v1/artists/search?limit=100&page=101
+  - **Success:** https://api.artic.edu/api/v1/artists/search?limit=100&page=10
+  - **Error:** https://api.artic.edu/api/v1/artists/search?limit=100&page=11
 
-Generally, we ask that you avoid scraping our API. If you want to filter and scrape our search results, but the number of results is greater than 10,000, you won't be able to scrape them fully. Instead, we recommend that you download our [data dumps](#data-dumps) and perform your filtering locally.
+Generally, we ask that you avoid scraping our API. If you want to filter and scrape our search results, but the number of results is greater than 1,000, you won't be able to scrape them fully. Instead, we recommend that you download our [data dumps](#data-dumps) and perform your filtering locally.
 
 Occasionally, it might be useful to check the total number of results without retrieving any data. Our API supports this by allowing you to make a request with `limit=0`. For example, check `pagination.total` of this query to see the number of public domain artworks in our API:
 
