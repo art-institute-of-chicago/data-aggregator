@@ -110,6 +110,7 @@ class Event extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
                 ],
                 'value' => function ($item) {
                     if ($item->programs) {
