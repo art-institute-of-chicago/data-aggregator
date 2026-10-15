@@ -437,6 +437,9 @@ class Artwork extends BaseTransformer
                 'doc' => 'Whether the work is on display',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
+                'value' => function ($item) {
+                    return (bool) $item->is_on_view;
+                },
             ],
             'on_loan_display' => [
                 'doc' => 'If an artwork is on loan, this contains details about the loan',
