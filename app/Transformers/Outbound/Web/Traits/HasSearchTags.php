@@ -16,12 +16,12 @@ trait HasSearchTags
                 ],
                 'value' => function ($item) {
                     if (!$item->search_tags) {
-                        return null;
+                        return [];
                     }
 
                     return collect(explode(',', $item->search_tags))->map(function ($item) {
                         return trim($item);
-                    })->filter();
+                    })->filter()->values();
                 },
             ],
         ];
