@@ -501,7 +501,7 @@ class Artwork extends BaseTransformer
             ],
             'department_id' => [
                 'doc' => 'Unique identifier of the curatorial department that this work belongs to',
-                'type' => 'number',
+                'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
                     return $item->departments->first()->id ?? null;
