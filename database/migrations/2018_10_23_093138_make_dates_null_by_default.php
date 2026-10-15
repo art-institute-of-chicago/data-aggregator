@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -7,7 +8,8 @@ use Illuminate\Database\Migrations\Migration;
 return new class () extends Migration {
     public function up(): void
     {
-        $tables = DB::connection()->getSchemaBuilder()->getTableListing();
+        // Limit to our own database, otherwise this lists tables from every database on the server
+        $tables = DB::connection()->getSchemaBuilder()->getTableListing(DB::connection()->getDatabaseName(), false);
 
         $columns = [
             'source_created_at',

@@ -4,13 +4,10 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Collections\Term;
 
 class TermTest extends TestCase
 {
-    use RefreshDatabase;
-
     #[Test]
     public function it_provides_cc0_licensing_details(): void
     {
