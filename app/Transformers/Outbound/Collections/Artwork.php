@@ -61,6 +61,9 @@ class Artwork extends BaseTransformer
                     'default' => true,
                     'mapping' => $this->getDefaultStringMapping(true),
                 ],
+                'value' => function ($item) {
+                    return $item->alt_titles ?? [];
+                },
             ],
         ]);
     }

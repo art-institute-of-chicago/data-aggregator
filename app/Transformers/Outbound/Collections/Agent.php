@@ -133,7 +133,7 @@ class Agent extends BaseTransformer
                 'doc' => 'Map of vocabulary names to external identifiers (viaf, lccn, isni, gnd, etc.)',
                 'type' => 'object',
                 'value' => function ($item) {
-                    return $item->vocab_ids ?? null;
+                    return $item->vocab_ids ?? [];
                 },
             ],
             'wikidata_id' => [
