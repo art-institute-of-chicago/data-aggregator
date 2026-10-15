@@ -353,7 +353,7 @@ If you'd like to scrape images from our IIIF API, please follow these guidelines
 
  * Scrape one image at a time—do not use multiple threads or processes!
  * Consider adding a delay of 1 second between each image download
- * Use the following URL pattern to download our [most common image size](image-sizes):
+ * Use the following URL pattern to download our [most common image size](#image-sizes):
    ```
    https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
    ```
@@ -390,7 +390,7 @@ curl 'https://api.artic.edu/api/v1/artworks/24645' \
 --header 'AIC-User-Agent: aic-bash (engineering@artic.edu)'
 ```
 
-We ask that you do so as a [matter of courtesy](https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01). If we see an application using a disproportionate amount of system resources, this gives us an avenue to reach out and work with you to optimize your queries.
+We ask that you do so as a [matter of courtesy](https://medium.com/data-science/ethics-in-web-scraping-b96b18136f01). If we see an application using a disproportionate amount of system resources, this gives us an avenue to reach out and work with you to optimize your queries.
 
 ::: tip
 Why `AIC-User-Agent`? Because modifying the `User-Agent` header is [forbidden by some browsers](https://stackoverflow.com/questions/42815087/sending-a-custom-user-agent-string-along-with-my-headers-fetch). We are using the `AIC-` namespace to reduce potential conflicts with other applications ([RFC 6648](https://datatracker.ietf.org/doc/html/rfc6648)).
