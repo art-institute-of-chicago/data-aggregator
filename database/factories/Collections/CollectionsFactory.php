@@ -12,7 +12,8 @@ abstract class CollectionsFactory extends Factory
 
         if ($citiField) {
             $ret = [
-                'id' => fake()->unique()->randomNumber($idLength),
+                // Start at 1, since an id of 0 fails `validateId` and the API returns an error
+                'id' => fake()->unique()->numberBetween(1, 10 ** $idLength - 1),
             ];
         }
 
