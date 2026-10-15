@@ -103,13 +103,13 @@ There's a lot of information you can get about our collection, and there's a lot
 
 - Every resource in the API has `id` and `title` fields.
 
-- Fields that contain a single id reference to another resource are singular and end with `_id`:
+- Fields that contain a single id reference to another resource use the singular resource name followed by `_id`:
 
   ```json
   "artist_id": 51349,
   ```
 
-- Fields that contain id references to multiple records from another resource are singular and end with `_ids`:
+- Fields that contain id references to multiple records from another resource use the singular resource name followed by `_ids:
 
   ```json
   "style_ids": ["TM-4439", "TM-8542", "TM-4441"],
