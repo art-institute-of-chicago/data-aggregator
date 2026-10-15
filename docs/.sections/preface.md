@@ -25,7 +25,7 @@ If you want to see data for just one artwork, you can use the `/artworks/{id}` d
 https://api.artic.edu/api/v1/artworks/129884
 ```
 
-When you view these URLs in your browser, you might see a jumbled bunch of text. That's OK! If you're using Chrome, install the [JSON Formatter extension](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa), hit reload, and the results will be formatted in a way humans can read, too.
+When you view these URLs in your browser, you might see a jumbled bunch of text. That's OK! If you're using Chrome, check the "Pretty print" checkbox at the top of the page and the results will be formatted in a way humans can read, too.
 
 There is a lot of data you'll get for each artwork. If you want to only retrieve a certain set of fields, change the `fields` parameter in the query to list which ones you want, like this:
 
