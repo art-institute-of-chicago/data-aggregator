@@ -46,6 +46,9 @@ class Sound extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                 ],
+                'value' => function ($item) {
+                    return $item->transcript ?: null;
+                },
             ],
         ];
     }

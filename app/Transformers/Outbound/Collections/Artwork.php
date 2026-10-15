@@ -173,7 +173,7 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->dateQualifier->title ?? '';
+                    return $item->dateQualifier->title ?? null;
                 },
             ],
             'date_qualifier_id' => [
