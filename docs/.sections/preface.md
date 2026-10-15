@@ -173,7 +173,7 @@ You can download a dump that contains all of our public data here:
 
 https://github.com/art-institute-of-chicago/api-data
 
-These data dumps are updated nightly. They are generated from our API. As such, they contain the same data as our API, and their schema mirrors that of the API. The data is dumped in JSON format, with one JSON file per record. Records are grouped by API resource type.
+These data dumps are updated weekly. They are generated from our API. As such, they contain the same data as our API, and their schema mirrors that of the API. The data is dumped in JSON format, with one JSON file per record. Records are grouped by API resource type.
 
 Our intention with this approach is to make it easier to adapt code to draw from the data dumps instead of the API, and vice-versa. Since the schema is the same, switching between the two should be relatively straight-forward.
 
