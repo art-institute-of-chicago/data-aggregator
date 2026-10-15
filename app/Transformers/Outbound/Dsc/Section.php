@@ -47,7 +47,9 @@ class Section extends BaseTransformer
             'publication_title' => [
                 'doc' => 'Name of the publication this section belongs to',
                 'type' => 'string',
-                'elasticsearch' => 'text',
+                'elasticsearch' => [
+                    'mapping' => $this->getDefaultStringMapping(true),
+                ],
                 'value' => function ($item) {
                     return $item->publication->title ?? null;
                 },
