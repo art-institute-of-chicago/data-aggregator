@@ -374,6 +374,61 @@ To get the full list of artworks that are in the public domain, you will need to
 Please note that you may encounter images that are not public domain via our [IIIF Image API](#iiif-image-api). It is up to you to determine whether or not you are allowed to use these images for your use-case and to obtain any necessary permissions.
 
 
+### Get a randomly selected artwork
+
+To get a randomly selected work of that is in the public domain that has an image, submitting this query as a POST request:
+
+```json
+{
+  "resources": "artworks",
+  "fields": [
+    "id",
+    "title",
+    "artist_title",
+    "image_id",
+    "date_display",
+    "thumbnail"
+  ],
+  "boost": false,
+  "limit": 1,
+  "query": {
+    "function_score": {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "term": {
+                "is_public_domain": true
+              }
+            },
+            {
+              "exists": {
+                "field": "image_id"
+              }
+            },
+            {
+              "exists": {
+                "field": "thumbnail.width"
+              }
+            },
+            {
+              "exists": {
+                "field": "thumbnail.height"
+              }
+            }
+          ]
+        }
+      },
+      "boost_mode": "replace",
+      "random_score": {
+        "field": "id",
+        "seed": [Insert a number here. We use a "now()" function which returns current time in milliseconds]
+      }
+    }
+  }
+}
+```
+
 
 ## General Information
 
