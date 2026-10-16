@@ -17,7 +17,7 @@ class Agent extends BaseTransformer
     {
         $baseTitle = parent::getTitles();
 
-        $baseTitle['title']['elasticsearch']['mapping'] = $this->getDefaultStringMapping([
+        $baseTitle['title']['elasticsearch']['mapping'] = $this->getDefaultStringMapping(true, [
             'analyzer' => 'name',
         ]);
 
@@ -27,9 +27,7 @@ class Agent extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
-                    'mapping' => [
-                        'type' => 'text',
-                    ],
+                    'mapping' => $this->getDefaultStringMapping(true),
                     'boost' => 2.5,
                 ],
             ],
@@ -38,6 +36,7 @@ class Agent extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
 
                     // For better search experiences with Korean, Chinese and Japanese queries.
                     // See https://www.elastic.co/blog/how-to-search-ch-jp-kr-part-2
@@ -134,7 +133,7 @@ class Agent extends BaseTransformer
                 'doc' => 'Map of vocabulary names to external identifiers (viaf, lccn, isni, gnd, etc.)',
                 'type' => 'object',
                 'value' => function ($item) {
-                    return $item->vocab_ids ?? null;
+                    return $item->vocab_ids ?? [];
                 },
             ],
             'wikidata_id' => [

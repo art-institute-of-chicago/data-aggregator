@@ -44,6 +44,7 @@ class Site extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
                 ],
                 'value' => function ($item) {
                     return $item->exhibitions->pluck('title');
@@ -62,6 +63,7 @@ class Site extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
                 ],
                 'value' => function ($item) {
                     return $item->artworks->pluck('title');

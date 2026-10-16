@@ -14,6 +14,7 @@ class Archive extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
                 ],
             ],
             'creator' => [
@@ -132,6 +133,7 @@ class Archive extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
                 ],
                 'value' => function ($item) {
                     return $item->agents->pluck('title');

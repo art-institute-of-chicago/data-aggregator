@@ -97,7 +97,9 @@ class Asset extends BaseTransformer
             'artwork_titles' => [
                 'doc' => 'Names of the artworks associated with this asset',
                 'type' => 'array',
-                'elasticsearch' => 'text',
+                'elasticsearch' => [
+                    'mapping' => $this->getDefaultStringMapping(true),
+                ],
                 'value' => function ($item) {
                     return $item->getRelatedArtworks()->pluck('title');
                 },

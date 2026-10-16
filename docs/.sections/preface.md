@@ -25,7 +25,7 @@ If you want to see data for just one artwork, you can use the `/artworks/{id}` d
 https://api.artic.edu/api/v1/artworks/129884
 ```
 
-When you view these URLs in your browser, you might see a jumbled bunch of text. That's OK! If you're using Chrome, install the [JSON Formatter extension](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa), hit reload, and the results will be formatted in a way humans can read, too.
+When you view these URLs in your browser, you might see a jumbled bunch of text. That's OK! If you're using Chrome, check the "Pretty print" checkbox at the top of the page and the results will be formatted in a way humans can read, too.
 
 There is a lot of data you'll get for each artwork. If you want to only retrieve a certain set of fields, change the `fields` parameter in the query to list which ones you want, like this:
 
@@ -55,11 +55,11 @@ Here is the same search, but filtered to only show artworks that are in the publ
 https://api.artic.edu/api/v1/artworks/search?q=cats&query[term][is_public_domain]=true
 ```
 
-Behind the scenes, our search is powered by [Elasticsearch](https://www.elastic.co/what-is/elasticsearch). You can use its [Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html) to interact with our API. The example above uses a [`term`](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html) query. Other queries we use often include [`exists`](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-exists-query.html) and [`bool`](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html). [Aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html) are also a powerful tool.
+Behind the scenes, our search is powered by [Elasticsearch](https://www.elastic.co/elasticsearch/). You can use its [Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html) to interact with our API. The example above uses a [`term`](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html) query. Other queries we use often include [`exists`](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-exists-query.html) and [`bool`](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html). [Aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html) are also a powerful tool.
 
 Our API accepts queries through both `GET` and `POST`. It might be easier to visualize how the `GET` query above is structured by comparing it to its `POST` equivallent:
 
-``` bash
+```bash
 curl --location --request POST 'https://api.artic.edu/api/v1/artworks/search' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -103,13 +103,13 @@ There's a lot of information you can get about our collection, and there's a lot
 
 - Every resource in the API has `id` and `title` fields.
 
-- Fields that contain a single id reference to another resource are singular and end with `_id`:
+- Fields that contain a single id reference to another resource use the singular resource name followed by `_id`:
 
   ```json
   "artist_id": 51349,
   ```
 
-- Fields that contain id references to multiple records from another resource are singular and end with `_ids`:
+- Fields that contain id references to multiple records from another resource use the singular resource name followed by `_ids:
 
   ```json
   "style_ids": ["TM-4439", "TM-8542", "TM-4441"],
@@ -173,7 +173,7 @@ You can download a dump that contains all of our public data here:
 
 https://github.com/art-institute-of-chicago/api-data
 
-These data dumps are updated nightly. They are generated from our API. As such, they contain the same data as our API, and their schema mirrors that of the API. The data is dumped in JSON format, with one JSON file per record. Records are grouped by API resource type.
+These data dumps are updated weekly. They are generated from our API. As such, they contain the same data as our API, and their schema mirrors that of the API. The data is dumped in JSON format, with one JSON file per record. Records are grouped by API resource type.
 
 Our intention with this approach is to make it easier to adapt code to draw from the data dumps instead of the API, and vice-versa. Since the schema is the same, switching between the two should be relatively straight-forward.
 
@@ -216,7 +216,7 @@ The [International Image Interoperability Framework (IIIF)](https://iiif.io/) st
 We deliver our images via the [IIIF Image API 2.0](https://iiif.io/api/image/2.0/). Our IIIF URLs have the following structure:
 
 ```
-https://www.artic.edu/iiif/2/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
+https://www.artic.edu/iiif/2/{identifier}/full/{size}/0/default.jpg
 ```
 
 We recommend the following URL structure for most use-cases:
@@ -242,7 +242,7 @@ Let's jump right into an example. Here's how you can construct IIIF URLs:
 
     Let's go with the first one, [_La Grande Jatte_](https://www.artic.edu/artworks/27992/a-sunday-on-la-grande-jatte-1884). Your response will look something like this:
 
-    ```
+    ```json
     {
         "data": {
             "id": 27992,
@@ -294,7 +294,7 @@ https://api.artic.edu/api/v1/exhibitions/4568?fields=id,title,image_id,alt_image
 
 ### Image Sizes
 
-The [IIIF Image API 2.0](https://iiif.io/api/image/2.0/) has a lot of options. However, we prefer to use it conservatively. As mentioned above, here's the URL pattern we use for most projects:
+While the [IIIF Image API 2.0](https://iiif.io/api/image/2.0/) has a lot of options, we've set some restrictions in place for what we make available in our endpoint. As mentioned above, here's the URL pattern we use for most projects:
 
 ```
 https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
@@ -302,22 +302,21 @@ https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
 
 We recommend using `/full/843,/0/default.jpg` because this is the most common size used by our website, so there's a good chance that the image has previously been requested and cached. If you use this pattern in your projects, it will make images load faster in your application and decrease load on our systems.
 
-::: tip
-We don't mind if you hotlink to our images. Our images support CORS with `Access-Control-Allow-Origin: *` headers—same as our API responses! However, please be aware that any image can get unpublished or replaced at any time.
-:::
-
-If you'd like to display the full image at smaller sizes, we recommend the following size increments, as these are likely to give you a cache hit as well:
+Access to other image sizes is limited. If you'd like to display the full image at smaller sizes, only the following image size increments are allowed:
 
 ```
+https://www.artic.edu/iiif/2/{identifier}/full/112,/0/default.jpg
 https://www.artic.edu/iiif/2/{identifier}/full/200,/0/default.jpg
 https://www.artic.edu/iiif/2/{identifier}/full/400,/0/default.jpg
 https://www.artic.edu/iiif/2/{identifier}/full/600,/0/default.jpg
+https://www.artic.edu/iiif/2/{identifier}/full/800,/0/default.jpg
 https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
 ```
 
-If you are accessing public domain images, you may also use the following pattern for larger images:
+If you are accessing public domain images, you may also use the following sizes for larger images:
 
 ```
+https://www.artic.edu/iiif/2/{identifier}/full/1200,/0/default.jpg
 https://www.artic.edu/iiif/2/{identifier}/full/1686,/0/default.jpg
 ```
 
@@ -354,7 +353,7 @@ If you'd like to scrape images from our IIIF API, please follow these guidelines
 
  * Scrape one image at a time—do not use multiple threads or processes!
  * Consider adding a delay of 1 second between each image download
- * Use the following URL pattern to download our [most common image size](image-sizes):
+ * Use the following URL pattern to download our [most common image size](#image-sizes):
    ```
    https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
    ```
@@ -375,23 +374,78 @@ To get the full list of artworks that are in the public domain, you will need to
 Please note that you may encounter images that are not public domain via our [IIIF Image API](#iiif-image-api). It is up to you to determine whether or not you are allowed to use these images for your use-case and to obtain any necessary permissions.
 
 
+### Get a randomly selected artwork
+
+To get a randomly selected work of that is in the public domain that has an image, submitting this query as a POST request:
+
+```json
+{
+  "resources": "artworks",
+  "fields": [
+    "id",
+    "title",
+    "artist_title",
+    "image_id",
+    "date_display",
+    "thumbnail"
+  ],
+  "boost": false,
+  "limit": 1,
+  "query": {
+    "function_score": {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "term": {
+                "is_public_domain": true
+              }
+            },
+            {
+              "exists": {
+                "field": "image_id"
+              }
+            },
+            {
+              "exists": {
+                "field": "thumbnail.width"
+              }
+            },
+            {
+              "exists": {
+                "field": "thumbnail.height"
+              }
+            }
+          ]
+        }
+      },
+      "boost_mode": "replace",
+      "random_score": {
+        "field": "id",
+        "seed": [Insert a number here. We use a "now()" function which returns current time in milliseconds]
+      }
+    }
+  }
+}
+```
+
 
 ## General Information
 
 ### Authentication
 
-You may access our API without authentication. Anonymous users are throttled to 60 requests per minute. (Each IP counts as a separate user.) If you are working on an application that needs to exceed this restriction, please get in touch with us at engineering@artic.edu.
+You may access our API without authentication. Anonymous users are throttled to 60 requests per minute. If you are working on an application that needs to exceed this restriction, please get in touch with us at engineering@artic.edu.
 
-Please use [HTTPS](https://en.wikipedia.org/wiki/HTTPS) to access our API. To support legacy applications, our API is currently accessible via both HTTP and HTTPS, but HTTP access will be removed in the future.
+Please use [HTTPS](https://en.wikipedia.org/wiki/HTTPS) to access our API. All requests to HTTP will be redirected to HTTPS.
 
-Lastly, consider adding a `AIC-User-Agent` header with the name of your project and a contact email to your API requests. For example:
+Lastly, please add a `AIC-User-Agent` header with the name of your project and a contact email to your API requests. For example:
 
 ```bash
 curl 'https://api.artic.edu/api/v1/artworks/24645' \
 --header 'AIC-User-Agent: aic-bash (engineering@artic.edu)'
 ```
 
-We ask that you do so as a [matter of courtesy](https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01). If we see an application using a disproportionate amount of system resources, this gives us an avenue to reach out and work with you to optimize your queries.
+We ask that you do so as a [matter of courtesy](https://medium.com/data-science/ethics-in-web-scraping-b96b18136f01). If we see an application using a disproportionate amount of system resources, this gives us an avenue to reach out and work with you to optimize your queries.
 
 ::: tip
 Why `AIC-User-Agent`? Because modifying the `User-Agent` header is [forbidden by some browsers](https://stackoverflow.com/questions/42815087/sending-a-custom-user-agent-string-along-with-my-headers-fetch). We are using the `AIC-` namespace to reduce potential conflicts with other applications ([RFC 6648](https://datatracker.ietf.org/doc/html/rfc6648)).
@@ -407,12 +461,12 @@ Listing and search endpoints are paginated. We show 12 records per page by defau
 
 **Example:** https://api.artic.edu/api/v1/artists?page=2&limit=10
 
-For performance reasons, `limit` cannot exceed 100. Additionally, you cannot request more than 10,000 records from a single search query through any combination of `limit` and `page`. For example:
+For performance reasons, `limit` cannot exceed 100. Additionally, you cannot request more than 1,000 records from a single search query through any combination of `limit` and `page`. For example:
 
-  - **Success:** https://api.artic.edu/api/v1/artists/search?limit=100&page=100
-  - **Error:** https://api.artic.edu/api/v1/artists/search?limit=100&page=101
+  - **Success:** https://api.artic.edu/api/v1/artists/search?limit=100&page=10
+  - **Error:** https://api.artic.edu/api/v1/artists/search?limit=100&page=11
 
-Generally, we ask that you avoid scraping our API. If you want to filter and scrape our search results, but the number of results is greater than 10,000, you won't be able to scrape them fully. Instead, we recommend that you download our [data dumps](#data-dumps) and perform your filtering locally.
+Generally, we ask that you avoid scraping our API. If you want to filter and scrape our search results, but the number of results is greater than 1,000, you won't be able to scrape them fully. Instead, we recommend that you download our [data dumps](#data-dumps) and perform your filtering locally.
 
 Occasionally, it might be useful to check the total number of results without retrieving any data. Our API supports this by allowing you to make a request with `limit=0`. For example, check `pagination.total` of this query to see the number of public domain artworks in our API:
 
