@@ -108,7 +108,9 @@ class Exhibition extends BaseTransformer
             'gallery_title' => [
                 'doc' => 'The name of the gallery that mainly housed the exhibition',
                 'type' => 'string',
-                'elasticsearch' => 'text',
+                'elasticsearch' => [
+                    'mapping' => $this->getDefaultStringMapping(true),
+                ],
                 'value' => function ($item) {
                     return $item->gallery->title ?? null;
                 },
@@ -126,7 +128,9 @@ class Exhibition extends BaseTransformer
             'artwork_titles' => [
                 'doc' => 'Names of the artworks that were part of the exhibition',
                 'type' => 'array',
-                'elasticsearch' => 'text',
+                'elasticsearch' => [
+                    'mapping' => $this->getDefaultStringMapping(true),
+                ],
                 'value' => function ($item) {
                     return $item->artworks->pluck('title');
                 },

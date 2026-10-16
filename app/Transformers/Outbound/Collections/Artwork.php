@@ -59,7 +59,11 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
                 ],
+                'value' => function ($item) {
+                    return $item->alt_titles ?? [];
+                },
             ],
         ]);
     }
@@ -169,7 +173,7 @@ class Artwork extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
-                    return $item->dateQualifier->title ?? '';
+                    return $item->dateQualifier->title ?? null;
                 },
             ],
             'date_qualifier_id' => [
@@ -433,6 +437,9 @@ class Artwork extends BaseTransformer
                 'doc' => 'Whether the work is on display',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
+                'value' => function ($item) {
+                    return (bool) $item->is_on_view;
+                },
             ],
             'on_loan_display' => [
                 'doc' => 'If an artwork is on loan, this contains details about the loan',
@@ -494,7 +501,7 @@ class Artwork extends BaseTransformer
             ],
             'department_id' => [
                 'doc' => 'Unique identifier of the curatorial department that this work belongs to',
-                'type' => 'number',
+                'type' => 'string',
                 'elasticsearch' => 'keyword',
                 'value' => function ($item) {
                     return $item->departments->first()->id ?? null;
@@ -559,6 +566,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => 'except_exact',
+                    'mapping' => $this->getDefaultStringMapping(true),
                 ],
                 'value' => function ($item) {
                     return $item->categories->pluck('title');
@@ -569,6 +577,7 @@ class Artwork extends BaseTransformer
                 'type' => 'array',
                 'elasticsearch' => [
                     'default' => 'except_exact',
+                    'mapping' => $this->getDefaultStringMapping(true),
                     'boost' => config('aic.search.suppress_vector_search') ? 2 : 1.2,
                 ],
                 'value' => function ($item) {

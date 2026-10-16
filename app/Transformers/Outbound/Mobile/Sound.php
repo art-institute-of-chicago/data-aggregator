@@ -14,6 +14,7 @@ class Sound extends BaseTransformer
                 'type' => 'string',
                 'elasticsearch' => [
                     'default' => true,
+                    'mapping' => $this->getDefaultStringMapping(true),
                 ],
                 'value' => function ($item) {
                     $title = summation($item->artworks->pluck('title')->all());
@@ -45,6 +46,9 @@ class Sound extends BaseTransformer
                 'elasticsearch' => [
                     'default' => true,
                 ],
+                'value' => function ($item) {
+                    return $item->transcript ?: null;
+                },
             ],
         ];
     }
