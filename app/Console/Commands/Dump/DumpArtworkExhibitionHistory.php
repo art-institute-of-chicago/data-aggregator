@@ -67,7 +67,7 @@ class DumpArtworkExhibitionHistory extends AbstractDumpCommand
         $artworkCount = $this->artworksWithExhibitionHistory->count();
         Log::info("Artwork Exhibition History: {$artworkCount} artworks with exhibition history");
 
-        $titles = collect(self::INSTITUTE_TITLES)->pluck('text')->map(fn($title) => "\"$title\"")->join(', ');
+        $titles = collect(self::INSTITUTE_TITLES)->pluck('text')->map(fn ($title) => "\"$title\"")->join(', ');
         $this->info("Matching entries with similar institute titles: {$titles}");
         $this->setAicMatches();
         $aicMatchCount = collect($this->aicMatches)->flatten(1)->count();
