@@ -88,6 +88,9 @@ trait ImportsData
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
 
+        // Cloudflare returns a 403 HTML page for requests without a User-Agent
+        curl_setopt($ch, CURLOPT_USERAGENT, 'data-aggregator/1.0 (+https://github.com/art-institute-of-chicago/data-aggregator)');
+
         if ($this->auth) {
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
             curl_setopt($ch, CURLOPT_USERPWD, $this->auth);
@@ -165,7 +168,13 @@ trait ImportsData
 
         $this->info('Querying: ' . $url);
 
-        return $this->fetch($url, true);
+        $json = $this->fetch($url, true);
+
+        if (is_null($json)) {
+            throw new \Exception('Could not decode JSON from URL: ' . $url);
+        }
+
+        return $json;
     }
 
     /**
