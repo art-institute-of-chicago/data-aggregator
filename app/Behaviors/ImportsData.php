@@ -88,8 +88,9 @@ trait ImportsData
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
 
-        // Cloudflare returns a 403 HTML page for requests without a User-Agent
-        curl_setopt($ch, CURLOPT_USERAGENT, 'data-aggregator/1.0 (+https://github.com/art-institute-of-chicago/data-aggregator)');
+        // Cloudflare returns a 403 challenge page for requests without a User-Agent
+        // (and for UA strings containing parentheses/URLs, so keep it simple)
+        curl_setopt($ch, CURLOPT_USERAGENT, 'data-aggregator/1.0');
 
         if ($this->auth) {
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
