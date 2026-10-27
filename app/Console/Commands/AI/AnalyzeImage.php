@@ -3,7 +3,6 @@
 namespace App\Console\Commands\AI;
 
 use App\Behaviors\HandleEmbeddings;
-use App\Behaviors\Thresholds;
 use App\Console\Commands\BaseCommand;
 use App\Services\DescriptionService;
 use App\Models\Collections\Artwork;
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Symfony\Component\Console\Output\OutputInterface;
 use Exception;
 
-class AnalyzeImage extends BaseCommand implements Thresholds
+class AnalyzeImage extends BaseCommand
 {
     use HandleEmbeddings;
 
@@ -48,10 +47,11 @@ class AnalyzeImage extends BaseCommand implements Thresholds
             $this->table(
                 ['Component', 'Status'],
                 [
-                    ['Image Analysis', '✓'],
+                    ['Image Analysis', !empty($analysisResults['visual_description']) ? '✓' : '✗'],
                     ['Image Embeddings', '✓'],
                     ['Text Embeddings', '✓'],
-                    ['Description', '✓']
+                    ['Visual Description', !empty($analysisResults['visual_description']) ? '✓' : '✗'],
+                    ['Alt Text', !empty($analysisResults['alt_text']) ? '✓' : '✗']
                 ]
             );
 

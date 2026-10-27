@@ -14,9 +14,27 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 trait HandleEmbeddings
 {
-    public function generateAndSaveArtworkEmbeddngs(Artwork $artwork): void
+    public function generateAndSaveArtworkEmbeddings(Artwork $artwork, bool $force = false): bool
     {
         try {
+            // Skip artworks that already have alt text (check raw DB value to bypass the model's fallback accessor)
+            if (!$force && !empty($artwork->getRawOriginal('alt_text'))) {
+                $this->info(
+                    "\nSkipping artwork ID {$artwork->id}: alt_text already present",
+                    OutputInterface::VERBOSITY_VERBOSE
+                );
+                return false;
+            }
+
+            // Skip artworks without a primary image; image analysis and image embeddings require one.
+            if (empty($artwork->getImageAttribute()?->netx_uuid)) {
+                $this->info(
+                    "\nSkipping artwork ID {$artwork->id}: no image available",
+                    OutputInterface::VERBOSITY_VERBOSE
+                );
+                return false;
+            }
+
             $this->info(
                 "\nProcessing artwork: {$artwork->title} (ID: {$artwork->id})",
                 OutputInterface::VERBOSITY_VERBOSE
@@ -27,6 +45,8 @@ trait HandleEmbeddings
 
             $analysisResults = $this->analyzeArtworkImage($artwork, $imageUrl);
             $this->processEmbeddings($artwork, $imageUrl, $analysisResults);
+
+            return true;
         } catch (\Exception $e) {
             \Log::error('Error processing artwork:', [
                 'artwork_id' => $artwork->id,
@@ -37,6 +57,8 @@ trait HandleEmbeddings
             $this->error(
                 "\nFailed processing artwork ID {$artwork->id}: {$e->getMessage()}"
             );
+
+            throw $e;
         }
     }
 
@@ -99,83 +121,6 @@ trait HandleEmbeddings
         ];
     }
 
-    public function saveArtworkDescription(
-        int $artworkId,
-        array $description,
-        array $generationData
-    ): array {
-        $modelName = 'artworks';
-        $version = config('azure.image_analysis.version');
-
-        // Save image analysis data
-        $newData = [
-            'generation_data' => $generationData,
-            'description' => $description,
-            'description_generated_at' => now()->toDateTimeString(),
-        ];
-
-        $imageEmbedding = ImageEmbedding::updateOrCreate(
-            [
-                    'model_name' => $modelName,
-                    'model_id' => $artworkId,
-                ],
-            [
-                    'version' => $version,
-                    'data' => $newData,
-                ]
-        );
-
-        // Generate and save text embeddings from description
-        $descriptionText = $this->formatDescriptionText($description);
-        $textEmbeddingsSaved = false;
-
-        if ($descriptionText) {
-            $textEmbedding = app('Embeddings')->getEmbeddings($descriptionText);
-            if ($textEmbedding) {
-                $this->saveEmbeddings(
-                    modelName: $modelName,
-                    modelId: $artworkId,
-                    embedding: $textEmbedding,
-                    type: 'text',
-                    additionalData: [
-                        'description_source' => 'image_analysis',
-                        'description' => $descriptionText,
-                        'generated_at' => now()->toDateTimeString()
-                    ]
-                );
-                $textEmbeddingsSaved = true;
-            }
-        }
-
-        return [
-            'success' => true,
-            'message' => 'Artwork description saved successfully',
-            'embedding_id' => $imageEmbedding->id,
-            'text_embedding_saved' => $textEmbeddingsSaved
-        ];
-    }
-
-    public function getImageDescription(string $imageUrl): array
-    {
-        $response = Http::withHeaders([
-            'Ocp-Apim-Subscription-Key' => config('azure.image_analysis.key')
-        ])->post(config('azure.image_analysis.endpoint'), [
-            'url' => $imageUrl
-        ]);
-
-        if ($response->successful()) {
-            $data = $response->json();
-            return [
-                'caption' => $data['captionResult']['text'] ?? null,
-                'denseCaption' => $data['denseCaptionsResult']['values'] ?? null,
-                'tags' => $data['tagsResult']['values'] ?? null,
-                'objects' => $data['objectsResult']['values'] ?? null,
-                'peopleLocation' => $data['peopleResult']['values'] ?? null,
-            ];
-        }
-
-        throw new Exception('Failed to get image description: ' . app('Embeddings')->getResponseError($response->json()));
-    }
     /**
      * Rate-limit requests across parallel processes using a shared temp file.
      * Returns after the required delay has elapsed.
@@ -210,9 +155,68 @@ trait HandleEmbeddings
         fclose($fp);
     }
 
-    public function getLLMImageDescription(string $imageUrl, string $promptType = 'standard'): array
+    /**
+     * Download an image and return it as a base64 data URI.
+     * Azure cannot fetch URLs behind Cloudflare (www.artic.edu) server-side,
+     * so we always send image bytes inline instead of a remote URL.
+     */
+    protected function fetchImageAsDataUri(string $imageUrl): string
     {
+        $response = Http::retry(3, 1000, throw: false)->timeout(60)->get($imageUrl);
+
+        if (!$response->successful()) {
+            throw new Exception("Failed to download image ({$response->status()}): {$imageUrl}");
+        }
+
+        $mime = explode(';', $response->header('Content-Type') ?? 'image/jpeg')[0];
+
+        return 'data:' . $mime . ';base64,' . base64_encode($response->body());
+    }
+
+    public function getLLMImageDescription(string $imageUrl, string $promptType = 'standard', ?string $context = null): array
+    {
+        $imageDataUri = $this->fetchImageAsDataUri($imageUrl);
+
         $promptText = AIPrompts::getAltTextPrompt($promptType);
+
+        if (!empty($context)) {
+            $promptText .= "\n\nReference-only catalogue metadata for this image:\n" . $context
+                . "\n\nUse this only to fact-check your own visual assessment. Do NOT quote it verbatim, do NOT open your description with it, and do NOT mention the medium unless it is visually evident from the image itself. If you do mention the medium, translate it into plain language (e.g. \"oil painting\", never \"Oil on Beaverboard\").";
+        }
+
+        $systemContent = $promptType === 'artwork'
+            ? 'You are an expert at analyzing images for accessibility and semantic search. You always respond with valid JSON.'
+            : 'You are an expert at analyzing images for accessibility.';
+
+        $requestBody = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => $systemContent
+                ],
+                [
+                    'role' => 'user',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => $promptText
+                        ],
+                        [
+                            'type' => 'image_url',
+                            'image_url' => [
+                                'url' => $imageDataUri
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            'max_completion_tokens' => 2000,
+            'temperature' => 0.2, // Low temperature: factual description, not creative writing
+        ];
+
+        if ($promptType === 'artwork') {
+            $requestBody['response_format'] = ['type' => 'json_object'];
+        }
 
         $maxRetries = 5;
         $baseDelay = 2; // seconds
@@ -224,34 +228,10 @@ trait HandleEmbeddings
                 self::rateLimitWait(60.0 / $rpm);
             }
 
-            $response = Http::withHeaders([
+            $response = Http::retry(3, 1000, throw: false)->withHeaders([
                 'api-key' => config('azure.chat.key'),
                 'Content-Type' => 'application/json'
-            ])->post(config('azure.chat.endpoint') . '/openai/deployments/' . config('azure.chat.model') . '/chat/completions?api-version=' . config('azure.chat.version'), [
-                'messages' => [
-                    [
-                        'role' => 'system',
-                        'content' => 'You are an expert at analyzing images for accessibility.'
-                    ],
-                    [
-                        'role' => 'user',
-                        'content' => [
-                            [
-                                'type' => 'text',
-                                'text' => $promptText
-                            ],
-                            [
-                                'type' => 'image_url',
-                                'image_url' => [
-                                    'url' => $imageUrl
-                                ]
-                            ]
-                        ]
-                    ]
-                ],
-                'max_completion_tokens' => 2000,
-                'temperature' => 1
-            ]);
+            ])->post(config('azure.chat.endpoint') . '/openai/deployments/' . config('azure.chat.model') . '/chat/completions?api-version=' . config('azure.chat.version'), $requestBody);
 
             // Unsupported format — permanent failure, don't retry
             if ($response->status() === 400 && str_contains($response->body(), 'unsupported image')) {
@@ -280,6 +260,23 @@ trait HandleEmbeddings
 
                 if (!$messageContent) {
                     throw new Exception('No content in response');
+                }
+
+                if ($promptType === 'artwork') {
+                    $analysis = json_decode($messageContent, true);
+
+                    if (json_last_error() !== JSON_ERROR_NONE) {
+                        throw new Exception('Invalid JSON response from LLM');
+                    }
+
+                    if (empty($analysis['visual_description']) || empty($analysis['alt_text'])) {
+                        throw new Exception('Invalid JSON response from LLM');
+                    }
+
+                    return [
+                        'visual_description' => $analysis['visual_description'],
+                        'alt_text' => $analysis['alt_text'],
+                    ];
                 }
 
                 return [
@@ -313,33 +310,6 @@ trait HandleEmbeddings
         throw new Exception('Failed to get image description after ' . $maxRetries . ' retries');
     }
 
-    protected function formatDescriptionText(array $description): string
-    {
-        $text = '';
-
-        if (!empty($description['caption'])) {
-            $text .= $description['caption'] . ' ';
-        }
-
-        if (!empty($description['denseCaption'])) {
-            foreach ($description['denseCaption'] as $caption) {
-                if (!empty($caption['text']) && ($caption['confidence'] ?? 0) > Thresholds::CONFIDENCE_THRESHOLD_CAPTION) {
-                    $text .= $caption['text'] . ' ';
-                }
-            }
-        }
-
-        if (!empty($description['tags'])) {
-            foreach ($description['tags'] as $tag) {
-                if (!empty($tag['name']) && ($tag['confidence'] ?? 0) > Thresholds::CONFIDENCE_THRESHOLD_TAG) {
-                    $text .= $tag['name'] . ' ';
-                }
-            }
-        }
-
-        return trim($text);
-    }
-
     public function buildImageUrl(Artwork $artwork): string
     {
         if (empty($artwork->getImageAttribute()?->netx_uuid)) {
@@ -356,24 +326,24 @@ trait HandleEmbeddings
     {
         $this->info("\nPerforming image analysis...", OutputInterface::VERBOSITY_VERBOSE);
 
-        // Get image description
-        $generatedDescription = $this->getImageDescription($imageUrl);
-        $this->info("Generated base description", OutputInterface::VERBOSITY_VERBOSE);
+        // Get unified image analysis (visual description + alt text) in one call
+        // Pass the catalogue medium so the model doesn't have to guess it
+        $context = !empty($artwork->medium_display)
+            ? 'Catalogue medium: ' . $artwork->medium_display
+            : null;
 
-        // Get AIC description if available
-        $aicDescription = $artwork->description;
+        $analysis = $this->getLLMImageDescription($imageUrl, 'artwork', $context);
+        $this->info("Generated image analysis", OutputInterface::VERBOSITY_VERBOSE);
 
-        // Summarize descriptions
-        $summarizedDescription = app('Descriptions')->summarizeImageDescription(
-            $aicDescription,
-            $generatedDescription
-        );
-        $this->info("Generated summarized description", OutputInterface::VERBOSITY_VERBOSE);
+        // Persist alt text to the artwork
+        $artwork->alt_text = $analysis['alt_text'];
+        $artwork->save();
 
         return [
-            'generated' => $generatedDescription,
-            'original' => $aicDescription,
-            'summarized' => $summarizedDescription,
+            'generated' => $analysis,
+            'original' => $artwork->description,
+            'visual_description' => $analysis['visual_description'],
+            'alt_text' => $analysis['alt_text'],
         ];
     }
 
@@ -408,7 +378,7 @@ trait HandleEmbeddings
 
         // Get and save text embeddings
         $this->info("\nGetting text embeddings...", OutputInterface::VERBOSITY_VERBOSE);
-        $textEmbeddingArray = app('Embeddings')->getEmbeddings($analysisResults['summarized']);
+        $textEmbeddingArray = app('Embeddings')->getEmbeddings($analysisResults['visual_description']);
 
         try {
             $this->saveTextEmbeddings($artwork, $textEmbeddingArray, $imageUrl, $analysisResults);
@@ -434,7 +404,8 @@ trait HandleEmbeddings
                     'analysis_data' => $analysisResults['generated'],
                     'aic_description' => $analysisResults['original'] ?? null,
                 ],
-                'description' => $analysisResults['summarized'],
+                'description' => $analysisResults['visual_description'],
+                'alt_text' => $analysisResults['alt_text'] ?? null,
                 'generated_at' => now()->toDateTimeString(),
                 'image_url' => $imageUrl,
             ]
@@ -453,7 +424,7 @@ trait HandleEmbeddings
             embedding: $embedding,
             type: 'text',
             additionalData: array_filter([
-                'description' => $analysisResults['summarized'] ?? $model->copy ?? null,
+                'description' => $analysisResults['visual_description'] ?? $model->copy ?? null,
                 'generated_at' => now()->toDateTimeString(),
                 'image_url' => $imageUrl,
             ])

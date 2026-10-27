@@ -3,9 +3,8 @@
 namespace App\Console\Commands\Import;
 
 use App\Behaviors\HandleEmbeddings;
-use App\Behaviors\Thresholds;
 
-class ImportCollectionsFull extends AbstractImportCommand implements Thresholds
+class ImportCollectionsFull extends AbstractImportCommand
 {
     use HandleEmbeddings;
 
@@ -90,12 +89,16 @@ class ImportCollectionsFull extends AbstractImportCommand implements Thresholds
      */
     protected function afterSave($resource)
     {
-        if (get_class($resource) == \App\Models\Collections\Artwork::class) {
+        if (
+            config('aic.embeddings.process_on_import')
+            && get_class($resource) == \App\Models\Collections\Artwork::class
+        ) {
             // If the primary image was updated in the last five minute,
             // or if this artwork doesn't have either of the embeddings,
             // retrieve fresh embeddings
             if (!$resource->imageEmbedding || !$resource->textEmbedding || (isset($resource->image) && isset($resource->image['source_updated_at']) ? $resource->image['source_updated_at'] > now()->subMinutes(5) : false)) {
                 $this->generateAndSaveArtworkEmbeddngs($resource);
+                $this->generateAndSaveArtworkEmbeddings($resource);
             }
         }
         return $resource;
