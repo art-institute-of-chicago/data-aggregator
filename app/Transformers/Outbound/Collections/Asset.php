@@ -40,7 +40,9 @@ class Asset extends BaseTransformer
             'display_title' => [
                 'doc' => 'The audience-facing title of the asset',
                 'type' => 'string',
-                'elasticsearch' => 'text',
+                'elasticsearch' => [
+                    'mapping' => $this->getDefaultStringMapping(true),
+                ],
             ],
             'type' => [
                 'doc' => 'Type always takes one of the following values: image, sound, text, video',
