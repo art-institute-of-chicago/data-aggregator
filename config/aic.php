@@ -112,6 +112,8 @@ return [
         'repo_remote' => env('DUMP_REPO_REMOTE'),
         'repo_name' => env('DUMP_REPO_NAME'),
         'repo_email' => env('DUMP_REPO_EMAIL'),
+        'hugging_face_token' => env('DUMP_HUGGING_FACE_TOKEN'),
+        'hugging_face_repo' => env('DUMP_HUGGING_FACE_REPO', 'art-institute-of-chicago/api-data'),
     ],
 
     'mobile' => [
