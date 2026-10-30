@@ -1,0 +1,19 @@
+/*! In this file: All methods eventually exposed in slider.noUiSlider... */
+
+/*! In this file: Browser events (not slider events like slide, change); */
+
+/*! In this file: Calls to functions. All other scope_ files define functions only; */
+
+/*! In this file: Construction of DOM elements; */
+
+/*! In this file: Mechanics for slider operation */
+
+/*! In this file: Slider events (not browser events); */
+
+/*! fontfaceonload - v1.0.2 - 2017-06-28
+ * https://github.com/zachleat/fontfaceonload
+ * Copyright (c) 2017 Zach Leatherman (@zachleat)
+ * MIT License */
+
+/*! nouislider - 11.0.3 - 2018-01-21 14:04:07
+    https://github.com/leongersen/noUiSlider/blob/11.0.3/LICENSE */
