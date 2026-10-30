@@ -59,9 +59,15 @@ class DumpResources extends AbstractDumpCommand
                 // JSONL
                 $record = $content['data'] ?? $content;
 
-                if (isset($content['config']['iiif_url'])) {
-                    $record['iiif_url'] = $content['config']['iiif_url'];
+                $configDocumentation = config('aic.config_documentation');
+                if (isset($configDocumentation['iiif_url'])) {
+                    $record['iiif_url'] = $configDocumentation['iiif_url'];
                 }
+                if (isset($record['timestamp'])) {
+                    unset($record['timestamp']);
+                }
+                $record['license_text'] = $resource['transformer']->getLicenseText();
+                $record['license_links'] = $resource['transformer']->getLicenseLinks();
 
                 fwrite($handleJsonl, json_encode($record, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n");
 
@@ -74,7 +80,7 @@ class DumpResources extends AbstractDumpCommand
 
             $sql = "COPY (SELECT * FROM 'storage/dumps/local/jsonl/{$resource['endpoint']}.jsonl') TO 'storage/dumps/local/jsonl/{$resource['endpoint']}.parquet' (FORMAT PARQUET, COMPRESSION 'ZSTD');";
 
-            $result = Process::run([
+            $result = Process::timeout(0)->run([
                 'python3',
                 '-c',
                 "import duckdb; duckdb.sql(\"{$sql}\")"
