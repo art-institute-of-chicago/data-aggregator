@@ -23,53 +23,39 @@ class DumpResources extends AbstractDumpCommand
         $resources = $this->getResources();
 
         $resources->each(function ($resource) {
-            $this->info('Dumping ' . $resource['endpoint'] . ' as JSON files');
+            $this->info('Dumping ' . $resource['endpoint']);
 
             $resource['model']::addRestrictContentScopes(true);
 
-            $relativeDumpPath = 'local/json/' . $resource['endpoint'];
-            $absoluteDumpPath = $this->getDumpPath($relativeDumpPath);
+            $relativeDumpPathJson = 'local/json/' . $resource['endpoint'];
+            $absoluteDumpPathJson = $this->getDumpPath($relativeDumpPathJson);
 
-            if (!file_exists($absoluteDumpPath)) {
-                mkdir($absoluteDumpPath, 0755, true);
-                chmod($absoluteDumpPath, 0755);
+            if (!file_exists($absoluteDumpPathJson)) {
+                mkdir($absoluteDumpPathJson, 0755, true);
+                chmod($absoluteDumpPathJson, 0755);
             }
 
-            $bar = $this->output->createProgressBar($resource['model']::count());
+            $relativeDumpPathJsonl = 'local/jsonl';
+            $absoluteDumpPathJsonl = $this->getDumpPath($relativeDumpPathJsonl);
 
-            foreach ($resource['model']::cursor() as $item) {
-                $filename = $relativeDumpPath . '/' . $this->getItemId($item) . '.json';
-                $content = $resource['transformer']->transform($item);
-
-                $this->saveToJson($filename, $content);
-
-                $bar->advance();
+            if (!file_exists($absoluteDumpPathJsonl)) {
+                mkdir($absoluteDumpPathJsonl, 0755, true);
+                chmod($absoluteDumpPathJsonl, 0755);
             }
 
-            $bar->finish();
-            $this->output->newLine(2);
-        });
-
-        $resources->each(function ($resource) {
-            $this->info('Dumping ' . $resource['endpoint'] . ' in single JSONL file');
-
-            $resource['model']::addRestrictContentScopes(true);
-
-            $relativeDumpPath = 'local/jsonl';
-            $absoluteDumpPath = $this->getDumpPath($relativeDumpPath);
-
-            if (!file_exists($absoluteDumpPath)) {
-                mkdir($absoluteDumpPath, 0755, true);
-                chmod($absoluteDumpPath, 0755);
-            }
-
-            $filePath = $relativeDumpPath . "/{$resource['endpoint']}.jsonl";
-            Storage::disk('dumps')->delete($filePath);
+            $filePathJsonl = $relativeDumpPathJsonl . "/{$resource['endpoint']}.jsonl";
+            Storage::disk('dumps')->delete($filePathJsonl);
 
             $bar = $this->output->createProgressBar($resource['model']::count());
 
             foreach ($resource['model']::cursor() as $item) {
                 $content = $resource['transformer']->transform($item);
+
+                // JSON
+                $filenameJson = $relativeDumpPathJson . '/' . $this->getItemId($item) . '.json';
+                $this->saveToJson($filenameJson, $content);
+
+                // JSONL
                 $record = $content['data'] ?? $content;
 
                 if (isset($content['config']['iiif_url'])) {
@@ -77,7 +63,7 @@ class DumpResources extends AbstractDumpCommand
                 }
 
                 Storage::disk('dumps')->append(
-                    $filePath,
+                    $filePathJsonl,
                     json_encode($record, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                 );
 
