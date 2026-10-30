@@ -35,6 +35,7 @@ class DumpUpload extends AbstractDumpCommand
             throw new Exception('No getting started files found in ' . $gettingStartedSrcPath);
         }
 
+        // Git
         $this->shell->passthru('rm -rf %s', $repoPath);
         $this->shell->passthru('mkdir %s', $repoPath);
         $this->shell->passthru('git -C %s init', $repoPath);
@@ -113,6 +114,63 @@ class DumpUpload extends AbstractDumpCommand
 
         $this->shell->passthru('git -C %s branch -M main', $repoPath);
         $this->shell->passthru('git -C %s push --set-upstream origin main %s', $repoPath, '--force');
+
+        // Hugging Face
+        $parquetPath = $srcPath . '/jsonl';
+
+        if (empty(config('aic.dump.hugging_face_token'))) {
+            $this->warn('Skipping Hugging Face upload: `aic.dump.hugging_face_token` is not set');
+            return;
+        }
+
+        $this->validateConfig(['aic.dump.hugging_face_repo']);
+
+        $parquetFiles = glob($parquetPath . '/*.parquet');
+
+        if (empty($parquetFiles)) {
+            throw new Exception('No parquet files found in ' . $parquetPath);
+        }
+
+        // Generate the dataset card, with one config per endpoint so the dataset viewer
+        // doesn't try to combine files with different schemas into a single table
+        $configs = collect($parquetFiles)
+            ->map(fn ($file) => basename($file, '.parquet'))
+            ->map(fn ($endpoint) => implode("\n", array_filter([
+                '- config_name: ' . $endpoint,
+                '  data_files: ' . $endpoint . '.parquet',
+                $endpoint === 'artworks' ? '  default: true' : null,
+            ])))
+            ->implode("\n");
+
+        file_put_contents(
+            $parquetPath . '/README.md',
+            str_replace('{{configs}}', $configs, file_get_contents(resource_path('api-data-hugging-face-readme.md')))
+        );
+
+        $repoId = config('aic.dump.hugging_face_repo');
+
+        // Pass the token through the environment, since Shell dumps every command it runs
+        putenv('HF_TOKEN=' . config('aic.dump.hugging_face_token'));
+
+        // Only upload parquet files and the dataset card, and remove remote parquet files that no longer exist locally
+        $this->shell->passthru(
+            'hf upload %s %s . --repo-type=dataset --include=%s --include=%s --delete=%s --commit-message=%s',
+            $repoId,
+            $parquetPath,
+            '*.parquet',
+            'README.md',
+            '*.parquet',
+            'Update data'
+        );
+
+        $this->shell->passthru(
+            'python3 -c %s %s',
+            'import sys; from huggingface_hub import HfApi; '
+                . 'HfApi().super_squash_history(sys.argv[1], repo_type="dataset", commit_message="Update data")',
+            $repoId
+        );
+
+        putenv('HF_TOKEN');
 
         // Now, copy full dataset (takes about 1 min 45 sec)
         $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/json', $jsonsDestPath);

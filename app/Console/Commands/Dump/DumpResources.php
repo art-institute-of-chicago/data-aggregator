@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands\Dump;
 
+use Illuminate\Support\Facades\Process;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Collections\Asset;
 
 class DumpResources extends AbstractDumpCommand
@@ -25,27 +27,70 @@ class DumpResources extends AbstractDumpCommand
 
             $resource['model']::addRestrictContentScopes(true);
 
-            $relativeDumpPath = 'local/json/' . $resource['endpoint'];
-            $absoluteDumpPath = $this->getDumpPath($relativeDumpPath);
+            $relativeDumpPathJson = 'local/json/' . $resource['endpoint'];
+            $absoluteDumpPathJson = $this->getDumpPath($relativeDumpPathJson);
 
-            if (!file_exists($absoluteDumpPath)) {
-                mkdir($absoluteDumpPath, 0755, true);
-                chmod($absoluteDumpPath, 0755);
+            if (!file_exists($absoluteDumpPathJson)) {
+                mkdir($absoluteDumpPathJson, 0755, true);
+                chmod($absoluteDumpPathJson, 0755);
             }
+
+            $relativeDumpPathJsonl = 'local/jsonl';
+            $absoluteDumpPathJsonl = $this->getDumpPath($relativeDumpPathJsonl);
+
+            if (!file_exists($absoluteDumpPathJsonl)) {
+                mkdir($absoluteDumpPathJsonl, 0755, true);
+                chmod($absoluteDumpPathJsonl, 0755);
+            }
+
+            $filePathJsonl = $relativeDumpPathJsonl . "/{$resource['endpoint']}.jsonl";
+            Storage::disk('dumps')->delete($filePathJsonl);
+            $handleJsonl = fopen($this->getDumpPath($filePathJsonl), 'w');
 
             $bar = $this->output->createProgressBar($resource['model']::count());
 
             foreach ($resource['model']::cursor() as $item) {
-                $filename = $relativeDumpPath . '/' . $this->getItemId($item) . '.json';
                 $content = $resource['transformer']->transform($item);
 
-                $this->saveToJson($filename, $content);
+                // JSON
+                $filenameJson = $relativeDumpPathJson . '/' . $this->getItemId($item) . '.json';
+                $this->saveToJson($filenameJson, $content);
+
+                // JSONL
+                $record = $content['data'] ?? $content;
+
+                $configDocumentation = config('aic.config_documentation');
+                if (isset($configDocumentation['iiif_url'])) {
+                    $record['iiif_url'] = $configDocumentation['iiif_url'];
+                }
+                if (isset($record['timestamp'])) {
+                    unset($record['timestamp']);
+                }
+                $record['license_text'] = $resource['transformer']->getLicenseText();
+                $record['license_links'] = $resource['transformer']->getLicenseLinks();
+
+                fwrite($handleJsonl, json_encode($record, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n");
 
                 $bar->advance();
             }
 
             $bar->finish();
-            $this->output->newLine(1);
+            fclose($handleJsonl);
+            $this->output->newLine(2);
+
+            $sql = "COPY (SELECT * FROM 'storage/dumps/local/jsonl/{$resource['endpoint']}.jsonl') TO 'storage/dumps/local/jsonl/{$resource['endpoint']}.parquet' (FORMAT PARQUET, COMPRESSION 'ZSTD');";
+
+            $result = Process::timeout(0)->run([
+                'python3',
+                '-c',
+                "import duckdb; duckdb.sql(\"{$sql}\")"
+            ]);
+
+            if ($result->successful()) {
+                $this->info("Parquet for {$resource['endpoint']} generated successfully!");
+            } else {
+                $this->error("DuckDB Error: " . $result->errorOutput());
+            }
         });
     }
 
