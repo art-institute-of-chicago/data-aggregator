@@ -45,6 +45,7 @@ class DumpResources extends AbstractDumpCommand
 
             $filePathJsonl = $relativeDumpPathJsonl . "/{$resource['endpoint']}.jsonl";
             Storage::disk('dumps')->delete($filePathJsonl);
+            $handleJsonl = fopen($this->getDumpPath($filePathJsonl), 'w');
 
             $bar = $this->output->createProgressBar($resource['model']::count());
 
@@ -62,15 +63,13 @@ class DumpResources extends AbstractDumpCommand
                     $record['iiif_url'] = $content['config']['iiif_url'];
                 }
 
-                Storage::disk('dumps')->append(
-                    $filePathJsonl,
-                    json_encode($record, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
-                );
+                fwrite($handleJsonl, json_encode($record, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n");
 
                 $bar->advance();
             }
 
             $bar->finish();
+            fclose($handleJsonl);
             $this->output->newLine(2);
 
             $sql = "COPY (SELECT * FROM 'storage/dumps/local/jsonl/{$resource['endpoint']}.jsonl') TO 'storage/dumps/local/jsonl/{$resource['endpoint']}.parquet' (FORMAT PARQUET, COMPRESSION 'ZSTD');";
