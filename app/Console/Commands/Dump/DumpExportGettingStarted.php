@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Dump;
 
+use Illuminate\Support\Facades\File as FileFacade;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\Writer;
 
@@ -24,11 +25,7 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         if (!file_exists($filepath)) {
             mkdir($filepath, 0777, true);
         }
-        $this->shell->passthru('rm -rf %s/*', $filepath);
-
-        // Create transformer used for generating JSON output
-        $transformer = app('Resources')->getTransformerForModel($model);
-        $transformer = new $transformer(null, true);
+        FileFacade::cleanDirectory($filepath);
 
         $csv = $this->getNewWriter($filepath . '/someArtworks.csv', [
             'id',
@@ -48,33 +45,36 @@ class DumpExportGettingStarted extends AbstractDumpCommand
 
         $json = fopen(Storage::disk('dumps')->path('local/getting-started/allArtworks.jsonl'), 'a');
 
+        // Flip once so checking each artwork is a key lookup instead of a scan
+        $boostedIds = array_flip($model::boostedIds());
+
+        // Only load what the rows below use, instead of the model's default `$with`. Artists only
+        // need their title, so skip Agent's own `$with` and `$withCount`, which `select()` replaces.
         $artworks = $model::query()
-            ->select('id', 'title', 'main_id', 'department_id')
-            ->setEagerLoads([
+            ->select('id', 'title', 'main_id')
+            ->setEagerLoads([])
+            ->with([
                 'artistPivots',
-                'categories',
+                'artists' => fn ($query) => $query->select('agents.id', 'agents.title')->setEagerLoads([]),
+                'departments',
             ]);
 
         // Loop through each record and dump its contents into a file
-        foreach ($model::cursor() as $item) {
-            // JSON
-            fwrite($json, json_encode([
+        foreach ($artworks->lazyById(1000) as $item) {
+            $row = [
                 'id' => $item->id,
                 'title' => $item->title,
                 'main_reference_number' => $item->main_id,
                 'department_title' => ($item->departments->first()->title ?? null),
                 'artist_title' => ($item->artist->title ?? null),
-            ]) . PHP_EOL);
+            ];
+
+            // JSON
+            fwrite($json, json_encode($row) . PHP_EOL);
 
             // CSV
-            if ($item->isBoosted()) {
-                $csv->insertOne([
-                    'id' => $item->id,
-                    'title' => $item->title,
-                    'main_reference_number' => $item->main_id,
-                    'department_title' => ($item->departments->first()->title ?? null),
-                    'artist_title' => ($item->artist->title ?? null),
-                ]);
+            if (isset($boostedIds[$item->id])) {
+                $csv->insertOne($row);
             }
 
             $bar->advance();
