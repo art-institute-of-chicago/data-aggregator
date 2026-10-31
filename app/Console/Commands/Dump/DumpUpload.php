@@ -40,7 +40,12 @@ class DumpUpload extends AbstractDumpCommand
         // Git
         FileFacade::deleteDirectory($repoPath);
         FileFacade::makeDirectory($repoPath);
+        Process::path($repoPath)->run(
+            ['git', 'config', '--global', 'init.defaultBranch', 'main'],
+            $this->streamOutput()
+        )->throw();
         Process::path($repoPath)->run(['git', 'init'], $this->streamOutput())->throw();
+
         Process::run(
             ['git', 'config', '--global', '--add', 'safe.directory', $repoPath],
             $this->streamOutput()
@@ -74,12 +79,24 @@ class DumpUpload extends AbstractDumpCommand
         foreach ($endpoints as $endpoint) {
             FileFacade::makeDirectory($jsonsDestPath . '/' . $endpoint);
 
-            $files = collect(FileFacade::files($jsonsSrcPath . '/' . $endpoint))
-                ->sortBy(fn ($file) => $file->getFilename(), SORT_NATURAL)
-                ->take(10);
+            // Sort plain filenames instead of building file objects, since some endpoints have 100k+ files
+            $filenames = scandir($jsonsSrcPath . '/' . $endpoint);
+            sort($filenames, SORT_NATURAL);
 
-            foreach ($files as $file) {
-                FileFacade::copy($file->getPathname(), $jsonsDestPath . '/' . $endpoint . '/' . $file->getFilename());
+            $copied = 0;
+
+            foreach ($filenames as $filename) {
+                $file = $jsonsSrcPath . '/' . $endpoint . '/' . $filename;
+
+                if (str_starts_with($filename, '.') || !is_file($file)) {
+                    continue;
+                }
+
+                FileFacade::copy($file, $jsonsDestPath . '/' . $endpoint . '/' . $filename);
+
+                if (++$copied === 10) {
+                    break;
+                }
             }
         }
 
@@ -111,6 +128,7 @@ class DumpUpload extends AbstractDumpCommand
 
         // Hugging Face
         $parquetPath = $srcPath . '/jsonl';
+        $hfUpload = null;
 
         if (config('aic.dump.hugging_face_token')) {
             $this->validateConfig(['aic.dump.hugging_face_repo']);
@@ -142,15 +160,47 @@ class DumpUpload extends AbstractDumpCommand
             // Pass the token through the environment so it doesn't show up in the process list
             $hfEnv = ['HF_TOKEN' => config('aic.dump.hugging_face_token')];
 
-            // Only upload parquet files and the dataset card, and remove remote parquet files that no longer exist locally
-            Process::env($hfEnv)->forever()->run([
+            // Only upload parquet files and the dataset card, and remove remote parquet files that no longer exist
+            // locally. Run it in the background while the archive is built, and wait for it before cleanup.
+            $hfUpload = Process::env($hfEnv)->forever()->start([
                 'hf', 'upload', $repoId, $parquetPath, '.',
                 '--repo-type=dataset',
                 '--include=*.parquet',
                 '--include=README.md',
                 '--delete=*.parquet',
                 '--commit-message=Update data',
-            ], $this->streamOutput())->throw();
+            ], $this->streamOutput());
+        } else {
+            $this->warn('Skipping Hugging Face upload: `aic.dump.hugging_face_token` is not set');
+        }
+
+        $archiveName = 'artic-api-data';
+        $archiveFile = $archiveName . '.tar.bz2';
+        $archivePath = $this->getDumpPath($archiveFile);
+
+        // Archive everything in the repo except its sample `json`, then the full `json` straight from the source,
+        // so the full dataset doesn't have to be copied into the repo first. List the repo's entries explicitly
+        // instead of using `--exclude=./json`, since tar would apply that to the source's `./json` too.
+        $repoEntries = collect(scandir($repoPath))
+            ->reject(fn ($entry) => in_array($entry, ['.', '..', 'json']))
+            ->map(fn ($entry) => './' . $entry)
+            ->all();
+
+        // Create (-c) tar archive file (-f) with bzip2 (-j) with verbose output (-v)
+        // cd (-C) to each path and target relative (./) to avoid putting the full absolute path hierarchy inside archive
+        // transform archive members so they start in `artic-api-data` directory instead of `.`
+        Process::forever()->run([
+            'tar', '--transform', 's:^.:' . $archiveName . ':', '-cvjf', $archivePath,
+            '-C', $repoPath, ...$repoEntries,
+            '-C', $srcPath, './json',
+        ], $this->streamOutput())->throw();
+
+        // Stream the file to S3; be sure to set `AWS_BUCKET` in `.env` and otherwise configure credentials
+        Storage::disk('s3')->putFileAs('/', new File($archivePath), $archiveFile);
+
+        // The upload reads from `$srcPath`, so it has to finish before cleanup
+        if ($hfUpload) {
+            $hfUpload->wait()->throw();
 
             Process::env($hfEnv)->forever()->run([
                 'python3', '-c',
@@ -158,35 +208,13 @@ class DumpUpload extends AbstractDumpCommand
                     . 'HfApi().super_squash_history(sys.argv[1], repo_type="dataset", commit_message="Update data")',
                 $repoId,
             ], $this->streamOutput())->throw();
-        } else {
-            $this->warn('Skipping Hugging Face upload: `aic.dump.hugging_face_token` is not set');
         }
-
-        // Now, copy full dataset (takes about 1 min 45 sec)
-        Process::forever()->run(
-            ['rsync', '-r', '--', $jsonsSrcPath . '/', $jsonsDestPath],
-            $this->streamOutput()
-        )->throw();
-
-        $archiveName = 'artic-api-data';
-        $archiveFile = $archiveName . '.tar.bz2';
-        $archivePath = $this->getDumpPath($archiveFile);
-
-        // Create (-c) tar archive file (-f) with bzip2 (-j) with verbose output (-v)
-        // cd (-C) to repo path and target relative (./) to avoid putting the full absolute path hierarchy inside archive
-        // transform archive members so they start in `artic-api-data` directory instead of `.`
-        // omitting / from . in sed expression makes it so that . itself gets transformed
-        Process::forever()->run(
-            ['tar', '--transform', 's:^.:' . $archiveName . ':', '-cvjf', $archivePath, '-C', $repoPath, './'],
-            $this->streamOutput()
-        )->throw();
-
-        // Stream the file to S3; be sure to set `AWS_BUCKET` in `.env` and otherwise configure credentials
-        Storage::disk('s3')->putFileAs('/', new File($archivePath), $archiveFile);
 
         // Remove dumps to reduce deploy times (chown)
         FileFacade::deleteDirectory($repoPath);
-        FileFacade::deleteDirectory($srcPath);
+
+        // `rm -rf` is much faster than PHP for the full dump's hundreds of thousands of files
+        Process::forever()->run(['rm', '-rf', '--', $srcPath])->throw();
     }
 
     protected function isDirEmpty($dir)
@@ -195,7 +223,7 @@ class DumpUpload extends AbstractDumpCommand
 
         while (false !== ($entry = readdir($handle))) {
             if ($entry != '.' && $entry != '..') {
-                $file = $dir . $entry;
+                $file = $dir . '/' . $entry;
 
                 if (is_dir($file)) {
                     if (!$this->isDirEmpty($file)) {
