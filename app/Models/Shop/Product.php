@@ -9,6 +9,12 @@ use App\Models\ShopModel;
  */
 class Product extends ShopModel
 {
+    protected $dumpWith = [
+        'artists',
+        'artworks',
+        'exhibitions',
+    ];
+
     public function artists()
     {
         return $this->belongsToMany('App\Models\Collections\Agent', 'artist_product');

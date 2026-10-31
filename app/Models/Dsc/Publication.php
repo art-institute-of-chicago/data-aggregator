@@ -12,6 +12,10 @@ class Publication extends DscModel
 {
     use ElasticSearchable;
 
+    protected $dumpWith = [
+        'sections',
+    ];
+
     public function sections()
     {
         return $this->hasMany('App\Models\Dsc\Section');

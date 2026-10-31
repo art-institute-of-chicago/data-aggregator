@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Dump;
 
+use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Storage;
 use App\Library\Shell;
 use Closure;
@@ -30,7 +31,7 @@ abstract class AbstractDumpCommand extends BaseCommand
                 $transformerClass = app('Resources')->getTransformerForModel($model);
                 return [
                     'model' => $model,
-                    'transformer' => new $transformerClass(),
+                    'transformer' => new $transformerClass(null, true),
                     'endpoint' => app('Resources')->getEndpointForModel($model),
                 ];
             });
@@ -103,6 +104,30 @@ abstract class AbstractDumpCommand extends BaseCommand
     protected function streamOutput(): Closure
     {
         return fn (string $type, string $output) => $this->output->write($output);
+    }
+
+    /**
+     * Convert each endpoint's JSONL dump to ZSTD-compressed parquet with DuckDB, in a single
+     * Python process so DuckDB is only loaded once.
+     */
+    protected function convertToParquet(array $endpoints)
+    {
+        $paths = collect($endpoints)
+            ->flatMap(fn ($endpoint) => [
+                $this->getDumpPath('local/jsonl/' . $endpoint . '.jsonl'),
+                $this->getDumpPath('local/jsonl/' . $endpoint . '.parquet'),
+            ])
+            ->all();
+
+        $script = <<<'PYTHON'
+            import sys, duckdb
+            for src, dest in zip(sys.argv[1::2], sys.argv[2::2]):
+                src_sql, dest_sql = (path.replace("'", "''") for path in (src, dest))
+                duckdb.sql(f"COPY (SELECT * FROM '{src_sql}') TO '{dest_sql}' (FORMAT PARQUET, COMPRESSION 'ZSTD')")
+                print(f"Generated {dest}", flush=True)
+            PYTHON;
+
+        Process::forever()->run(['python3', '-c', $script, ...$paths], $this->streamOutput())->throw();
     }
 
     protected function toJson($input)

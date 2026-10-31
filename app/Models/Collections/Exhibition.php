@@ -21,6 +21,18 @@ class Exhibition extends CollectionsModel
         'webExhibition',
     ];
 
+    /**
+     * Leave out `image`: it's a `BelongsToManyOrOne` that only returns a single image when lazy-loaded.
+     */
+    protected $dumpWith = [
+        'gallery',
+        'artworks',
+        'artworks.artists',
+        'sites',
+        'altImages',
+        'documents',
+    ];
+
     public function artworks()
     {
         return $this->belongsToMany('App\Models\Collections\Artwork')->artworks();

@@ -17,6 +17,10 @@ class Archive extends BaseModel
         'metadata' => 'array',
     ];
 
+    protected $dumpWith = [
+        'agents',
+    ];
+
     public function agents()
     {
         return $this->belongsToMany(

@@ -18,6 +18,11 @@ class Site extends BaseModel
         'artworks',
     ];
 
+    protected $dumpWith = [
+        'exhibitions',
+        'artworks',
+    ];
+
     public function exhibitions()
     {
         return $this->belongsToMany('App\Models\Collections\Exhibition');

@@ -14,6 +14,12 @@ class Sound extends MobileModel
 
     protected $table = 'mobile_sounds';
 
+    protected $dumpWith = [
+        'artworks',
+        'introducedTours',
+        'stops.tour',
+    ];
+
     public function artworks()
     {
         return $this->belongsToMany('App\Models\Mobile\Artwork', 'mobile_artwork_mobile_sound', 'mobile_sound_id', 'mobile_artwork_id');

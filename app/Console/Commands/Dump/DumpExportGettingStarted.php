@@ -28,7 +28,7 @@ class DumpExportGettingStarted extends AbstractDumpCommand
 
         // Create transformer used for generating JSON output
         $transformer = app('Resources')->getTransformerForModel($model);
-        $transformer = new $transformer();
+        $transformer = new $transformer(null, true);
 
         $csv = $this->getNewWriter($filepath . '/someArtworks.csv', [
             'id',

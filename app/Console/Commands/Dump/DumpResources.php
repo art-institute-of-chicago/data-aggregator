@@ -2,14 +2,14 @@
 
 namespace App\Console\Commands\Dump;
 
-use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Collections\Asset;
 
 class DumpResources extends AbstractDumpCommand
 {
     protected $signature = 'dump:resources
-                            {--endpoint= : Only export specific endpoint`}';
+                            {--endpoint= : Only export specific endpoint`}
+                            {--skip-parquet : Don\'t convert JSONL to parquet, e.g. when `dump:export` does it}';
 
     protected $description = 'Dump local/json endpoints';
 
@@ -22,7 +22,9 @@ class DumpResources extends AbstractDumpCommand
 
         $resources = $this->getResources();
 
-        $resources->each(function ($resource) {
+        $configDocumentation = config('aic.config_documentation');
+
+        $resources->each(function ($resource) use ($configDocumentation) {
             $this->info('Dumping ' . $resource['endpoint']);
 
             $resource['model']::addRestrictContentScopes(true);
@@ -47,27 +49,35 @@ class DumpResources extends AbstractDumpCommand
             Storage::disk('dumps')->delete($filePathJsonl);
             $handleJsonl = fopen($this->getDumpPath($filePathJsonl), 'w');
 
+            // These are the same for every record, so only look them up once
+            $licenseText = $resource['transformer']->getLicenseText();
+            $licenseLinks = $resource['transformer']->getLicenseLinks();
+
             $bar = $this->output->createProgressBar($resource['model']::count());
 
-            foreach ($resource['model']::cursor() as $item) {
+            // Eager-load the relations the transformer uses one chunk at a time, instead of one query per record
+            $items = $resource['model']::with((new $resource['model']())->getDumpWith())->lazyById(1000);
+
+            foreach ($items as $item) {
                 $content = $resource['transformer']->transform($item);
 
                 // JSON
-                $filenameJson = $relativeDumpPathJson . '/' . $this->getItemId($item) . '.json';
-                $this->saveToJson($filenameJson, $content);
+                file_put_contents(
+                    $absoluteDumpPathJson . '/' . $this->getItemId($item) . '.json',
+                    $this->toJson($content)
+                );
 
                 // JSONL
                 $record = $content['data'] ?? $content;
 
-                $configDocumentation = config('aic.config_documentation');
                 if (isset($configDocumentation['iiif_url'])) {
                     $record['iiif_url'] = $configDocumentation['iiif_url'];
                 }
                 if (isset($record['timestamp'])) {
                     unset($record['timestamp']);
                 }
-                $record['license_text'] = $resource['transformer']->getLicenseText();
-                $record['license_links'] = $resource['transformer']->getLicenseLinks();
+                $record['license_text'] = $licenseText;
+                $record['license_links'] = $licenseLinks;
 
                 fwrite($handleJsonl, json_encode($record, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n");
 
@@ -77,21 +87,11 @@ class DumpResources extends AbstractDumpCommand
             $bar->finish();
             fclose($handleJsonl);
             $this->output->newLine(2);
-
-            $sql = "COPY (SELECT * FROM 'storage/dumps/local/jsonl/{$resource['endpoint']}.jsonl') TO 'storage/dumps/local/jsonl/{$resource['endpoint']}.parquet' (FORMAT PARQUET, COMPRESSION 'ZSTD');";
-
-            $result = Process::timeout(0)->run([
-                'python3',
-                '-c',
-                "import duckdb; duckdb.sql(\"{$sql}\")"
-            ]);
-
-            if ($result->successful()) {
-                $this->info("Parquet for {$resource['endpoint']} generated successfully!");
-            } else {
-                $this->error("DuckDB Error: " . $result->errorOutput());
-            }
         });
+
+        if (!$this->option('skip-parquet')) {
+            $this->convertToParquet($resources->pluck('endpoint')->all());
+        }
     }
 
     private function getItemId($item)
