@@ -4,6 +4,7 @@ namespace App\Console\Commands\Dump;
 
 use Illuminate\Support\Facades\Storage;
 use App\Library\Shell;
+use Closure;
 use Exception;
 use App\Console\Commands\BaseCommand;
 
@@ -93,6 +94,15 @@ abstract class AbstractDumpCommand extends BaseCommand
                 throw new Exception('Please specify `' . $var . '` in config');
             }
         }
+    }
+
+    /**
+     * Use as the output callback for `Process::run()` to stream a process's
+     * output to the console as it runs, like `passthru` does.
+     */
+    protected function streamOutput(): Closure
+    {
+        return fn (string $type, string $output) => $this->output->write($output);
     }
 
     protected function toJson($input)
