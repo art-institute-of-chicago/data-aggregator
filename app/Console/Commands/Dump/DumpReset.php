@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Dump;
 
 use Illuminate\Support\Facades\Process;
-use Illuminate\Support\Facades\File as FileFacade;
+use Illuminate\Support\Facades\File;
 
 class DumpReset extends AbstractDumpCommand
 {
@@ -18,6 +18,6 @@ class DumpReset extends AbstractDumpCommand
         $dumpPath = $this->getDumpPath('local/json');
 
         Process::forever()->run(['rm', '-rf', '--', $dumpPath])->throw();
-        FileFacade::ensureDirectoryExists($dumpPath);
+        File::ensureDirectoryExists($dumpPath);
     }
 }

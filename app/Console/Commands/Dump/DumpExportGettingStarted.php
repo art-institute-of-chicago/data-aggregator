@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Dump;
 
-use Illuminate\Support\Facades\File as FileFacade;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\Writer;
 
@@ -22,8 +22,8 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         // Remove the old getting started JSON in this dump
         $filepath = $this->getDumpPath('local/getting-started');
 
-        FileFacade::ensureDirectoryExists($filepath, 0777);
-        FileFacade::cleanDirectory($filepath);
+        File::ensureDirectoryExists($filepath, 0777);
+        File::cleanDirectory($filepath);
 
         $csv = $this->getNewWriter($filepath . '/someArtworks.csv', [
             'id',
