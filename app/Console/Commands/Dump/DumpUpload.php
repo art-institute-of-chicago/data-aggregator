@@ -85,6 +85,7 @@ class DumpUpload extends AbstractDumpCommand
 
             $copied = 0;
 
+            // Copy 10 files
             foreach ($filenames as $filename) {
                 $file = $jsonsSrcPath . '/' . $endpoint . '/' . $filename;
 
