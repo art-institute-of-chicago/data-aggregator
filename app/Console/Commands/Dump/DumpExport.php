@@ -69,7 +69,7 @@ class DumpExport extends AbstractDumpCommand
                 }
             }
 
-            usleep(250000);
+            usleep(250_000); // 0.25 seconds
         }
 
         if ($failed) {
