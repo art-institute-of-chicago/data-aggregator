@@ -16,6 +16,11 @@ class Section extends DscModel
         'artwork',
     ];
 
+    protected $dumpWith = [
+        'publication',
+        'artwork',
+    ];
+
     public function publication()
     {
         return $this->belongsTo('App\Models\Dsc\Publication');

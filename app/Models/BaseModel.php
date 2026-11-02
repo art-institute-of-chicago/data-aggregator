@@ -43,6 +43,14 @@ class BaseModel extends AbstractModel
     protected $hasSourceDates = true;
 
     /**
+     * Relations to eager-load when dumping this model, so the outbound transformer
+     * doesn't lazy-load them one query per record. Used by `dump:resources`.
+     *
+     * @var array
+     */
+    protected $dumpWith = [];
+
+    /**
      * This getter is in Laravel's base `Model` class, or rather, in its `HasAttributes` trait.
      * We override it here as a convenient way to "append" dates. This allows child classes to
      * use the `$casts` property without worrying about overwriting parent definitions in their
@@ -73,6 +81,11 @@ class BaseModel extends AbstractModel
     public function isBoosted()
     {
         return false;
+    }
+
+    public function getDumpWith()
+    {
+        return $this->dumpWith;
     }
 
     /**

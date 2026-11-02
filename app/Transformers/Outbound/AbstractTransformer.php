@@ -414,7 +414,7 @@ abstract class AbstractTransformer extends BaseTransformer
             $this->getDates()
         );
 
-        if ($this->isRestricted) {
+        if ($this->isRestricted || $this->isDump) {
             $mappedFields = $this->restrictFields($mappedFields);
         }
 
@@ -451,7 +451,7 @@ abstract class AbstractTransformer extends BaseTransformer
                 return false;
             }
 
-            if ($array['is_restricted'] === true) {
+            if ($this->isRestricted && $array['is_restricted'] === true) {
                 return false;
             }
 

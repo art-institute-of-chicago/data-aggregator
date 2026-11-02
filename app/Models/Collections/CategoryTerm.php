@@ -32,6 +32,10 @@ class CategoryTerm extends CollectionsModel
         'artworks',
     ];
 
+    protected $dumpWith = [
+        'parent',
+    ];
+
     /**
      * Create a new instance of the given model. For Assets, we use this to set a default `type`.
      */

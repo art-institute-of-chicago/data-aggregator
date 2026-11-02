@@ -17,6 +17,10 @@ class Tour extends MobileModel
         'tourStops',
     ];
 
+    protected $dumpWith = [
+        'tourStops.artwork.artwork',
+    ];
+
     public function intro()
     {
         return $this->belongsTo('App\Models\Mobile\Sound', 'intro_id');

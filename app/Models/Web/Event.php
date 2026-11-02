@@ -27,6 +27,11 @@ class Event extends WebModel
         'is_sales_button_hidden' => 'boolean',
     ];
 
+    protected $dumpWith = [
+        'ticketedEvent',
+        'eventHost',
+    ];
+
     public function ticketedEvent()
     {
         return $this->belongsTo('App\Models\Membership\TicketedEvent', 'ticketed_event_id', 'id');

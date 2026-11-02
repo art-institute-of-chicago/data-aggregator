@@ -27,6 +27,11 @@ class Agent extends CollectionsModel
         'createdArtworks',
     ];
 
+    protected $dumpWith = [
+        'agentType',
+        'archives',
+    ];
+
     protected $touches = [
         'createdArtworks',
     ];

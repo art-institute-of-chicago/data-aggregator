@@ -3,6 +3,8 @@
 namespace App\Console\Commands\Dump;
 
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\File as FileFacade;
+use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 
@@ -35,104 +37,185 @@ class DumpUpload extends AbstractDumpCommand
             throw new Exception('No getting started files found in ' . $gettingStartedSrcPath);
         }
 
-        $this->shell->passthru('rm -rf %s', $repoPath);
-        $this->shell->passthru('mkdir %s', $repoPath);
-        $this->shell->passthru('git -C %s init', $repoPath);
-        $this->shell->passthru('git config --global --add safe.directory %s', $repoPath);
-        $this->shell->passthru('git -C %s remote add origin %s', $repoPath, $repoRemote);
+        // Git
+        FileFacade::deleteDirectory($repoPath);
+        FileFacade::makeDirectory($repoPath);
+        Process::path($repoPath)->run(
+            ['git', 'config', '--global', 'init.defaultBranch', 'main'],
+            $this->streamOutput()
+        )->throw();
+        Process::path($repoPath)->run(['git', 'init'], $this->streamOutput())->throw();
+
+        Process::run(
+            ['git', 'config', '--global', '--add', 'safe.directory', $repoPath],
+            $this->streamOutput()
+        )->throw();
+        Process::path($repoPath)->run(
+            ['git', 'remote', 'add', 'origin', $repoRemote],
+            $this->streamOutput()
+        )->throw();
 
         // Copy README into the repo
-        $this->shell->exec(
-            'cp %s %s',
-            resource_path('api-data-readme.md'),
-            $repoPath . '/README.md'
-        );
+        FileFacade::copy(resource_path('api-data-readme.md'), $repoPath . '/README.md');
 
         // Copy COC into the repo
-        $this->shell->exec(
-            'cp %s %s',
-            base_path('CODE_OF_CONDUCT.md'),
-            $repoPath . '/CODE_OF_CONDUCT.md'
-        );
+        FileFacade::copy(base_path('CODE_OF_CONDUCT.md'), $repoPath . '/CODE_OF_CONDUCT.md');
 
         // Copy dumps of whitelisted tables and endpoints into the repo
-        $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/getting-started', $gettingStartedDestPath);
-        $this->shell->passthru('
-            for file in %s/*; do
-                if [ -f $file ]; then
-                    cp %s/$(basename $file) %s/
-                fi
-            done
-        ', $srcPath, $srcPath, $repoPath);
-        $this->shell->passthru('mkdir %s', $jsonsDestPath);
+        Process::run(
+            ['rsync', '-r', '--', $srcPath . '/getting-started/', $gettingStartedDestPath],
+            $this->streamOutput()
+        )->throw();
 
-        $endpointResult = $this->shell->exec('
-            for DIR_SRC in %s/json/*; do
-                if [ -d "$DIR_SRC" ]; then
-                    DIR_DEST=%s/json/$(basename "$DIR_SRC")
-                    mkdir "$DIR_DEST"
-                    echo "$(basename "$DIR_SRC")"
-                fi
-            done
-        ', $srcPath, $repoPath);
+        foreach (FileFacade::files($srcPath) as $file) {
+            FileFacade::copy($file->getPathname(), $repoPath . '/' . $file->getFilename());
+        }
+
+        FileFacade::makeDirectory($jsonsDestPath);
+
+        $endpoints = array_map('basename', FileFacade::directories($jsonsSrcPath));
 
         // First, copy only 10 items from each endpoint
-        foreach ($endpointResult['output'] as $endpoint) {
-            // https://stackoverflow.com/questions/11296809/how-to-avoid-ls-write-error-broken-pipe-with-php-exec
-            $fileResult = $this->shell->exec('ls -p1 %s/json/%s | grep -v / | sort -n -k1 2>/dev/null | head -10', $srcPath, $endpoint);
+        foreach ($endpoints as $endpoint) {
+            FileFacade::makeDirectory($jsonsDestPath . '/' . $endpoint);
 
-            foreach ($fileResult['output'] as $file) {
-                $this->shell->exec(
-                    'cp %s/json/%s/%s %s/json/%s',
-                    $srcPath,
-                    $endpoint,
-                    $file,
-                    $repoPath,
-                    $endpoint
-                );
+            // Sort plain filenames instead of building file objects, since some endpoints have 100k+ files
+            $filenames = scandir($jsonsSrcPath . '/' . $endpoint);
+            sort($filenames, SORT_NATURAL);
+
+            $copied = 0;
+
+            // Copy 10 files
+            foreach ($filenames as $filename) {
+                $file = $jsonsSrcPath . '/' . $endpoint . '/' . $filename;
+
+                if (str_starts_with($filename, '.') || !is_file($file)) {
+                    continue;
+                }
+
+                FileFacade::copy($file, $jsonsDestPath . '/' . $endpoint . '/' . $filename);
+
+                if (++$copied === 10) {
+                    break;
+                }
             }
         }
 
         // Copy info.json and config.json
-        $this->shell->passthru('cp %s %s', $srcPath . '/json/info.json', $repoPath . '/json/info.json');
-        $this->shell->passthru('cp %s %s', $srcPath . '/json/config.json', $repoPath . '/json/config.json');
+        FileFacade::copy($srcPath . '/json/info.json', $repoPath . '/json/info.json');
+        FileFacade::copy($srcPath . '/json/config.json', $repoPath . '/json/config.json');
 
         // Add VERSION file with current commit
-        $this->shell->passthru('git -C %s rev-parse HEAD > %s', base_path(), $repoPath . '/VERSION');
+        $version = Process::path(base_path())->run(['git', 'rev-parse', 'HEAD'])->throw()->output();
+        FileFacade::put($repoPath . '/VERSION', $version);
 
         // Add all files to index, commit, and push
-        $this->shell->passthru('git -C %s add -A', $repoPath);
+        Process::path($repoPath)->run(['git', 'add', '-A'], $this->streamOutput())->throw();
 
-        $this->shell->passthru(
-            'git -C %s -c %s -c %s commit --author %s -m "Update data"',
-            $repoPath,
-            'user.name=' . config('aic.dump.repo_name'),
-            'user.email=' . config('aic.dump.repo_email'),
-            config('aic.dump.repo_name') . ' <' . config('aic.dump.repo_email') . '>'
-        );
+        Process::path($repoPath)->run([
+            'git',
+            '-c', 'user.name=' . config('aic.dump.repo_name'),
+            '-c', 'user.email=' . config('aic.dump.repo_email'),
+            'commit',
+            '--author', config('aic.dump.repo_name') . ' <' . config('aic.dump.repo_email') . '>',
+            '-m', 'Update data',
+        ], $this->streamOutput())->throw();
 
-        $this->shell->passthru('git -C %s branch -M main', $repoPath);
-        $this->shell->passthru('git -C %s push --set-upstream origin main %s', $repoPath, '--force');
+        Process::path($repoPath)->run(['git', 'branch', '-M', 'main'], $this->streamOutput())->throw();
+        Process::path($repoPath)->forever()->run(
+            ['git', 'push', '--set-upstream', 'origin', 'main', '--force'],
+            $this->streamOutput()
+        )->throw();
 
-        // Now, copy full dataset (takes about 1 min 45 sec)
-        $this->shell->passthru('rsync -r %s/ %s', $srcPath . '/json', $jsonsDestPath);
+        // Hugging Face
+        $parquetPath = $srcPath . '/jsonl';
+        $hfUpload = null;
+
+        if (config('aic.dump.hugging_face_token')) {
+            $this->validateConfig(['aic.dump.hugging_face_repo']);
+
+            $parquetFiles = glob($parquetPath . '/*.parquet');
+
+            if (empty($parquetFiles)) {
+                throw new Exception('No parquet files found in ' . $parquetPath);
+            }
+
+            // Generate the dataset card, with one config per endpoint so the dataset viewer
+            // doesn't try to combine files with different schemas into a single table
+            $configs = collect($parquetFiles)
+                ->map(fn ($file) => basename($file, '.parquet'))
+                ->map(fn ($endpoint) => implode("\n", array_filter([
+                    '- config_name: ' . $endpoint,
+                    '  data_files: ' . $endpoint . '.parquet',
+                    $endpoint === 'artworks' ? '  default: true' : null,
+                ])))
+                ->implode("\n");
+
+            file_put_contents(
+                $parquetPath . '/README.md',
+                str_replace('{{configs}}', $configs, file_get_contents(resource_path('api-data-hugging-face-readme.md')))
+            );
+
+            $repoId = config('aic.dump.hugging_face_repo');
+
+            // Pass the token through the environment so it doesn't show up in the process list
+            $hfEnv = ['HF_TOKEN' => config('aic.dump.hugging_face_token')];
+
+            // Only upload parquet files and the dataset card, and remove remote parquet files that no longer exist
+            // locally. Run it in the background while the archive is built, and wait for it before cleanup.
+            $hfUpload = Process::env($hfEnv)->forever()->start([
+                'hf', 'upload', $repoId, $parquetPath, '.',
+                '--repo-type=dataset',
+                '--include=*.parquet',
+                '--include=README.md',
+                '--delete=*.parquet',
+                '--commit-message=Update data',
+            ], $this->streamOutput());
+        } else {
+            $this->warn('Skipping Hugging Face upload: `aic.dump.hugging_face_token` is not set');
+        }
 
         $archiveName = 'artic-api-data';
         $archiveFile = $archiveName . '.tar.bz2';
         $archivePath = $this->getDumpPath($archiveFile);
 
+        // Archive everything in the repo except its sample `json`, then the full `json` straight from the source,
+        // so the full dataset doesn't have to be copied into the repo first. List the repo's entries explicitly
+        // instead of using `--exclude=./json`, since tar would apply that to the source's `./json` too.
+        $repoEntries = collect(scandir($repoPath))
+            ->reject(fn ($entry) => in_array($entry, ['.', '..', 'json']))
+            ->map(fn ($entry) => './' . $entry)
+            ->all();
+
         // Create (-c) tar archive file (-f) with bzip2 (-j) with verbose output (-v)
-        // cd (-C) to repo path and target relative (./) to avoid putting the full absolute path hierarchy inside archive
+        // cd (-C) to each path and target relative (./) to avoid putting the full absolute path hierarchy inside archive
         // transform archive members so they start in `artic-api-data` directory instead of `.`
-        // omitting / from . in sed expression makes it so that . itself gets transformed
-        $this->shell->passthru("tar --transform 's:^.:%s:' -cvjf %s -C %s ./", $archiveName, $archivePath, $repoPath);
+        Process::forever()->run([
+            'tar', '--transform', 's:^.:' . $archiveName . ':', '-cvjf', $archivePath,
+            '-C', $repoPath, ...$repoEntries,
+            '-C', $srcPath, './json',
+        ], $this->streamOutput())->throw();
 
         // Stream the file to S3; be sure to set `AWS_BUCKET` in `.env` and otherwise configure credentials
         Storage::disk('s3')->putFileAs('/', new File($archivePath), $archiveFile);
 
+        // The upload reads from `$srcPath`, so it has to finish before cleanup
+        if ($hfUpload) {
+            $hfUpload->wait()->throw();
+
+            Process::env($hfEnv)->forever()->run([
+                'python3', '-c',
+                'import sys; from huggingface_hub import HfApi; '
+                    . 'HfApi().super_squash_history(sys.argv[1], repo_type="dataset", commit_message="Update data")',
+                $repoId,
+            ], $this->streamOutput())->throw();
+        }
+
         // Remove dumps to reduce deploy times (chown)
-        $this->shell->passthru('rm -rf %s', $repoPath);
-        $this->shell->passthru('rm -rf %s', $srcPath);
+        FileFacade::deleteDirectory($repoPath);
+
+        // `rm -rf` is much faster than PHP for the full dump's hundreds of thousands of files
+        Process::forever()->run(['rm', '-rf', '--', $srcPath])->throw();
     }
 
     protected function isDirEmpty($dir)
@@ -141,7 +224,7 @@ class DumpUpload extends AbstractDumpCommand
 
         while (false !== ($entry = readdir($handle))) {
             if ($entry != '.' && $entry != '..') {
-                $file = $dir . $entry;
+                $file = $dir . '/' . $entry;
 
                 if (is_dir($file)) {
                     if (!$this->isDirEmpty($file)) {

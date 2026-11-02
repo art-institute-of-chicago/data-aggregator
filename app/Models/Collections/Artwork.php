@@ -49,6 +49,18 @@ class Artwork extends CollectionsModel
     ];
 
     /**
+     * Relations the dump's transformer uses beyond `$with`. Leave out `thumbnail`: it's a
+     * `BelongsToManyOrOne` that only returns a single image when lazy-loaded.
+     */
+    protected $dumpWith = [
+        'dateQualifier',
+        'webArtwork',
+        'documents',
+        'imageEmbedding',
+        'textEmbedding',
+    ];
+
+    /**
      * Search field names that can be used as a search_field parameter
      * to restrict ES to one field for search
      */
