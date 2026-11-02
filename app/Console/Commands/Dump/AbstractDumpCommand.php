@@ -4,22 +4,12 @@ namespace App\Console\Commands\Dump;
 
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Storage;
-use App\Library\Shell;
 use Closure;
 use Exception;
 use App\Console\Commands\BaseCommand;
 
 abstract class AbstractDumpCommand extends BaseCommand
 {
-    protected $shell;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->shell = new Shell();
-    }
-
     protected function getResources()
     {
         // Get all models for export, ignore category assignment

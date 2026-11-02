@@ -61,13 +61,6 @@ class DumpResources extends AbstractDumpCommand
             foreach ($items as $item) {
                 $content = $resource['transformer']->transform($item);
 
-                // JSON
-                file_put_contents(
-                    $absoluteDumpPathJson . '/' . $this->getItemId($item) . '.json',
-                    $this->toJson($content)
-                );
-
-                // JSONL
                 $record = $content['data'] ?? $content;
 
                 if (isset($configDocumentation['iiif_url'])) {
@@ -79,6 +72,13 @@ class DumpResources extends AbstractDumpCommand
                 $record['license_text'] = $licenseText;
                 $record['license_links'] = $licenseLinks;
 
+                // JSON
+                file_put_contents(
+                    $absoluteDumpPathJson . '/' . $this->getItemId($item) . '.json',
+                    $this->toJson($record)
+                );
+
+                // JSONL
                 fwrite($handleJsonl, json_encode($record, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n");
 
                 $bar->advance();

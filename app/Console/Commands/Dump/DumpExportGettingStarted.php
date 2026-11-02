@@ -22,9 +22,7 @@ class DumpExportGettingStarted extends AbstractDumpCommand
         // Remove the old getting started JSON in this dump
         $filepath = $this->getDumpPath('local/getting-started');
 
-        if (!file_exists($filepath)) {
-            mkdir($filepath, 0777, true);
-        }
+        FileFacade::ensureDirectoryExists($filepath, 0777);
         FileFacade::cleanDirectory($filepath);
 
         $csv = $this->getNewWriter($filepath . '/someArtworks.csv', [
