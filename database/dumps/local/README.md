@@ -65,7 +65,7 @@ git commit -m 'Add a clear and concise commit message'
 git push origin feature/good-short-description
 ```
 
-Then on GitHub, create a Pull Request to merge your changes into our `master` branch.
+Then on GitHub, create a Pull Request to merge your changes into our `main` branch.
 
 This project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its [terms](CODE_OF_CONDUCT.md).
 
