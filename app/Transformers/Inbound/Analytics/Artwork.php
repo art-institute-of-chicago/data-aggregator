@@ -22,6 +22,7 @@ class Artwork extends BaseTransformer
         return [
             'pageviews' => $datum->pageviews,
             'pageviews_recent' => $datum->pageviews_recent,
+            'pageviews_by_month' => $datum->pageviews_by_month,
         ];
     }
 }
