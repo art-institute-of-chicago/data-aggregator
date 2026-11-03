@@ -11,11 +11,15 @@ For a number of reasons, users might want to have a copy of our entire dataset t
 
 ## Where is the full dataset?
 
-The full dataset is too large to host on GitHub. This repository serves as a preview of the dataset by offering 10 sample records for each endpoint in the API. You can download the full dataset here:
+This repository serves as a preview of the dataset by offering 10 sample records for each endpoint in the API. You can find the full dataset on Hugging Face:
+
+https://huggingface.co/datasets/art-institute-of-chicago/api-data
+
+or download the full dataset here:
 
 https://artic-api-data.s3.amazonaws.com/artic-api-data.tar.bz2
 
-The contents of that link are updated on the same schedule as this GitHub repository. At the time of writing, this dataset is about 75 MB compressed but takes up about 1.75 GB on disk after being extracted.
+The contents of these full datasets are updated on the same schedule as this GitHub repository. At the time of writing, this dataset is about 125 MB compressed but takes up about 2.75 GB on disk after being extracted.
 
 
 ## What's in the dataset?
@@ -61,7 +65,7 @@ git commit -m 'Add a clear and concise commit message'
 git push origin feature/good-short-description
 ```
 
-Then on GitHub, create a Pull Request to merge your changes into our `master` branch.
+Then on GitHub, create a Pull Request to merge your changes into our `main` branch.
 
 This project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its [terms](CODE_OF_CONDUCT.md).
 
