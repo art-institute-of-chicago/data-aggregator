@@ -7,6 +7,7 @@ use App\Services\AIPrompts;
 use Illuminate\Support\Facades\Http;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Models\Web\Vectors\ImageEmbedding;
+use App\Services\VectorSearchService;
 use Pgvector\Laravel\Vector;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -102,6 +103,13 @@ trait HandleEmbeddings
         $embeddingModel = $type === 'text' ? TextEmbedding::class : ImageEmbedding::class;
         $version = config('azure.' . ($type === 'text' ? 'embedding' : 'image_embedding') . '.version');
 
+        // Captured before the upsert: a re-embed can pull this item away from the
+        // items that currently list it, and only the old vector identifies them.
+        $previousEmbedding = $embeddingModel::where('model_name', $modelName)
+            ->where('model_id', $modelId)
+            ->whereNotNull('embedding')
+            ->value('embedding');
+
         $result = $embeddingModel::updateOrCreate(
             [
                     'model_name' => $modelName,
@@ -113,6 +121,20 @@ trait HandleEmbeddings
                     'embedding' => $vector,
                 ]
         );
+
+        // Keep precomputed neighbor lists in step with the new vector instead of
+        // waiting for the next `ai:precompute-neighbors` sweep.
+        try {
+            app(VectorSearchService::class)->repairNeighbors(
+                $embeddingModel,
+                $modelName,
+                $modelId,
+                $previousEmbedding ? (string) $previousEmbedding : null
+            );
+        } catch (\Throwable $e) {
+            // Missing table / stale schema must never block an import.
+            report($e);
+        }
 
         return [
             'success' => true,

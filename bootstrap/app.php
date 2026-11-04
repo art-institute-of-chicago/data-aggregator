@@ -254,6 +254,13 @@ return Application::configure(basePath: dirname(__DIR__))
             ->withoutOverlapping($FOR_ONE_YEAR)
             ->sentryMonitor();
 
+        // Materialize nearest neighbors so similarity reads are a lookup instead
+        // of an HNSW scan. Resumable; safe to re-run (upserts by rank).
+        $schedule->command('ai:precompute-neighbors', ['artworks', '--limit=' . config('vector.neighbors.limit')])
+            ->dailyAt('03:30')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
         //
         // Archived Static sites
         $schedule->command('import:sites', ['--yes'])
