@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
@@ -10,8 +11,21 @@ return new class () extends Migration {
         $this->connection = 'vectors';
     }
 
+    /**
+     * Same key as the index migration, so concurrent deploys serialize.
+     */
+    protected const ADVISORY_LOCK_KEY = 859015398;
+
     public function up(): void
     {
+        DB::connection('vectors')->select('SELECT pg_advisory_xact_lock(?)', [self::ADVISORY_LOCK_KEY]);
+
+        // Two sessions creating the same table fail the same way two sessions
+        // creating the same index do, so take the same lock first.
+        if (Schema::connection('vectors')->hasTable('embedding_neighbors')) {
+            return;
+        }
+
         // Materialized nearest neighbors, filled by `ai:precompute-neighbors`.
         // Serving a similarity read becomes a btree lookup on
         // (embedding_type, model_name, model_id, rank) instead of an HNSW scan.
