@@ -17,6 +17,13 @@ class EmbeddingNeighbor extends BaseModel
     protected $table = 'embedding_neighbors';
 
     /**
+     * Precomputed neighbor rows carry `computed_at` only - no created_at/updated_at.
+     * Without this, Eloquent's `upsert()` appends timestamps to the insert and the
+     * statement fails with `column "created_at" does not exist`.
+     */
+    public $timestamps = false;
+
+    /**
      * The attributes that are mass assignable.
      */
     protected $fillable = [

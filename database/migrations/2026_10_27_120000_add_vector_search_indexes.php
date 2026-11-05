@@ -16,8 +16,12 @@ return new class () extends Migration {
         // during a maintenance window, or build the HNSW indexes by hand with
         // CREATE INDEX CONCURRENTLY and let this migration no-op via IF NOT EXISTS.
         //
-        // Also worth raising for the build: maintenance_work_mem and
-        // max_parallel_maintenance_workers.
+        // Parallel maintenance workers need a large /dev/shm segment; Docker's
+        // 64 MB default fails the build with "could not resize shared memory
+        // segment: No space left on device". Default to a single worker.
+        DB::connection('vectors')->statement(
+            'SET max_parallel_maintenance_workers = ' . max(0, (int) config('vector.index_parallel_workers', 0))
+        );
 
         // Plain btree on `model_name` so filtered reads, counts and fallback
         // scans don't fall back to a full table scan. The unique

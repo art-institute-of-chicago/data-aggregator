@@ -254,10 +254,18 @@ return Application::configure(basePath: dirname(__DIR__))
             ->withoutOverlapping($FOR_ONE_YEAR)
             ->sentryMonitor();
 
-        // Materialize nearest neighbors so similarity reads are a lookup instead
-        // of an HNSW scan. Resumable; safe to re-run (upserts by rank).
-        $schedule->command('ai:precompute-neighbors', ['artworks', '--limit=' . config('vector.neighbors.limit')])
+        // New/changed embeddings repair their own neighborhood on write (see
+        // HandleEmbeddings::saveEmbeddings), so a nightly full rebuild is wasted
+        // work - it costs one HNSW query per embedding. Nightly only prunes rows
+        // pointing at deleted embeddings; the full rebuild runs weekly as a
+        // safety net.
+        $schedule->command('ai:precompute-neighbors', ['artworks', '--prune-only'])
             ->dailyAt('03:30')
+            ->withoutOverlapping($FOR_ONE_YEAR)
+            ->sentryMonitor();
+
+        $schedule->command('ai:precompute-neighbors', ['all', '--prune', '--limit=' . config('vector.neighbors.limit')])
+            ->weeklyOn(1, '04:30')
             ->withoutOverlapping($FOR_ONE_YEAR)
             ->sentryMonitor();
 

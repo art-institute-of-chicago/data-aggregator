@@ -8,6 +8,7 @@ use App\Models\Web\Vectors\ImageEmbedding;
 use App\Models\Web\Vectors\TextEmbedding;
 use App\Services\VectorSearchService;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PrecomputeNeighbors extends BaseCommand
@@ -19,7 +20,8 @@ class PrecomputeNeighbors extends BaseCommand
         {--chunk=250 : Embedding rows processed per batch}
         {--id= : Only precompute for this model_id}
         {--fresh : Delete existing rows for this model + type first}
-        {--prune : Delete rows pointing at embeddings that no longer exist}';
+        {--prune : Delete rows pointing at embeddings that no longer exist}
+        {--prune-only : Prune and exit, without recomputing neighbors}';
 
     protected $description = 'Materialize nearest neighbors into embedding_neighbors for fast reads';
 
@@ -41,14 +43,20 @@ class PrecomputeNeighbors extends BaseCommand
             return 1;
         }
 
+        $pruneOnly = (bool) $this->option('prune-only');
+
         foreach ($models as $model) {
             foreach ($types as $type) {
-                if ($this->option('prune')) {
+                if ($this->option('prune') || $pruneOnly) {
                     $deleted = $this->searchService->pruneNeighbors($type, $model);
                     $this->info(
                         "Pruned {$deleted} stale {$type} rows for {$model}.",
                         OutputInterface::VERBOSITY_VERBOSE
                     );
+                }
+
+                if ($pruneOnly) {
+                    continue;
                 }
 
                 $this->precompute($model, $type, $limit, $chunk);
@@ -96,12 +104,23 @@ class PrecomputeNeighbors extends BaseCommand
         $processed = 0;
         $failed = 0;
 
+        // Written to stderr so it stays out of captured stdout and out of the
+        // log lines that go through $this->info().
+        $progress = $this->output->isVerbose()
+            ? new ProgressBar($this->output->getErrorStyle(), $total)
+            : null;
+
+        if (!is_null($progress)) {
+            $progress->setFormat(' %current%/%max% [%bar%] %percent:3s%% %elapsed:6s% %memory:6s%');
+            $progress->start();
+        }
+
         $query()->chunkById(
             $chunk,
-            function ($rows) use ($embeddingClass, $type, $model, $limit, &$processed, &$failed) {
+            function ($rows) use ($embeddingClass, $type, $model, $limit, &$processed, &$failed, $progress) {
                 // One transaction for the whole batch instead of one per item.
                 $this->searchService->withSearchSettings(
-                    function () use ($rows, $embeddingClass, $type, $model, $limit, &$processed, &$failed) {
+                    function () use ($rows, $embeddingClass, $type, $model, $limit, &$processed, &$failed, $progress) {
                         foreach ($rows as $row) {
                             try {
                                 $neighbors = $this->searchService->liveNearestNeighbors(
@@ -132,12 +151,21 @@ class PrecomputeNeighbors extends BaseCommand
                                     'message' => $e->getMessage(),
                                 ]);
                             }
+
+                            if (!is_null($progress)) {
+                                $progress->advance();
+                            }
                         }
                     },
                     (int) config('vector.ef_search', 100)
                 );
             }
         );
+
+        if (!is_null($progress)) {
+            $progress->finish();
+            $this->output->getErrorStyle()->newLine(2);
+        }
 
         $this->info("Done: {$processed} {$model} items, {$failed} failures.", OutputInterface::VERBOSITY_VERBOSE);
 

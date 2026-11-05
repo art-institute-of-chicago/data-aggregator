@@ -53,4 +53,22 @@ return [
         'oversample' => (int) env('VECTORS_PRECOMPUTED_OVERSAMPLE', 10),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Index Build Settings
+    |--------------------------------------------------------------------------
+    |
+    | HNSW builds hand their work to parallel maintenance workers through dynamic
+    | shared memory, which lives in /dev/shm. Docker defaults that to 64 MB, so
+    | `CREATE INDEX` fails with "could not resize shared memory segment: No space
+    | left on device" even when the disk is empty. Building with a single worker
+    | needs no shared segment, at the cost of a slower build.
+    |
+    | Set VECTORS_INDEX_PARALLEL_WORKERS above 0 (and raise the container's
+    | shm_size, e.g. 1gb) if you would rather trade memory for build speed.
+    |
+    */
+
+    'index_parallel_workers' => (int) env('VECTORS_INDEX_PARALLEL_WORKERS', 0),
+
 ];
