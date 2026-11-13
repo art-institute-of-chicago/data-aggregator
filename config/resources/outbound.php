@@ -13,6 +13,7 @@ return [
             'transformer' => \App\Transformers\Outbound\Collections\Artwork::class,
             'scope_of' => 'artworks', // Fire scopeArtworks + searchScopeArtworks
             'is_searchable' => true,
+            'track_changes' => true, // Log changes to public fields, see `changes:detect`
         ],
         [
             'endpoint' => 'deaccessions',
