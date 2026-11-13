@@ -147,6 +147,22 @@ class ResourceServiceProvider extends ServiceProvider
                     return $resource['is_restricted'] ?? false;
                 }
 
+                public function isTrackingChanges($endpoint)
+                {
+                    $resource = $this->getResourceForEndpoint($endpoint);
+
+                    return $resource['track_changes'] ?? false;
+                }
+
+                public function getTrackedEndpoints()
+                {
+                    return $this->outbound
+                        ->filter(fn ($resource) => isset($resource['endpoint']) && ($resource['track_changes'] ?? false))
+                        ->pluck('endpoint')
+                        ->values()
+                        ->all();
+                }
+
                 public function getRetrictedFieldNamesForEndpoint($endpoint)
                 {
                     $transformerClass = $this->getTransformerForEndpoint($endpoint);

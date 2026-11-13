@@ -120,6 +120,10 @@ return [
         'audio_cdn_url' => env('MOBILE_AUDIO_CDN_URL'),
     ],
 
+    'changes' => [
+        'schedule_enabled' => env('CHANGES_SCHEDULE_ENABLED', false),
+    ],
+
     'web' => [
         'username' => env('WEB_CMS_DATA_SERVICE_USERNAME'),
         'password' => env('WEB_CMS_DATA_SERVICE_PASSWORD'),

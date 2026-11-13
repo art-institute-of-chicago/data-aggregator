@@ -8,6 +8,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ImageSearchController;
 use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\ChangeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::match(['GET', 'POST'], '{resource}/echo', [SearchController::class, 'echo']);
         Route::match(['GET', 'POST'], '{resource}/{id}/explain', [SearchController::class, 'explain']);
     }
+
+    // Log of changes to resources with `track_changes` enabled
+    Route::any('changes', [ChangeController::class, 'changes']);
 
     // Define all of our resource routes by looping through config
     foreach (config('resources.outbound.base') as $resource) {

@@ -362,6 +362,15 @@ return Application::configure(basePath: dirname(__DIR__))
             ->withoutOverlapping($FOR_ONE_YEAR)
             ->sentryMonitor();
 
+        //
+        // Change log for resources with `track_changes` enabled
+        if (config('aic.changes.schedule_enabled')) {
+            $schedule->command('changes:detect')
+                ->everyFifteenMinutes()
+                ->withoutOverlapping($FOR_ONE_YEAR)
+                ->sentryMonitor();
+        }
+
         if (config('aic.dump.schedule_enabled')) {
             $schedule->command('dump:schedule')
                 ->weekly()

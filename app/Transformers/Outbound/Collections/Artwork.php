@@ -133,6 +133,7 @@ class Artwork extends BaseTransformer
                 'doc' => 'Whether the artwork hasn\'t been visited on our website very much',
                 'type' => 'boolean',
                 'elasticsearch' => 'boolean',
+                'track_changes' => false,
                 'value' => function ($item) {
                     return $item->pageviews <= 200;
                 },
@@ -143,6 +144,7 @@ class Artwork extends BaseTransformer
                 'elasticsearch' => [
                     'type' => 'integer',
                 ],
+                'track_changes' => false,
                 'value' => function ($item) {
                     return $item->getBoostRank();
                 },
