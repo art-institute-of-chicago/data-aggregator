@@ -2,7 +2,8 @@
 
 namespace App\Models\Changes;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
+use App\Models\ElasticSearchable;
 
 /**
  * One entry in the log of changes to public API fields.
@@ -11,8 +12,13 @@ use Illuminate\Database\Eloquent\Model;
  * `updated` events record one field each. All fields that changed in the same
  * detection pass share a `detected_at`, so consumers can group them together.
  */
-class RecordChange extends Model
+class RecordChange extends BaseModel
 {
+    use ElasticSearchable;
+
+    protected static $source = 'Changes';
+    protected $hasSourceDates = false;
+
     public const CREATED = 'created';
     public const UPDATED = 'updated';
     public const DELETED = 'deleted';

@@ -376,5 +376,15 @@ return [
             'is_searchable' => true,
             'is_restricted' => true,
         ],
+
+        /**
+         * Record changes:
+         */
+        [
+            'endpoint' => 'changes',
+            'model' => \App\Models\Changes\RecordChange::class,
+            'transformer' => \App\Transformers\Outbound\RecordChange::class,
+            'is_searchable' => true,
+        ],
     ],
 ];
