@@ -30,14 +30,6 @@ class ChangeController extends AbstractController
      */
     public function changes(Request $request)
     {
-        $this->validateMethod($request);
-
-        $limit = $request->input('limit') ?: 12;
-
-        if (Gate::denies('restricted-access') && $limit > static::LIMIT_MAX) {
-            throw new BigLimitException();
-        }
-
         $trackedEndpoints = app('Resources')->getTrackedEndpoints();
         $resource = $request->input('resource');
 
@@ -49,18 +41,53 @@ class ChangeController extends AbstractController
             );
         }
 
-        $query = RecordChange::query()
-            ->whereIn('resource', $resource ? [$resource] : $trackedEndpoints)
-            ->orderBy('detected_at', 'desc')
-            ->orderBy('id', 'desc');
+        $ids = null;
 
-        if ($ids = $request->input('ids')) {
-            $ids = explode(',', $ids);
+        if ($request->input('ids')) {
+            $ids = explode(',', $request->input('ids'));
 
             if (Gate::denies('restricted-access') && count($ids) > static::LIMIT_MAX) {
                 throw new TooManyIdsException();
             }
+        }
 
+        return $this->listChanges($request, $resource ? [$resource] : $trackedEndpoints, $ids);
+    }
+
+    /**
+     * Changes to a single record, e.g. `/artworks/{id}/changes`. The route only matches
+     * endpoints with `track_changes` enabled, so `$resource` needs no further validation.
+     * Returns an empty list rather than a 404 for unknown ids, since deleted records
+     * still have a change history.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function recordChanges(Request $request, string $resource, string $id)
+    {
+        return $this->listChanges($request, [$resource], [$id]);
+    }
+
+    /**
+     * @param  array<string>  $resources
+     * @param  ?array<string>  $ids
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function listChanges(Request $request, array $resources, ?array $ids)
+    {
+        $this->validateMethod($request);
+
+        $limit = $request->input('limit') ?: 12;
+
+        if (Gate::denies('restricted-access') && $limit > static::LIMIT_MAX) {
+            throw new BigLimitException();
+        }
+
+        $query = RecordChange::query()
+            ->whereIn('resource', $resources)
+            ->orderBy('detected_at', 'desc')
+            ->orderBy('id', 'desc');
+
+        if ($ids) {
             $query->whereIn('record_id', $ids);
         }
 

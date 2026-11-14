@@ -152,4 +152,29 @@ class ChangeTrackerTest extends TestCase
         $this->getJson('api/v1/changes?resource=agents')->assertStatus(400);
         $this->getJson('api/v1/changes?since=not-a-date')->assertStatus(400);
     }
+
+    #[Test]
+    public function it_lists_changes_for_a_single_record(): void
+    {
+        $artwork = $this->make(Artwork::class, ['title' => 'Old Title']);
+        $other = $this->make(Artwork::class, ['title' => 'Other Old Title']);
+        $this->artisan('changes:detect')->assertSuccessful();
+
+        $artwork->title = 'New Title';
+        $artwork->save();
+        $other->title = 'Other New Title';
+        $other->save();
+        $this->artisan('changes:detect')->assertSuccessful();
+
+        $response = $this->getJson('api/v1/artworks/' . $artwork->id . '/changes');
+        $response->assertSuccessful();
+
+        $data = $response->json()['data'];
+        $this->assertCount(1, $data);
+        $this->assertEquals((string) $artwork->id, $data[0]['record_id']);
+        $this->assertEquals('New Title', $data[0]['new_value']);
+
+        // Only endpoints with `track_changes` get the sub-endpoint
+        $this->getJson('api/v1/agents/1/changes')->assertNotFound();
+    }
 }

@@ -56,6 +56,8 @@ Route::group(['prefix' => 'v1'], function () {
 
     // Log of changes to resources with `track_changes` enabled
     Route::any('changes', [ChangeController::class, 'changes']);
+    Route::any('{resource}/{id}/changes', [ChangeController::class, 'recordChanges'])
+        ->whereIn('resource', app('Resources')->getTrackedEndpoints());
 
     // Define all of our resource routes by looping through config
     foreach (config('resources.outbound.base') as $resource) {
