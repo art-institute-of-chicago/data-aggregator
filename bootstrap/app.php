@@ -138,6 +138,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('report:category-terms')
             ->dailyAt('20:00')
             ->withoutOverlapping()
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('cache:prune-stale-tags')
@@ -153,6 +154,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('import:mobile')
             ->dailyAt('23:05')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         //
@@ -160,6 +162,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('import:products-full', ['--yes'])
             ->dailyAt('23:10')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         //
@@ -167,91 +170,109 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('import:web-full', ['articles', '--yes'])
             ->dailyAt('23:15')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['artworks', '--yes'])
             ->dailyAt('23:18')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['artists', '--yes'])
             ->dailyAt('23:21')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['events', '--yes'])
             ->dailyAt('23:24')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['event-occurrences', '--yes'])
             ->dailyAt('23:27')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['event-programs', '--yes'])
             ->dailyAt('23:30')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['exhibitions', '--yes'])
             ->dailyAt('23:33')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['highlights', '--yes'])
             ->dailyAt('23:36')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['genericpages', '--yes'])
             ->dailyAt('23:39')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['pressreleases', '--yes'])
             ->dailyAt('23:42')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['educatorresources', '--yes'])
             ->dailyAt('23:45')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['digitalpublications', '--yes'])
             ->dailyAt('23:48')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['digitalpublicationarticles', '--yes'])
             ->dailyAt('23:51')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['printedpublications', '--yes'])
             ->dailyAt('23:54')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['staticpages', '--yes'])
             ->dailyAt('23:57')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web-full', ['hours', '--yes'])
             ->everyFiveMinutes()
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:web')
             ->everyFiveMinutes()
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('ai:embed-description')
             ->everyMinute()
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         // New/changed embeddings repair their own neighborhood on write (see
@@ -262,11 +283,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('ai:precompute-neighbors', ['artworks', '--prune-only'])
             ->dailyAt('03:30')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('ai:precompute-neighbors', ['all', '--prune', '--limit=' . config('vector.neighbors.limit')])
             ->weeklyOn(1, '04:30')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         //
@@ -281,6 +304,7 @@ return Application::configure(basePath: dirname(__DIR__))
             $schedule->command('import:archives', ['--yes'])
                 ->dailyAt('23:08')
                 ->withoutOverlapping($FOR_ONE_YEAR)
+                ->runInBackground()
                 ->sentryMonitor();
         }
 
@@ -301,6 +325,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('import:events-ticketed-full', ['--unreset'])
             ->everyFiveMinutes()
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         //
@@ -308,21 +333,25 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('delete:assets')
             ->everyFiveMinutes()
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('delete:collections')
             ->everyFiveMinutes()
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:assets')
             ->everyFiveMinutes()
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         $schedule->command('import:collections')
             ->everyFiveMinutes()
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         //
@@ -330,6 +359,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('import:queues')
             ->everyMinute()
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         //
@@ -337,12 +367,14 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('import:enhancer')
             ->everyMinute()
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         if (!App::environment('production')) {
             $schedule->command('import:artist-enrichment')
                 ->hourly()
                 ->withoutOverlapping($FOR_ONE_YEAR)
+                ->runInBackground()
                 ->sentryMonitor();
         }
 
@@ -352,6 +384,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ])
             ->hourly()
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         // API-401: Make sure the artworks index is always in sync with the datebase
@@ -360,6 +393,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ])
             ->dailyAt('22:10')
             ->withoutOverlapping($FOR_ONE_YEAR)
+            ->runInBackground()
             ->sentryMonitor();
 
         //
@@ -368,6 +402,7 @@ return Application::configure(basePath: dirname(__DIR__))
             $schedule->command('changes:detect')
                 ->everyFifteenMinutes()
                 ->withoutOverlapping($FOR_ONE_YEAR)
+                ->runInBackground()
                 ->sentryMonitor();
         }
 
@@ -376,6 +411,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->weekly()
                 ->sundays()
                 ->withoutOverlapping($FOR_ONE_YEAR)
+                ->runInBackground()
                 ->sentryMonitor();
         }
     })->create();
