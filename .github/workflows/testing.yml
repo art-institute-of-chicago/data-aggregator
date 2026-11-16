@@ -41,7 +41,7 @@ jobs:
 
     - name: Install Postgres
       id: postgres
-      uses: ikalnytskyi/action-setup-postgres@v8
+      uses: ikalnytskyi/action-setup-postgres@v9
       with:
           username: homestead
           password: secret
