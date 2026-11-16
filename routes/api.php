@@ -54,11 +54,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::match(['GET', 'POST'], '{resource}/{id}/explain', [SearchController::class, 'explain']);
     }
 
-    // Log of changes to resources with `track_changes` enabled
-    Route::any('changes', [ChangeController::class, 'changes']);
-    Route::any('{resource}/{id}/changes', [ChangeController::class, 'recordChanges'])
-        ->whereIn('resource', app('Resources')->getTrackedEndpoints());
-
     // Define all of our resource routes by looping through config
     foreach (config('resources.outbound.base') as $resource) {
         if (!isset($resource['endpoint'])) {
@@ -75,6 +70,13 @@ Route::group(['prefix' => 'v1'], function () {
         Route::any($resource['endpoint'], [$controller, ($isScoped ? 'indexScope' : 'index')]);
         Route::any($resource['endpoint'] . '/{id}', [$controller, ($isScoped ? 'showScope' : 'show')]);
     }
+
+    // Log of changes to resources with `track_changes` enabled. Registered after the loop above
+    // so it replaces the generic `changes` listing, which sorts by an `updated_at` column the
+    // change log doesn't have. `changes/{id}` and `changes/search` still use the generic handlers.
+    Route::any('changes', [ChangeController::class, 'changes']);
+    Route::any('{resource}/{id}/changes', [ChangeController::class, 'recordChanges'])
+        ->whereIn('resource', app('Resources')->getTrackedEndpoints());
 
     // WEB-1809: Add manifests to support IIIF Presentation API
     Route::any('artworks/{id}/manifest', [ArtworkController::class, 'manifest']);
