@@ -207,6 +207,7 @@ abstract class AbstractTransformer extends BaseTransformer
                 'doc' => 'Date and time the resource was updated in the source system',
                 'type' => 'ISO 8601 date and time',
                 'elasticsearch' => 'date',
+                'track_changes' => false,
                 'value' => $this->getDateValue('source_updated_at'),
             ],
             // TODO: Rename field to follow _at convention
@@ -214,12 +215,14 @@ abstract class AbstractTransformer extends BaseTransformer
                 'doc' => 'Date and time the record was updated in the aggregator database',
                 'type' => 'ISO 8601 date and time',
                 'elasticsearch' => 'date',
+                'track_changes' => false,
                 'value' => $this->getDateValue('updated_at'),
             ],
             'timestamp' => [
                 'doc' => 'Date and time the record was updated in the aggregator search index',
                 'type' => 'ISO 8601 date and time',
                 'elasticsearch' => 'date',
+                'track_changes' => false,
                 'value' => function ($item) {
                     return Carbon::now()->toIso8601String();
                 },
@@ -286,6 +289,7 @@ abstract class AbstractTransformer extends BaseTransformer
                     'analyzer' => 'article',
                     'preserve_position_increments' => false,
                 ],
+                'track_changes' => false,
                 'filter' => function ($item) {
                     return false;
                 },
@@ -310,6 +314,7 @@ abstract class AbstractTransformer extends BaseTransformer
                         ],
                     ],
                 ],
+                'track_changes' => false,
                 'filter' => function ($item) {
                     return false;
                 },

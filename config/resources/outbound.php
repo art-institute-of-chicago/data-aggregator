@@ -13,6 +13,7 @@ return [
             'transformer' => \App\Transformers\Outbound\Collections\Artwork::class,
             'scope_of' => 'artworks', // Fire scopeArtworks + searchScopeArtworks
             'is_searchable' => true,
+            'track_changes' => true, // Log changes to public fields, see `changes:detect`
         ],
         [
             'endpoint' => 'deaccessions',
@@ -374,6 +375,16 @@ return [
             'transformer' => \App\Transformers\Outbound\Web\Exhibition::class,
             'is_searchable' => true,
             'is_restricted' => true,
+        ],
+
+        /**
+         * Record changes:
+         */
+        [
+            'endpoint' => 'changes',
+            'model' => \App\Models\Changes\RecordChange::class,
+            'transformer' => \App\Transformers\Outbound\RecordChange::class,
+            'is_searchable' => true,
         ],
     ],
 ];
