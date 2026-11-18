@@ -233,7 +233,7 @@ trait HandleEmbeddings
                 ]
             ],
             'max_completion_tokens' => 2000,
-            'temperature' => 0.2, // Low temperature: factual description, not creative writing
+            // 'temperature' => 0.2, // Low temperature: factual description, not creative writing
         ];
 
         if ($promptType === 'artwork') {
