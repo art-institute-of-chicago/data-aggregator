@@ -74,8 +74,11 @@ class ImportAssetsIiifGeometry extends BaseCommand
 
                 if (!$response->successful()) {
                     $this->warn("  info.json failed for #{$image->id}: " . $response->status());
-                    if ($response->status() == 404) {
-                        $image->iiif_not_found_at = now();
+                    if ($response->status() == 404 || $response->status() == 500) {
+                        $now = now();
+                        $image->iiif_not_found_at = $now;
+                        $image->updated_at = $now;
+                        $image->iiif_synced_at = $now;
                         $image->save();
                     }
                     continue;
