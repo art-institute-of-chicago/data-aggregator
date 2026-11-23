@@ -32,9 +32,16 @@ class ImportAssetsIiifGeometry extends BaseCommand
 
         if (!$this->option('full')) {
             $query->where(function ($q) {
-                $q->whereNull('iiif_synced_at')
-                  ->whereNull('iiif_not_found_at')
-                    ->orWhereColumn('updated_at', '>', 'iiif_synced_at');
+                // Never attempted: not synced and not marked as missing
+                $q->where(function ($q) {
+                    $q->whereNull('iiif_not_found_at')
+                        ->whereNull('iiif_synced_at');
+                })
+                // Not missing and updated since it was last synched
+                ->orWhere(function ($q) {
+                    $q->whereNull('iiif_not_found_at')
+                        ->whereColumn('updated_at', '>', 'iiif_synced_at');
+                });
             });
         }
 
